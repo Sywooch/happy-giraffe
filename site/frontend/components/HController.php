@@ -225,7 +225,7 @@ class HController extends CController
         $detect = new Mobile_Detect();
         $mobile = $newMobile = (string) Yii::app()->request->cookies['mobile'];
 
-        if ($mobile == '' && $detect->isMobile())
+        if ($mobile == '' && $detect->isMobile() && ! $detect->isTablet())
             $newMobile = 1;
 
         if ($mobile == 1 && Yii::app()->request->getQuery('nomo') == 1)

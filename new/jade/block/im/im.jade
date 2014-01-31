@@ -410,12 +410,12 @@ mixin im-redactor-control(mod, vars)
                     },
                     changeCallback: function(html)
                     {   
-                        im.renew();
+                        // im.renew();
                         // Нужно выбирать непосредственного родителя
-                        var bParrent = $('.redactor-control_hold');
-                        if(bParrent.height() >= 250) {
-                            bParrent.height(250);
-                        }
+                        //- var bParrent = $('.redactor-control_hold');
+                        //- if(bParrent.height() >= 250) {
+                        //-     bParrent.height(250);
+                        //- }
                         // обновлять скролл baron
                     },
                     initCallback: function()

@@ -36,6 +36,7 @@
               $(window).on('scroll',function () {
                   var contanerScroll = $(window).scrollTop();
                   var header = $('.layout-header');
+                  console.log(header.height());
                   if (contanerScroll > header.height() + header.offset().top) {
                       $('.header-fix').fadeIn(400);
                   } else {
@@ -623,12 +624,12 @@
                                   },
                                   changeCallback: function(html)
                                   {   
-                                      im.renew();
+                                      // im.renew();
                                       // Нужно выбирать непосредственного родителя
-                                      var bParrent = $('.redactor-control_hold');
-                                      if(bParrent.height() >= 250) {
-                                          bParrent.height(250);
-                                      }
+                                      //- var bParrent = $('.redactor-control_hold');
+                                      //- if(bParrent.height() >= 250) {
+                                      //-     bParrent.height(250);
+                                      //- }
                                       // обновлять скролл baron
                                   },
                                   initCallback: function()

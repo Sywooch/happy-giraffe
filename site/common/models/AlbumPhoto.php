@@ -544,6 +544,14 @@ class AlbumPhoto extends HActiveRecord
         ));
     }
 
+    public function getPreviewHtml($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER)
+    {
+        $url = $this->getPreviewUrl($width, $height, $master, $crop, $crop_side);
+        $path = $this->getPreviewPath($width, $height, $master, $crop, $crop_side);
+        $size = getimagesize($path);
+        return CHtml::image($url, '', array('width' => $size[0], 'height' => $size[1]));
+    }
+
     public function  getTemplatePath()
     {
         return Yii::getPathOfAlias('site.common.uploads.photos') . DIRECTORY_SEPARATOR . $this->tmp_folder . DIRECTORY_SEPARATOR . $this->fs_name;

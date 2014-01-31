@@ -162,7 +162,7 @@ HgWysiwyg.prototype = {
             targetBlock = currentBlock;
 
         else {
-            currentBlock.after(newNode);
+            currentBlock.after('<p>' + obj.opts.invisibleSpace + '</p>');
             targetBlock = currentBlock.next();
         }
 

@@ -404,6 +404,6 @@
 <script type="text/javascript">
 	$(function() {
         messaging = new Messaging(<?=$data?>);
-		ko.applyBindings(messaging, document.getElementById(<?=$this->id?>_messaging_module));
+		ko.applyBindings(messaging, document.getElementById('<?=$this->id?>_messaging_module'));
 	});
 </script>

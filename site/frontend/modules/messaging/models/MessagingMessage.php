@@ -10,14 +10,20 @@
  * @property string $text
  * @property string $updated
  * @property string $created
+ * @property array $json Массив данных данного объекта, для формирования JSON
+ * @property bool $isReadByInterlocutor
+ * @property array $photoCollection Массив формата array( 'title' => sting, 'photos' => AttachPhoto[] )
  *
  * The followings are the available model relations:
  * @property User $author
  * @property MessagingThread $thread
  * @property User[] $users
+ * @property MessagingMessageUser $messageUsers
  */
 class MessagingMessage extends HActiveRecord
 {
+
+    // ??? не используется
     public $processed_photos = array();
 
     /**
@@ -25,7 +31,7 @@ class MessagingMessage extends HActiveRecord
      * @param string $className active record class name.
      * @return MessagingMessage the static model class
      */
-    public static function model($className=__CLASS__)
+    public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
@@ -51,13 +57,16 @@ class MessagingMessage extends HActiveRecord
             array('updated, created', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, author_id, thread_id, text, updated, created', 'safe', 'on'=>'search'),
+            array('id, author_id, thread_id, text, updated, created', 'safe', 'on' => 'search'),
         );
     }
 
+    // Магия. Не используется в других моделях???
+    // TODO: Перенести валидатор в поведение ProcessingImagesBehavior
     public function requiredIfNoImages($attribute, $params)
     {
-        if (empty($this->images)) {
+        if (empty($this->images))
+        {
             $validator = CValidator::createValidator('required', $this, $attribute, $params);
             $validator->validate($this);
         }
@@ -110,6 +119,15 @@ class MessagingMessage extends HActiveRecord
                 'class' => 'site.common.behaviors.ProcessingImagesBehavior',
                 'attributes' => array('text'),
             ),
+            'antispam' => array(
+                'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
+                'interval' => 60 * 60,
+                'maxCount' => 2,
+                'safe' => true,
+            ),
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+            ),
         );
     }
 
@@ -137,22 +155,24 @@ class MessagingMessage extends HActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        $criteria=new CDbCriteria;
+        $criteria = new CDbCriteria;
 
-        $criteria->compare('id',$this->id,true);
-        $criteria->compare('author_id',$this->author_id,true);
-        $criteria->compare('thread_id',$this->thread_id,true);
-        $criteria->compare('text',$this->text,true);
-        $criteria->compare('updated',$this->updated,true);
-        $criteria->compare('created',$this->created,true);
+        $criteria->compare('id', $this->id, true);
+        $criteria->compare('author_id', $this->author_id, true);
+        $criteria->compare('thread_id', $this->thread_id, true);
+        $criteria->compare('text', $this->text, true);
+        $criteria->compare('updated', $this->updated, true);
+        $criteria->compare('created', $this->created, true);
 
         return new CActiveDataProvider($this, array(
-            'criteria'=>$criteria,
+            'criteria' => $criteria,
         ));
     }
 
     public function create($text, $threadId, $authorId, $images, $raw = false)
     {
+        /** @todo перенести бизнес-логику в модель формы */
+        /** @todo вместо threadId может уже передаваться модель */
         $thread = MessagingThread::model()->with('threadUsers')->findByPk($threadId);
 
         $message = new MessagingMessage();
@@ -162,16 +182,19 @@ class MessagingMessage extends HActiveRecord
         $message->thread_id = $threadId;
         $message->text = $text;
         $messageUsers = array();
-        foreach ($thread->threadUsers as $threadUser) {
+        foreach ($thread->threadUsers as $threadUser)
+        {
             $messageUser = new MessagingMessageUser();
             $messageUser->user_id = $threadUser->user_id;
-            if ($authorId != $threadUser->user_id)
-                $messageUser->read = 0;
+            $messageUser->dtime_read = null;
+            if ($authorId == $threadUser->user_id)
+                $messageUser->dtime_read = new CDbExpression('NOW()');
             $messageUsers[] = $messageUser;
         }
         $message->messageUsers = $messageUsers;
         $attaches = array();
-        foreach ($images as $imageId) {
+        foreach ($images as $imageId)
+        {
             $attach = new AttachPhoto();
             $attach->photo_id = $imageId;
             $attach->entity = 'MessagingMessage';
@@ -188,7 +211,8 @@ class MessagingMessage extends HActiveRecord
     public function getJson()
     {
         $images = array();
-        foreach ($this->images as $image) {
+        foreach ($this->images as $image)
+        {
             $images[] = array(
                 'id' => (int) $image->photo->id,
                 'preview' => $image->photo->getPreviewUrl(70, 70),
@@ -208,9 +232,10 @@ class MessagingMessage extends HActiveRecord
 
     public function getIsReadByInterlocutor()
     {
-        foreach ($this->messageUsers as $messageUser) {
+        foreach ($this->messageUsers as $messageUser)
+        {
             if ($messageUser->user_id != $this->author_id)
-                return $messageUser->read;
+                return !is_null($messageUser->dtime_read);
         }
     }
 
@@ -226,5 +251,154 @@ class MessagingMessage extends HActiveRecord
         );
     }
 
+    public function scopes()
+    {
+        $scopes = parent::scopes();
+
+        $scopes['orderDesc'] = array(
+            'order' => $this->getTableAlias(true) . '.`created` DESC',
+        );
+
+        return $scopes;
+    }
+
+    /**
+     * Именованное условие с параметрами.
+     * Выбирает сообщения между двумя пользователями.
+     *
+     * @param int $user1
+     * @param int $user2
+     *
+     * @return MessagingMessage Для цепочки вызовов
+     */
+    public function between($user1, $user2)
+    {
+        $criteria = $this->dbCriteria;
+        $alias = $this->tableAlias;
+
+        $criteria->addCondition('`' . $alias . '`.`id` IN (SELECT mmu1.message_id FROM `messaging__messages_users` mmu1 JOIN `messaging__messages_users` mmu2 ON mmu1.message_id = mmu2.message_id WHERE mmu1.user_id = :userBetween1 AND mmu2.user_id = :userBetween2)');
+        $criteria->params['userBetween1'] = $user1;
+        $criteria->params['userBetween2'] = $user2;
+
+        return $this;
+    }
+
+    /**
+     * Именованное условие с параметрами.
+     * Жадно загружает в связь messageUsers одну запись,
+     * содержащую отношение указанного пользователя к сообщению.
+     * Не мешает использовать limit, т.к. загружает только одну запись
+     *
+     * @param int $userId
+     * @param bool $activeOnly если true, то загружает только активные сообщения (не удалённые/скрытые)
+     *
+     * @return MessagingMessage Для цепочки вызовов
+     */
+    public function withMyStats($userId, $activeOnly = true)
+    {
+        $criteria = $this->dbCriteria;
+        $alias = $this->tableAlias;
+        $criteria->together = true;
+
+        $criteria->with['messageUsers'] = array(
+            'on' => 'messageUsers.user_id = :statsUser',
+        );
+
+        $criteria->params['statsUser'] = $userId;
+		
+		if($activeOnly)
+		{
+			$criteria->addColumnCondition(array('messageUsers.dtime_delete' => null));
+		}
+
+        return $this;
+    }
+
+    /**
+     * Именованное условие с параметрами.
+     * Жадно загружает в связь messageUsers одну запись,
+     * содержащую отношение пользователя, кому написано сообщение, к этому сообщению.
+     * Не мешает использовать limit, т.к. загружает только одну запись
+     *
+     * @param bool $activeOnly если true, то загружает только активные сообщения (не удалённые/скрытые)
+     * @param int $forUser id пользователя, от которого просматриваем
+     *
+     * @return MessagingMessage Для цепочки вызовов
+     */
+    public function withStats($activeOnly = true, $forUser = false)
+    {
+        $criteria = $this->dbCriteria;
+        $alias = $this->getTableAlias(true);
+        $criteria->together = true;
+
+        $criteria->with['messageUsers'] = array(
+            'on' => '`messageUsers`.`user_id` <> ' . $alias . '.`author_id`',
+        );
+
+		if($activeOnly)
+		{
+			// не надо выбирать дату удаления, т.к. берём только не удалённые
+			$criteria->with['messageUsers']['select'] = array(
+				'`messageUsers`.`user_id`',
+				'`messageUsers`.`message_id`',
+				'`messageUsers`.`dtime_read`',
+			);
+			// id не должно быть в списке удалённыйх сообщений этого пользователя
+			$criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL AND `user_id` = ' . (int)$forUser . ')');
+		}
+
+        return $this;
+    }
+
+    /**
+     * Именованное условие с параметрами.
+     * Жадно загружает по связи все модели messageUsers, и сортирует
+     * так, что отношение указанного пользователя к сообщению оказывается первым.
+     *
+     * @param int $userId
+     * @param bool $activeOnly если true, то загружает только активные сообщения (не удалённые/скрытые)
+     *
+     * @return MessagingMessage Для цепочки вызовов
+     */
+    public function withMyStatsOnTop($userId, $activeOnly = true)
+    {
+        $criteria = $this->dbCriteria;
+        $alias = $this->tableAlias;
+        $criteria->together = true;
+
+        $criteria->with['messageUsers'] = array(
+            'order' => '(messageUsers.user_id = :statsUser) DESC',
+        );
+
+        $criteria->params['statsUser'] = $userId;
+
+ 		if($activeOnly)
+		{
+			// id не должно быть в списке удалённыйх сообщений этого пользователя
+			$criteria->addCondition($alias . '.`id` NOT IN (SELECT `message_id` FROM `messaging__messages_users` WHERE `dtime_delete` IS NOT NULL AND `user_id` = ' . (int)$userId . ')');
+		}
+
+       return $this;
+    }
+
+    /**
+     * Именованное условие с параметрами.
+     * Загружает только сообщения старше указанного времени
+     *
+     * @param int $date
+     *
+     * @return MessagingMessage Для цепочки вызовов
+     */
+    public function older($date)
+    {
+        $criteria = $this->dbCriteria;
+        $alias = $this->tableAlias;
+
+        $criteria->addCondition('`' . $alias . '`.`created` < FROM_UNIXTIME(:older)');
+
+        $criteria->params['older'] = $date;
+
+        return $this;
+    }
 
 }

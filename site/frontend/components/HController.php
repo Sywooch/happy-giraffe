@@ -60,8 +60,18 @@ class HController extends CController
         Yii::app()->user->setState('viewsCount', $viewsCount + 1);
     }
 
+    protected function filterBySpamStatus()
+    {
+        if (! Yii::app()->user->isGuest) {
+            $status = AntispamStatusManager::getUserStatus(Yii::app()->user->id);
+            if ($status == AntispamStatusManager::STATUS_BLACK)
+                Yii::app()->end();
+        }
+    }
+
     protected function beforeAction($action)
     {
+        $this->filterBySpamStatus();
 //        if (Yii::app()->user->id == 12936 || Yii::app()->user->id == 56 || Yii::app()->user->id == 16534)
 //            $this->showLikes = true;
 
@@ -215,7 +225,7 @@ class HController extends CController
         $detect = new Mobile_Detect();
         $mobile = $newMobile = (string) Yii::app()->request->cookies['mobile'];
 
-        if ($mobile == '' && $detect->isMobile())
+        if ($mobile == '' && $detect->isMobile() && ! $detect->isTablet())
             $newMobile = 1;
 
         if ($mobile == 1 && Yii::app()->request->getQuery('nomo') == 1)
@@ -228,7 +238,7 @@ class HController extends CController
             $this->redirect('http://m.happy-giraffe.ru' . $_SERVER['REQUEST_URI']);
     }
 
-    public function getLayoutData()
+    public function getMenuData()
     {
         $user = Yii::app()->user->getModel();
 

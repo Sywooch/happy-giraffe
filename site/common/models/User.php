@@ -67,6 +67,7 @@
  * @property int $communityPostsCount
  * @property int $albumsCount
  * @property CommunityClub[] $clubSubscriptions
+ * @property string $publicChannel Имя публичного канала пользователя (в который отправляются события online/offline)
  *
  * @method User active()
  */
@@ -274,6 +275,9 @@ class User extends HActiveRecord
                 ':password' => $this->hashPassword($_POST['User']['password']),
             )));
         if ($userModel) {
+            if (in_array(AntispamStatusManager::getUserStatus($userModel->id), array(AntispamStatusManager::STATUS_BLOCKED, AntispamStatusManager::STATUS_BLACK)))
+                $this->addError('password', 'Вы заблокированы');
+
             $identity = new UserIdentity($userModel->getAttributes());
             $identity->authenticate();
             if ($identity->errorCode == UserIdentity::ERROR_NONE) {
@@ -368,6 +372,8 @@ class User extends HActiveRecord
             'blogPhoto' => array(self::BELONGS_TO, 'AlbumPhoto', 'blog_photo_id'),
             'specializations' => array(self::MANY_MANY, 'Specialization', 'user__specializations(user_id,specialization_id)'),
             'communityPosts' => array(self::HAS_MANY, 'CommunityContent', 'author_id'),
+
+            'spamStatus' => array(self::HAS_ONE, 'AntispamStatus', 'user_id'),
         );
     }
 
@@ -1592,4 +1598,13 @@ class User extends HActiveRecord
                 return $spec;
         return null;
     }
+	
+	/**
+	 * 
+	 * @return string Имя публичного канала пользователя (в который отправляются события online/offline)
+	 */
+	public function getPublicChannel()
+	{
+		return 'onOff' . $this->id;
+	}
 }

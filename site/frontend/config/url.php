@@ -354,5 +354,7 @@ return array(
         'site/seo3' => 'site/seo3',
 
         '<_c>/captcha' => '<_c>/captcha',
+
+        'antispam/<_c>/<_a>' => 'antispam/<_c>/<_a>',
     ),
 );

@@ -1,0 +1,23 @@
+- var path = "/new/";
+
+include vars/base
+
+//- Базовые блоки
+include base/base
+include base/logo
+include base/side-menu
+
+//- Главный layout
+include layout/footer
+include layout/head
+include layout/header
+include layout/scripts
+
+//- Проектные блоки для разных модулей
+include project/antispam
+include project/article
+include project/comment
+
+//- Модули
+//- Почта
+include im/im

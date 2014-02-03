@@ -1,0 +1,37 @@
+include ../../block/config
+extend ../../extend/layout_im
+
+block layout-wrapper_hold
+    // im
+    .im
+        +js-im
+        .im_hold.clearfix
+            // im-sidebar
+            section.im-sidebar.clearfix
+                .im-sidebar_panel
+                    +side-menu__im("side-menu__im")
+                    .im-sidebar_sound
+                        a.im-sidebar_sound-ico(href="")
+                .im-sidebar_users
+                    +im-sidebar_search()
+                    +im-user-list("", {empty: true})
+            // /im-sidebar
+
+            // im-center
+            section.im-center
+                .im-center_top
+                    +im-panel("", {friend: "friend__added"})
+                .im-center_middle
+                    .scroll
+                        .im-center_middle-hold.scroll_scroller
+                            .im-center_middle-w.scroll_cont
+                                .im_loader
+                                +im-message("", {mod_name: "im-message_name__self", bControl: ['favorite', 'delete', 'spam']})
+                                .im_loader
+                        .scroll_bar-hold
+                            .scroll_bar
+                                .scroll_bar-in
+                +im-center_bottom("", {blocked: true})
+                
+            // /im-center
+    // /im

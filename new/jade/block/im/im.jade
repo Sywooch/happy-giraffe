@@ -1,0 +1,437 @@
+//- js для расчетов положения почты
+mixin js-im
+    // js ля расчетов положения почты
+    script.
+        /* 
+        var im = new function() {
+            var self = this;
+            function imHeight() {
+                // 50 - отступы от im
+                var h = self.windowHeight - self.headerHeight - 50;
+                if (h < 390) {
+                    h = 390
+                }
+                self.imCenter.height(h);
+                // 57 - отступ под поле поиска
+                self.imUserList.height(h - 57);
+            }
+            function containerHeight() {
+                var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
+                self.container.height(h);
+            }
+            function msgToBottom() {
+                var contH = self.container.height();
+                var contWrapH = self.contWrap.height();
+                
+                if (contH > contWrapH) {
+                    var h = contH - contWrapH - 5;
+                    self.contWrap.css({'padding-top' : h});
+                } else {
+                    self.contWrap.css({'padding-top' : 0});
+
+                }
+            }
+            self.renew = function() {
+                self.windowHeight = $(window).height();
+                imHeight();
+                containerHeight();
+                msgToBottom();
+                // стриггерим события прокрутки, после изменения размеров
+                self.container.find('.scroll_scroller').trigger('scroll');
+                self.imCenter.find('.scroll_scroller').trigger('scroll');
+                self.imUserList.find('.scroll_scroller').trigger('scroll');
+            }
+
+            $(window).resize(function() {
+                self.renew();
+            });
+
+            $(document).on('koUpdate', 'section.im-center', function(event) {
+                if(event.target == this)
+                {
+                    var imCenter = this;
+                    self.imCenter = $(imCenter);
+                    self.imUserList = $(".im-user-list");
+                    self.container = $('.im-center_middle-hold', imCenter);
+                    self.centerTop = $('.im-center_top', imCenter);
+                    self.centerBottom = $('.im-center_bottom', imCenter);
+                    self.headerHeight = $('.layout-header').height();
+                    self.renew();
+                }
+            });
+        }();
+        */
+
+    script.
+        var im = new function() {
+                var self = this;
+                function imHeight() {
+                        // 50 - отступы от im
+                        var h = self.windowHeight - self.headerHeight - 40;
+                        if (h < 390) {
+                                h = 390;
+                        }
+                        self.imCenter.height(h);
+                        // 57 - отступ под поле поиска
+                        self.imUserList.height(h - 57);
+                }
+                function containerHeight() {
+                        var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
+                        self.container.height(h);
+                }
+                function msgToBottom() {
+                    var contH = self.container.height();
+                    var contWrapH = self.contWrap.height();
+                    
+                    if (contH > contWrapH) {
+                        var h = contH - contWrapH - 5;
+                        self.contWrap.css({'padding-top' : h});
+                    } else {
+                        self.contWrap.css({'padding-top' : 0});
+
+                    }
+                }
+                self.renew = function() {
+                        self.windowHeight = $(window).height();
+                        self.headerHeight = $('.layout-header').height();
+                        imHeight();
+                        containerHeight();
+                        msgToBottom();
+                }
+               
+                $(window).resize(function() {
+                        self.renew();
+                });
+
+                $(document).on('koUpdate', 'section.im-center', function(event) {
+                        var imCenter = this;
+                        self.imCenter = $(imCenter);
+                        self.imUserList = $(".im-user-list");
+                        self.container = $('.im-center_middle-hold', imCenter);
+                        self.centerTop = $('.im-center_top', imCenter);
+                        self.centerBottom = $('.im-center_bottom', imCenter);
+                        self.headerHeight = $('.layout-header').height();
+                        self.renew();
+                });
+
+                
+                $(document).ready(function () {
+                    var imCenter = ".im-center";
+                    self.imCenter = $(imCenter);
+                    self.imUserList = $(".im-user-list");
+                    self.container = $('.im-center_middle-hold', imCenter);
+                    self.centerTop = $('.im-center_top', imCenter);
+                    self.centerBottom = $('.im-center_bottom', imCenter);
+                    self.headerHeight = $('.layout-header').height();
+                    self.contWrap = $('.im-center_middle-w', imCenter);
+                    self.renew();
+                });
+
+
+        }();
+
+
+
+        //- var im = []
+        //- im.imHeight = function () {
+        //-     // 50 - отступы от im
+        //-     var h = im.windowHeight - im.headerHeight - 50; 
+        //-     if (h < 390) {
+        //-         h = 390
+        //-     }
+
+        //-     im.imCenter.height(h);
+        //-     // 57 - отступ под поле поиска
+        //-     im.imUserList.height(h - 57);
+        //- }
+        //- im.containerHeight = function() {
+        //-     var h = im.imCenter.height() - im.centerTop.height() - im.centerBottom.height();
+        //-     console.log(im.container.height());
+        //-     im.container.height(h);
+        //- }
+        //- im.msgToBottom = function(){
+        //-     var contH = im.container.height();
+        //-     var contWrap = $('.im-center_middle-w');
+            
+        //-     if (contH > contWrap.height()) {
+        //-         var h = contH - contWrap.height() - 5;
+        //-         contWrap.css({'padding-top' : h});
+        //-         console.log(h )
+        //-     } else {
+        //-         contWrap.css({'padding-top' : 0});
+        //-     }
+        //- }
+        //- $(document).ready(function () {
+        //-     im.windowHeight = $(window).height(); 
+        //-     im.imCenter = $(".im-center");
+        //-     im.imUserList = $(".im-user-list");
+
+        //-     im.container = $('.im-center_middle-hold');
+        //-     //- im.msgIndent = $('.im-center_msg-to-b');
+
+        //-     im.centerTop = $('.im-center_top');
+        //-     im.centerBottom = $('.im-center_bottom');
+
+        //-     im.headerHeight = $('.header').height();
+
+        //-     im.imHeight();
+        //-     im.containerHeight();
+        //-     im.msgToBottom();
+
+        //-     $(window).resize(function() {
+        //-         im.windowHeight = $(window).height();
+        //-         im.imHeight();
+        //-         im.containerHeight();
+        //-         im.msgToBottom();
+        //-     });
+        //- });
+
+//- im-sidebar_search
+//- Поиск диалогов
+mixin im-sidebar_search()
+    .im-sidebar_search.clearfix
+        input.im-sidebar_search-itx(type='text', name='', placeholder='Поиск диалогов')
+        // При начале ввода добавить класс .active на кнопку
+        button.im-sidebar_search-btn
+
+
+//- im-user-list
+//- Список диалогов почты
+    mod
+    vars
+        empty
+        userLoad
+        usersCount
+mixin im-user-list(mod, vars)
+    // im-user-list
+    .im-user-list(class=mod)
+        .scroll
+            .scroll_scroller
+                .scroll_cont
+                    if (vars.empty)
+                        +cap-empty("", {txSub: "По данному запросу <br> контактов не найдено."})
+                    else 
+                        .im-user-list_i.clearfix.active
+                                .im-user-list_set
+                                    +ava("ava__middle ava__female", avaVars)
+                                    .im-user-list_set-name
+                                        a.im-user-list_set-a(href='') Александр Богоявленский
+                        - for (var x = 0; x < vars.usersCount; x++)
+                            .im-user-list_i.clearfix
+                                .im-user-list_count 9
+                                .im-user-list_set
+                                    +ava("ava__middle ava__female", avaVars)
+                                    .im-user-list_set-name
+                                        a.im-user-list_set-a(href='') Арина Поплавская
+                        if (vars.userLoad)
+                            .im_loader
+                                img.im_loader-img(src='/images/ico/ajax-loader.gif', alt='')
+                                span.im_loader-tx Загрузка пользователей
+            .scroll_bar-hold
+                .scroll_bar
+                    .scroll_bar-in
+    // /im-user-list
+
+
+//- im-panel
+//- Панель собеседника диалога
+    mod =
+    vars 
+        friend = 
+                friend
+                friend__add
+                friend__added
+        small 
+
+mixin im-panel(mod, vars)
+    // im-panel
+    .im-panel(class=mod)
+        - if (!vars.small)
+            .im-panel_actions
+                .im-panel_ico-hold.tooltip-click-b
+                    span.im-panel_ico.im-panel_ico__del.powertip(title="Удалить диалог")
+                    // tooltip-drop
+                    .tooltip-drop
+                        .tooltip-popup
+                            .tooltip-popup_t Вы уверены?
+                            p.tooltip-popup_tx Все сообщения из данного диалога будут удалены.
+                            label.tooltip-popup_label-small.clearfix(for="im-tooltip-popup_checkbox")
+                                input.tooltip-popup_checkbox(type="checkbox" name="" id="im-tooltip-popup_checkbox")
+                                | Больше не показывать данное предупреждение
+                            .textalign-c.clearfix
+                                button.btn-green Да
+                                button.btn-gray-light Нет
+                    // /tooltip-drop
+                .im-panel_ico-hold.tooltip-click-b
+                    span.im-panel_ico.im-panel_ico__ban.powertip(title="Заблокировать")
+                    // /tooltip-drop
+                    .tooltip-drop
+                        .tooltip-popup
+                            .tooltip-popup_t Вы уверены?
+                            p.tooltip-popup_tx Данный пользователь и весь диалог с ним будут удалены, и он больше не сможет отправлять вам сообщения.
+                            label.tooltip-popup_label-small.clearfix(for="im-tooltip-popup_checkbox")
+                                input.tooltip-popup_checkbox(type="checkbox" name="" id="im-tooltip-popup_checkbox")
+                                | Больше не показывать данное предупреждение
+                            .textalign-c.clearfix
+                                button.btn-green Да
+                                button.btn-gray-light Нет
+                    // /tooltip-drop
+        .im-panel_user.clearfix
+            // Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online
+            - avaVars = {src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
+            - if (!vars.small)
+                +ava("ava__middle ava__female", avaVars)
+            - else 
+                +ava("ava__small ava__female", avaVars)
+            .im-panel_hold
+                .im-panel_user-status Был на сайте 2 мин назад
+                a.im-panel_user-name(href="") Александр Богоявлен Богоявленский
+            // У иконки 3 состояния.
+                Друг - im-panel_friend__fr
+                Добавить в друзья - .im-panel_friend__add
+                Приглашение отправленно - .im-panel_friend__added
+            - if (vars.friend == "friend") {
+                span.im-panel_friend.im-panel_friend__fr
+                    span.im-panel_friend-ico
+                    span.im-panel_friend-tx Друг
+            - } else if (vars.friend == "friend__add") {
+                a.im-panel_friend.im-panel_friend__add(href="")
+                    span.im-panel_friend-ico
+                    span.im-panel_friend-tx Добавить <br> в друзья
+            - } else if (vars.friend == "friend__added") {
+                a.im-panel_friend.im-panel_friend__added(href="")
+                    span.im-panel_friend-ico
+                    span.im-panel_friend-tx Приглашение <br> отправленно
+                - }
+    // /im-panel
+
+
+//- im-message
+//- Сообщение диалога
+    mod = 
+    vars 
+        mod_name =  im-message_name__self
+                    im-message_name__friend
+        imMessage_tx
+        bControl
+
+mixin im-message(mod, vars)
+    // im-message
+    .im-message(class=mod)
+        .im-message_ava
+            +ava('ava__small ava__male', avaVars)
+        .im-message_r
+            .im-message_date Вчера 13:45
+            .im-message_control
+                - if (!vars.bControl) {vars.bControl = ""}
+                    +b-control("", vars.bControl)
+        .im-message_hold
+            .im-message_t
+                span.im-message_name(class=vars.mod_name) Александр Богоявленский
+                if (vars.messageRead == "read")
+                    span.im-message_t-read Сообщение прочитано
+                if (vars.messageRead == "read-no")
+                    span.im-message_t-read-no Сообщение не прочитано
+            case vars.msgStatus
+                when 'cancel'
+                    // Когда сообщение отменено или удалено то блок .b-control удалется из сообщения или к нему добавляется класс display-n
+                    .im-message_tx
+                        .color-gray-light.font-s Сообщение отменено.
+                when 'delete'
+                    .im-message_tx
+                        .color-gray-light.font-s Сообщение удалено. <a href="#">Восстановить</a>
+                default
+                    .im-message_tx 
+                        - if (vars.imMessage_tx)
+                            != vars.imMessage_tx
+                        - else
+                            p Уважаемая Зося, добрый день! 
+                            p Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.
+    // /im-message
+
+//- Редактор внизу почты
+//- mod
+    vars
+        wisywig
+mixin im-center_bottom(mod, vars)
+    // im-center_bottom
+    .im-center_bottom(class=mod)
+        .im-center_bottom-w.clearfix
+            if (vars.blocked == true)
+                +cap-empty("cap-empty__im-b", {t: 'Этот пользователь вас заблокировал', txSub: "Вы не можете отправлять ему сообщения"})
+            else
+                .im-center_bottom-ava
+                    +ava("ava__middle ava__female", avaVars );
+                .im-center_bottom-hold
+                    - if (vars.wisywig == true)
+                        +im-redactor-control()
+                    - else 
+                        // По клику на input заменять на wysiwyg 
+                        input.im-center_bottom-itx(type='text', placeholder="Введите ваше сообщение")
+    // /im-center_bottom
+
+//- wisywig редактор с кнопками утправления винзу
+//- im-redactor-control
+    vars
+mixin im-redactor-control(mod, vars)
+    .redactor-control
+        .redactor-control_hold
+            textarea.redactor.error(cols='40', name='redactor', rows='1', autofocus='autofocus')
+        .redactor-control_toolbar
+        .redactor-control_control
+            .redactor-control_key
+                input.redactor-control_key-checkbox(type='checkbox', name='')
+                label.redactor-control_key-label(for='redactor-control-b_key-checkbox') Enter - отправить
+            button.btn-green Отправить
+
+
+        script.
+            $(document).ready(function () { 
+                /* Обворачиваем редактор в дополнительные блоки. Нужно выбирать текущий (инициализарующийся) редактор, а не все на странице */
+                $('.redactor').wrap('<div class="scroll"><div class="scroll_scroller"><div class="scroll_cont"></div></div></div>');
+                /* Выбор ближайшего родителя с таким классом, для добавления блоков рисующих ползунок */
+                $('.scroll_scroller').after('<div class="scroll_bar-hold"><div class="scroll_bar"><div class="scroll_bar-in"></div></div></div>');
+                /* привязать baron к созданным элементам, в верстке не работает */
+                addBaron('.redactor-control_hold .scroll');
+
+                $('.redactor').redactor({
+                    minHeight: 20,
+                    autoresize: true,
+                    focus: true,
+                    toolbarExternal: '.redactor-control_toolbar',
+                    buttons: ['image', 'video', 'smile'],
+                    buttonsCustom: {
+                        smile: 
+                        {
+                            title: 'smile',
+                            callback: function(buttonName, buttonDOM, buttonObject) 
+                            {
+                                var html = this.get();
+                            }
+                        }
+                    },
+                    focusCallback: function(e)
+                    {
+                    // Нужно выбирать непосредственного родителя
+                        $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+                    },
+                    changeCallback: function(html)
+                    {   
+                        
+                        var redactorH = this.$box.height();
+                        // Выбираем непосредственного родителя
+                        var bParrent = this.$box.parents('.redactor-control_hold');
+                        if( redactorH >= 250) {
+                            bParrent.height(250);
+                        } else {
+                            bParrent.height(redactorH);
+                        }
+                        // обновлять скролл baron
+                        im.renew();
+                    },
+                    initCallback: function()
+                    {
+                        im.renew();
+                    }
+                });
+            });

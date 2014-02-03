@@ -12,7 +12,7 @@
 @import "/project/friends-list.less";
 @import "/project/im.less";
 @import "/project/onair.less";
-@import "/project/photo-window.less";
+@import "../new/less/project/photo-window.less";
 @import "/project/redactor.less";
 @import "/project/start-page.less";
 @import "/project/social.less";
@@ -1566,8 +1566,12 @@ table.fr_recipe_tb td { width: 50%;}
     text-align: center;
     position: relative;
 
+    &:hover a.ava__large,
     &:hover a.ava.large {border-color: #4d85cb;}
+    &:hover a.ava__large:after,
     &:hover a.ava.large:after {display: block;}
+    .ie7 &:hover .ava__large:after,
+    .ie8 &:hover .ava__large:after,
     .ie7 &:hover .ava.large:after,
     .ie8 &:hover .ava.large:after {display: none;}
     
@@ -1576,7 +1580,8 @@ table.fr_recipe_tb td { width: 50%;}
     &:hover &_bubble {display: block;}
     &:hover &_a {text-decoration: underline;}
     &:hover &_photo-change {display: block;}
-
+    
+    .ava__large,
     .ava.large {
         float: none;
         margin: 0 auto;
@@ -1584,6 +1589,7 @@ table.fr_recipe_tb td { width: 50%;}
         position: relative;
         text-decoration: none;
     }
+    .ava__large:after,
     .ava.large:after {
         content:'';
         display: none;
@@ -1938,7 +1944,7 @@ table.fr_recipe_tb td { width: 50%;}
 .user-add-record {
     margin: 0 20px 20px;
     padding: 8px 10px 8px 14px;
-    background: #8f67b5;
+    background: #af9bd2;
     .border-radius(4px);
     &__yellow {
         background: #ffe535;
@@ -2734,9 +2740,9 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /breadcrumbs-big */
 
-/* b-user-small */
+/* b-user-info */
 .b-user-info {
-
+    .ava__small,
     .ava.small {margin-top: 3px;}
     &__middle &_hold {margin-left: 50px;}
     &_hold {margin-left: 80px;}
@@ -2755,7 +2761,7 @@ table.fr_recipe_tb td { width: 50%;}
         color: #b6b6b6;
     }
 }
-/* /b-user-small */
+/* /b-user-info */
 
 /* cap-empty */
 .cap-empty {
@@ -4674,7 +4680,6 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /aside-photo-view */
 
-
 /* error-serv */
 .error-serv {
     position: fixed;
@@ -4708,3 +4713,26 @@ table.fr_recipe_tb td { width: 50%;}
     &_a:hover {text-decoration: none;}
 }
 /* /error-serv */
+
+/* tabs-simple */
+.tabs-simple {
+    background: #f6f6f6;
+    padding: 15px 0;
+    margin: 20px;
+
+    &_ul {}
+    &_li {
+        .inline-block();
+        margin: 0 20px;
+    }
+    &_a {
+        font-size: 13px;
+        color: #999;
+        text-decoration: none;
+    }
+    &_a:hover,
+    &_li.active &_a {
+        color: #333;
+    }
+}
+/* /tabs-simple */

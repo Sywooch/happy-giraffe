@@ -10,9 +10,10 @@
 <body class="body-gray">
 	
 <div class="layout-container">
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 	<div class="layout-wrapper">
 		
-		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 
 		<div class="layout-content clearfix">
 		<div class="content-cols clearfix">
@@ -70,7 +71,7 @@
 				<div class="readers2 readers2__no-btn">
 					<div class="readers2_t-sm heading-small">
 						<span class="icon-status icon-status__small status-online"></span>
-						Сейчас на сайте
+						Сейчас на сайте 345
 					</div>
 					<ul class="readers2_ul clearfix">
 						<li class="readers2_li clearfix">
@@ -636,6 +637,20 @@
 				
 			</div>
 			<div class="col-23-middle ">
+
+				<div class="tabs-simple">
+					<ul class="tabs-simple_ul">
+						<li class="tabs-simple_li active">
+							<a href="" class="tabs-simple_a">Весь прямой эфир 999</a>
+						</li>
+						<li class="tabs-simple_li">
+							<a href="" class="tabs-simple_a">Эфир клубов 779</a>
+						</li>
+						<li class="tabs-simple_li">
+							<a href="" class="tabs-simple_a">Эфир блогов 220</a>
+						</li>
+					</ul>
+				</div>
 				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/articles.php'; ?>
 
 			</div>

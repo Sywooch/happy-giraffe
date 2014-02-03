@@ -36,14 +36,17 @@
 	&_ava-hold {
 		position: relative;
 		margin-bottom: 5px;
-
+		
+		.ava__large,
 		.ava.large {
 			float: none;
 			margin: 0 auto;
 			border: 2px solid #fff;
 			position: relative;
 		}
+		&:hover .ava__large,
 		&:hover .ava.large {border-color: #4d85cb;}
+		.ava__large:after,
 		.ava.large:after {
 			content:'';
 			display: none;
@@ -56,8 +59,11 @@
 			background: rgba(184,214,252,.6);
 			.border-radius(100px);
 		}
+		&:hover .ava__large:after,
 		&:hover .ava.large:after {display: block;}
 
+		.ie7 &:hover .ava__large:after,
+		.ie8 &:hover .ava__large:after,
 		.ie7 &:hover .ava.large:after,
 		.ie8 &:hover .ava.large:after {display: none;}
 	}

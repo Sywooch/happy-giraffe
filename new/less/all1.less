@@ -1,0 +1,35 @@
+///// Управдение объеденения файлов с помощью less 
+///// Конечный файл не должен превышать 4096 селекторов. Браузеры IE не поддерживают большее количество в одном файле
+
+///// Переменные и примешивания
+@import "include/variables.less";
+@import "include/mixins.less";
+
+///// Базовые стили
+@import "base/normalize.less";
+@import "base/main.less";
+@import "base/base.less";
+@import "base/buttons.less";
+@import "base/flag.less";
+
+///// Косметические стили
+@import "cosmetic.less";
+
+///// Стили из старого сайта
+@import "all-old.less";
+
+///// Plugin
+@import "plugins/magnific-popup.less";
+@import "plugins/redactor.less";
+@import "plugins/tooltipster.less";
+
+///// Проектные стили
+@import "project/antispam.less";
+@import "project/article.less";
+@import "project/ava.less";
+@import "project/comments.less";
+@import "project/header.less";
+@import "project/im.less";
+@import "project/friends-list.less";
+@import "project/photo-window.less";
+

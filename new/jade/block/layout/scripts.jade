@@ -1,0 +1,27 @@
+mixin scripts(path)
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+    script.
+        window.jQuery || document.write('<script src="#{path}/javascript/jquery-1.10.2.min.js"><\/script>')
+
+    script(src="#{path}javascript/modernizr-2.7.1.min.js")
+
+    // tooltip
+    //- script(src="#{path}/javascript/jquery.powertip.js")
+    script(src="#{path}javascript/jquery.tooltipster.js")
+
+    // popup
+    //- script(src="#{path}javascript/jquery.fancybox.js")
+    script(src="#{path}javascript/jquery.magnific-popup.js")
+
+    // custom scroll
+    script(src="#{path}javascript/baron.js")
+
+    // wisywig
+    script(src="#{path}redactor/redactor.js")
+
+    // Базовый js (вызывается на всех страницах)
+    script(src="#{path}javascript/common.js")
+
+
+
+    

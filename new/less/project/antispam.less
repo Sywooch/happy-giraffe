@@ -1,0 +1,140 @@
+// antispam module
+/*
+    Модуль antispam для модераторов
+
+*/
+.antispam {
+    min-height: 770px;
+    .clearfix;
+
+    .comments-gray {min-height: 85px;}
+    .page-col_top {
+        background: none;
+        border-bottom: none;
+        height: auto;
+    }
+    .btn-m {
+        padding: 0 5px;
+        width: 72px;
+        font-size: 12px;
+    }
+    &_i {}
+    &_cont {
+        float: left;
+        width: 720px;
+    }
+    &_control {
+        float: left;
+        width: 160px;
+        margin: 25px 0;
+    }
+    &_control .ava,
+    &_control .ico-question,
+    &_control .ico-check,
+    &_control .ico-del {
+        vertical-align: middle;
+    }
+    &_control .btn-gray-light {
+        padding: 4px 5px 5px;
+        width: 72px;
+    }
+}
+
+/* 
+    Иконки действий с пользователем
+    antispam-user-act
+        antispam-user-act_i     __white     __black     __block
+*/
+.antispam-user-act {
+    .inline-block();
+    width: 300px;
+
+    &_i {
+        .inline-block();
+        width: 50px;
+        height: 40px;
+        margin: 0 15px;
+        background: url(/new/images/antispam-user-act_i.png) no-repeat;
+
+        &__white            {background-position: 0 0;}
+        &__white.active,
+        &__white:hover      {background-position: 0 -40px;}
+        &__black            {background-position: -50px 0;}
+        &__black.active,
+        &__black:hover      {background-position: -50px -40px;}
+        &__block         {background-position: -100px 0;}
+        &__block.active,
+        &__block:hover   {background-position: -100px -40px;}
+    }
+}
+
+/*
+    Пользователи в списках
+    antispam-user  __expert
+        antispam-user_ul
+            antispam-user_li
+
+        antispam-user_hold
+            <b-user>
+            antispam-user_date
+            antispam-user_post-ico  __photo     __blog  __msg   __new
+            antispam-user_count
+                antispam-user_count-big
+                antispam-user_count-s
+
+*/
+.antispam-user {
+    &__expert &_hold {height: 105px;}
+    
+    &_ul {}
+    &_li {
+        padding: 0 20px;
+        border-bottom: 1px solid #f0f0f0;
+        background-color: #fafafa;
+    }
+    &_li:hover {background-color: #fff;}
+    &_hold {
+        display: table-cell;
+        vertical-align: middle;
+        height: 80px;
+    }
+    &_hold .antispam-user-act,
+    &_hold .b-user {vertical-align: middle;}
+
+    &_date {
+        .inline-block();
+        vertical-align: middle;
+        width: 95px;
+        margin-right: 5px;
+        font-size: @font-xs;
+        line-height: @lineh-xs;
+        color: @color-gray;
+    }
+    &_post-ico {
+        .inline-block();
+        vertical-align: middle;
+        width: 50px;
+        height: 50px;
+        margin: 0 35px 0 0;
+        background: url(/new/images/antispam-user_post-ico.png) no-repeat;
+        &__msg   {background-position: 0 0;}
+        &__photo {background-position: -50px 0;}
+        &__blog  {background-position: -100px 0;}
+        &__new   {background-position: -150px 0;}
+    }
+    &_count {
+        .inline-block();
+        vertical-align: middle;
+        width: 250px;
+    }
+    &_count-big {
+        font-size: 18px;
+        color: #3b3b3b;
+    }
+    &_count-s {
+        padding-left: 35px;
+        line-height: @lineh-xs;
+        font-size: @font-xs;
+        color: @color-gray;
+    }
+}

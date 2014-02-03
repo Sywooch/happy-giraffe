@@ -1,0 +1,162 @@
+
+//- ava
+//- Аватары пользователей
+//- mod 
+    vars
+        icoStatus 
+            ico-status__online
+            ico-status__offline
+        src - путь к изобржению аватара
+        avaSpan 
+mixin ava(mod, vars)
+    - if (vars.avaSpan)
+        span.ava(class=mod, href='')
+            span.ico-status(class=vars.icoStatus)
+            img.ava_img(alt='', src='#{vars.src}')
+    -else 
+        - if (vars.avaNameTitle)
+            a.ava.powertip(class=mod, href='', title=vars.avaNameTitle)
+                span.ico-status(class=vars.icoStatus)
+                img.ava_img(alt='', src='#{vars.src}')
+        - else 
+            a.ava(class=mod, href='')
+                span.ico-status(class=vars.icoStatus)
+                img.ava_img(alt='', src='#{vars.src}')
+
+
+//- b-control
+//- Блок иконок управления
+    mod
+    items - array иконок для вставки
+        ['delete', 'favorite', 'spam', 'edit', 'cancel']
+mixin b-control(mod, items)
+    // b-control
+    .b-control(class=mod)
+        .b-control_hold
+            for item in items
+                case item
+                    when "favorite"
+                        .b-control_i
+                            span.b-control_ico.powertip.b-control_ico__favorite(title="В избранное")
+                            .b-control_drop
+                    when "delete"
+                        .b-control_i
+                            span.b-control_ico.powertip.b-control_ico__delete(title="Удалить")
+                            .b-control_drop
+                    when "spam"
+                        .b-control_i.tooltip-click-b
+                            span.b-control_ico.powertip.b-control_ico__spam(title="Пожаловаться")
+                            .tooltip-drop
+                                .tooltip-popup
+                                    .tooltip-popup_t Укажите вид нарушения:
+                                    label.tooltip-popup_label.clearfix(for='tooltip-popup_radio')
+                                    // id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                        input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                        | Спам или реклама
+                                    label.tooltip-popup_label.clearfix(for='')
+                                        input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                        | Мошенничество
+                                    label.tooltip-popup_label.clearfix(for='')
+                                        input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                        | Грубость, угрозы
+                                    label.tooltip-popup_label.clearfix(for='')
+                                        input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                        | Интимный характер
+                                    label.tooltip-popup_label.clearfix(for='')
+                                        input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                        | Другое
+                                    label.tooltip-popup_label.clearfix(for='')
+                                        input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                        input.tooltip-popup_itx(type='text', name='', placeholder='Другое')
+                                    .clearfix.textalign-c
+                                        button.btn-green.btn-inactive Пожаловаться
+                                        button.btn-gray-light Отменить
+
+                    when "edit"
+                        .b-control_i
+                            span.b-control_ico.powertip.b-control_ico__edit(title="Редактировать")
+                            .b-control_drop
+                    when "cancel"
+                        .b-control_i
+                            span.b-control_ico.powertip.b-control_ico__cancel(title="Отменить")
+                            .b-control_drop
+
+    // /b-control
+
+//- .b-cap
+//- Заглушка
+    mod
+    vars
+        imgMod
+        t
+        tMod
+        tx
+        txMod
+        txSsub
+        txSubMod
+        topAbsMsg
+        topAbsMsgMod
+
+mixin cap-empty(mod, vars)
+    // cap-empty
+    .cap-empty(class=mod)
+        if (vars.topAbsMsg)
+            .cap-empty_abs-msg(class=vars.topAbsMsgMod)
+                .cap-empty_abs-msg-hold!= vars.topAbsMsg
+        else 
+            .cap-empty_hold
+                .cap-empty_img(class=vars.imgMod)
+                - if (vars.t)
+                    .cap-empty_t(class=vars.tMod)!= vars.t
+                - if (vars.tx)
+                    .cap-empty_tx(class=vars.txMod)!= vars.tx
+                - if (vars.txSub)
+                    .cap-empty_tx-sub(class=vars.txSubMod)!= vars.txSub
+            .verticalalign-m-help
+    // /cap-empty
+
+//- Пейджинатор
+mixin pagination(mod)
+    // paginator
+    .yiipagination(class=mod)
+        .pager
+            ul.yiiPager
+              li.page
+                a(href='') 1
+              li.page
+                a(href='') 2
+              li.page.selected
+                a(href='') 3
+              li.page
+                a(href='') 4
+              li.page
+                a(href='') 5
+              li.page
+                a(href='') 6
+              li.page
+                a(href='') 7
+              li.page
+                a(href='') 8
+              li.page
+                a(href='') 9
+              li.page
+                a(href='') 10
+    // /paginator
+
+//- Пользователь имя с аватаром
+    mod
+    vars
+mixin b-user(mod,vars)
+    .b-user(class=mod)
+        .b-user_ava
+            +ava('ava__middle ava__female', avaVars)
+        .b-user_hold
+            .b-user_row
+                a.b-user_name Ангелина Богоявленская
+            - if (vars.signpost)
+                a.b-user_view 123
+                a.b-user_check 123
+                a.b-user_del 123
+
+mixin btn-scrolltop()
+    .btn-scrolltop(onclick="$('html, body').animate({scrollTop:0}, 'normal')")

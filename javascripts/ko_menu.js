@@ -1,4 +1,4 @@
-var LayoutViewModel = function(data) {
+var MenuViewModel = function(data) {
     var self = this;
     self.newNotificationsCount = ko.observable(data.newNotificationsCount);
     self.newMessagesCount = ko.observable(data.newMessagesCount);
@@ -6,8 +6,25 @@ var LayoutViewModel = function(data) {
     self.newPostsCount = ko.observable(data.newPostsCount);
     self.newScoreCount = ko.observable(data.newScoreCount);
     self.activeModule = ko.observable(data.activeModule);
+    self.menuExtended = ko.observable(false);
 
     $(function() {
+        $("body").on("click", function(){
+            self.menuExtended(false);
+        });
+
+        $(window).on('scroll',function () {
+            if (self.activeModule() != 'messaging') {
+                var contanerScroll = $(window).scrollTop();
+                var header = $('.layout-header');
+                if (contanerScroll > header.height() + header.offset().top) {
+                    $('.header-fix').fadeIn(400);
+                } else {
+                    $('.header-fix').fadeOut(400);
+                }
+            }
+        });
+
         Comet.prototype.incNewFriendsCount = function(result, id) {
             self.newFriendsCount(self.newFriendsCount() + 1);
         };

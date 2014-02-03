@@ -1,0 +1,50 @@
+include ../../block/config
+extend ../../extend/layout_im
+
+block layout-wrapper_hold
+    // im
+    .im
+        +js-im
+        .im_hold.clearfix
+            // im-sidebar
+            section.im-sidebar.clearfix
+                .im-sidebar_panel
+                    +side-menu__im("side-menu__im")
+                    .im-sidebar_sound
+                        a.im-sidebar_sound-ico(href="")
+                .im-sidebar_users
+                    +im-sidebar_search()
+                    +im-user-list("", {usersCount: 5})
+            // /im-sidebar
+
+            // im-center
+            section.im-center
+                .im-center_top
+                    +im-panel("", {})
+                .im-center_middle
+                    .scroll
+                        .im-center_middle-hold.scroll_scroller
+                            .im-center_middle-w.scroll_cont
+                                .im_loader
+                                .friend-offer
+                                    .friend-offer_hold
+                                        .friend-offer_ava
+                                            - avaVars = {icoStatus: 'ico-status__online', src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
+                                            +ava("ava__middle ava__female", avaVars)
+                                        .friend-offer_in
+                                            a.friend-offer_name(href="") Александра Богоявленская
+                                            .friend-offer_tx предлагает вам дружбу!
+                                        .friend-offer_btns
+                                            a.btn-green-simple.btn-s Принять
+                                            a.ico-cancel.powertip(href="",title="Отклонить") &#8211;
+
+                                .im_loader
+                                    span.im_loader-tx Александра печатает вам сообщение
+                                    img.im_loader-anim(src='/new/images/im/im-message_loader__write.png', alt='')
+                        .scroll_bar-hold
+                            .scroll_bar
+                                .scroll_bar-in
+                +im-center_bottom("", {})
+            
+            // /im-center
+    // /im

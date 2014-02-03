@@ -19,10 +19,10 @@
 		<div class="layout-content clearfix">
 		<div class="content-cols clearfix">
 			<div class="col-1">
+
 				<div class="b-ava-large">
 					<div class="b-ava-large_ava-hold clearfix">
-						<a href="" class="ava large female">
-						</a>
+						<a href="" class="ava powertip ava__large ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
 						<span class="b-ava-large_online">На сайте</span>
 						<a class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" href="">
 							<span class="b-ava-large_ico b-ava-large_ico__mail"></span>
@@ -55,7 +55,9 @@
 						Пусть кто-то будет безумно красивый Пусть кто-то будет богаче и круче Мне наплевать, ведь ты - мой любимый.	Ты навсегда. Ты мой. Самый лучший.
 					</div>
 				</div>
-				
+				<div class="clearfix">
+				<a href="" class="ava powertip ava__large ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+				</div>
 				<div class="readers2">
 					<a href="" class="btn-green btn-medium">Подписаться</a>
 					<ul class="readers2_ul clearfix">

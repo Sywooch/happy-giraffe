@@ -1,0 +1,15 @@
+include ../block/config
+doctype 5
+html.no-js
+    +head(path)
+    body.body
+        .layout-container
+            .layout-header
+                +header-fix()
+                +header('header__base')
+            .layout-wrapper
+                .layout-wrapper_frame.clearfix
+                    block layout-wrapper
+            +btn-scrolltop()
+        .popup-container.display-n  
+            block block-hidden

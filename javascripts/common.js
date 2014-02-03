@@ -562,6 +562,7 @@ $(function() {
         overlayColor:'#2d1a3f',
         overlayOpacity:'0.6',
         padding:0,
+        enableKeyboardNav: false,
         showCloseButton:false,
         centerOnScroll:false,
         hideOnOverlayClick:false,

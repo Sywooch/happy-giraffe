@@ -1,0 +1,24 @@
+//- Статья взята с уже действующего www
+mixin www-comment-single(mod)
+    // comments-gray
+    section.comments-gray.comments-gray__wide.clearfix(class=mod)
+        .comments-gray_i
+            .comments-gray_ava
+                +ava("ava__middle ava__male", avaVars)
+            .comments-gray_r
+                .comments-gray_date Сегодня 13:25
+                .comments-gray_control
+                    .comments-gray_control-hold
+                        a.comments-gray_quote-ico.powertip(href='')
+                        a.message-ico.message-ico__del.powertip(href='')
+                        a.message-ico.message-ico__warning.powertip(href='')
+            .comments-gray_frame
+                .comments-gray_header.clearfix
+                    a.comments-gray_author(href='') Анг Богоявлен 
+                    a.comments-gray_like.like-hg-small.powertip(href='') 78
+                .comments-gray_cont.wysiwyg-content
+                    p я не нашел, где можно поменять название трека.
+                .font-s 
+                    | к 
+                    a Второй спооб где можно поменять название трека.
+    // /comments-gray

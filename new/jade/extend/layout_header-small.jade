@@ -1,0 +1,16 @@
+include ../block/config
+doctype 5
+html.no-js
+    +head(path)
+    body.body
+        - var avaVars = { icoStatus: 'ico-status__online',src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
+        .layout-container
+            .layout-header
+                +header-fix()
+                +header__small()
+            .layout-wrapper
+                .layout-wrapper_frame.clearfix
+                    block layout-wrapper
+        +btn-scrolltop()
+        .popup-container.display-n  
+            block block-hidden

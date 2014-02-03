@@ -28,6 +28,8 @@ return array(
         'application.components.*',
         'application.widgets.*',
         'site.frontend.extensions.directmongosuite.*',
+        'application.modules.antispam.models.*',
+        'application.modules.antispam.components.*',
 	),
 
     'language' => 'ru',

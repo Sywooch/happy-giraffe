@@ -416,7 +416,8 @@ mixin im-redactor-control(mod, vars)
                         $('.redactor-control_hold').addClass('redactor-control_hold__focus');
                     },
                     changeCallback: function(html)
-                    {
+                    {   
+                        
                         var redactorH = this.$box.height();
                         // Выбираем непосредственного родителя
                         var bParrent = this.$box.parents('.redactor-control_hold');
@@ -426,6 +427,7 @@ mixin im-redactor-control(mod, vars)
                             bParrent.height(redactorH);
                         }
                         // обновлять скролл baron
+                        im.renew();
                     },
                     initCallback: function()
                     {

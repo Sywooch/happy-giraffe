@@ -236,7 +236,6 @@ function HgWysiwyg(element, options, callbacks)
             } else {
                 bParrent.height(redactorH);
             }
-            
             self.fireCallbacks('change', this, arguments);
         },
         focusCallback: function(e)

@@ -2,6 +2,8 @@
 	// Эти скрипты модуль рагистрирует пакетом, подменим на новые версии для нового шаблона
 	Yii::app()->clientScript->scriptMap['jquery.js'] = '/new/javascript/jquery-1.10.2.min.js';
 	Yii::app()->clientScript->scriptMap['jquery.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/jquery-1.10.2.min.js';
+    Yii::app()->clientScript->scriptMap['jquery.min.js'] = '/new/javascript/jquery-1.10.2.min.js';
+    Yii::app()->clientScript->scriptMap['jquery.min.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/jquery-1.10.2.min.js';
 	Yii::app()->clientScript->scriptMap['jquery.powertip.js'] = '/new/javascript/jquery.powertip.js';
 	Yii::app()->clientScript->scriptMap['jquery.powertip.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/jquery.powertip.js';
 	Yii::app()->clientScript->scriptMap['baron.js'] = '/new/javascript/baron.js';

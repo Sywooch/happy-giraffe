@@ -1,7 +1,7 @@
 <?php $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true)); ?>
 
 <div class="layout-wrapper_hold clearfix">
-    <div class="im" style="display: none" data-bind="attr: { 'style': '' }">
+    <div class="im" style="display: none" data-bind="attr: { 'style': '' }" id="<?=$this->id?>_messaging_module">
         <!-- js для расчетов положения почты -->
         <script type="text/javascript">
             var im = new function() {
@@ -64,7 +64,7 @@
             }();
 
         </script>
-        <div class="im_hold clearfix" id="<?=$this->id?>_messaging_module">
+        <div class="im_hold clearfix">
             <!-- im-sidebar-->
             <section class="im-sidebar clearfix">
                 <div class="im-sidebar_panel">

@@ -141,7 +141,7 @@
 		$(document).on('koUpdate', '.scroll_scroller', function(event) {
 			var self = $(this);
 			if(self.hasClass('scroll_scroller')) {
-				eventCallback($(this));
+				$(this).trigger('scroll');
 			}
 		});
 		// изменение размеров в результате ресайза
@@ -150,7 +150,7 @@
 			if(!timer) {
 				// тут задержка.
 				timer = setTimeout(function() {
-					eventCallback(self);
+    				$(this).trigger('scroll');
 					clearTimeout(timer);
 					timer = false;
 				}, delay);

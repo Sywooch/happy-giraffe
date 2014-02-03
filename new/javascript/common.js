@@ -203,11 +203,13 @@ function HgWysiwyg(element, options, callbacks)
 
         self.callbacks[event].push(handler);
     }
-    self.fireCallbacks = function(event, redactor, args) {
-        if (redactor.callbacks.hasOwnProperty(event))
-            for (var x in redactor.callbacks[event])
-                redactor.callbacks[event][x].apply(this, args);
+    self.fireCallbacks = function(event, args) {
+        if (self.callbacks.hasOwnProperty(event))
+            for (var x in self.callbacks[event])
+                self.callbacks[event][x].apply(self.obj, args);
     }
+
+    self.tempBoxHeight = null;
 
     self.defaultOptions = {
         minHeight: 20,
@@ -218,43 +220,46 @@ function HgWysiwyg(element, options, callbacks)
         plugins: ['imageCustom', 'smilesModal', 'videoModal'],
         initCallback: function()
         {
+            self.obj = this;
             self.initScroll(this);
-
-            for (var i in self.callbacks)
-                for (var j in self.callbacks[i])
-                    this.registerCallback(i, self.callbacks[i][j]);
+            self.tempBoxHeight = this.$box.height();
 
             self.fireCallbacks('init', this);
         },
         changeCallback: function(html)
         {
             var redactorH = this.$box.height();
-            // Выбираем непосредственного родителя
+
             var bParrent = this.$box.parents('.redactor-control_hold');
-            if( redactorH >= 250) {
+            if (redactorH >= 250)
                 bParrent.height(250);
-            } else {
+            else
                 bParrent.height(redactorH);
-            }
-            self.fireCallbacks('change', this, arguments);
+
+            if (self.tempBoxHeight != redactorH)
+                addBaron('.redactor-control_hold .scroll');
+
+            self.tempBoxHeight = redactorH;
+            
+            self.fireCallbacks('change', arguments);
         },
         focusCallback: function(e)
         {
             // Нужно выбирать непосредственного родителя
-            $(this.$box).find('.redactor-control_hold').addClass('redactor-control_hold__focus');
+            $(this.$box).parents('.redactor-control_hold').addClass('redactor-control_hold__focus');
 
-            self.fireCallbacks('focus', this, arguments);
+            self.fireCallbacks('focus', arguments);
         },
         blurCallback: function(e)
         {
             // Нужно выбирать непосредственного родителя
-            $(this.$box).find('.redactor-control_hold').removeClass('redactor-control_hold__focus');
+            $(this.$box).parents('.redactor-control_hold').removeClass('redactor-control_hold__focus');
 
-            self.fireCallbacks('blur', this, arguments);
+            self.fireCallbacks('blur', arguments);
         },
-        keyupCallback: function(e)
+        keydownCallback: function(e)
         {
-            self.fireCallbacks('keyup', this, arguments);
+            self.fireCallbacks('keydown', arguments);
         }
     }
 
@@ -271,16 +276,6 @@ function HgWysiwyg(element, options, callbacks)
 }
 
 var RedactorPlugins = {};
-
-RedactorPlugins.callbacks = {
-    callbacks: {},
-    registerCallback: function(event, callback) {
-        if (! this.callbacks.hasOwnProperty(event))
-            this.callbacks[event] = [];
-
-        this.callbacks[event].push($.proxy(callback, this));
-    }
-}
 
 RedactorPlugins.imageCustom = {
     init: function() {

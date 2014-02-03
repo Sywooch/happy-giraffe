@@ -1,0 +1,125 @@
+<?php
+// Эти скрипты модуль рагистрирует пакетом, подменим на новые версии для нового шаблона
+Yii::app()->clientScript->scriptMap['jquery.js'] = '/new/javascript/jquery-1.10.2.min.js';
+Yii::app()->clientScript->scriptMap['jquery.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/jquery-1.10.2.min.js';
+Yii::app()->clientScript->scriptMap['jquery.powertip.js'] = '/new/javascript/jquery.powertip.js';
+Yii::app()->clientScript->scriptMap['jquery.powertip.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/jquery.powertip.js';
+Yii::app()->clientScript->scriptMap['baron.js'] = '/new/javascript/baron.js';
+Yii::app()->clientScript->scriptMap['baron.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/baron.js';
+Yii::app()->clientScript->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knockout-3.0.0.js';
+Yii::app()->clientScript->scriptMap['knockout-2.2.1.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/knockout-3.0.0.js';
+Yii::app()->clientScript->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knockout-debug.3.0.0.js';
+Yii::app()->clientScript->scriptMap['knockout-2.2.1.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/knockout-debug.3.0.0.js';
+if (! Yii::app()->user->isGuest)
+    Yii::app()->clientScript
+        ->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD)
+        ->registerPackage('comet')
+        ->registerPackage('common')
+        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
+
+?><!DOCTYPE html>
+<html class="no-js">
+<head><meta charset="utf-8">
+    <title>Happy Giraffe</title>
+    <!-- including .css-->
+    <link rel="stylesheet" type="text/css" href="/new/css/all1.css" />
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
+    <script src="/new/javascript/jquery.tooltipster.js"></script>
+    <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+    <!-- wisywig-->
+    <script src="/new/redactor/redactor.js"></script>
+</head>
+<body class="body<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
+<div class="layout-container">
+    <div class="error-serv display-n">
+        <div class="error-serv_hold"><span class="ico-error-smile margin-r5"></span>Произошла критическая ошибка.<a class="error-serv_a" href="javascript:void(0)" onclick="document.location.reload()">Перезагрузить страницу</a></div>
+    </div>
+    <?=$content?>
+</div>
+<div class="display-n"></div>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true, trackHash:true, webvisor:true});
+            } catch(e) {}
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+            s = d.createElement("script"),
+            f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+
+<script type="text/javascript">
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', '<?=Yii::app()->params['gaCode']  ?>']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
+<script type="text/javascript">
+    var _top100q = _top100q || [];
+
+    _top100q.push(["setAccount", "2900190"]);
+    _top100q.push(["trackPageviewByLogo", document.getElementById("counter-rambler")]);
+
+
+    (function(){
+        var top100 = document.createElement("script"); top100.type = "text/javascript";
+
+        top100.async = true;
+        top100.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//st.top100.ru/top100/top100.js";
+        var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
+    })();
+</script>
+
+<!-- tns-counter.ru -->
+<script type="text/javascript">
+    (function(win, doc, cb){
+        (win[cb] = win[cb] || []).push(function() {
+            try {
+                tnsCounterHappygiraffe_ru = new TNS.TnsCounter({
+                    'account':'happygiraffe_ru',
+                    'tmsec': 'happygiraffe_total'
+                });
+            } catch(e){}
+        });
+
+        var tnsscript = doc.createElement('script');
+        tnsscript.type = 'text/javascript';
+        tnsscript.async = true;
+        tnsscript.src = ('https:' == doc.location.protocol ? 'https:' : 'http:') +
+            '//www.tns-counter.ru/tcounter.js';
+        var s = doc.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(tnsscript, s);
+    })(window, this.document,'tnscounter_callback');
+</script>
+<noscript>
+    <img src="//www.tns-counter.ru/V13a****happygiraffe_ru/ru/UTF-8/tmsec=happygiraffe_total/" width="0" height="0" alt="" />
+</noscript>
+<!--/ tns-counter.ru -->
+
+<script type="text/javascript">
+    var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
+    var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
+</script>
+</body>
+</html>

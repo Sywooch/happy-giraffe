@@ -9,6 +9,34 @@ return array(
                 'javascripts/jquery.powertip.js',
             ),
         ),
+		'scrollTo' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'new/javascript/jquery.scrollTo.min.js',
+            ),
+			'depends' => array('jquery'),
+		),
+		'scrollEvents' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'new/javascript/scroll-events.js',
+            ),
+			'depends' => array('jquery'),
+		),
+		'common' => array(
+            'baseUrl' => '/',
+            'js' => array(
+				'new/javascript/jquery.magnific-popup.js',
+                'new/javascript/common.js',
+                'javascripts/base64.js',
+            ),
+			'depends' => array(
+				'jquery',
+				'scrollTo',
+				'scrollEvents',
+				'comet',
+			),
+		),
         'jcrop' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -26,21 +54,40 @@ return array(
                 'javascripts/dklab_realplexor.js',
             ),
         ),
+		'moment' => array(
+			'baseUrl' => '/',
+			'js' => array(
+				'javascripts/moment.ru.min.js',
+			),
+		),
         'knockout' => array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/knockout-2.2.1.js',
                 'javascripts/ko_library.js',
+                'javascripts/knockout.mapping-latest.js',
             ),
             'depends' => array(
                 'jquery',
-                'powertip',
+				'moment',
             ),
         ),
         'history' => array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/history.js',
+            ),
+        ),
+        'history2' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/jquery.history.js',
+            ),
+        ),
+        'preload' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/jquery.preload.min.js',
             ),
         ),
         'ko_comments' => array(
@@ -56,9 +103,8 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_gallery.js',
-                'javascripts/jquery.preload.min.js',
             ),
-            'depends' => array('knockout', 'ko_comments'),
+            'depends' => array('knockout', 'ko_comments', 'history2', 'preload', 'powertip'),
         ),
         'ko_post' => array(
             'baseUrl' => '/',
@@ -110,14 +156,16 @@ return array(
         'ko_im' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/im.js',
-                'javascripts/messaging.js',
+                //'javascripts/im.js',
+                'javascripts/ko_messaging.js',
+                'new/javascript/fast-message.js',
                 'javascripts/knockout.mapping-latest.js',
                 'javascripts/soundmanager2.js',
                 'javascripts/wysiwyg.js',
                 'javascripts/imagesloaded.pkgd.min.js',
+				'javascripts/baron.js',
             ),
-            'depends' => array('knockout', 'comet', 'jquery.ui'),
+            'depends' => array('knockout', 'common', 'comet', 'jquery.ui', 'redactor'),
         ),
         'ko_favourites' => array(
             'baseUrl' => '/',
@@ -143,10 +191,10 @@ return array(
             ),
             'depends' => array('knockout'),
         ),
-        'ko_layout' => array(
+        'ko_menu' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_layout.js',
+                'javascripts/ko_menu.js',
             ),
             'depends' => array('knockout'),
         ),
@@ -156,6 +204,29 @@ return array(
                 'javascripts/ko_recipes_search.js',
             ),
             'depends' => array('knockout'),
+        ),
+        'ko_antispam' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_antispam.js',
+            ),
+            'depends' => array('knockout', 'powertip'),
+        ),
+        'ko_onlineManager' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_onlineManager.js',
+            ),
+            'depends' => array('knockout'),
+        ),
+        'redactor' => array(
+            'baseUrl' => '/new/',
+            'js' => array(
+                'redactor/redactor.js',
+                'redactor/lang/ru.js',
+                '/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js',
+            ),
+            'depends' => array('jquery', 'ko_upload'),
         ),
     )
 );

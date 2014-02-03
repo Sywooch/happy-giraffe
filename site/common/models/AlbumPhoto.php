@@ -155,6 +155,14 @@ class AlbumPhoto extends HActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
+            'antispam' => array(
+                'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
+                'interval' => 60 * 60,
+                'maxCount' => 2,
+            ),
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+            ),
             //'pingable' => array(
             //    'class' => 'site.common.behaviors.PingableBehavior',
             //),
@@ -473,6 +481,15 @@ class AlbumPhoto extends HActiveRecord
                 $image = $image->resize($width, $height);
 
             $image = $image->save($thumb);
+
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimetype = finfo_file($finfo, $thumb);
+            finfo_close($finfo);
+
+            if ($mimetype == 'image/jpeg')
+                shell_exec('jpegoptim --strip-all ' . $thumb);
+            elseif ($mimetype == 'image/png')
+                shell_exec('optipng -o2 ' . $thumb);
         }
 
         return $thumb;
@@ -527,6 +544,14 @@ class AlbumPhoto extends HActiveRecord
             $this->author_id,
             $this->fs_name,
         ));
+    }
+
+    public function getPreviewHtml($width = 100, $height = 100, $master = false, $crop = false, $crop_side = self::CROP_SIDE_CENTER)
+    {
+        $url = $this->getPreviewUrl($width, $height, $master, $crop, $crop_side);
+        $path = $this->getPreviewPath($width, $height, $master, $crop, $crop_side);
+        $size = getimagesize($path);
+        return CHtml::image($url, '', array('width' => $size[0], 'height' => $size[1]));
     }
 
     public function  getTemplatePath()
@@ -838,6 +863,12 @@ class AlbumPhoto extends HActiveRecord
         }
 
         if (preg_match('/http:\/\/img.virtual-giraffe.ru\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
+            $user_id = $m[1];
+            $photo_name = $m[2];
+            return AlbumPhoto::model()->findByAttributes(array('author_id' => $user_id, 'fs_name' => $photo_name));
+        }
+
+        if (preg_match('/http:\/\/img.dev.happy-giraffe.ru\/thumbs\/[\d]+x[\d]+\/([\d]+)\/([^\"]+)/', $url, $m)) {
             $user_id = $m[1];
             $photo_name = $m[2];
             return AlbumPhoto::model()->findByAttributes(array('author_id' => $user_id, 'fs_name' => $photo_name));

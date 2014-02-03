@@ -165,6 +165,14 @@ class CommunityContent extends HActiveRecord
             'pingable' => array(
                 'class' => 'site.common.behaviors.PingableBehavior',
             ),
+            'antispam' => array(
+                'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
+                'interval' => 60 * 60,
+                'maxCount' => 2,
+            ),
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+            ),
 //            'duplicate' => array(
 //                'class' => 'site.common.behaviors.DuplicateBehavior',
 //            ),
@@ -239,12 +247,11 @@ class CommunityContent extends HActiveRecord
     public function beforeDelete()
     {
         FriendEvent::postDeleted(($this->isFromBlog ? 'BlogContent' : 'CommunityContent'), $this->id);
-        self::model()->updateByPk($this->id, array('removed' => 1));
         self::model()->deleteAll('source_id=:removed_id', array(':removed_id' => $this->id));
         NotificationDelete::entityRemoved($this);
         Scoring::contentRemoved($this);
 
-        return false;
+        return parent::beforeDelete();
     }
 
     public function beforeSave()

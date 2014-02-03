@@ -37,16 +37,6 @@ class FriendRequest extends HActiveRecord
 		return parent::model($className);
 	}
 
-    protected function afterSave()
-    {
-        if ($this->isNewRecord) {
-            $comet = new CometModel;
-            $comet->send($this->to_id, null, CometModel::TYPE_NEW_FRIEND_REQUEST);
-        }
-
-        parent::afterSave();
-    }
-
 	/**
 	 * @return string the associated database table name
 	 */

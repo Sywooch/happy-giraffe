@@ -69,6 +69,8 @@ return array(
         'application.modules.community.models.*',
         'application.widgets.registerWidget.RegisterWidget',
         'ext.captchaExtended.*',
+        'application.modules.antispam.models.*',
+        'application.modules.antispam.components.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -119,6 +121,7 @@ return array(
         'community',
         'myGiraffe',
         'family',
+        'antispam',
 	),
 	// application components
 	'components'=>array(
@@ -352,6 +355,7 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
+        'releaseId' => 51,
         'releaseId' => 100,
         'valentinesAlbum' => '41340',
 		// this is used in contact page

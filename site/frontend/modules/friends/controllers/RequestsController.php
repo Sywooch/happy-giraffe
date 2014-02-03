@@ -74,6 +74,14 @@ class RequestsController extends HController
 
         $response = compact('success');
         echo CJSON::encode($response);
+
+        if ($success) {
+            $comet = new CometModel();
+            $comet->attributes = array('fromId' => $fromId, 'toId' => Yii::app()->user->id);
+            $comet->type = CometModel::FRIEND_REQUEST_DECLINED;
+            $comet->send($fromId);
+            $comet->send(Yii::app()->user->id);
+        }
     }
 
     public function actionCancel() {

@@ -383,6 +383,7 @@ return array(
                 'jquery.yiiactiveform.js',
                 'jquery.powertip.js',
                 'knockout-2.2.1.js',
+                'knockout-3.0.0.js',
                 'ko_library.js',
                 'history.js',
                 'ko_favourites.js',

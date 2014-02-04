@@ -350,40 +350,37 @@ ko.bindingHandlers.show = {
             });
             $(element).scrollEvent(settings.selector, callback);
         }
-	}/*,
-	update: function(element, valueAccessor) {
-		var settings = this.extend(valueAccessor());
-
-		$(element).on('show', settings.selector, function(event) {
-			if(this == event.target) {
-				settings.callback();
-			}
-		})
-	},*/
+	}
 }
 ko.bindingHandlers.hide = {
-	init: function(element, valueAccessor) {
+	extend: function(options) {
 		var defaults = {
 			selector: null,
+			//timeOut: false,
+			//active: true
 		};
-		var options = valueAccessor();
-		
 		if(typeof(options) == 'function') {
 			options = {
 				callback: options
 			}
 		}
-		
-		var settings = $.extend( {}, defaults, options );
-		
-		$(element).on('hide', settings.selector, function(event) {
-			if(this == event.target) {
-				settings.callback();
-			}
-		});
-		$(window).blur(function() {
-			settings.callback();
-		});
+		return $.extend( {}, defaults, options );
+	},
+	init: function(element, valueAccessor) {
+        function callback(event) {
+            if (this == event.target) {
+                settings.callback.apply(this, arguments);
+            }
+        }
+        
+        var value = valueAccessor();
+        if(value instanceof Array) {
+            for(var i = 0; i < value.length; i++)
+                ko.bindingHandlers.hide.init.apply(this, [element, function() { return value[i]; }]);
+        } else {
+            var settings = ko.bindingHandlers.hide.extend(valueAccessor());
+            $(element).scrollEvent(settings.selector, callback);
+        }
 	}
 }
 

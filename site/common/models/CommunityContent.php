@@ -167,8 +167,8 @@ class CommunityContent extends HActiveRecord
             ),
             'antispam' => array(
                 'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
-                'interval' => 60 * 60,
-                'maxCount' => 2,
+                'interval' => 7 * 60,
+                'maxCount' => 3,
             ),
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',

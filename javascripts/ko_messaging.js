@@ -483,7 +483,7 @@ function MessagingThread(me, user) {
             toolbarExternal: '.redactor-control_toolbar',
             buttons: ['b'],
             plugins: ['imageCustom', 'smilesModal', 'videoModal'],
-            comments: true
+            comments: true,
         },
         callbacks: {
             init : [
@@ -494,6 +494,7 @@ function MessagingThread(me, user) {
             change : [
                 function() {
                     im.renew();
+                    self.scrollManager.setFix();
                 }
             ],
             keydown : [
@@ -504,6 +505,7 @@ function MessagingThread(me, user) {
                     } else {
                         self.typing();
                     }
+                    self.scrollManager.setFix('bot');
                 }
             ]
         }

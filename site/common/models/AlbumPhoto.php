@@ -158,7 +158,7 @@ class AlbumPhoto extends HActiveRecord
             'antispam' => array(
                 'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
                 'interval' => 60 * 60,
-                'maxCount' => 2,
+                'maxCount' => 50,
             ),
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',

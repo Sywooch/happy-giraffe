@@ -344,9 +344,9 @@ ko.bindingHandlers.show = {
             for(var i = 0; i < value.length; i++)
                 ko.bindingHandlers.show.init.apply(this, [element, function() { return value[i]; }]);
         } else {
-            /*$(element).on('mousemove', settings.selector, function(event) {
+            $(element).on('mousemove', settings.selector, function(event) {
                 callback.apply(this, [event]);
-            });*/
+            });
             var settings = ko.bindingHandlers.show.extend(valueAccessor());
             $(element).scrollEvent(settings.selector, callback);
         }

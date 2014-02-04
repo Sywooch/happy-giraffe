@@ -141,6 +141,11 @@ ko.bindingHandlers.fixScroll = {
         if (manager.subscription !== false) {
             manager.subsription.dispose();
         }
+        manager.beforeFix = function(manager, value) {
+            if(!value) {
+                box.scroll();
+            }
+        };
         manager.subsription = manager.scrollTo.subscribe(function(value) {
             if (value !== false) {
                 $(element).scrollTo(self.getElementByModel(manager, value));
@@ -160,13 +165,16 @@ ko.bindingHandlers.fixScroll = {
         box.scroll(function() {
             if(manager.fixTop) {
                 box.scrollTop(manager.scrollTop);
+            } else {
+                // запомним позицию сверху
+                manager.scrollTop = box.scrollTop();
             }
             if(manager.fixBot) {
                 box.scrollTop(box.find('>div.scroll_cont').outerHeight() - manager.scrollBot - box.height());
+            } else {
+                // запомним позицию снизу
+                manager.scrollBot = Math.max(0, box.find('>div.scroll_cont').outerHeight() - box.scrollTop() - box.height());
             }
-            // запомним позицию скролла
-            manager.scrollTop = box.scrollTop();
-            manager.scrollBot = Math.max(0, box.find('>div.scroll_cont').outerHeight() - box.scrollTop() - box.height());
         });
 
 
@@ -201,9 +209,13 @@ ko.bindingHandlers.fixScroll = {
         return {
             fixTop: false,
             fixBot: false,
+            beforeFix: false,
             scrollBot: 0,
             scrollTop: 0,
             setFix: function(param) {
+                if(this.fixCallback) {
+                    this.beforeFix(this, param);
+                }
                 this.fixTop = (param === 'top');
                 this.fixBot = (param === 'bot');
             },
@@ -321,12 +333,23 @@ ko.bindingHandlers.show = {
 		return $.extend( {}, defaults, options );
 	},
 	init: function(element, valueAccessor) {
-		var settings = ko.bindingHandlers.show.extend(valueAccessor());
-		$(element).on('show, mousemove', settings.selector, function(event) {
-			if(this == event.target) {
-				settings.callback();
-			}
-		});
+        function callback(event) {
+            if (this == event.target) {
+                settings.callback.apply(this, arguments);
+            }
+        }
+        
+        var value = valueAccessor();
+        if(value instanceof Array) {
+            for(var i = 0; i < value.length; i++)
+                ko.bindingHandlers.show.init.apply(this, [element, function() { return value[i]; }]);
+        } else {
+            /*$(element).on('mousemove', settings.selector, function(event) {
+                callback.apply(this, [event]);
+            });*/
+            var settings = ko.bindingHandlers.show.extend(valueAccessor());
+            $(element).scrollEvent(settings.selector, callback);
+        }
 	}/*,
 	update: function(element, valueAccessor) {
 		var settings = this.extend(valueAccessor());

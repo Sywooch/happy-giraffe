@@ -445,8 +445,9 @@ MessagingThread.prototype = {
 		if (!thread) {
 			thread = new MessagingThread(user.viewModel.me, user);
 		}
+        thread.scrollManager.setFix('bot');
 		Messaging.prototype.currentThread(thread);
-		thread.opened();
+        thread.scrollManager.setFix();
 	}
 };
 
@@ -520,7 +521,7 @@ function MessagingThread(me, user) {
 	
     self.firstUnreadMessage = ko.computed(function() {
         return ko.utils.arrayFirst(self.messages(), function(message) {
-            return !message.dtimeRead() && message.isMy;
+            return !message.dtimeRead() && !message.isMy;
         });
     });
 	
@@ -644,30 +645,21 @@ function MessagingThread(me, user) {
 				}).concat(self.messages()));
 				self.loadingMessages(false);
                 // таймер - это костыль, т.к. иначе передёргивает. Причину не нашёл.
-                setTimeout(function() { self.scrollManager.setFix(); }, 100);
+                setTimeout(function() {
+                    self.scrollManager.setFix();
+                    // Выставим скролл
+                    if (isFirst) { // если первая загрузка
+                        var firstUnread = self.firstUnreadMessage();
+                        if (firstUnread) {
+                            self.scrollManager.scrollTo(firstUnread);
+                        }
+                    }
+                }, 100);
 
                 if (response.last)
 					self.fullyLoaded(true);
-
-                // Выставим скролл
-				if(isFirst) { // если первая загрузка
-					var firstUnread = self.firstUnreadMessage();
-                    if(firstUnread) {
-                        self.scrollManager.scrollTo(firstUnread);
-                    }
-				}
 			}, 'json');
 		}
-	};
-	self.opened = function() {
-		/*var jScroller = $(scroller);
-		var firstUnread = jScroller.find('.im-message.im-message__new:eq(0)');
-		if(firstUnread.length > 0) { // если есть непрочитанные сообщения
-			jScroller.scrollTo(firstUnread, 0); // докрутим до непочитанного сообщения
-		} else {
-			jScroller.scrollTo('max', 0); // прокрутим в конец
-		}*/
-        self.scrollManager.scrollTo('bottom');
 	};
 
 	// Текст конструктора

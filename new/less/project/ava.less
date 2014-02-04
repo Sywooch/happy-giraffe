@@ -83,8 +83,7 @@
 /* b-ava-large */
 .b-ava-large {
     display: block;
-    margin: 10px auto 0;
-    width: 206px;
+    margin: 10px 0 0;
     text-align: center;
     position: relative;
 
@@ -95,7 +94,6 @@
     &:hover &_online{display: none;}
     &:hover &_close {display: block;}
     &:hover &_bubble {display: block;}
-    &:hover &_a {text-decoration: underline;}
     &:hover &_photo-change {display: block;}
 
     .ava__large {
@@ -125,7 +123,8 @@
     
     &_ava-hold {
         position: relative;
-        margin-bottom: 5px;
+        margin: 0 auto;
+        width: 206px;
     }
     &_bubble {
         display: none;
@@ -143,9 +142,9 @@
     /*&_bubble:hover &_ico       {background-position: 0 -30px;}
     &_bubble:hover &_ico__blog {background-position: -30px -30px;}
     &_bubble:hover &_ico__photo{background-position: -60px -30px;}*/
-    &_bubble:hover &_ico__friend-add{background-position: -90px -30px;}
-    &_bubble:hover &_ico__friend-added{background-position: -120px 0px;}
-    &_bubble:hover &_ico__friend {background-position: -150px 0px;}
+    &_bubble:hover &_ico__friend-add{background-position: -120px 0;}
+    &_bubble:hover &_ico__friend-added{background-position: -120px 0;}
+    /*&_bubble:hover &_ico__friend {background-position: -150px 0px;}*/
     &_bubble:hover &_bubble-tx{color: #fff;}
     &_bubble__photo {
         bottom: 50px;
@@ -172,14 +171,14 @@
         bottom: 50px;
         left: 0;
         background: #fee652;
-        background: rgba(254,230,82,0.9);
+        /*background: rgba(254,230,82,0.9);*/
     }
     &_bubble__friend-added:hover {background: #fee652;}
     &_bubble__friend {
         bottom: 50px;
         left: 0;
         background: #fee652;
-        background: rgba(254,230,82,0.9);
+        /*background: rgba(254,230,82,0.9);*/
     }
     &_bubble__friend:hover {background: #fbe170;}
     &_bubble__friend:hover &_bubble-tx,
@@ -226,8 +225,8 @@
     &_close {
         display: none;
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 5px;
+        right: 5px;
     }
     &_ico {
         display: block;

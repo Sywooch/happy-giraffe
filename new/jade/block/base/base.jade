@@ -88,11 +88,13 @@ mixin b-control(mod, items)
     mod
     vars
         imgMod
+        txTop
+        txTopMod
         t
         tMod
         tx
         txMod
-        txSsub
+        txSub
         txSubMod
         topAbsMsg
         topAbsMsgMod
@@ -106,6 +108,8 @@ mixin cap-empty(mod, vars)
         else 
             .cap-empty_hold
                 .cap-empty_img(class=vars.imgMod)
+                - if (vars.txTop)
+                    .cap-empty_tx-top(class=vars.txTopMod)!= vars.txTop
                 - if (vars.t)
                     .cap-empty_t(class=vars.tMod)!= vars.t
                 - if (vars.tx)

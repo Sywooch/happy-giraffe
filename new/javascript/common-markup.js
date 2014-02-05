@@ -16,9 +16,24 @@ $(function() {
         }
     });
 
+    $('.b-ava-large_bubble').tooltipster({
+        trigger: 'hover',
+        offsetY: -18,
+        delay: 200,
+        maxWidth: 200,
+        arrowColor: '#5C4B86',
+        onlyOne: false,
+        touchDevices: false,
+        theme: '.tooltipster-default',
+        functionReady: function(origin, continueTooltip) {},
+        functionInit: function(origin, content) {
+            return origin.data('tooltip');
+        }
+    });
+
 
     $('.tooltip-click-b').click(function(){
-        var $this = $(this)
+        var $this = $(this);
         $this.tooltipster({
             trigger: 'click',
             delay: 0,
@@ -28,7 +43,7 @@ $(function() {
             interactiveAutoClose: false,
             theme: '.tooltipster-white',
             position: 'bottom',
-            content: $this.find(' .tooltip-popup')
+            content: $this.find('.tooltip-popup')
         });
         
         $this.tooltipster('show');

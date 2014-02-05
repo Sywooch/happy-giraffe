@@ -672,6 +672,7 @@
     }
     &__rel {}
     &__gray {background: #e6e6e6;}
+    &__white {background: #fff;}
     &__blue {
         background: #4772a7;
         background: rgba(71,114,167,.75);
@@ -709,8 +710,7 @@
     }
     &_img__white {background-position: -60px 0;}
     &_t {
-        margin: 0 0 5px;
-        padding-top: 5px;
+        margin: 5px 0;
         color: #2d2d2d;
         font-size: 16px;
     }
@@ -852,13 +852,13 @@
 }
 
 /*
-    location
+    location __small
+        .flag
+        location_tx
 */
 .location {
-
-    &__small {
-        margin: 0;
-    }
+    margin: 0 0 5px;
+    line-height: 12px;
     .flag {
         position: relative;
         top: 1px;
@@ -867,10 +867,10 @@
     &_tx {
         display: inline;
         font-size: 11px;
-        line-height: 13px;
         color: #555454;
     }
 }
+
 /* 
     sidebar-search
 

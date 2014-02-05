@@ -91,4 +91,63 @@ class DefaultController extends AntispamController
         $dp = AntispamCheck::getDp(AntispamCheck::model()->user($userId)->entity($entity));
         $this->render('analysis', compact('user', 'dp', 'counts', 'entity'));
     }
+
+    public function actionStats()
+    {
+        $end = new DateTime();
+        $start = new DateTime();
+        $start->modify('-2 week');
+        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+
+        $result = array();
+        foreach ($period as $date) {
+            $command = Yii::app()->db->createCommand('
+                SELECT COUNT(*)
+                FROM community__contents p
+                JOIN community__rubrics r ON r.id = p.rubric_id
+                JOIN users u ON u.id = p.author_id
+                WHERE DATE(p.created) = :date AND u.group = 0 AND r.community_id IS NOT NULL
+            ');
+            $communityPosts = $command->queryScalar(array(':date' => $date->format('Y-m-d')));
+
+            $command = Yii::app()->db->createCommand('
+                SELECT COUNT(*)
+                FROM community__contents p
+                JOIN community__rubrics r ON r.id = p.rubric_id
+                JOIN users u ON u.id = p.author_id
+                WHERE DATE(p.created) = :date AND u.group = 0 AND r.user_id IS NOT NULL
+            ');
+            $blogPosts = $command->queryScalar(array(':date' => $date->format('Y-m-d')));
+
+            $command = Yii::app()->db->createCommand('
+                SELECT COUNT(*)
+                FROM comments c
+                JOIN community__contents p ON c.entity_id = p.id
+                JOIN community__rubrics r ON r.id = p.rubric_id
+                JOIN users u ON u.id = c.author_id
+                WHERE DATE(c.created) = :date AND u.group = 0 AND r.community_id IS NOT NULL
+            ');
+            $communityComments = $command->queryScalar(array(':date' => $date->format('Y-m-d')));
+
+            $command = Yii::app()->db->createCommand('
+                SELECT COUNT(*)
+                FROM comments c
+                JOIN community__contents p ON c.entity_id = p.id
+                JOIN community__rubrics r ON r.id = p.rubric_id
+                JOIN users u ON u.id = c.author_id
+                WHERE DATE(c.created) = :date AND u.group = 0 AND r.user_id IS NOT NULL
+            ');
+            $blogComments = $command->queryScalar(array(':date' => $date->format('Y-m-d')));
+
+            $result[] = array(
+                $date->format('d.m.Y'),
+                $blogComments,
+                $communityComments,
+                $blogPosts,
+                $communityPosts,
+            );
+        }
+
+        $this->render('stats', compact('result'));
+    }
 }

@@ -10,7 +10,6 @@
             <b-family>
 */
 .friends-list {
-    margin: 15px 10px 70px;
     position: relative;
 
     /*&__family &_i {
@@ -20,21 +19,37 @@
         margin: 0 7px 20px 6px;
         .border-radius(5px);
     }*/
-    .location {margin: 0px 0 10px;}
+    .location {margin: 0px 0 15px;}
     .b-ava-large_close {
         top: 5px;
         right: -10px;
     }
-    &_i {
-        position: relative;
+    .ico-close2 {
+        display: none;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    &_ul {
+        margin: 15px 0 70px;
+        text-align: center;
+    }
+    &_li {
+        margin: 10px 10px 20px 10px;
         .inline-block();
         vertical-align: top;
-        margin: 5px 10px 30px 10px;
+        .transition(all 0.2s ease);
+    }
+    &_i {
+        position: relative;
         width: 258px;
         border: 1px solid #f0f0f0;
         text-align: center;
         .border-radius(4px);
     }
+    &_i:hover {border-color: #e4e4e4;}
+    &_i:hover .ico-close2 {display: block;}
 
     &_close {
         display: none;

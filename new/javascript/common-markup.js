@@ -17,8 +17,8 @@ $(function() {
     });
 
 
-    $('.tooltip-click-b').click(function(){
-        var $this = $(this)
+    $(document).on('click', '.tooltip-click-b', function(){
+        var $this = $(this);
         $this.tooltipster({
             trigger: 'click',
             delay: 0,

@@ -127,14 +127,14 @@
         if(arguments[0] && typeof(arguments[0]) == 'function') {
             showCallback = arguments[0];
             if(arguments[1] && typeof(arguments[1]) == 'function') {
-                hideCallback = arguments[0];
+                hideCallback = arguments[1];
             }
         } else if(arguments[0]) {
             if(arguments[0].show) {
                 showCallback = arguments[0].show;
             }
             if(arguments[0].hide) {
-                showCallback = arguments[0].hide;
+                hideCallback = arguments[0].hide;
             }
         }
         if(showCallback || hideCallback) {

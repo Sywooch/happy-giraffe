@@ -191,9 +191,6 @@ class DefaultController extends HController
 
     public function actionSave($id = null)
     {
-        if (Yii::app()->user->model->register_date > '2014-01-05 00:00:00')
-            throw new CHttpException(503);
-
         $contest_id = Yii::app()->request->getPost('contest_id');
         $model = ($id === null) ? new CommunityContent() : CommunityContent::model()->findByPk($id);
         if (! $model->isNewRecord && ! $model->canEdit())

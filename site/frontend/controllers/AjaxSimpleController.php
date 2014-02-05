@@ -116,9 +116,6 @@ class AjaxSimpleController extends CController
      */
     public function actionAddComment()
     {
-        if (Yii::app()->user->model->register_date > '2014-01-05 00:00:00')
-            throw new CHttpException(503);
-
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
         Yii::import('site.frontend.modules.route.models.*');
 

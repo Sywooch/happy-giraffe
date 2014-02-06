@@ -8,6 +8,8 @@
  */
 class SearchController extends HController
 {
+    public $layout = '//layouts/new/main';
+    
     public function filters()
     {
         return array(
@@ -37,7 +39,7 @@ class SearchController extends HController
         $json = compact('countries');
 
         $this->pageTitle = 'Найти друзей';
-        $this->render('index', compact('json', 'friendsCount'));
+        $this->render('index_v2', compact('json', 'friendsCount'));
     }
 
     public function actionGet()

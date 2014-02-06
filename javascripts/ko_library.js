@@ -345,9 +345,7 @@ ko.bindingHandlers.show = {
                 ko.bindingHandlers.show.init.apply(this, [element, function() { return value[i]; }]);
         } else {
             var settings = ko.bindingHandlers.show.extend(valueAccessor());
-            $(element).on('mousemove', settings.selector, function(event) {
-                callback.apply(this, [event]);
-            });
+            $(element).on('mousemove', settings.selector, callback);
             $(element).scrollEvent(settings.selector, callback);
         }
 	}
@@ -379,7 +377,8 @@ ko.bindingHandlers.hide = {
                 ko.bindingHandlers.hide.init.apply(this, [element, function() { return value[i]; }]);
         } else {
             var settings = ko.bindingHandlers.hide.extend(valueAccessor());
-            $(element).scrollEvent(settings.selector, callback);
+            $(document).blur(callback);
+            $(element).scrollEvent(settings.selector, {hide: callback});
         }
 	}
 }

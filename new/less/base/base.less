@@ -75,12 +75,27 @@
 }
 .ico-close2 {
     .inline-block();
-    width: 13px;
-    height: 13px;
+    
+    width: 0.7em;
+    height: 0.7em;
+    line-height: 0.7em;
+    font-size: 24px;
+    font-family: Tahoma, Arial, Verdana, sans-serif;
     cursor: pointer;
-    background: url(/images/ico/ico-close2.png) no-repeat;
+    color: #a9b0b7;
+    .transition(all 300ms);
+    /*background: url(/images/ico/ico-close2.png) no-repeat;*/
+    &:before {
+        content:'×';
+        position: relative;
+        top: -2px;
+    }
+    &:hover {
+        color: #4b4d4f;
+        .rotate(90deg);
+    }
 }
-.ico-close2:hover {background: url(/images/ico/ico-close2-hover.png) no-repeat;}
+/*.ico-close2:hover {background: url(/images/ico/ico-close2-hover.png) no-repeat;}*/
 .ico-close3 {
     .inline-block();
     width: 11px;
@@ -188,6 +203,13 @@
 }
 
 // Отдельные элементы
+.heading-smallest {
+    margin: 0;
+    font-size: 14px;
+    line-height: 16px;
+    color: #3d3d3d;
+    font-weight: normal;
+}
 .heading-small {
     margin: 0;
     font-size: 17px;
@@ -267,18 +289,30 @@
     border-radius: 10px;
     border-top-left-radius:0;
 
-    
+    &__friend {min-height: 570px;}
+    &__aside-in {
+        display: table;
+    }
+    &__aside-in &_cont {
+
+    }
     &_top {
         border-bottom: 1px solid #ededed;
         padding: 0 30px;
         height: 57px;
 
         .antispam-user_hold {height: 57px;}
+        .sidebar-search {
+            float: right;
+            width: 255px;
+            padding: 15px 0 0;
+        }
     }
-    &_top .sidebar-search {
-        float: right;
-        width: 255px;
-        padding: 15px 0 0;
+    &_top__gray {
+        background: #f5f7fa;
+        -webkit-border-top-right-radius: 10px;
+        -moz-border-top-right-radius: 10px;
+        border-top-right-radius: 10px;
     }
     &_t {
         .inline-block();
@@ -320,6 +354,34 @@
 
         .a-pseudo {margin-top: 2px;}
     }
+
+    &_tabs {}
+    &_tab {
+        float: left;
+        margin: 12px 0 0;
+    }
+    &_tab.active &_tab-a {
+        color: #3b3b3b;
+        border: 1px solid #ededed;
+        border-bottom-width: 0;
+        background: #fff;
+        font-size: 14px;
+        .border-radius(5px);
+    }
+    &_tab-a {
+        display: block;
+        padding: 15px 18px;
+        font-size: 13px;
+        line-height: 15px;
+        color: #adadad;
+        text-decoration: none;
+    }
+    &_tab-a:hover {color: #3b3b3b;}
+
+    &_aside {
+
+    }
+    &_aside__blue {}
 }
 /* /page-col */
 
@@ -709,6 +771,7 @@
         background: url(/new/images/base/cap-empty_img.png) no-repeat 0 0;
     }
     &_img__white {background-position: -60px 0;}
+    &_img__smile-gray {background-position: -120px 0;}
     &_t {
         margin: 5px 0;
         color: #2d2d2d;
@@ -868,6 +931,43 @@
         display: inline;
         font-size: 11px;
         color: #555454;
+    }
+}
+
+/*
+    Группа фильтров 
+    filter-group
+        filter-group_i
+*/
+.filter-group {
+    position: relative;
+    .inline-block();
+    vertical-align: middle;
+    .clearfix;
+
+    &_i {
+        position: relative;
+        float: left;
+        margin-left: -1px;
+        border: 1px solid #99c7ff;
+        padding: 5px 15px;
+        color: #3696cf;
+        font-size: 13px;
+        line-height: 17px;
+        text-decoration: none;
+    }
+    &_i:first-child {
+        .border-left-radius(4px);
+    }
+    &_i:last-child {
+        .border-right-radius(4px);
+    }
+    &_i:hover {background-color: #dcf0ff;}
+    &_i.active {
+        z-index: 2;
+        border-color: #50aae0;
+        background: #50aae0;
+        color: #fff;
     }
 }
 

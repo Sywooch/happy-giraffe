@@ -58,6 +58,22 @@ $(function() {
 				return origin.data('tooltip');
 			}
 		});
+        // Подсказки у иконок действий поверх большой аватары
+        $('.b-ava-large_bubble').tooltipster({
+            trigger: 'hover',
+            offsetY: -18,
+            delay: 200,
+            maxWidth: 200,
+            arrowColor: '#5C4B86',
+            onlyOne: false,
+            touchDevices: false,
+            theme: '.tooltipster-default',
+            functionReady: function(origin, continueTooltip) {},
+            functionInit: function(origin, content) {
+                return origin.data('tooltip');
+            }
+        });
+        
 		$('.tooltip-click-b', self).tooltipster({
 			trigger: 'click',
 			delay: 0,

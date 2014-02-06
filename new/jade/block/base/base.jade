@@ -175,3 +175,22 @@ mixin sidebar-search(mod, vars)
         input.sidebar-search_itx(type='text', name='', placeholder=vars.placeholder)
         // При начале ввода добавить класс .active на кнопку
         button.sidebar-search_btn
+
+//-
+    Табы в заглавии страницы
+    mod
+    vars
+        tabActive - номер активной вкладки
+        tabTexts - Текст таба
+mixin page-col_top-tabs(mod, vars)
+    .page-col_top.page-col_top__gray
+        ul.page-col_tabs
+            - for item, i in vars.tabsTexts
+                if (vars.tabActive == i)
+                    li.page-col_tab.active
+                        a.page-col_tab-a 
+                            != item
+                else 
+                    li.page-col_tab
+                        a.page-col_tab-a 
+                            != item

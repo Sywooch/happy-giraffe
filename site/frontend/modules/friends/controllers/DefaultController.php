@@ -8,6 +8,7 @@
  */
 class DefaultController extends HController
 {
+    public $layout = '//layouts/new/main';
     public function filters()
     {
         return array(
@@ -44,7 +45,7 @@ class DefaultController extends HController
         $data = compact('friendsCount', 'friendsOnlineCount', 'friendsNewCount', 'incomingRequestsCount', 'outgoingRequestsCount', 'lists');
 
         $this->pageTitle = 'Мои друзья';
-        $this->render('index', CJSON::encode($data));
+        $this->render('index_v2', CJSON::encode($data));
     }
 
     public function actionGet($online = false, $onlyNew = false, $listId = false, $query = false, $offset = 0)

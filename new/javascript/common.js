@@ -47,6 +47,7 @@ $(function() {
 				return origin.data('tooltip');
 			}
 		});
+
         // Подсказки у иконок действий поверх большой аватары
         $('.b-ava-large_bubble').tooltipster({
             trigger: 'hover',

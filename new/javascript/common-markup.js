@@ -1,6 +1,23 @@
 
 $(function() {
+    // Измененный tag select
+    $(".select2__blue").select2({
+        width: '100%',
+        minimumResultsForSearch: -1,
+        containerCssClass: 'select2__blue',
+        dropdownCssClass: 'select2-drop__1',
+        escapeMarkup: function(m) { return m; }
+    });
 
+    // Измененный tag select c инпутом поиска
+    $(".select2__blue-searchon").select2({
+        width: '100%',
+        containerCssClass: 'select2__blue',
+        dropdownCssClass: 'select2-drop__1',
+        escapeMarkup: function(m) { return m; }
+    });
+
+    // Стандартные подсказки
     $('.powertip, .redactor_toolbar li a, [data-tooltip]').tooltipster({
         trigger: 'hover',
         offsetY: -6,
@@ -16,6 +33,7 @@ $(function() {
         }
     });
 
+    // Подсказки у пкопок около обольшой аватары
     $('.b-ava-large_bubble').tooltipster({
         trigger: 'hover',
         offsetY: -18,
@@ -31,7 +49,7 @@ $(function() {
         }
     });
 
-
+    // Попапы у кнопок
     $('.tooltip-click-b').click(function(){
         var $this = $(this);
         $this.tooltipster({

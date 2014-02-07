@@ -1,0 +1,35 @@
+@selectize-color-dropdown-item-active: #e5f0fe;
+@selectize-color-dropdown-item-active-text: #333;
+
+
+.select-cus__blue,
+.select-cus__blue-searchon {
+
+    &.selectize-control.single .selectize-input {
+        background: #fff;
+        border: none;
+        .border-left-radius(3px);
+        .box-shadow(none);
+    }
+    &.selectize-control.single .selectize-input:after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-top: 0;
+        width: 30px;
+        height: 100%;
+        border-width: 0;
+        background:#d2e6fe url(/new/images/plugins/select-cus_input-after.png) no-repeat 50% 50%;
+    }
+    &.selectize-dropdown.single {
+        background: #fff;
+        border: none;
+        margin-top: 2px;
+        .box-shadow(0 2px 3px rgba(0,0,0,0.15));
+    }
+    .selectize-dropdown {
+        font-size: 12px;
+    }
+}

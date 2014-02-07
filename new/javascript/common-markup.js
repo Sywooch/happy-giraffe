@@ -1,21 +1,27 @@
 
 $(function() {
+    // Измененный tag select c инпутом поиска
+    $('.select-cus__blue-searchon').selectize({
+        create: true/*,
+        dropdownParent: 'body'*/
+    });
     // Измененный tag select
-    $(".select2__blue").select2({
+    $('.select-cus__blue').selectize({
+        create: true,
+        dropdownParent: 'body',
+        onDropdownOpen: function(){
+            // Делает не возможным ввод в input при открытом списке, без autocomplite
+            this.$wrapper.find('input').attr({disabled: 'disabled'})
+        }
+    });
+    /*$(".select2__blue").select2({
         width: '100%',
         minimumResultsForSearch: -1,
         containerCssClass: 'select2__blue',
         dropdownCssClass: 'select2-drop__1',
         escapeMarkup: function(m) { return m; }
-    });
+    });*/
 
-    // Измененный tag select c инпутом поиска
-    $(".select2__blue-searchon").select2({
-        width: '100%',
-        containerCssClass: 'select2__blue',
-        dropdownCssClass: 'select2-drop__1',
-        escapeMarkup: function(m) { return m; }
-    });
 
     // Стандартные подсказки
     $('.powertip, .redactor_toolbar li a, [data-tooltip]').tooltipster({

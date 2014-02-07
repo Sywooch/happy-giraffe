@@ -7,6 +7,7 @@ block layout-wrapper
         .page-col_hold
             .page-col_cont
                 .page-col_top
+                    // до определенного числа без >
                     .page-col_find-count Найдено &gt; 500 000
                     .page-col_t-tx Поиск друзей
                 //- friend-list
@@ -26,69 +27,79 @@ block layout-wrapper
                         .aside-filter_row
                             .aside-filter_t Местоположение
                             .margin-b15
-                                select.select2.select2__blue-searchon(placeholder="Выбор страны")
-                                    // первый option должен быть пустым и без пробелов, для placeholder
-                                    option
-                                    option Россия
-                                    option Беларусь
-                                    option Казахстан
-                                    option 32
-                                    option 32
-                                    option 32
-                                    option Беларусь
-                                    option Казахстан
-                                    option 32
-                                    option 32
-                                    option 32
-                                    option 32
-                                    option 132
-                                    option 132
-                                    option 132
-                            select.select2.select2__blue-searchon(placeholder="Выберите регион")
                                 // первый option должен быть пустым и без пробелов, для placeholder
+                                // у всех option должно быть value
+                                select.select-cus.select-cus__blue-searchon(placeholder="Выбор страны")
+                                    option
+                                    option(value="1") Выбор страны
+                                    option(value="2") Россия
+                                    option(value="3") Беларусь
+                                    option(value="4") Казахстан
+                                    option(value="5") 32
+                                    option(value="6") 32
+                                    option(value="7") 32
+                                    option(value="8") Беларусь
+                                    option(value="9") Казахстан
+                                    option(value="10") 32
+                                    option(value="11") 32
+                                    option(value="12") 32
+                                    option(value="13") 32
+                                    option(value="14") 132
+                                    option(value="15") 132
+                                    option(value="16") 132
+                            // первый option должен быть пустым и без пробелов, для placeholder
+                            select.select-cus.select-cus__blue-searchon(placeholder="Населенный пункт")
                                 option
-                                option Россия
-                                option Беларусь
-                                option Казахстан
-                                option 32
-                                option 32
-                                option 32
-                                option Беларусь
-                                option Казахстан
-                                option 32
-                                option 32
-                                option 32
-                                option 32
-                                option 132
-                                option 132
-                                option 132
+                                option(value="1") Населенный пункт
+                                option(value="2") Россия
+                                option(value="3") Беларусь
+                                option(value="4") Казахстан
+                                option(value="5") 32
+                                option(value="6") 32
+                                option(value="7") 32
+                                option(value="8") Беларусь
+                                option(value="9") Казахстан
+                                option(value="10") 32
+                                option(value="11") 32
+                                option(value="12") 32
+                                option(value="13") 32
+                                option(value="14") 132
+                                option(value="15") 132
+                                option(value="16") 132
                         .aside-filter_row.clearfix
                             .aside-filter_t Возраст
                             .display-ib.w-75
-                                select.select2.select2__blue(placeholder="От")
+                                select.select-cus.select-cus__blue(placeholder="От")
                                     option
-                                    option 1
-                                    option 2
-                                    option 32
-                                    option 32
-                                    option 32
-                                    option 32
-                                    option 132
-                                    option 132
-                                    option 132
+                                    option(value="0") От
+                                    option(value="1") 1
+                                    option(value="2") 2
+                                    option(value="3") 3
+                                    option(value="4") 4
+                                    option(value="5") 5
+                                    option(value="6") 6
+                                    option(value="7") 7
+                                    option(value="8") Беларусь
+                                    option(value="9") Казахстан
+                                    option(value="10") 32
+                                    option(value="11") 32
+                                    option(value="12") 32
+                                    option(value="13") 32
+                                    option(value="14") 132
+                                    option(value="15") 132
+                                    option(value="16") 132
                             .aside-filter_label - 
                             .display-ib.w-75
-                                select.select2.select2__blue(placeholder="До")
+                                select.select-cus.select-cus__blue(placeholder="До")
                                     option
-                                    option 1
-                                    option 2
-                                    option 32
-                                    option 32
-                                    option 32
-                                    option(selected='selected') 32
-                                    option 132
-                                    option 132
-                                    option 132
+                                    option(value="0") До
+                                    option(value="1") 1
+                                    option(value="2") 2
+                                    option(value="3") 3
+                                    option(value="4") 4
+                                    option(value="5") 5
+                                    option(value="6") 6
+                                    option(value="7") 7
                         .aside-filter_row.clearfix
                             .aside-filter_t Пол
                             input#radio3.aside-filter_radio(type='radio', name='b-radio2', checked='checked')
@@ -111,59 +122,55 @@ block layout-wrapper
                                 label.aside-filter_label-radio(for='radio7') срок беременности (недели)
                                 .aside-filter_toggle
                                     .display-ib.w-75
-                                        select.select2.select2__blue(placeholder="С")
+                                        select.select-cus.select-cus__blue(placeholder="С")
                                             option
-                                            option 1
-                                            option 2
-                                            option 32
-                                            option 32
-                                            option 32
-                                            option 32
-                                            option 132
-                                            option 132
-                                            option 132
+                                            option(value="0") С
+                                            option(value="1") 1
+                                            option(value="2") 2
+                                            option(value="3") 3
+                                            option(value="4") 4
+                                            option(value="5") 5
+                                            option(value="6") 6
+                                            option(value="7") 7
                                     .aside-filter_label - 
                                     .display-ib.w-75
-                                        select.select2.select2__blue(placeholder="По")
+                                        select.select-cus.select-cus__blue(placeholder="По")
                                             option
-                                            option 1
-                                            option 2
-                                            option 32
-                                            option 32
-                                            option 32
-                                            option 32
-                                            option 132
-                                            option 132
-                                            option 132
+                                            option(value="0") По
+                                            option(value="1") 1
+                                            option(value="2") 2
+                                            option(value="3") 3
+                                            option(value="4") 4
+                                            option(value="5") 5
+                                            option(value="6") 6
+                                            option(value="7") 7
                             .margin-b10.clearfix
                                 input#radio8.aside-filter_radio(type='radio', name='b-radio3')
                                 label.aside-filter_label-radio(for='radio8') возраст ребенка (лет)
                                 .aside-filter_toggle
                                     .display-ib.w-75
-                                        select.select2.select2__blue(placeholder="От")
+                                        select.select-cus.select-cus__blue(placeholder="От")
                                             option
-                                            option 1
-                                            option 2
-                                            option 32
-                                            option 32
-                                            option 32
-                                            option 32
-                                            option 132
-                                            option 132
-                                            option 132
+                                            option(value="0") От
+                                            option(value="1") 1
+                                            option(value="2") 2
+                                            option(value="3") 3
+                                            option(value="4") 4
+                                            option(value="5") 5
+                                            option(value="6") 6
+                                            option(value="7") 7
                                     .aside-filter_label - 
                                     .display-ib.w-75
-                                        select.select2.select2__blue(placeholder="До")
+                                        select.select-cus.select-cus__blue(placeholder="До")
                                             option
-                                            option 1
-                                            option 2
-                                            option 32
-                                            option 32
-                                            option 32
-                                            option 32
-                                            option 132
-                                            option 132
-                                            option 132
+                                            option(value="0") До
+                                            option(value="1") 1
+                                            option(value="2") 2
+                                            option(value="3") 3
+                                            option(value="4") 4
+                                            option(value="5") 5
+                                            option(value="6") 6
+                                            option(value="7") 7
                             .margin-b10.clearfix
                                 input#radio9.aside-filter_radio(type='radio', name='b-radio3')
                                 label.aside-filter_label-radio(for='radio9') многодетная семья

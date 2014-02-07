@@ -7,6 +7,7 @@
     <!-- including .css--><link rel="stylesheet" type="text/css" href="../../../css/all1.css" />
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
     <!-- including other jade works-->
+    <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
       window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
@@ -20,7 +21,7 @@
     <!-- custom scroll-->
     <script src="/new/javascript/baron.js"></script>
     <!-- custom select-->
-    <script src="/new/javascript/select2.js"></script>
+    <script src="/new/javascript/selectize.js"></script>
     <!-- wisywig-->
     <script src="/new/redactor/redactor.js"></script>
     <!-- Базовый js (вызывается на всех страницах)-->
@@ -170,6 +171,7 @@
             <div class="page-col_hold">
               <div class="page-col_cont">
                 <div class="page-col_top">
+                  <!-- до определенного числа без >-->
                   <div class="page-col_find-count">Найдено &gt; 500 000</div>
                   <div class="page-col_t-tx">Поиск друзей</div>
                 </div>
@@ -228,75 +230,85 @@
                     <div class="aside-filter_row">
                       <div class="aside-filter_t">Местоположение</div>
                       <div class="margin-b15">
-                        <select placeholder="Выбор страны" class="select2 select2__blue-searchon">
-                          <!-- первый option должен быть пустым и без пробелов, для placeholder-->
+                        <!-- первый option должен быть пустым и без пробелов, для placeholder-->
+                        <!-- у всех option должно быть value-->
+                        <select placeholder="Выбор страны" class="select-cus select-cus__blue-searchon">
                           <option></option>
-                          <option>Россия</option>
-                          <option>Беларусь</option>
-                          <option>Казахстан</option>
-                          <option>32</option>
-                          <option>32</option>
-                          <option>32</option>
-                          <option>Беларусь</option>
-                          <option>Казахстан</option>
-                          <option>32</option>
-                          <option>32</option>
-                          <option>32</option>
-                          <option>32</option>
-                          <option>132</option>
-                          <option>132</option>
-                          <option>132</option>
+                          <option value="1">Выбор страны</option>
+                          <option value="2">Россия</option>
+                          <option value="3">Беларусь</option>
+                          <option value="4">Казахстан</option>
+                          <option value="5">32</option>
+                          <option value="6">32</option>
+                          <option value="7">32</option>
+                          <option value="8">Беларусь</option>
+                          <option value="9">Казахстан</option>
+                          <option value="10">32</option>
+                          <option value="11">32</option>
+                          <option value="12">32</option>
+                          <option value="13">32</option>
+                          <option value="14">132</option>
+                          <option value="15">132</option>
+                          <option value="16">132</option>
                         </select>
                       </div>
-                      <select placeholder="Выберите регион" class="select2 select2__blue-searchon">
-                        <!-- первый option должен быть пустым и без пробелов, для placeholder-->
+                      <!-- первый option должен быть пустым и без пробелов, для placeholder-->
+                      <select placeholder="Населенный пункт" class="select-cus select-cus__blue-searchon">
                         <option></option>
-                        <option>Россия</option>
-                        <option>Беларусь</option>
-                        <option>Казахстан</option>
-                        <option>32</option>
-                        <option>32</option>
-                        <option>32</option>
-                        <option>Беларусь</option>
-                        <option>Казахстан</option>
-                        <option>32</option>
-                        <option>32</option>
-                        <option>32</option>
-                        <option>32</option>
-                        <option>132</option>
-                        <option>132</option>
-                        <option>132</option>
+                        <option value="1">Населенный пункт</option>
+                        <option value="2">Россия</option>
+                        <option value="3">Беларусь</option>
+                        <option value="4">Казахстан</option>
+                        <option value="5">32</option>
+                        <option value="6">32</option>
+                        <option value="7">32</option>
+                        <option value="8">Беларусь</option>
+                        <option value="9">Казахстан</option>
+                        <option value="10">32</option>
+                        <option value="11">32</option>
+                        <option value="12">32</option>
+                        <option value="13">32</option>
+                        <option value="14">132</option>
+                        <option value="15">132</option>
+                        <option value="16">132</option>
                       </select>
                     </div>
                     <div class="aside-filter_row clearfix">
                       <div class="aside-filter_t">Возраст</div>
                       <div class="display-ib w-75">
-                        <select placeholder="От" class="select2 select2__blue">
+                        <select placeholder="От" class="select-cus select-cus__blue">
                           <option></option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>32</option>
-                          <option>32</option>
-                          <option>32</option>
-                          <option>32</option>
-                          <option>132</option>
-                          <option>132</option>
-                          <option>132</option>
+                          <option value="0">От</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">Беларусь</option>
+                          <option value="9">Казахстан</option>
+                          <option value="10">32</option>
+                          <option value="11">32</option>
+                          <option value="12">32</option>
+                          <option value="13">32</option>
+                          <option value="14">132</option>
+                          <option value="15">132</option>
+                          <option value="16">132</option>
                         </select>
                       </div>
                       <div class="aside-filter_label">- </div>
                       <div class="display-ib w-75">
-                        <select placeholder="До" class="select2 select2__blue">
+                        <select placeholder="До" class="select-cus select-cus__blue">
                           <option></option>
-                          <option>1</option>
-                          <option>2</option>
-                          <option>32</option>
-                          <option>32</option>
-                          <option>32</option>
-                          <option selected="selected">32</option>
-                          <option>132</option>
-                          <option>132</option>
-                          <option>132</option>
+                          <option value="0">До</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
                         </select>
                       </div>
                     </div>
@@ -321,32 +333,30 @@
                         <label for="radio7" class="aside-filter_label-radio">срок беременности (недели)</label>
                         <div class="aside-filter_toggle">
                           <div class="display-ib w-75">
-                            <select placeholder="С" class="select2 select2__blue">
+                            <select placeholder="С" class="select-cus select-cus__blue">
                               <option></option>
-                              <option>1</option>
-                              <option>2</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>132</option>
-                              <option>132</option>
-                              <option>132</option>
+                              <option value="0">С</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
                             </select>
                           </div>
                           <div class="aside-filter_label">- </div>
                           <div class="display-ib w-75">
-                            <select placeholder="По" class="select2 select2__blue">
+                            <select placeholder="По" class="select-cus select-cus__blue">
                               <option></option>
-                              <option>1</option>
-                              <option>2</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>132</option>
-                              <option>132</option>
-                              <option>132</option>
+                              <option value="0">По</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
                             </select>
                           </div>
                         </div>
@@ -356,32 +366,30 @@
                         <label for="radio8" class="aside-filter_label-radio">возраст ребенка (лет)</label>
                         <div class="aside-filter_toggle">
                           <div class="display-ib w-75">
-                            <select placeholder="От" class="select2 select2__blue">
+                            <select placeholder="От" class="select-cus select-cus__blue">
                               <option></option>
-                              <option>1</option>
-                              <option>2</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>132</option>
-                              <option>132</option>
-                              <option>132</option>
+                              <option value="0">От</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
                             </select>
                           </div>
                           <div class="aside-filter_label">- </div>
                           <div class="display-ib w-75">
-                            <select placeholder="До" class="select2 select2__blue">
+                            <select placeholder="До" class="select-cus select-cus__blue">
                               <option></option>
-                              <option>1</option>
-                              <option>2</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>32</option>
-                              <option>132</option>
-                              <option>132</option>
-                              <option>132</option>
+                              <option value="0">До</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
                             </select>
                           </div>
                         </div>

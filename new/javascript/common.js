@@ -1,13 +1,3 @@
-$(document).on('show', '.im-user-list_i', function(event) {
-	if(event.target == this) {
-		//console.log('show', event.target);
-	}
-}).on('hide', '.im-user-list_i', function(event) {
-	if(event.target == this) {
-		//console.log('hide', event.target);
-	}
-});
-
 function addBaron(el) {
     $(el).each(function() {
         if (this.baron) {
@@ -43,7 +33,6 @@ $(function() {
 	$(document).on('koUpdate', function(event, elements) {
 		var self = event.target;
 		addBaron('.scroll');
-		//console.log($('.powertip, .redactor_toolbar li a', self).attr('title'));
 		$('.powertip, .redactor_toolbar li a, [data-tooltip]', self).tooltipster({
 			trigger: 'hover',
 			offsetY: -6,
@@ -58,6 +47,23 @@ $(function() {
 				return origin.data('tooltip');
 			}
 		});
+
+        // Подсказки у иконок действий поверх большой аватары
+        $('.b-ava-large_bubble').tooltipster({
+            trigger: 'hover',
+            offsetY: -18,
+            delay: 200,
+            maxWidth: 200,
+            arrowColor: '#5C4B86',
+            onlyOne: false,
+            touchDevices: false,
+            theme: '.tooltipster-default',
+            functionReady: function(origin, continueTooltip) {},
+            functionInit: function(origin, content) {
+                return origin.data('tooltip');
+            }
+        });
+        
 		$('.tooltip-click-b', self).tooltipster({
 			trigger: 'click',
 			delay: 0,
@@ -76,42 +82,10 @@ $(function() {
 		});
 		
 	});
+    
 	$(document).on('koElementAdded', function(event) {
 		event.target;
 	});
-	
-	    // tooltip
-/*    $('.no-touch .powertip, .no-touch .redactor_toolbar li a, .mfp-close').tooltipster({
-        trigger: 'hover',
-        offsetY: -6,
-        delay: 200,
-        maxWidth: 200,
-        arrowColor: '#5C4B86',
-        onlyOne: false,
-        touchDevices: true,
-        theme: '.tooltipster-default',
-        functionReady: function(origin, continueTooltip) {}
-    });*/
-
-    // tooltip
-    // попап у иконки
-    /*$('.tooltip-click-b').tooltipster({
-        trigger: 'click',
-        delay: 0,
-        onlyOne: false,
-        touchDevices: true,
-        interactive: true,
-        interactiveAutoClose: false,
-        theme: '.tooltipster-white',
-        position: 'bottom',
-        functionBefore: function(origin, continueTooltip) {
-            $('.tooltip-click-b').tooltipster('hide');
-            var d = $(origin.context).find(' .tooltip-drop').html();
-            console.log(origin.context.className);
-            origin.tooltipster('update', d);
-            continueTooltip(d);
-        }
-    });*/
 
     $('.popup-a').magnificPopup({
         type: 'inline',
@@ -129,6 +103,23 @@ $(function() {
                 $('html').removeClass('mfp-html');
             }
         }
+    });
+
+    $(document).on('click', '.tooltip-click-b', function() {
+        var $this = $(this);
+        $this.tooltipster({
+            trigger: 'click',
+            delay: 0,
+            onlyOne: false,
+            touchDevices: true,
+            interactive: true,
+            interactiveAutoClose: false,
+            theme: '.tooltipster-white',
+            position: 'bottom',
+            content: $this.find(' .tooltip-popup')
+        });
+
+        $this.tooltipster('show');
     });
 
     $.fn.wysiwygHG = function() {

@@ -387,11 +387,13 @@ MessagingThread.prototype = {
 					if (obj.id == result.dialog.id) {
 						var message = new MessagingMessage(result.message, obj);
 						// Добавим сообщение в диалог
-                        if(self.scrollManager.scrollBot <= 40) {
-                            self.scrollManager.setFix('bot');
+                        if(obj.scrollManager.scrollBot <= 40) {
+                            obj.scrollManager.setFix('bot');
+                        } else {
+                            obj.scrollManager.setFix('top');
                         }
-						obj.messages.push(message);
-                        self.scrollManager.setFix();
+                        obj.messages.push(message);
+                        obj.scrollManager.setFix();
 						// Обновим дату контакта и счётчик
 						obj.user.date(message.created);
                         // Прокрутим к новому сообщению
@@ -445,8 +447,9 @@ MessagingThread.prototype = {
 		if (!thread) {
 			thread = new MessagingThread(user.viewModel.me, user);
 		}
+        thread.scrollManager.setFix('bot');
 		Messaging.prototype.currentThread(thread);
-		thread.opened();
+        thread.scrollManager.setFix();
 	}
 };
 
@@ -482,7 +485,7 @@ function MessagingThread(me, user) {
             toolbarExternal: '.redactor-control_toolbar',
             buttons: ['b'],
             plugins: ['imageCustom', 'smilesModal', 'videoModal'],
-            comments: true
+            comments: true,
         },
         callbacks: {
             init : [
@@ -493,6 +496,7 @@ function MessagingThread(me, user) {
             change : [
                 function() {
                     im.renew();
+                    self.scrollManager.setFix();
                 }
             ],
             keydown : [
@@ -503,6 +507,7 @@ function MessagingThread(me, user) {
                     } else {
                         self.typing();
                     }
+                    self.scrollManager.setFix('bot');
                 }
             ]
         }
@@ -520,7 +525,7 @@ function MessagingThread(me, user) {
 	
     self.firstUnreadMessage = ko.computed(function() {
         return ko.utils.arrayFirst(self.messages(), function(message) {
-            return !message.dtimeRead() && message.isMy;
+            return !message.dtimeRead() && !message.isMy;
         });
     });
 	
@@ -644,30 +649,21 @@ function MessagingThread(me, user) {
 				}).concat(self.messages()));
 				self.loadingMessages(false);
                 // таймер - это костыль, т.к. иначе передёргивает. Причину не нашёл.
-                setTimeout(function() { self.scrollManager.setFix(); }, 100);
+                setTimeout(function() {
+                    self.scrollManager.setFix();
+                    // Выставим скролл
+                    if (isFirst) { // если первая загрузка
+                        var firstUnread = self.firstUnreadMessage();
+                        if (firstUnread) {
+                            self.scrollManager.scrollTo(firstUnread);
+                        }
+                    }
+                }, 100);
 
                 if (response.last)
 					self.fullyLoaded(true);
-
-                // Выставим скролл
-				if(isFirst) { // если первая загрузка
-					var firstUnread = self.firstUnreadMessage();
-                    if(firstUnread) {
-                        self.scrollManager.scrollTo(firstUnread);
-                    }
-				}
 			}, 'json');
 		}
-	};
-	self.opened = function() {
-		/*var jScroller = $(scroller);
-		var firstUnread = jScroller.find('.im-message.im-message__new:eq(0)');
-		if(firstUnread.length > 0) { // если есть непрочитанные сообщения
-			jScroller.scrollTo(firstUnread, 0); // докрутим до непочитанного сообщения
-		} else {
-			jScroller.scrollTo('max', 0); // прокрутим в конец
-		}*/
-        self.scrollManager.scrollTo('bottom');
 	};
 
 	// Текст конструктора

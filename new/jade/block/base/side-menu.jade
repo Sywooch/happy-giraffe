@@ -48,8 +48,8 @@ mixin side-menu__friend(mod)
         .side-menu_hold
             .side-menu_t.side-menu_t__friends
             ul.side-menu_ul
-                li.side-menu_li
-                    a.side-menu_i.side-menu_i__find(href="")
+                li.side-menu_li.side-menu_li__find
+                    a.side-menu_i(href="")
                         span.side-menu_i-hold
                             span.side-menu_ico.side-menu_ico__find
                             span.side-menu_tx Найти друзей
@@ -66,19 +66,20 @@ mixin side-menu__friend(mod)
                             span.side-menu_tx Кто онлайн
                             span.side-menu_count-sub 59
                         span.verticalalign-m-help
-                li.side-menu_li
+                li.side-menu_li.disabled
                     a.side-menu_i(href="")
                         span.side-menu_i-hold
-                            span.side-menu_ico.side-menu_ico__friends-new
+                            span.side-menu_ico.side-menu_ico__friend-new
                             span.side-menu_tx Новые друзья
-                            span.side-menu_count 1
+                            // или пустой или без .side-menu_count-sub 
+                            span.side-menu_count-sub 
                         span.verticalalign-m-help
-                li.side-menu_li.disabled
+                li.side-menu_li
                     a.side-menu_i(href="")
                         span.side-menu_i-hold
                             span.side-menu_ico.side-menu_ico__friend-add
                             span.side-menu_tx Давай дружить
-                            span.side-menu_count-sub 456
+                            span.side-menu_count 1
                         span.verticalalign-m-help
     // /side-menu
 

@@ -88,11 +88,13 @@ mixin b-control(mod, items)
     mod
     vars
         imgMod
+        txTop
+        txTopMod
         t
         tMod
         tx
         txMod
-        txSsub
+        txSub
         txSubMod
         topAbsMsg
         topAbsMsgMod
@@ -106,6 +108,8 @@ mixin cap-empty(mod, vars)
         else 
             .cap-empty_hold
                 .cap-empty_img(class=vars.imgMod)
+                - if (vars.txTop)
+                    .cap-empty_tx-top(class=vars.txTopMod)!= vars.txTop
                 - if (vars.t)
                     .cap-empty_t(class=vars.tMod)!= vars.t
                 - if (vars.tx)
@@ -157,6 +161,36 @@ mixin b-user(mod,vars)
                 a.b-user_view 123
                 a.b-user_check 123
                 a.b-user_del 123
-
+//- Кнопка пролистывания страницы вверх к началу
 mixin btn-scrolltop()
     .btn-scrolltop(onclick="$('html, body').animate({scrollTop:0}, 'normal')")
+
+
+//- sidebar_search
+//- Форма поиска из сайдбара
+    mod
+    vars
+mixin sidebar-search(mod, vars)
+    .sidebar-search.clearfix
+        input.sidebar-search_itx(type='text', name='', placeholder=vars.placeholder)
+        // При начале ввода добавить класс .active на кнопку
+        button.sidebar-search_btn
+
+//-
+    Табы в заглавии страницы
+    mod
+    vars
+        tabActive - номер активной вкладки
+        tabTexts - Текст таба
+mixin page-col_top-tabs(mod, vars)
+    .page-col_top.page-col_top__gray
+        ul.page-col_tabs
+            - for item, i in vars.tabsTexts
+                if (vars.tabActive == i)
+                    li.page-col_tab.active
+                        a.page-col_tab-a 
+                            != item
+                else 
+                    li.page-col_tab
+                        a.page-col_tab-a 
+                            != item

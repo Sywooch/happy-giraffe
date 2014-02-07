@@ -192,6 +192,7 @@
                     <!-- im-panel-->
                     <div class="im-panel">
                         <div class="im-panel_actions">
+                            <!--
                             <div class="im-panel_ico-hold tooltip-click-b">
                                 <span class="im-panel_ico im-panel_ico__del powertip" title="Удалить диалог" href=""></span>
                                 <div class="tooltip-drop">
@@ -226,6 +227,7 @@
                                     </div>
                                 </div>
                             </div>
+                            -->
                         </div>
                         <div class="im-panel_user clearfix">
                             <a class="ava ava__middle ava__female" data-bind="attr: { href : user.profileUrl }" target="_blank"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a>

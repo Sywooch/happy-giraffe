@@ -79,7 +79,7 @@ class StatsManager
         $period = new DatePeriod($start, new DateInterval('PT1H'), $end);
 
         $sql = "
-            SELECT CONCAT(DATE(p.created), ' ', HOUR(p.created), ':00:00') AS date, COUNT(*) AS count
+            SELECT DATE_FORMAT(p.created, '%Y-%m-%d %H:00:00') AS date, COUNT(*) AS count
             FROM community__contents p
             JOIN community__rubrics r ON r.id = p.rubric_id
             JOIN users u ON u.id = p.author_id
@@ -89,33 +89,33 @@ class StatsManager
         $blogPosts = self::getAssociativeArray($sql);
 
         $sql = "
-            SELECT CONCAT(DATE(p.created), ' ', HOUR(p.created), ':00:00') AS date, COUNT(*) AS count
+            SELECT DATE_FORMAT(p.created, '%Y-%m-%d %H:00:00') AS date, COUNT(*) AS count
             FROM community__contents p
             JOIN community__rubrics r ON r.id = p.rubric_id
             JOIN users u ON u.id = p.author_id
-            WHERE p.created > DATE_SUB(CURDATE(), INTERVAL 2 WEEK) AND u.group = 0 AND r.community_id IS NOT NULL AND p.created < NOW()
+            WHERE p.created > DATE_SUB(CURDATE(), INTERVAL 2 DAY) AND u.group = 0 AND r.community_id IS NOT NULL AND p.created < NOW()
             GROUP BY YEAR(p.created), MONTH(p.created), DAY(p.created), HOUR(p.created);
         ";
         $communityPosts = self::getAssociativeArray($sql);
 
         $sql = "
-            SELECT CONCAT(DATE(c.created), ' ', HOUR(c.created), ':00:00') AS date, COUNT(*) AS count
+            SELECT DATE_FORMAT(c.created, '%Y-%m-%d %H:00:00') AS date, COUNT(*) AS count
             FROM comments c
             JOIN community__contents p ON c.entity_id = p.id AND (c.entity = 'BlogContent' OR c.entity = 'CommunityContent')
             JOIN community__rubrics r ON r.id = p.rubric_id
             JOIN users u ON u.id = c.author_id
-            WHERE c.created > DATE_SUB(CURDATE(), INTERVAL 2 WEEK) AND u.group = 0 AND r.user_id IS NOT NULL
+            WHERE c.created > DATE_SUB(CURDATE(), INTERVAL 2 DAY) AND u.group = 0 AND r.user_id IS NOT NULL
             GROUP BY YEAR(c.created), MONTH(c.created), DAY(c.created), HOUR(c.created);
         ";
         $blogComments = self::getAssociativeArray($sql);
 
         $sql = "
-            SELECT CONCAT(DATE(c.created), ' ', HOUR(c.created), ':00:00') AS date, COUNT(*) AS count
+            SELECT DATE_FORMAT(c.created, '%Y-%m-%d %H:00:00') AS date, COUNT(*) AS count
             FROM comments c
             JOIN community__contents p ON c.entity_id = p.id AND (c.entity = 'BlogContent' OR c.entity = 'CommunityContent')
             JOIN community__rubrics r ON r.id = p.rubric_id
             JOIN users u ON u.id = c.author_id
-            WHERE c.created > DATE_SUB(CURDATE(), INTERVAL 2 WEEK) AND u.group = 0 AND r.community_id IS NOT NULL
+            WHERE c.created > DATE_SUB(CURDATE(), INTERVAL 2 DAY) AND u.group = 0 AND r.community_id IS NOT NULL
             GROUP BY YEAR(c.created), MONTH(c.created), DAY(c.created), HOUR(c.created);
         ";
         $communityComments = self::getAssociativeArray($sql);

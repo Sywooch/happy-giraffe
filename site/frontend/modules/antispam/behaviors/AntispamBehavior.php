@@ -76,4 +76,35 @@ class AntispamBehavior extends CActiveRecordBehavior
         $validators = $owner->getValidatorList();
         $validators->add(CValidator::createValidator('SpamStatusValidator', $owner, 'author_id'));
     }
+
+    public function report()
+    {
+        $prev = CActiveRecord::model(get_class($this->owner))->findAll(array(
+            'limit' => 3,
+            'condition' => 't.id < :current_id',
+            'params' => array(':current_id' => $this->owner->id),
+            'order' => 't.id DESC',
+        ));
+
+        $next = CActiveRecord::model(get_class($this->owner))->findAll(array(
+            'limit' => 3,
+            'condition' => 't.id < :current_id',
+            'params' => array(':current_id' => $this->owner->id),
+            'order' => 't.id DESC',
+        ));
+
+        $models = CMap::mergeArray(array($this->owner), $prev, $next);
+        foreach ($models as $m)
+            $m->antispam->createCheck();
+
+        $report = new AntispamReportAbuse();
+        $report->user_id = $this->owner->author_id;
+        $report->type = AntispamReport::TYPE_ABUSE;
+        $reportData = new AntispamReportAbuseData();
+        $reportData->entity = get_class($this->owner);
+        $reportData->entity_id = $this->owner->id;
+
+        $report->data = $reportData;
+        $report->withRelated->save(true, array('data'));
+    }
 }

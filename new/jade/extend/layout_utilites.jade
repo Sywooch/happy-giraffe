@@ -1,0 +1,11 @@
+include ../block/config
+doctype 5
+html.no-js
+    +head(path)
+    body.body.body__white
+        .layout-container
+            .layout-header
+                +header__small('', {empty: true})
+            .layout-wrapper
+                .layout-wrapper_frame.clearfix
+                    block layout-wrapper

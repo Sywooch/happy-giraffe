@@ -1,0 +1,17 @@
+﻿include ../../block/config
+extend ../../extend/layout_utilites
+
+block layout-wrapper
+    .layout-content.clearfix
+        .content-cols.clearfix
+            .utilites-error
+                .utilites-error_hold
+                    .utilites-error_404
+                    .utilites-error_title
+                        | Извините, страница не существует
+                    .utilites-error_sub-tx или была удалена
+                    a.btn-arrow.btn-arrow__next.btn-l.btn-green-simple(href='http://www.happy-giraffe.ru/')
+                        span.btn-arrow_ico
+                            i.ico-arrow-r
+                        span.btn-arrow_tx На главную страницу
+

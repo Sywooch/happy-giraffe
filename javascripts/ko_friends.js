@@ -238,21 +238,30 @@ function IncomingFriendRequest(data, parent) {
 
     self.fromId = ko.observable(data.fromId);
     self.removed = ko.observable(false);
+    self.accepted = ko.observable(false);
     self.userIsVisible = ko.observable(true);
 
     self.accept = function() {
         $.post('/friends/requests/accept/', { requestId : self.id }, function(response) {
             if (response.success) {
-                parent.friendsRequests.remove(self);
+                //parent.friendsRequests.remove(self);
+                self.accepted(true);
+                setTimeout(function () {
+                    if (self.accepted()) {
+                        self.userIsVisible(false);
+                        //parent.friendsRequests.remove(self);
+                    }
+                }, 2000);
                 parent.friendsCount(parent.friendsCount() + 1);
                 parent.friendsNewCount(parent.friendsNewCount() + 1);
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
                 if (self.user.online)
                     parent.friendsOnlineCount(parent.friendsOnlineCount() + 1);
 
-                console.log(parent.incomingRequestsCount());
                 if (parent.incomingRequestsCount() == 0)
                     parent.selectTab(0);
+                
+                
             }
         }, 'json');
     }
@@ -263,8 +272,10 @@ function IncomingFriendRequest(data, parent) {
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
                 self.removed(true);
                 setTimeout(function () {
-                    if (self.removed())
+                    if (self.removed()) {
                         self.userIsVisible(false);
+                        //parent.friendsRequests.remove(self);
+                    }
                 }, 2000);
             }
         }, 'json');

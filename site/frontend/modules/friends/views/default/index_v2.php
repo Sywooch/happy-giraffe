@@ -21,7 +21,7 @@
             <!-- ko if: ! (templateForeach().length == 0 && loading() === false) -->
             <div class="friends-list">
                 <div class="friends-list_ul">
-                    <!-- ko template: { name : 'request-template', foreach : templateForeach } -->
+                    <!-- ko template: { name : templateName, foreach : templateForeach } -->
                     <!-- /ko -->
                 </div>
             </div>
@@ -38,3 +38,4 @@
 </script>
 
 <?php $this->renderPartial('/_userCard'); ?>
+<?php $this->renderPartial('/_userRequestCard'); ?>

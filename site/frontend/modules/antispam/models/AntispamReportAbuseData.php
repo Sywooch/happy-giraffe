@@ -8,6 +8,9 @@
  * @property string $report_id
  * @property string $entity
  * @property string $entity_id
+ *
+ * The followings are the available model relations:
+ * @property AntispamReport $report
  */
 class AntispamReportAbuseData extends CActiveRecord
 {
@@ -27,7 +30,7 @@ class AntispamReportAbuseData extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('report_id, entity_id', 'required'),
+			array('entity_id', 'required'),
 			array('report_id, entity_id', 'length', 'max'=>11),
 			array('entity', 'length', 'max'=>255),
 			// The following rule is used by search().
@@ -44,6 +47,7 @@ class AntispamReportAbuseData extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+            'report' => array(self::BELONGS_TO, 'AntispamReport', 'report_id'),
 		);
 	}
 

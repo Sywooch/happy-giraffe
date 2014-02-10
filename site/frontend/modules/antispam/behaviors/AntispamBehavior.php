@@ -52,11 +52,13 @@ class AntispamBehavior extends CActiveRecordBehavior
 
     protected function createCheck()
     {
-        $check = new AntispamCheck();
-        $check->entity = get_class($this->owner);
-        $check->entity_id = $this->owner->id;
-        $check->user_id = Yii::app()->user->id;
-        $check->save();
+        try {
+            $check = new AntispamCheck();
+            $check->entity = get_class($this->owner);
+            $check->entity_id = $this->owner->id;
+            $check->user_id = $this->owner->author_id;
+            $check->save();
+        } catch (CDbException $e) {}
     }
 
     protected function limitExceed()
@@ -81,15 +83,15 @@ class AntispamBehavior extends CActiveRecordBehavior
     {
         $prev = CActiveRecord::model(get_class($this->owner))->findAll(array(
             'limit' => 3,
-            'condition' => 't.id < :current_id',
-            'params' => array(':current_id' => $this->owner->id),
+            'condition' => 't.id < :current_id AND t.author_id = :author_id',
+            'params' => array(':current_id' => $this->owner->id, ':author_id' => $this->owner->author_id),
             'order' => 't.id DESC',
         ));
 
         $next = CActiveRecord::model(get_class($this->owner))->findAll(array(
             'limit' => 3,
-            'condition' => 't.id < :current_id',
-            'params' => array(':current_id' => $this->owner->id),
+            'condition' => 't.id < :current_id AND t.author_id = :author_id',
+            'params' => array(':current_id' => $this->owner->id, ':author_id' => $this->owner->author_id),
             'order' => 't.id DESC',
         ));
 
@@ -105,6 +107,6 @@ class AntispamBehavior extends CActiveRecordBehavior
         $reportData->entity_id = $this->owner->id;
 
         $report->data = $reportData;
-        $report->withRelated->save(true, array('data'));
+        return $report->withRelated->save(true, array('data'));
     }
 }

@@ -13,6 +13,8 @@ class m140207_130139_abuse extends CDbMigration
               PRIMARY KEY (`id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
         ");
+        $this->execute("ALTER TABLE `antispam__report_abuse_data` ADD INDEX (`report_id`);");
+        $this->execute("ALTER TABLE `antispam__report_abuse_data` ADD FOREIGN KEY (`report_id`) REFERENCES `antispam__report` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;");
 	}
 
 	public function down()

@@ -1,0 +1,89 @@
+.aside-filter {
+	background-color: #99c7ff;
+	.border-right-radius(10px);
+	
+	.sidebar-search_itx,
+	.sidebar-search_itx:focus {
+		border-color: transparent;
+	}
+	&_top {
+		background: #94c1f7;
+		height: 57px;
+		border-top-right-radius: 10px;
+	}
+	&_hold {
+		padding: 5px 20px 15px;
+	}
+	&_sepor {
+		display: block;
+		height: 0;
+		border: 1px solid #8cbffd;
+		border-bottom-color: #8cbffd;
+		border-width: 1px 0 0;
+		margin: 15px 0 5px;
+	}
+	&_t {
+		display: block;
+		margin: 10px 0 10px;
+		font-size: 15px;
+		color: #fff;
+	}
+	&_radio {display: none;}
+	.ie7 &_radio,
+	.ie8 &_radio {
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+		padding: 0;
+		margin: 0 5px 0 0;
+	}
+	&_radio:checked + &_label-radio {
+		color: #4b6789;
+		background-position: 0 -100px;
+	}
+	&_radio:checked + &_label-radio .ico-male,
+	&_radio:checked + &_label-radio .ico-female {background-position: 0 -100px;}
+	&_radio:checked ~ &_toggle {height: 30px;margin-top: 10px;overflow: visible;}
+	&_label-radio {
+		.inline-block();
+		vertical-align: top;
+		margin-right: 15px;
+		color: #6b8bb3;
+		padding-left: 24px;
+		background: url(/images/input-radio.png) no-repeat;
+		min-height: 18px;
+		line-height: 19px;
+		cursor: pointer;
+	}
+	.ie7 &_label-radio,
+	.ie8 &_label-radio {padding-left: 0;background: none;}
+	&_label-radio:hover {color: #4b6789;}
+	&_label-radio .ico-male,
+	&_label-radio .ico-female {
+		position: relative;
+		top: -5px;
+	}
+	&_label-radio__checkbox {background: url(/images/input-checkbox.png) no-repeat;}
+	&_label {
+		.inline-block();
+		vertical-align: middle;
+		color: #6b8bb3;
+		margin:0 3px;
+	}
+	&_toggle {
+		position: relative;
+		overflow: hidden;
+		height: 0;
+		-webkit-transition: all .5s ease;
+		-o-transition: all .5s ease;
+		-moz-transition: all .5s ease;
+		transition: all .5s ease;
+	}
+	.ie7 &_toggle,
+	.ie8 &_toggle {
+		height: auto;
+		overflow: visible;
+		padding: 5px 0;
+	}
+
+}

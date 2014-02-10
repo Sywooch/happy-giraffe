@@ -359,6 +359,13 @@ function MessagingMessage(model, thread) {
 		}
 	};
 
+    self.reported = ko.observable(false);
+    self.report = function() {
+        $.post('/ajax/report/', { entity : 'MessagingMessage', entity_id : self.id }, function() {
+            self.reported(true);
+        }, 'json');
+    }
+
 	// Текст конструктора
 	ko.utils.arrayForEach(MessagingUser.prototype.objects, function(user) {
 		if (user.id == model.from_id)

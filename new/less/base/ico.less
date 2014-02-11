@@ -1,0 +1,199 @@
+/* ico */
+.ico-status {
+    .inline-block();
+    width: 12px;
+    height: 12px;
+    position: relative;
+    z-index: 1;
+    top: 2px;
+    margin-right: 2px;
+    .border-radius(6px);
+
+    &__online  {background: #0fc612;}
+    &__offline {background: #b8b8b8;}
+}
+.ico-cancel {
+    .inline-block();
+    vertical-align: middle;
+    width: 22px;
+    height: 22px;
+    font-size: 18px;
+    line-height: 19px;
+    text-align: center;
+    text-decoration: none;
+    background: #e74c3c;
+    color: #fff;
+    .border-radius(12px);
+    // background: url(/new/images/ico/ico-cancel.png) no-repeat;
+
+    &:hover {background: #d83e32;}
+}
+.ico-loader {
+    .inline-block();
+    vertical-align: middle;
+    margin: 0 5px 0;
+}
+.ico-close {
+    .inline-block();
+    width: 9px;
+    height: 9px;
+    cursor: pointer;
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MzNFNzE2RUFBQjg4MTFFMjkxQzhFODBFNUMxNEM0MDQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MzNFNzE2RUJBQjg4MTFFMjkxQzhFODBFNUMxNEM0MDQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDozM0U3MTZFOEFCODgxMUUyOTFDOEU4MEU1QzE0QzQwNCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDozM0U3MTZFOUFCODgxMUUyOTFDOEU4MEU1QzE0QzQwNCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PvaJvzUAAACqSURBVHjaTNA9DgFBGIfx2c00InSiV3MAEZ3KDbYSShKFS+glrK9GpeACglYicQNH0KpE4XmT/8RM8psp5snOm03Wh7zmnJuhj5f7rwQLnD1bG11c0FFowRYDlFO2HUZoKKxGwRE9r0/nOud4oqQgwzeNZljhpuCNsQV2ESI7N2jhgSJOqITLEIQZmhiijquFNtMkCjI9sdQL9gv2XkMXMA0zaFn4wf0nwABS7yOsttJjhAAAAABJRU5ErkJggg==);
+}
+.ico-close:hover {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDFDMDZDOTZCRTEwMTFFMkE3NUU5NDgxM0UwNTBGREIiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RDFDMDZDOTdCRTEwMTFFMkE3NUU5NDgxM0UwNTBGREIiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpEMUMwNkM5NEJFMTAxMUUyQTc1RTk0ODEzRTA1MEZEQiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpEMUMwNkM5NUJFMTAxMUUyQTc1RTk0ODEzRTA1MEZEQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PjSksA8AAACrSURBVHjaZNCtCgJBFIbh2WXiXoZgsFhtFpuIxbBgVYNFm6hFFEQQ9gb8CdZFMRis3ozJLMiivgPfwKIHninznTM/QbaMEmPMCTfzXwM8QpYIVzRymwFc8xpPy9LDB0d0cMAOMdpIXeitYIYthigqlLqxVuPdpD7KqGDsA67C3D2mCtwxQfU3tMBMEwp66QU1f9wcI3SxUVMTe5xRt+ps6a98vfSyFUpfAQYAZqghrnoyNeUAAAAASUVORK5CYII=);
+}
+.ico-close2 {
+    .inline-block();
+    
+    width: 0.7em;
+    height: 0.7em;
+    line-height: 0.7em;
+    font-size: 24px;
+    font-family: Tahoma, Arial, Verdana, sans-serif;
+    cursor: pointer;
+    color: #a9b0b7;
+    .transition(all 300ms);
+    /*background: url(/images/ico/ico-close2.png) no-repeat;*/
+    &:before {
+        content:'×';
+        position: relative;
+        top: -2px;
+    }
+    &:hover {
+        color: #4b4d4f;
+        .rotate(90deg);
+    }
+}
+/*.ico-close2:hover {background: url(/images/ico/ico-close2-hover.png) no-repeat;}*/
+.ico-close3 {
+    .inline-block();
+    width: 11px;
+    height: 11px;
+    background: url(/images/ico/ico-close3.png) no-repeat;
+    cursor: pointer;
+}
+.ico-close3:hover {background-position: 0 -11px;}
+.ico-update {
+    .inline-block();
+    vertical-align: middle;
+    width: 16px;
+    height: 16px;
+    background: url(/new/images/ico/ico-update.png) no-repeat;
+}
+.ico-check {
+    .inline-block();
+    width: 20px;
+    height: 18px;
+    .img-retina('/new/images/ico/ico-check.png'; '/new/images/ico/ico-check-2x.png'; 35px; 18px);
+}
+.ico-del {
+    .inline-block();
+    width: 18px;
+    height: 18px;
+    .img-retina('/new/images/ico/ico-del.png'; '/new/images/ico/ico-del-2x.png'; 18px; 18px);
+}
+.ico-question {
+    .inline-block();
+    width: 14px;
+    height: 18px;
+    .img-retina('/new/images/ico/ico-question.png'; '/new/images/ico/ico-question-2x.png'; 18px; 14px);
+}
+.ico-btn-check {
+    .inline-block();
+    vertical-align: middle;
+    width: 11px;
+    height: 11px;
+    margin-right: 4px;
+    .img-retina('/new/images/ico/ico-btn-check.png'; '/new/images/ico/ico-btn-check-2x.png'; 11px; 11px);
+}
+.ico-btn-del {
+    .inline-block();
+    vertical-align: middle;
+    width: 11px;
+    height: 11px;
+    margin-right: 4px;
+    .img-retina('/new/images/ico/ico-btn-del.png'; '/new/images/ico/ico-btn-del-2x.png'; 11px; 11px);
+}
+.ico-btn-empty {
+    .inline-block();
+    vertical-align: middle;
+    width: 11px;
+    height: 11px;
+    margin-right: 4px;
+}
+.ico-arrow-r {
+    .inline-block();
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    background: url(/new/images/ico/ico-arrow-r.png) no-repeat;
+}
+.ico-family {
+    .inline-block();
+    width: 55px;
+    height: 55px;
+    background: url(/images/ico/ico-family.png) no-repeat 0 -605px;
+
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+    only screen and (min-resolution: 144dpi) {
+        & {
+            background:url(/images/ico-family2x.png) no-repeat 0 -605px;
+            background-size: 220px;
+        }
+    }
+
+    &__baby-plan     {background-position: 0 -605px;}
+    &__baby          {background-position: 0 0;}
+    &__baby-two      {background-position: -55px 0;}
+    &__boy-wait      {background-position: 0 -55px;}
+    &__girl-wait     {background-position: -55px -55px;}
+    &__boy-small     {background-position: 0 -110px;}
+    &__girl-small    {background-position: -55px -110px;}
+    &__boy-3         {background-position: 0 -165px;}
+    &__girl-3        {background-position: -55px -165px;}
+    &__boy-5         {background-position: 0 -220px;}
+    &__girl-5        {background-position: -55px -220px;}
+    &__boy-8         {background-position: 0 -275px;}
+    &__girl-8        {background-position: -55px -275px;}
+    &__boy-14        {background-position: 0 -330px;}
+    &__girl-14       {background-position: -55px -330px;}
+    &__boy-19        {background-position: 0 -385px;}
+    &__girl-19       {background-position: -55px -385px;}
+    &__boy-friend    {background-position: 0 -440px;}
+    &__girl-friend   {background-position: -55px -440px;}
+    &__fiance        {background-position: 0 -495px;}
+    &__bride         {background-position: -55px -495px;}
+    &__husband       {background-position: 0 -550px;}
+    &__wife          {background-position: -55px -550px;}
+    &__boy           {background-position: 0 -660px;}
+    &__girl          {background-position: -55px -660px;}
+}
+.ico-male {
+    .inline-block();
+    width: 11px;
+    height: 26px;
+    vertical-align: middle;
+    background: url(/images/ico/ico-male.png) no-repeat;
+    &:hover,
+    &.active {background-position: 0 -100px;}
+
+}
+.ico-female {
+    .inline-block();
+    width: 11px;
+    height: 26px;
+    vertical-align: middle;
+    background: url(/images/ico/ico-female.png) no-repeat;
+    &:hover,
+    &.active {background-position: 0 -100px;}
+}
+.ico-error-smile {
+    .inline-block();
+    vertical-align: text-bottom;
+    width: 18px;
+    height: 18px;
+    margin: 0 5px;
+    .img-retina('/new/images/ico/ico-error-smile.png'; '/new/images/ico/ico-error-smile-2x.png'; 18px; 18px);
+}

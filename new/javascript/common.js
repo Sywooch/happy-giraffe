@@ -29,6 +29,21 @@ $(function() {
     $(document).ajaxError(function() {
         $(".error-serv").removeClass('display-n');
     });
+    
+    // Измененный tag select c инпутом поиска
+    $('.select-cus__blue-searchon').selectize({
+        create: true/*,
+        dropdownParent: 'body'*/
+    });
+    // Измененный tag select
+    $('.select-cus__blue').selectize({
+        create: true,
+        dropdownParent: 'body',
+        onDropdownOpen: function() {
+            // Делает не возможным ввод в input при открытом списке, без autocomplite
+            this.$wrapper.find('input').attr({disabled: 'disabled'})
+        }
+    });
 
 	$(document).on('koUpdate', function(event, elements) {
 		var self = event.target;

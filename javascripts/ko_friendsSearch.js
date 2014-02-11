@@ -9,7 +9,14 @@ function FriendsSearchViewModel(data) {
     var DEFAULT_CHILD_MAX_AGE = 18;
     var DEFAULT_PREGNANCY_WEEK_MIN = 1;
     var DEFAULT_PREGNANCY_WEEK_MAX = 40;
-
+    // Для обратной совместимостью с моделью FriendsViewModel
+    self.activeTab = ko.observable(-1);
+    self.friendsCount = ko.observable(data.friendsCount);
+    self.friendsOnlineCount = ko.observable(data.friendsOnlineCount);
+    self.incomingRequestsCount = ko.observable(data.incomingRequestsCount);
+    self.outgoingRequestsCount = ko.observable(data.outgoingRequestsCount);
+    self.friendsNewCount = ko.observable(data.friendsNewCount);
+    
     // имя и/или фамилия
     self.instantaneousQuery = ko.observable('');
     self.query = ko.computed(this.instantaneousQuery).extend({ throttle: 400 });

@@ -21,7 +21,7 @@
 					<span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
 				</h1>
 				<div class="start-page_head-desc">
-                    <a class="btn-green-simple btn-big" href="">Присоединяйтесь!</a>
+                    <a class="btn-green btn-big" href="">Присоединяйтесь!</a>
                     <div class="clearfix">
                         <a class="display-ib verticalalign-m fancy" href="#login">Войти</a>
                         <span class="i-or">или</span>

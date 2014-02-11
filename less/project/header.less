@@ -1,21 +1,21 @@
 
 .b-join {
-	margin-right: -20px;
-	padding: 25px 20px 35px 30px;
+    margin: 0 0 0 20px;
+	padding: 20px 15px 20px 30px;
 	background: #fffad0;
 
 	&_left {
 		float: left;
-		width: 370px;
-		text-align: center;
+		width: 355px;
+		text-align: left;
 	}
 	&_tx {
-		margin: 25px 0 12px;
-		font-size: 25px;
+		margin: 20px 0 10px;
+		font-size: 23px;
 		color: #1c1c1c;
 	}
 	&_tx-big {
-		font-size: 30px;
+		font-size: 28px;
 	}
 	&_slogan {
 		font: 22px/1em 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
@@ -27,9 +27,12 @@
 		text-align: center;
 	}
 	&_right .btn-big {
-		font-size: 23px;
+		font-size: 21px;
 		margin-bottom: 11px;
 		padding: 0 32px;
+        height: 50px;
+        line-height: 50px;
+        font-size: ;
 	}
 	&_right .custom-like {
 		vertical-align: middle;
@@ -60,6 +63,7 @@
 		vertical-align: middle;
 		width: 55px;
 		height: 55px;
+        margin: 0 0 6px;
 		background: url(/images/b-join-row_logo.png) no-repeat;
 	}
 	&_tx {
@@ -85,24 +89,22 @@
 .layout-header {
    position:relative;
    
-    &__nologin {
-        width: 1000px;
-        margin: 0 auto;
-        padding: 20px 0 20px 20px;
-    }
+    &__nologin {}
     &__nologin &_scrolltop {
         float: right;
         margin:20px 25px 0 0;
     }
-    &__nologin .logo {padding: 10px 0 10px;}
-    &__nologin .logo_i {
-            display:block;
-            width:181px;
-            height:104px;
-            background:url(../images/logo.png) no-repeat;
-            text-indent:-9999px;
-            margin:0 auto;
+    &__nologin .header {margin-bottom: 0;}
+    &__nologin .header_hold {
+        width: 980px;
+        padding: 20px 0 15px 20px;
     }
+    &__nologin .header .logo {
+        margin: 10px 0 12px 10px;
+        float: none;
+        display: block;
+    }
+
     &_hold .logo {
         float: left;
         margin:5px 40px 0 40px;

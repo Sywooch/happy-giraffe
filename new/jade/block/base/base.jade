@@ -182,8 +182,11 @@ mixin sidebar-search(mod, vars)
     vars
         tabActive - номер активной вкладки
         tabTexts - Текст таба
+        sidebarSearch
 mixin page-col_top-tabs(mod, vars)
     .page-col_top.page-col_top__gray
+        - if (vars.sidebarSearch)
+            +sidebar-search('', {placeholder: 'Введите имя и/или фамилию'})
         ul.page-col_tabs
             - for item, i in vars.tabsTexts
                 if (vars.tabActive == i)

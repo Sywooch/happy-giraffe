@@ -40,8 +40,8 @@ module.exports = function(grunt){
     less: {
       old: {
         files: {
-          'css/common.css': ['less/all1.less'],
-          'css/global.css': ['less/all2.less']
+          'stylesheets/common.css': ['less/all1.less'],
+          'stylesheets/global.css': ['less/all2.less']
         },
         options: {
           compress: true,
@@ -141,7 +141,7 @@ module.exports = function(grunt){
     // var destFilePath = filepath.replace(/jade\\page/, 'html');
     // Изменяем расширение файла
     grunt.log.write(action + ' ------- ' + target);
-    if (action == 'jade') {
+    if (target == 'jade') {
       var destFilePath = filepath.replace(/jade/g, 'html');
       grunt.log.write(filepath + ' ------- ' + destFilePath);
       // 'page' task jade 

@@ -6,17 +6,16 @@ module.exports = function(grunt){
   grunt.initConfig({
     jade: {
       page: {
-        files: {
-          src: "new/jade/page/wysiwyg/wysiwyg.jade",
-          dest: "new/html/wysiwyg/wysiwyg.html",
-        },
-        expand: true,
+        files: [{
+          "new/html/page/wysiwyg/wysiwyg.html": "new/jade/page/wysiwyg/wysiwyg.jade",
+        }],
         options: {
           pretty: true,
           client: false,
           cache: true,
           nospawn : true,
-          ext: ".html"
+          ext: ".html",
+          expand: true,
         }
       },
       all: {
@@ -59,7 +58,8 @@ module.exports = function(grunt){
         options: {
           compress: true,
           sourceMap: true,
-          sourceMapFilename: 'new/css/all1.css.map',
+          /*sourceMapFilename: 'new/css/all1.css.map',*/
+          sourceMapRootpath: 'new/css',
           sourceMapURL: 'new/css/all1.css.map',
         }
       }

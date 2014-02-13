@@ -191,7 +191,9 @@
         .a-pseudo {margin-top: 2px;}
     }
 
-    &_tabs {}
+    &_tabs {
+        .user-select(none);
+    }
     &_tab {
         float: left;
         margin: 0 18px;
@@ -358,6 +360,7 @@
 .b-control {
     display: inline-block;
     margin: 0 -4px 0;
+    .user-select(none);
 
     &_hold {}
     &_i {
@@ -408,6 +411,7 @@
     width: 80px;
     background: #675495;
     .border-left-radius(10px);
+    .user-select(none);
     
     @media screen and (max-height: 530px) {
         &__im &_tx {display: none;}
@@ -552,6 +556,7 @@
     position: relative;
     z-index: 100;
     text-align: center;
+    .user-select(none);
 
     &__abs {
         position: absolute;

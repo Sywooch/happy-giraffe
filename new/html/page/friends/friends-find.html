@@ -222,6 +222,191 @@
                   </div>
                 </div>
               </div>
+              <div class="page-col_aside aside-filter">
+                <form>
+                  <div class="aside-filter_top">
+                    <div class="sidebar-search clearfix">
+                      <input type="text" name="" placeholder="Имя и/или фамилия" class="sidebar-search_itx"/>
+                      <!-- При начале ввода добавить класс .active на кнопку-->
+                      <button class="sidebar-search_btn"></button>
+                    </div>
+                  </div>
+                  <div class="aside-filter_hold">
+                    <div class="aside-filter_row">
+                      <div class="aside-filter_t">Местоположение</div>
+                      <div class="margin-b15">
+                        <!-- первый option должен быть пустым и без пробелов, для placeholder-->
+                        <!-- у всех option должно быть value-->
+                        <select placeholder="Выбор страны" class="select-cus select-cus__blue-searchon">
+                          <option></option>
+                          <option value="1">Выбор страны</option>
+                          <option value="2">Россия</option>
+                          <option value="3">Беларусь</option>
+                          <option value="4">Казахстан</option>
+                          <option value="5">32</option>
+                          <option value="6">32</option>
+                          <option value="7">32</option>
+                          <option value="8">Беларусь</option>
+                          <option value="9">Казахстан</option>
+                          <option value="10">32</option>
+                          <option value="11">32</option>
+                          <option value="12">32</option>
+                          <option value="13">32</option>
+                          <option value="14">132</option>
+                          <option value="15">132</option>
+                          <option value="16">132</option>
+                        </select>
+                      </div>
+                      <!-- первый option должен быть пустым и без пробелов, для placeholder-->
+                      <select placeholder="Населенный пункт" class="select-cus select-cus__blue-searchon">
+                        <option></option>
+                        <option value="1">Населенный пункт</option>
+                        <option value="2">Россия</option>
+                        <option value="3">Беларусь</option>
+                        <option value="4">Казахстан</option>
+                        <option value="5">32</option>
+                        <option value="6">32</option>
+                        <option value="7">32</option>
+                        <option value="8">Беларусь</option>
+                        <option value="9">Казахстан</option>
+                        <option value="10">32</option>
+                        <option value="11">32</option>
+                        <option value="12">32</option>
+                        <option value="13">32</option>
+                        <option value="14">132</option>
+                        <option value="15">132</option>
+                        <option value="16">132</option>
+                      </select>
+                    </div>
+                    <div class="aside-filter_row clearfix">
+                      <div class="aside-filter_t">Возраст</div>
+                      <div class="display-ib w-75">
+                        <select placeholder="От" class="select-cus select-cus__blue">
+                          <option></option>
+                          <option value="0">От</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">Беларусь</option>
+                          <option value="9">Казахстан</option>
+                          <option value="10">32</option>
+                          <option value="11">32</option>
+                          <option value="12">32</option>
+                          <option value="13">32</option>
+                          <option value="14">132</option>
+                          <option value="15">132</option>
+                          <option value="16">132</option>
+                        </select>
+                      </div>
+                      <div class="aside-filter_label">- </div>
+                      <div class="display-ib w-75">
+                        <select placeholder="До" class="select-cus select-cus__blue">
+                          <option></option>
+                          <option value="0">До</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="aside-filter_row clearfix">
+                      <div class="aside-filter_t">Пол</div>
+                      <input id="radio3" type="radio" name="b-radio2" checked="checked" class="aside-filter_radio">
+                      <label for="radio3" class="aside-filter_label-radio">любой</label>
+                      <input id="radio4" type="radio" name="b-radio2" checked="checked" class="aside-filter_radio">
+                      <label for="radio4" class="aside-filter_label-radio"><span class="ico-male"></span></label>
+                      <input id="radio5" type="radio" name="b-radio2" class="aside-filter_radio">
+                      <label for="radio5" class="aside-filter_label-radio"><span class="ico-female"></span></label>
+                    </div>
+                    <div class="aside-filter_sepor"></div>
+                    <div class="aside-filter_row clearfix">
+                      <div class="aside-filter_t">Дети</div>
+                      <div class="margin-b10 clearfix">
+                        <input id="radio6" type="radio" name="b-radio3" checked="checked" class="aside-filter_radio">
+                        <label for="radio6" class="aside-filter_label-radio">не имеет значения</label>
+                      </div>
+                      <div class="margin-b10 clearfix">
+                        <input id="radio7" type="radio" name="b-radio3" class="aside-filter_radio">
+                        <label for="radio7" class="aside-filter_label-radio">срок беременности (недели)</label>
+                        <div class="aside-filter_toggle">
+                          <div class="display-ib w-75">
+                            <select placeholder="С" class="select-cus select-cus__blue">
+                              <option></option>
+                              <option value="0">С</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                            </select>
+                          </div>
+                          <div class="aside-filter_label">- </div>
+                          <div class="display-ib w-75">
+                            <select placeholder="По" class="select-cus select-cus__blue">
+                              <option></option>
+                              <option value="0">По</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="margin-b10 clearfix">
+                        <input id="radio8" type="radio" name="b-radio3" class="aside-filter_radio">
+                        <label for="radio8" class="aside-filter_label-radio">возраст ребенка (лет)</label>
+                        <div class="aside-filter_toggle">
+                          <div class="display-ib w-75">
+                            <select placeholder="От" class="select-cus select-cus__blue">
+                              <option></option>
+                              <option value="0">От</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                            </select>
+                          </div>
+                          <div class="aside-filter_label">- </div>
+                          <div class="display-ib w-75">
+                            <select placeholder="До" class="select-cus select-cus__blue">
+                              <option></option>
+                              <option value="0">До</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="margin-b10 clearfix">
+                        <input id="radio9" type="radio" name="b-radio3" class="aside-filter_radio">
+                        <label for="radio9" class="aside-filter_label-radio">многодетная семья</label>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>

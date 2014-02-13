@@ -2,7 +2,7 @@ include ../../block/config
 extend ../../extend/layout_header-small
 
 block layout-wrapper
-    +side-menu__antispam("side-menu__antispam")
+    +side-menu__antispam("side-menu__antispam", {empty: false})
     .page-col
         .page-col_top.clearfix
             .antispam-user

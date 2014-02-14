@@ -79,16 +79,14 @@
     display: none;
     position: fixed;
     z-index: 15;
-    bottom: 20px;
+    bottom: 0;
     right: 20px;
-    width: 65px;
-    height: 50px;
+    width: 67px;
+    height: 52px;
     background-image: url(/new/images/btn-scrolltop.png);
-    background-color: rgba(255,255,255,.7);
-    .border-radius(5px);
     cursor: pointer;
 
-    &:hover {background-color: #fff;}
+    &:hover {background-position: -67px 0;}
 
     @media screen and (min-width: 600px) {
         & {display: block;}
@@ -489,7 +487,7 @@
         margin: 0 0 2px;
         background: url() no-repeat;
         opacity: .5;
-        .img-retina('/new/images/side-menu_ico.png'; '/new/images/side-menu_ico-2x.png'; 200px; 40px);
+        .img-retina('/new/images/side-menu_ico.png'; '/new/images/side-menu_ico-2x.png'; 400px; 40px);
     }
     &_ico__all    {background-position: 0 0;}
     &_ico__new    {background-position: -50px 0;}

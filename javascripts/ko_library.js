@@ -106,6 +106,40 @@ ko.bindingHandlers.chosen =
     }
 };
 
+ko.bindingHandlers.selectize = {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+        var options = {};
+        if (allBindingsAccessor.has('optionsText')) {
+            options.labelField = allBindingsAccessor.get('optionsText');
+            options.searchField = allBindingsAccessor.get('optionsText');
+        }
+        if (allBindingsAccessor.has('optionsValue'))
+            options.valueField = allBindingsAccessor.get('optionsValue');
+        
+        options = $.extend( {}, options, valueAccessor() );
+        
+        var $select = $(element).selectize(options)[0].selectize;
+    },
+    update: function(element, valueAccessor, allBindingsAccessor) {
+        var $select = element.selectize;
+        var value = allBindingsAccessor.get('value')();
+        var elements = allBindingsAccessor.get('options');
+        $select.clearOptions();
+        if(!(elements instanceof Array)) {
+            elements = elements();
+        }
+        for(var i in elements) {
+            var v = elements[i];
+            if(typeof v !== 'object') {
+                v = {text: elements[i], value: elements[i]};
+            }
+            $select.addOption(v);
+        }
+        $select.setValue(value);
+    }
+}
+
 ko.bindingHandlers.returnKey = {
     init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
         ko.utils.registerEventHandler(element, 'keydown', function(evt) {

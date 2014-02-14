@@ -2,7 +2,7 @@
 <?php $this->pageTitle = 'Мои друзья'; ?>
 <div class="layout-wrapper_frame clearfix">
     <?php $this->renderPartial('friends.views._menu'); ?>
-    <div class="page-col">
+    <div class="page-col page-col__friend">
         <div class="page-col_hold">
             <div class="page-col_top" data-bind="visible: activeTab() < 2">
                 <div class="sidebar-search clearfix">
@@ -18,7 +18,7 @@
                     <li class="page-col_tab" data-bind="css: { active : activeTab() == 3 }"><a class="page-col_tab-a" data-bind="click: function(data, event) { if (outgoingRequestsCount() > 0) selectTab(3, data, event) }, text: 'Я хочу дружить ' + outgoingRequestsCount()"></a></li>
                 </ul>
             </div>
-            <div class="page-col page-col__friend">
+            <div class="page-col_cont">
                 <!-- ko if: ! (templateForeach().length == 0 && loading() === false) -->
                 <div class="friends-list">
                     <div class="friends-list_ul">

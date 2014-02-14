@@ -53,7 +53,8 @@ class SearchController extends HController
         }, $dp->data);
         $currentPage = $dp->pagination->currentPage + 1;
         $pageCount = $dp->pagination->pageCount;
-        $data = compact('users', 'currentPage', 'pageCount');
+        $itemCount = $dp->totalItemCount;
+        $data = compact('users', 'currentPage', 'pageCount', 'itemCount');
         echo CJSON::encode($data);
     }
 }

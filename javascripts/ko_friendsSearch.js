@@ -71,6 +71,7 @@ function FriendsSearchViewModel(data) {
     self.loading = ko.observable(false);
     self.currentPage = ko.observable(null);
     self.pageCount = ko.observable(null);
+    self.itemCount = ko.observable(null);
 
     self.clearQuery = function() {
         self.instantaneousQuery('');
@@ -90,6 +91,11 @@ function FriendsSearchViewModel(data) {
         self.childAgeMax(DEFAULT_CHILD_MAX_AGE);
         self.pregnancyWeekMin(DEFAULT_PREGNANCY_WEEK_MIN);
         self.pregnancyWeekMax(DEFAULT_PREGNANCY_WEEK_MAX);
+    }
+    
+    self.selectTab = function(tab) {
+        console.log(tab);
+        History.pushState({tab: tab},null,'/friends/');
     }
 
     self.updateRegions = function() {
@@ -155,6 +161,7 @@ function FriendsSearchViewModel(data) {
             self.loading(false);
             self.currentPage(response.currentPage);
             self.pageCount(response.pageCount);
+            self.itemCount(response.itemCount);
             callback(response.users);
         }, 'json');
     }

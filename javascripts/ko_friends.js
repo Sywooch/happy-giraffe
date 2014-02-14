@@ -136,7 +136,7 @@ function FriendsViewModel(data) {
         return self.activeTab() <= 1 ? self.friendsToShow() : self.friendsRequests();
     })
 
-    self.init();
+    //self.init();
 
     $(window).scroll(function() {
         if (self.activeTab() <= 1 && self.loading() === false && self.lastPage() === false && (($(window).scrollTop() + $(window).height()) > (document.documentElement.scrollHeight - 500)))
@@ -144,12 +144,12 @@ function FriendsViewModel(data) {
     });
 
     ko.computed(function() {
+        self.init();
         self.newSelected();
         self.selectedListId();
         self.activeTab();
         self.friendsToShow([]);
         self.friendsRequests([]);
-        self.init();
     })
 }
 

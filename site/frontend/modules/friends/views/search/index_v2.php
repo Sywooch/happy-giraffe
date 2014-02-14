@@ -1,4 +1,5 @@
 <?php Yii::app()->clientScript->registerPackage('ko_friends'); ?>
+<?php $this->pageTitle = 'Мои друзья'; ?>
 <div class="layout-wrapper_frame clearfix">
     <?php $this->renderPartial('friends.views._menu'); ?>
     <div class="page-col page-col__friend page-col__aside-in">
@@ -6,7 +7,7 @@
             <div class="page-col_cont">
                 <div class="page-col_top">
                     <!-- до определенного числа без >-->
-                    <div class="page-col_find-count">Найдено &gt; 500 000</div>
+                    <div class="page-col_find-count" data-bind="visible: itemCount">Найдено <span data-bind="text: itemCount"></span></div>
                     <div class="page-col_t-tx">Поиск друзей</div>
                 </div>
                 <!-- ko if: ! (users().length == 0 && loading() === false) -->
@@ -24,7 +25,7 @@
                         <div class="sidebar-search clearfix">
                             <input type="text" name="" placeholder="Имя и/или фамилия" class="sidebar-search_itx" data-bind="value: instantaneousQuery, valueUpdate: 'keyup'"/>
                             <!-- При начале ввода добавить класс .active на кнопку-->
-                            <button class="sidebar-search_btn" data-bind="click: clearQuery, css: { active : query() != '' }"></button>
+                            <button class="sidebar-search_btn" data-bind="click: clearQuery, css: { active : instantaneousQuery() != '' }"></button>
                         </div>
                     </div>
                     <div class="aside-filter_hold">

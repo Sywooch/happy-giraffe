@@ -20,7 +20,12 @@ if (! Yii::app()->user->isGuest)
 ?><!DOCTYPE html>
 <html class="no-js">
 <head><meta charset="utf-8">
-    <title>Happy Giraffe</title>
+    <title><?php
+    if (!empty($this->meta_title))
+        echo CHtml::encode(trim($this->meta_title));
+    else
+        echo CHtml::encode($this->pageTitle);
+    ?></title>
     <!-- including .css-->
     <link rel="stylesheet" type="text/css" href="/new/css/all1.css" />
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">

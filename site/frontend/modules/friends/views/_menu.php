@@ -35,7 +35,7 @@
                     <span class="side-menu_i-hold">
                         <span class="side-menu_ico side-menu_ico__friend-add"></span>
                         <span class="side-menu_tx">Давай дружить</span>
-                        <span class="side-menu_count">1</span>
+                        <span class="side-menu_count" data-bind="text: incomingRequestsCount, visible: incomingRequestsCount() > 0"></span>
                     </span>
                     <span class="verticalalign-m-help"></span>
                 </a>

@@ -1,9 +1,10 @@
 <?php Yii::app()->clientScript->registerPackage('ko_friends'); ?>
+<?php $this->pageTitle = 'Мои друзья'; ?>
 <div class="layout-wrapper_frame clearfix">
     <?php $this->renderPartial('friends.views._menu'); ?>
     <div class="page-col">
         <div class="page-col_hold">
-            <div class="page-col_top">
+            <div class="page-col_top" data-bind="visible: activeTab() < 2">
                 <div class="sidebar-search clearfix">
                     <input type="text" name="" placeholder="Введите имя и/или фамилию" class="sidebar-search_itx" data-bind="value: instantaneousQuery, valueUpdate: 'keyup'"/>
                     <!-- При начале ввода добавить класс .active на кнопку-->
@@ -15,7 +16,6 @@
                 <ul class="page-col_tabs">
                     <li class="page-col_tab" data-bind="css: { active : activeTab() == 2 }"><a class="page-col_tab-a" data-bind="click: function(data, event) { if (incomingRequestsCount() > 0) selectTab(2, data, event) }, text: 'Хотят дружить ' + incomingRequestsCount()"></a></li>
                     <li class="page-col_tab" data-bind="css: { active : activeTab() == 3 }"><a class="page-col_tab-a" data-bind="click: function(data, event) { if (outgoingRequestsCount() > 0) selectTab(3, data, event) }, text: 'Я хочу дружить ' + outgoingRequestsCount()"></a></li>
-                    <li class="page-col_tab"><a class="page-col_tab-a">Рекомендуемые 128</a></li>
                 </ul>
             </div>
             <div class="page-col page-col__friend">

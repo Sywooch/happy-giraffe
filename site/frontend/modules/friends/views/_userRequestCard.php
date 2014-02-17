@@ -1,4 +1,4 @@
-<script type="text/html" id="request-template">
+<script type="text/html" id="request-template"><!-- -->
 <div class="friends-list_li" data-bind="fadeVisible: userIsVisible">
     <div class="friends-list_i">
         <!-- ko if: $data.constructor.name == 'OutgoingFriendRequest' -->
@@ -8,7 +8,7 @@
             <div class="b-ava-large_ava-hold clearfix">
                 <a href="" class="ava ava__large" data-bind="attr: { href : user.url() }, css: user.avaClass()"><span class="ico-status"></span><img alt="" class="ava_img" data-bind="visible: user.ava, attr: { src : user.ava }"/></a>
                 <span class="b-ava-large_online" data-bind="visible: user.online">На сайте</span>
-                <a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a>
+                <a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog" data-bind="attr: { href : user.dialogUrl() }"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a>
                 <a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo" data-bind="attr: { href : user.albumsUrl() }, visible: user.hasPhotos"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx" data-bind="text: user.photoCount"></span></a>
                 <a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog" data-bind="attr: { href : user.blogUrl() }, visible: user.hasBlog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx" data-bind="text: user.blogPostsCount"></span></a>
             </div>

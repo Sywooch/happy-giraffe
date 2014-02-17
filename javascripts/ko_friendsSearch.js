@@ -27,7 +27,14 @@ function FriendsSearchViewModel(data) {
     self.location = ko.observable('1');
     self.selectedCountry = ko.observable(DEFAULT_COUNTRY);
     self.selectedRegion = ko.observable(null);
+    // Счётчики
+    self.friendsCount = ko.observable(data.friendsCount);
+    self.friendsOnlineCount = ko.observable(data.friendsOnlineCount);
+    self.incomingRequestsCount = ko.observable(data.incomingRequestsCount);
+    self.outgoingRequestsCount = ko.observable(data.outgoingRequestsCount);
+    self.friendsNewCount = ko.observable(data.friendsNewCount);
 
+    
     self.countries = ko.observableArray(ko.utils.arrayMap(data.countries, function(country) {
         return new Country(country);
     }));
@@ -94,8 +101,7 @@ function FriendsSearchViewModel(data) {
     }
     
     self.selectTab = function(tab) {
-        console.log(tab);
-        History.pushState({tab: tab},null,'/friends/');
+        window.location.href = '/friends/?tab=' + tab;
     }
 
     self.updateRegions = function() {

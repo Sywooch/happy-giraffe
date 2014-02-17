@@ -14,7 +14,13 @@ function FriendsViewModel(data) {
     }));
     self.selectedListId = ko.observable(null);
     self.friendsToShow = ko.observableArray([]);
+    
     self.activeTab = ko.observable(self.incomingRequestsCount() > 0 ? 2 : 0);
+	var params = /(\?|&)tab=(\d+)/.exec(window.location.search);
+	if(params && params[2]) {
+		self.activeTab(params[2] * 1);
+	}
+    
     self.newListTitle = ko.observable('');
     self.instantaneousQuery = ko.observable('');
     self.query = ko.computed(this.instantaneousQuery).extend({ throttle: 400 });
@@ -42,6 +48,7 @@ function FriendsViewModel(data) {
     self.selectTab = function(tab) {
         self.newSelected(false);
         self.selectedListId(null);
+        History.pushState(null, null, '?tab=' + tab);
         self.activeTab(tab);
     }
 
@@ -92,7 +99,7 @@ function FriendsViewModel(data) {
             if (response.last)
                 self.lastPage(true);
         }, 'json');
-    }
+    };
 
     self.init = function() {
         if (self.activeTab() <= 1) {
@@ -119,13 +126,15 @@ function FriendsViewModel(data) {
     }
 
     self.nextPage = function() {
-        self.loadFriends(function(response) {
-            var newItems = ko.utils.arrayMap(response.friends, function(friend) {
-                return new Friend(friend, self);
-            });
+        if (self.activeTab() <= 1) {
+            self.loadFriends(function(response) {
+                var newItems = ko.utils.arrayMap(response.friends, function(friend) {
+                    return new Friend(friend, self);
+                });
 
-            self.friendsToShow.push.apply(self.friendsToShow, newItems);
-        }, self.friendsToShow().length);
+                self.friendsToShow.push.apply(self.friendsToShow, newItems);
+            }, self.friendsToShow().length);
+        }
     }
 
     self.templateName = function() {

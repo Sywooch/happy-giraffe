@@ -35,11 +35,14 @@ class SearchController extends HController
                 'name' => $country->name,
             );
         }, GeoCountry::model()->findAll(array('order' => 't.name ASC')));
-        $friendsCount = Friend::model()->getCountByUserId(Yii::app()->user->id);
-        $json = compact('countries');
+        $friendsCount = (int)Friend::model()->getCountByUserId(Yii::app()->user->id);
+        $friendsOnlineCount = (int)Friend::model()->getCountByUserId(Yii::app()->user->id, true);
+        $friendsNewCount = (int)Friend::model()->getCountByUserId(Yii::app()->user->id, false, true);
+        $incomingRequestsCount = (int)FriendRequest::model()->getCountByUserId(Yii::app()->user->id);
+        $json = compact('countries', 'friendsCount', 'friendsOnlineCount', 'friendsNewCount', 'friendsNewCount', 'incomingRequestsCount');
 
         $this->pageTitle = 'Найти друзей';
-        $this->render('index_v2', compact('json', 'friendsCount'));
+        $this->render('index_v2', compact('json'));
     }
 
     public function actionGet()

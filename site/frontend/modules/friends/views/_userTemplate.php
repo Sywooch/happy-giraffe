@@ -1,4 +1,4 @@
-<script type="text/html" id="user-template">
+<script type="text/html" id="user-template">-->
     <div class="friends-list_i">
         <div class="b-ava-large">
             <div class="b-ava-large_ava-hold clearfix">

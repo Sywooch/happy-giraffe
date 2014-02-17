@@ -318,7 +318,7 @@
 				<p><span class="Apple-tab-span" style="white-space:pre"></span>&lt;/span&gt;</p>
 				</p>
 			</div>
-			
+			<a href="#popup-error" class="fancy">Попап ошибка сервера</a>
 
 		</div>  	
 		
@@ -326,6 +326,14 @@
 		
 	</div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
+</div>
+<div class="display-n">
+	<div id="popup-error" class="popup popup__error">
+		<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);"></a>
+		<div class="error-serv error-serv__rel">
+			<div class="error-serv_hold">Произошла критическая ошибка.<a class="error-serv_a">Перезагрузить страницу</a></div>
+		</div>
+	</div>
 </div>
 </body>
 </html>

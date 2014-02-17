@@ -58,7 +58,7 @@
                         </div>
                         <div class="aside-filter_row clearfix">
                             <div class="aside-filter_t">Возраст</div>
-                            <div class="display-ib w-75">
+                            <div class="display-ib w-75 verticalalign-m">
                                 <select placeholder="От" class="select-cus select-cus__blue" data-bind="
                                     options: ages,
                                     value: minAge,
@@ -74,7 +74,7 @@
                                 </select>
                             </div>
                             <div class="aside-filter_label">- </div>
-                            <div class="display-ib w-75">
+                            <div class="display-ib w-75 verticalalign-m">
                                 <select placeholder="До" class="select-cus select-cus__blue" data-bind="
                                     options: ages,
                                     value: maxAge,
@@ -110,7 +110,7 @@
                                 <input id="radio7" type="radio" name="b-radio3" class="aside-filter_radio" value="1" data-bind="checked: childrenType">
                                 <label for="radio7" class="aside-filter_label-radio">срок беременности (недели)</label>
                                 <div class="aside-filter_toggle">
-                                    <div class="display-ib w-75">
+                                    <div class="display-ib w-75 verticalalign-m">
                                         <select placeholder="С" class="select-cus select-cus__blue" data-bind="
                                             options: pregnancyWeeks,
                                             value: pregnancyWeekMin,
@@ -126,7 +126,7 @@
                                         </select>
                                     </div>
                                     <div class="aside-filter_label">- </div>
-                                    <div class="display-ib w-75">
+                                    <div class="display-ib w-75 verticalalign-m">
                                         <select placeholder="По" class="select-cus select-cus__blue" data-bind="
                                             options: pregnancyWeeks,
                                             value: pregnancyWeekMax,
@@ -147,7 +147,7 @@
                                 <input id="radio8" type="radio" name="b-radio3" class="aside-filter_radio" value="2" data-bind="checked: childrenType">
                                 <label for="radio8" class="aside-filter_label-radio">возраст ребенка (лет)</label>
                                 <div class="aside-filter_toggle">
-                                    <div class="display-ib w-75">
+                                    <div class="display-ib w-75 verticalalign-m">
                                         <select placeholder="От" class="select-cus select-cus__blue" data-bind="
                                             options: childAges,
                                             value: childAgeMin,
@@ -163,7 +163,7 @@
                                         </select>
                                     </div>
                                     <div class="aside-filter_label">- </div>
-                                    <div class="display-ib w-75">
+                                    <div class="display-ib w-75 verticalalign-m">
                                         <select placeholder="До" class="select-cus select-cus__blue" data-bind="
                                             options: childAges,
                                             value: childAgeMax,

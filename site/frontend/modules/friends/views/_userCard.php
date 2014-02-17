@@ -1,4 +1,4 @@
-<script type="text/html" id="user-template">-->
+<script type="text/html" id="user-template"><!-- -->
     <div class="friends-list_li">
         <div class="friends-list_i">
             <span data-bind="visible: !removed(), click: remove" title="Удалить из друзей" class="ico-close2 powertip"></span>

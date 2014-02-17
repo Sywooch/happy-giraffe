@@ -1,4 +1,5 @@
 <?php Yii::app()->clientScript->registerPackage('ko_friends'); ?>
+<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.history.js', CClientScript::POS_HEAD); ?>
 <?php $this->pageTitle = 'Мои друзья'; ?>
 <div class="layout-wrapper_frame clearfix">
     <?php $this->renderPartial('friends.views._menu'); ?>

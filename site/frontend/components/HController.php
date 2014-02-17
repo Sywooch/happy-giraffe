@@ -43,7 +43,7 @@ class HController extends CController
     {
         parent::init();
 
-        if (YII_DEBUG === false)
+        if (YII_DEBUG === false && ($this->module === null || $this->module == 'messaging'))
             $this->combineStatic();
 
         // авторизация

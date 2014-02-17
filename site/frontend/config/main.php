@@ -355,8 +355,7 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
-        'releaseId' => 51,
-        'releaseId' => 100,
+        'releaseId' => 103,
         'valentinesAlbum' => '41340',
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
@@ -383,6 +382,7 @@ return array(
                 'jquery.yiiactiveform.js',
                 'jquery.powertip.js',
                 'knockout-2.2.1.js',
+                'knockout-3.0.0.js',
                 'ko_library.js',
                 'history.js',
                 'ko_favourites.js',

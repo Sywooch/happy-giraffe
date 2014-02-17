@@ -116,9 +116,6 @@ class AjaxSimpleController extends CController
      */
     public function actionAddComment()
     {
-        if (Yii::app()->user->model->register_date > '2014-01-05 00:00:00')
-            throw new CHttpException(503);
-
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
         Yii::import('site.frontend.modules.route.models.*');
 
@@ -227,17 +224,23 @@ class AjaxSimpleController extends CController
     public function actionUploadAvatar()
     {
         foreach ($_FILES as $file)
-            $model = AlbumPhoto::model()->createUserTempPhoto($file);
+            $model = AlbumPhoto::model()->createUserTempPhoto($file, 1, 'avatarUpload');
 
-        list($width, $height) = getimagesize($model->getOriginalPath());
-        $model->getPreviewUrl(200, 200, false, true);
-        echo CJSON::encode(array(
-            'status' => 200,
-            'id' => $model->id,
-            'image_url' => $model->getOriginalUrl(),
-            'width' => $width,
-            'height' => $height,
-        ));
+        if (! $model->hasErrors()) {
+            list($width, $height) = getimagesize($model->getOriginalPath());
+            $model->getPreviewUrl(200, 200, false, true);
+            echo CJSON::encode(array(
+                'status' => 200,
+                'id' => $model->id,
+                'image_url' => $model->getOriginalUrl(),
+                'width' => $width,
+                'height' => $height,
+            ));
+        } else {
+            echo CJSON::encode(array(
+                'errors' => $model->errors,
+            ));
+        }
     }
 
     public function actionAddPhoto()

@@ -268,15 +268,18 @@ class SignupController extends HController
         if (! empty($birthday)) {
             if (strpos($birthday, '-') !== false) {
                 $_birthday = explode('-', $birthday);
-                $model->day = ltrim($_birthday[2], '0');
-                $model->month = ltrim($_birthday[1], '0');
-                $model->year = $_birthday[0];
+                if (count($_birthday) == 3) {
+                    $model->day = ltrim($_birthday[2], '0');
+                    $model->month = ltrim($_birthday[1], '0');
+                    $model->year = $_birthday[0];
+                }
             } else {
                 $_birthday = explode('.', $birthday);
-                $model->day = ltrim($_birthday[0], '0');
-                $model->month = ltrim($_birthday[1], '0');
-                if (isset($_birthday[2]))
+                if (count($_birthday) == 3) {
+                    $model->day = ltrim($_birthday[0], '0');
+                    $model->month = ltrim($_birthday[1], '0');
                     $model->year = $_birthday[2];
+                }
             }
         }
 

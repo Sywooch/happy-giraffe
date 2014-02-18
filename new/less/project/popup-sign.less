@@ -5,7 +5,7 @@
     background: #f7f6f8;
     .box-shadow(0 6px 16px rgba(0,0,0,0.6));
     
-    &_hold {padding-bottom: 40px;}
+    &_hold {padding-bottom: 10px;}
     &_top {
         padding: 25px 40px;
         background: #fff url(/new/images/header.png) repeat-x;
@@ -23,16 +23,19 @@
         .clearfix();
     }
     &_social {
-        float: left;
+        .inline-block();
+        vertical-align: top;
         width: 310px;
-        padding-right: 75px;
+        padding-right: 70px;
         margin-right: 40px;
         background: url(/new/images/popup/popup-sign_or.png) no-repeat 100% 8px;
     }
     &_col {
-        float: left;
+        .inline-block();
         width: 315px;
+        vertical-align: top;
     }
+    &_col__vetical-m {vertical-align: middle;}
     &_row {
         margin: 0 0 13px;
         .clearfix();
@@ -44,6 +47,7 @@
     &_b {
         text-align: center;
         font-size: 15px;
+        padding-bottom: 20px;
     }
     &_b-tx {
         .inline-block();
@@ -63,7 +67,15 @@
         width: 175px;
         margin: 14px 0 0;
     }
-
+    &_col-ava {
+        .inline-block();
+        vertical-align: middle;
+        width: 310px;
+        border-right: 1px solid #ebebeb;
+        margin: 0 60px 0 0;
+        padding: 5px 0 20px;
+        text-align: center;
+    }
 }
 /* /popup-sign */
 
@@ -103,7 +115,6 @@
         line-height: 50px;
         color: #fff;
     }
-
 }
 /* /social-btn */
 

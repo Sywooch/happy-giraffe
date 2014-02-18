@@ -162,7 +162,7 @@
           <div class="layout-wrapper_hold clearfix">
             <div class="layout-content clearfix">
               <div class="margin-20">
-                <h2>Регистрация</h2><a href="#reg-step1" class="popup-a">Регистрация шаг 1</a><br><br><a href="#reg-step2" class="popup-a">Регистрация шаг 2</a><br><br>
+                <h2>Регистрация</h2><a href="#reg-step1" class="popup-a">Регистрация шаг 1</a><br><br><a href="#reg-step2" class="popup-a">Регистрация шаг 2</a><br><br><a href="#reg-step2-soc" class="popup-a">Регистрация шаг 2 через социальные сети</a><br><br><a href="#reg-email" class="popup-a">Подтверждение email</a><br><br><a href="#reg-email2" class="popup-a">Отправка email повторно</a><br><br>
               </div>
             </div>
           </div>
@@ -224,8 +224,12 @@
             <div class="popup-sign_slogan">Осталось ввести еще немного данных</div>
           </div>
           <div class="popup-sign_cont">
-            <div class="popup-sign_col-ava"></div>
-            <div class="popup-sign_col">
+            <div class="popup-sign_col-ava"><a href="" class="ava ava__large ava__male"><span class="ico-status"></span><img alt="" src="" class="ava_img"/></a>
+              <div class="margin-5">
+                <div class="popup-sign_tx-help">Чтобы вас узнавали на Веселом Жирафе <br> загрузите свое главное фото</div>
+              </div><a class="btn-s btn-blue-simple">Загрузить</a>
+            </div>
+            <div class="popup-sign_col popup-sign_col__vetical-m">
               <div class="popup-sign_row">
                 <div class="popup-sign_label">Местоположение</div>
               </div>
@@ -329,6 +333,71 @@
               </div>
               <div class="popup-sign_row">
                 <div class="btn-green-simple btn-l">Продолжить</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /popup-sign-->
+      <!-- .popup-sign-->
+      <div id="reg-step2-soc" class="popup popup-sign">
+        <div class="popup-sign_hold">
+          <div class="popup-sign_top">
+            <div class="popup-sign_t">Добро пожаловать Александр!</div>
+            <div class="popup-sign_slogan">Осталось ввести еще немного данных</div>
+          </div>
+          <div class="popup-sign_cont">
+            <div class="popup-sign_col-ava"><a href="" class="ava ava__large ava__male"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"/></a>
+              <div class="margin-5">
+                <div class="popup-sign_tx-help">Это фото будет главным на Веселом Жирафе</div>
+              </div><a class="btn-s btn-blue-simple">Изменить</a>
+            </div>
+            <div class="popup-sign_col popup-sign_col__vetical-m">
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">Адрес активной электронной почты</div>
+              </div>
+              <div class="popup-sign_row">
+                <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+              </div>
+              <div class="popup-sign_row">
+                <div class="btn-green-simple btn-l">Продолжить</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /popup-sign-->
+      <!-- .popup-sign-->
+      <div id="reg-email2" class="popup popup-sign">
+        <div class="popup-sign_hold">
+          <div class="popup-sign_top">
+            <div class="popup-sign_t">Добро пожаловать Александр! <br> Теперь вы с Веселым Жирафом!</div>
+          </div>
+          <div class="popup-sign_cont">
+            <div class="popup-sign_col popup-sign_col__vetical-m">
+              <div class="popup-sign_row">
+                <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                <div class="popup-sign_tx-help">Пожалуйста проверьте правильность указанного адреса электронной почты или введите другой</div>
+              </div>
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">Код</div>
+              </div>
+              <div class="popup-sign_row margin-b15">
+                <div class="popup-sign_capcha-hold">
+                  <div class="margin-b3"><img src="/images/captcha.png" class="popup-sign_capcha">
+                  </div><a class="popup-sign_tx-help">
+                    <div class="ico-refresh"></div>Обновить</a>
+                </div>
+                <div class="popup-sign_capcha-inp">
+                  <input type="text" class="itx-gray popup-sign_itx">
+                  <div class="popup-sign_tx-help">Введите код с картинки</div>
+                </div>
+              </div>
+              <div class="popup-sign_row">
+                <div class="display-ib textalign-c">
+                  <div class="btn-green-simple btn-l margin-b5">Отправить письмо еще раз</div>
+                  <div class="popup-sign_tx-help">Письмо должно прийти в течении 10 мин.</div>
+                </div>
               </div>
             </div>
           </div>

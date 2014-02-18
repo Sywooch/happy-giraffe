@@ -11,6 +11,15 @@ block layout-wrapper
                 a.popup-a(href="#reg-step2") Регистрация шаг 2
                 br
                 br
+                a.popup-a(href="#reg-step2-soc") Регистрация шаг 2 через социальные сети
+                br
+                br
+                a.popup-a(href="#reg-email") Подтверждение email
+                br
+                br
+                a.popup-a(href="#reg-email2") Отправка email повторно
+                br
+                br
  
 
 
@@ -69,10 +78,12 @@ block block-hidden
                 .popup-sign_slogan Осталось ввести еще немного данных
             .popup-sign_cont
                 .popup-sign_col-ava
-
-
-
-                .popup-sign_col
+                    - avaVars = {src: ''}
+                    +ava("ava__large ava__male", avaVars)
+                    .margin-5
+                        .popup-sign_tx-help Чтобы вас узнавали на Веселом Жирафе <br> загрузите свое главное фото
+                    a.btn-s.btn-blue-simple Загрузить
+                .popup-sign_col.popup-sign_col__vetical-m
                     .popup-sign_row
                         .popup-sign_label Местоположение
                     .popup-sign_row
@@ -162,6 +173,57 @@ block block-hidden
                                 .popup-sign_tx-help Введите код с картинки
                     .popup-sign_row
                         .btn-green-simple.btn-l Продолжить
+    // /popup-sign
+
+    // .popup-sign
+    #reg-step2-soc.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t Добро пожаловать Александр!
+                .popup-sign_slogan Осталось ввести еще немного данных
+            .popup-sign_cont
+                .popup-sign_col-ava
+                    - avaVars = {src: '/new/images/example/ava-large.jpg'}
+                    +ava("ava__large ava__male", avaVars)
+                    .margin-5
+                        .popup-sign_tx-help Это фото будет главным на Веселом Жирафе
+                    a.btn-s.btn-blue-simple Изменить
+                .popup-sign_col.popup-sign_col__vetical-m
+                    .popup-sign_row
+                        .popup-sign_label Адрес активной электронной почты
+                    .popup-sign_row
+                        input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                    .popup-sign_row
+                        .btn-green-simple.btn-l Продолжить
+    // /popup-sign
+
+    // .popup-sign
+    #reg-email2.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t Добро пожаловать Александр! <br> Теперь вы с Веселым Жирафом!
+            .popup-sign_cont
+                .popup-sign_col.popup-sign_col__vetical-m
+                    .popup-sign_row
+                        input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                        .popup-sign_tx-help Пожалуйста проверьте правильность указанного адреса электронной почты или введите другой
+                    .popup-sign_row
+                        .popup-sign_label Код
+                    .popup-sign_row.margin-b15
+                            .popup-sign_capcha-hold
+                                .margin-b3
+                                    //- размеры капчи 125*45px
+                                    img.popup-sign_capcha(src="/images/captcha.png")
+                                a.popup-sign_tx-help
+                                    .ico-refresh
+                                    | Обновить
+                            .popup-sign_capcha-inp
+                                input.itx-gray.popup-sign_itx(type="text")
+                                .popup-sign_tx-help Введите код с картинки
+                    .popup-sign_row
+                        .display-ib.textalign-c
+                            .btn-green-simple.btn-l.margin-b5 Отправить письмо еще раз
+                            .popup-sign_tx-help Письмо должно прийти в течении 10 мин.
     // /popup-sign
 
 

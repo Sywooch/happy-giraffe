@@ -17,8 +17,8 @@
 		<div class="start-page_hold">
 			<div class="start-page_head clearfix">
 				<h1 class="logo logo__big">
-					<a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф</a>
-					<strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
+					<a class="logo_i" title="Веселый жираф - сайт для всей семьи" href="/">Веселый жираф - сайт для всей семьи</a>
+					<span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span>
 				</h1>
 				<div class="start-page_head-desc">
                     <a class="btn-green btn-big" href="">Присоединяйтесь!</a>

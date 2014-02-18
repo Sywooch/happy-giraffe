@@ -2,7 +2,7 @@
     <div class="friends-list_li">
         <div class="friends-list_i">
             <span data-bind="visible: !removed(), click: remove" title="Удалить из друзей" class="ico-close2 powertip"></span>
-            <div class="b-ava-large" data-bind="visible: !removed()">
+            <div class="b-ava-large">
                 <div class="b-ava-large_ava-hold clearfix">
                     <a href="" class="ava ava__large" data-bind="attr: { href : user.url() }, css: user.avaClass()"><span class="ico-status"></span><img alt="" class="ava_img" data-bind="visible: user.ava, attr: { src : user.ava }"/></a>
                     <span class="b-ava-large_online" data-bind="visible: user.online">На сайте</span>

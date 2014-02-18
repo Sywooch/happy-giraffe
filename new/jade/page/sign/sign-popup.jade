@@ -1,0 +1,167 @@
+extend ../../extend/layout_frame
+
+block layout-wrapper
+    .layout-wrapper_hold.clearfix
+        .layout-content.clearfix
+            .margin-20
+                h2 Регистрация
+                a.popup-a(href="#reg-step1") Регистрация шаг 1
+                br
+                br
+                a.popup-a(href="#reg-step2") Регистрация шаг 2
+                br
+                br
+ 
+
+
+block block-hidden 
+    // .popup-sign
+    #reg-step1.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t Регистрация на Веселом Жирафе
+                .popup-sign_slogan Стань полноправным участником сайта за 1 минуту!
+            .popup-sign_cont
+                .popup-sign_social
+                    .popup-sign_row
+                        .popup-sign_label С помощью социальных сетей
+                    ul.social-btns.clearfix
+                        li
+                            a.social-btn.social-btn__odnoklassniki
+                                span.social-btn_ico
+                                span.social-btn_tx Одноклассники
+                        li
+                            a.social-btn.social-btn__vkontakte
+                                span.social-btn_ico
+                                span.social-btn_tx ВКонтакте
+
+
+
+                .popup-sign_col
+                    .popup-sign_row
+                        .popup-sign_label Адрес активной электронной почты
+                    .popup-sign_row
+                        input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                    .popup-sign_row
+                        .popup-sign_label Полное имя
+                    .popup-sign_row
+                        input.itx-gray.popup-sign_itx(type="text", placeholder="Имя")
+                    .popup-sign_row
+                        input.itx-gray.popup-sign_itx(type="text", placeholder="Фамилия")
+                    .popup-sign_row
+                        .btn-green-simple.btn-l Зарегистрироваться
+                    .popup-sign_row
+                        .popup-sign_tx-help Продолжая, вы соглашаетесь с нашими  
+                            a.color-gray Условиями использования, 
+                            a.color-gray Политикой конфиденциальности 
+                            | и 
+                            a.color-gray Положениями о Cookie
+            .popup-sign_b
+                span.popup-sign_b-tx Вы уже зарегистрированы?
+                a.popup-sign_b-a Войти
+    // /popup-sign
+
+    // .popup-sign
+    #reg-step2.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t Добро пожаловать Александр!
+                .popup-sign_slogan Осталось ввести еще немного данных
+            .popup-sign_cont
+                .popup-sign_col-ava
+
+
+
+                .popup-sign_col
+                    .popup-sign_row
+                        .popup-sign_label Местоположение
+                    .popup-sign_row
+                        select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выбор страны")
+                            option
+                            option(value="2") Россия
+                            option(value="3") Беларусь
+                            option(value="4") Казахстан
+                        .popup-sign_tx-help Начинайте вводить название страны...
+                    .popup-sign_row
+                        select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Населенный пункт")
+                            option
+                            option(value="2") Россия
+                            option(value="3") Беларусь
+                            option(value="4") Казахстан
+                    .popup-sign_row
+                        .popup-sign_label Дата рождения
+                    .popup-sign_row
+                        .float-l.w-80.margin-r10
+                            select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
+                                option
+                                option(value="1") 1
+                                option(value="2") 2
+                                option(value="3") 3
+                                option(value="4") 4
+                                option(value="5") 5
+                                option(value="6") 6
+                                option(value="7") 7
+                                option(value="8") 8
+                                option(value="8") 9
+                                option(value="10") 10
+                                option(value="11") 11
+                                option(value="12") 12
+                        .float-l.w-135.margin-r10
+                            select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
+                                option
+                                option(value="1") Января
+                                option(value="2") Февраля
+                                option(value="3") Марта
+                                option(value="4") Апреля
+                                option(value="5") Майя
+                                option(value="6") Июня
+                                option(value="7") Июля
+                                option(value="8") Августа
+                                option(value="9") Сентября
+                                option(value="10") Октября
+                                option(value="11") Ноября
+                                option(value="12") Декабря
+                        .float-l.w-80
+                            select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
+                                option
+                                option(value="1") 1912
+                                option(value="2") 1913
+                                option(value="3") 1914
+                                option(value="4") 1915
+                                option(value="5") 1916
+                                option(value="6") 1917
+                                option(value="7") 1918
+                                option(value="8") 1919
+                                option(value="8") 1920
+                                option(value="10") 1921
+                                option(value="11") 1922
+                                option(value="12") 1923
+                    .popup-sign_row
+                        .popup-sign_label 
+                            | Пол
+                            .radio-icons.radio-icons__inline.margin-l20
+                                input#radio4.radio-icons_radio(type='radio', name='b-radio2')
+                                label.radio-icons_label(for='radio4')
+                                    | Мужской
+                                input#radio3.radio-icons_radio(type='radio', name='b-radio2')
+                                label.radio-icons_label(for='radio3')
+                                    | Женский
+                            .b-sign_win
+                    .popup-sign_row
+                        .popup-sign_label Код
+                    .popup-sign_row.margin-b15
+                            .popup-sign_capcha-hold
+                                .margin-b3
+                                    //- размеры капчи 125*45px
+                                    img.popup-sign_capcha(src="/images/captcha.png")
+                                a.popup-sign_tx-help
+                                    .ico-refresh
+                                    | Обновить
+                            .popup-sign_capcha-inp
+                                input.itx-gray.popup-sign_itx(type="text")
+                                .popup-sign_tx-help Введите код с картинки
+                    .popup-sign_row
+                        .btn-green-simple.btn-l Продолжить
+    // /popup-sign
+
+

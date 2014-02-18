@@ -159,37 +159,10 @@
       </div>
       <div class="layout-wrapper">
         <div class="layout-wrapper_frame clearfix">
-          <!-- side-menu-->
-          <div class="side-menu side-menu__friend">
-            <div class="side-menu_hold">
-              <div class="side-menu_t side-menu_t__friends"></div>
-              <ul class="side-menu_ul">
-                <li class="side-menu_li side-menu_li__find"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__find"></span><span class="side-menu_tx">Найти друзей</span></span></a></li>
-                <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online-friend"></span><span class="side-menu_tx">Мои <br> друзья </span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__friend-add"></span><span class="side-menu_tx">Давай дружить</span><span class="side-menu_count">1</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__advice"></span><span class="side-menu_tx">Жираф советует!</span><span class="side-menu_count-sub">59</span></span><span class="verticalalign-m-help"></span></a></li>
-              </ul>
-            </div>
-          </div>
-          <!-- /side-menu-->
-          <div class="page-col page-col__friend">
-            <div class="page-col_top page-col_top__gray">
-              <div class="sidebar-search clearfix">
-                <input type="text" name="" placeholder="Введите имя и/или фамилию" class="sidebar-search_itx"/>
-                <!-- При начале ввода добавить класс .active на кнопку-->
-                <button class="sidebar-search_btn"></button>
-              </div>
-              <ul class="page-col_tabs">
-                <li class="page-col_tab active"><a class="page-col_tab-a">Все друзья 128</a></li>
-                <li class="page-col_tab"><a class="page-col_tab-a">Друзья онлайн 12</a></li>
-                <li class="page-col_tab"><a class="page-col_tab-a">Новые друзья 6</a></li>
-              </ul>
-            </div>
-            <div class="page-col_cont">
-              <div class="friends-list">
-                <div class="loader loader__b-gray"><img src="/images/ico/ajax-loader.gif" class="loader_img">
-                  <div class="loader_tx">Загрузка пользователей</div>
-                </div>
+          <div class="layout-wrapper_hold clearfix">
+            <div class="layout-content clearfix">
+              <div class="margin-20">
+                <h2>Регистрация</h2><a href="#reg-step1" class="popup-a">Регистрация шаг 1</a><br><br><a href="#reg-step2" class="popup-a">Регистрация шаг 2</a><br><br>
               </div>
             </div>
           </div>
@@ -198,6 +171,170 @@
       <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
     </div>
     <div class="popup-container display-n"> 
+      <!-- .popup-sign-->
+      <div id="reg-step1" class="popup popup-sign">
+        <div class="popup-sign_hold">
+          <div class="popup-sign_top">
+            <div class="popup-sign_t">Регистрация на Веселом Жирафе</div>
+            <div class="popup-sign_slogan">Стань полноправным участником сайта за 1 минуту!</div>
+          </div>
+          <div class="popup-sign_cont">
+            <div class="popup-sign_social">
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">С помощью социальных сетей</div>
+              </div>
+              <ul class="social-btns clearfix">
+                <li><a class="social-btn social-btn__odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
+                <li><a class="social-btn social-btn__vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
+              </ul>
+            </div>
+            <div class="popup-sign_col">
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">Адрес активной электронной почты</div>
+              </div>
+              <div class="popup-sign_row">
+                <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+              </div>
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">Полное имя</div>
+              </div>
+              <div class="popup-sign_row">
+                <input type="text" placeholder="Имя" class="itx-gray popup-sign_itx">
+              </div>
+              <div class="popup-sign_row">
+                <input type="text" placeholder="Фамилия" class="itx-gray popup-sign_itx">
+              </div>
+              <div class="popup-sign_row">
+                <div class="btn-green-simple btn-l">Зарегистрироваться</div>
+              </div>
+              <div class="popup-sign_row">
+                <div class="popup-sign_tx-help">Продолжая, вы соглашаетесь с нашими  <a class="color-gray">Условиями использования, </a><a class="color-gray">Политикой конфиденциальности </a>и <a class="color-gray">Положениями о Cookie</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="popup-sign_b"><span class="popup-sign_b-tx">Вы уже зарегистрированы?</span><a class="popup-sign_b-a">Войти</a></div>
+        </div>
+      </div>
+      <!-- /popup-sign-->
+      <!-- .popup-sign-->
+      <div id="reg-step2" class="popup popup-sign">
+        <div class="popup-sign_hold">
+          <div class="popup-sign_top">
+            <div class="popup-sign_t">Добро пожаловать Александр!</div>
+            <div class="popup-sign_slogan">Осталось ввести еще немного данных</div>
+          </div>
+          <div class="popup-sign_cont">
+            <div class="popup-sign_col-ava"></div>
+            <div class="popup-sign_col">
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">Местоположение</div>
+              </div>
+              <div class="popup-sign_row">
+                <select placeholder="Выбор страны" class="select-cus select-cus__search-on select-cus__gray">
+                  <option></option>
+                  <option value="2">Россия</option>
+                  <option value="3">Беларусь</option>
+                  <option value="4">Казахстан</option>
+                </select>
+                <div class="popup-sign_tx-help">Начинайте вводить название страны...</div>
+              </div>
+              <div class="popup-sign_row">
+                <select placeholder="Населенный пункт" class="select-cus select-cus__search-on select-cus__gray">
+                  <option></option>
+                  <option value="2">Россия</option>
+                  <option value="3">Беларусь</option>
+                  <option value="4">Казахстан</option>
+                </select>
+              </div>
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">Дата рождения</div>
+              </div>
+              <div class="popup-sign_row">
+                <div class="float-l w-80 margin-r10">
+                  <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
+                    <option></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="8">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+                <div class="float-l w-135 margin-r10">
+                  <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
+                    <option></option>
+                    <option value="1">Января</option>
+                    <option value="2">Февраля</option>
+                    <option value="3">Марта</option>
+                    <option value="4">Апреля</option>
+                    <option value="5">Майя</option>
+                    <option value="6">Июня</option>
+                    <option value="7">Июля</option>
+                    <option value="8">Августа</option>
+                    <option value="9">Сентября</option>
+                    <option value="10">Октября</option>
+                    <option value="11">Ноября</option>
+                    <option value="12">Декабря</option>
+                  </select>
+                </div>
+                <div class="float-l w-80">
+                  <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
+                    <option></option>
+                    <option value="1">1912</option>
+                    <option value="2">1913</option>
+                    <option value="3">1914</option>
+                    <option value="4">1915</option>
+                    <option value="5">1916</option>
+                    <option value="6">1917</option>
+                    <option value="7">1918</option>
+                    <option value="8">1919</option>
+                    <option value="8">1920</option>
+                    <option value="10">1921</option>
+                    <option value="11">1922</option>
+                    <option value="12">1923</option>
+                  </select>
+                </div>
+              </div>
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">Пол
+                  <div class="radio-icons radio-icons__inline margin-l20">
+                    <input id="radio4" type="radio" name="b-radio2" class="radio-icons_radio">
+                    <label for="radio4" class="radio-icons_label">Мужской</label>
+                    <input id="radio3" type="radio" name="b-radio2" class="radio-icons_radio">
+                    <label for="radio3" class="radio-icons_label">Женский</label>
+                  </div>
+                  <div class="b-sign_win"></div>
+                </div>
+              </div>
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">Код</div>
+              </div>
+              <div class="popup-sign_row margin-b15">
+                <div class="popup-sign_capcha-hold">
+                  <div class="margin-b3"><img src="/images/captcha.png" class="popup-sign_capcha">
+                  </div><a class="popup-sign_tx-help">
+                    <div class="ico-refresh"></div>Обновить</a>
+                </div>
+                <div class="popup-sign_capcha-inp">
+                  <input type="text" class="itx-gray popup-sign_itx">
+                  <div class="popup-sign_tx-help">Введите код с картинки</div>
+                </div>
+              </div>
+              <div class="popup-sign_row">
+                <div class="btn-green-simple btn-l">Продолжить</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /popup-sign-->
     </div>
   </body>
 </html>

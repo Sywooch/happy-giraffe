@@ -1,0 +1,151 @@
+/* popup-sign */
+.popup-sign {
+    width: 870px;
+    color: #666;
+    background: #f7f6f8;
+    .box-shadow(0 6px 16px rgba(0,0,0,0.6));
+    
+    &_hold {padding-bottom: 40px;}
+    &_top {
+        padding: 25px 40px;
+        background: #fff url(/new/images/header.png) repeat-x;
+        text-align: center;
+    }
+    &_t {
+        margin: 5px 0 0;
+        font: 40px/50px Arial, Tahoma, Verdana, sans-serif;
+        color: #3e3e3f;
+    }
+    &_slogan {font-size: 15px;}
+
+    &_cont {
+        padding: 35px 65px;
+        .clearfix();
+    }
+    &_social {
+        float: left;
+        width: 310px;
+        padding-right: 75px;
+        margin-right: 40px;
+        background: url(/new/images/popup/popup-sign_or.png) no-repeat 100% 8px;
+    }
+    &_col {
+        float: left;
+        width: 315px;
+    }
+    &_row {
+        margin: 0 0 13px;
+        .clearfix();
+    }
+    &_label {
+        margin: 8px 0 -3px 2px;
+        font-size: 13px;
+    }
+    &_b {
+        text-align: center;
+        font-size: 15px;
+    }
+    &_b-tx {
+        .inline-block();
+        margin-right: 15px;
+    }
+    &_tx-help {
+        color: @color-gray;
+        .font-s-mix();
+    }
+    &_capcha-hold {
+        float: left;
+        width: 125px;
+        margin-right: 15px;
+    }
+    &_capcha-inp {
+        float: left;
+        width: 175px;
+        margin: 14px 0 0;
+    }
+
+}
+/* /popup-sign */
+
+/* social-btns */
+.social-btns {
+    margin: 15px 0 40px;
+
+    .social-btn {
+        margin: 15px 0;
+    }
+}
+/* social-btn */
+.social-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    .border-radius(5px);
+    .clearfix;
+    
+    &__odnoklassniki {background: #fa8a0f;}
+    &__odnoklassniki:hover {background: #ee820b;}
+    &__odnoklassniki &_ico {background-position: 0 0;}
+    &__vkontakte {background: #6d8eb2;}
+    &__vkontakte:hover {background: #5f81a6;}
+    &__vkontakte &_ico {background-position: 0 -100px;}
+
+    &_ico {
+        float: left;
+        margin-left: 5px;
+        width: 50px;
+        height: 50px;
+        background: url(/new/images/social-btn.png) no-repeat;
+        .img-retina('/new/images/social-btn.png'; '/new/images/social-btn-2x.png'; 50px; 150px);
+    }
+    &_tx {
+        font-size: 16px;
+        line-height: 50px;
+        color: #fff;
+    }
+
+}
+/* /social-btn */
+
+
+/* b-radio-icons */
+.radio-icons {
+
+    &__inline {
+        .inline-block();
+        vertical-align: middle;
+    }
+
+    &_radio {display: none;}
+    .ie7 &_radio,
+    .ie8 &_radio {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        padding: 0;
+        margin: 8px 5px 0 0;
+    }
+    &_radio:checked + &_label {
+        color: #333;
+        background-position: 0 -100px;
+    }
+    &_label {
+        .inline-block();
+        vertical-align: top;
+        margin: 0 15px 0 0;
+        color: #777;
+        padding-left: 24px;
+        min-height: 18px;
+        line-height: 18px;
+        cursor: pointer;
+        .img-retina('/new/images/input-radio.png'; '/new/images/input-radio-2x.png'; 18px; 218px);
+        background-repeat: no-repeat;
+    }
+    .ie7 &_label,
+    .ie8 &_label {padding-left: 0;background: none;}
+    &_label:hover {
+        color: #333;
+        background-position: 0 -200px;
+    }
+}
+/* /b-radio-icons */

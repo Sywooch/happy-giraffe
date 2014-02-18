@@ -48,7 +48,7 @@ function FriendsViewModel(data) {
     self.selectTab = function(tab) {
         self.newSelected(false);
         self.selectedListId(null);
-        History.pushState(null, null, '?tab=' + tab);
+        History.pushState(null, window.document.title, '?tab=' + tab);
         self.activeTab(tab);
     }
 

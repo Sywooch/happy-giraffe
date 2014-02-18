@@ -11,7 +11,8 @@
                     <!-- При начале ввода добавить класс .active на кнопку-->
                     <button class="sidebar-search_btn" data-bind="click: clearSearchQuery, css: { active : query() != '' }" ></button>
                 </div>
-                <div class="page-col_t">Все друзья <span data-bind="text: friendsCount"></span></div>
+                <div class="page-col_t" data-bind="visible: activeTab() == 0">Все друзья <span data-bind="text: friendsCount"></span></div>
+                <div class="page-col_t" data-bind="visible: activeTab() == 1">Друзья онлайн <span data-bind="text: friendsOnlineCount"></span></div>
             </div>
             <div class="page-col_top page-col_top__gray" data-bind="visible: activeTab() > 1">
                 <ul class="page-col_tabs">

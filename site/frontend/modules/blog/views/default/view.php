@@ -85,7 +85,7 @@ if (! isset($showComments))
     <?php $this->renderPartial('application.modules.blog.views.default._contest_bottom', compact('data')); ?>
 <?php endif; ?>
 
-<?php if ($full && (strtotime($data->created) < (time() - 30*24*60*60))): ?>
+<?php if ($full): ?>
     <?php $this->renderPartial('blog.views.default._article_banner'); ?>
 <?php endif; ?>
 

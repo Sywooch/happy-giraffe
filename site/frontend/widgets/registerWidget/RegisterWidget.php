@@ -6,6 +6,7 @@ class RegisterWidget extends CWidget
 
     public function run()
     {
+        return;
         if (Yii::app()->user->isGuest) {
             //for tests
             //Yii::app()->user->setState('register_window_shown', 0);

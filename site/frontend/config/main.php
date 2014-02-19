@@ -29,11 +29,11 @@ return array(
 		'application.helpers.*',
         'application.widgets.*',
         'application.vendor.*',
-		'ext.eoauth.*',
-		'ext.eoauth.lib.*',
-		'ext.lightopenid.*',
-		'ext.eauth.services.*',
-		'ext.eauth.custom_services.*',
+        'ext.eoauth.*',
+        'ext.eoauth.lib.*',
+        'ext.lightopenid.*',
+        'ext.eauth.*',
+        'ext.eauth.services.*',
 		'ext.Captcha',
 		'ext.CaptchaAction',
 		'ext.LinkPager',
@@ -122,6 +122,7 @@ return array(
         'myGiraffe',
         'family',
         'antispam',
+        'signup',
 	),
 	// application components
 	'components'=>array(
@@ -163,9 +164,10 @@ return array(
 		    ),
 		),
 		'eauth' => array(
-			'class' => 'ext.eauth.EAuth',
-			'popup' => true, // Use the popup window instead of redirecting.
+            'class' => 'ext.eauth.EAuth',
+            'popup' => true,
             'cache' => false,
+            'cacheExpire' => 0,
 			'services' => array( // You can change the providers and their classes.
 //                'mailru' => array(
 //                    'class' => 'CustomMailruService',
@@ -174,14 +176,14 @@ return array(
 //                    'title' => 'Mail.ru',
 //                ),
                 'odnoklassniki' => array(
-                    'class' => 'CustomOdnoklassnikiService',
+                    'class' => 'application.components.eauth.OdnoklassnikiAuth',
                     'client_id' => '93721600',
                     'client_secret' => '4E774EFE678A1ECF3D4625F3',
                     'client_public' => 'CBAFBHJGABABABABA',
                     'title' => 'Одноклассники',
                 ),
                 'vkontakte' => array(
-                    'class' => 'CustomVKontakteService',
+                    'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
                     'title' => 'Вконтакте',

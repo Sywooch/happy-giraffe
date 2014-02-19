@@ -47,6 +47,7 @@ class CommunityContent extends HActiveRecord
     const TYPE_MORNING = 4;
     const TYPE_STATUS = 5;
     const TYPE_REPOST = 6;
+    const TYPE_QUESTION = 7;
 
     const USERS_COMMUNITY = 999999;
 
@@ -167,8 +168,8 @@ class CommunityContent extends HActiveRecord
             ),
             'antispam' => array(
                 'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
-                'interval' => 60 * 60,
-                'maxCount' => 2,
+                'interval' => 7 * 60,
+                'maxCount' => 3,
             ),
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
@@ -745,30 +746,36 @@ class CommunityContent extends HActiveRecord
     public function getRssContent()
     {
         switch ($this->type_id) {
-            case 1:
+            case self::TYPE_POST:
                 $output = $this->post->text;
                 break;
-            case 2:
+            case self::TYPE_VIDEO:
                 $video = new Video($this->video->link);
                 if (isset($video->image))
                     $output = CHtml::image($video->image) . $this->video->text;
                 else
                     $output = $this->video->link . "<br>" . $this->video->text;
                 break;
-            case 3:
+            case self::TYPE_PHOTO_POST:
                 $output = CHtml::image($this->photoPost->photo->getPreviewUrl(200, 200)) . $this->photoPost->text;
                 break;
-            case 4:
+            case self::TYPE_MORNING:
                 $output = $this->preview;
                 foreach ($this->morning->photos as $p) {
                     $output .= CHtml::tag('p', array(), CHtml::image($p->url)) . CHtml::tag('p', array(), $p->text);
                 }
                 break;
-            case 5:
+            case self::TYPE_STATUS:
                 $output = $this->status->text;
                 break;
-            case 6:
+            case self::TYPE_REPOST:
                 $output = $this->preview . "<br>" . $this->source->getRssContent();
+                break;
+            case self::TYPE_QUESTION:
+                $output = $this->question->text;
+                break;
+            default:
+                $output = $this->content->text;
         }
 
         return $output;

@@ -356,5 +356,6 @@ return array(
         '<_c>/captcha' => '<_c>/captcha',
 
         'antispam/<_c>/<_a>' => 'antispam/<_c>/<_a>',
+        'signup/<_c>/<_a>' => 'signup/<_c>/<_a>',
     ),
 );

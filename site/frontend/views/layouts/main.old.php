@@ -101,31 +101,35 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         </div>
         <?php else: ?>
             <div class="layout-header layout-header__nologin clearfix">
-                <div class="content-cols clearfix">
-                    <div class="col-1">
-                        <div class="logo">
-                            <a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
-                            <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
-                        </div>
-                        <div class="sidebar-search clearfix">
-                            <form action="/search/">
-                                <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(this)">
-                                <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-23">
-                        <div class="b-join clearfix">
-                            <div class="b-join_left">
-                                <div class="b-join_tx"> Более <span class="b-join_tx-big"> 20 000 000</span> мам и пап</div>
-                                <div class="b-join_slogan">уже посетили Веселый Жираф!</div>
+                <div class="header">
+                    <div class="header_hold">
+                        <div class="content-cols clearfix">
+                            <div class="col-1">
+                                <div class="logo">
+                                    <a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
+                                    <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
+                                </div>
+                                <div class="sidebar-search clearfix">
+                                    <form action="/search/">
+                                        <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(this)">
+                                        <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="b-join_right">
-                                <a href="#register" class="btn-green btn-big fancy">Присоединяйтесь!</a>
-                                <div class="clearfix">
-                                    <a href="#login" class="display-ib verticalalign-m fancy">Войти</a>
-                                    <span class="i-or">или</span>
-                                    <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home')); ?>
+                            <div class="col-23">
+                                <div class="b-join clearfix">
+                                    <div class="b-join_left">
+                                        <div class="b-join_tx"> Более <span class="b-join_tx-big"> 20 000 000</span> мам и пап</div>
+                                        <div class="b-join_slogan">уже посетили Веселый Жираф!</div>
+                                    </div>
+                                    <div class="b-join_right">
+                                        <a href="#register" class="btn-green btn-big fancy">Присоединяйтесь!</a>
+                                        <div class="clearfix">
+                                            <a href="#login" class="display-ib verticalalign-m fancy">Войти</a>
+                                            <span class="i-or">или</span>
+                                            <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home')); ?>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 <div class="popup-sign_top">
-    <div class="popup-sign_t">Добро пожаловать Александр!</div>
+    <div class="popup-sign_t">Добро пожаловать, <span data-bind="text: first_name"></span>!</div>
     <div class="popup-sign_slogan">Осталось ввести еще немного данных</div>
 </div>
 <div class="popup-sign_cont">

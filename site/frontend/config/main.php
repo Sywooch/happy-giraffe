@@ -186,7 +186,7 @@ return array(
                     'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
-                    'title' => 'Вконтакте',
+                    'title' => 'ВКонтакте',
                 ),
 //                'facebook' => array(
 //                    'class' => 'CustomFacebookService',

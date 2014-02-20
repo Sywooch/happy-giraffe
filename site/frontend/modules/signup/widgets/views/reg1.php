@@ -14,10 +14,7 @@
         <div class="popup-sign_row">
             <div class="popup-sign_label">С помощью социальных сетей</div>
         </div>
-        <ul class="social-btns clearfix">
-            <li><a class="social-btn social-btn__odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
-            <li><a class="social-btn social-btn__vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
-        </ul>
+        <?php $this->widget('AuthWidget', array('action' => '/signup/default/social')); ?>
     </div>
     <div class="popup-sign_col">
         <div class="popup-sign_row">
@@ -28,6 +25,7 @@
                 <?=$form->textField($model, 'email', array(
                     'placeholder' => 'E-mail',
                     'class' => 'itx-gray popup-sign_itx',
+                    'data-bind' => 'value: email',
                 ))?>
                 <div class="inp-valid_error">
                     <?=$form->error($model, 'email')?>
@@ -43,6 +41,7 @@
                 <?=$form->textField($model, 'first_name', array(
                     'placeholder' => 'Имя',
                     'class' => 'itx-gray popup-sign_itx',
+                    'data-bind' => 'value: first_name',
                 ))?>
                 <div class="inp-valid_error">
                     <?=$form->error($model, 'first_name')?>
@@ -55,6 +54,7 @@
                 <?=$form->textField($model, 'last_name', array(
                     'placeholder' => 'Фамилия',
                     'class' => 'itx-gray popup-sign_itx',
+                    'data-bind' => 'value: last_name',
                 ))?>
                 <div class="inp-valid_error">
                     <?=$form->error($model, 'last_name')?>

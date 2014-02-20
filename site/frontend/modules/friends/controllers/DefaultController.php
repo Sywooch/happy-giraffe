@@ -54,16 +54,7 @@ class DefaultController extends HController
             return array(
                 'id' => $friend->id,
                 'listId' => $friend->list_id,
-                'user' => array(
-                    'id' => $friend->friend->id,
-                    'online' => (bool)$friend->friend->online,
-                    'firstName' => $friend->friend->first_name,
-                    'lastName' => $friend->friend->last_name,
-                    'ava' => $friend->friend->getAvatarUrl(Avatar::SIZE_LARGE),
-                    'gender' => $friend->friend->gender,
-                    'photoCount' => (int)$friend->friend->getPhotosCount(),
-                    'blogPostsCount' => (int)$friend->friend->blogPostsCount
-                ),
+                'user' => FriendsManager::userToJson($friend->friend),
                 'pCount' => $friend->pCount,
                 'bCount' => $friend->bCount,
             );

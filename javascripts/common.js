@@ -455,11 +455,15 @@ function FriendButtonViewModel(data) {
 
     self.cssClass = ko.computed(function() {
         switch (self.status()) {
+            // уже в друзьях
             case 1:
                 return 'user-btns_ico-hold__friend';
+            // можно отправить приглашение
             case 2:
+            // можно подтвердить приглашение
             case 4:
                 return 'user-btns_ico-hold__friend-add';
+            // приглашение отправленно
             case 3:
                 return 'user-btns_ico-hold__friend-added'
         }

@@ -44,7 +44,7 @@
                                 optionsValue: 'id',
                                 optionsCaption: '',
                                 selectize: {create: false}
-                            " placeholder="Выбор страны" class="select-cus select-cus__blue-searchon">
+                            " placeholder="Выбор страны" class="select-cus select-cus__blue-searchon select-cus__blue">
                             </select>
                         </div>
                         <!-- первый option должен быть пустым и без пробелов, для placeholder-->

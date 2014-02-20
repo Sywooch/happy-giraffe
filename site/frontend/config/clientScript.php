@@ -3,12 +3,18 @@
 return array(
     'class' => 'application.components.ClientScript',
     'packages' => array(
+        'selectize' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'new/javascript/selectize.js',
+            ),
+        ),
         'ko_registerWidget' => array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_registerWidget.js',
             ),
-            'depends' => array('knockout', 'common', 'jcrop'),
+            'depends' => array('knockout', 'common', 'jcrop', 'selectize'),
         ),
         'powertip' => array(
             'baseUrl' => '/',

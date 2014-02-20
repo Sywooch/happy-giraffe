@@ -98,7 +98,7 @@
                         <label for="radio3" class="aside-filter_label-radio">любой</label>
                         <input id="radio4" type="radio" name="b-radio2" checked="checked" class="aside-filter_radio" data-bind="checked: gender" value="1">
                         <label for="radio4" class="aside-filter_label-radio"><span class="ico-male"></span></label>
-                        <input id="radio5" type="radio" name="b-radio2" class="aside-filter_radio" data-bind="checked: gender" value="2">
+                        <input id="radio5" type="radio" name="b-radio2" class="aside-filter_radio" data-bind="checked: gender" value="0">
                         <label for="radio5" class="aside-filter_label-radio"><span class="ico-female"></span></label>
                     </div>
                     <div class="aside-filter_sepor"></div>

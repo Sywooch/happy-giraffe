@@ -26,6 +26,7 @@ if (! Yii::app()->user->isGuest)
     else
         echo CHtml::encode($this->pageTitle);
     ?></title>
+    <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <!-- including .css-->
     <link rel="stylesheet" type="text/css" href="/new/css/all1.css" />
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">

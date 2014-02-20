@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Happy Giraffe</title>
-    <!-- including .css--><link rel="stylesheet" type="text/css" href="../../../css/all1.css" />
+    <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.css" />
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
     <!-- including other jade works-->
     <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
@@ -28,11 +28,12 @@
     <script src="/new/javascript/common.js"></script>
     <!-- js для работы в верстке-->
     <script src="/new/javascript/common-markup.js"></script>
+    <script src="//localhost:35729/livereload.js"></script>
   </head>
   <body class="body body__im">
     <div class="layout-container">
       <div class="error-serv display-n">
-        <div class="error-serv_hold"><span class="ico-error-smile margin-r5"></span>Произошла критическая ошибка.<a class="error-serv_a">Перезагрузить страницу</a></div>
+        <div class="error-serv_hold"><span class="ico-error-smile margin-r5"></span>Произошла критическая ошибка. <a class="error-serv_a">Перезагрузить страницу</a></div>
       </div>
       <div class="layout-header clearfix">
         <!-- header-fix-->
@@ -86,7 +87,9 @@
             </div>
             <div class="header-fix-menu">
               <ul class="header-menu_ul clearfix">
-                <!-- li.header-fix-menu_li<a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a>
+                <!-- li.header-fix-menu_li
+                a.header-fix-menu_a(href='')
+                    span.header-fix-menu_tx прямой эфир
                 -->
                 <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
                 <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
@@ -107,7 +110,11 @@
             <!-- header-menu-->
             <div class="header-menu">
               <ul class="header-menu_ul clearfix">
-                <!-- li.header-menu_li<a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a>
+                <!-- li.header-menu_li
+                a.header-menu_a(href='')
+                    span.header-menu_ico.header-menu_ico__broadcast
+                    span.header-menu_tx
+                        | Прямой эфир
                 -->
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
@@ -161,7 +168,7 @@
         </div>
       </div>
     </div>
-    <div class="popup-container display-n"> 
+    <div class="popup-container display-n">
       <!-- msg-fast popup-->
       <div id="msg-fast-base" class="msg-fast popup">
         <div class="msg-fast_hold">
@@ -194,7 +201,7 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_451" class="redactor"></textarea>
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_97" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -204,7 +211,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_451" class="redactor-control_toolbar"></div>
+              <div id="redactor-control_toolbar_97" class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -214,11 +221,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_451').redactor({
+                  $('#redactor_97').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_451',
+                    toolbarExternal: '#redactor-control_toolbar_97',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -284,7 +291,7 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_637" class="redactor"></textarea>
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_113" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -294,7 +301,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_637" class="redactor-control_toolbar"></div>
+              <div id="redactor-control_toolbar_113" class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -304,11 +311,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_637').redactor({
+                  $('#redactor_113').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_637',
+                    toolbarExternal: '#redactor-control_toolbar_113',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -381,7 +388,7 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_505" class="redactor"></textarea>
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_795" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -391,7 +398,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_505" class="redactor-control_toolbar"></div>
+              <div id="redactor-control_toolbar_795" class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -401,11 +408,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_505').redactor({
+                  $('#redactor_795').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_505',
+                    toolbarExternal: '#redactor-control_toolbar_795',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -478,7 +485,7 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_69" class="redactor"></textarea>
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_235" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -488,7 +495,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_69" class="redactor-control_toolbar"></div>
+              <div id="redactor-control_toolbar_235" class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -498,11 +505,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_69').redactor({
+                  $('#redactor_235').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_69',
+                    toolbarExternal: '#redactor-control_toolbar_235',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -588,7 +595,7 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_79" class="redactor"></textarea>
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_254" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -598,7 +605,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_79" class="redactor-control_toolbar"></div>
+              <div id="redactor-control_toolbar_254" class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -608,11 +615,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_79').redactor({
+                  $('#redactor_254').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_79',
+                    toolbarExternal: '#redactor-control_toolbar_254',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {

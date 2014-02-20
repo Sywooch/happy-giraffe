@@ -1,0 +1,14 @@
+{
+  "name": "happy-giraffe",
+  "varsion": "0.1.0",
+  "devDependencies": {
+    "grunt-cli": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-contrib-less": "latest",
+    "grunt-contrib-jade": "latest",
+    "grunt-contrib-connect": "latest",
+    "grunt-contrib-imagemin": "latest",
+    "grunt-timer": "latest",
+    "nib": "latest"
+  }
+}

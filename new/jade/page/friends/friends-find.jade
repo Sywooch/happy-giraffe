@@ -15,10 +15,10 @@ block layout-wrapper
                     .friends-list_ul
                         .friends-list_li
                             .friends-list_i
-                                +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александр Богоявленский', userAge: '42 года', family: true });
+                                +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александр Богоявленский', userAge: '42 года', family: true })
                         .friends-list_li
                             .friends-list_i
-                                +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет'});
+                                +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет'})
             .page-col_aside.aside-filter
                 form
                     .aside-filter_top
@@ -29,7 +29,7 @@ block layout-wrapper
                             .margin-b15
                                 // первый option должен быть пустым и без пробелов, для placeholder
                                 // у всех option должно быть value
-                                select.select-cus.select-cus__blue-searchon(placeholder="Выбор страны")
+                                select.select-cus.select-cus__blue.select-cus__search-on(placeholder="Выбор страны")
                                     option
                                     option(value="1") Выбор страны
                                     option(value="2") Россия
@@ -48,7 +48,7 @@ block layout-wrapper
                                     option(value="15") 132
                                     option(value="16") 132
                             // первый option должен быть пустым и без пробелов, для placeholder
-                            select.select-cus.select-cus__blue-searchon(placeholder="Населенный пункт")
+                            select.select-cus.select-cus__blue.select-cus__search-on(placeholder="Населенный пункт")
                                 option
                                 option(value="1") Населенный пункт
                                 option(value="2") Россия
@@ -69,7 +69,7 @@ block layout-wrapper
                         .aside-filter_row.clearfix
                             .aside-filter_t Возраст
                             .display-ib.w-75
-                                select.select-cus.select-cus__blue(placeholder="От")
+                                select.select-cus.select-cus__blue.select-cus__search-off(placeholder="От")
                                     option
                                     option(value="0") От
                                     option(value="1") 1
@@ -90,7 +90,7 @@ block layout-wrapper
                                     option(value="16") 132
                             .aside-filter_label - 
                             .display-ib.w-75
-                                select.select-cus.select-cus__blue(placeholder="До")
+                                select.select-cus.select-cus__blue.select-cus__search-off(placeholder="До")
                                     option
                                     option(value="0") До
                                     option(value="1") 1
@@ -122,7 +122,7 @@ block layout-wrapper
                                 label.aside-filter_label-radio(for='radio7') срок беременности (недели)
                                 .aside-filter_toggle
                                     .display-ib.w-75
-                                        select.select-cus.select-cus__blue(placeholder="С")
+                                        select.select-cus.select-cus__blue.select-cus__search-off(placeholder="С")
                                             option
                                             option(value="0") С
                                             option(value="1") 1
@@ -134,7 +134,7 @@ block layout-wrapper
                                             option(value="7") 7
                                     .aside-filter_label - 
                                     .display-ib.w-75
-                                        select.select-cus.select-cus__blue(placeholder="По")
+                                        select.select-cus.select-cus__blue.select-cus__search-off(placeholder="По")
                                             option
                                             option(value="0") По
                                             option(value="1") 1
@@ -149,7 +149,7 @@ block layout-wrapper
                                 label.aside-filter_label-radio(for='radio8') возраст ребенка (лет)
                                 .aside-filter_toggle
                                     .display-ib.w-75
-                                        select.select-cus.select-cus__blue(placeholder="От")
+                                        select.select-cus.select-cus__blue.select-cus__search-off(placeholder="От")
                                             option
                                             option(value="0") От
                                             option(value="1") 1
@@ -161,7 +161,7 @@ block layout-wrapper
                                             option(value="7") 7
                                     .aside-filter_label - 
                                     .display-ib.w-75
-                                        select.select-cus.select-cus__blue(placeholder="До")
+                                        select.select-cus.select-cus__blue.select-cus__search-off(placeholder="До")
                                             option
                                             option(value="0") До
                                             option(value="1") 1

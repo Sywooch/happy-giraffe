@@ -425,6 +425,25 @@ $(document).ready(function () {
 					</ul>
 				</div>
 				
+				<div class="adfox-banner-html">
+					<div id="ADFOXHTMLTemplateBody" style="width: %width%; height: %height%; background: %backgroundColor%">
+						<a href=%reference% target=%target%>
+							<!-- %user1%  -->
+							<span class="adfox-banner-html_hold clearfix">
+								<span class="adfox-banner-html_img-h adfox-banner-html_img-h__nutella">
+									<!--  -->
+									<img src="/images/banners/nutella_75x75_6.jpg" alt="" class="adfox-banner-html_img">
+								</span>
+								<span class="adfox-banner-html_cont">
+									<span class="adfox-banner-html_t">Фотоконкурс от Nutella!</span>
+									<span class="adfox-banner-html_tx"> Каждую неделю разигрывается коробка с Nutella! Главный приз - блинница!</span>
+								</span>
+							</span>
+							<!-- /%user1%  -->
+						</a>
+					</div>
+				</div>
+				
 			</div>
 			<div class="col-23-middle ">
 				<div class="clearfix margin-r20 margin-b20">

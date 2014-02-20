@@ -8,113 +8,111 @@
 	
 </head>
 <body class="body-gray">
-
-	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 	
 <div class="layout-container">
-	<div class="layout-wrapper">
-		<div class="layout-header layout-header__nologin clearfix">
-			<div class="content-cols clearfix">
-				<div class="col-1">
-					<div class="logo">
-						<a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
-						<strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
-					</div>
-					<div class="sidebar-search clearfix">
-						<input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
-						<!-- 
-						В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
-						 -->
-						<button class="sidebar-search_btn"></button>
-					</div>
-				</div>
-				<div class="col-23">
-					<div class="b-join clearfix">
-						<div class="b-join_left">
-							<div class="b-join_tx"> Более <span class="b-join_tx-big"> 20 000 000</span> мам и пап</div>
-							<div class="b-join_slogan">уже посетили Веселый Жираф!</div>
+	<div class="layout-header layout-header__nologin clearfix">
+		<div class="header">
+			<div class="header_hold">
+				<div class="content-cols clearfix">
+					<div class="col-1">
+						<div class="logo">
+							<a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
+							<strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
 						</div>
-						<div class="b-join_right">
-							<a href="" class="btn-green btn-big">Присоединяйтесь!</a>
-							<div class="clearfix">
-								<a href="" class="display-ib verticalalign-m">Войти</a>
-								<span class="i-or">или</span>
-								<ul class="display-ib verticalalign-m">
-									<li class="display-ib">
-										<a class="custom-like" href="">
-											<span class="custom-like_icon odnoklassniki"></span>
-										</a>
-									</li>
-									<li class="display-ib">
-										<a class="custom-like" href="">
-											<span class="custom-like_icon vkontakte"></span>
-										</a>
-									</li>
-									<li class="display-ib">
-										<a class="custom-like" href="">
-											<span class="custom-like_icon facebook"></span>
-										</a>
-									</li>
-									<li class="display-ib">
-										<a class="custom-like" href="">
-											<span class="custom-like_icon twitter"></span>
-										</a>
-									</li>
-								</ul>
+						<div class="sidebar-search clearfix">
+							<input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
+							<!-- 
+							В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
+							 -->
+							<button class="sidebar-search_btn"></button>
+						</div>
+					</div>
+					<div class="col-23">
+						<div class="b-join clearfix">
+							<div class="b-join_left">
+								<div class="b-join_tx"> Более <span class="b-join_tx-big"> 30 000 000</span> мам и пап</div>
+								<div class="b-join_slogan">уже посетили Веселый Жираф!</div>
+							</div>
+							<div class="b-join_right">
+								<a href="" class="btn-green btn-big">Присоединяйтесь!</a>
+								<div class="clearfix">
+									<a href="" class="display-ib verticalalign-m">Войти</a>
+									<span class="i-or">или</span>
+									<ul class="display-ib verticalalign-m">
+										<li class="display-ib">
+											<a class="custom-like" href="">
+												<span class="custom-like_icon odnoklassniki"></span>
+											</a>
+										</li>
+										<li class="display-ib">
+											<a class="custom-like" href="">
+												<span class="custom-like_icon vkontakte"></span>
+											</a>
+										</li>
+										<li class="display-ib">
+											<a class="custom-like" href="">
+												<span class="custom-like_icon facebook"></span>
+											</a>
+										</li>
+										<li class="display-ib">
+											<a class="custom-like" href="">
+												<span class="custom-like_icon twitter"></span>
+											</a>
+										</li>
+									</ul>
+									
 								
-							
+									
 								
-							
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<script>
-			$(window).load(function() {
-				/*
-				block - элемент, что фиксируется
-				elementStop - до какого элемента фиксируется
-				blockIndent - отступ
-				*/
-				function bJoinRowFixed() {
-
-					var block = $('.js-b-join-row');
-					var blockTop = block.offset().top;
-
-					var startTop = $('.layout-header').height();
-					
-
-					$(window).scroll(function() {
-				        var windowScrollTop = $(window).scrollTop();
-				        if (windowScrollTop > startTop) {
-				        	block.fadeIn();
-				        } else {
-
-							block.fadeOut();
-
-				        }
-				    });
-				}
-
-				bJoinRowFixed('.js-b-join-row');
-			})
-			</script>
-			<div class="b-join-row js-b-join-row">
-				<a class="layout-header_scrolltop" href="">
-					<span class="a-pseudo">Наверх</span>
-					<span class="i-arrow-t"></span>
-				</a>
-				<div class="b-join-row_hold">
-					<div class="b-join-row_logo"></div>
-					<div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 20 000 000</span> мам и пап</div>
-					<div class="b-join-row_slogan">уже посетили Веселый Жираф!</div>
-					<a href="" class="btn-green btn-h46">Присоединяйтесь!</a>
-				</div>
-			</div>
-
-
 		</div>
+		<script>
+		$(window).load(function() {
+			/*
+			block - элемент, что фиксируется
+			elementStop - до какого элемента фиксируется
+			blockIndent - отступ
+			*/
+			function bJoinRowFixed() {
+
+				var block = $('.js-b-join-row');
+				var blockTop = block.offset().top;
+
+				var startTop = $('.layout-header').height();
+				
+
+				$(window).scroll(function() {
+			        var windowScrollTop = $(window).scrollTop();
+			        if (windowScrollTop > startTop) {
+			        	block.fadeIn();
+			        } else {
+
+						block.fadeOut();
+
+			        }
+			    });
+			}
+
+			bJoinRowFixed('.js-b-join-row');
+		})
+		</script>
+		<div class="b-join-row js-b-join-row">
+			<div class="b-join-row_hold">
+				<div class="b-join-row_logo"></div>
+				<div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 30 000 000</span> мам и пап</div>
+				<div class="b-join-row_slogan">уже посетили Веселый Жираф!</div>
+				<a href="" class="btn-green btn-h46">Присоединяйтесь!</a>
+			</div>
+		</div>
+
+
+	</div>
+	<div class="layout-wrapper">
 
 		<div class="layout-content clearfix">
 		<div class="b-section b-section__club b-section__club-2">
@@ -126,7 +124,7 @@
 								<li class="club-list_li club-list_li__in">
 									<a class="club-list_i" href="">
 										<span class="club-list_img-hold">
-											<img class="club-list_img" alt="" src="/images/club/2-w240.jpg">
+											<img class="club-list_img" alt="" src="/images/club/2-w240.png">
 										</span>
 									</a>
 								</li>

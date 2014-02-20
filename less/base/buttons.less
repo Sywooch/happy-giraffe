@@ -1,6 +1,7 @@
 /*  buttons */
 .btn-blue,
 .btn-blue-light,
+.btn-blue-simple,
 .btn-gray,
 .btn-gray-light,
 .btn-amethyst,
@@ -8,6 +9,7 @@
 .btn-gold,
 .btn-corncolor,
 .btn-yellow,
+.btn-green-simple,
 .btn-green  {
 	.inline-block();
 	padding: 4px 13px 6px;
@@ -56,6 +58,42 @@
 }
 
 
+// размеры
+.btn-s {
+    font-size: 12px;
+    line-height: 12px;
+    padding: 4px 14px 5px;
+    .border-radius(3px);
+}
+
+.btn-m {
+    height:32px;
+    font: 14px/32px Arial, Tahoma, Verdana, sans-serif;
+    padding:0 18px;
+    .border-radius(3px);
+}
+.btn-l {
+    height:46px;
+    font:17px/45px Arial, Tahoma, Verdana, sans-serif;
+    padding:0 25px;
+    .border-radius(5px);
+}
+.btn-xl {height:55px;font: 20px/55px Arial, Tahoma, Verdana, sans-serif;padding:0 21px;.border-radius(5px);}
+.btn-xxl {height:60px;line-height:60px;padding:0 20px;font-size:35px;.border-radius(5px);}
+.btn-xxxl {height:75px;line-height:75px;padding:0 35px;font-size:34px;.border-radius(8px);}
+
+
+
+// Цвета
+.btn-blue-simple {
+    color: #fff;
+    background-color: #4b90bf;
+
+    &:hover {background-color: #4085b4;}
+}
+
+
+
 .btn-green {
 	color: #fff;
 	.gvertical(#49cf43, #21a34a);
@@ -74,6 +112,13 @@
 .btn-green.twolines .big{display:block;font-size:24px;line-height:22px;padding:2px 0 1px;}
 .btn-green.twolines .small{display:block;font-size:20px;line-height:18px;padding-bottom:7px;}
 .btn-green.small {padding:2px 8px;font-size:12px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px;line-height:16px;}
+.btn-green-simple {
+    color: #fff;
+    background-color: #30b447;
+}
+.btn-green-simple:hover {background-color: #28ad40;}
+
+
 
 .btn-yellow {
 	color: #94631b;

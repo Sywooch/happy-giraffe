@@ -4,9 +4,8 @@ extend ../../extend/layout_frame
 block layout-wrapper
     +side-menu__friend("side-menu__friend")
     .page-col.page-col__friend
-        .page-col_top
-            +sidebar-search('', {placeholder: 'Введите имя и/или фамилию'})
-            .page-col_t Все друзья 128
+        +page-col_top-tabs('', {tabActive: 0, tabsTexts:['Все друзья 128', 'Друзья онлайн 12', 'Новые друзья 6'], sidebarSearch: true})
+
         .page-col_cont
             //- friend-list
             .friends-list
@@ -14,26 +13,25 @@ block layout-wrapper
                     .friends-list_li
                         .friends-list_i
                             span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriend: true, userNameTx: 'Александр Богоявленский', userAge: '42 года', family: true });
+                            +b-ava-large('', {delFreind: true, icoFriend: true, userNameTx: 'Александр Богоявленский', userAge: '42 года', family: true })
                     .friends-list_li
                         .friends-list_i
                             span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriend: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', family: true});
+                            +b-ava-large('', {delFreind: true, icoFriend: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', family: true})
                     .friends-list_li
                         .friends-list_i
                             span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriend: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', });
+                            +b-ava-large('', {delFreind: true, icoFriend: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', })
 
                     .friends-list_li
                         .friends-list_i
                             span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriend: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '39 лет', family: true});
-                            +cap-empty('cap-empty__abs cap-empty__white', {txTop: "<a href='' class='b-ava-large_a'>Алекс Брянский</a>", t: "Удален из друзей", txSub: "<a href=''>Восстановить</a>"}); 
+                            +b-ava-large('', {delFreind: true, icoFriend: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '39 лет', family: true})
+                            +cap-empty('cap-empty__abs cap-empty__white', {txTop: "<a href='' class='b-ava-large_a'>Алекс Брянский</a>", t: "Удален из друзей", txSub: "<a href=''>Восстановить</a>"})
                     .friends-list_li
                         .friends-list_i
                             span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriend: true, userNameTx: 'Александра Ушакова-Младшая-Младшая', userAge: '19 лет'});
-
+                            +b-ava-large('', {delFreind: true, icoFriend: true, userNameTx: 'Александра Ушакова-Младшая-Младшая', userAge: '19 лет'})
             //- /friend-list
 
             

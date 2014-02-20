@@ -1,12 +1,12 @@
 
 $(function() {
     // Измененный tag select c инпутом поиска
-    $('.select-cus__blue-searchon').selectize({
-        create: true/*,
-        dropdownParent: 'body'*/
+    $('.select-cus__search-on').selectize({
+        create: true,
+        dropdownParent: 'body'
     });
     // Измененный tag select
-    $('.select-cus__blue').selectize({
+    $('.select-cus__search-off').selectize({
         create: true,
         dropdownParent: 'body',
         onDropdownOpen: function(){
@@ -39,7 +39,7 @@ $(function() {
         }
     });
 
-    // Подсказки у пкопок около обольшой аватары
+    // Подсказки у кнопок около обольшой аватары
     $('.b-ava-large_bubble').tooltipster({
         trigger: 'hover',
         offsetY: -18,

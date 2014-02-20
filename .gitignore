@@ -67,3 +67,6 @@ Desktop.ini
 .*.sw[a-z]
 *.un~
 Session.vim
+
+# for NodeJs Grunt
+node_modules

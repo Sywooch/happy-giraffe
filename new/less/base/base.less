@@ -75,20 +75,22 @@
         font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
     }
 }
+.i-highlight {
+    padding: 0 4px;
+    background: #fff7af;
+}
 .btn-scrolltop {
     display: none;
     position: fixed;
     z-index: 15;
-    bottom: 20px;
+    bottom: 0;
     right: 20px;
-    width: 65px;
-    height: 50px;
+    width: 67px;
+    height: 52px;
     background-image: url(/new/images/btn-scrolltop.png);
-    background-color: rgba(255,255,255,.7);
-    .border-radius(5px);
     cursor: pointer;
 
-    &:hover {background-color: #fff;}
+    &:hover {background-position: -67px 0;}
 
     @media screen and (min-width: 600px) {
         & {display: block;}
@@ -141,9 +143,7 @@
         }
     }
     &_top__gray {
-        background: #f5f7fa;
-        -webkit-border-top-right-radius: 10px;
-        -moz-border-top-right-radius: 10px;
+        background: #f0f0f0;
         border-top-right-radius: 10px;
     }
     &_t {
@@ -193,21 +193,21 @@
         .a-pseudo {margin-top: 2px;}
     }
 
-    &_tabs {}
+    &_tabs {
+        .user-select(none);
+    }
     &_tab {
         float: left;
-        margin: 12px 0 0;
+        margin: 0 18px;
     }
     &_tab.active &_tab-a {
         color: #3b3b3b;
-        border: 1px solid #ededed;
-        border-bottom-width: 0;
-        background: #fff;
-        .border-radius(5px);
+        border-color: #50aae0;
     }
     &_tab-a {
         display: block;
-        padding: 15px 18px;
+        padding: 23px 3px 17px;
+        border-bottom: 2px solid transparent;
         font-size: 13px;
         line-height: 15px;
         color: #adadad;
@@ -362,6 +362,7 @@
 .b-control {
     display: inline-block;
     margin: 0 -4px 0;
+    .user-select(none);
 
     &_hold {}
     &_i {
@@ -412,6 +413,7 @@
     width: 80px;
     background: #675495;
     .border-left-radius(10px);
+    .user-select(none);
     
     @media screen and (max-height: 530px) {
         &__im &_tx {display: none;}
@@ -489,7 +491,7 @@
         margin: 0 0 2px;
         background: url() no-repeat;
         opacity: .5;
-        .img-retina('/new/images/side-menu_ico.png'; '/new/images/side-menu_ico-2x.png'; 200px; 40px);
+        .img-retina('/new/images/side-menu_ico.png'; '/new/images/side-menu_ico-2x.png'; 400px; 40px);
     }
     &_ico__all    {background-position: 0 0;}
     &_ico__new    {background-position: -50px 0;}
@@ -498,7 +500,8 @@
     &_ico__find   {background-position: -200px 0;}
     &_ico__friend-new {background-position: -250px 0;}
     &_ico__friend-add {background-position: -300px 0;}
-
+    &_ico__advice {background-position: -350px 0;}
+    
     // antispam модуль
     &_ico__broadcast {background-position: 0 0;}
     &_ico__expert    {background-position: -50px 0;}
@@ -555,6 +558,7 @@
     position: relative;
     z-index: 100;
     text-align: center;
+    .user-select(none);
 
     &__abs {
         position: absolute;
@@ -844,6 +848,30 @@
     }
 }
 
+
+.loader {
+    min-height: 30px;
+    text-align: center;
+    color: #b6b6b6;
+    font-size: 14px;
+    padding: 7px;
+    
+    &__b-gray {
+        margin: 30px auto 40px;
+        padding: 0;
+    }
+    &_tx {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 4px 5px 0;
+    }
+    &_img {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 4px;
+    }
+}
+
 // Form ----------------------------
 /* 
     sidebar-search
@@ -909,13 +937,72 @@
     }
 }
 
+/* 
+    Валидация форм
+    .inp-valid
+*/
+.inp-valid {
+    position: relative;
+    .clearfix();
+
+    &.error &_error {display: inline-block;}
+    &.error input,
+    &.error .selectize-control.single .selectize-input {border-color: #fdb9ac !important;}
+    &.success &_success {display: block;}
+    &__abs &_error {
+        position: absolute;
+        bottom: 100%;
+        z-index: 1000;
+        white-space: nowrap;
+    }
+    &__abs &_success {
+        position: absolute;
+        left: 100%;
+        margin-left: 10px;
+        z-index: 1000;
+    }
+    &__abs &_success__ico-check {
+        top: 50%;
+        margin-top: -6px;
+    }
+
+    &_error {
+        display: none;
+        padding: 8px 10px 8px 33px;
+         background: #fde3e3 url(/new/images/inp-valid_error.png) no-repeat 7px 6px;
+    }
+    &_error:after {
+        content: ' ';
+        position: absolute;
+        left: 10px;
+        bottom: -12px;
+        border: 6px solid transparent;
+        border-top-color: #fde3e3;
+    }
+    &_error .errorMessage {
+        color: #db9191 !important;
+        font-size: 12px !important;
+        margin: 0;
+    }
+    &_success__ico-check {
+        .inline-block();
+        width: 12px;
+        height: 11px;
+        .img-retina('/new/images/inp-valid_success__ico-check.png'; '/new/images/inp-valid_success__ico-check-2x.png'; 12px; 11px);
+    }
+    &_success{
+        display: none;
+    }
+}
+/* /.inp-valid */
+
 /* inputs */
 .itx-gray {
     width: 100%;
     border: 1px solid #e6e6e6;
     padding: 7px 10px;
     background: #fff;
-    color: #070707;
+    color: #333;
     .box-sizing(border-box);
     .border-radius(3px);
     .transition(all 0.4s ease);
@@ -928,7 +1015,7 @@
     padding: 7px 8px 7px 10px;
     font-size: 14px;
     line-height: 19px;
-    color: #070707;
+    color: #333;
     background: #fff;
     .box-sizing(border-box);
     .border-radius(3px);
@@ -944,9 +1031,6 @@
     }
 }
 /* errors */
-.error input[type="text"],
-.error input[type="password"],
-.error textarea, 
 input.error[type="text"], 
 input.error[type="password"], 
 textarea.error {

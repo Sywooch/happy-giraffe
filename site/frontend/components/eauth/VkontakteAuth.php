@@ -14,7 +14,7 @@ class VkontakteAuth extends VKontakteOAuthService
             'query' => array(
                 'uids' => $this->uid,
                 //'fields' => '', // uid, first_name and last_name is always available
-                'fields' => 'nickname, sex, bdate, city, country, timezone, photo, photo_medium, photo_big, photo_rec',
+                'fields' => 'sex, bdate, city, country, photo_max_orig',
             ),
         ));
 
@@ -27,6 +27,7 @@ class VkontakteAuth extends VKontakteOAuthService
         $this->setBirthdayAttributes($info);
         $this->attributes['gender'] = $info->sex == 0 ? null : $info->sex - 1;
         $this->setLocationAttributes($info);
+        $this->attributes['avatar_src'] = $info->photo_max_orig;
     }
 
     protected function setBirthdayAttributes($info)
@@ -44,6 +45,12 @@ class VkontakteAuth extends VKontakteOAuthService
         $this->attributes['birthday_year'] = $year;
         $this->attributes['birthday_month'] = $month;
         $this->attributes['birthday_day'] = $day;
+
+        $attrs = explode(', ', 'photo_50, photo_100, photo_200_orig, photo_200, photo_400_orig, photo_max, photo_max_orig');
+        foreach ($attrs as $v) {
+            if (isset($info->$v))
+                echo '<p>' . $v . ': ' . CHtml::image($info->$v) . '</p>';
+        }
     }
 
     protected function setLocationAttributes($info)

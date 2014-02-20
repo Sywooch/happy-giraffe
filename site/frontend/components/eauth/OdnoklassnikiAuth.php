@@ -17,6 +17,7 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
                 'format' => 'JSON',
                 'application_key' => $this->client_public,
                 'client_id' => $this->client_id,
+                'fields' => 'uid, first_name, last_name, gender, birthday, location, photo_max_orig',
             ),
         ));
 
@@ -27,6 +28,7 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
         $this->setBirthdayAttributes($info);
         $this->attributes['gender'] = $info->gender == 'male' ? 1 : 0;
         $this->setLocationAttributes($info);
+        $this->attributes['avatar_src'] = $info->pic1024x768;
 
     }
 

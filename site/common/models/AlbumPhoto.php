@@ -548,7 +548,7 @@ class AlbumPhoto extends HActiveRecord
     {
         $url = $this->getPreviewUrl($width, $height, $master, $crop, $crop_side);
         $path = $this->getPreviewPath($width, $height, $master, $crop, $crop_side);
-        $size = getimagesize($path);
+        $size = @getimagesize($path);
         return CHtml::image($url, '', array('width' => $size[0], 'height' => $size[1]));
     }
 

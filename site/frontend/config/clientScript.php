@@ -3,12 +3,6 @@
 return array(
     'class' => 'application.components.ClientScript',
     'packages' => array(
-        'selectize' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'new/javascript/selectize.js',
-            ),
-        ),
         'ko_registerWidget' => array(
             'baseUrl' => '/',
             'js' => array(

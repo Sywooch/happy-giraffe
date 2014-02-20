@@ -75,6 +75,10 @@
         font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
     }
 }
+.i-highlight {
+    padding: 0 4px;
+    background: #fff7af;
+}
 .btn-scrolltop {
     display: none;
     position: fixed;
@@ -933,13 +937,72 @@
     }
 }
 
+/* 
+    Валидация форм
+    .inp-valid
+*/
+.inp-valid {
+    position: relative;
+    .clearfix();
+
+    &.error &_error {display: inline-block;}
+    &.error input,
+    &.error .selectize-control.single .selectize-input {border-color: #fdb9ac !important;}
+    &.success &_success {display: block;}
+    &__abs &_error {
+        position: absolute;
+        bottom: 100%;
+        z-index: 1000;
+        white-space: nowrap;
+    }
+    &__abs &_success {
+        position: absolute;
+        left: 100%;
+        margin-left: 10px;
+        z-index: 1000;
+    }
+    &__abs &_success__ico-check {
+        top: 50%;
+        margin-top: -6px;
+    }
+
+    &_error {
+        display: none;
+        padding: 8px 10px 8px 33px;
+         background: #fde3e3 url(/new/images/inp-valid_error.png) no-repeat 7px 6px;
+    }
+    &_error:after {
+        content: ' ';
+        position: absolute;
+        left: 10px;
+        bottom: -12px;
+        border: 6px solid transparent;
+        border-top-color: #fde3e3;
+    }
+    &_error .errorMessage {
+        color: #db9191 !important;
+        font-size: 12px !important;
+        margin: 0;
+    }
+    &_success__ico-check {
+        .inline-block();
+        width: 12px;
+        height: 11px;
+        .img-retina('/new/images/inp-valid_success__ico-check.png'; '/new/images/inp-valid_success__ico-check-2x.png'; 12px; 11px);
+    }
+    &_success{
+        display: none;
+    }
+}
+/* /.inp-valid */
+
 /* inputs */
 .itx-gray {
     width: 100%;
     border: 1px solid #e6e6e6;
     padding: 7px 10px;
     background: #fff;
-    color: #070707;
+    color: #333;
     .box-sizing(border-box);
     .border-radius(3px);
     .transition(all 0.4s ease);
@@ -952,7 +1015,7 @@
     padding: 7px 8px 7px 10px;
     font-size: 14px;
     line-height: 19px;
-    color: #070707;
+    color: #333;
     background: #fff;
     .box-sizing(border-box);
     .border-radius(3px);
@@ -968,9 +1031,6 @@
     }
 }
 /* errors */
-.error input[type="text"],
-.error input[type="password"],
-.error textarea, 
 input.error[type="text"], 
 input.error[type="password"], 
 textarea.error {

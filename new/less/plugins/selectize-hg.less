@@ -56,11 +56,14 @@
         border-width: 0;
         background:#fff url(/new/images/plugins/select-cus_input-after-gray.png) no-repeat 50% 50%;
     }
+    &.selectize-control.single .selectize-input.dropdown-active {
+        border-color: #a0ceee;
+    }
     &.selectize-dropdown.single {
         background: #fff;
-        border: none;
+        border: 1px solid #a0ceee;
         margin-top: 2px;
-        .box-shadow(0 2px 3px rgba(0,0,0,0.15));
+        .box-shadow(none);
         z-index: 9999;
     }
     .selectize-dropdown {

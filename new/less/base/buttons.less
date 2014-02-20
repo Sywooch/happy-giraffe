@@ -1,7 +1,7 @@
 .btn-red,
 .btn-gray-light,
 .btn-green-simple,
-.btn-green2,
+.btn-blue-simple,
 .btn-green  {
     .inline-block();
     padding: 4px 13px 6px;
@@ -50,18 +50,26 @@
 
 
 // Цвета
+.btn-blue-simple {
+    color: #fff;
+    background-color: #4b90bf;
+
+    &:hover {background-color: #4085b4;}
+}
+
 .btn-green-simple {
     color: #fff;
     background-color: #4fb044;
 
+    &:hover {background-color: #47aa3e;}
     .btn-arrow_ico {
         display: inline-block;
         background: #419c37;
         padding: 0 14px;
     }
+
     &:hover .btn-arrow_ico {background: #38932e;}
 }
-.btn-green-simple:hover {background-color: #47aa3e;}
 
 .btn-green {
     color: #fff;

@@ -44,3 +44,48 @@
 	
 	
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
+
+
+	<!-- new -->
+	<script type="text/javascript" src="/new/javascript/selectize.min.js"></script>
+	<script type="text/javascript" src="/new/javascript/jquery.magnific-popup.js"></script>
+	<script>
+	$(function() {
+		
+		$('.popup-a').magnificPopup({
+	        type: 'inline',
+	        overflowY: 'auto',
+	        tClose: 'Закрыть',
+	        fixedBgPos: true,
+	        
+	        // When elemened is focused, some mobile browsers in some cases zoom in
+	        // It looks not nice, so we disable it:
+	        callbacks: {
+	            open: function() {
+	                $('html').addClass('mfp-html');
+	            },
+	            close: function() {
+	                $('html').removeClass('mfp-html');
+	            }
+	        }
+	    });
+
+	    // Измененный tag select c инпутом поиска
+	    $('.select-cus__search-on').selectize({
+	        create: true,
+	        dropdownParent: 'body'
+	    });
+	    // Измененный tag select
+	    $('.select-cus__search-off').selectize({
+	        create: true,
+	        dropdownParent: 'body',
+	        onDropdownOpen: function(){
+	            // Делает не возможным ввод в input при открытом списке, без autocomplite
+	            this.$wrapper.find('input').attr({disabled: 'disabled'})
+	        }
+	    });
+    });
+	</script>
+
+
+

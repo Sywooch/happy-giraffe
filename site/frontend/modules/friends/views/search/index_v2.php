@@ -17,6 +17,9 @@
                         <!-- ko template: { name : 'search-template', foreach : users } -->
                         <!-- /ko -->
                     </div>
+                    <div class="loader loader__b-gray" data-bind="visible: loading"><img src="/images/ico/ajax-loader.gif" class="loader_img">
+                        <div class="loader_tx">Загрузка пользователей</div>
+                    </div>
                 </div>
                 <!-- /ko -->
             </div>

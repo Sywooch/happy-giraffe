@@ -25,19 +25,17 @@ class DefaultController extends HController
 
     public function actionValidation()
     {
-        print_r($_POST);
-        die;
-
-        $model = new User('signup');
-        $model->attributes = $_POST['User'];
-        if(isset($_POST['ajax']) && $_POST['ajax']==='registerForm')
+        if (isset($_POST['ajax']) && $_POST['ajax']==='registerForm' && $_POST['step'])
         {
+            $model = new User($_POST['step']);
+            $model->attributes = $_POST['User'];
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
     }
 
-    public function actionLogin() {
+    public function actionSocial()
+    {
         $serviceName = Yii::app()->request->getQuery('service');
         if (isset($serviceName)) {
             /** @var $eauth EAuthServiceBase */
@@ -47,18 +45,15 @@ class DefaultController extends HController
 
             try {
                 if ($eauth->authenticate()) {
-                    header('Content-Type: text/html; charset=utf-8');
-                    var_dump($eauth->getIsAuthenticated(), $eauth->getAttributes());
-                    die;
+                    //var_dump($eauth->getIsAuthenticated(), $eauth->getAttributes());
                     $identity = new EAuthUserIdentity($eauth);
 
                     // successful authentication
                     if ($identity->authenticate()) {
-                        Yii::app()->user->login($identity);
-                        //var_dump($identity->id, $identity->name, Yii::app()->user->id);exit;
+                        $eauth->component->setRedirectView('signup.views.redirect');
 
                         // special redirect with closing popup window
-                        $eauth->redirect();
+                        $eauth->redirect(null, array('attributes' => $eauth->getAttributes()));
                     }
                     else {
                         // close popup window and redirect to cancelUrl

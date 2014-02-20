@@ -11,6 +11,7 @@ class SignupModule extends CWebModule
 		$this->setImport(array(
 			'signup.models.*',
 			'signup.components.*',
+            'signup.widgets.*',
 		));
 	}
 

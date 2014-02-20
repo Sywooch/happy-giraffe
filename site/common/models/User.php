@@ -229,7 +229,7 @@ class User extends HActiveRecord
             array('password', 'passwordValidator', 'on' => 'login'),
 
             // signup, step 1
-            array('email, first_name, last_name', 'required', 'on' => 'reg1'),
+            array('email, first_name, last_name', 'required', 'on' => 'signupStep1'),
 
             //signup
             array('first_name, last_name, password, passwordRepeat', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),

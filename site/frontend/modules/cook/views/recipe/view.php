@@ -214,6 +214,8 @@ if (empty($this->meta_description))
             )); ?>
         </noindex>
 
+    </div>
+</div>
         <div class="nav-article clearfix">
             <?php if ($recipe->prev): ?>
                 <div class="nav-article_left">
@@ -299,8 +301,6 @@ if (empty($this->meta_description))
         </div>
 
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('entity' => 'CookRecipe', 'entity_id' => $recipe->primaryKey, 'full' => true)); ?>
-    </div>
-</div>
 
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>
 

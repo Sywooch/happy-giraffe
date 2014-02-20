@@ -30,7 +30,11 @@ class FriendsManager
     {
         $criteria = new CDbCriteria(array(
             'select' => '*, 0 AS pCount, 0 AS bCount',
-            'with' => 'friend',
+            'with' => array(
+                'friend',
+                'friend.babies',
+                'friend.partner',
+            ),
             'order' => 't.id ASC',
         ));
 

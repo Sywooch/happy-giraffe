@@ -9,12 +9,12 @@
 
     <?php else: ?>
         <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
-        <div id="yandex_ad"></div>
+        <div id="yandex_ad_post_header"></div>
         <script type="text/javascript">
             (function(w, d, n, s, t) {
                 w[n] = w[n] || [];
                 w[n].push(function() {
-                    Ya.Direct.insertInto(87026, "yandex_ad", {
+                    Ya.Direct.insertInto(87026, "yandex_ad_post_header", {
                         ad_format: "direct",
                         font_size: 1.1,
                         type: "flat",

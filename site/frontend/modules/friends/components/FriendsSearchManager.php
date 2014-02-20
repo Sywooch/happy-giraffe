@@ -92,6 +92,7 @@ class FriendsSearchManager
             'with' => array(
                 'avatar',
                 'babies',
+                'partner',
                 'address' => array(
                     'with' => array(
                         'country',

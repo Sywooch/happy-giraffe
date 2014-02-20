@@ -24,172 +24,170 @@
                 <!-- /ko -->
             </div>
             <div class="page-col_aside aside-filter">
-                <form>
-                    <div class="aside-filter_top">
-                        <div class="sidebar-search clearfix">
-                            <input type="text" name="" placeholder="Имя и/или фамилия" class="sidebar-search_itx" data-bind="value: instantaneousQuery, valueUpdate: 'keyup'"/>
-                            <!-- При начале ввода добавить класс .active на кнопку-->
-                            <button class="sidebar-search_btn" data-bind="click: clearQuery, css: { active : instantaneousQuery() != '' }"></button>
-                        </div>
+                <div class="aside-filter_top">
+                    <div class="sidebar-search clearfix">
+                        <input type="text" name="" placeholder="Имя и/или фамилия" class="sidebar-search_itx" data-bind="value: instantaneousQuery, valueUpdate: 'keyup'"/>
+                        <!-- При начале ввода добавить класс .active на кнопку-->
+                        <button class="sidebar-search_btn" data-bind="click: clearQuery, css: { active : instantaneousQuery() != '' }"></button>
                     </div>
-                    <div class="aside-filter_hold">
-                        <div class="aside-filter_row">
-                            <div class="aside-filter_t">Местоположение</div>
-                            <div class="margin-b15">
-                                <!-- первый option должен быть пустым и без пробелов, для placeholder-->
-                                <!-- у всех option должно быть value-->
-                                <select data-bind="
-                                    options: countries,
-                                    value: selectedCountry,
-                                    optionsText: 'name',
-                                    optionsValue: 'id',
-                                    optionsCaption: '',
-                                    selectize: {create: false}
-                                " placeholder="Выбор страны" class="select-cus select-cus__blue-searchon">
-                                </select>
-                            </div>
+                </div>
+                <div class="aside-filter_hold">
+                    <div class="aside-filter_row">
+                        <div class="aside-filter_t">Местоположение</div>
+                        <div class="margin-b15">
                             <!-- первый option должен быть пустым и без пробелов, для placeholder-->
+                            <!-- у всех option должно быть value-->
                             <select data-bind="
-                                options: regions,
-                                value: selectedRegion,
+                                options: countries,
+                                value: selectedCountry,
                                 optionsText: 'name',
                                 optionsValue: 'id',
                                 optionsCaption: '',
                                 selectize: {create: false}
-                            " placeholder="Населенный пункт" class="select-cus select-cus__blue">
+                            " placeholder="Выбор страны" class="select-cus select-cus__blue-searchon">
                             </select>
                         </div>
-                        <div class="aside-filter_row clearfix">
-                            <div class="aside-filter_t">Возраст</div>
-                            <div class="display-ib w-75 verticalalign-m">
-                                <select placeholder="От" class="select-cus select-cus__blue" data-bind="
-                                    options: ages,
-                                    value: minAge,
-                                    optionsCaption: '',
-                                    selectize: {
-                                        create: false,
-                                        dropdownParent: 'body',
-                                        onDropdownOpen: function() {
-                                            this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                        }
+                        <!-- первый option должен быть пустым и без пробелов, для placeholder-->
+                        <select data-bind="
+                            options: regions,
+                            value: selectedRegion,
+                            optionsText: 'name',
+                            optionsValue: 'id',
+                            optionsCaption: '',
+                            selectize: {create: false}
+                        " placeholder="Населенный пункт" class="select-cus select-cus__blue">
+                        </select>
+                    </div>
+                    <div class="aside-filter_row clearfix">
+                        <div class="aside-filter_t">Возраст</div>
+                        <div class="display-ib w-75 verticalalign-m">
+                            <select placeholder="От" class="select-cus select-cus__blue" data-bind="
+                                options: ages,
+                                value: minAge,
+                                optionsCaption: '',
+                                selectize: {
+                                    create: false,
+                                    dropdownParent: 'body',
+                                    onDropdownOpen: function() {
+                                        this.$wrapper.find('input').attr({disabled: 'disabled'});
                                     }
-                                ">
-                                </select>
-                            </div>
-                            <div class="aside-filter_label">- </div>
-                            <div class="display-ib w-75 verticalalign-m">
-                                <select placeholder="До" class="select-cus select-cus__blue" data-bind="
-                                    options: ages,
-                                    value: maxAge,
-                                    optionsCaption: '',
-                                    selectize: {
-                                        create: false,
-                                        dropdownParent: 'body',
-                                        onDropdownOpen: function() {
-                                            this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                        }
+                                }
+                            ">
+                            </select>
+                        </div>
+                        <div class="aside-filter_label">- </div>
+                        <div class="display-ib w-75 verticalalign-m">
+                            <select placeholder="До" class="select-cus select-cus__blue" data-bind="
+                                options: ages,
+                                value: maxAge,
+                                optionsCaption: '',
+                                selectize: {
+                                    create: false,
+                                    dropdownParent: 'body',
+                                    onDropdownOpen: function() {
+                                        this.$wrapper.find('input').attr({disabled: 'disabled'});
                                     }
-                                ">
-                                </select>
-                            </div>
-                        </div>
-                        <div class="aside-filter_row clearfix">
-                            <div class="aside-filter_t">Пол</div>
-                            <input id="radio3" type="radio" name="b-radio2" data-bind="checked: gender" value="" class="aside-filter_radio">
-                            <label for="radio3" class="aside-filter_label-radio">любой</label>
-                            <input id="radio4" type="radio" name="b-radio2" checked="checked" class="aside-filter_radio" data-bind="checked: gender" value="1">
-                            <label for="radio4" class="aside-filter_label-radio"><span class="ico-male"></span></label>
-                            <input id="radio5" type="radio" name="b-radio2" class="aside-filter_radio" data-bind="checked: gender" value="2">
-                            <label for="radio5" class="aside-filter_label-radio"><span class="ico-female"></span></label>
-                        </div>
-                        <div class="aside-filter_sepor"></div>
-                        <div class="aside-filter_row clearfix">
-                            <div class="aside-filter_t">Дети</div>
-                            <div class="margin-b10 clearfix">
-                                <input id="radio6" type="radio" name="b-radio3" class="aside-filter_radio" value="0" data-bind="checked: childrenType">
-                                <label for="radio6" class="aside-filter_label-radio">не имеет значения</label>
-                            </div>
-                            <div class="margin-b10 clearfix">
-                                <input id="radio7" type="radio" name="b-radio3" class="aside-filter_radio" value="1" data-bind="checked: childrenType">
-                                <label for="radio7" class="aside-filter_label-radio">срок беременности (недели)</label>
-                                <div class="aside-filter_toggle">
-                                    <div class="display-ib w-75 verticalalign-m">
-                                        <select placeholder="С" class="select-cus select-cus__blue" data-bind="
-                                            options: pregnancyWeeks,
-                                            value: pregnancyWeekMin,
-                                            optionsCaption: '',
-                                            selectize: {
-                                                create: false,
-                                                dropdownParent: 'body',
-                                                onDropdownOpen: function() {
-                                                    this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                                }
-                                            }
-                                        ">
-                                        </select>
-                                    </div>
-                                    <div class="aside-filter_label">- </div>
-                                    <div class="display-ib w-75 verticalalign-m">
-                                        <select placeholder="По" class="select-cus select-cus__blue" data-bind="
-                                            options: pregnancyWeeks,
-                                            value: pregnancyWeekMax,
-                                            optionsCaption: '',
-                                            selectize: {
-                                                create: false,
-                                                dropdownParent: 'body',
-                                                onDropdownOpen: function() {
-                                                    this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                                }
-                                            }
-                                        ">
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="margin-b10 clearfix">
-                                <input id="radio8" type="radio" name="b-radio3" class="aside-filter_radio" value="2" data-bind="checked: childrenType">
-                                <label for="radio8" class="aside-filter_label-radio">возраст ребенка (лет)</label>
-                                <div class="aside-filter_toggle">
-                                    <div class="display-ib w-75 verticalalign-m">
-                                        <select placeholder="От" class="select-cus select-cus__blue" data-bind="
-                                            options: childAges,
-                                            value: childAgeMin,
-                                            optionsCaption: '',
-                                            selectize: {
-                                                create: false,
-                                                dropdownParent: 'body',
-                                                onDropdownOpen: function() {
-                                                    this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                                }
-                                            }
-                                        ">
-                                        </select>
-                                    </div>
-                                    <div class="aside-filter_label">- </div>
-                                    <div class="display-ib w-75 verticalalign-m">
-                                        <select placeholder="До" class="select-cus select-cus__blue" data-bind="
-                                            options: childAges,
-                                            value: childAgeMax,
-                                            optionsCaption: '',
-                                            selectize: {
-                                                create: false,
-                                                dropdownParent: 'body',
-                                                onDropdownOpen: function() {
-                                                    this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                                }
-                                            }
-                                        ">
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="margin-b10 clearfix">
-                                <input id="radio9" type="radio" name="b-radio3" class="aside-filter_radio" value="3" data-bind="checked: childrenType">
-                                <label for="radio9" class="aside-filter_label-radio">многодетная семья</label>
-                            </div>
+                                }
+                            ">
+                            </select>
                         </div>
                     </div>
-                </form>
+                    <div class="aside-filter_row clearfix">
+                        <div class="aside-filter_t">Пол</div>
+                        <input id="radio3" type="radio" name="b-radio2" data-bind="checked: gender" value="" class="aside-filter_radio">
+                        <label for="radio3" class="aside-filter_label-radio">любой</label>
+                        <input id="radio4" type="radio" name="b-radio2" checked="checked" class="aside-filter_radio" data-bind="checked: gender" value="1">
+                        <label for="radio4" class="aside-filter_label-radio"><span class="ico-male"></span></label>
+                        <input id="radio5" type="radio" name="b-radio2" class="aside-filter_radio" data-bind="checked: gender" value="2">
+                        <label for="radio5" class="aside-filter_label-radio"><span class="ico-female"></span></label>
+                    </div>
+                    <div class="aside-filter_sepor"></div>
+                    <div class="aside-filter_row clearfix">
+                        <div class="aside-filter_t">Дети</div>
+                        <div class="margin-b10 clearfix">
+                            <input id="radio6" type="radio" name="b-radio3" class="aside-filter_radio" value="0" data-bind="checked: childrenType">
+                            <label for="radio6" class="aside-filter_label-radio">не имеет значения</label>
+                        </div>
+                        <div class="margin-b10 clearfix">
+                            <input id="radio7" type="radio" name="b-radio3" class="aside-filter_radio" value="1" data-bind="checked: childrenType">
+                            <label for="radio7" class="aside-filter_label-radio">срок беременности (недели)</label>
+                            <div class="aside-filter_toggle">
+                                <div class="display-ib w-75 verticalalign-m">
+                                    <select placeholder="С" class="select-cus select-cus__blue" data-bind="
+                                        options: pregnancyWeeks,
+                                        value: pregnancyWeekMin,
+                                        optionsCaption: '',
+                                        selectize: {
+                                            create: false,
+                                            dropdownParent: 'body',
+                                            onDropdownOpen: function() {
+                                                this.$wrapper.find('input').attr({disabled: 'disabled'});
+                                            }
+                                        }
+                                    ">
+                                    </select>
+                                </div>
+                                <div class="aside-filter_label">- </div>
+                                <div class="display-ib w-75 verticalalign-m">
+                                    <select placeholder="По" class="select-cus select-cus__blue" data-bind="
+                                        options: pregnancyWeeks,
+                                        value: pregnancyWeekMax,
+                                        optionsCaption: '',
+                                        selectize: {
+                                            create: false,
+                                            dropdownParent: 'body',
+                                            onDropdownOpen: function() {
+                                                this.$wrapper.find('input').attr({disabled: 'disabled'});
+                                            }
+                                        }
+                                    ">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="margin-b10 clearfix">
+                            <input id="radio8" type="radio" name="b-radio3" class="aside-filter_radio" value="2" data-bind="checked: childrenType">
+                            <label for="radio8" class="aside-filter_label-radio">возраст ребенка (лет)</label>
+                            <div class="aside-filter_toggle">
+                                <div class="display-ib w-75 verticalalign-m">
+                                    <select placeholder="От" class="select-cus select-cus__blue" data-bind="
+                                        options: childAges,
+                                        value: childAgeMin,
+                                        optionsCaption: '',
+                                        selectize: {
+                                            create: false,
+                                            dropdownParent: 'body',
+                                            onDropdownOpen: function() {
+                                                this.$wrapper.find('input').attr({disabled: 'disabled'});
+                                            }
+                                        }
+                                    ">
+                                    </select>
+                                </div>
+                                <div class="aside-filter_label">- </div>
+                                <div class="display-ib w-75 verticalalign-m">
+                                    <select placeholder="До" class="select-cus select-cus__blue" data-bind="
+                                        options: childAges,
+                                        value: childAgeMax,
+                                        optionsCaption: '',
+                                        selectize: {
+                                            create: false,
+                                            dropdownParent: 'body',
+                                            onDropdownOpen: function() {
+                                                this.$wrapper.find('input').attr({disabled: 'disabled'});
+                                            }
+                                        }
+                                    ">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="margin-b10 clearfix">
+                            <input id="radio9" type="radio" name="b-radio3" class="aside-filter_radio" value="3" data-bind="checked: childrenType">
+                            <label for="radio9" class="aside-filter_label-radio">многодетная семья</label>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

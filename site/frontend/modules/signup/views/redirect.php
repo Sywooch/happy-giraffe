@@ -4,11 +4,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script type="text/javascript">
             window.close();
+            var registerVm = window.opener.registerVm;
             <?php foreach ($this->params['attributes'] as $k => $v): ?>
-            window.opener.console.log('123');
-            if (window.opener.registerVm.hasOwnProperty('<?=$k?>'))
-                window.opener.registerVm.<?=$k?>('<?=$v?>');
-            window.opener.registerVm.currentStep(window.opener.registerVm.STEP_REG2);
+            if (registerVm.hasOwnProperty('<?=$k?>'))
+                registerVm.<?=$k?>('<?=$v?>');
+            registerVm.currentStep(window.opener.registerVm.STEP_REG2);
             <?php endforeach; ?>
         </script>
     </head>

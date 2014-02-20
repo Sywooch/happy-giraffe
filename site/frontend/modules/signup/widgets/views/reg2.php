@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var CActiveForm $form
+ * @var User $model
+ */
+?>
 <div class="popup-sign_top">
     <div class="popup-sign_t">Добро пожаловать, <span data-bind="text: first_name"></span>!</div>
     <div class="popup-sign_slogan">Осталось ввести еще немного данных</div>
@@ -13,7 +19,7 @@
             <div class="popup-sign_label">Местоположение</div>
         </div>
         <div class="popup-sign_row">
-            <div class="inp-valid inp-valid__abs error">
+            <div class="inp-valid inp-valid__abs">
                 <select placeholder="Выбор страны" class="select-cus select-cus__search-on select-cus__gray">
                     <option></option>
                     <option value="2">Россия</option>
@@ -45,57 +51,27 @@
             <div class="popup-sign_label">Дата рождения</div>
         </div>
         <div class="popup-sign_row">
-            <div class="inp-valid inp-valid__abs success">
+            <div class="inp-valid inp-valid__abs">
                 <div class="float-l w-80 margin-r10">
-                    <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
-                        <option></option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="8">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>
+                    <?=$form->dropDownList($model, 'birthday_day', array_combine(range(1, 31), range(1, 31)), array(
+                        'placeholder' => 'День',
+                        'class' => 'select-cus__gray',
+                        'data-bind' => 'value: birthday_day',
+                    ))?>
                 </div>
                 <div class="float-l w-135 margin-r10">
-                    <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
-                        <option></option>
-                        <option value="1">Января</option>
-                        <option value="2">Февраля</option>
-                        <option value="3">Марта</option>
-                        <option value="4">Апреля</option>
-                        <option value="5">Майя</option>
-                        <option value="6">Июня</option>
-                        <option value="7">Июля</option>
-                        <option value="8">Августа</option>
-                        <option value="9">Сентября</option>
-                        <option value="10">Октября</option>
-                        <option value="11">Ноября</option>
-                        <option value="12">Декабря</option>
-                    </select>
+                    <?=$form->dropDownList($model, 'birthday_month', array_combine(range(1, 12), array('Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря')), array(
+                        'placeholder' => 'Месяц',
+                        'class' => 'select-cus__gray',
+                        'data-bind' => 'value: birthday_month',
+                    ))?>
                 </div>
                 <div class="float-l w-80">
-                    <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray">
-                        <option></option>
-                        <option value="1">1912</option>
-                        <option value="2">1913</option>
-                        <option value="3">1914</option>
-                        <option value="4">1915</option>
-                        <option value="5">1916</option>
-                        <option value="6">1917</option>
-                        <option value="7">1918</option>
-                        <option value="8">1919</option>
-                        <option value="8">1920</option>
-                        <option value="10">1921</option>
-                        <option value="11">1922</option>
-                        <option value="12">1923</option>
-                    </select>
+                    <?=$form->dropDownList($model, 'birthday_year', array_combine(range(date('Y') - 16, date('Y') - 90), range(date('Y') - 16, date('Y') - 90)), array(
+                        'placeholder' => 'Год',
+                        'class' => 'select-cus__gray',
+                        'data-bind' => 'value: birthday_year',
+                    ))?>
                 </div>
                 <div class="inp-valid_error">
                     <div class="errorMessage">Не выбрана дата</div>
@@ -106,15 +82,22 @@
         <div class="popup-sign_row margin-b30">
             <div class="popup-sign_label">
                 <div class="display-ib">
-                    <div class="inp-valid inp-valid__abs error">Пол
+                    <div class="inp-valid inp-valid__abs">Пол
                         <div class="radio-icons radio-icons__inline margin-l20">
-                            <input id="radio4" type="radio" name="b-radio2" class="radio-icons_radio">
-                            <label for="radio4" class="radio-icons_label">Мужской</label>
-                            <input id="radio3" type="radio" name="b-radio2" class="radio-icons_radio">
-                            <label for="radio3" class="radio-icons_label">Женский</label>
+                            <?=$form->radioButtonList($model, 'gender', array(
+                                '1' => 'Мужской',
+                                '0' => 'Женский',
+                            ), array(
+                                'separator' => '',
+                                'class' => 'radio-icons_radio',
+                                'data-bind' => 'checked: gender',
+                                'labelOptions' => array(
+                                    'class' => 'radio-icons_label',
+                                ),
+                            ))?>
                         </div>
                         <div class="inp-valid_error">
-                            <div class="errorMessage">Выберите пол</div>
+                            <?php $form->error($model, 'gender'); ?>
                         </div>
                         <div class="inp-valid_success inp-valid_success__ico-check"></div>
                     </div>

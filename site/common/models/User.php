@@ -104,6 +104,10 @@ class User extends HActiveRecord
     public $fCreated;
     public $baby_birthday;
 
+    public $birthday_day;
+    public $birthday_month;
+    public $birthday_year;
+
     public $women_rel = array(
         1 => 'Замужем',
         2 => 'Не замужем',

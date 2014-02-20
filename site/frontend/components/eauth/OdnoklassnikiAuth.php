@@ -35,8 +35,8 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
     {
         $array = explode('-', $info->birthday);
         $this->attributes['birthday_year'] = $array[0];
-        $this->attributes['birthday_month'] = $array[1];
-        $this->attributes['birthday_day'] = $array[2];
+        $this->attributes['birthday_month'] = ltrim($array[1], '0');
+        $this->attributes['birthday_day'] = ltrim($array[2], '0');
     }
 
     protected function setLocationAttributes($info)

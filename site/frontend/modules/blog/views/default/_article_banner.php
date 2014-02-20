@@ -41,6 +41,7 @@
         <!-- _________________________AdFox Asynchronous code END___________________________ -->
     <?php endif; ?>
 
+    <?php if (false): ?>
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad" style="padding: 20px 20px 30px; background: #fffff0; margin-top: 20px;">
         <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
@@ -73,4 +74,5 @@
             })(window, document, "yandex_context_callbacks");
         </script>
     </div>
+    <?php endif; ?>
 </div>

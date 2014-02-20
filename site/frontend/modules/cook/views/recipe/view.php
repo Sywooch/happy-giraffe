@@ -11,6 +11,9 @@ if (empty($this->meta_description))
         <h1 class="b-article_t fn">
             <?=$recipe->title?>
         </h1>
+
+        <?php $this->renderPartial('//banners/_post_header', compact('recipe')); ?>
+
         <div class="b-article_in clearfix">
             <div class="wysiwyg-content clearfix">
                 <!--<p>У меня есть уже один рецепт "Зебры".А этим рецептом поделилась со мной моя читательница...Я обещала попробовать сделать, и вот... я сделала! Эта "Зебра" у меня  получилась  воздушнее, мягче, рассыпчатей... По вкусу напомнила кекс... Остается мягкой и вкусной даже на следующий день! </p>-->

@@ -2,10 +2,40 @@
 
 class DefaultController extends HController
 {
+    public function actions()
+    {
+        return array(
+            'captcha' => array(
+                'class' => 'CaptchaExtendedAction',
+                'width' => 128,
+                'height' => 45,
+            ),
+        );
+    }
+
 	public function actionTest()
 	{
 		$this->render('test');
 	}
+
+    public function actionTest2()
+    {
+        $this->render('test2');
+    }
+
+    public function actionValidation()
+    {
+        print_r($_POST);
+        die;
+
+        $model = new User('signup');
+        $model->attributes = $_POST['User'];
+        if(isset($_POST['ajax']) && $_POST['ajax']==='registerForm')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+    }
 
     public function actionLogin() {
         $serviceName = Yii::app()->request->getQuery('service');

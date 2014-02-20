@@ -3,6 +3,13 @@
 return array(
     'class' => 'application.components.ClientScript',
     'packages' => array(
+        'ko_registerWidget' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_registerWidget.js',
+            ),
+            'depends' => array('common', 'jcrop'),
+        ),
         'powertip' => array(
             'baseUrl' => '/',
             'js' => array(

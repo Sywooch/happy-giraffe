@@ -13,10 +13,10 @@
                 </div>
                 <!-- ko if: ! (users().length == 0 && loading() === false) -->
                 <div class="friends-list">
-                    <div class="friends-list_ul">
+                    <ul class="friends-list_ul">
                         <!-- ko template: { name : 'search-template', foreach : users } -->
                         <!-- /ko -->
-                    </div>
+                    </ul>
                     <div class="loader loader__b-gray" data-bind="visible: loading"><img src="/images/ico/ajax-loader.gif" class="loader_img">
                         <div class="loader_tx">Загрузка пользователей</div>
                     </div>

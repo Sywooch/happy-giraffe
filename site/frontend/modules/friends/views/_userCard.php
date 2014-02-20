@@ -1,5 +1,6 @@
 <script type="text/html" id="user-template"><!-- -->
-    <div class="friends-list_li">
+    <li class="friends-list_li friends-list_banner"><a href="<?=$this->createUrl('/friends/search')?>"><img src="/new/images/banner/friends-list_banner.png"></a></li>
+    <li class="friends-list_li">
         <div class="friends-list_i">
             <span data-bind="visible: !removed(), click: remove" title="Удалить из друзей" class="ico-close2 powertip"></span>
             <div class="b-ava-large">
@@ -25,5 +26,5 @@
                 <div class="verticalalign-m-help"></div>
             </div>
         </div>
-    </div>
+    </li>
 </script>

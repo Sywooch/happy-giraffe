@@ -216,18 +216,39 @@ if (empty($this->meta_description))
 
     </div>
 </div>
-        <div class="nav-article clearfix">
-            <?php if ($recipe->prev): ?>
-                <div class="nav-article_left">
-                    <a href="<?=$recipe->prev->url?>" class="nav-article_a"><?=$recipe->prev->title?></a>
-                </div>
-            <?php endif; ?>
-            <?php if ($recipe->next): ?>
-                <div class="nav-article_right">
-                    <a href="<?=$recipe->next->url?>" class="nav-article_a"><?=$recipe->next->title?></a>
-                </div>
-            <?php endif; ?>
-        </div>
+
+
+        <table class="article-nearby clearfix" ellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <?php if ($recipe->prev): ?>
+                    <div class="article-nearby_hint">Предыдущая запись</div>
+                    <?php endif; ?>
+                </td>
+                <td class="article-nearby_r">
+                    <?php if ($recipe->next): ?>
+                    <div class="article-nearby_hint">Следующая запись</div>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php if ($recipe->prev): ?>
+                    <a href="<?=$recipe->prev->url?>" class="article-nearby_a clearfix">
+                        <span class="article-nearby_tx"><?=$recipe->prev->title?></span>
+                    </a>
+                    <?php endif; ?>
+                </td>
+                <td class="article-nearby_r">
+                    <?php if ($recipe->next): ?>
+                    <a href="<?=$recipe->next->url?>" class="article-nearby_a clearfix">
+                        <span class="article-nearby_tx"><?=$recipe->next->title?></span>
+                    </a>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        </table>
+
 
         <?php if ($recipe->more): ?>
             <noindex>

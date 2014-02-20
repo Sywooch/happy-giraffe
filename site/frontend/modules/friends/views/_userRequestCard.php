@@ -1,5 +1,5 @@
 <script type="text/html" id="request-template"><!-- -->
-<div class="friends-list_li" data-bind="fadeVisible: userIsVisible">
+<li class="friends-list_li" data-bind="fadeVisible: userIsVisible">
     <div class="friends-list_i">
         <!-- ko if: $data.constructor.name == 'OutgoingFriendRequest' -->
         <span title="Отменить приглашение" data-bind="click: clickHandler" class="ico-close2 powertip"></span>
@@ -38,5 +38,5 @@
             <div class="verticalalign-m-help"></div>
         </div>
     </div>
-</div>
+</li>
 </script>

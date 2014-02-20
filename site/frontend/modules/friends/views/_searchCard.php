@@ -1,5 +1,5 @@
 <script type="text/html" id="search-template"><!-- -->
-<div class="friends-list_li" data-bind="fadeVisible: userIsVisible">
+<li class="friends-list_li" data-bind="fadeVisible: userIsVisible">
     <div class="friends-list_i">
         <div class="b-ava-large">
             <div class="b-ava-large_ava-hold clearfix">
@@ -36,5 +36,5 @@
             <div class="verticalalign-m-help"></div>
         </div>
     </div>
-</div>
+</li>
 </script>

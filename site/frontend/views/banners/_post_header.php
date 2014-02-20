@@ -4,7 +4,7 @@
  */
 ?>
 
-<div style="margin: 10px;">
+<div style="margin: 15px;">
     <?php if ($data->getIsFromBlog()): ?>
 
     <?php else: ?>

@@ -1,4 +1,4 @@
-<div style="margin: 10px;">
+<div style="margin: 15px;">
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad_post_footer"></div>
     <script type="text/javascript">

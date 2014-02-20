@@ -20,7 +20,7 @@
                     no_sitelinks: true
                 });
             });
-            t = d.documentElement.firstChild;
+            t = d.getElementsByTagName('head')[0];
             s = d.createElement("script");
             s.type = "text/javascript";
             s.src = "http://an.yandex.ru/system/context.js";

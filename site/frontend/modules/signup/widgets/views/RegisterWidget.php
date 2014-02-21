@@ -9,21 +9,14 @@
     <div id="registerWidget" class="popup popup-sign">
         <?php $form = $this->beginWidget('CActiveForm', array(
             'id' => 'registerForm',
+            'action' => array('/signup/default/finish'),
             'enableAjaxValidation' => true,
             'enableClientValidation' => true,
             'clientOptions' => array(
                 'inputContainer' => 'div.inp-valid',
                 'validationUrl' => Yii::app()->createUrl('/signup/default/validation'),
                 'validateOnSubmit' => true,
-                'afterValidate' => new CJavaScriptExpression('function(form, data, hasError) {
-                    switch (registerVm.currentStep()) {
-                        case registerVm.STEP_REG1:
-                            if (! hasError)
-                                registerVm.currentStep(registerVm.STEP_REG2);
-                            break;
-                    }
-                    return false;
-                }'),
+                'afterValidate' => 'js:afterValidate',
             ),
         )); ?>
         <?=CHtml::hiddenField('step', '', array(
@@ -49,4 +42,21 @@
 <script type="text/javascript">
     registerVm = new RegisterWidgetViewModel();
     ko.applyBindings(registerVm, document.getElementById('registerWidget'));
+    function afterValidate(form, data, hasError) {
+        console.log(hasError);
+        if (! hasError) {
+            switch (registerVm.currentStep()) {
+                case registerVm.STEP_REG1:
+                    registerVm.currentStep(registerVm.STEP_REG2);
+                    break;
+                case registerVm.STEP_REG2:
+                    $.post(form.attr('action'), form.serialize(), function(response) {
+                        if (response.success)
+                            registerVm.currentStep(registerVm.STEP_EMAIL1);
+                    }, 'json');
+                    break;
+            }
+        }
+        return false;
+    }
 </script>

@@ -103,6 +103,21 @@ $(function() {
         }
     });
 
+    // Измененный tag select c инпутом поиска
+    $('.select-cus__search-on').selectize({
+        create: true,
+        dropdownParent: 'body'
+    });
+    // Измененный tag select
+    $('.select-cus__search-off').selectize({
+        create: true,
+        dropdownParent: 'body',
+        onDropdownOpen: function(){
+            // Делает не возможным ввод в input при открытом списке, без autocomplite
+            this.$wrapper.find('input').attr({disabled: 'disabled'})
+        }
+    });
+
     $(document).on('click', '.tooltip-click-b', function() {
         var $this = $(this);
         $this.tooltipster({

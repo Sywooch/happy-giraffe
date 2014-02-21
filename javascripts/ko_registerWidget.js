@@ -15,8 +15,10 @@ function RegisterWidgetViewModel(data) {
     self.city = ko.observable('');
     self.birthday_year = ko.observable('');
     self.birthday_month = ko.observable('');
-    self.birthday_day = ko.observable('');
+    self.birthday_day = ko.observable();
     self.gender = ko.observable('');
 
-    self.daysRange = data.daysRange;
+    self.daysRange = DateRange.days();
+    self.monthesRange = DateRange.months();
+    self.yearsRange = DateRange.years(data.minYear, data.maxYear);
 }

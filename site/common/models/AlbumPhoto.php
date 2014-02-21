@@ -455,6 +455,7 @@ class AlbumPhoto extends HActiveRecord
             $image = Yii::app()->phpThumb->create($this->originalPath);
 
         } catch (CException $e) {
+            echo $e->getMessage(); die;
             #TODO сделать более грамотный механизм обработки плохих фоток
             if (strpos($e->getMessage(), 'File is not a valid image') !== false
                 || strpos($e->getMessage(), 'Image format not supported') !== false

@@ -129,6 +129,13 @@ return array(
 				*/
 			),
 		),
+        'phpThumb' => array(
+            'class' => 'site.frontend.extensions.EPhpThumb.EPhpThumb',
+            'options' => array(
+                'resizeUp' => true,
+                'jpegQuality' => 70,
+            ),
+        ),
 	),
 
 	// application-level parameters that can be accessed

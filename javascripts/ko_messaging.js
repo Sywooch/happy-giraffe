@@ -454,6 +454,8 @@ MessagingThread.prototype = {
         if(thread != Messaging.prototype.currentThread()) {
             if (!thread) {
                 thread = new MessagingThread(user.viewModel.me, user);
+            } else {
+                thread.beforeOpen();
             }
             window.document.title = 'Диалоги: ' + user.fullName();
             History.pushState(null, window.document.title, '?interlocutorId=' + user.id);
@@ -486,6 +488,15 @@ function MessagingThread(me, user) {
 	self.editing = ko.observable(false);
 	self.editingMessage = ko.observable(false);
 	self.deletedDialogs = ko.observableArray([]);
+    
+    // Переключение диалога
+    self.beforeOpen = function() {
+        // почистить список от удалённых сообщений
+        self.messages.remove(function(message) {
+            return !!message.dtimeDelete() || message.cancelled();
+        });
+        self.deletedDialogs([]);
+    };
 	
 	// Конфигурация редактора
 	self.editorConfig = {

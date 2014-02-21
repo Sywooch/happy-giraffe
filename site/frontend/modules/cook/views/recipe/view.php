@@ -205,6 +205,8 @@ if (empty($this->meta_description))
             </div>
         </div>
 
+        <?php $this->renderPartial('//banners/_post_footer'); ?>
+
         <noindex>
             <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
                 'model' => $recipe,

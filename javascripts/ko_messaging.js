@@ -451,12 +451,16 @@ MessagingThread.prototype = {
 		var thread = ko.utils.arrayFirst(this.objects, function(obj) {
 			return obj.user.id == user.id;
 		});
-		if (!thread) {
-			thread = new MessagingThread(user.viewModel.me, user);
-		}
-        thread.scrollManager.setFix('bot');
-		Messaging.prototype.currentThread(thread);
-        thread.scrollManager.setFix();
+        if(thread != Messaging.prototype.currentThread()) {
+            if (!thread) {
+                thread = new MessagingThread(user.viewModel.me, user);
+            }
+            window.document.title = 'Диалоги: ' + user.fullName();
+            History.pushState(null, window.document.title, '?interlocutorId=' + user.id);
+            thread.scrollManager.setFix('bot');
+            Messaging.prototype.currentThread(thread);
+            thread.scrollManager.setFix();
+        }
 	}
 };
 
@@ -976,20 +980,28 @@ function Messaging(model) {
 	}));
 	self.me = new MessagingUser(self, model.me);
 	
-	var params = /(\?|&)interlocutorId=(\d+)/.exec(window.location.search);
-	if(params && params[2]) {
-		var id = params[2];
-		var user = getContactById(id);
-		if(!user) {
-			// Нет загруженного пользователя, запросим с сервера
-			$.get('/messaging/default/getUserInfo/', { id: id }, function(data) {
-				user = addContact(data);
-				user.open();
-			}, 'json');
-		} else {
-			user.open();
-		}
-	} else if(self.users[0]()[0]) {
+    function parseUrl() {
+        var params = /(\?|&)interlocutorId=(\d+)/.exec(window.location.search);
+        if(params && params[2]) {
+            var id = params[2];
+            var user = getContactById(id);
+            if(!user) {
+                // Нет загруженного пользователя, запросим с сервера
+                $.get('/messaging/default/getUserInfo/', { id: id }, function(data) {
+                    user = addContact(data);
+                    user.open();
+                }, 'json');
+            } else {
+                user.open();
+            }
+            return true;
+        }
+        return false;
+    }
+    History.Adapter.bind(window, 'statechange', function() { // Note: We are using statechange instead of popstate
+        parseUrl();
+    });
+    if(!parseUrl() && self.users[0]()[0]) {
         self.users[0]()[0].open();
     }
 }

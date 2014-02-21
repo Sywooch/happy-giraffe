@@ -90,7 +90,7 @@ if (! isset($showComments))
 <?php endif; ?>
 
 <?php if ($full): ?>
-    <?php $this->renderPartial('blog.views.default._article_banner', compact('data')); ?>
+    <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
 <?php endif; ?>
 
 <?php if ($full): ?>

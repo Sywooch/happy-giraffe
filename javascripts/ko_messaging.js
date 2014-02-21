@@ -989,7 +989,9 @@ function Messaging(model) {
 		} else {
 			user.open();
 		}
-	}
+	} else if(self.users[0]()[0]) {
+        self.users[0]()[0].open();
+    }
 }
 
 function MessagingSettings(data)

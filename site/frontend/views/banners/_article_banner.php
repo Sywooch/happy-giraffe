@@ -41,7 +41,7 @@
         <!-- _________________________AdFox Asynchronous code END___________________________ -->
     <?php endif; ?>
 
-    <?php if (false): ?>
+    <?php if ($data instanceof CookRecipe): ?>
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad" style="padding: 20px 20px 30px; background: #fffff0; margin-top: 20px;">
         <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->

@@ -1,4 +1,4 @@
-function RegisterWidgetViewModel() {
+function RegisterWidgetViewModel(data) {
     var self = this;
 
     self.STEP_REG1 = 'signupStep1';
@@ -17,4 +17,6 @@ function RegisterWidgetViewModel() {
     self.birthday_month = ko.observable('');
     self.birthday_day = ko.observable('');
     self.gender = ko.observable('');
+
+    self.daysRange = data.daysRange;
 }

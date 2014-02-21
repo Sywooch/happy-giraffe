@@ -462,7 +462,8 @@ class User extends HActiveRecord
 
     protected function beforeValidate()
     {
-        $this->birthday = implode('-', array($this->birthday_year, $this->birthday_month, $this->birthday_day));
+        if ($this->birthday_day && $this->birthday_month && $this->birthday_year)
+            $this->birthday = implode('-', array($this->birthday_year, $this->birthday_month, $this->birthday_day));
         return parent::beforeValidate();
     }
 

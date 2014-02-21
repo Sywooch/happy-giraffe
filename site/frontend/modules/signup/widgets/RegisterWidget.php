@@ -13,6 +13,8 @@ class RegisterWidget extends CWidget
     {
         Yii::app()->clientScript->registerPackage('ko_registerWidget');
         $model = new User();
-        $this->render('RegisterWidget', compact('model'));
+        $daysRange = range(1, 31);
+        $json = compact('daysRange');
+        $this->render('RegisterWidget', compact('model', 'json'));
     }
 }

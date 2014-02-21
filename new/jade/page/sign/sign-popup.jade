@@ -26,6 +26,9 @@ block layout-wrapper
                 a.popup-a(href="#login-retrieve") Восстановление пароля
                 br
                 br
+                a.popup-a(href="#login-retrieve2") Восстановление пароля, письмо отправлено 
+                br
+                br
  
 
 
@@ -210,7 +213,7 @@ block block-hidden
                         .popup-sign_label Код
                     .popup-sign_row.margin-b30
                             .popup-sign_capcha-hold
-                                .margin-b3
+                                .clearfix
                                     //- размеры капчи 125*45px
                                     img.popup-sign_capcha(src="/images/captcha.png")
                                 a.popup-sign_tx-help
@@ -263,7 +266,7 @@ block block-hidden
                 .popup-sign_t Добро пожаловать Александр! <br> Теперь вы с Веселым Жирафом!
             .popup-sign_cont
                 .popup-sign_tx.margin-t20.margin-b70
-                    | Для завершения регистрации, 
+                    | Для входа на сайт, 
                     span.i-highlight нажмите на ссылку в письме,
                     br
                     span.i-highlight которое мы отправили вам на указанный вами e-mail  
@@ -296,7 +299,7 @@ block block-hidden
                         .popup-sign_label Код
                     .popup-sign_row.margin-b30
                             .popup-sign_capcha-hold
-                                .margin-b3
+                                .clearfix
                                     //- размеры капчи 125*45px
                                     img.popup-sign_capcha(src="/images/captcha.png")
                                 a.popup-sign_tx-help
@@ -390,15 +393,55 @@ block block-hidden
                     span.ico-lock-big
                     | Вход на сайт
             .popup-sign_cont
-                .popup-sign_tx.margin-t20.margin-b50
+                .popup-sign_tx.margin-t20
                     | Пожалуйста введите ваш e-mail адрес. 
                     br 
                     span.i-highlight Вам будет выслано письмо с вашим паролем.
-                .popup-sign_col.textalign-c.margin-b70
-                    .display-ib.textalign-l
-                        a.popup-sign_a-m Не получили письмо?
-                        .popup-sign_tx-help Письмо должно прийти в течении 10 мин.
-                .popup-sign_col-wide-r.textalign-c
-                        a.popup-sign_a-big(href="", target="_blank") Открыть почту Mail.ru
+
+                .popup-sign_wrap
+                    .popup-sign_row.clearfix
+                        .popup-sign_col-label
+                            .popup-sign_label E-mail
+                        .popup-sign_col-inp
+                            .inp-valid.inp-valid__abs.inp-valid__success
+                                input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                                .inp-valid_error 
+                                    .inp-valid_error-tx E-mail не является правильным E-Mail адресом
+                                .inp-valid_success.inp-valid_success__ico-check
+                    .textalign-r
+                        .btn-green-simple.btn-l.margin-b10 Отправить пароль
     // /popup-sign
+
+    // .popup-sign
+    #login-retrieve2.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t 
+                    span.ico-lock-big
+                    | Вход на сайт
+            .popup-sign_cont
+                .popup-sign_tx.margin-t20
+                    | Пожалуйста введите ваш e-mail адрес. 
+                    br 
+                    span.i-highlight Вам будет выслано письмо с вашим паролем.
+
+                .popup-sign_wrap
+                    .popup-sign_row.clearfix
+                        .popup-sign_col-label
+                            .popup-sign_label E-mail
+                        .popup-sign_col-inp
+                            .inp-valid.inp-valid__abs.inp-valid__success
+                                input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                                .inp-valid_error 
+                                    .inp-valid_error-tx E-mail не является правильным E-Mail адресом
+                                .inp-valid_success.inp-valid_success__ico-check
+                    //- После отправки письма. Показывается блок .popup-sign_retrieve-send и менятеся текст на кнопке 
+                    .popup-sign_retrieve-send
+                        span.i-highlight На ваш e-mail адрес было выслано письмо с вашим паролем.
+                        br
+                        span.i-highlight Также проверьте, пожалуйста, папку «Спам».
+                    .textalign-r
+                        .btn-green-simple.btn-l.margin-b10 Войти на сайт
+    // /popup-sign
+    //  .btn-green-simple.btn-l.margin-b10 Войти на сайт
 

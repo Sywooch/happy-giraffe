@@ -55,26 +55,27 @@
                 <div class="float-l w-80 margin-r10">
                     <?=$form->dropDownList($model, 'birthday_day', array_combine(range(1, 31), range(1, 31)), array(
                         'placeholder' => 'День',
-                        'class' => 'select-cus__gray',
+                        'class' => 'select-cus select-cus__gray',
                         'data-bind' => 'value: birthday_day',
                     ))?>
                 </div>
                 <div class="float-l w-135 margin-r10">
                     <?=$form->dropDownList($model, 'birthday_month', array_combine(range(1, 12), array('Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря')), array(
                         'placeholder' => 'Месяц',
-                        'class' => 'select-cus__gray',
+                        'class' => 'select-cus select-cus__gray',
                         'data-bind' => 'value: birthday_month',
                     ))?>
                 </div>
                 <div class="float-l w-80">
                     <?=$form->dropDownList($model, 'birthday_year', array_combine(range(date('Y') - 16, date('Y') - 90), range(date('Y') - 16, date('Y') - 90)), array(
                         'placeholder' => 'Год',
-                        'class' => 'select-cus__gray',
+                        'class' => 'select-cus select-cus__gray',
                         'data-bind' => 'value: birthday_year',
                     ))?>
                 </div>
+                <?=$form->hiddenField($model, 'birthday')?>
                 <div class="inp-valid_error">
-                    <div class="errorMessage">Не выбрана дата</div>
+                    <div class="errorMessage"><?php $form->error($model, 'birthday'); ?></div>
                 </div>
                 <div class="inp-valid_success inp-valid_success__ico-check"></div>
             </div>
@@ -125,7 +126,7 @@
             </div>
         </div>
         <div class="popup-sign_row">
-            <div class="btn-green-simple btn-l">Продолжить</div>
+            <button class="btn-green-simple btn-l">Продолжить</button>
         </div>
     </div>
 </div>

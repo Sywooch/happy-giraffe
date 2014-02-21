@@ -219,7 +219,7 @@ class User extends HActiveRecord
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('deleted', 'numerical', 'integerOnly' => true),
-            array('birthday, baby_birthday', 'date', 'format' => 'yyyy-MM-dd', 'message' => 'Неправильная дата'),
+            array('birthday, baby_birthday', 'date', 'format' => 'yyyy-M-d', 'message' => 'Неправильная дата'),
             array('birthday', 'default', 'value' => NULL),
             array('blocked, login_date, register_date', 'safe'),
             array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
@@ -262,6 +262,15 @@ class User extends HActiveRecord
             array('blog_photo_id', 'default', 'setOnEmpty' => true, 'value' => null),
 
             array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signup,signup_full'),
+
+            // -----
+
+            // general
+            array('birthday_day, birthday_month, birthday_year', 'safe'),
+
+            // signup
+            array('email, first_name, last_name', 'required', 'on' => 'signupStep1, signupStep2'),
+            array('birthday, gender', 'required', 'on' => 'signupStep2'),
         );
     }
 
@@ -450,6 +459,13 @@ class User extends HActiveRecord
             'criteria' => $criteria,
         ));
     }
+
+    protected function beforeValidate()
+    {
+        $this->birthday = implode('-', array($this->birthday_year, $this->birthday_month, $this->birthday_day));
+        return parent::beforeValidate();
+    }
+
 
     protected function beforeSave()
     {

@@ -6,10 +6,10 @@
             window.close();
             var registerVm = window.opener.registerVm;
             <?php foreach ($this->params['attributes'] as $k => $v): ?>
-            if (registerVm.hasOwnProperty('<?=$k?>'))
-                registerVm.<?=$k?>('<?=$v?>');
-            registerVm.currentStep(window.opener.registerVm.STEP_REG2);
+                if (registerVm.hasOwnProperty('<?=$k?>'))
+                    registerVm.<?=$k?>('<?=$v?>');
             <?php endforeach; ?>
+            registerVm.currentStep(window.opener.registerVm.STEP_REG2);
         </script>
     </head>
 </html>

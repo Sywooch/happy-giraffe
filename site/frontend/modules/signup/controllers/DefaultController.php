@@ -13,11 +13,6 @@ class DefaultController extends HController
         );
     }
 
-	public function actionTest()
-	{
-		$this->render('test');
-	}
-
     public function actionTest2()
     {
         $this->render('test2');
@@ -32,6 +27,17 @@ class DefaultController extends HController
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
+    }
+
+    public function actionFinish()
+    {
+        $model = new User();
+        $model->attributes = $_POST['User'];
+        $success = $model->save(false);
+        if ($success)
+            $model->register();
+
+        echo CJSON::encode(compact('success'));
     }
 
     public function actionSocial()

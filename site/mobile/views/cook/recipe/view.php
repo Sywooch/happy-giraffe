@@ -12,7 +12,7 @@
 
             <?php if ($recipe->mainPhoto !== null): ?>
                 <div class="recipe-photo_hold">
-                    <?=CHtml::image($recipe->mainPhoto->getPreviewUrl(580, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'recipe-photo'))?>
+                    <?=CHtml::image($recipe->mainPhoto->getPreviewUrl(460, null, Image::WIDTH), $recipe->mainPhoto->title, array('class' => 'recipe-photo'))?>
                 </div>
             <?php endif; ?>
 
@@ -21,7 +21,7 @@
                 <ul class="recipe-photo-list_ul">
                     <?php foreach ($recipe->thumbs as $t): ?>
                         <li class="recipe-photo-list_li">
-                            <a href="" class="recipe-photo-list_i"><?=CHtml::image($t->photo->getPreviewUrl(105, 40, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_CENTER), $t->photo->title)?></a>
+                            <a href="" class="recipe-photo-list_i"><?=CHtml::image($t->photo->getPreviewUrl(60, 40, Image::WIDTH, true, AlbumPhoto::CROP_SIDE_CENTER), $t->photo->title)?></a>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -107,7 +107,7 @@
 
 </div>
 
-<?php if (! empty($next)): ?>
+<?php if (! empty($next) && false): ?>
     <div class="margin-10 textalign-c clearfix">
         <a href="<?=$next[0]->url?>" class="btn-green btn-medium">Следующий <i class="ico-arrow ico-arrow__right"></i></a>
     </div>

@@ -54,9 +54,8 @@
             <div class="inp-valid inp-valid__abs">
                 <div class="float-l w-80 margin-r10">
                     <?=$form->dropDownList($model, 'birthday_day', array(), array(
-                        'placeholder' => 'День',
                         'class' => 'select-cus select-cus__gray',
-                        'data-bind' => 'options: daysRange, value: birthday_day, optionsCaption: \'\', selectize: { create: false }',
+                        'data-bind' => 'selectize: daysRange, value: birthday_day, optionsCaption: "День", optionsValue: null, optionsText: null',
                     ))?>
                 </div>
                 <div class="float-l w-135 margin-r10">

@@ -107,7 +107,7 @@
 
 </div>
 
-<?php if (! empty($next) && false): ?>
+<?php if (! empty($next)): ?>
     <div class="margin-10 textalign-c clearfix">
         <a href="<?=$next[0]->url?>" class="btn-green btn-medium">Следующий <i class="ico-arrow ico-arrow__right"></i></a>
     </div>

@@ -71,7 +71,7 @@ return array(
         'knockout' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/knockout-2.2.1.js',
+                'new/javascript/knockout-debug.3.0.0.js',
                 'javascripts/ko_library.js',
                 'javascripts/knockout.mapping-latest.js',
             ),

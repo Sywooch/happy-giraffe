@@ -2,6 +2,7 @@
 /**
  * @var RegisterWidget $this
  * @var User $model
+ * @var mixed $json
  */
 ?>
 
@@ -40,7 +41,7 @@
 </div>
 
 <script type="text/javascript">
-    registerVm = new RegisterWidgetViewModel();
+    registerVm = new RegisterWidgetViewModel(<?=$json?>);
     ko.applyBindings(registerVm, document.getElementById('registerWidget'));
     function afterValidate(form, data, hasError) {
         console.log(hasError);

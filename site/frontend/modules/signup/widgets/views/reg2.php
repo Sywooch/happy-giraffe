@@ -53,10 +53,10 @@
         <div class="popup-sign_row">
             <div class="inp-valid inp-valid__abs">
                 <div class="float-l w-80 margin-r10">
-                    <?=$form->dropDownList($model, 'birthday_day', array_combine(range(1, 31), range(1, 31)), array(
+                    <?=$form->dropDownList($model, 'birthday_day', array(), array(
                         'placeholder' => 'День',
                         'class' => 'select-cus select-cus__gray',
-                        'data-bind' => 'value: birthday_day',
+                        'data-bind' => 'options: daysRange, value: birthday_day, optionsCaption: \'\', selectize: { create: false }',
                     ))?>
                 </div>
                 <div class="float-l w-135 margin-r10">

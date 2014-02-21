@@ -55,21 +55,21 @@
                 <div class="float-l w-80 margin-r10">
                     <?=$form->dropDownList($model, 'birthday_day', array(), array(
                         'class' => 'select-cus select-cus__gray',
-                        'data-bind' => 'selectize: daysRange, value: birthday_day, optionsCaption: "День", optionsValue: null, optionsText: null',
+                        'data-bind' => 'value: birthday_day, options: daysRange, optionsCaption: "День", selectize: {}',
                     ))?>
                 </div>
                 <div class="float-l w-135 margin-r10">
                     <?=$form->dropDownList($model, 'birthday_month', array_combine(range(1, 12), array('Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря')), array(
                         'placeholder' => 'Месяц',
                         'class' => 'select-cus select-cus__gray',
-                        'data-bind' => 'value: birthday_month',
+                        'data-bind' => 'value: birthday_month, options: monthesRange, optionsCaption: "Месяц", optionsText: "name", optionsValue: "id", selectize: {}',
                     ))?>
                 </div>
                 <div class="float-l w-80">
                     <?=$form->dropDownList($model, 'birthday_year', array_combine(range(date('Y') - 16, date('Y') - 90), range(date('Y') - 16, date('Y') - 90)), array(
                         'placeholder' => 'Год',
                         'class' => 'select-cus select-cus__gray',
-                        'data-bind' => 'value: birthday_year',
+                        'data-bind' => 'value: birthday_year, options: yearsRange, optionsCaption: "Год", selectize: {}',
                     ))?>
                 </div>
                 <?=$form->hiddenField($model, 'birthday')?>

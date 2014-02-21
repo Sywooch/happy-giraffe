@@ -48,6 +48,7 @@
         if (! hasError) {
             switch (registerVm.currentStep()) {
                 case registerVm.STEP_REG1:
+                    $('#registerForm').triggerHandler('reset');
                     registerVm.currentStep(registerVm.STEP_REG2);
                     break;
                 case registerVm.STEP_REG2:

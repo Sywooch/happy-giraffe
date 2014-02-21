@@ -9,12 +9,16 @@
 
 class RegisterWidget extends CWidget
 {
+    protected $maxAge = 90;
+    protected $minAge = 16;
+
     public function run()
     {
         Yii::app()->clientScript->registerPackage('ko_registerWidget');
         $model = new User();
-        $daysRange = range(1, 31);
-        $json = compact('daysRange');
+        $minYear = date('Y') - 90;
+        $maxYear = date('Y') - 16;
+        $json = compact('minYear', 'maxYear');
         $this->render('RegisterWidget', compact('model', 'json'));
     }
 }

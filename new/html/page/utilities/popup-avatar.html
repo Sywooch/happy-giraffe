@@ -159,37 +159,10 @@
       </div>
       <div class="layout-wrapper">
         <div class="layout-wrapper_frame clearfix">
-          <!-- side-menu-->
-          <div class="side-menu side-menu__friend">
-            <div class="side-menu_hold">
-              <div class="side-menu_t side-menu_t__friends"></div>
-              <ul class="side-menu_ul">
-                <li class="side-menu_li side-menu_li__find"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__find"></span><span class="side-menu_tx">Найти друзей</span></span></a></li>
-                <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online-friend"></span><span class="side-menu_tx">Мои <br> друзья </span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__friend-add"></span><span class="side-menu_tx">Давай дружить</span><span class="side-menu_count">1</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__advice"></span><span class="side-menu_tx">Жираф советует!</span><span class="side-menu_count-sub">59</span></span><span class="verticalalign-m-help"></span></a></li>
-              </ul>
-            </div>
-          </div>
-          <!-- /side-menu-->
-          <div class="page-col page-col__friend">
-            <div class="page-col_top page-col_top__gray">
-              <div class="sidebar-search clearfix">
-                <input type="text" name="" placeholder="Введите имя и/или фамилию" class="sidebar-search_itx"/>
-                <!-- При начале ввода добавить класс .active на кнопку-->
-                <button class="sidebar-search_btn"></button>
-              </div>
-              <ul class="page-col_tabs">
-                <li class="page-col_tab active"><a class="page-col_tab-a">Все друзья 128</a></li>
-                <li class="page-col_tab"><a class="page-col_tab-a">Друзья онлайн 12</a></li>
-                <li class="page-col_tab"><a class="page-col_tab-a">Новые друзья 6</a></li>
-              </ul>
-            </div>
-            <div class="page-col_cont">
-              <div class="friends-list">
-                <div class="loader loader__b-gray"><img src="/images/ico/ajax-loader.gif" class="loader_img">
-                  <div class="loader_tx">Загрузка пользователей</div>
-                </div>
+          <div class="layout-wrapper_hold clearfix">
+            <div class="layout-content clearfix">
+              <div class="margin-20">
+                <h2>Регистрация</h2><a href="#avatar-load" class="popup-a">Загрузка аватара</a><br><br><br>
               </div>
             </div>
           </div>
@@ -198,6 +171,39 @@
       <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
     </div>
     <div class="popup-container display-n"> 
+      <!-- .popup-sign-->
+      <div id="avatar-load" class="popup popup-sign">
+        <div class="popup-sign_hold">
+          <div class="popup-sign_top">
+            <div class="popup-sign_title">Главное фото</div>
+          </div>
+          <div class="popup-sign_cont">
+            <div class="popup-sign_img-upload">
+              <div class="img-upload">
+                <div class="img-upload_hold">
+                  <div class="img-upload_btn-desc">
+                    <div class="img-upload_t">Загрузите фотографию с компьютера</div>
+                    <div class="img-upload_tx">Поддерживаемые форматы: jpg и png</div>
+                  </div>
+                  <div class="file-fake">
+                    <button class="btn-green-simple btn-m file-fake_btn">Обзор</button>
+                    <input type="file">
+                  </div>
+                </div>
+                <div class="img-upload_desc">
+                  <div class="img-upload_tx">Загружайте пожалуйста только свои фотографии</div>
+                </div>
+              </div>
+            </div>
+            <div class="popup-sign_col">
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">Адрес активной электронной почты</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /popup-sign-->
     </div>
   </body>
 </html>

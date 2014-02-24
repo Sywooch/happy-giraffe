@@ -31,7 +31,6 @@ block layout-wrapper
                 br
  
 
-
 block block-hidden 
     // .popup-sign
     #reg-step1.popup.popup-sign
@@ -209,17 +208,15 @@ block block-hidden
                                         .errorMessage 
                                             | Выберите пол
                                     .inp-valid_success.inp-valid_success__ico-check
-                    .popup-sign_row
-                        .popup-sign_label Код
-                    .popup-sign_row.margin-b30
-                            .popup-sign_capcha-hold
-                                .clearfix
-                                    //- размеры капчи 125*45px
-                                    img.popup-sign_capcha(src="/images/captcha.png")
+                    .margin-b30
+                            .popup-sign_row
+                                //- размеры капчи 300*50px
+                                img.popup-sign_capcha(src="/images/captcha.png" width="300px" height="50px")
                                 a.popup-sign_tx-help
                                     .ico-refresh
                                     | Обновить
-                            .popup-sign_capcha-inp
+                            .popup-sign_row 
+                                //.popup-sign_capcha-inp
 
                                 .inp-valid.inp-valid__abs
                                     input.itx-gray.popup-sign_itx(type="text")
@@ -295,25 +292,23 @@ block block-hidden
                                     | Не заполнено поле
                             .inp-valid_success.inp-valid_success__ico-check
                         .popup-sign_tx-help Пожалуйста проверьте правильность указанного адреса электронной почты или введите другой
-                    .popup-sign_row
-                        .popup-sign_label Код
-                    .popup-sign_row.margin-b30
-                            .popup-sign_capcha-hold
-                                .clearfix
-                                    //- размеры капчи 125*45px
-                                    img.popup-sign_capcha(src="/images/captcha.png")
-                                a.popup-sign_tx-help
-                                    .ico-refresh
-                                    | Обновить
-                            .popup-sign_capcha-inp
+                    .margin-b30
+                        .popup-sign_row
+                            //- размеры капчи 300*50px
+                            img.popup-sign_capcha(src="/images/captcha.png" width="300px" height="50px")
+                            a.popup-sign_tx-help
+                                .ico-refresh
+                                | Обновить
+                        .popup-sign_row 
+                            //.popup-sign_capcha-inp
 
-                                .inp-valid.inp-valid__abs.error
-                                    input.itx-gray.popup-sign_itx(type="text")
-                                    .inp-valid_error
-                                        .errorMessage
-                                            | Неправильный код проверки
-                                    .inp-valid_success.inp-valid_success__ico-check
-                                .popup-sign_tx-help Введите код с картинки
+                            .inp-valid.inp-valid__abs
+                                input.itx-gray.popup-sign_itx(type="text")
+                                .inp-valid_error
+                                    .errorMessage
+                                        | Неправильный код проверки
+                                .inp-valid_success.inp-valid_success__ico-check
+                            .popup-sign_tx-help Введите код с картинки
                     .popup-sign_row
                         .display-ib.textalign-c
                             .btn-green-simple.btn-l.margin-b5 Отправить письмо еще раз

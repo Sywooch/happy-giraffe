@@ -1,0 +1,37 @@
+extend ../../extend/layout_frame
+
+block layout-wrapper
+    .layout-wrapper_hold.clearfix
+        .layout-content.clearfix
+            .margin-20
+                h2 Регистрация
+                a.popup-a(href="#avatar-load") Загрузка аватара
+                br
+                br
+                br
+ 
+
+
+block block-hidden 
+    // .popup-sign
+    #avatar-load.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_title Главное фото
+            .popup-sign_cont
+                .popup-sign_img-upload
+                    .img-upload
+                        .img-upload_hold
+                            .img-upload_btn-desc
+                                .img-upload_t Загрузите фотографию с компьютера
+                                .img-upload_tx Поддерживаемые форматы: jpg и png
+                            .file-fake
+                                button.btn-green-simple.btn-m.file-fake_btn Обзор
+                                input(type="file")
+                        .img-upload_desc
+                            .img-upload_tx Загружайте пожалуйста только свои фотографии
+
+                .popup-sign_col
+                    .popup-sign_row
+                        .popup-sign_label Адрес активной электронной почты
+    // /popup-sign

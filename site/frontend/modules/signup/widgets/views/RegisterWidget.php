@@ -10,18 +10,20 @@
     <div id="registerWidget" class="popup popup-sign">
         <?php $form = $this->beginWidget('CActiveForm', array(
             'id' => 'registerForm',
-            'action' => array('/signup/default/finish'),
+            'action' => array('/signup/default/reg'),
             'enableAjaxValidation' => true,
             'enableClientValidation' => true,
             'clientOptions' => array(
                 'inputContainer' => 'div.inp-valid',
-                'validationUrl' => Yii::app()->createUrl('/signup/default/validation'),
                 'validateOnSubmit' => true,
                 'afterValidate' => 'js:afterValidate',
             ),
         )); ?>
         <?=CHtml::hiddenField('step', '', array(
             'data-bind' => 'value: currentStep',
+        ))?>
+        <?=CHtml::hiddenField('User[id]', '', array(
+            'data-bind' => 'value: id',
         ))?>
 
         <div class="popup-sign_hold" data-bind="visible: currentStep() == $root.STEP_REG1">
@@ -48,8 +50,13 @@
         if (! hasError) {
             switch (registerVm.currentStep()) {
                 case registerVm.STEP_REG1:
-                    $('#registerForm').triggerHandler('reset');
-                    registerVm.currentStep(registerVm.STEP_REG2);
+                    $.post(form.attr('action'), form.serialize(), function(response) {
+                        if (response.success) {
+                            registerVm.id(response.id);
+                            $('#registerForm').triggerHandler('reset');
+                            registerVm.currentStep(registerVm.STEP_REG2);
+                        }
+                    }, 'json');
                     break;
                 case registerVm.STEP_REG2:
                     $.post(form.attr('action'), form.serialize(), function(response) {

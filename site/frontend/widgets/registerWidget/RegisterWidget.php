@@ -1,5 +1,5 @@
 <?php
-class RegisterWidget extends CWidget
+class RegisterWidget1213 extends CWidget
 {
     public $show_form = false;
     public $form_type = 'default';

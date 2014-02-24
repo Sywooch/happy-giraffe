@@ -10,6 +10,7 @@
                 if (registerVm.hasOwnProperty('<?=$k?>'))
                     registerVm.<?=$k?>('<?=$v?>');
             <?php endforeach; ?>
+            registerVm.social(true);
             registerVm.currentStep(registerVm.STEP_REG2);
         </script>
     </head>

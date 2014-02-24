@@ -270,7 +270,8 @@ class User extends HActiveRecord
 
             // signup
             array('email, first_name, last_name', 'required', 'on' => 'signupStep1, signupStep2'),
-            array('birthday, gender', 'required', 'on' => 'signupStep2'),
+            array('birthday, gender', 'required', 'on' => 'signupStep2, signupStep2Social'),
+            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signupStep2'),
         );
     }
 

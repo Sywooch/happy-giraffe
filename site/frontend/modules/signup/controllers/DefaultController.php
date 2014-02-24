@@ -22,8 +22,9 @@ class DefaultController extends HController
     public function actionReg()
     {
         $step = Yii::app()->request->getPost('step');
+        $social = Yii::app()->request->getPost('social');
         $userId = Yii::app()->request->getPost('userId');
-        $scenario = ($step == RegisterWidget::STEP_REG1) ? 'signupStep1' : 'signupStep2';
+        $scenario = ($step == RegisterWidget::STEP_REG1) ? 'signupStep1' : (($social == 'true') ? 'signupStep2Social' : 'signupStep2');
         $model = empty($userId) ? new User() : User::model()->findByPk($userId);
         $model->setScenario($scenario);
         $model->attributes = $_POST['User'];

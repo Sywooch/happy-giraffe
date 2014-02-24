@@ -75,21 +75,36 @@
                     <div class="float-l w-80 margin-r10">
                         <?=$form->dropDownList($model, 'birthday_day', array(), array(
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_day, options: daysRange, optionsCaption: "День", select2: {}',
+                            'data-bind' => 'value: birthday_day, options: daysRange, optionsCaption: "День", select2: {
+                                width: \'100%\',
+                                minimumResultsForSearch: -1,
+                                dropdownCssClass: \'select2-drop__search-off\',
+                                escapeMarkup: function(m) { return m; }
+                            }',
                         ))?>
                     </div>
                     <div class="float-l w-135 margin-r10">
                         <?=$form->dropDownList($model, 'birthday_month', array_combine(range(1, 12), array('Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря')), array(
                             'placeholder' => 'Месяц',
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_month, options: monthesRange, optionsCaption: "Месяц", optionsText: "name", optionsValue: "id", select2: {}',
+                            'data-bind' => 'value: birthday_month, options: monthesRange, optionsCaption: "Месяц", optionsText: "name", optionsValue: "id", select2: {
+                                width: \'100%\',
+                                minimumResultsForSearch: -1,
+                                dropdownCssClass: \'select2-drop__search-off\',
+                                escapeMarkup: function(m) { return m; }
+                            }',
                         ))?>
                     </div>
                     <div class="float-l w-80">
                         <?=$form->dropDownList($model, 'birthday_year', array_combine(range(date('Y') - 16, date('Y') - 90), range(date('Y') - 16, date('Y') - 90)), array(
                             'placeholder' => 'Год',
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_year, options: yearsRange, optionsCaption: "Год", select2: {}',
+                            'data-bind' => 'value: birthday_year, options: yearsRange, optionsCaption: "Год", select2: {
+                                width: \'100%\',
+                                minimumResultsForSearch: -1,
+                                dropdownCssClass: \'select2-drop__search-off\',
+                                escapeMarkup: function(m) { return m; }
+                            }',
                         ))?>
                     </div>
                     <?=$form->hiddenField($model, 'birthday')?>
@@ -127,7 +142,7 @@
                 </div>
             </div>
         </div>
-        <div class="popup-sign_attr">
+        <div class="popup-sign_attr" data-bind="visible: ! social()">
             <div class="margin-b30">
                 <div class="popup-sign_row">
                     <?php $this->widget('CCaptcha', array(

@@ -22,6 +22,9 @@
         <?=CHtml::hiddenField('step', '', array(
             'data-bind' => 'value: currentStep',
         ))?>
+        <?=CHtml::hiddenField('social', '', array(
+            'data-bind' => 'value: social',
+        ))?>
         <?=CHtml::hiddenField('User[id]', '', array(
             'data-bind' => 'value: id',
         ))?>

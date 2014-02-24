@@ -229,8 +229,8 @@ class User extends HActiveRecord
             array('first_name, last_name', 'filter', 'filter'=>'trim'),
 
             //login
-            array('email, password', 'required', 'on' => 'login'),
-            array('password', 'passwordValidator', 'on' => 'login'),
+//            array('email, password', 'required', 'on' => 'login'),
+//            array('password', 'passwordValidator', 'on' => 'login'),
 
             // signup, step 1
 //            array('email, first_name, last_name', 'required', 'on' => 'signupStep1'),
@@ -263,16 +263,19 @@ class User extends HActiveRecord
 
             array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signup,signup_full'),
 
-            // -----
+            //-----
 
-            // general
+            //general
             array('birthday_day, birthday_month, birthday_year', 'safe'),
 
-            // signup
+            //signup
             array('email, first_name, last_name', 'required', 'on' => 'signupStep1, signupStep2, signupStep2Social'),
             array('birthday, gender', 'required', 'on' => 'signupStep2, signupStep2Social'),
             array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signupStep2'),
             array('email', 'unique', 'on' => 'signupStep1, signupStep2, signupStep2Social', 'message' => 'Этот E-Mail уже используется'),
+
+            //login
+            array('email, password', 'required', 'on' => 'login'),
         );
     }
 
@@ -526,7 +529,7 @@ class User extends HActiveRecord
         return false;
     }
 
-    public function hashPassword($password)
+    public static function hashPassword($password)
     {
         return md5($password);
     }

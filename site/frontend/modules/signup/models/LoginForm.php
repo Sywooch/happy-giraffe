@@ -32,13 +32,7 @@ class LoginForm extends CFormModel
         {
             $this->_identity = new UserIdentity($this->email, $this->password);
             if (! $this->_identity->authenticate()) {
-                switch ($this->_identity->errorCode) {
-                    case UserIdentity::ERROR_PASSWORD_INVALID:
-                        $attr = 'password';
-                        break;
-                    default:
-                        $attr = 'email';
-                }
+                $attr = ($this->_identity->errorCode === UserIdentity::ERROR_PASSWORD_INVALID) ? 'password' : 'email';
                 $this->addError($attr, $this->_identity->errorMessage);
             }
         }

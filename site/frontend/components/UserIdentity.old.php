@@ -1,6 +1,6 @@
 <?php
 
-class UserIdentity extends CUserIdentity {
+class UserIdentityewqe extends CUserIdentity {
 
 	private $_id;
 	private $_name;

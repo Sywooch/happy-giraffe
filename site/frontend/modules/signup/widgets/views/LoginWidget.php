@@ -1,6 +1,6 @@
 <?php
 /**
- * @var User $model
+ * @var LoginForm $model
  */
 ?>
 
@@ -32,7 +32,7 @@
                 </div>
                 <div class="popup-sign_col">
                     <div class="popup-sign_row">
-                        <div class="popup-sign_label">E-mail</div>
+                        <div class="popup-sign_label"><?=$model->getAttributeLabel('email')?></div>
                     </div>
                     <div class="popup-sign_row">
                         <div class="inp-valid inp-valid__abs inp-valid__error">
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="popup-sign_row">
-                        <div class="popup-sign_label">Пароль</div>
+                        <div class="popup-sign_label"><?=$model->getAttributeLabel('Пароль')?></div>
                     </div>
                     <div class="popup-sign_row">
                         <div class="inp-valid inp-valid__abs inp-valid__success">
@@ -67,8 +67,8 @@
                         </div>
                         <div class="float-l">
                             <div class="checkbox-icons">
-                                <input id="checkboxid" type="checkbox" name="checkbox" class="checkbox-icons_radio">
-                                <label for="checkboxid" class="checkbox-icons_label">Запомнить меня</label>
+                                <?=$form->checkBox($model, 'rememberMe', array('class' => 'checkbox-icons_radio'))?>
+                                <?=$form->label($model, 'rememberMe', array('class' => 'checkbox-icons_label'))?>
                             </div>
                         </div>
                     </div>

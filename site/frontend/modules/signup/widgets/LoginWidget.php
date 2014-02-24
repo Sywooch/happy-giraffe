@@ -11,7 +11,7 @@ class LoginWidget extends CWidget
 {
     public function run()
     {
-        $model = new User();
+        $model = new LoginForm();
         $this->render('LoginWidget', compact('model'));
     }
 }

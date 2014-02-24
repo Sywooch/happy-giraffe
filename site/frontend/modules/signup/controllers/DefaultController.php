@@ -18,12 +18,35 @@ class DefaultController extends HController
         $this->render('test2');
     }
 
-    public function actionValidation()
+    public function actionReg()
     {
-        if (isset($_POST['ajax']) && $_POST['ajax']==='registerForm' && $_POST['step'])
+        $step = Yii::app()->request->getPost('step');
+        $userId = Yii::app()->request->getPost('userId');
+        $scenario = ($step == RegisterWidget::STEP_REG1) ? 'signupStep1' : 'signupStep2';
+        $model = empty($userId) ? new User() : User::model()->findByPk($userId);
+        $model->setScenario($scenario);
+        $model->attributes = $_POST['User'];
+        $this->performAjaxValidation($model);
+        $response = array();
+        if ($step == RegisterWidget::STEP_REG1) {
+            $model->registration_finished = 0;
+            $success = $model->save();
+            $response['success'] = $success;
+            if ($success)
+                $response['id'] = $model->id;
+        } else {
+            $success = $model->save();
+            $response['success'] = $success;
+            if ($success)
+                $model->register();
+        }
+        echo CJSON::encode($response);
+    }
+
+    protected function performAjaxValidation($model)
+    {
+        if (isset($_POST['ajax']) && $_POST['ajax']==='registerForm')
         {
-            $model = new User($_POST['step']);
-            $model->attributes = $_POST['User'];
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

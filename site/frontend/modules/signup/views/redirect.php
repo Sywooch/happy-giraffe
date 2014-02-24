@@ -10,7 +10,7 @@
                 if (registerVm.hasOwnProperty('<?=$k?>'))
                     registerVm.<?=$k?>('<?=$v?>');
             <?php endforeach; ?>
-            registerVm.currentStep(window.opener.registerVm.STEP_REG2);
+            registerVm.currentStep(registerVm.STEP_REG2);
         </script>
     </head>
 </html>

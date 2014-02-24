@@ -9,6 +9,11 @@
 
 class RegisterWidget extends CWidget
 {
+    const STEP_REG1 = 0;
+    const STEP_REG2 = 1;
+    const STEP_EMAIL1 = 2;
+    const STEP_EMAIL2 = 3;
+
     protected $maxAge = 90;
     protected $minAge = 16;
 
@@ -18,7 +23,9 @@ class RegisterWidget extends CWidget
         $model = new User();
         $minYear = date('Y') - 90;
         $maxYear = date('Y') - 16;
-        $json = compact('minYear', 'maxYear');
+        $c = new ReflectionClass($this);
+        $constants = $c->getConstants();
+        $json = compact('minYear', 'maxYear', 'constants');
         $this->render('RegisterWidget', compact('model', 'json'));
     }
 }

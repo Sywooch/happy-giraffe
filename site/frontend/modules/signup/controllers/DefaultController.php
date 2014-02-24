@@ -7,8 +7,9 @@ class DefaultController extends HController
         return array(
             'captcha' => array(
                 'class' => 'CaptchaExtendedAction',
-                'width' => 128,
+                'width' => 125,
                 'height' => 45,
+                'mode' => CaptchaExtendedAction::MODE_WORDS,
             ),
         );
     }

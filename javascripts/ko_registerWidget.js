@@ -4,6 +4,7 @@ function RegisterWidgetViewModel(data, form) {
     for (var i in data.constants)
         self[i] = data.constants[i];
 
+    self.social = ko.observable(false);
     self.currentStep = ko.observable(self.STEP_REG1);
     self.currentStep.subscribe(function(val) {
         if (val == self.STEP_REG2) {

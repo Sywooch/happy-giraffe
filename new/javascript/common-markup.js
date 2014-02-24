@@ -1,7 +1,7 @@
 
 $(function() {
     // Измененный tag select c инпутом поиска
-    $('.select-cus__search-on').selectize({
+/*    $('.select-cus__search-on').selectize({
         create: true,
         dropdownParent: 'body'
     });
@@ -13,14 +13,29 @@ $(function() {
             // Делает не возможным ввод в input при открытом списке, без autocomplite
             this.$wrapper.find('input').attr({disabled: 'disabled'})
         }
-    });
-    /*$(".select2__blue").select2({
+    });*/
+/*    $(".select-cus__search-on").select2({
         width: '100%',
         minimumResultsForSearch: -1,
         containerCssClass: 'select2__blue',
         dropdownCssClass: 'select2-drop__1',
         escapeMarkup: function(m) { return m; }
     });*/
+
+        // Измененный tag select
+    $(".select-cus__search-off").select2({
+        width: '100%',
+        minimumResultsForSearch: -1,
+        dropdownCssClass: 'select2-drop__search-off"',
+        escapeMarkup: function(m) { return m; }
+    });
+
+    // Измененный tag select c инпутом поиска
+    $(".select-cus__search-on").select2({
+        width: '100%',
+        dropdownCssClass: 'select2-drop__search-on',
+        escapeMarkup: function(m) { return m; }
+    });
 
 
     // Стандартные подсказки

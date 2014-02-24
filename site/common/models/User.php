@@ -233,16 +233,16 @@ class User extends HActiveRecord
             array('password', 'passwordValidator', 'on' => 'login'),
 
             // signup, step 1
-            array('email, first_name, last_name', 'required', 'on' => 'signupStep1'),
+//            array('email, first_name, last_name', 'required', 'on' => 'signupStep1'),
 
             //signup
-            array('first_name, last_name, password, passwordRepeat', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
-            array('email', 'required', 'on' => 'signup,signup_full', 'message' => 'Введите ваш E-mail адрес'),
-            array('birthday', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
-            array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
-            array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
-            array('email', 'unique', 'on' => 'signup,signup_full,signupQuestion', 'message' => 'Этот E-Mail уже используется'),
-            array('passwordRepeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup,signup_full'),
+//            array('first_name, last_name, password, passwordRepeat', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
+//            array('email', 'required', 'on' => 'signup,signup_full', 'message' => 'Введите ваш E-mail адрес'),
+//            array('birthday', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
+//            array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
+//            array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
+//            array('email', 'unique', 'on' => 'signup,signup_full,signupQuestion', 'message' => 'Этот E-Mail уже используется'),
+//            array('passwordRepeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup,signup_full'),
 
             //signupQuestion
             array('first_name, email', 'required', 'on' => 'signupQuestion'),
@@ -272,6 +272,7 @@ class User extends HActiveRecord
             array('email, first_name, last_name', 'required', 'on' => 'signupStep1, signupStep2, signupStep2Social'),
             array('birthday, gender', 'required', 'on' => 'signupStep2, signupStep2Social'),
             array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signupStep2'),
+            array('email', 'unique', 'on' => 'signupStep1, signupStep2, signupStep2Social', 'message' => 'Этот E-Mail уже используется'),
         );
     }
 

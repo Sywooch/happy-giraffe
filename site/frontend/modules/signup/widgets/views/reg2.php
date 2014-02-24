@@ -75,21 +75,21 @@
                     <div class="float-l w-80 margin-r10">
                         <?=$form->dropDownList($model, 'birthday_day', array(), array(
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_day, options: daysRange, optionsCaption: "День", selectize: {}',
+                            'data-bind' => 'value: birthday_day, options: daysRange, optionsCaption: "День", select2: {}',
                         ))?>
                     </div>
                     <div class="float-l w-135 margin-r10">
                         <?=$form->dropDownList($model, 'birthday_month', array_combine(range(1, 12), array('Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря')), array(
                             'placeholder' => 'Месяц',
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_month, options: monthesRange, optionsCaption: "Месяц", optionsText: "name", optionsValue: "id", selectize: {}',
+                            'data-bind' => 'value: birthday_month, options: monthesRange, optionsCaption: "Месяц", optionsText: "name", optionsValue: "id", select2: {}',
                         ))?>
                     </div>
                     <div class="float-l w-80">
                         <?=$form->dropDownList($model, 'birthday_year', array_combine(range(date('Y') - 16, date('Y') - 90), range(date('Y') - 16, date('Y') - 90)), array(
                             'placeholder' => 'Год',
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_year, options: yearsRange, optionsCaption: "Год", selectize: {}',
+                            'data-bind' => 'value: birthday_year, options: yearsRange, optionsCaption: "Год", select2: {}',
                         ))?>
                     </div>
                     <?=$form->hiddenField($model, 'birthday')?>
@@ -128,27 +128,25 @@
             </div>
         </div>
         <div class="popup-sign_attr">
-            <div class="popup-sign_row">
-                <div class="popup-sign_label">Код</div>
-            </div>
-            <div class="popup-sign_row margin-b30">
-                <div class="popup-sign_capcha-hold">
+            <div class="margin-b30">
+                <div class="popup-sign_row">
                     <?php $this->widget('CCaptcha', array(
-                        'buttonLabel' => '<div class="ico-refresh"></div>Обновить</a>',
-                        'clickableImage' => true,
                         'imageOptions' => array(
                             'class' => 'popup-sign_capcha',
                         ),
                         'buttonOptions' => array(
                             'class' => 'popup-sign_tx-help',
                         ),
+                        'buttonLabel' => '<div class="ico-refresh"></div>Обновить',
+                        'clickableImage' => true,
                     )); ?>
                 </div>
-                <div class="popup-sign_capcha-inp">
+                <div class="popup-sign_row">
+                    <!--.popup-sign_capcha-inp-->
                     <div class="inp-valid inp-valid__abs">
-                        <input type="text" class="itx-gray popup-sign_itx">
+                        <?=$form->textField($model, 'verifyCode', array('class' => 'itx-gray popup-sign_itx'))?>
                         <div class="inp-valid_error">
-                            <div class="errorMessage">Неправильный код проверки</div>
+                            <div class="errorMessage"><?=$form->error($model, 'verifyCode')?></div>
                         </div>
                         <div class="inp-valid_success inp-valid_success__ico-check"></div>
                     </div>

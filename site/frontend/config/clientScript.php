@@ -8,7 +8,7 @@ return array(
             'js' => array(
                 'javascripts/ko_registerWidget.js',
             ),
-            'depends' => array('knockout', 'common', 'jcrop', 'selectize'),
+            'depends' => array('knockout', 'common', 'jcrop'),
         ),
         'powertip' => array(
             'baseUrl' => '/',
@@ -34,7 +34,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
 				'new/javascript/jquery.magnific-popup.js',
-                'new/javascript/selectize.js',
+                'new/javascript/select2.js',
                 'new/javascript/common.js',
                 'javascripts/base64.js',
             ),

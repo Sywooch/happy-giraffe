@@ -1,20 +1,29 @@
-function RegisterWidgetViewModel(data) {
+function RegisterWidgetViewModel(data, form) {
     var self = this;
 
     for (var i in data.constants)
         self[i] = data.constants[i];
 
     self.currentStep = ko.observable(self.STEP_REG1);
-//    self.currentStep.subscribe(function(val) {
-//        if (val == self.STEP_REG2) {
-//            $('#registerForm').bind('ajax:complete', function(event) {
-//                alert('123');
-//                $('.popup-sign_row :has(.success)').hide();
-//            });
-//            $('#registerForm').submit();
-//            $('#registerForm').off('ajax:complete');
-//        }
-//    });
+    self.currentStep.subscribe(function(val) {
+        if (val == self.STEP_REG2) {
+            setTimeout(function() {
+                var settings = form.data("settings");
+                $.each(settings.attributes, function () {
+                    this.status = 2;
+                });
+                form.data("settings", settings);
+
+                $.fn.yiiactiveform.validate(form, function (data) {
+                    $.each(settings.attributes, function () {
+                        $.fn.yiiactiveform.updateInput(this, data, form);
+                    });
+                    $('.popup-sign_attr:has(.success):visible').hide();
+                    form.triggerHandler('reset');
+                });
+            }, 1);
+        }
+    });
 
     self.id = ko.observable();
     self.email = ko.observable();

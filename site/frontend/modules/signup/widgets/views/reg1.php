@@ -70,4 +70,4 @@
         </div>
     </div>
 </div>
-<div class="popup-sign_b"><span class="popup-sign_b-tx">Вы уже зарегистрированы?</span><a class="popup-sign_b-a">Войти</a></div>
+<div class="popup-sign_b"><span class="popup-sign_b-tx">Вы уже зарегистрированы?</span><a class="popup-sign_b-a popup-a" href="#loginWidget">Войти</a></div>

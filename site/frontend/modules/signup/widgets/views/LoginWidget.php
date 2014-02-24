@@ -1,0 +1,81 @@
+<?php
+/**
+ * @var User $model
+ */
+?>
+
+<div class="popup-container display-n">
+    <div id="loginWidget" class="popup popup-sign">
+        <?php $form = $this->beginWidget('CActiveForm', array(
+            'id' => 'loginForm',
+            'action' => array('/signup/login/default'),
+            'enableAjaxValidation' => true,
+            'enableClientValidation' => true,
+            'clientOptions' => array(
+                'inputContainer' => 'div.inp-valid',
+                'validateOnSubmit' => true,
+            ),
+        ))?>
+        <div class="popup-sign_hold">
+            <div class="popup-sign_top">
+                <div class="popup-sign_t"><span class="ico-lock-big"></span>Вход на сайт</div>
+            </div>
+            <div class="popup-sign_cont">
+                <div class="popup-sign_social">
+                    <div class="popup-sign_row">
+                        <div class="popup-sign_label">Быстрый вход</div>
+                    </div>
+                    <ul class="social-btns clearfix">
+                        <li><a class="social-btn social-btn__odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
+                        <li><a class="social-btn social-btn__vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
+                    </ul>
+                </div>
+                <div class="popup-sign_col">
+                    <div class="popup-sign_row">
+                        <div class="popup-sign_label">E-mail</div>
+                    </div>
+                    <div class="popup-sign_row">
+                        <div class="inp-valid inp-valid__abs inp-valid__error">
+                            <?=$form->textField($model, 'email', array(
+                                'placeholder' => 'E-mail',
+                                'class' => 'itx-gray popup-sign_itx',
+                            ))?>
+                            <div class="inp-valid_error">
+                                <div class="inp-valid_error-tx"><?=$form->error($model, 'email'); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-sign_row">
+                        <div class="popup-sign_label">Пароль</div>
+                    </div>
+                    <div class="popup-sign_row">
+                        <div class="inp-valid inp-valid__abs inp-valid__success">
+                            <?=$form->passwordField($model, 'password', array(
+                                'placeholder' => 'Пароль',
+                                'class' => 'itx-gray popup-sign_itx',
+                            ))?>
+                            <div class="inp-valid_error">
+                                <div class="inp-valid_error-tx"><?=$form->error($model, 'password'); ?></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-sign_row">
+                        <div class="float-r">
+                            <div class="display-ib textalign-c">
+                                <button class="btn-green-simple btn-l margin-b10">Войти на сайт</button><br><a>Забыли пароль?</a>
+                            </div>
+                        </div>
+                        <div class="float-l">
+                            <div class="checkbox-icons">
+                                <input id="checkboxid" type="checkbox" name="checkbox" class="checkbox-icons_radio">
+                                <label for="checkboxid" class="checkbox-icons_label">Запомнить меня</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="popup-sign_b"><span class="popup-sign_b-tx">Вы еще не зарегистрированы?</span><a class="popup-sign_b-a">Регистрация</a></div>
+        </div>
+        <?php $this->endWidget(); ?>
+    </div>
+</div>

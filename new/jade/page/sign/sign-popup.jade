@@ -29,6 +29,17 @@ block layout-wrapper
                 a.popup-a(href="#login-retrieve2") Восстановление пароля, письмо отправлено 
                 br
                 br
+                select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выбор страны")
+                            option(value="2") Россия
+                            option(value="3") Беларусь
+                            option(value="4") Казахстан
+                            option(value="5") Молдова
+                            option(value="6") Польша
+                            option(value="7") Венгрия
+                            option(value="8") Грузия
+                            option(value="9") Албания
+                            option(value="10") Лимпопо
+                            option(value="11") Замбия
  
 
 block block-hidden 
@@ -117,10 +128,16 @@ block block-hidden
                     .popup-sign_row
                         .inp-valid.inp-valid__abs.error
                             select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выбор страны")
-                                option
                                 option(value="2") Россия
                                 option(value="3") Беларусь
                                 option(value="4") Казахстан
+                                option(value="5") Молдова
+                                option(value="6") Польша
+                                option(value="7") Венгрия
+                                option(value="8") Грузия
+                                option(value="9") Албания
+                                option(value="10") Лимпопо
+                                option(value="11") Замбия
                             .inp-valid_error
                                 .errorMessage 
                                     | Страна не вабрана
@@ -128,11 +145,18 @@ block block-hidden
                         .popup-sign_tx-help Начинайте вводить название страны...
                     .popup-sign_row
                         .inp-valid.inp-valid__abs
-                            select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Населенный пункт")
+                            select.select-cus.select-cus__search-on-desc.select-cus__gray(placeholder="Населенный пункт")
                                 option
                                 option(value="2") Россия
                                 option(value="3") Беларусь
                                 option(value="4") Казахстан
+                                option(value="5") Молдова
+                                option(value="6") Польша
+                                option(value="7") Венгрия
+                                option(value="8") Грузия
+                                option(value="9") Албания
+                                option(value="10") Лимпопо
+                                option(value="11") Замбия
                             .inp-valid_error
                                 .errorMessage 
                                     | Не заполнено поле "Фамилия"

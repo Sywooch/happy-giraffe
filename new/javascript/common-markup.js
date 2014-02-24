@@ -37,6 +37,19 @@ $(function() {
         escapeMarkup: function(m) { return m; }
     });
 
+    function selectCus__SearchOnDesc(state) {
+        if (!state.id) return state.text; // optgroup
+        return "<div class='select2-result_i'>" + state.text + "</div><div class='select2-result_desc'>Текст описание</div>";
+    }
+    // Измененный tag select c инпутом поиска
+    $(".select-cus__search-on-desc").select2({
+        width: '100%',
+        dropdownCssClass: 'select2-drop__search-on',
+        formatResult: selectCus__SearchOnDesc,
+        formatSelection: selectCus__SearchOnDesc,
+        escapeMarkup: function(m) { return m; }
+    });
+
 
     // Стандартные подсказки
     $('.powertip, .redactor_toolbar li a, [data-tooltip]').tooltipster({

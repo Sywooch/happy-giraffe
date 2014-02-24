@@ -43,7 +43,7 @@
 </div>
 
 <script type="text/javascript">
-    registerVm = new RegisterWidgetViewModel(<?=CJSON::encode($json)?>);
+    registerVm = new RegisterWidgetViewModel(<?=CJSON::encode($json)?>, $('#registerForm'));
     ko.applyBindings(registerVm, document.getElementById('registerWidget'));
     function afterValidate(form, data, hasError) {
         console.log(hasError);

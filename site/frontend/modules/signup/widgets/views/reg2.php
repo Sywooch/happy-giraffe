@@ -75,12 +75,7 @@
                     <div class="float-l w-80 margin-r10">
                         <?=$form->dropDownList($model, 'birthday_day', array(), array(
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_day, options: daysRange, optionsCaption: "День", select2: {
-                                width: \'100%\',
-                                minimumResultsForSearch: -1,
-                                dropdownCssClass: \'select2-drop__search-off\',
-                                escapeMarkup: function(m) { return m; }
-                            }',
+                            'data-bind' => 'value: birthday_day, options: daysRange, optionsCaption: "День"',
                         ))?>
                     </div>
                     <div class="float-l w-135 margin-r10">
@@ -142,7 +137,7 @@
                 </div>
             </div>
         </div>
-        <div class="popup-sign_attr" data-bind="visible: ! social()">
+        <div class="popup-sign_attr">
             <div class="margin-b30">
                 <div class="popup-sign_row">
                     <?php $this->widget('CCaptcha', array(

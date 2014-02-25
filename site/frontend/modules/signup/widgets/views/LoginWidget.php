@@ -25,10 +25,7 @@
                     <div class="popup-sign_row">
                         <div class="popup-sign_label">Быстрый вход</div>
                     </div>
-                    <ul class="social-btns clearfix">
-                        <li><a class="social-btn social-btn__odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
-                        <li><a class="social-btn social-btn__vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
-                    </ul>
+                    <?php $this->widget('AuthWidget', array('action' => '/signup/login/social')); ?>
                 </div>
                 <div class="popup-sign_col">
                     <div class="popup-sign_row">

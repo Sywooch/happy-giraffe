@@ -36,6 +36,7 @@
                             <?=$form->textField($model, 'email', array(
                                 'placeholder' => 'E-mail',
                                 'class' => 'itx-gray popup-sign_itx',
+                                'data-bind' => 'value: email',
                             ))?>
                             <div class="inp-valid_error">
                                 <div class="inp-valid_error-tx"><?=$form->error($model, 'email'); ?></div>
@@ -50,6 +51,7 @@
                             <?=$form->passwordField($model, 'password', array(
                                 'placeholder' => 'Пароль',
                                 'class' => 'itx-gray popup-sign_itx',
+                                'data-bind' => 'value: password',
                             ))?>
                             <div class="inp-valid_error">
                                 <div class="inp-valid_error-tx"><?=$form->error($model, 'password'); ?></div>
@@ -59,20 +61,25 @@
                     <div class="popup-sign_row">
                         <div class="float-r">
                             <div class="display-ib textalign-c">
-                                <button class="btn-green-simple btn-l margin-b10">Войти на сайт</button><br><a>Забыли пароль?</a>
+                                <button class="btn-green-simple btn-l margin-b10">Войти на сайт</button><br><a class="popup-a" href="#passwordRecoveryWidget">Забыли пароль?</a>
                             </div>
                         </div>
                         <div class="float-l">
                             <div class="checkbox-icons">
-                                <?=$form->checkBox($model, 'rememberMe', array('class' => 'checkbox-icons_radio'))?>
+                                <?=$form->checkBox($model, 'rememberMe', array('class' => 'checkbox-icons_radio', 'data-bind' => 'checked: rememberMe'))?>
                                 <?=$form->label($model, 'rememberMe', array('class' => 'checkbox-icons_label'))?>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="popup-sign_b"><span class="popup-sign_b-tx">Вы еще не зарегистрированы?</span><a class="popup-sign_b-a">Регистрация</a></div>
+            <div class="popup-sign_b"><span class="popup-sign_b-tx">Вы еще не зарегистрированы?</span><a class="popup-sign_b-a popup-a" href="#registerWidget">Регистрация</a></div>
         </div>
         <?php $this->endWidget(); ?>
     </div>
 </div>
+
+<script type="text/javascript">
+    loginVm = new LoginWidgetViewModel();
+    ko.applyBindings(loginVm, document.getElementById('loginWidget'));
+</script>

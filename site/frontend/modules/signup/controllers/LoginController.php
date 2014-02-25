@@ -35,11 +35,7 @@ class LoginController extends HController
     {
         $model = new LoginForm();
 
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'loginForm')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
+        $this->performAjaxValidation($model);
 
         if (isset($_POST['LoginForm']))
         {
@@ -49,40 +45,9 @@ class LoginController extends HController
         }
     }
 
-//    public function actionSocial()
-//    {
-//        $serviceName = Yii::app()->request->getQuery('service');
-//        if (isset($serviceName)) {
-//            /** @var $eauth EAuthServiceBase */
-//            $eauth = Yii::app()->eauth->getIdentity($serviceName);
-//            $eauth->redirectUrl = Yii::app()->user->returnUrl;
-//            $eauth->cancelUrl = $this->createAbsoluteUrl('site/login');
-//
-//            try {
-//                if ($eauth->authenticate()) {
-//                    $identity = new SocialUserIdentity($eauth);
-//                    if ($identity->authenticate()) {
-//                        Yii::app()->user->login($identity, 3600*24*30);
-//                        $eauth->redirect();
-//                    }
-//                }
-//
-//                // Something went wrong, redirect back to login page
-//                $this->redirect(array('site/login'));
-//            }
-//            catch (EAuthException $e) {
-//                // save authentication error to session
-//                Yii::app()->user->setFlash('error', 'EAuthException: '.$e->getMessage());
-//
-//                // close popup window and redirect to cancelUrl
-//                $eauth->redirect($eauth->getCancelUrl());
-//            }
-//        }
-//    }
-
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && $_POST['ajax']==='loginForm')
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'loginForm')
         {
             echo CActiveForm::validate($model);
             Yii::app()->end();

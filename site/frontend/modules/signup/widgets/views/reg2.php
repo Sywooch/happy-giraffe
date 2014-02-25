@@ -5,7 +5,7 @@
  */
 ?>
 <div class="popup-sign_top">
-    <div class="popup-sign_t">Добро пожаловать, <span data-bind="text: first_name"></span>!</div>
+    <div class="popup-sign_t">Добро пожаловать, <span data-bind="text: first_name.val"></span>!</div>
     <div class="popup-sign_slogan">Осталось ввести еще немного данных</div>
 </div>
 <div class="popup-sign_cont">
@@ -15,7 +15,27 @@
         </div><a class="btn-s btn-blue-simple">Загрузить</a>
     </div>
     <div class="popup-sign_col popup-sign_col__vetical-m">
-        <div class="popup-sign_attr" data-bind="if: currentStep() == STEP_REG2 && email().length == 0">
+        <?php $form = $this->beginWidget('CActiveForm', array(
+            'id' => 'registerFormStep2',
+            'action' => array('/signup/register/step2'),
+            'enableAjaxValidation' => true,
+            'enableClientValidation' => true,
+            'clientOptions' => array(
+                'inputContainer' => 'div.inp-valid',
+                'validateOnSubmit' => true,
+                'afterValidate' => 'js:afterValidateStep2',
+            ),
+        )); ?>
+        <?=CHtml::hiddenField('step', '', array(
+            'data-bind' => 'value: currentStep',
+        ))?>
+        <?=CHtml::hiddenField('social', '', array(
+            'data-bind' => 'value: social',
+        ))?>
+        <?=CHtml::hiddenField('User[id]', '', array(
+            'data-bind' => 'value: id',
+        ))?>
+        <div class="popup-sign_attr" data-bind="visible: email.show">
             <div class="popup-sign_row">
                 <div class="popup-sign_label">Адрес активной электронной почты</div>
             </div>
@@ -24,9 +44,10 @@
                     <?=$form->textField($model, 'email', array(
                         'class' => 'itx-gray popup-sign_itx',
                         'placeholder' => 'E-mail',
+                        'data-bind' => 'value: email.val',
                     ))?>
                     <div class="inp-valid_error">
-                        <div class="errorMessage">E-mail не является правильным E-Mail адресом</div>
+                        <div class="errorMessage"><?=$form->error($model, 'email')?></div>
                     </div>
                     <div class="inp-valid_success inp-valid_success__ico-check"></div>
                 </div>
@@ -66,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <div class="popup-sign_attr">
+        <div class="popup-sign_attr" data-bind="visible: birthday_day.show || birthday_month.show || birthday_year.show">
             <div class="popup-sign_row">
                 <div class="popup-sign_label">Дата рождения</div>
             </div>
@@ -75,14 +96,19 @@
                     <div class="float-l w-80 margin-r10">
                         <?=$form->dropDownList($model, 'birthday_day', array(), array(
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_day, options: daysRange, optionsCaption: "День", select2: {}',
+                            'data-bind' => 'value: birthday_day.val, options: daysRange, optionsCaption: "День", select2: {
+                                width: \'100%\',
+                                minimumResultsForSearch: -1,
+                                dropdownCssClass: \'select2-drop__search-off\',
+                                escapeMarkup: function(m) { return m; }
+                            }',
                         ))?>
                     </div>
                     <div class="float-l w-135 margin-r10">
                         <?=$form->dropDownList($model, 'birthday_month', array_combine(range(1, 12), array('Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря')), array(
                             'placeholder' => 'Месяц',
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_month, options: monthesRange, optionsCaption: "Месяц", optionsText: "name", optionsValue: "id", select2: {
+                            'data-bind' => 'value: birthday_month.val, options: monthesRange, optionsCaption: "Месяц", optionsText: "name", optionsValue: "id", select2: {
                                 width: \'100%\',
                                 minimumResultsForSearch: -1,
                                 dropdownCssClass: \'select2-drop__search-off\',
@@ -94,7 +120,7 @@
                         <?=$form->dropDownList($model, 'birthday_year', array_combine(range(date('Y') - 16, date('Y') - 90), range(date('Y') - 16, date('Y') - 90)), array(
                             'placeholder' => 'Год',
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_year, options: yearsRange, optionsCaption: "Год", select2: {
+                            'data-bind' => 'value: birthday_year.val, options: yearsRange, optionsCaption: "Год", select2: {
                                 width: \'100%\',
                                 minimumResultsForSearch: -1,
                                 dropdownCssClass: \'select2-drop__search-off\',
@@ -110,7 +136,7 @@
                 </div>
             </div>
         </div>
-        <div class="popup-sign_attr">
+        <div class="popup-sign_attr" data-bind="visible: gender.show">
             <div class="popup-sign_row margin-b30">
                 <div class="popup-sign_label">
                     <div class="display-ib">
@@ -122,7 +148,7 @@
                                 ), array(
                                     'separator' => '',
                                     'class' => 'radio-icons_radio',
-                                    'data-bind' => 'checked: gender',
+                                    'data-bind' => 'checked: gender.val',
                                     'labelOptions' => array(
                                         'class' => 'radio-icons_label',
                                     ),
@@ -137,7 +163,7 @@
                 </div>
             </div>
         </div>
-        <div class="popup-sign_attr">
+        <div class="popup-sign_attr" data-bind="visible: ! social()">
             <div class="margin-b30">
                 <div class="popup-sign_row">
                     <?php $this->widget('CCaptcha', array(
@@ -167,5 +193,6 @@
         <div class="popup-sign_row">
             <button class="btn-green-simple btn-l">Продолжить</button>
         </div>
+        <?php $this->endWidget(); ?>
     </div>
 </div>

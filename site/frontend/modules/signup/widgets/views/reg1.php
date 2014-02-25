@@ -1,7 +1,7 @@
 <?php
 /**
  * @var CActiveForm $form
- * @var User $model
+ * @var RegisterForm1 $model
  */
 ?>
 
@@ -14,9 +14,23 @@
         <div class="popup-sign_row">
             <div class="popup-sign_label">С помощью социальных сетей</div>
         </div>
-        <?php $this->widget('AuthWidget', array('action' => '/signup/default/social')); ?>
+        <?php $this->widget('AuthWidget', array('action' => '/signup/register/social')); ?>
     </div>
     <div class="popup-sign_col">
+        <?php $form = $this->beginWidget('CActiveForm', array(
+            'id' => 'registerFormStep1',
+            'action' => array('/signup/register/step1'),
+            'enableAjaxValidation' => true,
+            'enableClientValidation' => true,
+            'clientOptions' => array(
+                'inputContainer' => 'div.inp-valid',
+                'validateOnSubmit' => true,
+                'afterValidate' => 'js:afterValidateStep1',
+            ),
+        )); ?>
+        <?=CHtml::hiddenField('step', '', array(
+            'data-bind' => 'value: currentStep',
+        ))?>
         <div class="popup-sign_row">
             <div class="popup-sign_label">Адрес активной электронной почты</div>
         </div>
@@ -25,7 +39,7 @@
                 <?=$form->textField($model, 'email', array(
                     'placeholder' => 'E-mail',
                     'class' => 'itx-gray popup-sign_itx',
-                    'data-bind' => 'value: email',
+                    'data-bind' => 'value: email.val',
                 ))?>
                 <div class="inp-valid_error">
                     <?=$form->error($model, 'email')?>
@@ -41,7 +55,7 @@
                 <?=$form->textField($model, 'first_name', array(
                     'placeholder' => 'Имя',
                     'class' => 'itx-gray popup-sign_itx',
-                    'data-bind' => 'value: first_name',
+                    'data-bind' => 'value: first_name.val',
                 ))?>
                 <div class="inp-valid_error">
                     <?=$form->error($model, 'first_name')?>
@@ -54,7 +68,7 @@
                 <?=$form->textField($model, 'last_name', array(
                     'placeholder' => 'Фамилия',
                     'class' => 'itx-gray popup-sign_itx',
-                    'data-bind' => 'value: last_name',
+                    'data-bind' => 'value: last_name.val',
                 ))?>
                 <div class="inp-valid_error">
                     <?=$form->error($model, 'last_name')?>
@@ -68,6 +82,7 @@
         <div class="popup-sign_row">
             <div class="popup-sign_tx-help">Продолжая, вы соглашаетесь с нашими  <a class="a-color-gray-light">Условиями использования</a>,<a class="a-color-gray-light">Политикой конфиденциальности </a>и <a class="a-color-gray-light">Положениями о Cookie</a></div>
         </div>
+        <?php $this->endWidget(); ?>
     </div>
 </div>
 <div class="popup-sign_b"><span class="popup-sign_b-tx">Вы уже зарегистрированы?</span><a class="popup-sign_b-a popup-a" href="#loginWidget">Войти</a></div>

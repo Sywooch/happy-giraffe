@@ -29,18 +29,26 @@
             'data-bind' => 'value: id',
         ))?>
 
-        <div class="popup-sign_hold" data-bind="visible: currentStep() == $root.STEP_REG1">
+        <!-- ko if: currentStep() == STEP_REG1 -->
+        <div class="popup-sign_hold">
             <?php $this->render('reg1', compact('form', 'model')); ?>
         </div>
-        <div class="popup-sign_hold" data-bind="visible: currentStep() == $root.STEP_REG2">
+        <!-- /ko -->
+        <!-- ko if: currentStep() == STEP_REG2 -->
+        <div class="popup-sign_hold">
             <?php $this->render('reg2', compact('form', 'model')); ?>
         </div>
-        <div class="popup-sign_hold" data-bind="visible: currentStep() == $root.STEP_EMAIL1">
+        <!-- /ko -->
+        <!-- ko if: currentStep() == STEP_EMAIL1 -->
+        <div class="popup-sign_hold">
             <?php $this->render('email1', compact('form', 'model')); ?>
         </div>
-        <div class="popup-sign_hold" data-bind="visible: currentStep() == $root.STEP_EMAIL2">
+        <!-- /ko -->
+        <!-- ko if: currentStep() == STEP_EMAIL2 -->
+        <div class="popup-sign_hold">
             <?php $this->render('email2', compact('form', 'model')); ?>
         </div>
+        <!-- /ko -->
         <?php $this->endWidget(); ?>
     </div>
 </div>

@@ -349,7 +349,7 @@ function MessagingMessage(model, thread) {
 		if(!self.dtimeRead() && !timer && self.to.id == Messaging.prototype.currentThread().me.id) {
 			timer = setTimeout(function() {
 				self.markAsReaded();
-			}, 2000);
+			}, 1000);
 		}
 	};
 	self.hide = function() {

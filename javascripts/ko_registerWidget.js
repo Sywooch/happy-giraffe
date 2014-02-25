@@ -26,16 +26,16 @@ function RegisterWidgetViewModel(data, form) {
         }
     });
 
-    self.id = ko.observable();
-    self.email = ko.observable();
-    self.first_name = ko.observable();
-    self.last_name = ko.observable();
-    self.country = ko.observable();
-    self.city = ko.observable();
-    self.birthday_year = ko.observable();
-    self.birthday_month = ko.observable();
-    self.birthday_day = ko.observable();
-    self.gender = ko.observable();
+    self.id = ko.observable('');
+    self.email = ko.observable('');
+    self.first_name = ko.observable('');
+    self.last_name = ko.observable('');
+    self.country = ko.observable('');
+    self.city = ko.observable('');
+    self.birthday_year = ko.observable('');
+    self.birthday_month = ko.observable('');
+    self.birthday_day = ko.observable('');
+    self.gender = ko.observable('');
 
     self.daysRange = DateRange.days();
     self.monthesRange = DateRange.months();

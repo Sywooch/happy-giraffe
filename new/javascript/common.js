@@ -1,3 +1,5 @@
+document.domain = document.domain;
+
 function addBaron(el) {
     $(el).each(function() {
         if (this.baron) {

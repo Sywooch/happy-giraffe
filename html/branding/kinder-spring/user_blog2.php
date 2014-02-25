@@ -7,7 +7,7 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 
 </head>
-<body class="body-gray theme theme__adfox theme__kinder-spring" style="background:#eaf6ff url(/images/branding/kinder-spring/theme__kinder-spring-1920.jpg) no-repeat 50% 0px;">
+<body class="body-gray theme theme__adfox theme__kinder-spring" style="background:#eaf6ff url(/images/branding/kinder-spring/theme__kinder-spring-1920.jpg) no-repeat 50% 0px;cursor:pointer;">
 <!--AdFox START-->
 <!--giraffe-->
 <!--Площадка: Весёлый Жираф / * / *-->

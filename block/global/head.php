@@ -47,11 +47,19 @@
 
 
 	<!-- new -->
-	<script type="text/javascript" src="/new/javascript/selectize.min.js"></script>
+	<script type="text/javascript" src="/new/javascript/select2.js"></script>
 	<script type="text/javascript" src="/new/javascript/jquery.magnific-popup.js"></script>
 	<script>
 	$(function() {
-		
+		    /* Для работы select2 в magnificPopup */
+		    $.magnificPopup.instance._onFocusIn = function(e) {
+		              // Do nothing if target element is select2 input
+		              if( $(e.target).hasClass('select2-input') ) {
+		                return true;
+		              } 
+		              // Else call parent method
+		              $.magnificPopup.proto._onFocusIn.call(this,e);
+		    };
 		$('.popup-a').magnificPopup({
 	        type: 'inline',
 	        overflowY: 'auto',
@@ -70,19 +78,33 @@
 	        }
 	    });
 
-	    // Измененный tag select c инпутом поиска
-	    $('.select-cus__search-on').selectize({
-	        create: true,
-	        dropdownParent: 'body'
+
+        // Измененный tag select
+	    $(".select-cus__search-off").select2({
+	        width: '100%',
+	        minimumResultsForSearch: -1,
+	        dropdownCssClass: 'select2-drop__search-off"',
+	        escapeMarkup: function(m) { return m; }
 	    });
-	    // Измененный tag select
-	    $('.select-cus__search-off').selectize({
-	        create: true,
-	        dropdownParent: 'body',
-	        onDropdownOpen: function(){
-	            // Делает не возможным ввод в input при открытом списке, без autocomplite
-	            this.$wrapper.find('input').attr({disabled: 'disabled'})
-	        }
+
+	    // Измененный tag select c инпутом поиска
+	    $(".select-cus__search-on").select2({
+	        width: '100%',
+	        dropdownCssClass: 'select2-drop__search-on',
+	        escapeMarkup: function(m) { return m; }
+	    });
+
+	    function selectCus__SearchOnDesc(state) {
+	        if (!state.id) return state.text; // optgroup
+	        return "<div class='select2-result_i'>" + state.text + "</div><div class='select2-result_desc'>Текст описание</div>";
+	    }
+	    // Измененный tag select c инпутом поиска
+	    $(".select-cus__search-on-desc").select2({
+	        width: '100%',
+	        dropdownCssClass: 'select2-drop__search-on',
+	        formatResult: selectCus__SearchOnDesc,
+	        formatSelection: selectCus__SearchOnDesc,
+	        escapeMarkup: function(m) { return m; }
 	    });
     });
 	</script>

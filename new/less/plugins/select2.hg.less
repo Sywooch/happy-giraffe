@@ -57,8 +57,13 @@
     }
     .select2-search {margin-top: 4px;}
     .select2-search input {
+        z-index: 9000;
         background: #fff;
-        border-color: #99c7ff;
+        border-color: #cae3f5;
         .border-radius(3px);
+    }
+    .select2-result_desc {
+        color: @color-gray;
+        .font-s-mixin();
     }
 }

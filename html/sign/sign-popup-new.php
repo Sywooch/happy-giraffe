@@ -107,6 +107,13 @@
                     <option value="2">Россия</option>
                     <option value="3">Беларусь</option>
                     <option value="4">Казахстан</option>
+                    <option value="5">Молдова</option>
+                    <option value="6">Польша</option>
+                    <option value="7">Венгрия</option>
+                    <option value="8">Грузия</option>
+                    <option value="9">Албания</option>
+                    <option value="10">Лимпопо</option>
+                    <option value="11">Замбия</option>
                   </select>
                   <div class="inp-valid_error">
                     <div class="errorMessage">Страна не вабрана</div>
@@ -117,11 +124,18 @@
               </div>
               <div class="popup-sign_row">
                 <div class="inp-valid inp-valid__abs">
-                  <select placeholder="Населенный пункт" class="select-cus select-cus__search-on select-cus__gray">
+                  <select placeholder="Населенный пункт" class="select-cus select-cus__search-on-desc select-cus__gray">
                     <option></option>
                     <option value="2">Россия</option>
                     <option value="3">Беларусь</option>
                     <option value="4">Казахстан</option>
+                    <option value="5">Молдова</option>
+                    <option value="6">Польша</option>
+                    <option value="7">Венгрия</option>
+                    <option value="8">Грузия</option>
+                    <option value="9">Албания</option>
+                    <option value="10">Лимпопо</option>
+                    <option value="11">Замбия</option>
                   </select>
                   <div class="inp-valid_error">
                     <div class="errorMessage">Не заполнено поле "Фамилия"</div>
@@ -209,16 +223,12 @@
                   </div>
                 </div>
               </div>
-              <div class="popup-sign_row">
-                <div class="popup-sign_label">Код</div>
-              </div>
-              <div class="popup-sign_row margin-b30">
-                <div class="popup-sign_capcha-hold">
-                  <div class="margin-b3"><img src="/images/captcha.png" class="popup-sign_capcha">
-                  </div><a class="popup-sign_tx-help">
+              <div class="margin-b30">
+                <div class="popup-sign_row"><img src="/images/captcha.png" width="300px" height="50px" class="popup-sign_capcha"><a class="popup-sign_tx-help">
                     <div class="ico-refresh"></div>Обновить</a>
                 </div>
-                <div class="popup-sign_capcha-inp">
+                <div class="popup-sign_row">
+                  <!--.popup-sign_capcha-inp-->
                   <div class="inp-valid inp-valid__abs">
                     <input type="text" class="itx-gray popup-sign_itx">
                     <div class="inp-valid_error">
@@ -307,17 +317,13 @@
                 </div>
                 <div class="popup-sign_tx-help">Пожалуйста проверьте правильность указанного адреса электронной почты или введите другой</div>
               </div>
-              <div class="popup-sign_row">
-                <div class="popup-sign_label">Код</div>
-              </div>
-              <div class="popup-sign_row margin-b30">
-                <div class="popup-sign_capcha-hold">
-                  <div class="margin-b3"><img src="/images/captcha.png" class="popup-sign_capcha">
-                  </div><a class="popup-sign_tx-help">
+              <div class="margin-b30">
+                <div class="popup-sign_row"><img src="/images/captcha.png" width="300px" height="50px" class="popup-sign_capcha"><a class="popup-sign_tx-help">
                     <div class="ico-refresh"></div>Обновить</a>
                 </div>
-                <div class="popup-sign_capcha-inp">
-                  <div class="inp-valid inp-valid__abs error">
+                <div class="popup-sign_row">
+                  <!--.popup-sign_capcha-inp-->
+                  <div class="inp-valid inp-valid__abs">
                     <input type="text" class="itx-gray popup-sign_itx">
                     <div class="inp-valid_error">
                       <div class="errorMessage">Неправильный код проверки</div>

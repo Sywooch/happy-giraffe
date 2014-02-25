@@ -247,7 +247,7 @@
                 </div>
                 <div class="im-center_middle">
                     <div data-bind="css: {scroll: true}">
-                        <div class="im-center_middle-hold scroll_scroller" data-bind="show: [{selector: '.im-message:lt(2)', callback: loadMessages}, {selector: '.im-message__new', callback: function() { ko.dataFor(this).show(); } }], hide: {selector: '.im-message__new', callback: function() { ko.dataFor(this).hide(); } }, fixScroll: {manager: scrollManager, type: 'box'}">
+                        <div class="im-center_middle-hold scroll_scroller" data-bind="show: [{selector: '.im-message:lt(10)', callback: loadMessages}, {selector: '.im-message__new', callback: function() { ko.dataFor(this).show(); } }], hide: {selector: '.im-message__new', callback: function() { ko.dataFor(this).hide(); } }, fixScroll: {manager: scrollManager, type: 'box'}">
                             <div class="im-center_middle-w scroll_cont">
                                 <div class="im_loader" data-bind="visible: loadingMessages"><img src="/new/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка ранних сообщений</span></div>
                                 <!-- ko if: deletedDialogs().length -->

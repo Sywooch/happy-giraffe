@@ -3,31 +3,37 @@
     width: 870px;
     color: #666;
     font-size: 13px;
-    background: #f7f6f8;
+    background: #fff;
     .box-shadow(0 6px 16px rgba(0,0,0,0.6));
     
     .ava {
         float: none;
         display: inline-block;
     }
-    &_hold {padding-bottom: 10px;}
+    &_hold {
+        background: #f7f6f8;
+    }
     &_top {
-        padding: 25px 40px;
+        padding: 30px 50px 25px;
         background: #fff url(/new/images/header.png) repeat-x;
         text-align: center;
     }
     &_t {
-        margin: 5px 0 0;
         font: 40px/50px Arial, Tahoma, Verdana, sans-serif;
         color: #3e3e3f;
     }
     &_t .ico-lock-big {margin-right: 25px;}
     &_slogan {font-size: 15px;}
+    &_title {
+        text-align: left;
+        font-size: 22px;
+    }
 
     &_cont {
         padding: 30px 65px 35px;
         .clearfix();
     }
+    &_cont__wide {padding: 30px 50px;}
     &_social {
         .inline-block();
         vertical-align: top;
@@ -47,9 +53,15 @@
         vertical-align: top;
         width: 310px;
         border-right: 1px solid #ebebeb;
-        margin: 0 60px 0 0;
+        margin-right: 60px;
         padding: 5px 0 20px;
         text-align: center;
+    }
+    &_col-ava__think {
+        float: right;
+        margin-right: 0;
+        width: 220px;
+        border-right-width: 0;
     }
     &_col-wide-r {
         .inline-block();
@@ -71,6 +83,7 @@
         text-align: center;
         font-size: 15px;
         padding-bottom: 40px;
+        margin: 0 60px;
     }
     &_b-tx {
         .inline-block();
@@ -114,9 +127,32 @@
         padding: 5px 0 25px 60px;
         background: url(/new/images/popup/popup-sign_retrieve-send.png) no-repeat 3px 7px;
     }
+    &_img-upload {
+        float: left;
+        width: 500px;
+    }
+    &_col-ava-t {
+        text-align: center;
+        margin: 0 0 10px;
+        font-size: 16px;
+    }
+    &_ava-row {
+        margin: 10px 0;
+        text-align: center;
+
+        .ava {
+            float: none;
+            margin: 0 10px;
+            .inline-block();
+            vertical-align: middle;
+        }
+    }
 }
 /* /popup-sign */
 
+//////
+// Ниже код этом файле, для подключения в старые стили.
+// Нужно будет разнести по файлам после отказа старой версии
 /* social-btns */
 .social-btns {
     margin: 15px 0 40px;
@@ -241,3 +277,64 @@
     }
 }
 /* /checkbox-icons */
+
+/* img-upload */
+.img-upload {
+    position: relative;
+    margin-bottom: 15px;
+    background-color: #fff;
+    .clearfix();
+    
+    &__uploaded &_hold {display: none;}
+    &__uploaded &_uploaded {display: block;}
+    &_hold {
+        padding: 70px 0 5px;
+        background: url(/new/images/img-upload_hold.png) no-repeat 50% 130px;
+    }
+    &_top {margin: 0 0 160px;}
+    &_top .file-fake {
+        .inline-block();
+        margin: 5px 0 0;
+    }
+    &_btn-desc {
+        .inline-block();
+        width: 330px;
+        margin: 0 25px 0 0;
+        text-align: right;
+    }
+    &_t {
+        font-size: 16px;
+    }
+    &_help {
+        .font-s-mixin();
+        color: @color-gray;
+    }
+    &_desc {
+        margin: 20px 20px 50px;
+        text-align: center;
+    }
+
+    &_i-load {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -3px 0 0 -75px;
+        height: 5px;
+        width: 150px;
+        background: #61c3fd;
+    }
+    &_i-load-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 5px;
+        width: 0;
+        background: #2e8fc9;
+    }
+    &_uploaded {
+        display: none;
+        position: relative;
+    }
+}
+/* /img-upload */

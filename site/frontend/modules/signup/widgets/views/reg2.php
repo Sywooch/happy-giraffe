@@ -75,7 +75,7 @@
                     <div class="float-l w-80 margin-r10">
                         <?=$form->dropDownList($model, 'birthday_day', array(), array(
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_day, options: daysRange, optionsCaption: "День"',
+                            'data-bind' => 'value: birthday_day, options: daysRange, optionsCaption: "День", select2: {}',
                         ))?>
                     </div>
                     <div class="float-l w-135 margin-r10">

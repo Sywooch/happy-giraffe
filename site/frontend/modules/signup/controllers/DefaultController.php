@@ -72,46 +72,4 @@ class DefaultController extends HController
 
         echo CJSON::encode(compact('success'));
     }
-
-//    public function actionSocial()
-//    {
-//        $serviceName = Yii::app()->request->getQuery('service');
-//        if (isset($serviceName)) {
-//            /** @var $eauth EAuthServiceBase */
-//            $eauth = Yii::app()->eauth->getIdentity($serviceName);
-//            $eauth->redirectUrl = Yii::app()->user->returnUrl;
-//            $eauth->cancelUrl = $this->createAbsoluteUrl('site/login');
-//
-//            try {
-//                if ($eauth->authenticate()) {
-//                    //var_dump($eauth->getIsAuthenticated(), $eauth->getAttributes());
-//                    $identity = new EAuthUserIdentity($eauth);
-//
-//                    // successful authentication
-//                    if ($identity->authenticate()) {
-//                        $eauth->component->setRedirectView('signup.views.redirect');
-//
-//                        // special redirect with closing popup window
-//                        $eauth->redirect(null, array('attributes' => $eauth->getAttributes()));
-//                    }
-//                    else {
-//                        // close popup window and redirect to cancelUrl
-//                        $eauth->cancel();
-//                    }
-//                }
-//
-//                // Something went wrong, redirect to login page
-//                $this->redirect(array('site/login'));
-//            }
-//            catch (EAuthException $e) {
-//                // save authentication error to session
-//                Yii::app()->user->setFlash('error', 'EAuthException: '.$e->getMessage());
-//
-//                // close popup window and redirect to cancelUrl
-//                $eauth->redirect($eauth->getCancelUrl());
-//            }
-//        }
-//
-//        // default authorization code through login/password ..
-//    }
 }

@@ -1190,7 +1190,7 @@ class User extends HActiveRecord
         return 'Блог - ' . $this->fullName;
     }
 
-    function createPassword($length)
+    public static function createPassword($length)
     {
         $chars = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
         $i = 0;

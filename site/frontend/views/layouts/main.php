@@ -159,7 +159,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 <?php if (Yii::app()->user->isGuest): ?>
     <?php
     $this->renderDynamic('registerPopup');
-    $this->widget('application.widgets.loginWidget.LoginWidget');
+    //$this->widget('application.widgets.loginWidget.LoginWidget');
     ?>
 <?php endif; ?>
 <?php $this->endContent(); ?>

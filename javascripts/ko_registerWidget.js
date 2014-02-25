@@ -41,3 +41,23 @@ function RegisterWidgetViewModel(data, form) {
     self.monthesRange = DateRange.months();
     self.yearsRange = DateRange.years(data.minYear, data.maxYear);
 }
+
+function LoginWidgetViewModel() {
+    var self = this;
+
+    self.email = ko.observable();
+    self.password = ko.observable();
+    self.rememberMe = ko.observable();
+}
+
+function PasswordRecoveryWidgetViewModel() {
+    var self = this;
+
+    self.email = ko.observable();
+    self.isSent = ko.observable(false);
+
+    self.login = function() {
+        loginVm.email(self.email());
+        return true;
+    }
+}

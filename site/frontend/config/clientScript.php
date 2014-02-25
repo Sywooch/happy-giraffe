@@ -35,6 +35,7 @@ return array(
             'js' => array(
 				'new/javascript/jquery.magnific-popup.js',
                 'new/javascript/select2.js',
+                'new/javascript/jquery.tooltipster.js',
                 'new/javascript/common.js',
                 'javascripts/base64.js',
             ),

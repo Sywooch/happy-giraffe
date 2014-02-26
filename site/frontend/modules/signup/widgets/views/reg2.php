@@ -197,16 +197,7 @@
         <div class="popup-sign_attr" data-bind="visible: ! social()">
             <div class="margin-b30">
                 <div class="popup-sign_row">
-                    <?php $this->widget('CCaptcha', array(
-                        'imageOptions' => array(
-                            'class' => 'popup-sign_capcha',
-                        ),
-                        'buttonOptions' => array(
-                            'class' => 'popup-sign_tx-help',
-                        ),
-                        'buttonLabel' => '<div class="ico-refresh"></div>Обновить',
-                        'clickableImage' => true,
-                    )); ?>
+                    <?php $this->widget('RegisterCaptcha'); ?>
                 </div>
                 <div class="popup-sign_row">
                     <!--.popup-sign_capcha-inp-->

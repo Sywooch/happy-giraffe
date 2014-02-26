@@ -3,6 +3,7 @@
  * @var RegisterWidget $this
  * @var RegisterFormStep1 $modelStep1
  * @var RegisterFormStep2 $modelStep2
+ * @var ResendConfirmForm $resendConfirm
  * @var mixed $json
  */
 ?>
@@ -19,7 +20,7 @@
             <?php $this->render('email1'); ?>
         </div>
         <div class="popup-sign_hold" data-bind="visible: currentStep() == STEP_EMAIL2">
-            <?php $this->render('email2'); ?>
+            <?php $this->render('email2', array('model' => $resendConfirm)); ?>
         </div>
     </div>
 </div>

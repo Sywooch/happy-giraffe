@@ -22,11 +22,12 @@ class RegisterWidget extends CWidget
         Yii::app()->clientScript->registerPackage('ko_registerWidget');
         $modelStep1 = new RegisterFormStep1();
         $modelStep2 = new RegisterFormStep2();
+        $resendConfirm = new ResendConfirmForm();
         $minYear = date('Y') - 90;
         $maxYear = date('Y') - 16;
         $c = new ReflectionClass($this);
         $constants = $c->getConstants();
         $json = compact('minYear', 'maxYear', 'constants');
-        $this->render('RegisterWidget', compact('modelStep1', 'modelStep2', 'json'));
+        $this->render('RegisterWidget', compact('modelStep1', 'modelStep2', 'resendConfirm', 'json'));
     }
 }

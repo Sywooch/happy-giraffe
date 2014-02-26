@@ -20,7 +20,7 @@ class VkontakteAuth extends VKontakteOAuthService
 
         $info = $info['response'][0];
 
-        $this->attributes['id'] = $info->uid;
+        $this->attributes['uid'] = $info->uid;
         $this->attributes['first_name'] = $info->first_name;
         $this->attributes['last_name'] = $info->last_name;
         $this->attributes['email'] = null;

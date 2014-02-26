@@ -53,6 +53,8 @@ class RegisterController extends HController
         $model->attributes = $_POST['RegisterFormStep2'];
         $success = $model->save() && $model->register();
         $response['success'] = $success;
+        if ($success)
+            $response['id'] = $model->id;
         echo CJSON::encode($response);
     }
 
@@ -66,9 +68,19 @@ class RegisterController extends HController
             echo $identity->errorCode;
     }
 
+    public function actionResend()
+    {
+        $model = new ResendConfirmForm();
+        $this->performAjaxValidation($model);
+
+        $model->attributes = $_POST['ResendConfirmForm'];
+        $success = $model->validate() && $model->send();
+        echo CJSON::encode(compact('success'));
+    }
+
     protected function performAjaxValidation($model)
     {
-        if (isset($_POST['ajax']) && in_array($_POST['ajax'], array('registerFormStep1', 'registerFormStep2', 'registerSocial')))
+        if (isset($_POST['ajax']) && in_array($_POST['ajax'], array('registerFormStep1', 'registerFormStep2', 'registerSocial', 'resendConfirmForm')))
         {
             echo CActiveForm::validate($model);
             Yii::app()->end();

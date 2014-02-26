@@ -1,10 +1,7 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 24/02/14
- * Time: 17:02
- * To change this template use File | Settings | File Templates.
+ * Class LoginController
+ * Реализует фунционал аутентификации пользователя на сайте
  */
 
 class LoginController extends HController
@@ -31,6 +28,9 @@ class LoginController extends HController
         );
     }
 
+    /**
+     * Стандартный сценарий авторизации - по паролю
+     */
     public function actionDefault()
     {
         $model = new LoginForm();
@@ -45,6 +45,10 @@ class LoginController extends HController
         }
     }
 
+    /**
+     * Ajax-валидация
+     * @param $model
+     */
     protected function performAjaxValidation($model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'loginForm')

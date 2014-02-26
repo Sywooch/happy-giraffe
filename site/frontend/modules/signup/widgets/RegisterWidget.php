@@ -27,7 +27,52 @@ class RegisterWidget extends CWidget
         $maxYear = date('Y') - 16;
         $c = new ReflectionClass($this);
         $constants = $c->getConstants();
-        $json = compact('minYear', 'maxYear', 'constants');
+        $mailServices = $this->getMailServices();
+        $json = compact('minYear', 'maxYear', 'constants', 'mailServices');
         $this->render('RegisterWidget', compact('modelStep1', 'modelStep2', 'resendConfirm', 'json'));
     }
+
+    protected function getMailServices()
+    {
+        return array(
+            array(
+                'name' => 'Mail.ru',
+                'url' => 'https://e.mail.ru/',
+                'domains' => array(
+                    'mail.ru',
+                    'bk.ru',
+                    'list.ru',
+                    'inbox.ru',
+                ),
+            ),
+            array(
+                'name' => 'Gmail',
+                'url' => 'https://mail.google.com/',
+                'domains' => array(
+                    'gmail'
+                ),
+            ),
+            array(
+                'name' => 'Rambler',
+                'url' => 'https://mail.rambler.ru/',
+                'domains' => array(
+                    'rambler.ru',
+                    'lenta.ru',
+                    'myrambler.ru',
+                    'autorambler.ru',
+                    'ro.ru',
+                    'r0.ru',
+                ),
+            ),
+            array(
+                'name' => 'Весёлый Жираф',
+                'url' => 'http://www.happy-giraffe.ru/',
+                'domains' => array(
+                    'happy-giraffe.ru',
+                ),
+            ),
+        );
+    }
+
+
 }

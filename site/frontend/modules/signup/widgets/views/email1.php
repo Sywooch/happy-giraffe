@@ -8,5 +8,5 @@
             <div class="popup-sign_tx-help">Письмо должно прийти в течении 10 мин.</div>
         </div>
     </div>
-    <div class="popup-sign_col-wide-r textalign-c"><a href="" target="_blank" class="popup-sign_a-big">Открыть почту Mail.ru</a></div>
+    <div class="popup-sign_col-wide-r textalign-c"><?php $this->render('_mailServiceLink'); ?></div>
 </div>

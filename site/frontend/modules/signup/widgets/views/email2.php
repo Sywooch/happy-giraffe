@@ -29,7 +29,7 @@
                 <?=$form->textField($model, 'email', array(
                     'placeholder' => 'E-mail',
                     'class' => 'itx-gray popup-sign_itx',
-                    'data-bind' => 'value: email.val',
+                    'data-bind' => 'value: email.val, valueUpdate: \'input\'',
                 ))?>
                 <div class="inp-valid_error">
                     <?=$form->error($model, 'email')?>
@@ -67,6 +67,6 @@
         <?php $this->endWidget(); ?>
     </div>
     <div class="popup-sign_col-wide-r">
-        <div class="margin-b15">Письмо может попасть в папку "Спам" вашего почтового ящика. Если это так, пожалуйста, отметьте его как <strong class="color-gray-darken">"Не спам"</strong>.</div><a href="" target="_blank" class="popup-sign_a-big">Открыть почту Mail.ru</a>
+        <div class="margin-b15">Письмо может попасть в папку "Спам" вашего почтового ящика. Если это так, пожалуйста, отметьте его как <strong class="color-gray-darken">"Не спам"</strong>.</div><?php $this->render('_mailServiceLink'); ?>
     </div>
 </div>

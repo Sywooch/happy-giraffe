@@ -41,7 +41,6 @@
     }
 
     function afterValidateStep2(form, data, hasError) {
-        alert('123');
         if (! hasError) {
             $.post(form.attr('action'), form.serialize(), function(response) {
                 if (response.success)

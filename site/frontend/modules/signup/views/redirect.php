@@ -7,7 +7,7 @@
             <?php if ($this->params['fromLogin']): ?>
                 window.opener.$('a[href="#registerWidget"]').trigger('click');
             <?php endif; ?>
-            //window.close();
+
             var registerVm = window.opener.registerVm;
 
             var data = {};
@@ -23,6 +23,7 @@
                         } else
                             registerVm[i](data[i]);
                     }
+                window.close();
             }, 'json');
             registerVm.social(true);
             registerVm.currentStep(registerVm.STEP_REG2);

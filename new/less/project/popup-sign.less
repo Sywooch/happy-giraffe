@@ -27,6 +27,7 @@
     &_title {
         text-align: left;
         font-size: 22px;
+        color: #333;
     }
 
     &_cont {
@@ -146,6 +147,9 @@
             .inline-block();
             vertical-align: middle;
         }
+    }
+    &_capcha-hold {
+        margin: 20px 0 30px;
     }
 }
 /* /popup-sign */
@@ -288,8 +292,8 @@
     &__uploaded &_hold {display: none;}
     &__uploaded &_uploaded {display: block;}
     &_hold {
-        padding: 70px 0 5px;
-        background: url(/new/images/img-upload_hold.png) no-repeat 50% 130px;
+        padding: 55px 0 5px;
+        background: url(/new/images/img-upload_hold.png) no-repeat 50% 120px;
     }
     &_top {margin: 0 0 160px;}
     &_top .file-fake {
@@ -307,7 +311,7 @@
     }
     &_help {
         .font-s-mixin();
-        color: @color-gray;
+        color: @color-gray-light;
     }
     &_desc {
         margin: 20px 20px 50px;
@@ -335,6 +339,11 @@
     &_uploaded {
         display: none;
         position: relative;
+    }
+    &_i-del:extend(.ico-close2 all) {
+        position: absolute;
+        top: 0;
+        right: -20px;
     }
 }
 /* /img-upload */

@@ -44,6 +44,18 @@
     function afterValidateStep2(form, data, hasError) {
         if (! hasError) {
             $.post(form.attr('action'), form.serialize(), function(response) {
+                if (response.success) {
+                    registerVm.id(response.id);
+                    registerVm.currentStep(registerVm.STEP_EMAIL1);
+                }
+            }, 'json');
+        }
+        return false;
+    }
+
+    function afterValidateResend(form, data, hasError) {
+        if (! hasError) {
+            $.post(form.attr('action'), form.serialize(), function(response) {
                 if (response.success)
                     registerVm.currentStep(registerVm.STEP_EMAIL1);
             }, 'json');

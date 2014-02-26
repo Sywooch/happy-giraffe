@@ -11,7 +11,7 @@
 <div class="popup-sign_cont">
     <div class="popup-sign_col">
         <?php $form = $this->beginWidget('CActiveForm', array(
-            'id' => 'registerFormStep1',
+            'id' => 'resendConfirmForm',
             'action' => array('/signup/register/resend'),
             'enableAjaxValidation' => true,
             'enableClientValidation' => true,
@@ -21,10 +21,12 @@
                 'afterValidate' => 'js:afterValidateStep1',
             ),
         )); ?>
+        <?=CHtml::hiddenField('ResendConfirmForm[id]', '', array(
+            'data-bind' => 'value: id',
+        ))?>
         <div class="popup-sign_row margin-t5">
             <div class="inp-valid inp-valid__abs success">
-                <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
-                <?php $form->textField($model, 'email', array(
+                <?=$form->textField($model, 'email', array(
                     'placeholder' => 'E-mail',
                     'class' => 'itx-gray popup-sign_itx',
                     'data-bind' => 'value: email.val',
@@ -44,8 +46,8 @@
                 <?php $this->widget('RegisterCaptcha'); ?>
             </div>
             <div class="popup-sign_capcha-inp">
-                <div class="inp-valid inp-valid__abs error">
-                    <?php $form->textField($model, 'verifyCode', array(
+                <div class="inp-valid inp-valid__abs">
+                    <?=$form->textField($model, 'verifyCode', array(
                         'class' => 'itx-gray popup-sign_itx',
                     ))?>
                     <div class="inp-valid_error">

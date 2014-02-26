@@ -32,8 +32,14 @@
         <?=CHtml::hiddenField('social', '', array(
             'data-bind' => 'value: social',
         ))?>
-        <?=CHtml::hiddenField('User[id]', '', array(
+        <?=CHtml::hiddenField('userId', '', array(
             'data-bind' => 'value: id',
+        ))?>
+        <?=CHtml::hiddenField('UserSocialService[service_id]', '', array(
+            'data-bind' => 'value: uid',
+        ))?>
+        <?=CHtml::hiddenField('UserSocialService[service]', '', array(
+            'data-bind' => 'value: socialServiceName',
         ))?>
         <div class="popup-sign_attr" data-bind="visible: social() && email.show()">
             <div class="popup-sign_row">

@@ -4018,20 +4018,22 @@ table.fr_recipe_tb td { width: 50%;}
     &__clearblue {}
     &__clearblue .b-section {margin-bottom: 30px;}
     
-    &__adfox {}
-    &__adfox .layout-container {
-        background: none;
+    &__adfox {
+        height: auto;
     }
-    &__adfox .layout-wrapper {min-height: 1700px;}
-    &__adfox .layout-wrapper_hold {
+    &__adfox .layout-container {
         position: relative;
-        margin: 257px auto 50px;
-        overflow: hidden;
+        background: #f0f0f0;
+        width: 1000px;
+        margin: 0 auto 50px; 
         .box-shadow(1px 1px 7px rgba(8,94,150,0.30));
-        background: #F0F0F0 url(/images/body-gray.png) repeat-x;
         z-index: 1;
     }
-    &__adfox .start-page_container {
+    &__kinder-spring .footer-push {
+        height: 255px;
+    }
+
+/*    &__adfox .start-page_container {
         width: 1000px;
         margin: 257px auto 150px;
         position: relative;
@@ -4047,7 +4049,7 @@ table.fr_recipe_tb td { width: 50%;}
     &__adfox .footer-push {
         height: 400px;
     }
-    
+    */
     /*&__adkinder {background:#b7ddf2 url(/images/branding/kinder/theme__adkinder.jpg) no-repeat 50% 0px;}
     @media screen and (min-width: 1024px) {
         &__adkinder {background:#b7ddf2 url(/images/branding/kinder/theme__adkinder-1400.jpg) no-repeat 50% 0px;}
@@ -4063,18 +4065,24 @@ table.fr_recipe_tb td { width: 50%;}
     z-index: 0;
     top: 0;
     right: 0;
-    bottom: 0;
+    height: 100%;
     left: 0;
 
     &__adkinder &_b {
         height: 672px;
         background:#b7ddf2 url(/images/branding/kinder/cover_b.jpg) no-repeat 50% 0px;
     }
+    &__kinder-spring &_b {
+        height: 400px;
+        background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1000.jpg) no-repeat 50% 0px;
+    }
     @media screen and (min-width: 1024px) {
         &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1400.jpg) no-repeat 50% 0px;}
+        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1400.jpg) no-repeat 50% 0px;}
     }
     @media screen and (min-width: 1400px) {
         &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1920.jpg) no-repeat 50% 0px;}
+        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1920.jpg) no-repeat 50% 0px;}
     }
     &_b {
         position: absolute;

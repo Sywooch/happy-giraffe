@@ -129,9 +129,7 @@ module.exports = function(grunt){
 
   grunt.registerTask('default', [
     'connect',
-    'jade', 
     'less',
-    'imagemin',
     'watch', 
   ]);
 

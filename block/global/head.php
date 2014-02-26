@@ -44,3 +44,70 @@
 	
 	
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
+
+
+	<!-- new -->
+	<script type="text/javascript" src="/new/javascript/select2.js"></script>
+	<script type="text/javascript" src="/new/javascript/jquery.magnific-popup.js"></script>
+	<script>
+	$(function() {
+		    /* Для работы select2 в magnificPopup */
+		    $.magnificPopup.instance._onFocusIn = function(e) {
+		              // Do nothing if target element is select2 input
+		              if( $(e.target).hasClass('select2-input') ) {
+		                return true;
+		              } 
+		              // Else call parent method
+		              $.magnificPopup.proto._onFocusIn.call(this,e);
+		    };
+		$('.popup-a').magnificPopup({
+	        type: 'inline',
+	        overflowY: 'auto',
+	        tClose: 'Закрыть',
+	        fixedBgPos: true,
+	        
+	        // When elemened is focused, some mobile browsers in some cases zoom in
+	        // It looks not nice, so we disable it:
+	        callbacks: {
+	            open: function() {
+	                $('html').addClass('mfp-html');
+	            },
+	            close: function() {
+	                $('html').removeClass('mfp-html');
+	            }
+	        }
+	    });
+
+
+        // Измененный tag select
+	    $(".select-cus__search-off").select2({
+	        width: '100%',
+	        minimumResultsForSearch: -1,
+	        dropdownCssClass: 'select2-drop__search-off"',
+	        escapeMarkup: function(m) { return m; }
+	    });
+
+	    // Измененный tag select c инпутом поиска
+	    $(".select-cus__search-on").select2({
+	        width: '100%',
+	        dropdownCssClass: 'select2-drop__search-on',
+	        escapeMarkup: function(m) { return m; }
+	    });
+
+	    function selectCus__SearchOnDesc(state) {
+	        if (!state.id) return state.text; // optgroup
+	        return "<div class='select2-result_i'>" + state.text + "</div><div class='select2-result_desc'>Текст описание</div>";
+	    }
+	    // Измененный tag select c инпутом поиска
+	    $(".select-cus__search-on-desc").select2({
+	        width: '100%',
+	        dropdownCssClass: 'select2-drop__search-on',
+	        formatResult: selectCus__SearchOnDesc,
+	        formatSelection: selectCus__SearchOnDesc,
+	        escapeMarkup: function(m) { return m; }
+	    });
+    });
+	</script>
+
+
+

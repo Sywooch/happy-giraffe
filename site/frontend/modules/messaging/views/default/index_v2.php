@@ -264,7 +264,7 @@
                                 <!-- /ko -->
                                 <!-- ko foreach: messages -->
                                     <!-- im-message-->
-                                    <div class="im-message" data-bind="visible: !hidden(), css: {'im-message__new': !isMy && !dtimeRead(), 'im-message__edited': $parent.editingMessage() == $data}, fixScroll: {manager: $parent.scrollManager, type: 'element', model: $data}">
+                                    <div class="im-message" data-bind="visible: !hidden(), css: {'im-message__stick': isStick($parent.messages(), $index()), 'im-message__new': !isMy && !dtimeRead(), 'im-message__edited': $parent.editingMessage() == $data}, fixScroll: {manager: $parent.scrollManager, type: 'element', model: $data}">
                                         <div class="im-message_ava"><a href="" class="ava ava__small ava__male" data-bind="attr: { href : from.profileUrl }" target="_blank"><span class="ico-status ico-status__online" data-bind="visible: from.isOnline()"></span><img alt="" data-bind="attr: {src: from.avatar}" class="ava_img"/></a>
                                         </div>
                                         <div class="im-message_r">

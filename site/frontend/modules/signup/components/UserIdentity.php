@@ -33,4 +33,9 @@ class UserIdentity extends CUserIdentity
         }
         return $this->errorCode == self::ERROR_NONE;
     }
+
+    protected function isBanned($model)
+    {
+        return in_array(AntispamStatusManager::getUserStatus($model->id), array(AntispamStatusManager::STATUS_BLOCKED, AntispamStatusManager::STATUS_BLACK));
+    }
 }

@@ -27,6 +27,7 @@
             }, 'json');
             registerVm.social(true);
             registerVm.currentStep(registerVm.STEP_REG2);
+            registerVm.socialServiceName('<?=$this->params['serviceName']?>');
         </script>
     </head>
 </html>

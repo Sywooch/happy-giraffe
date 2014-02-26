@@ -19,6 +19,7 @@ class RegisterController extends HController
                     $eauth->component->setRedirectView('signup.views.redirect');
                     $eauth->redirect(null, array(
                         'attributes' => $eauth->getAttributes(),
+                        'serviceName' => $eauth->getServiceName(),
                         'fromLogin' => false,
                     ));
                 }
@@ -57,6 +58,7 @@ class RegisterController extends HController
 
     /**
      * 2 шаг регистрации
+     * @todo Перенести бизнес-логику в модель
      */
     public function actionStep2()
     {
@@ -65,10 +67,16 @@ class RegisterController extends HController
         $scenario = ($social == 'true') ? 'signupStep2Social' : 'signupStep2';
         $model = empty($userId) ? new RegisterFormStep2() : RegisterFormStep2::model()->findByPk($userId);
         $model->scenario = $scenario;
+
         $this->performAjaxValidation($model);
 
         $model->attributes = $_POST['RegisterFormStep2'];
-        $success = $model->save() && $model->register();
+        if ($social) {
+            $socialService = new UserSocialService();
+            $socialService->attributes = $_POST['UserSocialService'];
+            $model->userSocialServices = array($socialService);
+        }
+        $success = $model->withRelated->save(true, array('userSocialServices')) && $model->register();
         $response['success'] = $success;
         if ($success)
             $response['id'] = $model->id;

@@ -36,7 +36,7 @@ class UserSocialService extends HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('service, service_id, user_id', 'required'),
+			array('service, service_id', 'required'),
 			array('service, service_id', 'length', 'max'=>255),
 			array('user_id', 'length', 'max'=>11),
 			// The following rule is used by search().

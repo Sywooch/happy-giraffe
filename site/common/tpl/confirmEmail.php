@@ -1,3 +1,12 @@
+<?php
+/**
+ * @var string $password
+ * @var string $email
+ * @var string $first_name
+ * @var string $activation_url
+ */
+?>
+
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Заголовок</title>
 <table width="100%" align="center" cellpadding="0" cellspacing="0" style="border-collapse: collapse; line-height: 0;">
@@ -14,18 +23,18 @@
                         <div style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;">
 
                             <div style="margin-bottom:20px;">
-                                <span style="font-size:15px;">Добрый день, <?=$user->fullname ?>!</span><br/>
+                                <span style="font-size:15px;">Добрый день, <?=$first_name?>!</span><br/>
                                 <br/>
                                 Вы успешно зарегистрировались на сайте «Весёлый Жираф».<br/>
-                                Ваш e-mail: <span style=" color: #3587ec;"><a href="mailto:<?=$user->email ?>" target="_blank" style="color: #3587ec;"><?=$user->email ?></a></span><br/>
+                                Ваш e-mail: <span style=" color: #3587ec;"><a href="mailto:<?=$email?>" target="_blank" style="color: #3587ec;"><?=$email?></a></span><br/>
                                 Ваш пароль: <?=$password ?>
                             </div>
 
-                            <div style="margin-bottom:25px;line-height:22px;"><span style="font-size:22px;color: #3587ec;"><a href="http://www.happy-giraffe.ru/site/confirmEmail/?user_id=<?=$user->id ?>&code=<?=$code ?>" target="_blank" style="font-size:22px;color: #3587ec;">Нажмите сюда, чтобы подтвердить свой e-mail</a></span></div>
+                            <div style="margin-bottom:25px;line-height:22px;"><span style="font-size:22px;color: #3587ec;"><a href="<?=$activation_url?>" target="_blank" style="font-size:22px;color: #3587ec;">Нажмите сюда, чтобы подтвердить свой e-mail</a></span></div>
 
                             <div style="margin-bottom:40px;">
                                 Если ссылка не работает, скопируйте и вставьте URL в адресную строку своего браузера:<br/>
-                                <span style="color: #3587ec;"><a href="http://www.happy-giraffe.ru/site/confirmEmail/?user_id=<?=$user->id ?>&code=<?=$code ?>" target="_blank" style="color: #3587ec;">http://www.happy-giraffe.ru/site/confirmEmail/?user_id=<?=$user->id ?>&code=<?=$code ?></a></span>
+                                <span style="color: #3587ec;"><a href="<?=$activation_url?>" target="_blank" style="color: #3587ec;"><?=$activation_url?></a></span>
                             </div>
 
                             <div style="margin-bottom:40px;">

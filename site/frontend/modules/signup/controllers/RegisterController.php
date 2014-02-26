@@ -51,11 +51,19 @@ class RegisterController extends HController
         $this->performAjaxValidation($model);
 
         $model->attributes = $_POST['RegisterFormStep2'];
-        $success = $model->save();
+        $success = $model->save() && $model->register();
         $response['success'] = $success;
-        if ($success)
-            $model->register();
         echo CJSON::encode($response);
+    }
+
+    public function actionConfirm($activationCode)
+    {
+        $identity = new ActivationUserIdentity($activationCode);
+        if ($identity->authenticate()) {
+            Yii::app()->user->login($identity, 3600*24*30);
+            $this->redirect(array('/profile/default/signup/'));
+        } else
+            echo $identity->errorCode;
     }
 
     protected function performAjaxValidation($model)

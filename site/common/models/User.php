@@ -73,6 +73,9 @@
  */
 class User extends HActiveRecord
 {
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+
     const HAPPY_GIRAFFE = 1;
     const REGISTRATION_SOURCE_NORMAL = 0;
     const REGISTRATION_SOURCE_QUESTION = 1;

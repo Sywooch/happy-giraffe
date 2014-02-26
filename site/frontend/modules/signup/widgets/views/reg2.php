@@ -35,7 +35,7 @@
         <?=CHtml::hiddenField('User[id]', '', array(
             'data-bind' => 'value: id',
         ))?>
-        <div class="popup-sign_attr" data-bind="visible: email.show">
+        <div class="popup-sign_attr" data-bind="visible: social() && email.show()">
             <div class="popup-sign_row">
                 <div class="popup-sign_label">Адрес активной электронной почты</div>
             </div>
@@ -48,6 +48,37 @@
                     ))?>
                     <div class="inp-valid_error">
                         <div class="errorMessage"><?=$form->error($model, 'email')?></div>
+                    </div>
+                    <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                </div>
+            </div>
+        </div>
+        <div class="popup-sign_attr" data-bind="visible: social() && (first_name.show() || last_name.show())">
+            <div class="popup-sign_row">
+                <div class="popup-sign_label">Полное имя</div>
+            </div>
+            <div class="popup-sign_row">
+                <div class="inp-valid inp-valid__abs">
+                    <?=$form->textField($model, 'first_name', array(
+                        'placeholder' => 'Имя',
+                        'class' => 'itx-gray popup-sign_itx',
+                        'data-bind' => 'value: first_name.val',
+                    ))?>
+                    <div class="inp-valid_error">
+                        <?=$form->error($model, 'first_name')?>
+                    </div>
+                    <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                </div>
+            </div>
+            <div class="popup-sign_row">
+                <div class="inp-valid inp-valid__abs">
+                    <?=$form->textField($model, 'last_name', array(
+                        'placeholder' => 'Фамилия',
+                        'class' => 'itx-gray popup-sign_itx',
+                        'data-bind' => 'value: last_name.val',
+                    ))?>
+                    <div class="inp-valid_error">
+                        <?=$form->error($model, 'last_name')?>
                     </div>
                     <div class="inp-valid_success inp-valid_success__ico-check"></div>
                 </div>
@@ -87,7 +118,7 @@
                 </div>
             </div>
         </div>
-        <div class="popup-sign_attr" data-bind="visible: birthday_day.show || birthday_month.show || birthday_year.show">
+        <div class="popup-sign_attr" data-bind="visible: birthday_day.show() || birthday_month.show() || birthday_year.show()">
             <div class="popup-sign_row">
                 <div class="popup-sign_label">Дата рождения</div>
             </div>

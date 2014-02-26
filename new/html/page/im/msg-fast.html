@@ -21,9 +21,10 @@
     <!-- custom scroll-->
     <script src="/new/javascript/baron.js"></script>
     <!-- custom select-->
-    <script src="/new/javascript/selectize.js"></script>
+    <script src="/new/javascript/select2.js"></script>
     <!-- wisywig-->
     <script src="/new/redactor/redactor.js"></script>
+    <script src="/new/javascript/jquery.Jcrop.js"></script>
     <!-- Базовый js (вызывается на всех страницах)-->
     <script src="/new/javascript/common.js"></script>
     <!-- js для работы в верстке-->
@@ -53,12 +54,12 @@
         </script>
         <div class="header-fix">
           <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
-            <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header_i-arrow"></span></a>
+            <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header_i-arrow"></span></a>
               <!-- header-drop-->
               <div class="header-drop">
                 <div class="header-menu clearfix">
                   <ul class="header-menu_ul">
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
                     <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                     <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                     <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -121,12 +122,12 @@
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
                 <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
-                <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a"><span href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
                   <!-- header-drop-->
                   <div class="header-drop">
                     <div class="header-menu clearfix">
                       <ul class="header-menu_ul">
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
                         <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                         <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                         <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -201,7 +202,7 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_97" class="redactor"></textarea>
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_132" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -211,7 +212,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_97" class="redactor-control_toolbar"></div>
+              <div id="redactor-control_toolbar_132" class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -221,11 +222,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_97').redactor({
+                  $('#redactor_132').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_97',
+                    toolbarExternal: '#redactor-control_toolbar_132',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -291,7 +292,7 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_113" class="redactor"></textarea>
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_614" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -301,7 +302,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_113" class="redactor-control_toolbar"></div>
+              <div id="redactor-control_toolbar_614" class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -311,11 +312,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_113').redactor({
+                  $('#redactor_614').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_113',
+                    toolbarExternal: '#redactor-control_toolbar_614',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -388,7 +389,7 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_795" class="redactor"></textarea>
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_361" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -398,7 +399,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_795" class="redactor-control_toolbar"></div>
+              <div id="redactor-control_toolbar_361" class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -408,11 +409,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_795').redactor({
+                  $('#redactor_361').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_795',
+                    toolbarExternal: '#redactor-control_toolbar_361',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -485,7 +486,7 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_235" class="redactor"></textarea>
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_625" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -495,7 +496,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_235" class="redactor-control_toolbar"></div>
+              <div id="redactor-control_toolbar_625" class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -505,11 +506,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_235').redactor({
+                  $('#redactor_625').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_235',
+                    toolbarExternal: '#redactor-control_toolbar_625',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -595,7 +596,7 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_254" class="redactor"></textarea>
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_221" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -605,7 +606,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_254" class="redactor-control_toolbar"></div>
+              <div id="redactor-control_toolbar_221" class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -615,11 +616,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_254').redactor({
+                  $('#redactor_221').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_254',
+                    toolbarExternal: '#redactor-control_toolbar_221',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {

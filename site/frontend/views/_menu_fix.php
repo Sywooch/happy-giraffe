@@ -3,6 +3,7 @@ $user = Yii::app()->user->model;
 ?>
 
 <!-- header-fix-->
+<!-- ko stopBinding: true -->
 <div class="header-fix">
     <div class="header-fix_hold clearfix"><a href="/" class="header-fix_logo"></a>
         <div class="header-fix_dropin" data-bind="css: { active : menuExtended }, click: function(data, event) {event.stopPropagation(); return true;}">
@@ -27,4 +28,5 @@ $user = Yii::app()->user->model;
         </div>
     </div>
 </div>
+<!-- /ko -->
 <!-- /header-fix-->

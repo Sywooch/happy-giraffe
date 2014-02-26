@@ -1,14 +1,14 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 25/02/14
- * Time: 11:26
- * To change this template use File | Settings | File Templates.
+ * Class PasswordRecoveryController
+ * Реализует функционал напоминания пароля
  */
 
 class PasswordRecoveryController extends HController
 {
+    /**
+     * Отправка нового пароля
+     */
     public function actionSend()
     {
         $model = new PasswordRecoveryForm();
@@ -22,6 +22,10 @@ class PasswordRecoveryController extends HController
         }
     }
 
+    /**
+     * Ajax-валидация
+     * @param $model
+     */
     protected function performAjaxValidation($model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'passwordRecoveryForm')

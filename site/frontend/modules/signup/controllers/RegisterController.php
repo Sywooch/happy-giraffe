@@ -1,4 +1,8 @@
 <?php
+/**
+ * Class RegisterController
+ * Реализует функционал регистрации пользователя на сайте
+ */
 
 class RegisterController extends HController
 {
@@ -22,25 +26,38 @@ class RegisterController extends HController
         );
     }
 
+    /**
+     * Контроллер для тестов
+     * @todo Убрать
+     */
     public function actionTest2()
     {
         $this->render('test2');
     }
 
+    /**
+     * 1 шаг регистрации
+     */
     public function actionStep1()
     {
         $model = new RegisterFormStep1('signupStep1');
+
         $this->performAjaxValidation($model);
 
-        $model->attributes = $_POST['RegisterFormStep1'];
-        $model->registration_finished = 0;
-        $success = $model->save();
-        $response['success'] = $success;
-        if ($success)
-            $response['id'] = $model->id;
-        echo CJSON::encode($response);
+        if (isset($_POST['RegisterFormStep1'])) {
+            $model->attributes = $_POST['RegisterFormStep1'];
+            $success = $model->save();
+            $response = array();
+            $response['success'] = $success;
+            if ($success)
+                $response['id'] = $model->id;
+            echo CJSON::encode($response);
+        }
     }
 
+    /**
+     * 2 шаг регистрации
+     */
     public function actionStep2()
     {
         $userId = Yii::app()->request->getPost('userId');
@@ -58,6 +75,10 @@ class RegisterController extends HController
         echo CJSON::encode($response);
     }
 
+    /**
+     * Подтверждение e-mail
+     * @param $activationCode
+     */
     public function actionConfirm($activationCode)
     {
         $identity = new ActivationUserIdentity($activationCode);
@@ -68,16 +89,26 @@ class RegisterController extends HController
             echo $identity->errorCode;
     }
 
+    /**
+     * Повторная отправка письма с кодом активации и паролем
+     */
     public function actionResend()
     {
         $model = new ResendConfirmForm();
+
         $this->performAjaxValidation($model);
 
-        $model->attributes = $_POST['ResendConfirmForm'];
-        $success = $model->validate() && $model->send();
-        echo CJSON::encode(compact('success'));
+        if (isset($_POST['ResendConfirmForm'])) {
+            $model->attributes = $_POST['ResendConfirmForm'];
+            $success = $model->validate() && $model->send();
+            echo CJSON::encode(compact('success'));
+        }
     }
 
+    /**
+     * Ajax-валидация
+     * @param $model
+     */
     protected function performAjaxValidation($model)
     {
         if (isset($_POST['ajax']) && in_array($_POST['ajax'], array('registerFormStep1', 'registerFormStep2', 'registerSocial', 'resendConfirmForm')))

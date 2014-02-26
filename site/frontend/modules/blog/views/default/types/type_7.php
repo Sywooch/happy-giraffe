@@ -23,6 +23,8 @@
         <a href="<?=$data->getUrl()?>" class="b-article_t-a"><?=$data->title?></a>
     </div>
 
+    <?php $this->renderPartial('//banners/_post_header', compact('data')); ?>
+
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
             <?=Str::truncate($data->question->purified->text, 700)?>

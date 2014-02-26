@@ -6,7 +6,7 @@
  * Time: 8:00 AM
  * To change this template use File | Settings | File Templates.
  */
-class BlogController extends MController
+class DefaultController extends MController
 {
     public function actionView($user_id, $content_id)
     {

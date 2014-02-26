@@ -28,6 +28,30 @@ function RegisterWidgetViewModel(data, form) {
     self.resend = function() {
         self.currentStep(self.STEP_EMAIL2);
     }
+
+    self.availableMailServices = ko.utils.arrayMap(data.mailServices, function(mailService) {
+        return new MailService(mailService);
+    });
+    self.currentMailService = ko.computed(function() {
+        var emailParts = self.email.val().split('@');
+        if (emailParts.length != 2)
+            return null;
+
+        var domain = emailParts[1];
+        for (var i in self.availableMailServices) {
+            if (self.availableMailServices[i].domains.indexOf(domain) != -1)
+                return self.availableMailServices[i];
+        }
+        return null;
+    });
+}
+
+function MailService(data)
+{
+    var self = this;
+    self.name = data.name;
+    self.url = data.url;
+    self.domains = data.domains;
 }
 
 function RegisterUserAttribute(value)

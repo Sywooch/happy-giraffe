@@ -314,6 +314,12 @@ function MessagingMessage(model, thread) {
 	self.canDelete = ko.computed(function() {
 		return !self.isMy || self.dtimeRead();
 	});
+    
+    self.isStick = function(messages, index) {
+        var prevMessage = messages[index - 1];
+        var curMessage = messages[index];
+        return prevMessage && prevMessage.from == curMessage.from;
+    };
 
 	/**
 	 * Удаление сообщения

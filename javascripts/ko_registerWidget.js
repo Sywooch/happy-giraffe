@@ -7,10 +7,10 @@ function RegisterWidgetViewModel(data, form) {
     self.social = ko.observable(false);
     self.currentStep = ko.observable(self.STEP_REG1);
 
-    self.id = ko.observable('');
-    self.email = new RegisterUserAttribute('');
-    self.first_name = new RegisterUserAttribute('');
-    self.last_name = new RegisterUserAttribute('');
+    self.id = ko.observable();
+    self.email = new RegisterUserAttribute('nikita@happy-giraffe.ru');
+    self.first_name = new RegisterUserAttribute('1');
+    self.last_name = new RegisterUserAttribute('2');
     self.country = ko.observable('');
     self.city = ko.observable('');
     self.birthday_year = new RegisterUserAttribute('');
@@ -18,9 +18,16 @@ function RegisterWidgetViewModel(data, form) {
     self.birthday_day = new RegisterUserAttribute('');
     self.gender = new RegisterUserAttribute('');
 
+    self.uid = ko.observable('');
+    self.socialServiceName = ko.observable('');
+
     self.daysRange = DateRange.days();
     self.monthesRange = DateRange.months();
     self.yearsRange = DateRange.years(data.minYear, data.maxYear);
+
+    self.resend = function() {
+        self.currentStep(self.STEP_EMAIL2);
+    }
 }
 
 function RegisterUserAttribute(value)

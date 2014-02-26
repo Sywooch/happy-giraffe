@@ -20,6 +20,7 @@ class LoginController extends HController
                         $eauth->component->setRedirectView('signup.views.redirect');
                         $eauth->redirect(null, array(
                             'attributes' => $eauth->getAttributes(),
+                            'serviceName' => $eauth->getServiceName(),
                             'fromLogin' => true,
                         ));
                     }

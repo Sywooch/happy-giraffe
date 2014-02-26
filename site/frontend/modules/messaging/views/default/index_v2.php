@@ -280,9 +280,9 @@
                                                             <span class="b-control_ico powertip b-control_ico__delete" href="" data-tooltip="Удалить" title="Удалить" data-bind="click: deleteMessage, css: {'display-n': !canDelete()}"></span>
                                                             <div class="b-control_drop"></div>
                                                         </div>
-                                                        <div class="b-control_i tooltip-click-b" data-bind="css: {'display-n' : isMy || reported()}">
+                                                        <!--<div class="b-control_i tooltip-click-b" data-bind="css: {'display-n' : isMy || reported()}">
                                                             <span class="b-control_ico powertip b-control_ico__spam" data-tooltip="Пожаловаться" title="Пожаловаться" data-bind="click: report"></span>
-                                                            <!--<div class="tooltip-drop">
+                                                            <div class="tooltip-drop">
                                                                 <div class="tooltip-popup">
                                                                     <div class="tooltip-popup_t">Укажите вид нарушения:</div>
                                                                     <label class="tooltip-popup_label clearfix" for="tooltip-popup_radio"></label>
@@ -310,8 +310,8 @@
                                                                         <button class="btn-gray-light">Отменить</button>
                                                                     </div>
                                                                 </div>
-                                                            </div> -->
-                                                        </div>
+                                                            </div>
+                                                        </div> -->
                                                         <div class="b-control_i" data-bind="click: beginEditing, scrollTo: 'click', css: {'display-n' : !canEdit()}"><span data-tooltip="Редактировать" title="Редактировать" class="b-control_ico powertip b-control_ico__edit"></span>
                                                             <div class="b-control_drop"></div>
                                                         </div>

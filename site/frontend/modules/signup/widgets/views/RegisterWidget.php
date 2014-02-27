@@ -52,7 +52,16 @@
 
     function afterValidateStep2(form, data, hasError) {
         if (! hasError) {
-            $.post(form.attr('action'), form.serialize(), function(response) {
+            var data = form.serialize();
+            if (registerVm.avatar.imgSrc() !== null) {
+                data += '&' + $.param({
+                    avatar : {
+                        imgSrc : registerVm.avatar.imgSrc(),
+                        coords : registerVm.avatar.coords
+                    }
+                });
+            }
+            $.post(form.attr('action'), data, function(response) {
                 if (response.success) {
                     registerVm.id(response.id);
                     registerVm.currentStep(registerVm.STEP_EMAIL1);

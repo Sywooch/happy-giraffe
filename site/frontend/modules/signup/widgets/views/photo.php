@@ -33,7 +33,7 @@
             <!-- Блок обрезки аватара-->
             <?php if (true): ?>
             <div class="img-upload_uploaded">
-                <a href="" title="Удалить" class="img-upload_i-del powertip"></a>
+                <a title="Удалить" class="img-upload_i-del powertip" data-bind="click: clear"></a>
                 <img data-bind="jcrop: jcrop, attr: { src : imgSrc }">
             </div>
             <?php else: ?>
@@ -60,11 +60,11 @@
     </div>
     <div class="popup-sign_col-ava popup-sign_col-ava__think">
         <div class="popup-sign_col-ava-t">Просмотр</div>
-        <a href="" class="ava ava__large ava__female"><span class="ico-status"></span><img alt="" class="ava_img" data-bind="attr: { src : imgSrc }" id="preview" /></a>
+        <a href="javascript:void(0)" class="ava ava__large ava__female"><span class="ico-status"></span><img alt="" class="ava_img" data-bind="attr: { src : imgSrc }" id="preview" /></a>
         <div class="popup-sign_ava-row">
-            <a href="" class="ava ava__middle ava__female"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"/></a>
-            <a href="" class="ava ava__female"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"/></a>
-            <a href="" class="ava ava__small ava__female"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"/></a>
+            <a href="javascript:void(0)" class="ava ava__middle ava__female"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"/></a>
+            <a href="javascript:void(0)" class="ava ava__female"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"/></a>
+            <a href="javascript:void(0)" class="ava ava__small ava__female"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"/></a>
         </div>
         <div class="margin-t5">
             <div class="popup-sign_tx-help">Так будет выглядеть ваше главное фото <br>на страницах Веселого Жирафа</div>

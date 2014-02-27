@@ -4,6 +4,7 @@
  * @var RegisterFormStep1 $modelStep1
  * @var RegisterFormStep2 $modelStep2
  * @var ResendConfirmForm $resendConfirm
+ * @var AvatarUploadForm $avatarUpload
  * @var mixed $json
  */
 ?>
@@ -23,7 +24,7 @@
             <?php $this->render('email2', array('model' => $resendConfirm)); ?>
         </div>
         <div class="popup-sign_hold" data-bind="visible: currentStep() == STEP_PHOTO">
-            <?php $this->render('photo'); ?>
+            <?php $this->render('photo', array('model' => $avatarUpload)); ?>
         </div>
     </div>
 </div>

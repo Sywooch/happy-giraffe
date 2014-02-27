@@ -24,13 +24,14 @@ class RegisterWidget extends CWidget
         $modelStep1 = new RegisterFormStep1();
         $modelStep2 = new RegisterFormStep2();
         $resendConfirm = new ResendConfirmForm();
+        $avatarUpload = new AvatarUploadForm();
         $minYear = date('Y') - 90;
         $maxYear = date('Y') - 16;
         $c = new ReflectionClass($this);
         $constants = $c->getConstants();
         $mailServices = $this->getMailServices();
         $json = compact('minYear', 'maxYear', 'constants', 'mailServices');
-        $this->render('RegisterWidget', compact('modelStep1', 'modelStep2', 'resendConfirm', 'json'));
+        $this->render('RegisterWidget', compact('modelStep1', 'modelStep2', 'resendConfirm', 'avatarUpload', 'json'));
     }
 
     protected function getMailServices()

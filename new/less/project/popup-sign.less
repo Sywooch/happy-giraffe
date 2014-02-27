@@ -344,6 +344,7 @@
     &_uploaded {
         display: none;
         position: relative;
+        z-index: 1; // fix chrome bug При наведении на крестик удаления то  аватара сбоку на время становится квадратная. Вызвано transition и rotate &_i-del
     }
     &_i-del {
         position: absolute;

@@ -589,7 +589,6 @@ ko.bindingHandlers.jcrop = {
 
         allBindings.get('attr').src.subscribe(function(val) {
             api.setImage(val);
-            ready.apply(api);
         });
     },
     update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {

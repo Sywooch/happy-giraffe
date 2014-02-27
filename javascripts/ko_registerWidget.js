@@ -76,7 +76,8 @@ function UserAvatar(parent) {
             bgColor: '#2c87c0',
             addClass: 'jcrop-blue',
             onChange: self.showPreview,
-            onSelect: self.showPreview
+            onSelect: self.showPreview,
+            boxWidth: 500
         },
         ready : function() {
             this.setSelect([130,65,130+350,65+285]);
@@ -90,12 +91,12 @@ function UserAvatar(parent) {
     $('#AvatarUploadForm_image').fileupload({
         dataType: 'json',
         url: '/signup/register/avatarUpload/',
+        dropZone: $('.img-upload_hold'),
         add: function (e, data) {
-            console.log('1');
             data.submit();
         },
         done: function (e, data) {
-            console.log('2');
+            self.imgSrc(data.result.imgSrc);
         }
     });
 }

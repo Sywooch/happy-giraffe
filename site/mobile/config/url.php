@@ -15,9 +15,8 @@ return array(
         'community/<community_id:\d+>' => 'community/default/list',
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/index',
         'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
-        'community/<content_id:\d+>/comments' => 'community/default/comments',
 
-        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/view',
+        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/default/view',
         'user/<user_id:\d+>/community' => array('user/index', 'defaultParams' => array('show' => 'community')),
         'user/<user_id:\d+>/blog' => array('user/index', 'defaultParams' => array('show' => 'blog')),
         'user/<user_id:\d+>' => array('user/index', 'defaultParams' => array('show' => 'all')),
@@ -37,6 +36,8 @@ return array(
         'horoscope/<zodiac:[\w]+>' => array('horoscope/view', 'defaultParams' => array('type' => 'today')),
 
         'contest/<contest_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'Contest')),
+
+        'site/comments' => 'site/comments',
 
         '' => 'community/default/index',
 

@@ -16,6 +16,8 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
     </h1>
     <?php if ($data->contestWork !== null && $this->id != 'contest' && ! $full) $this->renderPartial('application.modules.blog.views.default._contest_post', array('contest' => $data->contestWork->contest)); ?>
 
+    <?php $this->renderPartial('//banners/_post_header', compact('data')); ?>
+
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
             <p><?=nl2br(CHtml::encode($data->photoPost->text))?></p>
@@ -30,7 +32,7 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
         <?php endif; ?>
     </div>
 
-    <?php if (Yii::app()->request->getQuery('openGallery') !== null): ?>
+    <?php if (Yii::app()->request->getQuery('openGallery') !== null || $data->id == 151848): ?>
         <script type="text/javascript">
             PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>);
         </script>

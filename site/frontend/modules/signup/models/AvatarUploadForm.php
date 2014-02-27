@@ -22,6 +22,8 @@ class AvatarUploadForm extends CFormModel
     public function upload()
     {
         $path = Yii::getPathOfAlias('site.common.uploads.photos.temp');
+        if (! is_dir($path))
+            mkdir($path);
         $this->fileName = sha1($this->image->getName() . time()) . '.' . $this->image->getExtensionName();
         return $this->image->saveAs($path . DIRECTORY_SEPARATOR . $this->fileName);
     }

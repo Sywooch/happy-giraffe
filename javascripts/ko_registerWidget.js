@@ -5,7 +5,7 @@ function RegisterWidgetViewModel(data, form) {
         self[i] = data.constants[i];
 
     self.social = ko.observable(false);
-    self.currentStep = ko.observable(self.STEP_PHOTO);
+    self.currentStep = ko.observable(self.STEP_REG1);
 
     self.id = ko.observable();
     self.email = new RegisterUserAttribute('nikita@happy-giraffe.ru');
@@ -31,6 +31,10 @@ function RegisterWidgetViewModel(data, form) {
 
     self.uploadPhoto = function() {
         self.currentStep(self.STEP_PHOTO);
+    }
+
+    self.saveAvatar = function() {
+        self.currentStep(self.STEP_REG2);
     }
 
     self.availableMailServices = ko.utils.arrayMap(data.mailServices, function(mailService) {
@@ -61,22 +65,17 @@ function UserAvatar(parent) {
         var image = new Image();
         image.src = self.imgSrc();
 
-        self.preview(200, image, coords);
-        self.preview(24, image, coords);
-        self.preview(72, image, coords);
-        self.preview(40, image, coords);
-    }
+        for (var size in [24, 40, 72, 200]) {
+            var rx = size / coords.w;
+            var ry = size / coords.h;
 
-    self.preview = function(size, image, coords) {
-        var rx = size / coords.w;
-        var ry = size / coords.h;
-
-        $('#preview-' + size).css({
-            width: Math.round(rx * image.width) + 'px',
-            height: Math.round(ry * image.height) + 'px',
-            marginLeft: '-' + Math.round(rx * coords.x) + 'px',
-            marginTop: '-' + Math.round(ry * coords.y) + 'px'
-        });
+            $('.preview-' + size).css({
+                width: Math.round(rx * image.width) + 'px',
+                height: Math.round(ry * image.height) + 'px',
+                marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+                marginTop: '-' + Math.round(ry * coords.y) + 'px'
+            });
+        }
     }
 
     self.jcrop = {

@@ -5,7 +5,7 @@ function RegisterWidgetViewModel(data, form) {
         self[i] = data.constants[i];
 
     self.social = ko.observable(false);
-    self.currentStep = ko.observable(self.STEP_REG1);
+    self.currentStep = ko.observable(self.STEP_PHOTO);
 
     self.id = ko.observable();
     self.email = new RegisterUserAttribute('nikita@happy-giraffe.ru');
@@ -29,6 +29,10 @@ function RegisterWidgetViewModel(data, form) {
         self.currentStep(self.STEP_EMAIL2);
     }
 
+    self.uploadPhoto = function() {
+        self.currentStep(self.STEP_PHOTO);
+    }
+
     self.availableMailServices = ko.utils.arrayMap(data.mailServices, function(mailService) {
         return new MailService(mailService);
     });
@@ -43,6 +47,55 @@ function RegisterWidgetViewModel(data, form) {
                 return self.availableMailServices[i];
         }
         return null;
+    });
+
+    self.avatar = new UserAvatar(self);
+}
+
+function UserAvatar(parent) {
+    var self = this;
+
+    self.imgSrc = ko.observable('http://www.virtual-giraffe.ru/new/images/example/w500-h376.jpg');
+
+    self.showPreview = function(coords) {
+        var rx = 200 / coords.w;
+        var ry = 200 / coords.h;
+
+        $('#preview').css({
+            width: Math.round(rx * 500) + 'px',
+            height: Math.round(ry * 376) + 'px',
+            marginLeft: '-' + Math.round(rx * coords.x) + 'px',
+            marginTop: '-' + Math.round(ry * coords.y) + 'px'
+        });
+    }
+
+    self.jcrop = {
+        options : {
+            aspectRatio: 1,
+            bgOpacity: 0.6,
+            bgColor: '#2c87c0',
+            addClass: 'jcrop-blue',
+            onChange: self.showPreview,
+            onSelect: self.showPreview
+        },
+        ready : function() {
+            this.setSelect([130,65,130+350,65+285]);
+            this.setOptions({ bgFade: true });
+            this.ui.selection.addClass('jcrop-selection');
+            self.jcropApi = this;
+        }
+    }
+
+
+    $('.img-upload_hold').fileupload({
+        dataType: 'json',
+        url: '/signup/register/uploadAvatarImage/',
+        add: function (e, data) {
+            console.log('1');
+        },
+        done: function (e, data) {
+            console.log('2');
+        }
     });
 }
 

@@ -572,3 +572,27 @@ ko.bindingHandlers.jqAuto = {
         $(element).val(modelValue && inputValueProp !== valueProp ? unwrap(modelValue[inputValueProp]) : modelValue.toString());
     }
 };
+
+ko.bindingHandlers.jcrop = {
+    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        var options = valueAccessor().options;
+        var ready = valueAccessor().ready;
+        var api = null;
+
+        setTimeout(function() {
+            $(element).Jcrop(options, function() {
+                ready.apply(this);
+                api = this;
+            });
+        }, 1);
+
+
+        allBindings.get('attr').src.subscribe(function(val) {
+            api.setImage(val);
+            ready.apply(api);
+        });
+    },
+    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+
+    }
+};

@@ -58,13 +58,20 @@ function UserAvatar(parent) {
     self.imgSrc = ko.observable(null);
 
     self.showPreview = function(coords) {
-        var rx = 200 / coords.w;
-        var ry = 200 / coords.h;
-
         var image = new Image();
         image.src = self.imgSrc();
 
-        $('#preview').css({
+        self.preview(200, image, coords);
+        self.preview(24, image, coords);
+        self.preview(72, image, coords);
+        self.preview(40, image, coords);
+    }
+
+    self.preview = function(size, image, coords) {
+        var rx = size / coords.w;
+        var ry = size / coords.h;
+
+        $('#preview-' + size).css({
             width: Math.round(rx * image.width) + 'px',
             height: Math.round(ry * image.height) + 'px',
             marginLeft: '-' + Math.round(rx * coords.x) + 'px',

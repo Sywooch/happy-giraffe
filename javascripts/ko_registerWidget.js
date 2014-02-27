@@ -60,10 +60,12 @@ function UserAvatar(parent) {
     var self = this;
 
     self.imgSrc = ko.observable(null);
+    self.coords = null;
 
     self.showPreview = function(coords) {
         var image = new Image();
         image.src = self.imgSrc();
+        self.coords = coords;
 
         for (var size in [24, 40, 72, 200]) {
             var rx = size / coords.w;

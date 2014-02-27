@@ -8,7 +8,7 @@ return array(
             'js' => array(
                 'javascripts/ko_registerWidget.js',
             ),
-            'depends' => array('knockout', 'common', 'jcrop'),
+            'depends' => array('knockout', 'common', 'jcrop', 'ko_upload'),
         ),
         'powertip' => array(
             'baseUrl' => '/',

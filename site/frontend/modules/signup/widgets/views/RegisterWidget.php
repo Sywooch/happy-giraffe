@@ -22,6 +22,9 @@
         <div class="popup-sign_hold" data-bind="visible: currentStep() == STEP_EMAIL2">
             <?php $this->render('email2', array('model' => $resendConfirm)); ?>
         </div>
+        <div class="popup-sign_hold" data-bind="visible: currentStep() == STEP_PHOTO">
+            <?php $this->render('photo'); ?>
+        </div>
     </div>
 </div>
 

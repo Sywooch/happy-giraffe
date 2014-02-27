@@ -13,6 +13,7 @@ class RegisterWidget extends CWidget
     const STEP_REG2 = 1;
     const STEP_EMAIL1 = 2;
     const STEP_EMAIL2 = 3;
+    const STEP_PHOTO = 4;
 
     protected $maxAge = 90;
     protected $minAge = 16;

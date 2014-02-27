@@ -187,6 +187,9 @@
                             <label for="radio9" class="aside-filter_label-radio">многодетная семья</label>
                         </div>
                     </div>
+                    <div class="aside-filter_row clearfix">
+                        <div class="float-r margin-t10"><a class="color-white a-pseudo" data-bind="click: clearForm">Сбросить фильтр </a></div>
+                    </div>
                 </div>
             </div>
         </div>

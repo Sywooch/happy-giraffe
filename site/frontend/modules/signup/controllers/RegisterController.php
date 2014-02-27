@@ -77,6 +77,12 @@ class RegisterController extends HController
             $model->userSocialServices = array($socialService);
         }
         $success = $model->withRelated->save(true, array('userSocialServices')) && $model->register();
+        if ($_POST['avatar']) {
+            $photo = AlbumPhoto::createByUrl($_POST['avatar']['imgSrc'], $model->id);
+            $coordinates = Yii::app()->request->getPost('avatar[coords]');
+            UserAvatar::createUserAvatar(Yii::app()->user->id, $photo->id,
+                $coordinates['x'], $coordinates['y'], $coordinates['w'], $coordinates['h']);
+        }
         $response['success'] = $success;
         if ($success)
             $response['id'] = $model->id;

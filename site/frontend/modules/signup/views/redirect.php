@@ -23,9 +23,8 @@
                         } else
                             registerVm[i](data[i]);
                     }
-                alert(data.avatar_src);
                 registerVm.avatar.imgSrc(data.avatar_src);
-                //window.close();
+                window.close();
             }, 'json');
             registerVm.social(true);
             registerVm.currentStep(registerVm.STEP_REG2);

@@ -55,7 +55,7 @@ function RegisterWidgetViewModel(data, form) {
 function UserAvatar(parent) {
     var self = this;
 
-    self.imgSrc = ko.observable('http://www.virtual-giraffe.ru/new/images/example/w500-h376.jpg');
+    self.imgSrc = ko.observable(null);
 
     self.showPreview = function(coords) {
         var rx = 200 / coords.w;
@@ -87,11 +87,12 @@ function UserAvatar(parent) {
     }
 
 
-    $('.img-upload_hold').fileupload({
+    $('#AvatarUploadForm_image').fileupload({
         dataType: 'json',
-        url: '/signup/register/uploadAvatarImage/',
+        url: '/signup/register/avatarUpload/',
         add: function (e, data) {
             console.log('1');
+            data.submit();
         },
         done: function (e, data) {
             console.log('2');

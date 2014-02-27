@@ -113,6 +113,17 @@ class RegisterController extends HController
         }
     }
 
+    public function actionUploadAvatarImage()
+    {
+        print_r($_FILES);
+        die;
+
+        $model = new AvatarUploadForm();
+        $model->image = CUploadedFile::getInstance($model, 'image');
+        $success = $model->upload();
+        echo CJSON::encode($success);
+    }
+
     /**
      * Ajax-валидация
      * @param $model

@@ -86,7 +86,7 @@ function FriendsSearchViewModel(data) {
 
     self.clearForm = function() {
         self.instantaneousQuery('');
-        self.location('0');
+        self.location('1');
         self.selectedCountry(DEFAULT_COUNTRY);
         self.selectedRegion(null);
         self.gender('');

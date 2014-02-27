@@ -46,7 +46,7 @@ function FriendsSearchViewModel(data) {
     self.minAge = ko.observable(DEFAULT_MIN_AGE);
     self.maxAge = ko.observable(DEFAULT_MAX_AGE);
     self.ages = ko.observableArray([]);
-    for (var i = 0; i <= 100; i++) {
+    for (var i = 16; i <= 90; i++) {
         self.ages.push(i);
     }
 

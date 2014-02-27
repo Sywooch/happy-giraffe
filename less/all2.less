@@ -1701,7 +1701,7 @@ table.fr_recipe_tb td { width: 50%;}
         height: 30px;
         min-width: 84px;
         padding: 8px 0 0;
-        background: #a488bc;
+        background: #7d70a9;
         color: #fff;
         font-size: 9px;
         line-height: 10px;
@@ -3238,9 +3238,9 @@ table.fr_recipe_tb td { width: 50%;}
 .section-lilac {
     margin: 0 -9000px 16px;
     padding: 20px 9000px 25px;
-    background: #ac8fc5;
+    background: #7d70a9;
     color: #fff;
-    .box-shadow(inset 0 0 7px rgba(0,0,0,0.3));
+    .box-shadow(inset 0 0 7px rgba(0,0,0,0.2));
 
     &_left {
         .inline-block();
@@ -3490,20 +3490,22 @@ table.fr_recipe_tb td { width: 50%;}
     &_i:hover {text-decoration: underline;}
     &_i:hover &_ico-hold {
         .box-shadow(none);
-        background: #0eba23;
+        background: #3998d1;
     }
-    &_i:hover &_ico-hold__dialog      {background: #0eba23;}
-    &_i:hover &_ico-hold__blog        {background: #4abafe;}
-    &_i:hover &_ico-hold__photo       {background: #ff6dab;}
-    &_i:hover &_ico-hold__friend-add  {background: #fee652;}
-    &_i:hover &_ico-hold__friend-added{background: #fee652;}
-    &_i:hover &_ico-hold__friend      {background: #fee652;}
+    &_i:hover &_ico-hold__dialog      {background: #3998d1;}
+    &_i:hover &_ico-hold__blog        {background: #63bb5b;}
+    &_i:hover &_ico-hold__photo       {background: #e68832;}
+    &_i:hover &_ico-hold__friend-add,
+    &_i:hover &_ico-hold__friend-added,
+    &_i:hover &_ico-hold__friend-append,
+    &_i:hover &_ico-hold__friend      {background: #fbe170;}
     &_i:hover                          &_ico {background-position: 0 -30px;}
     &_i:hover &_ico-hold__dialog       &_ico {background-position: 0px -30px;}
     &_i:hover &_ico-hold__blog         &_ico {background-position: -30px -30px;}
     &_i:hover &_ico-hold__photo        &_ico {background-position: -60px -30px;}
     &_i:hover &_ico-hold__friend-add   &_ico {background-position: -90px -30px;}
-    &_i:hover &_ico-hold__friend-added &_ico {background-position: -120px 0px;}
+    &_i:hover &_ico-hold__friend-added &_ico {background-position: -120px -30px;}
+    &_i:hover &_ico-hold__friend-append &_ico {background-position: -90px -30px;}
     &_i:hover &_ico-hold__friend       &_ico {background-position: -150px 0px;}
     &_ico-hold {
         display: block;
@@ -3511,7 +3513,7 @@ table.fr_recipe_tb td { width: 50%;}
         height: 42px;
         margin-bottom: 4px;
         padding: 16px 0 0;
-        background: #82649b;
+        background: #645596;
         .box-shadow(inset 0 1px 1px rgba(0,0,0,0.25));
         .border-radius(30px);
     }
@@ -3520,8 +3522,9 @@ table.fr_recipe_tb td { width: 50%;}
     &_ico-hold__photo        &_ico {background-position: -60px 0;}
     &_ico-hold__friend-add   &_ico {background-position: -90px 0;}
     &_ico-hold__friend-added &_ico {background-position: -120px 0;}
+    &_ico-hold__friend-append &_ico {background-position: -180px 0;}
     &_ico-hold__friend       &_ico {background-position: -150px 0;}
-    &_ico-hold__friend      {background: #fee652;}
+    &_ico-hold__friend      {background: #fbe170;}
     &_ico {
         display: block;
         width: 30px;

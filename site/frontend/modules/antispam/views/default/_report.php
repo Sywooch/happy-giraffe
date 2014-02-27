@@ -18,8 +18,10 @@
         <div class="antispam-user_date"><?=HDate::GetFormattedTime($data->created)?></div>
         <div class="antispam-user_post-ico antispam-user_post-ico__<?=$data->data->getIconClass()?>"></div>
         <div class="antispam-user_count">
-            <div class="antispam-user_count-big"><?=$data->data->maxCount?> за <?=sprintf('%02d:%02d:%02d', ($data->data->actualInterval/3600),($data->data->actualInterval/60%60), $data->data->actualInterval%60)?></div>
-            <div class="antispam-user_count-s"><?=$data->data->maxCount?> за <?=sprintf('%02d:%02d:%02d', ($data->data->interval/3600),($data->data->interval/60%60), $data->data->interval%60)?></div>
+            <?php if ($data->type == AntispamReport::TYPE_LIMIT): ?>
+                <div class="antispam-user_count-big"><?=$data->data->maxCount?> за <?=sprintf('%02d:%02d:%02d', ($data->data->actualInterval/3600),($data->data->actualInterval/60%60), $data->data->actualInterval%60)?></div>
+                <div class="antispam-user_count-s"><?=$data->data->maxCount?> за <?=sprintf('%02d:%02d:%02d', ($data->data->interval/3600),($data->data->interval/60%60), $data->data->interval%60)?></div>
+            <?php endif; ?>
         </div>
         <div class="verticalalign-el">
             <div class="margin-b5"><a class="btn-green btn-m" onclick="markReport(<?=$data->id?>, $(this).parents('.antispam-user_li'))">

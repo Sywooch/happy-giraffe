@@ -247,7 +247,7 @@
                 </div>
                 <div class="im-center_middle">
                     <div data-bind="css: {scroll: true}">
-                        <div class="im-center_middle-hold scroll_scroller" data-bind="show: [{selector: '.im-message:lt(2)', callback: loadMessages}, {selector: '.im-message__new', callback: function() { ko.dataFor(this).show(); } }], hide: {selector: '.im-message__new', callback: function() { ko.dataFor(this).hide(); } }, fixScroll: {manager: scrollManager, type: 'box'}">
+                        <div class="im-center_middle-hold scroll_scroller" data-bind="show: [{selector: '.im-message:lt(10)', callback: loadMessages}, {selector: '.im-message__new', callback: function() { ko.dataFor(this).show(); } }], hide: {selector: '.im-message__new', callback: function() { ko.dataFor(this).hide(); } }, fixScroll: {manager: scrollManager, type: 'box'}">
                             <div class="im-center_middle-w scroll_cont">
                                 <div class="im_loader" data-bind="visible: loadingMessages"><img src="/new/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка ранних сообщений</span></div>
                                 <!-- ko if: deletedDialogs().length -->
@@ -264,7 +264,7 @@
                                 <!-- /ko -->
                                 <!-- ko foreach: messages -->
                                     <!-- im-message-->
-                                    <div class="im-message" data-bind="visible: !hidden(), css: {'im-message__new': !isMy && !dtimeRead(), 'im-message__edited': $parent.editingMessage() == $data}, fixScroll: {manager: $parent.scrollManager, type: 'element', model: $data}">
+                                    <div class="im-message" data-bind="visible: !hidden(), css: {'im-message__stick': isStick($parent.messages(), $index()), 'im-message__new': !isMy && !dtimeRead(), 'im-message__edited': $parent.editingMessage() == $data}, fixScroll: {manager: $parent.scrollManager, type: 'element', model: $data}">
                                         <div class="im-message_ava"><a href="" class="ava ava__small ava__male" data-bind="attr: { href : from.profileUrl }" target="_blank"><span class="ico-status ico-status__online" data-bind="visible: from.isOnline()"></span><img alt="" data-bind="attr: {src: from.avatar}" class="ava_img"/></a>
                                         </div>
                                         <div class="im-message_r">
@@ -280,8 +280,8 @@
                                                             <span class="b-control_ico powertip b-control_ico__delete" href="" data-tooltip="Удалить" title="Удалить" data-bind="click: deleteMessage, css: {'display-n': !canDelete()}"></span>
                                                             <div class="b-control_drop"></div>
                                                         </div>
-                                                        <!--<div class="b-control_i tooltip-click-b" data-bind="css: {'display-n' : isMy}">
-                                                            <span class="b-control_ico powertip b-control_ico__spam" href="" data-tooltip="Пожаловаться" title="Пожаловаться"></span>
+                                                        <!--<div class="b-control_i tooltip-click-b" data-bind="css: {'display-n' : isMy || reported()}">
+                                                            <span class="b-control_ico powertip b-control_ico__spam" data-tooltip="Пожаловаться" title="Пожаловаться" data-bind="click: report"></span>
                                                             <div class="tooltip-drop">
                                                                 <div class="tooltip-popup">
                                                                     <div class="tooltip-popup_t">Укажите вид нарушения:</div>

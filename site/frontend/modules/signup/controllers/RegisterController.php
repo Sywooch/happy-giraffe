@@ -117,8 +117,12 @@ class RegisterController extends HController
     {
         $model = new AvatarUploadForm();
         $model->image = CUploadedFile::getInstance($model, 'image');
-        $success = $model->upload();
-        echo CJSON::encode($success);
+        $response = array();
+        $success = $model->validate() && $model->upload();
+        $response['success'] = $success;
+        if ($success)
+            $response['imgSrc'] = $model->getFileName();
+        echo CJSON::encode($response);
     }
 
     /**

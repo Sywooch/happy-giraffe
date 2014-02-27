@@ -10,16 +10,24 @@
 class AvatarUploadForm extends CFormModel
 {
     public $image;
+    private $fileName;
 
     public function rules()
     {
         return array(
-            array('image', 'types' => 'jpg, jpeg, gif, png'),
+            array('image', 'file', 'types' => 'jpg, jpeg, gif, png'),
         );
     }
 
     public function upload()
     {
+        $path = Yii::getPathOfAlias('site.common.uploads.photos.temp');
+        $this->fileName = sha1($this->image->getName() . time()) . '.' . $this->image->getExtensionName();
+        return $this->image->saveAs($path . DIRECTORY_SEPARATOR . $this->fileName);
+    }
 
+    public function getFileName()
+    {
+        return Yii::app()->params['photos_url'] . '/temp/' . $this->fileName;
     }
 }

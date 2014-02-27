@@ -550,7 +550,7 @@ class AlbumPhoto extends HActiveRecord
     {
         $url = $this->getPreviewUrl($width, $height, $master, $crop, $crop_side);
         $path = $this->getPreviewPath($width, $height, $master, $crop, $crop_side);
-        $size = getimagesize($path);
+        $size = @getimagesize($path);
         return CHtml::image($url, '', array('width' => $size[0], 'height' => $size[1]));
     }
 
@@ -826,7 +826,7 @@ class AlbumPhoto extends HActiveRecord
     private function copyUserFile($name, $temp_name, $user_id)
     {
         $ext = pathinfo($name, PATHINFO_EXTENSION);
-        list($this->width, $this->height) = getimagesize($temp_name);
+        list($this->width, $this->height) = @getimagesize($temp_name);
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
         $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $user_id;
         if (!file_exists($model_dir))

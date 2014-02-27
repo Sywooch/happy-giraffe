@@ -52,11 +52,13 @@ class AntispamBehavior extends CActiveRecordBehavior
 
     protected function createCheck()
     {
-        $check = new AntispamCheck();
-        $check->entity = get_class($this->owner);
-        $check->entity_id = $this->owner->id;
-        $check->user_id = Yii::app()->user->id;
-        $check->save();
+        try {
+            $check = new AntispamCheck();
+            $check->entity = get_class($this->owner);
+            $check->entity_id = $this->owner->id;
+            $check->user_id = $this->owner->author_id;
+            $check->save();
+        } catch (CDbException $e) {}
     }
 
     protected function limitExceed()
@@ -75,5 +77,36 @@ class AntispamBehavior extends CActiveRecordBehavior
         parent::attach($owner);
         $validators = $owner->getValidatorList();
         $validators->add(CValidator::createValidator('SpamStatusValidator', $owner, 'author_id'));
+    }
+
+    public function report()
+    {
+        $prev = CActiveRecord::model(get_class($this->owner))->findAll(array(
+            'limit' => 3,
+            'condition' => 't.id < :current_id AND t.author_id = :author_id',
+            'params' => array(':current_id' => $this->owner->id, ':author_id' => $this->owner->author_id),
+            'order' => 't.id DESC',
+        ));
+
+        $next = CActiveRecord::model(get_class($this->owner))->findAll(array(
+            'limit' => 3,
+            'condition' => 't.id < :current_id AND t.author_id = :author_id',
+            'params' => array(':current_id' => $this->owner->id, ':author_id' => $this->owner->author_id),
+            'order' => 't.id DESC',
+        ));
+
+        $models = CMap::mergeArray(array($this->owner), $prev, $next);
+        foreach ($models as $m)
+            $m->antispam->createCheck();
+
+        $report = new AntispamReportAbuse();
+        $report->user_id = $this->owner->author_id;
+        $report->type = AntispamReport::TYPE_ABUSE;
+        $reportData = new AntispamReportAbuseData();
+        $reportData->entity = get_class($this->owner);
+        $reportData->entity_id = $this->owner->id;
+
+        $report->data = $reportData;
+        return $report->withRelated->save(true, array('data'));
     }
 }

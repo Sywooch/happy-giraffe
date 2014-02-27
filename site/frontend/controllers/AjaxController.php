@@ -732,4 +732,12 @@ class AjaxController extends HController
         $success = Blacklist::removeFromBlackList(Yii::app()->user->id, $userId);
         echo CJSON::encode(compact('success'));
     }
+
+    public function actionReport()
+    {
+        $entity = Yii::app()->request->getPost('entity');
+        $entity_id = Yii::app()->request->getPost('entity_id');
+        $success = CActiveRecord::model($entity)->findByPk($entity_id)->antispam->report();
+        echo CJSON::encode(compact('success'));
+    }
 }

@@ -22,9 +22,11 @@ class AntispamReport extends CActiveRecord
     const STATUS_PENDING = 0;
     const STATUS_CONSIDERED = 1;
     const TYPE_LIMIT = 10;
+    const TYPE_ABUSE = 11;
 
     protected $types = array(
         self::TYPE_LIMIT => 'AntispamReportLimit',
+        self::TYPE_ABUSE => 'AntispamReportAbuse',
     );
 
 	/**

@@ -87,6 +87,16 @@ $(function() {
 		event.target;
 	});
 
+    /* Для работы select2 в magnificPopup */
+    $.magnificPopup.instance._onFocusIn = function(e) {
+              // Do nothing if target element is select2 input
+              if( $(e.target).hasClass('select2-input') ) {
+                return true;
+              } 
+              // Else call parent method
+              $.magnificPopup.proto._onFocusIn.call(this,e);
+    };
+
     $('.popup-a').magnificPopup({
         type: 'inline',
         overflowY: 'auto',
@@ -174,7 +184,7 @@ HgWysiwyg.prototype = {
 
             $('#redactor_modal').css({
                 'top': top - $('#redactor_modal').height() - 6,
-                'left': left - 18
+                'left': left - 100
             });
             $('#redactor_modal').show();
         }, 200);

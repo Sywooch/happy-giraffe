@@ -1,6 +1,5 @@
 /* @layout cosmetic  
 ---------------------------------------------------------*/
-/* @todo избавляться от a-right, a-left, nofloat, nopadding, nomargin */
 .textdec-none {text-decoration: none !important;}
 .textdec-onhover {text-decoration: none !important;}
 .textdec-onhover:hover {text-decoration: underline !important;}
@@ -95,6 +94,7 @@
 .w-100 {width:100px;}
 .w-110 {width:110px;}
 .w-130 {width:130px !important;}
+.w-135 {width:135px !important;}
 .w-160 {width:160px;}
 .w-200 {width:200px;}
 .w-240 {width:240px;}
@@ -122,22 +122,33 @@
 .verticalalign-b {vertical-align: bottom;}
 
 .verticalalign-m-help {
-	.inline-block();
-	vertical-align: middle;
-	width: 1px;
-	margin: 0 -1px 0 0;
-	height: 100%;
+    .inline-block();
+    vertical-align: middle;
+    width: 1px;
+    margin: 0 -1px 0 0;
+    height: 100%;
 }
-.verticalalign-el {
-	.inline-block();
-	vertical-align: middle;
+.verticalalign-m-el {
+    .inline-block();
+    vertical-align: middle;
+}
+
+.a-color-gray-light {
+    text-decoration: underline;
+    color:  @color-gray-light;
+    border-color:  @color-gray-light;
+    &:hover {
+        text-decoration: underline;
+        color: @color-gray-dark;
+    }
 }
 
 .color-carrot {color: #fe5333 !important;}
 .color-gray-darken {color: #333 !important;}
 .color-gray-dark {color: #656565 !important;border-color: #656565;}
-.color-gray {color: #B1B1B1 !important;border-color: #B1B1B1;}
-.color-gray-light {color: #ccc !important;border-color: #ccc;}
+.color-gray-dark-light {color: @color-gray-dark-light !important;border-color: @color-gray-dark-light;}
+.color-gray {color: @color-gray !important;border-color: @color-gray;}
+.color-gray-light {color: @color-gray-light !important;border-color: @color-gray-light;}
 .color-white {color: #fff !important;border-color: #fff;}
 
 .font-xs  {font-size:9px !important;line-height: 11px !important;font-family: Tahoma, Arial, Verdana, sans-serif;}
@@ -161,16 +172,16 @@
 .opacity-100 {opacity: (1);filter: alpha(opacity=100);}
 
 .bordered {
-	.bordered(#E5E4E4);
+    .bordered(#E5E4E4);
 }
 
 .clearfix {
-	&:before,
-	&:after {
-	    content: " "; /* 1 */
-	    display: table; /* 2 */
-	}
-	&:after {clear: both;}
+    &:before,
+    &:after {
+        content: " "; /* 1 */
+        display: table; /* 2 */
+    }
+    &:after {clear: both;}
 }
 
 .disabled {cursor:default !important;}

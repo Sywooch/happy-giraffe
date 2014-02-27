@@ -1,6 +1,7 @@
 .btn-red,
 .btn-gray-light,
 .btn-green-simple,
+.btn-blue-simple,
 .btn-green  {
     .inline-block();
     padding: 4px 13px 6px;
@@ -39,7 +40,7 @@
 .btn-l {
     height:46px;
     font:17px/45px Arial, Tahoma, Verdana, sans-serif;
-    padding:0 30px;
+    padding:0 25px;
     .border-radius(5px);
 }
 .btn-xl {height:55px;font: 20px/55px Arial, Tahoma, Verdana, sans-serif;padding:0 21px;.border-radius(5px);}
@@ -49,12 +50,26 @@
 
 
 // Цвета
+.btn-blue-simple {
+    color: #fff;
+    background-color: #4b90bf;
+
+    &:hover {background-color: #4085b4;}
+}
+
 .btn-green-simple {
     color: #fff;
-    background-color: #30b447;
-}
-.btn-green-simple:hover {background-color: #28ad40;}
+    background-color: #4fb044;
 
+    &:hover {background-color: #47aa3e;}
+    .btn-arrow_ico {
+        display: inline-block;
+        background: #419c37;
+        padding: 0 14px;
+    }
+
+    &:hover .btn-arrow_ico {background: #38932e;}
+}
 
 .btn-green {
     color: #fff;
@@ -112,3 +127,20 @@
 }
 .ie7 .btn-red:hover,
 .ie8 .btn-red:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f96943', endColorstr='#e14f29',GradientType=0 ); /* IE6-8 */}
+
+
+.btn-arrow {
+
+    &__next {
+        padding-right: 0;
+    }
+    &__next &_ico {
+        float: right;
+        .border-right-radius(5px);
+    }
+    &__next.btn-l &_ico {
+        margin-left: 25px;
+    }
+
+
+}

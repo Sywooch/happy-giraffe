@@ -1,5 +1,5 @@
 include ../../block/config
-doctype 5
+doctype html
 html.no-js
     +head(path)
     body.body.body__photo-window
@@ -11,7 +11,7 @@ html.no-js
                 .layout-wrapper_frame.clearfix
                     block layout-wrapper
 
-        script
+        script.
             /* Height block comment scroll in photo-window */
             function photoWindColH () {
                 var colCont = $(".photo-window_cont");
@@ -135,4 +135,4 @@ html.no-js
                             .scroll_bar
                                 .scroll_bar-in
                     #photo-window_banner.photo-window_banner.clearfix
-                        img(src='/images/example/w300-h250.jpg', alt='')
+                        img(src='/images/example/w300-h250.jpg', alt='alt')

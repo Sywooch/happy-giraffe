@@ -33,6 +33,7 @@
 @import "/project/services/test-prikorm.less";
 
 
+
 /* not use
 @import "/project/sections.less";
 
@@ -4018,19 +4019,14 @@ table.fr_recipe_tb td { width: 50%;}
     &__clearblue {}
     &__clearblue .b-section {margin-bottom: 30px;}
     
-    &__adfox {
-        height: auto;
-    }
+    &__adfox {}
     &__adfox .layout-container {
         position: relative;
         background: #f0f0f0;
         width: 1000px;
-        margin: 0 auto 50px; 
+        margin: 250px auto 50px; 
         .box-shadow(1px 1px 7px rgba(8,94,150,0.30));
         z-index: 1;
-    }
-    &__kinder-spring .footer-push {
-        height: 255px;
     }
 
 /*    &__adfox .start-page_container {
@@ -4065,7 +4061,7 @@ table.fr_recipe_tb td { width: 50%;}
     z-index: 0;
     top: 0;
     right: 0;
-    height: 100%;
+    bottom: 0;
     left: 0;
 
     &__adkinder &_b {
@@ -4078,11 +4074,9 @@ table.fr_recipe_tb td { width: 50%;}
     }
     @media screen and (min-width: 1180px) {
         &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1400.jpg) no-repeat 50% 0px;}
-        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1400.jpg) no-repeat 50% 0px;}
     }
     @media screen and (min-width: 1400px) {
         &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1920.jpg) no-repeat 50% 0px;}
-        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1920.jpg) no-repeat 50% 0px;}
     }
     &_b {
         position: absolute;
@@ -4779,3 +4773,79 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /adfox-banner-html */
+
+
+
+
+// new 
+// ---------------------------------------------------------------------------------------------
+@import "../new/less/project/popup-sign.less";
+@import "../new/less/plugins/magnific-popup.less";
+@import "../new/less/plugins/select2.less";
+@import "../new/less/plugins/select2.hg.less";
+
+
+.popup {
+    position: relative;
+    margin: 20px auto;
+    padding: 0;
+}
+
+/* 
+    Валидация форм
+    .inp-valid 
+*/
+.inp-valid {
+    position: relative;
+    .clearfix();
+
+    &.error &_error {display: inline-block;}
+    &.error input {border-color: #fdb9ac !important;}
+    &.success &_success {display: block;}
+    &__abs &_error {
+        position: absolute;
+        bottom: 100%;
+        left: 0;
+        z-index: 1000;
+        white-space: nowrap;
+    }
+    &__abs &_success {
+        position: absolute;
+        left: 100%;
+        margin-left: 10px;
+        z-index: 1000;
+    }
+    &__abs &_success__ico-check {
+        top: 50%;
+        margin-top: -6px;
+    }
+
+    &_error {
+        display: none;
+        padding: 8px 10px 8px 33px;
+         background: #fde3e3 url(/new/images/inp-valid_error.png) no-repeat 7px 6px;
+    }
+    &_error:after {
+        content: ' ';
+        position: absolute;
+        left: 10px;
+        bottom: -12px;
+        border: 6px solid transparent;
+        border-top-color: #fde3e3;
+    }
+    &_error .errorMessage {
+        color: #db9191 !important;
+        font-size: 12px !important;
+        margin: 0;
+    }
+    &_success__ico-check {
+        .inline-block();
+        width: 12px;
+        height: 11px;
+        .img-retina('/new/images/inp-valid_success__ico-check.png'; '/new/images/inp-valid_success__ico-check-2x.png'; 12px; 11px);
+    }
+    &_success{
+        display: none;
+    }
+}
+/* /.inp-valid */

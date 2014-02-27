@@ -321,7 +321,7 @@ mixin im-message(mod, vars)
         .im-message_ava
             +ava('ava__small ava__male', avaVars)
         .im-message_r
-            .im-message_date Вчера 13:45
+            .im-message_date Несколько секунд назад
             .im-message_control
                 - if (!vars.bControl) {vars.bControl = ""}
                     +b-control("", vars.bControl)
@@ -351,7 +351,7 @@ mixin im-message(mod, vars)
 
 //- Редактор внизу почты
 //- mod
-    vars
+    vars 
         wisywig
 mixin im-center_bottom(mod, vars)
     // im-center_bottom
@@ -361,7 +361,7 @@ mixin im-center_bottom(mod, vars)
                 +cap-empty("cap-empty__im-b", {t: 'Этот пользователь вас заблокировал', txSub: "Вы не можете отправлять ему сообщения"})
             else
                 .im-center_bottom-ava
-                    +ava("ava__middle ava__female", avaVars );
+                    +ava("ava__middle ava__female", avaVars )
                 .im-center_bottom-hold
                     - if (vars.wisywig == true)
                         +im-redactor-control()

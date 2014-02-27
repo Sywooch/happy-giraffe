@@ -447,9 +447,14 @@
 .im-message {
     position: relative;
     margin: 0;
-    padding: 15px 23px;
+    padding: 20px 23px 10px;
+    min-height: 36px;
     &__new {background: #e8fce6;}
     &__edited &_tx {background: #fdfcd9;}
+    // отказались пока от объединения сообщений одного пользователя
+/*    &__stick {padding-top: 5px;}
+    &__stick .im-message_name,
+    &__stick .ava__small {display: none;}*/
     
     &:hover .b-control {display: block;}
     .b-control {display: none;}
@@ -474,13 +479,13 @@
     &_t {}
     &_t-read {
         display: inline-block;
-        margin: 0 10px;
+        margin: 0 10px 0 0;
         font: @fontsmall;
         color: #47c05a;
     }
     &_t-read-no {
         display: inline-block;
-        margin: 0 10px;
+        margin: 0 10px 0 0;
         font: @fontsmall;
         color: #3498db;
     }
@@ -489,6 +494,7 @@
         font-size: 11px;
         font-weight: bold;
         text-decoration: none;
+        padding-right: 10px;
     }
     &_name__friend {
         color: #289fd7;

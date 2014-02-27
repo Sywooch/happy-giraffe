@@ -26,6 +26,11 @@
         <div class="popup-sign_hold" data-bind="visible: currentStep() == STEP_PHOTO">
             <?php $this->render('photo', array('model' => $avatarUpload)); ?>
         </div>
+        <div class="popup-sign_b clearfix margin-t20" data-bind="visible: currentStep() == STEP_PHOTO">
+            <div class="float-r">
+                <div class="btn-green-simple btn-l" data-bind="click: saveAvatar">Сохранить</div>
+            </div>
+        </div>
     </div>
 </div>
 

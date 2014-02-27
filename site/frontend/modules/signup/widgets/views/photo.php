@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var AvatarUploadForm $model
+ */
+?>
 <div class="popup-sign_top">
     <div class="popup-sign_title">Главное фото</div>
 </div>
@@ -13,7 +18,7 @@
                     </div>
                     <div class="file-fake">
                         <button class="btn-green-simple btn-m file-fake_btn">Обзор</button>
-                        <input type="file" class="file-fake_inp">
+                        <?=CHtml::activeFileField($model, 'image', array('class' => 'file-fake_inp'))?>
                     </div>
                 </div>
                 <div class="img-upload_desc">

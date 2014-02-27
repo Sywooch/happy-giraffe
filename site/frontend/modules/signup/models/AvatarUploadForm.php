@@ -17,4 +17,9 @@ class AvatarUploadForm extends CFormModel
             array('image', 'types' => 'jpg, jpeg, gif, png'),
         );
     }
+
+    public function upload()
+    {
+
+    }
 }

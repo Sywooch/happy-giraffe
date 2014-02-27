@@ -61,9 +61,12 @@ function UserAvatar(parent) {
         var rx = 200 / coords.w;
         var ry = 200 / coords.h;
 
+        var image = new Image();
+        image.src = self.imgSrc();
+
         $('#preview').css({
-            width: Math.round(rx * 500) + 'px',
-            height: Math.round(ry * 376) + 'px',
+            width: Math.round(rx * image.width) + 'px',
+            height: Math.round(ry * image.height) + 'px',
             marginLeft: '-' + Math.round(rx * coords.x) + 'px',
             marginTop: '-' + Math.round(ry * coords.y) + 'px'
         });
@@ -87,6 +90,9 @@ function UserAvatar(parent) {
         }
     }
 
+    self.clear = function() {
+        self.imgSrc(null);
+    }
 
     $('#AvatarUploadForm_image').fileupload({
         dataType: 'json',

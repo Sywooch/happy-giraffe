@@ -1,0 +1,17 @@
+include ../../block/config
+extend ../../extend/layout_frame
+
+block layout-wrapper
+    +side-menu__friend("side-menu__friend")
+    .page-col.page-col__friend
+        +page-col_top-tabs('', {tabActive: 0, tabsTexts:['Все друзья 128', 'Друзья онлайн 12', 'Новые друзья 6'], sidebarSearch: true})
+
+        .page-col_cont
+            //- friend-list
+            .friends-list
+                .loader.loader__b-gray
+                    img.loader_img(src="/images/ico/ajax-loader.gif")
+                    .loader_tx Загрузка пользователей
+            //- /friend-list
+
+            

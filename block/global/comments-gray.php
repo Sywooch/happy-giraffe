@@ -179,14 +179,17 @@ $(document).ready(function () {
   });
 });
 	</script>
-					<div class="wysiwyg-h">
-						<div class="wysiwyg-toolbar">
+					<div class="wysiwyg-h redactor-control">
+						<div class="wysiwyg-toolbar redactor-control_toolbar">
 							<div class="wysiwyg-toolbar-btn"></div>
 							
 							
 						</div>
-						<textarea name="" class="wysiwyg-redactor" ></textarea>
-						<div class="redactor-control clearfix">
+						<div class="redactor-control_hold">
+							<textarea name="" class="wysiwyg-redactor" ></textarea>
+							
+						</div>
+						<div class="redactor-control_control clearfix">
 							<div class="float-r">
 								<div class="redactor-control_key">
 									<input type="checkbox" class="redactor-control_key-checkbox" id="redactor-control_key-checkbox" name="">

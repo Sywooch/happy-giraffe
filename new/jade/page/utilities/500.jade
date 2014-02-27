@@ -1,0 +1,17 @@
+﻿include ../../block/config
+extend ../../extend/layout_utilites
+
+block layout-wrapper
+    .layout-content.clearfix
+        .content-cols.clearfix
+            .utilites-error
+                .utilites-error_hold
+                    .utilites-error_500
+                    .utilites-error_title
+                        | Ошибка сервера
+                    .utilites-error_sub-tx На сервере произошла непредвиденная ошибка. Пожалуйста, подождите <br> она вскоре будет исправлена
+                    a.btn-arrow.btn-arrow__next.btn-l.btn-green-simple(href='http://www.happy-giraffe.ru/')
+                        span.btn-arrow_ico
+                            i.ico-arrow-r
+                        span.btn-arrow_tx На главную страницу
+

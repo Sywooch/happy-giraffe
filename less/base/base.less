@@ -157,6 +157,16 @@ a.pseudo:hover,
 	line-height: 14px;
 	&:hover {text-decoration: underline;}
 }
+.a-color-gray-light {
+	text-decoration: underline;
+	color:  @color-gray-light;
+	border-color:  @color-gray-light;
+	&:hover {
+		text-decoration: underline;
+		color: @color-gray;
+	}
+}
+
 /* /links */
 
 /* ava avatar */
@@ -169,7 +179,7 @@ a.pseudo:hover,
 	background:url(../images/avatar.png) no-repeat -240px -480px;
 
 	.ico-status {
-	    .inline-block();
+	    display: none;
 	    width: 12px;
 	    height: 12px;
 	    position: relative;
@@ -178,8 +188,14 @@ a.pseudo:hover,
 	    margin-right: 2px;
 	    .border-radius(6px);
 
-	    &__online  {background: #0fc612;}
-	    &__offline {background: #b8b8b8;}
+	    &__online  {
+	    	.inline-block();
+	    	background: #0fc612;
+	    }
+	    &__offline {
+	    	.inline-block();
+	    	background: #b8b8b8;
+	    }
 	}
 }
 .ava__female,
@@ -195,6 +211,8 @@ a.pseudo:hover,
 	.border-radius(36px);
 	.box-shadow(0 1px 1px rgba(0,0,0,0.2) inset);
 }
+.ava_img[src=""],
+.ava img[src=""] {display: none;}
 .ava:hover,
 .ava_img:hover,
 .ava img:hover {.box-shadow(none);} 
@@ -410,9 +428,8 @@ a.pseudo:hover,
 /* title-small */
 
 .i-highlight {
-	padding: 2px 6px;
-	background: #fdf48f;
-	color: #333;
+    padding: 0 4px;
+    background: #fff7af;
 
 	&__big {padding: 2px 10px;}
 }
@@ -617,12 +634,20 @@ a.pseudo:hover,
 }
 .ico-back.active,
 .ico-back:hover {background-position: -18px 0;}
-.ico-refresh {
+/*.ico-refresh {
 	.inline-block();
 	vertical-align: middle;
 	width: 18px;
 	height: 15px;
 	background: url(/images/ico/ico-refresh.png) no-repeat;
+}*/
+.ico-refresh {
+    .inline-block();
+    vertical-align: middle;
+    width: 10px;
+    height: 10px;
+    margin-right: 4px;
+    .img-retina('/new/images/ico/ico-refresh.png'; '/new/images/ico/ico-refresh-2x.png'; 10px; 10px);
 }
 .ico-camera-big {
 	.inline-block();
@@ -937,9 +962,6 @@ a.pseudo:hover,
 }
 
 /* errors */
-.error input[type=text],
-.error input[type=password],
-.error textarea,
 input[type=text].error,
 input[type=password].error,
 textarea.error,

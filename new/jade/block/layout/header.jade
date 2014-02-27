@@ -114,15 +114,22 @@ mixin header(mod)
     // /header
 
 //- Шапка маленькая в разеделе модераторов
-mixin header__small()
+    mod
+    vars
+        empty
+mixin header__small(mod, vars)
     // header
     .header.header__small
         .header_hold.clearfix
-            +logo__small()
-            .header_t-big Модератор
-            .header_user
-                +ava("ava__middle ava__female", avaVars)
-                a.header_user-name Александр Богоявленский
+            - if (vars.empty) {
+                
+            - } else {
+                +logo__small()
+                .header_t-big Модератор
+                .header_user
+                    +ava("ava__middle ava__female", avaVars)
+                    a.header_user-name Александр Богоявленский
+            - }
     // /header
 
 //- Фиксировання шапка
@@ -130,7 +137,7 @@ mixin header__small()
     mod     __rel
 mixin header-fix(mod)
     // header-fix
-    script
+    script.
         $(document).ready(function () {
             $(window).on('scroll',function () {
                 var contanerScroll = $(window).scrollTop();

@@ -22,34 +22,33 @@ block layout-wrapper
                 .friends-list_ul
                     .friends-list_li
                         .friends-list_i
-                            +b-ava-large('', {delFreind: true, userNameTx: 'Александр Богоявленский', userAge: '42 года', family: true });
+                            +b-ava-large('', {delFreind: true, userNameTx: 'Александр Богоявленский', userAge: '42 года', family: true })
                             +friend-offer-fr()
                     .friends-list_li
                         .friends-list_i
-                            +b-ava-large('', {delFreind: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', family: true});
+                            +b-ava-large('', {delFreind: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', family: true})
                             +friend-offer-fr()
-                            +cap-empty('cap-empty__abs cap-empty__white', {t: "Вы отклонили <br> предложение "}); 
+                            +cap-empty('cap-empty__abs cap-empty__white', {t: "Вы отклонили <br> предложение "})
                     .friends-list_li
                         .friends-list_i
-                            +b-ava-large('', {delFreind: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', });
+                            +b-ava-large('', {delFreind: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', })
                             +friend-offer-fr()
-                            +cap-empty('cap-empty__abs cap-empty__white', {t: "Теперь вы друзья!", imgMod:'cap-empty_img__smile-gray' }); 
+                            +cap-empty('cap-empty__abs cap-empty__white', {t: "Теперь вы друзья!", imgMod:'cap-empty_img__smile-gray' })
 
                     .friends-list_li
                         .friends-list_i
-                            +b-ava-large('', {delFreind: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '39 лет', family: true});
+                            +b-ava-large('', {delFreind: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '39 лет', family: true})
                             +friend-offer-fr()
                     .friends-list_li
                         .friends-list_i
-                            +b-ava-large('', {delFreind: true, userNameTx: 'Александра Ушакова-Младшая-Младшая', userAge: '19 лет'});
+                            +b-ava-large('', {delFreind: true, userNameTx: 'Александра Ушакова-Младшая-Младшая', userAge: '19 лет'})
                             +friend-offer-fr()
 
                     .friends-list_li
                         .friends-list_i
-                            +b-ava-large('', {delFreind: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', family: true});
+                            +b-ava-large('', {delFreind: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', family: true})
                             +friend-offer-fr()
             //- /friend-list
-
 
 
 //- Блок принятия заявки в друзья в списке друзей
@@ -59,4 +58,5 @@ mixin friend-offer-fr(mod,vars)
         .friend-offer_hold
             .friend-offer_btns
                 a.btn-green-simple.btn-s Принять
-                a.ico-cancel.powertip(href="",title="Отклонить") &#8211;           
+                a.ico-cancel.powertip(href="",title="Отклонить") &#8211;
+       

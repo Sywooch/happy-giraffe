@@ -11,7 +11,6 @@
 mixin ava(mod, vars)
     - if (vars.avaSpan)
         span.ava(class=mod, href='')
-            span.ico-status(class=vars.icoStatus)
             img.ava_img(alt='', src='#{vars.src}')
     -else 
         - if (vars.avaNameTitle)
@@ -27,7 +26,7 @@ mixin ava(mod, vars)
 
 //- Большой аватар с кнопками пользователя
     mod
-    vars
+    vars 
         userNameTx
         userAge
         capUserDel
@@ -108,7 +107,5 @@ mixin b-ava-large(mod, vars)
                                 span Дочь
                                 br
                                 span 2,5 года
-        //- /b-family
-
-            
+            //- /b-family
     // /b-ava-large

@@ -29,17 +29,6 @@ block layout-wrapper
                 a.popup-a(href="#login-retrieve2") Восстановление пароля, письмо отправлено 
                 br
                 br
-                select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выбор страны")
-                            option(value="2") Россия
-                            option(value="3") Беларусь
-                            option(value="4") Казахстан
-                            option(value="5") Молдова
-                            option(value="6") Польша
-                            option(value="7") Венгрия
-                            option(value="8") Грузия
-                            option(value="9") Албания
-                            option(value="10") Лимпопо
-                            option(value="11") Замбия
  
 
 block block-hidden 
@@ -232,7 +221,7 @@ block block-hidden
                                         .errorMessage 
                                             | Выберите пол
                                     .inp-valid_success.inp-valid_success__ico-check
-                    .margin-b30
+                    .popup-sign_capcha-hold
                             .popup-sign_row
                                 //- размеры капчи 300*50px
                                 img.popup-sign_capcha(src="/images/captcha.png" width="300px" height="50px")
@@ -316,7 +305,7 @@ block block-hidden
                                     | Не заполнено поле
                             .inp-valid_success.inp-valid_success__ico-check
                         .popup-sign_tx-help Пожалуйста проверьте правильность указанного адреса электронной почты или введите другой
-                    .margin-b30
+                    .popup-sign_capcha-hold
                         .popup-sign_row
                             //- размеры капчи 300*50px
                             img.popup-sign_capcha(src="/images/captcha.png" width="300px" height="50px")

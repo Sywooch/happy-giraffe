@@ -24,6 +24,7 @@
     <script src="/new/javascript/select2.js"></script>
     <!-- wisywig-->
     <script src="/new/redactor/redactor.js"></script>
+    <script src="/new/javascript/jquery.Jcrop.js"></script>
     <!-- Базовый js (вызывается на всех страницах)-->
     <script src="/new/javascript/common.js"></script>
     <!-- js для работы в верстке-->
@@ -585,7 +586,7 @@
                           <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
                           </div>
                           <div class="im-message_r">
-                            <div class="im-message_date">Вчера 13:45</div>
+                            <div class="im-message_date">Несколько секунд назад</div>
                             <div class="im-message_control">
                               <!-- b-control-->
                               <div class="b-control">
@@ -648,7 +649,7 @@
                           <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
                           </div>
                           <div class="im-message_r">
-                            <div class="im-message_date">Вчера 13:45</div>
+                            <div class="im-message_date">Несколько секунд назад</div>
                             <div class="im-message_control">
                               <!-- b-control-->
                               <div class="b-control">
@@ -711,7 +712,7 @@
                           <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
                           </div>
                           <div class="im-message_r">
-                            <div class="im-message_date">Вчера 13:45</div>
+                            <div class="im-message_date">Несколько секунд назад</div>
                             <div class="im-message_control">
                               <!-- b-control-->
                               <div class="b-control">
@@ -735,11 +736,74 @@
                         </div>
                         <!-- /im-message-->
                         <!-- im-message-->
-                        <div class="im-message">
+                        <div class="im-message im-message__stick">
                           <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
                           </div>
                           <div class="im-message_r">
-                            <div class="im-message_date">Вчера 13:45</div>
+                            <div class="im-message_date">Несколько секунд назад</div>
+                            <div class="im-message_control">
+                              <!-- b-control-->
+                              <div class="b-control">
+                                <div class="b-control_hold">
+                                  <div class="b-control_i"><span title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></span>
+                                    <div class="b-control_drop"></div>
+                                  </div>
+                                  <div class="b-control_i"><span title="Удалить" class="b-control_ico powertip b-control_ico__delete"></span>
+                                    <div class="b-control_drop"></div>
+                                  </div>
+                                  <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                                    <div class="tooltip-drop">
+                                      <div class="tooltip-popup">
+                                        <div class="tooltip-popup_t">Укажите вид нарушения:</div>
+                                        <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
+                                        <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                        input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                        | Спам или реклама
+                                        -->
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Мошенничество
+                                        </label>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Грубость, угрозы
+                                        </label>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Интимный характер
+                                        </label>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Другое
+                                        </label>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>
+                                          <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx"/>
+                                        </label>
+                                        <div class="clearfix textalign-c">
+                                          <button class="btn-green btn-inactive">Пожаловаться</button>
+                                          <button class="btn-gray-light">Отменить</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /b-control-->
+                            </div>
+                          </div>
+                          <div class="im-message_hold">
+                            <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span>
+                            </div>
+                            <div class="im-message_tx">
+                              <p>Уважаемая Зося, добрый день! </p>
+                              <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /im-message-->
+                        <!-- im-message-->
+                        <div class="im-message im-message__stick">
+                          <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
+                          </div>
+                          <div class="im-message_r">
+                            <div class="im-message_date">Несколько секунд назад</div>
                             <div class="im-message_control">
                               <!-- b-control-->
                               <div class="b-control">
@@ -759,11 +823,11 @@
                         </div>
                         <!-- /im-message-->
                         <!-- im-message-->
-                        <div class="im-message">
+                        <div class="im-message im-message__stick">
                           <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
                           </div>
                           <div class="im-message_r">
-                            <div class="im-message_date">Вчера 13:45</div>
+                            <div class="im-message_date">Несколько секунд назад</div>
                             <div class="im-message_control">
                               <!-- b-control-->
                               <div class="b-control">
@@ -784,11 +848,11 @@
                         </div>
                         <!-- /im-message-->
                         <!-- im-message-->
-                        <div class="im-message">
+                        <div class="im-message im-message__stick">
                           <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
                           </div>
                           <div class="im-message_r">
-                            <div class="im-message_date">Вчера 13:45</div>
+                            <div class="im-message_date">Несколько секунд назад</div>
                             <div class="im-message_control">
                               <!-- b-control-->
                               <div class="b-control">
@@ -812,11 +876,11 @@
                         </div>
                         <!-- /im-message-->
                         <!-- im-message-->
-                        <div class="im-message im-message__new">
+                        <div class="im-message im-message__new im-message__stick">
                           <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
                           </div>
                           <div class="im-message_r">
-                            <div class="im-message_date">Вчера 13:45</div>
+                            <div class="im-message_date">Несколько секунд назад</div>
                             <div class="im-message_control">
                               <!-- b-control-->
                               <div class="b-control">
@@ -834,6 +898,69 @@
                           </div>
                           <div class="im-message_hold">
                             <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span><span class="im-message_t-read-no">Сообщение не прочитано</span>
+                            </div>
+                            <div class="im-message_tx">
+                              <p>Уважаемая Зося, добрый день! </p>
+                              <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /im-message-->
+                        <!-- im-message-->
+                        <div class="im-message">
+                          <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
+                          </div>
+                          <div class="im-message_r">
+                            <div class="im-message_date">Несколько секунд назад</div>
+                            <div class="im-message_control">
+                              <!-- b-control-->
+                              <div class="b-control">
+                                <div class="b-control_hold">
+                                  <div class="b-control_i"><span title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></span>
+                                    <div class="b-control_drop"></div>
+                                  </div>
+                                  <div class="b-control_i"><span title="Удалить" class="b-control_ico powertip b-control_ico__delete"></span>
+                                    <div class="b-control_drop"></div>
+                                  </div>
+                                  <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                                    <div class="tooltip-drop">
+                                      <div class="tooltip-popup">
+                                        <div class="tooltip-popup_t">Укажите вид нарушения:</div>
+                                        <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
+                                        <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                        input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                        | Спам или реклама
+                                        -->
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Мошенничество
+                                        </label>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Грубость, угрозы
+                                        </label>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Интимный характер
+                                        </label>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Другое
+                                        </label>
+                                        <label for="" class="tooltip-popup_label clearfix">
+                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>
+                                          <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx"/>
+                                        </label>
+                                        <div class="clearfix textalign-c">
+                                          <button class="btn-green btn-inactive">Пожаловаться</button>
+                                          <button class="btn-gray-light">Отменить</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /b-control-->
+                            </div>
+                          </div>
+                          <div class="im-message_hold">
+                            <div class="im-message_t"><span class="im-message_name im-message_name__friend">Александр Богоявленский</span>
                             </div>
                             <div class="im-message_tx">
                               <p>Уважаемая Зося, добрый день! </p>

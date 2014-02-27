@@ -33,16 +33,18 @@ block layout-wrapper_hold
                                 +im-message("", {mod_name: "im-message_name__self", bControl: ['favorite', 'delete', 'spam']})
                                 +im-message("", {mod_name: "im-message_name__friend", bControl: ['favorite', 'delete', 'spam']})
                                 +im-message("", {mod_name: "im-message_name__self", bControl: ['delete']})
-                                +im-message("", {mod_name: "im-message_name__self", msgStatus: 'delete'})
-                                +im-message("", {mod_name: "im-message_name__self", msgStatus: 'cancel'})
-                                +im-message("", {mod_name: "im-message_name__self", bControl: ['delete'], messageRead: 'read'})
+                                +im-message("im-message__stick", {mod_name: "im-message_name__self", bControl: ['favorite', 'delete', 'spam']})
+                                +im-message("im-message__stick", {mod_name: "im-message_name__self", msgStatus: 'delete'})
+                                +im-message("im-message__stick", {mod_name: "im-message_name__self", msgStatus: 'cancel'})
+                                +im-message("im-message__stick", {mod_name: "im-message_name__self", bControl: ['delete'], messageRead: 'read'})
                                 +im-message(
-                                    "im-message__new", 
+                                    "im-message__new im-message__stick", 
                                     {
                                         mod_name: "im-message_name__self", 
                                         bControl: ['edit', 'cancel'],messageRead: 'read-no'
                                     }
                                 )
+                                +im-message("", {mod_name: "im-message_name__friend", bControl: ['favorite', 'delete', 'spam']})
                                 // im_loader есть всегда, на разные действия в нем менятеся содержимое
                                 .im_loader
                                     img.im_loader-img(src='/images/ico/ajax-loader.gif', alt='')

@@ -314,6 +314,12 @@ function MessagingMessage(model, thread) {
 	self.canDelete = ko.computed(function() {
 		return !self.isMy || self.dtimeRead();
 	});
+    
+    self.isStick = function(messages, index) {
+        var prevMessage = messages[index - 1];
+        var curMessage = messages[index];
+        return prevMessage && prevMessage.from == curMessage.from;
+    };
 
 	/**
 	 * Удаление сообщения
@@ -349,7 +355,7 @@ function MessagingMessage(model, thread) {
 		if(!self.dtimeRead() && !timer && self.to.id == Messaging.prototype.currentThread().me.id) {
 			timer = setTimeout(function() {
 				self.markAsReaded();
-			}, 2000);
+			}, 1000);
 		}
 	};
 	self.hide = function() {
@@ -451,12 +457,18 @@ MessagingThread.prototype = {
 		var thread = ko.utils.arrayFirst(this.objects, function(obj) {
 			return obj.user.id == user.id;
 		});
-		if (!thread) {
-			thread = new MessagingThread(user.viewModel.me, user);
-		}
-        thread.scrollManager.setFix('bot');
-		Messaging.prototype.currentThread(thread);
-        thread.scrollManager.setFix();
+        if(thread != Messaging.prototype.currentThread()) {
+            if (!thread) {
+                thread = new MessagingThread(user.viewModel.me, user);
+            } else {
+                thread.beforeOpen();
+            }
+            window.document.title = 'Диалоги: ' + user.fullName();
+            History.pushState(null, window.document.title, '?interlocutorId=' + user.id);
+            thread.scrollManager.setFix('bot');
+            Messaging.prototype.currentThread(thread);
+            thread.scrollManager.setFix();
+        }
 	}
 };
 
@@ -482,6 +494,15 @@ function MessagingThread(me, user) {
 	self.editing = ko.observable(false);
 	self.editingMessage = ko.observable(false);
 	self.deletedDialogs = ko.observableArray([]);
+    
+    // Переключение диалога
+    self.beforeOpen = function() {
+        // почистить список от удалённых сообщений
+        self.messages.remove(function(message) {
+            return !!message.dtimeDelete() || message.cancelled();
+        });
+        self.deletedDialogs([]);
+    };
 	
 	// Конфигурация редактора
 	self.editorConfig = {
@@ -976,20 +997,30 @@ function Messaging(model) {
 	}));
 	self.me = new MessagingUser(self, model.me);
 	
-	var params = /(\?|&)interlocutorId=(\d+)/.exec(window.location.search);
-	if(params && params[2]) {
-		var id = params[2];
-		var user = getContactById(id);
-		if(!user) {
-			// Нет загруженного пользователя, запросим с сервера
-			$.get('/messaging/default/getUserInfo/', { id: id }, function(data) {
-				user = addContact(data);
-				user.open();
-			}, 'json');
-		} else {
-			user.open();
-		}
-	}
+    function parseUrl() {
+        var params = /(\?|&)interlocutorId=(\d+)/.exec(window.location.search);
+        if(params && params[2]) {
+            var id = params[2];
+            var user = getContactById(id);
+            if(!user) {
+                // Нет загруженного пользователя, запросим с сервера
+                $.get('/messaging/default/getUserInfo/', { id: id }, function(data) {
+                    user = addContact(data);
+                    user.open();
+                }, 'json');
+            } else {
+                user.open();
+            }
+            return true;
+        }
+        return false;
+    }
+    History.Adapter.bind(window, 'statechange', function() { // Note: We are using statechange instead of popstate
+        parseUrl();
+    });
+    if(!parseUrl() && self.users[0]()[0]) {
+        self.users[0]()[0].open();
+    }
 }
 
 function MessagingSettings(data)

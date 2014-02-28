@@ -48,7 +48,7 @@
 			<div class="section-lilac_hold">
 				<div class="section-lilac_left">
 					<h1 class="section-lilac_name">Ангелина Богоявленская</h1>
-					<div class="margin-b5 clearfix">
+					<div class="section-lilac_help margin-b5 clearfix">
 						33 года, 28 января
 					</div>
 					<div class="location clearfix">
@@ -57,7 +57,7 @@
                     </div>
                     <div class="user-btns clearfix">
                     	<a href="" class="user-btns_i powertip" title="Добавить в друзья">
-                    		<span class="user-btns_ico-hold user-btns_ico-hold__friend-append">
+                    		<span class="user-btns_ico-hold user-btns_ico-hold__friend-add">
                     			<span class="user-btns_ico"></span>
                     		</span>
                     		<span class="user-btns_tx"></span>

@@ -368,7 +368,7 @@
 									user-actions_i__friend-added - приглашение выслано
 									user-actions_i__friend-append - встречное приглашение в друзья, принять
 								 -->
-								<a href="" class="user-actions_i user-actions_i__friend-added powertip" title="Приглашение выслано">
+								<a href="" class="user-actions_i user-actions_i__friend-add powertip" title="Приглашение выслано">
 									<span class="user-actions_ico"></span>
 								</a>
 								<a href="" class="user-actions_i user-actions_i__message powertip" title="Написать сообщение">

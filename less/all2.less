@@ -1702,7 +1702,7 @@ table.fr_recipe_tb td { width: 50%;}
         min-width: 84px;
         padding: 8px 0 0;
         background: #7d70a9;
-        color: #fff;
+        color: #d9d2e9;
         font-size: 9px;
         line-height: 10px;
         font-family: Tahoma, Arial, Verdana, sans-serif;
@@ -1848,16 +1848,17 @@ table.fr_recipe_tb td { width: 50%;}
 
 .like-hg-small {
     .inline-block();
-    padding: 5px 0 0 17px;
+    padding: 4px 0 0 16px;
     height: 11px;
     text-align: center;
-    font-size: 9px;
+    font-size: 11px;
     line-height: 11px;
-    color: #b1b1b1;
+    color: @color-gray-light;
     background: url(/images/like-hg-small.png) no-repeat 0 0;
     text-decoration: none;
     &.active,
     &:hover { background-position: 0 -50px;}
+    &__hover-out {background-position: 0 -100px;}
 }
 
 /* article-settings */
@@ -3262,13 +3263,16 @@ table.fr_recipe_tb td { width: 50%;}
     &_center-reg {
         font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
         text-align: center;
-        color: #ddceeb;
+        color: #d9d2e9;
     }
     &_right {
         .inline-block();
         vertical-align: middle;
         margin-left: 20px;
         width: 270px;
+    }
+    &_help {
+        color: #d9d2e9;
     }
 }
 /* /section-user */
@@ -4795,13 +4799,14 @@ table.fr_recipe_tb td { width: 50%;}
     
     &_i {
         .inline-block();
-        margin: 0 2px;
+        margin: 0 1px;
         text-decoration: none;
     }
     &_i__friend-added,
     &_i__friend {cursor: default;}
     &_i__friend &_tx {
         color: #0eb31e;
+        margin: 0 2px 0 -3px;
     }
     &_ico {
         .inline-block();

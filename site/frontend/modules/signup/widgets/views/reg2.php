@@ -1,8 +1,10 @@
 <?php
 /**
  * @var CActiveForm $form
- * @var User $model
+ * @var RegisterForm2 $model
  */
+
+$address = new UserAddress();
 ?>
 <div class="popup-sign_top">
     <div class="popup-sign_t">Добро пожаловать, <span data-bind="text: first_name.val"></span>!</div>
@@ -96,29 +98,25 @@
             </div>
             <div class="popup-sign_row">
                 <div class="inp-valid inp-valid__abs">
-                    <select placeholder="Выбор страны" class="select-cus select-cus__search-on select-cus__gray">
-                        <option></option>
-                        <option value="2">Россия</option>
-                        <option value="3">Беларусь</option>
-                        <option value="4">Казахстан</option>
-                    </select>
+                    <?=$form->dropDownList($address, 'country_id', array(), array(
+                        'class' => 'select-cus select-cus__gray',
+                        'data-bind' => 'value: location.country_id, options: location.availableCountries, optionsText: \'name\', optionsValue: \'id\', optionsCaption: "Страна", select2: location.countrySettings',
+                    ))?>
                     <div class="inp-valid_error">
-                        <div class="errorMessage">Страна не вабрана</div>
+                        <?=$form->error($address, 'country_id')?>
                     </div>
                     <div class="inp-valid_success inp-valid_success__ico-check"></div>
                 </div>
                 <div class="popup-sign_tx-help">Начинайте вводить название страны...</div>
             </div>
-            <div class="popup-sign_row">
+            <div class="popup-sign_row" data-bind="visible: location.country_id">
                 <div class="inp-valid inp-valid__abs">
-                    <select placeholder="Населенный пункт" class="select-cus select-cus__search-on select-cus__gray">
-                        <option></option>
-                        <option value="2">Россия</option>
-                        <option value="3">Беларусь</option>
-                        <option value="4">Казахстан</option>
-                    </select>
+                    <?=$form->hiddenField($address, 'city_id', array(
+                        'class' => 'select-cus select-cus__gray',
+                        'data-bind' => 'select2: location.citySettings',
+                    ))?>
                     <div class="inp-valid_error">
-                        <div class="errorMessage">Не заполнено поле "Фамилия"</div>
+                        <?=$form->error($address, 'city_id')?>
                     </div>
                     <div class="inp-valid_success inp-valid_success__ico-check"></div>
                 </div>

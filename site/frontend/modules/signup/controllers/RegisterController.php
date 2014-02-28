@@ -67,8 +67,11 @@ class RegisterController extends HController
         $scenario = ($social == 'true') ? 'signupStep2Social' : 'signupStep2';
         $model = empty($userId) ? new RegisterFormStep2() : RegisterFormStep2::model()->findByPk($userId);
         $model->scenario = $scenario;
+        $address = new UserAddress();
 
-        $this->performAjaxValidation($model);
+        $this->performAjaxValidation(array($model, $address));
+
+        die;
 
         $model->attributes = $_POST['RegisterFormStep2'];
         if ($social) {

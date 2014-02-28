@@ -1,21 +1,18 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 25/02/14
- * Time: 16:46
- * To change this template use File | Settings | File Templates.
+ * Class RegisterFormStep2
+ * @property UserAddress $userAddress
  */
 
 class RegisterFormStep2 extends User
 {
-    private $_socialService;
+    private $_userAddress;
 
-    public function getSocialService()
+    public function getUserAddress()
     {
-        if (! isset($this->_socialService))
-            $this->_socialService = new UserSocialService();
-        return $this->_socialService;
+        if (! isset($this->_userAddress))
+            $this->_userAddress = new UserAddress();
+        return $this->_userAddress;
     }
 
     public function register()

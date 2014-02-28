@@ -357,5 +357,6 @@ return array(
 
         'antispam/<_c>/<_a>' => 'antispam/<_c>/<_a>',
         'signup/<_c>/<_a>' => 'signup/<_c>/<_a>',
+        'geo/<_c>/<_a>' => 'geo/<_c>/<_a>',
     ),
 );

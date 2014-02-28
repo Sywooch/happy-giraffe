@@ -64,10 +64,27 @@
 			<div class="comments-gray_frame">
 				<div class="comments-gray_header clearfix">
 					<a href="" class="comments-gray_author">Анг Богоявлен </a>
+					<div class="user-actions user-actions__small">
+						<!-- 
+							Виды иконок друг 
+							user-actions_i__friend - друг
+							user-actions_i__friend-add - добавить в друзья
+							user-actions_i__friend-added - приглашение выслано
+							user-actions_i__friend-append - встречное приглашение в друзья, принять
+						 -->
+						<a href="" class="user-actions_i user-actions_i__friend powertip" title="">
+							<span class="user-actions_ico"></span>
+							<span class="user-actions_tx">Друг</span>
+						</a>
+						<a href="" class="user-actions_i user-actions_i__message powertip" title="Написать сообщение">
+							<span class="user-actions_ico"></span>
+						</a>
+					</div>
 				</div>
 				<div class="comments-gray_cont wysiwyg-content">
 					<p>я не нашел, где можно поменять название трека. </p>
 				</div>
+
 				<div class="comments-gray_bottom">
 					
 					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
@@ -159,23 +176,34 @@
 			<div class="comments-gray_r">
 				<div class="comments-gray_date">Сегодня 13:25</div>
 				
-				<!-- В удаленном сообщении не должно быть кнопок управления -->				
-				<!-- <div class="comments-gray_control">
-					<div class="comments-gray_control-hold">
-						<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-						<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
-						<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-					</div>
-				</div> -->
+								
 				
 			</div>
 			<div class="comments-gray_frame">
 				<div class="comments-gray_header clearfix">
 					<a href="" class="comments-gray_author">Анг Богоявлен </a>
-					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+					<div class="user-actions user-actions__small">
+						<a href="" class="user-actions_i user-actions_i__friend-add powertip" title="Добавить в друзья">
+							<span class="user-actions_ico"></span>
+						</a>
+						<a href="" class="user-actions_i user-actions_i__message powertip" title="Написать сообщение">
+							<span class="user-actions_ico"></span>
+						</a>
+					</div>
 				</div>
 				<div class="comments-gray_cont wysiwyg-content">
 					<p>Комментарий успешно удален. <a href="" class="comments-gray_a-recovery">Восстановить?</a> </p>
+				</div>
+				
+				<div class="comments-gray_bottom">
+						
+					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+					<span class="comments-gray_sepor"></span>
+					<a href="" class="comments-gray_quote-ico"> Ответить</a>
+					<span class="comments-gray_sepor"></span>
+					<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+					<span class="comments-gray_sepor"></span>
+					<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
 				</div>
 			</div>
 		</div>
@@ -186,19 +214,18 @@
 			</div>
 			<div class="comments-gray_r">
 				<div class="comments-gray_date">Сегодня 13:25</div>
-				
-				<div class="comments-gray_control">
-					<div class="comments-gray_control-hold">
-						<a href="" class="comments-gray_quote-ico powertip" title="Ответить"></a>
-						<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
-					</div>
-				</div>
-				
 			</div>
 			<div class="comments-gray_frame">
 				<div class="comments-gray_header clearfix">
 					<a href="" class="comments-gray_author">Анг Богоявлен </a>
-					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+					<div class="user-actions user-actions__small">
+						<a href="" class="user-actions_i user-actions_i__friend-added powertip" title="Приглашение отправленно">
+							<span class="user-actions_ico"></span>
+						</a>
+						<a href="" class="user-actions_i user-actions_i__message powertip" title="Написать сообщение">
+							<span class="user-actions_ico"></span>
+						</a>
+					</div>
 				</div>
 				<div class="comments-gray_cont wysiwyg-content">
 					<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту </p>
@@ -208,6 +235,16 @@
 						</a>
 					</p>
 					<p>и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
+				</div>
+				<div class="comments-gray_bottom">
+					
+					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
+					<span class="comments-gray_sepor"></span>
+					<a href="" class="comments-gray_quote-ico"> Ответить</a>
+					<span class="comments-gray_sepor"></span>
+					<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
+					<span class="comments-gray_sepor"></span>
+					<a href="" class="message-ico message-ico__warning powertip" title="Пожаловаться"></a>
 				</div>
 			</div>
 			

@@ -121,8 +121,8 @@ class MessagingMessage extends HActiveRecord
             ),
             'antispam' => array(
                 'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
-                'interval' => 60 * 60,
-                'maxCount' => 2,
+                'interval' => 5,
+                'maxCount' => 10,
                 'safe' => true,
             ),
             'softDelete' => array(
@@ -398,6 +398,26 @@ class MessagingMessage extends HActiveRecord
 
         $criteria->params['older'] = $date;
 
+        return $this;
+    }
+    
+    /**
+     * Параметризованный scope, выбирает все непрочитанные сообщения,
+     * начиная с сообщения с указанным id и раньше
+     * @param int $messageId
+     * @param int $from id пользователя от кторого сообщение
+     * @param int $to id пользователя для которого сообщение (кто читает)
+     */
+    public function forMarkAsReaded($messageId, $from, $to)
+    {
+        $this->withMyStats($to);
+        $this->dbCriteria->compare($this->tableAlias . '.`id`', '<=' . (int) $messageId);
+        $this->dbCriteria->addColumnCondition(array(
+            '`messageUsers`.`dtime_read`' => NULL,
+            $this->tableAlias . '.`author_id`' => $from,
+            '`messageUsers`.`user_id`' => $to,
+        ));
+        
         return $this;
     }
 

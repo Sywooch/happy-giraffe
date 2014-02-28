@@ -155,8 +155,8 @@ class Comment extends HActiveRecord
             ),
             'antispam' => array(
                 'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
-                'interval' => 60 * 60,
-                'maxCount' => 2,
+                'interval' => 1.5 * 60,
+                'maxCount' => 4,
             ),
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',

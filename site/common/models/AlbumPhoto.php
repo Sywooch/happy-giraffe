@@ -120,6 +120,8 @@ class AlbumPhoto extends HActiveRecord
             array('title', 'length', 'max' => 250),
             array('created, updated', 'safe'),
             array('album_id', 'unsafe', 'on' => 'update'),
+            array('width', 'numerical', 'integerOnly'=>true, 'min' => 200, 'on' => 'avatarUpload', 'tooSmall' => 'Минимальная ширина аватары составляет 200 пикселей.'),
+            array('height', 'numerical', 'integerOnly'=>true, 'min' => 200, 'on' => 'avatarUpload', 'tooSmall' => 'Минимальная высота аватары составляет 200 пикселей.'),
         );
     }
 
@@ -156,7 +158,7 @@ class AlbumPhoto extends HActiveRecord
             'antispam' => array(
                 'class' => 'site.frontend.modules.antispam.behaviors.AntispamBehavior',
                 'interval' => 60 * 60,
-                'maxCount' => 2,
+                'maxCount' => 50,
             ),
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
@@ -192,7 +194,7 @@ class AlbumPhoto extends HActiveRecord
         );
     }
 
-    public function beforeSave()
+    public function beforeValidate()
     {
         if (empty($this->album_id))
             $this->album_id = Album::getAlbumByType($this->author_id, Album::TYPE_PRIVATE)->id;
@@ -788,7 +790,7 @@ class AlbumPhoto extends HActiveRecord
      * ["size"]=>
      * @return AlbumPhoto
      */
-    public function createUserTempPhoto($file, $hidden = 1)
+    public function createUserTempPhoto($file, $hidden = 1, $scenario = null)
     {
         if (is_array($file['type']))
             $file['type'] = $file['type'][0];
@@ -801,13 +803,13 @@ class AlbumPhoto extends HActiveRecord
             $file['tmp_name'] = $file['tmp_name'][0];
 
         $model = new AlbumPhoto();
+        if ($scenario !== null)
+            $model->setScenario($scenario);
         $model->author_id = Yii::app()->user->id;
         $model->fs_name = $this->copyUserFile($file['name'], $file['tmp_name'], $model->author_id);
         $model->file_name = $file['name'];
         $model->hidden = $hidden;
-        if (!$model->save(false)) {
-            var_dump($model->getErrors());
-        }
+        $model->save();
 
         return $model;
     }
@@ -824,7 +826,7 @@ class AlbumPhoto extends HActiveRecord
     private function copyUserFile($name, $temp_name, $user_id)
     {
         $ext = pathinfo($name, PATHINFO_EXTENSION);
-        list($this->width, $this->height) = getimagesize($temp_name);
+        list($this->width, $this->height) = @getimagesize($temp_name);
         $dir = Yii::getPathOfAlias('site.common.uploads.photos');
         $model_dir = $dir . DIRECTORY_SEPARATOR . $this->original_folder . DIRECTORY_SEPARATOR . $user_id;
         if (!file_exists($model_dir))

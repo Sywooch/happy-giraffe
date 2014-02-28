@@ -28,6 +28,8 @@ return array(
         'application.components.*',
         'application.widgets.*',
         'site.frontend.extensions.directmongosuite.*',
+        'site.frontend.modules.antispam.models.*',
+        'site.frontend.modules.antispam.components.*',
 	),
 
     'language' => 'ru',
@@ -127,6 +129,13 @@ return array(
 				*/
 			),
 		),
+        'phpThumb' => array(
+            'class' => 'site.frontend.extensions.EPhpThumb.EPhpThumb',
+            'options' => array(
+                'resizeUp' => true,
+                'jpegQuality' => 70,
+            ),
+        ),
 	),
 
 	// application-level parameters that can be accessed
@@ -134,5 +143,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+        'gaCode' => 'UA-27545132-1',
 	),
 );

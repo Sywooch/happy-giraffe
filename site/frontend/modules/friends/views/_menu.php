@@ -30,7 +30,7 @@
                     <span class="verticalalign-m-help"></span>
                 </a>
             </li>
-            <li class="side-menu_li" data-bind="css: { active : activeTab() > 1 }">
+            <li class="side-menu_li" data-bind="css: { active : activeTab() > 1, disabled: (incomingRequestsCount() + outgoingRequestsCount()) == 0 }">
                 <a href="" class="side-menu_i" data-bind="click: function(data, event) { if (incomingRequestsCount() > 0) selectTab(2, data, event); else if (outgoingRequestsCount() > 0) selectTab(3, data, event); }">
                     <span class="side-menu_i-hold">
                         <span class="side-menu_ico side-menu_ico__friend-add"></span>

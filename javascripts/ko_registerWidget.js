@@ -110,13 +110,15 @@ function UserAvatar(parent) {
         dropZone: $('.img-upload_hold'),
         add: function (e, data) {
             data.submit();
+            $('.img-upload').addClass('img-upload__load');
         },
         done: function (e, data) {
             self.imgSrc(data.result.imgSrc);
+            $('.img-upload').removeClass('img-upload__load');
         },
         progressall: function (e, data) {
             var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .bar').css(
+            $('.img-upload_i-load-progress').css(
                 'width',
                 progress + '%'
             );

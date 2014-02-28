@@ -59,6 +59,41 @@ function RegisterWidgetViewModel(data, form) {
 
 function UserLocation(countries) {
     var self = this;
+
+    self.countrySettings = {
+        width: '100%',
+        dropdownCssClass: 'select2-drop__search-on',
+        escapeMarkup: function(m) { return m; }
+    }
+
+    self.citySettings = {
+        width: '100%',
+        dropdownCssClass: 'select2-drop__search-on',
+        escapeMarkup: function(m) { return m; },
+        ajax: {
+            url : '/geo/default/searchCities/',
+            dataType: 'json',
+            data: function (term, page) {
+                return {
+                    term: term,
+                    region_id: 260
+                };
+            },
+            results: function (data, page) {
+                var results = [];
+                for (var i in data) {
+                    var city = data[i];
+                    results.push({
+                        id : city.id,
+                        text : city.name
+                    });
+                }
+                return { results : results };
+            }
+        }
+    }
+
+    self.country_id = ko.observable();
     self.availableCountries = ko.utils.arrayMap(countries, function (item) {
         return new Country(item.id, item.name, item.code);
     });

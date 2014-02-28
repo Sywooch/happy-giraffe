@@ -85,6 +85,16 @@ $(function() {
 		
 	});
 
+    /* Для работы select2 в magnificPopup */
+    $.magnificPopup.instance._onFocusIn = function(e) {
+              // Do nothing if target element is select2 input
+              if( $(e.target).hasClass('select2-input') ) {
+                return true;
+              } 
+              // Else call parent method
+              $.magnificPopup.proto._onFocusIn.call(this,e);
+    };
+
     $('.popup-a').magnificPopup({
         type: 'inline',
         overflowY: 'auto',

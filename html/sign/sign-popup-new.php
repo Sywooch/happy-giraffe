@@ -11,7 +11,7 @@
           <div class="layout-wrapper_hold clearfix">
             <div class="layout-content clearfix">
               <div class="margin-20">
-                <h2>Регистрация</h2><a href="#reg-step1" class="popup-a">Регистрация шаг 1</a><br><br><a href="#reg-step2" class="popup-a">Регистрация шаг 2</a><br><br><a href="#reg-step2-soc" class="popup-a">Регистрация шаг 2 через социальные сети</a><br><br><a href="#reg-email" class="popup-a">Подтверждение email</a><br><br><a href="#reg-email2" class="popup-a">Отправка email повторно</a><br><br>
+                <h2>Регистрация</h2><a href="#reg-step1" class="popup-a">Регистрация шаг 1</a><br><br><a href="#reg-step2" class="popup-a">Регистрация шаг 2</a><br><br><a href="#reg-step2-soc" class="popup-a">Регистрация шаг 2 через социальные сети</a><br><br><a href="#reg-email" class="popup-a">Подтверждение email</a><br><br><a href="#reg-email2" class="popup-a">Отправка email повторно</a><br><br><a href="#login-step1" class="popup-a">Логин</a><br><br><a href="#login-retrieve" class="popup-a">Восстановление пароля</a><br><br><a href="#login-retrieve2" class="popup-a">Восстановление пароля, письмо отправлено </a><br><br>
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@
                 <div class="btn-green-simple btn-l">Зарегистрироваться</div>
               </div>
               <div class="popup-sign_row">
-                <div class="popup-sign_tx-help">Продолжая, вы соглашаетесь с нашими  <a class="a-color-gray-light">Условиями использования</a>,<a class="a-color-gray-light">Политикой конфиденциальности </a>и <a class="a-color-gray-light">Положениями о Cookie</a></div>
+                <div class="popup-sign_tx-help">Продолжая, вы соглашаетесь с нашими  <a class="a-color-gray-light">Условиями использования</a>, <a class="a-color-gray-light">Политикой конфиденциальности</a> и  <a class="a-color-gray-light">Положениями о Cookie</a></div>
               </div>
             </div>
           </div>
@@ -91,7 +91,7 @@
             <div class="popup-sign_slogan">Осталось ввести еще немного данных</div>
           </div>
           <div class="popup-sign_cont">
-            <div class="popup-sign_col-ava"><a href="" class="ava ava__large"><img alt="" src="" class="ava_img"/></a>
+            <div class="popup-sign_col-ava"><a href="" class="ava ava__large"><span class="ico-status"></span><img alt="" src="" class="ava_img"/></a>
               <div class="margin-5">
                 <div class="popup-sign_tx-help">Чтобы вас узнавали на Веселом Жирафе <br> загрузите свое главное фото</div>
               </div><a class="btn-s btn-blue-simple">Загрузить</a>
@@ -107,6 +107,13 @@
                     <option value="2">Россия</option>
                     <option value="3">Беларусь</option>
                     <option value="4">Казахстан</option>
+                    <option value="5">Молдова</option>
+                    <option value="6">Польша</option>
+                    <option value="7">Венгрия</option>
+                    <option value="8">Грузия</option>
+                    <option value="9">Албания</option>
+                    <option value="10">Лимпопо</option>
+                    <option value="11">Замбия</option>
                   </select>
                   <div class="inp-valid_error">
                     <div class="errorMessage">Страна не вабрана</div>
@@ -117,11 +124,18 @@
               </div>
               <div class="popup-sign_row">
                 <div class="inp-valid inp-valid__abs">
-                  <select placeholder="Населенный пункт" class="select-cus select-cus__search-on select-cus__gray">
+                  <select placeholder="Населенный пункт" class="select-cus select-cus__search-on-desc select-cus__gray">
                     <option></option>
                     <option value="2">Россия</option>
                     <option value="3">Беларусь</option>
                     <option value="4">Казахстан</option>
+                    <option value="5">Молдова</option>
+                    <option value="6">Польша</option>
+                    <option value="7">Венгрия</option>
+                    <option value="8">Грузия</option>
+                    <option value="9">Албания</option>
+                    <option value="10">Лимпопо</option>
+                    <option value="11">Замбия</option>
                   </select>
                   <div class="inp-valid_error">
                     <div class="errorMessage">Не заполнено поле "Фамилия"</div>
@@ -209,16 +223,12 @@
                   </div>
                 </div>
               </div>
-              <div class="popup-sign_row">
-                <div class="popup-sign_label">Код</div>
-              </div>
-              <div class="popup-sign_row margin-b30">
-                <div class="popup-sign_capcha-hold">
-                  <div class="margin-b3"><img src="/images/captcha.png" class="popup-sign_capcha">
-                  </div><a class="popup-sign_tx-help">
+              <div class="margin-b30">
+                <div class="popup-sign_row"><img src="/images/captcha.png" width="300px" height="50px" class="popup-sign_capcha"><a class="popup-sign_tx-help">
                     <div class="ico-refresh"></div>Обновить</a>
                 </div>
-                <div class="popup-sign_capcha-inp">
+                <div class="popup-sign_row">
+                  <!--.popup-sign_capcha-inp-->
                   <div class="inp-valid inp-valid__abs">
                     <input type="text" class="itx-gray popup-sign_itx">
                     <div class="inp-valid_error">
@@ -245,7 +255,7 @@
             <div class="popup-sign_slogan">Осталось ввести еще немного данных</div>
           </div>
           <div class="popup-sign_cont">
-            <div class="popup-sign_col-ava"><a href="" class="ava ava__large ava__female"><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"/></a>
+            <div class="popup-sign_col-ava"><a href="" class="ava ava__large ava__female"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"/></a>
               <div class="margin-5">
                 <div class="popup-sign_tx-help">Это фото будет главным на Веселом Жирафе</div>
               </div><a class="btn-s btn-blue-simple">Изменить</a>
@@ -278,7 +288,7 @@
             <div class="popup-sign_t">Добро пожаловать Александр! <br> Теперь вы с Веселым Жирафом!</div>
           </div>
           <div class="popup-sign_cont">
-            <div class="popup-sign_tx margin-b40 margin-b70">Для завершения регистрации, <span class="i-highlight">нажмите на ссылку в письме,</span><br><span class="i-highlight">которое мы отправили вам на указанный вами e-mail  <span class="color-gray-dark-light">lepilla@mail.ru</span></span></div>
+            <div class="popup-sign_tx margin-t20 margin-b70">Для входа на сайт, <span class="i-highlight">нажмите на ссылку в письме,</span><br><span class="i-highlight">которое мы отправили вам на указанный вами e-mail  <span class="color-gray-dark-light">lepilla@mail.ru</span></span></div>
             <div class="popup-sign_col textalign-c margin-b70">
               <div class="display-ib textalign-l"><a class="popup-sign_a-m">Не получили письмо?</a>
                 <div class="popup-sign_tx-help">Письмо должно прийти в течении 10 мин.</div>
@@ -307,17 +317,13 @@
                 </div>
                 <div class="popup-sign_tx-help">Пожалуйста проверьте правильность указанного адреса электронной почты или введите другой</div>
               </div>
-              <div class="popup-sign_row">
-                <div class="popup-sign_label">Код</div>
-              </div>
-              <div class="popup-sign_row margin-b30">
-                <div class="popup-sign_capcha-hold">
-                  <div class="margin-b3"><img src="/images/captcha.png" class="popup-sign_capcha">
-                  </div><a class="popup-sign_tx-help">
+              <div class="margin-b30">
+                <div class="popup-sign_row"><img src="/images/captcha.png" width="300px" height="50px" class="popup-sign_capcha"><a class="popup-sign_tx-help">
                     <div class="ico-refresh"></div>Обновить</a>
                 </div>
-                <div class="popup-sign_capcha-inp">
-                  <div class="inp-valid inp-valid__abs error">
+                <div class="popup-sign_row">
+                  <!--.popup-sign_capcha-inp-->
+                  <div class="inp-valid inp-valid__abs">
                     <input type="text" class="itx-gray popup-sign_itx">
                     <div class="inp-valid_error">
                       <div class="errorMessage">Неправильный код проверки</div>
@@ -341,6 +347,128 @@
         </div>
       </div>
       <!-- /popup-sign-->
+      <!-- .popup-sign-->
+      <div id="login-step1" class="popup popup-sign">
+        <div class="popup-sign_hold">
+          <div class="popup-sign_top">
+            <div class="popup-sign_t"><span class="ico-lock-big"></span>Вход на сайт</div>
+          </div>
+          <div class="popup-sign_cont">
+            <div class="popup-sign_social">
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">Быстрый вход</div>
+              </div>
+              <ul class="social-btns clearfix">
+                <li><a class="social-btn social-btn__odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
+                <li><a class="social-btn social-btn__vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
+              </ul>
+            </div>
+            <div class="popup-sign_col">
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">E-mail</div>
+              </div>
+              <div class="popup-sign_row">
+                <div class="inp-valid inp-valid__abs inp-valid__error">
+                  <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                  <div class="inp-valid_error">
+                    <div class="inp-valid_error-tx">E-mail не является правильным E-Mail адресом</div>
+                  </div>
+                </div>
+              </div>
+              <div class="popup-sign_row">
+                <div class="popup-sign_label">Пароль</div>
+              </div>
+              <div class="popup-sign_row">
+                <div class="inp-valid inp-valid__abs inp-valid__success">
+                  <input type="password" placeholder="Пароль" class="itx-gray popup-sign_itx">
+                  <div class="inp-valid_error">
+                    <div class="inp-valid_error-tx">Заполните поле "Пароль"</div>
+                  </div>
+                </div>
+              </div>
+              <div class="popup-sign_row">
+                <div class="float-r">
+                  <div class="display-ib textalign-c">
+                    <div class="btn-green-simple btn-l margin-b10">Войти на сайт</div><br><a>Забыли пароль?</a>
+                  </div>
+                </div>
+                <div class="float-l">
+                  <div class="checkbox-icons">
+                    <input id="checkboxid" type="checkbox" name="checkbox" class="checkbox-icons_radio">
+                    <label for="checkboxid" class="checkbox-icons_label">Запомнить меня</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="popup-sign_b"><span class="popup-sign_b-tx">Вы еще не зарегистрированы?</span><a class="popup-sign_b-a">Регистрация</a></div>
+        </div>
+      </div>
+      <!-- /popup-sign-->
+      <!-- .popup-sign-->
+      <div id="login-retrieve" class="popup popup-sign">
+        <div class="popup-sign_hold">
+          <div class="popup-sign_top">
+            <div class="popup-sign_t"><span class="ico-lock-big"></span>Вход на сайт</div>
+          </div>
+          <div class="popup-sign_cont">
+            <div class="popup-sign_tx margin-t20">Пожалуйста введите ваш e-mail адрес. <br><span class="i-highlight">Вам будет выслано письмо с вашим паролем.</span></div>
+            <div class="popup-sign_wrap">
+              <div class="popup-sign_row clearfix">
+                <div class="popup-sign_col-label">
+                  <div class="popup-sign_label">E-mail</div>
+                </div>
+                <div class="popup-sign_col-inp">
+                  <div class="inp-valid inp-valid__abs inp-valid__success">
+                    <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                    <div class="inp-valid_error">
+                      <div class="inp-valid_error-tx">E-mail не является правильным E-Mail адресом</div>
+                    </div>
+                    <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="textalign-r">
+                <div class="btn-green-simple btn-l margin-b10">Отправить пароль</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /popup-sign-->
+      <!-- .popup-sign-->
+      <div id="login-retrieve2" class="popup popup-sign">
+        <div class="popup-sign_hold">
+          <div class="popup-sign_top">
+            <div class="popup-sign_t"><span class="ico-lock-big"></span>Вход на сайт</div>
+          </div>
+          <div class="popup-sign_cont">
+            <div class="popup-sign_tx margin-t20">Пожалуйста введите ваш e-mail адрес. <br><span class="i-highlight">Вам будет выслано письмо с вашим паролем.</span></div>
+            <div class="popup-sign_wrap">
+              <div class="popup-sign_row clearfix">
+                <div class="popup-sign_col-label">
+                  <div class="popup-sign_label">E-mail</div>
+                </div>
+                <div class="popup-sign_col-inp">
+                  <div class="inp-valid inp-valid__abs inp-valid__success">
+                    <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                    <div class="inp-valid_error">
+                      <div class="inp-valid_error-tx">E-mail не является правильным E-Mail адресом</div>
+                    </div>
+                    <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="popup-sign_retrieve-send"><span class="i-highlight">На ваш e-mail адрес было выслано письмо с вашим паролем.</span><br><span class="i-highlight">Также проверьте, пожалуйста, папку «Спам».</span></div>
+              <div class="textalign-r">
+                <div class="btn-green-simple btn-l margin-b10">Войти на сайт</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /popup-sign-->
+      <!--  .btn-green-simple.btn-l.margin-b10 Войти на сайт-->
     </div>
   </body>
 </html>

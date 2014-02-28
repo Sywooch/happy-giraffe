@@ -26,8 +26,10 @@ block layout-wrapper
                 a.popup-a(href="#login-retrieve") Восстановление пароля
                 br
                 br
+                a.popup-a(href="#login-retrieve2") Восстановление пароля, письмо отправлено 
+                br
+                br
  
-
 
 block block-hidden 
     // .popup-sign
@@ -115,10 +117,16 @@ block block-hidden
                     .popup-sign_row
                         .inp-valid.inp-valid__abs.error
                             select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выбор страны")
-                                option
                                 option(value="2") Россия
                                 option(value="3") Беларусь
                                 option(value="4") Казахстан
+                                option(value="5") Молдова
+                                option(value="6") Польша
+                                option(value="7") Венгрия
+                                option(value="8") Грузия
+                                option(value="9") Албания
+                                option(value="10") Лимпопо
+                                option(value="11") Замбия
                             .inp-valid_error
                                 .errorMessage 
                                     | Страна не вабрана
@@ -126,11 +134,18 @@ block block-hidden
                         .popup-sign_tx-help Начинайте вводить название страны...
                     .popup-sign_row
                         .inp-valid.inp-valid__abs
-                            select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Населенный пункт")
+                            select.select-cus.select-cus__search-on-desc.select-cus__gray(placeholder="Населенный пункт")
                                 option
                                 option(value="2") Россия
                                 option(value="3") Беларусь
                                 option(value="4") Казахстан
+                                option(value="5") Молдова
+                                option(value="6") Польша
+                                option(value="7") Венгрия
+                                option(value="8") Грузия
+                                option(value="9") Албания
+                                option(value="10") Лимпопо
+                                option(value="11") Замбия
                             .inp-valid_error
                                 .errorMessage 
                                     | Не заполнено поле "Фамилия"
@@ -206,17 +221,15 @@ block block-hidden
                                         .errorMessage 
                                             | Выберите пол
                                     .inp-valid_success.inp-valid_success__ico-check
-                    .popup-sign_row
-                        .popup-sign_label Код
-                    .popup-sign_row.margin-b30
-                            .popup-sign_capcha-hold
-                                .margin-b3
-                                    //- размеры капчи 125*45px
-                                    img.popup-sign_capcha(src="/images/captcha.png")
+                    .margin-b30
+                            .popup-sign_row
+                                //- размеры капчи 300*50px
+                                img.popup-sign_capcha(src="/images/captcha.png" width="300px" height="50px")
                                 a.popup-sign_tx-help
                                     .ico-refresh
                                     | Обновить
-                            .popup-sign_capcha-inp
+                            .popup-sign_row 
+                                //.popup-sign_capcha-inp
 
                                 .inp-valid.inp-valid__abs
                                     input.itx-gray.popup-sign_itx(type="text")
@@ -263,7 +276,7 @@ block block-hidden
                 .popup-sign_t Добро пожаловать Александр! <br> Теперь вы с Веселым Жирафом!
             .popup-sign_cont
                 .popup-sign_tx.margin-t20.margin-b70
-                    | Для завершения регистрации, 
+                    | Для входа на сайт, 
                     span.i-highlight нажмите на ссылку в письме,
                     br
                     span.i-highlight которое мы отправили вам на указанный вами e-mail  
@@ -292,25 +305,23 @@ block block-hidden
                                     | Не заполнено поле
                             .inp-valid_success.inp-valid_success__ico-check
                         .popup-sign_tx-help Пожалуйста проверьте правильность указанного адреса электронной почты или введите другой
-                    .popup-sign_row
-                        .popup-sign_label Код
-                    .popup-sign_row.margin-b30
-                            .popup-sign_capcha-hold
-                                .margin-b3
-                                    //- размеры капчи 125*45px
-                                    img.popup-sign_capcha(src="/images/captcha.png")
-                                a.popup-sign_tx-help
-                                    .ico-refresh
-                                    | Обновить
-                            .popup-sign_capcha-inp
+                    .margin-b30
+                        .popup-sign_row
+                            //- размеры капчи 300*50px
+                            img.popup-sign_capcha(src="/images/captcha.png" width="300px" height="50px")
+                            a.popup-sign_tx-help
+                                .ico-refresh
+                                | Обновить
+                        .popup-sign_row 
+                            //.popup-sign_capcha-inp
 
-                                .inp-valid.inp-valid__abs.error
-                                    input.itx-gray.popup-sign_itx(type="text")
-                                    .inp-valid_error
-                                        .errorMessage
-                                            | Неправильный код проверки
-                                    .inp-valid_success.inp-valid_success__ico-check
-                                .popup-sign_tx-help Введите код с картинки
+                            .inp-valid.inp-valid__abs
+                                input.itx-gray.popup-sign_itx(type="text")
+                                .inp-valid_error
+                                    .errorMessage
+                                        | Неправильный код проверки
+                                .inp-valid_success.inp-valid_success__ico-check
+                            .popup-sign_tx-help Введите код с картинки
                     .popup-sign_row
                         .display-ib.textalign-c
                             .btn-green-simple.btn-l.margin-b5 Отправить письмо еще раз
@@ -390,15 +401,55 @@ block block-hidden
                     span.ico-lock-big
                     | Вход на сайт
             .popup-sign_cont
-                .popup-sign_tx.margin-t20.margin-b50
+                .popup-sign_tx.margin-t20
                     | Пожалуйста введите ваш e-mail адрес. 
                     br 
                     span.i-highlight Вам будет выслано письмо с вашим паролем.
-                .popup-sign_col.textalign-c.margin-b70
-                    .display-ib.textalign-l
-                        a.popup-sign_a-m Не получили письмо?
-                        .popup-sign_tx-help Письмо должно прийти в течении 10 мин.
-                .popup-sign_col-wide-r.textalign-c
-                        a.popup-sign_a-big(href="", target="_blank") Открыть почту Mail.ru
+
+                .popup-sign_wrap
+                    .popup-sign_row.clearfix
+                        .popup-sign_col-label
+                            .popup-sign_label E-mail
+                        .popup-sign_col-inp
+                            .inp-valid.inp-valid__abs.inp-valid__success
+                                input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                                .inp-valid_error 
+                                    .inp-valid_error-tx E-mail не является правильным E-Mail адресом
+                                .inp-valid_success.inp-valid_success__ico-check
+                    .textalign-r
+                        .btn-green-simple.btn-l.margin-b10 Отправить пароль
     // /popup-sign
+
+    // .popup-sign
+    #login-retrieve2.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t 
+                    span.ico-lock-big
+                    | Вход на сайт
+            .popup-sign_cont
+                .popup-sign_tx.margin-t20
+                    | Пожалуйста введите ваш e-mail адрес. 
+                    br 
+                    span.i-highlight Вам будет выслано письмо с вашим паролем.
+
+                .popup-sign_wrap
+                    .popup-sign_row.clearfix
+                        .popup-sign_col-label
+                            .popup-sign_label E-mail
+                        .popup-sign_col-inp
+                            .inp-valid.inp-valid__abs.inp-valid__success
+                                input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                                .inp-valid_error 
+                                    .inp-valid_error-tx E-mail не является правильным E-Mail адресом
+                                .inp-valid_success.inp-valid_success__ico-check
+                    //- После отправки письма. Показывается блок .popup-sign_retrieve-send и менятеся текст на кнопке 
+                    .popup-sign_retrieve-send
+                        span.i-highlight На ваш e-mail адрес было выслано письмо с вашим паролем.
+                        br
+                        span.i-highlight Также проверьте, пожалуйста, папку «Спам».
+                    .textalign-r
+                        .btn-green-simple.btn-l.margin-b10 Войти на сайт
+    // /popup-sign
+    //  .btn-green-simple.btn-l.margin-b10 Войти на сайт
 

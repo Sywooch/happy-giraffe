@@ -43,7 +43,7 @@ class HController extends CController
     {
         parent::init();
 
-        if (YII_DEBUG === false)
+        if (YII_DEBUG === false && ($this->module === null || $this->module == 'messaging'))
             $this->combineStatic();
 
         // авторизация
@@ -245,7 +245,7 @@ class HController extends CController
         $newNotificationsCount = (int) Notification::model()->getUnreadCount();
         $newMessagesCount = (int) MessagingManager::unreadMessagesCount($user->id);
         $newFriendsCount = (int) FriendRequest::model()->getUserCount($user->id);
-        $newPostsCount = (int) ViewedPost::getInstance()->newPostCount($user->id, SubscribeDataProvider::TYPE_ALL);
+        $newPostsCount = 0;//(int) ViewedPost::getInstance()->newPostCount($user->id, SubscribeDataProvider::TYPE_ALL);
         $newScoreCount = (int) ($user->score->scores - $user->score->seen_scores);
         $activeModule = $this->module ? $this->module->id : null;
 

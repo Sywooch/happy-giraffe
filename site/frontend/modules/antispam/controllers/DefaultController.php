@@ -91,4 +91,11 @@ class DefaultController extends AntispamController
         $dp = AntispamCheck::getDp(AntispamCheck::model()->user($userId)->entity($entity));
         $this->render('analysis', compact('user', 'dp', 'counts', 'entity'));
     }
+
+    public function actionStats()
+    {
+        $tables = array(StatsManager::getLast2WeeksCounts(), StatsManager::getLast2DaysCount());
+
+        $this->render('stats', compact('tables'));
+    }
 }

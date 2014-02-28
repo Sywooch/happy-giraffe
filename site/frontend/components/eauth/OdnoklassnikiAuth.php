@@ -47,14 +47,15 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
             $this->attributes['city'] = null;
         }
         else {
-            $this->attributes['country'] = $countryModel->id;
+            $this->attributes['country_id'] = $countryModel->id;
             $citiesCount = GeoCity::model()->countByAttributes(array('country_id' => $countryModel->id, 'name' => $info->location->city));
             if ($citiesCount == 1) {
                 $cityModel = GeoCity::model()->findByAttributes(array('country_id' => $countryModel->id, 'name' => $info->location->city));
-                $this->attributes['city'] = $cityModel->id;
+                $this->attributes['city_id'] = $cityModel->id;
             }
             else
-                $this->attributes['city'] = null;
+                $this->attributes['city_id'] = null;
+            $this->attributes['city_name'] = $info->location->city;
         }
     }
 }

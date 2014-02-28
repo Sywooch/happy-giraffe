@@ -31,11 +31,16 @@ class RegisterFormStep2 extends CFormModel
     {
         return array(
             array('first_name, last_name, email, birthday, gender, country_id, city_id', 'required'),
-            array('birthday_day, birthday_month, birthday_year, service, service_id, avatar', 'safe'),
+            array('email', 'email'),
+            array('email', 'unique', 'className' => 'User'),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
+            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'except' => 'social'),
+
+            //address
             array('country_id', 'exist', 'className' => 'GeoCountry', 'attributeName' => 'id'),
             array('city_id', 'exist', 'className' => 'GeoCity', 'attributeName' => 'id'),
-            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'except' => 'social'),
+
+            array('birthday_day, birthday_month, birthday_year, service, service_id, avatar', 'safe'),
         );
     }
 
@@ -85,6 +90,7 @@ class RegisterFormStep2 extends CFormModel
 
         $address = new UserAddress();
         $address->attributes = $this->attributes;
+        $address->region_id = $address->city->region_id;
         $this->_user->address = $address;
 
         if ($this->_user->withRelated->save(true, array('userSocialServices', 'address'))) {

@@ -152,7 +152,11 @@ ko.bindingHandlers.select2 = {
             $(element).select2('destroy');
         });
     },
-    update: function(element) {
+    update: function(element, valueAccessor, allBindingsAccessor) {
+        // подпишемся на обновление следующих значений
+        ko.unwrap(allBindingsAccessor.get('value'));
+        ko.unwrap(allBindingsAccessor.get('options'));
+        // стриггерим изменения, что бы select2 смог перестроиться
         $(element).trigger('change');
     }
 };

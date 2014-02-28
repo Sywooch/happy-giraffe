@@ -93,9 +93,16 @@ function UserLocation(countries) {
         }
     }
 
+    self.city_name = ko.observable('');
+    self.city_id = ko.observable(null);
     self.country_id = ko.observable(null);
     self.availableCountries = ko.utils.arrayMap(countries, function (item) {
         return new Country(item.id, item.name, item.code);
+    });
+
+    $('#RegisterFormStep2_city_id').on('select2-open', function() {
+        $('#RegisterFormStep2_city_id').data('select2').search.val(self.city_name());
+        $('#RegisterFormStep2_city_id').data('select2').search.trigger('input');
     });
 }
 

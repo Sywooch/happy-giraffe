@@ -93,7 +93,7 @@ function UserLocation(countries) {
         }
     }
 
-    self.country_id = ko.observable();
+    self.country_id = ko.observable(174);
     self.availableCountries = ko.utils.arrayMap(countries, function (item) {
         return new Country(item.id, item.name, item.code);
     });

@@ -96,8 +96,10 @@ class RegisterFormStep2 extends CFormModel
         if ($this->_user->withRelated->save(true, array('userSocialServices', 'address'))) {
             if ($this->avatar) {
                 $photo = AlbumPhoto::createByUrl($this->avatar['imgSrc'], $this->id);
-                $coordinates = $this->avatar['coords'];
-                UserAvatar::createUserAvatar($this->id, $photo->id, $coordinates['x'], $coordinates['y'], $coordinates['w'], $coordinates['h']);
+                if ($photo) {
+                    $coordinates = $this->avatar['coords'];
+                    UserAvatar::createUserAvatar($this->id, $photo->id, $coordinates['x'], $coordinates['y'], $coordinates['w'], $coordinates['h']);
+                }
             }
 
             $this->afterSave();

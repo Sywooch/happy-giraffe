@@ -58,7 +58,6 @@ class RegisterController extends HController
 
     /**
      * 2 шаг регистрации
-     * @todo Перенести бизнес-логику в модель
      */
     public function actionStep2()
     {
@@ -80,36 +79,6 @@ class RegisterController extends HController
             echo CJSON::encode($response);
         }
     }
-
-//    public function actionStep2()
-//    {
-//        $userId = Yii::app()->request->getPost('userId');
-//        $social = Yii::app()->request->getPost('social');
-//        $scenario = ($social == 'true') ? 'signupStep2Social' : 'signupStep2';
-//        $model = empty($userId) ? new RegisterFormStep2() : RegisterFormStep2::model()->findByPk($userId);
-//        $model->scenario = $scenario;
-//        $address = new UserAddress();
-//
-//        $this->performAjaxValidation(array($model, $address));
-//
-//        $model->attributes = $_POST['RegisterFormStep2'];
-//        if ($social) {
-//            $socialService = new UserSocialService();
-//            $socialService->attributes = $_POST['UserSocialService'];
-//            $model->userSocialServices = array($socialService);
-//        }
-//        $success = $model->withRelated->save(true, array('userSocialServices')) && $model->register();
-//        if ($_POST['avatar']) {
-//            $photo = AlbumPhoto::createByUrl($_POST['avatar']['imgSrc'], $model->id);
-//            $coordinates = $_POST['avatar']['coords'];
-//            UserAvatar::createUserAvatar($model->id, $photo->id,
-//                $coordinates['x'], $coordinates['y'], $coordinates['w'], $coordinates['h']);
-//        }
-//        $response['success'] = $success;
-//        if ($success)
-//            $response['id'] = $model->id;
-//        echo CJSON::encode($response);
-//    }
 
     /**
      * Подтверждение e-mail
@@ -141,6 +110,9 @@ class RegisterController extends HController
         }
     }
 
+    /**
+     * Загрузка изображения на аватар
+     */
     public function actionAvatarUpload()
     {
         $model = new AvatarUploadForm();

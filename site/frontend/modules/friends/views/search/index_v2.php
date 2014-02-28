@@ -43,7 +43,11 @@
                                 optionsText: 'name',
                                 optionsValue: 'id',
                                 optionsCaption: '',
-                                selectize: {create: false}
+                                select2: {
+                                    width: '100%',
+                                    dropdownCssClass: 'select2-drop__search-on',
+                                    escapeMarkup: function(m) { return m; }
+                                }
                             " placeholder="Выбор страны" class="select-cus select-cus__blue-searchon select-cus__blue">
                             </select>
                         </div>
@@ -54,7 +58,11 @@
                             optionsText: 'name',
                             optionsValue: 'id',
                             optionsCaption: '',
-                            selectize: {create: false}
+                            select2: {
+                                width: '100%',
+                                dropdownCssClass: 'select2-drop__search-on',
+                                escapeMarkup: function(m) { return m; }
+                            }
                         " placeholder="Населенный пункт" class="select-cus select-cus__blue">
                         </select>
                     </div>
@@ -65,12 +73,11 @@
                                 options: ages,
                                 value: minAge,
                                 optionsCaption: '',
-                                selectize: {
-                                    create: false,
-                                    dropdownParent: 'body',
-                                    onDropdownOpen: function() {
-                                        this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                    }
+                                select2: {
+                                    width: '100%',
+                                    minimumResultsForSearch: -1,
+                                    dropdownCssClass: 'select2-drop__search-off',
+                                    escapeMarkup: function(m) { return m; }
                                 }
                             ">
                             </select>
@@ -81,12 +88,11 @@
                                 options: ages,
                                 value: maxAge,
                                 optionsCaption: '',
-                                selectize: {
-                                    create: false,
-                                    dropdownParent: 'body',
-                                    onDropdownOpen: function() {
-                                        this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                    }
+                                select2: {
+                                    width: '100%',
+                                    minimumResultsForSearch: -1,
+                                    dropdownCssClass: 'select2-drop__search-off',
+                                    escapeMarkup: function(m) { return m; }
                                 }
                             ">
                             </select>
@@ -117,12 +123,11 @@
                                         options: pregnancyWeeks,
                                         value: pregnancyWeekMin,
                                         optionsCaption: '',
-                                        selectize: {
-                                            create: false,
-                                            dropdownParent: 'body',
-                                            onDropdownOpen: function() {
-                                                this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                            }
+                                        select2: {
+                                            width: '100%',
+                                            minimumResultsForSearch: -1,
+                                            dropdownCssClass: 'select2-drop__search-off',
+                                            escapeMarkup: function(m) { return m; }
                                         }
                                     ">
                                     </select>
@@ -133,12 +138,11 @@
                                         options: pregnancyWeeks,
                                         value: pregnancyWeekMax,
                                         optionsCaption: '',
-                                        selectize: {
-                                            create: false,
-                                            dropdownParent: 'body',
-                                            onDropdownOpen: function() {
-                                                this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                            }
+                                        select2: {
+                                            width: '100%',
+                                            minimumResultsForSearch: -1,
+                                            dropdownCssClass: 'select2-drop__search-off',
+                                            escapeMarkup: function(m) { return m; }
                                         }
                                     ">
                                     </select>
@@ -154,12 +158,11 @@
                                         options: childAges,
                                         value: childAgeMin,
                                         optionsCaption: '',
-                                        selectize: {
-                                            create: false,
-                                            dropdownParent: 'body',
-                                            onDropdownOpen: function() {
-                                                this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                            }
+                                        select2: {
+                                            width: '100%',
+                                            minimumResultsForSearch: -1,
+                                            dropdownCssClass: 'select2-drop__search-off',
+                                            escapeMarkup: function(m) { return m; }
                                         }
                                     ">
                                     </select>
@@ -170,12 +173,11 @@
                                         options: childAges,
                                         value: childAgeMax,
                                         optionsCaption: '',
-                                        selectize: {
-                                            create: false,
-                                            dropdownParent: 'body',
-                                            onDropdownOpen: function() {
-                                                this.$wrapper.find('input').attr({disabled: 'disabled'});
-                                            }
+                                        select2: {
+                                            width: '100%',
+                                            minimumResultsForSearch: -1,
+                                            dropdownCssClass: 'select2-drop__search-off',
+                                            escapeMarkup: function(m) { return m; }
                                         }
                                     ">
                                     </select>

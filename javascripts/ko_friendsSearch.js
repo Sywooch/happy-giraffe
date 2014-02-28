@@ -2,7 +2,7 @@ function FriendsSearchViewModel(data) {
     var self = this;
 
     // значения по умолчанию
-    var DEFAULT_COUNTRY = false;
+    var DEFAULT_COUNTRY = null;
     var DEFAULT_MIN_AGE = 18;
     var DEFAULT_MAX_AGE = 60;
     var DEFAULT_CHILD_MIN_AGE = 0;

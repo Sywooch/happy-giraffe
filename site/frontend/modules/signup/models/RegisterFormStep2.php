@@ -9,6 +9,15 @@
 
 class RegisterFormStep2 extends User
 {
+    private $_socialService;
+
+    public function getSocialService()
+    {
+        if (! isset($this->_socialService))
+            $this->_socialService = new UserSocialService();
+        return $this->_socialService;
+    }
+
     public function register()
     {
         $password = self::createPassword(8);

@@ -90,13 +90,17 @@ function UserAvatar(parent) {
             addClass: 'jcrop-blue',
             onChange: self.showPreview,
             onSelect: self.showPreview,
-            boxWidth: 500
+            boxWidth: 500,
+            bgFade: true
         },
         ready : function() {
-            this.setSelect([130,65,130+350,65+285]);
-            this.setOptions({ bgFade: true });
-            this.ui.selection.addClass('jcrop-selection');
-            self.jcropApi = this;
+            var image = new Image();
+            image.src = self.imgSrc();
+            var x = image.width / 2 - 200 / 2;
+            var y = image.height/ 2 - 200 / 2;
+            var x2 = x + 200;
+            var y2 = y + 200;
+            this.setSelect([x, y, x2, y2]);
         }
     }
 

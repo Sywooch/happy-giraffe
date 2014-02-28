@@ -17,12 +17,18 @@ class RegisterController extends HController
             'social' => array(
                 'class' => 'signup.components.SocialAction',
                 'successCallback' => function($eauth) {
-                    $eauth->component->setRedirectView('signup.views.redirect');
-                    $eauth->redirect(null, array(
-                        'attributes' => $eauth->getAttributes(),
-                        'serviceName' => $eauth->getServiceName(),
-                        'fromLogin' => false,
-                    ));
+                    $identity = new SocialUserIdentity($eauth);
+                    if ($identity->authenticate()) {
+                        Yii::app()->user->login($identity, 3600*24*30);
+                        $eauth->redirect();
+                    } else {
+                        $eauth->component->setRedirectView('signup.views.redirect');
+                        $eauth->redirect(null, array(
+                            'attributes' => $eauth->getAttributes(),
+                            'serviceName' => $eauth->getServiceName(),
+                            'fromLogin' => false,
+                        ));
+                    }
                 }
             ),
         );

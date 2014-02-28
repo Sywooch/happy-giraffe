@@ -26,7 +26,7 @@ class SocialUserIdentity extends CBaseUserIdentity
         else {
             $serviceModel = UserSocialService::model()->findByAttributes(array(
                 'service' => $this->service->getServiceName(),
-                'service_id' => $this->service->getAttribute('id'),
+                'service_id' => $this->service->getAttribute('uid'),
             ));
             if ($serviceModel === null)
                 $this->errorCode = self::ERROR_NOT_ASSOCIATED;

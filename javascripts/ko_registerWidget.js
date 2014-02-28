@@ -67,7 +67,9 @@ function UserAvatar(parent) {
         image.src = self.imgSrc();
         self.coords = coords;
 
-        for (var size in [24, 40, 72, 200]) {
+        var sizes = [24, 40, 72, 200];
+        for (var i in sizes) {
+            var size = sizes[i];
             var rx = size / coords.w;
             var ry = size / coords.h;
 
@@ -111,6 +113,13 @@ function UserAvatar(parent) {
         },
         done: function (e, data) {
             self.imgSrc(data.result.imgSrc);
+        },
+        progressall: function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('#progress .bar').css(
+                'width',
+                progress + '%'
+            );
         }
     });
 }

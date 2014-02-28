@@ -39,7 +39,8 @@ class SearchController extends HController
         $friendsOnlineCount = (int)Friend::model()->getCountByUserId(Yii::app()->user->id, true);
         $friendsNewCount = (int)Friend::model()->getCountByUserId(Yii::app()->user->id, false, true);
         $incomingRequestsCount = (int)FriendRequest::model()->getCountByUserId(Yii::app()->user->id);
-        $json = compact('countries', 'friendsCount', 'friendsOnlineCount', 'friendsNewCount', 'friendsNewCount', 'incomingRequestsCount');
+        $outgoingRequestsCount = (int)FriendRequest::model()->getCountByUserId(Yii::app()->user->id, false);
+        $json = compact('countries', 'friendsCount', 'friendsOnlineCount', 'friendsNewCount', 'friendsNewCount', 'incomingRequestsCount', 'outgoingRequestsCount');
 
         $this->pageTitle = 'Найти друзей';
         $this->render('index_v2', compact('json'));

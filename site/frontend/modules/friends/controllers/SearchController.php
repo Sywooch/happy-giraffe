@@ -14,7 +14,7 @@ class SearchController extends HController
     {
         return array(
             'accessControl',
-           // 'ajaxOnly - index',
+            'ajaxOnly - index',
         );
     }
 

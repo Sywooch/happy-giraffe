@@ -589,8 +589,9 @@ ko.bindingHandlers.jcrop = {
 
         allBindings.get('attr').src.subscribe(function(val) {
             setTimeout(function() {
-                api.setImage(val);
-                ready.apply(api);
+                api.setImage(val, function() {
+                    ready.apply(api);
+                });
             }, 1);
         });
     },

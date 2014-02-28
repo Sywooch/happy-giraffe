@@ -51,13 +51,16 @@
     }
 
     function afterValidateStep2(form, data, hasError) {
+        console.log(data);
         if (! hasError) {
             var data = form.serialize();
             if (registerVm.avatar.imgSrc() !== null) {
                 data += '&' + $.param({
-                    avatar : {
-                        imgSrc : registerVm.avatar.imgSrc(),
-                        coords : registerVm.avatar.coords
+                    RegisterFormStep2 : {
+                        avatar : {
+                            imgSrc : registerVm.avatar.imgSrc(),
+                            coords : registerVm.avatar.coords
+                        }
                     }
                 });
             }

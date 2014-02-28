@@ -210,17 +210,42 @@
 
     &_quote-ico {
         .inline-block();
-        width: 15px;
-        height: 11px;
-        margin: 1px 0 3px;
-        background: url(/images/comments-gray_quote-ico.png) no-repeat;
+        vertical-align: middle;
+        padding: 1px 0 0 17px;
+        height: 17px;
+        line-height: 17px;
+        background: url(/images/comments-gray_quote-ico.png) no-repeat 0 5px;
+        color: @color-gray;
+        text-decoration: none;
     }
     &_quote-ico.active,
-    &_quote-ico:hover {background-position: 0 -50px;}
+    &_quote-ico:hover {
+        background-position: 0 -45px;
+        color: @color-base;
+        text-decoration: underline;
+    }
     &_a-recovery {
         font-size: 11px;
         border-bottom: 1px dotted #289FD7;
         text-decoration: none;
+    }
+
+    &_bottom {
+        margin: 3px 0;
+    }
+    &_bottom .message-ico {vertical-align: middle;}
+    &_sepor {
+        .inline-block();
+        vertical-align: middle;
+        width: 0;
+        height: 10px;
+        margin: 0 6px;
+        border-right: 1px solid #a6a5a5;
+    }
+    &_like {
+        .inline-block();
+        vertical-align: middle;
+        margin-top: -2px;
     }
 
     /* activity in profile */

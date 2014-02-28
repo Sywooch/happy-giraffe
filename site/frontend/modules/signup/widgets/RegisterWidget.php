@@ -30,7 +30,8 @@ class RegisterWidget extends CWidget
         $c = new ReflectionClass($this);
         $constants = $c->getConstants();
         $mailServices = $this->getMailServices();
-        $json = compact('minYear', 'maxYear', 'constants', 'mailServices');
+        $countries = GeoCountry::getCountries();
+        $json = compact('minYear', 'maxYear', 'constants', 'mailServices', 'countries');
         $this->render('RegisterWidget', compact('modelStep1', 'modelStep2', 'resendConfirm', 'avatarUpload', 'json'));
     }
 

@@ -76,7 +76,7 @@ function UserLocation(countries) {
             data: function (term, page) {
                 return {
                     term: term,
-                    region_id: 260
+                    country_id: self.country_id()
                 };
             },
             results: function (data, page) {
@@ -93,7 +93,7 @@ function UserLocation(countries) {
         }
     }
 
-    self.country_id = ko.observable(174);
+    self.country_id = ko.observable(null);
     self.availableCountries = ko.utils.arrayMap(countries, function (item) {
         return new Country(item.id, item.name, item.code);
     });

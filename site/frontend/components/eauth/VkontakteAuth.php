@@ -62,7 +62,7 @@ class VkontakteAuth extends VKontakteOAuthService
                 ),
             ));
             $countryModel = GeoCountry::model()->findByAttributes(array('name' => $countryInfo->response[0]->name));
-            $this->attributes['country'] = ($countryModel === null) ? null : $countryModel->id;
+            $this->attributes['country_id'] = ($countryModel === null) ? null : $countryModel->id;
 
             if (isset($info->city)) {
                 $cityInfo = $this->makeSignedRequest('https://api.vk.com/method/places.getCityById.json', array(
@@ -73,10 +73,11 @@ class VkontakteAuth extends VKontakteOAuthService
                 $citiesCount = array('country_id' => $countryModel->id, 'name' => $cityInfo->response[0]->name);
                 if ($citiesCount == 1) {
                     $cityModel = GeoCity::model()->findByAttributes(array('country_id' => $countryModel->id, 'name' => $cityInfo->response[0]->name));
-                    $this->attributes['city'] = $cityModel->id;
+                    $this->attributes['city_id'] = $cityModel->id;
                 }
                 else
-                    $this->attributes['city'] = null;
+                    $this->attributes['city_id'] = null;
+                $this->attributes['city_name'] = $cityInfo->response[0]->name;
             }
         }
     }

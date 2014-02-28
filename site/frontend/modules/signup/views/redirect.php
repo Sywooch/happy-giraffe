@@ -24,6 +24,9 @@
                             registerVm[i](data[i]);
                     }
                 registerVm.avatar.imgSrc(data.avatar_src);
+                registerVm.location.country_id(data.country_id);
+                registerVm.location.city_id(data.city_id);
+                registerVm.location.city_name(data.city_name);
                 window.close();
             }, 'json');
             registerVm.social(true);

@@ -54,7 +54,21 @@ function RegisterWidgetViewModel(data, form) {
     });
 
     self.avatar = new UserAvatar(self);
+    self.location = new UserLocation(data.countries);
 }
+
+function UserLocation(countries) {
+    var self = this;
+    self.availableCountries = ko.utils.arrayMap(countries, function (item) {
+        return new Country(item.id, item.name, item.code);
+    });
+}
+
+function Country(id, name, code) {
+    this.id = id;
+    this.name = name;
+    this.code = code;
+};
 
 function UserAvatar(parent) {
     var self = this;

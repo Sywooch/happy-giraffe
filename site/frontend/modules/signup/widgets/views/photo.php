@@ -31,31 +31,10 @@
                 <div style="width: 50%;" class="img-upload_i-load-progress"></div>
             </div>
             <!-- Блок обрезки аватара-->
-            <?php if (true): ?>
             <div class="img-upload_uploaded">
                 <a title="Удалить" class="img-upload_i-del powertip" data-bind="click: clear"></a>
                 <img data-bind="jcrop: jcrop, attr: { src : imgSrc }">
             </div>
-            <?php else: ?>
-            <div class="img-upload_uploaded"><a href="" title="Удалить" class="img-upload_i-del powertip"></a><img id="jcrop_target" src="/new/images/example/w500-h376.jpg">
-                <script>
-                    jQuery(function($){
-                        var api;
-                        $('#jcrop_target').Jcrop({
-                            // start off with jcrop-light class
-                            bgOpacity: 0.6,
-                            bgColor: '#2c87c0',
-                            addClass: 'jcrop-blue'
-                        },function(){
-                            api = this;
-                            api.setSelect([130,65,130+350,65+285]);
-                            api.setOptions({ bgFade: true });
-                            api.ui.selection.addClass('jcrop-selection');
-                        });
-                    });
-                </script>
-            </div>
-            <?php endif; ?>
         </div>
     </div>
     <div class="popup-sign_col-ava popup-sign_col-ava__think">

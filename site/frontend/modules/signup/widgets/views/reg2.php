@@ -9,7 +9,7 @@
     <div class="popup-sign_slogan">Осталось ввести еще немного данных</div>
 </div>
 <div class="popup-sign_cont">
-    <div class="popup-sign_col-ava"><a class="ava ava__large" data-bind="click: uploadPhoto"><span class="ico-status"></span><img alt="" src="" class="ava_img" data-bind="attr: { src : avatar.imgSrc }"/></a>
+    <div class="popup-sign_col-ava"><a class="ava ava__large" data-bind="click: uploadPhoto"><span class="ico-status"></span><img alt="" class="ava_img preview-200" data-bind="attr: { src : avatar.imgSrc }"/></a>
         <div class="margin-5">
             <div class="popup-sign_tx-help">Чтобы вас узнавали на Веселом Жирафе <br> загрузите свое главное фото</div>
         </div><a class="btn-s btn-blue-simple" data-bind="click: uploadPhoto">Загрузить</a>

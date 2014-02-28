@@ -60,11 +60,11 @@
     </div>
     <div class="popup-sign_col-ava popup-sign_col-ava__think">
         <div class="popup-sign_col-ava-t">Просмотр</div>
-        <a href="javascript:void(0)" class="ava ava__large ava__female"><span class="ico-status"></span><img alt="" class="ava_img" data-bind="attr: { src : imgSrc }" id="preview-200"/></a>
+        <a href="javascript:void(0)" class="ava ava__large ava__female"><span class="ico-status"></span><img alt="" class="ava_img preview-200" data-bind="attr: { src : imgSrc }"/></a>
         <div class="popup-sign_ava-row">
-            <a href="javascript:void(0)" class="ava ava__middle ava__female"><span class="ico-status"></span><img alt="" class="ava_img" data-bind="attr: { src : imgSrc }" id="preview-40"/></a>
-            <a href="javascript:void(0)" class="ava ava__female"><span class="ico-status"></span><img alt="" class="ava_img" data-bind="attr: { src : imgSrc }" id="preview-72"/></a>
-            <a href="javascript:void(0)" class="ava ava__small ava__female"><span class="ico-status"></span><img alt="" class="ava_img" data-bind="attr: { src : imgSrc }" id="preview-24"/></a>
+            <a href="javascript:void(0)" class="ava ava__middle ava__female"><span class="ico-status"></span><img alt="" class="ava_img preview-40" data-bind="attr: { src : imgSrc }"/></a>
+            <a href="javascript:void(0)" class="ava ava__female"><span class="ico-status"></span><img alt="" class="ava_img preview-72" data-bind="attr: { src : imgSrc }"/></a>
+            <a href="javascript:void(0)" class="ava ava__small ava__female"><span class="ico-status"></span><img alt="" class="ava_img preview-24" data-bind="attr: { src : imgSrc }"/></a>
         </div>
         <div class="margin-t5">
             <div class="popup-sign_tx-help">Так будет выглядеть ваше главное фото <br>на страницах Веселого Жирафа</div>

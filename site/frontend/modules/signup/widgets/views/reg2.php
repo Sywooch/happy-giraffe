@@ -1,10 +1,8 @@
 <?php
 /**
  * @var CActiveForm $form
- * @var RegisterForm2 $model
+ * @var RegisterFormStep2 $model
  */
-
-$address = new UserAddress();
 ?>
 <div class="popup-sign_top">
     <div class="popup-sign_t">Добро пожаловать, <span data-bind="text: first_name.val"></span>!</div>
@@ -21,7 +19,7 @@ $address = new UserAddress();
             'id' => 'registerFormStep2',
             'action' => array('/signup/register/step2'),
             'enableAjaxValidation' => true,
-            'enableClientValidation' => true,
+            'enableClientValidation' => false,
             'clientOptions' => array(
                 'inputContainer' => 'div.inp-valid',
                 'validateOnSubmit' => true,
@@ -37,10 +35,10 @@ $address = new UserAddress();
         <?=CHtml::hiddenField('userId', '', array(
             'data-bind' => 'value: id',
         ))?>
-        <?=CHtml::hiddenField('RegisterFormStep2[UserSocialService][service_id]', '', array(
+        <?=CHtml::hiddenField('RegisterFormStep2[service_id]', '', array(
             'data-bind' => 'value: uid',
         ))?>
-        <?=CHtml::hiddenField('RegisterFormStep2[UserSocialService][service]', '', array(
+        <?=CHtml::hiddenField('RegisterFormStep2[service]', '', array(
             'data-bind' => 'value: socialServiceName',
         ))?>
         <div class="popup-sign_attr" data-bind="visible: social() && email.show()">
@@ -98,12 +96,12 @@ $address = new UserAddress();
             </div>
             <div class="popup-sign_row">
                 <div class="inp-valid inp-valid__abs">
-                    <?=$form->dropDownList($address, 'country_id', array(), array(
+                    <?=$form->dropDownList($model, 'country_id', array(), array(
                         'class' => 'select-cus select-cus__gray',
                         'data-bind' => 'value: location.country_id, options: location.availableCountries, optionsText: \'name\', optionsValue: \'id\', optionsCaption: "Страна", select2: location.countrySettings',
                     ))?>
                     <div class="inp-valid_error">
-                        <?=$form->error($address, 'country_id')?>
+                        <?=$form->error($model, 'country_id')?>
                     </div>
                     <div class="inp-valid_success inp-valid_success__ico-check"></div>
                 </div>
@@ -111,12 +109,12 @@ $address = new UserAddress();
             </div>
             <div class="popup-sign_row" data-bind="visible: location.country_id">
                 <div class="inp-valid inp-valid__abs">
-                    <?=$form->hiddenField($address, 'city_id', array(
+                    <?=$form->hiddenField($model, 'city_id', array(
                         'class' => 'select-cus select-cus__gray',
                         'data-bind' => 'select2: location.citySettings',
                     ))?>
                     <div class="inp-valid_error">
-                        <?=$form->error($address, 'city_id')?>
+                        <?=$form->error($model, 'city_id')?>
                     </div>
                     <div class="inp-valid_success inp-valid_success__ico-check"></div>
                 </div>
@@ -165,7 +163,7 @@ $address = new UserAddress();
                     </div>
                     <?=$form->hiddenField($model, 'birthday')?>
                     <div class="inp-valid_error">
-                        <div class="errorMessage"><?php $form->error($model, 'birthday'); ?></div>
+                        <?=$form->error($model, 'birthday')?>
                     </div>
                     <div class="inp-valid_success inp-valid_success__ico-check"></div>
                 </div>
@@ -190,7 +188,7 @@ $address = new UserAddress();
                                 ))?>
                             </div>
                             <div class="inp-valid_error">
-                                <?php $form->error($model, 'gender'); ?>
+                                <?=$form->error($model, 'gender')?>
                             </div>
                             <div class="inp-valid_success inp-valid_success__ico-check"></div>
                         </div>

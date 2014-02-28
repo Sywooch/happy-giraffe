@@ -1,7 +1,7 @@
 <?php
 /**
  * @var CActiveForm $form
- * @var RegisterForm1 $model
+ * @var RegisterFormStep1 $model
  */
 ?>
 

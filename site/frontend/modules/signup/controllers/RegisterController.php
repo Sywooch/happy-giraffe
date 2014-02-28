@@ -12,6 +12,7 @@ class RegisterController extends HController
             'captcha' => array(
                 'class' => 'CaptchaExtendedAction',
                 'mode' => CaptchaExtendedAction::MODE_WORDS,
+                'testLimit' => 0,
             ),
             'social' => array(
                 'class' => 'signup.components.SocialAction',
@@ -41,17 +42,16 @@ class RegisterController extends HController
      */
     public function actionStep1()
     {
-        $model = new RegisterFormStep1('signupStep1');
+        $model = new RegisterFormStep1();
 
         $this->performAjaxValidation($model);
 
         if (isset($_POST['RegisterFormStep1'])) {
             $model->attributes = $_POST['RegisterFormStep1'];
-            $success = $model->save();
-            $response = array();
-            $response['success'] = $success;
+            $success = $model->validate() && $model->save();
+            $response = compact('success');
             if ($success)
-                $response['id'] = $model->id;
+                $response['id'] = $model->user->id;
             echo CJSON::encode($response);
         }
     }
@@ -64,33 +64,52 @@ class RegisterController extends HController
     {
         $userId = Yii::app()->request->getPost('userId');
         $social = Yii::app()->request->getPost('social');
-        $scenario = ($social == 'true') ? 'signupStep2Social' : 'signupStep2';
-        $model = empty($userId) ? new RegisterFormStep2() : RegisterFormStep2::model()->findByPk($userId);
-        $model->scenario = $scenario;
-        $address = new UserAddress();
+        $model = new RegisterFormStep2();
+        $model->user = ($userId) ? User::model()->findByPk($userId) : new User();
+        if ($social == 'true')
+            $model->scenario = 'social';
 
-        $this->performAjaxValidation(array($model, $address));
+        $this->performAjaxValidation($model);
 
-        die;
-
-        $model->attributes = $_POST['RegisterFormStep2'];
-        if ($social) {
-            $socialService = new UserSocialService();
-            $socialService->attributes = $_POST['UserSocialService'];
-            $model->userSocialServices = array($socialService);
+        if (isset($_POST['RegisterFormStep2'])) {
+            $model->attributes = $_POST['RegisterFormStep2'];
+            $success = $model->validate() && $model->save();
+            $response = compact('success');
+            if ($success)
+                $response['id'] = $model->user->id;
+            echo CJSON::encode($response);
         }
-        $success = $model->withRelated->save(true, array('userSocialServices')) && $model->register();
-        if ($_POST['avatar']) {
-            $photo = AlbumPhoto::createByUrl($_POST['avatar']['imgSrc'], $model->id);
-            $coordinates = $_POST['avatar']['coords'];
-            UserAvatar::createUserAvatar($model->id, $photo->id,
-                $coordinates['x'], $coordinates['y'], $coordinates['w'], $coordinates['h']);
-        }
-        $response['success'] = $success;
-        if ($success)
-            $response['id'] = $model->id;
-        echo CJSON::encode($response);
     }
+
+//    public function actionStep2()
+//    {
+//        $userId = Yii::app()->request->getPost('userId');
+//        $social = Yii::app()->request->getPost('social');
+//        $scenario = ($social == 'true') ? 'signupStep2Social' : 'signupStep2';
+//        $model = empty($userId) ? new RegisterFormStep2() : RegisterFormStep2::model()->findByPk($userId);
+//        $model->scenario = $scenario;
+//        $address = new UserAddress();
+//
+//        $this->performAjaxValidation(array($model, $address));
+//
+//        $model->attributes = $_POST['RegisterFormStep2'];
+//        if ($social) {
+//            $socialService = new UserSocialService();
+//            $socialService->attributes = $_POST['UserSocialService'];
+//            $model->userSocialServices = array($socialService);
+//        }
+//        $success = $model->withRelated->save(true, array('userSocialServices')) && $model->register();
+//        if ($_POST['avatar']) {
+//            $photo = AlbumPhoto::createByUrl($_POST['avatar']['imgSrc'], $model->id);
+//            $coordinates = $_POST['avatar']['coords'];
+//            UserAvatar::createUserAvatar($model->id, $photo->id,
+//                $coordinates['x'], $coordinates['y'], $coordinates['w'], $coordinates['h']);
+//        }
+//        $response['success'] = $success;
+//        if ($success)
+//            $response['id'] = $model->id;
+//        echo CJSON::encode($response);
+//    }
 
     /**
      * Подтверждение e-mail

@@ -642,7 +642,7 @@ var DateRange = {
     },
     years : function(min, max) {
         var yearsRange = [];
-        for (var i = min; i <= max; i++)
+        for (var i = max; i >= min; i--)
             yearsRange.push(i);
         return yearsRange;
     }

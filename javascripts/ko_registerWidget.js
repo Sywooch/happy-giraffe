@@ -8,9 +8,9 @@ function RegisterWidgetViewModel(data, form) {
     self.currentStep = ko.observable(self.STEP_REG1);
 
     self.id = ko.observable();
-    self.email = new RegisterUserAttribute('nikita@happy-giraffe.ru');
-    self.first_name = new RegisterUserAttribute('1');
-    self.last_name = new RegisterUserAttribute('2');
+    self.email = new RegisterUserAttribute('');
+    self.first_name = new RegisterUserAttribute('');
+    self.last_name = new RegisterUserAttribute('');
     self.country = ko.observable('');
     self.city = ko.observable('');
     self.birthday_year = new RegisterUserAttribute('');

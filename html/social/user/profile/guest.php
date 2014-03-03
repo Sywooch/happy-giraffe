@@ -337,7 +337,7 @@
 						</ul>
 					</div>
 					<div class="clearfix">
-						<a href="" class="float-r">Все друзья</a>
+						<a href="" class="float-r">Все друзья <span class="widget-friends_count">245</span></a>
 					</div>
 				</div>
 				

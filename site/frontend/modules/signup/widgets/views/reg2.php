@@ -2,6 +2,7 @@
 /**
  * @var CActiveForm $form
  * @var RegisterFormStep2 $model
+ * @todo Выяснить почему пришлось выключить клиентскую валидацию
  */
 ?>
 <div class="popup-sign_top">

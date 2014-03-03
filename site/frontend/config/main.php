@@ -70,6 +70,8 @@ return array(
         'ext.captchaExtended.*',
         'application.modules.antispam.models.*',
         'application.modules.antispam.components.*',
+        'application.modules.signup.widgets.*',
+        'application.modules.signup.models.*',
     ),
 
 	'sourceLanguage' => 'en',

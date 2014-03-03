@@ -14,7 +14,7 @@
         <div class="popup-sign_row">
             <div class="popup-sign_label">С помощью социальных сетей</div>
         </div>
-        <?php $this->widget('AuthWidget', array('action' => '/signup/register/social')); ?>
+        <?php $this->widget('AuthWidget', array('action' => '/signup/register/social', 'view' => 'inside')); ?>
     </div>
     <div class="popup-sign_col">
         <?php $form = $this->beginWidget('CActiveForm', array(

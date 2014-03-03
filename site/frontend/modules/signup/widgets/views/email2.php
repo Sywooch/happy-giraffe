@@ -2,6 +2,7 @@
 /**
  * @var CActiveForm $form
  * @var ResendConfirmForm $model
+ * @todo Выяснить почему пришлось выключить клиентскую валидацию
  */
 ?>
 

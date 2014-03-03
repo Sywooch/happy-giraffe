@@ -85,7 +85,7 @@ function UserLocation(countries) {
                     var city = data[i];
                     results.push({
                         id : city.id,
-                        text : city.name
+                        text : city.label
                     });
                 }
                 return { results : results };

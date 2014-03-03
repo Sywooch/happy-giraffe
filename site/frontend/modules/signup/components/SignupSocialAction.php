@@ -1,10 +1,7 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 03/03/14
- * Time: 16:09
- * To change this template use File | Settings | File Templates.
+ * Class SignupSocialAction
+ * Действие контроллера, обрабатывающая аутентификацию через социальные сети
  */
 
 class SignupSocialAction extends SocialAction

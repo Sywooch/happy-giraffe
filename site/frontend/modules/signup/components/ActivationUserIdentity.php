@@ -1,10 +1,7 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 26/02/14
- * Time: 12:50
- * To change this template use File | Settings | File Templates.
+ * Class ActivationUserIdentity
+ * Класс для аутентификации после перехода по ссылке на подтверждение e-mail из письма
  */
 
 class ActivationUserIdentity extends CBaseUserIdentity

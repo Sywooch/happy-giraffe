@@ -1639,4 +1639,9 @@ class User extends HActiveRecord
 	{
 		return 'onOff' . $this->id;
 	}
+
+    public function getIsBanned()
+    {
+        return in_array(AntispamStatusManager::getUserStatus($this->id), array(AntispamStatusManager::STATUS_BLOCKED, AntispamStatusManager::STATUS_BLACK));
+    }
 }

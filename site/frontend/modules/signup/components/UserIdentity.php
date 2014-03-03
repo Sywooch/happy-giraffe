@@ -1,15 +1,13 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 24/02/14
- * Time: 17:55
- * To change this template use File | Settings | File Templates.
+ * Class UserIdentity
+ * Класс для аутентификации по e-mail и паролю
  */
 
 class UserIdentity extends CUserIdentity
 {
     const ERROR_BANNED = 3;
+    const ERROR_INACTIVE = 4;
 
     public function authenticate()
     {
@@ -22,7 +20,11 @@ class UserIdentity extends CUserIdentity
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
             $this->errorMessage = 'Неверный пароль';
         }
-        elseif ($this->isBanned($model)) {
+        elseif ($model->status == User::STATUS_INACTIVE) {
+            $this->errorCode = self::ERROR_INACTIVE;
+            $this->errorMessage = 'Вы не подтвердили свой e-mail';
+        }
+        elseif ($model->isBanned) {
             $this->errorCode = self::ERROR_BANNED;
             $this->errorMessage = 'Вы заблокированы';
         }
@@ -32,10 +34,5 @@ class UserIdentity extends CUserIdentity
             $this->errorCode = self::ERROR_NONE;
         }
         return $this->errorCode == self::ERROR_NONE;
-    }
-
-    protected function isBanned($model)
-    {
-        return in_array(AntispamStatusManager::getUserStatus($model->id), array(AntispamStatusManager::STATUS_BLOCKED, AntispamStatusManager::STATUS_BLACK));
     }
 }

@@ -75,7 +75,7 @@ class RegisterController extends HController
             Yii::app()->user->login($identity, 3600*24*30);
             $this->redirect(array('/profile/default/signup/'));
         } else
-            echo $identity->errorCode;
+            echo $identity->errorMessage;
     }
 
     /**

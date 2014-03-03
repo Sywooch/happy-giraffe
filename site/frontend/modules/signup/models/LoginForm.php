@@ -1,4 +1,7 @@
 <?php
+/**
+ * Форма для авторизации пользователя по паролю
+ */
 
 class LoginForm extends CFormModel
 {
@@ -26,6 +29,11 @@ class LoginForm extends CFormModel
         );
     }
 
+    /**
+     * Проверка возможности аутентификации
+     * @param $attribute
+     * @param $params
+     */
     public function authenticate($attribute, $params)
     {
         if (! $this->hasErrors())
@@ -38,6 +46,10 @@ class LoginForm extends CFormModel
         }
     }
 
+    /**
+     * Аутентификация пользователя
+     * @return bool
+     */
     public function login()
     {
         if ($this->_identity===null)

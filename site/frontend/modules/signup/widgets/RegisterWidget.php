@@ -1,10 +1,6 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 20/02/14
- * Time: 11:44
- * To change this template use File | Settings | File Templates.
+ * Виджет окна регистрации
  */
 
 class RegisterWidget extends CWidget

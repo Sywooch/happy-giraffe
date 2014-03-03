@@ -1,6 +1,5 @@
 <?php
 /**
- * Class PasswordRecoveryController
  * Реализует функционал напоминания пароля
  */
 

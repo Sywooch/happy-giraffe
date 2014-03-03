@@ -1,6 +1,5 @@
 <?php
 /**
- * Class SocialUserIdentity
  * Класс для аутентификации через социальную сеть
  */
 
@@ -20,19 +19,15 @@ class SocialUserIdentity extends CBaseUserIdentity
 
     public function authenticate()
     {
-        if (! $this->service->isAuthenticated) {
+        if (! $this->service->isAuthenticated)
             $this->errorCode = self::ERROR_NOT_AUTHENTICATED;
-            $this->errorMessage = 'Вы не авторизовались в социальной сети';
-        }
         else {
             $serviceModel = UserSocialService::model()->findByAttributes(array(
                 'service' => $this->service->getServiceName(),
                 'service_id' => $this->service->getAttribute('uid'),
             ));
-            if ($serviceModel === null) {
+            if ($serviceModel === null)
                 $this->errorCode = self::ERROR_NOT_ASSOCIATED;
-                $this->errorCode = 'Социальный аккаунт не привязан';
-            }
             else {
                 $model = User::model()->findByPk($serviceModel->user_id);
 

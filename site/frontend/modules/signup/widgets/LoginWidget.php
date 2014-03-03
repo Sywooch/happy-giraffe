@@ -1,10 +1,6 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 24/02/14
- * Time: 16:56
- * To change this template use File | Settings | File Templates.
+ * Виджет окна аутентификации
  */
 
 class LoginWidget extends CWidget

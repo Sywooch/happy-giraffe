@@ -12,7 +12,7 @@ class DefaultController extends HController
         $criteria = new CDbCriteria(array(
             'limit' => 10,
             'with' => array(
-                'district',
+                'region',
             ),
         ));
         $criteria->addSearchCondition('t.name', $term);
@@ -27,7 +27,7 @@ class DefaultController extends HController
         $_cities = array();
         foreach ($cities as $city) {
             $_cities[] = array(
-                'label' => $city->getLabel($cities),
+                'label' => $city->name . ', ' . $city->region->name,
                 'name' => $city->name,
                 'id' => (int)$city->id,
             );

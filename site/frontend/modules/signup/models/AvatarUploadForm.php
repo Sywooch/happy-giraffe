@@ -1,10 +1,8 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 27/02/14
- * Time: 12:40
- * To change this template use File | Settings | File Templates.
+ * Форма загрузки изображения для аватара
+ *
+ * Реализует валидацию и непосредственно сохраняет изображение на сервере, саму аватару не создает
  */
 
 class AvatarUploadForm extends CFormModel
@@ -19,6 +17,10 @@ class AvatarUploadForm extends CFormModel
         );
     }
 
+    /**
+     * Сохранение на сервер
+     * @return mixed
+     */
     public function upload()
     {
         $path = Yii::getPathOfAlias('site.common.uploads.photos.temp');
@@ -28,6 +30,10 @@ class AvatarUploadForm extends CFormModel
         return $this->image->saveAs($path . DIRECTORY_SEPARATOR . $this->fileName);
     }
 
+    /**
+     * Возвращает имя в файловой системе
+     * @return string
+     */
     public function getFileName()
     {
         return Yii::app()->params['photos_url'] . '/temp/' . $this->fileName;

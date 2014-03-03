@@ -20,4 +20,6 @@ class RegisterCaptcha extends CCaptcha
     public $buttonLabel = '<div class="ico-refresh"></div>Обновить';
 
     public $clickableImage = true;
+
+    public $captchaAction = '/signup/register/captcha';
 }

@@ -49,10 +49,26 @@ class RegisterWidget extends CWidget
                 ),
             ),
             array(
+                'name' => 'Яндекс',
+                'url' => 'https://mail.yandex.ru/',
+                'domains' => array(
+                    'yandex.ru',
+                    'ya.ru',
+                ),
+            ),
+            array(
+                'name' => 'Яндекс',
+                'url' => 'https://mail.yandex.ua/',
+                'domains' => array(
+                    'yandex.ua',
+                    'ya.ua',
+                ),
+            ),
+            array(
                 'name' => 'Gmail',
                 'url' => 'https://mail.google.com/',
                 'domains' => array(
-                    'gmail'
+                    'gmail.com'
                 ),
             ),
             array(
@@ -68,10 +84,25 @@ class RegisterWidget extends CWidget
                 ),
             ),
             array(
-                'name' => 'Весёлый Жираф',
-                'url' => 'http://www.happy-giraffe.ru/',
+                'name' => 'MSN',
+                'url' => 'https://login.live.com/',
                 'domains' => array(
-                    'happy-giraffe.ru',
+                    'outlook.com',
+                    'hotmail.com',
+                ),
+            ),
+            array(
+                'name' => 'ukr.net',
+                'url' => 'http://mail.ukr.net/',
+                'domains' => array(
+                    'ukr.net',
+                ),
+            ),
+            array(
+                'name' => 'Yahoo',
+                'url' => 'https://login.yahoo.com/',
+                'domains' => array(
+                    'yahoo.com',
                 ),
             ),
         );

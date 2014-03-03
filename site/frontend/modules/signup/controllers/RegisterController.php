@@ -15,21 +15,8 @@ class RegisterController extends HController
                 'testLimit' => 0,
             ),
             'social' => array(
-                'class' => 'signup.components.SocialAction',
-                'successCallback' => function($eauth) {
-                    $identity = new SocialUserIdentity($eauth);
-                    if ($identity->authenticate()) {
-                        Yii::app()->user->login($identity, 3600*24*30);
-                        $eauth->redirect();
-                    } else {
-                        $eauth->component->setRedirectView('signup.views.redirect');
-                        $eauth->redirect(null, array(
-                            'attributes' => $eauth->getAttributes(),
-                            'serviceName' => $eauth->getServiceName(),
-                            'fromLogin' => false,
-                        ));
-                    }
-                }
+                'class' => 'signup.components.SignupSocialAction',
+                'fromLogin' => false,
             ),
         );
     }

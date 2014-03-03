@@ -76,8 +76,5 @@
             </div>
         </div>
 
-        <?php $this->renderDynamic('registerPopup');
-        //$this->widget('application.widgets.loginWidget.LoginWidget'); ?>
-
     </div>
 <?php endif; ?>

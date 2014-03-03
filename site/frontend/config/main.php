@@ -67,7 +67,6 @@ return array(
         'application.modules.myGiraffe.models.*',
         'application.modules.myGiraffe.components.*',
         'application.modules.community.models.*',
-        'application.widgets.registerWidget.RegisterWidget',
         'ext.captchaExtended.*',
         'application.modules.antispam.models.*',
         'application.modules.antispam.components.*',

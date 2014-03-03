@@ -33,7 +33,9 @@ class WebUser extends CWebUser
 
     protected function beforeLogin($id, $states, $fromCookie)
     {
-        Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
+        $referrer = Yii::app()->request->getUrlReferrer();
+        if ($referrer !== null)
+            Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
         return parent::beforeLogin($id, $states, $fromCookie);
     }
 }

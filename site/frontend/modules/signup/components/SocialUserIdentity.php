@@ -1,16 +1,15 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 25/02/14
- * Time: 09:25
- * To change this template use File | Settings | File Templates.
+ * Class SocialUserIdentity
+ * Класс для аутентификации через социальную сеть
  */
 
 class SocialUserIdentity extends CBaseUserIdentity
 {
-    const ERROR_NOT_AUTHENTICATED = 3;
-    const ERROR_NOT_ASSOCIATED = 4;
+    const ERROR_BANNED = 3;
+    const ERROR_INACTIVE = 4;
+    const ERROR_NOT_AUTHENTICATED = 5;
+    const ERROR_NOT_ASSOCIATED = 6;
 
     public $service;
 
@@ -21,20 +20,35 @@ class SocialUserIdentity extends CBaseUserIdentity
 
     public function authenticate()
     {
-        if (! $this->service->isAuthenticated)
+        if (! $this->service->isAuthenticated) {
             $this->errorCode = self::ERROR_NOT_AUTHENTICATED;
+            $this->errorMessage = 'Вы не авторизовались в социальной сети';
+        }
         else {
             $serviceModel = UserSocialService::model()->findByAttributes(array(
                 'service' => $this->service->getServiceName(),
                 'service_id' => $this->service->getAttribute('uid'),
             ));
-            if ($serviceModel === null)
+            if ($serviceModel === null) {
                 $this->errorCode = self::ERROR_NOT_ASSOCIATED;
+                $this->errorCode = 'Социальный аккаунт не привязан';
+            }
             else {
                 $model = User::model()->findByPk($serviceModel->user_id);
-                foreach ($model->attributes as $k => $v)
-                    $this->setState($k, $v);
-                $this->errorCode = self::ERROR_NONE;
+
+                if ($model->status == User::STATUS_INACTIVE) {
+                    $this->errorCode = self::ERROR_INACTIVE;
+                    $this->errorMessage = 'Вы не подтвердили свой e-mail';
+                }
+                elseif ($model->isBanned) {
+                    $this->errorCode = self::ERROR_BANNED;
+                    $this->errorMessage = 'Вы заблокированы';
+                }
+                else {
+                    foreach ($model->attributes as $k => $v)
+                        $this->setState($k, $v);
+                    $this->errorCode = self::ERROR_NONE;
+                }
             }
         }
         return $this->errorCode == self::ERROR_NONE;

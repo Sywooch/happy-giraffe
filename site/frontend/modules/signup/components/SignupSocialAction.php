@@ -13,17 +13,18 @@ class SignupSocialAction extends SocialAction
 
     public function run()
     {
-        $this->successCallback = function($eauth) {
+        $action = $this;
+        $this->successCallback = function($eauth) use ($action) {
             $identity = new SocialUserIdentity($eauth);
             if ($identity->authenticate()) {
                 Yii::app()->user->login($identity, 3600*24*30);
-                $eauth->redirect();
+                $eauth->redirect(Yii::app()->user->returnUrl);
             } else {
                 $eauth->component->setRedirectView('signup.views.redirect');
                 $eauth->redirect(null, array(
                     'attributes' => $eauth->getAttributes(),
                     'serviceName' => $eauth->getServiceName(),
-                    'fromLogin' => $this->fromLogin,
+                    'fromLogin' => $action->fromLogin,
                 ));
             }
         };

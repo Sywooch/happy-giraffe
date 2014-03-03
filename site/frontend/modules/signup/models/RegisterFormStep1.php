@@ -1,7 +1,8 @@
 <?php
 /**
- * Class RegisterFormStep1
- * @property User $user
+ * Форма обработки 1 шага регистрации
+ *
+ * Несмотря на то, что реализует первый шаг, уже сохраняет пользователя перманентно
  */
 
 class RegisterFormStep1 extends CFormModel

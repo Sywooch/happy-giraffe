@@ -1,10 +1,6 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 26/02/14
- * Time: 13:51
- * To change this template use File | Settings | File Templates.
+ * Капча для виджета регистрации
  */
 
 class RegisterCaptcha extends CCaptcha

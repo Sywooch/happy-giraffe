@@ -1,10 +1,6 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 26/02/14
- * Time: 13:35
- * To change this template use File | Settings | File Templates.
+ * Форма обработки повторной отправки письма подтверждения
  */
 
 class ResendConfirmForm extends CFormModel
@@ -22,6 +18,13 @@ class ResendConfirmForm extends CFormModel
         );
     }
 
+    /**
+     * Отправка письма
+     *
+     * Должна генерировать новый пароль, так как он присутствует в тексте письма
+     *
+     * @return bool
+     */
     public function send()
     {
         $user = User::model()->findByPk($this->id);

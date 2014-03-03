@@ -1,6 +1,5 @@
 <?php
 /**
- * Class UserIdentity
  * Класс для аутентификации по e-mail и паролю
  */
 

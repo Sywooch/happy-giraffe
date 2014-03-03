@@ -1,10 +1,9 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 20/02/14
- * Time: 14:59
- * To change this template use File | Settings | File Templates.
+ * Виджет для отображения социальных кнопок
+ *
+ * Используется как внутри модуля для форм логина и регистрации, так и за его пределами для реализации социальных
+ * кнопок аутентификации.
  */
 
 class AuthWidget extends EAuthWidget

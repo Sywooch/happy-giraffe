@@ -1,10 +1,6 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 25/02/14
- * Time: 11:18
- * To change this template use File | Settings | File Templates.
+ * Форма генерации нового пароля
  */
 
 class PasswordRecoveryForm extends CFormModel
@@ -27,6 +23,10 @@ class PasswordRecoveryForm extends CFormModel
         );
     }
 
+    /**
+     * Генерация и отправка письма
+     * @return bool
+     */
     public function send()
     {
         $user = User::model()->findByAttributes(array('email' => $this->email));

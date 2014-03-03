@@ -14,11 +14,11 @@
             'id' => 'resendConfirmForm',
             'action' => array('/signup/register/resend'),
             'enableAjaxValidation' => true,
-            'enableClientValidation' => true,
+            'enableClientValidation' => false,
             'clientOptions' => array(
                 'inputContainer' => 'div.inp-valid',
                 'validateOnSubmit' => true,
-                'afterValidate' => 'js:afterValidateStep1',
+                'afterValidate' => 'js:afterValidateResend',
             ),
         )); ?>
         <?=CHtml::hiddenField('ResendConfirmForm[id]', '', array(

@@ -35,15 +35,6 @@ class RegisterController extends HController
     }
 
     /**
-     * Контроллер для тестов
-     * @todo Убрать
-     */
-    public function actionTest2()
-    {
-        $this->render('test2');
-    }
-
-    /**
      * 1 шаг регистрации
      */
     public function actionStep1()

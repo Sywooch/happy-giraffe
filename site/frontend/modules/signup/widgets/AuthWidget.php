@@ -10,4 +10,15 @@
 class AuthWidget extends EAuthWidget
 {
     public $cssFile = false;
+    public $view = 'outside';
+
+    public function run()
+    {
+        $this->registerAssets();
+        $this->render($this->view, array(
+            'id' => $this->getId(),
+            'services' => $this->services,
+            'action' => $this->action,
+        ));
+    }
 }

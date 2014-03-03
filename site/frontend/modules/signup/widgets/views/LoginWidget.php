@@ -25,7 +25,7 @@
                     <div class="popup-sign_row">
                         <div class="popup-sign_label">Быстрый вход</div>
                     </div>
-                    <?php $this->widget('AuthWidget', array('action' => '/signup/login/social')); ?>
+                    <?php $this->widget('AuthWidget', array('action' => '/signup/login/social', 'view' => 'inside')); ?>
                 </div>
                 <div class="popup-sign_col">
                     <div class="popup-sign_row">

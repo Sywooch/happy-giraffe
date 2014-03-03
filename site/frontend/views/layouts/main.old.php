@@ -174,9 +174,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                     </div>
                 </div>
 
-                <?php $this->widget('application.widgets.registerWidget.RegisterWidget');
-                $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
-
             </div>
         <?php endif ?>
 

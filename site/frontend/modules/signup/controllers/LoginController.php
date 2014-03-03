@@ -10,21 +10,8 @@ class LoginController extends HController
     {
         return array(
             'social' => array(
-                'class' => 'signup.components.SocialAction',
-                'successCallback' => function($eauth) {
-                    $identity = new SocialUserIdentity($eauth);
-                    if ($identity->authenticate()) {
-                        Yii::app()->user->login($identity, 3600*24*30);
-                        $eauth->redirect(Yii::app()->user->returnUrl);
-                    } else {
-                        $eauth->component->setRedirectView('signup.views.redirect');
-                        $eauth->redirect(null, array(
-                            'attributes' => $eauth->getAttributes(),
-                            'serviceName' => $eauth->getServiceName(),
-                            'fromLogin' => true,
-                        ));
-                    }
-                }
+                'class' => 'signup.components.SignupSocialAction',
+                'fromLogin' => true,
             ),
         );
     }

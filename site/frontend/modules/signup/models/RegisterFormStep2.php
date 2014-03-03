@@ -27,6 +27,8 @@ class RegisterFormStep2 extends CFormModel
 
     private $_user;
 
+    private $_password;
+
     public function rules()
     {
         return array(
@@ -78,8 +80,8 @@ class RegisterFormStep2 extends CFormModel
     public function save()
     {
         $this->_user->attributes = $this->attributes;
-        $password = User::createPassword(8);
-        $this->password = User::hashPassword($password);
+        $this->_password = User::createPassword(8);
+        $this->password = User::hashPassword($this->_password);
         $this->activation_code = $this->createActivationCode();
 
         if ($this->getScenario() == 'social') {
@@ -133,11 +135,13 @@ class RegisterFormStep2 extends CFormModel
         Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
 
         Yii::app()->email->send($this, 'confirmEmail', array(
-            'password' => $this->password,
+            'password' => $this->_password,
             'email' => $this->email,
             'first_name' => $this->first_name,
             'activation_url' => Yii::app()->createAbsoluteUrl('/signup/register/confirm', array('activationCode' => $this->activation_code)),
         ));
+
+        Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
     }
 
     public function __get($name)

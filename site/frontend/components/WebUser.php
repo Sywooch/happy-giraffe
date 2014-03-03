@@ -30,4 +30,10 @@ class WebUser extends CWebUser
 
         unset(Yii::app()->request->cookies['not_guest']);
     }
+
+    protected function beforeLogin($id, $states, $fromCookie)
+    {
+        Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
+        return parent::beforeLogin($id, $states, $fromCookie);
+    }
 }

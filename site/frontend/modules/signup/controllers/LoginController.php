@@ -15,7 +15,7 @@ class LoginController extends HController
                     $identity = new SocialUserIdentity($eauth);
                     if ($identity->authenticate()) {
                         Yii::app()->user->login($identity, 3600*24*30);
-                        $eauth->redirect();
+                        $eauth->redirect(Yii::app()->user->returnUrl);
                     } else {
                         $eauth->component->setRedirectView('signup.views.redirect');
                         $eauth->redirect(null, array(

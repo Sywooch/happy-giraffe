@@ -523,8 +523,10 @@ function MessagingThread(me, user) {
             ],
             change : [
                 function() {
-                    im.renew();
-                    self.scrollManager.setFix();
+                    setTimeout(function() {
+                        im.renew();
+                        self.scrollManager.setFix();
+                    }, 0);
                 }
             ],
             keydown : [

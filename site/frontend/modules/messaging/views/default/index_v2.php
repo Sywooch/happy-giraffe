@@ -101,7 +101,7 @@
                                         <span class="verticalalign-m-help"></span>
                                     </a>
                                 </li>
-                                <li class="side-menu_li" data-bind="css: {active: currentFilter() == 3}">
+                                <!--<li class="side-menu_li" data-bind="css: {active: currentFilter() == 3}">
                                     <a href="" class="side-menu_i" data-bind="click: function() {setFilter(3);}">
                                         <span class="side-menu_i-hold">
                                             <span class="side-menu_ico side-menu_ico__online-friend"></span>
@@ -109,7 +109,7 @@
                                         </span>
                                         <span class="verticalalign-m-help"></span>
                                     </a>
-                                </li>
+                                </li>-->
                             </ul>
                         </div>
                     </div>

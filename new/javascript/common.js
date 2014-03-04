@@ -27,7 +27,9 @@ function addBaron(el) {
 $(function() {
 
     $(document).ajaxError(function() {
-        $(".error-serv").removeClass('display-n');
+        if(arguments[3] !== '' && arguments[3] !== 'abort') {
+            $(".error-serv").removeClass('display-n');
+        }
     });
 
 	$(document).on('koUpdate', function(event, elements) {
@@ -81,10 +83,6 @@ $(function() {
 			}
 		});
 		
-	});
-    
-	$(document).on('koElementAdded', function(event) {
-		event.target;
 	});
 
     /* Для работы select2 в magnificPopup */

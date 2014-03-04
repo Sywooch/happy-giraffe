@@ -14,7 +14,13 @@ function FriendsViewModel(data) {
     }));
     self.selectedListId = ko.observable(null);
     self.friendsToShow = ko.observableArray([]);
+    
     self.activeTab = ko.observable(self.incomingRequestsCount() > 0 ? 2 : 0);
+	var params = /(\?|&)tab=(\d+)/.exec(window.location.search);
+	if(params && params[2]) {
+		self.activeTab(params[2] * 1);
+	}
+    
     self.newListTitle = ko.observable('');
     self.instantaneousQuery = ko.observable('');
     self.query = ko.computed(this.instantaneousQuery).extend({ throttle: 400 });
@@ -42,6 +48,7 @@ function FriendsViewModel(data) {
     self.selectTab = function(tab) {
         self.newSelected(false);
         self.selectedListId(null);
+        History.pushState(null, window.document.title, '?tab=' + tab);
         self.activeTab(tab);
     }
 
@@ -92,7 +99,7 @@ function FriendsViewModel(data) {
             if (response.last)
                 self.lastPage(true);
         }, 'json');
-    }
+    };
 
     self.init = function() {
         if (self.activeTab() <= 1) {
@@ -119,13 +126,15 @@ function FriendsViewModel(data) {
     }
 
     self.nextPage = function() {
-        self.loadFriends(function(response) {
-            var newItems = ko.utils.arrayMap(response.friends, function(friend) {
-                return new Friend(friend, self);
-            });
+        if (self.activeTab() <= 1) {
+            self.loadFriends(function(response) {
+                var newItems = ko.utils.arrayMap(response.friends, function(friend) {
+                    return new Friend(friend, self);
+                });
 
-            self.friendsToShow.push.apply(self.friendsToShow, newItems);
-        }, self.friendsToShow().length);
+                self.friendsToShow.push.apply(self.friendsToShow, newItems);
+            }, self.friendsToShow().length);
+        }
     }
 
     self.templateName = function() {
@@ -136,7 +145,7 @@ function FriendsViewModel(data) {
         return self.activeTab() <= 1 ? self.friendsToShow() : self.friendsRequests();
     })
 
-    self.init();
+    //self.init();
 
     $(window).scroll(function() {
         if (self.activeTab() <= 1 && self.loading() === false && self.lastPage() === false && (($(window).scrollTop() + $(window).height()) > (document.documentElement.scrollHeight - 500)))
@@ -144,12 +153,12 @@ function FriendsViewModel(data) {
     });
 
     ko.computed(function() {
+        self.init();
         self.newSelected();
         self.selectedListId();
         self.activeTab();
         self.friendsToShow([]);
         self.friendsRequests([]);
-        self.init();
     })
 }
 
@@ -238,21 +247,30 @@ function IncomingFriendRequest(data, parent) {
 
     self.fromId = ko.observable(data.fromId);
     self.removed = ko.observable(false);
+    self.accepted = ko.observable(false);
     self.userIsVisible = ko.observable(true);
 
     self.accept = function() {
         $.post('/friends/requests/accept/', { requestId : self.id }, function(response) {
             if (response.success) {
-                parent.friendsRequests.remove(self);
+                //parent.friendsRequests.remove(self);
+                self.accepted(true);
+                setTimeout(function () {
+                    if (self.accepted()) {
+                        self.userIsVisible(false);
+                        //parent.friendsRequests.remove(self);
+                    }
+                }, 2000);
                 parent.friendsCount(parent.friendsCount() + 1);
                 parent.friendsNewCount(parent.friendsNewCount() + 1);
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
                 if (self.user.online)
                     parent.friendsOnlineCount(parent.friendsOnlineCount() + 1);
 
-                console.log(parent.incomingRequestsCount());
                 if (parent.incomingRequestsCount() == 0)
                     parent.selectTab(0);
+                
+                
             }
         }, 'json');
     }
@@ -263,8 +281,10 @@ function IncomingFriendRequest(data, parent) {
                 parent.incomingRequestsCount(parent.incomingRequestsCount() - 1);
                 self.removed(true);
                 setTimeout(function () {
-                    if (self.removed())
+                    if (self.removed()) {
                         self.userIsVisible(false);
+                        //parent.friendsRequests.remove(self);
+                    }
                 }, 2000);
             }
         }, 'json');

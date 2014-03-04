@@ -84,6 +84,8 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
+        throw new CHttpException(500);
+
         if (! Yii::app()->user->isGuest)
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));
 

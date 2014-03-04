@@ -6,9 +6,13 @@
 class FriendButtonWidget extends CWidget
 {
     const STATUS_GUEST = 0;
+    // друзья
     const STATUS_IS_FRIEND = 1;
+    // можно отправить приглашение
     const STATUS_INVITE = 2;
+    // приглашение отправлено
     const STATUS_INVITE_SENT = 3;
+    // ожидание подтверждения от меня
     const STATUS_ACCEPT = 4;
 
     public $user;

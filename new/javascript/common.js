@@ -282,7 +282,7 @@ RedactorPlugins.imageCustom = {
 
         var fake = '<form id="wysiwygImage" method="POST" enctype="multipart/form-data"><div class="file-fake powertip" title="Фото">' +
             '<div class="file-fake_btn redactor_btn_image"></div>' +
-            '<input type="file" class="file-fake_inp">' +
+            '<input type="file" class="file-fake_inp" accept="image/*">' +
             '</div></form>';
 
         this.$toolbar.append($('<li>').append(fake));

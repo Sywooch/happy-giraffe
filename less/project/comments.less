@@ -1,9 +1,9 @@
+// комментарии с www
 .comments-gray {
     background: #fff;
     padding: 5px 0 20px;
     text-align: left;
     
-
     .b-article_in-img {
         margin: 5px 10px 5px 0;
         max-width: 395px;
@@ -14,7 +14,6 @@
     .redactor_editor {max-height: 300px;}
     .redactor_editor:focus {border-color: #a3cff4;}
     .a-imitation {color: #319FE4}
-
     &__map-route {padding: 20px 180px 20px 0;}
     &__wide {
         margin: 20px;
@@ -41,6 +40,8 @@
     &__small &_author {display: block;}
     &__small &_add {margin: 0;padding: 0;}
     &__small &_add.active &_ava {margin-top: 3px;}
+
+    &__map-route {padding: 20px 180px 20px 0;}
 
     &__activity {
         margin: 20px;
@@ -98,22 +99,14 @@
         margin: 0;
         padding: 15px 20px;
     }
-    &_i:first-child {padding-top: 5px;}
-    &_i:last-child {padding-bottom: 5px;}
     &_i:hover &_admin,
     &_i:hover &_control {display: block;}
-    &_i:hover .like-hg-small,
-    &_i:hover &_quote-ico {color: @color-gray-dark;}
-    &_i:hover &_quote-ico {background-position: 0 -94px;}
-    &_i:hover &_quote-ico:hover {background-position: 0 -44px;}
-    &_i:hover .like-hg-small:hover {background-position: 0 -50px;}
-    &_i:hover .like-hg-small,
-    &_i__self .like-hg-small:hover {background-position: 0 -100px;}
+    &_i:first-child {padding-top: 5px;}
+    &_i:last-child {padding-bottom: 5px;}
+    &_i__self .like-hg-small:hover {background-position: 0 0;}
     &_i__recovery:hover,
     &_i__recovery {background: #fff;}
     &_i__recovery p {color: #ccc;}
-    &_i__recovery &_control,
-    &_i__recovery &_bottom {display: none;}
     &_i__pink &_frame {
         margin: -12px 75px 0 50px;
         padding: 10px 10px;
@@ -147,9 +140,7 @@
         margin: 0 0 5px;
     }
     &_header &_date {padding-right: 7px;}
-    &_header .user-actions {padding-bottom: 2px;}
     &_author {
-        .inline-block();
         color: #289fd7;
         text-decoration: none;
         padding-right: 5px;
@@ -210,7 +201,7 @@
         top: 19px;
         right: 0;
         margin: 0;
-        width: 63px;
+        width: 55px;
         text-align: right;
         line-height: 16px;
     }
@@ -220,43 +211,17 @@
 
     &_quote-ico {
         .inline-block();
-        vertical-align: middle;
-        padding: 2px 0 0 17px;
-        height: 17px;
-        line-height: 17px;
-        background: url(/images/comments-gray_quote-ico.png) no-repeat 0 6px;
-        color: @color-gray-light;
-        font-size: 11px;
-        text-decoration: none;
+        width: 15px;
+        height: 11px;
+        margin: 1px 0 3px;
+        background: url(/images/comments-gray_quote-ico.png) no-repeat;
     }
     &_quote-ico.active,
-    &_quote-ico:hover {
-        background-position: 0 -44px;
-        color: @color-base;
-        text-decoration: underline;
-    }
+    &_quote-ico:hover {background-position: 0 -50px;}
     &_a-recovery {
         font-size: 11px;
         border-bottom: 1px dotted #289FD7;
         text-decoration: none;
-    }
-
-    &_bottom {
-        margin: 3px 0;
-    }
-    &_bottom .message-ico {vertical-align: middle;}
-    &_sepor {
-        .inline-block();
-        vertical-align: middle;
-        width: 0;
-        height: 10px;
-        margin: 0 6px;
-        border-right: 1px solid #b6b6b6;
-    }
-    &_like {
-        .inline-block();
-        vertical-align: middle;
-        margin-top: -2px;
     }
 
     /* activity in profile */
@@ -280,4 +245,38 @@
         color: #186fb8;
     }
     &_article-t-a {color: #186fb8;}
+}
+
+/* message-ico */
+.message-ico {
+    .inline-block();
+    width: 16px;
+    height: 15px;
+    background: url(/images/ico/message_ico.png) no-repeat;
+    
+    &__edit          {background-position: -80px 0;}
+    &__edit.active,
+    &__edit:hover    {background-position: -80px -15px;}
+    &__warning       {background-position: -16px 0;}
+    &__warning.active,
+    &__warning:hover {background-position: -16px -15px;}
+    &__del           {background-position: -64px 0;}
+    &__del.active,
+    &__del:hover     {background-position: -64px -15px;}
+}
+/* /message-ico */
+
+
+.like-hg-small {
+    .inline-block();
+    padding: 5px 0 0 17px;
+    height: 11px;
+    text-align: center;
+    font-size: 9px;
+    line-height: 11px;
+    color: #b1b1b1;
+    background: url(/images/like-hg-small.png) no-repeat 0 0;
+    text-decoration: none;
+    &.active,
+    &:hover { background-position: 0 -50px;}
 }

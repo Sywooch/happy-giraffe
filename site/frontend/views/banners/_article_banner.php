@@ -1,5 +1,5 @@
 <div class="article-banner">
-    <?php if (strtotime($data->created) < (time() - 30*24*60*60)): ?>
+    <?php if (true || (strtotime($data->created) < (time() - 30*24*60*60))): ?>
         <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->

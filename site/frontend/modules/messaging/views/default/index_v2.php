@@ -192,7 +192,6 @@
                     <!-- im-panel-->
                     <div class="im-panel">
                         <div class="im-panel_actions">
-                            <!--
                             <div class="im-panel_ico-hold tooltip-click-b">
                                 <span class="im-panel_ico im-panel_ico__del powertip" title="Удалить диалог" href=""></span>
                                 <div class="tooltip-drop">
@@ -210,6 +209,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--
                             <div class="im-panel_ico-hold tooltip-click-b">
                                 <span class="im-panel_ico im-panel_ico__ban powertip" title="Заблокировать" data-bind="click: user.blackListHandler, css: { active : user.blackListed }"></span>
                                 <div class="tooltip-drop">
@@ -252,7 +252,7 @@
                                 <div class="im_loader" data-bind="visible: loadingMessages"><img src="/new/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка ранних сообщений</span></div>
                                 <!-- ko if: deletedDialogs().length -->
                                 <!-- cap-empty-->
-                                <div class="cap-empty cap-empty__abs">
+                                <div class="cap-empty cap-empty__abs" data-bind="css: {'with-messages': ko.utils.arrayFilter(messages(), function(m) { return !m.hidden(); }).length > 0 }">
                                   <div class="cap-empty_hold">
                                     <div class="cap-empty_img"></div>
                                     <div class="cap-empty_t">Диалог с данным пользователем удален</div>

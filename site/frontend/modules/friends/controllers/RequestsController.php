@@ -40,7 +40,7 @@ class RequestsController extends HController
                 'id' => $request->id,
                 'user' => FriendsManager::userToJson($user),
             );
-        }, FriendRequest::model()->with('from')->findAllByAttributes(array($column => Yii::app()->user->id, 'status' => 'pending')));
+        }, FriendRequest::model()->with('from')->findAllByAttributes(array($column => Yii::app()->user->id, 'status' => 'pending'), array('limit' => 100)));
 
         $response = compact('requests');
         echo CJSON::encode($response);

@@ -27,6 +27,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
 				'new/javascript/jquery.magnific-popup.js',
+                'new/javascript/select2.js',
                 'new/javascript/common.js',
                 'javascripts/base64.js',
             ),

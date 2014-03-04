@@ -3,6 +3,7 @@ $user = Yii::app()->user->model;
 ?>
 
 <!-- header-->
+<!-- ko stopBinding: true -->
 <div class="header header__base">
     <div class="header_hold clearfix">
         <!-- logo-->
@@ -32,4 +33,5 @@ $user = Yii::app()->user->model;
         <!-- /header-menu-->
     </div>
 </div>
+<!-- /ko -->
 <!-- /header-->

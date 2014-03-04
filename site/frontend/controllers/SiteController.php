@@ -84,6 +84,8 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
+        throw new CHttpException(404);
+
         if (! Yii::app()->user->isGuest)
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));
 
@@ -97,21 +99,15 @@ class SiteController extends HController
 	 */
 	public function actionError()
 	{
-	    if($error=Yii::app()->errorHandler->error)
+	    if ($error=Yii::app()->errorHandler->error)
 	    {
 	    	if(Yii::app()->request->isAjaxRequest)
 	    		echo $error['message'];
 	    	else
             {
-                if(file_exists(Yii::getPathOfAlias('application.views.system.' . $error['code']) . '.php'))
-                {
-                    $this->pageTitle = 'Ошибка';
-                    $this->layout = '//system/layout';
-                    Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/common.css');
-                    $this->render('//system/' . $error['code'], $error);
-                }
-                else
-                    $this->render('error', $error);
+                $viewFile = Yii::app()->getSystemViewPath() . DIRECTORY_SEPARATOR . 'error' . $error['code'] . '.php';
+                if (is_file($viewFile))
+                    include($viewFile);
             }
 	    }
 	}

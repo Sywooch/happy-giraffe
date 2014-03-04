@@ -227,18 +227,22 @@ function HgWysiwyg(element, options, callbacks)
         },
         changeCallback: function(html)
         {
-            var redactorH = this.$box.height();
+            var redactor = this;
 
-            var bParrent = this.$box.parents('.redactor-control_hold');
-            if (redactorH >= 250)
-                bParrent.height(250);
-            else
-                bParrent.height(redactorH);
+            setTimeout(function() {
+                var redactorH = redactor.$box.height();
 
-            if (self.tempBoxHeight != redactorH)
-                addBaron('.redactor-control_hold .scroll');
+                var bParrent = redactor.$box.parents('.redactor-control_hold');
+                if (redactorH >= 250)
+                    bParrent.height(250);
+                else
+                    bParrent.height(redactorH);
 
-            self.tempBoxHeight = redactorH;
+                if (self.tempBoxHeight != redactorH)
+                    addBaron('.redactor-control_hold .scroll');
+
+                self.tempBoxHeight = redactorH;
+            }, 0);
             
             self.fireCallbacks('change', arguments);
         },

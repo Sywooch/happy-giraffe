@@ -163,6 +163,7 @@ class HActiveRecord extends CActiveRecord
                 if ($load < $minLoad)
                     $resultConnection = $connection;
             }
+            var_dump($id);
         }
         return $resultConnection;
     }

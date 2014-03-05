@@ -33,7 +33,7 @@ if (get_class($data) == 'CommunityContent' || get_class($data) == 'BlogContent')
 
 <?php if ($full): ?>
 <div class="textalign-c" style="margin: 15px 0;">
-    <div class="display-ib">
+    <div style="display: inline-block;">
         <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
         <div id="yandex_ad"></div>
         <script type="text/javascript">

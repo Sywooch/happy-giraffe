@@ -138,12 +138,38 @@ class HActiveRecord extends CActiveRecord
 
     protected function beforeFind()
     {
+        self::$db = $this->getConnectionForSelect();
+        parent::beforeFind();
+    }
 
+    protected function afterFind()
+    {
+        self::$db = null;
+        parent::beforeFind();
     }
 
     protected function getConnectionForSelect()
     {
-        //$connections
+        $connectionIds = Yii::app()->params['selectConnections'];
+        if ($connectionIds === null)
+            return null;
+
+        $resultConnection = null;
+        $minLoad = 100;
+        foreach ($connectionIds as $id) {
+            if (isset(Yii::app()->$id) && Yii::app()->$id instanceof CDbConnection) {
+                $connection = Yii::app()->$id;
+                $load = $this->getLoad($connection);
+                if ($load < $minLoad)
+                    $resultConnection = $connection;
+            }
+        }
+        return $resultConnection;
+    }
+
+    protected function getLoad(CDbConnection $connection)
+    {
+        return $this->getActiveConnectionsCount($connection) / $this->getConnectionsLimit($connection);
     }
 
     protected function getConnectionsLimit(CDbConnection $connection)

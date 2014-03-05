@@ -53,8 +53,9 @@ if (! isset($showComments))
             </div>
         </div>
 
-        <!-- ko stopBinding: true -->
         <?php $this->renderPartial('blog.views.default._post_header', array('model' => $source, 'full' => $full)); ?>
+
+        <!-- ko stopBinding: true -->
 
         <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false, 'show_new' => isset($show_new) ? true : false)); ?>
 

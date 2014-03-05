@@ -1023,6 +1023,7 @@ class CommunityContent extends HActiveRecord
             'id' => $this->id,
             'attached' => $this->real_time != null,
             'privacy' => (int)$this->privacy,
+            'created' => strtotime($this->created),
         );
     }
 

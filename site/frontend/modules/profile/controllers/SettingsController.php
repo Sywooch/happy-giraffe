@@ -11,7 +11,7 @@ class SettingsController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - personal, social, password, captcha',
+            'ajaxOnly - personal, social, password, captcha, remove',
         );
     }
 

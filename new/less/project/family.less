@@ -1,0 +1,187 @@
+
+/* b-family */
+.b-family {
+    font-size: 9px;
+    line-height: 10px;
+    text-align: center;
+
+    &__bg-dark &_more {color: #fff;}
+    &__bg-dark &_img-hold {
+        background: #836d96;
+        background: rgba(0,0,0,.25);
+        .box-shadow(inset 0 1px 1px rgba(0,0,0,0.25));
+    }
+    &__bg-dark &_tx {
+        color: #fff;
+        background: #967cac;
+        background: rgba(0,0,0,.15);
+    }
+    &__bg-none &_img-hold {
+        background: none;
+        .box-shadow(none);
+    }
+    &__bg-none &_tx {background: none;}
+
+    &__square &_ul {margin: 8px -20px;}
+    &__square &_li {
+        width: 85px;
+        height: 82px;
+        margin: 15px 17px 15px;
+        padding: 10px 3px 5px;
+        border: 2px solid #ace9a6;
+        background: #fff;
+        .border-radius(6px);
+    }
+    &__square &_li.dragover {border-color: #9be498;}
+    &__square &_li.dragover-error {border-color: #f8bdbd;}
+    &__square &_li__empty {
+        border: 2px dashed #95d0e6;
+    }
+    &__square &_img-hold {
+        display: block;
+        width: auto;
+        max-width: none;
+        background: none;
+        .box-shadow(none);
+    }
+    &__square &_tx {
+        width: auto;
+        background: none;
+        color: #1a1a1a;
+    }
+
+    &_top {
+        margin: 0 auto 15px;
+    }
+/*    &_top__white {
+        height: 22px;
+        width: 190px;
+        background: url(/images/b-famyli_top__white.png) no-repeat;
+    }*/
+    &_top__white-big {
+        width: 250px;
+        height: 28px;
+        margin: 20px auto 20px;
+        background: url('@{path-img}/b-famyli_top__white-big.png') no-repeat;
+    }
+/*    &_top__blue {
+        height: 22px;
+        width: 190px;
+        background: url(/images/b-famyli_top__blue.png) no-repeat;
+    }
+    &_top__blue-big {
+        width: 274px;
+        height: 31px;
+        margin: 20px auto 35px;
+        background: url(/images/b-famyli_top__blue-big.png) no-repeat;
+    }*/
+    &_ul {margin: 8px -10px 0;}
+    &_li {
+        .inline-block();
+        vertical-align: top;
+        position: relative;
+        margin: 0 7px 13px;
+    }
+    .no-touch &_li &_del {display: none;}
+    &_li:hover &_del {display: block;}
+    &_li > a {text-decoration: none;display: block;}
+    &_img-hold {
+        display: table-cell;
+        vertical-align: middle;
+        width: 55px;
+        max-width: 55px;
+        height: 55px;
+        max-height: 55px;
+        text-align: center;
+        background: #eee;
+        background: rgba(0,0,0,.05);
+        .box-shadow(inset 0 1px 1px rgba(0,0,0,0.1));
+    }
+    &_img {max-height: 100%;}
+    &_tx {
+        display: block;
+        width: 55px;
+        padding: 2px 0 5px;
+        color: #6a6a6a;
+        background: #fff;
+        background: rgba(255,255,255,0.7);
+    }
+    &_empty {
+        font-size: 12px;
+        color: #ded2e9;
+    }
+    &_more {font-size: 12px;}
+    &_add {
+        display: block;
+        font-size: 13px;
+        color: #fff;
+    }
+    &_add-b {
+        display: block;
+        width: 55px;
+        height: 55px;
+        border: 2px dashed #fff;
+        margin: 0 auto 8px;
+        background: #927aa8;
+        background: rgba(0,0,0,.15) url(/images/b-famyli_add-b.png) no-repeat 50% 50%;
+        .border-radius(5px);
+    }
+    &_add-b:hover {background-color: rgba(0,0,0,.3);}
+    &_del {
+        display: none;
+        position: absolute;
+        top: 7px;
+        right: 7px;
+    }
+    &_sub-t {
+        font-size: @font-s;
+        font-weight: bold;
+        color: @color-gray-dark;
+    }
+}
+/* /b-family */
+
+
+/* b-family-structure */
+.b-family-structure {
+
+    .b-family {font-size: 11px;}
+    .ico-close3 {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+    }
+    &_added {
+        float: left;
+        width: 355px;
+        padding: 0 50px;
+        background: #65c15d;
+    }
+    &_upload {
+        float: left;
+        padding: 15px 30px 25px 25px;
+        width: 450px;
+        background: #ffefab;
+    }
+    &_upload .b-family_li {
+        margin: 0 4px 13px;
+        cursor: pointer;
+    }
+    &_upload .b-family_img-hold {
+        display: block;
+        width: auto;
+        max-width: none;
+    }
+    &_upload .b-family_tx {
+        width: auto;
+        color: #1a1a1a;
+    }
+    &_note {
+        padding: 2px 40px 10px 0;
+        background: url('@{path-img}/bfamily-structure_note.png') no-repeat 50% 0;
+        color: @color-white;
+        text-align: center;
+        .font-s-mixin();
+    }
+}
+/* /b-family-structure */

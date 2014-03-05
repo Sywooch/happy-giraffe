@@ -178,10 +178,11 @@
         .border-radius(4px);
     }
 
-    &__m &_ul {margin: 20px 0;}
+    &__m {margin-bottom: 0;}
+    &__m &_ul {margin: 20px -20px 0 0;}
     &__m &_li {
-        width: 110px;
-        margin: 0 20px 20px 0;
+        width: 105px;
+        margin: 0 17px 20px 0;
     }
     &__m &_i {
         color: @color-gray;
@@ -189,11 +190,25 @@
         text-decoration: none;
         border: 3px solid #cedef3;
         .border-radius(5px);
+        background: #fff;
+        height: 105px;
+        padding: 0 5px 5px;
     }
     &__m &_li.active &_i {border-color: #6ab1f3;}
     &__m &_i:hover {border-color: #6ab1f3;}
     &__m &_img-hold {
+        width: 75px;
         border: none;
+        position: static;
+        text-align: center;
+        margin: 0 auto;
+    }
+    &__m &_img-overlay {
+        background: url('@{path-img}/club-list_img-overlay.png') no-repeat 50% 50%;
+        .border-radius(7px);
+    }
+    &__m &_i-name {
+        line-height: 11px;
     }
 
     &_t {

@@ -135,4 +135,24 @@ class HActiveRecord extends CActiveRecord
         }, $favourites);
         return $users;
     }
+
+    protected function beforeFind()
+    {
+
+    }
+
+    protected function getConnectionForSelect()
+    {
+        //$connections
+    }
+
+    protected function getConnectionsLimit(CDbConnection $connection)
+    {
+        return $connection->cache(3600)->createCommand('SELECT @@MAX_CONNECTIONS;')->queryScalar();
+    }
+
+    protected function getActiveConnectionsCount(CDbConnection $connection)
+    {
+        return $connection->cache(60)->createCommand('SHOW STATUS WHERE `variable_name` = \'Threads_connected\';');
+    }
 }

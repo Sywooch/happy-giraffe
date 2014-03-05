@@ -179,6 +179,6 @@ class HActiveRecord extends CActiveRecord
 
     protected function getActiveConnectionsCount(CDbConnection $connection)
     {
-        return $connection->cache(60)->createCommand('SHOW STATUS WHERE `variable_name` = \'Threads_connected\';');
+        return $connection->cache(60)->createCommand('SHOW STATUS WHERE `variable_name` = \'Threads_connected\';')->queryScalar();
     }
 }

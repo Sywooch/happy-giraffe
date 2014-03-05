@@ -20,6 +20,7 @@
 
 </div>
 
+<?php if ($full): ?>
 <div class="textalign-c">
     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <!-- ÃÓ·ËÎ¸Ì˚È ·‡ÌÌÂ -->
@@ -31,3 +32,4 @@
         (adsbygoogle = window.adsbygoogle || []).push({});
     </script>
 </div>
+<?php endif; ?>

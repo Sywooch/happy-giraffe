@@ -109,7 +109,7 @@ NotificationRead::getInstance()->SetVisited();
                 </div>
 
                 <div class="comments-gray_r">
-                    <div class="comments-gray_date" data-bind="text: created"></div>
+                    <div class="comments-gray_date" data-bind="moment: created"></div>
 
                     <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !removed())">
                         <div class="comments-gray_control-hold">

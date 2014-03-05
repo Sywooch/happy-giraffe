@@ -145,7 +145,7 @@ class HActiveRecord extends CActiveRecord
     protected function afterFind()
     {
         self::$db = null;
-        parent::beforeFind();
+        parent::afterFind();
     }
 
     protected function getConnectionForSelect()

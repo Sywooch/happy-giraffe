@@ -138,13 +138,13 @@ class HActiveRecord extends CActiveRecord
 
     protected function beforeFind()
     {
-        self::$db = $this->getConnectionForSelect();
+        parent::$db = $this->getConnectionForSelect();
         parent::beforeFind();
     }
 
     protected function afterFind()
     {
-        self::$db = null;
+        parent::$db = null;
         parent::afterFind();
     }
 

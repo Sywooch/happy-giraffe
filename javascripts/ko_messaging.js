@@ -434,10 +434,13 @@ MessagingThread.prototype = {
 			Comet.prototype.messagingThreadRestored = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.dialog.id) {
+                        obj.scrollManager.setFix('bot');
 						obj.deletedDialogs([]);
 						ko.utils.arrayForEach(obj.messages(), function(message) {
 							message.hidden(false);
 						});
+                        // иначе обновление dom запаздывает
+                        setTimeout(function() { obj.scrollManager.setFix(); }, 200);
 					}
 				});
 			};

@@ -26,16 +26,16 @@
     &__square &_li {
         width: 85px;
         height: 82px;
-        margin: 15px 17px 15px;
+        margin: 10px 17px 15px;
         padding: 10px 3px 5px;
         border: 2px solid #ace9a6;
         background: #fff;
         .border-radius(6px);
     }
-    &__square &_li.dragover {border-color: #9be498;}
+    &__square &_li.dragover {border-color: #65c15d;}
     &__square &_li.dragover-error {border-color: #f8bdbd;}
     &__square &_li__empty {
-        border: 2px dashed #95d0e6;
+        border: 2px dashed #ace9a6;
     }
     &__square &_img-hold {
         display: block;
@@ -144,8 +144,12 @@
 
 /* b-family-structure */
 .b-family-structure {
+    background: #ffefab;
 
-    .b-family {font-size: 11px;}
+    .b-family {
+        font-size: 11px;
+        margin: 0 0 10px;
+    }
     .ico-close3 {
         position: absolute;
         top: 15px;
@@ -154,14 +158,13 @@
     &_added {
         float: left;
         width: 355px;
-        padding: 0 50px;
+        padding: 0 50px 28px;
         background: #65c15d;
     }
     &_upload {
         float: left;
-        padding: 15px 30px 25px 25px;
+        padding: 15px 30px 5px 25px;
         width: 450px;
-        background: #ffefab;
     }
     &_upload .b-family_li {
         margin: 0 4px 13px;
@@ -177,8 +180,8 @@
         color: #1a1a1a;
     }
     &_note {
-        padding: 2px 40px 10px 0;
-        background: url('@{path-img}/bfamily-structure_note.png') no-repeat 50% 0;
+        padding: 2px 40px 15px 0;
+        background: url('@{path-img}/b-family-structure_note.png') no-repeat 50% 0;
         color: @color-white;
         text-align: center;
         .font-s-mixin();

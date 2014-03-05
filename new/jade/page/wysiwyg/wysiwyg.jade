@@ -140,27 +140,31 @@ block layout-wrapper
                 br
                 br
                 br
-                // redactor-popup
-                .redactor-popup()
-                    // a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
-                    .redactor-popup_tale
-                    .redactor-popup_t Загрузите видео
-                    .redactor-popup_add-video.active
-                        .redactor-popup_add-video-hold
-                            .redactor-popup_video-serv
-                                .redactor-popup_video-serv-tx Поддерживаемые сервисы:
-                                .redactor-popup_video-serv-i.redactor-popup_video-serv-i__youtube.active
-                                .redactor-popup_video-serv-i.redactor-popup_video-serv-i__rutube
-                                .redactor-popup_video-serv-i.redactor-popup_video-serv-i__vimeo
-                            // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
-                            input.itx-simple.itx-simple__blue.w-350.float-l(type='text', name='', placeholder='Введите ссылку на видео' value='http://www.youtube.com/watch?v=N8ev5pkIqKY')
-                            button.btn-green.btn-medium Загрузить  видео
-                        // При показе текстового сообщения на .redactor-popup_add-video добавлять класс .active
-                        .redactor-popup_add-video-load
-                            img(src='/images/ico/ajax-loader.gif', alt='')
-                            br
-                            | Подождите видео загружается
-                // /redactor-popup
+                #redactor_modal(style="top:800px;left:0;")
+                    #redactor_modal_close ×
+                    header#redactor_modal_header(style="cursor: move;") Video
+                    #redactor_modal_inner
+                        // redactor-popup
+                        .redactor-popup()
+                            // a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
+                            .redactor-popup_tale
+                            .redactor-popup_t Загрузите видео
+                            .redactor-popup_add-video.active
+                                .redactor-popup_add-video-hold
+                                    .redactor-popup_video-serv
+                                        .redactor-popup_video-serv-tx Поддерживаемые сервисы:
+                                        .redactor-popup_video-serv-i.redactor-popup_video-serv-i__youtube.active
+                                        .redactor-popup_video-serv-i.redactor-popup_video-serv-i__rutube
+                                        .redactor-popup_video-serv-i.redactor-popup_video-serv-i__vimeo
+                                    // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
+                                    input.itx-simple.itx-simple__blue.w-350.float-l(type='text', name='', placeholder='Введите ссылку на видео' value='http://www.youtube.com/watch?v=N8ev5pkIqKY')
+                                    button.btn-green.btn-medium Загрузить  видео
+                                // При показе текстового сообщения на .redactor-popup_add-video добавлять класс .active
+                                .redactor-popup_add-video-load
+                                    img(src='/images/ico/ajax-loader.gif', alt='')
+                                    br
+                                    | Подождите видео загружается
+                        // /redactor-popup
                 br
                 br
                 br
@@ -190,16 +194,19 @@ block layout-wrapper
                 br
                 br
                 br
-                .redactor-popup()
-                    // a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
-                    .redactor-popup_tale
-                    .redactor-popup_t Загрузите видео
-                    .redactor-popup_video.clearfix
-                        a.redactor-popup_video-del.ico-close.powertip(href='', title='Удалить')
-                        iframe(width='540', height='300', frameborder='0', allowfullscreen='', src='http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent')
-                    .textalign-c.margin-t15
-                        a.a-pseudo(href='') Нет, загрузить другой ролик
-                        a.btn-green.btn-medium.margin-l20(href='') Добавить видео
+                #redactor_modal(style="top:1500px;left:0;")
+                    #redactor_modal_close ×
+                    header#redactor_modal_header(style="cursor: move;") Video
+                    #redactor_modal_inner
+                        .redactor-popup()
+                            // a.redactor-popup_close.ico-close3.powertip(href='', title='Закрыть')
+                            .redactor-popup_tale
+                            .redactor-popup_t Загрузите видео
+                            .redactor-popup_video.clearfix
+                                iframe(width='395', height='222', frameborder='0', allowfullscreen='', src='http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent')
+                            .textalign-c.margin-t15
+                                a.a-pseudo(href='') Нет, загрузить другой ролик
+                                a.btn-green.btn-medium.margin-l20(href='') Добавить видео
                 br
                 br
                 br

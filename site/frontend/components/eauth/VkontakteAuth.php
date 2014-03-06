@@ -14,7 +14,7 @@ class VkontakteAuth extends VKontakteOAuthService
             'query' => array(
                 'uids' => $this->uid,
                 //'fields' => '', // uid, first_name and last_name is always available
-                'fields' => 'sex, bdate, city, country, photo_max_orig',
+                'fields' => 'sex, bdate, city, country, photo_max_orig, photo_max, photo_400_orig, photo_200, photo_200_orig, photo_100, photo_50',
             ),
         ));
 
@@ -27,7 +27,30 @@ class VkontakteAuth extends VKontakteOAuthService
         $this->setBirthdayAttributes($info);
         $this->attributes['gender'] = $info->sex == 0 ? null : $info->sex - 1;
         $this->setLocationAttributes($info);
-        $this->attributes['avatar_src'] = $info->photo_max_orig;
+        $this->setAvatarAttribute($info);
+    }
+
+    protected function setAvatarAttribute($info)
+    {
+        $avatarAttributes = array(
+            'photo_max_orig',
+            'photo_max',
+            'photo_400_orig',
+            'photo_200',
+            'photo_200_orig',
+            'photo_100',
+            'photo_50',
+        );
+
+        $result = null;
+        $curl = curl_init();
+        foreach ($avatarAttributes as $attr) {
+            if (isset($info->$attr)) {
+                $result = $info->$attr;
+                break;
+            }
+        }
+        $this->attributes['avatar_src'] = $result;
     }
 
     protected function setBirthdayAttributes($info)

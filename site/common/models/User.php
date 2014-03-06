@@ -479,7 +479,7 @@ class User extends HActiveRecord
     protected function beforeSave()
     {
         if (parent::beforeSave()) {
-            if ($this->isNewRecord || $this->scenario == 'change_password' || $this->scenario == 'remember_password') {
+            if ($this->scenario == 'change_password' || $this->scenario == 'remember_password') {
                 $this->password = $this->hashPassword($this->password);
             }
             return true;

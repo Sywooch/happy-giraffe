@@ -49,6 +49,7 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
         $curl = curl_init();
         foreach ($avatarAttributes as $attr) {
             $url = $info->$attr;
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_exec($curl);
             $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -58,6 +59,7 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
             }
 
         }
+        curl_close($curl);
         $this->attributes['avatar_src'] = $result;
     }
 

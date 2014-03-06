@@ -15,6 +15,12 @@ class DefaultController extends HController
                 'district',
                 'region',
             ),
+            'order' => "CASE WHEN t.name like CONCAT(:name, ' %') THEN 0
+                WHEN t.name LIKE CONCAT(:name, '%') THEN 1
+                WHEN t.name LIKE CONCAT('% ', :name, '%') THEN 2
+                ELSE 3
+            END, t.name",
+            'params' => array(':name' => $term),
         ));
         $criteria->addSearchCondition('t.name', $term);
         if ($country_id !== null)
@@ -39,6 +45,7 @@ class DefaultController extends HController
                 ),
             );
         }
+
         echo CJSON::encode($_cities);
     }
 }

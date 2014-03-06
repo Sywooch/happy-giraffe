@@ -45,12 +45,6 @@ class VkontakteAuth extends VKontakteOAuthService
         $this->attributes['birthday_year'] = $year;
         $this->attributes['birthday_month'] = $month;
         $this->attributes['birthday_day'] = $day;
-
-        $attrs = explode(', ', 'photo_50, photo_100, photo_200_orig, photo_200, photo_400_orig, photo_max, photo_max_orig');
-        foreach ($attrs as $v) {
-            if (isset($info->$v))
-                echo '<p>' . $v . ': ' . CHtml::image($info->$v) . '</p>';
-        }
     }
 
     protected function setLocationAttributes($info)

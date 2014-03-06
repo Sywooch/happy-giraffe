@@ -5,7 +5,7 @@ function RegisterWidgetViewModel(data, form) {
         self[i] = data.constants[i];
 
     self.social = ko.observable(false);
-    self.currentStep = ko.observable(self.STEP_REG1);
+    self.currentStep = ko.observable(data.step);
 
     self.id = ko.observable();
     self.email = new RegisterUserAttribute('');
@@ -55,6 +55,13 @@ function RegisterWidgetViewModel(data, form) {
 
     self.avatar = new UserAvatar(self);
     self.location = new UserLocation(data.countries);
+
+    for (var i in data.attributes) {
+        var attr = data.attributes[i];
+        if (attr instanceof RegisterUserAttribute) {
+
+        }
+    }
 }
 
 function UserLocation(countries) {

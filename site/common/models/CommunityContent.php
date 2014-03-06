@@ -1021,7 +1021,7 @@ class CommunityContent extends HActiveRecord
     {
         return array(
             'id' => $this->id,
-            'attached' => $this->real_time != null,
+            'attached' => false, //$this->real_time != null,
             'privacy' => (int)$this->privacy,
         );
     }

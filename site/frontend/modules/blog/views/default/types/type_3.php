@@ -32,7 +32,7 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
         <?php endif; ?>
     </div>
 
-    <?php if (Yii::app()->request->getQuery('openGallery') !== null || (isset($post->autoOpen) && $post->autoOpen == 1)): ?>
+    <?php if (Yii::app()->request->getQuery('openGallery') !== null || ($post->autoOpen == 1)): ?>
         <script type="text/javascript">
             PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>);
         </script>

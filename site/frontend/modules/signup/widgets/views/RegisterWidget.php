@@ -51,7 +51,6 @@
     }
 
     function afterValidateStep2(form, data, hasError) {
-        console.log(data);
         if (! hasError) {
             var data = form.serialize();
             if (registerVm.avatar.imgSrc() !== null) {

@@ -9,7 +9,12 @@ class RegisterController extends HController
     {
         return array(
             'captcha' => array(
-                'class' => 'CaptchaExtendedAction',
+                'class' => 'RegisterCaptchaAction',
+                'mode' => CaptchaExtendedAction::MODE_WORDS,
+                'testLimit' => 0,
+            ),
+            'captcha2' => array(
+                'class' => 'RegisterCaptchaAction',
                 'mode' => CaptchaExtendedAction::MODE_WORDS,
                 'testLimit' => 0,
             ),

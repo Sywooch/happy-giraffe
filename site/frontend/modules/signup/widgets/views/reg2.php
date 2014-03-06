@@ -99,7 +99,12 @@
                 <div class="inp-valid inp-valid__abs">
                     <?=$form->dropDownList($model, 'country_id', array(), array(
                         'class' => 'select-cus select-cus__gray',
-                        'data-bind' => 'value: location.country_id, options: location.availableCountries, optionsText: \'name\', optionsValue: \'id\', optionsCaption: "Страна", select2: location.countrySettings',
+                        'data-bind' => 'value: location.country_id, options: location.availableCountries, optionsText: "name", optionsValue: "id", optionsCaption: "", select2: {
+                            width: "100%",
+                            dropdownCssClass: "select2-drop__search-on",
+                            escapeMarkup: function(m) { return m; },
+                            placeholder: "Страна"
+                        }',
                     ))?>
                     <div class="inp-valid_error">
                         <?=$form->error($model, 'country_id')?>
@@ -130,35 +135,36 @@
                     <div class="float-l w-80 margin-r10">
                         <?=$form->dropDownList($model, 'birthday_day', array(), array(
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_day.val, options: daysRange, optionsCaption: "День", select2: {
-                                width: \'100%\',
+                            'data-bind' => 'value: birthday_day.val, options: daysRange, optionsCaption: "", select2: {
+                                width: "100%",
                                 minimumResultsForSearch: -1,
-                                dropdownCssClass: \'select2-drop__search-off\',
-                                escapeMarkup: function(m) { return m; }
+                                dropdownCssClass: "select2-drop__search-off",
+                                escapeMarkup: function(m) { return m; },
+                                placeholder: "День"
                             }',
                         ))?>
                     </div>
                     <div class="float-l w-135 margin-r10">
-                        <?=$form->dropDownList($model, 'birthday_month', array_combine(range(1, 12), array('Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря')), array(
-                            'placeholder' => 'Месяц',
+                        <?=$form->dropDownList($model, 'birthday_month', array(), array(
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_month.val, options: monthesRange, optionsCaption: "Месяц", optionsText: "name", optionsValue: "id", select2: {
-                                width: \'100%\',
+                            'data-bind' => 'value: birthday_month.val, options: monthesRange, optionsCaption: "", optionsText: "name", optionsValue: "id", select2: {
+                                width: "100%",
                                 minimumResultsForSearch: -1,
-                                dropdownCssClass: \'select2-drop__search-off\',
-                                escapeMarkup: function(m) { return m; }
+                                dropdownCssClass: "select2-drop__search-off",
+                                escapeMarkup: function(m) { return m; },
+                                placeholder: "Месяц"
                             }',
                         ))?>
                     </div>
                     <div class="float-l w-80">
-                        <?=$form->dropDownList($model, 'birthday_year', array_combine(range(date('Y') - 16, date('Y') - 90), range(date('Y') - 16, date('Y') - 90)), array(
-                            'placeholder' => 'Год',
+                        <?=$form->dropDownList($model, 'birthday_year', array(), array(
                             'class' => 'select-cus select-cus__gray',
-                            'data-bind' => 'value: birthday_year.val, options: yearsRange, optionsCaption: "Год", select2: {
-                                width: \'100%\',
+                            'data-bind' => 'value: birthday_year.val, options: yearsRange, optionsCaption: "", select2: {
+                                width: "100%",
                                 minimumResultsForSearch: -1,
-                                dropdownCssClass: \'select2-drop__search-off\',
-                                escapeMarkup: function(m) { return m; }
+                                dropdownCssClass: "select2-drop__search-off",
+                                escapeMarkup: function(m) { return m; },
+                                placeholder: "Год"
                             }',
                         ))?>
                     </div>

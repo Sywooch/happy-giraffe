@@ -44,7 +44,7 @@
         </div>
         <div class="popup-sign_row margin-b30">
             <div class="popup-sign_capcha-hold">
-                <?php $this->widget('RegisterCaptcha'); ?>
+                <?php $this->widget('RegisterCaptcha', array('captchaAction' => '/signup/register/captcha2')); ?>
             </div>
             <div class="popup-sign_capcha-inp">
                 <div class="inp-valid inp-valid__abs">

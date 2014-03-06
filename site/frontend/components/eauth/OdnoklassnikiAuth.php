@@ -53,10 +53,12 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
             curl_exec($curl);
             $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             if ($httpCode == 200) {
-
+                $result = $url;
+                break;
             }
 
         }
+        $this->attributes['avatar_src'] = $result;
     }
 
     protected function setBirthdayAttributes($info)

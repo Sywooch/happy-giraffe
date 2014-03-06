@@ -244,7 +244,7 @@ class DefaultController extends HController
                 $this->redirect($model->post->url);
         }
 
-        print_r($model->post->errors);
+//        print_r($model->errors);
 
 //        if (Yii::app()->user->isGuest) {
 //            $user = new User('signupQuestion');

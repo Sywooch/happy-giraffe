@@ -13,6 +13,7 @@ class DefaultController extends HController
             'limit' => 10,
             'with' => array(
                 'district',
+                'region',
             ),
         ));
         $criteria->addSearchCondition('t.name', $term);
@@ -27,9 +28,15 @@ class DefaultController extends HController
         $_cities = array();
         foreach ($cities as $city) {
             $_cities[] = array(
-                'label' => $city->getLabel($cities),
+                'id' => (int) $city->id,
                 'name' => $city->name,
-                'id' => (int)$city->id,
+                'type' => $city->type,
+                'region' => array(
+                    'name' => $city->region->name,
+                ),
+                'district' => ($city->district === null) ? null : array(
+                    'name' => $city->district->name,
+                ),
             );
         }
         echo CJSON::encode($_cities);

@@ -144,6 +144,8 @@ ko.bindingHandlers.fixScroll = {
         manager.beforeFix = function(manager, value) {
             if(!value) {
                 box.scroll();
+                // Обновим барон (костыль)
+                addBaron(box.parent('.scroll'));
             }
         };
         manager.subsription = manager.scrollTo.subscribe(function(value) {
@@ -213,7 +215,7 @@ ko.bindingHandlers.fixScroll = {
             scrollBot: 0,
             scrollTop: 0,
             setFix: function(param) {
-                if(this.fixCallback) {
+                if(this.beforeFix) {
                     this.beforeFix(this, param);
                 }
                 this.fixTop = (param === 'top');

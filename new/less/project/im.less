@@ -447,14 +447,17 @@
 .im-message {
     position: relative;
     margin: 0;
-    padding: 20px 23px 10px;
+    padding: 15px 23px 15px;
     min-height: 36px;
     &__new {background: #e8fce6;}
     &__edited &_tx {background: #fdfcd9;}
     // отказались пока от объединения сообщений одного пользователя
-/*    &__stick {padding-top: 5px;}
+    &__stick {
+        padding-top: 6px; 
+        padding-bottom: 6px;
+    }
     &__stick .im-message_name,
-    &__stick .ava__small {display: none;}*/
+    &__stick .ava__small {display: none;}
     
     &:hover .b-control {display: block;}
     .b-control {display: none;}
@@ -475,19 +478,6 @@
     }
     &_hold {
         margin: 0 90px 0 40px;
-    }
-    &_t {}
-    &_t-read {
-        display: inline-block;
-        margin: 0 10px 0 0;
-        font: @fontsmall;
-        color: #47c05a;
-    }
-    &_t-read-no {
-        display: inline-block;
-        margin: 0 10px 0 0;
-        font: @fontsmall;
-        color: #3498db;
     }
     &_name {
         color: #3d3d3d;

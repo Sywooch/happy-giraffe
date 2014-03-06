@@ -28,7 +28,7 @@ class CommunityQuestionForm extends CFormModel
     {
         return array(
             array('title, text', 'required'),
-            array('first_name, email', 'required', 'on' => 'registered'),
+            array('first_name, email', 'required', 'on' => 'guest'),
             array('email', 'email'),
             array('email', 'unique', 'className' => 'User')
         );
@@ -68,13 +68,14 @@ class CommunityQuestionForm extends CFormModel
         if ($this->scenario == 'guest') {
             $this->_user = new User();
             $this->_user->attributes = $this->attributes;
-            $this->_user->communityPosts = array($this->_post);
         } else
             $this->_user = Yii::app()->user->model;
 
+        $this->_user->communityPosts = array($this->_post);
+
         $success = $this->_user->withRelated->save(true, array('communityPosts' => array('question')));
-        if ($success)
-            Yii::app()->setState('newUser', array(
+        if ($success && $this->scenario == 'guest')
+            Yii::app()->user->setState('newUser', array(
                 'id' => $this->_user->id,
                 'email' => $this->_user->email,
                 'first_name' => $this->_user->first_name,

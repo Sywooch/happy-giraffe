@@ -419,6 +419,7 @@ MessagingThread.prototype = {
 			Comet.prototype.messagingThreadDeleted = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.dialog.id) {
+                        obj.scrollManager.setFix('bot');
 						obj.deletedDialogs.push(result.dialog.dtimeDelete);
 						ko.utils.arrayForEach(obj.messages(), function(message) {
 							// Скрываем сообщения, которые были написаны до момента удаления диалога
@@ -426,7 +427,8 @@ MessagingThread.prototype = {
 								message.hidden(true);
 							}
 						});
-					}
+                        obj.scrollManager.setFix();
+				}
 				});
 			};
 			comet.addEvent(2060, 'messagingThreadDeleted');
@@ -434,10 +436,12 @@ MessagingThread.prototype = {
 			Comet.prototype.messagingThreadRestored = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.dialog.id) {
+                        obj.scrollManager.setFix('bot');
 						obj.deletedDialogs([]);
 						ko.utils.arrayForEach(obj.messages(), function(message) {
 							message.hidden(false);
 						});
+                        obj.scrollManager.setFix();
 					}
 				});
 			};

@@ -4,8 +4,6 @@
  * @var $data BlogContent
  * @var $full bool
  */
-//if (!empty($data->real_time))
-//$data->created = $data->real_time;
 if (empty($data->source_id))
     $source = $data;
 else

@@ -8,9 +8,9 @@ function RegisterWidgetViewModel(data, form) {
     self.currentStep = ko.observable(self.STEP_REG1);
 
     self.id = ko.observable();
-    self.email = new RegisterUserAttribute('');
-    self.first_name = new RegisterUserAttribute('');
-    self.last_name = new RegisterUserAttribute('');
+    self.email = new RegisterUserAttribute('nikita@happy-giraffe.ru');
+    self.first_name = new RegisterUserAttribute('1');
+    self.last_name = new RegisterUserAttribute('2');
     self.country = ko.observable('');
     self.city = ko.observable('');
     self.birthday_year = new RegisterUserAttribute('');
@@ -60,12 +60,6 @@ function RegisterWidgetViewModel(data, form) {
 function UserLocation(countries) {
     var self = this;
 
-    self.countrySettings = {
-        width: '100%',
-        dropdownCssClass: 'select2-drop__search-on',
-        escapeMarkup: function(m) { return m; }
-    }
-
     self.citySettings = {
         width: '100%',
         dropdownCssClass: 'select2-drop__search-on',
@@ -83,14 +77,29 @@ function UserLocation(countries) {
                 var results = [];
                 for (var i in data) {
                     var city = data[i];
+
+                    var name = city.name;
+                    if (city.type)
+                        name += ' ' + city.type + '.';
+                    var desc = city.region.name;
+                    if (city.district)
+                        desc += ', ' + city.district.name + ' р-н';
+
                     results.push({
                         id : city.id,
-                        text : city.label
+                        text : name,
+                        desc : desc
                     });
                 }
                 return { results : results };
             }
-        }
+        },
+        formatResult: function(city, container, query, escapeMarkup) {
+            var markup = [];
+            window.Select2.util.markMatch(city.text, query.term, markup, escapeMarkup);
+            return '<div class="select2-result_i">' + markup.join('') +  '</div>' + '<div class="select2-result_desc">' + city.desc + '</div>';
+        },
+        placeholder: 'Город'
     }
 
     self.city_name = ko.observable('');

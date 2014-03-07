@@ -5,7 +5,7 @@ function RegisterWidgetViewModel(data, form) {
         self[i] = data.constants[i];
 
     self.social = ko.observable(false);
-    self.currentStep = ko.observable(data.step);
+    self.currentStep = ko.observable(self.STEP_REG1);
 
     self.id = ko.observable();
     self.email = new RegisterUserAttribute('');
@@ -37,6 +37,20 @@ function RegisterWidgetViewModel(data, form) {
         self.currentStep(self.STEP_REG2);
     }
 
+    self.open = function() {
+        $('a[href="#registerWidget"]').trigger('click');
+    }
+
+    self.setAttributes = function(attributes) {
+        for (var i in attributes) {
+            var attrVal = attributes[i];
+            if (self[i] instanceof RegisterUserAttribute)
+                self[i].val(attrVal);
+            else
+                self[i](attrVal);
+        }
+    }
+
     self.availableMailServices = ko.utils.arrayMap(data.mailServices, function(mailService) {
         return new MailService(mailService);
     });
@@ -56,11 +70,13 @@ function RegisterWidgetViewModel(data, form) {
     self.avatar = new UserAvatar(self);
     self.location = new UserLocation(data.countries);
 
-    for (var i in data.attributes) {
-        var attr = data.attributes[i];
-        if (attr instanceof RegisterUserAttribute) {
-
-        }
+    // для регистрации через вопрос специалисту
+    if (data.newUser !== null) {
+        self.setAttributes(data.newUser);
+        self.currentStep(self.STEP_REG2);
+        $(function() {
+            self.open();
+        });
     }
 }
 

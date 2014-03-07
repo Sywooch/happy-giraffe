@@ -30,7 +30,8 @@ class ActivationUserIdentity extends CBaseUserIdentity
         }
         else {
             $model->status = User::STATUS_ACTIVE;
-            $model->update(array('status'));
+            $model->email_confirmed = 1;
+            $model->update(array('status', 'email_confirmed'));
             foreach ($model->attributes as $k => $v)
                 $this->setState($k, $v);
             $this->errorCode = self::ERROR_NONE;

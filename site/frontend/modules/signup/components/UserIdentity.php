@@ -10,7 +10,7 @@ class UserIdentity extends CUserIdentity
 
     public function authenticate()
     {
-        $model = User::model()->findByAttributes(array('email' => $this->username));
+        $model = User::model()->findByAttributes(array('email' => $this->username, 'deleted' => 0));
         if ($model === null) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
             $this->errorMessage = 'Пользователя с таким e-mail не существует';

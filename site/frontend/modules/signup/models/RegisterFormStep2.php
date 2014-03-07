@@ -137,12 +137,7 @@ class RegisterFormStep2 extends CFormModel
         Yii::app()->db->createCommand()->insert(UserPriority::model()->tableName(), array('user_id' => $this->id));
         Yii::app()->db->createCommand()->insert(UserScores::model()->tableName(), array('user_id' => $this->id));
 
-        Yii::app()->email->send($this, 'confirmEmail', array(
-            'password' => $this->_password,
-            'email' => $this->email,
-            'first_name' => $this->first_name,
-            'activation_url' => Yii::app()->createAbsoluteUrl('/signup/register/confirm', array('activationCode' => $this->activation_code)),
-        ));
+        SignupEmailHelper::register($this->_user, $this->_password);
 
         Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
     }

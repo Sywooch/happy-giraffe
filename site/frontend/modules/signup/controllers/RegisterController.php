@@ -72,13 +72,15 @@ class RegisterController extends HController
      * Подтверждение e-mail
      * @param $activationCode
      */
-    public function actionConfirm($activationCode)
+    public function actionConfirm($activationCode, $url = '/')
     {
         $identity = new ActivationUserIdentity($activationCode);
         if ($identity->authenticate()) {
             Yii::app()->user->login($identity, 3600*24*30);
             $this->redirect(array('/profile/default/signup/'));
-        } else
+        } elseif ($identity->errorCode == ActivationUserIdentity::ERROR_CODE_USED)
+            $this->redirect($url);
+        else
             echo $identity->errorMessage;
     }
 

@@ -6,6 +6,7 @@
 class ActivationUserIdentity extends CBaseUserIdentity
 {
     const ERROR_CODE_INVALID = 3;
+    const ERROR_CODE_USED = 4;
 
     public $activationCode;
 
@@ -18,11 +19,14 @@ class ActivationUserIdentity extends CBaseUserIdentity
     {
         $model = User::model()->findByAttributes(array(
             'activation_code' => $this->activationCode,
-            'status' => User::STATUS_INACTIVE,
         ));
         if ($model === null) {
             $this->errorCode = self::ERROR_CODE_INVALID;
             $this->errorMessage = 'Неверный код активации';
+        }
+        elseif ($model->status == User::STATUS_ACTIVE) {
+            $this->errorCode = self::ERROR_CODE_USED;
+            $this->errorMessage = 'Код уже активирован';
         }
         else {
             $model->status = User::STATUS_ACTIVE;

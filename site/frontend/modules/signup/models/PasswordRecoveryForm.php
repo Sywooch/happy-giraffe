@@ -32,8 +32,10 @@ class PasswordRecoveryForm extends CFormModel
         $user = User::model()->findByAttributes(array('email' => $this->email));
         $newPassword = User::createPassword(8);
         $user->password = User::hashPassword($newPassword);
-        if ($user->update(array('password')) && Yii::app()->email->send($user, 'passwordRecovery', array('password' => $newPassword)))
+        if ($user->update(array('password'))) {
+            SignupEmailHelper::passwordRecovery($user, $newPassword);
             return true;
+        }
         $this->addError('email', 'Неизвестная ошибка, попробуйте еще раз');
         return false;
     }

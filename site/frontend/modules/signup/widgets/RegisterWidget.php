@@ -27,7 +27,9 @@ class RegisterWidget extends CWidget
         $constants = $c->getConstants();
         $mailServices = $this->getMailServices();
         $countries = GeoCountry::getCountries();
-        $newUser = Yii::app()->user->getState('newUser', null);
+        $newUser = Yii::app()->user->getState('newUser');
+        if (Yii::app()->user->hasState('newUser'))
+            Yii::app()->user->setState('newUser', null);
         $json = compact('minYear', 'maxYear', 'constants', 'mailServices', 'countries', 'newUser');
         $this->render('RegisterWidget', compact('modelStep1', 'modelStep2', 'resendConfirm', 'avatarUpload', 'json'));
     }

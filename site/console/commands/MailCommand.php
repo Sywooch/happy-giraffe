@@ -36,8 +36,7 @@ class MailCommand extends CConsoleCommand
 
     public function actionTestWeekly()
     {
-        $articles = CommunityContent::model()->findAll(array('limit' => 6, 'order' => 'id DESC'));
-        echo count($articles) . "\n";
+        $articles = Favourites::model()->getWeekPosts();
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
 
         Yii::app()->email->sendCampaign($contents, HEmailSender::LIST_TEST_LIST);

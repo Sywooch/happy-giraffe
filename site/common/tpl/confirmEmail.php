@@ -29,7 +29,7 @@
 
                     <tr>
                         <td valign="top" height="5px" colspan="3" style="font-size:0; line-height:0;">
-                            <img src="http://109.87.248.203/new/images/mail/mail-top-border.gif" width="100%" height="5px"/>
+                            <img src="http://www.happy-giraffe.ru/new/images/mail/mail-top-border.gif" width="100%" height="5px"/>
                         </td>
                     </tr>
                     <tr>
@@ -51,7 +51,7 @@
                                             <tr>
                                                 <td valign="top" align="center">
                                                     <a href="<?=$activation_url?>" target="_blank">
-                                                        <img src="http://109.87.248.203/new/images/mail/mail-top-logo.png" width="221px" height="62px"/>
+                                                        <img src="http://www.happy-giraffe.ru/new/images/mail/mail-top-logo.png" width="221px" height="62px"/>
                                                     </a>
                                                 </td>
                                             </tr>
@@ -156,10 +156,8 @@
                                             <tr>
                                                 <td style="border-top:1px solid #e6e5e5;padding:6px 0;">
 
-                                                    <p style="font:10px tahoma, arial, sans-serif; color: #979696;">Это письмо было сгенерированно автоматически. Пожалуйста не отвечайте на него. Если вы хотите обратиться в службу поддержки сайта «Веселый Жираф», напишите нам по адресу <span style=" color: #3587ec;"><a href="" target="_blank" style="color: #3587ec;">support@happy-giraffe.ru</a></span><br/>
+                                                    <p style="font:10px tahoma, arial, sans-serif; color: #979696;">Это письмо было сгенерированно автоматически. Пожалуйста не отвечайте на него. Если вы хотите обратиться в службу поддержки сайта «Веселый Жираф», напишите нам по адресу <span style=" color: #3587ec;"><a href="mailto:support@happy-giraffe.ru" target="_blank" style="color: #3587ec;">support@happy-giraffe.ru</a></span><br/>
                                                         <br/>
-                                                        Вы получили это письмо, так как являетесь пользователем сайта "Веселый Жираф". <span style=" color: #3587ec;"><a href="" target="_blank" style="color: #3587ec;">Отписаться от рассылки</a></span>
-                                                    </p>
 
                                                 </td>
                                             </tr>

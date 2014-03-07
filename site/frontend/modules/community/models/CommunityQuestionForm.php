@@ -30,7 +30,7 @@ class CommunityQuestionForm extends CFormModel
             array('title, text', 'required'),
             array('first_name, email', 'required', 'on' => 'guest'),
             array('email', 'email'),
-            array('email', 'unique', 'className' => 'User')
+            array('email', 'unique', 'className' => 'User', 'criteria' => array('condition' => 'deleted = 0'))
         );
     }
 

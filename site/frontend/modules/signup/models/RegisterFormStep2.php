@@ -37,7 +37,7 @@ class RegisterFormStep2 extends CFormModel
         return array(
             array('first_name, last_name, email, birthday, gender, country_id, city_id', 'required'),
             array('email', 'email'),
-            array('email', 'unique', 'className' => 'User', 'on' => 'social'),
+            array('email', 'unique', 'className' => 'User', 'criteria' => array('condition' => 'deleted = 0'), 'on' => 'social'),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
             array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements() || YII_DEBUG, 'except' => 'social'),
 

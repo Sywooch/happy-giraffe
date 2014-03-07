@@ -36,7 +36,7 @@ class MailCommand extends CConsoleCommand
 
     public function actionTestWeekly()
     {
-        $articles = Favourites::model()->getWeekPosts();
+        $articles = CommunityContent::model()->findAll(array('limit' => 6, 'order' => 'id DESC'));
         echo count($articles) . "\n";
         $contents = $this->renderFile(Yii::getPathOfAlias('site.common.tpl.weeklyNews') . '.php', array('models' => $articles), true);
 

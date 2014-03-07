@@ -344,19 +344,36 @@
 					<div class="b-article_cont clearfix">
 						<div class="b-article_cont-tale"></div>
 						<div class="b-article_header clearfix">
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
+							<div class="clearfix">
+								<div class="meta-gray">
+									<a href="" class="meta-gray_comment">
+										<span class="ico-comment ico-comment__gray"></span>
+										<span class="meta-gray_tx">35</span>
+									</a>
+									<div class="meta-gray_view">
+										<span class="ico-view ico-view__gray"></span>
+										<span class="meta-gray_tx">305</span>
+									</div>
+								</div>
+								<div class="float-l">
+									<a href="" class="b-article_author">Ангелина Богоявленская</a>
+									<span class="font-smallest color-gray">Сегодня 13:25</span>
 								</div>
 							</div>
-							<div class="float-l">
-								<a href="" class="b-article_author">Ангелина Богоявленская</a>
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
+							<div class="user-actions">
+								<!-- 
+									Виды иконок друг 
+									user-actions_i__friend - друг
+									user-actions_i__friend-add - добавить в друзья
+									user-actions_i__friend-added - приглашение выслано
+									user-actions_i__friend-append - встречное приглашение в друзья, принять
+								 -->
+								<a href="" class="user-actions_i user-actions_i__friend-add powertip" title="Приглашение выслано">
+									<span class="user-actions_ico"></span>
+								</a>
+								<a href="" class="user-actions_i user-actions_i__message powertip" title="Написать сообщение">
+									<span class="user-actions_ico"></span>
+								</a>
 							</div>
 						</div>
 						<h2 class="b-article_t">

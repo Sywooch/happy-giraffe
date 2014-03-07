@@ -1,3 +1,4 @@
+// комментарии с www
 .comments-gray {
     background: #fff;
     padding: 5px 0 20px;
@@ -210,42 +211,17 @@
 
     &_quote-ico {
         .inline-block();
-        vertical-align: middle;
-        padding: 1px 0 0 17px;
-        height: 17px;
-        line-height: 17px;
-        background: url(/images/comments-gray_quote-ico.png) no-repeat 0 5px;
-        color: @color-gray;
-        text-decoration: none;
+        width: 15px;
+        height: 11px;
+        margin: 1px 0 3px;
+        background: url(/images/comments-gray_quote-ico.png) no-repeat;
     }
     &_quote-ico.active,
-    &_quote-ico:hover {
-        background-position: 0 -45px;
-        color: @color-base;
-        text-decoration: underline;
-    }
+    &_quote-ico:hover {background-position: 0 -50px;}
     &_a-recovery {
         font-size: 11px;
         border-bottom: 1px dotted #289FD7;
         text-decoration: none;
-    }
-
-    &_bottom {
-        margin: 3px 0;
-    }
-    &_bottom .message-ico {vertical-align: middle;}
-    &_sepor {
-        .inline-block();
-        vertical-align: middle;
-        width: 0;
-        height: 10px;
-        margin: 0 6px;
-        border-right: 1px solid #a6a5a5;
-    }
-    &_like {
-        .inline-block();
-        vertical-align: middle;
-        margin-top: -2px;
     }
 
     /* activity in profile */
@@ -269,4 +245,38 @@
         color: #186fb8;
     }
     &_article-t-a {color: #186fb8;}
+}
+
+/* message-ico */
+.message-ico {
+    .inline-block();
+    width: 16px;
+    height: 15px;
+    background: url(/images/ico/message_ico.png) no-repeat;
+    
+    &__edit          {background-position: -80px 0;}
+    &__edit.active,
+    &__edit:hover    {background-position: -80px -15px;}
+    &__warning       {background-position: -16px 0;}
+    &__warning.active,
+    &__warning:hover {background-position: -16px -15px;}
+    &__del           {background-position: -64px 0;}
+    &__del.active,
+    &__del:hover     {background-position: -64px -15px;}
+}
+/* /message-ico */
+
+
+.like-hg-small {
+    .inline-block();
+    padding: 5px 0 0 17px;
+    height: 11px;
+    text-align: center;
+    font-size: 9px;
+    line-height: 11px;
+    color: #b1b1b1;
+    background: url(/images/like-hg-small.png) no-repeat 0 0;
+    text-decoration: none;
+    &.active,
+    &:hover { background-position: 0 -50px;}
 }

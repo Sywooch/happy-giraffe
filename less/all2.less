@@ -1702,7 +1702,7 @@ table.fr_recipe_tb td { width: 50%;}
         min-width: 84px;
         padding: 8px 0 0;
         background: #7d70a9;
-        color: #fff;
+        color: #d9d2e9;
         font-size: 9px;
         line-height: 10px;
         font-family: Tahoma, Arial, Verdana, sans-serif;
@@ -1848,16 +1848,17 @@ table.fr_recipe_tb td { width: 50%;}
 
 .like-hg-small {
     .inline-block();
-    padding: 5px 0 0 17px;
+    padding: 4px 0 0 16px;
     height: 11px;
     text-align: center;
-    font-size: 9px;
+    font-size: 11px;
     line-height: 11px;
-    color: #b1b1b1;
+    color: @color-gray-light;
     background: url(/images/like-hg-small.png) no-repeat 0 0;
     text-decoration: none;
     &.active,
     &:hover { background-position: 0 -50px;}
+    &__hover-out {background-position: 0 -100px;}
 }
 
 /* article-settings */
@@ -3029,13 +3030,22 @@ table.fr_recipe_tb td { width: 50%;}
 /* widget-friends */
 .widget-friends {
     margin: 10px 0 40px;
+    padding: 15px;
+    background: #f5f5f5;
+    
+    &_hold {
+        border: 1px solid #e9e9e9;
+        border-width: 1px 0;
+        margin: 10px 0;
+    }
     &_ul {
-        margin: 5px -16px 0 0;
+        margin: 0 -15px 0 0;
+        padding: 5px 0;
     }
     &_i {
         .inline-block();
         vertical-align: top;
-        margin:15px 10px 0 0;
+        margin:8px 14px 8px 0;
     }
     &_find {
         .inline-block();
@@ -3262,13 +3272,16 @@ table.fr_recipe_tb td { width: 50%;}
     &_center-reg {
         font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
         text-align: center;
-        color: #ddceeb;
+        color: #d9d2e9;
     }
     &_right {
         .inline-block();
         vertical-align: middle;
         margin-left: 20px;
         width: 270px;
+    }
+    &_help {
+        color: #d9d2e9;
     }
 }
 /* /section-user */
@@ -4772,6 +4785,60 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /adfox-banner-html */
+
+/* user-actions */
+.user-actions {
+    .inline-block();
+
+    &__small {}
+    &__small &_i__message             &_ico {background-position: 0 0;}
+    &__small &_i__message:hover       &_ico {background-position: 0 -50px;}
+    &__small &_i__friend              &_ico {background-position: -40px 0;}
+    &__small &_i__friend-add          &_ico {background-position: -20px 0;}
+    &__small &_i__friend-add:hover    &_ico {background-position: -20px -50px;}
+    &__small &_i__friend-added        &_ico {background-position: -60px 0;}
+    &__small &_i__friend-append       &_ico {background-position: -80px 0;}
+    &__small &_i__friend-append:hover &_ico {background-position: -20px -50px;}
+    &__small &_ico {
+        vertical-align: initial;
+        width: 20px;
+        height: 15px;
+        background: url(/images/user-actions_ico__small.png) no-repeat;
+    }
+    
+    &_i {
+        .inline-block();
+        margin: 0 1px;
+        text-decoration: none;
+    }
+    &_i__friend-added,
+    &_i__friend {cursor: default;}
+    &_i__friend &_tx {
+        color: #0eb31e;
+        margin: 0 2px 0 -3px;
+    }
+    &_ico {
+        .inline-block();
+        vertical-align: middle;
+        width: 25px;
+        height: 25px;
+        background: url(/images/user-actions_ico.png) no-repeat;
+    }
+    &_i__message             &_ico {background-position: 0 0;}
+    &_i__message:hover       &_ico {background-position: 0 -50px;}
+    &_i__friend              &_ico {background-position: -50px 0;}
+    &_i__friend-add          &_ico {background-position: -25px 0;}
+    &_i__friend-add:hover    &_ico {background-position: -25px -50px;}
+    &_i__friend-added        &_ico {background-position: -75px 0;}
+    &_i__friend-append       &_ico {background-position: -100px 0;}
+    &_i__friend-append:hover &_ico {background-position: -25px -50px;}
+    &_tx {
+        .inline-block();
+        .font-xs-mixin();
+        padding-bottom: 2px;
+    }
+}
+/* /user-actions */
 
 
 

@@ -2,7 +2,7 @@ function FriendsSearchViewModel(data) {
     var self = this;
 
     // значения по умолчанию
-    var DEFAULT_COUNTRY = 174;
+    var DEFAULT_COUNTRY = null;
     var DEFAULT_MIN_AGE = 18;
     var DEFAULT_MAX_AGE = 60;
     var DEFAULT_CHILD_MIN_AGE = 0;
@@ -46,7 +46,7 @@ function FriendsSearchViewModel(data) {
     self.minAge = ko.observable(DEFAULT_MIN_AGE);
     self.maxAge = ko.observable(DEFAULT_MAX_AGE);
     self.ages = ko.observableArray([]);
-    for (var i = 0; i <= 100; i++) {
+    for (var i = 16; i <= 90; i++) {
         self.ages.push(i);
     }
 
@@ -86,7 +86,7 @@ function FriendsSearchViewModel(data) {
 
     self.clearForm = function() {
         self.instantaneousQuery('');
-        self.location('0');
+        self.location('1');
         self.selectedCountry(DEFAULT_COUNTRY);
         self.selectedRegion(null);
         self.gender('');

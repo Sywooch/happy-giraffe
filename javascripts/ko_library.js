@@ -323,8 +323,8 @@ ko.bindingHandlers.moment = {
 			autoUpdate: true,
 			preset: 'adaptive'
 		};
-		var options = valueAccessor();
-		
+		var options = ko.utils.unwrapObservable(valueAccessor());
+
 		if(!(options instanceof Object)) {
 			options = {
 				value: options

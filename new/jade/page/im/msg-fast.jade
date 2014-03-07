@@ -129,9 +129,9 @@ block block-hidden
     vars
 mixin redactor-control-msg-fast(mod, vars)
 
-    - var rand = Math.floor(Math.random() * (999 - 1 + 1)) + 1;
-    - var redactor_id = 'redactor_' + rand
-    - var toolbar_id = 'redactor-control_toolbar_' + rand
+    //- - var rand = Math.floor(Math.random() * (999 - 1 + 1)) + 1;
+    //- - var redactor_id = 'redactor_' + rand
+    //- - var toolbar_id = 'redactor-control_toolbar_' + rand
 
     .redactor-control
         .redactor-control_hold
@@ -140,7 +140,8 @@ mixin redactor-control-msg-fast(mod, vars)
                     // Width из-за открытия в попапе, прикручивая ненужен
                     .scroll_cont(style="width:468px;")
                         // после открытия попапа передавать фокус на редактор
-                        textarea.redactor(cols='40', name='redactor', rows='1', autofocus='autofocus', id=redactor_id)
+                        // , id=redactor_id
+                        textarea.redactor(cols='40', name='redactor', rows='1', autofocus='autofocus')
                     .scroll_bar-hold
                         .scroll_bar
                             .scroll_bar-in

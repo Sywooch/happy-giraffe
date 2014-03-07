@@ -6,6 +6,7 @@ class m140226_081748_reg extends CDbMigration
 	{
         $this->execute("ALTER TABLE `users` ADD `activation_code` CHAR(40)  NOT NULL  DEFAULT ''  AFTER `registration_finished`;");
         $this->execute("ALTER TABLE `users` ADD `status` TINYINT(1)  UNSIGNED  NOT NULL  AFTER `activation_code`;");
+        $this->execute("UPDATE users SET status = 1;");
 	}
 
 	public function down()

@@ -25,6 +25,6 @@ if ($model->by_happy_giraffe)
         <?php else: ?>
             <a href="<?=$author->getUrl() ?>" class="b-article_author"><?=$author->getFullName() ?></a>
         <?php endif; ?>
-        <span class="b-article_date"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $model->created)?></span>
+        <span class="b-article_date" data-bind="moment: created"></span>
     </div>
 </div>

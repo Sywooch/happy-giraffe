@@ -41,7 +41,7 @@
     ko.applyBindings(registerVm, document.getElementById('registerWidget'));
 
     $(function() {
-        if (<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?> == 1)
+        if (<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?>)
             setTimeout(function() {
                 registerVm.open();
             }, 3000);

@@ -34,6 +34,11 @@ class RegisterWidget extends CWidget
         $this->render('RegisterWidget', compact('modelStep1', 'modelStep2', 'resendConfirm', 'avatarUpload', 'json'));
     }
 
+    public function autoOpen()
+    {
+        return time();
+    }
+
     protected function getMailServices()
     {
         return array(

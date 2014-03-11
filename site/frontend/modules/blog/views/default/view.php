@@ -4,8 +4,6 @@
  * @var $data BlogContent
  * @var $full bool
  */
-//if (!empty($data->real_time))
-//$data->created = $data->real_time;
 if (empty($data->source_id))
     $source = $data;
 else
@@ -53,8 +51,9 @@ if (! isset($showComments))
             </div>
         </div>
 
-        <!-- ko stopBinding: true -->
         <?php $this->renderPartial('blog.views.default._post_header', array('model' => $source, 'full' => $full)); ?>
+
+        <!-- ko stopBinding: true -->
 
         <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false, 'show_new' => isset($show_new) ? true : false)); ?>
 

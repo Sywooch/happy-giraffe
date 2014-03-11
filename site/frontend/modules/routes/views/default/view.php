@@ -176,6 +176,7 @@ Yii::app()->clientScript
 
 
             <div class="col-23">
+                <?php $this->renderPartial('//banners/_route'); ?>
                 <?php $this->renderPartial('_transit_points', array('route' => $route, 'texts' => $texts, 'points' => $points)); ?>
 
                 <div class="map-route-other" style="display: none;">

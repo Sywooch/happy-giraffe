@@ -11,7 +11,7 @@ class SettingsController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - personal, social, password, captcha',
+            'ajaxOnly - personal, social, password, captcha, remove',
         );
     }
 
@@ -109,6 +109,8 @@ class SettingsController extends HController
 
     public function actionRemove()
     {
+        throw new CHttpException(404);
+
         FriendEvent::userDeleted($this->user);
         $this->user->deleted = 1;
         $this->user->update(array('deleted'));

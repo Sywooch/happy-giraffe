@@ -11,6 +11,8 @@
 
     <h1 class="b-article_t"><?=$data->title?></h1>
 
+    <?php $this->renderPartial('//banners/_post_header', compact('data')); ?>
+
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
             <?=$data->question->purified->text?>

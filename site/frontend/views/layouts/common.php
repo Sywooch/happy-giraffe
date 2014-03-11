@@ -133,7 +133,6 @@
         <!--/ tns-counter.ru -->
         <?php endif; ?>
 
-        <?php if (false): ?>
         <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->
@@ -164,7 +163,6 @@
             // -->
         </script>
         <!--AdFox END-->
-        <?php endif; ?>
 
         <div style="display: none;">
         <a href="#popup-error" id="popup-error-link" class="fancy"></a>

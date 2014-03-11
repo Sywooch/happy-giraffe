@@ -115,7 +115,7 @@ class RegisterController extends HController
         $identity = new ActivationUserIdentity($activationCode);
         if ($identity->authenticate()) {
             Yii::app()->user->login($identity, 3600*24*30);
-            $this->redirect(array('/profile/default/signup/'));
+            $this->redirect(array('/signup/reguster/clubs/'));
         } elseif ($identity->errorCode == ActivationUserIdentity::ERROR_CODE_USED)
             $this->redirect($url);
         else

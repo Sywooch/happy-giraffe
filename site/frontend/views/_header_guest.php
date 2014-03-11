@@ -21,9 +21,9 @@
                             <div class="b-join_slogan">уже посетили Веселый Жираф!</div>
                         </div>
                         <div class="b-join_right">
-                            <a href="#registerWidget" class="btn-green btn-big fancy">Присоединяйтесь!</a>
+                            <a href="#registerWidget" class="btn-green btn-big popup-a">Присоединяйтесь!</a>
                             <div class="clearfix">
-                                <a href="#loginWidget" class="display-ib verticalalign-m fancy">Войти</a>
+                                <a href="#loginWidget" class="display-ib verticalalign-m popup-a">Войти</a>
                                 <span class="i-or">или</span>
                                 <?php $this->widget('AuthWidget', array('action' => '/signup/login/social')); ?>
                             </div>
@@ -68,7 +68,7 @@
             <div class="b-join-row_logo"></div>
             <div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 30 000 000</span> мам и пап</div>
             <div class="b-join-row_slogan">уже посетили Веселый Жираф!</div>
-            <a href="#registerWidget" class="btn-green btn-h46 fancy">Присоединяйтесь!</a>
+            <a href="#registerWidget" class="btn-green btn-h46 popup-a">Присоединяйтесь!</a>
         </div>
     </div>
 

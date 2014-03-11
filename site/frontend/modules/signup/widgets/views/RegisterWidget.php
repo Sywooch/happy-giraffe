@@ -9,6 +9,8 @@
  */
 ?>
 
+<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?>
+
 <div class="popup-container display-n">
     <div id="registerWidget" class="popup popup-sign">
         <div class="popup-sign_hold" data-bind="visible: currentStep() == STEP_REG1">
@@ -37,6 +39,13 @@
 <script type="text/javascript">
     registerVm = new RegisterWidgetViewModel(<?=CJSON::encode($json)?>, $('#registerForm'));
     ko.applyBindings(registerVm, document.getElementById('registerWidget'));
+
+    $(function() {
+        if (<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?> == 1)
+            setTimeout(function() {
+                registerVm.open();
+            }, 3000);
+    });
 
     function afterValidateStep1(form, data, hasError) {
         if (! hasError) {

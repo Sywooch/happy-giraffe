@@ -17,7 +17,7 @@ class RegisterController extends HController
         return array(
             array('deny',
                 'users' => array('?'),
-                'actions' => array('clubs'),
+                'actions' => array('clubs', 'family'),
             ),
         );
     }
@@ -85,10 +85,25 @@ class RegisterController extends HController
         }
     }
 
+    /**
+     * 3 шаг регистрации - клубы
+     */
     public function actionClubs()
     {
         $this->layout = '//layouts/new/common';
         $this->render('clubs');
+    }
+
+    /**
+     * 4 шаг регистрации - семья
+     */
+    public function actionFamily()
+    {
+        $this->layout = '//layouts/new/common';
+        $json = Yii::app()->user->model->getFamilyData();
+        $nextUrl = Yii::app()->user->getReturnUrl($this->createUrl('/profile/default/index', array('user_id' => Yii::app()->user->id)));
+        $json['callback'] = 'window.location.href = \'' . $nextUrl . '\';';
+        $this->render('family', compact('json', 'nextUrl'));
     }
 
     /**

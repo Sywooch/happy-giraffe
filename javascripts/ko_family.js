@@ -5,7 +5,6 @@ ko.bindingHandlers.draggable = {
         var value = valueAccessor();
         $(element).draggable({
             helper: 'clone',
-            containment: 'parent',
             start: function(event, ui) {
                 viewModel.beingDragged(value);
             }

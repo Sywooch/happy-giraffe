@@ -100,4 +100,20 @@ class CommunityStatus extends HActiveRecord
     {
         return BlogContent::model()->findByPk($this->content_id);
     }
+
+    public function behaviors()
+    {
+        return array(
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array('text'),
+                'options' => array(
+                    'HTML.AllowedComments' => array(
+                        'gallery' => true,
+                    ),
+                    'AutoFormat.Linkify' => true,
+                ),
+            ),
+        );
+    }
 }

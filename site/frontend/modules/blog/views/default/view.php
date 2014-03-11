@@ -4,8 +4,6 @@
  * @var $data BlogContent
  * @var $full bool
  */
-//if (!empty($data->real_time))
-//$data->created = $data->real_time;
 if (empty($data->source_id))
     $source = $data;
 else
@@ -53,10 +51,15 @@ if (! isset($showComments))
             </div>
         </div>
 
-        <!-- ko stopBinding: true -->
         <?php $this->renderPartial('blog.views.default._post_header', array('model' => $source, 'full' => $full)); ?>
 
+        <!-- ko stopBinding: true -->
+
         <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false, 'show_new' => isset($show_new) ? true : false)); ?>
+
+        <?php if ($full): ?>
+            <?php $this->renderPartial('//banners/_post_footer'); ?>
+        <?php endif; ?>
 
         <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
 
@@ -85,8 +88,8 @@ if (! isset($showComments))
     <?php $this->renderPartial('application.modules.blog.views.default._contest_bottom', compact('data')); ?>
 <?php endif; ?>
 
-<?php if ($full && (strtotime($data->created) < (time() - 30*24*60*60))): ?>
-    <?php $this->renderPartial('blog.views.default._article_banner'); ?>
+<?php if ($full): ?>
+    <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
 <?php endif; ?>
 
 <?php if ($full): ?>

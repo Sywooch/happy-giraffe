@@ -19,8 +19,10 @@ class SocialUserIdentity extends CBaseUserIdentity
 
     public function authenticate()
     {
-        if (! $this->service->isAuthenticated)
+        if (! $this->service->isAuthenticated) {
             $this->errorCode = self::ERROR_NOT_AUTHENTICATED;
+            $this->errorMessage = 'Вы не авторизовались в социальной сети';
+        }
         else {
             $serviceModel = UserSocialService::model()->findByAttributes(array(
                 'service' => $this->service->getServiceName(),
@@ -29,8 +31,10 @@ class SocialUserIdentity extends CBaseUserIdentity
                 'with' => 'user',
                 'condition' => 'user.deleted = 0',
             ));
-            if ($serviceModel === null)
+            if ($serviceModel === null) {
                 $this->errorCode = self::ERROR_NOT_ASSOCIATED;
+                $this->errorMessage = 'Этот социальный аккаунт не привязан';
+            }
             else {
                 $model = User::model()->findByPk($serviceModel->user_id);
 

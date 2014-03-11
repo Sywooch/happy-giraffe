@@ -157,38 +157,44 @@ class MessagesController extends HController
 	
 	public function actionReaded()
 	{
-		$messageId = Yii::app()->request->getPost('messageId');
+		$messageId = Yii::app()->request->getParam('messageId');
 		$me = Yii::app()->user->id;
+        $message = MessagingMessage::model()->findByPk($messageId);
+        $messages = MessagingMessage::model()->forMarkAsReaded($messageId, $message->author_id, $me)->findAll(array( 'limit' => 10 ));
 		// Выставляем дату прочтения
-		MessagingMessageUser::model()->updateByPk(array(
-			'user_id' => $me,
-			'message_id' => $messageId,
-		), array('dtime_read' => new CDbExpression('NOW()')));
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('message_id', CHtml::listData($messages, 'id', 'id'));
+        $criteria->addColumnCondition(array('user_id' => $me));
+        MessagingMessageUser::model()->updateAll(array('dtime_read' => new CDbExpression('NOW()')), $criteria);
 
-		$response = array(
-			'success' => true,
-		);
-		echo CJSON::encode($response);
+		echo CJSON::encode(array(
+            'success' => true,
+        ));
 
 		// Подготовим и отправим событие
 		$comet = new CometModel();
-		$messageModel = MessagingMessage::model()->withMyStatsOnTop($me, false)->findByPk($messageId);
-		$user = $messageModel->messageUsers[1]->user_id;
-		// Событие себе
-		$data = array(
-			'dialog' => array(
-				'id' => $user,
-			),
-			'message' => DialogForm::messageToJson($messageModel, $me, $user, $messageModel->messageUsers[1]),
-		);
-		$comet->send($me, $data, CometModel::MESSAGING_MESSAGE_READ);
-		// Событие собеседнику
-		$data = array(
-			'dialog' => array(
-				'id' => $me,
-			),
-			'message' => DialogForm::messageToJson($messageModel, $user, $me, $messageModel->messageUsers[1]),
-		);
-		$comet->send($user, $data, CometModel::MESSAGING_MESSAGE_READ);
+        $criteria = new CDbCriteria();
+        $criteria->addInCondition('message_id', CHtml::listData($messages, 'id', 'id'));
+        $messageModels = MessagingMessage::model()->withMyStatsOnTop($me, false)->findAll($criteria);
+        foreach ($messageModels as $messageModel)
+        {
+            $user = $messageModel->messageUsers[1]->user_id;
+            // Событие себе
+            $data = array(
+                'dialog' => array(
+                    'id' => $user,
+                ),
+                'message' => DialogForm::messageToJson($messageModel, $me, $user, $messageModel->messageUsers[1]),
+            );
+            $comet->send($me, $data, CometModel::MESSAGING_MESSAGE_READ);
+            // Событие собеседнику
+            $data = array(
+                'dialog' => array(
+                    'id' => $me,
+                ),
+                'message' => DialogForm::messageToJson($messageModel, $user, $me, $messageModel->messageUsers[1]),
+            );
+            $comet->send($user, $data, CometModel::MESSAGING_MESSAGE_READ);
+        }
 	}
 }

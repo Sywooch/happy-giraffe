@@ -14,6 +14,8 @@ $post = $data->post;
         <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
     </h1>
 
+    <?php $this->renderPartial('//banners/_post_header', compact('data')); ?>
+
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
             <div class="b-article_in-img">

@@ -11,6 +11,9 @@ if (empty($this->meta_description))
         <h1 class="b-article_t fn">
             <?=$recipe->title?>
         </h1>
+
+        <?php $this->renderPartial('//banners/_post_header', compact('recipe')); ?>
+
         <div class="b-article_in clearfix">
             <div class="wysiwyg-content clearfix">
                 <!--<p>У меня есть уже один рецепт "Зебры".А этим рецептом поделилась со мной моя читательница...Я обещала попробовать сделать, и вот... я сделала! Эта "Зебра" у меня  получилась  воздушнее, мягче, рассыпчатей... По вкусу напомнила кекс... Остается мягкой и вкусной даже на следующий день! </p>-->
@@ -202,6 +205,8 @@ if (empty($this->meta_description))
             </div>
         </div>
 
+        <?php $this->renderPartial('//banners/_post_footer'); ?>
+
         <noindex>
             <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
                 'model' => $recipe,
@@ -214,18 +219,41 @@ if (empty($this->meta_description))
             )); ?>
         </noindex>
 
-        <div class="nav-article clearfix">
-            <?php if ($recipe->prev): ?>
-                <div class="nav-article_left">
-                    <a href="<?=$recipe->prev->url?>" class="nav-article_a"><?=$recipe->prev->title?></a>
-                </div>
-            <?php endif; ?>
-            <?php if ($recipe->next): ?>
-                <div class="nav-article_right">
-                    <a href="<?=$recipe->next->url?>" class="nav-article_a"><?=$recipe->next->title?></a>
-                </div>
-            <?php endif; ?>
-        </div>
+    </div>
+</div>
+
+
+        <table class="article-nearby clearfix" ellpadding="0" cellspacing="0">
+            <tr>
+                <td>
+                    <?php if ($recipe->prev): ?>
+                    <div class="article-nearby_hint">Предыдущая запись</div>
+                    <?php endif; ?>
+                </td>
+                <td class="article-nearby_r">
+                    <?php if ($recipe->next): ?>
+                    <div class="article-nearby_hint">Следующая запись</div>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <?php if ($recipe->prev): ?>
+                    <a href="<?=$recipe->prev->url?>" class="article-nearby_a clearfix">
+                        <span class="article-nearby_tx"><?=$recipe->prev->title?></span>
+                    </a>
+                    <?php endif; ?>
+                </td>
+                <td class="article-nearby_r">
+                    <?php if ($recipe->next): ?>
+                    <a href="<?=$recipe->next->url?>" class="article-nearby_a clearfix">
+                        <span class="article-nearby_tx"><?=$recipe->next->title?></span>
+                    </a>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        </table>
+
 
         <?php if ($recipe->more): ?>
             <noindex>
@@ -256,51 +284,9 @@ if (empty($this->meta_description))
             </noindex>
         <?php endif; ?>
 
-        <div class="article-banner">
-            <!--AdFox START-->
-            <!--giraffe-->
-            <!--Площадка: Весёлый Жираф / * / *-->
-            <!--Тип баннера: Безразмерный 680х470-->
-            <!--Расположение: <низ страницы>-->
-            <!-- ________________________AdFox Asynchronous code START__________________________ -->
-            <script type="text/javascript">
-                <!--
-                if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
-                if (typeof(document.referrer) != 'undefined') {
-                    if (typeof(afReferrer) == 'undefined') {
-                        afReferrer = escape(document.referrer);
-                    }
-                } else {
-                    afReferrer = '';
-                }
-                var addate = new Date();
-
-                var scrheight = '', scrwidth = '';
-                if (self.screen) {
-                    scrwidth = screen.width;
-                    scrheight = screen.height;
-                } else if (self.java) {
-                    var jkit = java.awt.Toolkit.getDefaultToolkit();
-                    var scrsize = jkit.getScreenSize();
-                    scrwidth = scrsize.width;
-                    scrheight = scrsize.height;
-                }
-
-                var dl = escape(document.location);
-                var pr1 = Math.floor(Math.random() * 1000000);
-
-                document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
-                document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
-
-                AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=i&amp;ps=bkqy&amp;p2=evor&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '&amp;dl='+dl+'&amp;pr1='+pr1);
-                // -->
-            </script>
-            <!-- _________________________AdFox Asynchronous code END___________________________ -->
-        </div>
+        <?php $this->renderPartial('//banners/_article_banner', array('data' => $recipe)); ?>
 
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('entity' => 'CookRecipe', 'entity_id' => $recipe->primaryKey, 'full' => true)); ?>
-    </div>
-</div>
 
 <?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>
 

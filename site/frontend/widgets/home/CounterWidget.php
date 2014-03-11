@@ -2,6 +2,8 @@
 
 class CounterWidget extends CWidget
 {
+    private $coef = 0.33;
+
     /**
      * прибивление поситителей по часам
      * @var array
@@ -40,7 +42,7 @@ class CounterWidget extends CWidget
         $minute = (int)date("i");
         $second = (int)date("s");
         $visitors += round(($this->visits[$hour] * $minute) / 60 + ($this->visits[$hour] * $second) / 3600);
-        $inc = ceil($this->visits[$hour] / 3600);
+        $inc = ceil($this->visits[$hour] / 3600 * $this->coef);
         $inc_min = $inc - 1;
         $inc_max = $inc + 2;
 

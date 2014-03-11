@@ -71,12 +71,6 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
                 </div>
             </div>
         </div>
-        <script type="text/javascript">
-            $(function () {
-                var viewModel = new BlogRecordSettings(<?=CJSON::encode($ViewModelData)?>);
-                ko.applyBindings(viewModel, document.getElementById('blog_settings_<?=$model->id ?>'));
-            });
-        </script>
     <?php endif ?>
     <?php if ($model->type_id == CommunityContent::TYPE_PHOTO_POST && ! $model->getIsFromBlog() && Yii::app()->authManager->checkAccess('communityPhotoWidgets', Yii::app()->user->id)): ?>
         <div class="textalign-c">
@@ -84,3 +78,10 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
         </div>
     <?php endif; ?>
 </div>
+
+<script type="text/javascript">
+    $(function () {
+        viewModel = new BlogRecordSettings(<?=CJSON::encode($ViewModelData)?>);
+        ko.applyBindings(viewModel, document.getElementById('blog_settings_<?=$model->id ?>'));
+    });
+</script>

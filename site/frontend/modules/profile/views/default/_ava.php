@@ -82,7 +82,7 @@ if (Yii::app()->user->id != $user->id):
                                             </div>
                                             <div class="file-fake">
                                                 <button class="btn-green btn-medium file-fake_btn">Обзор</button>
-                                                <input class="js-upload-files-multiple" type="file">
+                                                <input class="js-upload-files-multiple" type="file" accept="image/*">
                                             </div>
                                         </div>
                                         <div class="b-add-img_html5-tx">или перетащите фото сюда</div>

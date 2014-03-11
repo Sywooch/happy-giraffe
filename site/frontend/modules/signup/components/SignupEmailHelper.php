@@ -16,12 +16,17 @@ class SignupEmailHelper
             'email' => $user->email,
             'first_name' => $user->first_name,
             'activation_url' => Yii::app()->createAbsoluteUrl('/signup/register/confirm', array('activationCode' => $user->activation_code)),
-            'change_password_url' => Yii::app()->createAbsoluteUrl('/signup/register/confirm', array('activationCode' => $user->activation_code, 'url' => Yii::app()->createAbsoluteUrl('/profile/settings/password/'))),
+            'change_password_url' => Yii::app()->createAbsoluteUrl('/signup/register/confirm', array('activationCode' => $user->activation_code, 'url' => Yii::app()->createAbsoluteUrl('/profile/settings/password'))),
         ));
     }
 
     public static function passwordRecovery(User $user, $password)
     {
-        Yii::app()->email->send($user, 'passwordRecovery', array('password' => $password));
+        Yii::app()->email->send($user, 'passwordRecovery', array(
+            'password' => $password,
+            'email' => $user->email,
+            'first_name' => $user->first_name,
+            'change_password_url' => Yii::app()->createAbsoluteUrl('/profile/settings/password'),
+        ));
     }
 }

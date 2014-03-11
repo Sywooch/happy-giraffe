@@ -109,6 +109,8 @@ class SettingsController extends HController
 
     public function actionRemove()
     {
+        throw new CHttpException(404);
+
         FriendEvent::userDeleted($this->user);
         $this->user->deleted = 1;
         $this->user->update(array('deleted'));

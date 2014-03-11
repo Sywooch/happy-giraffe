@@ -38,7 +38,7 @@ function RegisterWidgetViewModel(data, form) {
     }
 
     self.open = function() {
-        $('a[href="#registerWidget"]').trigger('click');
+        $('a[href="#registerWidget"]:first').trigger('click');
     }
 
     self.setAttributes = function(attributes) {

@@ -34,14 +34,18 @@ class RegisterWidget extends CWidget
         $this->render('RegisterWidget', compact('modelStep1', 'modelStep2', 'resendConfirm', 'avatarUpload', 'json'));
     }
 
+    /**
+     * Возвращает строку для js, логическое значение которой соответствует необходимости автоматически открыть всплывающее окно регистрации
+     * @return string
+     */
     public function autoOpen()
     {
         $showForm = ! Yii::app()->request->cookies->contains('registerWindowShown') && ! Yii::app()->request->cookies->contains('not_guest') && Yii::app()->user->getState('viewsCount') == 2;
         if ($showForm) {
             Yii::app()->request->cookies['registerWindowShown'] = new CHttpCookie('registerWindowShown', 1);
-            return '1';
+            return 'true';
         }
-        return '1';
+        return 'false';
     }
 
     protected function getMailServices()

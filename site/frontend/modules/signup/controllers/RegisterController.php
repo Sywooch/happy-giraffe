@@ -5,6 +5,23 @@
 
 class RegisterController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+                'actions' => array('clubs'),
+            ),
+        );
+    }
+
     public function actions()
     {
         return array(
@@ -66,6 +83,12 @@ class RegisterController extends HController
                 $response['id'] = $model->user->id;
             echo CJSON::encode($response);
         }
+    }
+
+    public function actionClubs()
+    {
+        $this->layout = '//layouts/new/common';
+        $this->render('clubs');
     }
 
     /**

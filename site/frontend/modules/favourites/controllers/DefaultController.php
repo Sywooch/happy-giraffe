@@ -1,4 +1,3 @@
-
 <?php
 
 class DefaultController extends HController

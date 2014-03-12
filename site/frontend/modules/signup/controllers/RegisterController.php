@@ -91,6 +91,7 @@ class RegisterController extends HController
     public function actionClubs()
     {
         $this->layout = '//layouts/new/common';
+        $this->pageTitle = 'Выберите клубы';
         $this->render('clubs');
     }
 
@@ -103,6 +104,7 @@ class RegisterController extends HController
         $json = Yii::app()->user->model->getFamilyData();
         $nextUrl = Yii::app()->user->getReturnUrl($this->createUrl('/profile/default/index', array('user_id' => Yii::app()->user->id)));
         $json['callback'] = 'window.location.href = \'' . $nextUrl . '\';';
+        $this->pageTitle = 'Заполните семью';
         $this->render('family', compact('json', 'nextUrl'));
     }
 

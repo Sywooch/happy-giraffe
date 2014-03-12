@@ -43,7 +43,6 @@ class VkontakteAuth extends VKontakteOAuthService
         );
 
         $result = null;
-        $curl = curl_init();
         foreach ($avatarAttributes as $attr) {
             if (isset($info->$attr)) {
                 $result = $info->$attr;

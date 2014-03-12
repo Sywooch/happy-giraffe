@@ -54,16 +54,21 @@ class VkontakteAuth extends VKontakteOAuthService
 
     protected function setBirthdayAttributes($info)
     {
+        $day = null;
+        $month = null;
+        $year = null;
+
         if (isset($info->bdate)) {
             $array = explode('.', $info->bdate);
-            $day = $array[0];
-            $month = $array[1];
-            $year = (count($array) == 3) ? $array[2] : null;
-        } else {
-            $day = null;
-            $month = null;
-            $year = null;
+            $count = count($array);
+            if ($count == 2 || $count == 3) {
+                $day = $array[0];
+                $month = $array[1];
+                if ($count == 3)
+                    $year = $array[2];
+            }
         }
+
         $this->attributes['birthday_year'] = $year;
         $this->attributes['birthday_month'] = $month;
         $this->attributes['birthday_day'] = $day;

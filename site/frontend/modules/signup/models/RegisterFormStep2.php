@@ -35,7 +35,7 @@ class RegisterFormStep2 extends CFormModel
     public function rules()
     {
         return array(
-            array('first_name, last_name, email, birthday, gender, country_id, city_id', 'required'),
+            array('first_name, last_name, email, birthday, gender, country_id, city_id, birthday_day, birthday_month, birthday_year', 'required'),
             array('email', 'email'),
             array('email', 'unique', 'className' => 'User', 'caseSensitive' => false, 'criteria' => array('condition' => 'deleted = 0 AND status = :inactive', 'params' => array(':inactive' => User::STATUS_ACTIVE))),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
@@ -45,7 +45,7 @@ class RegisterFormStep2 extends CFormModel
             array('country_id', 'exist', 'className' => 'GeoCountry', 'attributeName' => 'id'),
             array('city_id', 'exist', 'className' => 'GeoCity', 'attributeName' => 'id'),
 
-            array('birthday_day, birthday_month, birthday_year, service, service_id, avatar', 'safe'),
+            array('service, service_id, avatar', 'safe'),
         );
     }
 

@@ -67,6 +67,8 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
 
     protected function setBirthdayAttributes($info)
     {
+        $info->birthday = '11-25';
+
         $day = null;
         $month = null;
         $year = null;
@@ -74,10 +76,11 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
         if (isset($info->birthday)) {
             $array = explode('-', $info->birthday);
             $count = count($array);
-            if ($count == 3) {
-                $year = $array[0];
-                $month = ltrim($array[1], '0');
-                $day = ltrim($array[2], '0');
+            if ($count == 2 || $count == 3) {
+                if ($count == 3)
+                    $year = $array[0];
+                $month = ltrim($array[$count - 2], '0');
+                $day = ltrim($array[$count - 1], '0');
             }
         }
 

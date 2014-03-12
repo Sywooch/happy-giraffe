@@ -232,8 +232,8 @@ class SiteController extends HController
 
     public function actionLogout()
     {
-        Yii::app()->user->logout(false);
-        $this->redirect(Yii::app()->request->urlReferrer);
+        Yii::app()->user->logout();
+        $this->redirect(Yii::app()->homeUrl);
     }
 
     public function actionRememberPassword($step)

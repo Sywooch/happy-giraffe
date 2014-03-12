@@ -74,6 +74,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	 * @throws EAuthException
 	 */
 	public function authenticate() {
+        die('123');
 		if (isset($_GET[$this->errorParam])) {
 			$error_code = $_GET[$this->errorParam];
 			if ($error_code === $this->errorAccessDeniedCode) {

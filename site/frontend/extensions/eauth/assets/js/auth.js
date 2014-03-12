@@ -30,6 +30,8 @@ jQuery(function ($) {
 					url += 'redirect_uri=' + encodeURIComponent(redirect_uri) + '&';
 				url += 'js';
 
+                console.log(url);
+
 				var centerWidth = (window.screen.width - options.popup.width) / 2,
 					centerHeight = (window.screen.height - options.popup.height) / 2;
 

@@ -18,7 +18,7 @@ class RegisterFormStep1 extends CFormModel
         return array(
             array('first_name, last_name, email', 'required'),
             array('email', 'email'),
-            array('email', 'unique', 'className' => 'User', 'criteria' => array('condition' => 'deleted = 0')),
+            array('email', 'unique', 'className' => 'User', 'caseSensitive' => false, 'criteria' => array('condition' => 'deleted = 0 AND status = :inactive', 'params' => array(':inactive' => User::STATUS_ACTIVE))),
         );
     }
 

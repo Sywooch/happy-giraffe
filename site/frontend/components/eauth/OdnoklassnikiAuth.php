@@ -49,8 +49,6 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
         $curl = curl_init();
         foreach ($avatarAttributes as $attr) {
             $url = $info->$attr;
-//            echo '<p>' . $url . '</p>';
-//            var_dump(preg_match('#\/stub_(\d+)x(\d+).gif#', $url));
             if (preg_match('#\/stub_(\d+)x(\d+).gif#', $url) === 0) {
                 curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($curl, CURLOPT_URL, $url);
@@ -69,10 +67,23 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
 
     protected function setBirthdayAttributes($info)
     {
-        $array = explode('-', $info->birthday);
-        $this->attributes['birthday_year'] = $array[0];
-        $this->attributes['birthday_month'] = ltrim($array[1], '0');
-        $this->attributes['birthday_day'] = ltrim($array[2], '0');
+        $day = null;
+        $month = null;
+        $year = null;
+
+        if (isset($info->birthday)) {
+            $array = explode('-', $info->birthday);
+            $count = count($array);
+            if ($count == 3) {
+                $year = $array[0];
+                $month = ltrim($array[1], '0');
+                $day = ltrim($array[2], '0');
+            }
+        }
+
+        $this->attributes['birthday_year'] = $day;
+        $this->attributes['birthday_month'] = $month;
+        $this->attributes['birthday_day'] = $year;
     }
 
     protected function setLocationAttributes($info)

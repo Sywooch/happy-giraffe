@@ -82,14 +82,14 @@ class SiteController extends HController
 	/**
 	 * @sitemap changefreq=daily
 	 */
-	public function actionIndex()
+	public function actionIndex($openLogin = false)
 	{
         if (! Yii::app()->user->isGuest)
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));
 
         $this->layout = '//layouts/common';
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-        $this->render('home');
+        $this->render('home', compact('openLogin'));
 	}
 
 	/**

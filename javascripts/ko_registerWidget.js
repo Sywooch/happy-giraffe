@@ -241,7 +241,7 @@ function LoginWidgetViewModel() {
     self.rememberMe = ko.observable();
 
     self.open = function() {
-        $('a[href="#registerWidget"]:first').trigger('click');
+        $('a[href="#loginWidget"]:first').trigger('click');
     }
 }
 

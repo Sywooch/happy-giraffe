@@ -74,8 +74,8 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 	 * @throws EAuthException
 	 */
 	public function authenticate() {
-        die('123');
 		if (isset($_GET[$this->errorParam])) {
+            die('1');
 			$error_code = $_GET[$this->errorParam];
 			if ($error_code === $this->errorAccessDeniedCode) {
 				// access_denied error (user canceled)
@@ -93,6 +93,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 
 		// Get the access_token and save them to the session.
 		if (isset($_GET['code'])) {
+            die('2');
 			$code = $_GET['code'];
 			$token = $this->getAccessToken($code);
 			if (isset($token)) {
@@ -102,6 +103,7 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 		}
 		// Redirect to the authorization page
 		else {
+            die('3');
 			// Use the URL of the current page as the callback URL.
 			if (isset($_GET['redirect_uri'])) {
 				$redirect_uri = $_GET['redirect_uri'];

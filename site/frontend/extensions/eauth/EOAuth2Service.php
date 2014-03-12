@@ -93,7 +93,8 @@ abstract class EOAuth2Service extends EAuthServiceBase implements IAuthService {
 
 		// Get the access_token and save them to the session.
 		if (isset($_GET['code'])) {
-            die('2');
+            print_r($_GET);
+            die;
 			$code = $_GET['code'];
 			$token = $this->getAccessToken($code);
 			if (isset($token)) {

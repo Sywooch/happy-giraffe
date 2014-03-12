@@ -11,7 +11,7 @@ class SettingsController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - personal, social, password, captcha, remove',
+            'ajaxOnly - personal, social, password, captcha, remove, socialAuth',
         );
     }
 
@@ -33,6 +33,16 @@ class SettingsController extends HController
                 'width' => 128,
                 'height' => 45,
                 'onlyDigits' => TRUE,
+            ),
+            'socialAuth' => array(
+                'class' => 'SocialAction',
+                'successCallback' => function($eauth) {
+                    $model = new UserSocialService();
+
+                    var_dump($eauth->getServiceName());
+                    var_dump($eauth->getAttribute('uid'));
+                    die;
+                },
             ),
         );
     }

@@ -38,10 +38,14 @@ class SettingsController extends HController
                 'class' => 'SocialAction',
                 'successCallback' => function($eauth) {
                     $model = new UserSocialService();
+                    $model->user_id = Yii::app()->user->id;
+                    $model->service_id = $eauth->getAttribute('uid');
+                    $model->service = $eauth->getServiceName();
+                    $model->name = $eauth->getAttribute('first_name') . ' ' . $eauth->getAttribute('last_name');
+                    $model->save();
 
-                    var_dump($eauth->getServiceName());
-                    var_dump($eauth->getAttribute('uid'));
-                    die;
+
+                    $eauth->redirect($_SERVER['HTTP_REFERER']);
                 },
             ),
         );

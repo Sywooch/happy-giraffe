@@ -2,7 +2,9 @@ module.exports = function(grunt){
   var timer = require("grunt-timer");
   timer.init(grunt);
 
-
+  // json for jade 
+  var pathJade = "new/jade/mass/data.json";
+  
   grunt.initConfig({
     jade: {
       page: {
@@ -16,6 +18,7 @@ module.exports = function(grunt){
           nospawn : true,
           ext: ".html",
           expand: true,
+          data: grunt.file.readJSON(pathJade)
         }
       },
       all: {
@@ -31,6 +34,7 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
+          data: grunt.file.readJSON(pathJade)
         }
       }
     },
@@ -138,7 +142,7 @@ module.exports = function(grunt){
     // Земеняем в пути к измененному файлу jade/page на html
     // var destFilePath = filepath.replace(/jade\\page/, 'html');
     // Изменяем расширение файла
-    grunt.log.write(action + ' ------- ' + target);
+    // grunt.log.write(action + ' ------- ' + target);
     if (target == 'jade') {
       var destFilePath = filepath.replace(/jade/g, 'html');
       grunt.log.write(filepath + ' ------- ' + destFilePath);

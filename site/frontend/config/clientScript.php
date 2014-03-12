@@ -2,6 +2,15 @@
 
 return array(
     'class' => 'application.components.ClientScript',
+    'amdFile' => '/new/javascript/modules/require2.1.11-jquery.1.10.2.js',
+    'amd' => array(
+        'baseUrl' => '/new/javascript/modules',
+        'paths' => array(
+            'jquery' => '/new/javascript/jquery-1.10.2.min'
+        ),
+        'shim' => array(
+        ),
+    ),
     'packages' => array(
         'powertip' => array(
             'baseUrl' => '/',

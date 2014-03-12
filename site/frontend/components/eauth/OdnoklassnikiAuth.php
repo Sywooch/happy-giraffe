@@ -49,13 +49,17 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
         $curl = curl_init();
         foreach ($avatarAttributes as $attr) {
             $url = $info->$attr;
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_URL, $url);
-            curl_exec($curl);
-            $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-            if ($httpCode == 200) {
-                $result = $url;
-                break;
+//            echo '<p>' . $url . '</p>';
+//            var_dump(preg_match('#\/stub_(\d+)x(\d+).gif#', $url));
+            if (preg_match('#\/stub_(\d+)x(\d+).gif#', $url) === 0) {
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_URL, $url);
+                curl_exec($curl);
+                $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                if ($httpCode == 200) {
+                    $result = $url;
+                    break;
+                }
             }
 
         }

@@ -18,6 +18,7 @@
                 for (var i in data)
                     if (! response.hasOwnProperty('RegisterFormStep2_' + i) && registerVm.hasOwnProperty(i)) {
                         if (registerVm[i] instanceof window.opener.RegisterUserAttribute) {
+                            window.opener.console.log(i + ': ' + data[i]);
                             registerVm[i].val(data[i]);
                             registerVm[i].show(false);
                         } else

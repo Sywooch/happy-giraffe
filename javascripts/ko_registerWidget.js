@@ -239,6 +239,10 @@ function LoginWidgetViewModel() {
     self.email = ko.observable();
     self.password = ko.observable();
     self.rememberMe = ko.observable();
+
+    self.open = function() {
+        $('a[href="#registerWidget"]:first').trigger('click');
+    }
 }
 
 function PasswordRecoveryWidgetViewModel() {

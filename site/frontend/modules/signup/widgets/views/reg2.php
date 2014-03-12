@@ -13,7 +13,7 @@
     <div class="popup-sign_col-ava"><a class="ava ava__large" data-bind="click: uploadPhoto"><span class="ico-status"></span><img alt="" class="ava_img preview-200" data-bind="attr: { src : avatar.imgSrc }"/></a>
         <div class="margin-5">
             <div class="popup-sign_tx-help">Чтобы вас узнавали на Веселом Жирафе <br> загрузите свое главное фото</div>
-        </div><a class="btn-s btn-blue-simple" data-bind="click: uploadPhoto">Загрузить</a>
+        </div><a class="btn-s btn-blue-simple" data-bind="click: uploadPhoto, text: (avatar.imgSrc() === null) ? 'Загрузить' : 'Изменить'"></a>
     </div>
     <div class="popup-sign_col popup-sign_col__vetical-m">
         <?php $form = $this->beginWidget('CActiveForm', array(

@@ -81,9 +81,9 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
             }
         }
 
-        $this->attributes['birthday_year'] = $day;
+        $this->attributes['birthday_year'] = $year;
         $this->attributes['birthday_month'] = $month;
-        $this->attributes['birthday_day'] = $year;
+        $this->attributes['birthday_day'] = $day;
     }
 
     protected function setLocationAttributes($info)

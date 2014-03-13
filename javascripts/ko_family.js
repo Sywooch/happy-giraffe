@@ -15,7 +15,6 @@ ko.bindingHandlers.draggable = {
 ko.bindingHandlers.droppable = {
     init: function(element, valueAccessor, allBindingsAccessor, viewModel, context) {
         var value = valueAccessor();
-        console.log(value);
         $(element).droppable({
             hoverClass: 'dragover',
             drop: function(event, ui) {

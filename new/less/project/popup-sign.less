@@ -1,3 +1,5 @@
+@import "../include/variables.less";
+
 /* popup-sign */
 .popup-sign {
     width: 870px;
@@ -159,6 +161,7 @@
     &_capcha-hold {
         margin: 20px 0 30px;
     }
+    &_capcha,
     &_capcha-img {display: block;}
 }
 /* /popup-sign */
@@ -222,7 +225,8 @@
         width: 16px;
         height: 16px;
         padding: 0;
-        margin: 8px 5px 0 0;
+        margin: 0 5px 0 0;
+        vertical-align: middle;
     }
     &_radio:checked + &_label {
         color: #333;

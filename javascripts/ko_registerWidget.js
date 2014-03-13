@@ -245,6 +245,7 @@ function LoginWidgetViewModel() {
     }
 
     self.recover = function() {
+        $('#LoginForm_email').trigger('change');
         passwordRecoveryVm.email(self.email());
         return false;
     }

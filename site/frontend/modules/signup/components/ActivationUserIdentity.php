@@ -43,4 +43,9 @@ class ActivationUserIdentity extends CBaseUserIdentity
     {
         return $this->getState('id');
     }
+
+    public function getName()
+    {
+        return $this->getState('first_name');
+    }
 }

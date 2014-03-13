@@ -5,7 +5,11 @@ return array(
     'amdFile' => '/new/javascript/modules/require2.1.11-jquery1.10.2.js',
     'amd' => array(
         'baseUrl' => '/new/javascript/modules',
+        'wrapShim' => false,
         'shim' => array(
+        ),
+        'paths' => array(
+            'knockout-amd' => 'knockout-amd-helpers.min',
         ),
     ),
     'packages' => array(
@@ -68,12 +72,14 @@ return array(
 		),
         'knockout' => array(
             'baseUrl' => '/',
+            'exports' => 'ko',
             'js' => array(
                 'javascripts/knockout-2.2.1.js',
                 'javascripts/ko_library.js',
                 'javascripts/knockout.mapping-latest.js',
             ),
             'depends' => array(
+                'common',
                 'jquery',
 				'moment',
             ),

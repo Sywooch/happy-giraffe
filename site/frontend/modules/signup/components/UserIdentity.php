@@ -39,4 +39,9 @@ class UserIdentity extends CUserIdentity
     {
         return $this->getState('id');
     }
+
+    public function getName()
+    {
+        return $this->getState('first_name');
+    }
 }

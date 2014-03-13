@@ -80,6 +80,8 @@
 </div>
 
 <script type="text/javascript">
-    loginVm = new LoginWidgetViewModel();
-    ko.applyBindings(loginVm, document.getElementById('loginWidget'));
+    $(function() {
+        loginVm = new LoginWidgetViewModel();
+        ko.applyBindings(loginVm, document.getElementById('loginWidget'));
+    });
 </script>

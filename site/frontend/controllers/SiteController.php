@@ -233,7 +233,7 @@ class SiteController extends HController
     public function actionLogout()
     {
         Yii::app()->user->logout();
-        $this->redirect(Yii::app()->homeUrl);
+        $this->redirect(array('site/index'));
     }
 
     public function actionRememberPassword($step)

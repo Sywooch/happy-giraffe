@@ -3,7 +3,7 @@ module.exports = function(grunt){
   timer.init(grunt);
 
   // json for jade 
-  var pathJade = "new/jade/mass/data.json";
+  // var pathJade = "new/jade/mass/data.json";
   
   grunt.initConfig({
     jade: {
@@ -18,7 +18,7 @@ module.exports = function(grunt){
           nospawn : true,
           ext: ".html",
           expand: true,
-          data: grunt.file.readJSON(pathJade)
+          //data: grunt.file.readJSON(pathJade)
         }
       },
       all: {
@@ -34,7 +34,7 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
-          data: grunt.file.readJSON(pathJade)
+          // data: grunt.file.readJSON(pathJade)
         }
       }
     },

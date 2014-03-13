@@ -25,7 +25,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 <?php endif ?>
 <div style="display: none;">
     <?php
-print_r($_SESSION)
+print_r($_SESSION);
     ?>
 </div>
 <div class="layout-w1">

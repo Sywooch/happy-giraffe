@@ -38,4 +38,9 @@ class ActivationUserIdentity extends CBaseUserIdentity
         }
         return $this->errorCode == self::ERROR_NONE;
     }
+
+    public function getId()
+    {
+        return $this->getState('id');
+    }
 }

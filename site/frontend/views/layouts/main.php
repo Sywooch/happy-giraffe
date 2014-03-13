@@ -23,11 +23,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <a target="_blank" href="<?=$this->createUrl('/signal/commentator/index') ?>" style="color: #333;font-weight:bold;">Панель для работы</a>
     </div>
 <?php endif ?>
-<div style="display: none;">
-    <?php
-print_r($_SESSION);
-    ?>
-</div>
 <div class="layout-w1">
     <?php if (! Yii::app()->user->isGuest): ?>
         <?php $this->renderPartial('//_menu_fix'); ?>

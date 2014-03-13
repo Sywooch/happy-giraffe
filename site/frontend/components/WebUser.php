@@ -23,12 +23,13 @@ class WebUser extends CWebUser
         Yii::app()->request->cookies['not_guest'] = new CHttpCookie('not_guest', '1', array('expire' => time() + 3600*24*100));
     }
 
-    protected function afterLogout()
+    protected function beforeLogout()
     {
         $this->model->online = 0;
         $this->model->update(array('online'));
 
         unset(Yii::app()->request->cookies['not_guest']);
+        return parent::beforeLogout();
     }
 
     protected function beforeLogin($id, $states, $fromCookie)

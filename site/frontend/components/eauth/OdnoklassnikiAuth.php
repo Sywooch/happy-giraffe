@@ -67,8 +67,6 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
 
     protected function setBirthdayAttributes($info)
     {
-        $info->birthday = '11-25';
-
         $day = null;
         $month = null;
         $year = null;

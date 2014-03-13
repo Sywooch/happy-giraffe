@@ -411,7 +411,7 @@ return array(
                 'addtocopy.js',
                 'jquery.fancybox-1.3.4.js',
                 'base64.js',
-                'common.js',
+                '/javascripts/common.js',
                 'fox.js',
                 'jquery.Jcrop.min.js',
                 'ko_blog.js',

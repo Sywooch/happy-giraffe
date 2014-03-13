@@ -12,21 +12,25 @@ class WebUser extends CWebUser
 
     protected function afterLogin($fromCookie)
     {
-        $this->model->login_date = date('Y-m-d H:i:s');
-        $this->model->online = 1;
-        $this->model->last_ip = $_SERVER['REMOTE_ADDR'];
-        $this->model->update(array('login_date', 'online', 'last_ip'));
+        $model = $this->getModel();
+        
+        $model->login_date = date('Y-m-d H:i:s');
+        $model->online = 1;
+        $model->last_ip = $_SERVER['REMOTE_ADDR'];
+        $model->update(array('login_date', 'online', 'last_ip'));
 
         Yii::import('site.frontend.modules.cook.models.*');
-        CookRecipe::checkRecipeBookAfterLogin($this->model->id);
+        CookRecipe::checkRecipeBookAfterLogin($model->id);
 
         Yii::app()->request->cookies['not_guest'] = new CHttpCookie('not_guest', '1', array('expire' => time() + 3600*24*100));
     }
 
     protected function afterLogout()
     {
-        $this->model->online = 0;
-        $this->model->update(array('online'));
+        $model = $this->getModel();
+
+        $model->online = 0;
+        $model->update(array('online'));
 
         unset(Yii::app()->request->cookies['not_guest']);
     }
@@ -34,7 +38,13 @@ class WebUser extends CWebUser
     protected function beforeLogin($id, $states, $fromCookie)
     {
         $referrer = Yii::app()->request->getUrlReferrer();
-        if ($referrer !== null)
+        $loginUrl = $this->loginUrl;
+        if (is_array($loginUrl)) {
+            $route = isset($loginUrl[0]) ? $loginUrl[0] : Yii::app()->defaultController;
+            $loginUrl = Yii::app()->createAbsoluteUrl($route,array_splice($loginUrl,1));
+        }
+
+        if ($referrer !== null && $referrer != $loginUrl)
             Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
         return parent::beforeLogin($id, $states, $fromCookie);
     }

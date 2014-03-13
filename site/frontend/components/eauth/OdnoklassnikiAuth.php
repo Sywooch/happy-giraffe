@@ -49,13 +49,15 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
         $curl = curl_init();
         foreach ($avatarAttributes as $attr) {
             $url = $info->$attr;
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_URL, $url);
-            curl_exec($curl);
-            $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-            if ($httpCode == 200) {
-                $result = $url;
-                break;
+            if (preg_match('#\/stub_(\d+)x(\d+).gif#', $url) === 0) {
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_URL, $url);
+                curl_exec($curl);
+                $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                if ($httpCode == 200) {
+                    $result = $url;
+                    break;
+                }
             }
 
         }
@@ -65,10 +67,26 @@ class OdnoklassnikiAuth extends OdnoklassnikiOAuthService
 
     protected function setBirthdayAttributes($info)
     {
-        $array = explode('-', $info->birthday);
-        $this->attributes['birthday_year'] = $array[0];
-        $this->attributes['birthday_month'] = ltrim($array[1], '0');
-        $this->attributes['birthday_day'] = ltrim($array[2], '0');
+        $info->birthday = '11-25';
+
+        $day = null;
+        $month = null;
+        $year = null;
+
+        if (isset($info->birthday)) {
+            $array = explode('-', $info->birthday);
+            $count = count($array);
+            if ($count == 2 || $count == 3) {
+                if ($count == 3)
+                    $year = $array[0];
+                $month = ltrim($array[$count - 2], '0');
+                $day = ltrim($array[$count - 1], '0');
+            }
+        }
+
+        $this->attributes['birthday_year'] = $year;
+        $this->attributes['birthday_month'] = $month;
+        $this->attributes['birthday_day'] = $day;
     }
 
     protected function setLocationAttributes($info)

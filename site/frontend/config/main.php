@@ -224,7 +224,7 @@ return array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',
 			'allowAutoLogin'=>true,
-			'loginUrl'=>'/',
+			'loginUrl'=> array('/site/index', 'openLogin' => 1),
 		),
         'authManager'=>array(
             'class'=>'CDbAuthManager',

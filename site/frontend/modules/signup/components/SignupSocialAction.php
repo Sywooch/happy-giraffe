@@ -23,8 +23,11 @@ class SignupSocialAction extends SocialAction
                         'serviceName' => $eauth->getServiceName(),
                         'fromLogin' => $action->fromLogin,
                     ));
-                } else
+                } else {
+                    header('Content-Type: text/html; charset=utf-8');
                     echo $identity->errorMessage;
+                    Yii::app()->end();
+                }
             }
         };
 

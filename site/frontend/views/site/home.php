@@ -1,4 +1,8 @@
 <?php
+/**
+ * @var $openLogin
+ */
+
 Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
 Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
 Yii::app()->clientScript
@@ -111,5 +115,8 @@ Yii::app()->clientScript
 <script type="text/javascript">
     $(document).ready(function(){
         $(".b-article_in-img").fitVids({ customSelector : "iframe[src*='rutube.ru']" });
+        <?php if ($openLogin !== false): ?>
+            loginVm.open();
+        <?php endif; ?>
     });
 </script>

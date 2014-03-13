@@ -1003,7 +1003,7 @@ class CommunityContent extends HActiveRecord
     {
         return array(
             'id' => $this->id,
-            'attached' => false, //(bool) $this->pinned,
+            'attached' => (bool) $this->pinned,
             'privacy' => (int) $this->privacy,
             'created' => strtotime($this->created),
         );

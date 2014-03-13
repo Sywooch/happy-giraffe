@@ -36,7 +36,7 @@
                             <?=$form->textField($model, 'email', array(
                                 'placeholder' => 'E-mail',
                                 'class' => 'itx-gray popup-sign_itx',
-                                'data-bind' => 'value: email, valueUpdate: "input"',
+                                'data-bind' => 'value: email, valueUpdate: \'input\'',
                             ))?>
                             <div class="inp-valid_error">
                                 <div class="inp-valid_error-tx"><?=$form->error($model, 'email'); ?></div>

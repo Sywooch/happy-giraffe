@@ -239,6 +239,14 @@ function LoginWidgetViewModel() {
     self.email = ko.observable();
     self.password = ko.observable();
     self.rememberMe = ko.observable();
+
+    self.email.subscribe(function(val) {
+        passwordRecoveryVm.email(val);
+    });
+
+    self.open = function() {
+        $('a[href="#loginWidget"]:first').trigger('click');
+    }
 }
 
 function PasswordRecoveryWidgetViewModel() {
@@ -247,8 +255,7 @@ function PasswordRecoveryWidgetViewModel() {
     self.email = ko.observable();
     self.isSent = ko.observable(false);
 
-    self.login = function() {
-        loginVm.email(self.email());
-        return true;
-    }
+    self.email.subscribe(function(val) {
+        loginVm.email(val);
+    });
 }

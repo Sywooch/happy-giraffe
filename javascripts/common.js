@@ -29,7 +29,7 @@ $(document).ready(function () {
 
     $(document).ajaxComplete(function(event, xhr, settings) {
         var json = $.parseJSON(xhr.responseText);
-        if (json.hasOwnProperty('errors')) {
+        if (json !== null && json.hasOwnProperty('errors')) {
             $('.error-serv_hold').html('');
             jQuery.each(json.errors, function(i, val) {
                 $('.error-serv_hold').append('<p>' + val + '</p>');

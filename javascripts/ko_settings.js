@@ -318,7 +318,7 @@ function pad(str, max) {
 }
 
 function removeSocialService(el, id, service) {
-    $.post('/profile/settings/removeService/', { id : id }, function(response) {
+    $.post('/user/settings/removeService/', { id : id }, function(response) {
         if (response) {
             if ($(el).siblings().length > 1)
                 $(el).parents('tr').remove();

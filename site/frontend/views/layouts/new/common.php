@@ -126,5 +126,9 @@ if (! Yii::app()->user->isGuest)
     var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
     var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
 </script>
+
+<?php if (Yii::app()->user->isGuest): ?>
+    <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
+<?php endif; ?>
 </body>
 </html>

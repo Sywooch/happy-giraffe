@@ -270,9 +270,4 @@ class HController extends CController
         else
             echo $output;
     }
-
-    public function registerPopup()
-    {
-        return $this->widget('application.widgets.registerWidget.RegisterWidget', array(), true);
-    }
 }

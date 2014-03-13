@@ -9,6 +9,7 @@
 
 /**
  * The EAuthRedirectWidget widget displays the redirect page after returning from provider.
+ *
  * @package application.extensions.eauth
  */
 class EAuthRedirectWidget extends CWidget {
@@ -25,29 +26,22 @@ class EAuthRedirectWidget extends CWidget {
 
 	public $view = 'redirect';
 
-    public $inc;
-
-    public $service;
-
-    public $pk;
-
-    public $in_popup = false;
+	public $params = array();
 
 	/**
 	 * Executes the widget.
 	 */
-    public function run() {
-		$assets_path = dirname(__FILE__).DIRECTORY_SEPARATOR.'assets';
-		$this->render($this->view, array(
-			'id' => $this->getId(),
-			'url' => $this->url,
-			'redirect' => $this->redirect,
-			'assets_path' => $assets_path,
-            'in_popup' => $this->in_popup,
-            'inc' => $this->inc,
-            'service' => $this->service,
-            'pk' => $this->pk,
-		));
+	public function run() {
+		$assets_path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+		$this->render($this->view,
+			CMap::mergeArray(array(
+				'id' => $this->getId(),
+				'url' => $this->url,
+				'redirect' => $this->redirect,
+				'assets_path' => $assets_path
+			), $this->params)
+		);
+
 		Yii::app()->end();
-    }
+	}
 }

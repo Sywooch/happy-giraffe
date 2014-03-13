@@ -1,8 +1,10 @@
 <?php
+/**
+ * @var $openLogin
+ */
+
 Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
 Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
-$this->widget('application.widgets.registerWidget.RegisterWidget');
-$this->widget('application.widgets.loginWidget.LoginWidget');
 Yii::app()->clientScript
     ->registerScriptFile('/javascripts/jquery.fitvids.js')
 ;
@@ -18,11 +20,11 @@ Yii::app()->clientScript
 					<strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
 				</h1>
 				<div class="start-page_head-desc">
-                    <a class="btn-green btn-big fancy" href="#register">Присоединяйтесь!</a>
+                    <a class="btn-green btn-big popup-a" href="#registerWidget">Присоединяйтесь!</a>
                     <div class="clearfix">
-                        <a class="display-ib verticalalign-m fancy" href="#login">Войти</a>
+                        <a class="display-ib verticalalign-m popup-a" href="#loginWidget">Войти</a>
                         <span class="i-or">или</span>
-                        <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home')); ?>
+                        <?php $this->widget('AuthWidget', array('action' => '/signup/login/social')); ?>
                     </div>
                 </div>
 
@@ -97,10 +99,10 @@ Yii::app()->clientScript
 	<div class="start-page_row start-page_row__join">
 		<div class="start-page_hold">
 			<div class="start-page_join">
-				<a class="btn-green start-page_join-btn fancy" href="#register">Присоединяйтесь!</a>
+				<a class="btn-green start-page_join-btn popup-a" href="#registerWidget">Присоединяйтесь!</a>
                 <div class="clearfix">
                     <span class="i-or">войти через</span>
-                    <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home')); ?>
+                    <?php $this->widget('AuthWidget', array('action' => '/signup/login/social')); ?>
                 </div>
 			</div>
 		</div>
@@ -113,5 +115,8 @@ Yii::app()->clientScript
 <script type="text/javascript">
     $(document).ready(function(){
         $(".b-article_in-img").fitVids({ customSelector : "iframe[src*='rutube.ru']" });
+        <?php if ($openLogin !== false): ?>
+            loginVm.open();
+        <?php endif; ?>
     });
 </script>

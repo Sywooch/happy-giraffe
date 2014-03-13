@@ -19,8 +19,10 @@ class WebUser extends CWebUser
         $model->last_ip = $_SERVER['REMOTE_ADDR'];
         $model->update(array('login_date', 'online', 'last_ip'));
 
-        Yii::import('site.frontend.modules.cook.models.*');
-        CookRecipe::checkRecipeBookAfterLogin($model->id);
+        if (! $fromCookie) {
+            Yii::import('site.frontend.modules.cook.models.*');
+            CookRecipe::checkRecipeBookAfterLogin($model->id);
+        }
 
         Yii::app()->request->cookies['not_guest'] = new CHttpCookie('not_guest', '1', array('expire' => time() + 3600*24*100));
     }

@@ -11,38 +11,38 @@ class DefaultController extends HController
     public $rubric_id;
     public $forum;
 
-//    public function filters()
-//    {
-//        $filters = array();
-//
-//        if (Yii::app()->user->isGuest) {
-//            $filters [] = array(
-//                'COutputCache + view',
-//                'duration' => 300,
-//                'varyByParam' => array('content_id'),
-//            );
-//
-//            $filters [] = array(
-//                'COutputCache + forum',
-//                'duration' => 300,
-//                'varyByParam' => array('forum_id', 'rubric_id', 'CommunityContent_page'),
-//            );
-//
-//            $filters [] = array(
-//                'COutputCache + club',
-//                'duration' => 300,
-//                'varyByParam' => array('club', 'CommunityContent_page'),
-//            );
-//
-//            $filters [] = array(
-//                'COutputCache + section',
-//                'duration' => 300,
-//                'varyByParam' => array('section_id', 'CommunityContent_page'),
-//            );
-//        }
-//
-//        return $filters;
-//    }
+    public function filters()
+    {
+        $filters = array();
+
+        if (Yii::app()->user->isGuest) {
+            $filters [] = array(
+                'COutputCache + view',
+                'duration' => 300,
+                'varyByParam' => array('content_id'),
+            );
+
+            $filters [] = array(
+                'COutputCache + forum',
+                'duration' => 300,
+                'varyByParam' => array('forum_id', 'rubric_id', 'CommunityContent_page'),
+            );
+
+            $filters [] = array(
+                'COutputCache + club',
+                'duration' => 300,
+                'varyByParam' => array('club', 'CommunityContent_page'),
+            );
+
+            $filters [] = array(
+                'COutputCache + section',
+                'duration' => 300,
+                'varyByParam' => array('section_id', 'CommunityContent_page'),
+            );
+        }
+
+        return $filters;
+    }
 
     protected function afterAction($action)
     {

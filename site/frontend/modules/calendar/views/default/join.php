@@ -39,4 +39,3 @@ $model = new User;
     </ul>
 </div>
 <?php $this->endWidget(); ?>
-<?php $this->widget('application.widgets.registerWidget.RegisterWidget', array('form_type'=>'pregnancy')); ?>

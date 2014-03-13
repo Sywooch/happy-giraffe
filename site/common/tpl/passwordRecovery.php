@@ -111,7 +111,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td colspan="2" style="color: #999">
-                                                                Вы всегда можете поменять свой пароль в разделе <a href="" style="color: #0e72ed;">"Мои настройки"</a>
+                                                                Вы всегда можете поменять свой пароль в разделе <a href="<?=$change_password_url?>" style="color: #0e72ed;">"Мои настройки"</a>
                                                             </td>
                                                         </tr>
                                                     </table>

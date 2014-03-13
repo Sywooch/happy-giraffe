@@ -47,7 +47,7 @@
                     <div data-bind="visible: isSent">
                         <div class="popup-sign_retrieve-send"><span class="i-highlight">На ваш e-mail адрес было выслано письмо с вашим паролем.</span><br><span class="i-highlight">Также проверьте, пожалуйста, папку «Спам».</span></div>
                         <div class="textalign-r">
-                            <a class="btn-green-simple btn-l margin-b10 popup-a" href="#loginWidget" data-bind="click: login">Войти на сайт</a>
+                            <a class="btn-green-simple btn-l margin-b10 popup-a" href="#loginWidget">Войти на сайт</a>
                         </div>
                     </div>
                 </div>

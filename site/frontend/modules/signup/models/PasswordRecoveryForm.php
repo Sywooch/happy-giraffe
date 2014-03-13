@@ -33,7 +33,10 @@ class PasswordRecoveryForm extends CFormModel
         $newPassword = User::createPassword(8);
         $user->password = User::hashPassword($newPassword);
         if ($user->update(array('password'))) {
-            SignupEmailHelper::passwordRecovery($user, $newPassword);
+            if ($user->status == 1)
+                SignupEmailHelper::passwordRecovery($user, $newPassword);
+            else
+                SignupEmailHelper::register($user, $newPassword);
             return true;
         }
         $this->addError('email', 'Неизвестная ошибка, попробуйте еще раз');

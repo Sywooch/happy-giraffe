@@ -12,7 +12,6 @@ Yii::app()->clientScript->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knoc
 Yii::app()->clientScript->scriptMap['knockout-2.2.1.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/knockout-debug.3.0.0.js';
 if (! Yii::app()->user->isGuest)
     Yii::app()->clientScript
-        ->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD)
         ->registerPackage('comet')
         ->registerPackage('common')
         ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
@@ -127,5 +126,9 @@ if (! Yii::app()->user->isGuest)
     var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
     var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
 </script>
+
+<?php if (Yii::app()->user->isGuest): ?>
+    <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
+<?php endif; ?>
 </body>
 </html>

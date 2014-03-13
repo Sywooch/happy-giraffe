@@ -188,9 +188,7 @@ class CommentatorHelper
             ->select('id')
             ->from('community__contents')
             ->where('author_id=:author_id AND
-                (created >= :start_time AND created <= :end_time OR
-                real_time >= :start_time AND real_time <= :end_time
-                ) AND removed=0',
+                (created >= :start_time AND created <= :end_time) AND removed=0',
                 array(
                     ':author_id' => $user_id,
                     ':start_time' => $month . '-01 00:00:00',

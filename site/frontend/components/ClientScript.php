@@ -32,8 +32,11 @@ class ClientScript extends CClientScript
     {
         $this->registerScriptFile($this->amdFile, self::POS_HEAD);
         $this->addPackagesToAMDConfig();
-        self::log($this->amd); die;
-        $this->registerScript('amd', 'require.config(' . CJSON::encode($this->amd) . ');', self::POS_HEAD);
+        $conf = $this->amd;
+        $eval = $conf['eval'];
+        unset($conf['eval']);
+        //self::log($this->amd); die;
+        $this->registerScript('amd', 'require.config(' . CJSON::encode($this->amd) . ");\n" . $eval, self::POS_HEAD);
     }
     
     public function addPackagesToAMDConfig()
@@ -49,37 +52,37 @@ class ClientScript extends CClientScript
             {
                 $i = 0;
                 $baseUrl = $this->getPackageBaseUrl($name);
-                $shim[$name] = array('deps' => array());
                 // Если один файл в пакете
                 if (count($config['js']) == 1)
                 {
-                    $url = $baseUrl . '/' . $config['js'][0];
+                    $shim[$name] = array('deps' => array());
+                    $url = $baseUrl . '/' . str_replace('.js' , '', $config['js'][0]);
                     if (!isset($paths[$url]))
                         $paths[$url] = $name;
+                    // Допишем зависимости от других модулей
+                    if(isset($config['depends']))
+                        foreach ($config['depends'] as $depend)
+                            $shim[$name]['deps'][] = $depend;
                 }
                 else
                 // не один файл в пакете
                 {
                     $fakeName = 'package-' . $name;
                     // Добавим фейковый модуль с группой зависимостей
-                    $fake[$fakeName] = array();
+                    $fake[$name] = array();
                     foreach ($config['js'] as $script)
                     {
-                        $url = $baseUrl . '/' . $script;
+                        $url = $baseUrl . '/' . str_replace('.js' , '', $script);
                         if (!isset($paths[$url]))
                             $paths[$url] = $fakeName . '(' . $i++ . ')';
                         $shim[$paths[$url]] = array();
-                        $fake[$fakeName][] = $paths[$url];
+                        $fake[$name][] = $paths[$url];
                     }
-                    // Добавим зависсимость от фейкового модуля
-                    $shim[$name]['deps'][] = $fakeName;
+                    // Допишем зависимости от других модулей
+                    if(isset($config['depends']))
+                        foreach ($config['depends'] as $depend)
+                            $fake[$name][] = $depend;
                 }
-                // допишем зависимости
-                if (isset($config['depends']))
-                    foreach ($config['depends'] as $depend)
-                    {
-                        $shim[$name]['deps'][] = $depend;
-                    }
                 // добавим опцию для пакетов в clientScript,
                 // соответствующую опции exports в shim
                 if (isset($config['exports']))
@@ -100,9 +103,6 @@ class ClientScript extends CClientScript
             $this->amd['eval'] = '';
         foreach ($fake as $name => $deps)
             $this->amd['eval'].= "define(\"" . $name . "\", " . CJSON::encode($deps) . ", function() { return null; });\n";
-
-        self::log($this->amd);
-        die;
     }
 
     public function getHasNoindex()
@@ -125,8 +125,8 @@ class ClientScript extends CClientScript
 
         return false;
     }
-
-    public function registerScriptFile($url,$position=null,array $htmlOptions=array())
+    
+   public function registerScriptFile($url,$position=null,array $htmlOptions=array())
     {
         return parent::registerScriptFile($this->addReleaseId($url), $position, $htmlOptions);
     }

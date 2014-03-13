@@ -10,6 +10,9 @@ Yii::app()->clientScript
 ;
 ?>
 
+<script type="text/javascript" src="/new/javascript/common.js?r=113"></script>
+<script type="text/javascript" src="/javascripts/base64.js?r=113"></script>
+
 <div class="start-page">
 
 	<div class="start-page_row start-page_row__head">

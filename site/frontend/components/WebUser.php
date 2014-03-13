@@ -12,24 +12,27 @@ class WebUser extends CWebUser
 
     protected function afterLogin($fromCookie)
     {
-        $this->model->login_date = date('Y-m-d H:i:s');
-        $this->model->online = 1;
-        $this->model->last_ip = $_SERVER['REMOTE_ADDR'];
-        $this->model->update(array('login_date', 'online', 'last_ip'));
+        $model = $this->getModel();
+        
+        $model->login_date = date('Y-m-d H:i:s');
+        $model->online = 1;
+        $model->last_ip = $_SERVER['REMOTE_ADDR'];
+        $model->update(array('login_date', 'online', 'last_ip'));
 
         Yii::import('site.frontend.modules.cook.models.*');
-        CookRecipe::checkRecipeBookAfterLogin($this->model->id);
+        CookRecipe::checkRecipeBookAfterLogin($model->id);
 
         Yii::app()->request->cookies['not_guest'] = new CHttpCookie('not_guest', '1', array('expire' => time() + 3600*24*100));
     }
 
-    protected function beforeLogout()
+    protected function afterLogout()
     {
-        $this->model->online = 0;
-        $this->model->update(array('online'));
+        $model = $this->getModel();
+
+        $model->online = 0;
+        $model->update(array('online'));
 
         unset(Yii::app()->request->cookies['not_guest']);
-        return parent::beforeLogout();
     }
 
     protected function beforeLogin($id, $states, $fromCookie)

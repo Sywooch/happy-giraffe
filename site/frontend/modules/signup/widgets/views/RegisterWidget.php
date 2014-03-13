@@ -9,8 +9,6 @@
  */
 ?>
 
-<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?>
-
 <div class="popup-container display-n">
     <div id="registerWidget" class="popup popup-sign">
         <div class="popup-sign_hold" data-bind="visible: currentStep() == STEP_REG1">

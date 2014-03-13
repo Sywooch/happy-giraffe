@@ -46,8 +46,8 @@ class HController extends CController
         if (! Yii::app()->request->isAjaxRequest)
             Yii::app()->clientScript->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD);
 
-//        if (YII_DEBUG === false && ($this->module === null || $this->module == 'messaging'))
-//            $this->combineStatic();
+        if (YII_DEBUG === false && ($this->module === null || $this->module == 'messaging'))
+            $this->combineStatic();
 
         // авторизация
         if (isset($this->actionParams['token'])) {

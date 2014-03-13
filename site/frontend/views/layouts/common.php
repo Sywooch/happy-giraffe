@@ -26,7 +26,6 @@
             ->registerCoreScript('jquery')
             ->registerScriptFile('/javascripts/chosen.jquery.min.js')
             ->registerScriptFile('/javascripts/jquery.powertip.js')
-            ->registerScriptFile('/javascripts/tooltipsy.min.js')
             ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
             ->registerScriptFile('/javascripts/addtocopy.js')
             ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')

@@ -3,6 +3,13 @@
 return array(
     'class' => 'application.components.ClientScript',
     'packages' => array(
+        'ko_registerWidget' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_registerWidget.js',
+            ),
+            'depends' => array('knockout', 'common', 'jcrop', 'ko_upload'),
+        ),
         'powertip' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -28,6 +35,7 @@ return array(
             'js' => array(
 				'new/javascript/jquery.magnific-popup.js',
                 'new/javascript/select2.js',
+                'new/javascript/jquery.tooltipster.js',
                 'new/javascript/common.js',
                 'javascripts/base64.js',
             ),
@@ -64,7 +72,7 @@ return array(
         'knockout' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/knockout-2.2.1.js',
+                'new/javascript/knockout-debug.3.0.0.js',
                 'javascripts/ko_library.js',
                 'javascripts/knockout.mapping-latest.js',
             ),

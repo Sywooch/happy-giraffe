@@ -492,7 +492,7 @@ class Comment extends HActiveRecord
             'id' => (int)$comment->id,
             'html' => $comment->purified->text,
             'editHtml' => $comment->forEdit->text,
-            'created' => HDate::GetFormattedTime($comment->created),
+            'created' => strtotime($comment->created),
             'author' => array(
                 'id' => (int)$comment->author->id,
                 'firstName' => $comment->author->first_name,

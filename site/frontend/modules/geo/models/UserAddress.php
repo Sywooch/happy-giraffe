@@ -47,7 +47,6 @@ class UserAddress extends HActiveRecord
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('user_id', 'required'),
             array('user_id, house, room', 'length', 'max' => 10),
             array('country_id, region_id, city_id, street_id', 'length', 'max' => 11),
             array('manual', 'length', 'max' => 256),

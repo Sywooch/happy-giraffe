@@ -11,32 +11,34 @@ class ClientScript extends CClientScript
 {
 
     const POS_AMD = 1000;
-
+    
     public $amd = array();
     public $amdFile = false;
+    public $useAMD = false;
 
-    public function render(&$output)
+    public function renderHead(&$output)
     {
-        if($this->amdFile)
-        {
+        if($this->amdFile && $this->useAMD)
             $this->renderAMDConfig();
-        }
-        return parent::render($output);
-    }
 
-    public static function log($data) {
+        return parent::renderHead($output);
+    }
+    
+    public static function log($data)
+    {
         echo CHtml::tag('pre', array(), var_export($data, true));
     }
 
     public function renderAMDConfig()
     {
-        $this->registerScriptFile($this->amdFile, self::POS_HEAD);
+        parent::registerScriptFile($this->amdFile, self::POS_HEAD);
+        $this->amd['urlArgs'] = 'r=' . rand(0,1000);//Yii::app()->params['releaseId'];
         $this->addPackagesToAMDConfig();
         $conf = $this->amd;
         $eval = $conf['eval'];
         unset($conf['eval']);
         //self::log($this->amd); die;
-        $this->registerScript('amd', 'require.config(' . CJSON::encode($this->amd) . ");\n" . $eval, self::POS_HEAD);
+        parent::registerScript('amd', 'require.config(' . CJSON::encode($this->amd) . ");\n" . $eval, self::POS_HEAD);
     }
     
     public function addPackagesToAMDConfig()
@@ -70,6 +72,7 @@ class ClientScript extends CClientScript
                     $fakeName = 'package-' . $name;
                     // Добавим фейковый модуль с группой зависимостей
                     $fake[$name] = array();
+                    $pre = false;
                     foreach ($config['js'] as $script)
                     {
                         $url = $baseUrl . '/' . str_replace('.js' , '', $script);
@@ -77,6 +80,11 @@ class ClientScript extends CClientScript
                             $paths[$url] = $fakeName . '(' . $i++ . ')';
                         $shim[$paths[$url]] = array();
                         $fake[$name][] = $paths[$url];
+                        // Добавим предыдущий модуль в зависимости (необходимо для загрузки цепочкой)
+                        if($pre)
+                            $shim[$paths[$url]]['deps'][] = $pre;
+                        // Запомним предыдущий модуль
+                        $pre = $paths[$url];
                     }
                     // Допишем зависимости от других модулей
                     if(isset($config['depends']))
@@ -94,15 +102,33 @@ class ClientScript extends CClientScript
 
         // Запишем собранное в конфиг
         $paths = array_flip($paths);
-        $this->amd = CMap::mergeArray($this->amd, array(
+        $this->amd = CMap::mergeArray(array(
                 'paths' => $paths,
                 'shim' => $shim,
-        ));
+        ), $this->amd);
         // Для фейковых модулей нужно выполнить их иницмализацию
         if (!isset($this->amd['eval']))
             $this->amd['eval'] = '';
         foreach ($fake as $name => $deps)
             $this->amd['eval'].= "define(\"" . $name . "\", " . CJSON::encode($deps) . ", function() { return null; });\n";
+    }
+    
+    public function registerAMD($id, $depends, $script = '')
+    {
+        if (!is_array($depends))
+            $depends = array($depends);
+        $modules = array_values($depends);
+        $params = array();
+        if (!isset($depends[0]))
+        {
+            $params = array_keys($depends);
+        }
+        return $this->registerScript($id, "require(" . CJSON::encode($modules) . ", function( " . implode(', ', $params) . " ) {\n" . $script . "\n})", self::POS_AMD);
+    }
+
+    public function registerAMDFile($depends, $file)
+    {
+        return $this->registerScript($file, 'require(' . CJSON::encode($depends) . ', function() { require(["' . $file . '"]); })', self::POS_AMD);
     }
 
     public function getHasNoindex()
@@ -126,9 +152,41 @@ class ClientScript extends CClientScript
         return false;
     }
     
-   public function registerScriptFile($url,$position=null,array $htmlOptions=array())
+    protected function exception()
     {
-        return parent::registerScriptFile($this->addReleaseId($url), $position, $htmlOptions);
+        throw new Exception ('Необходимо использовать метод ClientScript::registerAMD для работы в режиме AMD');
+    }
+
+    public function registerScript($id, $script, $position = null, array $htmlOptions = array())
+    {
+        if ($this->useAMD && $position != self::POS_AMD)
+            $this->exception();
+        else
+            return parent::registerScript($id, $script, $position == self::POS_AMD ? self::POS_HEAD : $position, $htmlOptions);
+    }
+
+    public function registerCoreScript($name)
+    {
+        if ($this->useAMD)
+            $this->exception();
+        else
+            return parent::registerCoreScript($name);
+    }
+
+    public function registerPackage($name)
+    {
+        if ($this->useAMD)
+            $this->exception();
+        else
+            return parent::registerPackage($name);
+    }
+
+    public function registerScriptFile($url,$position=null,array $htmlOptions=array())
+    {
+        if($this->useAMD)
+            $this->exception();
+        else
+            return parent::registerScriptFile($url, $position, $htmlOptions);
     }
 
     public function registerCssFile($url,$media='')

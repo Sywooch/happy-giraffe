@@ -1,5 +1,10 @@
 <?php
-Yii::app()->clientScript->registerPackage('ko_menu');
+/* @var $cs ClientScript */
+$cs = Yii::app()->clientScript;
+if ($cs->useAMD)
+    $cs->registerAMD('ko_menu', array('ko_menu'));
+else
+    Yii::app()->clientScript->registerPackage('ko_menu');
 $user = Yii::app()->user->model;
 ?>
 

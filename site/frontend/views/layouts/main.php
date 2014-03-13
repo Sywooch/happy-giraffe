@@ -27,7 +27,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     <?php
     var_dump(!Yii::app()->user->isGuest);
     var_dump(Yii::app()->user->model->group != UserGroup::USER);
-    var_dump(Yii::app()->user->checkAccess('commentator_panel'));
+    var_dump(Yii::app()->user->checkAccess('commentator_panel', array(), false));
     var_dump(!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('commentator_panel'));
     ?>
 </div>

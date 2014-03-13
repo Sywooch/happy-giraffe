@@ -23,6 +23,14 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <a target="_blank" href="<?=$this->createUrl('/signal/commentator/index') ?>" style="color: #333;font-weight:bold;">Панель для работы</a>
     </div>
 <?php endif ?>
+<div style="display: none;">
+    <?php
+    var_dump(!Yii::app()->user->isGuest);
+    var_dump(Yii::app()->user->model->group != UserGroup::USER);
+    var_dump(Yii::app()->user->checkAccess('commentator_panel'));
+    var_dump(!Yii::app()->user->isGuest && Yii::app()->user->model->group != UserGroup::USER && Yii::app()->user->checkAccess('commentator_panel'));
+    ?>
+</div>
 <div class="layout-w1">
     <?php if (! Yii::app()->user->isGuest): ?>
         <?php $this->renderPartial('//_menu_fix'); ?>

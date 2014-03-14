@@ -175,7 +175,6 @@ return array(
                 'new/javascript/fast-message.js',
                 'javascripts/knockout.mapping-latest.js',
                 'javascripts/soundmanager2.js',
-                'javascripts/imagesloaded.pkgd.min.js',
 				'javascripts/baron.js',
             ),
             'depends' => array('knockout', 'common', 'comet', 'jquery.ui', 'wysiwyg'),
@@ -242,9 +241,10 @@ return array(
             'depends' => array('jquery', 'ko_upload'),
         ),
         'wysiwyg' => array(
-            'baseUrl' => '/new/',
+            'baseUrl' => '/',
             'js' => array(
-                'javascript/wysiwyg.js',
+                'javascripts/imagesloaded.pkgd.min.js',
+                'new/javascript/wysiwyg.js',
             ),
             'depends' => array('redactor', 'common'),
         ),

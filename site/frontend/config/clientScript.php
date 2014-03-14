@@ -3,6 +3,12 @@
 return array(
     'class' => 'application.components.ClientScript',
     'packages' => array(
+        'touchPunch' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'new/javascript/jquery.ui.touch-punch.min.js',
+            ),
+        ),
         'ko_registerWidget' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -188,7 +194,7 @@ return array(
             'js' => array(
                 'javascripts/ko_family.js',
             ),
-            'depends' => array('knockout', 'jquery.ui'),
+            'depends' => array('knockout', 'jquery.ui', 'touchPunch'),
         ),
         'ko_upload' => array(
             'baseUrl' => '/',

@@ -107,11 +107,9 @@ function CommentViewModel(data) {
 
             var wysiwyg = new HgWysiwyg($('#' + id), {
                 toolbarExternal: '.wysiwyg-toolbar-btn',
-                pastePlainText: true,
                 minHeight: 68,
-                autoresize: true,
                 buttons: ['bold', 'italic', 'underline'],
-                comments: true,
+                plugins: ['imageCustom', 'smilesModal', 'videoModal'],
                 callbacks: {
                     init : [
                         function () {

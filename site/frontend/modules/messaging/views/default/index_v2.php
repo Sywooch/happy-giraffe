@@ -87,7 +87,7 @@
                                         <span class="side-menu_i-hold">
                                             <span class="side-menu_ico side-menu_ico__new"></span>
                                             <span class="side-menu_tx">Новые</span>
-                                            <span class="side-menu_count" data-bind="text: countTotal"></span>
+                                            <span class="side-menu_count" data-bind="text: countTotal, visible: countTotal > 0"></span>
                                         </span>
                                         <span class="verticalalign-m-help"></span>
                                     </a>
@@ -203,8 +203,8 @@
                                             Больше не показывать данное предупреждение
                                         </label>
                                         <div class="textalign-c clearfix">
-                                            <button class="btn-green" data-bind="click: deleteDialog">Да</button>
-                                            <button class="btn-gray-light">Нет</button>
+                                            <button class="btn-green" data-bind="click: function(){deleteDialog; $('.tooltip-click-b').tooltipster('hide');}">Да</button>
+                                            <button class="btn-gray-light" onclick="$('.tooltip-click-b').tooltipster('hide');">Нет</button>
                                         </div>
                                     </div>
                                 </div>

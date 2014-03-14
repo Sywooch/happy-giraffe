@@ -85,6 +85,7 @@ function UserLocation(countries) {
     var self = this;
 
     self.citySettings = {
+        minimumInputLength: 2,
         width: '100%',
         dropdownCssClass: 'select2-drop__search-on',
         escapeMarkup: function(m) { return m; },

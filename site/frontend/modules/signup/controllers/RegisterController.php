@@ -66,7 +66,6 @@ class RegisterController extends HController
      */
     public function actionStep2()
     {
-        sleep(10);
         $userId = Yii::app()->request->getPost('userId');
         $social = Yii::app()->request->getPost('social');
         $model = new RegisterFormStep2();

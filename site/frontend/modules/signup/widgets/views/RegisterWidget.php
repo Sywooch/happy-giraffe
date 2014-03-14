@@ -60,7 +60,13 @@
         return false;
     }
 
+    function beforeValidateStep2(form) {
+        registerVm.saving(true);
+        return true;
+    }
+
     function afterValidateStep2(form, data, hasError) {
+        registerVm.saving(false);
         if (! hasError) {
             var data = form.serialize();
             if (registerVm.avatar.imgSrc() !== null) {

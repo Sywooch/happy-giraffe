@@ -6,6 +6,7 @@ function RegisterWidgetViewModel(data, form) {
 
     self.social = ko.observable(false);
     self.currentStep = ko.observable(self.STEP_REG1);
+    self.saving = ko.observable(false);
 
     self.id = ko.observable();
     self.email = new RegisterUserAttribute('');

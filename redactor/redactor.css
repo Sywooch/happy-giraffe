@@ -332,7 +332,7 @@ body .redactor_air .redactor_toolbar {
 .redactor_toolbar li a {
 	display: block;
 	text-indent: -9999px;
-	background: url(/redactor/redactor.png) no-repeat;
+	background: url(/new/images/redactor/redactor.png) no-repeat;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
 	   only screen and (min--moz-device-pixel-ratio: 2),
@@ -342,7 +342,7 @@ body .redactor_air .redactor_toolbar {
 	   only screen and (min-resolution: 2dppx) {
 
 	.redactor_toolbar li a {
-		background: url(/redactor/redactor2.png) no-repeat;
+		background: url(/new/images/redactor/redactor2.png) no-repeat;
 		background-size: auto 25px;
 	}
 
@@ -366,7 +366,7 @@ body .redactor_air .redactor_toolbar {
     width: 25px;
     height: 25px;
     outline: none;
-    background: url(/new/redactor/redactor_toolbar.png) -200px 0;
+    background: url(/new/images/redactor/redactor_toolbar.png) -200px 0;
 }
 .redactor_toolbar li .file-fake:hover .redactor_btn_image {background-position: -200px -25px; }
 

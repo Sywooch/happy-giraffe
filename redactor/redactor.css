@@ -526,27 +526,23 @@ body .redactor_air .redactor_toolbar {
 }
 
 #redactor_modal {
-	background: #f7f7f7;
-	background: -moz-linear-gradient(top,  #f7f7f7 0%, #e2e2e2 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#e2e2e2));
-	background: -webkit-linear-gradient(top,  #f7f7f7 0%,#e2e2e2 100%);
-	background: -o-linear-gradient(top,  #f7f7f7 0%,#e2e2e2 100%);
-	background: -ms-linear-gradient(top,  #f7f7f7 0%,#e2e2e2 100%);
-	background: linear-gradient(to bottom,  #f7f7f7 0%,#e2e2e2 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#e2e2e2',GradientType=0 );
-	text-shadow: 0 1px 0 #fff;
-	padding: 0;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	box-shadow: 0px 5px 60px #000;
-  	border-radius: 3px;
-  	z-index: 50001;
-	font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
-	font-size: 12px !important;
-	color: #000;
+    position: absolute !important;
+    top: 50%;
+    left: 50%;
+    margin: 0 !important;
+    width: auto !important;
+    z-index: 50001;
+    padding: 0;
+    /*border-radius: 3px;
+    background: #f5f5f5;
+    box-shadow: 0px 2px 10px rgba(0,0,0,.7);*/
+    color: #333;
+    /*text-shadow: 0 1px 0 #fff;*/
+    font-size: 12px;
+    font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
 }
 #redactor_modal_header {
+	display: none;
 	padding: 11px 30px 0 15px;
 	font-size: 12px;
 	border-radius: 3px 3px 0 0;
@@ -557,14 +553,15 @@ body .redactor_air .redactor_toolbar {
 
 }
 #redactor_modal_close {
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	font-size: 20px;
-	width: 20px;
-	height: 20px;
-	color: #777;
-	cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 11px;
+    height: 11px;
+    cursor: pointer;
+    z-index: 500;
+    text-indent: -9999px;
+    background: url(/images/ico/ico-close3.png) no-repeat;
 }
 #redactor_modal_close:hover {
 	color: #000;
@@ -633,7 +630,7 @@ body .redactor_air .redactor_toolbar {
 	border-radius: 0 0 3px 3px;
 	text-align: right;
 }
-
+/*
 #redactor_modal input[type="radio"],
 #redactor_modal input[type="checkbox"] {
 	position: relative;
@@ -671,7 +668,7 @@ body .redactor_air .redactor_toolbar {
 	border-color: #5ca9e4;
 	box-shadow: 0 0 0 2px rgba(70, 161, 231, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2) inset;
 }
-
+*/
 .redactor_modal_btn {
 	margin-left: 8px;
 	position: relative;

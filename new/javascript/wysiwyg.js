@@ -83,6 +83,7 @@ function HgWysiwyg(element, options)
         initCallback: function()
         {
             self.obj = this;
+
             if (options.newStyle === true) {
                 self.initScroll(this);
                 self.tempBoxHeight = this.$box.height();
@@ -136,7 +137,19 @@ function HgWysiwyg(element, options)
     self.run = function() {
         var settings = $.extend({}, self.defaultOptions, options);
         console.log(settings);
-        self.obj = $(element).redactor(settings);
+        $(element).redactor(settings);
+
+        var modalInit = self.obj.modalInit;
+        self.obj.modalInit = function(title, content, width, callback) {
+            modalInit.apply(self.obj, arguments);
+            $('body').addClass('body__redactor-popup');
+        }
+
+        var modalClose = self.obj.modalClose;
+        self.obj.modalClose = function() {
+            modalClose.apply(self.obj);
+            $('body').removeClass('body__redactor-popup');
+        }
     }
 
     self.initScroll = function(redactor) {

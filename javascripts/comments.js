@@ -87,23 +87,50 @@ function CommentViewModel(data) {
     self.initEditor = function (id) {
         self.editor = $('#' + id);
         if (!self.gallery()) {
-            $('#' + id).redactorHG({
+//            $('#' + id).redactorHG({
+//                pastePlainText: true,
+//                initCallback: function () {
+//                    redactor = this;
+//                    self.focusEditor();
+//                },
+//                changeCallback: function(html) {
+//                    if (self.response() !== false && html.indexOf(self.response().replyUserLink()) == -1) {
+//                        self.cancelReply();
+//                        self.goBottom();
+//                    }
+//                },
+//                minHeight: 68,
+//                autoresize: true,
+//                buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
+//                comments: true
+//            });
+
+            var wysiwyg = new HgWysiwyg($('#' + id), {
+                toolbarExternal: '.wysiwyg-toolbar-btn',
                 pastePlainText: true,
-                initCallback: function () {
-                    redactor = this;
-                    self.focusEditor();
-                },
-                changeCallback: function(html) {
-                    if (self.response() !== false && html.indexOf(self.response().replyUserLink()) == -1) {
-                        self.cancelReply();
-                        self.goBottom();
-                    }
-                },
                 minHeight: 68,
                 autoresize: true,
-                buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
-                comments: true
+                buttons: ['bold', 'italic', 'underline'],
+                comments: true,
+                callbacks: {
+                    init : [
+                        function () {
+                            redactor = this;
+                            self.focusEditor();
+                        }
+                    ],
+                    change : [
+                        function(html) {
+                            if (self.response() !== false && html.indexOf(self.response().replyUserLink()) == -1) {
+                                self.cancelReply();
+                                self.goBottom();
+                            }
+                        }
+                    ]
+                }
             });
+
+            wysiwyg.run();
         }
     };
 

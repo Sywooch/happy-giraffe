@@ -506,15 +506,13 @@ function MessagingThread(me, user) {
 	
 	// Конфигурация редактора
 	self.editorConfig = {
-        options: {
-            minHeight: 17,
-            autoresize: true,
-            focus: true,
-            toolbarExternal: '.redactor-control_toolbar',
-            buttons: ['b'],
-            plugins: ['imageCustom', 'smilesModal', 'videoModal'],
-            comments: true,
-        },
+        minHeight: 17,
+        autoresize: true,
+        focus: true,
+        toolbarExternal: '.redactor-control_toolbar',
+        buttons: ['b'],
+        plugins: ['imageCustom', 'smilesModal', 'videoModal'],
+        comments: true,
         callbacks: {
             init : [
                 function() {

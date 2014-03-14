@@ -530,6 +530,9 @@ body .redactor_air .redactor_toolbar {
 }
 
 /* MODAL */
+.body__redactor-popup {
+    overflow: auto !important; // Восстанавливаем скролл на body, так как скрипт сам вешает overflow:hidden;
+}
 #redactor_modal_overlay {
     position: fixed;
     top: 0;

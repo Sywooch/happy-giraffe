@@ -332,7 +332,7 @@ body .redactor_air .redactor_toolbar {
 .redactor_toolbar li a {
 	display: block;
 	text-indent: -9999px;
-	background: url(/new/images/redactor/redactor_toolbar.png) no-repeat;
+	background: url(/redactor/redactor.png) no-repeat;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
 	   only screen and (min--moz-device-pixel-ratio: 2),
@@ -342,7 +342,7 @@ body .redactor_air .redactor_toolbar {
 	   only screen and (min-resolution: 2dppx) {
 
 	.redactor_toolbar li a {
-		background: url(/new/images/redactor/redactor_toolbar-2x.png) no-repeat;
+		background: url(/redactor/redactor2.png) no-repeat;
 		background-size: auto 25px;
 	}
 
@@ -361,15 +361,6 @@ body .redactor_air .redactor_toolbar {
 	BUTTONS
 	step 25px
 */
-.redactor_btn_image {
-    display: block;
-    width: 25px;
-    height: 25px;
-    outline: none;
-    background: url(/new/images/redactor/redactor_toolbar.png) -200px 0;
-}
-.redactor_toolbar li .file-fake:hover .redactor_btn_image {background-position: -200px -25px; }
-
 .redactor_toolbar li a.redactor_btn_html				{ background-position: 0px 0; }
 .redactor_toolbar li a.redactor_btn_formatting		    { background-position: -25px 0; }
 .redactor_toolbar li a.redactor_btn_bold				{ background-position: -50px 0; }
@@ -392,7 +383,7 @@ body .redactor_air .redactor_toolbar {
 .redactor_toolbar li a.redactor_btn_image		 		{ background-position: -200px 0; }
 .redactor_toolbar li a.redactor_btn_image:hover,
 .redactor_toolbar li a.redactor_btn_image.redactor_act { background-position: -200px -25px; }
-.redactor_toolbar li a.redactor_btn_video               { background-position: -225px 0; }
+.redactor_toolbar li a.redactor_btn_video		 		{ background-position: -225px 0; }
 .redactor_toolbar li a.redactor_btn_video:hover,
 .redactor_toolbar li a.redactor_btn_video.redactor_act { background-position: -225px -25px; }
 .redactor_toolbar li a.redactor_btn_file		 		{ background-position: -250px 0; }
@@ -414,10 +405,10 @@ body .redactor_air .redactor_toolbar {
 .redactor_toolbar li a.redactor_btn_clips		 		{ background-position: -600px 0; }
 
 .redactor_toolbar li a.redactor_btn_alignment	 		{ background-position: -625px 0; }
-/*
+
 .redactor_toolbar li a.redactor_btn_smile	 		    { background-position: -650px 0; }
 .redactor_toolbar li a.redactor_btn_smile:hover,
-.redactor_toolbar li a.redactor_btn_smile.redactor_act { background-position: -650px -25px; }*/
+.redactor_toolbar li a.redactor_btn_smile.redactor_act { background-position: -650px -25px; }
 .redactor_toolbar li a.redactor_btn_h2	 		    { background-position: -675px 0; }
 .redactor_toolbar li a.redactor_btn_h2:hover,
 .redactor_toolbar li a.redactor_btn_h2.redactor_act { background-position: -675px -25px; }
@@ -431,8 +422,6 @@ body .redactor_air .redactor_toolbar {
 .redactor_toolbar li a.redactor_btn_link_del:hover,
 .redactor_toolbar li a.redactor_btn_link_del.redactor_act { background-position: -750px -25px; }
 
-.redactor_toolbar li a.redactor_btn_smile               { background-position: -900px 0; }
-.redactor_toolbar li a.redactor_btn_smile:hover         { background-position: -900px -25px; }
 
 /*
 	Toolbar classes
@@ -520,6 +509,9 @@ body .redactor_air .redactor_toolbar {
 
 
 /* MODAL */
+.body__redactor-popup {
+	overflow: auto !important; // Восстанавливаем скролл на body, так как скрипт сам вешает overflow:hidden;
+}
 #redactor_modal_overlay {
 	position: fixed;
 	margin: auto;
@@ -537,23 +529,27 @@ body .redactor_air .redactor_toolbar {
 }
 
 #redactor_modal {
-    position: absolute !important;
-    top: 50%;
-    left: 50%;
-    margin: 0 !important;
-    width: auto !important;
-    z-index: 50001;
-    padding: 0;
-    /*border-radius: 3px;
-    background: #f5f5f5;
-    box-shadow: 0px 2px 10px rgba(0,0,0,.7);*/
-    color: #333;
-    /*text-shadow: 0 1px 0 #fff;*/
-    font-size: 12px;
-    font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
+	background: #f7f7f7;
+	background: -moz-linear-gradient(top,  #f7f7f7 0%, #e2e2e2 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#e2e2e2));
+	background: -webkit-linear-gradient(top,  #f7f7f7 0%,#e2e2e2 100%);
+	background: -o-linear-gradient(top,  #f7f7f7 0%,#e2e2e2 100%);
+	background: -ms-linear-gradient(top,  #f7f7f7 0%,#e2e2e2 100%);
+	background: linear-gradient(to bottom,  #f7f7f7 0%,#e2e2e2 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#e2e2e2',GradientType=0 );
+	text-shadow: 0 1px 0 #fff;
+	padding: 0;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	box-shadow: 0px 5px 60px #000;
+  	border-radius: 3px;
+  	z-index: 50001;
+	font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
+	font-size: 12px !important;
+	color: #000;
 }
 #redactor_modal_header {
-	display: none;
 	padding: 11px 30px 0 15px;
 	font-size: 12px;
 	border-radius: 3px 3px 0 0;
@@ -564,15 +560,14 @@ body .redactor_air .redactor_toolbar {
 
 }
 #redactor_modal_close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 11px;
-    height: 11px;
-    cursor: pointer;
-    z-index: 500;
-    text-indent: -9999px;
-    background: url(/images/ico/ico-close3.png) no-repeat;
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	font-size: 20px;
+	width: 20px;
+	height: 20px;
+	color: #777;
+	cursor: pointer;
 }
 #redactor_modal_close:hover {
 	color: #000;
@@ -641,7 +636,7 @@ body .redactor_air .redactor_toolbar {
 	border-radius: 0 0 3px 3px;
 	text-align: right;
 }
-/*
+
 #redactor_modal input[type="radio"],
 #redactor_modal input[type="checkbox"] {
 	position: relative;
@@ -679,7 +674,7 @@ body .redactor_air .redactor_toolbar {
 	border-color: #5ca9e4;
 	box-shadow: 0 0 0 2px rgba(70, 161, 231, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2) inset;
 }
-*/
+
 .redactor_modal_btn {
 	margin-left: 8px;
 	position: relative;

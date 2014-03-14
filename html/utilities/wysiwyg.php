@@ -532,6 +532,46 @@
                 </div>
                 <div class="textalign-c margin-t15"><a href="" class="btn-gray-light btn-medium margin-r10">Отменить</a><a href="" class="btn-green btn-medium">Добавить ссылку</a></div>
               </div><br><br><br><br><br><br><br><br><br><br><br><br><br>
+              <div class="redactor-control">
+                        <div class="redactor-control_hold">
+                          <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor error"></textarea>
+                        </div>
+                        <div class="redactor-control_toolbar"></div>
+                        <div class="redactor-control_control">
+                          <div class="redactor-control_key">
+                            <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
+                            <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
+                          </div>
+                          <button class="btn-green">Отправить</button>
+                        </div>
+                        <script>
+                          $(document).ready(function () { 
+                              /* Обворачиваем редактор в дополнительные блоки. Нужно выбирать текущий (инициализарующийся) редактор, а не все на странице */
+                              $('.redactor').wrap('<div class="scroll"><div class="scroll_scroller"><div class="scroll_cont"></div></div></div>');
+                              /* Выбор ближайшего родителя с таким классом, для добавления блоков рисующих ползунок */
+                              $('.scroll_scroller').after('<div class="scroll_bar-hold"><div class="scroll_bar"><div class="scroll_bar-in"></div></div></div>');
+                              
+                              
+                              $('.redactor').redactor({
+                                  minHeight: 20,
+                                  autoresize: true,
+                                  focus: true,
+                                  toolbarExternal: '.redactor-control_toolbar',
+                                  buttons: ['image', 'video', 'smile'],
+                                  buttonsCustom: {
+                                      smile: 
+                                      {
+                                          title: 'smile',
+                                          callback: function(buttonName, buttonDOM, buttonObject) 
+                                          {
+                                              var html = this.get();
+                                          }
+                                      }
+                                  }
+                              });
+                          });
+                        </script>
+                      </div>
             </div>
 
 		</div>  	

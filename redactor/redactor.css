@@ -361,6 +361,15 @@ body .redactor_air .redactor_toolbar {
 	BUTTONS
 	step 25px
 */
+.redactor_btn_image {
+    display: block;
+    width: 25px;
+    height: 25px;
+    outline: none;
+    background: url(/redactor/redactor_toolbar2x.png) -200px 0;
+}
+.redactor_toolbar li .file-fake:hover .redactor_btn_image {background-position: -200px -25px; }
+
 .redactor_toolbar li a.redactor_btn_html				{ background-position: 0px 0; }
 .redactor_toolbar li a.redactor_btn_formatting		    { background-position: -25px 0; }
 .redactor_toolbar li a.redactor_btn_bold				{ background-position: -50px 0; }

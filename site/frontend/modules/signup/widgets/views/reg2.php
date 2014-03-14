@@ -24,6 +24,7 @@
             'clientOptions' => array(
                 'inputContainer' => 'div.inp-valid',
                 'validateOnSubmit' => true,
+                'beforeValidate' => 'js:beforeValidateStep2',
                 'afterValidate' => 'js:afterValidateStep2',
             ),
         )); ?>
@@ -222,7 +223,8 @@
             </div>
         </div>
         <div class="popup-sign_row">
-            <button class="btn-green-simple btn-l">Продолжить</button>
+            <button class="btn-green-simple btn-l" data-bind="disable: saving">Продолжить</button>
+            <div class="verticalalign-m-el margin-l20" data-bind="visible: saving"><img src="/images/ico/ajax-loader.gif"></div>
         </div>
         <?php $this->endWidget(); ?>
     </div>

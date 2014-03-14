@@ -366,7 +366,7 @@ body .redactor_air .redactor_toolbar {
     width: 25px;
     height: 25px;
     outline: none;
-    background: url(/redactor/redactor_toolbar2x.png) -200px 0;
+    background: url(/new/redactor/redactor_toolbar.png) -200px 0;
 }
 .redactor_toolbar li .file-fake:hover .redactor_btn_image {background-position: -200px -25px; }
 

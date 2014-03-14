@@ -74,52 +74,56 @@ function HgWysiwyg(element, options)
     self.tempBoxHeight = null;
 
     self.defaultOptions = {
-        minHeight: 20,
         autoresize: true,
         focus: true,
+        pastePlainText: true,
+        observeImages: false,
         toolbarExternal: '.redactor-control_toolbar',
         buttons: [''],
-        plugins: ['imageCustom', 'smilesModal', 'videoModal'],
         initCallback: function()
         {
             self.obj = this;
-            self.initScroll(this);
-            self.tempBoxHeight = this.$box.height();
+            if (options.newStyle === true) {
+                self.initScroll(this);
+                self.tempBoxHeight = this.$box.height();
+            }
 
             self.fireCallbacks('init', this);
         },
         changeCallback: function(html)
         {
-            var redactor = this;
+            if (options.newStyle === true) {
+                var redactor = this;
 
-            setTimeout(function() {
-                var redactorH = redactor.$box.height();
+                setTimeout(function() {
+                    var redactorH = redactor.$box.height();
 
-                var bParrent = redactor.$box.parents('.redactor-control_hold');
-                if (redactorH >= 250)
-                    bParrent.height(250);
-                else
-                    bParrent.height(redactorH);
+                    var bParrent = redactor.$box.parents('.redactor-control_hold');
+                    if (redactorH >= 250)
+                        bParrent.height(250);
+                    else
+                        bParrent.height(redactorH);
 
-                if (self.tempBoxHeight != redactorH)
-                    addBaron('.redactor-control_hold .scroll');
+                    if (self.tempBoxHeight != redactorH)
+                        addBaron('.redactor-control_hold .scroll');
 
-                self.tempBoxHeight = redactorH;
-            }, 0);
+                    self.tempBoxHeight = redactorH;
+                }, 0);
+            }
 
             self.fireCallbacks('change', arguments);
         },
         focusCallback: function(e)
         {
-            // Нужно выбирать непосредственного родителя
-            $(this.$box).parents('.redactor-control_hold').addClass('redactor-control_hold__focus');
+            if (options.newStyle === true)
+                $(this.$box).parents('.redactor-control_hold').addClass('redactor-control_hold__focus');
 
             self.fireCallbacks('focus', arguments);
         },
         blurCallback: function(e)
         {
-            // Нужно выбирать непосредственного родителя
-            $(this.$box).parents('.redactor-control_hold').removeClass('redactor-control_hold__focus');
+            if (options.newStyle === true)
+                $(this.$box).parents('.redactor-control_hold').removeClass('redactor-control_hold__focus');
 
             self.fireCallbacks('blur', arguments);
         },

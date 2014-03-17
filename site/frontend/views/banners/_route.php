@@ -1,5 +1,4 @@
 <div style="margin: 15px;">
-    1
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad_route"></div>
     <script type="text/javascript">

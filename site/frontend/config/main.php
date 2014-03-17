@@ -74,6 +74,7 @@ return array(
         'application.modules.signup.models.*',
 
         'zii.behaviors.CTimestampBehavior',
+        'site.frontend.modules.antispam.behaviors.AntispamBehavior',
 
     ),
 

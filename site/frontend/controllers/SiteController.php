@@ -84,7 +84,7 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
-        $openLogin = Yii::app()->user->getFlash('openLogin', false);
+        $openLogin = Yii::app()->user->getState('openLogin', false);
         if ($openLogin !== false)
             Yii::app()->user->setState('openLogin', null);
         if (isset($_GET['openLogin']))

@@ -77,6 +77,7 @@ return array(
         'site.frontend.modules.antispam.behaviors.AntispamBehavior',
         'site.common.behaviors.*',
         'site.frontend.extensions.status.EStatusBehavior',
+        'site.frontend.extensions.geturl.EGetUrlBehavior',
     ),
 
 	'sourceLanguage' => 'en',

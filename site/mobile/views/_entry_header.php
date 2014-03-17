@@ -40,16 +40,18 @@ if (get_class($data) == 'CommunityContent' || get_class($data) == 'BlogContent')
             (function(w, d, n, s, t) {
                 w[n] = w[n] || [];
                 w[n].push(function() {
-                    Ya.Direct.insertInto(87026, "yandex_ad", {
+                    Ya.Direct.insertInto(127976, "yandex_ad", {
+                        stat_id: 2,
                         ad_format: "direct",
-                        type: "300x300",
+                        type: "250x250",
                         border_type: "block",
+                        border_radius: true,
                         site_bg_color: "FFFFFF",
                         border_color: "FBE5C0",
-                        title_color: "289FD7",
+                        title_color: "996EC2",
                         url_color: "006600",
-                        text_color: "000000",
-                        hover_color: "2289BA",
+                        text_color: "333333",
+                        hover_color: "AC89CE",
                         no_sitelinks: true
                     });
                 });

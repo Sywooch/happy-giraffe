@@ -72,6 +72,9 @@ return array(
         'application.modules.antispam.components.*',
         'application.modules.signup.widgets.*',
         'application.modules.signup.models.*',
+
+        'zii.behaviors.CTimestampBehavior',
+
     ),
 
 	'sourceLanguage' => 'en',

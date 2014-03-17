@@ -72,13 +72,13 @@ return array(
         'application.modules.antispam.components.*',
         'application.modules.signup.widgets.*',
         'application.modules.signup.models.*',
-
-        'zii.behaviors.CTimestampBehavior',
-        //'site.common.extensions.wr.WithRelatedBehavior',
-        'site.frontend.modules.antispam.behaviors.AntispamBehavior',
-        'site.common.behaviors.*',
-        'site.frontend.extensions.status.EStatusBehavior',
-        'site.frontend.extensions.geturl.EGetUrlBehavior',
+//
+//        'zii.behaviors.CTimestampBehavior',
+//        'site.common.extensions.wr.WithRelatedBehavior',
+//        'site.frontend.modules.antispam.behaviors.AntispamBehavior',
+//        'site.common.behaviors.*',
+//        'site.frontend.extensions.status.EStatusBehavior',
+//        'site.frontend.extensions.geturl.EGetUrlBehavior',
     ),
 
 	'sourceLanguage' => 'en',

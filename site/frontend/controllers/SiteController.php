@@ -87,6 +87,8 @@ class SiteController extends HController
         $openLogin = Yii::app()->user->getFlash('openLogin', false);
         if ($openLogin !== false)
             Yii::app()->user->setState('openLogin', null);
+        if (isset($_GET['openLogin']))
+            throw new CHttpException(404);
 
         if (! Yii::app()->user->isGuest)
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));

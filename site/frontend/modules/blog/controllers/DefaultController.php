@@ -17,19 +17,19 @@ class DefaultController extends HController
             'ajaxOnly - index, view, save, live',
         );
 
-//        if (Yii::app()->user->isGuest) {
-//            $filters [] = array(
-//                'COutputCache + view',
-//                'duration' => 300,
-//                'varyByParam' => array('content_id'),
-//            );
-//
-//            $filters [] = array(
-//                'COutputCache + index',
-//                'duration' => 300,
-//                'varyByParam' => array('user_id', 'rubric_id', 'BlogContent_page'),
-//            );
-//        }
+        if (Yii::app()->user->isGuest) {
+            $filters [] = array(
+                'COutputCache + view',
+                'duration' => 300,
+                'varyByParam' => array('content_id'),
+            );
+
+            $filters [] = array(
+                'COutputCache + index',
+                'duration' => 300,
+                'varyByParam' => array('user_id', 'rubric_id', 'BlogContent_page'),
+            );
+        }
 
         return $filters;
     }

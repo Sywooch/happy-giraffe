@@ -74,7 +74,7 @@ return array(
         'application.modules.signup.models.*',
 
         'zii.behaviors.CTimestampBehavior',
-        'site.common.extensions.wr.WithRelatedBehavior',
+        //'site.common.extensions.wr.WithRelatedBehavior',
         'site.frontend.modules.antispam.behaviors.AntispamBehavior',
         'site.common.behaviors.*',
         'site.frontend.extensions.status.EStatusBehavior',

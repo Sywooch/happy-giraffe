@@ -111,7 +111,7 @@ class SiteController extends HController
             {
                 $viewFile = Yii::app()->getSystemViewPath() . DIRECTORY_SEPARATOR . 'error' . $error['code'] . '.php';
                 if (is_file($viewFile))
-                    Yii::app()->errorHandler->render('//system/' . 'error' . $error['code'], $error);
+                    $this->renderPartial('//system/' . 'error' . $error['code'], $error);
             }
 	    }
 	}

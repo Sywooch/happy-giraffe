@@ -76,7 +76,7 @@ return array(
         'zii.behaviors.CTimestampBehavior',
         'site.frontend.modules.antispam.behaviors.AntispamBehavior',
         'site.common.behaviors.SoftDeleteBehavior',
-
+        'site.frontend.extensions.status.EStatusBehavior',
     ),
 
 	'sourceLanguage' => 'en',

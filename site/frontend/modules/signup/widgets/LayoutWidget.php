@@ -8,6 +8,6 @@ class LayoutWidget extends CWidget
     public function run()
     {
         Yii::app()->clientScript->registerPackage('ko_registerWidget');
-        $this->render('LayoutWidget');
+        //$this->render('LayoutWidget');
     }
 }

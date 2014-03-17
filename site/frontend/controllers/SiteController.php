@@ -85,6 +85,9 @@ class SiteController extends HController
 	public function actionIndex()
 	{
         $openLogin = Yii::app()->user->getFlash('openLogin', false);
+        if ($openLogin !== false)
+            Yii::app()->user->setState('openLogin', null);
+
         if (! Yii::app()->user->isGuest)
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));
 

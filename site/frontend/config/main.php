@@ -72,9 +72,6 @@ return array(
         'application.modules.antispam.components.*',
         'application.modules.signup.widgets.*',
         'application.modules.signup.models.*',
-
-        'zii.behaviors.CTimestampBehavior',
-        'site.frontend.modules.antispam.behaviors.AntispamBehavior',
     ),
 
 	'sourceLanguage' => 'en',
@@ -227,7 +224,7 @@ return array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',
 			'allowAutoLogin'=>true,
-			'loginUrl'=> array('/site/index'),
+			'loginUrl'=> array('/site/index', 'openLogin' => 1),
 		),
         'authManager'=>array(
             'class'=>'CDbAuthManager',

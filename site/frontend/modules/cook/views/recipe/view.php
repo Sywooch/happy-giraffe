@@ -12,7 +12,7 @@ if (empty($this->meta_description))
             <?=$recipe->title?>
         </h1>
 
-        <?php $this->renderPartial('//banners/_post_header', compact('recipe')); ?>
+        <?php $this->renderPartial('//banners/_post_header', array('data' => $recipe)); ?>
 
         <div class="b-article_in clearfix">
             <div class="wysiwyg-content clearfix">
@@ -205,7 +205,7 @@ if (empty($this->meta_description))
             </div>
         </div>
 
-        <?php $this->renderPartial('//banners/_post_footer', compact('recipe')); ?>
+        <?php $this->renderPartial('//banners/_post_footer', array('data' => $recipe)); ?>
 
         <noindex>
             <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(

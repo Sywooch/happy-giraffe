@@ -103,15 +103,15 @@ class SiteController extends HController
 	 */
 	public function actionError()
 	{
-	    if ($error=Yii::app()->errorHandler->error)
+	    if ($error = Yii::app()->errorHandler->error)
 	    {
-	    	if(Yii::app()->request->isAjaxRequest)
-	    		echo $error['message'];
+	    	if (Yii::app()->request->isAjaxRequest)
+                Yii::app()->displayError($error->code, $error->message, $error->file, $error->line);
 	    	else
             {
                 $viewFile = Yii::app()->getSystemViewPath() . DIRECTORY_SEPARATOR . 'error' . $error['code'] . '.php';
                 if (is_file($viewFile))
-                    include($viewFile);
+                    $this->render($viewFile, $error);
             }
 	    }
 	}

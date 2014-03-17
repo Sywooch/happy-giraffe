@@ -15,7 +15,7 @@ class DefaultController extends HController
     {
         $filters = array();
 
-        if (Yii::app()->user->isGuest) {123
+        if (Yii::app()->user->isGuest) {
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,

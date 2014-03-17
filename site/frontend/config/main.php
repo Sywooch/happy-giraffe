@@ -73,7 +73,7 @@ return array(
         'application.modules.signup.widgets.*',
         'application.modules.signup.models.*',
 
-        //'zii.behaviors.CTimestampBehavior',
+        'zii.behaviors.CTimestampBehavior',
         'site.frontend.modules.antispam.behaviors.AntispamBehavior',
         'site.common.behaviors.*',
         'site.frontend.extensions.status.EStatusBehavior',

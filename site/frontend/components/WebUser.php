@@ -66,7 +66,7 @@ class WebUser extends CWebUser
                     $route=isset($url[0]) ? $url[0] : $app->defaultController;
                     $url=$app->createUrl($route,array_splice($url,1));
                 }
-                $this->setFlash('openLogin', 1);
+                $this->setState('openLogin', 1);
                 $request->redirect($url);
             }
         }

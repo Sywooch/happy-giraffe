@@ -32,6 +32,6 @@
         </div>
     </div>
 </div>
-<div style="display: none;"><?=$data['message']?></div>
+<div style="display: none;"><?=$message?></div>
 </body>
 </html>

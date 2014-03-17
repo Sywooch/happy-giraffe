@@ -142,7 +142,7 @@ class GoogleAnalytics {
 			}
 		} else {
             var_dump($this->response);
-            var_dump($_SERVER['SERVER_ADDR']);
+            echo file_get_contents('http://www.2ip.ru');
             die;
 			throw new Exception('getReport() failed to get a valid XML from Google Analytics API service');
 		}

@@ -16,7 +16,7 @@ class CommentRequiredValidator extends RedactorRequiredValidator
          */
         if ($object->response !== null) {
             $user = $object->response->author;
-            $str = CHtml::link($user->first_name, $user->getUrl()) . ',';
+            $str = CHtml::link($user->getFullName(), $user->getUrl()) . ',';
             $value = $object->$attribute;
             $object->$attribute = str_replace($str, '', $value);
             parent::validateAttribute($object, $attribute);

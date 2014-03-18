@@ -58,7 +58,7 @@ function CommentViewModel(data) {
     };
     self.addComment = function () {
         if (!self.sending()) {
-            self.sending(true);
+            //self.sending(true);
             self.disableInput();
             $.post('/ajaxSimple/addComment/', {entity: self.entity(), entity_id: self.entity_id(), response_id: self.responseId(), text: self.getMessageText()},
                 function (response) {

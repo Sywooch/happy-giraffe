@@ -19,6 +19,7 @@ if (! Yii::app()->user->isGuest)
 ?><!DOCTYPE html>
 <html class="no-js">
 <head><meta charset="utf-8">
+    <?php if (YII_DEBUG): ?>
     <script type='text/javascript'>
         window.Muscula = { settings:{
             logId:"VwXATrD-QRwMP", suppressErrors: false
@@ -33,6 +34,7 @@ if (! Yii::app()->user->isGuest)
                 return window.Muscula.settings.suppressErrors===undefined;}
         })();
     </script>
+    <?php endif; ?>
     <title><?php
     if (!empty($this->meta_title))
         echo CHtml::encode(trim($this->meta_title));

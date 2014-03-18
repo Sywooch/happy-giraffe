@@ -55,16 +55,25 @@ module.exports = function(grunt){
           // sourceMapBasepath: ''
         }
       },
+      newestdev: {
+        files: {
+          'new/css/all1.dev.css': ['new/less/all1.less'] 
+        },
+        options: {
+          compress: true,
+          sourceMap: true,
+          /*sourceMapFilename: 'new/css/all1.css.map',*/
+          /*sourceMapRootpath: 'new/css',*/
+          sourceMapURL: 'new/css/all1.css.map',
+        }
+      },
       newest: {
         files: {
           'new/css/all1.css': ['new/less/all1.less'] 
         },
         options: {
           compress: true,
-          sourceMap: true,
-          /*sourceMapFilename: 'new/css/all1.css.map',*/
-          sourceMapRootpath: 'new/css',
-          sourceMapURL: 'new/css/all1.css.map',
+          cleancss: true,
         }
       }
     },
@@ -73,12 +82,13 @@ module.exports = function(grunt){
       dynamic: {
         files: [{
           expand: true,
-          cwd: 'source/img',
+          cwd: 'new/images',
           src: ['**/*.{png,jpg,gif}'],
-          dest: 'dest/img',
+          dest: 'new/images',
         }]
       }
     },
+
     watch: {
       reload: {
         files: ['new/jade/block/**/*.jade', 'new/jade/extend/**/*.jade'],
@@ -111,7 +121,7 @@ module.exports = function(grunt){
         },
       },
       imagemin: {
-        files: ['source/img/**/*.{png,jpg,gif}'],
+        files: ['new/images/**/*.{png,jpg,gif}'],
         tasks: ['imagemin'],
       }
     },

@@ -5,6 +5,7 @@
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?php if (YII_DEBUG): ?>
         <script type='text/javascript'>
             window.Muscula = { settings:{
                 logId:"VwXATrD-QRwMP", suppressErrors: false
@@ -19,6 +20,7 @@
                     return window.Muscula.settings.suppressErrors===undefined;}
             })();
         </script>
+        <?php endif; ?>
             <title><?php
                 if (!empty($this->meta_title))
                     echo CHtml::encode(trim($this->meta_title));

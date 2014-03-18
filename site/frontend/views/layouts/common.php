@@ -4,20 +4,6 @@
 <!--[if IE 9]>         <html class="ie9"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
     <head>
-        <script type='text/javascript'>
-            window.Muscula = { settings:{
-                logId:"7e99245d-4cdc-4ca9-9dfb-8e926e9de1be", suppressErrors: false
-            }};
-            (function () {
-                var m = document.createElement('script'); m.type = 'text/javascript'; m.async = true;
-                m.src = (window.location.protocol == 'https:' ? 'https:' : 'http:') +
-                    '//musculahq.appspot.com/Muscula6.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(m, s);
-                window.Muscula.run=function(){var a;eval(arguments[0]);window.Muscula.run=function(){};};
-                window.Muscula.errors=[];window.onerror=function(){window.Muscula.errors.push(arguments);
-                    return window.Muscula.settings.suppressErrors===undefined;}
-            })();
-        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
             <title><?php
                 if (!empty($this->meta_title))

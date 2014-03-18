@@ -486,20 +486,11 @@ class AlbumPhoto extends HActiveRecord
             $mimetype = finfo_file($finfo, $thumb);
             finfo_close($finfo);
 
-            if ($mimetype == 'image/jpeg') {
-                $a = shell_exec('jpegoptim --strip-all ' . $thumb);
-                if ($this->author_id == 12936) {
-                    Yii::log('jpegoptim --strip-all ' . $thumb);
-                    Yii::log($a);
-                }
-            }
-            elseif ($mimetype == 'image/png') {
-                $a = shell_exec('optipng -o2 ' . $thumb);
-                if ($this->author_id == 12936) {
-                    Yii::log('optipng -o2 ' . $thumb);
-                    Yii::log($a);
-                }
-            }
+            if ($mimetype == 'image/jpeg')
+                shell_exec('jpegoptim --strip-all ' . $thumb);
+            elseif ($mimetype == 'image/png')
+                shell_exec('optipng -o2 ' . $thumb);
+
         }
 
         return $thumb;

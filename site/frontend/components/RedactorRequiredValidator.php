@@ -11,7 +11,7 @@ class RedactorRequiredValidator extends CRequiredValidator
 {
     protected function isEmpty($value, $trim = false)
     {
-        $value = preg_replace("#<p>(<br>)?[\xe2\x80\x8b ]*<\/p>#u", '', $value);
+        $value = preg_replace("#<p>(<br>|[\xe2\x80\x8b ]|&nbsp;)*<\/p>#u", '', $value);
         return parent::isEmpty($value, $trim);
     }
 }

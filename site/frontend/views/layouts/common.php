@@ -4,13 +4,6 @@
 <!--[if IE 9]>         <html class="ie9"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <title><?php
-                if (!empty($this->meta_title))
-                    echo CHtml::encode(trim($this->meta_title));
-                else
-                    echo CHtml::encode($this->pageTitle);
-                ?></title>
         <script type='text/javascript'>
             window.Muscula = { settings:{
                 logId:"7e99245d-4cdc-4ca9-9dfb-8e926e9de1be", suppressErrors: false
@@ -25,6 +18,13 @@
                     return window.Muscula.settings.suppressErrors===undefined;}
             })();
         </script>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            <title><?php
+                if (!empty($this->meta_title))
+                    echo CHtml::encode(trim($this->meta_title));
+                else
+                    echo CHtml::encode($this->pageTitle);
+                ?></title>
         <?php if ($this->rssFeed !== null): ?>
             <?=CHtml::linkTag('alternate', 'application/rss+xml', $this->rssFeed)?>
         <?php endif; ?>

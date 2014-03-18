@@ -283,11 +283,11 @@ return array(
 //                    'levels'=>'error, warning',
 //                    'emails'=>'nikita@happy-giraffe.ru',
 //                ),
-//				array(
-//					'class'=>'CEmailLogRoute',
-//					'levels'=>'error, warning',
-//					'emails'=>'choojoy.work@gmail.com',
-//				),
+				array(
+					'class'=>'CEmailLogRoute',
+					'levels'=>'info',
+					'emails'=>'nikita@happy-giraffe.ru',
+				),
 //				array(
 //					'class'=>'CWebLogRoute',
 //					'categories'=>'system.db.CDbCommand',

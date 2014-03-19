@@ -55,4 +55,14 @@ class SocialUserIdentity extends CBaseUserIdentity
         }
         return $this->errorCode == self::ERROR_NONE;
     }
+
+    public function getId()
+    {
+        return $this->getState('id');
+    }
+
+    public function getName()
+    {
+        return $this->getState('first_name');
+    }
 }

@@ -490,6 +490,7 @@ class AlbumPhoto extends HActiveRecord
                 shell_exec('jpegoptim --strip-all ' . $thumb);
             elseif ($mimetype == 'image/png')
                 shell_exec('optipng -o2 ' . $thumb);
+
         }
 
         return $thumb;

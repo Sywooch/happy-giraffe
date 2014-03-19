@@ -19,8 +19,10 @@ class WebUser extends CWebUser
         $model->last_ip = $_SERVER['REMOTE_ADDR'];
         $model->update(array('login_date', 'online', 'last_ip'));
 
-        Yii::import('site.frontend.modules.cook.models.*');
-        CookRecipe::checkRecipeBookAfterLogin($model->id);
+        if (! $fromCookie) {
+            Yii::import('site.frontend.modules.cook.models.*');
+            CookRecipe::checkRecipeBookAfterLogin($model->id);
+        }
 
         Yii::app()->request->cookies['not_guest'] = new CHttpCookie('not_guest', '1', array('expire' => time() + 3600*24*100));
     }
@@ -47,5 +49,33 @@ class WebUser extends CWebUser
         if ($referrer !== null && $referrer != $loginUrl)
             Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
         return parent::beforeLogin($id, $states, $fromCookie);
+    }
+
+    public function loginRequired()
+    {
+        $app=Yii::app();
+        $request=$app->getRequest();
+
+        if(!$request->getIsAjaxRequest())
+        {
+            $this->setReturnUrl($request->getUrl());
+            if(($url=$this->loginUrl)!==null)
+            {
+                if(is_array($url))
+                {
+                    $route=isset($url[0]) ? $url[0] : $app->defaultController;
+                    $url=$app->createUrl($route,array_splice($url,1));
+                }
+                $this->setState('openLogin', 1);
+                $request->redirect($url);
+            }
+        }
+        elseif(isset($this->loginRequiredAjaxResponse))
+        {
+            echo $this->loginRequiredAjaxResponse;
+            Yii::app()->end();
+        }
+
+        throw new CHttpException(403,Yii::t('yii','Login Required'));
     }
 }

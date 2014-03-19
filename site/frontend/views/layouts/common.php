@@ -50,6 +50,7 @@
     <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
         <?=$content?>
 
+        <?php if (YII_DEBUG === false): ?>
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
             (function (d, w, c) {
@@ -86,6 +87,7 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </script>
+        <?php endif; ?>
 
         <?php if (false): ?>
         <script type="text/javascript">
@@ -173,5 +175,9 @@
                 </div>
             </div>
         </div>
+
+        <?php if (Yii::app()->user->isGuest): ?>
+            <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
+        <?php endif; ?>
     </body>
 </html>

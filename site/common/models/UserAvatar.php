@@ -81,7 +81,7 @@ class UserAvatar extends CActiveRecord
         $ava->hidden = 1;
         $ava->savePhotoFromPhpThumb(self::createAvatarFile($source, $x, $y, $w, $h));
 
-        User::model()->updateByPk(Yii::app()->user->id, array('avatar_id' => $ava->id));
+        User::model()->updateByPk($user_id, array('avatar_id' => $ava->id));
         self::saveCoordinates($source_id, $x, $y, $w, $h, $ava);
 
         $source->hidden = 0;

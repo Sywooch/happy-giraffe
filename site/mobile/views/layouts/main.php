@@ -130,6 +130,7 @@
             </div>
         </div>
 
+        <?php if (YII_DEBUG === false): ?>
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
             (function (d, w, c) {
@@ -166,6 +167,7 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </script>
+        <?php endif; ?>
 
         <?php if (false): ?>
         <!-- tns-counter.ru -->

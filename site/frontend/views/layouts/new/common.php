@@ -20,7 +20,6 @@ if (! Yii::app()->user->isGuest)
             ->registerAMD('serverTime', array(), 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)');
     else
         $cs
-            ->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD)
             ->registerPackage('comet')
             ->registerPackage('common')
             ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
@@ -29,7 +28,13 @@ if (! Yii::app()->user->isGuest)
 ?><!DOCTYPE html>
 <html class="no-js">
 <head><meta charset="utf-8">
-    <title>Happy Giraffe</title>
+    <title><?php
+    if (!empty($this->meta_title))
+        echo CHtml::encode(trim($this->meta_title));
+    else
+        echo CHtml::encode($this->pageTitle);
+    ?></title>
+    <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <!-- including .css-->
     <link rel="stylesheet" type="text/css" href="/new/css/all1.css" />
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
@@ -71,6 +76,7 @@ if (! Yii::app()->user->isGuest)
 <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
+<?php if (YII_DEBUG === true): ?>
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -99,7 +105,9 @@ if (! Yii::app()->user->isGuest)
         var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
     })();
 </script>
+<?php endif; ?>
 
+<?php if (false): ?>
 <!-- tns-counter.ru -->
 <script type="text/javascript">
     (function(win, doc, cb){
@@ -125,10 +133,15 @@ if (! Yii::app()->user->isGuest)
     <img src="//www.tns-counter.ru/V13a****happygiraffe_ru/ru/UTF-8/tmsec=happygiraffe_total/" width="0" height="0" alt="" />
 </noscript>
 <!--/ tns-counter.ru -->
+<?php endif; ?>
 
 <script type="text/javascript">
     var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
     var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
 </script>
+
+<?php if (Yii::app()->user->isGuest): ?>
+    <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
+<?php endif; ?>
 </body>
 </html>

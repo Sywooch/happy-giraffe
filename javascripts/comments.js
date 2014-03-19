@@ -23,6 +23,7 @@ function CommentViewModel(data) {
 
     self.sending = ko.observable(false);
     self.focusEditor = function () {
+        console.log('123');
         setTimeout(function () {
             self.editor.redactor('focusEnd');
         }, 100);
@@ -106,6 +107,7 @@ function CommentViewModel(data) {
 //            });
 
             var wysiwyg = new HgWysiwyg($('#' + id), {
+                focus: false,
                 toolbarExternal: '.wysiwyg-toolbar-btn',
                 minHeight: 68,
                 buttons: ['bold', 'italic', 'underline'],

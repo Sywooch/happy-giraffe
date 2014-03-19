@@ -38,7 +38,7 @@ if (! isset($showComments))
 <div class="b-article clearfix<?php if ($cssClass !== null): ?> <?=$cssClass?><?php endif; ?>" id="blog_settings_<?=$data->id ?>">
     <?php if ($data->source_id) $this->renderPartial('blog.views.default._repost', array('data' => $data)); ?>
     <div class="float-l">
-        <?php $this->renderPartial('blog.views.default._post_controls', array('model' => $data->getSourceContent(), 'isRepost' => !empty($data->source_id), 'full' => $full)); ?>
+        <?php $this->renderPartial('blog.views.default._post_controls', array('model' => $data->getSourceContent(), 'data' => $data, 'isRepost' => !empty($data->source_id), 'full' => $full)); ?>
     </div>
 
     <div class="b-article_cont clearfix">
@@ -58,7 +58,7 @@ if (! isset($showComments))
         <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false, 'show_new' => isset($show_new) ? true : false)); ?>
 
         <?php if ($full): ?>
-            <?php $this->renderPartial('//banners/_post_footer'); ?>
+            <?php $this->renderPartial('//banners/_post_footer', compact('data')); ?>
         <?php endif; ?>
 
         <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>

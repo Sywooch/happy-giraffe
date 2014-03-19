@@ -35,8 +35,11 @@
 </div>
 
 <script type="text/javascript">
-    registerVm = new RegisterWidgetViewModel(<?=CJSON::encode($json)?>, $('#registerForm'));
-    ko.applyBindings(registerVm, document.getElementById('registerWidget'));
+    $(function() {
+        registerVm = new RegisterWidgetViewModel(<?=CJSON::encode($json)?>, $('#registerForm'));
+        ko.applyBindings(registerVm, document.getElementById('registerWidget'));
+    });
+
 
     $(function() {
         if (<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?>)
@@ -55,6 +58,11 @@
             }, 'json');
         }
         return false;
+    }
+
+    function beforeValidateStep2(form) {
+        registerVm.saving(true);
+        return true;
     }
 
     function afterValidateStep2(form, data, hasError) {
@@ -77,6 +85,7 @@
                 }
             }, 'json');
         }
+        registerVm.saving(false);
         return false;
     }
 

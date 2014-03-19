@@ -599,7 +599,10 @@ class User extends HActiveRecord
      */
     public function getFullName()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        $fullName = $this->first_name;
+        if (! empty($this->last_name))
+            $fullName .= ' ' . $this->last_name;
+        return $fullName;
     }
 
     /**

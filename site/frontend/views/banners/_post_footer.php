@@ -1,4 +1,5 @@
 <div style="margin: 15px;">
+    <?php if ($data instanceof CommunityContent && ! $data->getIsFromBlog()): ?>
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad_post_footer"></div>
     <script type="text/javascript">
@@ -28,4 +29,7 @@
             t.insertBefore(s, t.firstChild);
         })(window, document, "yandex_context_callbacks");
     </script>
+    <?php else: ?>
+        <?php Yii::app()->controller->renderPartial('//banners/_route'); ?>
+    <?php endif; ?>
 </div>

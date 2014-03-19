@@ -44,7 +44,12 @@ class HController extends CController
         parent::init();
 
         if (! Yii::app()->request->isAjaxRequest)
-            Yii::app()->clientScript->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD);
+        {
+            if(Yii::app()->clientScript->useAMD)
+                Yii::app()->clientScript->registerAMD('serverTime', array(), 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)');
+            else
+                Yii::app()->clientScript->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD);
+        }
 
 //        if (YII_DEBUG === false && ($this->module === null || $this->module == 'messaging'))
 //            $this->combineStatic();

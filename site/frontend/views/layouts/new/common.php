@@ -16,8 +16,7 @@ if (! Yii::app()->user->isGuest)
 {
     if($cs->useAMD)
         $cs
-            ->registerAMD('Realplexor-reg', array('common', 'comet'), 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
-            ->registerAMD('serverTime', array(), 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)');
+            ->registerAMD('Realplexor-reg', array('common', 'comet'), 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
     else
         $cs
             ->registerPackage('comet')

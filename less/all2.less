@@ -1,5 +1,4 @@
-
-
+﻿
 // Переменные и примешивания
 @import "/include/variables.less";
 @import "/include/mixins.less";
@@ -242,6 +241,10 @@
         margin: 0 0 5px;
     }
     .content-img  {float: none;margin: 0 0 10px;}
+    .img-right {
+        float: right;
+        margin: 0 0 10px 15px;
+    }
     .h2-services {
         font-weight: normal;
         color: #0D0D0D;
@@ -1088,6 +1091,15 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /b-article-conversion */
 
+/* article-inner-b */
+.article-inner-b {
+    border: 1px solid #d2f2d2;
+    background: #e7f9e7;
+    padding: 20px 15px;
+    .clearfix();
+}
+/* /article-inner-b */
+
 /* b-photopost */
 .b-photopost {
     margin: 20px 0 30px;
@@ -1107,7 +1119,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* like-control */
 .js-like-control {
     position: relative;
-    z-index: 2;
+    z-index: 11;
 }
 .like-control {
     position: relative;
@@ -4039,12 +4051,15 @@ table.fr_recipe_tb td { width: 50%;}
     &__adfox {}
     &__adfox .layout-container {
         position: relative;
+        overflow: hidden;
         background: #f0f0f0;
         width: 1000px;
-        margin: 250px auto 50px; 
+        margin: 0 auto 50px; 
         .box-shadow(1px 1px 7px rgba(8,94,150,0.30));
         z-index: 1;
     }
+
+    &__kinder-spring .layout-container {margin-bottom: 150px;}
 
 /*    &__adfox .start-page_container {
         width: 1000px;
@@ -4053,7 +4068,7 @@ table.fr_recipe_tb td { width: 50%;}
         z-index: 1;
         background: #F0F0F0;
         .box-shadow(1px 1px 7px rgba(8,94,150,0.30));
-    }
+    } 
     &__adfox .start-page_counter {padding: 45px 0 55px;}
     &__adfox .start-page_row__head {background:#b7ddf2 url(/images/branding/kinder/start-page_row__head.jpg) no-repeat 50% 0px;}
     &__adfox .start-page_head {padding-left: 35px;padding-right: 645px;}
@@ -4078,18 +4093,24 @@ table.fr_recipe_tb td { width: 50%;}
     z-index: 0;
     top: 0;
     right: 0;
-    bottom: 0;
     left: 0;
+    height: 100%;
 
     &__adkinder &_b {
         height: 672px;
         background:#b7ddf2 url(/images/branding/kinder/cover_b.jpg) no-repeat 50% 0px;
     }
-    @media screen and (min-width: 1024px) {
+    &__kinder-spring &_b {
+        height: 401px;
+        background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1180.jpg) no-repeat 50% 100%;
+    }
+    @media screen and (min-width: 1180px) {
         &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1400.jpg) no-repeat 50% 0px;}
+        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1400.jpg) no-repeat 50% 0px;}
     }
     @media screen and (min-width: 1400px) {
         &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1920.jpg) no-repeat 50% 0px;}
+        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1920.jpg) no-repeat 50% 0px;}
     }
     &_b {
         position: absolute;

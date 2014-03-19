@@ -23,6 +23,7 @@ function CommentViewModel(data) {
 
     self.sending = ko.observable(false);
     self.focusEditor = function () {
+        console.log('123');
         setTimeout(function () {
             self.editor.redactor('focusEnd');
         }, 100);
@@ -87,23 +88,49 @@ function CommentViewModel(data) {
     self.initEditor = function (id) {
         self.editor = $('#' + id);
         if (!self.gallery()) {
-            $('#' + id).redactorHG({
-                pastePlainText: true,
-                initCallback: function () {
-                    redactor = this;
-                    self.focusEditor();
-                },
-                changeCallback: function(html) {
-                    if (self.response() !== false && html.indexOf(self.response().replyUserLink()) == -1) {
-                        self.cancelReply();
-                        self.goBottom();
-                    }
-                },
+//            $('#' + id).redactorHG({
+//                pastePlainText: true,
+//                initCallback: function () {
+//                    redactor = this;
+//                    self.focusEditor();
+//                },
+//                changeCallback: function(html) {
+//                    if (self.response() !== false && html.indexOf(self.response().replyUserLink()) == -1) {
+//                        self.cancelReply();
+//                        self.goBottom();
+//                    }
+//                },
+//                minHeight: 68,
+//                autoresize: true,
+//                buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
+//                comments: true
+//            });
+
+            var wysiwyg = new HgWysiwyg($('#' + id), {
+                focus: false,
+                toolbarExternal: '.wysiwyg-toolbar-btn',
                 minHeight: 68,
-                autoresize: true,
-                buttons: ['bold', 'italic', 'underline', 'image', 'video', 'smile'],
-                comments: true
+                buttons: ['bold', 'italic', 'underline'],
+                plugins: ['imageCustom', 'smilesModal', 'videoModal'],
+                callbacks: {
+                    init : [
+                        function () {
+                            redactor = this;
+                            self.focusEditor();
+                        }
+                    ],
+                    change : [
+                        function(html) {
+                            if (self.response() !== false && html.indexOf(self.response().replyUserLink()) == -1) {
+                                self.cancelReply();
+                                self.goBottom();
+                            }
+                        }
+                    ]
+                }
             });
+
+            wysiwyg.run();
         }
     };
 

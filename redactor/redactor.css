@@ -553,6 +553,7 @@ body .redactor_air .redactor_toolbar {
     top: 50%;
     left: 50%;
     width: auto !important;
+    margin: 0 !important;
     z-index: 50001;
     padding: 0;
     color: #333;
@@ -568,17 +569,17 @@ body .redactor_air .redactor_toolbar {
 }
 #redactor_modal_content {
 	padding: 20px 30px;
-
 }
 #redactor_modal_close {
-	position: absolute;
-	right: 5px;
-	top: 5px;
-	font-size: 20px;
-	width: 20px;
-	height: 20px;
-	color: #777;
-	cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 11px;
+    height: 11px;
+    cursor: pointer;
+    z-index: 500;
+    text-indent: -9999px;
+    background: url(/images/ico/ico-close3.png) no-repeat;
 }
 #redactor_modal_close:hover {
 	color: #000;

@@ -29,7 +29,7 @@ class DefaultController extends HController
 	public function actionSignup()
 	{
         $json = Yii::app()->user->model->getFamilyData();
-        $json['callback'] = 'window.location.href = \'' . Yii::app()->user->getReturnUrl($this->createUrl('profile/default/index', array('user_id' => Yii::app()->user->id))) . '\';';
+        $json['callback'] = 'window.location.href = \'' . Yii::app()->user->getReturnUrl($this->createUrl('/profile/default/index', array('user_id' => Yii::app()->user->id))) . '\';';
         $this->layout = '//layouts/simple';
         $this->render('signup', compact('json'));
 	}

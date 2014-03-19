@@ -16,7 +16,6 @@
         ->registerCssFile('/stylesheets/common.css')
 
         ->registerCoreScript('jquery')
-        ->registerScriptFile('/javascripts/tooltipsy.min.js')
         ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
         ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
         ->registerScriptFile('/javascripts/chosen.jquery.min.js')

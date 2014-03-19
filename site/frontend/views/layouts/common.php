@@ -5,6 +5,22 @@
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <?php if (! YII_DEBUG): ?>
+        <script type='text/javascript'>
+            window.Muscula = { settings:{
+                logId:"VwXATrD-QRwMP", suppressErrors: false
+            }};
+            (function () {
+                var m = document.createElement('script'); m.type = 'text/javascript'; m.async = true;
+                m.src = (window.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//musculahq.appspot.com/Muscula6.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(m, s);
+                window.Muscula.run=function(){var a;eval(arguments[0]);window.Muscula.run=function(){};};
+                window.Muscula.errors=[];window.onerror=function(){window.Muscula.errors.push(arguments);
+                    return window.Muscula.settings.suppressErrors===undefined;}
+            })();
+        </script>
+        <?php endif; ?>
             <title><?php
                 if (!empty($this->meta_title))
                     echo CHtml::encode(trim($this->meta_title));
@@ -26,7 +42,6 @@
             ->registerCoreScript('jquery')
             ->registerScriptFile('/javascripts/chosen.jquery.min.js')
             ->registerScriptFile('/javascripts/jquery.powertip.js')
-            ->registerScriptFile('/javascripts/tooltipsy.min.js')
             ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
             ->registerScriptFile('/javascripts/addtocopy.js')
             ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
@@ -50,6 +65,7 @@
     <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
         <?=$content?>
 
+        <?php if (YII_DEBUG === false): ?>
         <!-- Yandex.Metrika counter -->
         <script type="text/javascript">
             (function (d, w, c) {
@@ -86,6 +102,7 @@
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
         </script>
+        <?php endif; ?>
 
         <?php if (false): ?>
         <script type="text/javascript">
@@ -163,6 +180,14 @@
             // -->
         </script>
         <!--AdFox END-->
+
+        <!-- Soloway Javascript code START-->
+        <script language="javascript" type="text/javascript"><!--
+            var RndNum4NoCash = Math.round(Math.random() * 1000000000);
+            var ar_Tail='unknown'; if (document.referrer) ar_Tail = escape(document.referrer);
+            document.write('<sc' + 'ript language="JavaScript" src="http://ad.adriver.ru/cgi-bin/erle.cgi?sid=196494&bt=16&target=blank&rnd=' + RndNum4NoCash + '&tail256=' + ar_Tail + '"></sc' + 'ript>');
+            //--></script>
+        <!-- Soloway Javascript code END -->
 
         <div style="display: none;">
         <a href="#popup-error" id="popup-error-link" class="fancy"></a>

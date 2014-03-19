@@ -19,17 +19,3 @@
 
 
 </div>
-
-<?php if ($full): ?>
-<div class="textalign-c">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- ÃÓ·ËÎ¸Ì˚È ·‡ÌÌÂ -->
-    <ins class="adsbygoogle"
-         style="display:inline-block;width:320px;height:100px"
-         data-ad-client="ca-pub-3807022659655617"
-         data-ad-slot="3195546082"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-</div>
-<?php endif; ?>

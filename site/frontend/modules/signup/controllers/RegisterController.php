@@ -5,6 +5,23 @@
 
 class RegisterController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+                'actions' => array('clubs', 'family'),
+            ),
+        );
+    }
+
     public function actions()
     {
         return array(
@@ -69,6 +86,29 @@ class RegisterController extends HController
     }
 
     /**
+     * 3 шаг регистрации - клубы
+     */
+    public function actionClubs()
+    {
+        $this->layout = '//layouts/new/common';
+        $this->pageTitle = 'Выберите клубы';
+        $this->render('clubs');
+    }
+
+    /**
+     * 4 шаг регистрации - семья
+     */
+    public function actionFamily()
+    {
+        $this->layout = '//layouts/new/common';
+        $json = Yii::app()->user->model->getFamilyData();
+        $nextUrl = Yii::app()->user->getReturnUrl($this->createUrl('/profile/default/index', array('user_id' => Yii::app()->user->id)));
+        $json['callback'] = 'window.location.href = \'' . $nextUrl . '\';';
+        $this->pageTitle = 'Заполните семью';
+        $this->render('family', compact('json', 'nextUrl'));
+    }
+
+    /**
      * Подтверждение e-mail
      * @param $activationCode
      */
@@ -77,7 +117,7 @@ class RegisterController extends HController
         $identity = new ActivationUserIdentity($activationCode);
         if ($identity->authenticate()) {
             Yii::app()->user->login($identity, 3600*24*30);
-            $this->redirect(array('/profile/default/signup/'));
+            $this->redirect(array('/signup/register/clubs/'));
         } elseif ($identity->errorCode == ActivationUserIdentity::ERROR_CODE_USED)
             $this->redirect($url);
         else

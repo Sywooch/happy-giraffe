@@ -72,6 +72,13 @@ return array(
         'application.modules.antispam.components.*',
         'application.modules.signup.widgets.*',
         'application.modules.signup.models.*',
+
+        'zii.behaviors.CTimestampBehavior',
+        'site.common.extensions.wr.WithRelatedBehavior',
+        'site.frontend.modules.antispam.behaviors.AntispamBehavior',
+        'site.common.behaviors.*',
+        'site.frontend.extensions.status.EStatusBehavior',
+        'site.frontend.extensions.geturl.EGetUrlBehavior',
     ),
 
 	'sourceLanguage' => 'en',
@@ -276,11 +283,11 @@ return array(
 //                    'levels'=>'error, warning',
 //                    'emails'=>'nikita@happy-giraffe.ru',
 //                ),
-//				array(
-//					'class'=>'CEmailLogRoute',
-//					'levels'=>'error, warning',
-//					'emails'=>'choojoy.work@gmail.com',
-//				),
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'info',
+                    'logFile' => 'info.log',
+                ),
 //				array(
 //					'class'=>'CWebLogRoute',
 //					'categories'=>'system.db.CDbCommand',
@@ -358,7 +365,6 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
-        'releaseId' => 112,
         'valentinesAlbum' => '41340',
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
@@ -411,7 +417,7 @@ return array(
                 'addtocopy.js',
                 'jquery.fancybox-1.3.4.js',
                 'base64.js',
-                'common.js',
+                '/javascripts/common.js',
                 'fox.js',
                 'jquery.Jcrop.min.js',
                 'ko_blog.js',

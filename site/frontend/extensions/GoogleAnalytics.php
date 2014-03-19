@@ -142,6 +142,7 @@ class GoogleAnalytics {
 			}
 		} else {
             var_dump($this->response);
+            die;
 			throw new Exception('getReport() failed to get a valid XML from Google Analytics API service');
 		}
 		return $results;

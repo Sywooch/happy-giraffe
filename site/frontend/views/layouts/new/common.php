@@ -19,6 +19,22 @@ if (! Yii::app()->user->isGuest)
 ?><!DOCTYPE html>
 <html class="no-js">
 <head><meta charset="utf-8">
+    <?php if (! YII_DEBUG): ?>
+    <script type='text/javascript'>
+        window.Muscula = { settings:{
+            logId:"VwXATrD-QRwMP", suppressErrors: false
+        }};
+        (function () {
+            var m = document.createElement('script'); m.type = 'text/javascript'; m.async = true;
+            m.src = (window.location.protocol == 'https:' ? 'https:' : 'http:') +
+                '//musculahq.appspot.com/Muscula6.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(m, s);
+            window.Muscula.run=function(){var a;eval(arguments[0]);window.Muscula.run=function(){};};
+            window.Muscula.errors=[];window.onerror=function(){window.Muscula.errors.push(arguments);
+                return window.Muscula.settings.suppressErrors===undefined;}
+        })();
+    </script>
+    <?php endif; ?>
     <title><?php
     if (!empty($this->meta_title))
         echo CHtml::encode(trim($this->meta_title));
@@ -67,6 +83,7 @@ if (! Yii::app()->user->isGuest)
 <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
+<?php if (YII_DEBUG === true): ?>
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -95,7 +112,9 @@ if (! Yii::app()->user->isGuest)
         var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
     })();
 </script>
+<?php endif; ?>
 
+<?php if (false): ?>
 <!-- tns-counter.ru -->
 <script type="text/javascript">
     (function(win, doc, cb){
@@ -121,6 +140,7 @@ if (! Yii::app()->user->isGuest)
     <img src="//www.tns-counter.ru/V13a****happygiraffe_ru/ru/UTF-8/tmsec=happygiraffe_total/" width="0" height="0" alt="" />
 </noscript>
 <!--/ tns-counter.ru -->
+<?php endif; ?>
 
 <script type="text/javascript">
     var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;

@@ -7,7 +7,7 @@
 ko.bindingHandlers.redactorHG = {
 	init: function(element, valueAccessor) {
 		var value = valueAccessor();
-		var wysiwyg = new HgWysiwyg(element, value.config.options, value.config.callbacks);
+		var wysiwyg = new HgWysiwyg(element, value.config);
         var attr = value.attr;
 
         wysiwyg.addCallback('init', function() {

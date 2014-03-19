@@ -6,6 +6,7 @@ function RegisterWidgetViewModel(data, form) {
 
     self.social = ko.observable(false);
     self.currentStep = ko.observable(self.STEP_REG1);
+    self.saving = ko.observable(false);
 
     self.id = ko.observable();
     self.email = new RegisterUserAttribute('');
@@ -84,6 +85,7 @@ function UserLocation(countries) {
     var self = this;
 
     self.citySettings = {
+        minimumInputLength: 2,
         width: '100%',
         dropdownCssClass: 'select2-drop__search-on',
         escapeMarkup: function(m) { return m; },
@@ -240,12 +242,14 @@ function LoginWidgetViewModel() {
     self.password = ko.observable();
     self.rememberMe = ko.observable();
 
-    self.email.subscribe(function(val) {
-        passwordRecoveryVm.email(val);
-    });
-
     self.open = function() {
         $('a[href="#loginWidget"]:first').trigger('click');
+    }
+
+    self.recover = function() {
+        $('#LoginForm_email').trigger('change');
+        passwordRecoveryVm.email(self.email());
+        return false;
     }
 }
 
@@ -255,7 +259,8 @@ function PasswordRecoveryWidgetViewModel() {
     self.email = ko.observable();
     self.isSent = ko.observable(false);
 
-    self.email.subscribe(function(val) {
-        loginVm.email(val);
-    });
+    self.login = function() {
+        loginVm.email(self.email());
+        return false;
+    }
 }

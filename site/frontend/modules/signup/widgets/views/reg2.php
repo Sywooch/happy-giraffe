@@ -100,12 +100,7 @@
                 <div class="inp-valid inp-valid__abs">
                     <?=$form->dropDownList($model, 'country_id', array(), array(
                         'class' => 'select-cus select-cus__gray',
-                        'data-bind' => 'value: location.country_id, options: location.availableCountries, optionsText: "name", optionsValue: "id", optionsCaption: "", select2: {
-                            width: "100%",
-                            dropdownCssClass: "select2-drop__search-on",
-                            escapeMarkup: function(m) { return m; },
-                            placeholder: "Страна"
-                        }',
+                        'data-bind' => 'value: location.country_id, options: location.availableCountries, optionsText: "name", optionsValue: "id", optionsCaption: "", select2: location.countrySettings',
                     ))?>
                     <div class="inp-valid_error">
                         <?=$form->error($model, 'country_id')?>

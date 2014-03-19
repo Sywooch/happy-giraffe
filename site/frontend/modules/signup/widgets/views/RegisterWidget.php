@@ -35,11 +35,8 @@
 </div>
 
 <script type="text/javascript">
-    $(function() {
-        registerVm = new RegisterWidgetViewModel(<?=CJSON::encode($json)?>, $('#registerForm'));
-        ko.applyBindings(registerVm, document.getElementById('registerWidget'));
-    });
-
+    registerVm = new RegisterWidgetViewModel(<?=CJSON::encode($json)?>, $('#registerForm'));
+    ko.applyBindings(registerVm, document.getElementById('registerWidget'));
 
     $(function() {
         if (<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?>)

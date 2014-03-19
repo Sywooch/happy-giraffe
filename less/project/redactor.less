@@ -211,13 +211,14 @@
 
 
 
+
 /* redactor-popup */
 .redactor-popup {
-    position: absolute;
+    position: relative;
     padding: 25px;
     background: #fff;
     .box-shadow(0 1px 6px rgba(0,0,0,0.15));
-    z-index: 5100;
+    z-index: 100;
 
     .b-add-img {width: 516px;}
 
@@ -229,7 +230,7 @@
     &_tale {
         position: absolute;
         bottom: -5px;
-        left: 25px;
+        left: 107px;
         width:10px;
         height:10px;
         background:#fff;
@@ -241,33 +242,28 @@
     .ie8 &_tale {display: none;}
 
     &_t {
-        margin: 10px 0;
+        margin: 0 0 10px;
         font-size: 13px;
         color: #418ac1;
         font-weight: bold;
     }
+
     &_add-video {
         position: relative;
+        width: 400px;
         margin-bottom: 15px;
-        padding: 0 20px 215px;
-        width: 505px;
-        background:#F5FBFF url(/images/redactor-popup_add-video.png) no-repeat 50% 78%;
-        border: 2px dashed #BBD8EC;
-        .border-radius(6px);
+        padding: 0 15px 215px;
+        background:#F5FBFF url('@{path-img}/redactor/redactor-popup_add-video.png') no-repeat 50% 78%;
+        border: 1px solid #e6f0f7;
     }
-    &_add-video.active {background-image: none;}
-    &_add-video-hold {
-        padding-top: 63px;
-        background: url(/images/redactor-popup_add-video-hold.png) no-repeat 15px 28px;
-    }
+    &_add-video-hold .itx-simple {width: 270px !important;}
     &_add-video .btn-green {
-        margin:-2px 0 0 8px;
-        line-height: 23px;
+        margin:0 0 0 12px;
+        line-height: 24px;
     }
     &_add-video-load {
         position: absolute;
-        top: 150px;
-        left: 75px;
+        top: 160px;
         width: 400px;
         text-align: center;
         font-size: 14px;
@@ -275,14 +271,18 @@
     }
     &_add-video-error {
         position: absolute;
-        top: 150px;
-        left: 25px;
-        width: 500px;
+        top: 160px;
+        left: 15px;
+        width: 380px;
+        padding: 10px 10px;
+        border: 1px solid #fdb9ac;
+        background: #fde3e3;
         text-align: center;
-        font-size: 13px;
-        color: #f86161;
+        font-size: 12px;
+        color: #db9191;
     }
     &_video {
+        width: 432px;
         position: relative;
         margin-bottom: 15px;
     }
@@ -291,6 +291,31 @@
         top: -12px;
         right: -12px;
     }
+    &_video-serv {
+        margin: 25px 0 15px;
+    }
+    &_video-serv-tx {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+        color: #999;
+    }
+    &_video-serv-i {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 5px;
+        width: 60px;
+        height: 30px;
+        background: url('@{path-img}/redactor/redactor-popup_video-serv-i.png') no-repeat;
+    }
+    &_video-serv-i.active {}
+    &_video-serv-i__youtube {background-position: 0 -30px;}
+    &_video-serv-i__youtube.active {background-position: 0 0;}
+    &_video-serv-i__rutube  {background-position: -60px -30px;}
+    &_video-serv-i__rutube.active  {background-position: -60px 0;}
+    &_video-serv-i__vimeo   {background-position: -120px -30px;}
+    &_video-serv-i__vimeo.active   {background-position: -120px 0;}
+
     &_smiles {
         width: 520px;
         text-align: center;
@@ -299,7 +324,8 @@
     &_holder-blue {
         width: 500px;
         padding: 15px 10px;
-        background: #f5fcff;
+        background: #f5fbff ;
+        border: 1px solid #e6f0f7;
     }
     &_label {
         float: left;
@@ -311,7 +337,6 @@
     }
 }
 /* /redactor-popup */
-
 /* redactor-img */
 .redactor-img {
     .inline-block();

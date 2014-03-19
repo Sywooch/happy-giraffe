@@ -5,7 +5,7 @@
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <?php if (YII_DEBUG): ?>
+        <?php if (! YII_DEBUG): ?>
         <script type='text/javascript'>
             window.Muscula = { settings:{
                 logId:"VwXATrD-QRwMP", suppressErrors: false

@@ -20,10 +20,6 @@
         ->registerScriptFile('/javascripts/jquery.masonry.min.js')
         ->registerMetaTag('/images/contest/banner-social-'.$contest->id.'.jpg', null, null, array('property' => 'og:image'))
     ;
-
-Yii::app()->eauth->renderWidget(array(
-    'mode' => 'assets',
-));
 ?>
 
 <div class="contest-about clearfix">

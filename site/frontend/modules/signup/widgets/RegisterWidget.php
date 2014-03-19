@@ -16,7 +16,6 @@ class RegisterWidget extends CWidget
 
     public function run()
     {
-        Yii::app()->clientScript->registerPackage('ko_registerWidget');
         $modelStep1 = new RegisterFormStep1();
         $modelStep2 = new RegisterFormStep2();
         $resendConfirm = new ResendConfirmForm();

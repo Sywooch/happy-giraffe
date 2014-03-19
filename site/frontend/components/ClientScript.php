@@ -9,7 +9,7 @@
 
 class ClientScript extends CClientScript
 {
-
+    const RELEASE_ID_KEY = 'Yii.ClientScript.releaseidkey';
     const POS_AMD = 1000;
     
     public $amd = array();
@@ -253,8 +253,18 @@ class ClientScript extends CClientScript
 
     protected function addReleaseId($url)
     {
-        $r = Yii::app()->params['releaseId'];
+        $r = $this->getReleaseId();
         $url .= (strpos($url, '?') === false) ? '?r=' . $r : '&r=' . $r;
         return $url;
+    }
+
+    protected function getReleaseId()
+    {
+        $id = Yii::app()->getGlobalState(self::RELEASE_ID_KEY);
+        if ($id === null) {
+            $id = Yii::app()->securityManager->generateRandomString(32, false);
+            Yii::app()->setGlobalState(self::RELEASE_ID_KEY, $id);
+        }
+        return $id;
     }
 }

@@ -330,21 +330,21 @@ body .redactor_air .redactor_toolbar {
 	float: right !important;
 }
 .redactor_toolbar li a {
-	display: block;
-	text-indent: -9999px;
-	background: url(/redactor/redactor.png) no-repeat;
+    display: block;
+    text-indent: -9999px;
+    background: url(/new/redactor/redactor_toolbar.png) no-repeat;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2),
-	   only screen and (min--moz-device-pixel-ratio: 2),
-	   only screen and (-o-min-device-pixel-ratio: 2/1),
-	   only screen and (min-device-pixel-ratio: 2),
-	   only screen and (min-resolution: 192dpi),
-	   only screen and (min-resolution: 2dppx) {
+       only screen and (min--moz-device-pixel-ratio: 2),
+       only screen and (-o-min-device-pixel-ratio: 2/1),
+       only screen and (min-device-pixel-ratio: 2),
+       only screen and (min-resolution: 192dpi),
+       only screen and (min-resolution: 2dppx) {
 
-	.redactor_toolbar li a {
-		background: url(/redactor/redactor2.png) no-repeat;
-		background-size: auto 25px;
-	}
+    .redactor_toolbar li a {
+        background: url(/new/redactor/redactor_toolbar-2x.png) no-repeat;
+        background-size: auto 25px;
+    }
 
 }
 
@@ -355,6 +355,16 @@ body .redactor_air .redactor_toolbar {
 .redactor_toolbar li a.redactor_act {
 	outline: none;
 }
+
+.redactor_btn_image {
+    display: block;
+    width: 25px;
+    height: 25px;
+    outline: none;
+    background: url(/new/redactor/redactor_toolbar.png) no-repeat;
+    background-position: -200px 0;
+}
+.redactor_toolbar li .file-fake:hover .redactor_btn_image {background-position: -200px -25px; }
 
 
 /*
@@ -421,6 +431,9 @@ body .redactor_air .redactor_toolbar {
 .redactor_toolbar li a.redactor_btn_link_del	    { background-position: -750px 0; }
 .redactor_toolbar li a.redactor_btn_link_del:hover,
 .redactor_toolbar li a.redactor_btn_link_del.redactor_act { background-position: -750px -25px; }
+
+.redactor_toolbar li a.redactor_btn_smile               { background-position: -900px 0; }
+.redactor_toolbar li a.redactor_btn_smile:hover         { background-position: -900px -25px; }
 
 
 /*

@@ -19,7 +19,7 @@ if (! Yii::app()->user->isGuest)
 ?><!DOCTYPE html>
 <html class="no-js">
 <head><meta charset="utf-8">
-    <?php if (YII_DEBUG): ?>
+    <?php if (! YII_DEBUG): ?>
     <script type='text/javascript'>
         window.Muscula = { settings:{
             logId:"VwXATrD-QRwMP", suppressErrors: false

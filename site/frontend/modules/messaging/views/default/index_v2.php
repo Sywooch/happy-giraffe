@@ -403,9 +403,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-	$(function() {
-        messaging = new Messaging(<?=$data?>);
-		ko.applyBindings(messaging, document.getElementById('<?=$this->id?>_messaging_module'));
-	});
-</script>
+<?php
+Yii::app()->clientScript->registerAMD('messagingVM', array('ko_im'), "messaging = new Messaging(" . $data . "); ko.applyBindings(messaging, document.getElementById('" . $this->id . "_messaging_module')); return messaging;");
+?>

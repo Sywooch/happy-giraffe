@@ -243,5 +243,12 @@ return array(
             ),
             'depends' => array('jquery', 'ko_upload'),
         ),
+        'ko_registerWidget' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_registerWidget.js',
+            ),
+            'depends' => array('knockout', 'common', 'jcrop', 'ko_upload'),
+        ),
     )
 );

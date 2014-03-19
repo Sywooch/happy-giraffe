@@ -106,6 +106,78 @@ ko.bindingHandlers.chosen =
     }
 };
 
+ko.bindingHandlers.select2 = {
+    init: function(element, valueAccessor) {
+        $(element).select2(valueAccessor());
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+            $(element).select2('destroy');
+        });
+    },
+    update: function(element, valueAccessor, allBindingsAccessor) {
+        // подпишемся на обновление следующих значений
+        ko.unwrap(allBindingsAccessor.get('value'));
+        ko.unwrap(allBindingsAccessor.get('options'));
+        // стриггерим изменения, что бы select2 смог перестроиться
+        $(element).trigger('change');
+    }
+};
+
+ko.bindingHandlers.selectize = {
+    init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+
+        var options = {};
+        if (allBindingsAccessor.has('optionsText')) {
+            options.labelField = allBindingsAccessor.get('optionsText');
+            options.searchField = allBindingsAccessor.get('optionsText');
+        }
+        if (allBindingsAccessor.has('optionsValue'))
+            options.valueField = allBindingsAccessor.get('optionsValue');
+
+        options = $.extend( {}, options, valueAccessor() );
+
+        var $select = $(element).selectize(options)[0].selectize;
+
+        allBindingsAccessor.get('value').subscribe(function(value) {
+            $select.setValue(value);
+        });
+    },
+    update: function(element, valueAccessor, allBindingsAccessor) {
+        var $select = element.selectize;
+        var value = allBindingsAccessor.get('value')();
+        var elements = allBindingsAccessor.get('options');
+        $select.clearOptions();
+        if(!(elements instanceof Array)) {
+            elements = elements();
+        }
+        for(var i in elements) {
+            var v = elements[i];
+            if(typeof v !== 'object') {
+                v = {text: elements[i], value: elements[i]};
+            }
+            $select.addOption(v);
+        }
+        $select.setValue(value);
+    }
+}
+
+ko.bindingHandlers.select2 = {
+    init: function(element, valueAccessor) {
+        $(element).select2(valueAccessor());
+
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+            $(element).select2('destroy');
+        });
+    },
+    update: function(element, valueAccessor, allBindingsAccessor) {
+        // подпишемся на обновление следующих значений
+        ko.unwrap(allBindingsAccessor.get('value'));
+        ko.unwrap(allBindingsAccessor.get('options'));
+        // стриггерим изменения, что бы select2 смог перестроиться
+        $(element).trigger('change');
+    }
+};
+
 ko.bindingHandlers.returnKey = {
     init: function(element, valueAccessor, allBindingsAccessor, viewModel) {
         ko.utils.registerEventHandler(element, 'keydown', function(evt) {
@@ -274,8 +346,8 @@ ko.bindingHandlers.moment = {
 			autoUpdate: true,
 			preset: 'adaptive'
 		};
-		var options = valueAccessor();
-		
+		var options = ko.utils.unwrapObservable(valueAccessor());
+
 		if(!(options instanceof Object)) {
 			options = {
 				value: options
@@ -521,5 +593,32 @@ ko.bindingHandlers.jqAuto = {
 
         //update the element with the value that should be shown in the input
         $(element).val(modelValue && inputValueProp !== valueProp ? unwrap(modelValue[inputValueProp]) : modelValue.toString());
+    }
+};
+
+ko.bindingHandlers.jcrop = {
+    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        var options = valueAccessor().options;
+        var ready = valueAccessor().ready;
+        var api = null;
+
+        setTimeout(function() {
+            $(element).Jcrop(options, function() {
+                ready.apply(this);
+                api = this;
+            });
+        }, 1);
+
+
+        allBindings.get('attr').src.subscribe(function(val) {
+            setTimeout(function() {
+                api.setImage(val, function() {
+                    ready.apply(api);
+                });
+            }, 1);
+        });
+    },
+    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+
     }
 };

@@ -1,3 +1,4 @@
+// комментарии с www
 .comments-gray {
     background: #fff;
     padding: 5px 0 20px;
@@ -244,4 +245,38 @@
         color: #186fb8;
     }
     &_article-t-a {color: #186fb8;}
+}
+
+/* message-ico */
+.message-ico {
+    .inline-block();
+    width: 16px;
+    height: 15px;
+    background: url(/images/ico/message_ico.png) no-repeat;
+    
+    &__edit          {background-position: -80px 0;}
+    &__edit.active,
+    &__edit:hover    {background-position: -80px -15px;}
+    &__warning       {background-position: -16px 0;}
+    &__warning.active,
+    &__warning:hover {background-position: -16px -15px;}
+    &__del           {background-position: -64px 0;}
+    &__del.active,
+    &__del:hover     {background-position: -64px -15px;}
+}
+/* /message-ico */
+
+
+.like-hg-small {
+    .inline-block();
+    padding: 5px 0 0 17px;
+    height: 11px;
+    text-align: center;
+    font-size: 9px;
+    line-height: 11px;
+    color: #b1b1b1;
+    background: url(/images/like-hg-small.png) no-repeat 0 0;
+    text-decoration: none;
+    &.active,
+    &:hover { background-position: 0 -50px;}
 }

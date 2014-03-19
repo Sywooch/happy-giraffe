@@ -247,7 +247,7 @@ var UserClubsWidget = function (data, params) {
         return new UserClub(club, self.size, self);
     }));
     self.clubs.sort(function (left, right) {
-        return left.id == right.id ? 0 : (left.id < right.id ? -1 : 1)
+        return left.id() == right.id() ? 0 : (left.id() < right.id() ? -1 : 1)
     });
     self.count = ko.computed(function () {
         return self.clubs().length;

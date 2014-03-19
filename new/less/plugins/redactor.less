@@ -365,7 +365,7 @@ body .redactor_air .redactor_toolbar {
     text-decoration: none;
     font-size: 0;
     line-height: 0;
-    .img-retina('/new/images/redactor/redactor_toolbar.png'; '/new/images/redactor/redactor_toolbar2x.png'; auto; 25px;);
+    .img-retina('@{path-img}/redactor/redactor_toolbar.png'; '@{path-img}/redactor/redactor_toolbar2x.png'; auto; 25px;);
 
     cursor: pointer;
     zoom: 1;
@@ -400,7 +400,7 @@ body .redactor_air .redactor_toolbar {
     width: 25px;
     height: 25px;
     outline: none;
-    .img-retina('/new/images/redactor/redactor_toolbar.png'; '/new/images/redactor/redactor_toolbar2x.png'; auto; 25px;);
+    .img-retina('@{path-img}/redactor/redactor_toolbar.png'; '@{path-img}/redactor/redactor_toolbar2x.png'; auto; 25px;);
 
     background-position: -200px 0;
 }
@@ -556,8 +556,8 @@ body .redactor_air .redactor_toolbar {
     /*border-radius: 3px;
     background: #f5f5f5;
     box-shadow: 0px 2px 10px rgba(0,0,0,.7);*/
-    color: #000;
-    text-shadow: 0 1px 0 #fff;
+    color: #333;
+    /*text-shadow: 0 1px 0 #fff;*/
     font-size: 12px;
     font-family: Arial, Tahoma, Verdana, Helvetica, sans-serif;
 
@@ -929,13 +929,13 @@ body .redactor_air .redactor_toolbar {
 
     &_add-video {
         position: relative;
+        width: 400px;
         margin-bottom: 15px;
-        padding: 0 20px 215px;
-        width: 505px;
-        background:#F5FBFF url(/new/images/redactor/redactor-popup_add-video.png) no-repeat 50% 78%;
+        padding: 0 15px 215px;
+        background:#F5FBFF url('@{path-img}/redactor/redactor-popup_add-video.png') no-repeat 50% 78%;
         border: 1px solid #e6f0f7;
     }
-    &_add-video-hold {}
+    &_add-video-hold .itx-simple {width: 270px !important;}
     &_add-video .btn-green {
         margin:0 0 0 12px;
         line-height: 24px;
@@ -943,7 +943,6 @@ body .redactor_air .redactor_toolbar {
     &_add-video-load {
         position: absolute;
         top: 160px;
-        left: 75px;
         width: 400px;
         text-align: center;
         font-size: 14px;
@@ -952,9 +951,9 @@ body .redactor_air .redactor_toolbar {
     &_add-video-error {
         position: absolute;
         top: 160px;
-        left: 55px;
-        width: 440px;
-        padding: 10px 0;
+        left: 15px;
+        width: 380px;
+        padding: 10px 10px;
         border: 1px solid #fdb9ac;
         background: #fde3e3;
         text-align: center;
@@ -962,6 +961,7 @@ body .redactor_air .redactor_toolbar {
         color: #db9191;
     }
     &_video {
+        width: 432px;
         position: relative;
         margin-bottom: 15px;
     }
@@ -971,7 +971,7 @@ body .redactor_air .redactor_toolbar {
         right: -12px;
     }
     &_video-serv {
-        margin: 25px 20px 15px;
+        margin: 25px 0 15px;
     }
     &_video-serv-tx {
         display: inline-block;
@@ -985,7 +985,7 @@ body .redactor_air .redactor_toolbar {
         margin: 0 5px;
         width: 60px;
         height: 30px;
-        background: url(/new/images/redactor/redactor-popup_video-serv-i.png) no-repeat;
+        background: url('@{path-img}/redactor/redactor-popup_video-serv-i.png') no-repeat;
     }
     &_video-serv-i.active {}
     &_video-serv-i__youtube {background-position: 0 -30px;}

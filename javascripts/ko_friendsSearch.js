@@ -2,23 +2,39 @@ function FriendsSearchViewModel(data) {
     var self = this;
 
     // значения по умолчанию
-    var DEFAULT_COUNTRY = 174;
+    var DEFAULT_COUNTRY = null;
     var DEFAULT_MIN_AGE = 18;
     var DEFAULT_MAX_AGE = 60;
     var DEFAULT_CHILD_MIN_AGE = 0;
     var DEFAULT_CHILD_MAX_AGE = 18;
     var DEFAULT_PREGNANCY_WEEK_MIN = 1;
     var DEFAULT_PREGNANCY_WEEK_MAX = 40;
-
+    
+    var searchRequest = false;
+    // Для обратной совместимостью с моделью FriendsViewModel
+    self.activeTab = ko.observable(-1);
+    self.friendsCount = ko.observable(data.friendsCount);
+    self.friendsOnlineCount = ko.observable(data.friendsOnlineCount);
+    self.incomingRequestsCount = ko.observable(data.incomingRequestsCount);
+    self.outgoingRequestsCount = ko.observable(data.outgoingRequestsCount);
+    self.friendsNewCount = ko.observable(data.friendsNewCount);
+    
     // имя и/или фамилия
     self.instantaneousQuery = ko.observable('');
     self.query = ko.computed(this.instantaneousQuery).extend({ throttle: 400 });
 
     // местоположение
-    self.location = ko.observable('0');
+    self.location = ko.observable('1');
     self.selectedCountry = ko.observable(DEFAULT_COUNTRY);
     self.selectedRegion = ko.observable(null);
+    // Счётчики
+    self.friendsCount = ko.observable(data.friendsCount);
+    self.friendsOnlineCount = ko.observable(data.friendsOnlineCount);
+    self.incomingRequestsCount = ko.observable(data.incomingRequestsCount);
+    self.outgoingRequestsCount = ko.observable(data.outgoingRequestsCount);
+    self.friendsNewCount = ko.observable(data.friendsNewCount);
 
+    
     self.countries = ko.observableArray(ko.utils.arrayMap(data.countries, function(country) {
         return new Country(country);
     }));
@@ -29,8 +45,8 @@ function FriendsSearchViewModel(data) {
     // возраст
     self.minAge = ko.observable(DEFAULT_MIN_AGE);
     self.maxAge = ko.observable(DEFAULT_MAX_AGE);
-    self.ages = [];
-    for (var i = 0; i <= 100; i++) {
+    self.ages = ko.observableArray([]);
+    for (var i = 16; i <= 90; i++) {
         self.ages.push(i);
     }
 
@@ -62,6 +78,7 @@ function FriendsSearchViewModel(data) {
     self.loading = ko.observable(false);
     self.currentPage = ko.observable(null);
     self.pageCount = ko.observable(null);
+    self.itemCount = ko.observable(null);
 
     self.clearQuery = function() {
         self.instantaneousQuery('');
@@ -69,7 +86,7 @@ function FriendsSearchViewModel(data) {
 
     self.clearForm = function() {
         self.instantaneousQuery('');
-        self.location('0');
+        self.location('1');
         self.selectedCountry(DEFAULT_COUNTRY);
         self.selectedRegion(null);
         self.gender('');
@@ -82,16 +99,29 @@ function FriendsSearchViewModel(data) {
         self.pregnancyWeekMin(DEFAULT_PREGNANCY_WEEK_MIN);
         self.pregnancyWeekMax(DEFAULT_PREGNANCY_WEEK_MAX);
     }
+    
+    self.selectTab = function(tab) {
+        window.location.href = '/friends/?tab=' + tab;
+    }
 
     self.updateRegions = function() {
-        $.get('/friends/default/regions/', { countryId : self.selectedCountry() }, function(response) {
-            self.regions(ko.utils.arrayMap(response, function(region) {
-                return new Region(region);
-            }));
-        }, 'json');
+        if(self.selectedCountry()) {
+            $.get('/friends/default/regions/', { countryId : self.selectedCountry() }, function(response) {
+                self.regions(ko.utils.arrayMap(response, function(region) {
+                    return new Region(region);
+                }));
+            }, 'json');
+        } else {
+            self.regions([]);
+        }
     }
 
     self.get = function(page, callback) {
+        if(searchRequest !== false) {
+            searchRequest.abort();
+            searchRequset = false;
+        }
+        
         var data = {
             ageMin : self.minAge(),
             ageMax : self.maxAge()
@@ -108,10 +138,10 @@ function FriendsSearchViewModel(data) {
             data.gender = self.gender();
 
         if (self.location() == '1') {
-            if (self.selectedCountry() !== null)
+            if (self.selectedCountry())
                 data.countryId = self.selectedCountry();
 
-            if (self.selectedRegion() !== null)
+            if (self.selectedRegion())
                 data.regionId = self.selectedRegion();
         }
 
@@ -133,10 +163,11 @@ function FriendsSearchViewModel(data) {
         }
 
         self.loading(true);
-        $.get('/friends/search/get/', data, function(response) {
+        searchRequest = $.get('/friends/search/get/', data, function(response) {
             self.loading(false);
             self.currentPage(response.currentPage);
             self.pageCount(response.pageCount);
+            self.itemCount(response.itemCount);
             callback(response.users);
         }, 'json');
     }
@@ -158,18 +189,18 @@ function FriendsSearchViewModel(data) {
             }));
         });
     }
-
-    self.updateRegions();
-    self.search();
+    
+    ko.computed(function() {
+        self.updateRegions();
+    }).extend({throttle: 500});
 
     $(window).scroll(function() {
         if (self.loading() === false && self.users().length > 0 && self.currentPage() != self.pageCount() && (($(window).scrollTop() + $(window).height()) > (document.documentElement.scrollHeight - 500)))
             self.nextPage();
     });
-
     ko.computed(function() {
         self.search();
-    });
+    }).extend({ throttle: 500 });
 }
 
 function Country(data, parent) {

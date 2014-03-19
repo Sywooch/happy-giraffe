@@ -7,7 +7,7 @@ html.no-js
         .layout-container
             .layout-header
                 +header-fix()
-                +header__small()
+                +header__small("", {empty: false})
             .layout-wrapper
                 .layout-wrapper_frame.clearfix
                     block layout-wrapper

@@ -212,7 +212,7 @@ a.pseudo:hover,
 	.box-shadow(0 1px 1px rgba(0,0,0,0.2) inset);
 }
 .ava_img[src=""],
-.ava img[src=""] {display: none;}
+.ava img[src=""] {display: none !important;}
 .ava:hover,
 .ava_img:hover,
 .ava img:hover {.box-shadow(none);} 
@@ -892,10 +892,10 @@ a.pseudo:hover,
 }
 .message-ico {
 	.inline-block();
-	width: 16px;
-	height: 15px;
-	background: url(/images/ico/message_ico.png) no-repeat;
-	
+	width: 18px;
+	height: 18px;
+	background: url(/new/images/base/b-control_ico.png) no-repeat;
+/*	
 	&__edit          {background-position: -80px 0;}
 	&__edit.active,
 	&__edit:hover    {background-position: -80px -15px;}
@@ -905,6 +905,29 @@ a.pseudo:hover,
 	&__del           {background-position: -64px 0;}
 	&__del.active,
 	&__del:hover     {background-position: -64px -15px;}
+*/
+	/* from im  new layout */
+    &__favorite {background-position: 0 0;}
+    &__favorite.active,
+    &__favorite:hover {background-position: 0 -20px;}
+    &__del,
+    &__delete {background-position: -18px 0;}
+    &__del.active,
+    &__del:hover,
+    &__delete.active,
+    &__delete:hover {background-position: -18px -20px;}
+    &__warning,
+    &__spam {background-position: -36px 0;}
+    &__warning.actvie,
+    &__warning:hover,
+    &__spam.actvie,
+    &__spam:hover {background-position: -36px -20px;}
+    &__edit {background-position: -54px 0;}
+    &__edit.active,
+    &__edit:hover {background-position: -54px -20px;}
+    &__cancel {background-position: -72px 0;}
+    &__cancel.active,
+    &__cancel:hover {background-position: -72px -20px;}
 }
 .ico-lock-big {
 	.inline-block();
@@ -1048,7 +1071,6 @@ textarea.error,
 	-moz-box-shadow:1px 1px 1px rgba(0,0,0,.2);
 	-ms-box-shadow:1px 1px 1px rgba(0,0,0,.2);
 	box-shadow:1px 1px 1px rgba(0,0,0,.2);
-	behavior: url(/stylesheets/PIE.htc);
 }
 
 #powerTip {
@@ -1056,7 +1078,7 @@ textarea.error,
 	position: absolute;
 	cursor: default;
 	padding: 4px 8px;
-	background: #614477;
+	background: #5a4b87;
 	font-size: 12px;
 	line-height: 14px;
 	color: #fff;
@@ -1073,7 +1095,7 @@ textarea.error,
 		margin-left: -6px;
 		border: 0 solid transparent;
 		border-width: 7px 6px 0;
-		border-top-color: #614477;
+		border-top-color: #5a4b87;
 	}
 	.nw&:after{
 		left: auto;

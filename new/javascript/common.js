@@ -1,3 +1,5 @@
+document.domain = document.domain;
+
 function addBaron(el) {
     $(el).each(function() {
         if (this.baron) {
@@ -27,7 +29,9 @@ function addBaron(el) {
 $(function() {
 
     $(document).ajaxError(function() {
-        $(".error-serv").removeClass('display-n');
+        if(arguments[3] !== '' && arguments[3] !== 'abort') {
+            $(".error-serv").removeClass('display-n');
+        }
     });
 
 	$(document).on('koUpdate', function(event, elements) {
@@ -82,10 +86,6 @@ $(function() {
 		});*/
 		
 	});
-    
-	$(document).on('koElementAdded', function(event) {
-		event.target;
-	});
 
     /* Для работы select2 в magnificPopup */
     $.magnificPopup.instance._onFocusIn = function(e) {
@@ -113,6 +113,21 @@ $(function() {
                 $('html').removeClass('mfp-html');
             }
         }
+    });
+
+    // Измененный tag select
+    $(".select-cus__search-off").select2({
+        width: '100%',
+        minimumResultsForSearch: -1,
+        dropdownCssClass: 'select2-drop__search-off"',
+        escapeMarkup: function(m) { return m; }
+    });
+
+    // Измененный tag select c инпутом поиска
+    $(".select-cus__search-on").select2({
+        width: '100%',
+        dropdownCssClass: 'select2-drop__search-on',
+        escapeMarkup: function(m) { return m; }
     });
 
     $(document).on('click', '.tooltip-click-b', function() {
@@ -229,18 +244,22 @@ function HgWysiwyg(element, options, callbacks)
         },
         changeCallback: function(html)
         {
-            var redactorH = this.$box.height();
+            var redactor = this;
 
-            var bParrent = this.$box.parents('.redactor-control_hold');
-            if (redactorH >= 250)
-                bParrent.height(250);
-            else
-                bParrent.height(redactorH);
+            setTimeout(function() {
+                var redactorH = redactor.$box.height();
 
-            if (self.tempBoxHeight != redactorH)
-                addBaron('.redactor-control_hold .scroll');
+                var bParrent = redactor.$box.parents('.redactor-control_hold');
+                if (redactorH >= 250)
+                    bParrent.height(250);
+                else
+                    bParrent.height(redactorH);
 
-            self.tempBoxHeight = redactorH;
+                if (self.tempBoxHeight != redactorH)
+                    addBaron('.redactor-control_hold .scroll');
+
+                self.tempBoxHeight = redactorH;
+            }, 0);
             
             self.fireCallbacks('change', arguments);
         },
@@ -284,7 +303,7 @@ RedactorPlugins.imageCustom = {
 
         var fake = '<form id="wysiwygImage" method="POST" enctype="multipart/form-data"><div class="file-fake powertip" title="Фото">' +
             '<div class="file-fake_btn redactor_btn_image"></div>' +
-            '<input type="file" class="file-fake_inp">' +
+            '<input type="file" class="file-fake_inp" accept="image/*">' +
             '</div></form>';
 
         this.$toolbar.append($('<li>').append(fake));

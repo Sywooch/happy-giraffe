@@ -31,14 +31,25 @@ class ClientScript extends CClientScript
 
     public function renderAMDConfig()
     {
-        parent::registerScriptFile($this->amdFile, self::POS_HEAD);
+        // Соберём конфиги
         $this->amd['urlArgs'] = 'r=' . rand(0,1000);//Yii::app()->params['releaseId'];
         $this->addPackagesToAMDConfig();
         $conf = $this->amd;
         $eval = $conf['eval'];
         unset($conf['eval']);
-        //self::log($this->amd); die;
-        parent::registerScript('amd', 'require.config(' . CJSON::encode($this->amd) . ");\n" . $eval, self::POS_HEAD);
+        
+        // Добавим наши скрипты в самое начало
+        $this->hasScripts = true;
+        if (!isset($this->scriptFiles[self::POS_HEAD]))
+            $this->scriptFiles[self::POS_HEAD] = array();
+        $this->scriptFiles[self::POS_HEAD] = array(
+            $this->amdFile => $this->amdFile,
+            ) + $this->scriptFiles[self::POS_HEAD];
+        if (!isset($this->scripts[self::POS_HEAD]))
+            $this->scripts[self::POS_HEAD] = array();
+        $this->scripts[self::POS_HEAD] = array(
+            'amd' => 'require.config(' . CJSON::encode($conf) . ");\n" . $eval,
+            ) + $this->scripts[self::POS_HEAD];
     }
     
     public function addPackagesToAMDConfig()
@@ -58,13 +69,12 @@ class ClientScript extends CClientScript
                 if (count($config['js']) == 1)
                 {
                     $shim[$name] = array('deps' => array());
-                    $url = $baseUrl . '/' . str_replace('.js' , '', $config['js'][0]);
+                    $url = $this->remapAMDScript($baseUrl, $config['js'][0]);
                     if (!isset($paths[$url]))
                         $paths[$url] = $name;
                     // Допишем зависимости от других модулей
-                    if(isset($config['depends']))
-                        foreach ($config['depends'] as $depend)
-                            $shim[$name]['deps'][] = $depend;
+                    if (isset($config['depends']))
+                        $shim[$name]['deps'] = CMap::mergeArray ($config['depends'], $shim[$name]['deps']);
                 }
                 else
                 // не один файл в пакете
@@ -75,7 +85,7 @@ class ClientScript extends CClientScript
                     $pre = false;
                     foreach ($config['js'] as $script)
                     {
-                        $url = $baseUrl . '/' . str_replace('.js' , '', $script);
+                        $url = $this->remapAMDScript($baseUrl, $script);
                         if (!isset($paths[$url]))
                             $paths[$url] = $fakeName . '(' . $i++ . ')';
                         $shim[$paths[$url]] = array();
@@ -88,8 +98,7 @@ class ClientScript extends CClientScript
                     }
                     // Допишем зависимости от других модулей
                     if(isset($config['depends']))
-                        foreach ($config['depends'] as $depend)
-                            $fake[$name][] = $depend;
+                        $fake[$name] = CMap::mergeArray ($config['depends'], $fake[$name]);
                 }
                 // добавим опцию для пакетов в clientScript,
                 // соответствующую опции exports в shim
@@ -113,7 +122,17 @@ class ClientScript extends CClientScript
             $this->amd['eval'].= "define(\"" . $name . "\", " . CJSON::encode($deps) . ", function() { return null; });\n";
     }
     
-    public function registerAMD($id, $depends, $script = '')
+    public function remapAMDScript($baseUrl, $script)
+    {
+        $name = basename($script);
+        if (isset($this->scriptMap[$name]) && $this->scriptMap[$name] !== false)
+            $script = $this->scriptMap[$name];
+        else
+            $script = $baseUrl . '/' . $script;
+        return str_replace('.js' , '', $script);
+    }
+
+        public function registerAMD($id, $depends, $script = '')
     {
         if (!is_array($depends))
             $depends = array($depends);
@@ -123,12 +142,12 @@ class ClientScript extends CClientScript
         {
             $params = array_keys($depends);
         }
-        return $this->registerScript($id, "require(" . CJSON::encode($modules) . ", function( " . implode(', ', $params) . " ) {\n" . $script . "\n})", self::POS_AMD);
+        return $this->registerScript($id, "$(document).ready(function() { require(" . CJSON::encode($modules) . ", function( " . implode(', ', $params) . " ) {\n" . $script . "\n}); });", self::POS_AMD);
     }
 
     public function registerAMDFile($depends, $file)
     {
-        return $this->registerScript($file, 'require(' . CJSON::encode($depends) . ', function() { require(["' . $file . '"]); })', self::POS_AMD);
+        return $this->registerScript($file, '$(document).ready(function() { require(' . CJSON::encode($depends) . ', function() { require(["' . $file . '"]); }); });', self::POS_AMD);
     }
 
     public function getHasNoindex()

@@ -13,7 +13,7 @@ var DEBUG=true;
         jQuery = window["jQuery"],
         JSON = window["JSON"];
 (function(factory) {
-    // Support three module loading scenarios
+    /*/ Support three module loading scenarios
     if (typeof require === 'function' && typeof exports === 'object' && typeof module === 'object') {
         // [1] CommonJS/Node.js
         var target = module['exports'] || exports; // module.exports is for Node.js
@@ -22,9 +22,9 @@ var DEBUG=true;
         // [2] AMD anonymous module
         define(['exports'], factory);
     } else {
-        // [3] No module loader (plain <script> tag) - put directly in global namespace
+        // [3] No module loader (plain <script> tag) - put directly in global namespace*/
         factory(window['ko'] = {});
-    }
+    /*}*/
 }(function(koExports){
 // Internally, all KO objects are attached to koExports (even the non-exported ones whose names will be minified by the closure compiler).
 // In the future, the following "ko" variable may be made distinct from "koExports" so that private objects are not externally reachable.

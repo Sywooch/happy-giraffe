@@ -1,5 +1,7 @@
 <?php
 
+Yii::import('profile.widgets.UserCoreWidget');
+
 class ClubsWidget extends UserCoreWidget
 {
     public $data = array();
@@ -72,7 +74,7 @@ class ClubsWidget extends UserCoreWidget
         foreach ($clubs as $club)
             if ($club->id != 21 && $club->id != 22 && $club->id != 19) {
                 $data [] = array(
-                    'id' => $club->id,
+                    'id' => (int) $club->id,
                     'title' => $club->title,
                     'url' => $club->getUrl(),
                     'have' => Yii::app()->user->isGuest ? false : CUserSubscriptions::getInstance($this->user->id)->subscribed($club->id),

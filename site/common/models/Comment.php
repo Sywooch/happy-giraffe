@@ -63,7 +63,7 @@ class Comment extends HActiveRecord
         // will receive user inputs.
         return array(
             array('author_id, entity, entity_id', 'required'),
-            array('text', 'required', 'on' => 'default'),
+            array('text', 'CommentRequiredValidator', 'on' => 'default'),
             array('author_id, entity_id, response_id, quote_id', 'length', 'max' => 11),
             array('entity', 'length', 'max' => 255),
             array('text, quote_text, selectable_quote', 'safe'),
@@ -492,7 +492,7 @@ class Comment extends HActiveRecord
             'id' => (int)$comment->id,
             'html' => $comment->purified->text,
             'editHtml' => $comment->forEdit->text,
-            'created' => HDate::GetFormattedTime($comment->created),
+            'created' => strtotime($comment->created),
             'author' => array(
                 'id' => (int)$comment->author->id,
                 'firstName' => $comment->author->first_name,

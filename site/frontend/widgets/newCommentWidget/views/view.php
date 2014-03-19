@@ -42,6 +42,7 @@ NotificationRead::getInstance()->SetVisited();
                 <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click: function() {openComment($root.OPENED_TOP)}, visible: opened() !== $root.OPENED_TOP">
                 <!-- ko if: opened() === $root.OPENED_TOP -->
                 <div class="wysiwyg-h">
+                    <div class="wysiwyg-toolbar"><div class="wysiwyg-toolbar-btn"></div></div>
                     <div id="add_top_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
                 </div>
                 <div class="redactor-control clearfix">
@@ -109,7 +110,7 @@ NotificationRead::getInstance()->SetVisited();
                 </div>
 
                 <div class="comments-gray_r">
-                    <div class="comments-gray_date" data-bind="text: created"></div>
+                    <div class="comments-gray_date" data-bind="moment: created"></div>
 
                     <div class="comments-gray_control" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !removed())">
                         <div class="comments-gray_control-hold">
@@ -150,6 +151,7 @@ NotificationRead::getInstance()->SetVisited();
                     <?php if (!$this->gallery):?>
 
                         <div class="wysiwyg-h">
+                            <div class="wysiwyg-toolbar"><div class="wysiwyg-toolbar-btn"></div></div>
                             <div class="js-edit-field" data-bind="attr: {id: 'text' + id()}, html: editHtml, enterKey: Enter"></div>
                         </div>
 
@@ -176,6 +178,7 @@ NotificationRead::getInstance()->SetVisited();
                     <div class="comments-gray_frame">
                         <div class="wysiwyg-h">
                             <a class="wysiwyg-toolbar_close ico-close3" data-bind="click: $root.cancelReply, tooltip: 'Отменить ответ'"></a>
+                            <div class="wysiwyg-toolbar"><div class="wysiwyg-toolbar-btn"></div></div>
                             <div data-bind="enterKey: $root.Enter, attr: { id : 'reply_' + id() }"></div>
                         </div>
                         <div class="redactor-control clearfix">
@@ -214,6 +217,7 @@ NotificationRead::getInstance()->SetVisited();
                 <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click: function() {openComment($root.OPENED_BOT)}, visible: opened() !== $root.OPENED_BOT">
                 <!-- ko if: opened() === $root.OPENED_BOT -->
                 <div class="wysiwyg-h">
+                    <div class="wysiwyg-toolbar"><div class="wysiwyg-toolbar-btn"></div></div>
                     <div id="add_<?=$this->objectName ?>" data-bind="enterKey: Enter"></div>
                 </div>
                 <div class="redactor-control clearfix">

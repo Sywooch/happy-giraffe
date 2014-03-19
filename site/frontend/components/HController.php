@@ -43,6 +43,9 @@ class HController extends CController
     {
         parent::init();
 
+        if (! Yii::app()->request->isAjaxRequest)
+            Yii::app()->clientScript->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD);
+
         if (YII_DEBUG === false && ($this->module === null || $this->module == 'messaging'))
             $this->combineStatic();
 
@@ -92,7 +95,7 @@ class HController extends CController
         }
 
         // noindex для дева
-        if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru') {
+        if (strpos($_SERVER['HTTP_HOST'], 'dev.happy-giraffe.ru') !== false) {
             Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }
         if (isset($_GET['CommunityContent_page']) || isset($_GET['BlogContent_page']) || isset($_GET['Comment_page']))
@@ -266,10 +269,5 @@ class HController extends CController
             return $output;
         else
             echo $output;
-    }
-
-    public function registerPopup()
-    {
-        return $this->widget('application.widgets.registerWidget.RegisterWidget', array(), true);
     }
 }

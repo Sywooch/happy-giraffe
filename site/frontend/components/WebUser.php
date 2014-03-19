@@ -1,33 +1,51 @@
 <?php
 class WebUser extends CWebUser
 {
-    public $modelName = 'User';
     private $_model = null;
 
     public function getModel()
     {
-        if (!$this->isGuest && $this->_model === null) {
-            $this->_model = CActiveRecord::model($this->modelName)->findByPk($this->id);
-        }
+        if (! $this->isGuest && $this->_model === null)
+            $this->_model = User::model()->findByPk($this->id);
         return $this->_model;
     }
 
-    public function setModel($model)
+    protected function afterLogin($fromCookie)
     {
-        $this->_model = $model;
+        $model = $this->getModel();
+        
+        $model->login_date = date('Y-m-d H:i:s');
+        $model->online = 1;
+        $model->last_ip = $_SERVER['REMOTE_ADDR'];
+        $model->update(array('login_date', 'online', 'last_ip'));
+
+        Yii::import('site.frontend.modules.cook.models.*');
+        CookRecipe::checkRecipeBookAfterLogin($model->id);
+
+        Yii::app()->request->cookies['not_guest'] = new CHttpCookie('not_guest', '1', array('expire' => time() + 3600*24*100));
     }
 
-    /**
-     * @todo put real %
-     * @return float
-     */
-    public function getRate()
+    protected function afterLogout()
     {
-        return 0.03;
+        $model = $this->getModel();
+
+        $model->online = 0;
+        $model->update(array('online'));
+
+        unset(Yii::app()->request->cookies['not_guest']);
     }
 
-    public function login($identity)
+    protected function beforeLogin($id, $states, $fromCookie)
     {
-        return parent::login($identity, 60 * 60 * 24 * 14); // 2 недели
+        $referrer = Yii::app()->request->getUrlReferrer();
+        $loginUrl = $this->loginUrl;
+        if (is_array($loginUrl)) {
+            $route = isset($loginUrl[0]) ? $loginUrl[0] : Yii::app()->defaultController;
+            $loginUrl = Yii::app()->createAbsoluteUrl($route,array_splice($loginUrl,1));
+        }
+
+        if ($referrer !== null && $referrer != $loginUrl)
+            Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
+        return parent::beforeLogin($id, $states, $fromCookie);
     }
 }

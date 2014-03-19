@@ -83,6 +83,7 @@ if (! Yii::app()->user->isGuest)
 <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
+<?php if (YII_DEBUG === true): ?>
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -111,7 +112,9 @@ if (! Yii::app()->user->isGuest)
         var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
     })();
 </script>
+<?php endif; ?>
 
+<?php if (false): ?>
 <!-- tns-counter.ru -->
 <script type="text/javascript">
     (function(win, doc, cb){
@@ -137,6 +140,7 @@ if (! Yii::app()->user->isGuest)
     <img src="//www.tns-counter.ru/V13a****happygiraffe_ru/ru/UTF-8/tmsec=happygiraffe_total/" width="0" height="0" alt="" />
 </noscript>
 <!--/ tns-counter.ru -->
+<?php endif; ?>
 
 <script type="text/javascript">
     var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;

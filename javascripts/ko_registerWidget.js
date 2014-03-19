@@ -84,6 +84,14 @@ function RegisterWidgetViewModel(data, form) {
 function UserLocation(countries) {
     var self = this;
 
+    self.countrySettings = {
+        width: '100%',
+        minimumResultsForSearch: -1,
+        dropdownCssClass: 'select2-drop__search-off',
+        escapeMarkup: function(m) { return m; },
+        placeholder: 'Страна'
+    }
+
     self.citySettings = {
         minimumInputLength: 2,
         width: '100%',

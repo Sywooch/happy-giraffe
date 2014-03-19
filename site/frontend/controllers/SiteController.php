@@ -82,8 +82,14 @@ class SiteController extends HController
 	/**
 	 * @sitemap changefreq=daily
 	 */
-	public function actionIndex($openLogin = false)
+	public function actionIndex()
 	{
+        $openLogin = Yii::app()->user->getState('openLogin', false);
+        if ($openLogin !== false)
+            Yii::app()->user->setState('openLogin', null);
+        if (isset($_GET['openLogin']))
+            throw new CHttpException(404);
+
         if (! Yii::app()->user->isGuest)
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));
 
@@ -97,15 +103,15 @@ class SiteController extends HController
 	 */
 	public function actionError()
 	{
-	    if ($error=Yii::app()->errorHandler->error)
+	    if ($error = Yii::app()->errorHandler->error)
 	    {
-	    	if(Yii::app()->request->isAjaxRequest)
-	    		echo $error['message'];
+	    	if (Yii::app()->request->isAjaxRequest)
+                Yii::app()->displayError($error->code, $error->message, $error->file, $error->line);
 	    	else
             {
                 $viewFile = Yii::app()->getSystemViewPath() . DIRECTORY_SEPARATOR . 'error' . $error['code'] . '.php';
                 if (is_file($viewFile))
-                    include($viewFile);
+                    $this->renderPartial('//system/' . 'error' . $error['code'], $error);
             }
 	    }
 	}

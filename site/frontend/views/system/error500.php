@@ -32,5 +32,6 @@
         </div>
     </div>
 </div>
+<div style="display: none;"><?=$message?></div>
 </body>
 </html>

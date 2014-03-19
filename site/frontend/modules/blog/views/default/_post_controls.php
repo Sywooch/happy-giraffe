@@ -82,6 +82,6 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
 <script type="text/javascript">
     $(function () {
         viewModel = new BlogRecordSettings(<?=CJSON::encode($ViewModelData)?>);
-        ko.applyBindings(viewModel, document.getElementById('blog_settings_<?=$model->id ?>'));
+        ko.applyBindings(viewModel, document.getElementById('blog_settings_<?=$data->id ?>'));
     });
 </script>

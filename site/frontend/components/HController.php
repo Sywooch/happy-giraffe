@@ -46,8 +46,8 @@ class HController extends CController
         if (! Yii::app()->request->isAjaxRequest)
             Yii::app()->clientScript->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD);
 
-        if (YII_DEBUG === false && ($this->module === null || $this->module == 'messaging'))
-            $this->combineStatic();
+//        if (YII_DEBUG === false && ($this->module === null || $this->module == 'messaging'))
+//            $this->combineStatic();
 
         // авторизация
         if (isset($this->actionParams['token'])) {
@@ -58,9 +58,6 @@ class HController extends CController
             }
             unset($_GET['token']);
         }
-
-        $viewsCount = Yii::app()->user->getState('viewsCount', 0);
-        Yii::app()->user->setState('viewsCount', $viewsCount + 1);
     }
 
     protected function filterBySpamStatus()
@@ -74,6 +71,8 @@ class HController extends CController
 
     protected function beforeAction($action)
     {
+        $this->addView($action);
+
         $this->filterBySpamStatus();
 //        if (Yii::app()->user->id == 12936 || Yii::app()->user->id == 56 || Yii::app()->user->id == 16534)
 //            $this->showLikes = true;
@@ -269,5 +268,13 @@ class HController extends CController
             return $output;
         else
             echo $output;
+    }
+
+    public function addView($action)
+    {
+        if (Yii::app()->user->isGuest && ! Yii::app()->request->isAjaxRequest && Yii::app()->errorHandler->error === null && $action instanceof CInlineAction) {
+            $viewsCount = Yii::app()->user->getState('viewsCount', 0);
+            Yii::app()->user->setState('viewsCount', $viewsCount + 1);
+        }
     }
 }

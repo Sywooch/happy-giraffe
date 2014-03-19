@@ -181,7 +181,10 @@ class HController extends CController
             file_put_contents($path, $js);
         }
 
-        Yii::app()->clientScript->registerAMDFile(array('jquery', 'common'), '/jsd/' . $dir . '/' . $file . '.js', CClientScript::POS_END);
+        if(Yii::app()->clientScript->useAMD)
+            Yii::app()->clientScript->registerAMDFile(array('jquery', 'common'), '/jsd/' . $dir . '/' . $file . '.js');
+        else
+            Yii::app()->clientScript->registerScriptFile('/jsd/' . $dir . '/' . $file . '.js', CClientScript::POS_END);
 
         return parent::afterRender($view, $output);
     }

@@ -94,7 +94,7 @@ class HController extends CController
         }
 
         // noindex для дева
-        if ($_SERVER['HTTP_HOST'] == 'dev.happy-giraffe.ru') {
+        if (strpos($_SERVER['HTTP_HOST'], 'dev.happy-giraffe.ru') !== false) {
             Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }
         if (isset($_GET['CommunityContent_page']) || isset($_GET['BlogContent_page']) || isset($_GET['Comment_page']))

@@ -85,11 +85,11 @@ class HController extends CController
         // отключение повторной подгрузки jquery
         if (Yii::app()->request->isAjaxRequest) {
             Yii::app()->clientScript->scriptMap = array(
-                'jquery.js?r=' . Yii::app()->params['releaseId'] => false,
-                'jquery.min.js?r=' . Yii::app()->params['releaseId'] => false,
-                'jquery.yiiactiveform.js?r=' . Yii::app()->params['releaseId'] => false,
-                'jquery.ba-bbq.js?r=' . Yii::app()->params['releaseId'] => false,
-                'jquery.yiilistview.js?r=' . Yii::app()->params['releaseId'] => false,
+                'jquery.js' => false,
+                'jquery.min.js' => false,
+                'jquery.yiiactiveform.js' => false,
+                'jquery.ba-bbq.js' => false,
+                'jquery.yiilistview.js' => false,
             );
         }
 
@@ -213,9 +213,9 @@ class HController extends CController
 
         foreach (Yii::app()->params['combineMap'] as $all => $filesArray) {
             if (file_exists($wwwPath . $all)) {
-                $to = Yii::app()->request->isAjaxRequest ? false : $all . '?r=' . Yii::app()->params['releaseId'];
+                $to = Yii::app()->request->isAjaxRequest ? false : $all;
                 foreach ($filesArray as $f)
-                    Yii::app()->clientScript->scriptMap[$f . '?r=' . Yii::app()->params['releaseId']] = $to;
+                    Yii::app()->clientScript->scriptMap[$f] = $to;
             }
         }
     }

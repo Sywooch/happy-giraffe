@@ -113,13 +113,15 @@ function UserLocation(countries) {
             data: function (term, page) {
                 return {
                     term: term,
+                    pageLimit: 10,
+                    page: page,
                     country_id: self.country_id()
                 };
             },
             results: function (data, page) {
                 var results = [];
-                for (var i in data) {
-                    var city = data[i];
+                for (var i in data.cities) {
+                    var city = data.cities[i];
 
                     var name = city.name;
                     if (city.type)
@@ -134,7 +136,7 @@ function UserLocation(countries) {
                         desc : desc
                     });
                 }
-                return { results : results };
+                return { results : results, more : data.more };
             }
         },
         formatResult: function(city, container, query, escapeMarkup) {

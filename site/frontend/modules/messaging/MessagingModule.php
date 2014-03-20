@@ -14,7 +14,7 @@ class MessagingModule extends CWebModule
 		));
 
         Yii::app()->clientScript->useAMD = true;
-        Yii::app()->clientScript->registerAMD('ko_im', 'ko_im');
+        //Yii::app()->clientScript->registerAMD('ko_im', 'ko_im');
 	}
 
 	public function beforeControllerAction($controller, $action)

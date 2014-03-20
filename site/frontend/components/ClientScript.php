@@ -32,7 +32,7 @@ class ClientScript extends CClientScript
     public function renderAMDConfig()
     {
         // Соберём конфиги
-        $this->amd['urlArgs'] = 'r=' . rand(0,1000);//Yii::app()->params['releaseId'];
+        $this->amd['urlArgs'] = 'r=' . rand(0,1000);//$this->releaseId;
         $this->addPackagesToAMDConfig();
         $conf = $this->amd;
         $eval = $conf['eval'];
@@ -48,7 +48,7 @@ class ClientScript extends CClientScript
         if (!isset($this->scripts[self::POS_HEAD]))
             $this->scripts[self::POS_HEAD] = array();
         $this->scripts[self::POS_HEAD] = array(
-            'amd' => 'require.config(' . CJSON::encode($conf) . ");\n" . $eval,
+            'amd' => 'require.config(' . CJSON::encode($conf) . ");\n" . $eval . "console.log(" . CJSON::encode($this->amd) . ")",
             ) + $this->scripts[self::POS_HEAD];
     }
     
@@ -88,8 +88,11 @@ class ClientScript extends CClientScript
                         $url = $this->remapAMDScript($baseUrl, $script);
                         if (!isset($paths[$url]))
                             $paths[$url] = $fakeName . '(' . $i++ . ')';
-                        $shim[$paths[$url]] = array();
+                        $shim[$paths[$url]] = array('deps' => array());
                         $fake[$name][] = $paths[$url];
+                        // Добавим зависимости от родительского модуля
+                        if (isset($config['depends']))
+                            $shim[$paths[$url]]['deps'] = $config['depends'];
                         // Добавим предыдущий модуль в зависимости (необходимо для загрузки цепочкой)
                         if($pre)
                             $shim[$paths[$url]]['deps'][] = $pre;
@@ -132,7 +135,7 @@ class ClientScript extends CClientScript
         return str_replace('.js' , '', $script);
     }
 
-        public function registerAMD($id, $depends, $script = '')
+    public function registerAMD($id, $depends, $script = '')
     {
         if (!is_array($depends))
             $depends = array($depends);

@@ -19,6 +19,12 @@ return array(
                 'javascripts/jquery.powertip.js',
             ),
         ),
+        'base64' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/base64.js',
+            ),
+        ),
 		'scrollTo' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -41,13 +47,13 @@ return array(
                 'new/javascript/select2_locale_ru.js',
                 'new/javascript/jquery.tooltipster.js',
                 'new/javascript/common.js',
-                'javascripts/base64.js',
             ),
 			'depends' => array(
 				'jquery',
 				'scrollTo',
 				'scrollEvents',
 				'comet',
+                'base64'
 			),
 		),
         'jcrop' => array(
@@ -63,8 +69,8 @@ return array(
         'comet' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/comet.js',
                 'javascripts/dklab_realplexor.js',
+                'javascripts/comet.js',
             ),
         ),
 		'moment' => array(
@@ -75,16 +81,25 @@ return array(
 		),
         'knockout' => array(
             'baseUrl' => '/',
-            'exports' => 'ko',
             'js' => array(
                 'new/javascript/knockout-debug.3.0.0.js',
                 'javascripts/ko_library.js',
                 'javascripts/knockout.mapping-latest.js',
             ),
             'depends' => array(
-                'common',
-                'jquery',
 				'moment',
+            ),
+        ),
+        'wysiwyg' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/wysiwyg.js',
+            ),
+        ),
+        'baron' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/baron.js',
             ),
         ),
         'history' => array(
@@ -108,11 +123,11 @@ return array(
         'ko_comments' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/knockout.mapping-latest.js',
+                //'javascripts/knockout.mapping-latest.js',
                 'javascripts/comments.js',
-                'javascripts/wysiwyg.js',
+                //'javascripts/wysiwyg.js',
             ),
-            'depends' => array('knockout'),
+            'depends' => array('knockout', 'wysiwyg'),
         ),
         'gallery' => array(
             'baseUrl' => '/',
@@ -125,9 +140,9 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_post.js',
-                'javascripts/baron.js',
+                //'javascripts/baron.js',
             ),
-            'depends' => array('knockout', 'ko_favourites', 'ko_upload'),
+            'depends' => array('knockout', 'baron', 'ko_favourites', 'ko_upload'),
         ),
         'ko_blog' => array(
             'baseUrl' => '/',
@@ -147,7 +162,6 @@ return array(
         'ko_profile' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_gallery.js',
                 'javascripts/ko_user_profile.js',
                 'javascripts/ko_blog.js',
             ),
@@ -175,12 +189,12 @@ return array(
                 'javascripts/ko_messaging.js',
                 'new/javascript/fast-message.js',
                 //'javascripts/knockout.mapping-latest.js',
-                'javascripts/soundmanager2.js',
-                'javascripts/wysiwyg.js',
-                'javascripts/imagesloaded.pkgd.min.js',
-				'javascripts/baron.js',
+                //'javascripts/soundmanager2.js',
+                //'javascripts/wysiwyg.js',
+                //'javascripts/imagesloaded.pkgd.min.js',
+				//'javascripts/baron.js',
             ),
-            'depends' => array('knockout', 'common', 'comet', /*'redactor'*/),
+            'depends' => array('knockout', 'common'/*, 'comet', 'wysiwyg', 'baron' /*'redactor'*/),
         ),
         'ko_favourites' => array(
             'baseUrl' => '/',

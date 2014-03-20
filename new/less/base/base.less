@@ -822,7 +822,7 @@
     &__abs &_error {
         position: absolute;
         bottom: 100%;
-        left: 0;
+        right: 0;
         z-index: 1000;
         white-space: nowrap;
     }
@@ -840,12 +840,12 @@
     &_error {
         display: none;
         padding: 8px 10px 8px 33px;
-         background: #fde3e3 url('@{path-img}/inp-valid_error.png') no-repeat 7px 6px;
+        background: #fde3e3 url('@{path-img}/inp-valid_error.png') no-repeat 7px 6px;
     }
     &_error:after {
         content: ' ';
         position: absolute;
-        left: 10px;
+        right: 10px;
         bottom: -12px;
         border: 6px solid transparent;
         border-top-color: #fde3e3;

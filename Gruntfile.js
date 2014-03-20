@@ -115,7 +115,7 @@ module.exports = function(grunt){
       },
       less: {
         files: ['new/less/**/*.less'],
-        tasks: ['less:newest'],
+        tasks: ['less:newest', 'less:newestdev'],
         options: {
           livereload: true,
         },

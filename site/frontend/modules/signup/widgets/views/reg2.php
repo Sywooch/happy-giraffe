@@ -139,6 +139,7 @@
                                 placeholder: "День"
                             }',
                         ))?>
+                        <?=$form->error($model, 'birthday_day', array('inputContainer' => false, 'hideErrorMessage' => true, 'afterValidateAttribute' => 'js:validateBirthday'))?>
                     </div>
                     <div class="float-l w-135 margin-r10">
                         <?=$form->dropDownList($model, 'birthday_month', array(), array(
@@ -151,6 +152,7 @@
                                 placeholder: "Месяц"
                             }',
                         ))?>
+                        <?=$form->error($model, 'birthday_month', array('inputContainer' => false, 'hideErrorMessage' => true, 'afterValidateAttribute' => 'js:validateBirthday'))?>
                     </div>
                     <div class="float-l w-80">
                         <?=$form->dropDownList($model, 'birthday_year', array(), array(
@@ -163,6 +165,7 @@
                                 placeholder: "Год"
                             }',
                         ))?>
+                        <?=$form->error($model, 'birthday_year', array('inputContainer' => false, 'hideErrorMessage' => true, 'afterValidateAttribute' => 'js:validateBirthday'))?>
                     </div>
                     <?=$form->hiddenField($model, 'birthday')?>
                     <div class="inp-valid_error">
@@ -253,5 +256,12 @@
         }
         registerVm.saving(false);
         return false;
+    }
+
+    function validateBirthday(form, attribute, data, hasError) {
+        if (registerVm.birthday_day.val() !== undefined && registerVm.birthday_month.val() && registerVm.birthday_year.val()) {
+            console.log('213');
+            $('#RegisterFormStep2_birthday').triggerHandler('blur');
+        }
     }
 </script>

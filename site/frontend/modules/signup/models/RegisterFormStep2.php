@@ -39,7 +39,7 @@ class RegisterFormStep2 extends CFormModel
             array('email', 'email'),
             array('email', 'unique', 'className' => 'User', 'caseSensitive' => false, 'criteria' => array('condition' => 'deleted = 0 AND status = :inactive', 'params' => array(':inactive' => User::STATUS_ACTIVE))),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
-            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements() || YII_DEBUG, 'except' => 'social'),
+            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements() || YII_DEBUG, 'except' => 'social', 'captchaAction' => '/signup/register/captcha'),
 
             //address
             array('country_id', 'exist', 'className' => 'GeoCountry', 'attributeName' => 'id'),

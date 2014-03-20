@@ -115,6 +115,7 @@ class GeoCountry extends HActiveRecord
                 'id' => $country->id,
                 'name' => $country->name,
                 'code' => $country->iso_code,
+                'citiesFilled' => (bool) $country->citiesFilled,
             );
         return $result;
     }

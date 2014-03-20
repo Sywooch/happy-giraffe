@@ -103,17 +103,17 @@
                         'data-bind' => 'value: location.country_id, options: location.availableCountries, optionsText: "name", optionsValue: "id", optionsCaption: "", select2: location.countrySettings',
                     ))?>
                     <div class="inp-valid_error">
-                        <?=$form->error($model, 'country_id')?>
+                        <?=$form->error($model, 'country_id', array('afterValidateAttribute' => 'js:validateCity'))?>
                     </div>
                     <div class="inp-valid_success inp-valid_success__ico-check"></div>
                 </div>
                 <div class="popup-sign_tx-help">Начинайте вводить название страны...</div>
             </div>
-            <div class="popup-sign_row" data-bind="visible: location.country_id">
+            <div class="popup-sign_row" data-bind="visible: location.country() instanceof Country && location.country().citiesFilled">
                 <div class="inp-valid inp-valid__abs">
                     <?=$form->hiddenField($model, 'city_id', array(
                         'class' => 'select-cus select-cus__gray',
-                        'data-bind' => 'select2: location.citySettings',
+                        'data-bind' => 'value: location.city_id, select2: location.citySettings',
                     ))?>
                     <div class="inp-valid_error">
                         <?=$form->error($model, 'city_id')?>
@@ -259,9 +259,22 @@
     }
 
     function validateBirthday(form, attribute, data, hasError) {
-        if (registerVm.birthday_day.val() !== undefined && registerVm.birthday_month.val() && registerVm.birthday_year.val()) {
-            console.log('213');
+        if (registerVm.birthday_day.val() !== undefined && registerVm.birthday_month.val() && registerVm.birthday_year.val())
             $('#RegisterFormStep2_birthday').triggerHandler('blur');
-        }
+    }
+
+    function validateCity(form, attribute, data, hasError) {
+        var formSettings = $.fn.yiiactiveform.getSettings(form);
+            var attrs = formSettings.attributes;
+        var cityAttr;
+        for (var i in attrs)
+            if (attrs[i].name == 'city_id')
+                cityAttr = attrs[i];
+        var cityInput = $.fn.yiiactiveform.getInputContainer(cityAttr, form);
+        cityInput.removeClass(
+            formSettings.validatingCssClass + ' ' +
+                formSettings.errorCssClass + ' ' +
+                formSettings.successCssClass
+        );
     }
 </script>

@@ -35,6 +35,13 @@ function RegisterWidgetViewModel(data, form) {
     }
 
     self.saveAvatar = function() {
+        self.avatar.imgSrc(self.avatar.draftImgSrc());
+        self.draftImgSrc('');
+        self.currentStep(self.STEP_REG2);
+    }
+
+    self.cancelAvatar = function() {
+        self.draftImgSrc('');
         self.currentStep(self.STEP_REG2);
     }
 
@@ -95,7 +102,7 @@ function UserLocation(countries) {
 
     //опции города для select2
     self.citySettings = {
-        minimumInputLength: 2,
+        //minimumInputLength: 2,
         width: '100%',
         dropdownCssClass: 'select2-drop__search-on',
         escapeMarkup: function(m) { return m; },
@@ -157,26 +164,6 @@ function UserLocation(countries) {
         self.city_id(null);
     });
 
-//    $(function() {
-//        self.country_id.subscribe(function() {
-//            setTimeout(function() {
-//                var form = $('#registerFormStep2');
-//                var formSettings = $.fn.yiiactiveform.getSettings(form);
-//                var attrs = formSettings.attributes;
-//                var cityAttr;
-//                for (var i in attrs)
-//                    if (attrs[i].name == 'city_id')
-//                        cityAttr = attrs[i];
-//                var cityInput = $.fn.yiiactiveform.getInputContainer(cityAttr, form);
-//                cityInput.removeClass(
-//                    formSettings.validatingCssClass + ' ' +
-//                        formSettings.errorCssClass + ' ' +
-//                        formSettings.successCssClass
-//                );
-//            }, 1000);
-//        });
-//    });
-
     $('#RegisterFormStep2_city_id').on('select2-open', function() {
         $('#RegisterFormStep2_city_id').data('select2').search.val(self.city_name());
         $('#RegisterFormStep2_city_id').data('select2').search.trigger('input');
@@ -194,6 +181,7 @@ function UserAvatar(parent) {
     var self = this;
 
     self.imgSrc = ko.observable('');
+    self.draftImgSrc = ko.observable('');
     self.coords = null;
 
     self.showPreview = function(coords) {
@@ -239,7 +227,7 @@ function UserAvatar(parent) {
     }
 
     self.clear = function() {
-        self.imgSrc(null);
+        self.draftImgSrc('');
     }
 
     $('#AvatarUploadForm_image').fileupload({

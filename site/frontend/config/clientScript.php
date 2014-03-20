@@ -5,6 +5,7 @@ return array(
     'amdFile' => '/new/javascript/modules/require2.1.11-jquery1.10.2.js',
     'amd' => array(
         'baseUrl' => '/new/javascript/modules',
+        //'waitSeconds' => 0,
         'wrapShim' => false,
         'shim' => array(
         ),
@@ -189,12 +190,12 @@ return array(
                 'javascripts/ko_messaging.js',
                 'new/javascript/fast-message.js',
                 //'javascripts/knockout.mapping-latest.js',
-                //'javascripts/soundmanager2.js',
+                'javascripts/soundmanager2.js',
                 //'javascripts/wysiwyg.js',
                 //'javascripts/imagesloaded.pkgd.min.js',
 				//'javascripts/baron.js',
             ),
-            'depends' => array('knockout', 'common'/*, 'comet', 'wysiwyg', 'baron' /*'redactor'*/),
+            'depends' => array('knockout','common', 'comet', 'wysiwyg', 'baron', 'history2' /*'redactor'*/),
         ),
         'ko_favourites' => array(
             'baseUrl' => '/',

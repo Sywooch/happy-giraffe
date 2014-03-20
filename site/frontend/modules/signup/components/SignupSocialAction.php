@@ -13,7 +13,7 @@ class SignupSocialAction extends SocialAction
         $this->successCallback = function($eauth) use ($action) {
             $identity = new SocialUserIdentity($eauth);
             if ($identity->authenticate()) {
-                Yii::app()->user->login($identity, 3600*24*30);
+                Yii::app()->user->login($identity);
                 $eauth->redirect(Yii::app()->user->returnUrl);
             } else {
                 if ($identity->errorCode == SocialUserIdentity::ERROR_NOT_ASSOCIATED) {

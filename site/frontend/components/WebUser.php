@@ -50,4 +50,16 @@ class WebUser extends CWebUser
             Yii::app()->user->returnUrl = Yii::app()->request->getUrlReferrer();
         return parent::beforeLogin($id, $states, $fromCookie);
     }
+
+    public function getRememberDuration()
+    {
+        return 3600*24*14;
+    }
+
+    public function login($identity, $duration = null)
+    {
+        if ($duration === null)
+            $duration = $this->getRememberDuration();
+        return parent::login($identity, $duration);
+    }
 }

@@ -193,7 +193,7 @@ function Country(data) {
 function UserAvatar(parent) {
     var self = this;
 
-    self.imgSrc = ko.observable(null);
+    self.imgSrc = ko.observable('');
     self.coords = null;
 
     self.showPreview = function(coords) {

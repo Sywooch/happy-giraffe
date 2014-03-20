@@ -31,17 +31,18 @@ function RegisterWidgetViewModel(data, form) {
     }
 
     self.uploadPhoto = function() {
+        self.avatar.draftImgSrc(self.avatar.imgSrc());
         self.currentStep(self.STEP_PHOTO);
     }
 
     self.saveAvatar = function() {
         self.avatar.imgSrc(self.avatar.draftImgSrc());
-        self.draftImgSrc('');
+        self.avatar.draftImgSrc('');
         self.currentStep(self.STEP_REG2);
     }
 
     self.cancelAvatar = function() {
-        self.draftImgSrc('');
+        self.avatar.draftImgSrc('');
         self.currentStep(self.STEP_REG2);
     }
 
@@ -239,7 +240,7 @@ function UserAvatar(parent) {
             $('.img-upload').addClass('img-upload__load');
         },
         done: function (e, data) {
-            self.imgSrc(data.result.imgSrc);
+            self.draftImgSrc(data.result.imgSrc);
             $('.img-upload').removeClass('img-upload__load');
         },
         progressall: function (e, data) {

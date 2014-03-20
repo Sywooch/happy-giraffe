@@ -202,7 +202,7 @@
         <div class="popup-sign_attr" data-bind="visible: ! social()">
             <div class="margin-b30">
                 <div class="popup-sign_row">
-                    <?php $this->widget('RegisterCaptcha'); ?>
+                    <?php $this->widget('RegisterCaptcha', array('captchaAction' => '/signup/register/captcha')); ?>
                 </div>
                 <div class="popup-sign_row">
                     <!--.popup-sign_capcha-inp-->
@@ -225,3 +225,33 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    function beforeValidateStep2(form) {
+        registerVm.saving(true);
+        return true;
+    }
+
+    function afterValidateStep2(form, data, hasError) {
+        if (! hasError) {
+            var data = form.serialize();
+            if (registerVm.avatar.imgSrc() !== null) {
+                data += '&' + $.param({
+                    RegisterFormStep2 : {
+                        avatar : {
+                            imgSrc : registerVm.avatar.imgSrc(),
+                            coords : registerVm.avatar.coords
+                        }
+                    }
+                });
+            }
+            $.post(form.attr('action'), data, function(response) {
+                if (response.success) {
+                    registerVm.id(response.id);
+                    registerVm.currentStep(registerVm.STEP_EMAIL1);
+                }
+            }, 'json');
+        }
+        registerVm.saving(false);
+        return false;
+    }
+</script>

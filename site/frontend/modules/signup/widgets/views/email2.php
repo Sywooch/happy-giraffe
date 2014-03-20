@@ -44,7 +44,7 @@
         </div>
         <div class="popup-sign_row margin-b30">
             <div class="popup-sign_capcha-hold">
-                <?php $this->widget('RegisterCaptcha', array('captchaAction' => '/signup/register/captcha2')); ?>
+                <?php $this->widget('RegisterCaptcha', array('captchaAction' => '/signup/register/captcha2', 'id' => 'ResendConfirmCaptcha')); ?>
             </div>
             <div class="popup-sign_capcha-inp">
                 <div class="inp-valid inp-valid__abs">
@@ -71,3 +71,19 @@
         <div class="margin-b15">Письмо может попасть в папку "Спам" вашего почтового ящика. Если это так, пожалуйста, отметьте его как <strong class="color-gray-darken">"Не спам"</strong>.</div><?php $this->render('_mailServiceLink'); ?>
     </div>
 </div>
+
+<script type="text/javascript">
+    function afterValidateResend(form, data, hasError) {
+        if (! hasError) {
+            $.post(form.attr('action'), form.serialize(), function(response) {
+                if (response.success) {
+                    form.triggerHandler('reset');
+                    $('#ResendConfirmCaptcha_button').trigger('click');
+                    $('#ResendConfirmForm_verifyCode').val('');
+                    registerVm.currentStep(registerVm.STEP_EMAIL1);
+                }
+            }, 'json');
+        }
+        return false;
+    }
+</script>

@@ -84,6 +84,7 @@ function RegisterWidgetViewModel(data, form) {
 function UserLocation(countries) {
     var self = this;
 
+    //опции страны для select2
     self.countrySettings = {
         width: '100%',
         minimumResultsForSearch: -1,
@@ -92,6 +93,7 @@ function UserLocation(countries) {
         placeholder: 'Страна'
     }
 
+    //опции города для select2
     self.citySettings = {
         minimumInputLength: 2,
         width: '100%',
@@ -139,8 +141,41 @@ function UserLocation(countries) {
     self.city_id = ko.observable(null);
     self.country_id = ko.observable(null);
     self.availableCountries = ko.utils.arrayMap(countries, function (item) {
-        return new Country(item.id, item.name, item.code);
+        return new Country(item);
     });
+
+    self.country = ko.computed(function() {
+        if (self.country_id() === null)
+            return null;
+
+        return ko.utils.arrayFirst(self.availableCountries, function(country) {
+            return country.id == self.country_id();
+        });
+    });
+
+    self.country_id.subscribe(function() {
+        self.city_id(null);
+    });
+
+//    $(function() {
+//        self.country_id.subscribe(function() {
+//            setTimeout(function() {
+//                var form = $('#registerFormStep2');
+//                var formSettings = $.fn.yiiactiveform.getSettings(form);
+//                var attrs = formSettings.attributes;
+//                var cityAttr;
+//                for (var i in attrs)
+//                    if (attrs[i].name == 'city_id')
+//                        cityAttr = attrs[i];
+//                var cityInput = $.fn.yiiactiveform.getInputContainer(cityAttr, form);
+//                cityInput.removeClass(
+//                    formSettings.validatingCssClass + ' ' +
+//                        formSettings.errorCssClass + ' ' +
+//                        formSettings.successCssClass
+//                );
+//            }, 1000);
+//        });
+//    });
 
     $('#RegisterFormStep2_city_id').on('select2-open', function() {
         $('#RegisterFormStep2_city_id').data('select2').search.val(self.city_name());
@@ -148,10 +183,11 @@ function UserLocation(countries) {
     });
 }
 
-function Country(id, name, code) {
-    this.id = id;
-    this.name = name;
-    this.code = code;
+function Country(data) {
+    this.id = data.id;
+    this.name = data.name;
+    this.code = data.code;
+    this.citiesFilled = data.citiesFilled;
 };
 
 function UserAvatar(parent) {

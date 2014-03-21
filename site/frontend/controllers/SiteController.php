@@ -569,7 +569,7 @@ class SiteController extends HController
     public function actionSeo3()
     {
         $ageRange = AgeRange::model()->find();
-        var_dump($ageRange->test1);
+        var_dump($ageRange->test2);
         die;
 
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');

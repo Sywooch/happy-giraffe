@@ -78,7 +78,7 @@ function HgWysiwyg(element, options)
         focus: true,
         pastePlainText: true,
         observeImages: false,
-        toolbarExternal: '.redactor-control_toolbar',
+        toolbarExternal: '.redactor-control_toolbar:empty',
         buttons: [''],
         initCallback: function()
         {

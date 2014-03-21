@@ -9,9 +9,9 @@ function RegisterWidgetViewModel(data, form) {
     self.saving = ko.observable(false);
 
     self.id = ko.observable();
-    self.email = new RegisterUserAttribute('nikita+' + Math.floor((Math.random()*1000000)+1) + '@happy-giraffe.ru');
-    self.first_name = new RegisterUserAttribute('1');
-    self.last_name = new RegisterUserAttribute('2');
+    self.email = new RegisterUserAttribute('');
+    self.first_name = new RegisterUserAttribute('');
+    self.last_name = new RegisterUserAttribute('');
     self.country = ko.observable('');
     self.city = ko.observable('');
     self.birthday_year = new RegisterUserAttribute('');

@@ -3,8 +3,8 @@ function setPopupPosition(a, popup) {
     var left = a.offset().left;
 
     popup.css({
-        'top': top - popup.height() - 55,
-        'left': left - 18
+        'top': top - popup.height() + 50,
+        'left': left + 35
     });
 }
 

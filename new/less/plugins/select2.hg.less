@@ -4,12 +4,18 @@
         .border-radius(2px);
         color: #1d1d1d;
         background: #fff;
+        height: 30px;
+        .box-sizing(border-box);
+        .border-radius(3px);
+        .transition(all 0.4s ease);
+        filter: none; /* for ie */
     }
 
     .select2-choice .select2-arrow {
         width: 30px;
         border-width: 0;
         background: #d2e6fe;
+        filter: none; /* for ie */
     }
     .select2-choice .select2-arrow b {
         background: url('@{path-img}/plugins/select-cus_arrow-b-blue.png') no-repeat 50% 50%;
@@ -22,20 +28,26 @@
 
 .select-cus__gray {
     .select2-choice {
-        border-width: 0;
+        border: 1px solid #e6e6e6;
         .border-radius(2px);
         color: #1d1d1d;
         background: #fff;
+        height: 30px;
+        line-height: 30px;
+        .box-sizing(border-box);
+        .border-radius(3px);
+        .transition(all 0.4s ease);
+        filter: none; /* for ie */
     }
-
+    &.select2-dropdown-open .select2-choice {border-color: #a0ceee;}
     .select2-choice .select2-arrow {
         width: 30px;
         border-width: 0;
         background: none;
+        filter: none; /* for ie */
     }
-    .select2-choice .select2-arrow b {
-        background: url('@{path-img}/plugins/select-cus_arrow-b-gray.png') no-repeat 50% 50%;
-    }
+    .select2-choice .select2-arrow b {background: url('@{path-img}/plugins/select-cus_arrow-b-gray.png') no-repeat 50% 50%;}
+    &.select2-dropdown-open .select2-arrow b {background-image: url('@{path-img}/plugins/select-cus_arrow-b-blue.png');}
     &.select2-container-active .select2-choice,
     &.select2-container-active .select2-choices {
         .box-shadow(none);
@@ -44,9 +56,11 @@
 
 .select2-drop {
     margin-top: 2px;
-    border-width: 0;
     color: #333;
-
+    
+    &.select2-drop-active {
+        border: 1px solid #a0ceee;
+    }
     .select2-results {
         margin: 3px 3px 3px 0;
         padding: 0;
@@ -59,7 +73,7 @@
     .select2-search input {
         z-index: 9000;
         background: #fff;
-        border-color: #cae3f5;
+        border-color: #a0ceee;
         .border-radius(3px);
     }
     .select2-result_desc {

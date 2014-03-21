@@ -46,9 +46,8 @@
         background: none;
         filter: none; /* for ie */
     }
-    .select2-choice .select2-arrow b {
-        background: url('@{path-img}/plugins/select-cus_arrow-b-gray.png') no-repeat 50% 50%;
-    }
+    .select2-choice .select2-arrow b {background: url('@{path-img}/plugins/select-cus_arrow-b-gray.png') no-repeat 50% 50%;}
+    &.select2-dropdown-open .select2-arrow b {background-image: url('@{path-img}/plugins/select-cus_arrow-b-blue.png');}
     &.select2-container-active .select2-choice,
     &.select2-container-active .select2-choices {
         .box-shadow(none);
@@ -74,7 +73,7 @@
     .select2-search input {
         z-index: 9000;
         background: #fff;
-        border-color: #cae3f5;
+        border-color: #a0ceee;
         .border-radius(3px);
     }
     .select2-result_desc {

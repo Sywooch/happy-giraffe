@@ -180,7 +180,7 @@ function CommentViewModel(data) {
     });
 
     self.Reply = function (comment) {
-        if (self.opened())
+        if (self.opened() !== false)
             self.opened(false);
         self.response(comment);
         self.initEditor('reply_' + self.response().id());

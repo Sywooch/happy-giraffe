@@ -108,7 +108,7 @@ function CommentViewModel(data) {
 
             var wysiwyg = new HgWysiwyg($('#' + id), {
                 focus: false,
-                toolbarExternal: '.wysiwyg-toolbar-btn',
+                toolbarExternal: '.wysiwyg-toolbar-btn:empty',
                 minHeight: 68,
                 buttons: ['bold', 'italic', 'underline'],
                 plugins: ['imageCustom', 'smilesModal', 'videoModal'],
@@ -180,7 +180,7 @@ function CommentViewModel(data) {
     });
 
     self.Reply = function (comment) {
-        if (self.opened())
+        if (self.opened() !== false)
             self.opened(false);
         self.response(comment);
         self.initEditor('reply_' + self.response().id());

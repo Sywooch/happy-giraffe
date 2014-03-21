@@ -16,10 +16,10 @@
         display: inline-block;
     }
     &_hold {
-        background: #f7f6f8;
+        background: #fafafa;
     }
     &_top {
-        padding: 30px 60px 25px;
+        padding: 30px 45px 25px;
         background: #fff url('@{path-img}/header.png') repeat-x;
         text-align: center;
     }
@@ -68,6 +68,7 @@
         display: block;
         max-width: none;
     }
+    &_col-ava .btn-blue-simple {margin-top: 7px;}
     &_col-ava__think {
         float: right;
         margin-right: 0;
@@ -88,7 +89,7 @@
     }
     &_label {
         margin: 3px 0 -2px 2px;
-        line-height: 18px;
+        line-height: 17px;
     }
     &_b {
         text-align: center;
@@ -215,7 +216,6 @@
 
     &__inline {
         .inline-block();
-        vertical-align: middle;
     }
 
     &_radio {display: none;}
@@ -246,6 +246,7 @@
     }
     .ie7 &_label,
     .ie8 &_label {padding-left: 0;background: none;}
+    &_label:focus,
     &_label:hover {
         color: #333;
         background-position: 0 -200px;

@@ -51,6 +51,16 @@ class ClientScript extends CClientScript
 
     public function render(&$output)
     {
+        if(!$this->hasScripts)
+            return;
+
+        $this->renderCoreScripts();
+
+        if(!empty($this->scriptMap))
+            $this->remapScripts();
+
+        $this->unifyScripts();
+
         foreach ($this->scriptFiles as $position => $scriptFiles) {
             foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
                 $this->scriptFiles[$position][$this->addReleaseId($scriptFile)] = $scriptFileValue;
@@ -58,6 +68,11 @@ class ClientScript extends CClientScript
             }
         }
 
-        parent::render($output);
+        $this->renderHead($output);
+        if($this->enableJavaScript)
+        {
+            $this->renderBodyBegin($output);
+            $this->renderBodyEnd($output);
+        }
     }
 }

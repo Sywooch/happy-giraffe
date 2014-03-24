@@ -60,11 +60,10 @@ module.exports = function(grunt){
           'new/css/all1.dev.css': ['new/less/all1.less'] 
         },
         options: {
-          compress: true,
           sourceMap: true,
           /*sourceMapFilename: 'new/css/all1.css.map',*/
-          /*sourceMapRootpath: 'new/css',*/
-          sourceMapURL: 'new/css/all1.css.map',
+          /*sourceMapRootpath: 'new/css',
+          sourceMapURL: 'new/css/all1.css.map',*/
         }
       },
       newest: {
@@ -82,20 +81,15 @@ module.exports = function(grunt){
     //   dynamic: {
     //     files: [{
     //       expand: true,
-    //       cwd: 'new/images1',
+    //       cwd: 'new/images',
     //       src: ['**/*.{png,jpg,gif}'],
-    //       dest: 'new/images',
-    //     }]
+    //       dest: 'new/images1',
+    //     }],
+    //     options: {
+    //         cache: false
+    //     }
     //   }
     // },
-    imgo: {
-      new: {
-        //src: 'new/images/**/*.png',
-        cwd: 'new/images1',
-        src: ['**/*.{png,jpg,gif}'],
-        dest: 'new/images',
-      }
-    }
 
     watch: {
       reload: {
@@ -128,10 +122,10 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
-      imgo: {
-        files: ['new/images/**/*.{png,jpg,gif}'],
-        tasks: ['imgo'],
-      }
+      // imagemin: {
+      //   files: ['new/images/**/*.{png,jpg,gif}'],
+      //   tasks: ['newer:imagemin'],
+      // }
     },
     connect: {
       server: {
@@ -147,8 +141,8 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
-  //grunt.loadNpmTasks('grunt-contrib-imagemin');
-  grunt.loadNpmTasks('grunt-imgo');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-newer');
 
   grunt.registerTask('default', [
     'connect',

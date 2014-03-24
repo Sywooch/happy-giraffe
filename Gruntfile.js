@@ -78,16 +78,24 @@ module.exports = function(grunt){
       }
     },
 
-    imagemin: {
-      dynamic: {
-        files: [{
-          expand: true,
-          cwd: 'new/images1',
-          src: ['**/*.{png,jpg,gif}'],
-          dest: 'new/images',
-        }]
+    // imagemin: {
+    //   dynamic: {
+    //     files: [{
+    //       expand: true,
+    //       cwd: 'new/images1',
+    //       src: ['**/*.{png,jpg,gif}'],
+    //       dest: 'new/images',
+    //     }]
+    //   }
+    // },
+    imgo: {
+      new: {
+        //src: 'new/images/**/*.png',
+        cwd: 'new/images1',
+        src: ['**/*.{png,jpg,gif}'],
+        dest: 'new/images',
       }
-    },
+    }
 
     watch: {
       reload: {
@@ -120,9 +128,9 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
-      imagemin: {
+      imgo: {
         files: ['new/images/**/*.{png,jpg,gif}'],
-        tasks: ['imagemin'],
+        tasks: ['imgo'],
       }
     },
     connect: {
@@ -139,7 +147,8 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-imagemin');
+  //grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-imgo');
 
   grunt.registerTask('default', [
     'connect',

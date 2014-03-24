@@ -9,6 +9,7 @@
     "grunt-contrib-connect": "latest",
     "grunt-contrib-imagemin": "latest",
     "grunt-timer": "latest",
-    "nib": "latest"
+    "nib": "latest",
+    "grunt-imgo": "~0.1.1"
   }
 }

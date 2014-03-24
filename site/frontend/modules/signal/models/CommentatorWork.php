@@ -306,7 +306,7 @@ class CommentatorWork extends EMongoDocument
      */
     public function incCommentsCount($next = true)
     {
-        $this->$this->getOrCreateDay("Y-m-d")->incComments($this);
+        $this->getOrCreateDay("Y-m-d")->incComments($this);
         if ($next) {
             if ($this->calculateNextComment()) {
                 return true;

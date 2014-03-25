@@ -4,7 +4,7 @@ return array(
     'class' => 'application.components.ClientScript',
 //    'cssDomain' => 'http://static1.happy-giraffe.ru',
 //    'jsDomain' => 'http://static2.happy-giraffe.ru',
-    'imagesDomain' => 'http://static3.happy-giraffe.ru',
+//    'imagesDomain' => 'http://static3.happy-giraffe.ru',
     'packages' => array(
         'touchPunch' => array(
             'baseUrl' => '/',

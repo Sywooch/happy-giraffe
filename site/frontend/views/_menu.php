@@ -9,7 +9,7 @@
 $cs = Yii::app()->clientScript;
 if ($cs->useAMD)
 {
-    Yii::app()->clientScript->registerAMD('menuVM', array('ko_menu'), "menuVm = new MenuViewModel(" . CJSON::encode($this->menuData) . "); ko.applyBindings(menuVm, $('.layout-header')[0]); return menuVm;");
+    Yii::app()->clientScript->registerAMD('menuVM', array('ko' => 'knockout', 'MenuViewModel' => 'ko_menu'), "menuVm = new MenuViewModel(" . CJSON::encode($this->menuData) . "); ko.applyBindings(menuVm, $('.layout-header')[0]); return menuVm;");
 }
 else
 {

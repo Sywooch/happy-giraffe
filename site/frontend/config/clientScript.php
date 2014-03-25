@@ -5,29 +5,37 @@ return array(
     'amdFile' => '/new/javascript/modules/require2.1.11-jquery1.10.2.js',
     'amd' => array(
         'baseUrl' => '/new/javascript/modules',
-        //'waitSeconds' => 0,
+        'waitSeconds' => 0,
         'wrapShim' => false,
         'shim' => array(
         ),
         'paths' => array(
-            'knockout-amd' => 'knockout-amd-helpers.min',
+            'knockout-amd-helpers' => 'knockout-amd-helpers.min',
+            'wysiwyg' => '/new/javascript/wysiwyg',
         ),
+        /*'eval' => '
+            ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
+            ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
+            ',*/
     ),
     'packages' => array(
         'powertip' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/jquery.powertip.js',
             ),
         ),
         'base64' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/base64.js',
             ),
         ),
 		'scrollTo' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'new/javascript/jquery.scrollTo.min.js',
             ),
@@ -35,6 +43,7 @@ return array(
 		),
 		'scrollEvents' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'new/javascript/scroll-events.js',
             ),
@@ -42,6 +51,7 @@ return array(
 		),
 		'common' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
 				'new/javascript/jquery.magnific-popup.js',
                 'new/javascript/select2.js',
@@ -54,7 +64,8 @@ return array(
 				'scrollTo',
 				'scrollEvents',
 				'comet',
-                'base64'
+                'base64',
+                'baron'
 			),
 		),
         'jcrop' => array(
@@ -69,6 +80,7 @@ return array(
         ),
         'comet' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/dklab_realplexor.js',
                 'javascripts/comet.js',
@@ -76,29 +88,41 @@ return array(
         ),
 		'moment' => array(
 			'baseUrl' => '/',
+            'amd' => true,
 			'js' => array(
 				'javascripts/moment.ru.min.js',
 			),
 		),
+        'ko_library' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+			'js' => array(
+                'javascripts/ko_library.js',
+            ),
+        ),
         'knockout' => array(
             'baseUrl' => '/',
             'js' => array(
                 'new/javascript/knockout-debug.3.0.0.js',
-                'javascripts/ko_library.js',
                 'javascripts/knockout.mapping-latest.js',
             ),
             'depends' => array(
-				'moment',
+				'moment', 'ko_library'
             ),
         ),
         'wysiwyg' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/wysiwyg.js',
+            ),
+            'depends' => array(
+                'ko_upload',
             ),
         ),
         'baron' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/baron.js',
             ),
@@ -111,6 +135,7 @@ return array(
         ),
         'history2' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/jquery.history.js',
             ),
@@ -123,6 +148,7 @@ return array(
         ),
         'ko_comments' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 //'javascripts/knockout.mapping-latest.js',
                 'javascripts/comments.js',
@@ -183,19 +209,12 @@ return array(
             ),
             'depends' => array('knockout'),
         ),
-        'ko_im' => array(
+        'soundmanager' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
-                //'javascripts/im.js',
-                'javascripts/ko_messaging.js',
-                'new/javascript/fast-message.js',
-                //'javascripts/knockout.mapping-latest.js',
                 'javascripts/soundmanager2.js',
-                //'javascripts/wysiwyg.js',
-                //'javascripts/imagesloaded.pkgd.min.js',
-				//'javascripts/baron.js',
             ),
-            'depends' => array('knockout','common', 'comet', 'wysiwyg', 'baron', 'history2' /*'redactor'*/),
         ),
         'ko_favourites' => array(
             'baseUrl' => '/',
@@ -211,15 +230,22 @@ return array(
             ),
             'depends' => array('knockout', 'jquery.ui'),
         ),
+        'jquery.ui.widget' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
+            ),
+        ),
         'ko_upload' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/upload.js',
-                'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',
             ),
-            'depends' => array('knockout'),
+            'depends' => array('knockout', 'jquery.ui.widget'),
         ),
         'ko_menu' => array(
             'baseUrl' => '/',

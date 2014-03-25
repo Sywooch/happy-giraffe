@@ -61,7 +61,7 @@ class ClientScript extends CClientScript
         // переберём все пакеты, в которых есть js и
         // составим конфиг shim для requirejs
         foreach ($this->packages as $name => $config)
-            if (isset($config['js']) && !empty($config['js']))
+            if (isset($config['amd']) && $config['amd'] && isset($config['js']) && !empty($config['js']))
             {
                 $i = 0;
                 $baseUrl = $this->getPackageBaseUrl($name);

@@ -8,7 +8,7 @@
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
 
 </head>
-<body class="body-gray theme theme__adfox theme__nutella" style="background:#cde6ff url(/images/branding/nutella-carnival/theme__nutella-carnival-1920.jpg) no-repeat 50% 0px; background-attachment: fixed;">
+<body class="body-gray theme theme__adfox theme__nutella" style="background:#cde6ff url(/images/branding/nutella-carnival/theme__nutella-carnival-1920.jpg) no-repeat 50% 0px; background-attachment: fixed;padding-top: 250px;">
 <!--AdFox START-->
 <!--giraffe-->
 <!--Площадка: Весёлый Жираф / * / *-->
@@ -42,7 +42,7 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 <div class="layout-w1">
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
 	<!-- margin-top для примера, значение задавать через настройку баннера -->
-	<div class="layout-container" style="margin-top: 250px;">
+	<div class="layout-container">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 	<div class="layout-wrapper">
 		

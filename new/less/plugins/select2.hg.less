@@ -32,7 +32,7 @@
         .border-radius(2px);
         color: #1d1d1d;
         background: #fff;
-        height: 30px;
+        height: 32px;
         line-height: 30px;
         .box-sizing(border-box);
         .border-radius(3px);
@@ -47,7 +47,7 @@
         filter: none; /* for ie */
     }
     .select2-choice .select2-arrow b {background: url('@{path-img}/plugins/select-cus_arrow-b-gray.png') no-repeat 50% 50%;}
-    &.select2-dropdown-open .select2-arrow b {background-image: url('@{path-img}/plugins/select-cus_arrow-b-blue.png');}
+    &.select2-dropdown-open .select2-arrow b {background-image: url('@{path-img}/plugins/select-cus_arrow-b-gray2.png');}
     &.select2-container-active .select2-choice,
     &.select2-container-active .select2-choices {
         .box-shadow(none);
@@ -57,6 +57,7 @@
 .select2-drop {
     margin-top: 2px;
     color: #333;
+    .box-shadow(none);
     
     &.select2-drop-active {
         border: 1px solid #a0ceee;
@@ -74,7 +75,8 @@
         z-index: 9000;
         background: #fff;
         background: #fff url('@{path-img}/plugins/select-cus_search.png') no-repeat 100% 4px;
-        border-color: #a0ceee;
+        border-color: #ccc;
+        color: #333;
         .border-radius(3px);
     }
     .select2-result_desc {
@@ -85,5 +87,10 @@
         text-decoration: none;
         font-weight: bold;
         color: #111;
+    }
+    .select2-no-results {
+        background: none;
+        color: @color-gray;
+        font-size: @font-s;
     }
 }

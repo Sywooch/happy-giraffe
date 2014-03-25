@@ -11,6 +11,10 @@ class ClientScript extends CClientScript
 {
     const RELEASE_ID_KEY = 'Yii.ClientScript.releaseidkey';
 
+    public $cssDomain;
+    public $jsDomain;
+    public $imagesDomain;
+
     public function getHasNoindex()
     {
         $robotsTxt = array(
@@ -61,12 +65,9 @@ class ClientScript extends CClientScript
 
         $this->unifyScripts();
 
-        foreach ($this->scriptFiles as $position => $scriptFiles) {
-            foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
-                $this->scriptFiles[$position][$this->addReleaseId($scriptFile)] = $scriptFileValue;
-                unset($this->scriptFiles[$position][$scriptFile]);
-            }
-        }
+        $this->processCssFiles();
+        $this->processJsFiles();
+        $this->processImages($output);
 
         $this->renderHead($output);
         if($this->enableJavaScript)
@@ -74,5 +75,68 @@ class ClientScript extends CClientScript
             $this->renderBodyBegin($output);
             $this->renderBodyEnd($output);
         }
+    }
+
+    public function init()
+    {
+        if (! isset($this->scriptMap['jquery.js']))
+            $this->scriptMap['jquery.js'] = 'http://yandex.st/jquery/1.8.3/jquery.js';
+        if (! isset($this->scriptMap['jquery.min.js']))
+            $this->scriptMap['jquery.min.js'] = 'http://yandex.st/jquery/1.8.3/jquery.min.js';
+    }
+
+    protected function processCssFiles()
+    {
+        foreach ($this->cssFiles as $url => $media) {
+            unset($this->cssFiles[$url]);
+            if ($this->getCssStaticDomain() !== null && strpos($url, '/') === 0)
+                $url = $this->getCssStaticDomain() . $url;
+            $url = $this->addReleaseId($url);
+            $this->cssFiles[$url] = $media;
+        }
+    }
+
+    protected function processJsFiles()
+    {
+        foreach ($this->scriptFiles as $position => $scriptFiles) {
+            foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
+                unset($this->scriptFiles[$position][$scriptFile]);
+                if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0)
+                    $scriptFile = $this->getJsStaticDomain() . $scriptFile;
+                $scriptFile = $this->addReleaseId($scriptFile);
+                $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
+            }
+        }
+    }
+
+    protected function processImages(&$content)
+    {
+        if ($this->getImagesStaticDomain() !== null) {
+            $dom = new DOMDocument();
+            @$dom->loadHTML($content);
+
+            foreach ($dom->getElementsByTagName('img') as $img) {
+                $src = $img->getAttribute('src');
+                if (strpos($src, '/') === 0)
+                    $img->setAttribute('src', $this->getImagesStaticDomain() . $src);
+            }
+
+            $content = $dom->saveHTML();
+        }
+    }
+
+    protected function getCssStaticDomain()
+    {
+        return $this->cssDomain;
+    }
+
+    protected function getJsStaticDomain()
+    {
+        return $this->jsDomain;
+    }
+
+    protected function getImagesStaticDomain()
+    {
+        return $this->imagesDomain;
     }
 }

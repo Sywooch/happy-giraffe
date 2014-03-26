@@ -67,6 +67,7 @@ class ClientScript extends CClientScript
         $this->unifyScripts();
 
         $this->processCssFiles();
+        $this->processJsFiles();
         $this->processImages($output);
 
         $this->renderHead($output);
@@ -85,6 +86,19 @@ class ClientScript extends CClientScript
                 $url = $this->getCssStaticDomain() . $url;
             $url = $this->addReleaseId($url);
             $this->cssFiles[$url] = $media;
+        }
+    }
+
+    protected function processJsFiles()
+    {
+        foreach ($this->scriptFiles as $position => $scriptFiles) {
+            foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
+                unset($this->scriptFiles[$position][$scriptFile]);
+                if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0)
+                    $scriptFile = $this->getJsStaticDomain() . $scriptFile;
+                $scriptFile = $this->addReleaseId($scriptFile);
+                $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
+            }
         }
     }
 

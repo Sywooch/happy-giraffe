@@ -142,7 +142,7 @@ class ClientScript extends CClientScript
     protected function processImages(&$content)
     {
         if ($this->getImagesStaticDomain() !== null) {
-            $content = preg_replace('#src="(\/.*)"#', 'src="' . $this->getImagesStaticDomain() . "$1\"", $content);
+            $content = preg_replace('#src="(\/((?!captcha).)*)"#', 'src="' . $this->getImagesStaticDomain() . "$1\"", $content);
         }
     }
 

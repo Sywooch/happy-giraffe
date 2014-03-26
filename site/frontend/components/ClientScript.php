@@ -186,7 +186,7 @@ class ClientScript extends CClientScript
 
             foreach ($dom->getElementsByTagName('img') as $img) {
                 $src = $img->getAttribute('src');
-                if (strpos($src, '/') === 0)
+                if (strpos($src, '/') === 0 && strpos($src, 'captcha') === false)
                     $img->setAttribute('src', $this->getImagesStaticDomain() . $src);
             }
 

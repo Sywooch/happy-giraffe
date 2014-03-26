@@ -11,6 +11,7 @@ class ClientScript extends CClientScript
 {
     const RELEASE_ID_KEY = 'Yii.ClientScript.releaseidkey';
 
+    public $jsCombineEnabled;
     public $cssDomain;
     public $jsDomain;
     public $imagesDomain;
@@ -76,14 +77,6 @@ class ClientScript extends CClientScript
         }
     }
 
-    public function init()
-    {
-        if (! isset($this->scriptMap['jquery.js']))
-            $this->scriptMap['jquery.js'] = 'http://yandex.st/jquery/1.8.3/jquery.js';
-        if (! isset($this->scriptMap['jquery.min.js']))
-            $this->scriptMap['jquery.min.js'] = 'http://yandex.st/jquery/1.8.3/jquery.min.js';
-    }
-
     protected function processCssFiles()
     {
         foreach ($this->cssFiles as $url => $media) {
@@ -97,6 +90,11 @@ class ClientScript extends CClientScript
 
     public function renderCoreScripts()
     {
+        if ($this->jsCombineEnabled !== true) {
+            parent::renderCoreScripts();
+            return;
+        }
+
         $scriptFilesTemp = $this->scriptFiles;
         $this->scriptFiles = array();
         foreach ($this->packages as $package => $settings)

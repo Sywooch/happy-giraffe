@@ -123,8 +123,8 @@ class ClientScript extends CClientScript
             }
 
             $url = '/jsd/' . $dir . '/' . $file . '.js';
-            if ($this->getImagesStaticDomain())
-                $url = $this->getImagesStaticDomain() . $url;
+            if ($this->getJsStaticDomain())
+                $url = $this->getJsStaticDomain() . $url;
             $this->scriptFiles[$position] = array($url => $url);
         }
     }

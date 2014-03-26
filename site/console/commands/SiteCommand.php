@@ -228,8 +228,10 @@ class SiteCommand extends CConsoleCommand
 
     public function actionCleanJsd()
     {
-        $path = Yii::getPathOfAlias('webroot.jsd');
+        $path = Yii::getPathOfAlias('site.frontend.www-submodule.jsd') . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*';
+        echo $path;
         $files = glob($path); // get all file names
+        print_r($files);
         foreach ($files as $file) { // iterate files
             if (is_file($file))
                 unlink($file); // delete file

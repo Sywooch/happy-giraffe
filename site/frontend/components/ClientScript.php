@@ -143,6 +143,7 @@ class ClientScript extends CClientScript
             $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
             if (! file_exists($path)) {
                 $js = '';
+                $js .= '/* ' . $path . ' */';
                 foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
                     if (strpos($scriptFile, '/') === 0)
                         $scriptFile = Yii::getPathOfAlias('webroot') . $scriptFile;

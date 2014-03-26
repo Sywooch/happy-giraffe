@@ -109,6 +109,9 @@ class ClientScript extends CClientScript
             return;
         }
 
+        if (Yii::app()->request->isAjaxRequest)
+            return;
+
         $scriptFilesTemp = $this->scriptFiles;
         $this->scriptFiles = array();
         foreach ($this->packages as $package => $settings)

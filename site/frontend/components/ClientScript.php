@@ -96,36 +96,85 @@ class ClientScript extends CClientScript
         }
     }
 
+//    protected function processJsFiles()
+//    {
+//        foreach ($this->scriptFiles as $position => $scriptFiles) {
+//            $hash = md5(serialize($scriptFiles) . '1');
+//
+//            $dir = substr($hash, 0, 2);
+//            $file = substr($hash, 2);
+//            $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
+//
+//            $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
+//
+//            if (! file_exists($path)) {
+//                $js = '';
+//                foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
+//                    if (strpos($scriptFile, '/') === 0)
+//                        $scriptFile = Yii::getPathOfAlias('webroot') . $scriptFile;
+//                    $fileSrc = file_get_contents($scriptFile);
+//                    $js .= $fileSrc . ';';
+//                    unset($this->scriptFiles[$scriptFile]);
+//                }
+//
+//                if (! is_dir($dirPath))
+//                    mkdir($dirPath);
+//                file_put_contents($path, $js);
+//            }
+//
+//            $url = '/jsd/' . $dir . '/' . $file . '.js';
+//            if ($this->getJsStaticDomain())
+//                $url = $this->getJsStaticDomain() . $url;
+//            $this->scriptFiles[$position] = array($url => $url);
+//        }
+//    }
+
+//    public function processJsFiles()
+//    {
+//        foreach ($this->packages as $package => $settings)
+//            $this->registerPackage($package);
+//
+//        $releaseId = $this->getReleaseId();
+//        foreach ($this->scriptFiles as $position => $scriptFiles) {
+//            $hash = md5($releaseId . $position);
+//            $dir = substr($hash, 0, 2);
+//            $file = substr($hash, 2);
+//            $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
+//            $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
+//            if (! file_exists($path)) {
+//                $js = '';
+//                foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
+//                    if (strpos($scriptFile, '/') === 0)
+//                        $scriptFile = Yii::getPathOfAlias('webroot') . $scriptFile;
+//                    $fileSrc = file_get_contents($scriptFile);
+//                    $js .= $fileSrc . ';';
+//                }
+//
+//                if (! is_dir($dirPath))
+//                    mkdir($dirPath);
+//                file_put_contents($path, $js);
+//            }
+//
+//            foreach ($scriptFiles as $scriptFile => $scriptFileValue)
+//                unset($this->scriptFiles[$position[$scriptFile]]);
+//
+//            $url = '/jsd/' . $dir . '/' . $file . '.js';
+//            if ($this->getJsStaticDomain())
+//                $url = $this->getJsStaticDomain() . $url;
+//            $this->scriptFiles[$position] = array($url => $url);
+//        }
+//    }
+
     protected function processJsFiles()
     {
         foreach ($this->scriptFiles as $position => $scriptFiles) {
-            $hash = md5(serialize($scriptFiles) . '1');
-
-            $dir = substr($hash, 0, 2);
-            $file = substr($hash, 2);
-            $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
-
-            $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
-
-            if (! file_exists($path)) {
-                $js = '';
-                foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
-                    if (strpos($scriptFile, '/') === 0)
-                        $scriptFile = Yii::getPathOfAlias('webroot') . $scriptFile;
-                    $fileSrc = file_get_contents($scriptFile);
-                    $js .= $fileSrc . ';';
-                    unset($this->scriptFiles[$scriptFile]);
-                }
-
-                if (! is_dir($dirPath))
-                    mkdir($dirPath);
-                file_put_contents($path, $js);
+            foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
+                unset($this->scriptFiles[$position][$scriptFile]);
+                if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0)
+                    $scriptFile = $this->getJsStaticDomain() . $scriptFile;
+                $scriptFile = $this->addReleaseId($scriptFile);
+                $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
             }
-
-            $url = '/jsd/' . $dir . '/' . $file . '.js';
-            if ($this->getJsStaticDomain())
-                $url = $this->getJsStaticDomain() . $url;
-            $this->scriptFiles[$position] = array($url => $url);
         }
     }
 

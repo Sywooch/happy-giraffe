@@ -2,7 +2,7 @@
 
 return array(
     'class' => 'application.components.ClientScript',
-//    'cssDomain' => 'http://static-css.dev.happy-giraffe.ru',
+    'cssDomain' => 'http://static-css.dev.happy-giraffe.ru',
     'jsDomain' => 'http://static-js.dev.happy-giraffe.ru',
 //    'imagesDomain' => 'http://static-img.dev.happy-giraffe.ru',
     'packages' => array(

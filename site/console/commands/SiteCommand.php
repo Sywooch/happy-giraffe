@@ -225,4 +225,16 @@ class SiteCommand extends CConsoleCommand
         Yii::app()->db->schema->getTables();
         Yii::app()->db->schema->refresh();
     }
+
+    public function actionCleanJsd()
+    {
+        $path = Yii::getPathOfAlias('site.frontend.www-submodule.jsd') . DIRECTORY_SEPARATOR . '*' . DIRECTORY_SEPARATOR . '*';
+        echo $path;
+        $files = glob($path); // get all file names
+        print_r($files);
+        foreach ($files as $file) { // iterate files
+            if (is_file($file))
+                unlink($file); // delete file
+        }
+    }
 }

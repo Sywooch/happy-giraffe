@@ -122,7 +122,10 @@ class ClientScript extends CClientScript
                 file_put_contents($path, $js);
             }
 
-            $this->scriptFiles[$position] = array('/jsd/' . $dir . '/' . $file . '.js' => '/jsd/' . $dir . '/' . $file . '.js');
+            $url = '/jsd/' . $dir . '/' . $file . '.js';
+            if ($this->getImagesStaticDomain())
+                $url = $this->getImagesStaticDomain() . $url;
+            $this->scriptFiles[$position] = array($url => $url);
         }
     }
 

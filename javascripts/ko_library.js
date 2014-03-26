@@ -4,7 +4,7 @@
  * Date: 12.08.13
  */
 (function() {
-    function f(ko, moment) {
+    function f(ko) {
         ko.bindingHandlers.redactorHG = {
             init: function(element, valueAccessor) {
                 var value = valueAccessor();
@@ -632,6 +632,6 @@
             ko.amdTemplateEngine.defaultRequireTextPluginName = "text";
         });
     } else {
-        f(window.ko, window.momemt);
+        f(window.ko);
     }
 })(window);

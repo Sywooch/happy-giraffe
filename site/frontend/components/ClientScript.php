@@ -180,18 +180,18 @@ class ClientScript extends CClientScript
 
     protected function processImages(&$content)
     {
-//        if ($this->getImagesStaticDomain() !== null) {
-//            $dom = new DOMDocument();
-//            @$dom->loadHTML($content);
-//
+        if ($this->getImagesStaticDomain() !== null) {
+            $dom = new DOMDocument();
+            @$dom->loadHTML($content);
+
 //            foreach ($dom->getElementsByTagName('img') as $img) {
 //                $src = $img->getAttribute('src');
 //                if (strpos($src, '/') === 0 && strpos($src, 'captcha') === false && ! $img->hasAttribute('data-bind'))
 //                    $img->setAttribute('src', $this->getImagesStaticDomain() . $src);
 //            }
-//
-//            $content = $dom->saveHTML();
-//        }
+
+            $content = $dom->saveHTML();
+        }
     }
 
     protected function getCssStaticDomain()

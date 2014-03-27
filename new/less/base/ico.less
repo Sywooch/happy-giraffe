@@ -71,10 +71,11 @@
     .inline-block();
     width: 11px;
     height: 11px;
-    background: url(/images/ico/ico-close3.png) no-repeat;
+    background: data-uri('../../images/ico/ico-close3.png') no-repeat;
     cursor: pointer;
+    
+    &:hover {background-position: 0 -11px;}
 }
-.ico-close3:hover {background-position: 0 -11px;}
 .ico-update {
     .inline-block();
     vertical-align: middle;

@@ -8,13 +8,51 @@
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
 
 </head>
-<body class="body-gray">
+<body class="body-gray theme theme__adfox theme__nutella" style="background:#cde6ff url(/images/branding/nutella-carnival/theme__nutella-carnival-1920.jpg) no-repeat 50% 0px; background-attachment: fixed;padding-top: 150px;">
 
-	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
-	
-<div class="layout-container">
-	<div class="layout-wrapper">
+<div class="layout-w1">
+	<!-- Баннер над шапкой -->
+	<div class="layout-wrapper layout-wrapper__banner-hold">
+		<!-- перетяжка 100%x90 -->
+        
+
+<!--AdFox START-->
+<!--vgtrk.com-->
+<!--Площадка: Russia2.Tv / * / *-->
+<!--Тип баннера: 1000x90-->
+<!--Расположение: <верх страницы>-->
+<script type="text/javascript">
+    <!--
+    if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+    if (typeof(document.referrer) != 'undefined') {
+        if (typeof(afReferrer) == 'undefined') {
+            afReferrer = escape(document.referrer);
+        }
+    } else {
+        afReferrer = '';
+    }
+    var addate = new Date();
+    document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/166267/prepareCode?pp=g&amp;ps=bjtr&amp;p2=eroq&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '"><\/scr' + 'ipt>');
+    // -->
+</script><br>
+<!--AdFox END-->
+
+
+	</div>
+
+	<style>
+		.header-fix {
+	        width: 1000px;
+	        left: 50%;
+	        right: auto;
+	        margin-left: -500px;
+	    }
+	</style>
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
+	<!-- margin-top для примера, значение задавать через настройку баннера -->
+	<div class="layout-container">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
+	<div class="layout-wrapper">
 		
 		<div class="layout-content clearfix">
 		<div class="content-cols clearfix">

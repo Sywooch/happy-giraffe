@@ -70,7 +70,7 @@ hr,
 	width: 20px;
 	height: 20px;
 	margin: 0 auto;
-	background: url(/images/checkbox.png) no-repeat;
+	background: data-uri('../images/checkbox.png') no-repeat;
 
 	&.active,
 	&:hover {background-position: -20px 0;}
@@ -648,7 +648,7 @@ a.pseudo:hover,
     width: 10px;
     height: 10px;
     margin-right: 4px;
-    .img-retina('/new/images/ico/ico-refresh.png'; '/new/images/ico/ico-refresh-2x.png'; 10px; 10px);
+    .img-retina('/new/images/ico/ico-refresh.png'; '/new/images/ico/ico-refresh-2x.png'; 10px; 10px; true; '../');
 }
 .ico-camera-big {
 	.inline-block();
@@ -795,21 +795,21 @@ a.pseudo:hover,
 	vertical-align: middle;
 	width: 13px;
 	height: 13px;
-	background: url(/images/ico/ico-close2.png) no-repeat;
+	background: data-uri('../images/ico/ico-close2.png') no-repeat;
 }
-.ico-close2:hover {background: url(/images/ico/ico-close2-hover.png) no-repeat;}
+.ico-close2:hover {background: data-uri('../images/ico/ico-close2-hover.png') no-repeat;}
 .ico-close3 {
 	.inline-block();
 	width: 11px;
 	height: 11px;
-	background: url(/images/ico/ico-close3.png) no-repeat;
+	background: data-uri('../images/ico/ico-close3.png') no-repeat;
 }
 .ico-close3:hover {background-position: 0 -11px;}
 .ico-close4 {
 	.inline-block();
 	width: 11px;
 	height: 11px;
-	background: url(/images/ico/ico-close4.png) no-repeat;
+	background: data-uri('../images/ico/ico-close4.png') no-repeat;
 }
 .ico-close4:hover {background-position: 0 0;}
 .icon-status {

@@ -40,6 +40,7 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 </script>
 <!--AdFox END-->
 <div class="layout-w1">
+
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
 	<!-- margin-top для примера, значение задавать через настройку баннера -->
 	<div class="layout-container">

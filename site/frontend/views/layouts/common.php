@@ -104,7 +104,6 @@
         </script>
         <?php endif; ?>
 
-        <?php if (false): ?>
         <script type="text/javascript">
             var _top100q = _top100q || [];
 
@@ -120,7 +119,6 @@
                 var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
             })();
         </script>
-        <?php endif; ?>
 
         <?php if (false): ?>
         <!-- tns-counter.ru -->

@@ -8,7 +8,7 @@
             <li class="footer-list_li"><a href="<?=$this->createUrl('/site/page', array('view' => 'advertiser'))?>" class="footer-list_a">Реклама </a></li>
             <li class="footer-list_li"><a href="<?=$this->createUrl('/site/page', array('view' => 'abuse'))?>" class="footer-list_a">Правообладателям </a></li>
             <li class="footer-list_li"><span>Контакты </span></li>
-            <li class="footer-list_li"><a href="http://www.rambler.ru/" class="footer-list_a" target="_blank">Партнер "Рамблера"</a><span id="counter-ramblerff"></span></li>
+            <li class="footer-list_li"><a href="http://www.rambler.ru/" class="footer-list_a" target="_blank">Партнер "Рамблера"</a><span id="counter-rambler" class="footer-list_rambler-count"></span></li>
         </ul>
         <?php if ($this->route != 'site/index' && $this->route != 'site/vacancy'): ?>
             <ul class="footer-ul-bold">

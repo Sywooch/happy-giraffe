@@ -14,6 +14,7 @@ return array(
             'wysiwyg' => '/new/javascript/wysiwyg',
             'ko_library' => '/javascripts/ko_library',
             'ko_comments' => '/javascripts/comments',
+            'moment' => '/javascripts/moment.ru.min',
         ),
         /*'eval' => '
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -90,7 +91,6 @@ return array(
         ),
 		'moment' => array(
 			'baseUrl' => '/',
-            'amd' => true,
 			'js' => array(
 				'javascripts/moment.ru.min.js',
 			),

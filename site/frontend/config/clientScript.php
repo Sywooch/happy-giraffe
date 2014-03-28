@@ -13,7 +13,7 @@ return array(
             'knockout-amd-helpers' => 'knockout-amd-helpers.min',
             'wysiwyg' => '/new/javascript/wysiwyg',
             'ko_library' => '/javascripts/ko_library',
-            'ko_comments' => 'javascripts/comments',
+            'ko_comments' => '/javascripts/comments',
         ),
         /*'eval' => '
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";

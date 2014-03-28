@@ -1,7 +1,7 @@
 <?php Yii::app()->clientScript->registerPackage('ko_friends'); ?>
 <?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.history.js', CClientScript::POS_HEAD); ?>
 <?php $this->pageTitle = 'Мои друзья'; ?>
-<div class="layout-wrapper_frame clearfix">
+<div class="layout-wrapper_frame clearfix" id="friendsBindings">
     <?php $this->renderPartial('friends.views._menu'); ?>
     <div class="page-col page-col__friend">
         <div class="page-col_hold">
@@ -40,7 +40,7 @@
 <script type="text/javascript">
     $(function() {
         vm = new FriendsViewModel(<?= $data ?>);
-        ko.applyBindings(vm);
+        ko.applyBindings(vm, $('#friendsBindings')[0]);
     });
 </script>
 

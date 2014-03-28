@@ -12,6 +12,8 @@ return array(
         'paths' => array(
             'knockout-amd-helpers' => 'knockout-amd-helpers.min',
             'wysiwyg' => '/new/javascript/wysiwyg',
+            'ko_library' => '/javascripts/ko_library',
+            'ko_comments' => 'javascripts/comments',
         ),
         /*'eval' => '
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -95,7 +97,7 @@ return array(
 		),
         'ko_library' => array(
             'baseUrl' => '/',
-            'amd' => true,
+            //'amd' => true,
 			'js' => array(
                 'javascripts/ko_library.js',
             ),
@@ -110,9 +112,9 @@ return array(
         ),
         'wysiwyg' => array(
             'baseUrl' => '/',
-            'amd' => true,
             'js' => array(
                 'javascripts/wysiwyg.js',
+                'new/javascript/wysiwyg.js',
             ),
             'depends' => array(
                 'ko_upload',
@@ -146,11 +148,8 @@ return array(
         ),
         'ko_comments' => array(
             'baseUrl' => '/',
-            'amd' => true,
             'js' => array(
-                //'javascripts/knockout.mapping-latest.js',
                 'javascripts/comments.js',
-                //'javascripts/wysiwyg.js',
             ),
             'depends' => array('knockout', 'wysiwyg', 'ko_library'),
         ),
@@ -243,7 +242,7 @@ return array(
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',
             ),
-            'depends' => array('knockout', 'jquery.ui.widget', 'ko_library'),
+            'depends' => array('knockout', 'jquery.ui.widget'),
         ),
         'ko_menu' => array(
             'baseUrl' => '/',

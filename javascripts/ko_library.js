@@ -4,11 +4,11 @@
  * Date: 12.08.13
  */
 (function() {
-    function f(ko, moment) {
+    function f(ko, moment, hgwysiwyg) {
         ko.bindingHandlers.redactorHG = {
             init: function(element, valueAccessor) {
                 var value = valueAccessor();
-                var wysiwyg = new HgWysiwyg(element, value.config);
+                var wysiwyg = new hgwysiwyg(element, value.config);
                 var attr = value.attr;
 
                 wysiwyg.addCallback('init', function() {

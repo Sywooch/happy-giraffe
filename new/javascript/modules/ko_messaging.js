@@ -1,4 +1,4 @@
-define('ko_messaging', ['knockout', 'ko_library', 'wysiwyg', 'comet', 'history2', 'soundmanager'], function(ko) {
+define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 'history2', 'soundmanager'], function(ko) {
     function MessagingImage(data, parent) {
         var self = this;
 

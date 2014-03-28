@@ -15,6 +15,8 @@ return array(
             'ko_library' => '/javascripts/ko_library',
             'ko_comments' => '/javascripts/comments',
             'moment' => '/javascripts/moment.ru.min',
+            'gallery' => '/javascripts/ko_gallery',
+            'preload' => '/javascripts/jquery.preload.min',
         ),
         /*'eval' => '
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -101,7 +103,7 @@ return array(
 			'js' => array(
                 'javascripts/ko_library.js',
             ),
-            'depends' => array( 'knockout', 'moment' ),
+            'depends' => array( 'knockout', 'moment', 'wysiwyg' ),
         ),
         'knockout' => array(
             'baseUrl' => '/',

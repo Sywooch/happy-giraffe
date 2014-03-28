@@ -1,5 +1,5 @@
 (function() {
-    function f(ko) {
+    function f(ko, FavouriteWidget) {
         function roundSlice(array, start, quantity) {
             if (quantity > 0) {
                 if ((array.length - start) < quantity)
@@ -324,7 +324,7 @@
         return PhotoCollectionViewModel;
     };
     if (typeof define === 'function' && define['amd']) {
-        define('gallery', ['knockout', 'ko_comments', 'history2', 'preload', 'powertip'], f);
+        define('gallery', ['knockout', 'favouriteWidget', 'ko_comments', 'history2', 'preload', 'powertip'], f);
         require(["knockout", "knockout-amd-helpers", "text"], function(ko) {
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
             ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";

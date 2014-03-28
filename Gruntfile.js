@@ -55,6 +55,18 @@ module.exports = function(grunt){
           // sourceMapBasepath: ''
         }
       },
+      old_dev: {
+        files: {
+          'stylesheets/common.dev.css': ['less/all1.less'],
+          'stylesheets/global.dev.css': ['less/all2.less']
+        },
+        options: {
+          // sourceMap: true,
+          // sourceMapFilename: 'css/all.css.map',
+          // sourceMapRootpath: '',
+          // sourceMapBasepath: ''
+        }
+      },
       newestdev: {
         files: {
           'new/css/all1.dev.css': ['new/less/all1.less'] 

@@ -102,57 +102,57 @@ class ClientScript extends CClientScript
         }
     }
 
-//    public function renderCoreScripts()
-//    {
-//        if ($this->jsCombineEnabled !== true) {
-//            parent::renderCoreScripts();
-//            return;
-//        }
-//
-//        if (Yii::app()->request->isAjaxRequest)
-//            return;
-//
-//        $scriptFilesTemp = $this->scriptFiles;
-//        $this->scriptFiles = array();
-//        foreach ($this->packages as $package => $settings)
-//            $this->registerPackage($package);
-//        parent::renderCoreScripts();
-//
-//        $releaseId = $this->getReleaseId();
-//        $combinedScripts = array();
-//        foreach ($this->scriptFiles as $position => $scriptFiles) {
-//            $hash = md5($releaseId . $position);
-//            $dir = substr($hash, 0, 2);
-//            $file = substr($hash, 2);
-//            $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
-//            $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
-//            if (! file_exists($path)) {
-//                $js = '';
-//                foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
-//                    if (strpos($scriptFile, '/') === 0)
-//                        $scriptFile = Yii::getPathOfAlias('webroot') . $scriptFile;
-//                    $fileSrc = file_get_contents($scriptFile);
-//                    $js .= $fileSrc . ';';
-//                }
-//
-//                if (! is_dir($dirPath))
-//                    mkdir($dirPath);
-//                file_put_contents($path, $js);
-//            }
-//
-//            $url = '/jsd/' . $dir . '/' . $file . '.js';
-//            if ($this->getJsStaticDomain())
-//                $url = $this->getJsStaticDomain() . $url;
-//            $combinedScripts[$position] = $url;
-//        }
-//
-//        $this->scriptFiles = array();
-//        foreach ($combinedScripts as $position => $val)
-//            $this->scriptFiles[$position][$url] = $url;
-//        foreach ($scriptFilesTemp as $position => $scriptFiles)
-//            foreach ($scriptFiles as $scriptFile => $scriptFileValue)
-//                $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
-//    }
+    public function renderCoreScripts()
+    {
+        if ($this->jsCombineEnabled !== true) {
+            parent::renderCoreScripts();
+            return;
+        }
+
+        if (Yii::app()->request->isAjaxRequest)
+            return;
+
+        $scriptFilesTemp = $this->scriptFiles;
+        $this->scriptFiles = array();
+        foreach ($this->packages as $package => $settings)
+            $this->registerPackage($package);
+        parent::renderCoreScripts();
+
+        $releaseId = $this->getReleaseId();
+        $combinedScripts = array();
+        foreach ($this->scriptFiles as $position => $scriptFiles) {
+            $hash = md5($releaseId . $position);
+            $dir = substr($hash, 0, 2);
+            $file = substr($hash, 2);
+            $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
+            $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
+            if (! file_exists($path)) {
+                $js = '';
+                foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
+                    if (strpos($scriptFile, '/') === 0)
+                        $scriptFile = Yii::getPathOfAlias('webroot') . $scriptFile;
+                    $fileSrc = file_get_contents($scriptFile);
+                    $js .= $fileSrc . ';';
+                }
+
+                if (! is_dir($dirPath))
+                    mkdir($dirPath);
+                file_put_contents($path, $js);
+            }
+
+            $url = '/jsd/' . $dir . '/' . $file . '.js';
+            if ($this->getJsStaticDomain())
+                $url = $this->getJsStaticDomain() . $url;
+            $combinedScripts[$position] = $url;
+        }
+
+        $this->scriptFiles = array();
+        foreach ($combinedScripts as $position => $val)
+            $this->scriptFiles[$position][$url] = $url;
+        foreach ($scriptFilesTemp as $position => $scriptFiles)
+            foreach ($scriptFiles as $scriptFile => $scriptFileValue)
+                $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
+    }
 
     protected function processImages(&$content)
     {

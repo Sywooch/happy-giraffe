@@ -18,6 +18,7 @@ return array(
             'gallery' => '/javascripts/ko_gallery',
             'preload' => '/javascripts/jquery.preload.min',
             'favouriteWidget' => '/javascripts/FavouriteWidget',
+            'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
         ),
         /*'eval' => '
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -113,6 +114,12 @@ return array(
                 'javascripts/knockout.mapping-latest.js',
             ),
         ),
+        'imagesLoaded' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/imagesloaded.pkgd.min.js',
+            ),
+        ),
         'wysiwyg' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -122,6 +129,7 @@ return array(
             'depends' => array(
                 'ko_upload',
                 'redactor',
+                'imagesloaded',
             ),
         ),
         'baron' => array(

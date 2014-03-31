@@ -1,7 +1,7 @@
 <?php
-    $cs = Yii::app()->clientScript;
-    $cs->useAMD = CJSON::decode(Yii::app()->request->getQuery('useAMD', false));
-    $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
+$cs = Yii::app()->clientScript;
+$cs->useAMD = CJSON::decode(Yii::app()->request->getQuery('useAMD', false));
+$model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
 ?>
 <div class="photo-window" id="photo-window">
     <div class="photo-window_w">
@@ -23,7 +23,7 @@
                 <!-- ko with: currentPhoto() -->
                     <a href="" class="like-control_ico like-control_ico__like" data-bind="click: like, text: likesCount, css: {active: isLiked()}, tooltip: 'Нравится'" ></a>
                     <!-- ko with: favourites() -->
-
+                        <?php $this->widget('FavouriteWidget', array('model' => $model, 'applyBindings' => false)); ?>
                     <!-- /ko -->
                 <!-- /ko -->
             </div>

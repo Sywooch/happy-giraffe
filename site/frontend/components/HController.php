@@ -95,6 +95,7 @@ class HController extends CController
                 'jquery.yiiactiveform.js' => false,
                 'jquery.ba-bbq.js' => false,
                 'jquery.yiilistview.js' => false,
+                'require2.1.11-jquery1.10.2.js' => false,
             );
         }
 

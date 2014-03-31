@@ -16,12 +16,27 @@ class ClientScript extends CClientScript
     public $amdFile = false;
     public $useAMD = false;
 
-    public function renderHead(&$output)
+    public function render(&$output)
     {
         if($this->amdFile && $this->useAMD)
             $this->renderAMDConfig();
 
-        return parent::renderHead($output);
+        if(!$this->hasScripts)
+            return;
+
+        $this->renderCoreScripts();
+
+        if(!empty($this->scriptMap))
+            $this->remapScripts();
+
+        $this->unifyScripts();
+
+        $this->renderHead($output);
+        if($this->enableJavaScript)
+        {
+            $this->renderBodyBegin($output);
+            $this->renderBodyEnd($output);
+        }
     }
     
     public static function log($data)

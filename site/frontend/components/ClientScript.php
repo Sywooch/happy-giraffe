@@ -68,7 +68,7 @@ class ClientScript extends CClientScript
 
         $this->processCssFiles();
         $this->processJsFiles();
-        //$this->processImages($output);
+        $this->processImages($output);
 
         $this->renderHead($output);
         if($this->enableJavaScript)
@@ -157,7 +157,7 @@ class ClientScript extends CClientScript
     protected function processImages(&$content)
     {
         if ($this->getImagesStaticDomain() !== null) {
-            $content = preg_replace('#img src="([^"]*)"#', 'src="' . $this->getImagesStaticDomain() . "$1\"", $content);
+            $content = preg_replace('#img src="([^"]*)"#', 'img src="' . $this->getImagesStaticDomain() . "$1\"", $content);
         }
     }
 

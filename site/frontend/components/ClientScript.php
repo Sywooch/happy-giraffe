@@ -68,7 +68,7 @@ class ClientScript extends CClientScript
 
         $this->processCssFiles();
         $this->processJsFiles();
-        $this->processImages($output);
+        //$this->processImages($output);
 
         $this->renderHead($output);
         if($this->enableJavaScript)

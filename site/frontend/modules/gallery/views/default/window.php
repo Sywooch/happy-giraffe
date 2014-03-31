@@ -132,5 +132,11 @@
 </div>
 
 <?php
-Yii::app()->clientScript->registerAMD('photoCollectionVM', array('PhotoCollectionViewModel' => 'gallery', 'ko' => 'knockout'), "photoViewVM = new PhotoCollectionViewModel(" . CJSON::encode($json) . "); ko.applyBindings(photoViewVM, document.getElementById('photo-window'));");
+/* @var ClientScript $cs */
+$cs = Yii::app()->clientScript;
+if (CJSON::decode(Yii::app()->request->getQuery('useAMD', false))) {
+    $cs->registerAMD('photoCollectionVM', array('PhotoCollectionViewModel' => 'gallery', 'ko' => 'knockout'), "photoViewVM = new PhotoCollectionViewModel(" . CJSON::encode($json) . "); ko.applyBindings(photoViewVM, document.getElementById('photo-window'));");
+} else {
+    $cs->registerPackage('gallery');
+}
 ?>

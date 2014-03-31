@@ -245,6 +245,7 @@ return array(
             'js' => array(
                 'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
             ),
+            'depends' => array('jquery'),
         ),
         'ko_upload' => array(
             'baseUrl' => '/',

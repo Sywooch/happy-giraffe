@@ -31,6 +31,13 @@ class ClientScript extends CClientScript
 
     public function renderAMDConfig()
     {
+        // Поддержка актуальности значения $useAMD при ajax-запросах
+        if (! Yii::app()->request->isAjaxRequest) {
+            Yii::app()->user->setState('bugaga', $this->useAMD);
+        } else {
+            $this->useAMD = Yii::app()->user->getState('bugaga');
+        }
+
         // Соберём конфиги
         $this->amd['urlArgs'] = 'r=' . rand(0,1000);//$this->releaseId;
         $this->addPackagesToAMDConfig();

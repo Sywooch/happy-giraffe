@@ -51,7 +51,7 @@ class FavouriteWidget extends CWidget
             $cs->registerAMD('favouriteWidget', array('ko' => 'knockout'));
         }
         else {
-            $cs->registerPackage('favouriteWidget');
+            $cs->registerScriptFile('/javascripts/FavouriteWidget.js');
         }
     }
 

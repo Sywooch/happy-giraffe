@@ -16,12 +16,27 @@ class ClientScript extends CClientScript
     public $amdFile = false;
     public $useAMD = false;
 
-    public function renderHead(&$output)
+    public function render(&$output)
     {
         if($this->amdFile && $this->useAMD)
             $this->renderAMDConfig();
 
-        return parent::renderHead($output);
+        if(!$this->hasScripts)
+            return;
+
+        $this->renderCoreScripts();
+
+        if(!empty($this->scriptMap))
+            $this->remapScripts();
+
+        $this->unifyScripts();
+
+        $this->renderHead($output);
+        if($this->enableJavaScript)
+        {
+            $this->renderBodyBegin($output);
+            $this->renderBodyEnd($output);
+        }
     }
     
     public static function log($data)
@@ -214,44 +229,6 @@ class ClientScript extends CClientScript
     public function registerCssFile($url,$media='')
     {
         return parent::registerCssFile($this->addReleaseId($url), $media);
-    }
-
-    public function renderCoreScripts()
-    {
-        if($this->coreScripts===null)
-            return;
-        $cssFiles=array();
-        $jsFiles=array();
-        foreach($this->coreScripts as $name=>$package)
-        {
-            $baseUrl=$this->getPackageBaseUrl($name);
-            if(!empty($package['js']))
-            {
-                foreach($package['js'] as $js)
-                    $jsFiles[$baseUrl.'/'.$this->addReleaseId($js)]=$baseUrl.'/'.$js;
-            }
-            if(!empty($package['css']))
-            {
-                foreach($package['css'] as $css)
-                    $cssFiles[$baseUrl.'/'.$css]='';
-            }
-        }
-        // merge in place
-        if($cssFiles!==array())
-        {
-            foreach($this->cssFiles as $cssFile=>$media)
-                $cssFiles[$cssFile]=$media;
-            $this->cssFiles=$cssFiles;
-        }
-        if($jsFiles!==array())
-        {
-            if(isset($this->scriptFiles[$this->coreScriptPosition]))
-            {
-                foreach($this->scriptFiles[$this->coreScriptPosition] as $url => $value)
-                    $jsFiles[$url]=$value;
-            }
-            $this->scriptFiles[$this->coreScriptPosition]=$jsFiles;
-        }
     }
 
     protected function addReleaseId($url)

@@ -132,5 +132,5 @@
 </div>
 
 <?php
-Yii::app()->clientScript->registerAMD('photoCollectionVM', array('PhotoCollectionViewModel' => 'gallery'), "photoViewVM = new PhotoCollectionViewModel(" . CJSON::encode($json) . "); ko.applyBindings(photoViewVM, document.getElementById('photo-window'));");
+Yii::app()->clientScript->registerAMD('photoCollectionVM', array('PhotoCollectionViewModel' => 'gallery', 'ko' => 'knockout'), "photoViewVM = new PhotoCollectionViewModel(" . CJSON::encode($json) . "); ko.applyBindings(photoViewVM, document.getElementById('photo-window'));");
 ?>

@@ -44,7 +44,7 @@ module.exports = function(grunt){
       old: {
         files: {
           'stylesheets/common.css': ['less/all1.less'],
-          'stylesheets/global.css': ['less/all2.less']
+          'stylesheets/global.css': ['less/all2.less'],
         },
         options: {
           compress: true,
@@ -58,10 +58,11 @@ module.exports = function(grunt){
       old_dev: {
         files: {
           'stylesheets/common.dev.css': ['less/all1.less'],
-          'stylesheets/global.dev.css': ['less/all2.less']
+          'stylesheets/global.dev.css': ['less/all2.less'],
+          'stylesheets/vacancy.css': ['less/vacancy.less']
         },
         options: {
-          // sourceMap: true,
+          sourceMap: true,
           // sourceMapFilename: 'css/all.css.map',
           // sourceMapRootpath: '',
           // sourceMapBasepath: ''
@@ -122,7 +123,7 @@ module.exports = function(grunt){
       },
       lessold: {
         files: ['less/**/*.less'],
-        tasks: ['less:old'],
+        tasks: ['less:old', 'less:old_dev'],
         options: {
           livereload: true,
         },

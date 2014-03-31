@@ -1,4 +1,6 @@
 <?php
+    $cs = Yii::app()->clientScript;
+    $cs->useAMD = CJSON::decode(Yii::app()->request->getQuery('useAMD', false));
     $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
 ?>
 <div class="photo-window" id="photo-window">
@@ -21,7 +23,7 @@
                 <!-- ko with: currentPhoto() -->
                     <a href="" class="like-control_ico like-control_ico__like" data-bind="click: like, text: likesCount, css: {active: isLiked()}, tooltip: 'Нравится'" ></a>
                     <!-- ko with: favourites() -->
-                        <?php $this->widget('FavouriteWidget', array('model' => $model, 'applyBindings' => false)); ?>
+
                     <!-- /ko -->
                 <!-- /ko -->
             </div>
@@ -131,12 +133,11 @@
     </div>
 </div>
 
-<?php
-/* @var ClientScript $cs */
-$cs = Yii::app()->clientScript;
-if (CJSON::decode(Yii::app()->request->getQuery('useAMD', false))) {
-    $cs->registerAMD('photoCollectionVM', array('PhotoCollectionViewModel' => 'gallery', 'ko' => 'knockout'), "photoViewVM = new PhotoCollectionViewModel(" . CJSON::encode($json) . "); ko.applyBindings(photoViewVM, document.getElementById('photo-window'));");
-} else {
-    $cs->registerPackage('gallery');
-}
-?>
+<?php if ($cs->useAMD): ?>
+    <?php  $cs->registerAMD('photoCollectionVM', array('PhotoCollectionViewModel' => 'gallery', 'ko' => 'knockout'), "photoViewVM = new PhotoCollectionViewModel(" . CJSON::encode($json) . "); ko.applyBindings(photoViewVM, document.getElementById('photo-window'));"); ?>
+<?php else: ?>
+    <script type="text/javascript">
+        photoViewVM = new PhotoCollectionViewModel(<?=CJSON::encode($json)?>);
+        ko.applyBindings(photoViewVM, document.getElementById('photo-window'));
+    </script>
+<?php endif; ?>

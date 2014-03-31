@@ -15,6 +15,9 @@ return array(
             'ko_library' => '/javascripts/ko_library',
             'ko_comments' => '/javascripts/comments',
             'moment' => '/javascripts/moment.ru.min',
+            'gallery' => '/javascripts/ko_gallery',
+            'preload' => '/javascripts/jquery.preload.min',
+            'favouriteWidget' => '/javascripts/FavouriteWidget',
         ),
         /*'eval' => '
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -101,7 +104,7 @@ return array(
 			'js' => array(
                 'javascripts/ko_library.js',
             ),
-            'depends' => array( 'knockout', 'moment' ),
+            'depends' => array( 'knockout', 'moment', 'wysiwyg' ),
         ),
         'knockout' => array(
             'baseUrl' => '/',
@@ -118,6 +121,7 @@ return array(
             ),
             'depends' => array(
                 'ko_upload',
+                'redactor',
             ),
         ),
         'baron' => array(
@@ -158,7 +162,7 @@ return array(
             'js' => array(
                 'javascripts/ko_gallery.js',
             ),
-            'depends' => array('knockout', 'ko_comments', 'history2', 'preload', 'powertip'),
+            'depends' => array('knockout', 'favouriteWidget', 'ko_comments', 'history2', 'preload', 'powertip'),
         ),
         'ko_post' => array(
             'baseUrl' => '/',
@@ -287,6 +291,13 @@ return array(
                 'javascripts/ko_registerWidget.js',
             ),
             'depends' => array('knockout', 'common', 'jcrop', 'ko_upload', 'ko_library'),
+        ),
+        'favouriteWidget' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/FavouriteWidget.js',
+            ),
+            'depends' => array('knockout'),
         ),
     )
 );

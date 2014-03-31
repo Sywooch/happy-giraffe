@@ -126,7 +126,7 @@ class PhotoCollectionViewWidget extends CWidget
         $cs = Yii::app()->clientScript;
         if ($cs->useAMD)
         {
-            $cs->registerAMD('PhotoCollectionViewWidget', 'gallery');
+            $cs->registerAMD('PhotoCollectionViewWidgettttttt', 'gallery');
         }
         else
         {

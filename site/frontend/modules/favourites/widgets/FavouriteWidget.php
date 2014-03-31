@@ -45,17 +45,15 @@ class FavouriteWidget extends CWidget
 
     public function registerScripts()
     {
-        $basePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets' . DIRECTORY_SEPARATOR;
-        $baseUrl = Yii::app()->getAssetManager()->publish($basePath, false, 1, YII_DEBUG);
         /* @var $cs ClientScript */
         $cs = Yii::app()->clientScript;
         if ($cs->useAMD)
         {
-            $cs->registerAMDFile(array('knockout'), $baseUrl . '/FavouriteWidget.js');
+            $cs->registerAMD('favouriteWidget', array('ko' => 'knockout'));
         }
         else
         {
-            $cs->registerScriptFile($baseUrl . '/FavouriteWidget.js');
+            $cs->registerPackage('favouriteWidget');
         }
     }
 

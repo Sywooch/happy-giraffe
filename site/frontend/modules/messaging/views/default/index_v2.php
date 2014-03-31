@@ -329,6 +329,7 @@
                                     </div>
                                     <!-- /im-message-->
                                 <!-- /ko -->
+                                <div data-bind="module: { name: 'friend', data: user, template: 'friend/tile'}"></div>
                                 <? /* <!-- ko if: user.friendsState() == user.FRIENDS_STATE_OUTGOING -->
                                 <div class="friend-offer">
                                     <div class="friend-offer_hold">

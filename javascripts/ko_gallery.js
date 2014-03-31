@@ -325,12 +325,7 @@
     };
     if (typeof define === 'function' && define['amd']) {
         define('gallery', ['knockout', 'favouriteWidget', 'ko_comments', 'history2', 'preload', 'powertip'], f);
-        require(["knockout", "knockout-amd-helpers", "text"], function(ko) {
-            ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
-            ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
-            ko.amdTemplateEngine.defaultRequireTextPluginName = "text";
-        });
     } else {
-        f();
+        f(window.ko, window.FavouriteWidget);
     }
 })(window);

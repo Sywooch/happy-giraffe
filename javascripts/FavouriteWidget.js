@@ -147,11 +147,6 @@
     };
     if (typeof define === 'function' && define['amd']) {
         define('favouriteWidget', ['knockout'], f);
-        require(["knockout", "knockout-amd-helpers", "text"], function(ko) {
-            ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
-            ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
-            ko.amdTemplateEngine.defaultRequireTextPluginName = "text";
-        });
     } else {
         window.FavouriteWidget = f(window.ko);
     }

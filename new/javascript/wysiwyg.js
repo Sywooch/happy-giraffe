@@ -290,12 +290,7 @@
         return HgWysiwyg;
     };
     if (typeof define === 'function' && define['amd']) {
-        define('wysiwyg', ['ko_upload'], f);
-        require(["knockout", "knockout-amd-helpers", "text"], function(ko) {
-            ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
-            ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
-            ko.amdTemplateEngine.defaultRequireTextPluginName = "text";
-        });
+        define('wysiwyg', ['imagesLoaded', 'ko_upload'], f);
     } else {
         window.HgWysiwyg = f();
     }

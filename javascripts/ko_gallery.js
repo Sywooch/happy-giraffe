@@ -160,7 +160,6 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.resized = function() {
-        alert('123');
         self.setLikesPosition();
         self.photoWindColH();
     }

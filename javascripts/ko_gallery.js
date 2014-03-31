@@ -77,8 +77,8 @@
 
             self.photoChanged = function() {
                 History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
-                _gaq.push(['_trackPageview', self.currentPhoto().url()]);
-                yaCounter11221648.hit(self.currentPhoto().url());
+//                _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+//                yaCounter11221648.hit(self.currentPhoto().url());
                 self.setLikesPosition();
                 $('#photo-window_banner iframe').attr('src', '/google.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
                 if (self.collectionClass == 'ContestPhotoCollection')
@@ -169,8 +169,8 @@
 
             self.currentPhotoIndex.valueHasMutated();
             History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
-            _gaq.push(['_trackPageview', self.currentPhoto().url()]);
-            yaCounter11221648.hit(self.currentPhoto().url());
+//            _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+//            yaCounter11221648.hit(self.currentPhoto().url());
             self.preloadImages(2, 2);
             setTimeout(function() {
                 self.setLikesPosition();
@@ -305,7 +305,7 @@
             $('body').css('overflow', 'hidden');
             this.originalState = History.getState();
 
-            var data = { collectionClass : collectionClass, collectionOptions : collectionOptions, screenWidth : screen.width, useAMD : typeof define === 'function' && define['amd'] };
+            var data = { collectionClass : collectionClass, collectionOptions : collectionOptions, screenWidth : screen.width, useAMD : Boolean(typeof define === 'function' && define['amd']) };
             if (typeof windowOptions !== null)
                 data.windowOptions = windowOptions;
             if (initialPhotoId !== null)
@@ -326,6 +326,6 @@
     if (typeof define === 'function' && define['amd']) {
         define('gallery', ['knockout', 'favouriteWidget', 'ko_comments', 'history2', 'preload', 'powertip'], f);
     } else {
-        f(window.ko, window.FavouriteWidget);
+        window.PhotoCollectionViewModel = f(window.ko, window.FavouriteWidget);
     }
 })(window);

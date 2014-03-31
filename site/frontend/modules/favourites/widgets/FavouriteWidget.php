@@ -47,13 +47,11 @@ class FavouriteWidget extends CWidget
     {
         /* @var $cs ClientScript */
         $cs = Yii::app()->clientScript;
-        if ($cs->useAMD)
-        {
+        if ($cs->useAMD) {
             $cs->registerAMD('favouriteWidget', array('ko' => 'knockout'));
         }
-        else
-        {
-            $cs->registerPackage('favouriteWidget');
+        else {
+            $cs->registerScriptFile('/javascripts/FavouriteWidget.js');
         }
     }
 

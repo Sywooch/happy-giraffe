@@ -305,7 +305,7 @@
             $('body').css('overflow', 'hidden');
             this.originalState = History.getState();
 
-            var data = { collectionClass : collectionClass, collectionOptions : collectionOptions, screenWidth : screen.width };
+            var data = { collectionClass : collectionClass, collectionOptions : collectionOptions, screenWidth : screen.width, useAMD : typeof define === 'function' && define['amd'] };
             if (typeof windowOptions !== null)
                 data.windowOptions = windowOptions;
             if (initialPhotoId !== null)

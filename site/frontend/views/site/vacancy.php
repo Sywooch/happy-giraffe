@@ -4,7 +4,7 @@
  * @var ClientScript $cs
  */
 $cs = Yii::app()->clientScript;
-$cs->registerScriptFile('/stylesheets/vacancy.css');
+$cs->registerCssFile('/stylesheets/vacancy.css');
 $this->bodyClass = 'body__vacancy';
 ?>
 

@@ -90,13 +90,8 @@ class HhCommand extends CConsoleCommand
     {
         $html = str_get_html($response);
 
-//        var_dump(strpos($response, 'resumesearch__normal-results'));
-//        die;
-
-
         foreach ($html->find('div[data-hh-resume-hash]') as $a) {
             $hash = $a->getAttribute('data-hh-resume-hash');
-            echo $hash; die;
             try {
                 $model = new HhResume();
                 $model->_id = $hash;

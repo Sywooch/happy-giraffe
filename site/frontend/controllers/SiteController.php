@@ -447,7 +447,9 @@ class SiteController extends HController
         }
 
         if (isset($_POST['VacancyForm'])) {
-            $success = $model->validate() && $model->send();
+            $success = $model->validate();
+            if ($success)
+                $model->send();
             echo CJSON::encode(compact('success'));
         }
 

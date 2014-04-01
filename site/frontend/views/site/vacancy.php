@@ -90,6 +90,7 @@ $this->bodyClass = 'body__vacancy';
                     'enableClientValidation' => true,
                     'clientOptions' => array(
                         'validateOnSubmit' => true,
+                        'afterValidate' => 'js:afterValidateVacancy',
                     ),
                 )); ?>
                 <div class="f-about_row clearfix">
@@ -155,3 +156,16 @@ $this->bodyClass = 'body__vacancy';
         <?php $this->renderPartial('//_footer'); ?>
     </div>
 </div>
+
+<script type="text/javascript">
+function afterValidateVacancy(form, data, hasError) {
+    if (! hasError) {
+        $.post(form.attr('action'), form.serialize(), function(response) {
+            if (response.success) {
+                alert('Письмо успешно отправлено');
+            }
+        }, 'json');
+    }
+    return false;
+}
+</script>

@@ -19,14 +19,28 @@ class VacancyForm extends CFormModel
         return array(
             array('fullName, email, phoneNumber, hhUrl', 'required'),
             array('email', 'email'),
-            array('phoneNumber', 'match', 'pattern' => '/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/', 'message' => 'Контактный телефон не является корректным номером телефона'),
-            array('')
+            array('phoneNumber', 'match', 'pattern' => '/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/', 'message' => 'Введите корректный номер телефона'),
+            array('hhUrl', 'validateLink'),
         );
     }
 
-    public function validateLink()
+    public function validateLink($attribute, $params)
     {
+        $parts = parse_url($this->$attribute);
+        if ($parts === false || ! isset($parts['host']) || $parts['host'] != 'hh.ru') {
+            $this->addError($attribute, 'Введите корректную ссылку на ваше резюме');
+        }
+    }
 
+    public function cityRequired($attribute, $params)
+    {
+        if ($this->country_id) {
+            $country = GeoCountry::model()->findByPk($this->country_id);
+            if ($country->citiesFilled) {
+                $req = CValidator::createValidator('required', $this, array('city_id'));
+                $req->validate($this);
+            }
+        }
     }
 
     public function attributeLabels()
@@ -41,6 +55,10 @@ class VacancyForm extends CFormModel
 
     public function send()
     {
-        return true;
+        $emails = array('nikita@happy-giraffe.ru', 'info@happy-giraffe.ru');
+        foreach ($emails as $e) {
+            $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancy.php', $this->attributes, true);
+            ElasticEmail::send($e, 'Отклик на вакансию PHP-разработчика, ' . $this->fullName, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
+        }
     }
 }

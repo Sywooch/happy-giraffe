@@ -440,6 +440,7 @@ class SiteController extends HController
     public function actionVacancy()
     {
         $model = new VacancyForm();
+
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'vacancyForm')
         {
             echo CActiveForm::validate($model);
@@ -447,15 +448,16 @@ class SiteController extends HController
         }
 
         if (isset($_POST['VacancyForm'])) {
+            $model->attributes = $_POST['VacancyForm'];
             $success = $model->validate();
             if ($success)
                 $model->send();
             echo CJSON::encode(compact('success'));
+        } else {
+            $this->layout = '//layouts/common';
+            $this->pageTitle = 'Вакансия «PHP-разработчик»';
+            $this->render('vacancy', compact('model'));
         }
-
-        $this->layout = '//layouts/common';
-        $this->pageTitle = 'Вакансия «PHP-разработчик»';
-        $this->render('vacancy', compact('model'));
     }
 
     public function actionVacancySend()

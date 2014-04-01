@@ -91,6 +91,7 @@ $this->bodyClass = 'body__vacancy';
                     'clientOptions' => array(
                         'validateOnSubmit' => true,
                         'afterValidate' => 'js:afterValidateVacancy',
+                        'beforeValidate' => 'js:beforeValidateVacancy',
                         'inputContainer' => 'div.inp-valid',
                     ),
                 )); ?>
@@ -187,6 +188,12 @@ function afterValidateVacancy(form, data, hasError) {
             }
         }, 'json');
     }
+    $(form).find('button').removeAttr('disabled');
     return false;
+}
+
+function beforeValidateVacancy(form) {
+    $(form).find('button').attr('disabled', 'disabled');
+    return true;
 }
 </script>

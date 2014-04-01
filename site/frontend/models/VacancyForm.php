@@ -11,7 +11,7 @@ class VacancyForm extends CFormModel
     public $phoneNumber;
     public $hhUrl;
 
-    private $debugEmails = array('pavel@happy-giraffe.ru', 'info@happy-giraffe.ru');
+    private $debugEmails = array('pavel@happy-giraffe.ru', 'nikita@happy-giraffe.ru');
     private $productionEmails = array('info@happy-giraffe.ru');
 
     public function getEmails()

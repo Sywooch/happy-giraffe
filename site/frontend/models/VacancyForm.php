@@ -32,7 +32,7 @@ class VacancyForm extends CFormModel
     public function validateLink($attribute, $params)
     {
         $parts = parse_url($this->$attribute);
-        if ($parts === false || ! isset($parts['host']) || $parts['host'] != 'hh.ru') {
+        if ($parts === false || ! isset($parts['host']) || strpos($parts['host'], 'hh.ru') != (strlen($parts['host']) - 5)) {
             $this->addError($attribute, 'Введите корректную ссылку на ваше резюме');
         }
     }

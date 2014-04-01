@@ -95,15 +95,28 @@
 						<lable class="f-about_label">Имя, фамилия</lable>
 					</div>
 					<div class="f-about_col-r">
-						<input type="text" name="" id="" class="itx-gray">
+						<div class="inp-valid inp-valid__abs error">
+							<input type="text" name="" id="" class="itx-gray">
+	                      <div class="inp-valid_error">
+	                        <div class="errorMessage">Укажите имя и фамилию</div>
+	                      </div>
+	                      <div class="inp-valid_success inp-valid_success__ico-check"></div>
+	                    </div>
 					</div>
 				</div>
 				<div class="f-about_row clearfix">
 					<div class="f-about_col-l">
 						<lable class="f-about_label">E-mail</lable>
 					</div>
-					<div class="f-about_col-r error">
-						<input type="text" name="" id="" class="itx-gray">
+					<div class="f-about_col-r">
+						
+						<div class="inp-valid inp-valid__abs error">
+							<input type="text" name="" id="" class="itx-gray">
+	                      <div class="inp-valid_error">
+	                        <div class="errorMessage">Укажите E-mail</div>
+	                      </div>
+	                      <div class="inp-valid_success inp-valid_success__ico-check"></div>
+	                    </div>
 					</div>
 				</div>
 				<div class="f-about_row clearfix">
@@ -111,7 +124,14 @@
 						<lable class="f-about_label">Контактный <br>телефон</lable>
 					</div>
 					<div class="f-about_col-r">
-						<input type="text" name="" id="" class="itx-gray">
+						
+						<div class="inp-valid inp-valid__abs success">
+							<input type="text" name="" id="" class="itx-gray">
+	                      <div class="inp-valid_error">
+	                        <div class="errorMessage">Укажите имя и фамилию</div>
+	                      </div>
+	                      <div class="inp-valid_success inp-valid_success__ico-check"></div>
+	                    </div>
 					</div>
 				</div>
 				<div class="f-about_row clearfix">
@@ -119,7 +139,13 @@
 						<lable class="f-about_label">Ссылка на резюме <br> на HeadHunter</lable>
 					</div>
 					<div class="f-about_col-r">
-						<input type="text" name="" id="" class="itx-gray">
+						<div class="inp-valid inp-valid__abs success">
+							<input type="text" name="" id="" class="itx-gray">
+	                      <div class="inp-valid_error">
+	                        <div class="errorMessage">Укажите имя и фамилию</div>
+	                      </div>
+	                      <div class="inp-valid_success inp-valid_success__ico-check"></div>
+	                    </div>
 					</div>
 				</div>
 				<div class="f-about_row clearfix">

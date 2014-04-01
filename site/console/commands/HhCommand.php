@@ -97,7 +97,6 @@ class HhCommand extends CConsoleCommand
                 $model->query = $query;
                 $model->save();
             } catch (MongoCursorException $e) {}
-            break;
         }
     }
 

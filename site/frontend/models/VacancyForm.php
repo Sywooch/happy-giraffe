@@ -57,7 +57,7 @@ class VacancyForm extends CFormModel
     {
         $emails = array('nikita@happy-giraffe.ru', 'info@happy-giraffe.ru');
         foreach ($emails as $e) {
-            $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancy.php', $this->attributes, true);
+            $html = Yii::app()->controller->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancy.php', array('form' => $this), true);
             ElasticEmail::send($e, 'Отклик на вакансию PHP-разработчика, ' . $this->fullName, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
         }
     }

@@ -43,17 +43,17 @@ class HhCommand extends CConsoleCommand
         // authorize
         $ch = curl_init();
         curl_setopt_array($ch, array(
-            CURLOPT_URL => 'http://hh.ru/logon.do',
+            CURLOPT_URL => 'http://astrakhan.hh.ru/logon.do',
             CURLOPT_COOKIEJAR => $this->getCookie(),
             CURLOPT_COOKIEFILE => $this->getCookie(),
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => array(
-                'username' => self::LOGIN,
-                'password' => self::PASSWORD,
+                'username' => 'mira@happy-giraffe.ru',
+                'password' => 'mirahh',
             ),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36',
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.3',
         ));
         curl_exec($ch);
         curl_close($ch);
@@ -65,7 +65,7 @@ class HhCommand extends CConsoleCommand
             CURLOPT_COOKIEFILE => $this->getCookie(),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36',
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.3',
         ));
 
         for ($i = 0; true; $i++) {
@@ -89,8 +89,14 @@ class HhCommand extends CConsoleCommand
     protected function parsePage($response, $query)
     {
         $html = str_get_html($response);
+
+//        var_dump(strpos($response, 'resumesearch__normal-results'));
+//        die;
+
+
         foreach ($html->find('div[data-hh-resume-hash]') as $a) {
             $hash = $a->getAttribute('data-hh-resume-hash');
+            echo $hash; die;
             try {
                 $model = new HhResume();
                 $model->_id = $hash;
@@ -102,6 +108,6 @@ class HhCommand extends CConsoleCommand
 
     protected function getCookie()
     {
-        return Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'hh.txt';
+        return Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'hh.txt';
     }
 }

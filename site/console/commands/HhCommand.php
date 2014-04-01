@@ -34,6 +34,8 @@ class HhCommand extends CConsoleCommand
                     $m->$attribute = $value;
                 $m->parsed = time();
                 $m->save();
+            } else {
+                Yii::app()->end();
             }
         }
     }

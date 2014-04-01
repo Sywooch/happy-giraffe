@@ -1,10 +1,7 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 01/04/14
- * Time: 12:53
- * To change this template use File | Settings | File Templates.
+ * Форма отправки заявки на вакансию PHP-разработчика
+ * @property array $emails
  */
 
 class VacancyForm extends CFormModel
@@ -13,6 +10,14 @@ class VacancyForm extends CFormModel
     public $email;
     public $phoneNumber;
     public $hhUrl;
+
+    private $debugEmails = array('pavel@happy-giraffe.ru', 'info@happy-giraffe.ru');
+    private $productionEmails = array('info@happy-giraffe.ru');
+
+    public function getEmails()
+    {
+        return YII_DEBUG ? $this->debugEmails : $this->productionEmails;
+    }
 
     public function rules()
     {
@@ -55,8 +60,7 @@ class VacancyForm extends CFormModel
 
     public function send()
     {
-        $emails = array('nikita@happy-giraffe.ru', 'info@happy-giraffe.ru');
-        foreach ($emails as $e) {
+        foreach ($this->emails as $e) {
             $html = Yii::app()->controller->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancy.php', array('form' => $this), true);
             ElasticEmail::send($e, 'Отклик на вакансию PHP-разработчика, ' . $this->fullName, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
         }

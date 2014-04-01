@@ -1,5 +1,3 @@
-<?php Yii::app()->clientScript->registerPackage('ko_friends'); ?>
-<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.history.js', CClientScript::POS_HEAD); ?>
 <?php $this->pageTitle = 'Мои друзья'; ?>
 <div class="layout-wrapper_frame clearfix" id="friendsBindings">
     <?php $this->renderPartial('friends.views._menu'); ?>
@@ -197,12 +195,8 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        vm = new FriendsSearchViewModel(<?= CJSON::encode($json) ?>);
-        ko.applyBindings(vm, $('#friendsBindings')[0]);
-    });
-</script>
+<?php
+Yii::app()->clientScript->registerAMD('messagingVM', array('FriendsSearchViewModel' => 'ko_friendsSearch', 'ko' => 'knockout'), "ko.applyBindings(new FriendsSearchViewModel(" . CJSON::encode($json) . "), $('#friendsBindings')[0]);");
+?>
 
 <?php $this->renderPartial('/_searchCard'); ?>

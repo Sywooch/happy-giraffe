@@ -406,6 +406,7 @@ class RecipeController extends HController
         }, array_keys($_durations), $_durations);
         $json = compact('types', 'cuisines', 'durations', 'query');
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        $this->pageTitle = 'Поиск рецептов';
         $this->render('search', compact('json'));
     }
 

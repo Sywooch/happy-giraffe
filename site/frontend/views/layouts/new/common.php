@@ -83,7 +83,7 @@ if (! Yii::app()->user->isGuest)
 <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
-<?php if (YII_DEBUG === true): ?>
+<?php if (YII_DEBUG === false): ?>
 <script type="text/javascript">
 
     var _gaq = _gaq || [];

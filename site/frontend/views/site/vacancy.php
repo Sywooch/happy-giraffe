@@ -83,6 +83,14 @@ $this->bodyClass = 'body__vacancy';
                     </ul>
                 </div>
             </div>
+            <div class="vacancy_send display-n">
+                <h2 class="vacancy_about-t">Спасибо информация принята!</h2>
+                <div class="vacancy_send-tx">Наш менеджер свяжется с вами в ближайшее время.</div>
+                <div class="vacancy_help">
+                    <span class="color-gray">Вы можете написать нам &nbsp;</span>
+                    <a href="">info@happy-giraffe.ru</a>
+                </div>
+            </div>
             <div class="f-about">
                 <?php $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'vacancyForm',
@@ -184,7 +192,8 @@ function afterValidateVacancy(form, data, hasError) {
     if (! hasError) {
         $.post(form.attr('action'), form.serialize(), function(response) {
             if (response.success) {
-                alert('Письмо успешно отправлено');
+                $('.vacancy_send').removeClass('display-n');
+                $('.f-about').addClass('display-n');
             }
         }, 'json');
     }

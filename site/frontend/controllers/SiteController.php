@@ -439,7 +439,7 @@ class SiteController extends HController
 
     public function actionVacancy()
     {
-        $this->layout = '//layouts/common';
+        $this->layout = '//layouts/new/common';
         $this->pageTitle = 'Вакансия «PHP-разработчик»';
         $this->render('vacancy');
     }

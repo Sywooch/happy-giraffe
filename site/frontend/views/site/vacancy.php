@@ -2,12 +2,14 @@
 /**
  * @var SiteController $this
  * @var ClientScript $cs
+ * @var CActiveForm $form
+ * @var VacancyForm $model
  */
 $cs = Yii::app()->clientScript;
-$cs->registerCssFile('/stylesheets/vacancy.css');
 $this->bodyClass = 'body__vacancy';
 ?>
 
+<?=CHtml::cssFile('/stylesheets/vacancy.css?r=' . $cs->getReleaseId())?>
 <div class="layout-container">
     <div class="layout-wrapper">
 
@@ -82,6 +84,14 @@ $this->bodyClass = 'body__vacancy';
                 </div>
             </div>
             <div class="f-about">
+                <?php $form = $this->beginWidget('CActiveForm', array(
+                    'id' => 'vacancyForm',
+                    'enableAjaxValidation' => true,
+                    'enableClientValidation' => true,
+                    'clientOptions' => array(
+                        'validateOnSubmit' => true,
+                    ),
+                )); ?>
                 <div class="f-about_row clearfix">
                     <div class="f-about_col-l">
                     </div>
@@ -91,34 +101,38 @@ $this->bodyClass = 'body__vacancy';
                 </div>
                 <div class="f-about_row clearfix">
                     <div class="f-about_col-l">
-                        <lable class="f-about_label">Имя, фамилия</lable>
+                        <?=$form->label($model, 'fullName', array('class' => 'f-about_label'))?>
                     </div>
                     <div class="f-about_col-r">
-                        <input type="text" name="" id="" class="itx-gray">
+                        <?=$form->textField($model, 'fullName', array('class' => 'itx-gray'))?>
+                        <?=$form->error($model, 'fullName'); ?>
                     </div>
                 </div>
                 <div class="f-about_row clearfix">
                     <div class="f-about_col-l">
-                        <lable class="f-about_label">E-mail</lable>
+                        <?=$form->label($model, 'email', array('class' => 'f-about_label'))?>
                     </div>
                     <div class="f-about_col-r error">
-                        <input type="text" name="" id="" class="itx-gray">
+                        <?=$form->textField($model, 'email', array('class' => 'itx-gray'))?>
+                        <?=$form->error($model, 'email'); ?>
                     </div>
                 </div>
                 <div class="f-about_row clearfix">
                     <div class="f-about_col-l">
-                        <lable class="f-about_label">Контактный <br>телефон</lable>
+                        <?=$form->label($model, 'phoneNumber', array('class' => 'f-about_label'))?>
                     </div>
                     <div class="f-about_col-r">
-                        <input type="text" name="" id="" class="itx-gray">
+                        <?=$form->textField($model, 'phoneNumber', array('class' => 'itx-gray'))?>
+                        <?=$form->error($model, 'phoneNumber'); ?>
                     </div>
                 </div>
                 <div class="f-about_row clearfix">
                     <div class="f-about_col-l">
-                        <lable class="f-about_label">Ссылка на резюме <br> на HeadHunter</lable>
+                        <?=$form->label($model, 'hhUrl', array('class' => 'f-about_label'))?>
                     </div>
                     <div class="f-about_col-r">
-                        <input type="text" name="" id="" class="itx-gray">
+                        <?=$form->textField($model, 'hhUrl', array('class' => 'itx-gray'))?>
+                        <?=$form->error($model, 'hhUrl'); ?>
                     </div>
                 </div>
                 <div class="f-about_row clearfix">
@@ -126,14 +140,14 @@ $this->bodyClass = 'body__vacancy';
                     </div>
                     <div class="f-about_col-r">
                         <div class="margin-t15">
-                            <div class="btn-green-simple btn-xxl">ОТПРАВИТЬ</div>
+                            <button class="btn-green-simple btn-xxl">ОТПРАВИТЬ</button>
                         </div>
                         <div class="vacancy_help">
-                            <span class="color-gray">Вы можете написать нам</span>
-                            <a href="">info@happy-giraffe.ru</a>
+                            <span class="color-gray">Вы можете написать нам</span> <a href="mailto:info@happy-giraffe.ru">info@happy-giraffe.ru</a>
                         </div>
                     </div>
                 </div>
+                <?php $this->endWidget(); ?>
             </div>
         </div>
 

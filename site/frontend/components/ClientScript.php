@@ -44,7 +44,7 @@ class ClientScript extends CClientScript
         return $url;
     }
 
-    protected function getReleaseId()
+    public function getReleaseId()
     {
         $id = Yii::app()->getGlobalState(self::RELEASE_ID_KEY);
         if ($id === null) {

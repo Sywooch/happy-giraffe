@@ -91,6 +91,7 @@ $this->bodyClass = 'body__vacancy';
                     'clientOptions' => array(
                         'validateOnSubmit' => true,
                         'afterValidate' => 'js:afterValidateVacancy',
+                        'inputContainer' => 'div.inp-valid',
                     ),
                 )); ?>
                 <div class="f-about_row clearfix">
@@ -105,17 +106,27 @@ $this->bodyClass = 'body__vacancy';
                         <?=$form->label($model, 'fullName', array('class' => 'f-about_label'))?>
                     </div>
                     <div class="f-about_col-r">
-                        <?=$form->textField($model, 'fullName', array('class' => 'itx-gray'))?>
-                        <?=$form->error($model, 'fullName'); ?>
+                        <div class="inp-valid inp-valid__abs">
+                            <?=$form->textField($model, 'fullName', array('class' => 'itx-gray'))?>
+                            <div class="inp-valid_error">
+                                <?=$form->error($model, 'fullName'); ?>
+                            </div>
+                            <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="f-about_row clearfix">
                     <div class="f-about_col-l">
                         <?=$form->label($model, 'email', array('class' => 'f-about_label'))?>
                     </div>
-                    <div class="f-about_col-r error">
-                        <?=$form->textField($model, 'email', array('class' => 'itx-gray'))?>
-                        <?=$form->error($model, 'email'); ?>
+                    <div class="f-about_col-r">
+                        <div class="inp-valid inp-valid__abs">
+                            <?=$form->textField($model, 'email', array('class' => 'itx-gray'))?>
+                            <div class="inp-valid_error">
+                                <?=$form->error($model, 'email'); ?>
+                            </div>
+                            <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="f-about_row clearfix">
@@ -123,8 +134,13 @@ $this->bodyClass = 'body__vacancy';
                         <?=$form->label($model, 'phoneNumber', array('class' => 'f-about_label'))?>
                     </div>
                     <div class="f-about_col-r">
-                        <?=$form->textField($model, 'phoneNumber', array('class' => 'itx-gray'))?>
-                        <?=$form->error($model, 'phoneNumber'); ?>
+                        <div class="inp-valid inp-valid__abs">
+                            <?=$form->textField($model, 'phoneNumber', array('class' => 'itx-gray'))?>
+                            <div class="inp-valid_error">
+                                <?=$form->error($model, 'phoneNumber'); ?>
+                            </div>
+                            <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="f-about_row clearfix">
@@ -132,8 +148,13 @@ $this->bodyClass = 'body__vacancy';
                         <?=$form->label($model, 'hhUrl', array('class' => 'f-about_label'))?>
                     </div>
                     <div class="f-about_col-r">
-                        <?=$form->textField($model, 'hhUrl', array('class' => 'itx-gray'))?>
-                        <?=$form->error($model, 'hhUrl'); ?>
+                        <div class="inp-valid inp-valid__abs">
+                            <?=$form->textField($model, 'hhUrl', array('class' => 'itx-gray'))?>
+                            <div class="inp-valid_error">
+                                <?=$form->error($model, 'hhUrl'); ?>
+                            </div>
+                            <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                        </div>
                     </div>
                 </div>
                 <div class="f-about_row clearfix">

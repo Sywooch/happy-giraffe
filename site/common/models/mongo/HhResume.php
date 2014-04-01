@@ -10,6 +10,7 @@
 class HhResume extends EMongoDocument
 {
     // Информация о резюме
+    public $rawResponse;
     public $firstName;
     public $middleName;
     public $lastName;

@@ -21,8 +21,8 @@
             <div class="page-col_cont">
                 <!-- ko if: ! (templateForeach().length == 0 && loading() === false) -->
                 <div class="friends-list">
-                    <ul class="friends-list_ul">
-                        <!-- ko template: { name : templateName, foreach : templateForeach } -->
+                    <ul class="friends-list_ul" data-bind="foreach : templateForeach">
+                        <!-- ko module: { name: 'user-tile', data: $data, template: $parent.templateName() == 'request-template' ? 'user/friends-request-tile' : 'user/friends-tile' } -->
                         <!-- /ko -->
                     </ul>
                     <div class="loader loader__b-gray" data-bind="visible: loading"><img src="/images/ico/ajax-loader.gif" class="loader_img">
@@ -37,6 +37,3 @@
 <?php
 Yii::app()->clientScript->registerAMD('messagingVM', array('FriendsViewModel' => 'ko_friends', 'ko' => 'knockout'), "ko.applyBindings(new FriendsViewModel(" . $data . "), $('#friendsBindings')[0]);");
 ?>
-
-<?php $this->renderPartial('/_userCard'); ?>
-<?php $this->renderPartial('/_userRequestCard'); ?>

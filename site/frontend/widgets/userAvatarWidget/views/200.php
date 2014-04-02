@@ -5,8 +5,8 @@
 ?><div class="b-ava-large">
     <div class="b-ava-large_ava-hold clearfix">
 
-        <a href="<?=$this->user->getUrl()?>" class="ava large">
-            <?=CHtml::image($this->user->getAvatarUrl(Avatar::SIZE_LARGE))?>
+        <a href="<?=$this->user->getUrl()?>" class="ava ava__<?=($this->user->gender == 0)?'female':'male' ?> ava__large">
+            <?=CHtml::image($this->user->getAvatarUrl(Avatar::SIZE_LARGE), '', array('class' => 'ava_img'))?>
         </a>
 
         <?php if ($this->user->online):?>

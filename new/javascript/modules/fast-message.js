@@ -45,7 +45,7 @@ define('fast-message', ['knockout', 'text!messaging/fast-message.tmpl.html', 'ko
         });
 
         self.editorConfig = {
-            minHeight: 17,
+            minHeight: 65,
             plugins: ['smilesModal'],
             newStyle: true,
             callbacks: {}

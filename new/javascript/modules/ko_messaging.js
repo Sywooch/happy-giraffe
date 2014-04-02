@@ -132,6 +132,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         // Атрибуты модели пользователя
         self.id = model.id;
         self.profileUrl = model.profileUrl;
+        self.messagingUrl = '/messaging?interlocutorId=' + model.id;
         self.firstName = model.firstName;
         self.lastName = model.lastName;
         self.fullName = function() {
@@ -1000,5 +1001,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         }
     }
 
+    window.MessagingUser = MessagingUser;
+    
     return Messaging;
 });

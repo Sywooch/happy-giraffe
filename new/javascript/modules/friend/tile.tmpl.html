@@ -1,0 +1,11 @@
+<div class="friend-offer" data-bind="visible: friendsState() == FRIENDS_STATE_OUTGOING">
+    <div class="friend-offer_hold">
+        <div class="friend-offer_ava">
+            <a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: isOnline()"></span><img alt="" data-bind="attr: {src: avatar}" src="" class="ava_img"/></a>
+        </div>
+        <div class="friend-offer_in"><a class="friend-offer_name" data-bind="text: fullName()"></a>
+            <div class="friend-offer_tx">предлагает вам дружбу!</div>
+        </div>
+        <div class="friend-offer_btns"><a class="btn-green-simple btn-s" data-bind="click: friendsAccept">Принять</a><a title="Отклонить" class="ico-cancel powertip" data-bind="click: friendsDecline">&#8211;</a></div>
+    </div>
+</div>

@@ -137,10 +137,26 @@ function RepostWidget(data) {
             return;
 
         if (! self.active()) {
-            $.get('/favourites/default/getEntityData/', { modelName : self.modelName, modelId : self.modelId}, function(response) {
-                response.rubricsList = data.rubricsList;
-                self.adding(new Entity(response, self));
-            }, 'json');
+            if (self.adding() === null) {
+                $.get('/favourites/default/getEntityData/', { modelName : self.modelName, modelId : self.modelId}, function(response) {
+                    response.rubricsList = data.rubricsList;
+                    self.adding(new Entity(response, self));
+
+                    $('html').one('click', function() {
+                        self.adding(null);
+                    });
+
+                    $(event.target).parents('.favorites-add-popup').one('click', function(event){
+                        event.stopPropagation();
+                    });
+
+                    $(event.target).one('click', function(event){
+                        event.stopPropagation();
+                    });
+                }, 'json');
+            } else {
+                self.cancel();
+            }
         } else {
             self.remove();
         }

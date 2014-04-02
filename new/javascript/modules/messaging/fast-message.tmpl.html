@@ -7,18 +7,12 @@
 				<!-- im-panel-->
 				<div class="im-panel im-panel__small">
 					<div class="im-panel_user clearfix">
-						<a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img" src=""/></a>
+						<a href="" data-bind="attr: { href: user.profileUrl }" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img" src=""/></a>
 						<div class="im-panel_hold">
 							<div class="im-panel_user-status" data-bind="visible: !user.isOnline()"><span data-bind="text: user.gender ? 'Был на сайте' : 'Была на сайте'"></span> <span data-bind="moment: {value: user.lastOnline(), timeAgo: true}"></span></div>
 							<a href="" class="im-panel_user-name" data-bind="text: user.fullName(), attr: { href: user.profileUrl }"></a>
 						</div>
-						<!-- У иконки 3 состояния. 
-						Друг - без моидфикатора
-						Добавить в друзья - .friend__add
-						Приглашение отправленно - .friend__added
-						-->
-						<a href="" class="im-panel_friend im-panel_friend__fr" data-bind="if: user.isFriend"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></a>
-						<a href="" class="im-panel_friend im-panel_friend__add" data-bind="if: !user.isFriend()"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
+                        <span data-bind="module: { name: 'friend', template: 'friend/button', data: user }"></span>
 					</div>
 				</div>
                 <!-- /im-panel--><a class="i-more i-more__small" data-bind="attr: { href: user.messagingUrl }" href="">В диалоги</a>

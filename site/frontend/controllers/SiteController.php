@@ -455,7 +455,7 @@ class SiteController extends HController
             echo CJSON::encode(compact('success'));
         } else {
             $this->layout = '//layouts/common';
-            $this->pageTitle = 'Вакансия «PHP-разработчик»';
+            $this->pageTitle = 'Вакансия «Web-разработчик»';
             $this->render('vacancy', compact('model'));
         }
     }

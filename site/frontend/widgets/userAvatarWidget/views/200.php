@@ -5,8 +5,8 @@
 ?><div class="b-ava-large">
     <div class="b-ava-large_ava-hold clearfix">
 
-        <a href="<?=$this->user->getUrl()?>" class="ava large">
-            <?=CHtml::image($this->user->getAvatarUrl(Avatar::SIZE_LARGE))?>
+        <a href="<?=$this->user->getUrl()?>" class="ava ava__<?=($this->user->gender == 0)?'female':'male' ?> ava__large">
+            <?=CHtml::image($this->user->getAvatarUrl(Avatar::SIZE_LARGE), '', array('class' => 'ava_img'))?>
         </a>
 
         <?php if ($this->user->online):?>
@@ -28,10 +28,10 @@
 
         <?php if ($this->blog_link && $this->user->hasBlogPosts()): ?>
             <?php $blogUrl = $this->user->getBlogUrl(); if ($blogUrl !== false): ?>
-            <a href="<?=$this->user->getBlogUrl()?>" class="b-ava-large_bubble b-ava-large_bubble__blog powertip" title="Записи в блоге">
-                <span class="b-ava-large_ico b-ava-large_ico__blog"></span>
-                <span class="b-ava-large_bubble-tx"><?=$this->user->blogPostsCount ?></span>
-            </a>
+                <a href="<?=$this->user->getBlogUrl()?>" class="b-ava-large_bubble b-ava-large_bubble__blog powertip" title="Записи в блоге">
+                    <span class="b-ava-large_ico b-ava-large_ico__blog"></span>
+                    <span class="b-ava-large_bubble-tx"><?=$this->user->blogPostsCount ?></span>
+                </a>
             <?php endif ?>
         <?php endif ?>
 

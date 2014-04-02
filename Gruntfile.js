@@ -135,6 +135,13 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
+      email: {
+        files: ['new/html/email/**/*'],
+        // tasks:['less:newest'],
+        options: {
+          livereload: true,
+        },
+      },
       // imagemin: {
       //   files: ['new/images/**/*.{png,jpg,gif}'],
       //   tasks: ['newer:imagemin'],

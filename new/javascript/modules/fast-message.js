@@ -43,6 +43,13 @@ define('fast-message', ['knockout', 'text!messaging/fast-message.tmpl.html', 'ko
                 return image.id();
             })
         });
+
+        self.editorConfig = {
+            minHeight: 17,
+            plugins: ['smilesModal'],
+            newStyle: true,
+            callbacks: {}
+        };
     }
     $(document).magnificPopup({
         delegate: '[data-fast-message-for]',

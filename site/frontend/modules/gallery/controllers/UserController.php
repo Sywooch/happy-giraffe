@@ -28,6 +28,7 @@ class UserController extends HController
     {
         $dataProvider = Album::model()->findByUser($user_id);
 
+        $this->pageTitle = $this->user->getFullName() . ' - Фотоальбомы';
         $this->render('index', compact('dataProvider', 'user_id'));
     }
 
@@ -37,6 +38,7 @@ class UserController extends HController
         if ($data === null || $data->author_id != $user_id)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        $this->pageTitle = $this->user->getFullName() . ' - Фотоальбом «' . $data->title . '»';
         $this->render('_album', array('data' => $data, 'full' => true));
     }
 }

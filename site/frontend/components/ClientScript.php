@@ -11,10 +11,17 @@ class ClientScript extends CClientScript
 {
     const RELEASE_ID_KEY = 'Yii.ClientScript.releaseidkey';
     const POS_AMD = 1000;
-    
+
+    // настройки AMD
     public $amd = array();
     public $amdFile = false;
     public $useAMD = false;
+
+    // настройки оптимизации отдачи статики
+    public $jsCombineEnabled;
+    public $cssDomain;
+    public $jsDomain;
+    public $imagesDomain;
 
     public function render(&$output)
     {
@@ -30,6 +37,10 @@ class ClientScript extends CClientScript
             $this->remapScripts();
 
         $this->unifyScripts();
+
+        $this->processCssFiles();
+        $this->processJsFiles();
+        $this->processImages($output);
 
         $this->renderHead($output);
         if($this->enableJavaScript)
@@ -226,11 +237,11 @@ class ClientScript extends CClientScript
             return parent::registerScriptFile($url, $position, $htmlOptions);
     }
 
-    public function registerCssFile($url,$media='')
-    {
-        return parent::registerCssFile($this->addReleaseId($url), $media);
-    }
-
+    /**
+     * Добавляет id релиза к URL
+     * @param $url
+     * @return string
+     */
     protected function addReleaseId($url)
     {
         $r = $this->getReleaseId();
@@ -238,6 +249,10 @@ class ClientScript extends CClientScript
         return $url;
     }
 
+    /**
+     * Генерирует новый id после каждого релиза
+     * @return bool|mixed|string
+     */
     protected function getReleaseId()
     {
         $id = Yii::app()->getGlobalState(self::RELEASE_ID_KEY);
@@ -246,5 +261,146 @@ class ClientScript extends CClientScript
             Yii::app()->setGlobalState(self::RELEASE_ID_KEY, $id);
         }
         return $id;
+    }
+
+    /**
+     * Объединяет все файлы, перечисленные в packages в несколько файлов, по количеству равное позициям вставки
+     * клиент-скрипта. Исходные файлы удаляет из scriptFiles, полученные добавляет
+     */
+    public function renderCoreScripts()
+    {
+        if ($this->jsCombineEnabled !== true) {
+            parent::renderCoreScripts();
+            return;
+        }
+
+        if (Yii::app()->request->isAjaxRequest)
+            return;
+
+        $scriptFilesTemp = $this->scriptFiles;
+        $this->scriptFiles = array();
+        foreach ($this->packages as $package => $settings)
+            $this->registerPackage($package);
+        parent::renderCoreScripts();
+
+        $releaseId = $this->getReleaseId();
+        $combinedScripts = array();
+        foreach ($this->scriptFiles as $position => $scriptFiles) {
+            $hash = md5($releaseId . $position);
+            $dir = substr($hash, 0, 2);
+            $file = substr($hash, 2);
+            $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
+            $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
+            if (! file_exists($path)) {
+                $js = '';
+                foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
+                    if (strpos($scriptFile, '/') === 0)
+                        $scriptFile = Yii::getPathOfAlias('webroot') . $scriptFile;
+                    $fileSrc = file_get_contents($scriptFile);
+                    $js .= $fileSrc . ';';
+                }
+
+                if (! is_dir($dirPath))
+                    mkdir($dirPath);
+                file_put_contents($path, $js);
+            }
+
+            $url = '/jsd/' . $dir . '/' . $file . '.js';
+            if ($this->getJsStaticDomain())
+                $url = $this->getJsStaticDomain() . $url;
+            $combinedScripts[$position] = $url;
+        }
+
+        $this->scriptFiles = array();
+        foreach ($combinedScripts as $position => $val)
+            $this->scriptFiles[$position][$url] = $url;
+        foreach ($scriptFilesTemp as $position => $scriptFiles)
+            foreach ($scriptFiles as $scriptFile => $scriptFileValue)
+                $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
+    }
+
+    /**
+     * Трансформирует относительные ссылки в абсолютные, подставляя домен
+     */
+    protected function processCssFiles()
+    {
+        foreach ($this->cssFiles as $url => $media) {
+            unset($this->cssFiles[$url]);
+            if ($this->getCssStaticDomain() !== null && strpos($url, '/') === 0)
+                $url = $this->getCssStaticDomain() . $url;
+            $url = $this->addReleaseId($url);
+            $this->cssFiles[$url] = $media;
+        }
+    }
+
+    /**
+     * Трансформирует относительные ссылки в абсолютные, подставляя домен
+     */
+    protected function processJsFiles()
+    {
+        foreach ($this->scriptFiles as $position => $scriptFiles) {
+            foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
+                unset($this->scriptFiles[$position][$scriptFile]);
+                if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0)
+                    $scriptFile = $this->getJsStaticDomain() . $scriptFile;
+                $scriptFile = $this->addReleaseId($scriptFile);
+                $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
+            }
+        }
+    }
+
+    /**
+     * Трансформирует относительные ссылки изображений верстки в абсолютные, подставляя домен
+     *
+     * Необходимо учитывать, что изображения, вставленные с помощью CCaptchaWidget - тоже изображения, но
+     * их этот метод обрабатывать не должен, иначе они не будут отображаться
+     *
+     * @todo Сейчас регулярка неуниверсальна, работает только если атрибут src первым в img
+     * @param $content
+     */
+    protected function processImages(&$content)
+    {
+        if ($this->getImagesStaticDomain() !== null) {
+            $content = preg_replace('#img src="(\/[^"]*)"#', 'img src="' . $this->getImagesStaticDomain() . "$1\"", $content);
+        }
+    }
+
+    /**
+     * Возвращает домен для css
+     *
+     * Вынесено в отдельный метод, потому что в будущем может появиться необходимость ротации доменов в зависимости
+     * от имени файла
+     *
+     * @return mixed
+     */
+    protected function getCssStaticDomain()
+    {
+        return $this->cssDomain;
+    }
+
+    /**
+     * Возвращает домен для скриптов
+     *
+     * Вынесено в отдельный метод, потому что в будущем может появиться необходимость ротации доменов в зависимости
+     * от имени файла
+     *
+     * @return mixed
+     */
+    protected function getJsStaticDomain()
+    {
+        return $this->jsDomain;
+    }
+
+    /**
+     * Возвращает домен для изображения
+     *
+     * Вынесено в отдельный метод, потому что в будущем может появиться необходимость ротации доменов в зависимости
+     * от имени файла
+     *
+     * @return mixed
+     */
+    protected function getImagesStaticDomain()
+    {
+        return $this->imagesDomain;
     }
 }

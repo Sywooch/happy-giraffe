@@ -55,7 +55,14 @@ class DefaultController extends HController
 	
 	public function actionGetUserInfo($id)
 	{
-		echo CJSON::encode(ContactsManager::getContactByUserId(Yii::app()->user->id, $id));
+		echo CJSON::encode(CMap::mergeArray(ContactsManager::getContactByUserId(Yii::app()->user->id, $id), array(
+                'settings' => array(
+                    'messaging__enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
+                    'messaging__sound' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__sound', true),
+                    'messaging__interlocutorExpanded' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__interlocutorExpanded', true),
+                    'messaging__blackList' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__blackList', false),
+                )
+        )));
 	}
 
     public function actionWysiwyg()

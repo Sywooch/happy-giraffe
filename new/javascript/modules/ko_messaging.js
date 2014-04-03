@@ -920,12 +920,6 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         };
         comet.addEvent(2020, 'messagingNewMessage');
 
-        Comet.prototype.settingChanged = function(result, id) {
-            var observable = self.settings[result.key];
-            observable(result.value);
-        }
-        comet.addEvent(3000, 'settingChanged');
-
     // сейчас сам должен переместиться.
         /*	// Онлайн/оффлайн пользователя
          Comet.prototype.messagingOnline = function(result, id) {
@@ -999,9 +993,15 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         self.update = function(key, value) {
             $.post('/ajax/setUserAttribute/', { key : key, value : value });
         }
+ 
+        Comet.prototype.settingChanged = function(result, id) {
+            self[result.key](result.value);
+        }
+        comet.addEvent(3000, 'settingChanged');
     }
 
     window.MessagingUser = MessagingUser;
+    window.MessagingSettings = MessagingSettings;
     
     return Messaging;
 });

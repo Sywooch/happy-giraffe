@@ -11,6 +11,7 @@ define('fast-message', ['knockout', 'text!messaging/fast-message.tmpl.html', 'ko
         // состояния
         self.isSuccess = ko.observable(false);
         self.sendingMessage = ko.observable(false);
+        self.settings = new MessagingSettings(data.settings);
         self.sendMessage = function(from) {
             self.sendingMessage(true);
             var data = {};
@@ -48,7 +49,16 @@ define('fast-message', ['knockout', 'text!messaging/fast-message.tmpl.html', 'ko
             minHeight: 65,
             plugins: ['smilesModal'],
             newStyle: true,
-            callbacks: {}
+            callbacks: {
+                keydown : [
+                    function(e) {
+                        if (e.keyCode == 13 && self.settings.messaging__enter() != e.ctrlKey) {
+                            self.sendMessage();
+                            e.preventDefault();
+                        }
+                    }
+                ]
+            }
         };
     }
     $(document).magnificPopup({

@@ -568,6 +568,10 @@ class SiteController extends HController
 
     public function actionSeo3()
     {
+        $ageRange = AgeRange::model()->find();
+        var_dump($ageRange->test2);
+        die;
+
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $dp = new EMongoDocumentDataProvider('Seo3', array(
             'sort' => array(

@@ -12,6 +12,13 @@ class MailSender
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
 
+    public $type;
+
+    public function __construct($type)
+    {
+        $this->type = $type;
+    }
+
     /**
      * Отправляет пользователю письмо определенного типа
      *

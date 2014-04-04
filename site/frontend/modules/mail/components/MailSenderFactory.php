@@ -13,7 +13,7 @@ class MailSenderFactory
     {
         switch ($type) {
             case MailModule::TYPE_MESSAGES:
-                return new MailSenderDialogues();
+                return new MailSenderDialogues($type);
         }
     }
 }

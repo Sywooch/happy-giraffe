@@ -21,6 +21,5 @@ class MailSender
     public function send($userId, $type)
     {
         $message = MailMessageFactory::create($userId, $type);
-//        ElasticEmail::send();
     }
 }

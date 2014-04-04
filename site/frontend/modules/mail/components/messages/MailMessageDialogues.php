@@ -9,5 +9,13 @@
 
 class MailMessageDialogues extends MailMessage
 {
+    public function getTitle()
+    {
+        return '';
+    }
 
+    public function getBody()
+    {
+        return '';
+    }
 }

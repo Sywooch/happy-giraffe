@@ -10,11 +10,25 @@
 class ClientScript extends CClientScript
 {
     const RELEASE_ID_KEY = 'Yii.ClientScript.releaseidkey';
+    
+    /**
+     * Специальная константа, для вставки скриптов в обход исключений, при вставке скрипта подменяется на CClientScript::POS_HEAD
+     */
     const POS_AMD = 1000;
 
-    // настройки AMD
+    /**
+     * @var array Настройки amd (requireJS)
+     */
     public $amd = array();
+
+    /**
+     * @var string URL до файла, загружаемого первым, должен содержать requireJS
+     */
     public $amdFile = false;
+
+    /**
+     * @var bool Если true, то используется AMD, обычное использование методов registerScript и подобных приведёт к генерации исключения 
+     */
     public $useAMD = false;
 
     // настройки оптимизации отдачи статики
@@ -50,12 +64,10 @@ class ClientScript extends CClientScript
         }
     }
     
-    public static function log($data)
-    {
-        echo CHtml::tag('pre', array(), var_export($data, true));
-    }
-
-    public function renderAMDConfig()
+    /**
+     * Метод добавляет скрипты для вставки в HEAD страницы, необходимые для работы requireJS
+     */
+    protected function renderAMDConfig()
     {
         // Соберём конфиги
         $this->amd['urlArgs'] = 'r=' . rand(0,1000);//$this->releaseId;
@@ -78,7 +90,10 @@ class ClientScript extends CClientScript
             ) + $this->scripts[self::POS_HEAD];
     }
     
-    public function addPackagesToAMDConfig()
+    /**
+     * Метод добавляет настройки, портированные из пакетов ClientScript в настройки shim для requireJS
+     */
+    protected function addPackagesToAMDConfig()
     {
         $shim = array();
         $paths = array();
@@ -151,7 +166,14 @@ class ClientScript extends CClientScript
             $this->amd['eval'].= "define(\"" . $name . "\", " . CJSON::encode($deps) . ", function() { return null; });\n";
     }
     
-    public function remapAMDScript($baseUrl, $script)
+    /**
+     * Метод предназначен для преобразования путей из оригинального через scriptMap в путь, пригодный для requireJS
+     * 
+     * @param string $baseUrl BaseURL
+     * @param string $script Оригинальный адрес скрипта
+     * @return string Преобразованный путь
+     */
+    protected function remapAMDScript($baseUrl, $script)
     {
         $name = basename($script);
         if (isset($this->scriptMap[$name]) && $this->scriptMap[$name] !== false)
@@ -161,6 +183,15 @@ class ClientScript extends CClientScript
         return str_replace('.js' , '', $script);
     }
 
+    /**
+     * Метод для подключения AMD скрипта, генерирующий в итоге скрипт:
+     * $(document).ready(function() { require(<Зависимости>, function( <Аргументы функции> ) { <Скрипт> }); });
+     * 
+     * @param string $id Уникальный идентификатор скрипта (исключает повторное подключение)
+     * @param array $depends Массив с зависимостями, если ассоциативный, то ключи будут использоваться в качесте аргументов функции
+     * @param string $script Тело скрипта
+     * @return ClientScript
+     */
     public function registerAMD($id, $depends, $script = '')
     {
         if (!is_array($depends))
@@ -174,6 +205,13 @@ class ClientScript extends CClientScript
         return $this->registerScript($id, "$(document).ready(function() { require(" . CJSON::encode($modules) . ", function( " . implode(', ', $params) . " ) {\n" . $script . "\n}); });", self::POS_AMD);
     }
 
+    /**
+     * Метод, подключающий скрипт из файла, предварительно загрузив зависимости
+     * 
+     * @param array $depends Массив зависимостей
+     * @param string $file URL до файла
+     * @return ClientScript
+     */
     public function registerAMDFile($depends, $file)
     {
         return $this->registerScript($file, '$(document).ready(function() { require(' . CJSON::encode($depends) . ', function() { require(["' . $file . '"]); }); });', self::POS_AMD);
@@ -200,11 +238,26 @@ class ClientScript extends CClientScript
         return false;
     }
     
+    /**
+     * Метод, генерирующий исключение
+     * 
+     * @throws Exception
+     */
     protected function exception()
     {
         throw new Exception ('Необходимо использовать метод ClientScript::registerAMD для работы в режиме AMD');
     }
 
+    /**
+     * Смотри CClientScript::registerScript.
+     * 
+     * @throws Exception В случае, если метод используется с вклученным флагом ClientScript::useAMD
+     * @param type $id
+     * @param type $script
+     * @param type $position
+     * @param array $htmlOptions
+     * @return ClientScript
+     */
     public function registerScript($id, $script, $position = null, array $htmlOptions = array())
     {
         if ($this->useAMD && $position != self::POS_AMD)
@@ -213,6 +266,14 @@ class ClientScript extends CClientScript
             return parent::registerScript($id, $script, $position == self::POS_AMD ? self::POS_HEAD : $position, $htmlOptions);
     }
 
+
+    /**
+     * Смотри CClientScript::registerCoreScript.
+     * 
+     * @throws Exception В случае, если метод используется с вклученным флагом ClientScript::useAMD
+     * @param type $name
+     * @return ClientScript
+     */
     public function registerCoreScript($name)
     {
         if ($this->useAMD)
@@ -221,6 +282,14 @@ class ClientScript extends CClientScript
             return parent::registerCoreScript($name);
     }
 
+
+    /**
+     * Смотри CClientScript::registerPackage.
+     * 
+     * @throws Exception В случае, если метод используется с вклученным флагом ClientScript::useAMD
+     * @param type $name
+     * @return ClientScript
+     */
     public function registerPackage($name)
     {
         if ($this->useAMD)
@@ -229,6 +298,15 @@ class ClientScript extends CClientScript
             return parent::registerPackage($name);
     }
 
+    /**
+     * Смотри CClientScript::registerScriptFile.
+     * 
+     * @throws Exception В случае, если метод используется с вклученным флагом ClientScript::useAMD
+     * @param type $url
+     * @param type $position
+     * @param array $htmlOptions
+     * @return ClientScript
+     */
     public function registerScriptFile($url,$position=null,array $htmlOptions=array())
     {
         if($this->useAMD)

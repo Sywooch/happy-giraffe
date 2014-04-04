@@ -3,17 +3,17 @@
  * Created by JetBrains PhpStorm.
  * User: mikita
  * Date: 04/04/14
- * Time: 12:20
+ * Time: 15:27
  * To change this template use File | Settings | File Templates.
  */
 
-class MailMessageFactory
+class MailSenderFactory
 {
-    public static function create($userId, $type)
+    public static function create($type)
     {
         switch ($type) {
             case MailModule::TYPE_MESSAGES:
-                return new MailMessageDialogues($userId, $type);
+                return new MailSenderDialogues();
         }
     }
 }

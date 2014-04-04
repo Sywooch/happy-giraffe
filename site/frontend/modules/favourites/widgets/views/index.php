@@ -29,7 +29,7 @@ $t = substr((string)microtime(true), -4);
 <?php else: ?>
 
     <div<?php if (!$this->right) echo ' class="favorites-control"'; else echo ' class="position-rel"'; ?>>
-        <a href="#login" class="favorites-control_a powertip fancy" title="В избранное">
+        <a href="#loginWidget" class="favorites-control_a powertip popup-a" title="В избранное">
             <?=$count?>
         </a>
     </div>

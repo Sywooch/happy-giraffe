@@ -1,6 +1,6 @@
 <span id="<?=$id?>">
     <!-- ko if: status() == 0 -->
-    <a href="#login" class="add-friend fancy" data-theme="white-square"><i class="icon"></i>Пригласить<br/>в друзья</a>
+    <a href="#loginWidget" class="add-friend popup-a" data-theme="white-square"><i class="icon"></i>Пригласить<br/>в друзья</a>
     <!-- /ko -->
     <!-- ko if: status() == 1 -->
     <span class="is-friend">мой друг</span>

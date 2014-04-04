@@ -9,7 +9,7 @@
 <script type="text/javascript" src="/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js"></script>
 
 <div class="wysiwyg-related">
-    <div class="redactor-popup redactor-popup_b-smile display-n">
+    <div class="redactor-popup redactor-popup__vert-old redactor-popup_b-smile display-n">
         <a href="javascript:void(0)" class="redactor-popup_close ico-close3 powertip" title="Закрыть" onclick="$(this).parents('.redactor-popup').addClass('display-n');"></a>
         <div class="redactor-popup_tale"></div>
         <div class="redactor-popup_t">Выберите смайл</div>
@@ -110,7 +110,7 @@
     </div>
 
     <!-- ko stopBinding: true -->
-    <div class="redactor-popup redactor-popup_b-video display-n" id="redactor-popup_b-video">
+    <div class="redactor-popup redactor-popup__vert-old redactor-popup_b-video display-n" id="redactor-popup_b-video">
         <a href="javascript:void(0)" class="redactor-popup_close ico-close3 powertip" title="Закрыть" onclick="$(this).parents('.redactor-popup').addClass('display-n');"></a>
         <div class="redactor-popup_tale"></div>
         <div class="redactor-popup_t">Загрузите видео</div>
@@ -140,7 +140,7 @@
     <!-- /ko -->
 
     <!-- ko stopBinding: true -->
-    <div class="redactor-popup redactor-popup_b-photo display-n" id="redactor-popup_b-photo">
+    <div class="redactor-popup redactor-popup__vert-old redactor-popup_b-photo display-n" id="redactor-popup_b-photo">
         <a href="" class="redactor-popup_close ico-close3 powertip" data-bind="click: close"></a>
         <div class="redactor-popup_tale"></div>
         <div class="redactor-popup_t">Загрузите фото</div>
@@ -155,7 +155,7 @@
     <!-- /ko -->
 
     <!-- ko stopBinding: true -->
-    <div class="redactor-popup redactor-popup_b-link display-n" id="redactor-popup_b-link">
+    <div class="redactor-popup redactor-popup__vert-old redactor-popup_b-link display-n" id="redactor-popup_b-link">
         <a class="redactor-popup_close ico-close3 powertip" title="Закрыть" data-bind="click: close"></a>
         <div class="redactor-popup_tale"></div>
         <div class="redactor-popup_t">Ссылка</div>

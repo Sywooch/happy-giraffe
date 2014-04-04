@@ -28,6 +28,6 @@
 
 <?php else: ?>
 
-    <a href="#login" class="like-control_ico like-control_ico__cook"><?=$count?></a>
+    <a href="#loginWidget" class="like-control_ico like-control_ico__cook popup-a"><?=$count?></a>
 
 <?php endif; ?>

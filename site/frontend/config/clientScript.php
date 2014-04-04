@@ -305,6 +305,9 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/FavouriteWidget.js',
+                'javascripts/imagesloaded.pkgd.min.js',
+                'javascripts/wysiwyg.js',
+                'new/javascript/wysiwyg.js',
             ),
             'depends' => array('knockout'),
         ),

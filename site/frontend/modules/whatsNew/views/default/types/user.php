@@ -1,7 +1,7 @@
 <li class="masonry-news-list_item" data-block-id="<?=$data->blockId?>">
     <h3 class="masonry-news-list_title textalign-c">
         <?php if (Yii::app()->user->isGuest):?>
-            <a href="#login" class="fancy" data-theme="white-square">Новые пользователи</a>
+            <a href="#loginWidget" class="popup-a" data-theme="white-square">Новые пользователи</a>
         <?php else: ?>
             <a href="<?=$this->createUrl('/friends/find')?>">Новые пользователи</a>
         <?php endif ?>

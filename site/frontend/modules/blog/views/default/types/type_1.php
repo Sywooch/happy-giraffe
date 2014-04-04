@@ -20,7 +20,7 @@ $photo = $data->getPhoto()
 
     <div class="b-article_in clearfix">
         <div class="wysiwyg-content clearfix">
-            <?=$data->post->purified->text ?>
+            <?=$data->isAd() !== null ? $data->post->text : $data->post->purified->text?>
         </div>
     </div>
     <?php if ($data->gallery !== null && count($data->gallery->items) > 1)

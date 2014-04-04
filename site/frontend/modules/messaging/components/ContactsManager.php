@@ -462,6 +462,7 @@ class ContactsManager
                     # Имеет входящий запрос в друзья
                     LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = tu.user_id AND fr2.to_id = u.id AND fr2.status = 'pending'
                     WHERE tu.user_id = :user_id #AND b.user_id IS NULL
+                    GROUP BY uId
                     LIMIT 1
 					
 					UNION
@@ -483,7 +484,7 @@ class ContactsManager
 					  b.user_id IS NOT NULL AS isBlocked # Заблокирован ли
 					FROM users u
                     # Получение аватара
-                    LEFT OUTER JOIN album__photos p ON u.avatar_id = u.id
+                    LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом
                     LEFT OUTER JOIN friends f ON f.user_id = u.id AND f.friend_id = :user_id
                     # Находится ли в черном списке

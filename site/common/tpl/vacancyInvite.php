@@ -138,7 +138,7 @@
 
                                             <tr>
                                                 <td align="center" colspan="2">
-                                                    <a href="http://www.virtual-giraffe.ru/developer/?utm_source=email" style="color:#3482e2; font-size:24px;text-decoration:underline;">Узнать подробнее</a>
+                                                    <a href="http://www.happy-giraffe.ru/developer/?utm_source=email" style="color:#3482e2; font-size:24px;text-decoration:underline;">Узнать подробнее</a>
                                                 </td>
                                             </tr>
                                         </table>

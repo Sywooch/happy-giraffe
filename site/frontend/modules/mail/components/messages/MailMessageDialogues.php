@@ -9,6 +9,8 @@
 
 class MailMessageDialogues extends MailMessage
 {
+    public $tpl = 'dialogues';
+
     public function getTitle()
     {
         return '';

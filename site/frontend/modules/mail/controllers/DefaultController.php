@@ -9,7 +9,7 @@ class DefaultController extends Controller
      *
      * @param $redirectUrl
      */
-    public function actionAuth($redirectUrl)
+    public function actionAuth($redirectUrl, $token)
 	{
 
 	}

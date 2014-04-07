@@ -7,6 +7,7 @@
  * @property string $id
  * @property string $expires
  * @property string $user_id
+ * @property string $hash
  *
  * The followings are the available model relations:
  * @property Users $user
@@ -32,9 +33,10 @@ class MailToken extends CActiveRecord
 			array('expires, user_id', 'required'),
 			array('expires', 'length', 'max'=>11),
 			array('user_id', 'length', 'max'=>10),
+			array('hash', 'length', 'max'=>32),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, expires, user_id', 'safe', 'on'=>'search'),
+			array('id, expires, user_id, hash', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -59,6 +61,7 @@ class MailToken extends CActiveRecord
 			'id' => 'ID',
 			'expires' => 'Expires',
 			'user_id' => 'User',
+			'hash' => 'Hash',
 		);
 	}
 
@@ -83,6 +86,7 @@ class MailToken extends CActiveRecord
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('expires',$this->expires,true);
 		$criteria->compare('user_id',$this->user_id,true);
+		$criteria->compare('hash',$this->hash,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

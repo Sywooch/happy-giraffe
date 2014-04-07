@@ -237,12 +237,6 @@
     }
 ?>
 
-<?php
-    Yii::app()->eauth->renderWidget(array(
-        'mode' => 'assets',
-    ));
-?>
-
 <div class="contest-about clearfix">
     <div class="content-title">Победители конкурса</div>
     <?=$this->contest->results_text?>

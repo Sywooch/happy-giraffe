@@ -30,7 +30,7 @@ $t = substr((string)microtime(true), -4);
 <?php else: ?>
 
     <div<?php if (!$this->right) echo ' class="favorites-control"'; else echo ' class="position-rel"'; ?>>
-        <a href="#login" class="like-control_ico like-control_ico__repost fancy" title="Репост">
+        <a href="#loginWidget" class="like-control_ico like-control_ico__repost popup-a" title="Репост">
             <?=$count?>
         </a>
     </div>

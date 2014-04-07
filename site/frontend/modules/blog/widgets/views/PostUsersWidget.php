@@ -23,7 +23,7 @@
                 <?php if ($this->post->author_id != Yii::app()->user->id): ?>
                     <li class="ava-list_li">
                         <?php if (Yii::app()->user->isGuest): ?>
-                            <a href="#login" class="ava-list_last powertip fancy" title="Нравится">
+                            <a href="#loginWidget" class="ava-list_last powertip popup-a" title="Нравится">
                                 <span class="ava-list_like-hg"></span>
                                 <span class="count"><?=$likesCount?></span>
                             </a>

@@ -127,6 +127,7 @@ $(function() {
     $(".select-cus__search-on").select2({
         width: '100%',
         dropdownCssClass: 'select2-drop__search-on',
+        searchInputPlaceholder: "Начните вводить",
         escapeMarkup: function(m) { return m; }
     });
 

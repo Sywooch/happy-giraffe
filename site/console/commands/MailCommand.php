@@ -171,7 +171,7 @@ class MailCommand extends CConsoleCommand
     {
         $criteria = new EMongoCriteria();
         $criteria->limit(1000);
-        $criteria->parsed('==', true);
+        $criteria->parsed('!=', false);
         $criteria->send('==', false);
         $models = HhResume::model()->findAll($criteria);
         echo count($models); die;

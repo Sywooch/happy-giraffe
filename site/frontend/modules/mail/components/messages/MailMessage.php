@@ -15,9 +15,14 @@ abstract class MailMessage extends CComponent
     public $userId;
     public $type;
     public $html;
-    public $tpl;
 
     private $token;
+
+    public function __construct($userId)
+    {
+        $this->userId = $userId;
+        $this->html = $html = Yii::app()->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_12.php', array(), true);
+    }
 
     protected function replaceUrls()
     {
@@ -80,5 +85,10 @@ abstract class MailMessage extends CComponent
     protected function getTokenLifetime()
     {
         return 48 * 60 * 60;
+    }
+
+    protected function getTemplate()
+    {
+        return Yii::getPathOfAlias('site.frontend.modules.mail.tpls') . DIRECTORY_SEPARATOR . $this->type . '.php';
     }
 }

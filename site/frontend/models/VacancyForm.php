@@ -22,7 +22,7 @@ class VacancyForm extends CFormModel
     public function rules()
     {
         return array(
-            array('fullName, email, phoneNumber, hhUrl', 'required'),
+            array('fullName, email, phoneNumber', 'required'),
             array('email', 'email'),
             array('phoneNumber', 'match', 'pattern' => '/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/', 'message' => 'Введите корректный номер телефона'),
             array('hhUrl', 'validateLink'),
@@ -31,6 +31,9 @@ class VacancyForm extends CFormModel
 
     public function validateLink($attribute, $params)
     {
+        if (empty($this->$attribute))
+            return;
+
         $parts = parse_url($this->$attribute);
         if ($parts === false || ! isset($parts['host']) || strpos($parts['host'], 'hh.ru') != (strlen($parts['host']) - 5)) {
             $this->addError($attribute, 'Введите корректную ссылку на ваше резюме');

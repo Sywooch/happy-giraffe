@@ -149,6 +149,31 @@
         <?php endif; ?>
 
         <!--AdFox START-->
+        <!--SSPsyncer-->
+        <script type="text/javascript">
+            <!--
+            if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+            if (typeof(document.referrer) != 'undefined') {
+                if (typeof(afReferrer) == 'undefined') {
+                    afReferrer = escape(document.referrer);
+                }
+            } else {
+                afReferrer = '';
+            }
+            var addate = new Date();
+
+            var dl = escape(document.location);
+            var pr1 = Math.floor(Math.random() * 1000000);
+
+            document.write('<div id="AdFox_banner_'+pr1+'"><\/div>');
+            document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
+
+            AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/202433/prepareCode?p1=blnxn&amp;p2=eqpa&amp;pct=a&amp;pfc=mbhf&amp;pfb=bwibm&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1);
+            // -->
+        </script>
+        <!--AdFox END-->
+
+        <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->
         <!--Тип баннера: Брендирование-->

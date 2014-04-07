@@ -12,21 +12,13 @@ class MailSender
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
 
-    public $type;
-
-    public function __construct($type)
+    public function send($userId)
     {
-        $this->type = $type;
+        $token = $this->createToken($userId);
+
     }
 
-    /**
-     * Отправляет пользователю письмо определенного типа
-     *
-     * @param $userId
-     * @param $type
-     */
-    public function send($userId, $type)
-    {
-        $message = MailMessageFactory::create($userId, $type);
-    }
+
+
+
 }

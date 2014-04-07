@@ -9,17 +9,5 @@
 
 class MailSenderDialogues extends MailSender
 {
-    public function send($userId)
-    {
-        $message = new MailMessageDialogues($userId);
-    }
 
-    public function sendAll()
-    {
-        $dp = new CActiveDataProvider('User');
-        $iterator = new CDataProviderIterator($dp);
-        foreach ($iterator as $user) {
-
-        }
-    }
 }

@@ -50,7 +50,7 @@ return array(
         'moderation' => 'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend|qualityTest)>' => 'site/<_a>',
         '<view:(advertiser|abuse)>' => array('site/page'),
-        'job/php-developer' => 'site/vacancy',
+        'developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
         'subscribes' => 'myGiraffe/default/subscribes',

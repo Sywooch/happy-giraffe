@@ -1,5 +1,5 @@
 <?php if (Yii::app()->user->isGuest): ?>
-    <a href="#login" class="user-btns_i powertip fancy">
+    <a href="#loginWidget" class="user-btns_i powertip popup-a">
         <span class="user-btns_ico-hold user-btns_ico-hold__friend-add">
             <span class="user-btns_ico"></span>
         </span>

@@ -159,9 +159,8 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionVacancyTest()
+    public function actionVacancyTest($email)
     {
-        $email = 'nikita@happy-giraffe.ru';
         $firstName = 'Андрей';
         $subject = $firstName . ', мы ищем web-разработчика!';
         $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', compact('firstName'), true);

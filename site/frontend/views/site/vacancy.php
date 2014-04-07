@@ -84,11 +84,11 @@ $this->bodyClass = 'body__vacancy';
                 </div>
             </div>
             <div class="vacancy_send display-n">
-                <h2 class="vacancy_about-t">Спасибо информация принята!</h2>
-                <div class="vacancy_send-tx">Наш менеджер свяжется с вами в ближайшее время.</div>
+                <h2 class="vacancy_about-t">Спасибо за ваш интерес!</h2>
+                <div class="vacancy_send-tx">Мы с вами свяжемся в ближайшее время.</div>
                 <div class="vacancy_help">
                     <span class="color-gray">Вы можете написать нам &nbsp;</span>
-                    <a href="">info@happy-giraffe.ru</a>
+                    <a href="mailto:info@happy-giraffe.ru">info@happy-giraffe.ru</a>
                 </div>
             </div>
             <div class="f-about">

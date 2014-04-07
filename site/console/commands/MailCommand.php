@@ -184,6 +184,7 @@ class MailCommand extends CConsoleCommand
                     $m->send = true;
                     $m->save();
                 }
+                break;
             }
         }
     }

@@ -21,4 +21,9 @@ class DefaultController extends Controller
 
         $this->redirect($redirectUrl);
 	}
+
+    public function actionDialogues()
+    {
+
+    }
 }

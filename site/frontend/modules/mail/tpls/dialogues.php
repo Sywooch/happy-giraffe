@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var MailMessageDialogues $this
+ */
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -42,7 +48,7 @@
                                             </tr>
                                             <tr>
                                                 <td valign="top" align="center">
-                                                    <a href="http://www.happy-giraffe.ru/?utm_source=email" target="_blank">
+                                                    <a href="<?=$this->createUrl(array('/'), 'toplogo')?>" target="_blank">
                                                         <img src="http://www.happy-giraffe.ru/new/images/mail/mail-top-logo.png" width="221px" height="62px"/>
                                                     </a>
                                                 </td>

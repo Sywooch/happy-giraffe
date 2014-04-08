@@ -118,7 +118,7 @@ return array(
                 'keywords' => 100,
             ),
         ),
-        'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
+        'urlManager'=>require_once(dirname(__FILE__).'../frontend/url.php'),
         'mc' => array(
             'class' => 'site.common.extensions.mailchimp.MailChimp',
             'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',

@@ -24,7 +24,7 @@ abstract class MailMessage extends CComponent
          * @var CConsoleApplication $app
          */
         $app = Yii::app();
-        $this->bodyHtml = $app->getCommandRunner()->getCommand()->renderFile($this->getTemplate(), $params, true);
+        $this->bodyHtml = $app->getCommandRunner()->getCommand()->renderFile($this->getTemplate(), compact('this'), true);
     }
 
     abstract public function getSubject();
@@ -34,15 +34,28 @@ abstract class MailMessage extends CComponent
         return $this->bodyHtml;
     }
 
-    protected function replaceUrls()
+    public function createUrl($route, $params = array(), $utm_content = null)
     {
-        $dom = str_get_html($this->bodyHtml);
-        foreach ($dom->find('a') as $link) {
-            $href = $link->getAttribute('href');
-            $newHref = Yii::app()->createUrl('/mail/default/auth', array('redirectUrl' => $href, 'token' => $this->getToken()->hash));
-            $link->setAttribute('href', $newHref);
-        }
-        $this->bodyHtml = $dom->save();
+        $url = Yii::app()->createAbsoluteUrl($route, $params);
+        $url = $this->addUtmTags($url, $utm_content);
+        return $this->addTokenHash($url);
+    }
+
+    protected function addTokenHash($url)
+    {
+        return Yii::app()->createUrl('/mail/default/auth', array('redirectUrl' => $url, 'token' => $this->getToken()->hash));
+    }
+
+    protected function addUtmTags($url)
+    {
+        $utm = array(
+            'utm_source' => 'happygiraffe',
+            'utm_medium' => 'email',
+            'utm_campaign' => $this->type,
+        );
+        $utmString = http_build_query($utm);
+        $glue = (strpos('?', $url) === false) ? '?' : '&';
+        return $url . $glue . $utmString;
     }
 
     /**

@@ -10,10 +10,10 @@ class DefaultController extends HController
      * @param $redirectUrl
      * @param $hash
      */
-    public function actionAuth($redirectUrl, $hash)
+    public function actionRedirect($redirectUrl, $tokenHash)
 	{
         if (Yii::app()->user->isGuest) {
-            $identity = new MailTokenUserIdentity($hash);
+            $identity = new MailTokenUserIdentity($tokenHash);
             if ($identity->authenticate()) {
                 Yii::app()->user->login($identity);
             }

@@ -17,12 +17,8 @@ abstract class MailSender extends CComponent
 
     protected function sendInternal(User $user, MailMessage $message)
     {
-        if ($user->online)
-            return false;
-        else {
-            if (ElasticEmail::send($user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
-                $this->createDelivery($message);
-            }
+        if (ElasticEmail::send($user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
+            $this->createDelivery($message);
         }
     }
 

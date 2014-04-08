@@ -15,9 +15,4 @@ class MailSenderDialogues extends MailSender
         $message = new MailMessageDialogues($user);
         $this->sendInternal($message);
     }
-
-    public function send($userId)
-    {
-
-    }
 }

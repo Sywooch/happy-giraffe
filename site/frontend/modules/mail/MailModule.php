@@ -2,8 +2,6 @@
 
 class MailModule extends CWebModule
 {
-    const TYPE_MESSAGES = 0;
-
 	public function init()
 	{
 		// this method is called when the module is being created

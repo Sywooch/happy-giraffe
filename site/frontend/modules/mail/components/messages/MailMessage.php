@@ -1,28 +1,53 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 04/04/14
- * Time: 10:31
- * To change this template use File | Settings | File Templates.
+ * Сообщение
+ *
+ * Каждый экземпляр этого класса представляет собой готовое сообщение для отправки. Отвечает за генерацию письма
+ * и все смежные действия
  */
 
 abstract class MailMessage extends CComponent
 {
+    /**
+     * Пользователь, для которого предназначено письмо
+     *
+     * @property User $user
+     */
     public $user;
+
+    /**
+     * Тип письма. Используется как значение UTM-метки utm_campaign и в качестве названия шаблона по умолчанию
+     *
+     * @property string $type
+     */
     public $type;
+
+    /**
+     * Тело письма
+     *
+     * @var string mixed
+     */
     public $bodyHtml;
 
     /**
+     * Аутентификационный токен
+     *
      * @property MailToken $token
      */
     protected $token;
 
     /**
+     * Модель доставки, нужна для статистики
+     *
      * @property MailDelivery $delivery
      */
     public $delivery;
 
+    /**
+     * Возвращает заголовок письма
+     *
+     * @return string
+     */
     abstract public function getSubject();
 
     public function __construct(User $user, $params = array())
@@ -41,11 +66,24 @@ abstract class MailMessage extends CComponent
         $this->bodyHtml = $app->getCommandRunner()->getCommand()->renderFile($this->getTemplate(), array('message' => $this), true);
     }
 
+    /**
+     * Возвращает тело письма
+     *
+     * @return string
+     */
     public function getBody()
     {
         return $this->bodyHtml;
     }
 
+    /**
+     * Генерирует ссылки, используется главным образом внутри шаблонов
+     *
+     * @param $url
+     * @param null $utmContent
+     * @return string
+     * @throws CException
+     */
     public function createUrl($url, $utmContent = null)
     {
         if (is_array($url))
@@ -57,15 +95,28 @@ abstract class MailMessage extends CComponent
             else
                 throw new CException('Wrong url parameter');
         }
-        $url = $this->addTokenHash($this->addUtmTags($url, $utmContent));
+        $url = $this->addRedirect($this->addUtmTags($url, $utmContent));
         return $url;
     }
 
-    protected function addTokenHash($url)
+    /**
+     * Подменяет оригинальную ссылку на промежуточную, необходимую для подсчета статистики и авторизации
+     *
+     * @param $url
+     * @return string
+     */
+    protected function addRedirect($url)
     {
         return Yii::app()->createAbsoluteUrl('/mail/default/redirect', array('redirectUrl' => urlencode($url), 'tokenHash' => $this->token->hash, 'deliveryHash' => $this->delivery->hash));
     }
 
+    /**
+     * Добавляет UTM-теги
+     *
+     * @param $url
+     * @param $utmContent
+     * @return string
+     */
     protected function addUtmTags($url, $utmContent)
     {
         $utm = array(
@@ -82,6 +133,8 @@ abstract class MailMessage extends CComponent
     }
 
     /**
+     * Генерирует аутентификационный токен для письма
+     *
      * @return MailToken
      */
     protected function createToken()
@@ -94,6 +147,11 @@ abstract class MailMessage extends CComponent
         return $token;
     }
 
+    /**
+     * Генерирует модель доставки
+     *
+     * @return MailDelivery
+     */
     protected function createDelivery()
     {
         $delivery = new MailDelivery();
@@ -104,12 +162,19 @@ abstract class MailMessage extends CComponent
         return $delivery;
     }
 
+    /**
+     * Генерирует уникальный хеш
+     *
+     * @return string
+     */
     protected function getUniqueHash()
     {
         return md5(uniqid($this->user->id, true));
     }
 
     /**
+     * Возвращает срок жизни аутентификационного токена
+     *
      * @return int
      */
     protected function getTokenLifetime()
@@ -117,6 +182,11 @@ abstract class MailMessage extends CComponent
         return 48 * 60 * 60;
     }
 
+    /**
+     * Возвращает файл, который будет использован для рендеринга письма
+     *
+     * @return string
+     */
     protected function getTemplate()
     {
         return Yii::getPathOfAlias('site.frontend.modules.mail.tpls') . DIRECTORY_SEPARATOR . $this->type . '.php';

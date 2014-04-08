@@ -1,14 +1,18 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 07/04/14
- * Time: 16:03
- * To change this template use File | Settings | File Templates.
+ * Команда для отправки рассылок
+ *
+ * Список поддерживаемых рассылок:
+ * dialogues - новые непрочитанные сообщения
  */
 
 class DefaultCommand extends CConsoleCommand
 {
+    /**
+     * Инициализаия
+     *
+     * Создается экземпляр класса MailModule для того, чтобы выполнился импорт классов модуля
+     */
     public function init()
     {
         Yii::import('site.frontend.modules.mail.MailModule');
@@ -16,6 +20,9 @@ class DefaultCommand extends CConsoleCommand
         parent::init();
     }
 
+    /**
+     * Отправка рассылки о новых непрочитанных сообщениях
+     */
     public function actionDialogues()
     {
         $sender = new MailSenderDialogues();

@@ -43,7 +43,7 @@ abstract class MailMessage extends CComponent
                     $url = Yii::app()->createAbsoluteUrl($url[0], array_splice($url, 1));
             }
             else
-                $url = '';
+                throw new CException('Wrong url parameter');
         }
         $url = $this->addTokenHash($this->addUtmTags($url, $utmContent));
         return $url;

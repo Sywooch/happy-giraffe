@@ -15,6 +15,6 @@ class MailMessageDialogues extends MailMessage
 
     public function getSubject()
     {
-        return 'лол что';
+        return 'лол что' . time();
     }
 }

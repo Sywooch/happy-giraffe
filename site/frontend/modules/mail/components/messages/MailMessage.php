@@ -89,7 +89,7 @@ abstract class MailMessage extends CComponent
         $token = new MailToken();
         $token->user_id = $this->user->id;
         $token->expires = time() + $this->getTokenLifetime();
-        $token->hash = $this->getUnqiueHash();
+        $token->hash = $this->getUniqueHash();
         $token->save();
         return $token;
     }
@@ -99,15 +99,12 @@ abstract class MailMessage extends CComponent
         $delivery = new MailDelivery();
         $delivery->user_id = $this->user->id;
         $delivery->type = $this->type;
-        $delivery->hash = $this->getUnqiueHash();
+        $delivery->hash = $this->getUniqueHash();
         $delivery->save();
-        var_dump($delivery->errors);
-        die;
-        $delivery->isNewRecord = false;
         return $delivery;
     }
 
-    protected function getUnqiueHash()
+    protected function getUniqueHash()
     {
         return md5(uniqid($this->user->id, true));
     }

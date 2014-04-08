@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'mail__delivery':
  * @property string $id
  * @property string $user_id
- * @property integer $type
+ * @property string $type
  * @property string $sent
  * @property string $clicked
  * @property string $hash
@@ -32,9 +32,9 @@ class MailDelivery extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, type', 'required'),
-			array('type', 'numerical', 'integerOnly'=>true),
+			array('user_id', 'required'),
 			array('user_id', 'length', 'max'=>10),
+			array('type', 'length', 'max'=>255),
 			array('hash', 'length', 'max'=>32),
 			array('sent, clicked', 'safe'),
 			// The following rule is used by search().
@@ -90,7 +90,7 @@ class MailDelivery extends CActiveRecord
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('user_id',$this->user_id,true);
-		$criteria->compare('type',$this->type);
+		$criteria->compare('type',$this->type,true);
 		$criteria->compare('sent',$this->sent,true);
 		$criteria->compare('clicked',$this->clicked,true);
 		$criteria->compare('hash',$this->hash,true);

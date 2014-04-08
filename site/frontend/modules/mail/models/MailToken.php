@@ -10,7 +10,7 @@
  * @property string $hash
  *
  * The followings are the available model relations:
- * @property User $user
+ * @property Users $user
  */
 class MailToken extends CActiveRecord
 {
@@ -48,7 +48,7 @@ class MailToken extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
+			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
 		);
 	}
 

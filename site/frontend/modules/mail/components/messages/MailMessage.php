@@ -9,25 +9,36 @@
 
 abstract class MailMessage extends CComponent
 {
-    public $userId;
+    public $user;
     public $type;
     public $bodyHtml;
 
-    private $token;
+    /**
+     * @property MailToken $token
+     */
+    protected $token;
 
-    public function __construct($userId, $params = array())
+    /**
+     * @property MailDelivery $delivery
+     */
+    public $delivery;
+
+    abstract public function getSubject();
+
+    public function __construct(User $user, $params = array())
     {
-        $this->userId = $userId;
+        $this->token = $this->createToken();
+        $this->delivery = $this->createDelivery();
+
+        $this->user = $user;
         foreach ($params as $k => $v)
             $this->$k = $v;
         /**
          * @var CConsoleApplication $app
          */
         $app = Yii::app();
-        $this->bodyHtml = Yii::app()->controller->renderFile($this->getTemplate(), array('message' => $this), true);
+        $this->bodyHtml = $app->getCommandRunner()->getCommand()->renderFile($this->getTemplate(), array('message' => $this), true);
     }
-
-    abstract public function getSubject();
 
     public function getBody()
     {
@@ -51,7 +62,7 @@ abstract class MailMessage extends CComponent
 
     protected function addTokenHash($url)
     {
-        return Yii::app()->createAbsoluteUrl('/mail/default/redirect', array('redirectUrl' => urlencode($url), 'tokenHash' => $this->getToken()->hash));
+        return Yii::app()->createAbsoluteUrl('/mail/default/redirect', array('redirectUrl' => urlencode($url), 'tokenHash' => $this->token->hash, 'deliveryHash' => $this->delivery->hash));
     }
 
     protected function addUtmTags($url, $utmContent)
@@ -72,33 +83,29 @@ abstract class MailMessage extends CComponent
     /**
      * @return MailToken
      */
-    public function getToken()
-    {
-        if ($this->token === null) {
-            $this->token = $this->createToken();
-        }
-        return $this->token;
-    }
-
-    /**
-     * @param MailToken $token
-     */
-    public function setToken(MailToken $token)
-    {
-        $this->token = $token;
-    }
-
-    /**
-     * @return MailToken
-     */
     protected function createToken()
     {
         $token = new MailToken();
-        $token->user_id = $this->userId;
+        $token->user_id = $this->user->id;
         $token->expires = time() + $this->getTokenLifetime();
-        $token->hash = md5(uniqid($this->userId, true));
+        $token->hash = $this->getUnqiueHash();
         $token->save();
         return $token;
+    }
+
+    protected function createDelivery()
+    {
+        $delivery = new MailDelivery();
+        $delivery->user_id = $this->user->id;
+        $delivery->type = $this->type;
+        $delivery->hash = $this->getUnqiueHash();
+        $delivery->save();
+        return $delivery;
+    }
+
+    protected function getUnqiueHash()
+    {
+        return md5(uniqid($this->user->id, true));
     }
 
     /**

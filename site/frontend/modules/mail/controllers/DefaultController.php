@@ -10,13 +10,21 @@ class DefaultController extends HController
      * @param $redirectUrl
      * @param $hash
      */
-    public function actionRedirect($redirectUrl, $tokenHash)
+    public function actionRedirect($redirectUrl, $tokenHash, $deliveryHash)
 	{
         if (Yii::app()->user->isGuest) {
             $identity = new MailTokenUserIdentity($tokenHash);
             if ($identity->authenticate()) {
                 Yii::app()->user->login($identity);
             }
+        }
+
+        $delivery = MailDelivery::model()->findByAttributes(array(
+            'hash' => $deliveryHash,
+            'sent' => null,
+        ));
+        if ($delivery !== null) {
+            $delivery->clicked();
         }
 
         $this->redirect(urldecode($redirectUrl));

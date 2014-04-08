@@ -8,7 +8,7 @@ class DefaultController extends HController
      * Аутентифицирует гостя в случае наличия активного токена и переадресует на нужную страницу
      *
      * @param $redirectUrl
-     * @param $token
+     * @param $hash
      */
     public function actionAuth($redirectUrl, $hash)
 	{

@@ -39,6 +39,8 @@ class RegisterWidget extends CWidget
      */
     public function autoOpen()
     {
+        return 'false';
+
         $showForm = ! Yii::app()->request->cookies->contains('registerWindowShown') && ! Yii::app()->request->cookies->contains('not_guest') && Yii::app()->user->getState('viewsCount') == 2;
         if ($showForm) {
             Yii::app()->request->cookies['registerWindowShown'] = new CHttpCookie('registerWindowShown', 1);

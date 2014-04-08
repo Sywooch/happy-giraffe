@@ -24,7 +24,7 @@ abstract class MailMessage extends CComponent
          * @var CConsoleApplication $app
          */
         $app = Yii::app();
-        $this->bodyHtml = $app->getCommandRunner()->getCommand()->renderFile($this->getTemplate(), compact('this'), true);
+        $this->bodyHtml = $app->getCommandRunner()->getCommand()->renderFile($this->getTemplate(), array('message' => $this), true);
     }
 
     abstract public function getSubject();
@@ -34,16 +34,25 @@ abstract class MailMessage extends CComponent
         return $this->bodyHtml;
     }
 
-    public function createUrl($route, $params = array(), $utm_content = null)
+    public function createUrl($url, $utm_content = null)
     {
-        $url = Yii::app()->createAbsoluteUrl($route, $params);
+        if (is_array($url))
+        {
+            if (isset($url[0]))
+            {
+                    $url = Yii::app()->createAbsoluteUrl($url[0], array_splice($url, 1));
+            }
+            else
+                $url = '';
+        }
+        $url = $this->addTokenHash($url);
         $url = $this->addUtmTags($url, $utm_content);
-        return $this->addTokenHash($url);
+        return $url;
     }
 
     protected function addTokenHash($url)
     {
-        return Yii::app()->createUrl('/mail/default/auth', array('redirectUrl' => $url, 'token' => $this->getToken()->hash));
+        return Yii::app()->createAbsoluteUrl('/mail/default/auth', array('redirectUrl' => urlencode($url), 'token' => $this->getToken()->hash));
     }
 
     protected function addUtmTags($url)

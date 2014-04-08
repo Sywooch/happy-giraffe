@@ -23,14 +23,14 @@ return array(
         // photo view
         //'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         array(
-            'class' => 'application.components.PhotoUrlRule',
+            'class' => 'site.frontend.components.PhotoUrlRule',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>',
             'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
             'blog' => true,
         ),
         //'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         array(
-            'class' => 'application.components.PhotoUrlRule',
+            'class' => 'site.frontend.components.PhotoUrlRule',
             'pattern' => 'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>',
             'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
             'blog' => false,
@@ -136,12 +136,12 @@ return array(
 
         /************************************************* community  *************************************************/
         array(
-            'class' => 'application.components.ClubUrlRule',
+            'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>',
             'route' => 'community/default/club',
         ),
         array(
-            'class' => 'application.components.ClubUrlRule',
+            'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>/services',
             'route' => 'community/default/services',
         ),

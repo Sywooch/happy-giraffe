@@ -131,6 +131,7 @@ return array(
         'family',
         'antispam',
         'signup',
+        'mail',
 	),
 	// application components
 	'components'=>array(

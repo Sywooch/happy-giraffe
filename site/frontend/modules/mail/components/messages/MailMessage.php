@@ -27,12 +27,13 @@ abstract class MailMessage extends CComponent
 
     public function __construct(User $user, $params = array())
     {
-        $this->token = $this->createToken();
-        $this->delivery = $this->createDelivery();
-
         $this->user = $user;
         foreach ($params as $k => $v)
             $this->$k = $v;
+
+        $this->token = $this->createToken();
+        $this->delivery = $this->createDelivery();
+
         /**
          * @var CConsoleApplication $app
          */
@@ -100,6 +101,9 @@ abstract class MailMessage extends CComponent
         $delivery->type = $this->type;
         $delivery->hash = $this->getUnqiueHash();
         $delivery->save();
+        var_dump($delivery->errors);
+        die;
+        $delivery->isNewRecord = false;
         return $delivery;
     }
 

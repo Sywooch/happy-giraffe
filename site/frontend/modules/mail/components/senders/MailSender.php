@@ -19,6 +19,7 @@ abstract class MailSender extends CComponent
     {
         if (ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
             $message->delivery->sent();
+            var_dump($message->delivery);
         }
     }
 }

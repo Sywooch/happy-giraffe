@@ -8,7 +8,8 @@ class DefaultController extends HController
      * Аутентифицирует гостя в случае наличия активного токена и переадресует на нужную страницу
      *
      * @param $redirectUrl
-     * @param $hash
+     * @param $tokenHash
+     * @param $deliveryHash
      */
     public function actionRedirect($redirectUrl, $tokenHash, $deliveryHash)
 	{
@@ -21,8 +22,9 @@ class DefaultController extends HController
 
         $delivery = MailDelivery::model()->findByAttributes(array(
             'hash' => $deliveryHash,
-            'sent' => null,
+            'clicked' => null,
         ));
+
         if ($delivery !== null) {
             $delivery->clicked();
         }

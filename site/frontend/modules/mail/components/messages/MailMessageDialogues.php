@@ -9,15 +9,12 @@
 
 class MailMessageDialogues extends MailMessage
 {
-    public $tpl = 'dialogues';
+    public $type = 'dialogues';
+    public $totalCount;
+    public $users;
 
-    public function getTitle()
+    public function getSubject()
     {
-        return '';
-    }
-
-    public function getBody()
-    {
-        return '';
+        return 'лол что';
     }
 }

@@ -12,6 +12,9 @@ return array(
             'class' => 'system.cli.commands.MigrateCommand',
             'migrationPath' => 'site.common.migrations',
         ),
+        'email' => array(
+            'class' => 'site.frontend.modules.mail.commands.DefaultCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

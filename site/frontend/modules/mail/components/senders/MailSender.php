@@ -7,18 +7,31 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class MailSender
+abstract class MailSender extends CComponent
 {
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
 
-    public function send($userId)
+    /**
+     * @return MailDelivery
+     */
+    protected function createDelivery()
     {
-        $token = $this->createToken($userId);
-
+        $delivery = new MailDelivery();
+        $delivery->user_id = $this->userId;
+        $delivery->type = $this->type;
+        $delivery->save();
+        return $delivery;
     }
 
+    abstract public function sendAll();
+    abstract public function send($userId);
 
-
-
+    protected function sendInternal(User $user, MailMessage $message)
+    {
+        if ($user->online)
+            return false;
+        else
+            return ElasticEmail::send($user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME);
+    }
 }

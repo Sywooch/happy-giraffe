@@ -34,7 +34,7 @@ abstract class MailMessage extends CComponent
         return $this->bodyHtml;
     }
 
-    public function createUrl($url, $utm_content = null)
+    public function createUrl($url, $utmContent = null)
     {
         if (is_array($url))
         {
@@ -45,7 +45,7 @@ abstract class MailMessage extends CComponent
             else
                 $url = '';
         }
-        $url = $this->addTokenHash($this->addUtmTags($url, $utm_content));
+        $url = $this->addTokenHash($this->addUtmTags($url, $utmContent));
         return $url;
     }
 
@@ -54,13 +54,16 @@ abstract class MailMessage extends CComponent
         return Yii::app()->createAbsoluteUrl('/mail/default/auth', array('redirectUrl' => urlencode($url), 'hash' => $this->getToken()->hash));
     }
 
-    protected function addUtmTags($url)
+    protected function addUtmTags($url, $utmContent)
     {
         $utm = array(
             'utm_source' => 'happygiraffe',
             'utm_medium' => 'email',
             'utm_campaign' => $this->type,
         );
+        if ($utmContent !== null)
+            $utm['utm_content'] = $utmContent;
+
         $utmString = http_build_query($utm);
         $glue = (strpos('?', $url) === false) ? '?' : '&';
         return $url . $glue . $utmString;

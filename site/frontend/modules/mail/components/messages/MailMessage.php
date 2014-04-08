@@ -51,7 +51,7 @@ abstract class MailMessage extends CComponent
 
     protected function addTokenHash($url)
     {
-        return Yii::app()->createAbsoluteUrl('/mail/default/auth', array('redirectUrl' => urlencode($url), 'hash' => $this->getToken()->hash));
+        return Yii::app()->createAbsoluteUrl('/mail/default/redirect', array('redirectUrl' => urlencode($url), 'tokenHash' => $this->getToken()->hash));
     }
 
     protected function addUtmTags($url, $utmContent)

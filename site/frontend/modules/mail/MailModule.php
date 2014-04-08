@@ -14,6 +14,7 @@ class MailModule extends CWebModule
 			'mail.models.*',
 			'mail.components.*',
             'mail.components.messages.*',
+            'mail.components.senders.*',
             'mail.models.*',
 		));
 	}

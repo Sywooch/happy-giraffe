@@ -9,30 +9,40 @@
 
 abstract class MailMessage extends CComponent
 {
-    abstract public function getTitle();
-    abstract public function getBody();
-
     public $userId;
     public $type;
-    public $html;
+    public $bodyHtml;
 
     private $token;
 
-    public function __construct($userId)
+    public function __construct($userId, $params = array())
     {
         $this->userId = $userId;
-        $this->html = $html = Yii::app()->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'contest_12.php', array(), true);
+        foreach ($params as $k => $v)
+            $this->$k = $v;
+        /**
+         * @var CConsoleApplication $app
+         */
+        $app = Yii::app();
+        $this->bodyHtml = $app->getCommandRunner()->getCommand()->renderFile($this->getTemplate(), $params, true);
+    }
+
+    abstract public function getSubject();
+
+    public function getBody()
+    {
+        return $this->bodyHtml;
     }
 
     protected function replaceUrls()
     {
-        $dom = str_get_html($this->html);
+        $dom = str_get_html($this->bodyHtml);
         foreach ($dom->find('a') as $link) {
             $href = $link->getAttribute('href');
             $newHref = Yii::app()->createUrl('/mail/default/auth', array('redirectUrl' => $href, 'token' => $this->getToken()->hash));
             $link->setAttribute('href', $newHref);
         }
-        $this->html = $dom->save();
+        $this->bodyHtml = $dom->save();
     }
 
     /**
@@ -65,18 +75,6 @@ abstract class MailMessage extends CComponent
         $token->hash = md5(uniqid($this->userId, true));
         $token->save();
         return $token;
-    }
-
-    /**
-     * @return MailDelivery
-     */
-    protected function createDelivery()
-    {
-        $delivery = new MailDelivery();
-        $delivery->user_id = $this->userId;
-        $delivery->type = $this->type;
-        $delivery->save();
-        return $delivery;
     }
 
     /**

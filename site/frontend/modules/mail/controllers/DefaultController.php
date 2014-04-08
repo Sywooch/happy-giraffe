@@ -10,22 +10,21 @@ class DefaultController extends HController
      * @param $redirectUrl
      * @param $token
      */
-    public function actionAuth($redirectUrl, $token)
+    public function actionAuth($redirectUrl, $hash)
 	{
-        die;
-
         if (Yii::app()->user->isGuest) {
-            $identity = new MailTokenUserIdentity($token);
+            $identity = new MailTokenUserIdentity($hash);
             if ($identity->authenticate()) {
-                Yii::app()->user->login($token);
+                Yii::app()->user->login($identity);
             }
         }
 
-        $this->redirect($redirectUrl);
+        $this->redirect(urldecode($redirectUrl));
 	}
 
     public function actionDialogues()
     {
-
+        $sender = new MailSenderDialogues();
+        $sender->sendAll();
     }
 }

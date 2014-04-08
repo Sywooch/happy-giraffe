@@ -11,16 +11,9 @@ class MailSenderDialogues extends MailSender
 {
     public function sendAll()
     {
-        $message = new MailMessageDialogues(12936);
-        echo $message->getBody();
-//        $dp = new CActiveDataProvider('User');
-//        $iterator = new CDataProviderIterator($dp, 1000);
-//        foreach ($iterator as $user) {
-//            $total = MessagingManager::unreadMessagesCount($user->id);
-//            if ($total > 0) {
-//
-//            }
-//        }
+        $user = User::model()->findByPk(12936);
+        $message = new MailMessageDialogues($user);
+        $this->sendInternal($message);
     }
 
     public function send($userId)

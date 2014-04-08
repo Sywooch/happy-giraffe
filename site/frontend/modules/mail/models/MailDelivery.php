@@ -8,6 +8,8 @@
  * @property string $user_id
  * @property integer $type
  * @property string $sent
+ * @property string $clicked
+ * @property string $hash
  *
  * The followings are the available model relations:
  * @property Users $user
@@ -30,12 +32,14 @@ class MailDelivery extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, type, sent', 'required'),
+			array('user_id, type', 'required'),
 			array('type', 'numerical', 'integerOnly'=>true),
 			array('user_id', 'length', 'max'=>10),
+			array('hash', 'length', 'max'=>32),
+			array('sent, clicked', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, type, sent', 'safe', 'on'=>'search'),
+			array('id, user_id, type, sent, clicked, hash', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +65,8 @@ class MailDelivery extends CActiveRecord
 			'user_id' => 'User',
 			'type' => 'Type',
 			'sent' => 'Sent',
+			'clicked' => 'Clicked',
+			'hash' => 'Hash',
 		);
 	}
 
@@ -86,6 +92,8 @@ class MailDelivery extends CActiveRecord
 		$criteria->compare('user_id',$this->user_id,true);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('sent',$this->sent,true);
+		$criteria->compare('clicked',$this->clicked,true);
+		$criteria->compare('hash',$this->hash,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -102,4 +110,16 @@ class MailDelivery extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function sent()
+    {
+        $this->sent = new CDbExpression('NOW()');
+        $this->update(array('sent'));
+    }
+
+    public function clicked()
+    {
+        $this->clicked = new CDbExpression('NOW()');
+        $this->update(array('clicked'));
+    }
 }

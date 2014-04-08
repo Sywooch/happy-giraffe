@@ -15,19 +15,10 @@ abstract class MailSender extends CComponent
     abstract public function sendAll();
     abstract public function send($userId);
 
-    protected function sendInternal(User $user, MailMessage $message)
+    protected function sendInternal(MailMessage $message)
     {
-        if (ElasticEmail::send($user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
-            $this->createDelivery($message);
+        if (ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
+            $message->delivery->sent();
         }
-    }
-
-    protected function createDelivery(MailMessage $message)
-    {
-        $delivery = new MailDelivery();
-        $delivery->user_id = $message->userId;
-        $delivery->type = $message->type;
-        $delivery->save();
-        return $delivery;
     }
 }

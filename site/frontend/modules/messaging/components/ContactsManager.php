@@ -462,6 +462,7 @@ class ContactsManager
                     # Имеет входящий запрос в друзья
                     LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = tu.user_id AND fr2.to_id = u.id AND fr2.status = 'pending'
                     WHERE tu.user_id = :user_id #AND b.user_id IS NULL
+                    GROUP BY uId
                     LIMIT 1
 					
 					UNION

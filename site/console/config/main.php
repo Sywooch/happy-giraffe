@@ -21,6 +21,7 @@ return array(
         'site.common.behaviors.*',
         'site.common.models.*',
         'site.common.helpers.*',
+        'site.frontend.components.*',
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
         'site.frontend.extensions.directmongosuite.*',
@@ -118,7 +119,7 @@ return array(
                 'keywords' => 100,
             ),
         ),
-        'urlManager'=>require_once(dirname(__FILE__).'../frontend/url.php'),
+        'urlManager'=>require_once(dirname(__FILE__).'/../../frontend/config/url.php'),
         'mc' => array(
             'class' => 'site.common.extensions.mailchimp.MailChimp',
             'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',

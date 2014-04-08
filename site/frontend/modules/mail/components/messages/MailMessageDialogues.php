@@ -9,7 +9,7 @@
 
 class MailMessageDialogues extends MailMessage
 {
-    public $type = 'dialogues';
+    public $type = 'dialoguesTest';
     public $totalCount;
     public $users;
 

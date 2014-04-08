@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends Controller
+class DefaultController extends HController
 {
     /**
      * Аутентификация
@@ -12,6 +12,8 @@ class DefaultController extends Controller
      */
     public function actionAuth($redirectUrl, $token)
 	{
+        die;
+
         if (Yii::app()->user->isGuest) {
             $identity = new MailTokenUserIdentity($token);
             if ($identity->authenticate()) {

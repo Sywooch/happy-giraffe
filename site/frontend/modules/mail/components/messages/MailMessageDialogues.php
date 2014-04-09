@@ -33,4 +33,9 @@ class MailMessageDialogues extends MailMessage
 
         return parent::getTitle() . ' ' . $str . '.';
     }
+
+    public function getMainUrlParams()
+    {
+        return array('/messaging/default/index', 'interlocutorId' => $this->contacts[count($this->contacts) - 1]->user->id);
+    }
 }

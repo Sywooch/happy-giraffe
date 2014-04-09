@@ -91,7 +91,24 @@
                                                                 <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="30px" border="0" />
                                                             </td>
                                                             <td align="center" valign="top" >
-                                                                <div style="padding: 10px 5px 75px 84px;color: #ffffff;width:35px;background-repeat:no-repeat;font-size:21px; line-height: 25px; background: url('http://109.87.248.203/new/images/mail/messages.png')">9</div>
+                                                                <a href="<?php echo $message->createUrl($message->getMainUrlParams(), 'readMessagesIcon'); ?>" style="text-decoration:none;border:0;">
+                                                                    <table border="0" cellpadding="0" cellspacing="0">
+                                                                        <tr>
+                                                                            <td background="/new/images/mail/messages.png" bgcolor="#ffffff" width="125" height="108" valign="top" align="center">
+                                                                                <!--[if gte mso 9]>
+                                                                                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:125px;height:108px;">
+                                                                                    <v:fill type="tile" src="http://109.87.248.203/new/images/mail/messages.png" color="#ffffff" />
+                                                                                    <v:textbox inset="0,0,0,0">
+                                                                                <![endif]-->
+                                                                                <div style="padding: 10px 5px 75px 82px;color: #ffffff;width:35px;background-repeat:no-repeat;font-size:21px; line-height: 25px;"></div>
+                                                                                <!--[if gte mso 9]>
+                                                                                </v:textbox>
+                                                                                </v:rect>
+                                                                                <![endif]-->
+                                                                            </td>
+                                                                        </tr>
+                                                                    </table>
+                                                                </a>
                                                             </td>
                                                             <?php $message->render('_contact', array('contact' => $message->contacts[0])); ?>
                                                             <?php if ($message->contactsCount > 1): ?>
@@ -129,7 +146,7 @@
                                                                         <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="20px" border="0" />
                                                                     </td>
                                                                     <td width="auto" valign="top" align="center" colspan="3"  style="padding-top: 23px;">
-                                                                        <a href="<?php echo $message->createUrl(array('/messaging/default/index', 'readMessagesLink')); ?>" style="color:#3482e2; font-size:24px;">Прочитать сообщения</a>
+                                                                        <a href="<?php echo $message->createUrl($message->getMainUrlParams(), 'readMessagesLink'); ?>" style="color:#3482e2; font-size:24px;">Прочитать сообщения</a>
                                                                     </td>
                                                                 <?php endif; ?>
                                                             </tr>

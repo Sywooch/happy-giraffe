@@ -1,6 +1,7 @@
 <?php
 /**
- * @var MailMessageDialogues $this
+ * @var DefaultCommand $this
+ * @var MailMessageDialogues $message
  */
 ?>
 
@@ -10,7 +11,7 @@
     <!-- script for develop livereload -->
     <script src="//localhost:35729/livereload.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title><?=$this->getSubject()?></title>
+    <title>Веселй Жираф - С 8 Марта!</title>
 
 </head>
 <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="background: #f0f0f0;">
@@ -48,7 +49,7 @@
                                             </tr>
                                             <tr>
                                                 <td valign="top" align="center">
-                                                    <a href="<?php echo $message->createUrl(array('site/index'), 'toplogo'); ?>" target="_blank">
+                                                    <a href="<?php echo $message->createUrl(array('site/index'), 'topLogo'); ?>" target="_blank">
                                                         <img src="http://www.happy-giraffe.ru/new/images/mail/mail-top-logo.png" width="221px" height="62px"/>
                                                     </a>
                                                 </td>
@@ -72,7 +73,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="color: #333333; font-size: 16px;text-align:center;">Здравствуйте, {firstname}! У вас новое сообщение.</td>
+                                                <td style="color: #333333; font-size: 16px;text-align:center;"><?php echo $message->getTitle(); ?></td>
                                             </tr>
 
                                             <tr>
@@ -84,7 +85,7 @@
 
                                                 <td valign="top" align="center">
                                                     <!-- messages -->
-                                                    <table border="0" cellpadding="0" cellspacing="0" width="400px">
+                                                    <table border="0" cellpadding="0" cellspacing="0" width="<?php echo ($message->contactsCount > 1) ? '600' : '400'; ?>px">
                                                         <tr>
                                                             <td  height="3" style="">
                                                                 <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="30px" border="0" />
@@ -92,8 +93,47 @@
                                                             <td align="center" valign="top" >
                                                                 <div style="padding: 10px 5px 75px 84px;color: #ffffff;width:35px;background-repeat:no-repeat;font-size:21px; line-height: 25px; background: url('http://109.87.248.203/new/images/mail/messages.png')">9</div>
                                                             </td>
-                                                            <?php $message->render('_contact'); ?>
+                                                            <?php $message->render('_contact', array('contact' => $message->contacts[0])); ?>
+                                                            <?php if ($message->contactsCount > 1): ?>
+                                                                <?php $message->render('_contact', array('contact' => $message->contacts[1])); ?>
+                                                            <?php endif; ?>
                                                         </tr>
+                                                        <?php if ($message->contactsCount > 2): ?>
+                                                            <tr>
+                                                                <td colspan="6" height="40px">
+                                                                    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="40" width="100%" border="0" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <?php $message->render('_contact', array('contact' => $message->contacts[2])); ?>
+                                                                <?php if ($message->contactsCount > 3): ?>
+                                                                    <?php $message->render('_contact', array('contact' => $message->contacts[3])); ?>
+                                                                    <?php if ($message->contactsCount > 5): ?>
+                                                                        <td  height="3" style="">
+                                                                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="20px" border="0" />
+                                                                        </td>
+                                                                        <td width="auto" valign="top">
+                                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:23px;">
+                                                                                <tr>
+                                                                                    <td align="center">
+                                                                                        <span style="color:#cccccc;font:24px/26px tahoma, helvetica, sans-serif;">еще <?=($message->contactsCount - 4)?></span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </table>
+                                                                        </td>
+                                                                    <?php else: ?>
+                                                                        <?php $message->render('_contact', array('contact' => $message->contacts[4])); ?>
+                                                                    <?php endif; ?>
+                                                                <?php else: ?>
+                                                                    <td  height="3" style="">
+                                                                        <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="20px" border="0" />
+                                                                    </td>
+                                                                    <td width="auto" valign="top" align="center" colspan="3"  style="padding-top: 23px;">
+                                                                        <a href="<?php echo $message->createUrl(array('/messaging/default/index', 'readMessagesLink')); ?>" style="color:#3482e2; font-size:24px;">Прочитать сообщения</a>
+                                                                    </td>
+                                                                <?php endif; ?>
+                                                            </tr>
+                                                        <?php endif; ?>
                                                     </table>
                                                 </td>
                                             </tr>
@@ -102,11 +142,13 @@
                                                     <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="30" width="100%" border="0" />
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td align="center">
-                                                    <a href="<?php echo $message->createUrl(array('/messaging/default/index')); ?>" style="color:#3482e2; font-size:24px;">Прочитать сообщение</a>
-                                                </td>
-                                            </tr>
+                                            <?php if ($message->contactsCount != 3): ?>
+                                                <tr>
+                                                    <td align="center">
+                                                        <a href="<?php echo $message->createUrl(array('/messaging/default/index', 'readMessagesLink')); ?>" style="color:#3482e2; font-size:24px;">Прочитать сообщение</a>
+                                                    </td>
+                                                </tr>
+                                            <?php endif; ?>
                                         </table>
                                         <!-- // END BODY -->
                                     </td>
@@ -123,7 +165,7 @@
                                             <tr>
                                                 <td style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;padding-bottom:17px;">
                                                     С наилучшими пожеланиями,<br/>
-                                                    <span style="color: #3587ec;"><a href="<?php echo $message->createUrl(array('site/index', 'bottomlink')); ?>" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
+                                                    <span style="color: #3587ec;"><a href="<?php echo $message->createUrl(array('site/index'), 'bottomLink'); ?>" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
                                                 </td>
                                             </tr>
                                             <tr>

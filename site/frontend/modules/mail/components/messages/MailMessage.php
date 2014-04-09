@@ -72,6 +72,11 @@ abstract class MailMessage extends CComponent
         return $this->bodyHtml;
     }
 
+    public function getTitle()
+    {
+        return 'Здравствуйте, ' . $this->user->first_name . '!';
+    }
+
     /**
      * Генерирует ссылки, используется главным образом внутри шаблонов
      *

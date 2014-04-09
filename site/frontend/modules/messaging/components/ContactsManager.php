@@ -556,6 +556,7 @@ class ContactsManager
     public static function getContactsForDeliveryCount($userId, $after = null)
     {
         return MessagingMessageUser::model()->user($userId)->unread()->count(array(
+            'select' => 'COUNT(DISTINCT message.author_id) AS contactsCount', // yii требует использовать алиас, но он тут не нужен и обращения к нему нигде нет
             'with' => array(
                 'message' => array(
                     'scopes' => array(

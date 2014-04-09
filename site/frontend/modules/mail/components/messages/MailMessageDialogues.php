@@ -16,6 +16,21 @@ class MailMessageDialogues extends MailMessage
 
     public function getSubject()
     {
-        return 'лол что' . time();
+        return 'У вас новые сообщения ' . time();
+    }
+
+    public function getTitle()
+    {
+        if ($this->contactsCount == 1) {
+            $str = 'У вас одно непрочитанное сообщение.';
+        } else {
+            $str = 'У вас ' . $this->contactsCount . ' ' . Str::GenerateNoun(array(
+                'непрочитанное сообщение',
+                'непрочитанных сообщения',
+                'непрочитанных сообщений',
+            ), $this->contactsCount);
+        }
+
+        return parent::getTitle() . ' ' . $str . '.';
     }
 }

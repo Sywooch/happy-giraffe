@@ -122,4 +122,19 @@ class MailDelivery extends CActiveRecord
         $this->clicked = new CDbExpression('NOW()');
         $this->update(array('clicked'));
     }
+
+    public function type($type)
+    {
+        return $this->getDbCriteria()->compare('type', $type);
+    }
+
+    public function user($userId)
+    {
+        return $this->getDbCriteria()->compare('user_id', $userId);
+    }
+
+    public function getLastDelivery($userId, $type)
+    {
+        return $this->user($userId)->type($type);
+    }
 }

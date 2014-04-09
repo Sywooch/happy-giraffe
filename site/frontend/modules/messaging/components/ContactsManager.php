@@ -530,4 +530,39 @@ class ContactsManager
             'profileUrl' => $user->getUrl(),
         );
     }
+
+    public static function getContactsForDelivery($userId, $limit, $after = null)
+    {
+        $rows = MessagingMessageUser::model()->unread()->user($userId)->findAll(array(
+            'select' => 'author.*, COUNT(*) AS unreadCount',
+            'with' => array(
+                'message' => array(
+                    'scopes' => array(
+                        'orderDesc',
+                        'older' => $after,
+                    ),
+                    'with' => array('author'),
+                ),
+            ),
+            'limit' => $limit,
+            'group' => 'author.id',
+        ));
+
+        return array_map(function($row) {
+            return new MessagingContact($row->message->author, $row->message->unreadCount);
+        }, $rows);
+    }
+
+    public static function getContactsForDeliveryCount($userId, $after = null)
+    {
+        return MessagingMessageUser::model()->user($userId)->unread()->count(array(
+            'with' => array(
+                'message' => array(
+                    'scopes' => array(
+                        'older' => $after,
+                    ),
+                ),
+            ),
+        ));
+    }
 }

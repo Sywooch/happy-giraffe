@@ -11,8 +11,19 @@ class MailSenderDialogues extends MailSender
 {
     public function sendAll()
     {
-        $user = User::model()->findByPk(12936);
-        $message = new MailMessageDialogues($user);
-        $this->sendInternal($message);
+        $dp = new CActiveDataProvider('User');
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $user) {
+            $messagesCount = MessagingManager::unreadMessagesCount($user->id);
+            if ($messagesCount == 0)
+                break;
+
+            $lastDelivery = MailDelivery::model()->getLastDelivery($user->id, 'dialogues');
+            $after = $lastDelivery === null ? null : $lastDelivery->sent;
+            $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
+            $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);
+
+
+        }
     }
 }

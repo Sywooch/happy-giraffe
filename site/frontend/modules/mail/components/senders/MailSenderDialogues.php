@@ -29,6 +29,7 @@ class MailSenderDialogues extends MailSender
             $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
             $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);
             $this->sendInternal(new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount')));
+            break;
         }
     }
 }

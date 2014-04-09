@@ -125,16 +125,18 @@ class MailDelivery extends CActiveRecord
 
     public function type($type)
     {
-        return $this->getDbCriteria()->compare('type', $type);
+        $this->getDbCriteria()->compare('type', $type);
+        return $this;
     }
 
     public function user($userId)
     {
-        return $this->getDbCriteria()->compare('user_id', $userId);
+        $this->getDbCriteria()->compare('user_id', $userId);
+        return $this;
     }
 
     public function getLastDelivery($userId, $type)
     {
-        return $this->user($userId)->type($type);
+        return $this->user($userId);
     }
 }

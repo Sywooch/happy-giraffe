@@ -8,8 +8,8 @@
  */
 class MessagingManager
 {
-    public static function unreadMessagesCount($userId)
+    public static function unreadMessagesCount($userId, $criteria = null)
     {
-        return MessagingMessageUser::model()->user($userId)->unread()->count();
+        return MessagingMessageUser::model()->user($userId)->unread()->count($criteria);
     }
 }

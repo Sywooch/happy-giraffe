@@ -391,6 +391,9 @@ class MessagingMessage extends HActiveRecord
      */
     public function older($date)
     {
+        if ($date === null)
+            return $this;
+
         $criteria = $this->dbCriteria;
         $alias = $this->tableAlias;
 

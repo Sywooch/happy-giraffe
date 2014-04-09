@@ -9,9 +9,10 @@
 
 class MailMessageDialogues extends MailMessage
 {
-    public $type = 'dialoguesTest';
-    public $totalCount;
-    public $users;
+    public $type = 'dialogues';
+    public $contacts;
+    public $messagesCount;
+    public $contactsCount;
 
     public function getSubject()
     {

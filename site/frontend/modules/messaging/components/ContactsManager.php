@@ -539,7 +539,7 @@ class ContactsManager
                 'message' => array(
                     'scopes' => array(
                         'orderDesc',
-                        'older' => $after,
+                        'newer' => $after,
                     ),
                     'with' => array('author'),
                 ),
@@ -559,7 +559,7 @@ class ContactsManager
             'with' => array(
                 'message' => array(
                     'scopes' => array(
-                        'older' => $after,
+                        'newer' => $after,
                     ),
                 ),
             ),

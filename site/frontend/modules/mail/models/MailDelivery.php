@@ -137,6 +137,8 @@ class MailDelivery extends CActiveRecord
 
     public function getLastDelivery($userId, $type)
     {
-        return $this->user($userId);
+        return $this->user($userId)->type($type)->find(array(
+            'order' => 'id DESC',
+        ));
     }
 }

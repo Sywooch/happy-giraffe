@@ -59,11 +59,7 @@ abstract class MailMessage extends CComponent
         $this->token = $this->createToken();
         $this->delivery = $this->createDelivery();
 
-        /**
-         * @var CConsoleApplication $app
-         */
-        $app = Yii::app();
-        $this->bodyHtml = $app->getCommandRunner()->getCommand()->renderFile($this->getTemplate(), array('message' => $this), true);
+        $this->bodyHtml = $this->render($this->getTemplateFile(), array('message' => $this), true);
     }
 
     /**
@@ -97,6 +93,20 @@ abstract class MailMessage extends CComponent
         }
         $url = $this->addRedirect($this->addUtmTags($url, $utmContent));
         return $url;
+    }
+
+    public function render($file, $data = null, $return = false)
+    {
+        /**
+         * @var CConsoleApplication $app
+         */
+        $app = Yii::app();
+        $output = $app->getCommandRunner()->getCommand()->renderFile($this->getTemplateInternal($file), $data, true);
+        if ($return) {
+            return $output;
+        } else {
+            echo $output;
+        }
     }
 
     /**
@@ -187,8 +197,18 @@ abstract class MailMessage extends CComponent
      *
      * @return string
      */
-    protected function getTemplate()
+    protected function getTemplateFile()
     {
-        return Yii::getPathOfAlias('site.frontend.modules.mail.tpls') . DIRECTORY_SEPARATOR . $this->type . '.php';
+        return $this->type;
+    }
+
+    protected function getTemplateInternal($file)
+    {
+        return $this->getTemplatesPath() . DIRECTORY_SEPARATOR . $file . '.php';
+    }
+
+    protected function getTemplatesPath()
+    {
+        return Yii::getPathOfAlias('site.frontend.modules.mail.tpls');
     }
 }

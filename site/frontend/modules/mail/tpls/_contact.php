@@ -1,0 +1,34 @@
+<?php
+/**
+ * @var MessagingContact $contact
+ */
+?>
+
+<td  height="3" style="">
+    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="30px" border="0" />
+</td>
+<td width="auto">
+    <table cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:8px;">
+        <tr>
+            <td valign="top" align="center">
+                <span style="margin: 0 auto;">
+                    <a href="" style="width:72px; text-decoration:none;">
+                        <img src="http://www.happy-giraffe.ru/images/mail/avatar.jpg" style="-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
+                    </a>
+                    <span style="margin:3px 0 0 -18px; padding: 1px 5px;border-radius: 10px; border: 2px solid #ffffff;background:#f84219;color:#ffffff;font-size:11px;line-height:14px;vertical-align:top; display:inline-block;">9</span>
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" align="center">
+                <a href="" style="color:#289fd7;font:12px arial, helvetica, sans-serif;text-decoration:none;">Татьяна Бондарчук</a>
+                <span style="color:#9d9c9c; font-size:9px;">35 лет</span>
+            </td>
+        </tr>
+        <tr>
+            <td align="center">
+                <span style="color:#858484;font:9px/12px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/ru0018.gif" style="margin-right:5px;">Санкт-Петербург</span>
+            </td>
+        </tr>
+    </table>
+</td>

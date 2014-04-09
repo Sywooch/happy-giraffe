@@ -10,7 +10,7 @@
     <!-- script for develop livereload -->
     <script src="//localhost:35729/livereload.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Веселй Жираф - С 8 Марта!</title>
+    <title><?=$this->getSubject()?></title>
 
 </head>
 <body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0" style="background: #f0f0f0;">
@@ -48,7 +48,7 @@
                                             </tr>
                                             <tr>
                                                 <td valign="top" align="center">
-                                                    <a href="<?=$this->createUrl(array('/'), 'toplogo')?>" target="_blank">
+                                                    <a href="<?php echo $this->createUrl(array('site/index'), 'toplogo'); ?>" target="_blank">
                                                         <img src="http://www.happy-giraffe.ru/new/images/mail/mail-top-logo.png" width="221px" height="62px"/>
                                                     </a>
                                                 </td>
@@ -87,40 +87,12 @@
                                                     <table border="0" cellpadding="0" cellspacing="0" width="400px">
                                                         <tr>
                                                             <td  height="3" style="">
-                                                                <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="60px" border="0" />
+                                                                <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="30px" border="0" />
                                                             </td>
-                                                            <td align="center" valign="top" background="http://109.87.248.203/new/images/mail/messages.png" style="padding: 14px 5px 70px 84px;color: #ffffff;width:35px;background-repeat:no-repeat;font-size:21px;">
-                                                                9
+                                                            <td align="center" valign="top" >
+                                                                <div style="padding: 10px 5px 75px 84px;color: #ffffff;width:35px;background-repeat:no-repeat;font-size:21px; line-height: 25px; background: url('http://109.87.248.203/new/images/mail/messages.png')">9</div>
                                                             </td>
-                                                            <td  height="3" style="">
-                                                                <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="20px" border="0" />
-                                                            </td>
-                                                            <td width="auto">
-                                                                <table cellpadding="0" cellspacing="0" style="margin-bottom:8px;">
-                                                                    <tr>
-                                                                        <td valign="top" align="center">
-                                                                            <div style="width:72px; margin: 0 auto;">
-                                                                                <a href="" style="float:left;">
-                                                                                    <img src="http://www.happy-giraffe.ru/images/mail/avatar.jpg" style="margin-bottom:3px;-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
-                                                                                </a>
-
-                                                                                <div style="float:right; margin:-77px 0 0; padding: 1px 5px;border-radius: 10px; border: 2px solid #ffffff;background:#f84219;color:#ffffff;font-size:11px;line-height:14px;">9</div>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td valign="top" align="center">
-                                                                            <a href="" style="color:#289fd7;font:12px arial, helvetica, sans-serif;text-decoration:none;">Татьяна Бондарчук</a>
-                                                                            <span style="color:#9d9c9c; font-size:9px;">35 лет</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td align="center">
-                                                                            <span style="color:#858484;font:9px/16px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/ru0018.gif" style="margin-right:5px;">Санкт-Петербург</span>
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </td>
+                                                            <?php $message->render('_contact'); ?>
                                                         </tr>
                                                     </table>
                                                 </td>
@@ -132,7 +104,7 @@
                                             </tr>
                                             <tr>
                                                 <td align="center">
-                                                    <a href="" style="color:#3482e2; font-size:24px;">Прочитать сообщение</a>
+                                                    <a href="<?php echo $this->createUrl(array('/messaging/default/index')); ?>" style="color:#3482e2; font-size:24px;">Прочитать сообщение</a>
                                                 </td>
                                             </tr>
                                         </table>
@@ -151,7 +123,7 @@
                                             <tr>
                                                 <td style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;padding-bottom:17px;">
                                                     С наилучшими пожеланиями,<br/>
-                                                    <span style="color: #3587ec;"><a href="http://www.happy-giraffe.ru/?utm_source=email" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
+                                                    <span style="color: #3587ec;"><a href="<?php echo $this->createUrl(array('site/index', 'bottomlink')); ?>" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
                                                 </td>
                                             </tr>
                                             <tr>

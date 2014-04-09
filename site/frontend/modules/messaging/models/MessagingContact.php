@@ -9,6 +9,19 @@
 
 class MessagingContact
 {
+    /**
+     * @property User $user
+     */
     public $user;
+
+    /**
+     * @property int $unreadCount
+     */
     public $unreadCount;
+
+    public function __construct(User $user, $unreadCount)
+    {
+        $this->user = $user;
+        $this->unreadCount = $unreadCount;
+    }
 }

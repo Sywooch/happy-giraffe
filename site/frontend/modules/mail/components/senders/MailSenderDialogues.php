@@ -9,9 +9,19 @@
 
 class MailSenderDialogues extends MailSender
 {
+    public function __construct()
+    {
+        Yii::import('site.frontend.modules.messaging.components.*');
+        Yii::import('site.frontend.modules.messaging.models.*');
+    }
+
     public function sendAll()
     {
-        $dp = new CActiveDataProvider('User');
+        $dp = new CActiveDataProvider('User', array(
+            'criteria' => array(
+                'condition' => 'id = 12936',
+            ),
+        ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $user) {
             $lastDelivery = MailDelivery::model()->getLastDelivery($user->id, 'dialogues');
@@ -29,7 +39,6 @@ class MailSenderDialogues extends MailSender
             $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
             $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);
             $this->sendInternal(new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount')));
-            break;
         }
     }
 }

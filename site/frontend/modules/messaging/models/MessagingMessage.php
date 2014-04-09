@@ -389,7 +389,7 @@ class MessagingMessage extends HActiveRecord
      *
      * @return MessagingMessage Для цепочки вызовов
      */
-    public function older($date)
+    public function older($date = null)
     {
         if ($date === null)
             return $this;

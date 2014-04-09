@@ -29,14 +29,13 @@ class MailSenderDialogues extends MailSender
             $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
                 'with' => array(
                     'message' => array(
+                        'joinType' => 'INNER JOIN',
                         'scopes' => array(
                             'newer' => $after,
                         ),
                     ),
                 ),
             ));
-
-            echo $messagesCount; die;
 
             if ($messagesCount == 0) {
                 echo 'nothing to send';

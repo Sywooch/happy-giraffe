@@ -21,8 +21,10 @@
         </tr>
         <tr>
             <td valign="top" align="center">
-                <a href="" style="color:#289fd7;font:12px arial, helvetica, sans-serif;text-decoration:none;">Татьяна Бондарчук</a>
-                <span style="color:#9d9c9c; font-size:9px;">35 лет</span>
+                <a href="" style="color:#289fd7;font:12px arial, helvetica, sans-serif;text-decoration:none;"><?php echo $contact->user->getFullName(); ?></a>
+                <?php if ($contact->user->birthday !== null): ?>
+                    <span style="color:#9d9c9c; font-size:9px;"><?php echo $contact->user->getNormalizedAge(); ?></span>
+                <?php endif; ?>
             </td>
         </tr>
         <tr>

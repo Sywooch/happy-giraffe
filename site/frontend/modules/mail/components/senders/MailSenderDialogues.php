@@ -29,12 +29,19 @@ class MailSenderDialogues extends MailSender
             $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
                 'with' => array(
                     'message' => array(
-                        'scopes' => $after,
+                        'scopes' => array(
+                            'newer' => $after,
+                        ),
                     ),
                 ),
             ));
-            if ($messagesCount == 0)
-                break;
+
+            echo $messagesCount; die;
+
+            if ($messagesCount == 0) {
+                echo 'nothing to send';
+                die;
+            }
 
             $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
             $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);

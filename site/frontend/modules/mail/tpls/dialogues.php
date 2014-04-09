@@ -48,7 +48,7 @@
                                             </tr>
                                             <tr>
                                                 <td valign="top" align="center">
-                                                    <a href="<?php echo $this->createUrl(array('site/index'), 'toplogo'); ?>" target="_blank">
+                                                    <a href="<?php echo $message->createUrl(array('site/index'), 'toplogo'); ?>" target="_blank">
                                                         <img src="http://www.happy-giraffe.ru/new/images/mail/mail-top-logo.png" width="221px" height="62px"/>
                                                     </a>
                                                 </td>
@@ -104,7 +104,7 @@
                                             </tr>
                                             <tr>
                                                 <td align="center">
-                                                    <a href="<?php echo $this->createUrl(array('/messaging/default/index')); ?>" style="color:#3482e2; font-size:24px;">Прочитать сообщение</a>
+                                                    <a href="<?php echo $message->createUrl(array('/messaging/default/index')); ?>" style="color:#3482e2; font-size:24px;">Прочитать сообщение</a>
                                                 </td>
                                             </tr>
                                         </table>
@@ -123,7 +123,7 @@
                                             <tr>
                                                 <td style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;padding-bottom:17px;">
                                                     С наилучшими пожеланиями,<br/>
-                                                    <span style="color: #3587ec;"><a href="<?php echo $this->createUrl(array('site/index', 'bottomlink')); ?>" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
+                                                    <span style="color: #3587ec;"><a href="<?php echo $message->createUrl(array('site/index', 'bottomlink')); ?>" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
                                                 </td>
                                             </tr>
                                             <tr>

@@ -22,8 +22,11 @@ abstract class MailSender extends CComponent
     {
         $criteria = new CDbCriteria();
         $criteria->compare('group', UserGroup::COMMENTATOR);
+        $criteria->compare('t.id', 12936);
 
-        $dp = new CActiveDataProvider('User');
+        $dp = new CActiveDataProvider('User', array(
+            'criteria' => $criteria,
+        ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $user)
             $this->process($user);

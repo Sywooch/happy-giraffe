@@ -72,6 +72,11 @@ abstract class MailMessage extends CComponent
         return $this->bodyHtml;
     }
 
+    /**
+     * Возвращает заголовок, находящийся в теле письма
+     *
+     * @return string
+     */
     public function getTitle()
     {
         return 'Здравствуйте, ' . $this->user->first_name . '!';
@@ -100,6 +105,14 @@ abstract class MailMessage extends CComponent
         return $url;
     }
 
+    /**
+     * Рендерит файл шаблона, находящийся в tpl
+     *
+     * @param $file
+     * @param null $data
+     * @param bool $return
+     * @return mixed
+     */
     public function render($file, $data = null, $return = false)
     {
         /**
@@ -207,11 +220,22 @@ abstract class MailMessage extends CComponent
         return $this->type;
     }
 
+    /**
+     * Возвращает путь к конкретному файлу в папке шаблонов
+     *
+     * @param $file
+     * @return string
+     */
     protected function getTemplateInternal($file)
     {
         return $this->getTemplatesPath() . DIRECTORY_SEPARATOR . $file . '.php';
     }
 
+    /**
+     * Возвращает путь к папке шаблонов
+     *
+     * @return mixed
+     */
     protected function getTemplatesPath()
     {
         return Yii::getPathOfAlias('site.frontend.modules.mail.tpls');

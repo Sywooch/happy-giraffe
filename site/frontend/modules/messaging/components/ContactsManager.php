@@ -541,7 +541,11 @@ class ContactsManager
                         'orderDesc',
                         'newer' => $after,
                     ),
-                    'with' => array('author'),
+                    'with' => array(
+                        'author' => array(
+                            'with' => 'address',
+                        ),
+                    ),
                 ),
             ),
             'limit' => $limit,

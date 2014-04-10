@@ -27,6 +27,8 @@ return array(
         'site.frontend.extensions.directmongosuite.*',
         'site.frontend.modules.antispam.models.*',
         'site.frontend.modules.antispam.components.*',
+        'site.frontend.modules.geo.models.*',
+        'site.frontend.modules.geo.components.*',
     ),
     'behaviors' => array(
         'edms' => array(

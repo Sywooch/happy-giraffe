@@ -1,7 +1,11 @@
 <?php
 /**
  * @var MessagingContact $contact
+ * @var MailMessageDialogues $message
  */
+$city = $contact->user->address->city;
+$country = $contact->user->address->country;
+$urlParams = array('/messaging/default/index', 'interlocutorId' => $contact->user->id);
 ?>
 
 <td  height="3" style="">
@@ -12,25 +16,29 @@
         <tr>
             <td valign="top" align="center">
                 <span style="margin: 0 auto;">
-                    <a href="" style="width:72px; text-decoration:none;">
+                    <a href="<?php echo $message->createUrl($urlParams, 'avatar'); ?>" style="width:72px; text-decoration:none;">
                         <img src="http://www.happy-giraffe.ru/images/mail/avatar.jpg" style="-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
                     </a>
-                    <span style="margin:3px 0 0 -18px; padding: 1px 5px;border-radius: 10px; border: 2px solid #ffffff;background:#f84219;color:#ffffff;font-size:11px;line-height:14px;vertical-align:top; display:inline-block;">9</span>
+                    <?php if ($contact->unreadCount != $message->messagesCount): ?>
+                        <span style="margin:3px 0 0 -18px; padding: 1px 5px;border-radius: 10px; border: 2px solid #ffffff;background:#f84219;color:#ffffff;font-size:11px;line-height:14px;vertical-align:top; display:inline-block;"><?php echo $contact->unreadCount; ?></span>
+                    <?php endif; ?>
                 </span>
             </td>
         </tr>
         <tr>
             <td valign="top" align="center">
-                <a href="" style="color:#289fd7;font:12px arial, helvetica, sans-serif;text-decoration:none;"><?php echo $contact->user->getFullName(); ?></a>
+                <a href="<?php echo $message->createUrl($urlParams, 'name'); ?>" style="color:#289fd7;font:12px arial, helvetica, sans-serif;text-decoration:none;"><?php echo $contact->user->getFullName(); ?></a>
                 <?php if ($contact->user->birthday !== null): ?>
                     <span style="color:#9d9c9c; font-size:9px;"><?php echo $contact->user->getNormalizedAge(); ?></span>
                 <?php endif; ?>
             </td>
         </tr>
-        <tr>
-            <td align="center">
-                <span style="color:#858484;font:9px/12px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/ru0018.gif" style="margin-right:5px;">Санкт-Петербург</span>
-            </td>
-        </tr>
+        <?php if ($city !== null): ?>
+            <tr>
+                <td align="center">
+                    <span style="color:#858484;font:9px/12px tahoma, helvetica, sans-serif;"><img src="http://www.happy-giraffe.ru/images/mail/flags/<?php echo $country->iso_code; ?>0018.gif" style="margin-right:5px;"><?php echo $city->name; ?></span>
+                </td>
+            </tr>
+        <?php endif; ?>
     </table>
 </td>

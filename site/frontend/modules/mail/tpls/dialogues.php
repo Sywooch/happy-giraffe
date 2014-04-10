@@ -94,13 +94,13 @@
                                                                 <a href="<?php echo $message->createUrl($message->getMainUrlParams(), 'readMessagesIcon'); ?>" style="text-decoration:none;border:0;">
                                                                     <table border="0" cellpadding="0" cellspacing="0">
                                                                         <tr>
-                                                                            <td background="/new/images/mail/messages.png" bgcolor="#ffffff" width="125" height="108" valign="top" align="center">
+                                                                            <td background="http://109.87.248.203/new/images/mail/messages.png" bgcolor="#ffffff" width="125" height="108" valign="top" align="center">
                                                                                 <!--[if gte mso 9]>
                                                                                 <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:125px;height:108px;">
                                                                                     <v:fill type="tile" src="http://109.87.248.203/new/images/mail/messages.png" color="#ffffff" />
                                                                                     <v:textbox inset="0,0,0,0">
                                                                                 <![endif]-->
-                                                                                <div style="padding: 10px 5px 75px 82px;color: #ffffff;width:35px;background-repeat:no-repeat;font-size:21px; line-height: 25px;"></div>
+                                                                                <div style="padding: 10px 5px 75px 82px;color: #ffffff;width:35px;background-repeat:no-repeat;font-size:21px; line-height: 25px;"><?php echo $message->messagesCount; ?></div>
                                                                                 <!--[if gte mso 9]>
                                                                                 </v:textbox>
                                                                                 </v:rect>
@@ -110,9 +110,9 @@
                                                                     </table>
                                                                 </a>
                                                             </td>
-                                                            <?php $message->render('_contact', array('contact' => $message->contacts[0])); ?>
+                                                            <?php $message->render('_contact', array('contact' => $message->contacts[0], 'message' => $message)); ?>
                                                             <?php if ($message->contactsCount > 1): ?>
-                                                                <?php $message->render('_contact', array('contact' => $message->contacts[1])); ?>
+                                                                <?php $message->render('_contact', array('contact' => $message->contacts[1], 'message' => $message)); ?>
                                                             <?php endif; ?>
                                                         </tr>
                                                         <?php if ($message->contactsCount > 2): ?>
@@ -122,9 +122,9 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <?php $message->render('_contact', array('contact' => $message->contacts[2])); ?>
+                                                                <?php $message->render('_contact', array('contact' => $message->contacts[2], 'message' => $message)); ?>
                                                                 <?php if ($message->contactsCount > 3): ?>
-                                                                    <?php $message->render('_contact', array('contact' => $message->contacts[3])); ?>
+                                                                    <?php $message->render('_contact', array('contact' => $message->contacts[3], 'message' => $message)); ?>
                                                                     <?php if ($message->contactsCount > 5): ?>
                                                                         <td  height="3" style="">
                                                                             <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="20px" border="0" />
@@ -139,7 +139,7 @@
                                                                             </table>
                                                                         </td>
                                                                     <?php else: ?>
-                                                                        <?php $message->render('_contact', array('contact' => $message->contacts[4])); ?>
+                                                                        <?php $message->render('_contact', array('contact' => $message->contacts[4], 'message' => $message)); ?>
                                                                     <?php endif; ?>
                                                                 <?php else: ?>
                                                                     <td  height="3" style="">

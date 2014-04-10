@@ -11,12 +11,24 @@ abstract class MailSender extends CComponent
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
 
+    protected abstract function process(User $user);
+
     /**
      * Отправить рассылку всем пользователям, для которых она может быть отправлена
      *
      * @return mixed
      */
-    abstract public function sendAll();
+    public function sendAll()
+    {
+        $dp = new CActiveDataProvider('User', array(
+            'criteria' => array(
+                'condition' => 'id = 12936',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $user)
+            $this->process($user);
+    }
 
     /**
      * Отправляет сообщение, в случае успеха помечает модель доставки как успешно отправленную

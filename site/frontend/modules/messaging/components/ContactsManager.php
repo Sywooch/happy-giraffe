@@ -539,7 +539,6 @@ class ContactsManager
                 'message' => array(
                     'joinType' => 'INNER JOIN',
                     'scopes' => array(
-                        'orderDesc',
                         'newer' => $after,
                     ),
                     'with' => array(
@@ -551,6 +550,7 @@ class ContactsManager
             ),
             'limit' => $limit,
             'group' => 'author.id',
+            'order' => 't.message_id ASC',
         ));
 
         return array_map(function($row) {

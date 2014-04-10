@@ -54,6 +54,6 @@ class MailMessageDialogues extends MailMessage
 
     public function getMainUrlParams()
     {
-        return array('/messaging/default/index', 'interlocutorId' => $this->contacts[count($this->contacts) - 1]->user->id);
+        return array('/messaging/default/index', 'interlocutorId' => $this->contacts[0]->user->id);
     }
 }

@@ -258,6 +258,9 @@ class MessagingMessage extends HActiveRecord
         $scopes['orderDesc'] = array(
             'order' => $this->getTableAlias(true) . '.`created` DESC',
         );
+        $scopes['orderAsc'] = array(
+            'order' => $this->getTableAlias(true) . '.`created` ASC',
+        );
 
         return $scopes;
     }

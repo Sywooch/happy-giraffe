@@ -552,9 +552,7 @@ class ContactsManager
             'group' => 'author.id',
         ));
 
-        foreach ($rows as $r) {
-            echo $r->id . "\n";
-        }
+        echo count($rows); die;
 
         return array_map(function($row) {
             return new MessagingContact($row->message->author, $row->unreadCount);

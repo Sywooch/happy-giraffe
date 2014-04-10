@@ -17,7 +17,7 @@ $urlParams = array('/messaging/default/index', 'interlocutorId' => $contact->use
             <td valign="top" align="center">
                 <span style="margin: 0 auto;">
                     <a href="<?php echo $message->createUrl($urlParams, 'avatar'); ?>" style="width:72px; text-decoration:none;">
-                        <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/avatar.jpg" style="-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
+                        <img src="<?php echo $contact->user->getAvatarUrl(); ?>" style="-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
                     </a>
                     <?php if ($contact->unreadCount != $message->messagesCount): ?>
                         <span style="margin:3px 0 0 -18px; padding: 1px 5px;border-radius: 10px; border: 2px solid #ffffff;background:#f84219;color:#ffffff;font-size:11px;line-height:14px;vertical-align:top; display:inline-block;"><?php echo $contact->unreadCount; ?></span>

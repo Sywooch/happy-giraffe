@@ -56,8 +56,8 @@ abstract class MailMessage extends CComponent
         foreach ($params as $k => $v)
             $this->$k = $v;
 
-        $this->token = $this->createToken();
         $this->delivery = $this->createDelivery();
+        $this->token = $this->createToken();
 
         $this->bodyHtml = $this->render($this->getTemplateFile(), array('message' => $this), true);
     }

@@ -25,8 +25,7 @@ class MailSenderDialogues extends MailSender
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $user) {
             $lastDelivery = MailDelivery::model()->getLastDelivery($user->id, 'dialogues');
-            $lastDelivery = null;
-            $after = $lastDelivery === null ? null : $lastDelivery->sent;
+            $after = $lastDelivery === null ? null : $lastDelivery->created;
             $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
                 'with' => array(
                     'message' => array(
@@ -38,15 +37,11 @@ class MailSenderDialogues extends MailSender
                 ),
             ));
 
-            if ($messagesCount == 0) {
-                echo 'nothing to send';
-                die;
+            if ($messagesCount > 0) {
+                $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
+                $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);
+                $this->sendInternal(new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount')));
             }
-
-            $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
-            $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);
-
-            $this->sendInternal(new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount')));
         }
     }
 }

@@ -10,6 +10,7 @@
 class MailMessageDaily extends MailMessage
 {
     public $type = 'general';
+    public $horoscope;
 
     public function getSubject()
     {

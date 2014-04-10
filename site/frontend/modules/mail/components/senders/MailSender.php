@@ -20,14 +20,10 @@ abstract class MailSender extends CComponent
      */
     public function sendAll()
     {
-        $dp = new CActiveDataProvider('User', array(
-            'criteria' => array(
-                'condition' => '`group` = :group',
-                'params' => array(
-                    ':group' => UserGroup::COMMENTATOR,
-                ),
-            ),
-        ));
+        $criteria = new CDbCriteria();
+        $criteria->compare('group', UserGroup::COMMENTATOR);
+
+        $dp = new CActiveDataProvider('User');
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $user)
             $this->process($user);

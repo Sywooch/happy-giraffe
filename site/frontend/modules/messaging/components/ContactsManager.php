@@ -537,6 +537,7 @@ class ContactsManager
             'select' => 'author.*, COUNT(*) AS unreadCount',
             'with' => array(
                 'message' => array(
+                    'joinType' => 'INNER JOIN',
                     'scopes' => array(
                         'orderDesc',
                         'newer' => $after,

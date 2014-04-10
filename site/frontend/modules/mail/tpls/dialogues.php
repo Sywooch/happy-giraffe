@@ -133,7 +133,7 @@
                                                                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top:23px;">
                                                                                 <tr>
                                                                                     <td align="center">
-                                                                                        <span style="color:#cccccc;font:24px/26px tahoma, helvetica, sans-serif;">еще <?=($message->contactsCount - 4)?></span>
+                                                                                        <span style="color:#cccccc;font:24px/26px tahoma, helvetica, sans-serif;">еще <?php echo ($message->contactsCount - 4); ?></span>
                                                                                     </td>
                                                                                 </tr>
                                                                             </table>

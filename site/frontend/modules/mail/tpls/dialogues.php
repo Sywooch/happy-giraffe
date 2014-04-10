@@ -138,7 +138,7 @@
                                                                                 </tr>
                                                                             </table>
                                                                         </td>
-                                                                    <?php elseif ($message->contactsCount == 4): ?>
+                                                                    <?php elseif ($message->contactsCount == 5): ?>
                                                                         <?php $message->render('_contact', array('contact' => $message->contacts[4], 'message' => $message)); ?>
                                                                     <?php endif; ?>
                                                                 <?php else: ?>

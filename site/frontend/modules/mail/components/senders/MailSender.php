@@ -21,7 +21,7 @@ abstract class MailSender extends CComponent
     public function sendAll()
     {
         $criteria = new CDbCriteria();
-        $criteria->compare('group', UserGroup::COMMENTATOR);
+        $criteria->compare('`group`', UserGroup::COMMENTATOR);
         $criteria->compare('t.id', 12936);
 
         $dp = new CActiveDataProvider('User', array(

@@ -10,8 +10,26 @@
 class MailMessageDialogues extends MailMessage
 {
     public $type = 'dialogues';
+
+    /**
+     * Контакты для отображения
+     *
+     * @property MessagingContact[] $contacts
+     */
     public $contacts;
+
+    /**
+     * Количество непрочитанных сообщений
+     *
+     * @property int $messagesCount
+     */
     public $messagesCount;
+
+    /**
+     * Количество контактов, от которых есть непрочитанные сообщения
+     *
+     * @property int $contactsCount
+     */
     public $contactsCount;
 
     public function getSubject()
@@ -24,7 +42,7 @@ class MailMessageDialogues extends MailMessage
         if ($this->contactsCount == 1) {
             $str = 'У вас одно непрочитанное сообщение.';
         } else {
-            $str = 'У вас ' . $this->contactsCount . ' ' . Str::GenerateNoun(array(
+            $str = 'У вас ' . $this->messagesCount . ' ' . Str::GenerateNoun(array(
                 'непрочитанное сообщение',
                 'непрочитанных сообщения',
                 'непрочитанных сообщений',

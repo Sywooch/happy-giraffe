@@ -22,7 +22,7 @@ abstract class MailSender extends CComponent
     {
         $dp = new CActiveDataProvider('User', array(
             'criteria' => array(
-                'condition' => 'group = :group',
+                'condition' => '`group` = :group',
                 'params' => array(
                     ':group' => UserGroup::COMMENTATOR,
                 ),

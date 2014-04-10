@@ -11,6 +11,11 @@ class MailSenderDaily extends MailSender
 {
     public function process(User $user)
     {
+        $horoscope = Horoscope::model()->findByAttributes(array(
+            'zodiac' => Horoscope::model()->getDateZodiac($user->birthday),
+            'date' => date("Y-m-d"),
+        ));
+
 
     }
 }

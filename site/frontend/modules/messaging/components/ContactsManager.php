@@ -553,7 +553,7 @@ class ContactsManager
         ));
 
         return array_map(function($row) {
-            $row->message->author;
+            var_dump($row->message->author);
             $row->unreadCount;
             return new MessagingContact($row->message->author, $row->unreadCount);
         }, $rows);

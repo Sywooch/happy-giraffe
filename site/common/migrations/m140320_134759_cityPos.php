@@ -6,8 +6,8 @@ class m140320_134759_cityPos extends CDbMigration
 	{
         $this->execute("ALTER TABLE `geo__city` ADD `pos` INT(11)  NOT NULL  AFTER `show_region`;");
         $this->execute("UPDATE geo__city c
-SET pos = -1
 JOIN geo__region r ON r.id = c.region_id
+SET pos = -1
 WHERE ((c.name = 'Москва' AND r.name = 'Москва') OR (c.name = 'Санкт-Петербург' AND r.name = 'Санкт-Петербург')) AND c.type = 'г';");
 	}
 

@@ -59,7 +59,7 @@ abstract class MailMessage extends CComponent
         $this->delivery = $this->createDelivery();
         $this->token = $this->createToken();
 
-        $this->bodyHtml = $this->render($this->getTemplateFile(), array('message' => $this), true);
+        $this->bodyHtml = $this->render($this->getTemplateFile(), array(), true);
     }
 
     /**
@@ -113,12 +113,13 @@ abstract class MailMessage extends CComponent
      * @param bool $return
      * @return mixed
      */
-    public function render($file, $data = null, $return = false)
+    public function render($file, $data = array(), $return = false)
     {
         /**
          * @var CConsoleApplication $app
          */
         $app = Yii::app();
+        $data['message'] = $this;
         $output = $app->getCommandRunner()->getCommand()->renderFile($this->getTemplateInternal($file), $data, true);
         if ($return) {
             return $output;

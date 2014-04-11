@@ -12,7 +12,7 @@ abstract class MailSender extends CComponent
 {
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
-    const SENDER_DEBUG = false;
+    const SENDER_DEBUG = true;
 
     public $messagesBuffer = array();
     protected abstract function process(User $user);
@@ -76,8 +76,9 @@ abstract class MailSender extends CComponent
             $html = str_replace('"', "'", $html);
             $html = str_replace(array("\n", "\r", "\r\n", "\n\r"), '', $html);
             $csv .= '"' . implode('","', array($message->user->email, $html, $message->getSubject())) . '"' . "\n";
-            $csv .= '"' . implode('","', array('andrey@happy-giraffe.ru', $html, $message->getSubject())) . '"' . "\n";
         }
+
+        echo $csv; die;
 
         $response = ElasticEmail::mailMerge($csv, self::FROM_EMAIL, self::FROM_NAME, '{Subject}', null, '{Body}');
         echo $response;

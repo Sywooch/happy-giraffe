@@ -26,7 +26,6 @@ abstract class MailSender extends CComponent
     {
         $criteria = new CDbCriteria();
         $criteria->compare('`group`', UserGroup::COMMENTATOR);
-        $criteria->compare('t.id', 12936);
 
         $dp = new CActiveDataProvider('User', array(
             'criteria' => $criteria,

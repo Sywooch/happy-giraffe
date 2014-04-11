@@ -435,28 +435,28 @@
                                                                 <tr>
                                                                     <td style="padding: 10px 15px 0;">
                                                                         <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                                                             <tr>
+                                                                            <tr>
                                                                                 <td>
                                                                                     <table cellpadding="0" cellspacing="0" border="0">
                                                                                         <tr>
-                                                                                             <td valign="top" width="40">
+                                                                                            <td valign="top" width="40">
                                                                                                 <a href="" style="text-decoration:none;"><img src="http://img.happy-giraffe.ru/thumbs/40x40/16534/avadc351ca462c38e06b9b748f0547ef1c9.jpg" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
                                                                                             </td>
 
-                                                                                             <td width="10">
+                                                                                            <td width="10">
                                                                                                 <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="20" width="10" border="0" />
-                                                                                             </td>
-                                                                                             <td valign="top">
-                                                                                                 <a href="" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;">Ангелина Богоявленская</a>
-                                                                                             </td>
-                                                                                             <td valign="top" style="padding:2px 5px;">
+                                                                                            </td>
+                                                                                            <td valign="top">
+                                                                                                <a href="" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;">Ангелина Богоявленская</a>
+                                                                                            </td>
+                                                                                            <td valign="top" style="padding:2px 5px;">
                                                                                                 <!-- bg зависит от рубрики -->
-                                                                                                 <a href="" style="background: #50b347;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;">НАШ ДОМ</a>
-                                                                                             </td>
-                                                                                         </tr>
+                                                                                                <a href="" style="background: #50b347;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;">НАШ ДОМ</a>
+                                                                                            </td>
+                                                                                        </tr>
                                                                                     </table>
-                                                                                 </td>
-                                                                             </tr>
+                                                                                </td>
+                                                                            </tr>
                                                                         </table>
                                                                     </td>
                                                                 </tr>
@@ -468,14 +468,14 @@
                                                                 <tr>
                                                                     <td style="padding: 10px 0 18px;">
                                                                         <a href="" style="border: 0;">
-                                                                            <!-- 
+                                                                            <!--
                                                                                 Ширина 660пк, высота пропорциональна исходнику
-                                                                                
+
                                                                                 Водяной знак
-                                                                                Поверх изображения нужно накладывать  
+                                                                                Поверх изображения нужно накладывать
                                                                                 /new/images/mail/water-mark.png  151*151px
                                                                                 По центру вертикали и горизонтали изображения
-                                                                                Текст 
+                                                                                Текст
                                                                                 font-family:Arial;
                                                                                 font-size: 18px;
                                                                                 color: #333333;
@@ -492,26 +492,26 @@
                                                                             <tr>
                                                                                 <td>
                                                                                     <table cellpadding="0" cellspacing="0" border="0">
-                                                                                         <tr>
-                                                                                             <td style="padding-right:10px;">
-                                                                                                 <span style="color:#ffffff;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-views-white-small.png" style="margin-right:5px;vertical-align:top;">265</span>
-                                                                                             </td>
-                                                                                             <td style="padding-right:2px;">
-                                                                                                 <a href="" target="_blank" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
-                                                                                             </td>
-                                                                                             <td>
+                                                                                        <tr>
+                                                                                            <td style="padding-right:10px;">
+                                                                                                <span style="color:#ffffff;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-views-white-small.png" style="margin-right:5px;vertical-align:top;">265</span>
+                                                                                            </td>
+                                                                                            <td style="padding-right:2px;">
+                                                                                                <a href="" target="_blank" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
+                                                                                            </td>
+                                                                                            <td>
                                                                                                 <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
                                                                                                 <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
                                                                                                 <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
                                                                                                 <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
                                                                                                 <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                                 
+
                                                                                             </td>
                                                                                             <td style="color: #333333; font-size: 12px; padding-left: 4px;">
-                                                                                                 еще 113
+                                                                                                еще 113
                                                                                             </td>
-                                                                                         </tr>
-                                                                                     </table>
+                                                                                        </tr>
+                                                                                    </table>
                                                                                 </td>
                                                                                 <td align="right">
                                                                                     <table border="0" cellpadding="0" cellspacing="0" style="background-color:#2ea0f7; border-radius:4px;">
@@ -538,166 +538,16 @@
                                                      <tr>
 
                                                          <td style="width:320px; " valign="top" >
-                                                             
-                                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px; border: 1px solid #f5f5f5;">
-                                                                <tr>
-                                                                    <td style="padding: 10px 15px 5px;">
-                                                                        <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:5px;">
-                                                                             <tr>
-                                                                                <td valign="top" rowspan="2" style="padding-right: 10px;" >
-                                                                                    <a href="" style="text-decoration:none;"><img src="http://img.happy-giraffe.ru/thumbs/40x40/16534/avadc351ca462c38e06b9b748f0547ef1c9.jpg" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
-                                                                                </td>
-                                                                                 <td valign="top">
-                                                                                     <a href="" style="color:#38a5f4;font:12px arial, helvetica, sans-serif;text-decoration:none;">Ангелина Богоявленская</a>
-                                                                                 </td>
-                                                                             </tr>
-                                                                             <tr>
-                                                                                 <td valign="top">
-                                                                                    <!-- bg зависит от рубрики -->
-                                                                                     <a href="" style="background: #5ebdff;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;">БЕРЕМЕННОСТЬ И РОДЫ</a>
-                                                                                 </td>
-                                                                             </tr>
-                                                                         </table>
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px;">
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="" target="_blank" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline; ">Беременность: Седьмой месяц</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
-                                                                            <tr>
-                                                                                <td style="margin-bottom:5px;">
-                                                                                    <a href="" target="_blank" style="text-decoration: none;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/img_02.jpg" width="318" border="0" style="display:block;" /></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="padding: 10px 15px 15px;">
 
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
-                                                                            <tr>
-                                                                                <td style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
-                                                                                    Польза картофеля обуславливается прежде всего его пищевой ценностью. 100 г этого овоща содержат около 16-20 г крахмала ...
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                        
-                                                                 
-                                                                         <table cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;">
-                                                                             <tr>
-                                                                                <td style="padding-right:10px;">
-                                                                                     <span style="color:#737575;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-views-small.png" style="margin-right:5px;vertical-align:top;">265</span>
-                                                                                 </td>
-                                                                                 <td style="padding-right:5px;">
-                                                                                     <a href="" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
-                                                                                 </td>
-                                                                                <td>
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                     
-                                                                                </td>
-                                                                                <td style="color: #333333; font-size: 12px; padding-left: 4px;">
-                                                                                     еще 113
-                                                                                </td>
-                                                                             </tr>
-                                                                         </table>
-                                                                 
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                            <?php $message->render('daily/post'); ?>
                                                              
                                                          </td>    
                                                          <td height="100%" width="20">
                                                              <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" width="20" height="100%" border="0" />
                                                          </td>
                                                          <td style="width:320px; " valign="top" >
-                                                             
-                                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px; border: 1px solid #f5f5f5;">
-                                                                <tr>
-                                                                    <td style="padding: 10px 15px 5px;">
-                                                                        <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:5px;">
-                                                                             <tr>
-                                                                                <td valign="top" rowspan="2" style="padding-right: 10px;" >
-                                                                                    <a href="" style="text-decoration:none;"><img src="http://img.happy-giraffe.ru/thumbs/40x40/16534/avadc351ca462c38e06b9b748f0547ef1c9.jpg" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
-                                                                                </td>
-                                                                                 <td valign="top" >
-                                                                                     <a href="" style="color:#38a5f4;font:12px arial, helvetica, sans-serif;text-decoration:none;">Ангелина Богоявленская</a>
-                                                                                 </td>
-                                                                             </tr>
-                                                                             <tr>
-                                                                                 <td valign="top">
-                                                                                    <!-- bg зависит от рубрики -->
-                                                                                     <a href="" style="background: #f26748;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;">ГОТОВИМ НА КУХНЕ</a>
-                                                                                 </td>
-                                                                             </tr>
-                                                                         </table>
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px;">
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="" target="_blank" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline;">Пельмени-розочки по ленивому</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
-                                                                            <tr>
-                                                                                <td style="margin-bottom:5px;">
-                                                                                    <a href="" target="_blank" style="text-decoration: none;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/img_01.jpg" width="318" border="0" style="display:block;" /></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="padding: 10px 15px 15px;">
 
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
-                                                                            <tr>
-                                                                                <td style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
-                                                                                    Польза картофеля обуславливается прежде всего его пищевой ценностью. 100 г этого овоща содержат около 16-20 г крахмала ...
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                        
-                                                                 
-                                                                         <table cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;">
-                                                                             <tr>
-                                                                                 <td style="padding-right:10px;">
-                                                                                     <span style="color:#737575;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-views-small.png" style="margin-right:5px;vertical-align:top;">265</span>
-                                                                                 </td>
-                                                                                 <td style="padding-right:5px;">
-                                                                                     <a href="" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
-                                                                                 </td>
-                                                                                <td>
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                     
-                                                                                </td>
-                                                                                <td style="color: #333333; font-size: 12px; padding-left: 4px;">
-                                                                                     еще 113
-                                                                                </td>
-                                                                             </tr>
-                                                                         </table>
-                                                                 
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                             <?php $message->render('daily/post'); ?>
                                                              
                                                          </td>                                  
                                                      </tr>
@@ -710,83 +560,8 @@
                                                     <!-- Row articles -->
                                                      <tr>
                                                          <td style="width:320px; " valign="top" >
-                                                             
-                                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px; border: 1px solid #f5f5f5;">
-                                                                <tr>
-                                                                    <td style="padding: 10px 15px 5px;">
-                                                                        <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:5px;">
-                                                                             <tr>
-                                                                                <td valign="top" rowspan="2" style="padding-right: 10px;" >
-                                                                                    <a href="" style="text-decoration:none;"><img src="http://img.happy-giraffe.ru/thumbs/40x40/16534/avadc351ca462c38e06b9b748f0547ef1c9.jpg" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
-                                                                                </td>
-                                                                                 <td valign="top" >
-                                                                                     <a href="" style="color:#38a5f4;font:12px arial, helvetica, sans-serif;text-decoration:none;">Ангелина Богоявленская</a>
-                                                                                 </td>
-                                                                             </tr>
-                                                                             <tr>
-                                                                                 <td valign="top">
-                                                                                    <!-- bg зависит от рубрики -->
-                                                                                     <a href="" style="background: #f26748;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;">ГОТОВИМ НА КУХНЕ</a>
-                                                                                 </td>
-                                                                             </tr>
-                                                                         </table>
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px;">
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="" target="_blank" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline;">Пельмени-розочки по ленивому</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
-                                                                            <tr>
-                                                                                <td style="margin-bottom:5px;">
-                                                                                    <a href="" target="_blank" style="text-decoration: none;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/img_01.jpg" width="318" border="0" style="display:block;" /></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="padding: 10px 15px 15px;">
 
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
-                                                                            <tr>
-                                                                                <td style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
-                                                                                    Польза картофеля обуславливается прежде всего его пищевой ценностью. 100 г этого овоща содержат около 16-20 г крахмала ...
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                        
-                                                                 
-                                                                         <table cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;">
-                                                                             <tr>
-                                                                                 <td style="padding-right:10px;">
-                                                                                     <span style="color:#737575;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-views-small.png" style="margin-right:5px;vertical-align:top;">265</span>
-                                                                                 </td>
-                                                                                 <td style="padding-right:5px;">
-                                                                                     <a href="" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
-                                                                                 </td>
-                                                                                <td>
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                     
-                                                                                </td>
-                                                                                <td style="color: #333333; font-size: 12px; padding-left: 4px;">
-                                                                                     еще 113
-                                                                                </td>
-                                                                             </tr>
-                                                                         </table>
-                                                                 
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                             <?php $message->render('daily/post'); ?>
                                                              
                                                          </td>    
                                                          <td height="100%" width="20">
@@ -794,83 +569,8 @@
                                                          </td> 
 
                                                          <td style="width:320px; " valign="top" >
-                                                             
-                                                            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px; border: 1px solid #f5f5f5;">
-                                                                <tr>
-                                                                    <td style="padding: 10px 15px 5px;">
-                                                                        <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:5px;">
-                                                                             <tr>
-                                                                                <td valign="top" rowspan="2" style="padding-right: 10px;" >
-                                                                                    <a href="" style="text-decoration:none;"><img src="http://img.happy-giraffe.ru/thumbs/40x40/16534/avadc351ca462c38e06b9b748f0547ef1c9.jpg" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
-                                                                                </td>
-                                                                                 <td valign="top">
-                                                                                     <a href="" style="color:#38a5f4;font:12px arial, helvetica, sans-serif;text-decoration:none;">Ангелина Богоявленская</a>
-                                                                                 </td>
-                                                                             </tr>
-                                                                             <tr>
-                                                                                 <td valign="top">
-                                                                                    <!-- bg зависит от рубрики -->
-                                                                                     <a href="" style="background: #5ebdff;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;">БЕРЕМЕННОСТЬ И РОДЫ</a>
-                                                                                 </td>
-                                                                             </tr>
-                                                                         </table>
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px;">
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="" target="_blank" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline; ">Беременность: Седьмой месяц</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
-                                                                            <tr>
-                                                                                <td style="margin-bottom:5px;">
-                                                                                    <a href="" target="_blank" style="text-decoration: none;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/img_02.jpg" width="318" border="0" style="display:block;" /></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="padding: 10px 15px 15px;">
 
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
-                                                                            <tr>
-                                                                                <td style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
-                                                                                    Польза картофеля обуславливается прежде всего его пищевой ценностью. 100 г этого овоща содержат около 16-20 г крахмала ...
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                        
-                                                                 
-                                                                         <table cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;">
-                                                                             <tr>
-                                                                                <td style="padding-right:10px;">
-                                                                                     <span style="color:#737575;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-views-small.png" style="margin-right:5px;vertical-align:top;">265</span>
-                                                                                 </td>
-                                                                                 <td style="padding-right:5px;">
-                                                                                     <a href="" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
-                                                                                 </td>
-                                                                                <td>
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                     
-                                                                                </td>
-                                                                                <td style="color: #333333; font-size: 12px; padding-left: 4px;">
-                                                                                     еще 113
-                                                                                </td>
-                                                                             </tr>
-                                                                         </table>
-                                                                 
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                             <?php $message->render('daily/post'); ?>
                                                              
                                                          </td>                                 
                                                      </tr>

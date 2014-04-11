@@ -179,9 +179,11 @@ class Community extends HActiveRecord
         ));
     }
 
-    public function getUrl()
+    public function getUrl($absolute = false)
     {
-        return Yii::app()->createUrl('community/default/forum', array(
+        $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
+
+        return Yii::app()->$method('community/default/forum', array(
             'forum_id' => $this->id,
         ));
     }

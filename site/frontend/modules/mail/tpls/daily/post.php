@@ -77,7 +77,7 @@ $comments = $post->getLastCommentators(5);
                             <?php endforeach; ?>
 
                         </td>
-                        <?php if ($commentsCount > 5); ?>
+                        <?php if ($commentsCount > 5): ?>
                             <td style="color: #333333; font-size: 12px; padding-left: 4px;">
                                 еще <?php echo ($commentsCount - 5); ?>
                             </td>

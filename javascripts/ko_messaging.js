@@ -946,21 +946,64 @@ function ContactsManager(viewModel, model) {
         // Должны добавиться все, т.к. список контактов пустой
         return addContact(user);
     }));
-    
 
-    
     History.Adapter.bind(window, 'statechange', function() {
         parseUrl(false);
     });
-    
-    if(!parseUrl(true) && self.users()[0]) {
+
+    if (!parseUrl(true) && self.users()[0]) {
         self.users()[0].open();
     }
-    
+
     ko.computed(function() {
         self.openedUser();
         self.sort();
     });
+
+    // Прочитано сообщение
+    Comet.prototype.messagingReadMessage = function(result, id) {
+        if (result.message.to_id == self.viewModel.me.id) {
+            // Если прочитанное сообщение предназначалось нам, то уменьшим счётчики
+            var user = ko.utils.arrayFirst(self.users(), function(user) {
+                return user.id == result.dialog.id;
+            });
+            if (user) {
+                user.countNew(Math.max(0, user.countNew() - 1));
+            }
+            self.countTotal(Math.max(0, self.countTotal() - 1));
+        }
+    };
+    comet.addEvent(2011, 'messagingReadMessage');
+
+    // Добавлено новое сообщение
+    Comet.prototype.messagingNewMessage = function(result, id) {
+        var user = getContactById(result.dialog.id);
+        if (!user) {
+            // Нет загруженного пользователя, запросим с сервера
+            $.get('/messaging/default/getUserInfo/', {id: result.dialog.id}, function(data) {
+                // и добавим в список
+                user = addContact(data);
+                self.users.push(user);
+                //self.sortContacts();
+                if (result.message.to_id == self.viewModel.me.id) {
+                    self.countTotal(self.countTotal() + 1);
+                }
+            }, 'json');
+        } else {
+            // Нашли его в нашем списке, если сообщение нам, то обновим счётчики и пиликнем
+            if (result.message.to_id == self.viewModel.me.id) {
+                user.countNew(user.countNew() + 1);
+                user.date(result.message.created);
+                self.countTotal(self.countTotal() + 1);
+                if (self.viewModel.settings.messaging__sound())
+                    soundManager.play('s');
+            }
+        }
+
+    };
+    comet.addEvent(2020, 'messagingNewMessage');
+
+
 }
 
 Messaging.prototype = {
@@ -977,49 +1020,6 @@ function Messaging(model) {
 	self.getContactList = self.contactsManager.filtered;
 	
 	// Текст конструктора
-
-	// Прочитано сообщение
-	Comet.prototype.messagingReadMessage = function(result, id) {
-		if(result.message.to_id == self.me.id) {
-			// Если прочитанное сообщение предназначалось нам, то уменьшим счётчики
-			var user = ko.utils.arrayFirst(self.users[0](), function(user) {
-				return user.id == result.dialog.id;
-			});
-			if(user) {
-				user.countNew(Math.max(0, user.countNew() - 1));
-			}
-			self.countTotal(Math.max(0, self.countTotal() - 1));
-		}
-	};
-	comet.addEvent(2011, 'messagingReadMessage');
-
-	// Добавлено новое сообщение
-	Comet.prototype.messagingNewMessage = function(result, id) {
-		var user = getContactById(result.dialog.id);
-		if(!user) {
-			// Нет загруженного пользователя, запросим с сервера
-			$.get('/messaging/default/getUserInfo/', { id: result.dialog.id }, function(data) {
-				// и добавим в список
-				user = addContact(data);
-				self.users.push(user);
-				//self.sortContacts();
-				if(result.message.to_id == self.me.id) {
-					self.countTotal(self.countTotal() + 1);
-				}
-			}, 'json');
-		} else {
-			// Нашли его в нашем списке, если сообщение нам, то обновим счётчики и пиликнем
-			if(result.message.to_id == self.me.id) {
-				user.countNew(user.countNew() + 1);
-				user.date(result.message.dtimeRead);
-				self.countTotal(self.countTotal() + 1);
-                if (self.settings.messaging__sound())
-				    soundManager.play('s');
-			}
-		}
-
-	};
-	comet.addEvent(2020, 'messagingNewMessage');
 
     Comet.prototype.settingChanged = function(result, id) {
         var observable = self.settings[result.key];

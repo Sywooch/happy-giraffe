@@ -12,7 +12,7 @@ abstract class MailSender extends CComponent
 {
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
-    const SENDER_DEBUG = true;
+    const SENDER_DEBUG = false;
 
     public $messagesBuffer = array();
     protected abstract function process(User $user);

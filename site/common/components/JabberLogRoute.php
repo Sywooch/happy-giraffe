@@ -22,8 +22,6 @@ class JabberLogRoute extends CLogRoute
 
     protected function sendMessage($message)
     {
-        $str = 'echo "message"  | sendxmpp -f /etc/sendxmpprc_www -r Warner --chatroom hg-tech-warnings@conference.jabber.ru'
-
         $params = array(
             '-f' => $this->file,
             '-r' => $this->name,

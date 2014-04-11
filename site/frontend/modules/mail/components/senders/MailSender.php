@@ -1,3 +1,5 @@
+
+
 <?php
 /**
  * Рассыльщик
@@ -23,7 +25,7 @@ abstract class MailSender extends CComponent
     {
         $criteria = new CDbCriteria();
         $criteria->compare('`group`', UserGroup::COMMENTATOR);
-//        $criteria->compare('t.id', 12936);
+        $criteria->compare('t.id', 12936);
 
         $dp = new CActiveDataProvider('User', array(
             'criteria' => $criteria,
@@ -39,7 +41,6 @@ abstract class MailSender extends CComponent
 //            if (count($this->messagesBuffer) == 1000)
 //                $this->sendBufferedMessages();
         }
-
 //        $this->sendBufferedMessages();
     }
 
@@ -63,8 +64,12 @@ abstract class MailSender extends CComponent
 
         $csv  = '"ToMail","Body","Subject"' . "\n";
         foreach ($messages as $message) {
-            $csv .= '"' . implode('","', array($message->user->email, addslashes($message->getBody()), $message->getSubject())) . '"' . "\n";
+            $html = $message->getBody();
+            $html = str_replace(array("\n", "\r", "\r\n", "\n\r"), '', $html);
+            $html = str_replace('"', "'", $html);
+            $csv .= '"' . implode('","', array($message->user->email, $html, $message->getSubject())) . '"' . "\n";
         }
+
         $response = ElasticEmail::mailMerge($csv, self::FROM_EMAIL, self::FROM_NAME, '{Subject}', null, '{Body}');
         echo $response;
         if ($response) {

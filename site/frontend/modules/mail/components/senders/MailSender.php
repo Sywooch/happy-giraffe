@@ -12,7 +12,7 @@ abstract class MailSender extends CComponent
 {
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
-    const SENDER_DEBUG = false;
+    const SENDER_DEBUG = true;
 
     public $messagesBuffer = array();
     protected abstract function process(User $user);
@@ -77,7 +77,7 @@ abstract class MailSender extends CComponent
             $html = $message->getBody();
             $html = str_replace(array("\n", "\r", "\r\n", "\n\r"), '', $html);
             $html = str_replace('"', '\'', $html);
-            $html = "<span style='color:#ff0000; font-size: 21px;'>123</span>";
+            $html = "<span style=&quot;color:#ff0000; font-size: 21px;&quot;>123</span>";
             $csv .= '"' . implode('","', array($message->user->email, $html, $message->getSubject())) . '"' . "\n";
         }
 

@@ -35,7 +35,7 @@ class DefaultController extends HController
 
     public function actionDialogues()
     {
-        $sender = new MailSenderDialogues();
-        $sender->sendAll();
+        $photo = AlbumPhoto::model()->findByPk(326229);
+        echo CHtml::image($photo->getPreviewUrl(660, null, Image::WIDTH));
     }
 }

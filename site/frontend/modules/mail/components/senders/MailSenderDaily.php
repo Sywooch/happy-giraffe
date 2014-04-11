@@ -16,6 +16,6 @@ class MailSenderDaily extends MailSender
             'date' => date("Y-m-d"),
         ));
 
-
+        return new MailMessageDaily($user, compact('horoscope'));
     }
 }

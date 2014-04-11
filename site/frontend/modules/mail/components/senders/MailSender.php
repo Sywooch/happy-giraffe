@@ -34,13 +34,17 @@ abstract class MailSender extends CComponent
         foreach ($iterator as $user) {
             $result = $this->process($user);
             $this->sendInternal($result);
+        }
 
+//        foreach ($iterator as $user) {
+//            $result = $this->process($user);
+//
 //            if ($result instanceof MailMessage)
 //                $this->messagesBuffer[] = $result;
 //
 //            if (count($this->messagesBuffer) == 1000)
 //                $this->sendBufferedMessages();
-        }
+//        }
 //        $this->sendBufferedMessages();
     }
 
@@ -65,8 +69,8 @@ abstract class MailSender extends CComponent
         $csv  = '"ToMail","Body","Subject"' . "\n";
         foreach ($messages as $message) {
             $html = $message->getBody();
+            $html = str_replace('"', '&quot;', $html);
             $html = str_replace(array("\n", "\r", "\r\n", "\n\r"), '', $html);
-            $html = str_replace('"', "'", $html);
             $csv .= '"' . implode('","', array($message->user->email, $html, $message->getSubject())) . '"' . "\n";
         }
 

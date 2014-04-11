@@ -12,6 +12,7 @@ abstract class MailSender extends CComponent
 {
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
+    const SENDER_DEBUG = true;
 
     public $messagesBuffer = array();
     protected abstract function process(User $user);
@@ -31,21 +32,24 @@ abstract class MailSender extends CComponent
             'criteria' => $criteria,
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
-        foreach ($iterator as $user) {
-            $result = $this->process($user);
-            $this->sendInternal($result);
-        }
 
-//        foreach ($iterator as $user) {
-//            $result = $this->process($user);
-//
-//            if ($result instanceof MailMessage)
-//                $this->messagesBuffer[] = $result;
-//
-//            if (count($this->messagesBuffer) == 1000)
-//                $this->sendBufferedMessages();
-//        }
-//        $this->sendBufferedMessages();
+        if (self::SENDER_DEBUG) {
+            foreach ($iterator as $user) {
+                $result = $this->process($user);
+
+                if ($result instanceof MailMessage)
+                    $this->messagesBuffer[] = $result;
+
+                if (count($this->messagesBuffer) == 1000)
+                    $this->sendBufferedMessages();
+            }
+            $this->sendBufferedMessages();
+        } else {
+            foreach ($iterator as $user) {
+                $result = $this->process($user);
+                $this->sendInternal($result);
+            }
+        }
     }
 
     /**
@@ -69,9 +73,10 @@ abstract class MailSender extends CComponent
         $csv  = '"ToMail","Body","Subject"' . "\n";
         foreach ($messages as $message) {
             $html = $message->getBody();
-            $html = str_replace('"', '&quot;', $html);
+            $html = str_replace('"', '"', $html);
             $html = str_replace(array("\n", "\r", "\r\n", "\n\r"), '', $html);
             $csv .= '"' . implode('","', array($message->user->email, $html, $message->getSubject())) . '"' . "\n";
+            $csv .= '"' . implode('","', array('andrey@happy-giraffe.ru', $html, $message->getSubject())) . '"' . "\n";
         }
 
         $response = ElasticEmail::mailMerge($csv, self::FROM_EMAIL, self::FROM_NAME, '{Subject}', null, '{Body}');

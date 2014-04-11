@@ -66,7 +66,7 @@
         </script>
         <div class="im_hold clearfix">
             <!-- im-sidebar-->
-            <section class="im-sidebar clearfix">
+            <section class="im-sidebar clearfix" data-bind="with: contactsManager">
                 <div class="im-sidebar_panel">
                     <!-- side-menu-->
                     <div class="side-menu side-menu__im">
@@ -114,7 +114,7 @@
                         </div>
                     </div>
                     <!-- /side-menu-->
-                    <div class="im-sidebar_sound"><a class="im-sidebar_sound-ico" data-bind="click: function() {settings.toggle('messaging__sound')}, css: { inactive : ! settings.messaging__sound() }"></a></div>
+                    <div class="im-sidebar_sound"><a class="im-sidebar_sound-ico" data-bind="click: function() {$parent.settings.toggle('messaging__sound')}, css: { inactive : ! $parent.settings.messaging__sound() }"></a></div>
                 </div>
                 <div class="im-sidebar_users">
                     <div class="im-sidebar_search clearfix">
@@ -126,7 +126,7 @@
                         <div data-bind="css: {scroll: true}">
                             <div class="scroll_scroller" data-bind="show: {selector: '.im-user-list_i:not(.bySearching):gt(-10), .im-user-list_i.bySearching, .cap-empty', callback: loadContacts}">
                                 <div class="scroll_cont">
-                                    <!-- ko foreach: getContactList -->
+                                    <!-- ko foreach: filtered -->
                                         <div class="im-user-list_i clearfix" data-bind="visible: isShow, click: open, css: { active: isActive, bySearching: bySearching() && $parent.currentFilter() !== 4 }">
                                             <div class="im-user-list_count" data-bind="visible: countNew() > 0, text: countNew"></div>
                                             <div class="im-user-list_set"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: isOnline"></span><img alt="" data-bind="attr: {src: avatar}" class="ava_img"/></a>
@@ -137,7 +137,7 @@
                                     <!-- ko if: loadindContacts -->
                                         <div class="im_loader"><img src="/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка пользователей</span></div>
                                     <!-- /ko -->
-                                    <!-- ko if: getContactList().length == 0 -->
+                                    <!-- ko if: filtered().length == 0 -->
                                         <!-- cap-empty-->
                                         <div class="cap-empty">
                                             <div class="cap-empty_hold">
@@ -169,7 +169,7 @@
             <!-- im-center-->
 
             <section class="im-center" data-bind="with: currentThread()">
-                <!-- ko if: me.avatar() === false -->
+                <!-- ko if: $parent.me.avatar() === false -->
                     <!-- cap-empty-->
                     <div class="cap-empty cap-empty__abs cap-empty__im-ava">
                         <div class="cap-empty_hold">
@@ -247,7 +247,7 @@
                 </div>
                 <div class="im-center_middle">
                     <div data-bind="css: {scroll: true}">
-                        <div class="im-center_middle-hold scroll_scroller" data-bind="show: [{selector: '.im-message:lt(10)', callback: loadMessages}, {selector: '.im-message__new', callback: function() { ko.dataFor(this).show(); } }], hide: {selector: '.im-message__new', callback: function() { ko.dataFor(this).hide(); } }, fixScroll: {manager: scrollManager, type: 'box'}">
+                        <div class="im-center_middle-hold scroll_scroller" data-bind="show: [{selector: '.im-message:lt(10)', callback: loadMessages}, {selector: '.im-message__new', callback: function() { ko.dataFor(this) ? ko.dataFor(this).show() : true; } }], hide: {selector: '.im-message__new', callback: function() { ko.dataFor(this) ? ko.dataFor(this).hide() : true; } }, fixScroll: {manager: scrollManager, type: 'box'}">
                             <div class="im-center_middle-w scroll_cont">
                                 <div class="im_loader" data-bind="visible: loadingMessages"><img src="/new/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка ранних сообщений</span></div>
                                 <!-- ko if: deletedDialogs().length -->

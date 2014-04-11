@@ -42,7 +42,7 @@ return array(
             'routes' => array(
                 array(
                     'class' => 'JabberLogRoute',
-                    'file' => ' /etc/sendxmpprc',
+                    'file' => ' /etc/sendxmpprc_www',
                     'name' => 'Warner',
                     'room' => 'hg-tech-warnings@conference.jabber.ru',
                     'levels' => 'error',

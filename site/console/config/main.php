@@ -37,6 +37,19 @@ return array(
         )
     ),
     'components' => array(
+        'log' => array(
+            'class' => 'CLogRouter',
+            'routes' => array(
+                array(
+                    'class' => 'JabberLogRoute',
+                    'file' => ' /etc/sendxmpprc',
+                    'name' => 'Warner',
+                    'room' => 'hg-tech-warnings@conference.jabber.ru',
+                    'levels' => 'error',
+                    'categories' => 'mail',
+                ),
+            ),
+        ),
         'indexden' => array(
             'class' => 'site.common.components.IndexDen',
             'apiUrl' => 'http://:tebadytarure@nygeme.api.indexden.com',

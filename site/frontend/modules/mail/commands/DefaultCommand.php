@@ -28,4 +28,9 @@ class DefaultCommand extends CConsoleCommand
         $sender = new MailSenderDialogues();
         $sender->sendAll();
     }
+
+    public function actionTestWarning()
+    {
+        Yii::log('Test warning', CLogger::LEVEL_ERROR, 'mail');
+    }
 }

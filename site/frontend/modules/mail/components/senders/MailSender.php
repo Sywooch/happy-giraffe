@@ -73,7 +73,7 @@ abstract class MailSender extends CComponent
         $csv  = '"ToMail","Body","Subject"' . "\n";
         foreach ($messages as $message) {
             $html = $message->getBody();
-            $html = str_replace('"', '"', $html);
+            $html = str_replace('"', "'", $html);
             $html = str_replace(array("\n", "\r", "\r\n", "\n\r"), '', $html);
             $csv .= '"' . implode('","', array($message->user->email, $html, $message->getSubject())) . '"' . "\n";
             $csv .= '"' . implode('","', array('andrey@happy-giraffe.ru', $html, $message->getSubject())) . '"' . "\n";

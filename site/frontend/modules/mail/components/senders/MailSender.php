@@ -48,7 +48,8 @@ abstract class MailSender extends CComponent
         } else {
             foreach ($iterator as $user) {
                 $result = $this->process($user);
-                $this->sendInternal($result);
+                if ($result instanceof MailMessage)
+                    $this->sendInternal($result);
             }
         }
     }

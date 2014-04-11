@@ -23,7 +23,7 @@ abstract class MailSender extends CComponent
     {
         $criteria = new CDbCriteria();
         $criteria->compare('`group`', UserGroup::COMMENTATOR);
-        $criteria->compare('t.id', 12936);
+//        $criteria->compare('t.id', 12936);
 
         $dp = new CActiveDataProvider('User', array(
             'criteria' => $criteria,
@@ -31,14 +31,16 @@ abstract class MailSender extends CComponent
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $user) {
             $result = $this->process($user);
-            if ($result instanceof MailMessage)
-                $this->messagesBuffer[] = $result;
+            $this->sendInternal($result);
 
-            if (count($this->messagesBuffer) == 100000)
-                $this->sendBufferedMessages();
+//            if ($result instanceof MailMessage)
+//                $this->messagesBuffer[] = $result;
+//
+//            if (count($this->messagesBuffer) == 1000)
+//                $this->sendBufferedMessages();
         }
 
-        $this->sendBufferedMessages();
+//        $this->sendBufferedMessages();
     }
 
     /**
@@ -56,10 +58,21 @@ abstract class MailSender extends CComponent
 
     protected function sendInternalBatch(array $messages)
     {
+        if (empty($messages))
+            return;
+
         $csv  = '"ToMail","Body","Subject"' . "\n";
-        foreach ($messages as $message)
-            $csv .= '"' . implode('","', array($message->user->email, $message->getBody(), $message->getSubject())) . '"' . "\n";
-        ElasticEmail::mailMerge($csv, self::FROM_EMAIL, self::FROM_NAME, '{Subject}', '', '{body}');
+        foreach ($messages as $message) {
+            $csv .= '"' . implode('","', array($message->user->email, addslashes($message->getBody()), $message->getSubject())) . '"' . "\n";
+        }
+        $response = ElasticEmail::mailMerge($csv, self::FROM_EMAIL, self::FROM_NAME, '{Subject}', null, '{Body}');
+        echo $response;
+        if ($response) {
+            foreach ($messages as $message) {
+                $message->delivery->sent();
+            }
+            echo "sent\n";
+        }
     }
 
     protected function sendBufferedMessages()

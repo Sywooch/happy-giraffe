@@ -293,7 +293,7 @@ class ElasticEmail extends CApplicationComponent
         return $res;
     }
 
-    public static function mailMerge($csv, $from, $fromName, $subject, $bodyText, $bodyHTML=NULL)
+    public static function mailMerge($csv, $from, $fromName, $subject, $bodyText = null, $bodyHTML = null)
     {
         $csvName = 'mailmerge.csv';
         $attachID = self::uploadAttachment($csv, $csvName);

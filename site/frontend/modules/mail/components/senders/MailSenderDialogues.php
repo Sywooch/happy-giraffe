@@ -17,6 +17,9 @@ class MailSenderDialogues extends MailSender
 
     protected function process(User $user)
     {
+        if ($user->online)
+            return null;
+
         $lastDelivery = MailDelivery::model()->getLastDelivery($user->id, 'dialogues');
         $after = $lastDelivery === null ? null : $lastDelivery->created;
         $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(

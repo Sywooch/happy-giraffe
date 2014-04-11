@@ -28,9 +28,9 @@ class JabberLogRoute extends CLogRoute
             '--chatroom' => $this->room,
         );
 
-        $str = 'echo "' . $message . '" | sendxmpp ';
+        $str = 'echo "' . $message . '" | sendxmpp';
         foreach ($params as $k => $v) {
-            $str .= $k . ' ' . $v;
+            $str .= ' ' . $k . ' ' . $v;
         }
 
         shell_exec($str);

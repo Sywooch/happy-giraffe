@@ -304,6 +304,8 @@ class ElasticEmail extends CApplicationComponent
         $data .= "&from_name=".urlencode($fromName);
         $data .= "&subject=".urlencode($subject);
         $data .= "&data_source=".urlencode($attachID);
+//        $data .= '&charset='.urlencode('utf-8');
+//        $data .= '&encodingtype=0';
         if($bodyHTML) $data .= "&body_html=".urlencode($bodyHTML);
         if($bodyText) $data .= "&body_text=".urlencode($bodyText);
 

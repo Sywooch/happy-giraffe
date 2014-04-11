@@ -12,7 +12,7 @@ abstract class MailSender extends CComponent
 {
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
-    const SENDER_DEBUG = false;
+    const SENDER_DEBUG = true;
 
     public $messagesBuffer = array();
     protected abstract function process(User $user);
@@ -26,6 +26,8 @@ abstract class MailSender extends CComponent
     {
         $criteria = new CDbCriteria();
         $criteria->compare('`group`', UserGroup::COMMENTATOR);
+        if (self::SENDER_DEBUG)
+            $criteria->compare('t.id', 12936);
 
         $dp = new CActiveDataProvider('User', array(
             'criteria' => $criteria,
@@ -72,12 +74,11 @@ abstract class MailSender extends CComponent
         $csv  = '"ToMail","Body","Subject"' . "\n";
         foreach ($messages as $message) {
             $html = $message->getBody();
-            $html = str_replace('"', "'", $html);
             $html = str_replace(array("\n", "\r", "\r\n", "\n\r"), '', $html);
+            $html = str_replace('"', '\'', $html);
+            $html = "<span style='color:#ff0000; font-size: 21px;'>123</span>";
             $csv .= '"' . implode('","', array($message->user->email, $html, $message->getSubject())) . '"' . "\n";
         }
-
-        echo $csv; die;
 
         $response = ElasticEmail::mailMerge($csv, self::FROM_EMAIL, self::FROM_NAME, '{Subject}', null, '{Body}');
         echo $response;

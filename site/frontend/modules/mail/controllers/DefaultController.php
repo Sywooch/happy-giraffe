@@ -36,6 +36,13 @@ class DefaultController extends HController
     public function actionDialogues()
     {
         $photo = AlbumPhoto::model()->findByPk(326229);
-        echo CHtml::image($photo->getPreviewUrl(660, null, Image::WIDTH));
+
+        $imageUrl = $photo->getPreviewPath(660, null, Image::WIDTH);
+        $image = new Image($imageUrl, array('driver' => 'GD', 'params' => array()));
+        $watermarkUrl = Yii::getPathOfAlias('webroot') . '/new/images/mail/water-mark.png';
+        $watermark = new Image($watermarkUrl);
+        $image->watermark($watermark, 80, ($image->width - 151) / 2, ($image->height - 151) / 2);
+        $image->save(Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . '2.jpg');
+        echo CHtml::image('/2.jpg');
     }
 }

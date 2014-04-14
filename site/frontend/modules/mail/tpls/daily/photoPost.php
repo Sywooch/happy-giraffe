@@ -82,9 +82,9 @@ $comments = $post->getLastCommentators(5);
                                         <?php endforeach; ?>
 
                                     </td>
-                                    <?php if ($commentsCount > 0): ?>
+                                    <?php if ($commentsCount > 5): ?>
                                     <td style="color: #333333; font-size: 12px; padding-left: 4px;">
-                                        еще 113
+                                        еще <?php echo ($commentsCount - 5); ?>
                                     </td>
                                     <?php endif; ?>
                                 <?php endif; ?>
@@ -95,7 +95,7 @@ $comments = $post->getLastCommentators(5);
                         <table border="0" cellpadding="0" cellspacing="0" style="background-color:#2ea0f7; border-radius:4px;">
                             <tr>
                                 <td align="center" valign="middle" style="color:#ffffff; font-size:16px;  line-height:150%; padding-top:5px; padding-right:15px; padding-bottom:5px; padding-left:15px;">
-                                    <a href="" target="_blank" style="color:#ffffff; text-decoration:none;">Смотреть галерею</a>
+                                    <a href="<?php echo $post->getUrl(false, true); ?>" target="_blank" style="color:#ffffff; text-decoration:none;">Смотреть галерею</a>
                                 </td>
                             </tr>
                         </table>

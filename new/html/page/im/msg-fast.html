@@ -4,30 +4,24 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Happy Giraffe</title>
-    <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.css" />
+    <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
     <!-- including other jade works-->
-    <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
+    <!-- ie8 -->
+    <!--+scripts(path)-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>
       window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
       
     </script>
     <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
-    <!-- tooltip-->
     <script src="/new/javascript/jquery.tooltipster.js"></script>
-    <!-- popup-->
     <script src="/new/javascript/jquery.magnific-popup.js"></script>
-    <!-- custom scroll-->
     <script src="/new/javascript/baron.js"></script>
-    <!-- custom select-->
     <script src="/new/javascript/select2.js"></script>
-    <!-- wisywig-->
     <script src="/new/redactor/redactor.js"></script>
     <script src="/new/javascript/jquery.Jcrop.js"></script>
-    <!-- Базовый js (вызывается на всех страницах)-->
     <script src="/new/javascript/common.js"></script>
-    <!-- js для работы в верстке-->
     <script src="/new/javascript/common-markup.js"></script>
     <script src="//localhost:35729/livereload.js"></script>
   </head>
@@ -164,7 +158,7 @@
       <div class="layout-wrapper">
         <div class="layout-wrapper_hold clearfix">
           <div class="margin-20">
-            <h2>Быстрые сообщения</h2><a href="#msg-fast-base" class="popup-a">Написание бастрого сообщения</a><br><br><a href="#msg-fast-post" class="popup-a">Отправка бастрого сообщения</a><br><br><a href="#msg-fast-success" class="popup-a">Сообщение отправлено</a><br><br><a href="#msg-fast-avacap" class="popup-a">Заглушка при отсутсвии аватара</a><br><br><a href="#msg-fast-addfreind" class="popup-a">Добавление в друзья</a><br><br><a href="#popup-error" class="popup-a">Ошбика</a>
+            <h2>Быстрые сообщения</h2><a href="#msg-fast-base" class="popup-a">Написание бастрого сообщения</a><br><br><a href="#msg-fast-post" class="popup-a">Отправка бастрого сообщения</a><br><br><a href="#msg-fast-success" class="popup-a">Сообщение отправлено</a><br><br><a href="#msg-fast-avacap" class="popup-a">Заглушка при отсутсвии аватара</a><br><br><a href="#msg-fast-addfreind" class="popup-a">Добавление в друзья</a><br><br><a href="#popup-error" class="popup-a">Ошбика </a>
           </div>
         </div>
       </div>
@@ -188,6 +182,7 @@
                   Друг - im-panel_friend__fr
                   Добавить в друзья - .im-panel_friend__add
                   Приглашение отправленно - .im-panel_friend__added
+                  Предлагает дружбу - .im-panel_friend__append
                   --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
                 </div>
               </div>
@@ -202,7 +197,8 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_901" class="redactor"></textarea>
+                      <!-- , id=redactor_id-->
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -212,7 +208,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_901" class="redactor-control_toolbar"></div>
+              <div class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -222,11 +218,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_901').redactor({
+                  $('#').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_901',
+                    toolbarExternal: '#',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -278,6 +274,7 @@
                   Друг - im-panel_friend__fr
                   Добавить в друзья - .im-panel_friend__add
                   Приглашение отправленно - .im-panel_friend__added
+                  Предлагает дружбу - .im-panel_friend__append
                   --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
                 </div>
               </div>
@@ -292,7 +289,8 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_325" class="redactor"></textarea>
+                      <!-- , id=redactor_id-->
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -302,7 +300,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_325" class="redactor-control_toolbar"></div>
+              <div class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -312,11 +310,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_325').redactor({
+                  $('#').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_325',
+                    toolbarExternal: '#',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -375,6 +373,7 @@
                   Друг - im-panel_friend__fr
                   Добавить в друзья - .im-panel_friend__add
                   Приглашение отправленно - .im-panel_friend__added
+                  Предлагает дружбу - .im-panel_friend__append
                   --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
                 </div>
               </div>
@@ -389,7 +388,8 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_274" class="redactor"></textarea>
+                      <!-- , id=redactor_id-->
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -399,7 +399,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_274" class="redactor-control_toolbar"></div>
+              <div class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -409,11 +409,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_274').redactor({
+                  $('#').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_274',
+                    toolbarExternal: '#',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -472,6 +472,7 @@
                   Друг - im-panel_friend__fr
                   Добавить в друзья - .im-panel_friend__add
                   Приглашение отправленно - .im-panel_friend__added
+                  Предлагает дружбу - .im-panel_friend__append
                   --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
                 </div>
               </div>
@@ -486,7 +487,8 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_637" class="redactor"></textarea>
+                      <!-- , id=redactor_id-->
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -496,7 +498,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_637" class="redactor-control_toolbar"></div>
+              <div class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -506,11 +508,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_637').redactor({
+                  $('#').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_637',
+                    toolbarExternal: '#',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {
@@ -572,6 +574,7 @@
                   Друг - im-panel_friend__fr
                   Добавить в друзья - .im-panel_friend__add
                   Приглашение отправленно - .im-panel_friend__added
+                  Предлагает дружбу - .im-panel_friend__append
                   --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
                 </div>
               </div>
@@ -596,7 +599,8 @@
                     <!-- Width из-за открытия в попапе, прикручивая ненужен-->
                     <div style="width:468px;" class="scroll_cont">
                       <!-- после открытия попапа передавать фокус на редактор-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" id="redactor_719" class="redactor"></textarea>
+                      <!-- , id=redactor_id-->
+                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
                     </div>
                     <div class="scroll_bar-hold">
                       <div class="scroll_bar">
@@ -606,7 +610,7 @@
                   </div>
                 </div>
               </div>
-              <div id="redactor-control_toolbar_719" class="redactor-control_toolbar"></div>
+              <div class="redactor-control_toolbar"></div>
               <div class="redactor-control_control">
                 <div class="redactor-control_key">
                   <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
@@ -616,11 +620,11 @@
               </div>
               <script>
                 $(document).ready(function () { 
-                  $('#redactor_719').redactor({
+                  $('#').redactor({
                     minHeight: 65,
                     autoresize: true,
                     focus: true,
-                    toolbarExternal: '#redactor-control_toolbar_719',
+                    toolbarExternal: '#',
                     buttons: [ 'smile'],
                     buttonsCustom: {
                       smile: {

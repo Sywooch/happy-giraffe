@@ -16,7 +16,7 @@
     &__small &_i {
         width: 65px;
         height: 60px;
-         .img-retina('/new/images/base/logo__small.png'; '/new/images/base/logo__small-2x.png'; 65px; 60px;);
+         .img-retina('@{path-img}/base/logo__small.png'; '@{path-img}/base/logo__small-2x.png'; 65px; 60px;);
     }
     &_i {
         display:block;
@@ -24,7 +24,7 @@
         height:65px;
         text-indent:-9999px;
         margin:0 auto;
-        .img-retina('/new/images/base/logo.png'; '/new/images/base/logo-2x.png'; 230px; 65px;);
+        .img-retina('@{path-img}/base/logo.png'; '@{path-img}/base/logo-2x.png'; 230px; 65px;);
     }
     &_slogan {
         position: absolute;
@@ -46,7 +46,7 @@
             header_i-arrow
 */
 .header {
-    background:#fff url(/new/images/header.png) repeat-x 50% 0;
+    background:#fff url('@{path-img}/header.png') repeat-x 50% 0;
     
     &__small &_hold {padding: 10px 0 10px;}
     // desktop размер
@@ -97,7 +97,7 @@
         width: 12px;
         height: 8px;
         margin: 0 0 0 4px;
-        background: url(/new/images/header_i-arrow.png) no-repeat;
+        background: url('@{path-img}/header_i-arrow.png') no-repeat;
     }
 }
 /* /header */
@@ -155,7 +155,7 @@
     &_a:hover &_ico__logout      {background-position: -650px -50px;}
     &_a:hover,
     &_li.active &_a {
-        background: url(/new/images/header-menu_a.png) no-repeat 4px 0;
+        background: url('@{path-img}/header-menu_a.png') no-repeat 4px 0;
     }
     &_a:hover &_tx,
     &_li.active &_tx {
@@ -177,7 +177,7 @@
         width: 50px;
         height: 45px;
         margin: 0 auto 2px;
-        .img-retina('/new/images/header-menu_ico.png'; '/new/images/header-menu_ico-2x.png'; 700px; 95px;);
+        .img-retina('@{path-img}/header-menu_ico.png'; '@{path-img}/header-menu_ico-2x.png'; 700px; 95px;);
     }
 
     &_ico__giraffe   {background-position: 0 0;}
@@ -278,83 +278,6 @@
 /* /header-drop */
 
 
-/* club-list 
-    Клубы пользователя
-*/
-.club-list {
-    margin: 10px 0 40px;
-
-    &__small {margin: 15px -22px 5px 0;}
-    &__small &_ul {margin: 0;}
-    &__small &_li {
-        margin: 0 18px 15px 0;
-        width: auto;
-    }
-    &__small &_i:hover &_img-hold {border-color: #dbd1e8;}
-    &__small &_img-hold {
-        margin-bottom: 0;
-        border: 1px solid #eae4f1;
-        .border-radius(4px);
-    }
-
-    &_ul {margin: 20px -38px 10px 0;}
-    &_li {
-        position: relative;
-        .inline-block();
-        vertical-align: top;
-        width: 98px;
-        margin:0 30px 30px 0;
-    }
-    &_li__in &_img-hold {border-color: #04a316;}
-    &_li__in &_check {background-position: 0 -40px;}
-    &_li__in &_check:hover {background-position: -42px -40px;}
-    &_li__in &_img-overlay {display: block;}
-    &_i {
-        display: block;
-        color: #3782c1;
-        text-align: center;
-        font: bold 11px/14px Tahoma, Arial, Verdana, sans-serif;
-    }
-    &_i:hover {text-decoration: none;}
-    &_img-hold {
-        position: relative;
-        display: block;
-        border: 2px solid #8eb3e3;
-        margin: 0 0 3px;
-        overflow: hidden;
-        .border-radius(5px);
-    }
-    &_img {display: block;}
-    &_check {
-        position: absolute;
-        top: 68px;
-        right: -10px;
-        width: 38px;
-        height: 38px;
-        background: url(/images/club/club-list_check.png) no-repeat;
-    }
-    &_check:hover {background-position: -42px 0;}
-    &_add {
-        display: block;
-        width: 98px;
-        height: 100px;
-        background: url(/images/club-list_add.png) no-repeat;
-    }
-    &_add:hover {background-position: 0 -100px;}
-    &_img-overlay {
-        display: none;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background: #5695e6;
-        background: rgba(86,149,230,.65);
-    }
-}
-/* /club-list */
-
-
 /* header-fix 
     Фиксировання шапка
     header-fix  __rel
@@ -396,7 +319,7 @@
         left: 20px;
         width: 95px;
         height: 25px;
-        background: url(/new/images/header-fix_hold__pseudo.png) no-repeat;
+        background: url('@{path-img}/header-fix_hold__pseudo.png') no-repeat;
     }
     &_hold:after {
         left: auto;
@@ -410,7 +333,7 @@
         width: 45px;
         height: 55px;
         background: url() no-repeat;
-        .img-retina('/new/images/header-fix_logo.png'; '/new/images/header-fix_logo-2x.png'; 45px; 55px)
+        .img-retina('@{path-img}/header-fix_logo.png'; '@{path-img}/header-fix_logo-2x.png'; 45px; 55px)
     }
     &_dropin {
         float: right;

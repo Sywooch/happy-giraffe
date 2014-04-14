@@ -1,5 +1,4 @@
-
-
+﻿
 // Переменные и примешивания
 @import "/include/variables.less";
 @import "/include/mixins.less";
@@ -9,15 +8,17 @@
 @import "/project/comments.less";
 @import "/project/favorites.less";
 @import "/project/find-friend.less";
-@import "/project/friends-list.less";
-@import "/project/im.less";
+/*@import "/project/friends-list.less";*/
+/*@import "/project/im.less";*/
+@import "../new/less/project/msg-fast.less";
 @import "/project/onair.less";
 @import "../new/less/project/photo-window.less";
+@import "../redactor/redactor.css";
 @import "/project/redactor.less";
 @import "/project/start-page.less";
 @import "/project/social.less";
 @import "/project/user-notice.less";
-@import "/project/vacancy.less";
+/*@import "/project/vacancy.less";*/
 
 /// services
 @import "/project/services/cook.less";
@@ -242,6 +243,10 @@
         margin: 0 0 5px;
     }
     .content-img  {float: none;margin: 0 0 10px;}
+    .img-right {
+        float: right;
+        margin: 0 0 10px 15px;
+    }
     .h2-services {
         font-weight: normal;
         color: #0D0D0D;
@@ -1088,6 +1093,15 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /b-article-conversion */
 
+/* article-inner-b */
+.article-inner-b {
+    border: 1px solid #d2f2d2;
+    background: #e7f9e7;
+    padding: 20px 15px;
+    .clearfix();
+}
+/* /article-inner-b */
+
 /* b-photopost */
 .b-photopost {
     margin: 20px 0 30px;
@@ -1107,7 +1121,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* like-control */
 .js-like-control {
     position: relative;
-    z-index: 2;
+    z-index: 11;
 }
 .like-control {
     position: relative;
@@ -1701,8 +1715,8 @@ table.fr_recipe_tb td { width: 50%;}
         height: 30px;
         min-width: 84px;
         padding: 8px 0 0;
-        background: #a488bc;
-        color: #fff;
+        background: #7d70a9;
+        color: #d9d2e9;
         font-size: 9px;
         line-height: 10px;
         font-family: Tahoma, Arial, Verdana, sans-serif;
@@ -1848,16 +1862,17 @@ table.fr_recipe_tb td { width: 50%;}
 
 .like-hg-small {
     .inline-block();
-    padding: 5px 0 0 17px;
+    padding: 4px 0 0 16px;
     height: 11px;
     text-align: center;
-    font-size: 9px;
+    font-size: 11px;
     line-height: 11px;
-    color: #b1b1b1;
-    background: url(/images/like-hg-small.png) no-repeat 0 0;
+    color: @color-gray-light;
+    background: data-uri('../images/like-hg-small.png') no-repeat;
     text-decoration: none;
     &.active,
     &:hover { background-position: 0 -50px;}
+    &__hover-out {background-position: 0 -100px;}
 }
 
 /* article-settings */
@@ -3026,7 +3041,9 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /b-interest */
 
-/* widget-friends */
+/* widget-friends  */
+
+// Планируется внедерние
 .widget-friends {
     margin: 10px 0 40px;
     &_ul {
@@ -3050,6 +3067,39 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_find-a:hover {background-position: 0 -81px;}
 }
+/*.widget-friends {
+    margin: 10px 0 40px;
+    padding: 15px;
+    background: #f5f5f5;
+    
+    &_hold {
+        border: 1px solid #e9e9e9;
+        border-width: 1px 0;
+        margin: 10px 0;
+    }
+    &_ul {
+        margin: 0 -15px 0 0;
+        padding: 5px 0;
+        text-align: center;
+    }
+    &_i {
+        .inline-block();
+        vertical-align: top;
+        margin:8px 14px 8px 0;
+    }
+    &_find {
+        .inline-block();
+        vertical-align: top;
+        margin: 10px 4px 0 -3px;
+    }
+    &_find-a {
+        display: block;
+        width: 80px;
+        height: 81px;
+        background: url(/images/widget-friends_find.png) no-repeat;
+    }
+    &_find-a:hover {background-position: 0 -81px;}
+}*/
 /* /widget-friends */
 
 /* user-awards */
@@ -3238,9 +3288,9 @@ table.fr_recipe_tb td { width: 50%;}
 .section-lilac {
     margin: 0 -9000px 16px;
     padding: 20px 9000px 25px;
-    background: #ac8fc5;
+    background: #7d70a9;
     color: #fff;
-    .box-shadow(inset 0 0 7px rgba(0,0,0,0.3));
+    .box-shadow(inset 0 0 7px rgba(0,0,0,0.2));
 
     &_left {
         .inline-block();
@@ -3262,13 +3312,16 @@ table.fr_recipe_tb td { width: 50%;}
     &_center-reg {
         font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
         text-align: center;
-        color: #ddceeb;
+        color: #d9d2e9;
     }
     &_right {
         .inline-block();
         vertical-align: middle;
         margin-left: 20px;
         width: 270px;
+    }
+    &_help {
+        color: #d9d2e9;
     }
 }
 /* /section-user */
@@ -3490,20 +3543,22 @@ table.fr_recipe_tb td { width: 50%;}
     &_i:hover {text-decoration: underline;}
     &_i:hover &_ico-hold {
         .box-shadow(none);
-        background: #0eba23;
+        background: #3998d1;
     }
-    &_i:hover &_ico-hold__dialog      {background: #0eba23;}
-    &_i:hover &_ico-hold__blog        {background: #4abafe;}
-    &_i:hover &_ico-hold__photo       {background: #ff6dab;}
-    &_i:hover &_ico-hold__friend-add  {background: #fee652;}
-    &_i:hover &_ico-hold__friend-added{background: #fee652;}
-    &_i:hover &_ico-hold__friend      {background: #fee652;}
+    &_i:hover &_ico-hold__dialog      {background: #3998d1;}
+    &_i:hover &_ico-hold__blog        {background: #63bb5b;}
+    &_i:hover &_ico-hold__photo       {background: #e68832;}
+    &_i:hover &_ico-hold__friend-add,
+    &_i:hover &_ico-hold__friend-added,
+    &_i:hover &_ico-hold__friend-append,
+    &_i:hover &_ico-hold__friend      {background: #fbe170;}
     &_i:hover                          &_ico {background-position: 0 -30px;}
     &_i:hover &_ico-hold__dialog       &_ico {background-position: 0px -30px;}
     &_i:hover &_ico-hold__blog         &_ico {background-position: -30px -30px;}
     &_i:hover &_ico-hold__photo        &_ico {background-position: -60px -30px;}
     &_i:hover &_ico-hold__friend-add   &_ico {background-position: -90px -30px;}
-    &_i:hover &_ico-hold__friend-added &_ico {background-position: -120px 0px;}
+    &_i:hover &_ico-hold__friend-added &_ico {background-position: -120px -30px;}
+    &_i:hover &_ico-hold__friend-append &_ico {background-position: -90px -30px;}
     &_i:hover &_ico-hold__friend       &_ico {background-position: -150px 0px;}
     &_ico-hold {
         display: block;
@@ -3511,7 +3566,7 @@ table.fr_recipe_tb td { width: 50%;}
         height: 42px;
         margin-bottom: 4px;
         padding: 16px 0 0;
-        background: #82649b;
+        background: #645596;
         .box-shadow(inset 0 1px 1px rgba(0,0,0,0.25));
         .border-radius(30px);
     }
@@ -3520,8 +3575,9 @@ table.fr_recipe_tb td { width: 50%;}
     &_ico-hold__photo        &_ico {background-position: -60px 0;}
     &_ico-hold__friend-add   &_ico {background-position: -90px 0;}
     &_ico-hold__friend-added &_ico {background-position: -120px 0;}
+    &_ico-hold__friend-append &_ico {background-position: -180px 0;}
     &_ico-hold__friend       &_ico {background-position: -150px 0;}
-    &_ico-hold__friend      {background: #fee652;}
+    &_ico-hold__friend      {background: #fbe170;}
     &_ico {
         display: block;
         width: 30px;
@@ -3534,7 +3590,7 @@ table.fr_recipe_tb td { width: 50%;}
         width: 1px;
         height: 63px;
         margin: 0 11px;
-        background: #cfc1db;
+        background: #BBB2DA;
     }
 }
 /* /user-btns */
@@ -4022,12 +4078,21 @@ table.fr_recipe_tb td { width: 50%;}
     &__adfox {}
     &__adfox .layout-container {
         position: relative;
+        overflow: hidden;
         background: #f0f0f0;
         width: 1000px;
-        margin: 250px auto 50px; 
+        margin: 0 auto 50px; 
         .box-shadow(1px 1px 7px rgba(8,94,150,0.30));
         z-index: 1;
     }
+    /*&__adfox .header-fix {
+        width: 1000px;
+        left: 50%;
+        right: auto;
+        margin-left: -500px;
+    }*/
+
+    &__kinder-spring .layout-container {margin-bottom: 150px;}
 
 /*    &__adfox .start-page_container {
         width: 1000px;
@@ -4036,7 +4101,7 @@ table.fr_recipe_tb td { width: 50%;}
         z-index: 1;
         background: #F0F0F0;
         .box-shadow(1px 1px 7px rgba(8,94,150,0.30));
-    }
+    } 
     &__adfox .start-page_counter {padding: 45px 0 55px;}
     &__adfox .start-page_row__head {background:#b7ddf2 url(/images/branding/kinder/start-page_row__head.jpg) no-repeat 50% 0px;}
     &__adfox .start-page_head {padding-left: 35px;padding-right: 645px;}
@@ -4061,18 +4126,24 @@ table.fr_recipe_tb td { width: 50%;}
     z-index: 0;
     top: 0;
     right: 0;
-    bottom: 0;
     left: 0;
+    height: 100%;
 
     &__adkinder &_b {
         height: 672px;
         background:#b7ddf2 url(/images/branding/kinder/cover_b.jpg) no-repeat 50% 0px;
     }
-    @media screen and (min-width: 1024px) {
+    &__kinder-spring &_b {
+        height: 401px;
+        background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1180.jpg) no-repeat 50% 100%;
+    }
+    @media screen and (min-width: 1180px) {
         &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1400.jpg) no-repeat 50% 0px;}
+        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1400.jpg) no-repeat 50% 0px;}
     }
     @media screen and (min-width: 1400px) {
         &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1920.jpg) no-repeat 50% 0px;}
+        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1920.jpg) no-repeat 50% 0px;}
     }
     &_b {
         position: absolute;
@@ -4084,7 +4155,7 @@ table.fr_recipe_tb td { width: 50%;}
 
 /* cover-contest */
 .cover-contest {
-    margin: 278px 0 209px;
+    margin: 283px 0 209px;
     .body-guest & {margin-top: 235px;}
 
     &__pets1  {background:#4e4064 url(/images/contest/club/pets1/cover-contest__pets1.jpg) no-repeat 50% 0;}
@@ -4770,12 +4841,67 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /adfox-banner-html */
 
+/* user-actions */
+.user-actions {
+    .inline-block();
+
+    &__small {}
+    &__small &_i__message             &_ico {background-position: 0 0;}
+    &__small &_i__message:hover       &_ico {background-position: 0 -50px;}
+    &__small &_i__friend              &_ico {background-position: -40px 0;}
+    &__small &_i__friend-add          &_ico {background-position: -20px 0;}
+    &__small &_i__friend-add:hover    &_ico {background-position: -20px -50px;}
+    &__small &_i__friend-added        &_ico {background-position: -60px 0;}
+    &__small &_i__friend-append       &_ico {background-position: -80px 0;}
+    &__small &_i__friend-append:hover &_ico {background-position: -20px -50px;}
+    &__small &_ico {
+        vertical-align: initial;
+        width: 20px;
+        height: 15px;
+        background: url(/images/user-actions_ico__small.png) no-repeat;
+    }
+    
+    &_i {
+        .inline-block();
+        margin: 0 1px;
+        text-decoration: none;
+    }
+    &_i__friend-added,
+    &_i__friend {cursor: default;}
+    &_i__friend &_tx {
+        color: #0eb31e;
+        margin: 0 2px 0 -3px;
+    }
+    &_ico {
+        .inline-block();
+        vertical-align: middle;
+        width: 25px;
+        height: 25px;
+        background: url(/images/user-actions_ico.png) no-repeat;
+    }
+    &_i__message             &_ico {background-position: 0 0;}
+    &_i__message:hover       &_ico {background-position: 0 -50px;}
+    &_i__friend              &_ico {background-position: -50px 0;}
+    &_i__friend-add          &_ico {background-position: -25px 0;}
+    &_i__friend-add:hover    &_ico {background-position: -25px -50px;}
+    &_i__friend-added        &_ico {background-position: -75px 0;}
+    &_i__friend-append       &_ico {background-position: -100px 0;}
+    &_i__friend-append:hover &_ico {background-position: -25px -50px;}
+    &_tx {
+        .inline-block();
+        .font-xs-mixin();
+        padding-bottom: 2px;
+    }
+}
+/* /user-actions */
+
 
 
 
 // new 
 // ---------------------------------------------------------------------------------------------
 @import "../new/less/project/popup-sign.less";
+@import "../new/less/plugins/jquery.Jcrop.less";
 @import "../new/less/plugins/magnific-popup.less";
 @import "../new/less/plugins/select2.less";
 @import "../new/less/plugins/select2.hg.less";
@@ -4787,61 +4913,3 @@ table.fr_recipe_tb td { width: 50%;}
     padding: 0;
 }
 
-/* 
-    Валидация форм
-    .inp-valid 
-*/
-.inp-valid {
-    position: relative;
-    .clearfix();
-
-    &.error &_error {display: inline-block;}
-    &.error input {border-color: #fdb9ac !important;}
-    &.success &_success {display: block;}
-    &__abs &_error {
-        position: absolute;
-        bottom: 100%;
-        left: 0;
-        z-index: 1000;
-        white-space: nowrap;
-    }
-    &__abs &_success {
-        position: absolute;
-        left: 100%;
-        margin-left: 10px;
-        z-index: 1000;
-    }
-    &__abs &_success__ico-check {
-        top: 50%;
-        margin-top: -6px;
-    }
-
-    &_error {
-        display: none;
-        padding: 8px 10px 8px 33px;
-         background: #fde3e3 url(/new/images/inp-valid_error.png) no-repeat 7px 6px;
-    }
-    &_error:after {
-        content: ' ';
-        position: absolute;
-        left: 10px;
-        bottom: -12px;
-        border: 6px solid transparent;
-        border-top-color: #fde3e3;
-    }
-    &_error .errorMessage {
-        color: #db9191 !important;
-        font-size: 12px !important;
-        margin: 0;
-    }
-    &_success__ico-check {
-        .inline-block();
-        width: 12px;
-        height: 11px;
-        .img-retina('/new/images/inp-valid_success__ico-check.png'; '/new/images/inp-valid_success__ico-check-2x.png'; 12px; 11px);
-    }
-    &_success{
-        display: none;
-    }
-}
-/* /.inp-valid */

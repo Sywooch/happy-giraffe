@@ -29,7 +29,7 @@ $(document).ready(function () {
 
     $(document).ajaxComplete(function(event, xhr, settings) {
         var json = $.parseJSON(xhr.responseText);
-        if (json.hasOwnProperty('errors')) {
+        if (json !== null && json.hasOwnProperty('errors')) {
             $('.error-serv_hold').html('');
             jQuery.each(json.errors, function(i, val) {
                 $('.error-serv_hold').append('<p>' + val + '</p>');
@@ -466,11 +466,15 @@ function FriendButtonViewModel(data) {
 
     self.cssClass = ko.computed(function() {
         switch (self.status()) {
+            // уже в друзьях
             case 1:
                 return 'user-btns_ico-hold__friend';
+            // можно отправить приглашение
             case 2:
+            // можно подтвердить приглашение
             case 4:
                 return 'user-btns_ico-hold__friend-add';
+            // приглашение отправленно
             case 3:
                 return 'user-btns_ico-hold__friend-added'
         }
@@ -613,3 +617,33 @@ var AddMenu = {
     }
 }
 
+var DateRange = {
+    days : function() {
+        var daysRange = [];
+        for (var i = 1; i <= 31; i++)
+            daysRange.push(i);
+        return daysRange;
+    },
+    months : function() {
+        return [
+            { id : 1, name : 'Января' },
+            { id : 2, name : 'Февраля' },
+            { id : 3, name : 'Марта' },
+            { id : 4, name : 'Апреля' },
+            { id : 5, name : 'Мая' },
+            { id : 6, name : 'Июня' },
+            { id : 7, name : 'Июля' },
+            { id : 8, name : 'Августа' },
+            { id : 9, name : 'Сентября' },
+            { id : 10, name : 'Октября' },
+            { id : 11, name : 'Ноября' },
+            { id : 12, name : 'Декабря' }
+        ];
+    },
+    years : function(min, max) {
+        var yearsRange = [];
+        for (var i = max; i >= min; i--)
+            yearsRange.push(i);
+        return yearsRange;
+    }
+}

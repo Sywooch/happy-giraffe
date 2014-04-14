@@ -29,6 +29,15 @@ class DefaultCommand extends CConsoleCommand
         $sender->sendAll();
     }
 
+    /**
+     * Отправка ежедневной рассылки
+     */
+    public function actionDaily()
+    {
+        $sender = new MailSenderDaily();
+        $sender->sendAll();
+    }
+
     public function actionTestWarning()
     {
         Yii::log('Test warning', CLogger::LEVEL_ERROR, 'mail');

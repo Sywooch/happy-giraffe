@@ -34,13 +34,20 @@ class MailMessageDialogues extends MailMessage
 
     public function getSubject()
     {
-        return 'У вас новые сообщения ' . time();
+        $firstUser = $this->contacts[0]->user;
+        if ($this->contactsCount == 1) {
+            return $firstUser->first_name . ' ' . HDate::simpleVerb('написал', $firstUser->gender) . ' Вам сообщение';
+        } elseif ($this->contactsCount == 2) {
+            return $firstUser->first_name . ' и ' . $this->contacts[1]->user->first_name . ' написали Вам сообщения';
+        } else {
+            return $firstUser->first_name . ' и еще несколько человек написали Вам сообщения';
+        }
     }
 
     public function getTitle()
     {
         if ($this->contactsCount == 1) {
-            $str = 'У вас одно непрочитанное сообщение.';
+            $str = 'У вас одно непрочитанное сообщение';
         } else {
             $str = 'У вас ' . $this->messagesCount . ' ' . Str::GenerateNoun(array(
                 'непрочитанное сообщение',

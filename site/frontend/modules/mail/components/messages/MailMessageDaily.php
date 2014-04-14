@@ -79,4 +79,38 @@ class MailMessageDaily extends MailMessage
     {
         return time();
     }
+
+    public function getTitle()
+    {
+        return 'Здравствуйте, ' . $this->user->first_name . '! В Вашем профиле появились новые события.';
+    }
+
+    public function getMessagesUrlParams()
+    {
+        if ($this->newMessagesCount > 0) {
+            $contacts = ContactsManager::getContactsForDelivery($this->user->id, 1);
+            $contact = $contacts[0];
+            return array('/messaging/default/index', 'interlocutorId' => $contact->user->id);
+        }
+    }
+
+    public function getFriendsUrlParams()
+    {
+        return array('/friends/default/index', 'tab' => 2);
+    }
+
+    public function getLikesUrlParams()
+    {
+        return array('/notifications/default/index');
+    }
+
+    public function getFavouritesUrlParams()
+    {
+        return array('/notifications/default/index');
+    }
+
+    public function getCommentsUrlParams()
+    {
+        return array('/notifications/default/index');
+    }
 }

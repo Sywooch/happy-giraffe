@@ -9,6 +9,8 @@
 
 class MailSenderDialogues extends MailSender
 {
+    public $debugMode = self::DEBUG_TESTING;
+
     public function __construct()
     {
         Yii::import('site.frontend.modules.messaging.components.*');
@@ -17,14 +19,7 @@ class MailSenderDialogues extends MailSender
 
     protected function process(User $user)
     {
-        if ($user->online && self::SENDER_DEBUG === false)
-            return null;
-
-        if (self::SENDER_DEBUG) {
-            $lastDelivery = null;
-        } else {
-            $lastDelivery = MailDelivery::model()->getLastDelivery($user->id, 'dialogues');
-        }
+        $lastDelivery = MailDelivery::model()->getLastDelivery($user->id, 'dialogues');
         $after = $lastDelivery === null ? null : $lastDelivery->created;
         $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
             'with' => array(
@@ -44,5 +39,11 @@ class MailSenderDialogues extends MailSender
         }
 
         return null;
+    }
+
+    protected function getUsersCriteria()
+    {
+        $criteria = parent::getUsersCriteria();
+        return $criteria->compare('online', 0);
     }
 }

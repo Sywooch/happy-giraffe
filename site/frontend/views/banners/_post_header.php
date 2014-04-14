@@ -4,6 +4,7 @@
  */
 ?>
 
+<?php if ($data instanceof CommunityContent && ! $data->getIsFromBlog()): ?>
 <div style="margin: 15px;">
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad_post_header"></div>
@@ -35,3 +36,4 @@
         })(window, document, "yandex_context_callbacks");
     </script>
 </div>
+<?php endif; ?>

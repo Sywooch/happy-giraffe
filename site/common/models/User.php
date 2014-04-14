@@ -73,6 +73,9 @@
  */
 class User extends HActiveRecord
 {
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+
     const HAPPY_GIRAFFE = 1;
     const REGISTRATION_SOURCE_NORMAL = 0;
     const REGISTRATION_SOURCE_QUESTION = 1;
@@ -103,6 +106,10 @@ class User extends HActiveRecord
 
     public $fCreated;
     public $baby_birthday;
+
+    public $birthday_day;
+    public $birthday_month;
+    public $birthday_year;
 
     public $women_rel = array(
         1 => 'Замужем',
@@ -215,7 +222,7 @@ class User extends HActiveRecord
             array('gender', 'boolean'),
             array('id, phone', 'safe'),
             array('deleted', 'numerical', 'integerOnly' => true),
-            array('birthday, baby_birthday', 'date', 'format' => 'yyyy-MM-dd', 'message' => 'Неправильная дата'),
+            array('birthday, baby_birthday', 'date', 'format' => 'yyyy-M-d', 'message' => 'Неправильная дата'),
             array('birthday', 'default', 'value' => NULL),
             array('blocked, login_date, register_date', 'safe'),
             array('mood_id', 'exist', 'className' => 'UserMood', 'attributeName' => 'id'),
@@ -225,17 +232,20 @@ class User extends HActiveRecord
             array('first_name, last_name', 'filter', 'filter'=>'trim'),
 
             //login
-            array('email, password', 'required', 'on' => 'login'),
-            array('password', 'passwordValidator', 'on' => 'login'),
+//            array('email, password', 'required', 'on' => 'login'),
+//            array('password', 'passwordValidator', 'on' => 'login'),
+
+            // signup, step 1
+//            array('email, first_name, last_name', 'required', 'on' => 'signupStep1'),
 
             //signup
-            array('first_name, last_name, password, passwordRepeat', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
-            array('email', 'required', 'on' => 'signup,signup_full', 'message' => 'Введите ваш E-mail адрес'),
-            array('birthday', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
-            array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
-            array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
-            array('email', 'unique', 'on' => 'signup,signup_full,signupQuestion', 'message' => 'Этот E-Mail уже используется'),
-            array('passwordRepeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup,signup_full'),
+//            array('first_name, last_name, password, passwordRepeat', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
+//            array('email', 'required', 'on' => 'signup,signup_full', 'message' => 'Введите ваш E-mail адрес'),
+//            array('birthday', 'required', 'on' => 'signup,signup_full', 'message' => 'Поле является обязательным'),
+//            array('gender', 'required', 'on' => 'signup,signup_full', 'message' => 'укажите свой пол'),
+//            array('first_name, last_name, gender, birthday, photo', 'safe', 'on' => 'signup,signup_full'),
+//            array('email', 'unique', 'on' => 'signup,signup_full,signupQuestion', 'message' => 'Этот E-Mail уже используется'),
+//            array('passwordRepeat', 'compare', 'compareAttribute' => 'password', 'on' => 'signup,signup_full'),
 
             //signupQuestion
             array('first_name, email', 'required', 'on' => 'signupQuestion'),
@@ -255,6 +265,20 @@ class User extends HActiveRecord
             array('blog_photo_id', 'default', 'setOnEmpty' => true, 'value' => null),
 
             array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signup,signup_full'),
+
+            //-----
+
+            //general
+            array('birthday_day, birthday_month, birthday_year', 'safe'),
+
+            //signup
+            array('email, first_name, last_name', 'required', 'on' => 'signupStep1, signupStep2, signupStep2Social'),
+            array('birthday, gender', 'required', 'on' => 'signupStep2, signupStep2Social'),
+            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signupStep2'),
+            array('email', 'unique', 'on' => 'signupStep1, signupStep2, signupStep2Social', 'message' => 'Этот E-Mail уже используется'),
+
+            //login
+            array('email, password', 'required', 'on' => 'login'),
         );
     }
 
@@ -310,7 +334,7 @@ class User extends HActiveRecord
     {
         return array(
             'avatar' => array(self::BELONGS_TO, 'AlbumPhoto', 'avatar_id'),
-            'babies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => 'babies.removed = 0'),
+            'babies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'on' => 'babies.removed = 0'),
             'realBabies' => array(self::HAS_MANY, 'Baby', 'parent_id', 'condition' => ' type IS NULL '),
             'social_services' => array(self::HAS_MANY, 'UserSocialService', 'user_id'),
             'communities' => array(self::MANY_MANY, 'Community', 'user__users_communities(user_id, community_id)', 'order' => 'position'),
@@ -334,7 +358,7 @@ class User extends HActiveRecord
             'simpleAlbums' => array(self::HAS_MANY, 'Album', 'author_id', 'condition' => 'type=0'),
             'interests' => array(self::MANY_MANY, 'Interest', 'interest__users_interests(interest_id, user_id)', 'order'=>'`count` desc'),
             'mood' => array(self::BELONGS_TO, 'UserMood', 'mood_id'),
-            'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id', 'condition' => 'partner.removed = 0'),
+            'partner' => array(self::HAS_ONE, 'UserPartner', 'user_id', 'on' => 'partner.removed = 0'),
 
             'blog_rubrics' => array(self::HAS_MANY, 'CommunityRubric', 'user_id', 'order' => 'sort ASC, blog_rubrics.id DESC'),
             //'blogPostsCount' => array(self::STAT, 'CommunityContent', 'author_id', 'join' => 'JOIN community__rubrics ON t.rubric_id = community__rubrics.id', 'condition' => 'community__rubrics.user_id = t.author_id'),
@@ -444,10 +468,18 @@ class User extends HActiveRecord
         ));
     }
 
+    protected function beforeValidate()
+    {
+        if ($this->birthday_day && $this->birthday_month && $this->birthday_year)
+            $this->birthday = implode('-', array($this->birthday_year, $this->birthday_month, $this->birthday_day));
+        return parent::beforeValidate();
+    }
+
+
     protected function beforeSave()
     {
         if (parent::beforeSave()) {
-            if ($this->isNewRecord || $this->scenario == 'change_password' || $this->scenario == 'remember_password') {
+            if ($this->scenario == 'change_password' || $this->scenario == 'remember_password') {
                 $this->password = $this->hashPassword($this->password);
             }
             return true;
@@ -500,7 +532,7 @@ class User extends HActiveRecord
         return false;
     }
 
-    public function hashPassword($password)
+    public static function hashPassword($password)
     {
         return md5($password);
     }
@@ -567,7 +599,10 @@ class User extends HActiveRecord
      */
     public function getFullName()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        $fullName = $this->first_name;
+        if (! empty($this->last_name))
+            $fullName .= ' ' . $this->last_name;
+        return $fullName;
     }
 
     /**
@@ -1161,7 +1196,7 @@ class User extends HActiveRecord
         return 'Блог - ' . $this->fullName;
     }
 
-    function createPassword($length)
+    public static function createPassword($length)
     {
         $chars = 'abcefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
         $i = 0;
@@ -1607,4 +1642,9 @@ class User extends HActiveRecord
 	{
 		return 'onOff' . $this->id;
 	}
+
+    public function getIsBanned()
+    {
+        return in_array(AntispamStatusManager::getUserStatus($this->id), array(AntispamStatusManager::STATUS_BLOCKED, AntispamStatusManager::STATUS_BLACK));
+    }
 }

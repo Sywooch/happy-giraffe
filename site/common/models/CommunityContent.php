@@ -511,7 +511,7 @@ class CommunityContent extends HActiveRecord
     public function getBlogContents($user_id, $rubric_id)
     {
         $criteria = new CDbCriteria(array(
-            'order' => 't.created DESC',
+            'order' => 't.pinned DESC, t.created DESC',
             'condition' => 'rubric.user_id IS NOT NULL AND t.author_id = :user_id',
             'params' => array(':user_id' => $user_id),
             'with' => array('rubric'),
@@ -991,26 +991,8 @@ class CommunityContent extends HActiveRecord
      */
     public function attachBlogPost()
     {
-        if (!empty($this->real_time)) {
-            $this->created = $this->real_time;
-            $this->real_time = null;
-            return $this->update(array('created', 'real_time'));
-        } else {
-            //unAttach other user posts
-            $attachedPosts = CommunityContent::model()->findAll(
-                'real_time IS NOT NULL AND author_id=:author_id',
-                array(':author_id' => $this->author_id)
-            );
-            foreach ($attachedPosts as $attachedPost) {
-                $attachedPost->created = $attachedPost->real_time;
-                $attachedPost->real_time = null;
-                $attachedPost->update(array('created', 'real_time'));
-            }
-            //attach current
-            $this->real_time = $this->created;
-            $this->created = date("Y-m-d H:i:s", strtotime('+20 years'));
-            return $this->update(array('created', 'real_time'));
-        }
+        $this->pinned = $this->pinned == 1 ? 0 : 1;
+        return $this->update(array('pinned'));
     }
 
     /**
@@ -1021,8 +1003,9 @@ class CommunityContent extends HActiveRecord
     {
         return array(
             'id' => $this->id,
-            'attached' => $this->real_time != null,
-            'privacy' => (int)$this->privacy,
+            'attached' => (bool) $this->pinned,
+            'privacy' => (int) $this->privacy,
+            'created' => strtotime($this->created),
         );
     }
 
@@ -1145,7 +1128,7 @@ class CommunityContent extends HActiveRecord
             );
         }
 
-        if (in_array($this->id, array(106365, 114024, 114026, 117229, 147851, 147856))) {
+        if (in_array($this->id, array(106365, 114024, 114026, 117229, 147851, 147856, 154876))) {
             return array(
                 'text' => 'Heinz',
                 'img' => '/images/banners/ava-Heinz-2.jpg',

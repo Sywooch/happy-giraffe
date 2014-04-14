@@ -125,7 +125,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                                     <div class="b-join_right">
                                         <a href="#register" class="btn-green btn-big fancy">Присоединяйтесь!</a>
                                         <div class="clearfix">
-                                            <a href="#login" class="display-ib verticalalign-m fancy">Войти</a>
+                                            <a href="#loginWidget" class="display-ib verticalalign-m popup-a">Войти</a>
                                             <span class="i-or">или</span>
                                             <?php Yii::app()->eauth->renderWidget(array('action' => 'site/login', 'mode' => 'home')); ?>
                                         </div>
@@ -173,9 +173,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                         <a href="#register" class="btn-green btn-h46 fancy">Присоединяйтесь!</a>
                     </div>
                 </div>
-
-                <?php $this->widget('application.widgets.registerWidget.RegisterWidget');
-                $this->widget('application.widgets.loginWidget.LoginWidget'); ?>
 
             </div>
         <?php endif ?>

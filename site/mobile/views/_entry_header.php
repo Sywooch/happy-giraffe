@@ -30,3 +30,39 @@ if (get_class($data) == 'CommunityContent' || get_class($data) == 'BlogContent')
         </div>
     </div>
 </div>
+
+<?php if ($full): ?>
+<div class="textalign-c" style="margin: 15px 0;">
+    <div style="display: inline-block;">
+        <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
+        <div id="yandex_ad"></div>
+        <script type="text/javascript">
+            (function(w, d, n, s, t) {
+                w[n] = w[n] || [];
+                w[n].push(function() {
+                    Ya.Direct.insertInto(127976, "yandex_ad", {
+                        stat_id: 2,
+                        ad_format: "direct",
+                        type: "250x250",
+                        border_type: "block",
+                        border_radius: true,
+                        site_bg_color: "FFFFFF",
+                        border_color: "FBE5C0",
+                        title_color: "996EC2",
+                        url_color: "006600",
+                        text_color: "333333",
+                        hover_color: "AC89CE",
+                        no_sitelinks: true
+                    });
+                });
+                t = d.getElementsByTagName("script")[0];
+                s = d.createElement("script");
+                s.src = "//an.yandex.ru/system/context.js";
+                s.type = "text/javascript";
+                s.async = true;
+                t.parentNode.insertBefore(s, t);
+            })(window, document, "yandex_context_callbacks");
+        </script>
+    </div>
+</div>
+<?php endif; ?>

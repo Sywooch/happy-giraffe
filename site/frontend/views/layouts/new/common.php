@@ -12,7 +12,6 @@ Yii::app()->clientScript->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knoc
 Yii::app()->clientScript->scriptMap['knockout-2.2.1.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/knockout-debug.3.0.0.js';
 if (! Yii::app()->user->isGuest)
     Yii::app()->clientScript
-        ->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD)
         ->registerPackage('comet')
         ->registerPackage('common')
         ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
@@ -20,14 +19,45 @@ if (! Yii::app()->user->isGuest)
 ?><!DOCTYPE html>
 <html class="no-js">
 <head><meta charset="utf-8">
-    <title>Happy Giraffe</title>
+    <?php if (! YII_DEBUG): ?>
+    <script type='text/javascript'>
+        window.Muscula = { settings:{
+            logId:"VwXATrD-QRwMP", suppressErrors: false
+        }};
+        (function () {
+            var m = document.createElement('script'); m.type = 'text/javascript'; m.async = true;
+            m.src = (window.location.protocol == 'https:' ? 'https:' : 'http:') +
+                '//musculahq.appspot.com/Muscula6.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(m, s);
+            window.Muscula.run=function(){var a;eval(arguments[0]);window.Muscula.run=function(){};};
+            window.Muscula.errors=[];window.onerror=function(){window.Muscula.errors.push(arguments);
+                return window.Muscula.settings.suppressErrors===undefined;}
+        })();
+    </script>
+    <?php endif; ?>
+    <title><?php
+    if (!empty($this->meta_title))
+        echo CHtml::encode(trim($this->meta_title));
+    else
+        echo CHtml::encode($this->pageTitle);
+    ?></title>
+    <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <!-- including .css-->
-    <link rel="stylesheet" type="text/css" href="/new/css/all1.css" />
+    <link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" /> 
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
     <script src="/new/javascript/jquery.tooltipster.js"></script>
     <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
     <!-- wisywig-->
     <script src="/new/redactor/redactor.js"></script>
+
+    <script type="text/javascript" src="/javascripts/helium.js"></script>
+    <script type="text/javascript">
+            window.addEventListener('load', function(){
+
+                // helium.init();
+
+            }, false);
+        </script>
 </head>
 <body class="body<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
 <div class="layout-container">
@@ -62,6 +92,7 @@ if (! Yii::app()->user->isGuest)
 <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 
+<?php if (YII_DEBUG === false): ?>
 <script type="text/javascript">
 
     var _gaq = _gaq || [];
@@ -90,7 +121,9 @@ if (! Yii::app()->user->isGuest)
         var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
     })();
 </script>
+<?php endif; ?>
 
+<?php if (false): ?>
 <!-- tns-counter.ru -->
 <script type="text/javascript">
     (function(win, doc, cb){
@@ -116,10 +149,15 @@ if (! Yii::app()->user->isGuest)
     <img src="//www.tns-counter.ru/V13a****happygiraffe_ru/ru/UTF-8/tmsec=happygiraffe_total/" width="0" height="0" alt="" />
 </noscript>
 <!--/ tns-counter.ru -->
+<?php endif; ?>
 
 <script type="text/javascript">
     var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
     var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
 </script>
+
+<?php if (Yii::app()->user->isGuest): ?>
+    <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
+<?php endif; ?>
 </body>
 </html>

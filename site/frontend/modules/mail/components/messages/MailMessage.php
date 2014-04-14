@@ -58,8 +58,6 @@ abstract class MailMessage extends CComponent
 
         $this->delivery = $this->createDelivery();
         $this->token = $this->createToken();
-
-        $this->bodyHtml = $this->render($this->getTemplateFile(), array(), true);
     }
 
     /**
@@ -69,7 +67,7 @@ abstract class MailMessage extends CComponent
      */
     public function getBody()
     {
-        return $this->bodyHtml;
+        return $this->render($this->getTemplateFile(), array(), true);
     }
 
     /**

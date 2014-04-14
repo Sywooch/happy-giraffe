@@ -12,46 +12,21 @@ abstract class MailSender extends CComponent
 {
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
-    const SENDER_DEBUG = true;
 
-    public $messagesBuffer = array();
+    protected $debugMode = true;
+
     protected abstract function process(User $user);
 
     /**
      * Отправить рассылку всем пользователям, для которых она может быть отправлена
      *
+     * Может быть перопределен, если до или после итерации необходимо выполнить какие-то действия
+     *
      * @return mixed
      */
     public function sendAll()
     {
-        $criteria = new CDbCriteria();
-        $criteria->compare('`group`', UserGroup::COMMENTATOR);
-        if (self::SENDER_DEBUG)
-            $criteria->compare('t.id', 12936);
-
-        $dp = new CActiveDataProvider('User', array(
-            'criteria' => $criteria,
-        ));
-        $iterator = new CDataProviderIterator($dp, 1000);
-
-        if (self::SENDER_DEBUG) {
-            foreach ($iterator as $user) {
-                $result = $this->process($user);
-
-                if ($result instanceof MailMessage)
-                    $this->messagesBuffer[] = $result;
-
-                if (count($this->messagesBuffer) == 1000)
-                    $this->sendBufferedMessages();
-            }
-            $this->sendBufferedMessages();
-        } else {
-            foreach ($iterator as $user) {
-                $result = $this->process($user);
-                if ($result instanceof MailMessage)
-                    $this->sendInternal($result);
-            }
-        }
+        $this->iterate();
     }
 
     /**
@@ -67,32 +42,48 @@ abstract class MailSender extends CComponent
         }
     }
 
-    protected function sendInternalBatch(array $messages)
+    /**
+     * Возвращает итератор на основе критерии
+     *
+     * @return CDataProviderIterator
+     */
+    protected function getIterator()
     {
-        if (empty($messages))
-            return;
-
-        $csv  = '"ToMail","Body","Subject"' . "\n";
-        foreach ($messages as $message) {
-            $html = $message->getBody();
-            $html = str_replace(array("\n", "\r", "\r\n", "\n\r"), '', $html);
-            $html = str_replace('"', '\'', $html);
-            $html = "<span style=&quot;color:#ff0000; font-size: 21px;&quot;>123</span>";
-            $csv .= '"' . implode('","', array($message->user->email, $html, $message->getSubject())) . '"' . "\n";
-        }
-
-        $response = ElasticEmail::mailMerge($csv, self::FROM_EMAIL, self::FROM_NAME, '{Subject}', null, '{Body}');
-        echo $response;
-        if ($response) {
-            foreach ($messages as $message) {
-                $message->delivery->sent();
-            }
-            echo "sent\n";
-        }
+        $dp = new CActiveDataProvider('User', array(
+            'criteria' => $this->getUsersCriteria(),
+        ));
+        return new CDataProviderIterator($dp, 1000);
     }
 
-    protected function sendBufferedMessages()
+    /**
+     * Критерия для выборки пользователей
+     *
+     * Позволяет уже на этапе выборке отсечь лишних пользователей, что оптимизирует генерацию рассылки и упрощает
+     * сам код рассылки (нет необходимости проверять значения полей, по которым итератор уже отфильтрован)
+     *
+     * @return CDbCriteria
+     */
+    protected function getUsersCriteria()
     {
-        $this->sendInternalBatch($this->messagesBuffer);
+        $criteria = new CDbCriteria();
+        if ($this->debugMode) {
+            $criteria->compare('`group`', UserGroup::COMMENTATOR);
+        }
+        return $criteria;
+    }
+
+    /**
+     * Процедура итерации
+     *
+     * Вынесена отдельно, чтобы можно было удобно переопределять метод sendAll
+     */
+    protected function iterate()
+    {
+        $iterator = $this->getIterator();
+        foreach ($iterator as $user) {
+            $result = $this->process($user);
+            if ($result instanceof MailMessage)
+                $this->sendInternal($result);
+        }
     }
 }

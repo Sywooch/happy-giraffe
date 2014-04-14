@@ -8,6 +8,7 @@
  */
 class DefaultController extends HController
 {
+    public $layout = '//layouts/new/main';
     public function filters()
     {
         return array(
@@ -44,7 +45,7 @@ class DefaultController extends HController
         $data = compact('friendsCount', 'friendsOnlineCount', 'friendsNewCount', 'incomingRequestsCount', 'outgoingRequestsCount', 'lists');
 
         $this->pageTitle = 'Мои друзья';
-        $this->render('index', CJSON::encode($data));
+        $this->render('index_v2', CJSON::encode($data));
     }
 
     public function actionGet($online = false, $onlyNew = false, $listId = false, $query = false, $offset = 0)
@@ -53,16 +54,7 @@ class DefaultController extends HController
             return array(
                 'id' => $friend->id,
                 'listId' => $friend->list_id,
-                'user' => array(
-                    'id' => $friend->friend->id,
-                    'online' => (bool)$friend->friend->online,
-                    'firstName' => $friend->friend->first_name,
-                    'lastName' => $friend->friend->last_name,
-                    'ava' => $friend->friend->getAvatarUrl(Avatar::SIZE_LARGE),
-                    'gender' => $friend->friend->gender,
-                    'photoCount' => (int)$friend->friend->getPhotosCount(),
-                    'blogPostsCount' => (int)$friend->friend->blogPostsCount
-                ),
+                'user' => FriendsManager::userToJson($friend->friend),
                 'pCount' => $friend->pCount,
                 'bCount' => $friend->bCount,
             );

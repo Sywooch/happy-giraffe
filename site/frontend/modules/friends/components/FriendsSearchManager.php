@@ -82,8 +82,7 @@ class FriendsSearchManager
                 t.blocked = 0 AND
                 f.id IS NULL AND
                 fr.id IS NULL AND
-                t.avatar_id IS NOT NULL AND
-                t.birthday IS NOT NULL
+                t.avatar_id IS NOT NULL
             ',
             'join' => '
                 LEFT OUTER JOIN friends f ON f.user_id = :user_id AND f.friend_id = t.id
@@ -92,6 +91,7 @@ class FriendsSearchManager
             'with' => array(
                 'avatar',
                 'babies',
+                'partner',
                 'address' => array(
                     'with' => array(
                         'country',
@@ -155,7 +155,7 @@ class FriendsSearchManager
     protected static function getAgeMinCriteria($ageMin)
     {
         return new CDbCriteria(array(
-            'condition' => 't.birthday <= :birthdayMin',
+            'condition' => 't.birthday <= :birthdayMin OR t.birthday IS NULL',
             'params' => array(
                 ':birthdayMin' => (date("Y") - $ageMin) . '-' . date("m-d H:i:s"),
             ),
@@ -165,7 +165,7 @@ class FriendsSearchManager
     protected static function getAgeMaxCriteria($ageMax)
     {
         return new CDbCriteria(array(
-            'condition' => 't.birthday >= :birthdayMax',
+            'condition' => 't.birthday >= :birthdayMax OR t.birthday IS NULL',
             'params' => array(
                 ':birthdayMax' => (date("Y") - $ageMax - 1) . '-' . date("m-d H:i:s"),
             ),

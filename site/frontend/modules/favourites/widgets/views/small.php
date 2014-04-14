@@ -22,7 +22,7 @@ $t = substr((string)microtime(true), -4);
         </script>
     <?php endif ?>
 <?php else: ?>
-    <a class="ava-list_last powertip fancy" href="#login" title="В избранное">
+    <a class="ava-list_last powertip popup-a" href="#loginWidget" title="В избранное">
         <span class="ava-list_favorite"></span>
         <span class="count"><?=$count?></span>
     </a>

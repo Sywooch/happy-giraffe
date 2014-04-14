@@ -29,11 +29,11 @@ return array(
 		'application.helpers.*',
         'application.widgets.*',
         'application.vendor.*',
-		'ext.eoauth.*',
-		'ext.eoauth.lib.*',
-		'ext.lightopenid.*',
-		'ext.eauth.services.*',
-		'ext.eauth.custom_services.*',
+        'ext.eoauth.*',
+        'ext.eoauth.lib.*',
+        'ext.lightopenid.*',
+        'ext.eauth.*',
+        'ext.eauth.services.*',
 		'ext.Captcha',
 		'ext.CaptchaAction',
 		'ext.LinkPager',
@@ -67,10 +67,18 @@ return array(
         'application.modules.myGiraffe.models.*',
         'application.modules.myGiraffe.components.*',
         'application.modules.community.models.*',
-        'application.widgets.registerWidget.RegisterWidget',
         'ext.captchaExtended.*',
         'application.modules.antispam.models.*',
         'application.modules.antispam.components.*',
+        'application.modules.signup.widgets.*',
+        'application.modules.signup.models.*',
+
+        'zii.behaviors.CTimestampBehavior',
+        'site.common.extensions.wr.WithRelatedBehavior',
+        'site.frontend.modules.antispam.behaviors.AntispamBehavior',
+        'site.common.behaviors.*',
+        'site.frontend.extensions.status.EStatusBehavior',
+        'site.frontend.extensions.geturl.EGetUrlBehavior',
     ),
 
 	'sourceLanguage' => 'en',
@@ -122,6 +130,7 @@ return array(
         'myGiraffe',
         'family',
         'antispam',
+        'signup',
 	),
 	// application components
 	'components'=>array(
@@ -163,9 +172,10 @@ return array(
 		    ),
 		),
 		'eauth' => array(
-			'class' => 'ext.eauth.EAuth',
-			'popup' => true, // Use the popup window instead of redirecting.
+            'class' => 'ext.eauth.EAuth',
+            'popup' => true,
             'cache' => false,
+            'cacheExpire' => 0,
 			'services' => array( // You can change the providers and their classes.
 //                'mailru' => array(
 //                    'class' => 'CustomMailruService',
@@ -174,17 +184,17 @@ return array(
 //                    'title' => 'Mail.ru',
 //                ),
                 'odnoklassniki' => array(
-                    'class' => 'CustomOdnoklassnikiService',
+                    'class' => 'application.components.eauth.OdnoklassnikiAuth',
                     'client_id' => '93721600',
                     'client_secret' => '4E774EFE678A1ECF3D4625F3',
                     'client_public' => 'CBAFBHJGABABABABA',
                     'title' => 'Одноклассники',
                 ),
                 'vkontakte' => array(
-                    'class' => 'CustomVKontakteService',
+                    'class' => 'application.components.eauth.VkontakteAuth',
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
-                    'title' => 'Вконтакте',
+                    'title' => 'ВКонтакте',
                 ),
 //                'facebook' => array(
 //                    'class' => 'CustomFacebookService',
@@ -221,7 +231,7 @@ return array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',
 			'allowAutoLogin'=>true,
-			'loginUrl'=>'/',
+			'loginUrl'=> array('/site/index', 'openLogin' => 1),
 		),
         'authManager'=>array(
             'class'=>'CDbAuthManager',
@@ -273,11 +283,11 @@ return array(
 //                    'levels'=>'error, warning',
 //                    'emails'=>'nikita@happy-giraffe.ru',
 //                ),
-//				array(
-//					'class'=>'CEmailLogRoute',
-//					'levels'=>'error, warning',
-//					'emails'=>'choojoy.work@gmail.com',
-//				),
+                array(
+                    'class'=>'CFileLogRoute',
+                    'levels'=>'info',
+                    'logFile' => 'info.log',
+                ),
 //				array(
 //					'class'=>'CWebLogRoute',
 //					'categories'=>'system.db.CDbCommand',
@@ -355,7 +365,6 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
-        'releaseId' => 109,
         'valentinesAlbum' => '41340',
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
@@ -408,7 +417,7 @@ return array(
                 'addtocopy.js',
                 'jquery.fancybox-1.3.4.js',
                 'base64.js',
-                'common.js',
+                '/javascripts/common.js',
                 'fox.js',
                 'jquery.Jcrop.min.js',
                 'ko_blog.js',

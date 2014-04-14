@@ -9,6 +9,8 @@
 
 class HhResume extends EMongoDocument
 {
+    // Информация о резюме
+    public $rawResponse;
     public $firstName;
     public $middleName;
     public $lastName;
@@ -17,9 +19,12 @@ class HhResume extends EMongoDocument
     public $city;
     public $age;
     public $contacts = array();
-    public $keyword;
-    public $parsed = false;
-    public $send = false;
+
+    // Технические данные
+    public $query; //запрос, по которому было найдено резюме
+    public $created; //дата получения резюме
+    public $parsed = false; //дата парсинга
+    public $send = false; //дата отправки письма с приглашением
 
     public function getCollectionName()
     {
@@ -29,5 +34,12 @@ class HhResume extends EMongoDocument
     public static function model($className=__CLASS__)
     {
         return parent::model($className);
+    }
+
+    protected function beforeSave()
+    {
+        if ($this->getIsNewRecord())
+            $this->created = time();
+        return parent::beforeSave();
     }
 }

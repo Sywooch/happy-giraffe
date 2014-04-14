@@ -50,7 +50,7 @@ return array(
         'moderation' => 'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend|qualityTest)>' => 'site/<_a>',
         '<view:(advertiser|abuse)>' => array('site/page'),
-        'job/php-developer' => 'site/vacancy',
+        'developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
         'subscribes' => 'myGiraffe/default/subscribes',
@@ -356,5 +356,7 @@ return array(
         '<_c>/captcha' => '<_c>/captcha',
 
         'antispam/<_c>/<_a>' => 'antispam/<_c>/<_a>',
+        'signup/<_c>/<_a>' => 'signup/<_c>/<_a>',
+        'geo/<_c>/<_a>' => 'geo/<_c>/<_a>',
     ),
 );

@@ -135,4 +135,50 @@ class HActiveRecord extends CActiveRecord
         }, $favourites);
         return $users;
     }
+
+//    protected function beforeFind()
+//    {
+//        parent::$db = $this->getConnectionForSelect();
+//        parent::beforeFind();
+//    }
+//
+//    protected function afterFind()
+//    {
+//        parent::$db = null;
+//        parent::afterFind();
+//    }
+//
+//    protected function getConnectionForSelect()
+//    {
+//        $connectionIds = Yii::app()->params['selectConnections'];
+//        if ($connectionIds === null)
+//            return null;
+//
+//        $resultConnection = null;
+//        $minLoad = 100;
+//        foreach ($connectionIds as $id) {
+//            if (isset(Yii::app()->$id) && Yii::app()->$id instanceof CDbConnection) {
+//                $connection = Yii::app()->$id;
+//                $load = $this->getLoad($connection);
+//                if ($load < $minLoad)
+//                    $resultConnection = $connection;
+//            }
+//        }
+//        return $resultConnection;
+//    }
+//
+//    protected function getLoad(CDbConnection $connection)
+//    {
+//        return $this->getActiveConnectionsCount($connection) / $this->getConnectionsLimit($connection);
+//    }
+//
+//    protected function getConnectionsLimit(CDbConnection $connection)
+//    {
+//        return $connection->cache(3600)->createCommand('SELECT @@MAX_CONNECTIONS;')->queryScalar();
+//    }
+//
+//    protected function getActiveConnectionsCount(CDbConnection $connection)
+//    {
+//        return $connection->cache(60)->createCommand('SHOW STATUS WHERE `variable_name` = \'Threads_connected\';')->queryScalar();
+//    }
 }

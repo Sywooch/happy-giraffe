@@ -84,12 +84,18 @@ class SiteController extends HController
 	 */
 	public function actionIndex()
 	{
+        $openLogin = Yii::app()->user->getState('openLogin', false);
+        if ($openLogin !== false)
+            Yii::app()->user->setState('openLogin', null);
+        if (isset($_GET['openLogin']))
+            throw new CHttpException(404);
+
         if (! Yii::app()->user->isGuest)
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));
 
         $this->layout = '//layouts/common';
 		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
-        $this->render('home');
+        $this->render('home', compact('openLogin'));
 	}
 
 	/**
@@ -97,21 +103,15 @@ class SiteController extends HController
 	 */
 	public function actionError()
 	{
-	    if($error=Yii::app()->errorHandler->error)
+	    if ($error = Yii::app()->errorHandler->error)
 	    {
-	    	if(Yii::app()->request->isAjaxRequest)
-	    		echo $error['message'];
+	    	if (Yii::app()->request->isAjaxRequest)
+                Yii::app()->displayError($error->code, $error->message, $error->file, $error->line);
 	    	else
             {
-                if(file_exists(Yii::getPathOfAlias('application.views.system.' . $error['code']) . '.php'))
-                {
-                    $this->pageTitle = 'Ошибка';
-                    $this->layout = '//system/layout';
-                    Yii::app()->clientScript->registerCssFile(Yii::app()->baseUrl . '/stylesheets/common.css');
-                    $this->render('//system/' . $error['code'], $error);
-                }
-                else
-                    $this->render('error', $error);
+                $viewFile = Yii::app()->getSystemViewPath() . DIRECTORY_SEPARATOR . 'error' . $error['code'] . '.php';
+                if (is_file($viewFile))
+                    $this->renderPartial('//system/' . 'error' . $error['code'], $error);
             }
 	    }
 	}
@@ -238,8 +238,8 @@ class SiteController extends HController
 
     public function actionLogout()
     {
-        Yii::app()->user->logout(false);
-        $this->redirect(Yii::app()->request->urlReferrer);
+        Yii::app()->user->logout();
+        $this->redirect(array('site/index'));
     }
 
     public function actionRememberPassword($step)
@@ -439,9 +439,25 @@ class SiteController extends HController
 
     public function actionVacancy()
     {
-        $this->layout = '//layouts/common';
-        $this->pageTitle = 'Вакансия «PHP-разработчик»';
-        $this->render('vacancy');
+        $model = new VacancyForm();
+
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'vacancyForm')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        if (isset($_POST['VacancyForm'])) {
+            $model->attributes = $_POST['VacancyForm'];
+            $success = $model->validate();
+            if ($success)
+                $model->send();
+            echo CJSON::encode(compact('success'));
+        } else {
+            $this->layout = '//layouts/common';
+            $this->pageTitle = 'Вакансия «Web-разработчик»';
+            $this->render('vacancy', compact('model'));
+        }
     }
 
     public function actionVacancySend()
@@ -568,6 +584,10 @@ class SiteController extends HController
 
     public function actionSeo3()
     {
+        $ageRange = AgeRange::model()->find();
+        var_dump($ageRange->test2);
+        die;
+
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $dp = new EMongoDocumentDataProvider('Seo3', array(
             'sort' => array(

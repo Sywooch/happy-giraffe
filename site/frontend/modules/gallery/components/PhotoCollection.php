@@ -64,17 +64,25 @@ abstract class PhotoCollection extends CComponent
 
     protected function populatePhotos($ids, $json)
     {
-        $cacheKey = serialize($ids) . ':' . (int) $json;
-        $value = Yii::app()->cache->get($cacheKey);
-        if ($value === false) {
+        if ($json) {
+            $cacheKey = serialize($ids) . ':' . (int) $json;
+            $value = Yii::app()->cache->get($cacheKey);
+            if ($value === false) {
+                $models = count($ids) > 0 ? $this->generateModels($ids) : array();
+                $_models = array_map(function($id) use ($models) {
+                    return $models[$id];
+                }, $ids);
+                $value = array_map(array($this, 'toJSON'), $_models);
+                Yii::app()->cache->set($cacheKey, $value, 300);
+            }
+            return $value;
+        } else {
             $models = count($ids) > 0 ? $this->generateModels($ids) : array();
             $_models = array_map(function($id) use ($models) {
                 return $models[$id];
             }, $ids);
-            $value =  $json ? array_map(array($this, 'toJSON'), $_models) : $_models;
-            Yii::app()->cache->set($cacheKey, $value, 300);
+            return $_models;
         }
-        return $value;
     }
 
     public function getNextPhotosIds($photoId, $after)

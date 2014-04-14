@@ -23,6 +23,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <a target="_blank" href="<?=$this->createUrl('/signal/commentator/index') ?>" style="color: #333;font-weight:bold;">Панель для работы</a>
     </div>
 <?php endif ?>
+
 <div class="layout-w1">
     <?php if (! Yii::app()->user->isGuest): ?>
         <?php $this->renderPartial('//_menu_fix'); ?>
@@ -173,9 +174,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
 </script>
 
 <?php if (Yii::app()->user->isGuest): ?>
-    <?php
-    $this->renderDynamic('registerPopup');
-    $this->widget('application.widgets.loginWidget.LoginWidget');
-    ?>
+
 <?php endif; ?>
 <?php $this->endContent(); ?>

@@ -46,10 +46,10 @@ class HhParser
             'Authorization: Bearer ' . $this->token
         ));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $response = curl_exec($ch);
+        $rawResponse = curl_exec($ch);
         if (curl_getinfo($ch, CURLINFO_HTTP_CODE) != 200)
             return false;
-        $response = CJSON::decode($response);
+        $response = CJSON::decode($rawResponse);
 
         $firstName = $response['first_name'];
         $lastName = $response['last_name'];
@@ -77,6 +77,6 @@ class HhParser
         }, array());
         $contacts = CMap::mergeArray($contacts1, $contacts2);
 
-        return compact('firstName', 'lastName', 'middleName', 'salaryAmount', 'salaryCurrency', 'city', 'age', 'contacts');
+        return compact('firstName', 'lastName', 'middleName', 'salaryAmount', 'salaryCurrency', 'city', 'age', 'contacts', 'rawResponse');
     }
 }

@@ -234,33 +234,45 @@ class DefaultController extends HController
 
     public function actionCreateQuestion()
     {
-        if (Yii::app()->user->isGuest) {
-            $user = new User('signupQuestion');
-            $user->attributes = $_POST['User'];
-            $user->registration_finished = 0;
-            $user->registration_source = User::REGISTRATION_SOURCE_QUESTION;
-        } else
-            $user = Yii::app()->user->model;
+        $model = new CommunityQuestionForm();
 
-        $model = new CommunityContent('default_club');
-        $model->attributes = $_POST['CommunityContent'];
-        $model->author_id = $user->id;
-        $slaveModel = new CommunityQuestion();
-        $slaveModel->attributes = $_POST['CommunityQuestion'];
-        $model->question = $slaveModel;
-        $this->performAjaxValidation(array($user, $model, $slaveModel));
-        $user->communityPosts = array($model);
-        $success = $user->withRelated->save(true, array('communityPosts' => array('question')));
-        if ($success) {
-            Yii::app()->user->setState('newUser', array('id' => $user->id, 'email' => $user->email, 'first_name' => $user->first_name));
-            $this->redirect($model->url);
+        $this->performAjaxValidation($model);
+
+        if (isset($_POST['CommunityQuestionForm'])) {
+            $model->attributes = $_POST['CommunityQuestionForm'];
+            if ($model->validate() && $model->save())
+                $this->redirect($model->post->url);
         }
-        else {
-            echo 'Root:<br />';
-            var_dump($model->getErrors());
-            echo 'Slave:<br />';
-            var_dump($slaveModel->getErrors());
-        }
+
+//        print_r($model->errors);
+
+//        if (Yii::app()->user->isGuest) {
+//            $user = new User('signupQuestion');
+//            $user->attributes = $_POST['User'];
+//            $user->registration_finished = 0;
+//            $user->registration_source = User::REGISTRATION_SOURCE_QUESTION;
+//        } else
+//            $user = Yii::app()->user->model;
+//
+//        $model = new CommunityContent('default_club');
+//        $model->attributes = $_POST['CommunityContent'];
+//        $model->author_id = $user->id;
+//        $slaveModel = new CommunityQuestion();
+//        $slaveModel->attributes = $_POST['CommunityQuestion'];
+//        $model->question = $slaveModel;
+//        $this->performAjaxValidation(array($user, $model, $slaveModel));
+//        $user->communityPosts = array($model);
+//        $success = $user->withRelated->save(true, array('communityPosts' => array('question')));
+//        if ($success) {
+//            Yii::app()->user->setState('newUser', array('id' => $user->id, 'email' => $user->email, 'first_name' => $user->first_name));
+//            $this->redirect($model->url);
+//        }
+//        else {
+//            echo 'Root:<br />';
+//            var_dump($model->getErrors());
+//            echo 'Slave:<br />';
+//            var_dump($slaveModel->getErrors());
+//        }
     }
 
     public function actionPhotoWidget($contentId)

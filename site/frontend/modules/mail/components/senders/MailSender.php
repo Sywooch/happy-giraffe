@@ -13,7 +13,11 @@ abstract class MailSender extends CComponent
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
 
-    protected $debugMode = true;
+    const DEBUG_DEVELOPMENT = 0;
+    const DEBUG_TESTING = 1;
+    const DEBUG_PRODUCTION = 2;
+
+    protected $debugMode = self::DEBUG_DEVELOPMENT;
 
     protected abstract function process(User $user);
 
@@ -66,7 +70,9 @@ abstract class MailSender extends CComponent
     protected function getUsersCriteria()
     {
         $criteria = new CDbCriteria();
-        if ($this->debugMode) {
+        if ($this->debugMode == self::DEBUG_DEVELOPMENT) {
+            $criteria->compare('t.id', 12936);
+        } else {
             $criteria->compare('`group`', UserGroup::COMMENTATOR);
         }
         return $criteria;

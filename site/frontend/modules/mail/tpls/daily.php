@@ -49,7 +49,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td valign="top" align="center">
-                                                            <a href="http://www.happy-giraffe.ru/?utm_source=email" target="_blank">
+                                                            <a href="<?php echo $message->createUrl(array('site/index'), 'topLogo'); ?>" target="_blank">
                                                                 <img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/mail-top-logo.png" width="221px" height="62px"/>
                                                             </a>
                                                         </td>
@@ -70,7 +70,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td style="color: #333333; font-size: 16px;text-align:center;">Добрый день, {firstname}! В вашем профиле появились новые события </td>
+                                            <td style="color: #333333; font-size: 16px;text-align:center;"><?php echo $message->getTitle(); ?></td>
                                         </tr>
 
                                         <tr>
@@ -84,245 +84,11 @@
                                                 <!-- row icon -->
                                                 <table style="width:100%;margin-bottom:35px;" cellpadding="0" cellspacing="0" border="0">
                                                     <tr>
-                                                        <td  height="10" style="">
-                                                            <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="10" width="30" border="0" />
-                                                        </td>
-                                                        <td align="center" valign="top">
-                                                            <!-- icon -->
-                                                            <a href="">
-                                                                <table style="margin-bottom:5px;margin-left: 20px;" cellpadding="0" border="0" cellspacing="0" width="60" height="50" >
-                                                                    <tr>
-                                                                        <td background="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-messages.png" bgcolor="#ffffff" width="60" height="50" valign="top" align="right">
-                                                                            <!--[if gte mso 9]>
-                                                                                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:60px;height:50px;">
-                                                                                    <v:fill type="tile" src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-messages.png" color="#ffffff" />
-                                                                                    <v:textbox inset="0,0,0,0">
-                                                                            <![endif]-->
-                                                                                <div>
-                                                                                    <table style="margin: 2px 3px 0 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                                        <tr>
-                                                                                            <td align="right" style="color: #fff;">
-                                                                                                <span style="padding: 1px 5px;border-radius: 10px; border: 2px solid #ffffff;background:#f84219;color:#ffffff;font-size:12px;line-height:14px;vertical-align:top; display:inline-block;">999</span>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </div>
-                                                                            <!--[if gte mso 9]>
-                                                                                    </v:textbox>
-                                                                                </v:rect>
-                                                                            <![endif]-->
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </a>
-                                                            <table style="margin: 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                <tr>
-                                                                    <td align="center">
-                                                                        <a href="" style="color: #4a89dc; text-decoration:underline;">Новые<br />сообщения</a>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                        <td  height="10" style="">
-                                                            <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="10" width="20" border="0" />
-                                                        </td>
-                                                        <td align="center" valign="top">
-                                                            <!-- icon -->
-                                                            <a href="">
-                                                                <table style="margin-bottom:5px;margin-left: 20px;" cellpadding="0" cellspacing="0" width="60" height="50" border="0">
-                                                                    <tr>
-                                                                        <td background="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-friends.png" bgcolor="#ffffff" width="60" height="50" valign="top" align="right" >
-                                                                            <!--[if gte mso 9]>
-                                                                                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:60px;height:50px;">
-                                                                                    <v:fill type="tile" src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-friends.png" color="#ffffff" />
-                                                                                    <v:textbox inset="0,0,0,0">
-                                                                            <![endif]-->
-                                                                                <div>
-                                                                                    <table style="margin: 2px 3px 0 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                                        <tr>
-                                                                                            <td align="right" style="color: #fff;">
-                                                                                                <span style="padding: 1px 5px;border-radius: 10px; border: 2px solid #ffffff;background:#f84219;color:#ffffff;font-size:12px;line-height:14px;vertical-align:top; display:inline-block;">79</span>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </div>
-                                                                            <!--[if gte mso 9]>
-                                                                                    </v:textbox>
-                                                                                </v:rect>
-                                                                            <![endif]-->
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </a>
-                                                            <table style="margin: 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                <tr>
-                                                                    <td align="center">
-                                                                        <a href="" style="color: #4a89dc; text-decoration:underline;">Хотят<br />дружить</a>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                        <td  height="10" style="">
-                                                            <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="10" width="20" border="0" />
-                                                        </td>
-                                                        <td align="center" valign="top">
-                                                            <!-- icon -->
-                                                            <a href="">
-                                                                <table style="margin-bottom:5px;margin-left: 20px;" cellpadding="0" cellspacing="0" width="60" height="50" border="0">
-                                                                    <tr>
-                                                                        <td background="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comment.png" bgcolor="#ffffff" width="60" height="50" valign="top" align="right">
-                                                                            <!--[if gte mso 9]>
-                                                                                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:60px;height:50px;">
-                                                                                    <v:fill type="tile" src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comment.png" color="#ffffff" />
-                                                                                    <v:textbox inset="0,0,0,0">
-                                                                            <![endif]-->
-                                                                                <div>
-                                                                                    <table style="margin: 2px 3px 0 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                                        <tr>
-                                                                                            <td align="right" style="color: #fff;">
-                                                                                                <span style="padding: 1px 5px;border-radius: 10px; border: 2px solid #ffffff;background:#f84219;color:#ffffff;font-size:12px;line-height:14px;vertical-align:top; display:inline-block;">9</span>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </div>
-                                                                            <!--[if gte mso 9]>
-                                                                                    </v:textbox>
-                                                                                </v:rect>
-                                                                            <![endif]-->
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </a>
-                                                            <table style="margin: 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                <tr>
-                                                                    <td align="center">
-                                                                        <a href="" style="color: #4a89dc; text-decoration:underline;">Новые<br />комментарии</a>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                        <td  height="10" style="">
-                                                            <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="10" width="20" border="0" />
-                                                        </td>
-                                                        <td align="center" valign="top">
-                                                            <!-- icon -->
-                                                            <a href="">
-                                                                <table style="margin-bottom:5px;margin-left: 20px;" cellpadding="0" cellspacing="0" width="60" height="50" border="0">
-                                                                    <tr>
-                                                                        <td background="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-likes.png" bgcolor="#ffffff" width="60" height="50" valign="top" align="right" >
-                                                                            <!--[if gte mso 9]>
-                                                                                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:60px;height:50px;">
-                                                                                    <v:fill type="tile" src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-likes.png" color="#ffffff" />
-                                                                                    <v:textbox inset="0,0,0,0">
-                                                                            <![endif]-->
-                                                                                <div>
-                                                                                    <table style="margin: 2px 3px 0 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                                        <tr>
-                                                                                            <td align="right" style="color: #fff;">
-                                                                                                <span style="padding: 1px 5px;border-radius: 10px; border: 2px solid #ffffff;background:#f84219;color:#ffffff;font-size:12px;line-height:14px;vertical-align:top; display:inline-block;">9</span>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </div>
-                                                                            <!--[if gte mso 9]>
-                                                                                    </v:textbox>
-                                                                                </v:rect>
-                                                                            <![endif]-->
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </a>
-                                                            <table style="margin: 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                <tr>
-                                                                    <td align="center">
-                                                                        <a href="" style="color: #4a89dc; text-decoration:underline;">Нравится</a>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                        <td  height="10" style="">
-                                                            <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="10" width="20" border="0" />
-                                                        </td>
-                                                        <td align="center" valign="top">
-                                                            <!-- icon -->
-                                                            <a href="">
-                                                                <table style="margin-bottom:5px;margin-left: 20px;" cellpadding="0" cellspacing="0" width="60" height="50" border="0">
-                                                                    <tr>
-                                                                        <td background="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-favorites.png" bgcolor="#ffffff" width="60" height="50" valign="top" align="right" >
-                                                                            <!--[if gte mso 9]>
-                                                                                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:60px;height:50px;">
-                                                                                    <v:fill type="tile" src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-favorites.png" color="#ffffff" />
-                                                                                    <v:textbox inset="0,0,0,0">
-                                                                            <![endif]-->
-                                                                                <div>
-                                                                                    <table style="margin: 2px 3px 0 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                                        <tr>
-                                                                                            <td align="right" style="color: #fff;">
-                                                                                                <span style="padding: 1px 5px;border-radius: 10px; border: 2px solid #ffffff;background:#f84219;color:#ffffff;font-size:12px;line-height:14px;vertical-align:top; display:inline-block;">+99</span>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </div>
-                                                                            <!--[if gte mso 9]>
-                                                                                    </v:textbox>
-                                                                                </v:rect>
-                                                                            <![endif]-->
-                                                                        </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </a>
-                                                            <table style="margin: 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                <tr>
-                                                                    <td align="center">
-                                                                        <a href="" style="color: #4a89dc; text-decoration:underline;">В&nbsp;избранное</a>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </td>
-                                                        <td  height="10" style="">
-                                                            <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="10" width="20" border="0" />
-                                                        </td>
-
-
-                                                        <!-- ico guest -->
-                                                        <!-- <td align="center" valign="top"> -->
-                                                            <!-- icon -->
-                                                            <!-- <a href="">
-                                                                <table style="margin-bottom:5px;margin-left: 20px;" cellpadding="0" cellspacing="0" width="60" height="50" border="0">
-                                                                    <tr>
-                                                                        <td background="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-guests.png" bgcolor="#ffffff" width="60" height="50" valign="top" align="right" > -->
-                                                                            <!--[if gte mso 9]>
-                                                                                <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:60px;height:50px;">
-                                                                                    <v:fill type="tile" src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-guests.png" color="#ffffff" />
-                                                                                    <v:textbox inset="0,0,0,0">
-                                                                            <![endif]-->
-                                                                                <!-- <div>
-                                                                                    <table style="margin: 2px 3px 0 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                                        <tr>
-                                                                                            <td align="right" style="color: #fff;">
-                                                                                                <span style="padding: 1px 5px;border-radius: 10px; border: 2px solid #ffffff;background:#f84219;color:#ffffff;font-size:12px;line-height:14px;vertical-align:top; display:inline-block;">0</span>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </div> -->
-                                                                            <!--[if gte mso 9]>
-                                                                                    </v:textbox>
-                                                                                </v:rect>
-                                                                            <![endif]-->
-                                                                        <!-- </td>
-                                                                    </tr>
-                                                                </table>
-                                                            </a>
-                                                            <table style="margin: 5px;" cellpadding="0" cellspacing="0" border="0">
-                                                                <tr>
-                                                                    <td align="center">
-                                                                        <span style="color: #999999;">У вас <br />были гости</span>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </td> -->
-
-
+                                                        <?php $message->render('daily/menu/messaging'); ?>
+                                                        <?php $message->render('daily/menu/friends'); ?>
+                                                        <?php $message->render('daily/menu/comments'); ?>
+                                                        <?php $message->render('daily/menu/likes'); ?>
+                                                        <?php $message->render('daily/menu/favourites'); ?>
                                                         <td  height="10" style="">
                                                             <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="10" width="30" border="0" />
                                                         </td>
@@ -340,76 +106,7 @@
                                                      <tr>
                                                          <td style="width:320px; " valign="top" >
                                                              <!-- article -->
-                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:5px; border: 1px solid #f5f5f5;">
-                                                                <tr>
-                                                                    <td style="padding: 10px 15px 5px;">
-                                                                        <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:5px;">
-                                                                             <tr>
-                                                                                <td valign="top" rowspan="2" style="padding-right: 10px;" >
-                                                                                    <a href="" style="text-decoration:none;"><img src="http://img.happy-giraffe.ru/thumbs/40x40/16534/avadc351ca462c38e06b9b748f0547ef1c9.jpg" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
-                                                                                </td>
-                                                                                 <td valign="top">
-                                                                                     <a href="" style="color:#38a5f4;font:12px arial, helvetica, sans-serif; text-decoration:none;">Ангелина Богоявленская</a>
-                                                                                 </td>
-                                                                             </tr>
-                                                                             <tr>
-                                                                                 <td valign="top">
-                                                                                    <!-- bg зависит от рубрики -->
-                                                                                     <a href="" style="background: #f26748;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;">РЕЦЕПТ ДНЯ</a>
-                                                                                 </td>
-                                                                             </tr>
-                                                                         </table>
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="margin-bottom:5px;" >
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <a href="" target="_blank" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline;">Пельмени-розочки по ленивому</a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
-                                                                            <tr>
-                                                                                <td style="margin-bottom:5px;">
-                                                                                    <!--  -->
-                                                                                    <a href="" target="_blank" style="text-decoration: none;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/img_01.jpg" width="318" border="0" style="display:block;" /></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="padding: 0px 15px 15px;">
-
-                                                                         <table cellpadding="0" cellspacing="0" border="0" style="margin-top:20px;margin-left:5px;" width="">
-                                                                             <tr>
-                                                                                 <td style="padding-right:10px;" rowspan="2">
-                                                                                     <img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-cook-book.jpg" style="margin-right:5px;vertical-align:top;">
-                                                                                 </td>
-                                                                                 <td align="center" style="color: #333333; font-size: 12px;" colspan="2">
-                                                                                     Добавили в кулинарную книгу
-                                                                                 </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                     
-                                                                                </td>
-                                                                                <td style="color: #333333; font-size: 12px; padding-left: 4px;">
-                                                                                     еще 113
-                                                                                </td>
-                                                                             </tr>
-                                                                         </table>
-                                                                 
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                             <?php $message->render('daily/recipe'); ?>
                                                              
                                                          </td>
                                                          <td height="100%" width="20">
@@ -418,7 +115,7 @@
 
                                                          <td style="width:320px; " valign="top" >
                                                              <!-- article -->
-                                                            <?php $message->render('daily/horoscope', array('message' => $message, 'horoscope' => $message->horoscope)); ?>
+                                                            <?php $message->render('daily/horoscope', array('message' => $message)); ?>
                                                              
                                                          </td>                                      
                                                      </tr>
@@ -429,104 +126,10 @@
                                                         </td>
                                                     </tr>
                                                     <!-- Row articles -->
+                                                    <?php if (false): ?>
                                                     <tr>
                                                         <td  style="" colspan="3">
-                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#c2aee5">
-                                                                <tr>
-                                                                    <td style="padding: 10px 15px 0;">
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%">
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <table cellpadding="0" cellspacing="0" border="0">
-                                                                                        <tr>
-                                                                                            <td valign="top" width="40">
-                                                                                                <a href="" style="text-decoration:none;"><img src="http://img.happy-giraffe.ru/thumbs/40x40/16534/avadc351ca462c38e06b9b748f0547ef1c9.jpg" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
-                                                                                            </td>
-
-                                                                                            <td width="10">
-                                                                                                <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="20" width="10" border="0" />
-                                                                                            </td>
-                                                                                            <td valign="top">
-                                                                                                <a href="" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;">Ангелина Богоявленская</a>
-                                                                                            </td>
-                                                                                            <td valign="top" style="padding:2px 5px;">
-                                                                                                <!-- bg зависит от рубрики -->
-                                                                                                <a href="" style="background: #50b347;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;">НАШ ДОМ</a>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td align="center">
-                                                                        <a href="" target="_blank" style="color:#ffffff;font:bold 34px/38px arial, helvetica, sans-serif;text-decoration:none;">Cоветы для ремонта кухни</a>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="padding: 10px 0 18px;">
-                                                                        <a href="" style="border: 0;">
-                                                                            <!--
-                                                                                Ширина 660пк, высота пропорциональна исходнику
-
-                                                                                Водяной знак
-                                                                                Поверх изображения нужно накладывать
-                                                                                /new/images/mail/water-mark.png  151*151px
-                                                                                По центру вертикали и горизонтали изображения
-                                                                                Текст
-                                                                                font-family:Arial;
-                                                                                font-size: 18px;
-                                                                                color: #333333;
-                                                                                Отступ от верха водяного знака 113px.
-                                                                                По ширине по центру
-                                                                            -->
-                                                                            <img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/img-w660-h320.jpg" alt="" style="border: 0;"/>
-                                                                        </a>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="padding: 0 20px 20px;">
-                                                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" >
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <table cellpadding="0" cellspacing="0" border="0">
-                                                                                        <tr>
-                                                                                            <td style="padding-right:10px;">
-                                                                                                <span style="color:#ffffff;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-views-white-small.png" style="margin-right:5px;vertical-align:top;">265</span>
-                                                                                            </td>
-                                                                                            <td style="padding-right:2px;">
-                                                                                                <a href="" target="_blank" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                                <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                                <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                                <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                                <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-                                                                                                <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/ava.jpg" style="-moz-border-radius:12px;-webkit-border-radius:12px;border-radius:12px;" />
-
-                                                                                            </td>
-                                                                                            <td style="color: #333333; font-size: 12px; padding-left: 4px;">
-                                                                                                еще 113
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </td>
-                                                                                <td align="right">
-                                                                                    <table border="0" cellpadding="0" cellspacing="0" style="background-color:#2ea0f7; border-radius:4px;">
-                                                                                        <tr>
-                                                                                            <td align="center" valign="middle" style="color:#ffffff; font-size:16px;  line-height:150%; padding-top:5px; padding-right:15px; padding-bottom:5px; padding-left:15px;">
-                                                                                                <a href="" target="_blank" style="color:#ffffff; text-decoration:none;">Смотреть галерею</a>
-                                                                                            </td>
-                                                                                        </tr>
-                                                                                    </table>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                            <?php $message->render('daily/photoPost'); ?>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -574,6 +177,7 @@
                                                              
                                                          </td>                                 
                                                      </tr>
+                                                    <?php endif; ?>
 
                                                     <tr>
                                                         <td  height="20" style="">

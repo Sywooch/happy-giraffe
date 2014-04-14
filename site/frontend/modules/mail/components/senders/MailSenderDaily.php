@@ -9,30 +9,72 @@
 
 class MailSenderDaily extends MailSender
 {
+    protected $likes;
+    protected $favourites;
+    protected $recipe;
+    protected $photoPost;
+    protected $posts;
+    protected $horoscopes;
 
+    public function __construct()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.HGLike');
 
+        Yii::import('site.frontend.modules.favourites.components.*');
+        Yii::import('site.frontend.modules.favourites.models.*');
 
+        Yii::import('site.frontend.modules.friends.components.*');
+        Yii::import('site.frontend.modules.friends.models.*');
+
+        Yii::import('site.frontend.modules.messaging.components.*');
+        Yii::import('site.frontend.modules.messaging.models.*');
+
+        Yii::import('site.frontend.modules.cook.components.*');
+        Yii::import('site.frontend.modules.cook.models.*');
+
+        Yii::import('site.frontend.modules.notifications.components.*');
+        Yii::import('site.frontend.modules.notifications.models.base.*');
+        Yii::import('site.frontend.modules.notifications.models.*');
+
+        Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
+    }
+
+    /**
+     * @todo Заменить дату выборки гороскопов на актуальную
+     * @return mixed|void
+     */
     public function sendAll()
     {
-        $recipe = CookRecipe::model()->find();
-        $photoPost = CommunityContent::model()->find('type = :type', array(':type' => CommunityContent::TYPE_PHOTO_POST));
-        $posts = CommunityContent::model()->findAll(array('limit' => 4));
-        $horoscopes = Horoscope::model()->findByAttributes(array(
-            'data' => date("Y-m-d"),
+        $this->likes = NotificationCreate::generateLikes();
+        $this->favourites = NotificationCreate::generateFavourites();
+        $this->recipe = CookRecipe::model()->find();
+        $this->photoPost = CommunityContent::model()->find('type_id = :type', array(':type' => CommunityContent::TYPE_PHOTO_POST));
+        $this->posts = CommunityContent::model()->findAll(array('limit' => 4));
+        $this->horoscopes = Horoscope::model()->findAllByAttributes(array(
+            'date' => date("2012-03-15"),
         ));
+
+        $this->iterate();
     }
 
     public function process(User $user)
     {
-        $horoscope = Horoscope::model()->findByAttributes(array(
-            'zodiac' => Horoscope::model()->getDateZodiac($user->birthday),
-            'date' => date("Y-m-d"),
-        ));
-
         $newMessagesCount = MessagingManager::unreadMessagesCount($user->id);
         $newFriendsCount = FriendRequest::model()->getCountByUserId($user->id);
+        $newLikesCount = isset($this->likes[$user->id]) ? $this->likes[$user->id] : 0;
+        $newFavouritesCount = isset($this->favourites[$user->id]) ? $this->favourites[$user->id] : 0;
+        $newCommentsCount = 0;
 
+        $horoscope = $this->horoscopes[Horoscope::model()->getDateZodiac($user->birthday)];
 
-        return new MailMessageDaily($user, compact('horoscope'));
+        return new MailMessageDaily($user, compact(
+            'horoscope',
+            'newMessagesCount',
+            'newFriendsCount',
+            'newLikesCount',
+            'newFavouritesCount',
+            'newCommentsCount'
+        ));
     }
 }

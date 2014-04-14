@@ -99,7 +99,7 @@ class NotificationCreate
     public static function generateLikes()
     {
         $data = HGLike::model()->findLastDayAuthorContentLikes();
-        self::generateSummaryNotification($data, 'NotificationLikes');
+        return self::generateSummaryNotification($data, 'NotificationLikes');
     }
 
     /**
@@ -108,7 +108,7 @@ class NotificationCreate
     public static function generateFavourites()
     {
         $data = Favourite::model()->findLastDayFavourites();
-        self::generateSummaryNotification($data, 'NotificationFavourites');
+        return self::generateSummaryNotification($data, 'NotificationFavourites');
     }
 
     /**
@@ -117,7 +117,7 @@ class NotificationCreate
     public static function generateReposts()
     {
         $data = CommunityContent::model()->findLastDayReposts();
-        self::generateSummaryNotification($data, 'NotificationReposts');
+        return self::generateSummaryNotification($data, 'NotificationReposts');
     }
 
     /**
@@ -126,6 +126,8 @@ class NotificationCreate
      */
     public static function generateSummaryNotification($data, $notificationName)
     {
+        $output = array();
+
         //для каждого автора выберем 10 топовых статей
         foreach ($data as $author_id => $contents) {
             $author_articles = array();
@@ -151,7 +153,9 @@ class NotificationCreate
 
             $notification = new $notificationName;
             $notification->create($author_id, $favourite_articles, $all_count);
+            $output[$author_id] = $all_count;
         }
+        return $output;
     }
 
     function compareCount($a, $b)

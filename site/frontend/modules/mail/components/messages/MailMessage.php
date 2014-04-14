@@ -107,7 +107,7 @@ abstract class MailMessage extends CComponent
      * Рендерит файл шаблона, находящийся в tpl
      *
      * @param $file
-     * @param null $data
+     * @param array $data
      * @param bool $return
      * @return mixed
      */

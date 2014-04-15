@@ -102,6 +102,6 @@ abstract class MailSender extends CComponent
     {
         $workload = serialize($message);
 
-        Yii::app()->gearman->client->doBackground('sendEmail', $workload);
+        Yii::app()->gearman->client()->doBackground('sendEmail', $workload);
     }
 }

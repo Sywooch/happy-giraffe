@@ -63,16 +63,4 @@ class MailMessageDialogues extends MailMessage
     {
         return array('/messaging/default/index', 'interlocutorId' => $this->contacts[0]->user->id);
     }
-
-    public function getSectionColor(CommunityContent $post)
-    {
-        switch ($post->rubric->community->section_id) {
-
-//        Беременность и дети  #64b2e5
-//Наш дом #73c76a
-//Муж и жена #ff76a1
-//Красота и здоровье #f26748
-//Интересы и увлечения #a591cd
-//Семейный отдых #ffd72c
-    }
 }

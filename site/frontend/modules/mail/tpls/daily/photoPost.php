@@ -27,7 +27,7 @@ $comments = $post->getLastCommentators(5);
                                 </td>
                                 <td valign="top" style="padding:2px 5px;">
                                     <!-- bg зависит от рубрики -->
-                                    <a href="<?php echo $message->createUrl($post->rubric->community->getUrl()); ?>" style="background: #50b347;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;"><?php echo $post->rubric->community->title; ?></a>
+                                    <a href="<?php echo $message->createUrl($post->rubric->community->getUrl()); ?>" style="background: <?php echo $post->rubric->community->club->section->color; ?>;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;"><?php echo $post->rubric->community->title; ?></a>
                                 </td>
                             </tr>
                         </table>
@@ -58,7 +58,7 @@ $comments = $post->getLastCommentators(5);
                     Отступ от верха водяного знака 113px.
                     По ширине по центру
                 -->
-                <img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/img-w660-h320.jpg" alt="" style="border: 0;"/>
+                <img src="<?php echo $message->getPhotoPostImage($post); ?>" alt="" style="border: 0;"/>
             </a>
         </td>
     </tr>

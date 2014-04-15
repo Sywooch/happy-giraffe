@@ -40,13 +40,13 @@ abstract class MailSender extends CComponent
      */
     protected function sendInternal(MailMessage $message)
     {
-        switch ($this->debugMode) {
-            case self::DEBUG_DEVELOPMENT:
-                echo $message->getBody();
-        }
-        if (ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
-            $message->delivery->sent();
-            echo "sent\n";
+        if ($this->debugMode == self::DEBUG_DEVELOPMENT) {
+            echo $message->getBody();
+        } else {
+            if (ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
+                $message->delivery->sent();
+                echo "sent\n";
+            }
         }
     }
 

@@ -113,4 +113,32 @@ class MailMessageDaily extends MailMessage
     {
         return array('/notifications/default/index');
     }
+
+    public function getPhotoPostImage(CommunityContent $photoPost)
+    {
+        //выберем фото и создадим объект Image на его основе
+        $photo = $photoPost->gallery->items[0]->photo;
+        $imageUrl = $photo->getPreviewPath(660, null, Image::WIDTH);
+        $image = new Image($imageUrl, array('driver' => 'GD', 'params' => array()));
+
+        //создадим объект Image на основе водного знака
+        $watermarkUrl = Yii::getPathOfAlias('webroot') . '/new/images/mail/water-mark.png';
+        $watermark = new Image($watermarkUrl);
+
+        //добавим водный знак
+        $image->watermark($watermark, 80, ($image->width - 151) / 2, ($image->height - 151) / 2);
+
+        //добавим текст
+        $itemsCount = count($photoPost->gallery->items);
+        $textWidth = 47 + strlen($itemsCount) * 10;
+        $textX = ($image->width - $textWidth) / 2;
+        $textY = ($image->height - 151) / 2 + 128;
+        $textColor = array(51, 51, 51);
+        $textFont = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . 'font' . DIRECTORY_SEPARATOR . 'arial.ttf';
+        $image->text(13.5, 0, $textX, $textY, $textColor, $textFont, $itemsCount . ' фото');
+
+        //сохраним
+        $image->save($photo->getMailPath());
+        return $photo->getMailUrl();
+    }
 }

@@ -5,7 +5,7 @@ class m140415_065130_country_pos extends CDbMigration
 	public function up()
 	{
         $this->execute("UPDATE geo__country
-SET pos = 0
+SET pos = 100
 WHERE `name` NOT IN ('Россия', 'Украина', 'Белоруссия', 'Казахстан');");
 	}
 

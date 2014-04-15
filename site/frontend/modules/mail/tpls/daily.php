@@ -126,10 +126,9 @@
                                                         </td>
                                                     </tr>
                                                     <!-- Row articles -->
-                                                    <?php if (false): ?>
                                                     <tr>
                                                         <td  style="" colspan="3">
-                                                            <?php $message->render('daily/photoPost'); ?>
+                                                            <?php $message->render('daily/photoPost', array('post' => $message->photoPost)); ?>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -137,12 +136,13 @@
                                                             <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="25" width="30" border="0" />
                                                         </td>
                                                     </tr>
+
                                                     <!-- Row articles -->
                                                      <tr>
 
                                                          <td style="width:320px; " valign="top" >
 
-                                                            <?php $message->render('daily/post'); ?>
+                                                            <?php $message->render('daily/post', array('post' => $message->posts[0])); ?>
                                                              
                                                          </td>    
                                                          <td height="100%" width="20">
@@ -150,7 +150,7 @@
                                                          </td>
                                                          <td style="width:320px; " valign="top" >
 
-                                                             <?php $message->render('daily/post'); ?>
+                                                             <?php $message->render('daily/post', array('post' => $message->posts[1])); ?>
                                                              
                                                          </td>                                  
                                                      </tr>
@@ -164,7 +164,7 @@
                                                      <tr>
                                                          <td style="width:320px; " valign="top" >
 
-                                                             <?php $message->render('daily/post'); ?>
+                                                             <?php $message->render('daily/post', array('post' => $message->posts[2])); ?>
                                                              
                                                          </td>    
                                                          <td height="100%" width="20">
@@ -173,11 +173,10 @@
 
                                                          <td style="width:320px; " valign="top" >
 
-                                                             <?php $message->render('daily/post'); ?>
+                                                             <?php $message->render('daily/post', array('post' => $message->posts[3])); ?>
                                                              
                                                          </td>                                 
                                                      </tr>
-                                                    <?php endif; ?>
 
                                                     <tr>
                                                         <td  height="20" style="">

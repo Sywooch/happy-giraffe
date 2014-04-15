@@ -83,6 +83,10 @@ class AlbumPhoto extends HActiveRecord
      */
     private $blogs_folder = 'blogs';
     /**
+     * @var string blogs image folder
+     */
+    private $mail_folder = 'mail';
+    /**
      * @var CUploadedFile
      */
     public $file;
@@ -621,6 +625,27 @@ class AlbumPhoto extends HActiveRecord
         return implode('/', array(
             $this->getHost(),
             $this->blogs_folder,
+            $this->author_id,
+            $this->fs_name
+        ));
+    }
+
+    public function getMailPath()
+    {
+        $dir = Yii::getPathOfAlias('site.common.uploads.photos');
+
+        if (!file_exists($dir . DIRECTORY_SEPARATOR . $this->mail_folder . DIRECTORY_SEPARATOR . $this->author_id))
+            mkdir($dir . DIRECTORY_SEPARATOR . $this->mail_folder . DIRECTORY_SEPARATOR . $this->author_id);
+
+        return $dir . DIRECTORY_SEPARATOR . $this->mail_folder . DIRECTORY_SEPARATOR . $this->author_id .
+        DIRECTORY_SEPARATOR . $this->fs_name;
+    }
+
+    public function getMailUrl()
+    {
+        return implode('/', array(
+            $this->getHost(),
+            $this->mail_folder,
             $this->author_id,
             $this->fs_name
         ));

@@ -42,7 +42,7 @@ $favouritesCount = count($favourites);
                     <tr>
                         <td style="margin-bottom:5px;">
                             <!--  -->
-                            <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'recipeImage'); ?>" target="_blank" style="text-decoration: none;"><img src="<?php echo $recipe->photo->getPreviewUrl(318, null, Image::WIDTH); ?>/images/mail/img_01.jpg" width="318" border="0" style="display:block;" /></a>
+                            <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'recipeImage'); ?>" target="_blank" style="text-decoration: none;"><img src="<?php echo $recipe->photo->getPreviewUrl(318, null, Image::WIDTH); ?>" width="318" border="0" style="display:block;" /></a>
                         </td>
                     </tr>
                 </table>

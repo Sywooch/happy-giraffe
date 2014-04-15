@@ -64,7 +64,14 @@ class MailSenderDaily extends MailSender
         $newFriendsCount = FriendRequest::model()->getCountByUserId($user->id);
         $newLikesCount = isset($this->likes[$user->id]) ? $this->likes[$user->id] : 0;
         $newFavouritesCount = isset($this->favourites[$user->id]) ? $this->favourites[$user->id] : 0;
+
         $newCommentsCount = 0;
+        $notifications = Notification::model()->getNotificationsList($user->id, 0, 0, 999);
+        foreach ($notifications as $notification) {
+            if (in_array($notification->type, array(Notification::USER_CONTENT_COMMENT, Notification::REPLY_COMMENT))) {
+                $newCommentsCount += $notification->getVisibleCount();
+            }
+        }
 
         $horoscope = $this->horoscopes[Horoscope::model()->getDateZodiac($user->birthday)];
 

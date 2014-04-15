@@ -139,7 +139,6 @@ class NotificationCreate
                 }
 
             usort($author_articles, array('NotificationCreate', 'compareCount'));
-            array_slice($author_articles, 0, 10);
 
             //создаем уведомление для автора
             $favourite_articles = array();

@@ -16,7 +16,7 @@ $favouritesCount = count($favourites);
                         <a href="<?php echo $message->createUrl($recipe->author->getUrl(true), 'userAvatar'); ?>" style="text-decoration:none;"><img src="<?php echo $recipe->author->getAvatarUrl(40); ?>" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
                     </td>
                     <td valign="top">
-                        <a href="<?php echo $message->createUrl($recipe->author->getUrl(true), 'userLink'); ?>" style="color:#38a5f4;font:12px arial, helvetica, sans-serif; text-decoration:none;"><?php echo $post->author->getFullName(); ?></a>
+                        <a href="<?php echo $message->createUrl($recipe->author->getUrl(true), 'userLink'); ?>" style="color:#38a5f4;font:12px arial, helvetica, sans-serif; text-decoration:none;"><?php echo $recipe->author->getFullName(); ?></a>
                     </td>
                 </tr>
                 <tr>

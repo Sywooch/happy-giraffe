@@ -48,7 +48,7 @@ class MailSenderDaily extends MailSender
     {
         $this->likes = NotificationCreate::generateLikes();
         $this->favourites = NotificationCreate::generateFavourites();
-        $this->recipe = CookRecipe::model()->find();
+        $this->recipe = CookRecipe::model()->findByPk(21836);
         $this->photoPost = CommunityContent::model()->find('type_id = :type', array(':type' => CommunityContent::TYPE_PHOTO_POST));
         $this->posts = CommunityContent::model()->findAll(array('limit' => 4));
         $this->horoscopes = Horoscope::model()->findAllByAttributes(array(
@@ -68,13 +68,15 @@ class MailSenderDaily extends MailSender
 
         $horoscope = $this->horoscopes[Horoscope::model()->getDateZodiac($user->birthday)];
 
-        return new MailMessageDaily($user, compact(
+        return new MailMessageDaily($user, CMap::mergeArray(compact(
             'horoscope',
             'newMessagesCount',
             'newFriendsCount',
             'newLikesCount',
             'newFavouritesCount',
             'newCommentsCount'
-        ));
+        ), array(
+            'recipe' => $this->recipe,
+        )));
     }
 }

@@ -216,7 +216,8 @@ class AntispamCheck extends HActiveRecord
 
     public function live()
     {
-        return $this->status(self::STATUS_UNDEFINED)->userStatusIsNot(AntispamStatusManager::STATUS_WHITE)->entityIsNot(self::ENTITY_MESSAGES);
+//        return $this->status(self::STATUS_UNDEFINED)->userStatusIsNot(AntispamStatusManager::STATUS_WHITE)->entityIsNot(self::ENTITY_MESSAGES);
+        return $this->status(self::STATUS_UNDEFINED)->entityIsNot(self::ENTITY_MESSAGES);
     }
 
     public function deleted()

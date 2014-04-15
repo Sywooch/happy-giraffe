@@ -57,7 +57,7 @@ return array(
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
             'servers' => array(
-                array('host' => '127.0.0.1', 'port' => 4731),
+                array('host' => '127.0.0.1', 'port' => 4730),
             ),
         ),
         'request' => array(

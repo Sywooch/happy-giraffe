@@ -502,40 +502,33 @@ function MessagingThread(me, user) {
     
     // Переключение диалога
     self.beforeOpen = function() {
-        // выпихнем в отдельный поток, чтоб не тормозило
-        setTimeout(function() {
-            // почистить список от удалённых сообщений
-            self.messages.remove(function(message) {
-                return !!message.dtimeDelete() || message.cancelled();
-            });
-        }, 100);
+        // почистить список от удалённых сообщений
+        self.messages.remove(function(message) {
+            return !!message.dtimeDelete() || message.cancelled();
+        });
         self.deletedDialogs([]);
     };
 	
 	// Конфигурация редактора
-	self.editorConfig = {
-        options: {
-            minHeight: 17,
-            autoresize: true,
-            focus: true,
-            toolbarExternal: '.redactor-control_toolbar',
-            buttons: ['b'],
-            plugins: ['imageCustom', 'smilesModal', 'videoModal'],
-            comments: true,
-        },
+    self.editorConfig = {
+        minHeight: 17,
+        plugins: ['imageCustom', 'smilesModal', 'videoModal'],
+        newStyle: true,
         callbacks: {
-            init : [
+            init: [
                 function() {
                     im.renew();
                 }
             ],
-            change : [
+            change: [
                 function() {
-                    im.renew();
-                    self.scrollManager.setFix();
+                    setTimeout(function() {
+                        im.renew();
+                        self.scrollManager.setFix();
+                    }, 0);
                 }
             ],
-            keydown : [
+            keydown: [
                 function(e) {
                     if (e.keyCode == 13 && me.viewModel.settings.messaging__enter() != e.ctrlKey) {
                         self.sendMessage();
@@ -547,7 +540,7 @@ function MessagingThread(me, user) {
                 }
             ]
         }
-	};
+    };
 	
     self.lastReadMessage = ko.computed(function() {
         var result = null;

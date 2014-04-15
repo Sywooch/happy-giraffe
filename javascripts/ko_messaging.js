@@ -950,6 +950,7 @@ function ContactsManager(viewModel, model) {
 
     ko.computed(function() {
         self.openedUser();
+        self.users();
         self.sort();
     });
 

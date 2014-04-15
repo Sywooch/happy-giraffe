@@ -51,11 +51,9 @@ class DefaultCommand extends CConsoleCommand
 
     public function actionWorker()
     {
-        Yii::app()->gearman->worker()->addFunction('sendEmail', function($workload) {
-            var_dump($workload);
-
-//            $message = unserialize($workload);
-//            MailSender::sendInternal($message);
+        Yii::app()->gearman->worker()->addFunction('sendEmail', function($job) {
+            $message = unserialize($job->workload());
+            MailSender::sendInternal($message);
         });
         while (Yii::app()->gearman->worker()->work()) {
             echo "OK\n";

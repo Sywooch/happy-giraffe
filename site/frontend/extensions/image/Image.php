@@ -536,4 +536,19 @@ class Image {
 		return $this;
 	}
 
+    public function text($size, $angle, $x, $y, $color, $fontfile, $text)
+    {
+        $this->actions['text'] = array(
+            'size' => (float) $size,
+            'angle' => $angle,
+            'x' => $x,
+            'y' => $y,
+            'color' => $color,
+            'fontfile' => $fontfile,
+            'text' => $text,
+        );
+
+        return $this;
+    }
+
 } // End Image

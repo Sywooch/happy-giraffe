@@ -203,7 +203,7 @@
                                             Больше не показывать данное предупреждение
                                         </label>
                                         <div class="textalign-c clearfix">
-                                            <button class="btn-green" data-bind="click: function(){deleteDialog; $('.tooltip-click-b').tooltipster('hide');}">Да</button>
+                                            <button class="btn-green" data-bind="click: function(thread, event){ thread.deleteDialog(); $('.tooltip-click-b').tooltipster('hide');}">Да</button>
                                             <button class="btn-gray-light" onclick="$('.tooltip-click-b').tooltipster('hide');">Нет</button>
                                         </div>
                                     </div>

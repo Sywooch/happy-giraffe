@@ -106,7 +106,7 @@
                                                      <tr>
                                                          <td style="width:320px; " valign="top" >
                                                              <!-- article -->
-                                                             <?php $message->render('daily/recipe'); ?>
+                                                             <?php $message->render('daily/recipe', array('recipe' => $message->recipe)); ?>
                                                              
                                                          </td>
                                                          <td height="100%" width="20">

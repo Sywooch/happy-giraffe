@@ -126,8 +126,10 @@ class AntispamStatus extends HActiveRecord
 
     public function status($status)
     {
+        $alias = $this->getTableAlias();
+
         $this->getDbCriteria()->mergeWith(array(
-            'condition' => 'status = :status',
+            'condition' => $alias . '.status = :status',
             'params' => array(':status' => $status),
         ));
         return $this;

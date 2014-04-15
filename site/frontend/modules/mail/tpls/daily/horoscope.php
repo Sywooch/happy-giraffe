@@ -83,7 +83,7 @@ $tomorrowExists = $message->horoscope->dateHoroscopeExist(strtotime($tomorrowDat
     </tr>
     <tr>
         <td style="padding: 0 25px 15px 30px; color: #ffffff; line-height: 18px;">
-            <?php echo Str::strToParagraph($message->horoscope->text); ?>
+            <?php echo Str::truncate($message->horoscope->text, 256); ?>
         </td>
     </tr>
     <tr>

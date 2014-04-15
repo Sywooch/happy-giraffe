@@ -42,4 +42,12 @@ class DefaultCommand extends CConsoleCommand
     {
         Yii::log('Test warning', CLogger::LEVEL_ERROR, 'mail');
     }
+
+    public function actionWorker()
+    {
+        Yii::app()->gearman->worker()->addFunction('sendEmail', function($workload) {
+            $message = unserialize($workload);
+
+        });
+    }
 }

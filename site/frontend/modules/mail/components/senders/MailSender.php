@@ -98,7 +98,14 @@ abstract class MailSender extends CComponent
         foreach ($iterator as $user) {
             $result = $this->process($user);
             if ($result instanceof MailMessage)
-                $this->sendInternal($result);
+                $this->addToQueue($result);
         }
+    }
+
+    protected function addToQueue(MailMessage $message)
+    {
+        $workload = serialize($message);
+
+        Yii::app()->gearman->cliend->doBackground('sendEmail', $workload);
     }
 }

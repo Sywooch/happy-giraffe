@@ -41,6 +41,9 @@ class DefaultController extends HController
 
     public function actionDaily()
     {
+        phpinfo();
+        die;
+
         $sender = new MailSenderDaily();
         $sender->sendAll();
     }

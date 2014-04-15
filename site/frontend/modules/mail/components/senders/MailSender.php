@@ -102,7 +102,7 @@ abstract class MailSender extends CComponent
     protected function addToQueue(MailMessage $message)
     {
         $workload = array(
-            'email' => $message->email,
+            'email' => $message->user->email,
             'subject' => $message->getSubject(),
             'body' => $message->getBody(),
             'fromEmail' => self::FROM_EMAIL,

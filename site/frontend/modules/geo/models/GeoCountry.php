@@ -109,7 +109,7 @@ class GeoCountry extends HActiveRecord
     public static function getCountries()
     {
         $result = array();
-        $countries = GeoCountry::model()->findAll(array('order' => 'pos'));
+        $countries = GeoCountry::model()->findAll(array('order' => 'pos, name'));
         foreach ($countries as $country)
             $result [] = array(
                 'id' => $country->id,

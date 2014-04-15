@@ -77,7 +77,28 @@ class MailMessageDaily extends MailMessage
 
     public function getSubject()
     {
-        return time();
+        return 'Вас ждет много интересного на “Веселом Жирафе';
+    }
+
+    public function getMenuActiveElementsCount()
+    {
+        $counters = array(
+            $this->newCommentsCount,
+            $this->newCommentsCount,
+            $this->newFriendsCount,
+            $this->newLikesCount,
+            $this->newFavouritesCount,
+        );
+
+        $c = 0;
+
+        foreach ($counters as $counter) {
+            if ($counter > 0) {
+                $c++;
+            }
+        }
+
+        return $c;
     }
 
     public function getTitle()

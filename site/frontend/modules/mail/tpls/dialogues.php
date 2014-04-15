@@ -110,9 +110,9 @@
                                                                     </table>
                                                                 </a>
                                                             </td>
-                                                            <?php $message->render('_contact', array('contact' => $message->contacts[0], 'message' => $message)); ?>
+                                                            <?php $message->render('dialogues/_contact', array('contact' => $message->contacts[0])); ?>
                                                             <?php if ($message->contactsCount > 1): ?>
-                                                                <?php $message->render('_contact', array('contact' => $message->contacts[1], 'message' => $message)); ?>
+                                                                <?php $message->render('dialogues/_contact', array('contact' => $message->contacts[1])); ?>
                                                             <?php endif; ?>
                                                         </tr>
                                                         <?php if ($message->contactsCount > 2): ?>
@@ -122,9 +122,9 @@
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                                <?php $message->render('_contact', array('contact' => $message->contacts[2], 'message' => $message)); ?>
+                                                                <?php $message->render('dialogues/_contact', array('contact' => $message->contacts[2])); ?>
                                                                 <?php if ($message->contactsCount > 3): ?>
-                                                                    <?php $message->render('_contact', array('contact' => $message->contacts[3], 'message' => $message)); ?>
+                                                                    <?php $message->render('dialogues/_contact', array('contact' => $message->contacts[3])); ?>
                                                                     <?php if ($message->contactsCount > 5): ?>
                                                                         <td  height="3" style="">
                                                                             <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="3" width="20px" border="0" />
@@ -139,7 +139,7 @@
                                                                             </table>
                                                                         </td>
                                                                     <?php elseif ($message->contactsCount == 5): ?>
-                                                                        <?php $message->render('_contact', array('contact' => $message->contacts[4], 'message' => $message)); ?>
+                                                                        <?php $message->render('dialogues/_contact', array('contact' => $message->contacts[4])); ?>
                                                                     <?php endif; ?>
                                                                 <?php else: ?>
                                                                     <td  height="3" style="">

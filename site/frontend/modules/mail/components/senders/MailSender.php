@@ -4,8 +4,8 @@
 /**
  * Рассыльщик
  *
- * Отвечает главным образом за то, КОМУ отправлять письма, собирает необходимые для генерации данные и передает их
- * в модель сообщения
+ * Отвечает главным образом за то, КОМУ отправлять письма, собирает необходимые для генерации данные и создает модели
+ * сообщений
  */
 
 abstract class MailSender extends CComponent
@@ -19,6 +19,13 @@ abstract class MailSender extends CComponent
 
     protected $debugMode = self::DEBUG_DEVELOPMENT;
 
+    /**
+     * Обработка конкретно взятого пользователя. Если для него нужно создавать сообщение, возвращает экземпляр класса
+     * MailMessage, в противном случае null
+     *
+     * @param User $user
+     * @return mixed
+     */
     protected abstract function process(User $user);
 
     /**
@@ -36,7 +43,12 @@ abstract class MailSender extends CComponent
     /**
      * Отправляет сообщение, в случае успеха помечает модель доставки как успешно отправленную
      *
-     * @param MailMessage $message
+     * @param $email
+     * @param $subject
+     * @param $body
+     * @param $fromEmail
+     * @param $fromName
+     * @param $deliveryId
      */
     public static function sendInternal($email, $subject, $body, $fromEmail, $fromName, $deliveryId)
     {

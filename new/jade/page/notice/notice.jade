@@ -1,0 +1,211 @@
+include ../../block/config
+extend ../../extend/layout_frame
+
+block layout-wrapper
+    //- u-notice - user-notice
+    .u-notice
+        +side-menu__notice("side-menu__notice")
+        .page-col.page-col__notice
+            .page-col_top
+                .page-col_t-tx Новые сигналы
+                a.u-notice_a-settings(href="") Настройте сигналы
+
+                a.u-notice_a-arhive(href="")
+                    span.u-notice_a-arhive-tx Отправить все в архив
+                    span.ico-check-gray
+     
+            .page-col_cont
+                .u-notice_hold
+                    ul.u-notice_ul
+                        li.u-notice_li
+                            .u-notice_li-hold
+                                // Виды иконок
+                                // u-notice_ico__favorite
+                                // u-notice_ico__answer
+                                // u-notice_ico__comment
+                                // u-notice_ico__like
+                                // u-notice_ico__discus
+                                // u-notice_ico__answer-q
+                                .u-notice_b.u-notice_ico.u-notice_ico__favorite
+                                a.u-notice_b.u-notice_spec(href="")
+                                    .u-notice_b.u-notice_count 15
+                                    .u-notice_b.u-notice_desc В избранное
+                                        .u-notice_desc-go  Перейти
+                                .u-notice_b.u-notice_users
+                                    .ava-list
+                                        ul.ava-list_ul
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                a.ava-list_last-tx еще 11
+                                // Виды иконок
+                                // u-notice_post-ico__post
+                                // u-notice_post-ico__comment
+                                // u-notice_post-ico__video
+                                // u-notice_post-ico__photo
+                                // u-notice_post-ico__question
+                                .u-notice_b.u-notice_post-ico.u-notice_post-ico__post
+                                .u-notice_b.u-notice_post
+                                    a.u-notice_post-a(href="") Отдых в России: куда поехать на майские праздники
+                                a.u-notice_b.u-notice_check(href="")
+                                    .ico-check-gray
+                                    .u-notice_check-tx В архив
+                            .u-notice_overlay
+                                .u-notice_overlay-tx Сигнал перемещен в архив
+                        li.u-notice_li
+                            .u-notice_li-hold
+                                .u-notice_b.u-notice_ico.u-notice_ico__answer
+                                a.u-notice_b.u-notice_spec(href="")
+                                    .u-notice_b.u-notice_count 15
+                                    .u-notice_b.u-notice_desc Ответов на ваш <br/> комментарий
+                                        .u-notice_desc-go  Перейти
+                                .u-notice_b.u-notice_users
+                                    .ava-list
+                                        ul.ava-list_ul
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                a.ava-list_last-tx еще 1
+
+                                .u-notice_b.u-notice_post-ico.u-notice_post-ico__comment
+                                .u-notice_b.u-notice_post 
+                                    .u-notice_comment Телец часто противоречив, вспыльчив и импульсивен.Обладая поистине неисчерпаемым ...
+                                a.u-notice_b.u-notice_check(href="")
+                                    .ico-check-gray
+                                    .u-notice_check-tx В архив
+                            .u-notice_overlay
+                                .u-notice_overlay-tx Сигнал перемещен в архив
+                        li.u-notice_li
+                            .u-notice_li-hold
+                                .u-notice_b.u-notice_ico.u-notice_ico__comment
+                                a.u-notice_b.u-notice_spec(href="")
+                                    .u-notice_b.u-notice_count 15
+                                    .u-notice_b.u-notice_desc Новых <br/> комментариев
+                                        .u-notice_desc-go  Перейти
+                                .u-notice_b.u-notice_users
+                                    .ava-list
+                                        ul.ava-list_ul
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                a.ava-list_last-tx еще 1456
+
+                                .u-notice_b.u-notice_post-ico.u-notice_post-ico__video
+                                .u-notice_b.u-notice_post 
+                                    a.a-user(href="") Татьяна Богоявленская
+                                    br 
+                                    a.u-notice_post-a(href="") Отдых в России: куда поехать на майские праздники
+                                a.u-notice_b.u-notice_check(href="")
+                                    .ico-check-gray
+                                    .u-notice_check-tx В архив
+                            .u-notice_overlay
+                                .u-notice_overlay-tx Сигнал перемещен в архив
+                        li.u-notice_li
+                            .u-notice_li-hold
+                                .u-notice_b.u-notice_ico.u-notice_ico__like
+                                a.u-notice_b.u-notice_spec(href="")
+                                    .u-notice_b.u-notice_count 152
+                                    .u-notice_b.u-notice_desc Нравится
+                                        .u-notice_desc-go  Перейти
+                                .u-notice_b.u-notice_users
+                                    .ava-list
+                                        ul.ava-list_ul
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                a.ava-list_last-tx еще 1
+
+                                .u-notice_b.u-notice_post-ico.u-notice_post-ico__photo
+                                .u-notice_b.u-notice_post
+                                    a.u-notice_post-a(href="") Фото 1
+                                a.u-notice_b.u-notice_check(href="")
+                                    .ico-check-gray
+                                    .u-notice_check-tx В архив
+                            .u-notice_overlay
+                                .u-notice_overlay-tx Сигнал перемещен в архив
+                        li.u-notice_li
+                            .u-notice_li-hold
+                                .u-notice_b.u-notice_ico.u-notice_ico__discus
+                                a.u-notice_b.u-notice_spec(href="")
+                                    .u-notice_b.u-notice_count 15
+                                    .u-notice_b.u-notice_desc Продолжение <br> обсуждения
+                                        .u-notice_desc-go  Перейти
+                                .u-notice_b.u-notice_users
+                                    .ava-list
+                                        ul.ava-list_ul
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                a.ava-list_last-tx еще 1
+
+                                .u-notice_b.u-notice_post-ico.u-notice_post-ico__post
+                                .u-notice_b.u-notice_post 
+                                    a.a-user(href="") Татьяна Богоявленская
+                                    br 
+                                    a.u-notice_post-a(href="") Отдых в России: куда поехать на майские праздники
+                                a.u-notice_b.u-notice_check(href="")
+                                    .ico-check-gray
+                                    .u-notice_check-tx В архив
+                            .u-notice_overlay.display-b
+                                .u-notice_overlay-tx Сигнал перемещен в архив
+                        li.u-notice_li
+                            .u-notice_li-hold
+                                .u-notice_b.u-notice_ico.u-notice_ico__answer-q
+                                a.u-notice_b.u-notice_spec(href="")
+                                    .u-notice_b.u-notice_count 1
+                                    .u-notice_b.u-notice_desc Ответов на <br> ваш вопрос
+                                        .u-notice_desc-go  Перейти
+                                .u-notice_b.u-notice_users
+                                    .ava-list
+                                        ul.ava-list_ul
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                +ava('ava__small ava__male', avaVars)
+                                            li.ava-list_li
+                                                a.ava-list_last-tx еще 1
+
+                                .u-notice_b.u-notice_post-ico.u-notice_post-ico__question
+                                .u-notice_b.u-notice_post 
+                                    a.u-notice_post-a(href="") Отдых в России: куда поехать на майские праздники
+                                a.u-notice_b.u-notice_check(href="")
+                                    .ico-check-gray
+                                    .u-notice_check-tx В архив
+                            .u-notice_overlay
+                                .u-notice_overlay-tx Сигнал перемещен в архив
+
+

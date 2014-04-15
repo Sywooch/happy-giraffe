@@ -5,8 +5,7 @@
     word-wrap: break-word;
     
     &__bg-base,
-    &__im,
-    &__snow {background:#9b8ec9 url('@{path-img}/body-circle-candy.jpg') no-repeat 50% 0;}
+    &__im {background:#9b8ec9 url('@{path-img}/body-circle-candy.jpg') no-repeat 50% 0;}
     &__white {background: #fff;}
     
 }
@@ -48,6 +47,7 @@
     color: #111;
     font-weight: normal;
 }
+
 .a-pseudo {
     text-decoration:none;
     border-bottom: 1px dotted #2c95d6;
@@ -59,6 +59,10 @@
         text-decoration:none !important;
         border-bottom-color:transparent;
     }
+}
+.a-user {
+    color: #289fd7;
+    text-decoration: none;
 }
 
 
@@ -151,7 +155,7 @@
     &_t,
     &_t-tx {
         .inline-block();
-        margin: 16px 35px 0 0;
+        margin: 16px 20px 0 0;
         font-size: 17px;
     }
     &_find-count {
@@ -268,7 +272,7 @@
 /*
     Фильтр списка пользователей
 
-    side-menu __im      __antispam
+    side-menu __im      __antispam  __friend  __notice
         side-menu_t
         side-menu_ul
             side-menu_li
@@ -316,6 +320,7 @@
     }
     &_t__moderator {background: url('@{path-img}/side-menu_t__moderator.png') no-repeat;}
     &_t__friends {background: url('@{path-img}/side-menu_t__friends.png') no-repeat;}
+    &_t__notice {background: url('@{path-img}/side-menu_t__notice.png') no-repeat;}
     &_ul {}
     &_li {border-bottom: 1px solid #7361a1;}
     &_li:last-child {
@@ -370,7 +375,9 @@
     &_ico__find   {background-position: -200px 0;}
     &_ico__friend-new {background-position: -250px 0;}
     &_ico__friend-add {background-position: -300px 0;}
-    &_ico__advice {background-position: -350px 0;}
+    &_ico__notice {background-position: -350px 0;}
+    &_ico__notice-arhive {background-position: -400px 0;}
+    &_ico__hg {background-position: -450px 0;}
     
     // antispam модуль
     &_ico__broadcast {background-position: 0 0;}

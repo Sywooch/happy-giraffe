@@ -38,10 +38,11 @@ abstract class MailSender extends CComponent
      *
      * @param MailMessage $message
      */
-    public static function sendInternal(MailMessage $message)
+    public static function sendInternal($email, $subject, $body, $fromEmail, $fromName, $deliveryId)
     {
-        if (ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
-            $message->delivery->sent();
+        if (ElasticEmail::send($email, $subject, $body, $fromEmail, $fromName)) {
+            $delivery = MailDelivery::model()->findByPk($deliveryId);
+            $delivery->sent();
             echo "sent\n";
         }
     }
@@ -100,8 +101,15 @@ abstract class MailSender extends CComponent
 
     protected function addToQueue(MailMessage $message)
     {
-        $workload = serialize($message);
+        $workload = array(
+            'email' => $message->email,
+            'subject' => $message->getSubject(),
+            'body' => $message->getBody(),
+            'fromEmail' => self::FROM_EMAIL,
+            'fromName' => self::FROM_NAME,
+            'deliveryId' => $message->delivery->id,
+        );
 
-        Yii::app()->gearman->client()->doBackground('sendEmail', $workload);
+        Yii::app()->gearman->client()->doBackground('sendEmail', serialize($workload));
     }
 }

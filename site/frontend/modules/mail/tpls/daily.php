@@ -115,7 +115,7 @@
 
                                                          <td style="width:320px; " valign="top" >
                                                              <!-- article -->
-                                                            <?php $message->render('daily/horoscope', array('message' => $message)); ?>
+                                                            <?php $message->render('daily/horoscope'); ?>
                                                              
                                                          </td>                                      
                                                      </tr>

@@ -26,7 +26,7 @@ $comments = $post->getLastCommentators(5);
                 <tr>
                     <td valign="top">
                         <!-- bg зависит от рубрики -->
-                        <a href="<?php echo $message->createUrl($post->rubric->community->getUrl(true)); ?>" style="background: #<?php echo $post->rubric->community->club->section->color; ?>;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;"><?php echo $post->rubric->community->title; ?></a>
+                        <a href="" style="background: #<?php echo $post->rubric->community->club->section->color; ?>;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;"><?php echo $post->rubric->community->title; ?></a>
                     </td>
                 </tr>
                 <?php endif; ?>

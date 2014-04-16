@@ -157,6 +157,7 @@ return array(
         ),
     ),
     'params'=>array(
+        'imagick_directory' => '/usr/bin',
         'photos_url'=>'http://img.happy-giraffe.ru',
         'use_proxy_auth'=>true,
     ),

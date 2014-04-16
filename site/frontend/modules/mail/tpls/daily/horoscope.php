@@ -17,7 +17,7 @@ $tomorrowExists = $message->horoscope->dateHoroscopeExist(strtotime($tomorrowDat
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:10px;">
                 <tr>
                     <td valign="top" style="padding-top: 5px;">
-                        <a href="<?php echo $message->createUrl($message->horoscope->getUrl(true)); ?>" style="font-weight:bold;font-size:25px;line-height:28px;color:#ffffff;text-decoration:underline;">Ваш гороскоп<br />на сегодня</a>
+                        <a href="<?php echo $message->createUrl($message->horoscope->getUrl(true)); ?>" style="font-weight:bold;font-size:25px;line-height:28px;color:#ffffff;text-decoration:underline;" target="_blank">Ваш гороскоп<br />на сегодня</a>
                     </td>
                     <td background="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/horoscope-date.gif" bgcolor="#fdf6a3" width="58" height="64" valign="top" >
                         <!--[if gte mso 9]>
@@ -91,7 +91,7 @@ $tomorrowExists = $message->horoscope->dateHoroscopeExist(strtotime($tomorrowDat
             <table border="0" cellpadding="0" cellspacing="0" style="background-color:#ffe11b; border-radius:5px; margin:0 auto;">
                 <tr>
                     <td align="center" valign="middle" style="color:#494848; font-size:14px;  line-height:150%; padding-top:10px; padding-right:18px; padding-bottom:10px; padding-left:18px;">
-                        <a href="<?php echo $message->createUrl($message->horoscope->getUrl(true)); ?>" target="_blank" style="color:#494848; text-decoration:none;">Читать полностью</a>
+                        <a href="<?php echo $message->createUrl($message->horoscope->getUrl(true)); ?>" style="color:#494848; text-decoration:none;" target="_blank">Читать полностью</a>
                     </td>
                 </tr>
             </table>
@@ -100,7 +100,7 @@ $tomorrowExists = $message->horoscope->dateHoroscopeExist(strtotime($tomorrowDat
     <?php if ($tomorrowExists): ?>
         <tr>
             <td align="center" style="padding: 10px 15px 35px">
-                <a href="<?php echo $message->createUrl($tomorrowUrlParams); ?>" style="color: #ffffff; text-decoration: underline;">На завтра</a>
+                <a href="<?php echo $message->createUrl($tomorrowUrlParams); ?>" style="color: #ffffff; text-decoration: underline;" target="_blank">На завтра</a>
             </td>
         </tr>
     <?php endif; ?>

@@ -106,8 +106,13 @@ abstract class MailSender extends CComponent
         $iterator = $this->getIterator();
         foreach ($iterator as $user) {
             $result = $this->process($user);
-            if ($result instanceof MailMessage)
-                $this->addToQueue($result);
+            if ($result instanceof MailMessage) {
+                if ($this->debugMode == self::DEBUG_DEVELOPMENT) {
+                    echo $result->getBody();
+                } else {
+                    $this->addToQueue($result);
+                }
+            }
         }
     }
 

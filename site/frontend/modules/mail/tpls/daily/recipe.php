@@ -13,23 +13,23 @@ $favouritesCount = count($favourites);
             <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:5px;">
                 <tr>
                     <td valign="top" rowspan="2" style="padding-right: 10px;" >
-                        <a href="<?php echo $message->createUrl($recipe->author->getUrl(true), 'userAvatar'); ?>" style="text-decoration:none;"><img src="<?php echo $recipe->author->getAvatarUrl(40); ?>" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
+                        <a href="<?php echo $message->createUrl($recipe->author->getUrl(true), 'userAvatar'); ?>" style="text-decoration:none;" target="_blank"><img src="<?php echo $recipe->author->getAvatarUrl(40); ?>" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
                     </td>
                     <td valign="top">
-                        <a href="<?php echo $message->createUrl($recipe->author->getUrl(true), 'userLink'); ?>" style="color:#38a5f4;font:12px arial, helvetica, sans-serif; text-decoration:none;"><?php echo $recipe->author->getFullName(); ?></a>
+                        <a href="<?php echo $message->createUrl($recipe->author->getUrl(true), 'userLink'); ?>" style="color:#38a5f4;font:12px arial, helvetica, sans-serif; text-decoration:none;" target="_blank"><?php echo $recipe->author->getFullName(); ?></a>
                     </td>
                 </tr>
                 <tr>
                     <td valign="top">
                         <!-- bg зависит от рубрики -->
-                        <a href="<?php echo $message->createUrl(array('cook/recipe/index')); ?>" style="background: #f26748;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;">РЕЦЕПТ ДНЯ</a>
+                        <a href="<?php echo $message->createUrl(array('cook/recipe/index')); ?>" style="background: #f26748;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;" target="_blank">РЕЦЕПТ ДНЯ</a>
                     </td>
                 </tr>
             </table>
             <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="margin-bottom:5px;" >
                 <tr>
                     <td>
-                        <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'recipeLink'); ?>" target="_blank" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline;"><?php echo $recipe->title; ?></a>
+                        <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'recipeLink'); ?>" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline;" target="_blank"><?php echo $recipe->title; ?></a>
                     </td>
                 </tr>
             </table>
@@ -42,7 +42,7 @@ $favouritesCount = count($favourites);
                     <tr>
                         <td style="margin-bottom:5px;">
                             <!--  -->
-                            <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'recipeImage'); ?>" target="_blank" style="text-decoration: none;"><img src="<?php echo $recipe->photo->getPreviewUrl(318, null, Image::WIDTH); ?>" width="318" border="0" style="display:block;" /></a>
+                            <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'recipeImage'); ?>" style="text-decoration: none;" target="_blank"><img src="<?php echo $recipe->photo->getPreviewUrl(318, null, Image::WIDTH); ?>" width="318" border="0" style="display:block;" /></a>
                         </td>
                     </tr>
                 </table>

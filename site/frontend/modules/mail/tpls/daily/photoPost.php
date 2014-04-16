@@ -16,18 +16,18 @@ $comments = $post->getLastCommentators(5);
                         <table cellpadding="0" cellspacing="0" border="0">
                             <tr>
                                 <td valign="top" width="40">
-                                    <a href="<?php echo $message->createUrl($post->author->getUrl(true)); ?>" style="text-decoration:none;"><img src="<?php echo $post->author->getAvatarUrl(40); ?>" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
+                                    <a href="<?php echo $message->createUrl($post->author->getUrl(true)); ?>" style="text-decoration:none;" target="_blank"><img src="<?php echo $post->author->getAvatarUrl(40); ?>" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
                                 </td>
 
                                 <td width="10">
                                     <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="20" width="10" border="0" />
                                 </td>
                                 <td valign="top">
-                                    <a href="<?php echo $message->createUrl($post->author->getUrl(true)); ?>" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;"><?php echo $post->author->getFullName(); ?></a>
+                                    <a href="<?php echo $message->createUrl($post->author->getUrl(true)); ?>" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;" target="_blank"><?php echo $post->author->getFullName(); ?></a>
                                 </td>
                                 <td valign="top" style="padding:2px 5px;">
                                     <!-- bg зависит от рубрики -->
-                                    <a href="<?php echo $message->createUrl($post->rubric->community->getUrl()); ?>" style="background: <?php echo $post->rubric->community->club->section->color; ?>;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;"><?php echo $post->rubric->community->title; ?></a>
+                                    <a href="<?php echo $message->createUrl($post->rubric->community->getUrl()); ?>" style="background: <?php echo $post->rubric->community->club->section->color; ?>;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;" target="_blank"><?php echo $post->rubric->community->title; ?></a>
                                 </td>
                             </tr>
                         </table>
@@ -38,12 +38,12 @@ $comments = $post->getLastCommentators(5);
     </tr>
     <tr>
         <td align="center">
-            <a href="<?php echo $message->createUrl($post->getUrl(false, true)); ?>" target="_blank" style="color:#ffffff;font:bold 34px/38px arial, helvetica, sans-serif;text-decoration:none;"><?php echo $post->title; ?></a>
+            <a href="<?php echo $message->createUrl($post->getUrl(false, true), 'titleLink'); ?>" style="color:#ffffff;font:bold 34px/38px arial, helvetica, sans-serif;text-decoration:none;" target="_blank"><?php echo $post->title; ?></a>
         </td>
     </tr>
     <tr>
         <td style="padding: 10px 0 18px;">
-            <a href="" style="border: 0;">
+            <a href="<?php echo $message->createUrl($post->getUrl(false, true), 'image'); ?>" style="border: 0;" target="_blank">
                 <!--
                     Ширина 660пк, высота пропорциональна исходнику
 
@@ -74,7 +74,7 @@ $comments = $post->getLastCommentators(5);
                                 </td>
                                 <?php if ($commentsCount > 0): ?>
                                     <td style="padding-right:2px;">
-                                        <a href="<?php echo $this->createUrl($post->getUrl(true, true)); ?>" target="_blank" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
+                                        <a href="<?php echo $this->createUrl($post->getUrl(true, true)); ?>" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;" target="_blank"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
                                     </td>
                                     <td>
                                         <?php foreach ($comments as $comment): ?>
@@ -95,7 +95,7 @@ $comments = $post->getLastCommentators(5);
                         <table border="0" cellpadding="0" cellspacing="0" style="background-color:#2ea0f7; border-radius:4px;">
                             <tr>
                                 <td align="center" valign="middle" style="color:#ffffff; font-size:16px;  line-height:150%; padding-top:5px; padding-right:15px; padding-bottom:5px; padding-left:15px;">
-                                    <a href="<?php echo $post->getUrl(false, true); ?>" target="_blank" style="color:#ffffff; text-decoration:none;">Смотреть галерею</a>
+                                    <a href="<?php echo $message->createUrl(CMap::mergeArray($post->getUrlParams(), array('openGallery' => 1)), 'galleryLink'); ?>" style="color:#ffffff; text-decoration:none;" target="_blank">Смотреть галерею</a>
                                 </td>
                             </tr>
                         </table>

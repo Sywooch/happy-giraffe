@@ -91,7 +91,7 @@
                                                                 <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="3" width="30px" border="0" />
                                                             </td>
                                                             <td align="center" valign="top" >
-                                                                <a href="<?php echo $message->createUrl($message->getMainUrlParams(), 'readMessagesIcon'); ?>" style="text-decoration:none;border:0;">
+                                                                <a href="<?php echo $message->createUrl($message->getMainUrlParams(), 'readMessagesIcon'); ?>" style="text-decoration:none;border:0;" target="_blank">
                                                                     <table border="0" cellpadding="0" cellspacing="0">
                                                                         <tr>
                                                                             <td background="http://109.87.248.203/new/images/mail/messages.png" bgcolor="#ffffff" width="125" height="108" valign="top" align="center">
@@ -146,7 +146,7 @@
                                                                         <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="3" width="20px" border="0" />
                                                                     </td>
                                                                     <td width="auto" valign="top" align="center" colspan="3"  style="padding-top: 23px;">
-                                                                        <a href="<?php echo $message->createUrl($message->getMainUrlParams(), 'readMessagesLink'); ?>" style="color:#3482e2; font-size:24px;">Прочитать сообщения</a>
+                                                                        <a href="<?php echo $message->createUrl($message->getMainUrlParams(), 'readMessagesLink'); ?>" style="color:#3482e2; font-size:24px;" target="_blank">Прочитать сообщения</a>
                                                                     </td>
                                                                 <?php endif; ?>
                                                             </tr>
@@ -162,7 +162,7 @@
                                             <?php if ($message->contactsCount != 3): ?>
                                                 <tr>
                                                     <td align="center">
-                                                        <a href="<?php echo $message->createUrl(array('/messaging/default/index', 'readMessagesLink')); ?>" style="color:#3482e2; font-size:24px;">Прочитать сообщение</a>
+                                                        <a href="<?php echo $message->createUrl(array('/messaging/default/index', 'readMessagesLink')); ?>" style="color:#3482e2; font-size:24px;" target="_blank">Прочитать сообщение</a>
                                                     </td>
                                                 </tr>
                                             <?php endif; ?>
@@ -182,7 +182,7 @@
                                             <tr>
                                                 <td style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;padding-bottom:17px;">
                                                     С наилучшими пожеланиями,<br/>
-                                                    <span style="color: #3587ec;"><a href="<?php echo $message->createUrl(array('site/index'), 'bottomLink'); ?>" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
+                                                    <span style="color: #3587ec;"><a href="<?php echo $message->createUrl(array('site/index'), 'bottomLink'); ?>" style="color: #3587ec;" target="_blank">Веселый Жираф</a></span>
                                                 </td>
                                             </tr>
                                             <tr>

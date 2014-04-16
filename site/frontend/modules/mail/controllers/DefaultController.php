@@ -41,29 +41,7 @@ class DefaultController extends HController
 
     public function actionDaily()
     {
-        phpinfo();
-        die;
-
         $sender = new MailSenderDaily();
         $sender->sendAll();
-    }
-
-    protected function test()
-    {
-        $photo = AlbumPhoto::model()->findByPk(326229);
-
-        $imageUrl = $photo->getPreviewPath(660, null, Image::WIDTH);
-        $image = new Image($imageUrl, array('driver' => 'GD', 'params' => array()));
-        $watermarkUrl = Yii::getPathOfAlias('webroot') . '/new/images/mail/water-mark.png';
-        $watermark = new Image($watermarkUrl);
-        $image->watermark($watermark, 80, ($image->width - 151) / 2, ($image->height - 151) / 2);
-        $count = 500;
-        $textWidth = 47 + strlen($count) * 10;
-        $image->text(13.5, 0, ($image->width - $textWidth) / 2 , ($image->height - 151) / 2 + 128, array(51, 51, 51), Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . 'font' . DIRECTORY_SEPARATOR . 'arial.ttf', $count . ' фото');
-
-        $dir = Yii::getPathOfAlias('site.common.upload.photos.mail');
-        if (! is_dir($dir))
-            mkdir($dir);
-        $image->save($dir . DIRECTORY_SEPARATOR . md5(time())) . $image->ext;
     }
 }

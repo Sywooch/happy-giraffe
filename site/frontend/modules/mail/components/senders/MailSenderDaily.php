@@ -52,7 +52,7 @@ class MailSenderDaily extends MailSender
         $this->favourites = NotificationCreate::generateFavourites();
         $this->recipe = CookRecipe::model()->find('photo_id IS NOT NULL');
         $this->photoPost = CommunityContent::model()->find(array(
-            'condition' => 'type_id = :type_id AND post.photo_id IS NOT NULL',
+            'condition' => 'type_id = :type_id',
             'params' => array(':type_id' => CommunityContent::TYPE_PHOTO_POST),
             'order' => 't.id DESC',
         ));

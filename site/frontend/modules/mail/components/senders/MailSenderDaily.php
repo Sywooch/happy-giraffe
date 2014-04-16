@@ -9,7 +9,7 @@
 
 class MailSenderDaily extends MailSender
 {
-    protected $debugMode = self::DEBUG_TESTING;
+    protected $debugMode = self::DEBUG_DEVELOPMENT_MAIL;
 
     protected $likes;
     protected $favourites;

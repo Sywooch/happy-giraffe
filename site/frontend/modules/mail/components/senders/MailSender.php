@@ -13,11 +13,12 @@ abstract class MailSender extends CComponent
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
 
-    const DEBUG_DEVELOPMENT = 0;
+    const DEBUG_DEVELOPMENT_WEB = 0;
+    const DEBUG_DEVELOPMENT_MAIL = 0;
     const DEBUG_TESTING = 1;
     const DEBUG_PRODUCTION = 2;
 
-    protected $debugMode = self::DEBUG_DEVELOPMENT;
+    protected $debugMode = self::DEBUG_DEVELOPMENT_WEB;
 
     /**
      * Обработка конкретно взятого пользователя. Если для него нужно создавать сообщение, возвращает экземпляр класса
@@ -85,7 +86,8 @@ abstract class MailSender extends CComponent
         $criteria = new CDbCriteria();
 
         switch ($this->debugMode) {
-            case self::DEBUG_DEVELOPMENT:
+            case self::DEBUG_DEVELOPMENT_WEB:
+            case self::DEBUG_DEVELOPMENT_MAIL:
                 $criteria->compare('t.id', 12936);
                 break;
             case self::DEBUG_TESTING:
@@ -108,21 +110,16 @@ abstract class MailSender extends CComponent
             $result = $this->process($user);
             if ($result instanceof MailMessage) {
                 switch ($this->debugMode) {
-                    case self::DEBUG_DEVELOPMENT:
+                    case self::DEBUG_DEVELOPMENT_WEB:
                         echo $result->getBody();
                         break;
+                    case self::DEBUG_DEVELOPMENT_MAIL:
                     case self::DEBUG_TESTING:
                         self::sendInternal($result);
                         break;
                     case self::DEBUG_PRODUCTION:
                         $this->addToQueue($result);
                         break;
-                }
-
-                if ($this->debugMode == self::DEBUG_DEVELOPMENT) {
-                    echo $result->getBody();
-                } else {
-                    $this->addToQueue($result);
                 }
             }
         }

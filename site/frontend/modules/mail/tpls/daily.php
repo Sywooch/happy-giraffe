@@ -79,6 +79,8 @@
                                         <tr>
                                             <td align="center" valign="top">
                                                 <!--  BEGIN BODY // -->
+
+                                                <?php if ($message->showMenu()): ?>
                                                 <!-- row icon -->
                                                 <table style="width:100%;margin-bottom:35px;" cellpadding="0" cellspacing="0" border="0">
                                                     <tr>
@@ -93,6 +95,7 @@
                                                     </tr>
                                                 </table>
                                                 <!-- /row icon -->
+                                                <?php endif; ?>
 
                                                 <table style="width:100%;margin-bottom:30px;" cellpadding="0" cellspacing="0" border="0">
                                                     <tr>

@@ -101,6 +101,11 @@ class MailMessageDaily extends MailMessage
         return $c;
     }
 
+    public function showMenu()
+    {
+        return $this->getMenuActiveElementsCount() > 0;
+    }
+
     public function getTitle()
     {
         return 'Здравствуйте, ' . $this->user->first_name . '! В Вашем профиле появились новые события.';

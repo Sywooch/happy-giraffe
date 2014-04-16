@@ -14,9 +14,9 @@ abstract class MailSender extends CComponent
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
 
     const DEBUG_DEVELOPMENT_WEB = 0;
-    const DEBUG_DEVELOPMENT_MAIL = 0;
-    const DEBUG_TESTING = 1;
-    const DEBUG_PRODUCTION = 2;
+    const DEBUG_DEVELOPMENT_MAIL = 1;
+    const DEBUG_TESTING = 2;
+    const DEBUG_PRODUCTION = 3;
 
     protected $debugMode = self::DEBUG_DEVELOPMENT_WEB;
 

@@ -50,7 +50,7 @@ abstract class MailSender extends CComponent
      * @param $fromName
      * @param $deliveryId
      */
-    public static function sendInternal($email, $subject, $body, $fromEmail, $fromName, $deliveryId)
+    public static function send($email, $subject, $body, $fromEmail, $fromName, $deliveryId)
     {
         if (ElasticEmail::send($email, $subject, $body, $fromEmail, $fromName)) {
             $delivery = MailDelivery::model()->findByPk($deliveryId);
@@ -107,6 +107,18 @@ abstract class MailSender extends CComponent
         foreach ($iterator as $user) {
             $result = $this->process($user);
             if ($result instanceof MailMessage) {
+                switch ($this->debugMode) {
+                    case self::DEBUG_DEVELOPMENT:
+                        echo $result->getBody();
+                        break;
+                    case self::DEBUG_TESTING:
+                        self::sendInternal($result);
+                        break;
+                    case self::DEBUG_PRODUCTION:
+                        $this->addToQueue($result);
+                        break;
+                }
+
                 if ($this->debugMode == self::DEBUG_DEVELOPMENT) {
                     echo $result->getBody();
                 } else {
@@ -118,7 +130,19 @@ abstract class MailSender extends CComponent
 
     protected function addToQueue(MailMessage $message)
     {
-        $workload = array(
+        $workload = $this->messageToWorkload($message);
+
+        Yii::app()->gearman->client()->doBackground('sendEmail', serialize($workload));
+    }
+
+    protected function sendInternal(MailMessage $message)
+    {
+        call_user_func_array(array('MailSender', 'send'), $this->messageToWorkload($message));
+    }
+
+    protected function messageToWorkload(MailMessage $message)
+    {
+        return array(
             'email' => $message->user->email,
             'subject' => $message->getSubject(),
             'body' => $message->getBody(),
@@ -126,7 +150,5 @@ abstract class MailSender extends CComponent
             'fromName' => self::FROM_NAME,
             'deliveryId' => $message->delivery->id,
         );
-
-        Yii::app()->gearman->client()->doBackground('sendEmail', serialize($workload));
     }
 }

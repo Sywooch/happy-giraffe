@@ -59,7 +59,7 @@ class MailSenderDaily extends MailSender
         }
 
         if (count($this->posts) < 4) {
-            throw new CException('Количество обычных постов в ежедневной рассылке меньше 4');
+            throw new CException('Количество обычных постов в ежедневной рассылке равно ' . count($this->posts));
         }
 
         NotificationCreate::generateLikes();

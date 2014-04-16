@@ -26,7 +26,7 @@ $comments = $post->getLastCommentators(5);
                 <tr>
                     <td valign="top">
                         <!-- bg зависит от рубрики -->
-                        <a href="" style="background: #<?php echo $post->rubric->community->club->section->color; ?>;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;"><?php echo $post->rubric->community->title; ?></a>
+                        <a href="<?php echo $message->createUrl($post->rubric->community->getUrl(true)); ?>" style="background: #<?php echo $post->rubric->community->club->section->color; ?>;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;"><?php echo $post->rubric->community->title; ?></a>
                     </td>
                 </tr>
                 <?php endif; ?>
@@ -71,7 +71,7 @@ $comments = $post->getLastCommentators(5);
                     </td>
                     <?php if ($commentsCount > 0): ?>
                         <td style="padding-right:5px;">
-                            <a href="<?php echo $this->createUrl($post->getUrl(true, true)); ?>" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;" target="_blank"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
+                            <a href="<?php echo $message->createUrl($post->getUrl(true, true)); ?>" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;" target="_blank"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
                         </td>
                         <td>
                             <?php foreach ($comments as $comment): ?>

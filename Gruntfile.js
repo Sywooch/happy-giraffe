@@ -2,7 +2,9 @@ module.exports = function(grunt){
   var timer = require("grunt-timer");
   timer.init(grunt);
 
-
+  // json for jade 
+  // var pathJade = "new/jade/mass/data.json";
+  
   grunt.initConfig({
     jade: {
       page: {
@@ -16,6 +18,7 @@ module.exports = function(grunt){
           nospawn : true,
           ext: ".html",
           expand: true,
+          //data: grunt.file.readJSON(pathJade)
         }
       },
       all: {
@@ -31,6 +34,7 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
+          // data: grunt.file.readJSON(pathJade)
         }
       }
     },
@@ -40,7 +44,7 @@ module.exports = function(grunt){
       old: {
         files: {
           'stylesheets/common.css': ['less/all1.less'],
-          'stylesheets/global.css': ['less/all2.less']
+          'stylesheets/global.css': ['less/all2.less'],
         },
         options: {
           compress: true,
@@ -51,30 +55,55 @@ module.exports = function(grunt){
           // sourceMapBasepath: ''
         }
       },
+      old_dev: {
+        files: {
+          'stylesheets/common.dev.css': ['less/all1.less'],
+          'stylesheets/global.dev.css': ['less/all2.less'],
+          'stylesheets/vacancy.css': ['less/vacancy.less']
+        },
+        options: {
+          sourceMap: true,
+          // sourceMapFilename: 'css/all.css.map',
+          // sourceMapRootpath: '',
+          // sourceMapBasepath: ''
+        }
+      },
+      newestdev: {
+        files: {
+          'new/css/all1.dev.css': ['new/less/all1.less'] 
+        },
+        options: {
+          sourceMap: true,
+          /*sourceMapFilename: 'new/css/all1.css.map',*/
+          /*sourceMapRootpath: 'new/css',
+          sourceMapURL: 'new/css/all1.css.map',*/
+        }
+      },
       newest: {
         files: {
           'new/css/all1.css': ['new/less/all1.less'] 
         },
         options: {
           compress: true,
-          sourceMap: true,
-          /*sourceMapFilename: 'new/css/all1.css.map',*/
-          sourceMapRootpath: 'new/css',
-          sourceMapURL: 'new/css/all1.css.map',
+          cleancss: true,
         }
       }
     },
 
-    imagemin: {
-      dynamic: {
-        files: [{
-          expand: true,
-          cwd: 'source/img',
-          src: ['**/*.{png,jpg,gif}'],
-          dest: 'dest/img',
-        }]
-      }
-    },
+    // imagemin: {
+    //   dynamic: {
+    //     files: [{
+    //       expand: true,
+    //       cwd: 'new/images',
+    //       src: ['**/*.{png,jpg,gif}'],
+    //       dest: 'new/images1',
+    //     }],
+    //     options: {
+    //         cache: false
+    //     }
+    //   }
+    // },
+
     watch: {
       reload: {
         files: ['new/jade/block/**/*.jade', 'new/jade/extend/**/*.jade'],
@@ -94,22 +123,29 @@ module.exports = function(grunt){
       },
       lessold: {
         files: ['less/**/*.less'],
-        tasks: ['less:old'],
+        tasks: ['less:old', 'less:old_dev'],
         options: {
           livereload: true,
         },
       },
       less: {
         files: ['new/less/**/*.less'],
-        tasks: ['less:newest'],
+        tasks: ['less:newest', 'less:newestdev'],
         options: {
           livereload: true,
         },
       },
-      imagemin: {
-        files: ['source/img/**/*.{png,jpg,gif}'],
-        tasks: ['imagemin'],
-      }
+      email: {
+        files: ['new/html/email/**/*'],
+        // tasks:['less:newest'],
+        options: {
+          livereload: true,
+        },
+      },
+      // imagemin: {
+      //   files: ['new/images/**/*.{png,jpg,gif}'],
+      //   tasks: ['newer:imagemin'],
+      // }
     },
     connect: {
       server: {
@@ -126,6 +162,7 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-newer');
 
   grunt.registerTask('default', [
     'connect',
@@ -138,7 +175,7 @@ module.exports = function(grunt){
     // Земеняем в пути к измененному файлу jade/page на html
     // var destFilePath = filepath.replace(/jade\\page/, 'html');
     // Изменяем расширение файла
-    grunt.log.write(action + ' ------- ' + target);
+    // grunt.log.write(action + ' ------- ' + target);
     if (target == 'jade') {
       var destFilePath = filepath.replace(/jade/g, 'html');
       grunt.log.write(filepath + ' ------- ' + destFilePath);

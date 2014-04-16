@@ -1,0 +1,174 @@
+include ../../block/config
+doctype html
+html.no-js.html__reg-step3
+    +head(path)
+    body.body
+        .layout-container
+            a.reg-step3.display-n(href="#reg-step3") Регистрация шаг 1
+            // .popup-sign
+            script.
+                $(function() {
+                    $('.reg-step3').magnificPopup({
+                        type: 'inline',
+                        overflowY: 'auto',
+                        closeOnBgClick: false,
+                        showCloseBtn: false,
+                        fixedBgPos: true,
+                        
+                        // When elemened is focused, some mobile browsers in some cases zoom in
+                        // It looks not nice, so we disable it:
+                        callbacks: {
+                            open: function() {
+                                $('html').addClass('mfp-html html__reg-step3');
+                            },
+                            close: function() {
+                                $('html').removeClass('mfp-html html__reg-step3');
+                            }
+                        }
+                    });
+                    $('.reg-step3').magnificPopup('open');
+                });
+            #reg-step3.popup.popup-sign.popup-sign__reg-step3
+                .popup-sign_hold
+                    .popup-sign_top
+                        .popup-sign_t Добро пожаловать Александр!
+                        .popup-sign_slogan А какие клубы вам понравятся? Отметьте те, которые вам интересны.
+                    .popup-sign_cont.popup-sign_cont__wide
+                        
+                        .club-list.club-list__m.clearfix
+                            .club-list_t Веселый Жираф рекомендует
+                            ul.club-list_ul.clearfix
+                                    li.club-list_li.club-list_li__in
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/2-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Дети
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/8-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Красота и мода
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/1-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Украшаем дом
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/10-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Домашние хлопоты
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/4-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Свадьба
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/12-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Готовим на кухне
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/6-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Образование
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/8-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Красота и мода
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/4-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Свадьба
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/12-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Готовим на кухне
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/6-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Образование
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/8-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Красота и мода
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/1-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Украшаем дом
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/8-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Красота и мода
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/4-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Свадьба
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/12-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Готовим на кухне
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/6-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Образование
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/8-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Красота и мода
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/1-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Украшаем дом
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/6-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Образование
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(alt='', src='/images/club/10-w130.png')
+                                                span.club-list_img-overlay
+                                            span.club-list_i-name Домашние хлопоты
+
+                .popup-sign_b.margin-t20.clearfix
+                    .float-r
+                        a.btn-green-simple.btn-l Готово
+                    .float-l.margin-t12
+                        a.color-gray Пропустить этот шаг
+            // /popup-sign
+

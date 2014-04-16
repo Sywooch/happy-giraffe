@@ -290,6 +290,7 @@ mixin im-panel(mod, vars)
                 Друг - im-panel_friend__fr
                 Добавить в друзья - .im-panel_friend__add
                 Приглашение отправленно - .im-panel_friend__added
+                Предлагает дружбу - .im-panel_friend__append
             - if (vars.friend == "friend") {
                 span.im-panel_friend.im-panel_friend__fr
                     span.im-panel_friend-ico
@@ -302,7 +303,11 @@ mixin im-panel(mod, vars)
                 a.im-panel_friend.im-panel_friend__added(href="")
                     span.im-panel_friend-ico
                     span.im-panel_friend-tx Приглашение <br> отправленно
-                - }
+             - } else if (vars.friend == "friend__append") {
+                a.im-panel_friend.im-panel_friend__append(href="")
+                    span.im-panel_friend-ico
+                    span.im-panel_friend-tx Предлагает <br> дружбу
+            - }
     // /im-panel
 
 

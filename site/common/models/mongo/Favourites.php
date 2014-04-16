@@ -13,6 +13,7 @@ class Favourites extends EMongoDocument
     const WEEKLY_MAIL = 6;
     const BLOCK_SOCIAL_NETWORKS = 7;
     const CLUB_MORE = 8;
+    const BLOCK_MAIL = 9;
 
     public $block;
     public $entity;

@@ -108,7 +108,7 @@ class NotificationCreate
     public static function generateFavourites()
     {
         $data = Favourite::model()->findLastDayFavourites();
-        return self::generateSummaryNotification($data, 'NotificationFavourites');
+        self::generateSummaryNotification($data, 'NotificationFavourites');
     }
 
     /**
@@ -117,7 +117,7 @@ class NotificationCreate
     public static function generateReposts()
     {
         $data = CommunityContent::model()->findLastDayReposts();
-        return self::generateSummaryNotification($data, 'NotificationReposts');
+        self::generateSummaryNotification($data, 'NotificationReposts');
     }
 
     /**
@@ -126,8 +126,6 @@ class NotificationCreate
      */
     public static function generateSummaryNotification($data, $notificationName)
     {
-        $output = array();
-
         //для каждого автора выберем 10 топовых статей
         foreach ($data as $author_id => $contents) {
             $author_articles = array();
@@ -152,9 +150,7 @@ class NotificationCreate
 
             $notification = new $notificationName;
             $notification->create($author_id, $favourite_articles, $all_count);
-            $output[$author_id] = $all_count;
         }
-        return $output;
     }
 
     function compareCount($a, $b)

@@ -15,13 +15,13 @@ class MailSenderDaily extends MailSender
     protected $favourites;
     protected $recipe;
     protected $photoPost;
-    protected $posts;
+    protected $posts = array();
     protected $horoscopes;
 
     public function __construct()
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.common.models.mongo.HGLike');
+        Yii::import('site.common.models.mongo.*');
 
         Yii::import('site.frontend.modules.favourites.components.*');
         Yii::import('site.frontend.modules.favourites.models.*');
@@ -48,40 +48,47 @@ class MailSenderDaily extends MailSender
      */
     public function sendAll()
     {
-        $this->likes = NotificationCreate::generateLikes();
-        $this->favourites = NotificationCreate::generateFavourites();
-        $this->recipe = CookRecipe::model()->find('photo_id IS NOT NULL');
-        $this->photoPost = CommunityContent::model()->find(array(
-            'condition' => 'type_id = :type_id',
-            'params' => array(':type_id' => CommunityContent::TYPE_PHOTO_POST),
-            'order' => 't.id DESC',
-        ));
-        $this->posts = CommunityContent::model()->findAll(array(
-            'limit' => 4,
-            'with' => 'post',
-            'condition' => 'type_id = :type_id AND post.photo_id IS NOT NULL',
-            'params' => array(':type_id' => CommunityContent::TYPE_POST),
-            'order' => 't.id DESC',
-        ));
+        $this->setFavourites();
+
+        if ($this->recipe === null) {
+            throw new CException('Рецепт для ежедневной рассылки не выбран');
+        }
+
+        if ($this->photoPost === null) {
+            throw new CException('Фотопост для ежедневной рассылки не выбран');
+        }
+
+        if (count($this->posts) < 4) {
+            throw new CException('Количество обычных постов в ежедневной рассылке меньше 4');
+        }
+
+        NotificationCreate::generateLikes();
+        NotificationCreate::generateFavourites();
         $this->horoscopes = Horoscope::model()->findAllByAttributes(array(
             'date' => date("2012-03-15"),
         ));
 
-        $this->iterate();
+        parent::sendAll();
     }
 
     public function process(User $user)
     {
         $newMessagesCount = MessagingManager::unreadMessagesCount($user->id);
         $newFriendsCount = FriendRequest::model()->getCountByUserId($user->id);
-        $newLikesCount = isset($this->likes[$user->id]) ? $this->likes[$user->id] : 0;
-        $newFavouritesCount = isset($this->favourites[$user->id]) ? $this->favourites[$user->id] : 0;
+        $newLikesCount = 0;
+        $newFavouritesCount = 0;
 
         $newCommentsCount = 0;
         $notifications = Notification::model()->getNotificationsList($user->id, 0, 0, 999);
         foreach ($notifications as $notification) {
             if (in_array($notification->type, array(Notification::USER_CONTENT_COMMENT, Notification::REPLY_COMMENT))) {
                 $newCommentsCount += $notification->getVisibleCount();
+            }
+            if ($notification->type == Notification::NEW_LIKE) {
+                $newLikesCount += $notification->getVisibleCount();
+            }
+            if ($notification->type == Notification::NEW_FAVOURITE) {
+                $newFavouritesCount += $notification->getVisibleCount();
             }
         }
 
@@ -99,5 +106,28 @@ class MailSenderDaily extends MailSender
             'photoPost' => $this->photoPost,
             'posts' => $this->posts,
         )));
+    }
+
+    protected function setFavourites()
+    {
+        $favourites = Favourites::getListByDate(Favourites::BLOCK_MAIL, date("2014-04-17"));
+        foreach ($favourites as $favourite) {
+            $model = CActiveRecord::model($favourite->entity)->findByPk($favourite->entity_id);
+            if ($model !== null) {
+                switch ($favourite->entity) {
+                    case 'CookRecipe':
+                        $this->recipe = $model;
+                        break;
+                    case 'CommunityContent':
+                    case 'BlogContent':
+                        if ($model->type_id == CommunityContent::TYPE_PHOTO_POST) {
+                            $this->photoPost = $model;
+                        } elseif (count($this->posts) < 4) {
+                            $this->posts[] = $model;
+                        }
+                        break;
+                }
+            }
+        }
     }
 }

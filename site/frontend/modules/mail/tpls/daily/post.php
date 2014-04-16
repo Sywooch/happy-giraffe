@@ -8,6 +8,8 @@
 $photo = $post->getPhoto();
 $commentsCount = $post->getCommentsCount();
 $comments = $post->getLastCommentators(5);
+var_dump($post->author->getAvatarUrl(40));
+die;
 ?>
 
 <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px; border: 1px solid #f5f5f5;">

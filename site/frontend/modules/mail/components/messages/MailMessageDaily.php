@@ -144,15 +144,15 @@ class MailMessageDaily extends MailMessage
     {
         //выберем фото и создадим объект Image на его основе
         $photo = $photoPost->gallery->items[0]->photo;
-        $imageUrl = $photo->getPreviewPath(660, null, Image::WIDTH);
-        $image = new Image($imageUrl, array('driver' => 'GD', 'params' => array()));
+        $imagePath = $photo->getPreviewPath(660, null, Image::WIDTH);
+        $image = new Image($imagePath, array('driver' => 'GD', 'params' => array()));
 
         //создадим объект Image на основе водного знака
-        $watermarkUrl = Yii::getPathOfAlias('site.frontend.www-submodule.new.images.mail') . DIRECTORY_SEPARATOR . 'water-mark.png';
-        $watermark = new Image($watermarkUrl, array('driver' => 'GD', 'params' => array()));
+        $watermarkPath = Yii::getPathOfAlias('site.frontend.www-submodule.new.images.mail') . DIRECTORY_SEPARATOR . 'water-mark.png';
+        $watermark = new Image($watermarkPath, array('driver' => 'GD', 'params' => array()));
 
         //добавим водный знак
-        $image->watermark($watermark, 80, ($image->width - 151) / 2, ($image->height - 151) / 2);
+        $image->watermark($watermark, 80, ($image->width - $watermark->width) / 2, ($image->height - $watermark->height) / 2);
 
         //добавим текст
         $itemsCount = count($photoPost->gallery->items);
@@ -164,7 +164,21 @@ class MailMessageDaily extends MailMessage
         $image->text(13.5, 0, $textX, $textY, $textColor, $textFont, $itemsCount . ' фото');
 
         //сохраним
-        $image->save($photo->getMailPath());
-        return $photo->getMailUrl();
+        $image->save($imagePath);
+        return $photo->getPreviewUrl(660, null, Image::WIDTH);
+    }
+
+    public function getPostImage(CommunityContent $post)
+    {
+        $photo = $post->getPhoto();
+        if ($photo && $post->type_id == CommunityContent::TYPE_VIDEO) {
+            $imagePath = $photo->getPreviewPath(660, null, Image::WIDTH);
+            $image = new Image($imagePath, array('driver' => 'GD', 'params' => array()));
+
+            $watermarkPath = Yii::getPathOfAlias('site.frontend.www-submodule.new.images.mail') . DIRECTORY_SEPARATOR . 'water-mark.png';
+            $watermark = new Image($watermarkPath, array('driver' => 'GD', 'params' => array()));
+
+            $image->watermark($watermark, 80, ($image->width - $watermark->width) / 2, ($image->height - $watermark->height) / 2);
+        }
     }
 }

@@ -22,12 +22,14 @@ $comments = $post->getLastCommentators(5);
                         <a href="<?php echo $message->createUrl($post->author->getUrl(true)); ?>" style="color:#38a5f4;font:12px arial, helvetica, sans-serif;text-decoration:none;" target="_blank"><?php echo $post->author->getFullName(); ?></a>
                     </td>
                 </tr>
+                <?php if (! $post->getIsFromBlog()): ?>
                 <tr>
                     <td valign="top">
                         <!-- bg зависит от рубрики -->
-                        <a href="" style="background: #5ebdff;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;"><?php echo $post->rubric->community->title; ?></a>
+                        <a href="<?php echo $message->createUrl($post->rubric->community->getUrl(true)); ?>" style="background: #<?php echo $post->rubric->community->club->section->color; ?>;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;"><?php echo $post->rubric->community->title; ?></a>
                     </td>
                 </tr>
+                <?php endif; ?>
             </table>
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px;">
                 <tr>
@@ -57,7 +59,7 @@ $comments = $post->getLastCommentators(5);
             <table cellpadding="0" cellspacing="0" border="0" width="100%" >
                 <tr>
                     <td style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
-                        <?php echo $post->getContentText(); ?>
+                        <?php echo $post->getContentText(100, ''); ?>
                     </td>
                 </tr>
             </table>

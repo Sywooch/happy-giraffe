@@ -160,7 +160,7 @@ class MailMessageDaily extends MailMessage
         $textX = ($image->width - $textWidth) / 2;
         $textY = ($image->height - 151) / 2 + 128;
         $textColor = array(51, 51, 51);
-        $textFont = Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . 'font' . DIRECTORY_SEPARATOR . 'arial.ttf';
+        $textFont = Yii::getPathOfAlias('site.frontend.www-submodule.font') . DIRECTORY_SEPARATOR . 'arial.ttf';
         $image->text(13.5, 0, $textX, $textY, $textColor, $textFont, $itemsCount . ' фото');
 
         //сохраним

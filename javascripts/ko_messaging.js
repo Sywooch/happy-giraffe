@@ -387,7 +387,6 @@ function MessagingMessage(model, thread) {
 	self.addObject(self);
 	self.bindEvents();
 }
-
 MessagingThread.prototype = {
 	objects: new Array(),
 	binded: false,
@@ -466,21 +465,7 @@ MessagingThread.prototype = {
 		}
 	},
 	open: function(user) {
-		var thread = ko.utils.arrayFirst(this.objects, function(obj) {
-			return obj.user.id == user.id;
-		});
-        if(thread != Messaging.prototype.currentThread()) {
-            if (!thread) {
-                thread = new MessagingThread(user.viewModel.me, user);
-            } else {
-                thread.beforeOpen();
-            }
-            window.document.title = 'Диалоги: ' + user.fullName();
-            History.pushState(null, window.document.title, '?interlocutorId=' + user.id);
-            thread.scrollManager.setFix('bot');
-            Messaging.prototype.currentThread(thread);
-            thread.scrollManager.setFix();
-        }
+        History.pushState(null, window.document.title, '?interlocutorId=' + user.id);
 	}
 };
 
@@ -937,12 +922,12 @@ function ContactsManager(viewModel, model) {
                 // Нет загруженного пользователя, запросим с сервера
                 $.get('/messaging/default/getUserInfo/', { id: id }, function(data) {
                     user = addContact(data);
-                    user.open();
+                    self.open(user);
                     if(open)
                         self.openedUser(user);
                 }, 'json');
             } else {
-                user.open();
+                self.open(user);
                 if(open)
                     self.openedUser(user);
             }
@@ -955,10 +940,27 @@ function ContactsManager(viewModel, model) {
         // Должны добавиться все, т.к. список контактов пустой
         return addContact(user);
     }));
-
+    
     History.Adapter.bind(window, 'statechange', function() {
         parseUrl(false);
     });
+    
+    self.open = function(user) {
+        var thread = ko.utils.arrayFirst(MessagingThread.prototype.objects, function(obj) {
+            return obj.user.id == user.id;
+        });
+        if (thread != Messaging.prototype.currentThread()) {
+            if (!thread) {
+                thread = new MessagingThread(user.viewModel.me, user);
+            } else {
+                thread.beforeOpen();
+            }
+            window.document.title = 'Диалоги: ' + user.fullName();
+            thread.scrollManager.setFix('bot');
+            Messaging.prototype.currentThread(thread);
+            thread.scrollManager.setFix();
+        }
+    }
 
     if (!parseUrl(true) && self.users()[0]) {
         self.users()[0].open();

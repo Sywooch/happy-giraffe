@@ -834,7 +834,8 @@ class CommunityContent extends HActiveRecord
     public function getPhoto()
     {
         if (!isset($this->content))
-            return null;
+            return '1';
+        return '2';
         return $this->content->getPhoto();
     }
 

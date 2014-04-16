@@ -156,6 +156,9 @@ function MessagingUser(viewModel, model) {
 	self.gender = model.gender;
 	self.avatar = ko.observable(model.avatar);
 	self.channel = model.channel;
+    // Пустой ли диалог. Может быть пустым при загрузке отдельного пользователя.
+    // Может стать пустым при удалении диалога или всех сообщений из него.
+    self.emptyDialog = ko.observable(!model.date);
 	// Состояния пользователя
 
     // Черный список
@@ -420,6 +423,8 @@ MessagingThread.prototype = {
 			Comet.prototype.messagingThreadDeleted = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.dialog.id) {
+                        // поставим отметку, что диалог теперь пуст
+                        obj.user.emptyDialog(true);
                         obj.scrollManager.setFix('bot');
 						obj.deletedDialogs.push(result.dialog.dtimeDelete);
 						ko.utils.arrayForEach(obj.messages(), function(message) {
@@ -437,6 +442,8 @@ MessagingThread.prototype = {
 			Comet.prototype.messagingThreadRestored = function(result, id) {
 				ko.utils.arrayForEach(self.objects, function(obj) {
 					if (obj.id == result.dialog.id) {
+                        // поставим отметку, что диалог теперь не пуст
+                        obj.user.emptyDialog(false);
                         obj.scrollManager.setFix('bot');
 						obj.deletedDialogs([]);
 						ko.utils.arrayForEach(obj.messages(), function(message) {
@@ -772,26 +779,38 @@ function ContactsManager(viewModel, model) {
     // Фильтры
     self.filters = [
 		function(user) {
-            // все
-            return true;
+            // не пустой диалог, или это открытый пользователь
+            return !user.emptyDialog() || user == self.openedUser();
 		},
 		function(user) {
             // с новыми сообщениями
 			return user.countNew() > 0;
 		},
 		function(user) {
-            // пользователи онлайн
-			return user.isOnline();
+            // пользователи онлайн c не пустыми диалогами или открытый пользователь онлайн
+			return (!user.emptyDialog() || user == self.openedUser()) && user.isOnline();
 		},
 		function(user) {
             // друзья онлайн
-			return user.isFriend() && user.isOnline();
+			return (!user.emptyDialog() || user == self.openedUser()) && user.isFriend() && user.isOnline();
 		},
 		function(user) {
             // поиск
             return self.searchRegExp() === false ? false : user.fullName().match(self.searchRegExp());
 		}
     ];
+    
+    self.getOffset = function() {
+        var offset = 0;
+        ko.utils.arrayForEach(self.users(), function(user) {
+            // Считаем пользователей, найденных не через поиск и проходящих по фильтру
+            // не используем self.filtered, т.к. там может оказаться больше пользователей,
+            // из-за того что они от туда не удаляются.
+            if (!user.bySearching() && self.filters[self.currentFilter()](user))
+                offset++;
+        });
+        return offset;
+    };
     
     // Подпишемся на изменение вкладки
     self.currentFilter.subscribe(function() {
@@ -885,10 +904,7 @@ function ContactsManager(viewModel, model) {
 				data.offset = Math.max(0, self.filtered().length - 20);
 			} else {
 				data.type = type
-				ko.utils.arrayForEach(self.filtered(), function(user) {
-					if(!user.bySearching())
-						data.offset ++;
-				});
+                data.offset = self.getOffset();
 			}
 			$.get(url, data, function(response) {
 				var contacts = ko.utils.arrayMap(response.contacts, function(user) {
@@ -984,6 +1000,8 @@ function ContactsManager(viewModel, model) {
                 }
             }, 'json');
         } else {
+            // Поставим флаг, что диалог не пустой
+            user.emptyDialog(false);
             // Нашли его в нашем списке, если сообщение нам, то обновим счётчики и пиликнем
             if (result.message.to_id == self.viewModel.me.id) {
                 user.countNew(user.countNew() + 1);

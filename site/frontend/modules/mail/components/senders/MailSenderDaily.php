@@ -9,6 +9,8 @@
 
 class MailSenderDaily extends MailSender
 {
+    protected $debugMode = self::DEBUG_TESTING;
+
     protected $likes;
     protected $favourites;
     protected $recipe;
@@ -49,7 +51,7 @@ class MailSenderDaily extends MailSender
         $this->likes = NotificationCreate::generateLikes();
         $this->favourites = NotificationCreate::generateFavourites();
         $this->recipe = CookRecipe::model()->find('photo_id IS NOT NULL');
-        $this->photoPost = CommunityContent::model()->findByAttributes(array('type_id' => CommunityContent::TYPE_PHOTO_POST, 'id' => 52231));
+        $this->photoPost = CommunityContent::model()->findByAttributes(array('type_id' => CommunityContent::TYPE_PHOTO_POST));
         $this->posts = CommunityContent::model()->findAll(array(
             'limit' => 4,
             'with' => 'post',

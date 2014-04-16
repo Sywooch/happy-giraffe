@@ -144,6 +144,8 @@ class MailMessageDaily extends MailMessage
 
         //создадим объект Image на основе водного знака
         $watermarkUrl = Yii::getPathOfAlias('webroot') . '/new/images/mail/water-mark.png';
+        echo $watermarkUrl;
+        die;
         $watermark = new Image($watermarkUrl);
 
         //добавим водный знак

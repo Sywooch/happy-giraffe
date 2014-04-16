@@ -22,6 +22,7 @@ return array(
         'site.common.models.*',
         'site.common.helpers.*',
         'site.frontend.components.*',
+        'site.frontend.helpers.*',
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
         'site.frontend.extensions.directmongosuite.*',

@@ -16,7 +16,7 @@ $urlParams = array('/messaging/default/index', 'interlocutorId' => $contact->use
         <tr>
             <td valign="top" align="center">
                 <span style="margin: 0 auto;">
-                    <a href="<?php echo $message->createUrl($urlParams, 'avatar'); ?>" style="width:72px; text-decoration:none;">
+                    <a href="<?php echo $message->createUrl($urlParams, 'avatar'); ?>" style="width:72px; text-decoration:none;" target="_blank">
                         <img src="<?php echo $contact->user->getAvatarUrl(); ?>" style="-moz-border-radius:36px;-webkit-border-radius:36px;border-radius:36px;">
                     </a>
                     <?php if ($contact->unreadCount != $message->messagesCount): ?>
@@ -27,7 +27,7 @@ $urlParams = array('/messaging/default/index', 'interlocutorId' => $contact->use
         </tr>
         <tr>
             <td valign="top" align="center">
-                <a href="<?php echo $message->createUrl($urlParams, 'name'); ?>" style="color:#289fd7;font:12px arial, helvetica, sans-serif;text-decoration:none;"><?php echo $contact->user->getFullName(); ?></a>
+                <a href="<?php echo $message->createUrl($urlParams, 'name'); ?>" style="color:#289fd7;font:12px arial, helvetica, sans-serif;text-decoration:none;" target="_blank"><?php echo $contact->user->getFullName(); ?></a>
                 <?php if ($contact->user->birthday !== null): ?>
                     <span style="color:#9d9c9c; font-size:9px;"><?php echo $contact->user->getNormalizedAge(); ?></span>
                 <?php endif; ?>

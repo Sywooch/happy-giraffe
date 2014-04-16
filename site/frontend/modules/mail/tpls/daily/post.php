@@ -16,10 +16,10 @@ $comments = $post->getLastCommentators(5);
             <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:5px;">
                 <tr>
                     <td valign="top" rowspan="2" style="padding-right: 10px;" >
-                        <a href="" style="text-decoration:none;"><img src="<?php echo $post->author->getAvatarUrl(40); ?>" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
+                        <a href="" style="text-decoration:none;" target="_blank"><img src="<?php echo $post->author->getAvatarUrl(40); ?>" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
                     </td>
                     <td valign="top">
-                        <a href="<?php echo $message->createUrl($post->author->getUrl(true)); ?>" style="color:#38a5f4;font:12px arial, helvetica, sans-serif;text-decoration:none;"><?php echo $post->author->getFullName(); ?></a>
+                        <a href="<?php echo $message->createUrl($post->author->getUrl(true)); ?>" style="color:#38a5f4;font:12px arial, helvetica, sans-serif;text-decoration:none;" target="_blank"><?php echo $post->author->getFullName(); ?></a>
                     </td>
                 </tr>
                 <tr>
@@ -32,7 +32,7 @@ $comments = $post->getLastCommentators(5);
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px;">
                 <tr>
                     <td>
-                        <a href="<?php echo $message->createUrl($post->getUrl(false, true), 'title'); ?>" target="_blank" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline; "><?php echo $post->title; ?></a>
+                        <a href="<?php echo $message->createUrl($post->getUrl(false, true), 'title'); ?>" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline; " target="_blank"><?php echo $post->title; ?></a>
                     </td>
                 </tr>
             </table>
@@ -44,7 +44,7 @@ $comments = $post->getLastCommentators(5);
             <table cellpadding="0" cellspacing="0" border="0" width="100%" >
                 <tr>
                     <td style="margin-bottom:5px;">
-                        <a href="<?php echo $message->createUrl($post->getUrl(false, true)); ?>" target="_blank" style="text-decoration: none;"><img src="<?php echo $photo->getPreviewUrl(318, null, Image::WIDTH); ?>" width="318" border="0" style="display:block;" /></a>
+                        <a href="<?php echo $message->createUrl($post->getUrl(false, true)); ?>" style="text-decoration: none;" target="_blank"><img src="<?php echo $photo->getPreviewUrl(318, null, Image::WIDTH); ?>" width="318" border="0" style="display:block;" /></a>
                     </td>
                 </tr>
             </table>
@@ -57,7 +57,7 @@ $comments = $post->getLastCommentators(5);
             <table cellpadding="0" cellspacing="0" border="0" width="100%" >
                 <tr>
                     <td style="font:13px/18px arial, helvetica, sans-serif;color:#040404;">
-                        <?php echo $post->getContentText(256); ?>
+                        <?php echo $post->getContentText(); ?>
                     </td>
                 </tr>
             </table>
@@ -69,7 +69,7 @@ $comments = $post->getLastCommentators(5);
                     </td>
                     <?php if ($commentsCount > 0): ?>
                         <td style="padding-right:5px;">
-                            <a href="<?php echo $this->createUrl($post->getUrl(true, true)); ?>" target="_blank" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
+                            <a href="<?php echo $this->createUrl($post->getUrl(true, true)); ?>" style="color:#31a4f6;font:12px arial, helvetica, sans-serif;" target="_blank"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
                         </td>
                         <td>
                             <?php foreach ($comments as $comment): ?>

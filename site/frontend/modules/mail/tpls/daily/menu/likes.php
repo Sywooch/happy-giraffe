@@ -10,7 +10,7 @@
 </td>
 <td align="center" valign="top">
     <!-- icon -->
-    <a href="<?php echo $message->createUrl($message->getLikesUrlParams(), 'menuIcon'); ?>">
+    <a href="<?php echo $message->createUrl($message->getLikesUrlParams(), 'menuIcon'); ?>" target="_blank">
         <table style="margin-bottom:5px;margin-left: 20px;" cellpadding="0" cellspacing="0" width="60" height="50" border="0">
             <tr>
                 <td background="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-likes.png" bgcolor="#ffffff" width="60" height="50" valign="top" align="right" >
@@ -39,7 +39,7 @@
     <table style="margin: 5px;" cellpadding="0" cellspacing="0" border="0">
         <tr>
             <td align="center">
-                <a href="<?php echo $message->createUrl($message->getLikesUrlParams(), 'menuLink'); ?>" style="color: #4a89dc; text-decoration:underline;">Нравится</a>
+                <a href="<?php echo $message->createUrl($message->getLikesUrlParams(), 'menuLink'); ?>" style="color: #4a89dc; text-decoration:underline;" target="_blank">Нравится</a>
             </td>
         </tr>
     </table>

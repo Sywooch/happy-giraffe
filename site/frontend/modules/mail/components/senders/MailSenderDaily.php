@@ -48,9 +48,14 @@ class MailSenderDaily extends MailSender
     {
         $this->likes = NotificationCreate::generateLikes();
         $this->favourites = NotificationCreate::generateFavourites();
-        $this->recipe = CookRecipe::model()->findByPk(21836);
-        $this->photoPost = CommunityContent::model()->findByPk(52231);
-        $this->posts = CommunityContent::model()->findAll(array('limit' => 4));
+        $this->recipe = CookRecipe::model()->find('photo_id IS NOT NULL');
+        $this->photoPost = CommunityContent::model()->findByAttributes(array('type_id' => CommunityContent::TYPE_PHOTO_POST, 'id' => 52231));
+        $this->posts = CommunityContent::model()->findAll(array(
+            'limit' => 4,
+            'with' => 'post',
+            'condition' => 'type_id = :type_id AND post.photo_id IS NOT NULL',
+            'params' => array(':type_id' => CommunityContent::TYPE_POST),
+        ));
         $this->horoscopes = Horoscope::model()->findAllByAttributes(array(
             'date' => date("2012-03-15"),
         ));

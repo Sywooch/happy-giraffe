@@ -23,6 +23,7 @@ class MailSenderDaily extends MailSender
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.HGLike');
         Yii::import('site.common.models.mongo.Favourites');
+        Yii::import('site.common.models.mongo.PageView');
 
         Yii::import('site.frontend.modules.favourites.components.*');
         Yii::import('site.frontend.modules.favourites.models.*');

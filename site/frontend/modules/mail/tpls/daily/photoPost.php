@@ -25,10 +25,12 @@ $comments = $post->getLastCommentators(5);
                                 <td valign="top">
                                     <a href="<?php echo $message->createUrl($post->author->getUrl(true)); ?>" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;" target="_blank"><?php echo $post->author->getFullName(); ?></a>
                                 </td>
+                                <?php if (! $post->getIsFromBlog()): ?>
                                 <td valign="top" style="padding:2px 5px;">
                                     <!-- bg зависит от рубрики -->
                                     <a href="" style="background: #<?php echo $post->rubric->community->club->section->color; ?>;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;" target="_blank"><?php echo $post->rubric->community->title; ?></a>
                                 </td>
+                                <?php endif; ?>
                             </tr>
                         </table>
                     </td>

@@ -114,14 +114,17 @@ class MailSenderDaily extends MailSender
     {
         $favourites = Favourites::getListByDate(Favourites::BLOCK_MAIL, date("2014-04-17"));
         foreach ($favourites as $favourite) {
-            $model = CActiveRecord::model($favourite->entity)->findByPk($favourite->entity_id);
             if ($model !== null) {
                 switch ($favourite->entity) {
                     case 'CookRecipe':
+                        $model = CActiveRecord::model($favourite->entity)->findByPk($favourite->entity_id);
                         $this->recipe = $model;
                         break;
                     case 'CommunityContent':
                     case 'BlogContent':
+                        $model = CActiveRecord::model($favourite->entity)->findByPk($favourite->entity_id, array(
+                            ''
+                        ));
                         if ($model->type_id == CommunityContent::TYPE_PHOTO_POST) {
                             $this->photoPost = $model;
                         } elseif (count($this->posts) < 4) {

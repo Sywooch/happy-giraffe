@@ -103,8 +103,11 @@ class HController extends CController
         if (!Yii::app()->user->isGuest && (Yii::app()->user->model->blocked == 1 || Yii::app()->user->model->deleted == 1))
             Yii::app()->user->logout();
 
-        $received_params = array('utm_source',
+        $received_params = array(
+            'utm_source',
             'utm_medium',
+            'utm_campaign',
+            'utm_content',
             'im_interlocutor_id',
             'im_type',
             'openSettings',

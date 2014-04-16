@@ -6,6 +6,7 @@
  * @todo Капс рубрики
  */
 $photo = $post->getPhoto();
+var_dump($post->content);
 var_dump($photo);
 die;
 $commentsCount = $post->getCommentsCount();

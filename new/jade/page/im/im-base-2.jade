@@ -27,8 +27,8 @@ block layout-wrapper_hold
                             .im-center_middle-w.scroll_cont
                                 .im_loader
                                 +im-message("", {mod_name: "im-message_name__friend", bControl: ['favorite', 'delete', 'spam']})
-                                +im-message("im-message__edited", {mod_name: "im-message_name__self", bControl: ['delete'], messageRead: 'read'})
-                                +im-message("", {mod_name: "im-message_name__self", bControl: ['edit', 'cancel'],messageRead: 'read-no', imMessage_tx : "<p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p><img src='http://img.happy-giraffe.ru/thumbs/580x1000/241994/e1796839933d137f85bae1e7136351fa.jpg' class='content-img' title='ПРИТЧА ПРО ОСЛА фото 1' alt='ПРИТЧА ПРО ОСЛА фото 1'>"})
+                                +im-message("im-message__edited", {mod_name: "im-message_name__self", bControl: ['delete']})
+                                +im-message("", {mod_name: "im-message_name__self", bControl: ['edit', 'cancel'], imMessage_tx : "<p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p><img src='http://img.happy-giraffe.ru/thumbs/580x1000/241994/e1796839933d137f85bae1e7136351fa.jpg' class='content-img' title='ПРИТЧА ПРО ОСЛА фото 1' alt='ПРИТЧА ПРО ОСЛА фото 1'>"})
                                 .im_loader
                                     span.im_loader-tx Олег печатает вам сообщение
                                     img.im_loader-anim(src='/new/images/im/im-message_loader__write.png', alt='')

@@ -142,17 +142,17 @@ class MailMessageDaily extends MailMessage
 
     public function getPhotoPostImage(CommunityContent $photoPost)
     {
-        //выберем фото и создадим объект Image на его основе
-        $photo = $photoPost->gallery->items[0]->photo;
-        $imagePath = $photo->getPreviewPath(660, null, Image::WIDTH);
+        //выберем фото и сделаем копию
+        $originalPhoto = $photoPost->gallery->items[0]->photo;
+
+
+        $photo = clone $originalPhoto;
+
+        //создадим объект Image на основе склонированного изображения
+        $imagePath = $photo->getPreviewPath(660, null, Image::WIDTH, false, AlbumPhoto::CROP_SIDE_CENTER, true);
         $image = new Image($imagePath, array('driver' => 'GD', 'params' => array()));
 
-        //создадим объект Image на основе водного знака
-        $watermarkPath = Yii::getPathOfAlias('site.frontend.www-submodule.new.images.mail') . DIRECTORY_SEPARATOR . 'water-mark.png';
-        $watermark = new Image($watermarkPath, array('driver' => 'GD', 'params' => array()));
-
-        //добавим водный знак
-        $image->watermark($watermark, 80, ($image->width - $watermark->width) / 2, ($image->height - $watermark->height) / 2);
+        $this->watermark($image, 'water-mark.png', 80);
 
         //добавим текст
         $itemsCount = count($photoPost->gallery->items);
@@ -170,15 +170,35 @@ class MailMessageDaily extends MailMessage
 
     public function getPostImage(CommunityContent $post)
     {
-        $photo = $post->getPhoto();
-        if ($photo && $post->type_id == CommunityContent::TYPE_VIDEO) {
-            $imagePath = $photo->getPreviewPath(660, null, Image::WIDTH);
-            $image = new Image($imagePath, array('driver' => 'GD', 'params' => array()));
+        $originalPhoto = $post->getPhoto();
+        if ($originalPhoto) {
+            if ($post->type_id == CommunityContent::TYPE_VIDEO) {
+                //скопируем фото
+                $photo = clone $originalPhoto;
 
-            $watermarkPath = Yii::getPathOfAlias('site.frontend.www-submodule.new.images.mail') . DIRECTORY_SEPARATOR . 'water-mark.png';
-            $watermark = new Image($watermarkPath, array('driver' => 'GD', 'params' => array()));
+                //создадим объект Image на основе склонированного изображения
+                $imagePath = $photo->getPreviewPath(318, null, Image::WIDTH);
+                $image = Image::factory($imagePath, array('driver' => 'GD', 'params' => array()));
 
-            $image->watermark($watermark, 80, ($image->width - $watermark->width) / 2, ($image->height - $watermark->height) / 2);
+                $this->watermark($image, 'water-mark-youtube.png');
+
+                //сохраним
+                $image->save($imagePath);
+                return $photo->getPreviewUrl(318, null, Image::WIDTH);
+            } else {
+                return $originalPhoto->getPreviewUrl(318, null, Image::WIDTH);
+            }
         }
+        return null;
+    }
+
+    protected function watermark($image, $watermarkFile, $opacity = 100)
+    {
+        $watermarkPath = Yii::getPathOfAlias('site.frontend.www-submodule.new.images.mail') . DIRECTORY_SEPARATOR . $watermarkFile;
+        $watermark = Image::factory($watermarkPath, array('driver' => 'GD', 'params' => array()));
+
+        $image->watermark($watermark, $opacity, ($image->width - $watermark->width) / 2, ($image->height - $watermark->height) / 2);
+
+        return $image;
     }
 }

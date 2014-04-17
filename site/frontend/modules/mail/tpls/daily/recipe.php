@@ -22,7 +22,7 @@ $favouritesCount = count($favourites);
                 <tr>
                     <td valign="top">
                         <!-- bg зависит от рубрики -->
-                        <a href="<?php echo $message->createUrl(array('cook/recipe/index')); ?>" style="background: #f26748;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none;" target="_blank">РЕЦЕПТ ДНЯ</a>
+                        <a href="<?php echo $message->createUrl(array('cook/recipe/index')); ?>" style="background: #f26748;padding:2px 6px; color: #ffffff;  font-weight:bold; font-size: 10px; font-family: 'Arial black', arial, tahoma; text-decoration:none; text-transform: uppercase;" target="_blank">Рецепт дня</a>
                     </td>
                 </tr>
             </table>

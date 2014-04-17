@@ -9,7 +9,7 @@
 
 class MailSenderDaily extends MailSender
 {
-    protected $debugMode = self::DEBUG_DEVELOPMENT_MAIL;
+    protected $debugMode = self::DEBUG_DEVELOPMENT;
 
     protected $likes;
     protected $favourites;
@@ -112,7 +112,7 @@ class MailSenderDaily extends MailSender
 
     protected function setFavourites()
     {
-        $favourites = Favourites::getListByDate(Favourites::BLOCK_MAIL, date("2014-04-17"));
+        $favourites = Favourites::getListByDate(Favourites::BLOCK_MAIL, date("2014-04-18"));
         foreach ($favourites as $favourite) {
             $model = CActiveRecord::model($favourite->entity)->findByPk($favourite->entity_id);
             if ($model !== null) {

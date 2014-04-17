@@ -1016,7 +1016,15 @@ function ContactsManager(viewModel, model) {
 
     };
     comet.addEvent(2020, 'messagingNewMessage');
-
+    
+    Comet.prototype.messagingContactsManagerMessageCancelled = function(result) {
+        var user = getContactById(result.dialog.id);
+        if(user && result.message.to_id == self.viewModel.me.id) {
+            user.countNew(Math.max(0, user.countNew()-1));
+            self.countTotal(Math.max(0, self.countTotal()-1));
+        }
+    }
+    comet.addEvent(2040, 'messagingContactsManagerMessageCancelled');
 
 }
 

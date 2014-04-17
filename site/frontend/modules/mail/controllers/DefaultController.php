@@ -2,6 +2,18 @@
 
 class DefaultController extends HController
 {
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'roles' => array('tester'),
+            ),
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
+
     /**
      * Редирект из почтовой рассылки
      *
@@ -39,9 +51,9 @@ class DefaultController extends HController
         $sender->sendAll();
     }
 
-    public function actionDaily()
+    public function actionDaily($date = null)
     {
-        $sender = new MailSenderDaily('2012-03-15');
+        $sender = new MailSenderDaily($date);
         $sender->sendAll();
     }
 }

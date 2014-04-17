@@ -9,6 +9,9 @@ $tomorrowUrlParams = array(
     'date' => $tomorrowDate,
 );
 $tomorrowExists = $message->horoscope->dateHoroscopeExist(strtotime($tomorrowDate));
+if (! $tomorrowExists) {
+    throw new CHttpException('Нет гороскопа на завтра');
+}
 ?>
 
 <table cellpadding="0" border="0" cellspacing="0" width="100%" style="margin-bottom:5px; border: 2px solid #5ab3f8;" bgcolor="#73c1fd">

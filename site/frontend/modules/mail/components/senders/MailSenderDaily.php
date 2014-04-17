@@ -11,12 +11,36 @@ class MailSenderDaily extends MailSender
 {
     protected $debugMode = self::DEBUG_DEVELOPMENT;
 
-    protected $likes;
-    protected $favourites;
+    /**
+     * @property CookRecipe $recipe
+     */
     protected $recipe;
+
+    /**
+     * @property CommunityContent $photoPost
+     */
     protected $photoPost;
+
+    /**
+     * Обычные посты на сегодня
+     *
+     * @property CommunityContent[] $posts
+     */
     protected $posts = array();
+
+    /**
+     * Массив гороскоп каждого знака зодиака на сегодняшний день
+     *
+     * @property Horoscope[] $horoscopes
+     */
     protected $horoscopes;
+
+    /**
+     * Массив гороскоп каждого знака зодиака на завтра
+     *
+     * @property Horoscope[] $horoscopes
+     */
+    protected $tomorrowHoroscopes;
 
     public function __construct()
     {
@@ -56,19 +80,45 @@ class MailSenderDaily extends MailSender
             throw new CException('Рецепт для ежедневной рассылки не выбран');
         }
 
+        if ($this->recipe->getMainPhoto() === null) {
+            throw new CException('Рецепт без картинки');
+        }
+
         if ($this->photoPost === null) {
             throw new CException('Фотопост для ежедневной рассылки не выбран');
         }
 
-        if (count($this->posts) < 4) {
+        if (count($this->posts) != 4) {
             throw new CException('Количество обычных постов в ежедневной рассылке равно ' . count($this->posts));
+        }
+
+        foreach ($this->posts as $post) {
+            if ($post->getPhoto() === null) {
+                throw new CException('Нет картинки у одного или несколькоих постов');
+            }
+            if ($post->commentsCount == 0) {
+                throw new CException('Нет комментариев у одного или нескольких постов');
+            }
+        }
+
+        $this->horoscopes = Horoscope::model()->findAllByAttributes(array(
+            'date' => date("2012-03-15"),
+        ));
+
+        $this->tomorrowHoroscopes = Horoscope::model()->findAllByAttributes(array(
+            'date' => date("Y-m-d", strtotime('+1 day')),
+        ));
+
+        if (count($this->horoscopes) != 12) {
+            throw new CHttpException('Гороскоп на сегодня заполнен не для всех знаков зодиака');
+        }
+
+        if (count($this->tomorrowHoroscopes) != 12) {
+            throw new CHttpException('Гороскоп на завтра заполнен не для всех знаков зодиака');
         }
 
         NotificationCreate::generateLikes();
         NotificationCreate::generateFavourites();
-        $this->horoscopes = Horoscope::model()->findAllByAttributes(array(
-            'date' => date("2012-03-15"),
-        ));
 
         parent::sendAll();
     }

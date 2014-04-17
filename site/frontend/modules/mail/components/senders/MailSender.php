@@ -13,12 +13,11 @@ abstract class MailSender extends CComponent
     const FROM_NAME = 'Весёлый Жираф';
     const FROM_EMAIL = 'noreply@happy-giraffe.ru';
 
-    const DEBUG_DEVELOPMENT_WEB = 0;
-    const DEBUG_DEVELOPMENT_MAIL = 1;
-    const DEBUG_TESTING = 2;
-    const DEBUG_PRODUCTION = 3;
+    const DEBUG_DEVELOPMENT = 0;
+    const DEBUG_TESTING = 1;
+    const DEBUG_PRODUCTION = 2;
 
-    protected $debugMode = self::DEBUG_DEVELOPMENT_WEB;
+    protected $debugMode = self::DEBUG_DEVELOPMENT;
 
     /**
      * Обработка конкретно взятого пользователя. Если для него нужно создавать сообщение, возвращает экземпляр класса
@@ -86,8 +85,7 @@ abstract class MailSender extends CComponent
         $criteria = new CDbCriteria();
 
         switch ($this->debugMode) {
-            case self::DEBUG_DEVELOPMENT_WEB:
-            case self::DEBUG_DEVELOPMENT_MAIL:
+            case self::DEBUG_DEVELOPMENT:
                 $criteria->compare('t.id', 12936);
                 break;
             case self::DEBUG_TESTING:
@@ -109,17 +107,19 @@ abstract class MailSender extends CComponent
         foreach ($iterator as $user) {
             $result = $this->process($user);
             if ($result instanceof MailMessage) {
-                switch ($this->debugMode) {
-                    case self::DEBUG_DEVELOPMENT_WEB:
-                        echo $result->getBody();
-                        break;
-                    case self::DEBUG_DEVELOPMENT_MAIL:
-                    case self::DEBUG_TESTING:
-                        self::sendInternal($result);
-                        break;
-                    case self::DEBUG_PRODUCTION:
-                        $this->addToQueue($result);
-                        break;
+                if (Yii::app() instanceof CWebApplication) {
+                    echo $result->getBody();
+                }
+                else {
+                    switch ($this->debugMode) {
+                        case self::DEBUG_DEVELOPMENT:
+                        case self::DEBUG_TESTING:
+                            self::sendInternal($result);
+                            break;
+                        case self::DEBUG_PRODUCTION:
+                            $this->addToQueue($result);
+                            break;
+                    }
                 }
             }
         }

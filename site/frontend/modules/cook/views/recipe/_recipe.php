@@ -4,6 +4,7 @@
         <?php $this->renderPartial('cook.views.recipe._recipe_parts._header', array('recipe' => $data, 'full' => false)); ?>
         <div class="b-article_t">
             <a href="<?=$data->url?>" class="b-article_t-a"><?=$data->title?></a>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $data)); ?>
         </div>
         <div class="b-article_in clearfix">
             <div class="wysiwyg-content clearfix">

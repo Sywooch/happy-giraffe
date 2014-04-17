@@ -914,4 +914,16 @@ class AlbumPhoto extends HActiveRecord
         $dimension = Yii::app()->user->getState('dimension', self::PHOTO_VIEW_MEDIUM);
         return $this->getPreviewUrl(self::$photoViewDimensions[$dimension]['width'], self::$photoViewDimensions[$dimension]['height'], Image::AUTO);
     }
+
+    public function __clone()
+    {
+        $this->id = null;
+        $this->setIsNewRecord(true);
+        $ext = substr($this->fs_name, strpos($this->fs_name, ".") + 1);
+        $source = $this->getOriginalPath();
+        $this->fs_name = md5($this->file_name . time()) . '.' . $ext;
+        $dest = $this->getOriginalPath();
+        copy($source, $dest);
+        $this->save();
+    }
 }

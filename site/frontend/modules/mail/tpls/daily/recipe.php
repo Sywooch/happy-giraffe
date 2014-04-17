@@ -29,7 +29,7 @@ $favouritesCount = count($favourites);
             <table cellpadding="0" cellspacing="0" border="0" width="100%"  style="margin-bottom:5px;" >
                 <tr>
                     <td>
-                        <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'recipeLink'); ?>" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline;" target="_blank"><?php echo $recipe->title; ?></a>
+                        <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'textLink'); ?>" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline;" target="_blank"><?php echo $recipe->title; ?></a>
                     </td>
                 </tr>
             </table>
@@ -42,7 +42,7 @@ $favouritesCount = count($favourites);
                     <tr>
                         <td style="margin-bottom:5px;">
                             <!--  -->
-                            <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'recipeImage'); ?>" style="text-decoration: none;" target="_blank"><img src="<?php echo $recipe->getMainPhoto()->getPreviewUrl(318, null, Image::WIDTH); ?>" width="318" border="0" style="display:block;" /></a>
+                            <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'imageLink'); ?>" style="text-decoration: none;" target="_blank"><img src="<?php echo $recipe->getMainPhoto()->getPreviewUrl(318, null, Image::WIDTH); ?>" width="318" border="0" style="display:block;" /></a>
                         </td>
                     </tr>
                 </table>

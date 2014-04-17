@@ -41,7 +41,7 @@ class DefaultController extends HController
 
     public function actionDaily()
     {
-        $sender = new MailSenderDaily();
+        $sender = new MailSenderDaily('2012-03-15');
         $sender->sendAll();
     }
 }

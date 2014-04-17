@@ -14,10 +14,10 @@ $comments = $post->getLastCommentators(5);
             <table cellpadding="0" cellspacing="0" border="0" style="margin-bottom:5px;">
                 <tr>
                     <td valign="top" rowspan="2" style="padding-right: 10px;" >
-                        <a href="" style="text-decoration:none;" target="_blank"><img src="<?php echo $post->author->getAvatarUrl(40); ?>" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
+                        <a href="<?php echo $message->createUrl($post->author->getUrl(true), 'userAvatar'); ?>" style="text-decoration:none;" target="_blank"><img src="<?php echo $post->author->getAvatarUrl(40); ?>" style="border: 0;display:block;-moz-border-radius:22px;-webkit-border-radius:22px;border-radius:22px;" /></a>
                     </td>
                     <td valign="top">
-                        <a href="<?php echo $message->createUrl($post->author->getUrl(true)); ?>" style="color:#38a5f4;font:12px arial, helvetica, sans-serif;text-decoration:none;" target="_blank"><?php echo $post->author->getFullName(); ?></a>
+                        <a href="<?php echo $message->createUrl($post->author->getUrl(true), 'userLink'); ?>" style="color:#38a5f4;font:12px arial, helvetica, sans-serif;text-decoration:none;" target="_blank"><?php echo $post->author->getFullName(); ?></a>
                     </td>
                 </tr>
                 <?php if (! $post->getIsFromBlog()): ?>
@@ -32,7 +32,7 @@ $comments = $post->getLastCommentators(5);
             <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-bottom:5px;">
                 <tr>
                     <td>
-                        <a href="<?php echo $message->createUrl($post->getUrl(false, true), 'title'); ?>" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline; " target="_blank"><?php echo $post->title; ?></a>
+                        <a href="<?php echo $message->createUrl($post->getUrl(false, true), 'textLink'); ?>" style="color:#186fb8;font:bold 25px/28px arial, helvetica, sans-serif;letter-spacing:-0.5px;text-decoration:underline; " target="_blank"><?php echo $post->title; ?></a>
                     </td>
                 </tr>
             </table>
@@ -44,7 +44,7 @@ $comments = $post->getLastCommentators(5);
             <table cellpadding="0" cellspacing="0" border="0" width="100%" >
                 <tr>
                     <td style="margin-bottom:5px;">
-                        <a href="<?php echo $message->createUrl($post->getUrl(false, true)); ?>" style="text-decoration: none;" target="_blank"><img src="<?php echo $message->getPostImage($post); ?>" width="318" border="0" style="display:block;" /></a>
+                        <a href="<?php echo $message->createUrl($post->getUrl(false, true), 'imageLink'); ?>" style="text-decoration: none;" target="_blank"><img src="<?php echo $message->getPostImage($post); ?>" width="318" border="0" style="display:block;" /></a>
                     </td>
                 </tr>
             </table>

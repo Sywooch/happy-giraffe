@@ -20,10 +20,6 @@ class UserIdentity extends CUserIdentity
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
             $this->errorMessage = 'Неверный пароль';
         }
-        elseif ($model->status == User::STATUS_INACTIVE) {
-            $this->errorCode = self::ERROR_INACTIVE;
-            $this->errorMessage = 'Вы не подтвердили свой e-mail';
-        }
         elseif ($model->isBanned) {
             $this->errorCode = self::ERROR_BANNED;
             $this->errorMessage = 'Вы заблокированы';

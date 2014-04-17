@@ -16,6 +16,9 @@ Yii::import('site.common.components.Hh.*');
 
 class HhCommand extends CConsoleCommand
 {
+    const LOGIN = 'mira@happy-giraffe.ru';
+    const PASSWORD = 'mirahh';
+
     public function actionSync($code)
     {
         $i = 0;
@@ -29,28 +32,30 @@ class HhCommand extends CConsoleCommand
             if ($data !== false) {
                 foreach ($data as $attribute => $value)
                     $m->$attribute = $value;
-                $m->parsed = true;
+                $m->parsed = time();
                 $m->save();
+            } else {
+                Yii::app()->end();
             }
         }
     }
 
-    public function actionParse($keyword)
+    public function actionParse($query)
     {
         // authorize
         $ch = curl_init();
         curl_setopt_array($ch, array(
-            CURLOPT_URL => 'http://hh.ru/logon.do',
+            CURLOPT_URL => 'http://astrakhan.hh.ru/logon.do',
             CURLOPT_COOKIEJAR => $this->getCookie(),
             CURLOPT_COOKIEFILE => $this->getCookie(),
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => array(
                 'username' => 'mira@happy-giraffe.ru',
-                'password' => 'headhunt',
+                'password' => 'mirahh',
             ),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36',
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.3',
         ));
         curl_exec($ch);
         curl_close($ch);
@@ -62,60 +67,37 @@ class HhCommand extends CConsoleCommand
             CURLOPT_COOKIEFILE => $this->getCookie(),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/30.0.1599.101 Safari/537.36',
+            CURLOPT_USERAGENT => 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.3',
         ));
 
         for ($i = 0; true; $i++) {
-            curl_setopt($ch, CURLOPT_URL, $this->getPageUrl($keyword, $i));
+            curl_setopt($ch, CURLOPT_URL, $this->getPageUrl($query, $i));
             $response = curl_exec($ch);
             if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200)
-                $this->parsePage($response, $keyword);
+                $this->parsePage($response, $query);
             else
                 break;
         }
     }
 
-    protected function getPageUrl($keyword, $page)
+    protected function getPageUrl($query, $page)
     {
-        $params = array(
-            'text' => $keyword,
-            'logic' => 'normal',
-            'pos' => 'full_text',
-            'a' => '113',
-            's' => '1.221',
-            'order' => '2',
-            'items' => '100',
-            'lang' => 'eng',
-            'degree' => '0',
-            'schedule' => '0',
-            'searchPeriod' => '30',
-            'wRelocation' => 'true',
-            'woAge' => 'true',
-            'woGender' => 'true',
-            'gen' => '-1',
-            'cur' => 'RUR',
-            'woSalary' => 'true',
-            'profArea' => '1',
-            'edu' => '0',
-            'employment' => '0',
-        );
-        if ($page != 0)
-            $params['page'] = $page;
+        $query .= '&items=100';
+        $query .= '&page=' . $page;
 
-        return 'http://hh.ru/resumesearch/result?' . http_build_query($params);
+        return 'http://hh.ru/resumesearch/result?' . $query;
     }
 
-    protected function parsePage($response, $keyword)
+    protected function parsePage($response, $query)
     {
         $html = str_get_html($response);
-        foreach ($html->find('a[itemprop=jobTitle]') as $a) {
-            $url = $a->getAttribute('href');
-            preg_match('#\/resume\/(\w+)\?#', $url, $matches);
-            $hash = $matches[1];
+
+        foreach ($html->find('div[data-hh-resume-hash]') as $a) {
+            $hash = $a->getAttribute('data-hh-resume-hash');
             try {
                 $model = new HhResume();
                 $model->_id = $hash;
-                $model->keyword = $keyword;
+                $model->query = $query;
                 $model->save();
             } catch (MongoCursorException $e) {}
         }
@@ -123,6 +105,6 @@ class HhCommand extends CConsoleCommand
 
     protected function getCookie()
     {
-        return Yii::getPathOfAlias('site.common.cookies') . DIRECTORY_SEPARATOR . 'hh.txt';
+        return Yii::getPathOfAlias('application.runtime') . DIRECTORY_SEPARATOR . 'hh.txt';
     }
 }

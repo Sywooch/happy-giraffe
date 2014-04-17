@@ -1,5 +1,5 @@
 <?php if (Yii::app()->user->isGuest):?>
-    <a href="#login" class="like-control_ico like-control_ico__like powertip fancy" title="Нравится"><?=$count ?></a>
+    <a href="#loginWidget" class="like-control_ico like-control_ico__like powertip popup-a" title="Нравится"><?=$count ?></a>
 <?php else: ?>
     <?php if ($this->model->author_id == Yii::app()->user->id):?>
         <a href="" class="like-control_ico like-control_ico__like js-hg_alert"><?=$count ?></a>

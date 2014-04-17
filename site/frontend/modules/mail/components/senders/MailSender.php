@@ -89,7 +89,8 @@ abstract class MailSender extends CComponent
                 $criteria->compare('t.id', 12936);
                 break;
             case self::DEBUG_TESTING:
-                $criteria->compare('`group`', UserGroup::COMMENTATOR);
+                $criteria->join = 'INNER JOIN auth__assignments aa ON aa.userid = t.id AND aa.itemname = :itemname';
+                $criteria->params[':itemname'] = 'tester';
                 break;
         }
 

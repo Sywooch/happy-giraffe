@@ -12,6 +12,11 @@ class MailSenderDaily extends MailSender
     protected $debugMode = self::DEBUG_DEVELOPMENT;
 
     /**
+     * @property $date
+     */
+    protected $date;
+
+    /**
      * @property CookRecipe $recipe
      */
     protected $recipe;
@@ -42,8 +47,10 @@ class MailSenderDaily extends MailSender
      */
     protected $tomorrowHoroscopes;
 
-    public function __construct()
+    public function __construct($date = null)
     {
+        $this->date = ($date === null) ? date("Y-m-d") : $date;
+
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.HGLike');
         Yii::import('site.common.models.mongo.Favourites');
@@ -92,21 +99,25 @@ class MailSenderDaily extends MailSender
             throw new CException('Количество обычных постов в ежедневной рассылке равно ' . count($this->posts));
         }
 
-        foreach ($this->posts as $post) {
-            if ($post->getPhoto() === null) {
-                throw new CException('Нет картинки у одного или несколькоих постов');
-            }
-            if ($post->commentsCount == 0) {
-                throw new CException('Нет комментариев у одного или нескольких постов');
-            }
-        }
+//        foreach ($this->posts as $post) {
+//            if ($post->getPhoto() === null) {
+//                throw new CException('Нет картинки у одного или несколькоих постов');
+//            }
+//            if ($post->commentsCount == 0) {
+//                throw new CException('Нет комментариев у одного или нескольких постов');
+//            }
+//        }
 
         $this->horoscopes = Horoscope::model()->findAllByAttributes(array(
-            'date' => date("2012-03-15"),
+            'date' => $this->date,
+        ), array(
+            'index' => 'zodiac',
         ));
 
         $this->tomorrowHoroscopes = Horoscope::model()->findAllByAttributes(array(
-            'date' => date("Y-m-d", strtotime('+1 day')),
+            'date' => date("Y-m-d", strtotime($this->date . ' + 1 day')),
+        ), array(
+            'index' => 'zodiac',
         ));
 
         if (count($this->horoscopes) != 12) {
@@ -114,7 +125,7 @@ class MailSenderDaily extends MailSender
         }
 
         if (count($this->tomorrowHoroscopes) != 12) {
-            throw new CHttpException('Гороскоп на завтра заполнен не для всех знаков зодиака');
+            throw new CException('Гороскоп на завтра заполнен не для всех знаков зодиака');
         }
 
         NotificationCreate::generateLikes();
@@ -144,8 +155,9 @@ class MailSenderDaily extends MailSender
             }
         }
 
-        $horoscope = $this->horoscopes[Horoscope::model()->getDateZodiac($user->birthday)];
-        $tomorrowHoroscope = $this->tomorrowHoroscopes[Horoscope::model()->getDateZodiac($user->birthday)];
+        $zodiac = Horoscope::model()->getDateZodiac($user->birthday);
+        $horoscope = $this->horoscopes[$zodiac];
+        $tomorrowHoroscope = $this->tomorrowHoroscopes[$zodiac];
 
         return new MailMessageDaily($user, CMap::mergeArray(compact(
             'horoscope',
@@ -164,7 +176,7 @@ class MailSenderDaily extends MailSender
 
     protected function setFavourites()
     {
-        $favourites = Favourites::getListByDate(Favourites::BLOCK_MAIL, date("2014-04-18"));
+        $favourites = Favourites::getListByDate(Favourites::BLOCK_MAIL, $this->date);
 
         foreach ($favourites as $favourite) {
             $model = CActiveRecord::model($favourite->entity)->findByPk($favourite->entity_id);

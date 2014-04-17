@@ -107,7 +107,6 @@
                     </div>
                     <div class="inp-valid_success inp-valid_success__ico-check"></div>
                 </div>
-                <div class="popup-sign_tx-help">Начинайте вводить название страны...</div>
             </div>
             <div class="popup-sign_row" data-bind="visible: location.country() instanceof Country && location.country().citiesFilled">
                 <div class="inp-valid inp-valid__abs">
@@ -178,7 +177,7 @@
         <div class="popup-sign_attr" data-bind="visible: gender.show">
             <div class="popup-sign_row margin-b30">
                 <div class="popup-sign_label">
-                    <div class="display-ib">
+                    <div class="display-ib padding-t10">
                         <div class="inp-valid inp-valid__abs">Пол
                             <div class="radio-icons radio-icons__inline margin-l20">
                                 <?=$form->radioButtonList($model, 'gender', array(

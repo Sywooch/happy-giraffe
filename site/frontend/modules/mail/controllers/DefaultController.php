@@ -2,6 +2,13 @@
 
 class DefaultController extends HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
     public function accessRules()
     {
         return array(

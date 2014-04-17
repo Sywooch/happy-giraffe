@@ -185,7 +185,7 @@ html {
 }
 a {
   cursor: pointer;
-  color: #29a1da;
+  color: #289fd7;
   text-decoration: underline;
 }
 a:hover {
@@ -455,6 +455,9 @@ input[type="checkbox"] {
   color: #289fd7;
   text-decoration: none;
 }
+.a-user:hover {
+  text-decoration: underline;
+}
 .i-more {
   display: inline-block;
   margin: 0;
@@ -715,8 +718,7 @@ input[type="checkbox"] {
     display: none;
   }
   .side-menu__im .side-menu_i {
-    padding: 7px 15px 4px;
-    height: 50px;
+    padding: 10px 15px 10px;
   }
   .side-menu__im .side-menu_count {
     top: 4px;
@@ -727,7 +729,7 @@ input[type="checkbox"] {
 }
 @media screen and (max-height: 630px) {
   .side-menu__im .side-menu_i {
-    padding: 4px 15px 2px;
+    padding: 10px 15px 13px;
   }
 }
 .side-menu__im .side-menu_li:last-child {
@@ -805,8 +807,7 @@ input[type="checkbox"] {
 .side-menu_i {
   position: relative;
   display: block;
-  height: 70px;
-  padding: 15px 15px 15px;
+  padding: 20px 15px 25px;
   text-align: center;
   text-decoration: none;
 }
@@ -4691,7 +4692,7 @@ textarea.error {
   text-decoration: none;
 }
 .ava-list_last-tx:hover {
-  color: #3498db;
+  color: #289fd7;
   text-decoration: underline;
 }
 .ava-list_last {
@@ -9883,7 +9884,7 @@ html[dir="rtl"] .select2-search-choice-close {
 }
 .u-notice_a-settings {
   display: inline-block;
-  color: #55b64a;
+  color: #16b75a;
 }
 .u-notice_a-arhive {
   float: right;
@@ -9980,6 +9981,7 @@ html[dir="rtl"] .select2-search-choice-close {
   position: absolute;
   top: 100%;
   margin-top: 2px;
+  font: 11px/14px Tahoma, Arial, Verdana, sans-serif;
   color: #3498db;
   text-decoration: underline;
 }
@@ -10020,6 +10022,7 @@ html[dir="rtl"] .select2-search-choice-close {
 }
 .u-notice_post-a {
   font-weight: bold;
+  color: #196eb9;
 }
 .u-notice_comment {
   display: inline-block;

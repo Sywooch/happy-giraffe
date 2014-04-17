@@ -1,13 +1,10 @@
 //- include ../../block/config
-extend ../../extend/layout_frame
+extend ../../extend/layout_notice
 
 block layout-wrapper
     //- u-notice - user-notice
     
     script.
-        // Добавить на body класс body__notice, можно не js
-        $('body').addClass('body__notice');
-
         var notice = new function() {
                 var self = this;
                 function noticeHeight() {
@@ -91,7 +88,7 @@ block layout-wrapper
                                         // u-notice_post-ico__video
                                         // u-notice_post-ico__photo
                                         // u-notice_post-ico__question
-                                        .u-notice_b.u-notice_post-ico.u-notice_post-ico__post
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__post(href='')
                                         .u-notice_b.u-notice_post
                                             a.u-notice_post-a(href="") Отдых в России: куда поехать на майские праздники
                                         a.u-notice_b.u-notice_check(href="")
@@ -120,7 +117,7 @@ block layout-wrapper
                                                     li.ava-list_li
                                                         a.ava-list_last-tx еще 1
 
-                                        .u-notice_b.u-notice_post-ico.u-notice_post-ico__comment
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__comment(href='')
                                         .u-notice_b.u-notice_post 
                                             a.u-notice_comment(href='') Телец часто противоречив, вспыльчив и импульсивен.Обладая поистине неисчерпаемым ...
                                         a.u-notice_b.u-notice_check(href="")
@@ -149,7 +146,7 @@ block layout-wrapper
                                                     li.ava-list_li
                                                         a.ava-list_last-tx еще 1456
 
-                                        .u-notice_b.u-notice_post-ico.u-notice_post-ico__video
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__video(href='')
                                         .u-notice_b.u-notice_post 
                                             a.a-user(href="") Татьяна Богоявленская
                                             br 
@@ -180,7 +177,7 @@ block layout-wrapper
                                                     li.ava-list_li
                                                         a.ava-list_last-tx еще 1
 
-                                        .u-notice_b.u-notice_post-ico.u-notice_post-ico__photo
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__photo(href='')
                                         .u-notice_b.u-notice_post
                                             a.u-notice_post-a(href="") Фото 1
                                         a.u-notice_b.u-notice_check(href="")
@@ -209,7 +206,7 @@ block layout-wrapper
                                                     li.ava-list_li
                                                         a.ava-list_last-tx еще 1
 
-                                        .u-notice_b.u-notice_post-ico.u-notice_post-ico__post
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__post(href='')
                                         .u-notice_b.u-notice_post 
                                             a.a-user(href="") Татьяна Богоявленская
                                             br 
@@ -220,34 +217,34 @@ block layout-wrapper
                                     .u-notice_overlay.display-b
                                         .u-notice_overlay-tx Сигнал перемещен в архив
                                 li.u-notice_li
-                                .u-notice_li-hold
-                                    a.u-notice_b.u-notice_ico.u-notice_ico__answer-q(href='')
-                                    a.u-notice_b.u-notice_spec(href="")
-                                        .u-notice_b.u-notice_count 1
-                                        .u-notice_b.u-notice_desc Ответов на <br> ваш вопрос
-                                            .u-notice_desc-go  Перейти
-                                    .u-notice_b.u-notice_users
-                                        .ava-list
-                                            ul.ava-list_ul
-                                                li.ava-list_li
-                                                    +ava('ava__small ava__male', avaVars)
-                                                li.ava-list_li
-                                                    +ava('ava__small ava__male', avaVars)
-                                                li.ava-list_li
-                                                    +ava('ava__small ava__male', avaVars)
-                                                li.ava-list_li
-                                                    +ava('ava__small ava__male', avaVars)
-                                                li.ava-list_li
-                                                    a.ava-list_last-tx еще 1
+                                    .u-notice_li-hold
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__answer-q(href='')
+                                        a.u-notice_b.u-notice_spec(href="")
+                                            .u-notice_b.u-notice_count 1
+                                            .u-notice_b.u-notice_desc Ответов на <br> ваш вопрос
+                                                .u-notice_desc-go  Перейти
+                                        .u-notice_b.u-notice_users
+                                            .ava-list
+                                                ul.ava-list_ul
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        a.ava-list_last-tx еще 1
 
-                                    .u-notice_b.u-notice_post-ico.u-notice_post-ico__question
-                                    .u-notice_b.u-notice_post 
-                                        a.u-notice_post-a(href="") Отдых в России: куда поехать на майские праздники
-                                    a.u-notice_b.u-notice_check(href="")
-                                        .ico-check-gray
-                                        .u-notice_check-tx В архив
-                                .u-notice_overlay
-                                    .u-notice_overlay-tx Сигнал перемещен в архив
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__question(href='')
+                                        .u-notice_b.u-notice_post 
+                                            a.u-notice_post-a(href="") Отдых в России: куда поехать на майские праздники
+                                        a.u-notice_b.u-notice_check(href="")
+                                            .ico-check-gray
+                                            .u-notice_check-tx В архив
+                                    .u-notice_overlay
+                                        .u-notice_overlay-tx Сигнал перемещен в архив
                     // scroll-bar
                     .scroll_bar-hold
                         .scroll_bar

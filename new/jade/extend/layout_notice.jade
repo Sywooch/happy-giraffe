@@ -4,7 +4,7 @@ doctype html
 | <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 include ../block/config
 +head(path)
-body.body.body__bg-base
+body.body.body__bg-base.body__notice
     .layout-container
         .layout-header.clearfix
             +header-fix()
@@ -12,7 +12,7 @@ body.body.body__bg-base
         .layout-wrapper
             .layout-wrapper_frame.clearfix
                 block layout-wrapper
-        +btn-scrolltop()
+                    
     .popup-container.display-n  
         block block-hidden
 | </html>

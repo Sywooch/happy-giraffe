@@ -35,7 +35,7 @@
     }
     &_a-settings {
         .inline-block();
-        color: #55b64a;
+        color: @color-green;
     }
     &_a-arhive {
         float: right;
@@ -91,7 +91,7 @@
     &_spec:hover &_desc-go {display: block;}
     &_count {
         font-size: 35px;
-        color: #196eb9;
+        color: @color-title;
         margin-right: 10px;
     }
     &_desc {
@@ -103,6 +103,7 @@
         position: absolute;
         top: 100%;
         margin-top: 2px;
+        font: @fontsmall;
         color: #3498db;
         text-decoration: underline;
     }
@@ -127,6 +128,7 @@
     }
     &_post-a {
         font-weight: bold;
+        color: @color-title;
     }
     &_comment {
         .inline-block();
@@ -186,6 +188,6 @@
         top: 50%;
         right: 30px;
         margin-top: -10px;
-        color: #16b75a;
+        color: @color-green;
     }
 }

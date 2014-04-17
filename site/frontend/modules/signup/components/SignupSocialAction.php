@@ -23,6 +23,11 @@ class SignupSocialAction extends SocialAction
                         'serviceName' => $eauth->getServiceName(),
                         'fromLogin' => $action->fromLogin,
                     ));
+                } elseif ($identity->errorCode == SocialUserIdentity::ERROR_INACTIVE) {
+                    $eauth->component->setRedirectView('signup.views.activateRedirect');
+                    $eauth->redirect(null, array(
+                        'attributes' => $identity->getUserModel()->getAttributes(),
+                    ));
                 } else {
                     header('Content-Type: text/html; charset=utf-8');
                     echo $identity->errorMessage;

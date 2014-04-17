@@ -6,9 +6,9 @@ class m140417_132218_tester_role extends CDbMigration
 	{
         $this->execute("INSERT INTO `auth__items` (`name`, `type`, `description`, `bizrule`, `data`) VALUES ('tester', '2', 'Тестировщик', NULL, NULL);");
         $this->execute("
-            INSERT INTO auth__assignments(itemname,userid,bizrule,data)
-            SELECT 'tester',id,NULL,'N;'
-            FROM users
+            INSERT INTO `auth__assignments` (`itemname`,`userid`,`bizrule`,`data`)
+            SELECT 'tester',`id`,NULL,'N;'
+            FROM `users`
             WHERE `group` = 6;
         ");
 	}

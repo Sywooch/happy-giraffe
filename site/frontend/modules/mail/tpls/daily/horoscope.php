@@ -2,16 +2,6 @@
 /**
  * @var MailMessageDaily $message
  */
-$tomorrowDate = date('Y-m-d', strtotime($message->horoscope->date . ' + 1 day'));
-$tomorrowUrlParams = array(
-    'services/horoscope/default/date',
-    'zodiac' => $message->horoscope->getZodiacSlug(),
-    'date' => $tomorrowDate,
-);
-$tomorrowExists = $message->horoscope->dateHoroscopeExist(strtotime($tomorrowDate));
-if (! $tomorrowExists) {
-    throw new CHttpException('Нет гороскопа на завтра');
-}
 ?>
 
 <table cellpadding="0" border="0" cellspacing="0" width="100%" style="margin-bottom:5px; border: 2px solid #5ab3f8;" bgcolor="#73c1fd">
@@ -100,11 +90,9 @@ if (! $tomorrowExists) {
             </table>
         </td>
     </tr>
-    <?php if ($tomorrowExists): ?>
-        <tr>
-            <td align="center" style="padding: 10px 15px 35px">
-                <a href="<?php echo $message->createUrl($tomorrowUrlParams); ?>" style="color: #ffffff; text-decoration: underline;" target="_blank">На завтра</a>
-            </td>
-        </tr>
-    <?php endif; ?>
+    <tr>
+        <td align="center" style="padding: 10px 15px 35px">
+            <a href="<?php echo $message->createUrl($message->tomorrowHoroscope->getUrl(true)); ?>" style="color: #ffffff; text-decoration: underline;" target="_blank">На завтра</a>
+        </td>
+    </tr>
 </table>

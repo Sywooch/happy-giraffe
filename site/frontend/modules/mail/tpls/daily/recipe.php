@@ -35,14 +35,14 @@ $favouritesCount = count($favourites);
             </table>
         </td>
     </tr>
-    <?php if ($recipe->photo !== null): ?>
+    <?php if ($recipe->getMainPhoto() !== null): ?>
         <tr>
             <td>
                 <table cellpadding="0" cellspacing="0" border="0" width="100%" >
                     <tr>
                         <td style="margin-bottom:5px;">
                             <!--  -->
-                            <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'recipeImage'); ?>" style="text-decoration: none;" target="_blank"><img src="<?php echo $recipe->photo->getPreviewUrl(318, null, Image::WIDTH); ?>" width="318" border="0" style="display:block;" /></a>
+                            <a href="<?php echo $message->createUrl($recipe->getUrl(false, true), 'recipeImage'); ?>" style="text-decoration: none;" target="_blank"><img src="<?php echo $recipe->getMainPhoto()->getPreviewUrl(318, null, Image::WIDTH); ?>" width="318" border="0" style="display:block;" /></a>
                         </td>
                     </tr>
                 </table>

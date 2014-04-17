@@ -1030,6 +1030,8 @@ function Messaging(model) {
 	self.me = new MessagingUser(self, model.me);
     self.contactsManager = new ContactsManager(self, model);
     self.settings = new MessagingSettings(model.settings);
+    
+    self.notConfirmDelete = ko.observable(false);
 	
 	self.getContactList = self.contactsManager.filtered;
 	

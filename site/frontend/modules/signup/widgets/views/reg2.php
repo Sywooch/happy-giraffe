@@ -258,13 +258,20 @@
     }
 
     function validateBirthday(form, attribute, data, hasError) {
-        if (registerVm.birthday_day.val() !== undefined && registerVm.birthday_month.val() && registerVm.birthday_year.val())
-            $('#RegisterFormStep2_birthday').triggerHandler('blur');
+        if (registerVm.birthday_day.val() !== undefined && registerVm.birthday_month.val() !== undefined && registerVm.birthday_year.val() !== undefined) {
+            var formSettings = $.fn.yiiactiveform.getSettings(form);
+            var attrs = formSettings.attributes;
+            var birthdayAttr;
+            for (var i in attrs)
+                if (attrs[i].name == 'birthday')
+                    birthdayAttr = attrs[i];
+            $.fn.yiiactiveform.updateInput(birthdayAttr, data, form);
+        }
     }
 
     function validateCity(form, attribute, data, hasError) {
         var formSettings = $.fn.yiiactiveform.getSettings(form);
-            var attrs = formSettings.attributes;
+        var attrs = formSettings.attributes;
         var cityAttr;
         for (var i in attrs)
             if (attrs[i].name == 'city_id')

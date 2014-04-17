@@ -1647,4 +1647,11 @@ class User extends HActiveRecord
     {
         return in_array(AntispamStatusManager::getUserStatus($this->id), array(AntispamStatusManager::STATUS_BLOCKED, AntispamStatusManager::STATUS_BLACK));
     }
+
+    public function activate()
+    {
+        $this->status = self::STATUS_ACTIVE;
+        $this->email_confirmed = 1;
+        $this->update(array('status', 'email_confirmed'));
+    }
 }

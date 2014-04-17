@@ -93,7 +93,7 @@ class MessagesController extends HController
     {
         $messageId = Yii::app()->request->getPost('messageId');
 
-        $message = MessagingMessage::model()->with('messageUsers')->findByPk($messageId);
+        $message = MessagingMessage::model()->withMyStatsOnTop(Yii::app()->user->id)->findByPk($messageId);
         if ($message->author_id == Yii::app()->user->id && ! $message->isReadByInterlocutor) {
             $success = $message->delete();
             $response = array(
@@ -103,8 +103,13 @@ class MessagesController extends HController
 			if($success) {
 				// Отправим событие
 				$comet = new CometModel();
-				$comet->send($message->messageUsers[0]->user_id, array('message' => array( 'id' => $message->id)), CometModel::MESSAGING_MESSAGE_CANCELLED);
-				$comet->send($message->messageUsers[1]->user_id, array('message' => array( 'id' => $message->id)), CometModel::MESSAGING_MESSAGE_CANCELLED);
+                $messageData = array(
+                    'id' => $message->id,
+                    'to_id' => $message->messageUsers[1]->user_id,
+                    'from_id' => $message->messageUsers[0]->user_id,
+                );
+				$comet->send($message->messageUsers[0]->user_id, array('dialog' => array('id' => $message->messageUsers[1]->user_id), 'message' => $messageData), CometModel::MESSAGING_MESSAGE_CANCELLED);
+				$comet->send($message->messageUsers[1]->user_id, array('dialog' => array('id' => $message->messageUsers[0]->user_id),'message' => $messageData), CometModel::MESSAGING_MESSAGE_CANCELLED);
 			}
         }
     }

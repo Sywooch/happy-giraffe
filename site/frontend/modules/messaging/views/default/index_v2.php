@@ -192,14 +192,17 @@
                     <!-- im-panel-->
                     <div class="im-panel">
                         <div class="im-panel_actions">
-                            <div class="im-panel_ico-hold tooltip-click-b">
-                                <span class="im-panel_ico im-panel_ico__del powertip" title="Удалить диалог" href=""></span>
+                            <div class="im-panel_ico-hold" data-bind="visible: $root.notConfirmDelete()">
+                                <span class="im-panel_ico im-panel_ico__del" title="Удалить диалог" data-bind="click: function(thread) { thread.me.viewModel.notConfirmDelete() ? thread.deleteDialog() : 'nothing';}"></span>
+                            </div>
+                            <div class="im-panel_ico-hold tooltip-click-b" data-bind="visible: !$root.notConfirmDelete()">
+                                <span class="im-panel_ico im-panel_ico__del powertip" title="Удалить диалог"></span>
                                 <div class="tooltip-drop">
                                     <div class="tooltip-popup">
                                         <div class="tooltip-popup_t">Вы уверены?</div>
                                         <p class="tooltip-popup_tx">Все сообщения из данного диалога будут удалены.</p>
-                                        <label class="tooltip-popup_label-small clearfix" for="im-tooltip-popup_checkbox">
-                                            <input id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox" type="checkbox" name="">
+                                        <label class="tooltip-popup_label-small clearfix" for="im-tooltip-popup_checkbox" data-bind="with: $root">
+                                            <input id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox" type="checkbox" name="" data-bind="checked: notConfirmDelete">
                                             Больше не показывать данное предупреждение
                                         </label>
                                         <div class="textalign-c clearfix">

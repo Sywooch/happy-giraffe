@@ -145,9 +145,11 @@ class MailSenderDaily extends MailSender
         }
 
         $horoscope = $this->horoscopes[Horoscope::model()->getDateZodiac($user->birthday)];
+        $tomorrowHoroscope = $this->tomorrowHoroscopes[Horoscope::model()->getDateZodiac($user->birthday)];
 
         return new MailMessageDaily($user, CMap::mergeArray(compact(
             'horoscope',
+            'tomorrowHoroscope',
             'newMessagesCount',
             'newFriendsCount',
             'newLikesCount',
@@ -163,6 +165,7 @@ class MailSenderDaily extends MailSender
     protected function setFavourites()
     {
         $favourites = Favourites::getListByDate(Favourites::BLOCK_MAIL, date("2014-04-18"));
+
         foreach ($favourites as $favourite) {
             $model = CActiveRecord::model($favourite->entity)->findByPk($favourite->entity_id);
             if ($model !== null) {

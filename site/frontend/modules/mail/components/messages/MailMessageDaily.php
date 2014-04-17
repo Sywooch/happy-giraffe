@@ -26,6 +26,13 @@ class MailMessageDaily extends MailMessage
     public $horoscope;
 
     /**
+     * Гороскоп на завтра
+     *
+     * @property Horoscope $tomorrowHoroscope
+     */
+    public $tomorrowHoroscope;
+
+    /**
      * Фотопост
      *
      * @property CommunityContent $photoPost

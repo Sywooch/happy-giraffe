@@ -144,7 +144,8 @@ function UserLocation(countries) {
             window.Select2.util.markMatch(city.text, query.term, markup, escapeMarkup);
             return '<div class="select2-result_i">' + markup.join('') +  '</div>' + '<div class="select2-result_desc">' + city.desc + '</div>';
         },
-        placeholder: 'Город'
+        searchInputPlaceholder: "Введите название",
+        placeholder: 'Выберите город'
     }
 
     self.city_name = ko.observable('');

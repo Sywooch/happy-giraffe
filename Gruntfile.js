@@ -44,7 +44,7 @@ module.exports = function(grunt){
       old: {
         files: {
           'stylesheets/common.css': ['less/all1.less'],
-          'stylesheets/global.css': ['less/all2.less']
+          'stylesheets/global.css': ['less/all2.less'],
         },
         options: {
           compress: true,
@@ -55,16 +55,28 @@ module.exports = function(grunt){
           // sourceMapBasepath: ''
         }
       },
+      old_dev: {
+        files: {
+          'stylesheets/common.dev.css': ['less/all1.less'],
+          'stylesheets/global.dev.css': ['less/all2.less'],
+          'stylesheets/vacancy.css': ['less/vacancy.less']
+        },
+        options: {
+          sourceMap: true,
+          // sourceMapFilename: 'css/all.css.map',
+          // sourceMapRootpath: '',
+          // sourceMapBasepath: ''
+        }
+      },
       newestdev: {
         files: {
           'new/css/all1.dev.css': ['new/less/all1.less'] 
         },
         options: {
-          compress: true,
           sourceMap: true,
           /*sourceMapFilename: 'new/css/all1.css.map',*/
-          /*sourceMapRootpath: 'new/css',*/
-          sourceMapURL: 'new/css/all1.css.map',
+          /*sourceMapRootpath: 'new/css',
+          sourceMapURL: 'new/css/all1.css.map',*/
         }
       },
       newest: {
@@ -78,16 +90,19 @@ module.exports = function(grunt){
       }
     },
 
-    imagemin: {
-      dynamic: {
-        files: [{
-          expand: true,
-          cwd: 'new/images1',
-          src: ['**/*.{png,jpg,gif}'],
-          dest: 'new/images',
-        }]
-      }
-    },
+    // imagemin: {
+    //   dynamic: {
+    //     files: [{
+    //       expand: true,
+    //       cwd: 'new/images',
+    //       src: ['**/*.{png,jpg,gif}'],
+    //       dest: 'new/images1',
+    //     }],
+    //     options: {
+    //         cache: false
+    //     }
+    //   }
+    // },
 
     watch: {
       reload: {
@@ -108,7 +123,7 @@ module.exports = function(grunt){
       },
       lessold: {
         files: ['less/**/*.less'],
-        tasks: ['less:old'],
+        tasks: ['less:old', 'less:old_dev'],
         options: {
           livereload: true,
         },
@@ -120,10 +135,17 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
-      imagemin: {
-        files: ['new/images/**/*.{png,jpg,gif}'],
-        tasks: ['imagemin'],
-      }
+      email: {
+        files: ['new/html/email/**/*'],
+        // tasks:['less:newest'],
+        options: {
+          livereload: true,
+        },
+      },
+      // imagemin: {
+      //   files: ['new/images/**/*.{png,jpg,gif}'],
+      //   tasks: ['newer:imagemin'],
+      // }
     },
     connect: {
       server: {
@@ -140,6 +162,7 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
+  grunt.loadNpmTasks('grunt-newer');
 
   grunt.registerTask('default', [
     'connect',

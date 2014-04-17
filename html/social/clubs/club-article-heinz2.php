@@ -8,13 +8,44 @@
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
 
 </head>
-<body class="body-gray">
+<body class="body-gray theme theme__adfox theme__nutella" style="background:#cde6ff url(/images/branding/nutella-carnival/theme__nutella-carnival-1920.jpg) no-repeat 50% 0px; background-attachment: fixed;padding-top: 250px;">
+<!--AdFox START-->
+<!--giraffe-->
+<!--Площадка: Весёлый Жираф / * / *-->
+<!--Тип баннера: Брендирование-->
+<!--Расположение: бэкграунд-->
+<script type="text/javascript">
+<!--
+if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+if (typeof(document.referrer) != 'undefined') {
+  if (typeof(afReferrer) == 'undefined') {
+    afReferrer = escape(document.referrer);
+  }
+} else {
+  afReferrer = '';
+}
+var addate = new Date(); 
+var scrheight = '', scrwidth = '';
+if (self.screen) {
+scrwidth = screen.width;
+scrheight = screen.height;
+} else if (self.java) {
+var jkit = java.awt.Toolkit.getDefaultToolkit();
+var scrsize = jkit.getScreenSize();
+scrwidth = scrsize.width;
+scrheight = scrsize.height;
+}
+document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211012/prepareCode?pp=dtx&amp;ps=bkqy&amp;p2=ewfb&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+// -->
+</script>
+<!--AdFox END-->
+<div class="layout-w1">
 
-	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
-	
-<div class="layout-container">
-	<div class="layout-wrapper">
+	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
+	<!-- margin-top для примера, значение задавать через настройку баннера -->
+	<div class="layout-container">
 		<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
+	<div class="layout-wrapper">
 		
 		<div class="layout-content clearfix">
 		<div class="content-cols clearfix">
@@ -264,7 +295,7 @@
 								var blockStopBottom = inBlock.offset().top + inBlock.outerHeight();
 								
 								console.log(inBlock.offset().top);
-								if (blockStopBottom-blockTop-blockHeight-blockIndent > 20) {
+								if (blockStopBottom-blockTop-blockHeight-blockIndent > 0) {
 
 									$(window).scroll(function() {
 								        var windowScrollTop = $(window).scrollTop();
@@ -294,7 +325,7 @@
 								}
 							}
 
-							likeControlFixedInBlock('.js-like-control', '.b-article', 20);
+							likeControlFixedInBlock('.js-like-control', '.b-article', 60);
 						})
 						</script>
 						<div class="js-like-control" >
@@ -696,6 +727,7 @@
 		<div class="footer-push"></div>
 	</div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
+</div>
 </div>
 
 </body>

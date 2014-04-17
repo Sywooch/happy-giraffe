@@ -10,6 +10,7 @@ class UserIdentity extends CUserIdentity
 
     public function authenticate()
     {
+        /** @var User $model */
         $model = User::model()->findByAttributes(array('email' => $this->username, 'deleted' => 0));
         if ($model === null) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
@@ -28,6 +29,10 @@ class UserIdentity extends CUserIdentity
             $this->errorMessage = 'Вы заблокированы';
         }
         else {
+            if ($model->status == User::STATUS_INACTIVE) {
+                $model->activate();
+            }
+
             foreach ($model->attributes as $k => $v)
                 $this->setState($k, $v);
             $this->errorCode = self::ERROR_NONE;

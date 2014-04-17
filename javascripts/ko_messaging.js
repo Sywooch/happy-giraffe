@@ -863,12 +863,8 @@ function ContactsManager(viewModel, model) {
 		} else {
 			// Пользователя ещё нет в контактах
 			user = new MessagingUser(self.viewModel, data);
+            self.users.push(user);
 			self.usersMap[data.id] = MessagingUser.prototype.objects.length - 1;
-			/*user.date.subscribe(function(val) {
-				if(val) {
-					self.sortContacts();
-				}
-			});*/
 			return user;
 		}
 	}
@@ -995,7 +991,6 @@ function ContactsManager(viewModel, model) {
             $.get('/messaging/default/getUserInfo/', {id: result.dialog.id}, function(data) {
                 // и добавим в список
                 user = addContact(data);
-                self.users.push(user);
                 //self.sortContacts();
                 if (result.message.to_id == self.viewModel.me.id) {
                     self.countTotal(self.countTotal() + 1);

@@ -35,10 +35,9 @@ class MailSenderDialogues extends MailSender
         if ($messagesCount > 0) {
             $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
             $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);
-            return new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount'));
+            $message = new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount'));
+            $this->sendMessage($message);
         }
-
-        return null;
     }
 
     protected function getUsersCriteria()

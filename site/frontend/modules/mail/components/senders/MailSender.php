@@ -20,8 +20,7 @@ abstract class MailSender extends CComponent
     protected $debugMode = self::DEBUG_DEVELOPMENT;
 
     /**
-     * Обработка конкретно взятого пользователя. Если для него нужно создавать сообщение, возвращает экземпляр класса
-     * MailMessage, в противном случае null
+     * Обработка конкретно взятого пользователя
      *
      * @param User $user
      * @return mixed
@@ -56,25 +55,6 @@ abstract class MailSender extends CComponent
         } catch (CException $e) {
             header('content-type: text/html; charset=utf-8');
             echo $e->getMessage();
-        }
-    }
-
-    /**
-     * Отправляет сообщение, в случае успеха помечает модель доставки как успешно отправленную
-     *
-     * @param $email
-     * @param $subject
-     * @param $body
-     * @param $fromEmail
-     * @param $fromName
-     * @param $deliveryId
-     */
-    public static function send($email, $subject, $body, $fromEmail, $fromName, $deliveryId)
-    {
-        if (ElasticEmail::send($email, $subject, $body, $fromEmail, $fromName)) {
-            $delivery = MailDelivery::model()->findByPk($deliveryId);
-            $delivery->sent();
-            echo "sent\n";
         }
     }
 
@@ -130,26 +110,52 @@ abstract class MailSender extends CComponent
     {
         $iterator = $this->getIterator();
         foreach ($iterator as $user) {
-            $result = $this->process($user);
-            if ($result instanceof MailMessage) {
-                if (Yii::app() instanceof CWebApplication) {
-                    echo $result->getBody();
-                }
-                else {
-                    switch ($this->debugMode) {
-                        case self::DEBUG_DEVELOPMENT:
-                        case self::DEBUG_TESTING:
-                            self::sendInternal($result);
-                            break;
-                        case self::DEBUG_PRODUCTION:
-                            $this->addToQueue($result);
-                            break;
-                    }
-                }
-            }
+            $this->process($user);
         }
     }
 
+    /**
+     * Центральный метод отправки сообщения
+     *
+     * @param MailMessage $message
+     */
+    protected function sendMessage(MailMessage $message)
+    {
+        switch ($this->debugMode) {
+            case self::DEBUG_DEVELOPMENT:
+            case self::DEBUG_TESTING:
+                self::sendInternal($message);
+                break;
+            case self::DEBUG_PRODUCTION:
+                $this->addToQueue($message);
+                break;
+        }
+    }
+
+    /**
+     * Отправляет сообщение, в случае успеха помечает модель доставки как успешно отправленную
+     *
+     * @param $email
+     * @param $subject
+     * @param $body
+     * @param $fromEmail
+     * @param $fromName
+     * @param $deliveryId
+     */
+    public static function send($email, $subject, $body, $fromEmail, $fromName, $deliveryId)
+    {
+        if (ElasticEmail::send($email, $subject, $body, $fromEmail, $fromName)) {
+            $delivery = MailDelivery::model()->findByPk($deliveryId);
+            $delivery->sent();
+            echo "sent\n";
+        }
+    }
+
+    /**
+     * Добавить сообщение в очередь Gearman, используется в продакшне
+     *
+     * @param MailMessage $message
+     */
     protected function addToQueue(MailMessage $message)
     {
         $workload = $this->messageToWorkload($message);

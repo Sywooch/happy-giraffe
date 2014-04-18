@@ -56,7 +56,7 @@ class DefaultController extends HController
     public function actionDialogues($sendAll = false)
     {
         $sender = new MailSenderDialogues();
-        if ($sendAll && YII_DEBUG) {
+        if ($sendAll !== false) {
             $sender->sendAll();
         } else {
             $sender->showForUser(Yii::app()->user->model);
@@ -66,7 +66,7 @@ class DefaultController extends HController
     public function actionDaily($date = null, $sendAll = false)
     {
         $sender = new MailSenderDaily($date);
-        if ($sendAll && YII_DEBUG) {
+        if ($sendAll !== false) {
             $sender->sendAll();
         } else {
             $sender->showForUser(Yii::app()->user->model);

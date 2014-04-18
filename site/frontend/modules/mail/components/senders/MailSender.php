@@ -37,7 +37,17 @@ abstract class MailSender extends CComponent
      */
     public function sendAll()
     {
-        $this->iterate();
+        if ($this->beforeSend()) {
+            $this->iterate();
+        }
+    }
+
+    public function showForUser(User $user)
+    {
+        if ($this->beforeSend()) {
+            $message = $this->process($user);
+            echo $message->getBody();
+        }
     }
 
     /**
@@ -57,6 +67,11 @@ abstract class MailSender extends CComponent
             $delivery->sent();
             echo "sent\n";
         }
+    }
+
+    protected function beforeSend()
+    {
+        return true;
     }
 
     /**

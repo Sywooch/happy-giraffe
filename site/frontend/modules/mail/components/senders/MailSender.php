@@ -41,20 +41,20 @@ abstract class MailSender extends CComponent
             if ($this->beforeSend()) {
                 $this->iterate();
             }
-        } catch (Exception $e) {
-            if (Yii::app() instanceof CWebApplication) {
-                echo $e->getMessage();
-            } else {
-                Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
-            }
+        } catch (CException $e) {
+            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
         }
     }
 
     public function showForUser(User $user)
     {
-        if ($this->beforeSend()) {
-            $message = $this->process($user);
-            echo $message->getBody();
+        try {
+            if ($this->beforeSend()) {
+                $message = $this->process($user);
+                echo $message->getBody();
+            }
+        } catch (CException $e) {
+            echo $e->getMessage();
         }
     }
 

@@ -84,7 +84,7 @@ class ClientScript extends CClientScript
             unset($this->cssFiles[$url]);
             if ($this->getCssStaticDomain() !== null && strpos($url, '/') === 0)
                 $url = $this->getCssStaticDomain() . $url;
-            //$url = $this->addReleaseId($url);
+            $url = $this->addReleaseId($url);
             $this->cssFiles[$url] = $media;
         }
     }
@@ -96,7 +96,7 @@ class ClientScript extends CClientScript
                 unset($this->scriptFiles[$position][$scriptFile]);
                 if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0)
                     $scriptFile = $this->getJsStaticDomain() . $scriptFile;
-                //$scriptFile = $this->addReleaseId($scriptFile);
+                $scriptFile = $this->addReleaseId($scriptFile);
                 $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
             }
         }

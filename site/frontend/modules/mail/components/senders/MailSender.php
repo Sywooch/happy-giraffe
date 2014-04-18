@@ -54,6 +54,7 @@ abstract class MailSender extends CComponent
                 echo $message->getBody();
             }
         } catch (CException $e) {
+            header('content-type: text/html; charset=utf-8');
             echo $e->getMessage();
         }
     }

@@ -35,18 +35,38 @@ class RegisterFormStep2 extends CFormModel
     public function rules()
     {
         return array(
-            array('first_name, last_name, email, birthday, gender, country_id, city_id, birthday_day, birthday_month, birthday_year', 'required'),
+            array('first_name, last_name, email, birthday, gender, country_id, birthday_day, birthday_month, birthday_year', 'required'),
             array('email', 'email'),
             array('email', 'unique', 'className' => 'User', 'caseSensitive' => false, 'criteria' => array('condition' => 'deleted = 0 AND status = :inactive', 'params' => array(':inactive' => User::STATUS_ACTIVE))),
             array('birthday', 'date', 'format' => 'yyyy-M-d'),
-            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements() || YII_DEBUG, 'except' => 'social'),
+            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements() || YII_DEBUG, 'except' => 'social', 'captchaAction' => '/signup/register/captcha'),
 
             //address
+            array('city_id', 'default', 'value' => null),
+            array('city_id', 'cityRequired'),
             array('country_id', 'exist', 'className' => 'GeoCountry', 'attributeName' => 'id'),
             array('city_id', 'exist', 'className' => 'GeoCity', 'attributeName' => 'id'),
 
             array('service, service_id, avatar', 'safe'),
         );
+    }
+
+    /**
+     * Город обязателен для заполнения только в том случае, если города выбранной страны есть в базе и для нее
+     * установлен соответствующий флажок
+     *
+     * @param $attribute
+     * @param $params
+     */
+    public function cityRequired($attribute, $params)
+    {
+        if ($this->country_id) {
+            $country = GeoCountry::model()->findByPk($this->country_id);
+            if ($country->citiesFilled) {
+                $req = CValidator::createValidator('required', $this, array('city_id'));
+                $req->validate($this);
+            }
+        }
     }
 
     public function attributeLabels()
@@ -95,7 +115,8 @@ class RegisterFormStep2 extends CFormModel
 
         $address = new UserAddress();
         $address->attributes = $this->attributes;
-        $address->region_id = $address->city->region_id;
+        if ($address->city !== null)
+            $address->region_id = $address->city->region_id;
         $this->_user->address = $address;
 
         if ($this->_user->withRelated->save(true, array('userSocialServices', 'address'))) {

@@ -58,10 +58,8 @@
 </div>
 
 <script type="text/javascript">
-    $(function() {
-        passwordRecoveryVm = new PasswordRecoveryWidgetViewModel();
-        ko.applyBindings(passwordRecoveryVm, document.getElementById('passwordRecoveryWidget'));
-    });
+    passwordRecoveryVm = new PasswordRecoveryWidgetViewModel();
+    ko.applyBindings(passwordRecoveryVm, document.getElementById('passwordRecoveryWidget'));
 
     function afterValidate(form, data, hasError) {
         if (! hasError) {

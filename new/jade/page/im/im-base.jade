@@ -34,14 +34,15 @@ block layout-wrapper_hold
                                 +im-message("", {mod_name: "im-message_name__friend", bControl: ['favorite', 'delete', 'spam']})
                                 +im-message("", {mod_name: "im-message_name__self", bControl: ['delete']})
                                 +im-message("im-message__stick", {mod_name: "im-message_name__self", bControl: ['favorite', 'delete', 'spam']})
+                                +im-message("im-message__stick", {mod_name: "im-message_name__self", bControl: ['favorite', 'delete', 'spam']})
                                 +im-message("im-message__stick", {mod_name: "im-message_name__self", msgStatus: 'delete'})
                                 +im-message("im-message__stick", {mod_name: "im-message_name__self", msgStatus: 'cancel'})
-                                +im-message("im-message__stick", {mod_name: "im-message_name__self", bControl: ['delete'], messageRead: 'read'})
+                                +im-message("im-message__stick", {mod_name: "im-message_name__self", bControl: ['delete']})
                                 +im-message(
                                     "im-message__new im-message__stick", 
                                     {
                                         mod_name: "im-message_name__self", 
-                                        bControl: ['edit', 'cancel'],messageRead: 'read-no'
+                                        bControl: ['edit', 'cancel']
                                     }
                                 )
                                 +im-message("", {mod_name: "im-message_name__friend", bControl: ['favorite', 'delete', 'spam']})

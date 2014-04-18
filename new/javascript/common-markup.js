@@ -92,6 +92,7 @@ $(function() {
             onlyOne: false,
             touchDevices: true,
             interactive: true,
+            contentCloning:true;
             interactiveAutoClose: false,
             theme: '.tooltipster-white',
             position: 'bottom',

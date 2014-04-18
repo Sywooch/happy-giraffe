@@ -17,6 +17,7 @@ class DefaultController extends HController
             ),
             array('deny',
                 'users' => array('*'),
+                'actions' => array('dialogues', 'daily'),
             ),
         );
     }

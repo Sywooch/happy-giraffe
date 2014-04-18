@@ -91,6 +91,7 @@ class Favourites extends EMongoDocument
             $fav->entity = get_class($model);
             $fav->entity_id = (int)$model->primaryKey;
             if ($block == self::BLOCK_MAIL) {
+                Yii::import('application.modules.mail.components.senders.*');
                 $fav->date = MailSenderDaily::nextDate();
             }
             else {

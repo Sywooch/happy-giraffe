@@ -89,11 +89,6 @@ class MailSenderDaily extends MailSender
     {
         $this->setFavourites();
 
-        foreach ($this->posts as $post) {
-            echo $post->id . "\n";
-        }
-        die;
-
         if ($this->recipe === null) {
             throw new CException('Рецепт для ежедневной рассылки не выбран');
         }

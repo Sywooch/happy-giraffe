@@ -78,7 +78,7 @@ $galleryUrlParams = CMap::mergeArray(array($urlParams[0]), $urlParams[1], array(
                                 </td>
                                 <?php if ($commentsCount > 0): ?>
                                     <td style="padding-right:2px;">
-                                        <a href="<?php echo $this->createUrl($post->getUrl(true, true)); ?>" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;" target="_blank"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
+                                        <a href="<?php echo $message->createUrl($post->getUrl(true, true)); ?>" style="color:#ffffff;font:12px arial, helvetica, sans-serif;text-decoration:none;" target="_blank"><img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ico-comments-small.png" style="margin-right:5px;vertical-align:top;"></a>
                                     </td>
                                     <td>
                                         <?php foreach ($comments as $comment): ?>

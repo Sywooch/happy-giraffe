@@ -53,15 +53,23 @@ class DefaultController extends HController
         $this->redirect(urldecode($redirectUrl));
 	}
 
-    public function actionDialogues()
+    public function actionDialogues($sendAll = false)
     {
         $sender = new MailSenderDialogues();
-        $sender->showForUser(Yii::app()->user->model);
+        if ($sendAll && YII_DEBUG) {
+            $sender->sendAll();
+        } else {
+            $sender->showForUser(Yii::app()->user->model);
+        }
     }
 
-    public function actionDaily($date = null)
+    public function actionDaily($date = null, $sendAll = false)
     {
         $sender = new MailSenderDaily($date);
-        $sender->showForUser(Yii::app()->user->model);
+        if ($sendAll && YII_DEBUG) {
+            $sender->sendAll();
+        } else {
+            $sender->showForUser(Yii::app()->user->model);
+        }
     }
 }

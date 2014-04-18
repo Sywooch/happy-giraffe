@@ -55,12 +55,12 @@ class DefaultController extends HController
     public function actionDialogues()
     {
         $sender = new MailSenderDialogues();
-        $sender->sendAll();
+        $sender->showForUser(Yii::app()->user->model);
     }
 
     public function actionDaily($date = null)
     {
         $sender = new MailSenderDaily($date);
-        $sender->sendAll();
+        $sender->showForUser(Yii::app()->user->model);
     }
 }

@@ -75,11 +75,7 @@ class MailSenderDaily extends MailSender
         Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
     }
 
-    /**
-     * @todo Заменить дату выборки гороскопов на актуальную
-     * @return mixed|void
-     */
-    public function sendAll()
+    protected function beforeSend()
     {
         $this->setFavourites();
 
@@ -99,14 +95,14 @@ class MailSenderDaily extends MailSender
             throw new CException('Количество обычных постов в ежедневной рассылке равно ' . count($this->posts));
         }
 
-//        foreach ($this->posts as $post) {
-//            if ($post->getPhoto() === null) {
-//                throw new CException('Нет картинки у одного или несколькоих постов');
-//            }
-//            if ($post->commentsCount == 0) {
-//                throw new CException('Нет комментариев у одного или нескольких постов');
-//            }
-//        }
+        foreach ($this->posts as $post) {
+            if ($post->getPhoto() === null) {
+                throw new CException('Нет картинки у одного или несколькоих постов');
+            }
+            if ($post->commentsCount == 0) {
+                throw new CException('Нет комментариев у одного или нескольких постов');
+            }
+        }
 
         $this->horoscopes = Horoscope::model()->findAllByAttributes(array(
             'date' => $this->date,
@@ -131,7 +127,7 @@ class MailSenderDaily extends MailSender
         NotificationCreate::generateLikes();
         NotificationCreate::generateFavourites();
 
-        parent::sendAll();
+        return true;
     }
 
     public function process(User $user)

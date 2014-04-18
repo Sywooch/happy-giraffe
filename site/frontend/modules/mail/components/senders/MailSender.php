@@ -41,7 +41,7 @@ abstract class MailSender extends CComponent
             if ($this->beforeSend()) {
                 $this->iterate();
             }
-        } catch (CException $e) {
+        } catch (Exception $e) {
             if (Yii::app() instanceof CWebApplication) {
                 echo $e->getMessage();
             } else {

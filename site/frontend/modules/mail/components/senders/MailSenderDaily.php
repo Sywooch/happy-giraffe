@@ -89,6 +89,11 @@ class MailSenderDaily extends MailSender
     {
         $this->setFavourites();
 
+        foreach ($this->posts as $post) {
+            echo $post->id . "\n";
+        }
+        die;
+
         if ($this->recipe === null) {
             throw new CException('Рецепт для ежедневной рассылки не выбран');
         }
@@ -106,9 +111,6 @@ class MailSenderDaily extends MailSender
         }
 
         foreach ($this->posts as $post) {
-            echo $post->id . "\n";
-            die;
-
             if ($post->getPhoto() === null) {
                 throw new CException('Нет картинки у поста ' . $post->getUrl(false, true));
             }

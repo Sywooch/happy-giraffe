@@ -165,7 +165,7 @@ class MailSenderDaily extends MailSender
         $horoscope = $this->horoscopes[$zodiac];
         $tomorrowHoroscope = $this->tomorrowHoroscopes[$zodiac];
 
-        return new MailMessageDaily($user, CMap::mergeArray(compact(
+        $message = new MailMessageDaily($user, CMap::mergeArray(compact(
             'horoscope',
             'tomorrowHoroscope',
             'newMessagesCount',
@@ -178,6 +178,8 @@ class MailSenderDaily extends MailSender
             'photoPost' => $this->photoPost,
             'posts' => $this->posts,
         )));
+
+        $this->sendMessage($message);
     }
 
     protected function setFavourites()

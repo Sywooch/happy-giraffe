@@ -197,7 +197,7 @@
                                                     <tr>
                                                         <td style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;padding-bottom:17px;">
                                                             С наилучшими пожеланиями,<br/>
-                                                            <span style="color: #3587ec;"><a href="http://www.happy-giraffe.ru/?utm_source=email" style="color: #3587ec;" target="_blank">Веселый Жираф</a></span>
+                                                            <span style="color: #3587ec;"><a href="<?php echo $message->createUrl(array('site/index'), 'bottomLink'); ?>" style="color: #3587ec;" target="_blank">Веселый Жираф</a></span>
                                                         </td>
                                                     </tr>
                                                     <tr>

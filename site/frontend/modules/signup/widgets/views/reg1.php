@@ -86,3 +86,17 @@
     </div>
 </div>
 <div class="popup-sign_b"><span class="popup-sign_b-tx">Вы уже зарегистрированы?</span><a class="popup-sign_b-a popup-a" href="#loginWidget">Войти</a></div>
+
+<script type="text/javascript">
+    function afterValidateStep1(form, data, hasError) {
+        if (! hasError) {
+            $.post(form.attr('action'), form.serialize(), function(response) {
+                if (response.success) {
+                    registerVm.id(response.id);
+                    registerVm.currentStep(registerVm.STEP_REG2);
+                }
+            }, 'json');
+        }
+        return false;
+    }
+</script>

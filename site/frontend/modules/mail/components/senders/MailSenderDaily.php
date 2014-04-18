@@ -109,7 +109,7 @@ class MailSenderDaily extends MailSender
             if ($post->getPhoto() === null) {
                 throw new CException('Нет картинки у поста ' . $post->getUrl(false, true));
             }
-            if ($post->commentsCount == 0) {
+            if ($post->getUnknownClassCommentsCount() == 0) {
                 throw new CException('Нет комментариев у поста ' . $post->getUrl(false, true));
             }
         }

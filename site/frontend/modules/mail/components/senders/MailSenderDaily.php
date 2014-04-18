@@ -107,10 +107,10 @@ class MailSenderDaily extends MailSender
 
         foreach ($this->posts as $post) {
             if ($post->getPhoto() === null) {
-                throw new CException('Нет картинки у одного или несколькоих постов');
+                throw new CException('Нет картинки у поста ' . $post->getUrl(false, true));
             }
             if ($post->commentsCount == 0) {
-                throw new CException('Нет комментариев у одного или нескольких постов');
+                throw new CException('Нет комментариев у поста ' . $post->getUrl(false, true));
             }
         }
 

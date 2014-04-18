@@ -49,7 +49,7 @@ class MailSenderDaily extends MailSender
 
     public function __construct($date = null)
     {
-        $this->date = ($date === null) ? date("Y-m-d") : $date;
+        $this->date = ($date === null) ? self::nextDate() : $date;
 
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.HGLike');
@@ -73,6 +73,16 @@ class MailSenderDaily extends MailSender
         Yii::import('site.frontend.modules.notifications.models.*');
 
         Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
+    }
+
+    public static function nextDate()
+    {
+        if (in_array(date("w"), array(6, 0, 1))) {
+            return date("Y-m-d", strtotime('next tuesday'));
+        }
+        else {
+            return date("Y-m-d", strtotime('+1 day'));
+        }
     }
 
     protected function beforeSend()

@@ -1,0 +1,202 @@
+//- include ../../block/config
+extend ../../extend/layout_notice
+
+block layout-wrapper
+    //- u-notice - user-notice
+    script.
+        var notice = new function() {
+                var self = this;
+                function noticeHeight() {
+                    // 58 - шапка, что не скролится
+                    // 40 - отступы снизу + сверху
+                    var h = self.windowHeight - self.headerHeight - 58 - 40;
+                    if (h < 350) {
+                            h = 350;
+
+                    }
+                    self.contentBlock.height(h);
+                }
+                self.renew = function() {
+                    self.windowHeight = $(window).height();
+                    self.headerHeight = $('.layout-header').height();
+                    noticeHeight();
+                    addBaron('.scroll');
+                }
+               
+                $(window).resize(function() {
+                    self.renew();
+                });
+
+                
+                $(document).ready(function () {
+                    var contentBlock = ".u-notice_hold";
+                    self.contentBlock = $(contentBlock);
+                    self.renew();
+                });
+
+        }();
+
+    .u-notice
+        +side-menu__notice("side-menu__notice")
+        .page-col.page-col__notice
+            .page-col_top
+                .page-col_t-tx Настройка сигналов
+     
+            .page-col_cont
+                .u-notice_hold.scroll
+                    .scroll_scroller
+                        .scroll_cont
+                            ul.u-notice_ul
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        // Виды иконок
+                                        // u-notice_ico__favorite
+                                        // u-notice_ico__answer
+                                        // u-notice_ico__comment
+                                        // u-notice_ico__like
+                                        // u-notice_ico__discus
+                                        // u-notice_ico__answer-q
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__favorite(href='')
+                                        .u-notice_b.u-notice_settings-t В избранное
+                                        .u-notice_b.u-notice_settings-desc Сигналы о том, что ваши записи, фото, видео интересны пользователям  и они сохряняют их для себя.
+                                        .u-notice_b.u-notice_switch
+                                            .onoffswitch
+                                                // id for example
+                                                input#myonoffswitch1.onoffswitch_checkbox(type='checkbox', name='onoffswitch', checked='checked')
+                                                label.onoffswitch_label(for='myonoffswitch1')
+                                                    .onoffswitch_hold
+                                                        .onoffswitch_field
+                                                            .onoffswitch_inner
+                                                        .onoffswitch_switch
+                                                    .onoffswitch_tx-hold
+                                                        .onoffswitch_tx.onoffswitch_tx__on Вкл.
+                                                        .onoffswitch_tx.onoffswitch_tx__off Выкл.
+
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        // Виды иконок
+                                        // u-notice_ico__favorite
+                                        // u-notice_ico__answer
+                                        // u-notice_ico__comment
+                                        // u-notice_ico__like
+                                        // u-notice_ico__discus
+                                        // u-notice_ico__answer-q
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__answer(href='')
+                                        .u-notice_b.u-notice_settings-t Ответы на ваши  комментарии
+                                        .u-notice_b.u-notice_settings-desc Сигналы о том, что ваши комментарии отвечают, и ждут ответа от вас.
+                                        .u-notice_b.u-notice_switch
+                                            .onoffswitch
+                                                // id for example
+                                                input#myonoffswitch2.onoffswitch_checkbox(type='checkbox', name='onoffswitch', checked='checked')
+                                                label.onoffswitch_label(for='myonoffswitch2')
+                                                    .onoffswitch_hold
+                                                        .onoffswitch_field
+                                                            .onoffswitch_inner
+                                                        .onoffswitch_switch
+                                                    .onoffswitch_tx-hold
+                                                        .onoffswitch_tx.onoffswitch_tx__on Вкл.
+                                                        .onoffswitch_tx.onoffswitch_tx__off Выкл.
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        // Виды иконок
+                                        // u-notice_ico__favorite
+                                        // u-notice_ico__answer
+                                        // u-notice_ico__comment
+                                        // u-notice_ico__like
+                                        // u-notice_ico__discus
+                                        // u-notice_ico__answer-q
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__comment(href='')
+                                        .u-notice_b.u-notice_settings-t Новые комментарии
+                                        .u-notice_b.u-notice_settings-desc Сигналы о том, что к вашим записям, фото, видео добавлены новые комментарии.
+                                        .u-notice_b.u-notice_switch
+                                            .onoffswitch
+                                                // id for example
+                                                input#myonoffswitch3.onoffswitch_checkbox(type='checkbox', name='onoffswitch')
+                                                label.onoffswitch_label(for='myonoffswitch3')
+                                                    .onoffswitch_hold
+                                                        .onoffswitch_field
+                                                            .onoffswitch_inner
+                                                        .onoffswitch_switch
+                                                    .onoffswitch_tx-hold
+                                                        .onoffswitch_tx.onoffswitch_tx__on Вкл.
+                                                        .onoffswitch_tx.onoffswitch_tx__off Выкл.
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        // Виды иконок
+                                        // u-notice_ico__favorite
+                                        // u-notice_ico__answer
+                                        // u-notice_ico__comment
+                                        // u-notice_ico__like
+                                        // u-notice_ico__discus
+                                        // u-notice_ico__answer-q
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__like(href='')
+                                        .u-notice_b.u-notice_settings-t Нравится!
+                                        .u-notice_b.u-notice_settings-desc Сигналы о том, что вашы записи, фото, нравятся другим пользователям.
+                                        .u-notice_b.u-notice_switch
+                                            .onoffswitch
+                                                // id for example
+                                                input#myonoffswitch4.onoffswitch_checkbox(type='checkbox', name='onoffswitch', checked='checked')
+                                                label.onoffswitch_label(for='myonoffswitch4')
+                                                    .onoffswitch_hold
+                                                        .onoffswitch_field
+                                                            .onoffswitch_inner
+                                                        .onoffswitch_switch
+                                                    .onoffswitch_tx-hold
+                                                        .onoffswitch_tx.onoffswitch_tx__on Вкл.
+                                                        .onoffswitch_tx.onoffswitch_tx__off Выкл.
+
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        // Виды иконок
+                                        // u-notice_ico__favorite
+                                        // u-notice_ico__answer
+                                        // u-notice_ico__comment
+                                        // u-notice_ico__like
+                                        // u-notice_ico__discus
+                                        // u-notice_ico__answer-q
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__discus(href='')
+                                        .u-notice_b.u-notice_settings-t Продолжение обсуждения
+                                        .u-notice_b.u-notice_settings-desc Сигналы о том, что в записях, фото, видео которые вы комментировали продолжаются обсуждения
+                                        .u-notice_b.u-notice_switch
+                                            .onoffswitch
+                                                // id for example
+                                                input#myonoffswitch5.onoffswitch_checkbox(type='checkbox', name='onoffswitch', checked='checked')
+                                                label.onoffswitch_label(for='myonoffswitch5')
+                                                    .onoffswitch_hold
+                                                        .onoffswitch_field
+                                                            .onoffswitch_inner
+                                                        .onoffswitch_switch
+                                                    .onoffswitch_tx-hold
+                                                        .onoffswitch_tx.onoffswitch_tx__on Вкл.
+                                                        .onoffswitch_tx.onoffswitch_tx__off Выкл.
+
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        // Виды иконок
+                                        // u-notice_ico__favorite
+                                        // u-notice_ico__answer
+                                        // u-notice_ico__comment
+                                        // u-notice_ico__like
+                                        // u-notice_ico__discus
+                                        // u-notice_ico__answer-q
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__answer-q(href='')
+                                        .u-notice_b.u-notice_settings-t Ответы на вопрос
+                                        .u-notice_b.u-notice_settings-desc Текст который необходимо придумать)
+                                        .u-notice_b.u-notice_switch
+                                            .onoffswitch
+                                                // id for example
+                                                input#myonoffswitch6.onoffswitch_checkbox(type='checkbox', name='onoffswitch', checked='checked')
+                                                label.onoffswitch_label(for='myonoffswitch6')
+                                                    .onoffswitch_hold
+                                                        .onoffswitch_field
+                                                            .onoffswitch_inner
+                                                        .onoffswitch_switch
+                                                    .onoffswitch_tx-hold
+                                                        .onoffswitch_tx.onoffswitch_tx__on Вкл.
+                                                        .onoffswitch_tx.onoffswitch_tx__off Выкл.
+
+                    // scroll-bar
+                    .scroll_bar-hold
+                        .scroll_bar
+                            .scroll_bar-in
+

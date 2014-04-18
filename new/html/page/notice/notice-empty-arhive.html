@@ -26,7 +26,7 @@
   <script src="/new/javascript/common-markup.js"></script>
   <script src="//localhost:35729/livereload.js"></script>
 </head>
-<body class="body body__bg-base">
+<body class="body body__bg-base body__notice">
   <div class="layout-container">
     <div class="layout-header clearfix">
       <!-- header-fix-->
@@ -155,42 +155,85 @@
     </div>
     <div class="layout-wrapper">
       <div class="layout-wrapper_frame clearfix">
-        <!-- side-menu-->
-        <div class="side-menu side-menu__friend">
-          <div class="side-menu_hold">
-            <div class="side-menu_t side-menu_t__friends"></div>
-            <ul class="side-menu_ul">
-              <li class="side-menu_li side-menu_li__find"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__find"></span><span class="side-menu_tx">Найти друзей</span></span></a></li>
-              <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online-friend"></span><span class="side-menu_tx">Мои <br> друзья </span></span><span class="verticalalign-m-help"></span></a></li>
-              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__friend-add"></span><span class="side-menu_tx">Давай дружить</span><span class="side-menu_count">1</span></span><span class="verticalalign-m-help"></span></a></li>
-            </ul>
-          </div>
-        </div>
-        <!-- /side-menu-->
-        <div class="page-col page-col__friend">
-          <div class="page-col_top page-col_top__gray">
-            <div class="sidebar-search clearfix">
-              <input type="text" name="" placeholder="Введите имя и/или фамилию" class="sidebar-search_itx">
-              <!-- При начале ввода добавить класс .active на кнопку-->
-              <button class="sidebar-search_btn"></button>
+        <script>
+          var notice = new function() {
+                  var self = this;
+                  function noticeHeight() {
+                      // 58 - шапка, что не скролится
+                      // 40 - отступы снизу + сверху
+                      var h = self.windowHeight - self.headerHeight - 58 - 40;
+                      if (h < 350) {
+                              h = 350;
+                              
+                      }
+                      self.contentBlock.height(h);
+                  }
+                  self.renew = function() {
+                      self.windowHeight = $(window).height();
+                      self.headerHeight = $('.layout-header').height();
+                      noticeHeight();
+                      addBaron('.scroll');
+                  }
+                  
+                  $(window).resize(function() {
+                      self.renew();
+                  });
+                  
+                  
+                  $(document).ready(function () {
+                      var contentBlock = ".u-notice_hold";
+                      self.contentBlock = $(contentBlock);
+                      self.renew();
+                  });
+                  
+          }();
+          
+        </script>
+        <div class="u-notice">
+          <!-- side-menu-->
+          <div class="side-menu side-menu__notice">
+            <div class="side-menu_hold">
+              <div class="side-menu_t side-menu_t__notice"></div>
+              <ul class="side-menu_ul">
+                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice"></span><span class="side-menu_tx">Новые </span><span class="side-menu_count">154</span></span><span class="verticalalign-m-help"></span></a></li>
+                <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice-arhive"></span><span class="side-menu_tx">Архив</span></span><span class="verticalalign-m-help"></span></a></li>
+                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__hg"></span><span class="side-menu_tx">Веселый </br> Жираф!</span></span></a></li>
+              </ul>
             </div>
-            <ul class="page-col_tabs">
-              <li class="page-col_tab active"><a class="page-col_tab-a">Все друзья 128</a></li>
-              <li class="page-col_tab"><a class="page-col_tab-a">Друзья онлайн 12</a></li>
-              <li class="page-col_tab"><a class="page-col_tab-a">Новые друзья 6</a></li>
-            </ul>
           </div>
-          <div class="page-col_cont">
-            <div class="friends-list">
-              <div class="loader loader__b-gray"><img src="/images/ico/ajax-loader.gif" class="loader_img">
-                <div class="loader_tx">Загрузка пользователей</div>
+          <!-- /side-menu-->
+          <div class="page-col page-col__notice">
+            <div class="page-col_top">
+              <div class="page-col_t-tx">Архив</div>
+            </div>
+            <div class="page-col_cont">
+              <!-- на страницах заглушек скролл не нужен соотвественно и div .scroll, .scroll_scroller, .scroll_cont, .scroll_bar-hold не нужны. Их можно оставить, зависит как удобнее программировать.-->
+              <div class="u-notice_hold scroll">
+                <div class="scroll_scroller">
+                  <div class="scroll_cont">
+                    <!-- cap-empty-->
+                    <div class="cap-empty cap-empty__abs cap-empty__notice-arhive">
+                      <div class="cap-empty_hold">
+                        <div class="cap-empty_img"></div>
+                        <div class="cap-empty_t">Архив пуст</div>
+                      </div>
+                      <div class="verticalalign-m-help"></div>
+                    </div>
+                    <!-- /cap-empty-->
+                  </div>
+                </div>
+                <!-- scroll-bar-->
+                <div class="scroll_bar-hold">
+                  <div class="scroll_bar">
+                    <div class="scroll_bar-in"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
   </div>
   <div class="popup-container display-n"> 
   </div>

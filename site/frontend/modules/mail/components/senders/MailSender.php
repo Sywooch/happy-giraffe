@@ -49,8 +49,7 @@ abstract class MailSender extends CComponent
     {
         try {
             if ($this->beforeSend()) {
-                $message = $this->process($user);
-                echo $message->getBody();
+                $this->process($user);
             }
         } catch (CException $e) {
             header('content-type: text/html; charset=utf-8');
@@ -121,14 +120,18 @@ abstract class MailSender extends CComponent
      */
     protected function sendMessage(MailMessage $message)
     {
-        switch ($this->debugMode) {
-            case self::DEBUG_DEVELOPMENT:
-            case self::DEBUG_TESTING:
-                self::sendInternal($message);
-                break;
-            case self::DEBUG_PRODUCTION:
-                $this->addToQueue($message);
-                break;
+        if (Yii::app() instanceof CWebApplication) {
+            echo $message->getBody();
+        } else {
+            switch ($this->debugMode) {
+                case self::DEBUG_DEVELOPMENT:
+                case self::DEBUG_TESTING:
+                    self::sendInternal($message);
+                    break;
+                case self::DEBUG_PRODUCTION:
+                    $this->addToQueue($message);
+                    break;
+            }
         }
     }
 

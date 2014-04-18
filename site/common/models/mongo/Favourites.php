@@ -90,8 +90,8 @@ class Favourites extends EMongoDocument
             $fav = new Favourites;
             $fav->entity = get_class($model);
             $fav->entity_id = (int)$model->primaryKey;
-            if ($block == self::BLOCK_MAIL && in_array(date("w"), array(6, 0, 1))) {
-                $fav->date = date("Y-m-d", strtotime('next tuesday'));
+            if ($block == self::BLOCK_MAIL) {
+                $fav->date = MailSenderDaily::nextDate();
             }
             else {
                 $fav->date = date("Y-m-d", strtotime('+1 day'));

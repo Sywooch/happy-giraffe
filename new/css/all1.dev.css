@@ -10071,10 +10071,7 @@ html[dir="rtl"] .select2-search-choice-close {
 .u-notice_li {
   position: relative;
   margin: 0;
-  border-top: 1px solid #f0f0f0;
-}
-.u-notice_li:first-child {
-  border-top: none;
+  border-bottom: 1px solid #f0f0f0;
 }
 .u-notice_li-hold {
   padding: 20px 10px 20px 25px;
@@ -10247,9 +10244,11 @@ html[dir="rtl"] .select2-search-choice-close {
   color: #16b75a;
 }
 .u-notice_settings-t {
-  width: 200px;
-  font-size: 16px;
-  color: #333333;
+  width: 170px;
+  margin-right: 35px;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000;
 }
 .u-notice_settings-desc {
   width: 340px;

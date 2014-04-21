@@ -12,7 +12,7 @@
 	    document.write(unescape("%3Cscript src='/javascripts/jquery-1.8.3.min.js' type='text/javascript'%3E%3C/script%3E"));
 	}
 	</script>
-
+	<script src="/new/javascript/modernizr-2.7.1.min.js"></script>
 	<script type="text/javascript" src="/javascripts/jquery.fancybox-1.3.4.js"></script>
 	
 	<script type="text/javascript" src="/javascripts/jquery.tooltip.pack.js"></script>

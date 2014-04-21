@@ -68,7 +68,7 @@ $(function() {
             }
         });
         
-		$('.tooltip-click-b', self).tooltipster({
+		/*$('.tooltip-click-b', self).tooltipster({
 			trigger: 'click',
 			delay: 0,
 			onlyOne: false,
@@ -83,7 +83,7 @@ $(function() {
 				origin.tooltipster('update', d);
 				continueTooltip(d);
 			}
-		});
+		});*/
 		
 	});
 

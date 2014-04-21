@@ -332,16 +332,25 @@ function User(data) {
     }, this);
 }
 
-ko.bindingHandlers.enterKey = {
-    init: function (element, valueAccessor, allBindings, vm) {
-        ko.utils.registerEventHandler(element, "keypress", function (event) {
-            if (event.keyCode === 13) {
-                ko.utils.triggerEvent(element, "change");
-                valueAccessor().call(vm, vm);
-                if (ENTER_KEY_SEND)
-                    return false;
+(function(window) {
+    function f(ko) {
+      ko.bindingHandlers.enterKey = {
+            init: function (element, valueAccessor, allBindings, vm) {
+                ko.utils.registerEventHandler(element, "keypress", function (event) {
+                    if (event.keyCode === 13) {
+                        ko.utils.triggerEvent(element, "change");
+                        valueAccessor().call(vm, vm);
+                        if (ENTER_KEY_SEND)
+                            return false;
+                    }
+                    return true;
+                });
             }
-            return true;
-        });
+        };
     }
-};
+    if (typeof define === 'function' && define['amd']) {
+        define('comments', ['knockout', 'ko_library'], f);
+    } else {
+        f(window.ko);
+    }
+})(window);

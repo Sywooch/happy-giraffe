@@ -38,6 +38,12 @@ class DefaultCommand extends CConsoleCommand
         $sender->sendAll();
     }
 
+    public function actionNotifications()
+    {
+        $sender = new MailSenderNotification();
+        $sender->sendAll();
+    }
+
     public function actionTest()
     {
         $sender = new MailSenderTest();

@@ -22,7 +22,7 @@ class MailSenderNotification extends MailSender
                     $criteria->limit = 5;
                     $criteria->order = 't.created DESC';
                     $criteria->addInCondition('t.id', $commentsIds);
-                    $commentsToShow = Comment::model()->findAll($criteria);
+                    $commentsToShow = MailComment::model()->findAll($criteria);
                     $totalCommentsCount = count($commentsIds);
                     $message = new MailMessageNotificationDiscuss($user, compact('model', 'commentsToShow', 'totalCommentsCount'));
                     $this->sendMessage($message);

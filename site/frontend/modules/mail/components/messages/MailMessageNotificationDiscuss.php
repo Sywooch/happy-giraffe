@@ -9,6 +9,8 @@
 
 class MailMessageNotificationDiscuss extends MailMessage
 {
+    const COMMENT_LENGTH = 80;
+
     public $type = 'notificationDiscuss';
 
     /**
@@ -35,4 +37,6 @@ class MailMessageNotificationDiscuss extends MailMessage
     {
         return $this->totalCommentsCount - count($this->commentsToShow);
     }
+
+
 }

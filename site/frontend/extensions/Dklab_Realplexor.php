@@ -287,6 +287,28 @@ class Dklab_Realplexor
 	{
 		return function_exists('mb_orig_strlen')? mb_orig_strlen($body) : strlen($body);
 	}
+
+    public function cmdWatchTest($fromPos, $idPrefixes = null)
+    {
+        $idPrefixes = $idPrefixes !== null? (array)$idPrefixes : array();
+        if (!$fromPos) {
+            $fromPos = 0;
+        }
+        if (!preg_match('/^[\d.]+$/', $fromPos)) {
+            throw new Dklab_Realplexor_Exception("Position value must be numeric, \"$fromPos\" given");
+        }
+        // Add namespaces.
+        if (strlen($this->_namespace)) {
+            if (!$idPrefixes) $idPrefixes = array(""); // if no prefix passed, we still need namespace prefix
+            foreach ($idPrefixes as $i => $idp) {
+                $idPrefixes[$i] = $this->_namespace . $idp;
+            }
+        }
+        // Execute.
+        $resp = $this->_sendCmd("watch $fromPos" . ($idPrefixes? " " . join(" ", $idPrefixes) : ""));
+
+        echo $resp;
+    }
 }
 
 /**

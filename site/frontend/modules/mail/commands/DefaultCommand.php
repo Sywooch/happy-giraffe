@@ -57,7 +57,7 @@ class DefaultCommand extends CConsoleCommand
 
     public function actionTestComet($pos = 0)
     {
-        $a = Yii::app()->comet->cmdWatch($pos);
+        $a = Yii::app()->comet->cmdWatch($pos, 'onOff');
         print_r($a);
     }
 

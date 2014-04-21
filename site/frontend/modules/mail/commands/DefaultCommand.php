@@ -55,9 +55,9 @@ class DefaultCommand extends CConsoleCommand
         Yii::log('Test warning', CLogger::LEVEL_ERROR, 'mail');
     }
 
-    public function actionTestComet()
+    public function actionTestComet($pos = 0)
     {
-        $a = Yii::app()->comet->cmdWatch(0);
+        $a = Yii::app()->comet->cmdWatch($pos);
         print_r($a);
     }
 

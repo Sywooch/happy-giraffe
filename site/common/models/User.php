@@ -1,5 +1,7 @@
 <?php
 
+Yii::import('site.frontend.modules.onlineManager.widgets.OnlineManagerWidget');
+
 /**
  * This is the model class for table "user".
  *

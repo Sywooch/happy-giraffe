@@ -2,27 +2,173 @@
 
 class OnlineUsersCommand extends CConsoleCommand
 {
+    /**
+     * Сегодняшняя дата
+     *
+     * @property $currentDay
+     */
+    protected $currentDay;
 
-    public $current_day;
-    private $rpl;
+    /**
+     * Экземпляр класса Dklab_Realplexor
+     *
+     * @property Dklab_Realplexor $rpl
+     */
+    protected $rpl;
 
+    /**
+     * @property int $pos
+     */
+    protected $pos;
+
+    /**
+     * Инициализация
+     *
+     * Снимаем ограничение на занимаемую память, импортируем необходимые классы
+     */
     public function init()
-    {
+	{
+		ini_set('memory_limit', -1);
+
+		Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+		Yii::import('site.frontend.extensions.*');
+		Yii::import('site.frontend.components.*');
+		Yii::import('site.common.models.mongo.*');
+		Yii::import('site.frontend.modules.scores.components.*');
+		Yii::import('site.frontend.modules.scores.models.*');
+		Yii::import('site.frontend.modules.scores.models.input.*');
+		Yii::import('site.frontend.modules.onlineManager.widgets.OnlineManagerWidget');
+
         parent::init();
-        ini_set('memory_limit', -1);
+	}
 
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.frontend.extensions.*');
-        Yii::import('site.frontend.components.*');
-        Yii::import('site.common.models.mongo.*');
-        Yii::import('site.frontend.modules.scores.components.*');
-        Yii::import('site.frontend.modules.scores.models.*');
-        Yii::import('site.frontend.modules.scores.models.input.*');
-        Yii::import('site.frontend.modules.onlineManager.widgets.OnlineManagerWidget');
-
+    /**
+     * Синхронизирует значения столбца online в таблице users с актуальным состояним на сайте
+     */
+    protected function sync()
+    {
         // Выставляем всем пользователям оффлайн
-        Yii::app()->db->createCommand()
-            ->update('users', array('online' => '0'));
+        Yii::app()->db->createCommand()->update('users', array('online' => '0'));
+
+        // Запрашиваем фейковое событие, именно с него начнем обработку
+        $fakeEvent = $this->rpl->cmdWatch(0);
+        $this->pos = $fakeEvent[0]['pos'];
+
+        // Выставлем онлайн тем, кто сейчас онлайн
+        $list = $this->rpl->cmdOnline();
+        print_r($list);
+        echo $this->pos;
+
+        foreach ($list as $channel)
+        {
+            $user = UserCache::getUserByCache($channel);
+            if ($user !== null)
+            {
+                $user->online();
+            }
+        }
+    }
+
+    /**
+     * Подготовка
+     *
+     * Выполняется один раз при старте команды
+     */
+    protected function prepare()
+    {
+        // Записываем экземпляр класса в свойство Dklab_Realplexor
+        $this->rpl = Yii::app()->comet;
+
+        // Устанавливаем текущую дату (необходимо для достижений)
+        $this->currentDay = date("Y-m-d");
+
+        // Синхронизируем БД
+        $this->sync();
+
+        echo "Подготовка завершена\n";
+    }
+
+    /**
+     * Обработка конкретного события onOff
+     */
+    protected function handleEvent($event)
+    {
+        print_r($event);
+        $user = UserCache::getUserByCache($event['id']);
+        var_dump($user);
+        if ($user !== null) {
+            if ($event['event'] == 'online') {
+                $user->online();
+                echo 'Пользователь #' . $user->id . ' снова в сети!' . "\n";
+            } else {
+                $user->offline();
+                echo 'Польлзователь #' . $user->id . ' покидает нас :(' . "\n";
+            }
+        }
+        $this->pos = $event['pos'];
+    }
+
+    /**
+     * Вызов команды
+     */
+    public function actionIndex()
+    {
+        $this->prepare();
+
+        $this->pos = 0;
+
+        while (true)
+        {
+            // Начисление достижений
+			$this->checkScoresForNewDay();
+
+//            // Выберем все события
+            $events = $this->rpl->cmdWatch($pos);
+
+            // Обработаем события
+            foreach ($this->rpl->cmdWatch($this->pos) as $event) {
+                $this->handleEvent($event);
+            }
+
+            // Ждем
+            usleep(300000);
+        }
+    }
+
+    public function actionTest($pos = 0)
+    {
+        $events = Yii::app()->comet->cmdWatch($this->pos);
+        print_r($events);
+    }
+
+	/**
+	 * Начисление достижений
+	 */
+	protected function checkScoresForNewDay()
+	{
+		if ($this->currentDay != date("Y-m-d") && date("i") >= 15)
+		{
+			$list = $this->rpl->cmdOnline();
+
+			foreach ($list as $user)
+			{
+				$user = $this->getUserByCache($user);
+				if (!empty($user))
+				{
+					Scoring::visit($user->id);
+				}
+			}
+
+			$this->currentDay = date("Y-m-d");
+		}
+	}
+
+    /**
+     * Финал битвы экстрасенсов 2014 будет посвящен анализу этого метода
+     * http://hydra-media.cursecdn.com/dota2.gamepedia.com/2/29/Mystic_Staff_icon.png?version=a13d77c58e457102a665ec49d9853685
+     */
+    protected function mysticStaff()
+    {
         // Мистика начало
         $users = User::model()->findAll(array('select' => 'id', 'condition' => 'online=1'));
         foreach ($users as $user)
@@ -30,130 +176,6 @@ class OnlineUsersCommand extends CConsoleCommand
             Yii::app()->cache->delete('User_' . $user->id);
         }
         // Мистика конец
-        // Устанавливаем текущую дату (необходимо для достижений)
-        $this->current_day = date("Y-m-d");
-
-        // Выставлем онлайн тем, кто сейчас онлайн
-        $this->rpl = Yii::app()->comet;
-        $list = $this->rpl->cmdOnline();
-        foreach ($list as $channel)
-        {
-            if (self::checkUserChannel($channel))
-            {
-                $user = $this->getUserByCache($channel);
-                if (!empty($user))
-                {
-                    $this->updateOnline($user, 1);
-                }
-            }
-        }
     }
-
-    public function actionIndex()
-    {
-        // начинаем с 0
-        $pos = 0;
-        // стартуем бесконечный цикл
-        while (1)
-        {
-            // начисление достижений
-            $this->checkScoresForNewDay();
-            // смотрим все события
-            foreach ($this->rpl->cmdWatch($pos) as $event)
-            {
-                // двигаем курсор
-                $pos = $event['pos'];
-                // выводим событие и id канала
-                echo "\t" . $event['event'] . " " . $event['id'] . "\n";
-                if (self::checkUserChannel($event['id']))
-                {
-                    $user = $this->getUserByCache($event['id']);
-                    if (!empty($user))
-                    {
-                        // событие на вход/выход пользователя
-                        $online = $event['event'] == 'online' ? 1 : 0;
-                        // обновляем базу
-                        $this->updateOnline($user, $online);
-                        // рассылаем всем, что пользователь вошёл/вышел
-                        $this->SendOnlineNotice($user);
-                    }
-                }
-            }
-            // немого спим
-            usleep(300000);
-        }
-    }
-
-    /**
-     *
-     * @param User $user
-     */
-    private function updateOnline($user, $online)
-    {
-        $user->online = $online;
-        $user->last_active = date("Y-m-d H:i:s");
-        $user->save(false, array('online', 'last_active'));
-        echo $user->id . " " . $online . "\n";
-        if ($online == 1)
-        {
-            ScoreVisits::getInstance()->addTodayVisit($user->id);
-        }
-        User::clearCache($user->id);
-    }
-
-    /**
-     * @param $cache
-     * @return User|null
-     */
-    private function getUserByCache($cache)
-    {
-        $userCache = UserCache::model()->find('cache = "' . $cache . '"');
-        if (empty($userCache))
-            return null;
-        return User::model()->find(array(
-            'condition' => 'id=' . $userCache->user_id,
-            //'select' => array('id', 'online')
-        ));
-    }
-
-    /**
-     * @param User $user
-     * @param bool $online
-     */
-    private function SendOnlineNotice($user)
-    {
-        $comet = new CometModel();
-        $comet->send($user->publicChannel, array('user' => OnlineManagerWidget::userToJson($user)), CometModel::TYPE_ONLINE_STATUS_CHANGE);
-        echo 'sending ' . $user->publicChannel . ' ' . CometModel::TYPE_ONLINE_STATUS_CHANGE . "\n";
-    }
-
-    /**
-     * Начисление достижений
-     */
-    public function checkScoresForNewDay()
-    {
-        if ($this->current_day != date("Y-m-d") && date("i") >= 15)
-        {
-            $list = $this->rpl->cmdOnline();
-            echo "Add scores for " . count($list) . " users \n";
-
-            foreach ($list as $user)
-            {
-                $user = $this->getUserByCache($user);
-                if (!empty($user))
-                {
-                    Scoring::visit($user->id);
-                }
-            }
-
-            $this->current_day = date("Y-m-d");
-        }
-    }
-
-    public static function checkUserChannel($channel)
-    {
-        return strpos($channel, UserCache::CHANNEL_PREFIX) === 0;
-    }
-
 }
 

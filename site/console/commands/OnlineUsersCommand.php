@@ -113,24 +113,23 @@ class OnlineUsersCommand extends CConsoleCommand
      */
     public function actionIndex()
     {
-        $this->prepare();
-
-        $this->pos = 0;
-
-        while (true)
+        // начинаем с 0
+        $pos = 0;
+        // стартуем бесконечный цикл
+        while (1)
         {
-            // Начисление достижений
-			$this->checkScoresForNewDay();
+            // начисление достижений
+            $this->checkScoresForNewDay();
+            // смотрим все события
+            foreach ($this->rpl->cmdWatch($pos) as $event)
+            {
+                // двигаем курсор
+                $pos = $event['pos'];
+                // выводим событие и id канала
+                echo "\t" . $event['event'] . " " . $event['id'] . "\n";
 
-////            // Выберем все события
-//            $events = $this->rpl->cmdWatch($pos);
-
-            // Обработаем события
-            foreach ($this->rpl->cmdWatch($this->pos) as $event) {
-                $this->handleEvent($event);
             }
-
-            // Ждем
+            // немого спим
             usleep(300000);
         }
     }

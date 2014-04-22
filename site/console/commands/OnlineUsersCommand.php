@@ -90,12 +90,11 @@ class OnlineUsersCommand extends CConsoleCommand
     /**
      * Обработка конкретного события onOff
      */
-    protected function handleEvent($eventArray)
+    protected function handleEvent($event)
     {
-        list($event, $pos, $channel) = $eventArray;
-        $user = UserCache::getUserByCache($channel);
+        $user = UserCache::getUserByCache($event['id']);
         if ($user !== null) {
-            if ($event == 'online') {
+            if ($event['event'] == 'online') {
                 $user->online();
                 echo 'Пользователь #' . $user->id . ' снова в сети!' . "\n";
             } else {
@@ -103,7 +102,7 @@ class OnlineUsersCommand extends CConsoleCommand
                 echo 'Польлзователь #' . $user->id . ' покидает нас :(' . "\n";
             }
         }
-        $this->pos = $pos;
+        $this->pos = $event['pos'];
     }
 
     /**

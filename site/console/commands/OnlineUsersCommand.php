@@ -107,6 +107,8 @@ class OnlineUsersCommand extends CConsoleCommand
      */
     public function actionIndex()
     {
+        $this->prepare();
+
         while (true)
         {
             // Начисление достижений

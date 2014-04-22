@@ -122,8 +122,8 @@ class OnlineUsersCommand extends CConsoleCommand
             // Начисление достижений
 			$this->checkScoresForNewDay();
 
-//            // Выберем все события
-            $events = $this->rpl->cmdWatch($pos);
+////            // Выберем все события
+//            $events = $this->rpl->cmdWatch($pos);
 
             // Обработаем события
             foreach ($this->rpl->cmdWatch($this->pos) as $event) {

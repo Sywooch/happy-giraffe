@@ -81,6 +81,8 @@ class OnlineUsersCommand extends CConsoleCommand
 
         // Синхронизируем БД
         $this->sync();
+
+        echo "Подготовка завершена\n";
     }
 
     /**

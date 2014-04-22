@@ -57,6 +57,7 @@ class OnlineUsersCommand extends CConsoleCommand
         // Выставлем онлайн тем, кто сейчас онлайн
         $list = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
         print_r($list);
+        echo $this->pos;
 
         foreach ($list as $channel)
         {
@@ -119,11 +120,11 @@ class OnlineUsersCommand extends CConsoleCommand
             // Начисление достижений
 			$this->checkScoresForNewDay();
 
-            // Выберем все события
-            $events = $this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
+//            // Выберем все события
+//            $events = $this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
 
             // Обработаем события
-            foreach ($events as $event) {
+            foreach ($this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX) as $event) {
                 $this->handleEvent($event);
             }
 

@@ -115,7 +115,7 @@ class OnlineUsersCommand extends CConsoleCommand
 			$this->checkScoresForNewDay();
 
             // Выберем все события
-            $events = $this->cmdWatch($this->pos, 'onOff');
+            $events = $this->rpl->cmdWatch($this->pos, 'onOff');
 
             // Обработаем события
             foreach ($events as $event) {

@@ -52,9 +52,7 @@ class OnlineUsersCommand extends CConsoleCommand
 
         // Запрашиваем фейковое событие, именно с него начнем обработку
         $fakeEvent = $this->rpl->cmdWatch(0, UserCache::CHANNEL_PREFIX);
-        print_r($fakeEvent);
-        die;
-        $this->pos = $fakeEvent['pos'];
+        $this->pos = $fakeEvent[0]['pos'];
 
         // Выставлем онлайн тем, кто сейчас онлайн
         $list = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);

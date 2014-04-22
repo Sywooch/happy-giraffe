@@ -56,6 +56,10 @@ class OnlineUsersCommand extends CConsoleCommand
 
         // Выставлем онлайн тем, кто сейчас онлайн
         $list = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
+
+        print_r($list);
+        die;
+
         foreach ($list as $channel)
         {
             $user = UserCache::getUserByCache($channel);

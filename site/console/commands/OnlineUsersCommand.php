@@ -51,11 +51,11 @@ class OnlineUsersCommand extends CConsoleCommand
         Yii::app()->db->createCommand()->update('users', array('online' => '0'));
 
         // Запрашиваем фейковое событие, именно с него начнем обработку
-        $fakeEvent = $this->rpl->cmdWatch(0);
+        $fakeEvent = $this->rpl->cmdWatch(0, UserCache::CHANNEL_PREFIX);
         $this->pos = $fakeEvent[0]['pos'];
 
         // Выставлем онлайн тем, кто сейчас онлайн
-        $list = $this->rpl->cmdOnline();
+        $list = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
         print_r($list);
         echo $this->pos;
 
@@ -115,28 +115,27 @@ class OnlineUsersCommand extends CConsoleCommand
     {
         $this->prepare();
 
-
-        while (1)
+        while (true)
         {
-            // начисление достижений
-            $this->checkScoresForNewDay();
-            // смотрим все события
-            foreach ($this->rpl->cmdWatch($this->pos) as $event)
-            {
-                // двигаем курсор
-                $this->pos = $event['pos'];
-                // выводим событие и id канала
-                echo "\t" . $event['event'] . " " . $event['id'] . "\n";
+            // Начисление достижений
+			$this->checkScoresForNewDay();
 
+//            // Выберем все события
+            $events = $this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
+
+            // Обработаем события
+            foreach ($this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX) as $event) {
+                $this->handleEvent($event);
             }
-            // немого спим
+
+            // Ждем
             usleep(300000);
         }
     }
 
     public function actionTest($pos = 0)
     {
-        $events = Yii::app()->comet->cmdWatch($this->pos);
+        $events = Yii::app()->comet->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
         print_r($events);
     }
 

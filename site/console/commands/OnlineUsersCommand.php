@@ -92,8 +92,9 @@ class OnlineUsersCommand extends CConsoleCommand
      */
     protected function handleEvent($event)
     {
-        echo "Новое событие\n";
+        print_r($event);
         $user = UserCache::getUserByCache($event['id']);
+        var_dump($user);
         if ($user !== null) {
             if ($event['event'] == 'online') {
                 $user->online();

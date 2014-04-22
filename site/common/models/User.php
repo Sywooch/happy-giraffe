@@ -1601,4 +1601,40 @@ class User extends HActiveRecord
         $this->email_confirmed = 1;
         $this->update(array('status', 'email_confirmed'));
     }
+
+    public function online($login = false)
+    {
+        ScoreVisits::getInstance()->addTodayVisit($this->id);
+        self::clearCache($this->id);
+
+        $comet = new CometModel();
+        $comet->send($this->publicChannel, array('user' => OnlineManagerWidget::userToJson($this)), CometModel::TYPE_ONLINE_STATUS_CHANGE);
+
+        $this->online = 1;
+        $this->last_active = date("Y-m-d H:i:s");
+
+        if ($login) {
+            $this->login_date = date('Y-m-d H:i:s');
+            $this->last_ip = $_SERVER['REMOTE_ADDR'];
+        }
+
+        $this->sendOnline();
+        return $this->update(array('online', 'last_active', 'login_date', 'last_ip'));
+    }
+
+    public function offline()
+    {
+        self::clearCache($this->id);
+
+        $this->online = 0;
+
+        $this->sendOnline();
+        return $this->update(array('online'));
+    }
+
+    protected function sendOnline()
+    {
+        $comet = new CometModel();
+        $comet->send($this->publicChannel, array('user' => OnlineManagerWidget::userToJson($this)), CometModel::TYPE_ONLINE_STATUS_CHANGE);
+    }
 }

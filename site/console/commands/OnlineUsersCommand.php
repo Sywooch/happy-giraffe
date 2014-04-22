@@ -124,7 +124,7 @@ class OnlineUsersCommand extends CConsoleCommand
             foreach ($this->rpl->cmdWatch($this->pos) as $event)
             {
                 // двигаем курсор
-                $pos = $event['pos'];
+                $this->pos = $event['pos'];
                 // выводим событие и id канала
                 echo "\t" . $event['event'] . " " . $event['id'] . "\n";
 

@@ -5,4 +5,5 @@ return array(
 	'enableProfiling' => true,
 	'enableParamLogging' => true,
 	'tablePrefix'=> '',
+    'persistent' => true,
 );

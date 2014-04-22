@@ -121,6 +121,8 @@ class OnlineUsersCommand extends CConsoleCommand
             // Выберем все события
             $events = $this->rpl->cmdWatch($this->pos, 'onOff');
 
+            echo count($events) . "\n";
+
             // Обработаем события
             foreach ($events as $event) {
                 $this->handleEvent($event);

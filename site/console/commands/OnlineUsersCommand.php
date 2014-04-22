@@ -88,15 +88,17 @@ class OnlineUsersCommand extends CConsoleCommand
      */
     protected function handleEvent($eventArray)
     {
+        echo "Новое событие\n";
+
         list($event, $pos, $channel) = $eventArray;
         $user = UserCache::getUserByCache($channel);
         if ($user !== null) {
             if ($event == 'online') {
                 $user->online();
-                echo 'Пользователь #' . $user->id . ' снова в сети!';
+                echo 'Пользователь #' . $user->id . ' снова в сети!' . "\n";
             } else {
                 $user->offline();
-                echo 'Польлзователь #' . $user->id . ' покидает нас :(';
+                echo 'Польлзователь #' . $user->id . ' покидает нас :(' . "\n";
             }
         }
         $this->pos = $pos;

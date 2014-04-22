@@ -57,9 +57,6 @@ class OnlineUsersCommand extends CConsoleCommand
         // Выставлем онлайн тем, кто сейчас онлайн
         $list = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
 
-        print_r($list);
-        die;
-
         foreach ($list as $channel)
         {
             $user = UserCache::getUserByCache($channel);
@@ -94,8 +91,6 @@ class OnlineUsersCommand extends CConsoleCommand
      */
     protected function handleEvent($eventArray)
     {
-        echo "Новое событие\n";
-
         list($event, $pos, $channel) = $eventArray;
         $user = UserCache::getUserByCache($channel);
         if ($user !== null) {

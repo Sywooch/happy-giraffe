@@ -121,7 +121,7 @@ class OnlineUsersCommand extends CConsoleCommand
 			$this->checkScoresForNewDay();
 
 //            // Выберем все события
-//            $events = $this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
+            $events = $this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
 
             // Обработаем события
             foreach ($this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX) as $event) {
@@ -131,6 +131,12 @@ class OnlineUsersCommand extends CConsoleCommand
             // Ждем
             usleep(300000);
         }
+    }
+
+    public function actionTest($pos = 0)
+    {
+        $events = $this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
+        print_r($events);
     }
 
 	/**

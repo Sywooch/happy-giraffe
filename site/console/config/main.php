@@ -46,7 +46,7 @@ return array(
         ),
         'comet'=>array(
             'class' => 'site.frontend.extensions.Dklab_Realplexor',
-            'host' => 'www.plexor.happy-giraffe.ru',
+            'host' => 'plexor.www.happy-giraffe.ru',
             'port' => 10010,
             'namespace' => 'crm_',
         ),

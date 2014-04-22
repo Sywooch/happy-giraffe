@@ -135,7 +135,7 @@ class OnlineUsersCommand extends CConsoleCommand
 
     public function actionTest($pos = 0)
     {
-        $events = $this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
+        $events = Yii::app()->comet->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
         print_r($events);
     }
 

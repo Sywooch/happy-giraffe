@@ -135,4 +135,17 @@ class UserCache extends HActiveRecord
         $this->cache = $cache;
         Yii::app()->cache->set(self::CACHE_ID . $this->user_id, $cache);
     }
+
+    /**
+     * @param string $cache
+     * @return User
+     */
+    public static function getUserByCache($cache)
+    {
+        return User::model()->find(array(
+            'with' => 'UserCaches',
+            'condition' => 'UserCaches.cache = :cache',
+            'params' => array(':cache' => $cache),
+        ));
+    }
 }

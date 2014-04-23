@@ -105,6 +105,8 @@ class OnlineUsersCommand extends CConsoleCommand
                 OnlineManager::offline($user);
                 echo 'Пользователь #' . $user->id . ' покидает нас :(' . "\n";
             }
+        } else {
+            echo 'Пользователь с кэшем ' . $event['id'] . ' не найден' . "\n";
         }
         $this->pos = $event['pos'];
     }

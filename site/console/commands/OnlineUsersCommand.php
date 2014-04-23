@@ -154,11 +154,8 @@ class OnlineUsersCommand extends CConsoleCommand
         }
     }
 
-    public function actionCheck($userId)
+    public function actionCheck($online)
     {
-        UserCache::flushCache();
-        echo UserCache::GetUserCache($userId);
-        $online = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
         $this->check($online);
     }
 

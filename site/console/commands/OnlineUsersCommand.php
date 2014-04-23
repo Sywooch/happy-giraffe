@@ -139,6 +139,11 @@ class OnlineUsersCommand extends CConsoleCommand
         print_r($events);
     }
 
+    public function actionCache($userId)
+    {
+        echo UserCache::GetUserCache($userId);
+    }
+
 	/**
 	 * Начисление достижений
 	 */

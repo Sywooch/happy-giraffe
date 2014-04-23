@@ -95,7 +95,6 @@ class OnlineUsersCommand extends CConsoleCommand
     {
         print_r($event);
         $user = UserCache::getUserByCache($event['id']);
-        var_dump($user);
         if ($user !== null) {
             if ($event['event'] == 'online') {
                 $user->online();

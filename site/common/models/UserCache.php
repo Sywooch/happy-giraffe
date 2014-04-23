@@ -148,4 +148,13 @@ class UserCache extends HActiveRecord
             'params' => array(':cache' => $cache),
         ));
     }
+
+    public static function flushCache()
+    {
+        $dp = new CActiveDataProvider('UserCache');
+        $iterator = new CDataProviderIterator($dp);
+        foreach ($iterator as $cache) {
+            Yii::app()->cache->delete(self::CACHE_ID . $cache->user_id);
+        }
+    }
 }

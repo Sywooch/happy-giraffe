@@ -152,10 +152,10 @@ class OnlineUsersCommand extends CConsoleCommand
         $online = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
         $t = microtime();
         $this->check($online);
-        echo (microtime() - $t);
+        echo (microtime() - $t) . "\n";
         $t = microtime();
         $this->check2($online);
-        echo (microtime() - $t);
+        echo (microtime() - $t) . "\n";
     }
 
     /**

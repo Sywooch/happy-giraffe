@@ -57,7 +57,7 @@ class OnlineUsersCommand extends CConsoleCommand
         // Запрашиваем фейковое событие, именно с него начнем обработку
         $fakeEvent = $this->rpl->cmdWatch(0, UserCache::CHANNEL_PREFIX);
         print_r($fakeEvent);
-        $this->pos = $fakeEvent[0]['pos'];
+        $this->pos = $fakeEvent[0]['pos'] - 1;
 
         foreach ($list as $channel)
         {

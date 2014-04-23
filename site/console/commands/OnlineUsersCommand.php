@@ -162,7 +162,7 @@ class OnlineUsersCommand extends CConsoleCommand
             ->select('users.id')
             ->from('users')
             ->join('im__user_cache', 'im__user_cache.user_id = users.id')
-            ->where('users.online = 0')->queryRow(false);
+            ->where('users.online = 1')->queryRow(false);
 
         $onlineByMistake = Yii::app()->db->createCommand()
             ->select('users.id')

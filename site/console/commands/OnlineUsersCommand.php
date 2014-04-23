@@ -154,6 +154,12 @@ class OnlineUsersCommand extends CConsoleCommand
         $this->check($online);
     }
 
+    public function actionOnline()
+    {
+        $online = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
+        print_r($online);
+    }
+
     /**
      * Проверяет, соответствует ли состояние таблицы в БД данным плексора
      */

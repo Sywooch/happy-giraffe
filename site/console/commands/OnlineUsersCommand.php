@@ -150,7 +150,12 @@ class OnlineUsersCommand extends CConsoleCommand
     public function actionCheck()
     {
         $online = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
+        $t = microtime();
         $this->check($online);
+        echo (microtime() - $t);
+        $t = microtime();
+        $this->check2($online);
+        echo (microtime() - $t);
     }
 
     /**
@@ -162,7 +167,7 @@ class OnlineUsersCommand extends CConsoleCommand
             ->select('users.id')
             ->from('users')
             ->join('im__user_cache', 'im__user_cache.user_id = users.id')
-            ->where('users.online = 0')->queryColumn();
+            ->where(array('AND', 'users.online = 0', array('IN', 'im__user_cache.cache', $online)))->queryColumn();
 
         $onlineByMistake = Yii::app()->db->createCommand()
             ->select('users.id')
@@ -180,7 +185,33 @@ class OnlineUsersCommand extends CConsoleCommand
         echo $str;
     }
 
+    protected function check2($online)
+    {
+        $users = Yii::app()->db->createCommand()
+            ->select('users.id, users.online, im__user_cache.cache')
+            ->from('users')
+            ->join('im__user_cache', 'im__user_cache.user_id = users.id')
+            ->queryAll();
 
+        $offlineByMistake = array();
+        $onlineByMistake = array();
+
+        foreach ($users as $u) {
+            if ($u['online'] == 0 && in_array($u['cache'], $online))
+                $offlineByMistake[] = $u['id'];
+            if ($u['online'] == 1 && ! in_array($u['cache'], $online))
+                $onlineByMistake[] = $u['id'];
+        }
+
+        $str = '';
+        if (! empty ($offlineByMistake)) {
+            $str .= 'Оффлайн по ошибке: ' . implode(', ', $offlineByMistake);
+        }
+        if (! empty ($onlineByMistake)) {
+            $str .= 'Оффлайн по ошибке: ' . implode(', ', $onlineByMistake);
+        }
+        echo $str;
+    }
 
 	/**
 	 * Начисление достижений

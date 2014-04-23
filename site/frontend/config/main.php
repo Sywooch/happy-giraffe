@@ -79,6 +79,9 @@ return array(
         'site.common.behaviors.*',
         'site.frontend.extensions.status.EStatusBehavior',
         'site.frontend.extensions.geturl.EGetUrlBehavior',
+
+        'application.modules.onlineManager.widgets.*',
+        'application.modules.onlineManager.components.*',
     ),
 
 	'sourceLanguage' => 'en',

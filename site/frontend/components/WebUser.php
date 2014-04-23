@@ -1,8 +1,14 @@
 <?php
 class WebUser extends CWebUser
 {
+    /**
+     * @property User $_model
+     */
     private $_model = null;
 
+    /**
+     * @return User
+     */
     public function getModel()
     {
         if (! $this->isGuest && $this->_model === null)
@@ -14,10 +20,7 @@ class WebUser extends CWebUser
     {
         $model = $this->getModel();
         
-        $model->login_date = date('Y-m-d H:i:s');
-        $model->online = 1;
-        $model->last_ip = $_SERVER['REMOTE_ADDR'];
-        $model->update(array('login_date', 'online', 'last_ip'));
+        OnlineManager::online($model, true);
 
         if (! $fromCookie) {
             Yii::import('site.frontend.modules.cook.models.*');
@@ -31,8 +34,7 @@ class WebUser extends CWebUser
     {
         $model = $this->getModel();
 
-        $model->online = 0;
-        $model->update(array('online'));
+        OnlineManager::offline($model);
 
         unset(Yii::app()->request->cookies['not_guest']);
     }

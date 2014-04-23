@@ -99,11 +99,15 @@ class OnlineUsersCommand extends CConsoleCommand
         $user = UserCache::getUserByCache($event['id']);
         if ($user !== null) {
             if ($event['event'] == 'online') {
-                OnlineManager::online($user);
+                $result = OnlineManager::online($user);
                 echo 'Пользователь #' . $user->id . ' снова в сети!' . "\n";
             } else {
-                OnlineManager::offline($user);
+                $result = OnlineManager::offline($user);
                 echo 'Пользователь #' . $user->id . ' покидает нас :(' . "\n";
+            }
+            if (! $result) {
+                echo "Не удалось изменить статус пользователя!\n";
+                print_r($event);
             }
         } else {
             echo 'Пользователь с кэшем ' . $event['id'] . ' не найден' . "\n";

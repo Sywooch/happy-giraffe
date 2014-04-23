@@ -12,7 +12,7 @@ class OnlineManager
     public static function online(User $user, $login = false)
     {
         if ($user->online == 1) {
-            return false;
+            return true;
         }
 
         ScoreVisits::getInstance()->addTodayVisit($user->id);
@@ -33,7 +33,7 @@ class OnlineManager
     public static function offline(User $user)
     {
         if ($user->online == 0) {
-            return false;
+            return true;
         }
 
         User::clearCache($user->id);

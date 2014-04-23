@@ -117,8 +117,9 @@ class OnlineUsersCommand extends CConsoleCommand
         $this->prepare();
 
         $i = 0;
-        while ($i++)
+        while (true)
         {
+            $i++;
             $check = ($i % self::CHECK_PERIODICITY) == 0;
 
             // Начисление достижений

@@ -1606,29 +1606,37 @@ class User extends HActiveRecord
 
     public function online($login = false)
     {
-        ScoreVisits::getInstance()->addTodayVisit($this->id);
-        self::clearCache($this->id);
+        if ($this->online == 0) {
+            ScoreVisits::getInstance()->addTodayVisit($this->id);
+            self::clearCache($this->id);
 
-        $this->online = 1;
-        $this->last_active = date("Y-m-d H:i:s");
+            $this->online = 1;
+            $this->last_active = date("Y-m-d H:i:s");
 
-        if ($login) {
-            $this->login_date = date('Y-m-d H:i:s');
-            $this->last_ip = $_SERVER['REMOTE_ADDR'];
+            if ($login) {
+                $this->login_date = date('Y-m-d H:i:s');
+                $this->last_ip = $_SERVER['REMOTE_ADDR'];
+            }
+
+            $this->sendOnline();
+            return $this->update(array('online', 'last_active', 'login_date', 'last_ip'));
         }
 
-        $this->sendOnline();
-        return $this->update(array('online', 'last_active', 'login_date', 'last_ip'));
+        return false;
     }
 
     public function offline()
     {
-        self::clearCache($this->id);
+        if ($this->online == 1) {
+            self::clearCache($this->id);
 
-        $this->online = 0;
+            $this->online = 0;
 
-        $this->sendOnline();
-        return $this->update(array('online'));
+            $this->sendOnline();
+            return $this->update(array('online'));
+        }
+
+        return false;
     }
 
     protected function sendOnline()

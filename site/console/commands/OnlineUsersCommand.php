@@ -176,7 +176,7 @@ class OnlineUsersCommand extends CConsoleCommand
             $str .= 'Оффлайн по ошибке: ' . implode(', ', $offlineByMistake);
         }
         if (! empty ($onlineByMistake)) {
-            $str .= 'Оффлайн по ошибке: ' . implode(', ', $onlineByMistake);
+            $str .= 'Онлайн по ошибке: ' . implode(', ', $onlineByMistake);
         }
         echo $str;
     }

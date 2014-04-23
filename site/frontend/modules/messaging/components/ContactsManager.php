@@ -216,7 +216,7 @@ class ContactsManager
                       p.id AS pId, # ID аватара
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-					  SUM(IF(mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
+					  SUM(IF(m.author_id != tu.user_id AND mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
                       f.id IS NOT NULL AS isFriend, # Является ли другом
                       fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
                       fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
@@ -228,8 +228,8 @@ class ContactsManager
                     # Получение информации о диалоге
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
-                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = tu.user_id
+                    RIGHT JOIN messaging__messages m ON m.thread_id = t.id
+                    JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = tu.user_id AND mu.dtime_delete IS NULL
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом
@@ -240,7 +240,7 @@ class ContactsManager
                     LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = u.id AND fr1.to_id = tu.user_id AND fr1.status = 'pending'
                     # Имеет входящий запрос в друзья
                     LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = tu.user_id AND fr2.to_id = u.id AND fr2.status = 'pending'
-                    WHERE tu.user_id = :user_id AND b.user_id IS NULL AND (mu.dtime_delete IS NULL OR f.id IS NOT NULL)
+                    WHERE tu.user_id = :user_id AND b.user_id IS NULL
                     GROUP BY u.id
                     ORDER BY t.updated DESC
                     LIMIT :limit
@@ -307,7 +307,7 @@ class ContactsManager
                       p.id AS pId, # ID аватара
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-                      SUM(IF(mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
+                      SUM(IF(m.author_id != tu.user_id AND mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
                       f.id IS NOT NULL AS isFriend, # Является ли другом
                       fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
                       fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
@@ -319,8 +319,8 @@ class ContactsManager
                     # Получение информации о диалоге
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
-                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = tu.user_id
+                    RIGHT OUTER JOIN messaging__messages m ON m.thread_id = t.id
+                    JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = tu.user_id AND mu.dtime_delete IS NULL
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом
@@ -331,7 +331,7 @@ class ContactsManager
                     LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = u.id AND fr1.to_id = tu.user_id AND fr1.status = 'pending'
                     # Имеет входящий запрос в друзья
                     LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = tu.user_id AND fr2.to_id = u.id AND fr2.status = 'pending'
-                    WHERE tu.user_id = :user_id AND b.user_id IS NULL AND u.online = 1 AND (mu.dtime_delete IS NULL OR f.id IS NOT NULL)
+                    WHERE tu.user_id = :user_id AND b.user_id IS NULL AND u.online = 1
                     GROUP BY u.id
                     ORDER BY t.updated DESC
                     LIMIT :limit
@@ -339,6 +339,7 @@ class ContactsManager
                 ";
                 break;
             case self::TYPE_FRIENDS_ONLINE:
+                throw new Exception('Устарело');
                 $sql = "
                     SELECT
                       u.id AS uId, # ID собеседника
@@ -392,7 +393,7 @@ class ContactsManager
                       p.id AS pId, # ID аватара
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-                      SUM(IF(mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
+                      SUM(IF(m.author_id != tu.user_id AND mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
                       f.id IS NOT NULL AS isFriend, # Является ли другом
                       fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
                       fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
@@ -404,8 +405,8 @@ class ContactsManager
                     # Получение информации о диалоге
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
-                    LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = tu.user_id
+                    RIGHT JOIN messaging__messages m ON m.thread_id = t.id
+                    JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.user_id = tu.user_id AND mu.dtime_delete IS NULL
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом
@@ -416,7 +417,7 @@ class ContactsManager
                     LEFT OUTER JOIN friend_requests fr1 ON fr1.from_id = u.id AND fr1.to_id = tu.user_id AND fr1.status = 'pending'
                     # Имеет входящий запрос в друзья
                     LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = tu.user_id AND fr2.to_id = u.id AND fr2.status = 'pending'
-                    WHERE tu.user_id = :user_id AND b.user_id IS NULL AND (mu.dtime_delete IS NULL OR f.id IS NOT NULL) AND ({searchCondition})
+                    WHERE tu.user_id = :user_id AND b.user_id IS NULL AND ({searchCondition})
                     GROUP BY u.id
                     ORDER BY t.updated DESC
                     LIMIT :limit
@@ -461,6 +462,7 @@ class ContactsManager
                     # Имеет входящий запрос в друзья
                     LEFT OUTER JOIN friend_requests fr2 ON fr2.from_id = tu.user_id AND fr2.to_id = u.id AND fr2.status = 'pending'
                     WHERE tu.user_id = :user_id #AND b.user_id IS NULL
+                    GROUP BY uId
                     LIMIT 1
 					
 					UNION

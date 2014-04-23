@@ -51,31 +51,15 @@ class WebUser extends CWebUser
         return parent::beforeLogin($id, $states, $fromCookie);
     }
 
-    public function loginRequired()
+    public function getRememberDuration()
     {
-        $app=Yii::app();
-        $request=$app->getRequest();
+        return 3600*24*14;
+    }
 
-        if(!$request->getIsAjaxRequest())
-        {
-            $this->setReturnUrl($request->getUrl());
-            if(($url=$this->loginUrl)!==null)
-            {
-                if(is_array($url))
-                {
-                    $route=isset($url[0]) ? $url[0] : $app->defaultController;
-                    $url=$app->createUrl($route,array_splice($url,1));
-                }
-                $this->setState('openLogin', 1);
-                $request->redirect($url);
-            }
-        }
-        elseif(isset($this->loginRequiredAjaxResponse))
-        {
-            echo $this->loginRequiredAjaxResponse;
-            Yii::app()->end();
-        }
-
-        throw new CHttpException(403,Yii::t('yii','Login Required'));
+    public function login($identity, $duration = null)
+    {
+        if ($duration === null)
+            $duration = $this->getRememberDuration();
+        return parent::login($identity, $duration);
     }
 }

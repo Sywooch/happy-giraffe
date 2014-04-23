@@ -34,8 +34,8 @@ Yii::app()->clientScript
 <div id="reg-step4" class="popup popup-sign popup-sign__reg-step3">
 <div class="popup-sign_hold">
 <div class="popup-sign_top">
-    <div class="popup-sign_t">Добро пожаловать, <?=Yii::app()->user->model->first_name?>!</div>
-    <div class="popup-sign_slogan">А какие клубы вам понравятся? Отметьте те, которые вам интересны.</div>
+    <div class="popup-sign_t"><?=Yii::app()->user->model->first_name?>, расскажите о вашей семье</div>
+    <div class="popup-sign_slogan">Укажите состав вашей семьи и мы будем стараться формировать материал именно для вас</div>
 </div>
 <div class="b-family-structure clearfix">
 <div class="b-family-structure_upload">

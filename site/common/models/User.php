@@ -1,7 +1,5 @@
 <?php
 
-Yii::import('site.frontend.modules.onlineManager.widgets.OnlineManagerWidget');
-
 /**
  * This is the model class for table "user".
  *
@@ -1602,46 +1600,5 @@ class User extends HActiveRecord
         $this->status = self::STATUS_ACTIVE;
         $this->email_confirmed = 1;
         $this->update(array('status', 'email_confirmed'));
-    }
-
-    public function online($login = false)
-    {
-        if ($this->online == 1) {
-            return false;
-        }
-
-        ScoreVisits::getInstance()->addTodayVisit($this->id);
-        self::clearCache($this->id);
-
-        $this->online = 1;
-        $this->last_active = date("Y-m-d H:i:s");
-
-        if ($login) {
-            $this->login_date = date('Y-m-d H:i:s');
-            $this->last_ip = $_SERVER['REMOTE_ADDR'];
-        }
-
-        $this->sendOnline();
-        return $this->update(array('online', 'last_active', 'login_date', 'last_ip'));
-    }
-
-    public function offline()
-    {
-        if ($this->online == 0) {
-            return false;
-        }
-
-        self::clearCache($this->id);
-
-        $this->online = 0;
-
-        $this->sendOnline();
-        return $this->update(array('online'));
-    }
-
-    protected function sendOnline()
-    {
-        $comet = new CometModel();
-        $comet->send($this->publicChannel, array('user' => OnlineManagerWidget::userToJson($this)), CometModel::TYPE_ONLINE_STATUS_CHANGE);
     }
 }

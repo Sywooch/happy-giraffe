@@ -20,7 +20,7 @@ class WebUser extends CWebUser
     {
         $model = $this->getModel();
         
-        $model->online(true);
+        OnlineManager::online($model, true);
 
         if (! $fromCookie) {
             Yii::import('site.frontend.modules.cook.models.*');
@@ -34,7 +34,7 @@ class WebUser extends CWebUser
     {
         $model = $this->getModel();
 
-        $model->offline();
+        OnlineManager::offline($model);
 
         unset(Yii::app()->request->cookies['not_guest']);
     }

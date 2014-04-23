@@ -37,7 +37,6 @@ class OnlineUsersCommand extends CConsoleCommand
 		Yii::import('site.frontend.modules.scores.components.*');
 		Yii::import('site.frontend.modules.scores.models.*');
 		Yii::import('site.frontend.modules.scores.models.input.*');
-		Yii::import('site.frontend.modules.onlineManager.widgets.OnlineManagerWidget');
 
         parent::init();
 	}
@@ -66,7 +65,7 @@ class OnlineUsersCommand extends CConsoleCommand
             $user = UserCache::getUserByCache($channel);
             if ($user !== null)
             {
-                $user->online();
+                OnlineManager::online($user);
             }
         }
     }
@@ -98,10 +97,10 @@ class OnlineUsersCommand extends CConsoleCommand
         $user = UserCache::getUserByCache($event['id']);
         if ($user !== null) {
             if ($event['event'] == 'online') {
-                $user->online();
+                OnlineManager::online($user);
                 echo 'Пользователь #' . $user->id . ' снова в сети!' . "\n";
             } else {
-                $user->offline();
+                OnlineManager::offline($user);
                 echo 'Пользователь #' . $user->id . ' покидает нас :(' . "\n";
             }
         }
@@ -144,7 +143,7 @@ class OnlineUsersCommand extends CConsoleCommand
 
 			foreach ($list as $user)
 			{
-				$user = $this->getUserByCache($user);
+				$user = UserCache::GetUserCache($user);
 				if (!empty($user))
 				{
 					Scoring::visit($user->id);

@@ -2,6 +2,8 @@
 
 class OnlineUsersCommand extends CConsoleCommand
 {
+    const CHECK_PERIODICITY = 300;
+
     /**
      * Сегодняшняя дата
      *
@@ -37,6 +39,9 @@ class OnlineUsersCommand extends CConsoleCommand
 		Yii::import('site.frontend.modules.scores.components.*');
 		Yii::import('site.frontend.modules.scores.models.*');
 		Yii::import('site.frontend.modules.scores.models.input.*');
+
+        // Записываем экземпляр класса в свойство Dklab_Realplexor
+        $this->rpl = Yii::app()->comet;
 
         parent::init();
 	}
@@ -77,9 +82,6 @@ class OnlineUsersCommand extends CConsoleCommand
      */
     protected function prepare()
     {
-        // Записываем экземпляр класса в свойство Dklab_Realplexor
-        $this->rpl = Yii::app()->comet;
-
         // Устанавливаем текущую дату (необходимо для достижений)
         $this->currentDay = date("Y-m-d");
 
@@ -114,10 +116,18 @@ class OnlineUsersCommand extends CConsoleCommand
     {
         $this->prepare();
 
-        while (true)
+        $i = 0;
+        while ($i++)
         {
+            $check = ($i % self::CHECK_PERIODICITY) == 0;
+
             // Начисление достижений
 			$this->checkScoresForNewDay();
+
+            // Если на этом шаге надо делать проверку - сразу же получим список онлайн-каналов
+            if ($check) {
+                $online = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
+            }
 
             // Выберем все события
             $events = $this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
@@ -127,10 +137,50 @@ class OnlineUsersCommand extends CConsoleCommand
                 $this->handleEvent($event);
             }
 
+            // Проверим
+            if ($check) {
+                $this->check($online);
+            }
+
             // Ждем
             sleep(1);
         }
     }
+
+    public function actionCheck()
+    {
+        $online = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
+        $this->check($online);
+    }
+
+    /**
+     * Проверяет, соответствует ли состояние таблицы в БД данным плексора
+     */
+    protected function check($online)
+    {
+        $offlineByMistake = Yii::app()->db->createCommand()
+            ->select('users.id')
+            ->from('users')
+            ->join('im__user_cache', 'im__user_cache.user_id = users.id')
+            ->where(array('AND', 'users.online = 0', array('IN', 'im__user_cache.cache', $online)))->queryRow(false);
+
+        $onlineByMistake = Yii::app()->db->createCommand()
+            ->select('users.id')
+            ->from('users')
+            ->join('im__user_cache', 'im__user_cache.user_id = users.id')
+            ->where(array('AND', 'users.online = 1', array('NOT IN', 'im__user_cache.cache', $online)))->queryRow(false);
+
+        $str = '';
+        if (! empty ($offlineByMistake)) {
+            $str .= 'Оффлайн по ошибке: ' . implode(', ', $offlineByMistake);
+        }
+        if (! empty ($onlineByMistake)) {
+            $str .= 'Оффлайн по ошибке: ' . implode(', ', $onlineByMistake);
+        }
+        echo $str;
+    }
+
+
 
 	/**
 	 * Начисление достижений
@@ -139,7 +189,7 @@ class OnlineUsersCommand extends CConsoleCommand
 	{
 		if ($this->currentDay != date("Y-m-d") && date("i") >= 15)
 		{
-			$list = $this->rpl->cmdOnline();
+			$list = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
 
 			foreach ($list as $user)
 			{

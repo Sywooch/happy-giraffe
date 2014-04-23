@@ -43,12 +43,21 @@ if (! Yii::app()->user->isGuest)
     ?></title>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <!-- including .css-->
-    <link rel="stylesheet" type="text/css" href="/new/css/all1.css" />
+    <link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" /> 
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
     <script src="/new/javascript/jquery.tooltipster.js"></script>
     <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
     <!-- wisywig-->
     <script src="/new/redactor/redactor.js"></script>
+
+    <script type="text/javascript" src="/javascripts/helium.js"></script>
+    <script type="text/javascript">
+            window.addEventListener('load', function(){
+
+                // helium.init();
+
+            }, false);
+        </script>
 </head>
 <body class="body<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
 <div class="layout-container">

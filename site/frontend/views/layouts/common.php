@@ -35,8 +35,8 @@
         $cs = Yii::app()->clientScript;
         $cs
             ->registerCssFile('/redactor/redactor.css')
-            ->registerCssFile('/stylesheets/common.css')
-            ->registerCssFile('/stylesheets/global.css')
+            ->registerCssFile('/stylesheets/common.dev.css')
+            ->registerCssFile('/stylesheets/global.dev.css')
             ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext')
 
             ->registerCoreScript('jquery')
@@ -50,6 +50,7 @@
             ->registerScriptFile('/javascripts/fox.js')
             ->registerScriptFile('/javascripts/jquery.autosize.min.js')
             ->registerScriptFile('/javascripts/jquery.preload.min.js')
+            ->registerScriptFile('/javascripts/helium.js')
         ;
         if (!empty($this->meta_description))
             $cs->registerMetaTag(trim($this->meta_description), 'description');
@@ -57,7 +58,13 @@
         if (!empty($this->meta_keywords))
             $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
         ?>
+        <script type="text/javascript">
+            window.addEventListener('load', function(){
 
+                // helium.init();
+
+            }, false);
+        </script>
         <!--[if IE 7]>
             <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
         <![endif]-->

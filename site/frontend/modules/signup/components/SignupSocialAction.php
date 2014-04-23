@@ -13,7 +13,7 @@ class SignupSocialAction extends SocialAction
         $this->successCallback = function($eauth) use ($action) {
             $identity = new SocialUserIdentity($eauth);
             if ($identity->authenticate()) {
-                Yii::app()->user->login($identity, 3600*24*30);
+                Yii::app()->user->login($identity);
                 $eauth->redirect(Yii::app()->user->returnUrl);
             } else {
                 if ($identity->errorCode == SocialUserIdentity::ERROR_NOT_ASSOCIATED) {
@@ -22,6 +22,11 @@ class SignupSocialAction extends SocialAction
                         'attributes' => $eauth->getAttributes(),
                         'serviceName' => $eauth->getServiceName(),
                         'fromLogin' => $action->fromLogin,
+                    ));
+                } elseif ($identity->errorCode == SocialUserIdentity::ERROR_INACTIVE) {
+                    $eauth->component->setRedirectView('signup.views.activateRedirect');
+                    $eauth->redirect(null, array(
+                        'attributes' => $identity->getUserModel()->getAttributes(),
                     ));
                 } else {
                     header('Content-Type: text/html; charset=utf-8');

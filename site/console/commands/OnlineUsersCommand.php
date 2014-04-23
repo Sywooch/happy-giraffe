@@ -129,7 +129,7 @@ class OnlineUsersCommand extends CConsoleCommand
             }
 
             // Ждем
-            sleep(1);
+            sleep(10);
         }
     }
 

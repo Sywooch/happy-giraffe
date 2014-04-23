@@ -120,6 +120,7 @@ class OnlineUsersCommand extends CConsoleCommand
 			$this->checkScoresForNewDay();
 
             // Выберем все события
+            echo "Watching with pos=" . $this->pos . "\n";
             $events = $this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
 
             // Обработаем события

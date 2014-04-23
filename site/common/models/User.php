@@ -1609,9 +1609,6 @@ class User extends HActiveRecord
         ScoreVisits::getInstance()->addTodayVisit($this->id);
         self::clearCache($this->id);
 
-        $comet = new CometModel();
-        $comet->send($this->publicChannel, array('user' => OnlineManagerWidget::userToJson($this)), CometModel::TYPE_ONLINE_STATUS_CHANGE);
-
         $this->online = 1;
         $this->last_active = date("Y-m-d H:i:s");
 

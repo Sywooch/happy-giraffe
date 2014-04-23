@@ -50,21 +50,17 @@ class OnlineUsersCommand extends CConsoleCommand
         // Выставляем всем пользователям оффлайн
         Yii::app()->db->createCommand()->update('users', array('online' => '0'));
 
-        // Выставлем онлайн тем, кто сейчас онлайн
-        $list = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
-        print_r($list);
-
         // Запрашиваем фейковое событие, именно с него начнем обработку
         $fakeEvent = $this->rpl->cmdWatch(0, UserCache::CHANNEL_PREFIX);
-        print_r($fakeEvent);
-        /*
+        /**
          * Вычитание единицы связано с магией реалплексора - при watch с 0 позиции он возвращает ФЕЙКОВОЕ событие с
          * неким id, но следующее РЕАЛЬНОЕ событие будет иметь не следующий порядковый номер после фейкового, как
          * ожидается, а такой же. Соответственно, чтобы его не пропустить, нужно вычесть единицу.
          */
         $this->pos = $fakeEvent[0]['pos'] - 1;
 
-
+        // Выставлем онлайн тем, кто сейчас онлайн
+        $list = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
         foreach ($list as $channel)
         {
             $user = UserCache::getUserByCache($channel);
@@ -99,7 +95,6 @@ class OnlineUsersCommand extends CConsoleCommand
      */
     protected function handleEvent($event)
     {
-        print_r($event);
         $user = UserCache::getUserByCache($event['id']);
         if ($user !== null) {
             if ($event['event'] == 'online') {
@@ -135,7 +130,7 @@ class OnlineUsersCommand extends CConsoleCommand
             }
 
             // Ждем
-            sleep(10);
+            sleep(1);
         }
     }
 

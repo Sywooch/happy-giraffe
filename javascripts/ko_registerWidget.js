@@ -31,10 +31,18 @@ function RegisterWidgetViewModel(data, form) {
     }
 
     self.uploadPhoto = function() {
+        self.avatar.draftImgSrc(self.avatar.imgSrc());
         self.currentStep(self.STEP_PHOTO);
     }
 
     self.saveAvatar = function() {
+        self.avatar.imgSrc(self.avatar.draftImgSrc());
+        self.avatar.draftImgSrc('');
+        self.currentStep(self.STEP_REG2);
+    }
+
+    self.cancelAvatar = function() {
+        self.avatar.draftImgSrc('');
         self.currentStep(self.STEP_REG2);
     }
 
@@ -84,8 +92,18 @@ function RegisterWidgetViewModel(data, form) {
 function UserLocation(countries) {
     var self = this;
 
+    //опции страны для select2
+    self.countrySettings = {
+        width: '100%',
+        minimumResultsForSearch: -1,
+        dropdownCssClass: 'select2-drop__search-off',
+        escapeMarkup: function(m) { return m; },
+        placeholder: 'Страна'
+    }
+
+    //опции города для select2
     self.citySettings = {
-        minimumInputLength: 2,
+        //minimumInputLength: 2,
         width: '100%',
         dropdownCssClass: 'select2-drop__search-on',
         escapeMarkup: function(m) { return m; },
@@ -95,13 +113,15 @@ function UserLocation(countries) {
             data: function (term, page) {
                 return {
                     term: term,
+                    pageLimit: 10,
+                    page: page,
                     country_id: self.country_id()
                 };
             },
             results: function (data, page) {
                 var results = [];
-                for (var i in data) {
-                    var city = data[i];
+                for (var i in data.cities) {
+                    var city = data.cities[i];
 
                     var name = city.name;
                     if (city.type)
@@ -116,7 +136,7 @@ function UserLocation(countries) {
                         desc : desc
                     });
                 }
-                return { results : results };
+                return { results : results, more : data.more };
             }
         },
         formatResult: function(city, container, query, escapeMarkup) {
@@ -132,7 +152,20 @@ function UserLocation(countries) {
     self.city_id = ko.observable(null);
     self.country_id = ko.observable(null);
     self.availableCountries = ko.utils.arrayMap(countries, function (item) {
-        return new Country(item.id, item.name, item.code);
+        return new Country(item);
+    });
+
+    self.country = ko.computed(function() {
+        if (self.country_id() === null)
+            return null;
+
+        return ko.utils.arrayFirst(self.availableCountries, function(country) {
+            return country.id == self.country_id();
+        });
+    });
+
+    self.country_id.subscribe(function() {
+        self.city_id(null);
     });
 
     $('#RegisterFormStep2_city_id').on('select2-open', function() {
@@ -141,16 +174,18 @@ function UserLocation(countries) {
     });
 }
 
-function Country(id, name, code) {
-    this.id = id;
-    this.name = name;
-    this.code = code;
+function Country(data) {
+    this.id = data.id;
+    this.name = data.name;
+    this.code = data.code;
+    this.citiesFilled = data.citiesFilled;
 };
 
 function UserAvatar(parent) {
     var self = this;
 
-    self.imgSrc = ko.observable(null);
+    self.imgSrc = ko.observable('');
+    self.draftImgSrc = ko.observable('');
     self.coords = null;
 
     self.showPreview = function(coords) {
@@ -196,7 +231,7 @@ function UserAvatar(parent) {
     }
 
     self.clear = function() {
-        self.imgSrc(null);
+        self.draftImgSrc('');
     }
 
     $('#AvatarUploadForm_image').fileupload({
@@ -208,7 +243,7 @@ function UserAvatar(parent) {
             $('.img-upload').addClass('img-upload__load');
         },
         done: function (e, data) {
-            self.imgSrc(data.result.imgSrc);
+            self.draftImgSrc(data.result.imgSrc);
             $('.img-upload').removeClass('img-upload__load');
         },
         progressall: function (e, data) {

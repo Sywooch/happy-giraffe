@@ -150,12 +150,7 @@ class OnlineUsersCommand extends CConsoleCommand
     public function actionCheck()
     {
         $online = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
-        $t = microtime();
         $this->check($online);
-        echo (microtime() - $t) . "\n";
-        $t = microtime();
-        $this->check2($online);
-        echo (microtime() - $t) . "\n";
     }
 
     /**
@@ -185,6 +180,9 @@ class OnlineUsersCommand extends CConsoleCommand
         echo $str;
     }
 
+    /**
+     * Проверяет, соответствует ли состояние таблицы в БД данным плексора
+     */
     protected function check2($online)
     {
         $users = Yii::app()->db->createCommand()

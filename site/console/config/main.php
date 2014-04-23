@@ -23,6 +23,8 @@ return array(
         'site.frontend.extensions.directmongosuite.*',
         'site.frontend.modules.antispam.models.*',
         'site.frontend.modules.antispam.components.*',
+        'site.frontend.modules.onlineManager.widgets.*',
+        'site.frontend.modules.onlineManager.components.*',
     ),
     'behaviors' => array(
         'edms' => array(

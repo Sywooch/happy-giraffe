@@ -121,7 +121,6 @@ class OnlineUsersCommand extends CConsoleCommand
 			$this->checkScoresForNewDay();
 
             // Выберем все события
-            echo "Watching with pos=" . $this->pos . "\n";
             $events = $this->rpl->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
 
             // Обработаем события
@@ -132,17 +131,6 @@ class OnlineUsersCommand extends CConsoleCommand
             // Ждем
             sleep(1);
         }
-    }
-
-    public function actionTest($pos = 0)
-    {
-        $events = Yii::app()->comet->cmdWatch($this->pos, UserCache::CHANNEL_PREFIX);
-        print_r($events);
-    }
-
-    public function actionCache($userId)
-    {
-        echo UserCache::GetUserCache($userId);
     }
 
 	/**

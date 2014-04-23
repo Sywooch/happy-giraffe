@@ -180,37 +180,6 @@ class OnlineUsersCommand extends CConsoleCommand
         echo $str;
     }
 
-    /**
-     * Проверяет, соответствует ли состояние таблицы в БД данным плексора
-     */
-    protected function check2($online)
-    {
-        $users = Yii::app()->db->createCommand()
-            ->select('users.id, users.online, im__user_cache.cache')
-            ->from('users')
-            ->join('im__user_cache', 'im__user_cache.user_id = users.id')
-            ->queryAll();
-
-        $offlineByMistake = array();
-        $onlineByMistake = array();
-
-        foreach ($users as $u) {
-            if ($u['online'] == 0 && in_array($u['cache'], $online))
-                $offlineByMistake[] = $u['id'];
-            if ($u['online'] == 1 && ! in_array($u['cache'], $online))
-                $onlineByMistake[] = $u['id'];
-        }
-
-        $str = '';
-        if (! empty ($offlineByMistake)) {
-            $str .= 'Оффлайн по ошибке: ' . implode(', ', $offlineByMistake);
-        }
-        if (! empty ($onlineByMistake)) {
-            $str .= 'Оффлайн по ошибке: ' . implode(', ', $onlineByMistake);
-        }
-        echo $str;
-    }
-
 	/**
 	 * Начисление достижений
 	 */

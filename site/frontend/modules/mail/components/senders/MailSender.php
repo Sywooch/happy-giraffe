@@ -120,7 +120,6 @@ abstract class MailSender extends CComponent
      */
     protected function sendMessage(MailMessage $message)
     {
-        echo '234';
         if (Yii::app() instanceof CWebApplication) {
             echo $message->getBody();
         } else {

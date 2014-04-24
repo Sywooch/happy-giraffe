@@ -12,6 +12,7 @@ class NotificationsModule extends CWebModule
 			'notifications.models.*',
 			'notifications.components.*',
 		));
+        Yii::app()->clientScript->useAMD = true;
 	}
 
 	public function beforeControllerAction($controller, $action)

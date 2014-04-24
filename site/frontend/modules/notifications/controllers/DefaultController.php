@@ -2,7 +2,7 @@
 
 class DefaultController extends HController
 {
-    public $layout = 'notifications';
+    public $layout = '//layouts/new/main';
 
     public function filters()
     {
@@ -43,7 +43,7 @@ class DefaultController extends HController
                 'empty' => empty($list)
             ));
         } else
-            $this->render('index', array('list' => $list, 'read' => false));
+            $this->render('index_v2', array('list' => $list, 'read' => false));
     }
 
     public function actionRead($page = 0)

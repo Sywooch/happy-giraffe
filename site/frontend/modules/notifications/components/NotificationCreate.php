@@ -99,7 +99,7 @@ class NotificationCreate
     public static function generateLikes()
     {
         $data = HGLike::model()->findLastDayAuthorContentLikes();
-        self::generateSummaryNotification($data, 'NotificationLikes');
+        return self::generateSummaryNotification($data, 'NotificationLikes');
     }
 
     /**
@@ -137,7 +137,6 @@ class NotificationCreate
                 }
 
             usort($author_articles, array('NotificationCreate', 'compareCount'));
-            array_slice($author_articles, 0, 10);
 
             //создаем уведомление для автора
             $favourite_articles = array();

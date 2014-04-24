@@ -179,15 +179,15 @@ class Notification extends HMongoModel
      * @param $page int номер страницы с уведомлениями
      * @return Notification[]
      */
-    public function getNotificationsList($user_id, $read = 0, $page = 0)
+    public function getNotificationsList($user_id, $read = 0, $page = 0, $perPage = self::PAGE_SIZE)
     {
         $cursor = $this->getCollection()->find(array(
             'recipient_id' => (int)$user_id,
             'read' => $read
-        ))->sort(array('updated' => -1))->limit(self::PAGE_SIZE)->skip($page * self::PAGE_SIZE);
+        ))->sort(array('updated' => -1))->limit($perPage)->skip($page * $perPage);
 
         $list = array();
-        for ($i = 0; $i < self::PAGE_SIZE; $i++) {
+        for ($i = 0; $i < $perPage; $i++) {
             if ($cursor->hasNext())
                 $list [] = self::createNotification($cursor->getNext());
         }

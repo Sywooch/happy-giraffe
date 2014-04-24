@@ -12,7 +12,24 @@ class Notification extends HMongoModel
      * @var Notification
      */
     private static $_instance;
+    private $_relatedModel = null;
     protected $_collection_name = 'notifications_new';
+    
+    public function attributeNames()
+    {
+        return array(
+            "type",
+            "entity",
+            "entity_id",
+            //"unread_model_ids",
+            //"read_model_ids",
+            "updated",
+            //"recipient_id",
+            //"read",
+            "count",
+            "relatedModel"
+        );
+    }
 
     const USER_CONTENT_COMMENT = 0;
     const REPLY_COMMENT = 1;
@@ -35,6 +52,15 @@ class Notification extends HMongoModel
 
     protected function __clone()
     {
+    }
+    
+    public function getRelatedModel()
+    {
+        if(is_null($this->_relatedModel))
+        {
+            $this->_relatedModel = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        }
+        return $this->_relatedModel;
     }
 
     /**
@@ -177,21 +203,38 @@ class Notification extends HMongoModel
      * @param $user_id int id пользователя
      * @param int $read
      * @param $page int номер страницы с уведомлениями
+     * @param $withRelated bool Если true, то жадно загружает связанные модели из mysql
      * @return Notification[]
      */
-    public function getNotificationsList($user_id, $read = 0, $page = 0)
+    public function getNotificationsList($user_id, $read = 0, $page = 0, $withRelated = false)
     {
         $cursor = $this->getCollection()->find(array(
             'recipient_id' => (int)$user_id,
             'read' => $read
         ))->sort(array('updated' => -1))->limit(self::PAGE_SIZE)->skip($page * self::PAGE_SIZE);
 
+        
         $list = array();
+        $related = array();
         for ($i = 0; $i < self::PAGE_SIZE; $i++) {
-            if ($cursor->hasNext())
-                $list [] = self::createNotification($cursor->getNext());
+            if ($cursor->hasNext()) {
+                $list[$i] = self::createNotification($cursor->getNext());
+                if($withRelated)
+                {
+                    $related[$list[$i]->entity][$list[$i]->entity_id] = $i;
+                }
+            }
         }
-
+        foreach ($related as $class => $value)
+        {
+            $ids = array_keys($value);
+            $models = CActiveRecord::model($class)->findAllByAttributes(array('id' => $ids));
+            foreach ($models as $model)
+            {
+                $index = $related[$class][$model->id];
+                $list[$index]->_relatedModel = $model;
+            }
+        }
         return $list;
     }
 

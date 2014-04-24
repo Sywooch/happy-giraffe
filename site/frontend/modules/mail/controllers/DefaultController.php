@@ -57,6 +57,7 @@ class DefaultController extends HController
     {
         $sender = new MailSenderDialogues();
         if ($sendAll !== false) {
+            echo '123';
             $sender->sendAll();
         } else {
             $sender->showForUser(Yii::app()->user->model);
@@ -67,7 +68,6 @@ class DefaultController extends HController
     {
         $sender = new MailSenderNotification();
         if ($sendAll !== false) {
-            echo '123';
             $sender->sendAll();
         } else {
             $sender->showForUser(Yii::app()->user->model);

@@ -59,7 +59,7 @@ class DefaultController extends HController
         if ($sendAll !== false) {
             $sender->sendAll();
         } else {
-            $sender->showForUser(Yii::app()->user->model);
+            $sender->preview(Yii::app()->user->model);
         }
     }
 
@@ -69,7 +69,7 @@ class DefaultController extends HController
         if ($sendAll !== false) {
             $sender->sendAll();
         } else {
-            $sender->showForUser(Yii::app()->user->model);
+            $sender->preview(Yii::app()->user->model);
         }
     }
 
@@ -79,7 +79,7 @@ class DefaultController extends HController
         if ($sendAll !== false) {
             $sender->sendAll();
         } else {
-            $sender->showForUser(Yii::app()->user->model);
+            $sender->preview(Yii::app()->user->model);
         }
     }
 }

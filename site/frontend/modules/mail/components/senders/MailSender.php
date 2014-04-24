@@ -45,7 +45,7 @@ abstract class MailSender extends CComponent
         }
     }
 
-    public function showForUser(User $user)
+    public function preview(User $user)
     {
         try {
             if ($this->beforeSend()) {
@@ -120,18 +120,14 @@ abstract class MailSender extends CComponent
      */
     protected function sendMessage(MailMessage $message)
     {
-        if (Yii::app() instanceof CWebApplication) {
-            echo $message->getBody();
-        } else {
-            switch ($this->debugMode) {
-                case self::DEBUG_DEVELOPMENT:
-                case self::DEBUG_TESTING:
-                    self::sendInternal($message);
-                    break;
-                case self::DEBUG_PRODUCTION:
-                    $this->addToQueue($message);
-                    break;
-            }
+        switch ($this->debugMode) {
+            case self::DEBUG_DEVELOPMENT:
+            case self::DEBUG_TESTING:
+                self::sendInternal($message);
+                break;
+            case self::DEBUG_PRODUCTION:
+                $this->addToQueue($message);
+                break;
         }
     }
 

@@ -10,6 +10,7 @@ if (empty($this->meta_description))
         <!-- Название блюда должно иметь класс fn  для микроформатов -->
         <h1 class="b-article_t fn">
             <?=$recipe->title?>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $recipe)); ?>
         </h1>
 
         <?php $this->renderPartial('//banners/_post_header', array('data' => $recipe)); ?>

@@ -532,4 +532,45 @@ class ContactsManager
             'profileUrl' => $user->getUrl(),
         );
     }
+
+    public static function getContactsForDelivery($userId, $limit, $after = null)
+    {
+        $rows = MessagingMessageUser::model()->unread()->user($userId)->findAll(array(
+            'select' => 'author.*, COUNT(*) AS unreadCount',
+            'with' => array(
+                'message' => array(
+                    'joinType' => 'INNER JOIN',
+                    'scopes' => array(
+                        'newer' => $after,
+                    ),
+                    'with' => array(
+                        'author' => array(
+                            'with' => 'address',
+                        ),
+                    ),
+                ),
+            ),
+            'limit' => $limit,
+            'group' => 'author.id',
+            'order' => 't.message_id ASC',
+        ));
+
+        return array_map(function($row) {
+            return new MessagingContact($row->message->author, $row->unreadCount);
+        }, $rows);
+    }
+
+    public static function getContactsForDeliveryCount($userId, $after = null)
+    {
+        return MessagingMessageUser::model()->user($userId)->unread()->count(array(
+            'select' => 'COUNT(DISTINCT message.author_id) AS contactsCount', // yii требует использовать алиас, но он тут не нужен и обращения к нему нигде нет
+            'with' => array(
+                'message' => array(
+                    'scopes' => array(
+                        'newer' => $after,
+                    ),
+                ),
+            ),
+        ));
+    }
 }

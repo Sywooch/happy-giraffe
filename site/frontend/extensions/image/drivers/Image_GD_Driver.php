@@ -405,4 +405,12 @@ class Image_GD_Driver extends Image_Driver {
 		return $img;
 	}
 
+    public function text($properties)
+    {
+        $img = $this->tmp_image;
+        imagettftext($img, $properties['size'], $properties['angle'], $properties['x'], $properties['y'], imagecolorallocate($img, $properties['color'][0], $properties['color'][1], $properties['color'][2]), $properties['fontfile'], $properties['text']);
+        $this->tmp_image = $img;
+        return $img;
+    }
+
 } // End Image GD Driver

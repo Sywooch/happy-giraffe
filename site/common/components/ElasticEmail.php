@@ -268,4 +268,65 @@ class ElasticEmail extends CApplicationComponent
             self::deleteContactFromList($user->email, 'new_list2');
         }
     }
+
+    public static function uploadAttachment($content, $fileName)
+    {
+        $res = "";
+        $header = "PUT /attachments/upload?username=".urlencode(self::USERNAME)."&api_key=".urlencode(self::KEY)."&file=".urlencode($fileName)." HTTP/1.0\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Content-Length: " . strlen($content) . "\r\n\r\n";
+        $fp = @fsockopen("ssl://api.elasticemail.com", 443, $errno, $errstr, 30);
+        if(!$fp)
+        {
+            return "ERROR. Could not open connection";
+        }
+        else
+        {
+            fputs ($fp, $header.$content);
+            while (!feof($fp))
+            {
+                $res .= fread ($fp, 1024);
+            }
+            fclose($fp);
+        }
+        $res=substr($res,-9);
+        return $res;
+    }
+
+    public static function mailMerge($csv, $from, $fromName, $subject, $bodyText = null, $bodyHTML = null)
+    {
+        $csvName = 'mailmerge.csv';
+        $attachID = self::uploadAttachment($csv, $csvName);
+        $res = "";
+        $data = "username=".urlencode(self::USERNAME);
+        $data .= "&api_key=".urlencode(self::KEY);
+        $data .= "&from=".urlencode($from);
+        $data .= "&from_name=".urlencode($fromName);
+        $data .= "&subject=".urlencode($subject);
+        $data .= "&data_source=".urlencode($attachID);
+        $data .= '&charset='.urlencode('utf-8');
+        $data .= '&encodingtype='.urlencode('None');
+        $data .= '&encoding='.urlencode('None');
+        if($bodyHTML) $data .= "&body_html=".urlencode($bodyHTML);
+        if($bodyText) $data .= "&body_text=".urlencode($bodyText);
+
+        $header = "POST /mailer/send HTTP/1.0\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Content-Length: " . strlen($data) . "\r\n\r\n";
+        $fp = @fsockopen('ssl://api.elasticemail.com', 443, $errno, $errstr, 30);
+        if(!$fp)
+        {
+            return "ERROR. Could not open connection";
+        }
+        else
+        {
+            fputs ($fp, $header.$data);
+            while (!feof($fp))
+            {
+                $res .= fread ($fp, 1024);
+            }
+            fclose($fp);
+        }
+        return $res;
+    }
 }

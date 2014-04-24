@@ -389,12 +389,41 @@ class MessagingMessage extends HActiveRecord
      *
      * @return MessagingMessage Для цепочки вызовов
      */
-    public function older($date)
+    public function older($date = null)
     {
+        $this->dateCompare($date, '<');
+
+        return $this;
+    }
+
+    /**
+     * Именованное условие с параметрами.
+     * Загружает только сообщения новее указанного времени
+     *
+     * @param int $date
+     *
+     * @return MessagingMessage Для цепочки вызовов
+     */
+    public function newer($date = null)
+    {
+        $this->dateCompare($date, '>');
+
+        return $this;
+    }
+
+    protected function dateCompare($date, $sign)
+    {
+        if ($date === null)
+            return $this;
+
         $criteria = $this->dbCriteria;
         $alias = $this->tableAlias;
 
-        $criteria->addCondition('`' . $alias . '`.`created` < FROM_UNIXTIME(:older)');
+        if (is_int($date)) {
+            $criteria->addCondition('`' . $alias . '`.`created` ' . $sign . ' FROM_UNIXTIME(:older)');
+        } else {
+            $criteria->addCondition('`' . $alias . '`.`created` ' . $sign . ' :older');
+        }
 
         $criteria->params['older'] = $date;
 

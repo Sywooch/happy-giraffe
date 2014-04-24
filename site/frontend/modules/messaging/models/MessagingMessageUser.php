@@ -14,6 +14,7 @@
  */
 class MessagingMessageUser extends HActiveRecord
 {
+    public $unreadCount;
 
 	/**
 	 * Returns the static model of the specified AR class.

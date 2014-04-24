@@ -12,12 +12,17 @@ return array(
             'class' => 'system.cli.commands.MigrateCommand',
             'migrationPath' => 'site.common.migrations',
         ),
+        'email' => array(
+            'class' => 'site.frontend.modules.mail.commands.DefaultCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',
         'site.common.behaviors.*',
         'site.common.models.*',
         'site.common.helpers.*',
+        'site.frontend.components.*',
+        'site.frontend.helpers.*',
         'site.frontend.extensions.image.Image',
         'site.frontend.extensions.phpQuery.phpQuery',
         'site.frontend.extensions.directmongosuite.*',
@@ -25,6 +30,8 @@ return array(
         'site.frontend.modules.antispam.components.*',
         'site.frontend.modules.onlineManager.widgets.*',
         'site.frontend.modules.onlineManager.components.*',
+        'site.frontend.modules.geo.models.*',
+        'site.frontend.modules.geo.components.*',
     ),
     'behaviors' => array(
         'edms' => array(
@@ -33,13 +40,28 @@ return array(
         )
     ),
     'components' => array(
+        'log' => array(
+            'class' => 'CLogRouter',
+            'routes' => array(
+                array(
+                    'class' => 'JabberLogRoute',
+                    'file' => ' /etc/sendxmpprc_www',
+                    'name' => 'Warner',
+                    'room' => 'hg-tech-warnings@conference.jabber.ru',
+                    'levels' => 'error',
+                    'categories' => 'mail',
+                ),
+            ),
+        ),
         'indexden' => array(
             'class' => 'site.common.components.IndexDen',
             'apiUrl' => 'http://:tebadytarure@nygeme.api.indexden.com',
         ),
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
-            'servers'=>array(),
+            'servers' => array(
+                array('host' => '127.0.0.1', 'port' => 4730),
+            ),
         ),
         'request' => array(
             'hostInfo' => 'http://www.happy-giraffe.ru',
@@ -117,7 +139,7 @@ return array(
                 'keywords' => 100,
             ),
         ),
-        'urlManager'=>require_once(dirname(__FILE__).'/url.php'),
+        'urlManager'=>require_once(dirname(__FILE__).'/../../frontend/config/url.php'),
         'mc' => array(
             'class' => 'site.common.extensions.mailchimp.MailChimp',
             'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',

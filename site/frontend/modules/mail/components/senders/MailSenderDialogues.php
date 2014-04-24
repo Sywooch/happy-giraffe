@@ -19,7 +19,7 @@ class MailSenderDialogues extends MailSender
 
     protected function process(User $user)
     {
-        echo $user->id . "\n";
+        echo $user->id . " - ";
 
         $lastDelivery = MailDelivery::model()->getLastDelivery($user->id, 'dialogues');
         $after = $lastDelivery === null ? null : $lastDelivery->created;
@@ -33,6 +33,8 @@ class MailSenderDialogues extends MailSender
                 ),
             ),
         ));
+
+        echo $messagesCount . "\n";
 
         if ($messagesCount > 0) {
             $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);

@@ -5,7 +5,7 @@
  * @author Alex Kireev <alexk984@gmail.com>
  */
 
-class HMongoModel
+abstract class HMongoModel extends CModel
 {
     protected $_collection_name;
     protected $_db = 'happy_giraffe_db';

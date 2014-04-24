@@ -33,7 +33,7 @@ class DefaultController extends HController
     public function actionIndex($page = 0)
     {
         $this->pageTitle = 'Новые уведомления';
-        $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 0, $page);
+        $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 0, $page, true);
         NotificationRead::setReadSummaryNotifications($list);
 
         if (Yii::app()->request->isAjaxRequest) {

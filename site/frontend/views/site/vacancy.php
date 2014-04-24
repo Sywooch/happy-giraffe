@@ -53,6 +53,7 @@ $this->bodyClass = 'body__vacancy';
                         <li class="vacancy_li">Каждый день можно разрабатывать новые и интересные задачи.  Это отличная возможность получать знания.</li>
                         <li class="vacancy_li">Мы развиваем свой продукт, поэтому выбираем долгосрочные решения.</li>
                         <li class="vacancy_li">Никакого перебрасывания с проекта на проект. Мы “готовим” один продукт, поэтому будет возможность обустроить свое рабочее место.</li>
+                        <li class="vacancy_li">Достойную заработную плату (от  40 000 до 80 000 рублей)</li>
                     </ul>
                 </div>
             </div>
@@ -84,11 +85,11 @@ $this->bodyClass = 'body__vacancy';
                 </div>
             </div>
             <div class="vacancy_send display-n">
-                <h2 class="vacancy_about-t">Спасибо информация принята!</h2>
-                <div class="vacancy_send-tx">Наш менеджер свяжется с вами в ближайшее время.</div>
+                <h2 class="vacancy_about-t">Спасибо за ваш интерес!</h2>
+                <div class="vacancy_send-tx">Мы с вами свяжемся в ближайшее время.</div>
                 <div class="vacancy_help">
                     <span class="color-gray">Вы можете написать нам &nbsp;</span>
-                    <a href="">info@happy-giraffe.ru</a>
+                    <a href="mailto:info@happy-giraffe.ru">info@happy-giraffe.ru</a>
                 </div>
             </div>
             <div class="f-about">

@@ -329,8 +329,8 @@
                                         <div class="im-message_hold">
                                             <div class="im-message_t">
                                                 <span class="im-message_name" data-bind="text: from.fullName(), css: { 'im-message_name__self': isMy, 'im-message_name__friend': !isMy}"></span>
-                                                <!-- <span class="im-message_t-read" data-bind="visible: isMy && dtimeRead() && $parent.lastReadMessage() == $data">Сообщение прочитано</span>
-                                                <span class="im-message_t-read-no" data-bind="visible: isMy && !dtimeRead() && !cancelled()">Сообщение не прочитано</span>  -->
+                                                <!--<span class="im-message_t-read" data-bind="visible: isMy && dtimeRead() && $parent.lastReadMessage() == $data">Сообщение прочитано</span>-->
+                                                <span class="im-message_t-read-no" data-bind="visible: isMy && !dtimeRead() && !cancelled()">Сообщение не прочитано</span>
                                             </div>
                                             <div class="im-message_tx" data-bind="visible: !dtimeDelete() && !cancelled(), html: text"></div>
                                             <div class="im-message_tx color-gray" data-bind="visible: dtimeDelete()">Сообщение удалено. <a href="#" class="font-s" data-bind="click: restore">Восстановить</a></div>

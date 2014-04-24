@@ -1,14 +1,17 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 23/04/14
- * Time: 14:53
- * To change this template use File | Settings | File Templates.
+ * Управляет статусами пользователей на сайте
  */
 
 class OnlineManager
 {
+    /**
+     * Помечает пользователя как онлайн
+     *
+     * @param User $user    Пользователь
+     * @param bool $login   Вызван ли метод из аутентификацией пользователя на сайте
+     * @return bool         Удалось ли применить статус
+     */
     public static function online(User $user, $login = false)
     {
         if ($user->online == 1) {
@@ -30,6 +33,12 @@ class OnlineManager
         return $user->update(array('online', 'last_active', 'login_date', 'last_ip'));
     }
 
+    /**
+     * Помечает пользователя как оффлайн
+     *
+     * @param User $user    Пользователь
+     * @return bool         Удалось ли применить статус
+     */
     public static function offline(User $user)
     {
         if ($user->online == 0) {
@@ -44,6 +53,11 @@ class OnlineManager
         return $user->update(array('online'));
     }
 
+    /**
+     * Сообщает статус в публичный канал пользователя
+     *
+     * @param User $user    Пользователь
+     */
     protected static function sendOnline(User $user)
     {
         $comet = new CometModel();

@@ -2,7 +2,8 @@
 
 class OnlineUsersCommand extends CConsoleCommand
 {
-    const CHECK_PERIODICITY = 300;
+    const CHECK_PERIODICITY = 3600; // периодичность проверки
+    const SHUTDOWN_PERIODICITY = 86400; // периодичность отключения команды
 
     /**
      * Сегодняшняя дата
@@ -93,6 +94,8 @@ class OnlineUsersCommand extends CConsoleCommand
 
     /**
      * Обработка конкретного события onOff
+     *
+     * @param $event    Событие от плексора
      */
     protected function handleEvent($event)
     {
@@ -116,7 +119,7 @@ class OnlineUsersCommand extends CConsoleCommand
     }
 
     /**
-     * Вызов команды
+     * Основная команда
      */
     public function actionIndex()
     {
@@ -126,6 +129,7 @@ class OnlineUsersCommand extends CConsoleCommand
         while (true)
         {
             $i++;
+
             $check = ($i % self::CHECK_PERIODICITY) == 0;
 
             // Начисление достижений
@@ -149,11 +153,19 @@ class OnlineUsersCommand extends CConsoleCommand
                 $this->check($online);
             }
 
+            if (($i % self::SHUTDOWN_PERIODICITY) == 0) {
+                Yii::app()->end(1);
+            }
+
             // Ждем
             sleep(1);
         }
     }
 
+
+    /**
+     * Команда, вызывающая только проверку соответствия состояния БД
+     */
     public function actionCheck()
     {
         $online = $this->rpl->cmdOnline(UserCache::CHANNEL_PREFIX);
@@ -161,7 +173,9 @@ class OnlineUsersCommand extends CConsoleCommand
     }
 
     /**
-     * Проверяет, соответствует ли состояние таблицы в БД данным плексора
+     * Проверка соответствия состояния БД и данных плексора об онлайне
+     *
+     * @param $online   Список каналов онлайн
      */
     protected function check($online)
     {
@@ -208,20 +222,5 @@ class OnlineUsersCommand extends CConsoleCommand
 			$this->currentDay = date("Y-m-d");
 		}
 	}
-
-    /**
-     * Финал битвы экстрасенсов 2014 будет посвящен анализу этого метода
-     * http://hydra-media.cursecdn.com/dota2.gamepedia.com/2/29/Mystic_Staff_icon.png?version=a13d77c58e457102a665ec49d9853685
-     */
-    protected function mysticStaff()
-    {
-        // Мистика начало
-        $users = User::model()->findAll(array('select' => 'id', 'condition' => 'online=1'));
-        foreach ($users as $user)
-        {
-            Yii::app()->cache->delete('User_' . $user->id);
-        }
-        // Мистика конец
-    }
 }
 

@@ -27,21 +27,21 @@ class MailSenderDialogues extends MailSender
             'with' => array(
                 'message' => array(
                     'joinType' => 'INNER JOIN',
-                    'scopes' => array(
-                        'newer' => $after,
-                    ),
+//                    'scopes' => array(
+//                        'newer' => $after,
+//                    ),
                 ),
             ),
         ));
 
         echo $messagesCount . "\n";
 
-        if ($messagesCount > 0) {
-            $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
-            $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);
-            $message = new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount'));
-            $this->sendMessage($message);
-        }
+//        if ($messagesCount > 0) {
+//            $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
+//            $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);
+//            $message = new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount'));
+//            $this->sendMessage($message);
+//        }
     }
 
     protected function getUsersCriteria()

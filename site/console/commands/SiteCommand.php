@@ -224,6 +224,7 @@ class SiteCommand extends CConsoleCommand
     {
         Yii::app()->db->schema->getTables();
         Yii::app()->db->schema->refresh();
+        Yii::app()->clearGlobalState(ClientScript::RELEASE_ID_KEY);
     }
 
     public function actionCleanJsd()

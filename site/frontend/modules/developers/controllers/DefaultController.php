@@ -9,17 +9,17 @@ class DefaultController extends HController
         );
     }
 
-//    public function accessRules()
-//    {
-//        return array(
-//            array('allow',
-//                'roles' => array('developersModule'),
-//            ),
-//            array('deny',
-//                'users' => array('*'),
-//            ),
-//        );
-//    }
+    public function accessRules()
+    {
+        return array(
+            array('allow',
+                'roles' => array('developersModule'),
+            ),
+            array('deny',
+                'users' => array('*'),
+            ),
+        );
+    }
 
 	public function actionChangeIdentity($userId = null)
 	{
@@ -29,7 +29,7 @@ class DefaultController extends HController
             $identity = new DevelopesUserIdentity($userId);
             if ($identity->authenticate()) {
                 Yii::app()->user->login($identity);
-                $this->redirect(array('site/index'));
+                $this->redirect(array('/site/index'));
             } else {
                 echo $identity->errorMessage;
             }

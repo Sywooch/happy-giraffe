@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class MailSenderDialogues extends MailSender
+class MailSenderDialogues extends MailMassSender
 {
     public $debugMode = self::DEBUG_TESTING;
 

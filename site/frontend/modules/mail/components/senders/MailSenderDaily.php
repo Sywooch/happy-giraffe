@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class MailSenderDaily extends MailSender
+class MailSenderDaily extends MailMassSender
 {
     protected $debugMode = self::DEBUG_TESTING;
 

@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class MailSenderNotification extends MailSender
+class MailSenderNotification extends MailMassSender
 {
     public function process(User $user)
     {

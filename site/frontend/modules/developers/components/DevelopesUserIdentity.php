@@ -21,7 +21,8 @@ class DevelopesUserIdentity extends CBaseUserIdentity
 
     public function authenticate()
     {
-        if (false && ! Yii::app()->user->checkAccess('developersModule')) {
+        $developerId = $this->getDeveloperId();
+        if (! Yii::app()->getAuthManager()->checkAccess('developersModule', $developerId)) {
             $this->errorCode = self::ERROR_ACCESS_DENIED;
             $this->errorMessage = 'Ты ещё не готов';
         } else {
@@ -32,6 +33,7 @@ class DevelopesUserIdentity extends CBaseUserIdentity
             } else {
                 foreach ($model->attributes as $k => $v)
                     $this->setState($k, $v);
+                $this->setState('developerId', $developerId);
                 $this->errorCode = self::ERROR_NONE;
             }
         }
@@ -46,5 +48,11 @@ class DevelopesUserIdentity extends CBaseUserIdentity
     public function getName()
     {
         return $this->getState('first_name');
+    }
+    
+    public function getDeveloperId()
+    {
+        $developerId = Yii::app()->user->getState('developerId');
+        return ($developerId === null) ? Yii::app()->user->id : $developerId;
     }
 }

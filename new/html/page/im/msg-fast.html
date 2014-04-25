@@ -1,668 +1,667 @@
-<!DOCTYPE html>
-<html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Happy Giraffe</title>
-    <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-    <!-- including other jade works-->
-    <!-- ie8 -->
-    <!--+scripts(path)-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>
-      window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
-      
-    </script>
-    <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
-    <script src="/new/javascript/jquery.tooltipster.js"></script>
-    <script src="/new/javascript/jquery.magnific-popup.js"></script>
-    <script src="/new/javascript/baron.js"></script>
-    <script src="/new/javascript/select2.js"></script>
-    <script src="/new/redactor/redactor.js"></script>
-    <script src="/new/javascript/jquery.Jcrop.js"></script>
-    <script src="/new/javascript/common.js"></script>
-    <script src="/new/javascript/common-markup.js"></script>
-    <script src="//localhost:35729/livereload.js"></script>
-  </head>
-  <body class="body body__im">
-    <div class="layout-container">
-      <div class="error-serv display-n">
-        <div class="error-serv_hold"><span class="ico-error-smile margin-r5"></span>Произошла критическая ошибка. <a class="error-serv_a">Перезагрузить страницу</a></div>
-      </div>
-      <div class="layout-header clearfix">
-        <!-- header-fix-->
-        <script>
-          $(document).ready(function () {
-              $(window).on('scroll',function () {
-                  var contanerScroll = $(window).scrollTop();
-                  var header = $('.layout-header');
-                  console.log(header.height());
-                  if (contanerScroll > header.height() + header.offset().top) {
-                      $('.header-fix').fadeIn(400);
-                  } else {
-                      $('.header-fix').fadeOut(400);
-                  }
-              });
-          });
-        </script>
-        <div class="header-fix">
-          <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
-            <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header_i-arrow"></span></a>
-              <!-- header-drop-->
-              <div class="header-drop">
-                <div class="header-menu clearfix">
-                  <ul class="header-menu_ul">
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+<!DOCTYPE html><!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
+<!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title>
+  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
+  <!-- including other jade works-->
+  <!-- ie8 -->
+  <!--+scripts(path)-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    
+  </script>
+  <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <script src="/new/javascript/baron.js"></script>
+  <script src="/new/javascript/select2.js"></script>
+  <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <script src="/new/javascript/common.js"></script>
+  <script src="/new/javascript/common-markup.js"></script>
+  <script src="//localhost:35729/livereload.js"></script>
+</head>
+<body class="body body__im">
+  <div class="layout-container">
+    <div class="error-serv display-n">
+      <div class="error-serv_hold"><span class="ico-error-smile margin-r5"></span>Произошла критическая ошибка. <a class="error-serv_a">Перезагрузить страницу</a></div>
+    </div>
+    <div class="layout-header clearfix">
+      <!-- header-fix-->
+      <script>
+        $(document).ready(function () {
+            $(window).on('scroll',function () {
+                var contanerScroll = $(window).scrollTop();
+                var header = $('.layout-header');
+                console.log(header.height());
+                if (contanerScroll > header.height() + header.offset().top) {
+                    $('.header-fix').fadeIn(400);
+                } else {
+                    $('.header-fix').fadeOut(400);
+                }
+            });
+        });
+      </script>
+      <div class="header-fix">
+        <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
+          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+            <!-- header-drop-->
+            <div class="header-drop">
+              <div class="header-menu clearfix">
+                <ul class="header-menu_ul">
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                </ul>
+              </div>
+              <!-- header-drop_b-->
+              <div class="header-drop_b">
+                <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                <div class="club-list club-list__small clearfix">
+                  <ul class="club-list_ul clearfix">
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
                   </ul>
                 </div>
-                <!-- header-drop_b-->
-                <div class="header-drop_b">
-                  <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
-                  <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
-                  <div class="club-list club-list__small clearfix">
-                    <ul class="club-list_ul clearfix">
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"/></span></a></li>
+              </div>
+              <!-- /header-drop_b-->
+            </div>
+            <!-- /header-drop -->
+          </div>
+          <div class="header-fix-menu">
+            <ul class="header-menu_ul clearfix">
+              <!-- li.header-fix-menu_li
+              a.header-fix-menu_a(href='')
+                  span.header-fix-menu_tx прямой эфир
+              -->
+              <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /header-fix-->
+      <!-- header-->
+      <div class="header header__base">
+        <div class="header_hold clearfix">
+          <!-- logo-->
+          <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+          <!-- /logo-->
+          <!-- header-menu-->
+          <div class="header-menu">
+            <ul class="header-menu_ul clearfix">
+              <!-- li.header-menu_li
+              a.header-menu_a(href='')
+                  span.header-menu_ico.header-menu_ico__broadcast
+                  span.header-menu_tx
+                      | Прямой эфир
+              -->
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
+              <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
+              <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                <div class="header-drop">
+                  <div class="header-menu clearfix">
+                    <ul class="header-menu_ul">
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
                     </ul>
                   </div>
-                </div>
-                <!-- /header-drop_b-->
-              </div>
-              <!-- /header-drop -->
-            </div>
-            <div class="header-fix-menu">
-              <ul class="header-menu_ul clearfix">
-                <!-- li.header-fix-menu_li
-                a.header-fix-menu_a(href='')
-                    span.header-fix-menu_tx прямой эфир
-                -->
-                <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- /header-fix-->
-        <!-- header-->
-        <div class="header header__base">
-          <div class="header_hold clearfix">
-            <!-- logo-->
-            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
-            <!-- /logo-->
-            <!-- header-menu-->
-            <div class="header-menu">
-              <ul class="header-menu_ul clearfix">
-                <!-- li.header-menu_li
-                a.header-menu_a(href='')
-                    span.header-menu_ico.header-menu_ico__broadcast
-                    span.header-menu_tx
-                        | Прямой эфир
-                -->
-                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
-                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
-                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
-                <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
-                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
-                <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
-                  <!-- header-drop-->
-                  <div class="header-drop">
-                    <div class="header-menu clearfix">
-                      <ul class="header-menu_ul">
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                  <!-- header-drop_b-->
+                  <div class="header-drop_b">
+                    <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                    <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                    <div class="club-list club-list__small clearfix">
+                      <ul class="club-list_ul clearfix">
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
                       </ul>
                     </div>
-                    <!-- header-drop_b-->
-                    <div class="header-drop_b">
-                      <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
-                      <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
-                      <div class="club-list club-list__small clearfix">
-                        <ul class="club-list_ul clearfix">
-                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"/></span></a></li>
-                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"/></span></a></li>
-                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"/></span></a></li>
-                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"/></span></a></li>
-                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"/></span></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <!-- /header-drop_b-->
                   </div>
-                  <!-- /header-drop-->
-                </li>
-              </ul>
+                  <!-- /header-drop_b-->
+                </div>
+                <!-- /header-drop -->
+              </li>
+            </ul>
+          </div>
+          <!-- /header-menu-->
+        </div>
+      </div>
+      <!-- /header-->
+    </div>
+    <div class="layout-wrapper">
+      <div class="layout-wrapper_hold clearfix">
+        <div class="margin-20">
+          <h2>Быстрые сообщения</h2><a href="#msg-fast-base" class="popup-a">Написание бастрого сообщения</a><br><br><a href="#msg-fast-post" class="popup-a">Отправка бастрого сообщения</a><br><br><a href="#msg-fast-success" class="popup-a">Сообщение отправлено</a><br><br><a href="#msg-fast-avacap" class="popup-a">Заглушка при отсутсвии аватара</a><br><br><a href="#msg-fast-addfreind" class="popup-a">Добавление в друзья</a><br><br><a href="#popup-error" class="popup-a">Ошбика </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n">
+    <!-- msg-fast popup-->
+    <div id="msg-fast-base" class="msg-fast popup">
+      <div class="msg-fast_hold">
+        <div class="msg-fast_top">
+          <div class="msg-fast_t">Написать сообщение</div>
+          <div class="msg-fast_row clearfix">
+            <div class="msg-fast_whom">Кому:</div>
+            <!-- im-panel-->
+            <div class="im-panel im-panel__small">
+              <div class="im-panel_user clearfix">
+                <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                <div class="im-panel_hold">
+                  <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
+                </div>
+                <!-- У иконки 3 состояния.
+                Друг - im-panel_friend__fr
+                Добавить в друзья - .im-panel_friend__add
+                Приглашение отправленно - .im-panel_friend__added
+                Предлагает дружбу - .im-panel_friend__append
+                --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
+              </div>
             </div>
-            <!-- /header-menu-->
+            <!-- /im-panel--><a class="i-more i-more__small">В диалоги</a>
           </div>
         </div>
-        <!-- /header-->
-      </div>
-      <div class="layout-wrapper">
-        <div class="layout-wrapper_hold clearfix">
-          <div class="margin-20">
-            <h2>Быстрые сообщения</h2><a href="#msg-fast-base" class="popup-a">Написание бастрого сообщения</a><br><br><a href="#msg-fast-post" class="popup-a">Отправка бастрого сообщения</a><br><br><a href="#msg-fast-success" class="popup-a">Сообщение отправлено</a><br><br><a href="#msg-fast-avacap" class="popup-a">Заглушка при отсутсвии аватара</a><br><br><a href="#msg-fast-addfreind" class="popup-a">Добавление в друзья</a><br><br><a href="#popup-error" class="popup-a">Ошбика </a>
+        <div class="msg-fast_b">
+          <div class="redactor-control">
+            <div class="redactor-control_hold">
+              <div class="scroll">
+                <div class="scroll_scroller">
+                  <!-- Width из-за открытия в попапе, прикручивая ненужен-->
+                  <div style="width:468px;" class="scroll_cont">
+                    <!-- после открытия попапа передавать фокус на редактор-->
+                    <!-- , id=redactor_id-->
+                    <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
+                  </div>
+                  <div class="scroll_bar-hold">
+                    <div class="scroll_bar">
+                      <div class="scroll_bar-in"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="redactor-control_toolbar"></div>
+            <div class="redactor-control_control">
+              <div class="redactor-control_key">
+                <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
+                <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
+              </div>
+              <button class="btn-green">Отправить</button>
+            </div>
+            <script>
+              $(document).ready(function () { 
+                $('#').redactor({
+                  minHeight: 65,
+                  autoresize: true,
+                  focus: true,
+                  toolbarExternal: '#',
+                  buttons: [ 'smile'],
+                  buttonsCustom: {
+                    smile: {
+                        title: 'smile',
+                        callback: function(buttonName, buttonDOM, buttonObject) {
+                            // your code, for example - getting code
+                            var html = this.get();
+                        }
+                    }
+                  },
+                  focusCallback: function(e)
+                  {
+                      // Нужно выбирать непосредственного родителя
+                      $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+                  },
+                  changeCallback: function(html)
+                  {   
+                      // обновлять скролл baron
+                  },
+                  initCallback: function()
+                  {
+                  
+                  }
+                });
+              });
+              
+              
+            </script>
           </div>
         </div>
       </div>
     </div>
-    <div class="popup-container display-n">
-      <!-- msg-fast popup-->
-      <div id="msg-fast-base" class="msg-fast popup">
-        <div class="msg-fast_hold">
-          <div class="msg-fast_top">
-            <div class="msg-fast_t">Написать сообщение</div>
-            <div class="msg-fast_row clearfix">
-              <div class="msg-fast_whom">Кому:</div>
-              <!-- im-panel-->
-              <div class="im-panel im-panel__small">
-                <div class="im-panel_user clearfix">
-                  <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__small ava__female"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                  <div class="im-panel_hold">
-                    <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
-                  </div>
-                  <!-- У иконки 3 состояния.
-                  Друг - im-panel_friend__fr
-                  Добавить в друзья - .im-panel_friend__add
-                  Приглашение отправленно - .im-panel_friend__added
-                  Предлагает дружбу - .im-panel_friend__append
-                  --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
+    <!-- /msg-fast popup-->
+    <!-- msg-fast popup-->
+    <div id="msg-fast-post" class="msg-fast popup">
+      <div class="msg-fast_hold">
+        <div class="msg-fast_top">
+          <div class="msg-fast_t">Написать сообщение</div>
+          <div class="msg-fast_row clearfix">
+            <div class="msg-fast_whom">Кому:</div>
+            <!-- im-panel-->
+            <div class="im-panel im-panel__small">
+              <div class="im-panel_user clearfix">
+                <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                <div class="im-panel_hold">
+                  <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
                 </div>
+                <!-- У иконки 3 состояния.
+                Друг - im-panel_friend__fr
+                Добавить в друзья - .im-panel_friend__add
+                Приглашение отправленно - .im-panel_friend__added
+                Предлагает дружбу - .im-panel_friend__append
+                --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
               </div>
-              <!-- /im-panel--><a class="i-more i-more__small">В диалоги</a>
             </div>
+            <!-- /im-panel--><a href="" class="i-more i-more__small">В диалоги</a>
           </div>
-          <div class="msg-fast_b">
-            <div class="redactor-control">
-              <div class="redactor-control_hold">
-                <div class="scroll">
-                  <div class="scroll_scroller">
-                    <!-- Width из-за открытия в попапе, прикручивая ненужен-->
-                    <div style="width:468px;" class="scroll_cont">
-                      <!-- после открытия попапа передавать фокус на редактор-->
-                      <!-- , id=redactor_id-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
-                    </div>
-                    <div class="scroll_bar-hold">
-                      <div class="scroll_bar">
-                        <div class="scroll_bar-in"></div>
-                      </div>
+        </div>
+        <div class="msg-fast_b">
+          <div class="redactor-control">
+            <div class="redactor-control_hold">
+              <div class="scroll">
+                <div class="scroll_scroller">
+                  <!-- Width из-за открытия в попапе, прикручивая ненужен-->
+                  <div style="width:468px;" class="scroll_cont">
+                    <!-- после открытия попапа передавать фокус на редактор-->
+                    <!-- , id=redactor_id-->
+                    <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
+                  </div>
+                  <div class="scroll_bar-hold">
+                    <div class="scroll_bar">
+                      <div class="scroll_bar-in"></div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="redactor-control_toolbar"></div>
-              <div class="redactor-control_control">
-                <div class="redactor-control_key">
-                  <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
-                  <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
-                </div>
-                <button class="btn-green">Отправить</button>
-              </div>
-              <script>
-                $(document).ready(function () { 
-                  $('#').redactor({
-                    minHeight: 65,
-                    autoresize: true,
-                    focus: true,
-                    toolbarExternal: '#',
-                    buttons: [ 'smile'],
-                    buttonsCustom: {
-                      smile: {
-                          title: 'smile',
-                          callback: function(buttonName, buttonDOM, buttonObject) {
-                              // your code, for example - getting code
-                              var html = this.get();
-                          }
-                      }
-                    },
-                    focusCallback: function(e)
-                    {
-                        // Нужно выбирать непосредственного родителя
-                        $('.redactor-control_hold').addClass('redactor-control_hold__focus');
-                    },
-                    changeCallback: function(html)
-                    {   
-                        // обновлять скролл baron
-                    },
-                    initCallback: function()
-                    {
-                    
-                    }
-                  });
-                });
-                
-                
-              </script>
             </div>
+            <div class="redactor-control_toolbar"></div>
+            <div class="redactor-control_control">
+              <div class="redactor-control_key">
+                <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
+                <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
+              </div>
+              <button class="btn-green">Отправить</button>
+            </div>
+            <script>
+              $(document).ready(function () { 
+                $('#').redactor({
+                  minHeight: 65,
+                  autoresize: true,
+                  focus: true,
+                  toolbarExternal: '#',
+                  buttons: [ 'smile'],
+                  buttonsCustom: {
+                    smile: {
+                        title: 'smile',
+                        callback: function(buttonName, buttonDOM, buttonObject) {
+                            // your code, for example - getting code
+                            var html = this.get();
+                        }
+                    }
+                  },
+                  focusCallback: function(e)
+                  {
+                      // Нужно выбирать непосредственного родителя
+                      $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+                  },
+                  changeCallback: function(html)
+                  {   
+                      // обновлять скролл baron
+                  },
+                  initCallback: function()
+                  {
+                  
+                  }
+                });
+              });
+              
+              
+            </script>
           </div>
         </div>
       </div>
-      <!-- /msg-fast popup-->
-      <!-- msg-fast popup-->
-      <div id="msg-fast-post" class="msg-fast popup">
-        <div class="msg-fast_hold">
-          <div class="msg-fast_top">
-            <div class="msg-fast_t">Написать сообщение</div>
-            <div class="msg-fast_row clearfix">
-              <div class="msg-fast_whom">Кому:</div>
-              <!-- im-panel-->
-              <div class="im-panel im-panel__small">
-                <div class="im-panel_user clearfix">
-                  <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__small ava__female"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                  <div class="im-panel_hold">
-                    <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
-                  </div>
-                  <!-- У иконки 3 состояния.
-                  Друг - im-panel_friend__fr
-                  Добавить в друзья - .im-panel_friend__add
-                  Приглашение отправленно - .im-panel_friend__added
-                  Предлагает дружбу - .im-panel_friend__append
-                  --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
-                </div>
-              </div>
-              <!-- /im-panel--><a href="" class="i-more i-more__small">В диалоги</a>
-            </div>
-          </div>
-          <div class="msg-fast_b">
-            <div class="redactor-control">
-              <div class="redactor-control_hold">
-                <div class="scroll">
-                  <div class="scroll_scroller">
-                    <!-- Width из-за открытия в попапе, прикручивая ненужен-->
-                    <div style="width:468px;" class="scroll_cont">
-                      <!-- после открытия попапа передавать фокус на редактор-->
-                      <!-- , id=redactor_id-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
-                    </div>
-                    <div class="scroll_bar-hold">
-                      <div class="scroll_bar">
-                        <div class="scroll_bar-in"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="redactor-control_toolbar"></div>
-              <div class="redactor-control_control">
-                <div class="redactor-control_key">
-                  <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
-                  <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
-                </div>
-                <button class="btn-green">Отправить</button>
-              </div>
-              <script>
-                $(document).ready(function () { 
-                  $('#').redactor({
-                    minHeight: 65,
-                    autoresize: true,
-                    focus: true,
-                    toolbarExternal: '#',
-                    buttons: [ 'smile'],
-                    buttonsCustom: {
-                      smile: {
-                          title: 'smile',
-                          callback: function(buttonName, buttonDOM, buttonObject) {
-                              // your code, for example - getting code
-                              var html = this.get();
-                          }
-                      }
-                    },
-                    focusCallback: function(e)
-                    {
-                        // Нужно выбирать непосредственного родителя
-                        $('.redactor-control_hold').addClass('redactor-control_hold__focus');
-                    },
-                    changeCallback: function(html)
-                    {   
-                        // обновлять скролл baron
-                    },
-                    initCallback: function()
-                    {
-                    
-                    }
-                  });
-                });
-                
-                
-              </script>
-            </div>
-          </div>
+      <!-- cap-empty-->
+      <div class="cap-empty cap-empty__abs cap-empty__blue">
+        <div class="cap-empty_abs-msg">
+          <div class="cap-empty_abs-msg-hold">Отправка <img src='/new/images/ico/ajax-loader.gif' class='ico-loader'></div>
         </div>
-        <!-- cap-empty-->
-        <div class="cap-empty cap-empty__abs cap-empty__blue">
-          <div class="cap-empty_abs-msg">
-            <div class="cap-empty_abs-msg-hold">Отправка <img src='/new/images/ico/ajax-loader.gif' class='ico-loader'></div>
-          </div>
-        </div>
-        <!-- /cap-empty-->
       </div>
-      <!-- /msg-fast popup-->
-      <!-- msg-fast popup-->
-      <div id="msg-fast-success" class="msg-fast popup">
-        <div class="msg-fast_hold">
-          <div class="msg-fast_top">
-            <div class="msg-fast_t">Написать сообщение</div>
-            <div class="msg-fast_row clearfix">
-              <div class="msg-fast_whom">Кому:</div>
-              <!-- im-panel-->
-              <div class="im-panel im-panel__small">
-                <div class="im-panel_user clearfix">
-                  <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__small ava__female"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                  <div class="im-panel_hold">
-                    <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
-                  </div>
-                  <!-- У иконки 3 состояния.
-                  Друг - im-panel_friend__fr
-                  Добавить в друзья - .im-panel_friend__add
-                  Приглашение отправленно - .im-panel_friend__added
-                  Предлагает дружбу - .im-panel_friend__append
-                  --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
+      <!-- /cap-empty-->
+    </div>
+    <!-- /msg-fast popup-->
+    <!-- msg-fast popup-->
+    <div id="msg-fast-success" class="msg-fast popup">
+      <div class="msg-fast_hold">
+        <div class="msg-fast_top">
+          <div class="msg-fast_t">Написать сообщение</div>
+          <div class="msg-fast_row clearfix">
+            <div class="msg-fast_whom">Кому:</div>
+            <!-- im-panel-->
+            <div class="im-panel im-panel__small">
+              <div class="im-panel_user clearfix">
+                <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                <div class="im-panel_hold">
+                  <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
                 </div>
+                <!-- У иконки 3 состояния.
+                Друг - im-panel_friend__fr
+                Добавить в друзья - .im-panel_friend__add
+                Приглашение отправленно - .im-panel_friend__added
+                Предлагает дружбу - .im-panel_friend__append
+                --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
               </div>
-              <!-- /im-panel--><a class="i-more i-more__small">В диалоги</a>
             </div>
+            <!-- /im-panel--><a class="i-more i-more__small">В диалоги</a>
           </div>
-          <div class="msg-fast_b">
-            <div class="redactor-control">
-              <div class="redactor-control_hold">
-                <div class="scroll">
-                  <div class="scroll_scroller">
-                    <!-- Width из-за открытия в попапе, прикручивая ненужен-->
-                    <div style="width:468px;" class="scroll_cont">
-                      <!-- после открытия попапа передавать фокус на редактор-->
-                      <!-- , id=redactor_id-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
-                    </div>
-                    <div class="scroll_bar-hold">
-                      <div class="scroll_bar">
-                        <div class="scroll_bar-in"></div>
-                      </div>
+        </div>
+        <div class="msg-fast_b">
+          <div class="redactor-control">
+            <div class="redactor-control_hold">
+              <div class="scroll">
+                <div class="scroll_scroller">
+                  <!-- Width из-за открытия в попапе, прикручивая ненужен-->
+                  <div style="width:468px;" class="scroll_cont">
+                    <!-- после открытия попапа передавать фокус на редактор-->
+                    <!-- , id=redactor_id-->
+                    <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
+                  </div>
+                  <div class="scroll_bar-hold">
+                    <div class="scroll_bar">
+                      <div class="scroll_bar-in"></div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="redactor-control_toolbar"></div>
-              <div class="redactor-control_control">
-                <div class="redactor-control_key">
-                  <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
-                  <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
-                </div>
-                <button class="btn-green">Отправить</button>
+            </div>
+            <div class="redactor-control_toolbar"></div>
+            <div class="redactor-control_control">
+              <div class="redactor-control_key">
+                <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
+                <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
               </div>
-              <script>
-                $(document).ready(function () { 
-                  $('#').redactor({
-                    minHeight: 65,
-                    autoresize: true,
-                    focus: true,
-                    toolbarExternal: '#',
-                    buttons: [ 'smile'],
-                    buttonsCustom: {
-                      smile: {
-                          title: 'smile',
-                          callback: function(buttonName, buttonDOM, buttonObject) {
-                              // your code, for example - getting code
-                              var html = this.get();
-                          }
-                      }
-                    },
-                    focusCallback: function(e)
-                    {
-                        // Нужно выбирать непосредственного родителя
-                        $('.redactor-control_hold').addClass('redactor-control_hold__focus');
-                    },
-                    changeCallback: function(html)
-                    {   
-                        // обновлять скролл baron
-                    },
-                    initCallback: function()
-                    {
-                    
+              <button class="btn-green">Отправить</button>
+            </div>
+            <script>
+              $(document).ready(function () { 
+                $('#').redactor({
+                  minHeight: 65,
+                  autoresize: true,
+                  focus: true,
+                  toolbarExternal: '#',
+                  buttons: [ 'smile'],
+                  buttonsCustom: {
+                    smile: {
+                        title: 'smile',
+                        callback: function(buttonName, buttonDOM, buttonObject) {
+                            // your code, for example - getting code
+                            var html = this.get();
+                        }
                     }
-                  });
+                  },
+                  focusCallback: function(e)
+                  {
+                      // Нужно выбирать непосредственного родителя
+                      $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+                  },
+                  changeCallback: function(html)
+                  {   
+                      // обновлять скролл baron
+                  },
+                  initCallback: function()
+                  {
+                  
+                  }
                 });
-                
-                
-              </script>
-            </div>
-          </div>
-        </div>
-        <!-- cap-empty-->
-        <div class="cap-empty cap-empty__abs cap-empty__blue">
-          <div class="cap-empty_abs-msg">
-            <div class="cap-empty_abs-msg-hold">Сообщение отправлено</div>
-          </div>
-        </div>
-        <!-- /cap-empty-->
-      </div>
-      <!-- /msg-fast popup-->
-      <!-- msg-fast popup-->
-      <div id="msg-fast-avacap" class="msg-fast popup popup__close-white">
-        <div class="msg-fast_hold">
-          <div class="msg-fast_top">
-            <div class="msg-fast_t">Написать сообщение</div>
-            <div class="msg-fast_row clearfix">
-              <div class="msg-fast_whom">Кому:</div>
-              <!-- im-panel-->
-              <div class="im-panel im-panel__small">
-                <div class="im-panel_user clearfix">
-                  <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__small ava__female"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                  <div class="im-panel_hold">
-                    <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
-                  </div>
-                  <!-- У иконки 3 состояния.
-                  Друг - im-panel_friend__fr
-                  Добавить в друзья - .im-panel_friend__add
-                  Приглашение отправленно - .im-panel_friend__added
-                  Предлагает дружбу - .im-panel_friend__append
-                  --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
-                </div>
-              </div>
-              <!-- /im-panel--><a class="i-more i-more__small">В диалоги</a>
-            </div>
-          </div>
-          <div class="msg-fast_b">
-            <div class="redactor-control">
-              <div class="redactor-control_hold">
-                <div class="scroll">
-                  <div class="scroll_scroller">
-                    <!-- Width из-за открытия в попапе, прикручивая ненужен-->
-                    <div style="width:468px;" class="scroll_cont">
-                      <!-- после открытия попапа передавать фокус на редактор-->
-                      <!-- , id=redactor_id-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
-                    </div>
-                    <div class="scroll_bar-hold">
-                      <div class="scroll_bar">
-                        <div class="scroll_bar-in"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="redactor-control_toolbar"></div>
-              <div class="redactor-control_control">
-                <div class="redactor-control_key">
-                  <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
-                  <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
-                </div>
-                <button class="btn-green">Отправить</button>
-              </div>
-              <script>
-                $(document).ready(function () { 
-                  $('#').redactor({
-                    minHeight: 65,
-                    autoresize: true,
-                    focus: true,
-                    toolbarExternal: '#',
-                    buttons: [ 'smile'],
-                    buttonsCustom: {
-                      smile: {
-                          title: 'smile',
-                          callback: function(buttonName, buttonDOM, buttonObject) {
-                              // your code, for example - getting code
-                              var html = this.get();
-                          }
-                      }
-                    },
-                    focusCallback: function(e)
-                    {
-                        // Нужно выбирать непосредственного родителя
-                        $('.redactor-control_hold').addClass('redactor-control_hold__focus');
-                    },
-                    changeCallback: function(html)
-                    {   
-                        // обновлять скролл baron
-                    },
-                    initCallback: function()
-                    {
-                    
-                    }
-                  });
-                });
-                
-                
-              </script>
-            </div>
-          </div>
-        </div>
-        <!-- Заглушка. Для белой иконки закрытия нужен класс на родитель .popup .popup__close-white-->
-        <!-- cap-empty-->
-        <div class="cap-empty cap-empty__abs cap-empty__blue">
-          <div class="cap-empty_hold">
-            <div class="cap-empty_img cap-empty_img__white"></div>
-            <div class="cap-empty_tx-sub">Для того, чтобы начать пользоваться сервисом, <br>необходимо загрузить свое главное фото <br> <br><div class="file-fake"><button class="file-fake_btn btn-green btn-m">Загрузить фото</button><input type="file" class="file-fake_inp"></div></div>
-          </div>
-          <div class="verticalalign-m-help"></div>
-        </div>
-        <!-- /cap-empty-->
-      </div>
-      <!-- /msg-fast popup-->
-      <!-- msg-fast popup-->
-      <div id="msg-fast-addfreind" class="msg-fast popup">
-        <div class="msg-fast_hold">
-          <div class="msg-fast_top">
-            <div class="msg-fast_t">Написать сообщение</div>
-            <div class="msg-fast_row clearfix">
-              <div class="msg-fast_whom">Кому:</div>
-              <!-- im-panel-->
-              <div class="im-panel im-panel__small">
-                <div class="im-panel_user clearfix">
-                  <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__small ava__female"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                  <div class="im-panel_hold">
-                    <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
-                  </div>
-                  <!-- У иконки 3 состояния.
-                  Друг - im-panel_friend__fr
-                  Добавить в друзья - .im-panel_friend__add
-                  Приглашение отправленно - .im-panel_friend__added
-                  Предлагает дружбу - .im-panel_friend__append
-                  --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
-                </div>
-              </div>
-              <!-- /im-panel--><a class="i-more i-more__small">В диалоги</a>
-            </div>
-          </div>
-          <div class="msg-fast_b">
-            <div class="friend-offer">
-              <div class="friend-offer_hold">
-                <div class="friend-offer_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                </div>
-                <div class="friend-offer_in"><a href="" class="friend-offer_name">Александра Богоявленская</a>
-                  <div class="friend-offer_tx">предлагает вам дружбу!</div>
-                </div>
-                <div class="friend-offer_btns"><a class="btn-green-simple btn-s">Принять</a><a href="" title="Отклонить" class="ico-cancel powertip">&#8211;</a></div>
-              </div>
-            </div>
-            <div class="redactor-control">
-              <div class="redactor-control_hold">
-                <div class="scroll">
-                  <div class="scroll_scroller">
-                    <!-- Width из-за открытия в попапе, прикручивая ненужен-->
-                    <div style="width:468px;" class="scroll_cont">
-                      <!-- после открытия попапа передавать фокус на редактор-->
-                      <!-- , id=redactor_id-->
-                      <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
-                    </div>
-                    <div class="scroll_bar-hold">
-                      <div class="scroll_bar">
-                        <div class="scroll_bar-in"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="redactor-control_toolbar"></div>
-              <div class="redactor-control_control">
-                <div class="redactor-control_key">
-                  <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
-                  <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
-                </div>
-                <button class="btn-green">Отправить</button>
-              </div>
-              <script>
-                $(document).ready(function () { 
-                  $('#').redactor({
-                    minHeight: 65,
-                    autoresize: true,
-                    focus: true,
-                    toolbarExternal: '#',
-                    buttons: [ 'smile'],
-                    buttonsCustom: {
-                      smile: {
-                          title: 'smile',
-                          callback: function(buttonName, buttonDOM, buttonObject) {
-                              // your code, for example - getting code
-                              var html = this.get();
-                          }
-                      }
-                    },
-                    focusCallback: function(e)
-                    {
-                        // Нужно выбирать непосредственного родителя
-                        $('.redactor-control_hold').addClass('redactor-control_hold__focus');
-                    },
-                    changeCallback: function(html)
-                    {   
-                        // обновлять скролл baron
-                    },
-                    initCallback: function()
-                    {
-                    
-                    }
-                  });
-                });
-                
-                
-              </script>
-            </div>
+              });
+              
+              
+            </script>
           </div>
         </div>
       </div>
-      <!-- /msg-fast popup-->
-      <div id="popup-error" class="popup popup__error">
-        <div class="error-serv error-serv__rel">
-          <div class="error-serv_hold">Произошла критическая ошибка.<a class="error-serv_a">Перезагрузить страницу</a></div>
+      <!-- cap-empty-->
+      <div class="cap-empty cap-empty__abs cap-empty__blue">
+        <div class="cap-empty_abs-msg">
+          <div class="cap-empty_abs-msg-hold">Сообщение отправлено</div>
+        </div>
+      </div>
+      <!-- /cap-empty-->
+    </div>
+    <!-- /msg-fast popup-->
+    <!-- msg-fast popup-->
+    <div id="msg-fast-avacap" class="msg-fast popup popup__close-white">
+      <div class="msg-fast_hold">
+        <div class="msg-fast_top">
+          <div class="msg-fast_t">Написать сообщение</div>
+          <div class="msg-fast_row clearfix">
+            <div class="msg-fast_whom">Кому:</div>
+            <!-- im-panel-->
+            <div class="im-panel im-panel__small">
+              <div class="im-panel_user clearfix">
+                <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                <div class="im-panel_hold">
+                  <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
+                </div>
+                <!-- У иконки 3 состояния.
+                Друг - im-panel_friend__fr
+                Добавить в друзья - .im-panel_friend__add
+                Приглашение отправленно - .im-panel_friend__added
+                Предлагает дружбу - .im-panel_friend__append
+                --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
+              </div>
+            </div>
+            <!-- /im-panel--><a class="i-more i-more__small">В диалоги</a>
+          </div>
+        </div>
+        <div class="msg-fast_b">
+          <div class="redactor-control">
+            <div class="redactor-control_hold">
+              <div class="scroll">
+                <div class="scroll_scroller">
+                  <!-- Width из-за открытия в попапе, прикручивая ненужен-->
+                  <div style="width:468px;" class="scroll_cont">
+                    <!-- после открытия попапа передавать фокус на редактор-->
+                    <!-- , id=redactor_id-->
+                    <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
+                  </div>
+                  <div class="scroll_bar-hold">
+                    <div class="scroll_bar">
+                      <div class="scroll_bar-in"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="redactor-control_toolbar"></div>
+            <div class="redactor-control_control">
+              <div class="redactor-control_key">
+                <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
+                <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
+              </div>
+              <button class="btn-green">Отправить</button>
+            </div>
+            <script>
+              $(document).ready(function () { 
+                $('#').redactor({
+                  minHeight: 65,
+                  autoresize: true,
+                  focus: true,
+                  toolbarExternal: '#',
+                  buttons: [ 'smile'],
+                  buttonsCustom: {
+                    smile: {
+                        title: 'smile',
+                        callback: function(buttonName, buttonDOM, buttonObject) {
+                            // your code, for example - getting code
+                            var html = this.get();
+                        }
+                    }
+                  },
+                  focusCallback: function(e)
+                  {
+                      // Нужно выбирать непосредственного родителя
+                      $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+                  },
+                  changeCallback: function(html)
+                  {   
+                      // обновлять скролл baron
+                  },
+                  initCallback: function()
+                  {
+                  
+                  }
+                });
+              });
+              
+              
+            </script>
+          </div>
+        </div>
+      </div>
+      <!-- Заглушка. Для белой иконки закрытия нужен класс на родитель .popup .popup__close-white-->
+      <!-- cap-empty-->
+      <div class="cap-empty cap-empty__abs cap-empty__blue">
+        <div class="cap-empty_hold">
+          <div class="cap-empty_img cap-empty_img__white"></div>
+          <div class="cap-empty_tx-sub">Для того, чтобы начать пользоваться сервисом, <br>необходимо загрузить свое главное фото <br> <br><div class="file-fake"><button class="file-fake_btn btn-green btn-m">Загрузить фото</button><input type="file" class="file-fake_inp"></div></div>
+        </div>
+        <div class="verticalalign-m-help"></div>
+      </div>
+      <!-- /cap-empty-->
+    </div>
+    <!-- /msg-fast popup-->
+    <!-- msg-fast popup-->
+    <div id="msg-fast-addfreind" class="msg-fast popup">
+      <div class="msg-fast_hold">
+        <div class="msg-fast_top">
+          <div class="msg-fast_t">Написать сообщение</div>
+          <div class="msg-fast_row clearfix">
+            <div class="msg-fast_whom">Кому:</div>
+            <!-- im-panel-->
+            <div class="im-panel im-panel__small">
+              <div class="im-panel_user clearfix">
+                <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                <div class="im-panel_hold">
+                  <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
+                </div>
+                <!-- У иконки 3 состояния.
+                Друг - im-panel_friend__fr
+                Добавить в друзья - .im-panel_friend__add
+                Приглашение отправленно - .im-panel_friend__added
+                Предлагает дружбу - .im-panel_friend__append
+                --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
+              </div>
+            </div>
+            <!-- /im-panel--><a class="i-more i-more__small">В диалоги</a>
+          </div>
+        </div>
+        <div class="msg-fast_b">
+          <div class="friend-offer">
+            <div class="friend-offer_hold">
+              <div class="friend-offer_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+              </div>
+              <div class="friend-offer_in"><a href="" class="friend-offer_name">Александра Богоявленская</a>
+                <div class="friend-offer_tx">предлагает вам дружбу!</div>
+              </div>
+              <div class="friend-offer_btns"><a class="btn-green-simple btn-s">Принять</a><a href="" title="Отклонить" class="ico-cancel powertip">&#8211;</a></div>
+            </div>
+          </div>
+          <div class="redactor-control">
+            <div class="redactor-control_hold">
+              <div class="scroll">
+                <div class="scroll_scroller">
+                  <!-- Width из-за открытия в попапе, прикручивая ненужен-->
+                  <div style="width:468px;" class="scroll_cont">
+                    <!-- после открытия попапа передавать фокус на редактор-->
+                    <!-- , id=redactor_id-->
+                    <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor"></textarea>
+                  </div>
+                  <div class="scroll_bar-hold">
+                    <div class="scroll_bar">
+                      <div class="scroll_bar-in"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="redactor-control_toolbar"></div>
+            <div class="redactor-control_control">
+              <div class="redactor-control_key">
+                <input type="checkbox" name="" class="redactor-control_key-checkbox"/>
+                <label for="redactor-control-b_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
+              </div>
+              <button class="btn-green">Отправить</button>
+            </div>
+            <script>
+              $(document).ready(function () { 
+                $('#').redactor({
+                  minHeight: 65,
+                  autoresize: true,
+                  focus: true,
+                  toolbarExternal: '#',
+                  buttons: [ 'smile'],
+                  buttonsCustom: {
+                    smile: {
+                        title: 'smile',
+                        callback: function(buttonName, buttonDOM, buttonObject) {
+                            // your code, for example - getting code
+                            var html = this.get();
+                        }
+                    }
+                  },
+                  focusCallback: function(e)
+                  {
+                      // Нужно выбирать непосредственного родителя
+                      $('.redactor-control_hold').addClass('redactor-control_hold__focus');
+                  },
+                  changeCallback: function(html)
+                  {   
+                      // обновлять скролл baron
+                  },
+                  initCallback: function()
+                  {
+                  
+                  }
+                });
+              });
+              
+              
+            </script>
+          </div>
         </div>
       </div>
     </div>
-  </body>
-</html>
+    <!-- /msg-fast popup-->
+    <div id="popup-error" class="popup popup__error">
+      <div class="error-serv error-serv__rel">
+        <div class="error-serv_hold">Произошла критическая ошибка.<a class="error-serv_a">Перезагрузить страницу</a></div>
+      </div>
+    </div>
+  </div>
+</body></html>

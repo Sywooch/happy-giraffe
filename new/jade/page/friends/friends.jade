@@ -7,9 +7,53 @@ block layout-wrapper
         +page-col_top-tabs('', {tabActive: 0, tabsTexts:['Все друзья 128', 'Друзья онлайн 12', 'Новые друзья 6'], sidebarSearch: true})
 
         .page-col_cont
-            //- friend-list
+            //- friends-list 
+            //- friends-list
+                mod
+                vars
+                    config
+                        countItem - integer
+                    items
+                        cap-empty - boolean
+            mixin friends-list(mod, vars) 
+                //- friend-list
+                .friends-list
+                    ul.friends-list_ul
+                        - i = 0;
+                        - while (i < vars.countItem) {
+                            li.friends-list_li.friends-list_banner
+                                a(href="")
+                                    img(src="/new/images/banner/friends-list_banner.png")
+                            li.friends-list_li
+                                .friends-list_i
+                                    span.ico-close2.powertip(title="Удалить из друзей")
+                                    +b-ava-large(
+                                        '', 
+                                        {
+                                            delFreind: true, 
+                                            icoFriend: true, 
+                                            userNameTx: 'Александр Богоявленский', 
+                                            userAge: '42 года', 
+                                            family: true 
+                                        }
+                                    )
+                                    if (vars.cap-empty)
+                                        +cap-empty(
+                                            'cap-empty__abs cap-empty__white', 
+                                            {
+                                                txTop: "<a href='' class='b-ava-large_a'>Алекс Брянский</a>", 
+                                                t: "Удален из друзей", 
+                                                txSub: "<a href=''>Восстановить</a>"
+                                            }
+                                        )
+                        - i++;
+                        - }
+
+            +friends-list('', {countItem: 2, })
+
             .friends-list
                 ul.friends-list_ul
+
                     li.friends-list_li.friends-list_banner
                         a(href="")
                             img(src="/new/images/banner/friends-list_banner.png")

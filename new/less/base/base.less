@@ -34,6 +34,23 @@
 
 
 // Отдельные элементы
+.heading-xxl {
+    margin: 15px 0; // Можно изменить на необходимый
+    font-size: 40px;
+    color: @color-base;
+}
+.heading-link-xxl {
+    margin: 15px 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: @color-link-title;
+}
+.heading-link-xl {
+    margin: 15px 0;
+    font-size: 25px;
+    font-weight: bold;
+    color: @color-link-title;
+}
 .heading-smallest {
     margin: 0;
     font-size: 14px;
@@ -1021,3 +1038,37 @@ textarea.error {
         }
     }
 }
+
+
+
+/* docs */
+.docs {
+    position: relative;
+    margin: 0px 0;
+    padding: 10px 0;
+    
+    &_h1 {
+        margin: 20px 20px;
+    }
+    &_h2 {margin-bottom: 10px;}
+    &_desc {
+        padding: 20px 20px;
+        color: @color-base;
+        font-size: 14px;
+        background: #fafafa;
+    }
+    &_example {
+        position: relative;
+        margin: 10px 0;
+        padding: 20px 0;
+        border-bottom: 1px solid #aaa;
+        .clearfix();
+    }
+    &_example__indents {
+        padding: 20px 30px;
+    }
+    &_row {
+        margin: 5px 0;
+    }
+}
+/* /docs */

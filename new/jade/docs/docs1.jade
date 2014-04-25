@@ -1,0 +1,262 @@
+include ../block/config
+extend ../extend/layout_simple
+
+block layout-wrapper
+    .layout-wrapper
+        .layout-wrapper_hold
+            .docs
+                h1.docs_h1 Библиотека стандартных элементов Веселый Жираф
+            .docs 
+                .docs_desc
+                    h2.docs_h2 Типографика
+                    h3.docs_h3 Обычный текст
+                .docs_example.docs_example__indents
+                    p Самый обычный абзац.
+                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    ul
+                        li Тектс списка 
+                        li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    ol
+                        li Тектс списка 
+                        li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                .docs_desc
+                    h3.docs_h3 Заголовки
+                .docs_example.docs_example__indents
+                    .heading-xxl .heading-h1
+                    .heading-small .heading-small
+                    .heading-smallest .heading-smallest
+                    a.heading-link-xxl .heading-link-xxl
+                    br
+                    a.heading-link-xl .heading-link-xl
+                .docs_desc
+                    h2.docs_h2 Ссылки
+                .docs_example.docs_example__indents
+                    a Обычная ссылка
+                    br
+                    span.a-pseudo Псевдоссылка. Наведение есть, но не тег а
+                    br
+                    a.i-more Дальше
+            .docs
+                .docs_desc Выделеный текст. В поиске и т.д.
+                .docs_example.docs_example__indents 
+                    span.i-highlight Выделеный текст.
+            .docs
+                .docs_desc Logo
+                .docs_example.docs_example__indents 
+                    +logo()
+                    .docs_row
+                        +logo__small
+            .docs
+                .docs_desc
+                    h2.docs_h2 Кнопки
+                .docs_example.docs_example__indents
+                    .padding-b10
+                        .btn-red Кнопка
+                        .btn-gray-light Кнопка
+                        .btn-gray-simple Кнопка
+                        .btn-green-simple Кнопка
+                        .btn-blue-simple Кнопка
+                        .btn-green Кнопка
+                        br
+                    .padding-b10
+                        .btn-red.btn-s Кнопка
+                        .btn-gray-light.btn-s Кнопка
+                        .btn-gray-simple.btn-s Кнопка
+                        .btn-green-simple.btn-s Кнопка
+                        .btn-blue-simple.btn-s Кнопка
+                        .btn-green.btn-s Кнопка
+                        br
+                    .padding-b10
+                        .btn-red.btn-m Кнопка
+                        .btn-gray-light.btn-m Кнопка
+                        .btn-gray-simple.btn-m Кнопка
+                        .btn-green-simple.btn-m Кнопка
+                        .btn-blue-simple.btn-m Кнопка
+                        .btn-green.btn-m Кнопка
+                        br
+                    .padding-b10
+                        .btn-red.btn-l Кнопка
+                        .btn-gray-light.btn-l Кнопка
+                        .btn-gray-simple.btn-l Кнопка
+                        .btn-green-simple.btn-l Кнопка
+                        .btn-blue-simple.btn-l Кнопка
+                        .btn-green.btn-l Кнопка
+                        br
+                    .padding-b10
+                        .btn-red.btn-xl Кнопка
+                        .btn-gray-light.btn-xl Кнопка
+                        .btn-gray-simple.btn-xl Кнопка
+                        .btn-green-simple.btn-xl Кнопка
+                        .btn-blue-simple.btn-xl Кнопка
+                        .btn-green.btn-xl Кнопка
+                        br
+                    .padding-b10
+                        .btn-red.btn-xxl Кнопка
+                        .btn-gray-light.btn-xxl Кнопка
+                        .btn-gray-simple.btn-xxl Кнопка
+                        .btn-green-simple.btn-xxl Кнопка
+                        .btn-blue-simple.btn-xxl Кнопка
+                        .btn-green.btn-xxl Кнопка
+                        br
+            .docs
+                .docs_desc Кнопки социальных сетей. Резиновые, занимают всю ширину родителя.
+                .docs_example.docs_example__indents 
+                    ul.social-btns.clearfix.w-300
+                        li
+                            a.social-btn.social-btn__odnoklassniki
+                                span.social-btn_ico
+                                span.social-btn_tx Одноклассники
+                        li
+                            a.social-btn.social-btn__vkontakte
+                                span.social-btn_ico
+                                span.social-btn_tx ВКонтакте
+            .docs
+                .docs_desc
+                    h2.docs_h2 Аватары
+                .docs_example.docs_example__indents
+                    - avaVars = {src: '', icoStatus: 'ico-status__online'} 
+                    +ava("ava__small ava__male", avaVars)
+                    +ava("ava__middle ava__male", avaVars)
+                    +ava("ava ava__male", avaVars)
+                    - avaVars = {src: '', icoStatus: ''} 
+                    +ava("ava__large ava__male", avaVars)
+                    br
+                    - avaVars = {src: '', icoStatus: 'ico-status__offline'} 
+                    +ava("ava__small ava__female", avaVars)
+                    +ava("ava__middle ava__female", avaVars)
+                    +ava("ava ava__female", avaVars)
+                    - avaVars = {src: '', icoStatus: ''} 
+                    +ava("ava__large ava__female", avaVars)
+                    br
+                    - avaVars = {src: '/new/images/example/ava-large.jpg', icoStatus: 'ico-status__online'}
+                    +ava("ava__small ava__male", avaVars)
+                    +ava("ava__middle ava__male", avaVars)
+                    +ava("ava ava__male", avaVars)
+                    - avaVars = {src: '/new/images/example/ava-large.jpg', icoStatus: ''} 
+                    +ava("ava__large ava__male", avaVars)
+            .docs
+                .docs_desc Иконки уарпвления
+                    p   В кнопке spam есть выпадающий список
+                .docs_example.docs_example__indents
+                    - var bControl = ['delete', 'favorite', 'spam', 'edit', 'cancel']
+                    +b-control("position-rel", bControl)
+            .docs
+                .docs_desc Иконки 
+                .docs_example.docs_example__indents
+                    .docs_row
+                        .ico-status.ico-status__online
+                        .ico-status.ico-status__offline 
+                        | - .ico-status
+                    .docs_row
+                        .ico-cancel –
+                    .docs_row
+                        img(src='/new/images/ico/ajax-loader.gif', class='ico-loader')
+                    .docs_row
+                        .ico-close
+                        .ico-close2
+                        .ico-close3
+                    .docs_row
+                        .ico-update
+                    .docs_row
+                        .ico-check
+                        .ico-del
+                        .ico-question
+                    .docs_row
+                        .ico-refresh
+                    .docs_row
+                        .ico-lock-big
+                    .docs_row
+                        .ico-male
+                        .ico-female
+                    .docs_row
+                        .ico-error-smile
+            .docs
+                .docs_desc Иконки семьи
+                .docs_example.docs_example__indents
+                    .docs_row
+                        .ico-family.ico-family__baby-plan.margin-r10
+                        .ico-family.ico-family__baby.margin-r10   
+                        .ico-family.ico-family__baby-two.margin-r10 
+                        .ico-family.ico-family__boy-wait.margin-r10 
+                        .ico-family.ico-family__girl-wait.margin-r10 
+                        .ico-family.ico-family__boy-small.margin-r10 
+                        .ico-family.ico-family__girl-small.margin-r10 
+                        .ico-family.ico-family__boy-3.margin-r10 
+                        .ico-family.ico-family__girl-3.margin-r10 
+                        .ico-family.ico-family__boy-5.margin-r10 
+                        .ico-family.ico-family__girl-5.margin-r10 
+                        .ico-family.ico-family__boy-8.margin-r10 
+                        .ico-family.ico-family__girl-8.margin-r10 
+                        .ico-family.ico-family__boy-8.margin-r14 
+                        .ico-family.ico-family__girl-8.margin-r14 
+                        .ico-family.ico-family__boy-8.margin-r19 
+                        .ico-family.ico-family__girl-8.margin-r19 
+                        .ico-family.ico-family__fiance.margin-r19 
+                        .ico-family.ico-family__bride.margin-r19 
+                        .ico-family.ico-family__husband.margin-r19 
+                        .ico-family.ico-family__wife.margin-r19 
+                        .ico-family.ico-family__boy.margin-r19 
+                        .ico-family.ico-family__girl.margin-r19
+            .docs
+                .docs_desc Блок юзера
+                .docs_example.docs_example__indents
+                    +b-user('b-user__w300',{signpost: true})
+                    .docs_row
+                        +b-user('',{signpost: false})
+            .docs
+                .docs_desc Тянущийся поиск. Преняется в сайдбарах
+                .docs_example.docs_example__indents
+                    +sidebar-search('', {placeholder: 'Введите текст'})
+                    .docs_row
+                        .w-240
+                            +sidebar-search('', {placeholder: 'Введите текст'})
+            .docs
+                .docs_desc Табы управления страницы
+                .docs_example
+                    +page-col_top-tabs('', {tabActive: 0, tabsTexts:['Все друзья 128', 'Друзья онлайн 12', 'Новые друзья 6'], sidebarSearch: true})
+            .docs
+                .docs_desc Пагинация на странице
+                .docs_example
+                    +pagination()
+            .docs
+                .docs_desc
+                    h2.docs_h2 Меню слева
+                .docs_example
+                    .display-ib.margin-l20
+                        +side-menu__friend("side-menu__friend")
+                    .display-ib.margin-l20
+                        +side-menu__im("side-menu__im")
+                    .display-ib.margin-l20
+                        +side-menu__antispam("side-menu__antispam")
+
+
+    .docs
+        .layout-wrapper
+            .layout-wrapper_hold
+                .docs_desc
+                    h2.docs_h2 Шапка 
+                    p Выпадающее окно из аватара в шапке
+                .docs_example.docs_example__indents
+                    +header-drop('position-rel display-b')
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+                    br
+        .docs_example
+            +header()
+        .docs_example
+            +header__small('', {emplty: ''})
+        .docs_example
+            +header-fix('header-fix__rel')
+
+    //- .layout-wrapper
+    //-     .layout-wrapper_hold
+            
+ 

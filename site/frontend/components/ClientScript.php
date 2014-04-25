@@ -20,7 +20,7 @@ class ClientScript extends CClientScript
     public $jsDomain;
     public $imagesDomain;
 
-    public $staticUrlsStyle = self::URLS_STYLE_NONE;
+    public $staticUrlsStyle = self::URLS_STYLE_GET;
 
     public function getHasNoindex()
     {

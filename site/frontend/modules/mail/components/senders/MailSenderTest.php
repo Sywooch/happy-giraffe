@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class MailSenderTest extends MailSender
+class MailSenderTest extends MailMassSender
 {
     public function process(User $user)
     {

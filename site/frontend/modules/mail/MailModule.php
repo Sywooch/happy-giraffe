@@ -9,11 +9,11 @@ class MailModule extends CWebModule
 
 		// import the module-level models and components
 		$this->setImport(array(
-			'mail.models.*',
+		    'mail.models.*',
 			'mail.components.*',
             'mail.components.messages.*',
+            'mail.components.messages.system.*',
             'mail.components.senders.*',
-            'mail.models.*',
 		));
 	}
 
@@ -28,4 +28,17 @@ class MailModule extends CWebModule
 		else
 			return false;
 	}
+
+    public static function externalImport()
+    {
+        $import = array(
+            'mail.models.*',
+            'mail.components.messages.*',
+            'mail.components.messages.system.*',
+        );
+
+        foreach ($import as $alias) {
+            Yii::import($alias);
+        }
+    }
 }

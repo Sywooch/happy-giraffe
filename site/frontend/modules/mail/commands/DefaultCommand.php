@@ -16,8 +16,7 @@ class DefaultCommand extends CConsoleCommand
     public function init()
     {
         Yii::import('site.frontend.modules.mail.MailModule');
-        new MailModule('mail', null);
-        parent::init();
+        MailModule::externalImport();
     }
 
     /**

@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class MailSenderNotification extends MailMassSender
+class MailSenderNotification extends MailSender
 {
     public function process(User $user)
     {
@@ -25,7 +25,7 @@ class MailSenderNotification extends MailMassSender
                     $commentsToShow = MailComment::model()->findAll($criteria);
                     $totalCommentsCount = count($commentsIds);
                     $message = new MailMessageNotificationDiscuss($user, compact('model', 'commentsToShow', 'totalCommentsCount'));
-                    $this->sendMessage($message);
+                    Yii::app()->postman->send($message);
                     break;
             }
         }

@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class MailSenderDialogues extends MailMassSender
+class MailSenderDialogues extends MailSender
 {
     public $debugMode = self::DEBUG_TESTING;
 
@@ -36,7 +36,7 @@ class MailSenderDialogues extends MailMassSender
             $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
             $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);
             $message = new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount'));
-            $this->sendMessage($message);
+            Yii::app()->postman->send($message);
         }
     }
 

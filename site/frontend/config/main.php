@@ -135,6 +135,9 @@ return array(
 	),
 	// application components
 	'components'=>array(
+        'postman' => array(
+            'class' => 'application.modules.mail.components.MailPostman',
+        ),
         'contentCompactor' => array(
             'class' => 'ext.contentCompactor.ContentCompactor',
             'options' => array(

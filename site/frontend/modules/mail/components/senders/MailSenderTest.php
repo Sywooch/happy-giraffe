@@ -7,10 +7,11 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class MailSenderTest extends MailMassSender
+class MailSenderTest extends MailSender
 {
     public function process(User $user)
     {
-        return new MailMessageTest($user);
+        $message = new MailMessageTest($user);
+        Yii::app()->postman->send($message);
     }
 }

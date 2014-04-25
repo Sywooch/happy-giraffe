@@ -1,14 +1,17 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
- * User: mikita
- * Date: 24/04/14
- * Time: 15:01
- * To change this template use File | Settings | File Templates.
+ * Рассыльщик
+ *
+ * Отвечает главным образом за то, КОМУ отправлять письма, собирает необходимые для генерации данные, создает модели
+ * сообщений и передает их "почтальону" MailPostman
  */
 
-abstract class MailMassSender extends MailSender
+abstract class MailSender
 {
+    const DEBUG_DEVELOPMENT = 0;
+    const DEBUG_TESTING = 1;
+    const DEBUG_PRODUCTION = 2;
+
     /**
      * Обработка конкретно взятого пользователя
      *

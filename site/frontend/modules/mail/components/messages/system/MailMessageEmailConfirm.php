@@ -9,8 +9,22 @@
 
 class MailMessageEmailConfirm extends MailMessage
 {
+    public $type = 'emailConfirm';
+
+    public $password;
+
     public function getSubject()
     {
         return 'Подтверждение e-mail - Весёлый Жираф';
+    }
+
+    public function getActivationUrl()
+    {
+        return Yii::app()->createAbsoluteUrl('/signup/register/confirm', array('activationCode' => $this->user->activation_code));
+    }
+
+    public function getChangePasswordUrl()
+    {
+        return Yii::app()->createAbsoluteUrl('/signup/register/confirm', array('activationCode' => $this->user->activation_code, 'url' => Yii::app()->createAbsoluteUrl('/profile/settings/password')));
     }
 }

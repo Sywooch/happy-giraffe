@@ -7,7 +7,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-class MailSenderDaily extends MailMassSender
+class MailSenderDaily extends MailSender
 {
     protected $debugMode = self::DEBUG_TESTING;
 
@@ -179,7 +179,7 @@ class MailSenderDaily extends MailMassSender
             'posts' => $this->posts,
         )));
 
-        $this->sendMessage($message);
+        Yii::app()->postman->send($message);
     }
 
     protected function setFavourites()

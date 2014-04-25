@@ -9,6 +9,10 @@
 
 class MailMessagePasswordRecovery extends MailMessage
 {
+    public $type = 'passwordRecovery';
+
+    public $password;
+
     public function getSubject()
     {
         return 'Напоминание пароля - Весёлый Жираф';

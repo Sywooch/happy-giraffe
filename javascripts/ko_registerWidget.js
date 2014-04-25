@@ -31,7 +31,6 @@ function RegisterWidgetViewModel(data, form) {
     }
 
     self.uploadPhoto = function() {
-        self.avatar.draftImgSrc(self.avatar.imgSrc());
         self.currentStep(self.STEP_PHOTO);
     }
 
@@ -187,6 +186,10 @@ function UserAvatar(parent) {
     self.imgSrc = ko.observable('');
     self.draftImgSrc = ko.observable('');
     self.coords = null;
+
+    self.imgSrc.subscribe(function(val) {
+        self.draftImgSrc(val);
+    });
 
     self.showPreview = function(coords) {
         var image = new Image();

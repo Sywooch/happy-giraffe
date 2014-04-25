@@ -10,11 +10,17 @@
 class ClientScript extends CClientScript
 {
     const RELEASE_ID_KEY = 'Yii.ClientScript.releaseidkey';
+    const URLS_STYLE_NONE = 0;
+    const URLS_STYLE_GET = 1;
+    const URLS_STYLE_FILENAME = 2;
 
     public $jsCombineEnabled;
+
     public $cssDomain;
     public $jsDomain;
     public $imagesDomain;
+
+    public $staticUrlsStyle = self::URLS_STYLE_NONE;
 
     public function getHasNoindex()
     {
@@ -40,7 +46,18 @@ class ClientScript extends CClientScript
     protected function addReleaseId($url)
     {
         $r = $this->getReleaseId();
-        $url .= (strpos($url, '?') === false) ? '?r=' . $r : '&r=' . $r;
+        switch ($this->staticUrlsStyle) {
+            case self::URLS_STYLE_NONE:
+                break;
+            case self::URLS_STYLE_GET:
+                $url .= (strpos($url, '?') === false) ? '?r=' . $r : '&r=' . $r;
+                break;
+            case self::URLS_STYLE_FILENAME:
+                $dotPosition = strrpos($url, '.');
+                if ($dotPosition !== false) {
+                    $url = substr_replace($url, '.' . $r .  '.', $dotPosition, 1);
+                }
+        }
         return $url;
     }
 

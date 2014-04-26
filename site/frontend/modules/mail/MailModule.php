@@ -32,9 +32,9 @@ class MailModule extends CWebModule
     public static function externalImport()
     {
         $import = array(
-            'mail.models.*',
-            'mail.components.messages.*',
-            'mail.components.messages.system.*',
+            'site.frontend.modules.mail.models.*',
+            'site.frontend.modules.mail.components.messages.*',
+            'site.frontend.modules.mail.components.messages.system.*',
         );
 
         foreach ($import as $alias) {

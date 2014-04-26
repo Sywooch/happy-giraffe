@@ -9,11 +9,26 @@ function FavouriteWidget(data) {
     self.adding = ko.observable(null);
     self.favouritesMainPage = typeof favouritesModel !== "undefined";
 
-    self.clickHandler = function() {
+    self.clickHandler = function(data, event) {
         if (! self.active()) {
-            $.get('/favourites/default/getEntityData/', { modelName : self.modelName, modelId : self.modelId}, function(response) {
-                self.adding(new Entity(response, self));
-            }, 'json');
+            if (self.adding() === null) {
+                $.get('/favourites/default/getEntityData/', { modelName : self.modelName, modelId : self.modelId}, function(response) {
+                        self.adding(new Entity(response, self));
+                        $('html').one('click', function() {
+                            self.adding(null);
+                        });
+
+                        $(event.target).parents('.favorites-add-popup').one('click', function(event){
+                            event.stopPropagation();
+                        });
+
+                        $(event.target).one('click', function(event){
+                            event.stopPropagation();
+                        });
+                }, 'json');
+            } else {
+                self.cancel();
+            }
         } else {
             self.remove();
         }

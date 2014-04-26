@@ -23,6 +23,7 @@ class MailPostman extends CApplicationComponent
      */
     public function send(MailMessage $message)
     {
+        echo '1';
         if ($this->mode == self::MODE_SIMPLE) {
             $this->sendEmail($message);
         } else {

@@ -35,6 +35,7 @@ class MailModule extends CWebModule
             'site.frontend.modules.mail.models.*',
             'site.frontend.modules.mail.components.messages.*',
             'site.frontend.modules.mail.components.messages.system.*',
+            'site.frontend.modules.mail.components.senders.*',
         );
 
         foreach ($import as $alias) {

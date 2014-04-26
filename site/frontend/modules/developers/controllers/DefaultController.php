@@ -12,19 +12,14 @@ class DefaultController extends HController
     public function accessRules()
     {
         return array(
-            array('allow',
-                'roles' => array('developersModule'),
-            ),
             array('deny',
-                'users' => array('*'),
+                'users' => array('?'),
             ),
         );
     }
 
 	public function actionChangeIdentity($userId = null)
 	{
-        var_dump(Yii::app()->user->checkAccess('developersModule'));
-
         if ($userId !== null) {
             $identity = new DevelopesUserIdentity($userId);
             if ($identity->authenticate()) {

@@ -23,15 +23,6 @@ if (! Yii::app()->user->isGuest)
     <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
     <!-- wisywig-->
     <script src="/new/redactor/redactor.js"></script>
-
-    <script src="/javascript/helium.js"></script>
-    <script type="text/javascript">
-            window.addEventListener('load', function(){
-
-                helium.init();
-
-            }, false);
-        </script>
 </head>
 <body class="body">
 <?=$content?>

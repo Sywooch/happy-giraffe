@@ -29,6 +29,7 @@ class PasswordRecoveryForm extends CFormModel
      */
     public function send()
     {
+        /** @var User $user */
         $user = User::model()->findByAttributes(array('email' => $this->email));
         $newPassword = User::createPassword(8);
         $user->password = User::hashPassword($newPassword);

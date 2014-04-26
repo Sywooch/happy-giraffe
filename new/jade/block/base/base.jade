@@ -132,7 +132,7 @@ mixin b-user(mod,vars)
         .b-user_hold
             .b-user_row
                 a.b-user_name Ангелина Богоявленская
-            - if (vars.signpost)
+            if (vars.signpost)
                 a.b-user_view 123
                 a.b-user_check 123
                 a.b-user_del 123
@@ -146,7 +146,7 @@ mixin btn-scrolltop()
     mod
     vars
 mixin sidebar-search(mod, vars)
-    .sidebar-search.clearfix
+    .sidebar-search.clearfix(class=mod)
         input.sidebar-search_itx(type='text', name='', placeholder=vars.placeholder)
         // При начале ввода добавить класс .active на кнопку
         button.sidebar-search_btn

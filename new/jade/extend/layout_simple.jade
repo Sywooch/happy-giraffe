@@ -4,11 +4,10 @@ doctype html
 | <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 include ../block/config
 +head(path)
-body.body.body__white
+body.body(class='body__bg-base')
     .layout-container
-        .layout-header
-            +header__small('', {empty: true})
-        .layout-wrapper
-            .layout-wrapper_frame.clearfix
-                block layout-wrapper
+        block layout-wrapper
+        +btn-scrolltop()
+    .popup-container.display-n  
+        block block-hidden
 | </html>

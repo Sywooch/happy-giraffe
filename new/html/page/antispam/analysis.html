@@ -1,354 +1,354 @@
-<!DOCTYPE html>
-<html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Happy Giraffe</title>
-    <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-    <!-- including other jade works-->
-    <!-- ie8 -->
-    <!--+scripts(path)-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>
-      window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
-      
-    </script>
-    <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
-    <script src="/new/javascript/jquery.tooltipster.js"></script>
-    <script src="/new/javascript/jquery.magnific-popup.js"></script>
-    <script src="/new/javascript/baron.js"></script>
-    <script src="/new/javascript/select2.js"></script>
-    <script src="/new/redactor/redactor.js"></script>
-    <script src="/new/javascript/jquery.Jcrop.js"></script>
-    <script src="/new/javascript/common.js"></script>
-    <script src="/new/javascript/common-markup.js"></script>
-    <script src="//localhost:35729/livereload.js"></script>
-  </head>
-  <body class="body">
-    <div class="layout-container">
-      <div class="layout-header">
-        <!-- header-fix-->
-        <script>
-          $(document).ready(function () {
-              $(window).on('scroll',function () {
-                  var contanerScroll = $(window).scrollTop();
-                  var header = $('.layout-header');
-                  console.log(header.height());
-                  if (contanerScroll > header.height() + header.offset().top) {
-                      $('.header-fix').fadeIn(400);
-                  } else {
-                      $('.header-fix').fadeOut(400);
-                  }
-              });
-          });
-        </script>
-        <div class="header-fix">
-          <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
-            <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header_i-arrow"></span></a>
-              <!-- header-drop-->
-              <div class="header-drop">
-                <div class="header-menu clearfix">
-                  <ul class="header-menu_ul">
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+<!DOCTYPE html><!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
+<!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title>
+  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
+  <!-- including other jade works-->
+  <!-- ie8 -->
+  <!--+scripts(path)-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    
+  </script>
+  <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <script src="/new/javascript/baron.js"></script>
+  <script src="/new/javascript/select2.js"></script>
+  <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <script src="/new/javascript/common.js"></script>
+  <script src="/new/javascript/common-markup.js"></script>
+  <script src="//localhost:35729/livereload.js"></script>
+</head>
+<body class="body">
+  <div class="layout-container">
+    <div class="layout-header">
+      <!-- header-fix-->
+      <script>
+        $(document).ready(function () {
+            $(window).on('scroll',function () {
+                var contanerScroll = $(window).scrollTop();
+                var header = $('.layout-header');
+                console.log(header.height());
+                if (contanerScroll > header.height() + header.offset().top) {
+                    $('.header-fix').fadeIn(400);
+                } else {
+                    $('.header-fix').fadeOut(400);
+                }
+            });
+        });
+      </script>
+      <div class="header-fix">
+        <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
+          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+            <!-- header-drop-->
+            <div class="header-drop">
+              <div class="header-menu clearfix">
+                <ul class="header-menu_ul">
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                </ul>
+              </div>
+              <!-- header-drop_b-->
+              <div class="header-drop_b">
+                <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                <div class="club-list club-list__small clearfix">
+                  <ul class="club-list_ul clearfix">
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
                   </ul>
                 </div>
-                <!-- header-drop_b-->
-                <div class="header-drop_b">
-                  <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
-                  <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
-                  <div class="club-list club-list__small clearfix">
-                    <ul class="club-list_ul clearfix">
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"/></span></a></li>
-                    </ul>
-                  </div>
-                </div>
-                <!-- /header-drop_b-->
               </div>
-              <!-- /header-drop -->
+              <!-- /header-drop_b-->
             </div>
-            <div class="header-fix-menu">
-              <ul class="header-menu_ul clearfix">
-                <!-- li.header-fix-menu_li
-                a.header-fix-menu_a(href='')
-                    span.header-fix-menu_tx прямой эфир
-                -->
-                <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
-              </ul>
-            </div>
+            <!-- /header-drop -->
+          </div>
+          <div class="header-fix-menu">
+            <ul class="header-menu_ul clearfix">
+              <!-- li.header-fix-menu_li
+              a.header-fix-menu_a(href='')
+                  span.header-fix-menu_tx прямой эфир
+              -->
+              <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
+            </ul>
           </div>
         </div>
-        <!-- /header-fix-->
-        <!-- header-->
-        <div class="header header__small">
-          <div class="header_hold clearfix">
-            <!-- logo__small-->
-            <div class="logo logo__small"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a></div>
-            <div class="header_t-big">Модератор</div>
-            <div class="header_user"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a><a class="header_user-name">Александр Богоявленский</a>
-            </div>
-          </div>
-        </div>
-        <!-- /header-->
       </div>
-      <div class="layout-wrapper">
-        <div class="layout-wrapper_frame clearfix">
-          <!-- side-menu-->
-          <div class="side-menu side-menu__antispam">
-            <div class="side-menu_hold">
-              <div class="side-menu_t side-menu_t__moderator"></div>
-              <ul class="side-menu_ul">
-                <li class="side-menu_li"><a href="" class="side-menu_i side-menu_i__find"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__broadcast"></span><span class="side-menu_tx">Прямой эфир</span></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__expert"></span><span class="side-menu_tx">Эксперт</span><span class="side-menu_count">15</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__deleted"></span><span class="side-menu_tx">Удалено</span><span class="side-menu_count-sub">59</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__question"></span><span class="side-menu_tx">Под вопросом</span><span class="side-menu_count-sub">7895</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-white"></span><span class="side-menu_tx">Белый список</span><span class="side-menu_count-sub">7895</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-black"></span><span class="side-menu_tx">Черный список</span><span class="side-menu_count-sub">456</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-block"></span><span class="side-menu_tx">Блок</span><span class="side-menu_count-sub">456</span></span><span class="verticalalign-m-help"></span></a></li>
-              </ul>
-            </div>
+      <!-- /header-fix-->
+      <!-- header-->
+      <div class="header header__small">
+        <div class="header_hold clearfix">
+          <!-- logo__small-->
+          <div class="logo logo__small"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a></div>
+          <div class="header_t-big">Модератор</div>
+          <div class="header_user"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a><a class="header_user-name">Александр Богоявленский</a>
           </div>
-          <!-- /side-menu-->
-          <div class="page-col">
-            <div class="page-col_top clearfix">
-              <div class="antispam-user">
-                <div class="float-r margin-t15"><a href="" class="textdec-none">
-                    <div class="ico-check"></div>
-                    <div class="a-pseudo display-ib">Все хорошо </div></a></div>
-                <div class="antispam-user_hold">
-                  <div class="b-user b-user__w300">
-                    <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                    </div>
-                    <div class="b-user_hold">
-                      <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div><a class="b-user_view">123</a><a class="b-user_check">123</a><a class="b-user_del">123</a>
-                    </div>
+        </div>
+      </div>
+      <!-- /header-->
+    </div>
+    <div class="layout-wrapper">
+      <div class="layout-wrapper_frame clearfix">
+        <!-- side-menu-->
+        <div class="side-menu side-menu__antispam">
+          <div class="side-menu_hold">
+            <div class="side-menu_t side-menu_t__moderator"></div>
+            <ul class="side-menu_ul">
+              <li class="side-menu_li"><a href="" class="side-menu_i side-menu_i__find"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__broadcast"></span><span class="side-menu_tx">Прямой эфир</span></span></a></li>
+              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__expert"></span><span class="side-menu_tx">Эксперт</span><span class="side-menu_count">15</span></span><span class="verticalalign-m-help"></span></a></li>
+              <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__deleted"></span><span class="side-menu_tx">Удалено</span><span class="side-menu_count-sub">59</span></span><span class="verticalalign-m-help"></span></a></li>
+              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__question"></span><span class="side-menu_tx">Под вопросом</span><span class="side-menu_count-sub">7895</span></span><span class="verticalalign-m-help"></span></a></li>
+              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-white"></span><span class="side-menu_tx">Белый список</span><span class="side-menu_count-sub">7895</span></span><span class="verticalalign-m-help"></span></a></li>
+              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-black"></span><span class="side-menu_tx">Черный список</span><span class="side-menu_count-sub">456</span></span><span class="verticalalign-m-help"></span></a></li>
+              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-block"></span><span class="side-menu_tx">Блок</span><span class="side-menu_count-sub">456</span></span><span class="verticalalign-m-help"></span></a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /side-menu-->
+        <div class="page-col">
+          <div class="page-col_top clearfix">
+            <div class="antispam-user">
+              <div class="float-r margin-t15"><a href="" class="textdec-none">
+                  <div class="ico-check"></div>
+                  <div class="a-pseudo display-ib">Все хорошо </div></a></div>
+              <div class="antispam-user_hold">
+                <div class="b-user b-user__w300">
+                  <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                   </div>
-                  <!-- antispam-user-act-->
-                  <div class="antispam-user-act">
-                    <!-- .active для активного состояния иконки--><a title="В белый список" class="antispam-user-act_i antispam-user-act_i__white active powertip"></a><a title="В черный список" class="antispam-user-act_i antispam-user-act_i__black powertip"></a><a title="Блок" class="antispam-user-act_i antispam-user-act_i__block powertip"></a>
+                  <div class="b-user_hold">
+                    <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div><a class="b-user_view">123</a><a class="b-user_check">123</a><a class="b-user_del">123</a>
                   </div>
+                </div>
+                <!-- antispam-user-act-->
+                <div class="antispam-user-act">
+                  <!-- .active для активного состояния иконки--><a title="В белый список" class="antispam-user-act_i antispam-user-act_i__white active powertip"></a><a title="В черный список" class="antispam-user-act_i antispam-user-act_i__black powertip"></a><a title="Блок" class="antispam-user-act_i antispam-user-act_i__block powertip"></a>
                 </div>
               </div>
             </div>
-            <div class="page-col_cont page-col_cont__gray">
-              <!-- antispam-->
-              <div class="antispam">
-                <div class="page-col_top">
-                  <ul class="page-col_ul">
-                    <li class="page-col_li active"><a href="" class="page-col_ul-a">Записи 54</a></li>
-                    <li class="page-col_li"><a href="" class="page-col_ul-a">Комментарии 165</a></li>
-                    <li class="page-col_li"><a href="" class="page-col_ul-a">Фотографии 65</a></li>
-                    <li class="page-col_li disabled"><a href="" class="page-col_ul-a">Сообщения 65</a></li>
-                  </ul>
-                </div>
-                <!-- antispam_i-->
-                <div class="antispam_i clearfix">
-                  <div class="antispam_cont">
-                    <!-- Статья с текстом-->
-                    <!-- b-article-->
-                    <article class="b-article clearfix">
-                      <div class="float-l">
-                        <div class="like-control like-control__small-indent clearfix"><a href="" class="ava"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"/></a>
-                        </div>
-                        <div class="like-control clearfix"><a href="" title="Нравится" class="like-control_ico like-control_ico__like powertip">865</a>
-                          <div class="position-rel"><a href="" title="Репост" class="like-control_ico like-control_ico__repost powertip">5</a></div>
-                          <div class="position-rel"><a href="" title="В избранное" class="favorites-control_a active powertip">123865</a></div>
-                        </div>
+          </div>
+          <div class="page-col_cont page-col_cont__gray">
+            <!-- antispam-->
+            <div class="antispam">
+              <div class="page-col_top">
+                <ul class="page-col_ul">
+                  <li class="page-col_li active"><a href="" class="page-col_ul-a">Записи 54</a></li>
+                  <li class="page-col_li"><a href="" class="page-col_ul-a">Комментарии 165</a></li>
+                  <li class="page-col_li"><a href="" class="page-col_ul-a">Фотографии 65</a></li>
+                  <li class="page-col_li disabled"><a href="" class="page-col_ul-a">Сообщения 65</a></li>
+                </ul>
+              </div>
+              <!-- antispam_i-->
+              <div class="antispam_i clearfix">
+                <div class="antispam_cont">
+                  <!-- Статья с текстом-->
+                  <!-- b-article-->
+                  <article class="b-article clearfix">
+                    <div class="float-l">
+                      <div class="like-control like-control__small-indent clearfix"><a href="" class="ava"><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"></a>
                       </div>
-                      <div class="b-article_cont clearfix">
-                        <div class="b-article_cont-tale"></div>
-                        <div class="b-article_header clearfix">
-                          <div class="meta-gray"><a href="" class="meta-gray_comment"><span class="ico-comment ico-comment__gray"></span><span class="meta-gray_tx">35</span></a>
-                            <div class="meta-gray_view"><span class="ico-view ico-view__gray"></span><span class="meta-gray_tx">305</span></div>
-                          </div>
-                          <div class="float-l"><a href="" class="b-article_author">Ангелина Богоявленская</a><span class="b-article_date">Сегодня 13:25</span></div>
-                        </div>
-                        <h2 class="b-article_t"><a href="" class="b-article_t-a">Самое лучшее утро - просыпаюсь, а ты рядом</a></h2>
-                        <div class="b-article_in clearfix">
-                          <div class="wysiwyg-content clearfix">
-                            <p>Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
-                            <div class="b-article_in-img"><a href=""><img alt="" src="http://img.dev.happy-giraffe.ru/thumbs/580x/16534/f464362269821285b5b2aa67855267da.jpeg"/></a></div>
-                          </div>
-                        </div>
-                        <div class="textalign-r"><a href="" class="b-article_more">Смотреть далее</a></div>
+                      <div class="like-control clearfix"><a href="" title="Нравится" class="like-control_ico like-control_ico__like powertip">865</a>
+                        <div class="position-rel"><a href="" title="Репост" class="like-control_ico like-control_ico__repost powertip">5</a></div>
+                        <div class="position-rel"><a href="" title="В избранное" class="favorites-control_a active powertip">123865</a></div>
                       </div>
-                    </article>
-                    <!-- /b-article-->
-                  </div>
-                  <div class="antispam_control">
-                    <div class="margin-b5 clearfix"><a title="Изменить решение" class="ico-del margin-r5 powertip"></a><a href="" title="Екатерина Прохожаева" class="ava powertip ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
                     </div>
-                    <div class="color-gray font-sx">Сегодня  23:15</div>
-                  </div>
-                </div>
-                <!-- /antispam_i-->
-                <!-- antispam_i-->
-                <div class="antispam_i clearfix">
-                  <div class="antispam_cont">
-                    <!-- comments-gray-->
-                    <section class="comments-gray comments-gray__wide clearfix">
-                      <div class="comments-gray_i">
-                        <div class="comments-gray_ava"><a href="" class="ava ava__middle ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
+                    <div class="b-article_cont clearfix">
+                      <div class="b-article_cont-tale"></div>
+                      <div class="b-article_header clearfix">
+                        <div class="meta-gray"><a href="" class="meta-gray_comment"><span class="ico-comment ico-comment__gray"></span><span class="meta-gray_tx">35</span></a>
+                          <div class="meta-gray_view"><span class="ico-view ico-view__gray"></span><span class="meta-gray_tx">305</span></div>
                         </div>
-                        <div class="comments-gray_r">
-                          <div class="comments-gray_date">Сегодня 13:25</div>
-                          <div class="comments-gray_control">
-                            <div class="comments-gray_control-hold"><a href="" class="comments-gray_quote-ico powertip"></a><a href="" class="message-ico message-ico__del powertip"></a><a href="" class="message-ico message-ico__warning powertip"></a></div>
-                          </div>
-                        </div>
-                        <div class="comments-gray_frame">
-                          <div class="comments-gray_header clearfix"><a href="" class="comments-gray_author">Анг Богоявлен </a><a href="" class="comments-gray_like like-hg-small powertip">78</a></div>
-                          <div class="comments-gray_cont wysiwyg-content">
-                            <p>я не нашел, где можно поменять название трека.</p>
-                          </div>
-                          <div class="font-s">к <a>Второй спооб где можно поменять название трека.</a></div>
+                        <div class="float-l"><a href="" class="b-article_author">Ангелина Богоявленская</a><span class="b-article_date">Сегодня 13:25</span></div>
+                      </div>
+                      <h2 class="b-article_t"><a href="" class="b-article_t-a">Самое лучшее утро - просыпаюсь, а ты рядом</a></h2>
+                      <div class="b-article_in clearfix">
+                        <div class="wysiwyg-content clearfix">
+                          <p>Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
+                          <div class="b-article_in-img"><a href=""><img alt="" src="http://img.dev.happy-giraffe.ru/thumbs/580x/16534/f464362269821285b5b2aa67855267da.jpeg"></a></div>
                         </div>
                       </div>
-                    </section>
-                    <!-- /comments-gray-->
-                  </div>
-                  <div class="antispam_control">
-                    <div class="margin-b5 clearfix"><a class="btn-green btn-m">
-                        <div class="ico-btn-check"></div>Хорошо</a></div>
-                    <div class="margin-b5 clearfix"><a class="btn-red btn-m">
-                        <div class="ico-btn-del"></div>Удалить</a></div>
-                  </div>
-                </div>
-                <!-- /antispam_i-->
-                <!-- antispam_i-->
-                <div class="antispam_i clearfix">
-                  <div class="antispam_cont">
-                    <!-- Фотография-->
-                    <!-- b-article-->
-                    <article class="b-article clearfix">
-                      <div class="float-l">
-                        <div class="like-control like-control__small-indent clearfix"><a href="" class="ava"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"/></a>
-                        </div>
-                        <div class="like-control clearfix"><a href="" title="Нравится" class="like-control_ico like-control_ico__like powertip">865</a>
-                          <div class="position-rel"><a href="" title="Репост" class="like-control_ico like-control_ico__repost powertip">5</a></div>
-                          <div class="position-rel"><a href="" title="В избранное" class="favorites-control_a active powertip">123865</a></div>
-                        </div>
-                      </div>
-                      <div class="b-article_cont clearfix">
-                        <div class="b-article_cont-tale"></div>
-                        <div class="b-article_header clearfix">
-                          <div class="meta-gray"><a href="" class="meta-gray_comment"><span class="ico-comment ico-comment__gray"></span><span class="meta-gray_tx">35</span></a>
-                            <div class="meta-gray_view"><span class="ico-view ico-view__gray"></span><span class="meta-gray_tx">305</span></div>
-                          </div>
-                          <div class="float-l"><a href="" class="b-article_author">Ангелина Богоявленская</a><span class="b-article_date">Сегодня 13:25</span></div>
-                        </div>
-                        <h2 class="b-article_t"><a href="" class="b-article_t-a">Фото1</a></h2>
-                        <div class="b-article_in clearfix">
-                          <div class="wysiwyg-content clearfix">
-                            <div class="b-article_in-img"><a href=""><img alt="" src="http://img.dev.happy-giraffe.ru/thumbs/580x/16534/f464362269821285b5b2aa67855267da.jpeg"/></a></div>
-                          </div>
-                        </div>
-                        <div class="font-s margin-l20 margin-b30">к <a> Второй спооб где можно поменять название трека. Меняя название трека в альбоме</a></div>
-                      </div>
-                    </article>
-                    <!-- /b-article-->
-                  </div>
-                  <div class="antispam_control">
-                    <div class="margin-b5 clearfix"><a title="Изменить решение" class="ico-check margin-r5 powertip"></a><a href="" title="Екатерина Прохожаева" class="ava powertip ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
+                      <div class="textalign-r"><a href="" class="b-article_more">Смотреть далее</a></div>
                     </div>
-                    <div class="color-gray font-sx">Сегодня  23:15</div>
-                  </div>
+                  </article>
+                  <!-- /b-article-->
                 </div>
-                <!-- /antispam_i-->
-                <!-- antispam_i-->
-                <div class="antispam_i clearfix">
-                  <div class="antispam_cont">
-                    <!-- Фотопост-->
-                    <!-- b-article-->
-                    <article class="b-article b-article__photopost clearfix">
-                      <div class="float-l">
-                        <div class="like-control like-control__small-indent clearfix"><a href="" class="ava"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"/></a>
-                        </div>
-                        <div class="like-control clearfix"><a href="" title="Нравится" class="like-control_ico like-control_ico__like powertip">865</a>
-                          <div class="position-rel"><a href="" title="Репост" class="like-control_ico like-control_ico__repost powertip">5</a></div>
-                          <div class="position-rel"><a href="" title="В избранное" class="favorites-control_a active powertip">123865</a></div>
+                <div class="antispam_control">
+                  <div class="margin-b5 clearfix"><a title="Изменить решение" class="ico-del margin-r5 powertip"></a><a href="" title="Екатерина Прохожаева" class="ava powertip ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                  </div>
+                  <div class="color-gray font-sx">Сегодня  23:15</div>
+                </div>
+              </div>
+              <!-- /antispam_i-->
+              <!-- antispam_i-->
+              <div class="antispam_i clearfix">
+                <div class="antispam_cont">
+                  <!-- comments-gray-->
+                  <section class="comments-gray comments-gray__wide clearfix">
+                    <div class="comments-gray_i">
+                      <div class="comments-gray_ava"><a href="" class="ava ava__middle ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                      </div>
+                      <div class="comments-gray_r">
+                        <div class="comments-gray_date">Сегодня 13:25</div>
+                        <div class="comments-gray_control">
+                          <div class="comments-gray_control-hold"><a href="" class="comments-gray_quote-ico powertip"></a><a href="" class="message-ico message-ico__del powertip"></a><a href="" class="message-ico message-ico__warning powertip"></a></div>
                         </div>
                       </div>
-                      <div class="b-article_cont clearfix">
-                        <div class="b-article_cont-tale"></div>
-                        <div class="b-article_header clearfix">
-                          <div class="meta-gray"><a href="" class="meta-gray_comment"><span class="ico-comment ico-comment__white"></span><span class="meta-gray_tx color-gray-light">35</span></a>
-                            <div class="meta-gray_view"><span class="ico-view ico-view__white"></span><span class="meta-gray_tx color-gray-light">305</span></div>
-                          </div>
-                          <div class="float-l"><a href="" class="b-article_author">Ангелин Богоявленский</a><span class="b-article_date">Сегодня 13:25</span></div>
+                      <div class="comments-gray_frame">
+                        <div class="comments-gray_header clearfix"><a href="" class="comments-gray_author">Анг Богоявлен </a><a href="" class="comments-gray_like like-hg-small powertip">78</a></div>
+                        <div class="comments-gray_cont wysiwyg-content">
+                          <p>я не нашел, где можно поменять название трека.</p>
                         </div>
-                        <h2 class="b-article_t"><a href="" class="b-article_t-a">Как менялась мода на прически</a></h2>
-                        <div class="b-article_in clearfix">
-                          <div class="wysiwyg-content clearfix">
-                            <p>Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
-                          </div>
-                          <div class="photo-grid clearfix">
-                            <div class="photo-grid_row clearfix">
-                              <div class="photo-grid_i"><img src="http://img.happy-giraffe.ru/thumbs/580x/220231/d2b4677dc8cdaf8012799a3f252afdc8.jpg" alt="Как поддерживают себя в форме и худеют в разных странах"/>
-                                <div class="photo-grid_tip">20 фото</div><span class="ico-play-big"></span>
-                              </div>
+                        <div class="font-s">к <a>Второй спооб где можно поменять название трека.</a></div>
+                      </div>
+                    </div>
+                  </section>
+                  <!-- /comments-gray-->
+                </div>
+                <div class="antispam_control">
+                  <div class="margin-b5 clearfix"><a class="btn-green btn-m">
+                      <div class="ico-btn-check"></div>Хорошо</a></div>
+                  <div class="margin-b5 clearfix"><a class="btn-red btn-m">
+                      <div class="ico-btn-del"></div>Удалить</a></div>
+                </div>
+              </div>
+              <!-- /antispam_i-->
+              <!-- antispam_i-->
+              <div class="antispam_i clearfix">
+                <div class="antispam_cont">
+                  <!-- Фотография-->
+                  <!-- b-article-->
+                  <article class="b-article clearfix">
+                    <div class="float-l">
+                      <div class="like-control like-control__small-indent clearfix"><a href="" class="ava"><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"></a>
+                      </div>
+                      <div class="like-control clearfix"><a href="" title="Нравится" class="like-control_ico like-control_ico__like powertip">865</a>
+                        <div class="position-rel"><a href="" title="Репост" class="like-control_ico like-control_ico__repost powertip">5</a></div>
+                        <div class="position-rel"><a href="" title="В избранное" class="favorites-control_a active powertip">123865</a></div>
+                      </div>
+                    </div>
+                    <div class="b-article_cont clearfix">
+                      <div class="b-article_cont-tale"></div>
+                      <div class="b-article_header clearfix">
+                        <div class="meta-gray"><a href="" class="meta-gray_comment"><span class="ico-comment ico-comment__gray"></span><span class="meta-gray_tx">35</span></a>
+                          <div class="meta-gray_view"><span class="ico-view ico-view__gray"></span><span class="meta-gray_tx">305</span></div>
+                        </div>
+                        <div class="float-l"><a href="" class="b-article_author">Ангелина Богоявленская</a><span class="b-article_date">Сегодня 13:25</span></div>
+                      </div>
+                      <h2 class="b-article_t"><a href="" class="b-article_t-a">Фото1</a></h2>
+                      <div class="b-article_in clearfix">
+                        <div class="wysiwyg-content clearfix">
+                          <div class="b-article_in-img"><a href=""><img alt="" src="http://img.dev.happy-giraffe.ru/thumbs/580x/16534/f464362269821285b5b2aa67855267da.jpeg"></a></div>
+                        </div>
+                      </div>
+                      <div class="font-s margin-l20 margin-b30">к <a> Второй спооб где можно поменять название трека. Меняя название трека в альбоме</a></div>
+                    </div>
+                  </article>
+                  <!-- /b-article-->
+                </div>
+                <div class="antispam_control">
+                  <div class="margin-b5 clearfix"><a title="Изменить решение" class="ico-check margin-r5 powertip"></a><a href="" title="Екатерина Прохожаева" class="ava powertip ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                  </div>
+                  <div class="color-gray font-sx">Сегодня  23:15</div>
+                </div>
+              </div>
+              <!-- /antispam_i-->
+              <!-- antispam_i-->
+              <div class="antispam_i clearfix">
+                <div class="antispam_cont">
+                  <!-- Фотопост-->
+                  <!-- b-article-->
+                  <article class="b-article b-article__photopost clearfix">
+                    <div class="float-l">
+                      <div class="like-control like-control__small-indent clearfix"><a href="" class="ava"><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"></a>
+                      </div>
+                      <div class="like-control clearfix"><a href="" title="Нравится" class="like-control_ico like-control_ico__like powertip">865</a>
+                        <div class="position-rel"><a href="" title="Репост" class="like-control_ico like-control_ico__repost powertip">5</a></div>
+                        <div class="position-rel"><a href="" title="В избранное" class="favorites-control_a active powertip">123865</a></div>
+                      </div>
+                    </div>
+                    <div class="b-article_cont clearfix">
+                      <div class="b-article_cont-tale"></div>
+                      <div class="b-article_header clearfix">
+                        <div class="meta-gray"><a href="" class="meta-gray_comment"><span class="ico-comment ico-comment__white"></span><span class="meta-gray_tx color-gray-light">35</span></a>
+                          <div class="meta-gray_view"><span class="ico-view ico-view__white"></span><span class="meta-gray_tx color-gray-light">305</span></div>
+                        </div>
+                        <div class="float-l"><a href="" class="b-article_author">Ангелин Богоявленский</a><span class="b-article_date">Сегодня 13:25</span></div>
+                      </div>
+                      <h2 class="b-article_t"><a href="" class="b-article_t-a">Как менялась мода на прически</a></h2>
+                      <div class="b-article_in clearfix">
+                        <div class="wysiwyg-content clearfix">
+                          <p>Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
+                        </div>
+                        <div class="photo-grid clearfix">
+                          <div class="photo-grid_row clearfix">
+                            <div class="photo-grid_i"><img src="http://img.happy-giraffe.ru/thumbs/580x/220231/d2b4677dc8cdaf8012799a3f252afdc8.jpg" alt="Как поддерживают себя в форме и худеют в разных странах">
+                              <div class="photo-grid_tip">20 фото</div><span class="ico-play-big"></span>
                             </div>
                           </div>
                         </div>
-                        <div class="textalign-r"><a href="" class="b-article_more b-article_more__white">Смотреть далее</a></div>
                       </div>
-                    </article>
-                    <!-- /b-article-->
-                  </div>
-                  <div class="antispam_control">
-                    <div class="margin-b5 clearfix"><a title="Изменить решение" class="ico-check margin-r5 powertip"></a><a href="" title="Екатерина Прохожаева" class="ava powertip ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
+                      <div class="textalign-r"><a href="" class="b-article_more b-article_more__white">Смотреть далее</a></div>
                     </div>
-                    <div class="color-gray font-sx">Сегодня  23:15</div>
-                  </div>
+                  </article>
+                  <!-- /b-article-->
                 </div>
-                <!-- /antispam_i-->
-                <!-- antispam_i-->
-                <div class="antispam_i clearfix">
-                  <div class="antispam_cont">
-                    <!-- paginator-->
-                    <div class="yiipagination margin-l100">
-                      <div class="pager">
-                        <ul class="yiiPager">
-                          <li class="page"><a href="">1</a></li>
-                          <li class="page"><a href="">2</a></li>
-                          <li class="page selected"><a href="">3</a></li>
-                          <li class="page"><a href="">4</a></li>
-                          <li class="page"><a href="">5</a></li>
-                          <li class="page"><a href="">6</a></li>
-                          <li class="page"><a href="">7</a></li>
-                          <li class="page"><a href="">8</a></li>
-                          <li class="page"><a href="">9</a></li>
-                          <li class="page"><a href="">10</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <!-- /paginator-->
+                <div class="antispam_control">
+                  <div class="margin-b5 clearfix"><a title="Изменить решение" class="ico-check margin-r5 powertip"></a><a href="" title="Екатерина Прохожаева" class="ava powertip ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                   </div>
-                  <div class="antispam_control"></div>
+                  <div class="color-gray font-sx">Сегодня  23:15</div>
                 </div>
               </div>
-              <!-- /antispam-->
+              <!-- /antispam_i-->
+              <!-- antispam_i-->
+              <div class="antispam_i clearfix">
+                <div class="antispam_cont">
+                  <!-- paginator-->
+                  <div class="yiipagination margin-l100">
+                    <div class="pager">
+                      <ul class="yiiPager">
+                        <li class="page"><a href="">1</a></li>
+                        <li class="page"><a href="">2</a></li>
+                        <li class="page selected"><a href="">3</a></li>
+                        <li class="page"><a href="">4</a></li>
+                        <li class="page"><a href="">5</a></li>
+                        <li class="page"><a href="">6</a></li>
+                        <li class="page"><a href="">7</a></li>
+                        <li class="page"><a href="">8</a></li>
+                        <li class="page"><a href="">9</a></li>
+                        <li class="page"><a href="">10</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- /paginator-->
+                </div>
+                <div class="antispam_control"></div>
+              </div>
             </div>
+            <!-- /antispam-->
           </div>
         </div>
       </div>
     </div>
-    <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
-    <div class="popup-container display-n"> 
-    </div>
-  </body>
-</html>
+  </div>
+  <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

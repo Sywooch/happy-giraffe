@@ -1,35 +1,18 @@
-<?php if (false):?>
-    <div class="custom-likes-b custom-likes-b__like-white">
-        <div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
-        <a class="custom-like" href="">
-            <span class="custom-like_icon odkl"></span>
-            <span class="custom-like_value">0</span>
-        </a>
-        <a class="custom-like" href="">
-            <span class="custom-like_icon vk"></span>
-            <span class="custom-like_value">1900</span>
-        </a>
-
-        <a class="custom-like" href="">
-            <span class="custom-like_icon fb"></span>
-            <span class="custom-like_value">150</span>
-        </a>
-
-        <a class="custom-like" href="">
-            <span class="custom-like_icon tw"></span>
-            <span class="custom-like_value">10</span>
-        </a>
+<?php if (! Yii::app()->user->checkAccess('tester')): ?>
+    <noindex>
+        <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+            'model' => $data,
+            'type' => 'simple',
+            'options' => array(
+                'title' => $data->title,
+                'image' => $data->getContentImage(400),
+                'description' => $data->preview,
+            ),
+        )); ?>
+    </noindex>
+<?php else: ?>
+    <div style="text-align: center; margin-bottom: 10px;">
+        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareQuickServices="vkontakte,odnoklassniki,facebook,twitter,moimir,gplus" data-yashareTheme="counter"></div>
     </div>
-<?php endif ?>
-
-<noindex>
-    <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-        'model' => $data,
-        'type' => 'simple',
-        'options' => array(
-            'title' => $data->title,
-            'image' => $data->getContentImage(400),
-            'description' => $data->preview,
-        ),
-    )); ?>
-</noindex>
+<?php endif; ?>

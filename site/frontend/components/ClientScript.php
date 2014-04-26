@@ -20,7 +20,7 @@ class ClientScript extends CClientScript
     public $jsDomain;
     public $imagesDomain;
 
-    public $staticUrlsStyle = self::URLS_STYLE_NONE;
+    public $staticUrlsStyle = self::URLS_STYLE_GET;
 
     public function getHasNoindex()
     {
@@ -111,7 +111,7 @@ class ClientScript extends CClientScript
         foreach ($this->scriptFiles as $position => $scriptFiles) {
             foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
                 unset($this->scriptFiles[$position][$scriptFile]);
-                if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0)
+                if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0 && strpos($scriptFile, '/', 1) !== 0)
                     $scriptFile = $this->getJsStaticDomain() . $scriptFile;
                 $scriptFile = $this->addReleaseId($scriptFile);
                 $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;

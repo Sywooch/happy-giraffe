@@ -52,7 +52,9 @@ class YandexShareWidget extends CWidget
     {
         /** @var ClientScript $cs */
         $cs = Yii::app()->clientScript;
-        $cs->registerScriptFile('//yandex.st/share/share.js');
+        $cs->registerScriptFile('//yandex.st/share/share.js', array(
+            'chaset' => 'utf-8',
+        ));
     }
 
     protected function getImage()

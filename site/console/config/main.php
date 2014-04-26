@@ -39,7 +39,7 @@ return array(
     ),
     'components' => array(
         'postman' => array(
-            'class' => 'MailPostMan',
+            'class' => 'MailPostman',
         ),
         'log' => array(
             'class' => 'CLogRouter',

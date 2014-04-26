@@ -79,7 +79,7 @@ function CommentViewModel(data) {
     };
     self.goBottom = function () {
         if (userIsGuest)
-            $('a[href=#login]').trigger('click');
+            $('a[href=#loginWidget]').trigger('click');
 
         if (self.full())
             $('body').stop().animate({scrollTop: $('.layout-wrapper').height()}, "normal");
@@ -212,7 +212,7 @@ function NewComment(data, parent) {
 
     self.Like = function () {
         if (userIsGuest)
-            $('a[href=#login]').trigger('click');
+            $('a[href=#loginWidget]').trigger('click');
         else if (CURRENT_USER_ID != self.author.id()) {
             $.post('/ajaxSimple/commentLike/', {id: self.id}, function (response) {
                 if (response.status) {
@@ -275,7 +275,7 @@ function NewComment(data, parent) {
 
     self.Reply = function () {
         if (userIsGuest)
-            $('a[href=#login]').trigger('click');
+            $('a[href=#loginWidget]').trigger('click');
         else
             self.parent.Reply(self);
     };

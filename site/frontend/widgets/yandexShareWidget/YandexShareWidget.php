@@ -10,13 +10,15 @@
 class YandexShareWidget extends CWidget
 {
     /**
-     * @var CommunityContent
+     * @var HActiveRecord|IPreview
      */
     public $model;
+    private $_id;
 
     public function run()
     {
         $this->registerScript();
+        $this->registerMeta();
         $json = CJSON::encode(array(
             'element' => $this->getElementId(),
             'theme' => 'counter',
@@ -30,22 +32,18 @@ class YandexShareWidget extends CWidget
                     'gplus',
                 ),
             ),
-            'link' => $this->model->getUrl(false, true),
-            'title' => $this->model->title,
-            'description' => $this->model->getContentText(),
-            'image' => $this->getImage(),
+            'description' => $this->model->getPreviewText(),
+            'image' => $this->getImageUrl(),
         ));
         $this->render('view', compact('json'));
     }
 
-    public function getDefaultImage()
-    {
-        return Yii::app()->request->hostInfo . '/new/images/base/logo.png';
-    }
-
     public function getElementId()
     {
-        return 'ya_share' . $this->model->id;
+        if ($this->_id === null) {
+            $this->_id = 'ya_share_' . md5(get_class($this->model) . $this->model->primaryKey);
+        }
+        return $this->_id;
     }
 
     public function registerScript()
@@ -57,16 +55,21 @@ class YandexShareWidget extends CWidget
         ));
     }
 
-    protected function getImage()
+    public function registerMeta()
     {
-        $photo = $this->model->getPhoto();
-        $avatar = $this->model->author->getAvatarUrl(200);
-        if ($photo !== null) {
-            return $photo->getOriginalUrl();
-        } elseif ($avatar !== false) {
-            return $avatar;
-        } else {
-            return $this->getDefaultImage();
-        }
+        /** @var ClientScript $cs */
+        $cs = Yii::app()->clientScript;
+        $cs->registerMetaTag($this->getImageUrl(), null, null, array('property' => 'og:image'));
+    }
+
+    protected function getDefaultImage()
+    {
+        return Yii::app()->request->hostInfo . '/new/images/base/logo.png';
+    }
+
+    protected function getImageUrl()
+    {
+        $photo = $this->model->getPreviewPhoto();
+        return ($photo === null) ? $this->getDefaultImage() : $photo->getOriginalUrl();
     }
 }

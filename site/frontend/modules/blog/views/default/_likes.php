@@ -5,8 +5,9 @@
  */
 ?>
 
-<?php if (! Yii::app()->user->checkAccess('tester')): ?>
-    <noindex>
+
+<noindex>
+    <?php if (! Yii::app()->user->checkAccess('tester')): ?>
         <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
             'model' => $data,
             'type' => 'simple',
@@ -16,9 +17,9 @@
                 'description' => $data->preview,
             ),
         )); ?>
-    </noindex>
-<?php else: ?>
-    <div style="text-align: center; margin-bottom: 10px;">
-        <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $data)); ?>
-    </div>
-<?php endif; ?>
+    <?php else: ?>
+        <div style="text-align: center; margin-bottom: 10px;">
+            <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $data)); ?>
+        </div>
+    <?php endif; ?>
+</noindex>

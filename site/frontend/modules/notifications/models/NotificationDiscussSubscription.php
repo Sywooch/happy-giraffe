@@ -6,6 +6,11 @@
  */
 class NotificationDiscussSubscription extends HMongoModel
 {
+    public function attributeNames()
+    {
+        return array();
+    }
+
     protected $_collection_name = 'notification_discuss_subs';
 
     /**

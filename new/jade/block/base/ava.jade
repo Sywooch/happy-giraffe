@@ -9,10 +9,11 @@
         src - путь к изобржению аватара
         avaSpan 
 mixin ava(mod, vars)
+    //!= vars.avaSpan
     - if (vars.avaSpan)
         span.ava(class=mod, href='')
             img.ava_img(alt='', src='#{vars.src}')
-    -else 
+    - else 
         - if (vars.avaNameTitle)
             a.ava.powertip(class=mod, href='', title=vars.avaNameTitle)
                 - if (vars.icoStatus)
@@ -25,89 +26,23 @@ mixin ava(mod, vars)
                 img.ava_img(alt='', src='#{vars.src}')
 
 
+//- avatars 
+- var avaVars = {}
+- avaVars.icoStatus = 'ico-status__online',
+- avaVars.avaSpan = true,
+- avaVars.src = 'http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg'
 
-//- Большой аватар с кнопками пользователя
-    mod
-    vars 
-        userNameTx
-        userAge
-        capUserDel
-        icoFriend
-        icoFriendAdd
-mixin b-ava-large(mod, vars)
-    // b-ava-large
-    .b-ava-large(class=mod)
-        .b-ava-large_ava-hold.clearfix
-            - avaVars = {src: '/new/images/example/ava-large.jpg'}
-            +ava("ava__large ava__male", avaVars)
-            span.b-ava-large_online На сайте
-            a.b-ava-large_bubble.b-ava-large_bubble__dialog(href='', title='Начать диалог')
-                span.b-ava-large_ico.b-ava-large_ico__mail
-                span.b-ava-large_bubble-tx
-            a.b-ava-large_bubble.b-ava-large_bubble__photo(href='', title='Фотографии')
-                span.b-ava-large_ico.b-ava-large_ico__photo
-                span.b-ava-large_bubble-tx 50
-            a.b-ava-large_bubble.b-ava-large_bubble__blog(href='', title='Записи в блоге')
-                span.b-ava-large_ico.b-ava-large_ico__blog
-                span.b-ava-large_bubble-tx 999
-            - if (vars.icoFriend)
-                a.b-ava-large_bubble.b-ava-large_bubble__friend(href='', title='Друг')
-                    span.b-ava-large_ico.b-ava-large_ico__friend
-                    span.b-ava-large_bubble-tx Друг
-            - if (vars.icoFriendAdd)
-                a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
-                    span.b-ava-large_ico.b-ava-large_ico__friend-add
-                    span.b-ava-large_bubble-tx 
-        .textalign-c
-            a.b-ava-large_a(href='') 
-                = vars.userNameTx 
-            span.b-ava-large_age
-                = vars.userAge 
-        .location.location__small.clearfix
-            .flag.flag-kz(title='Казахстан')
-            span.location_tx Казахстан, Переславль-Залесский, Астраханская область
-        - if (vars.family)
-            //- b-family
-            .b-family
-                ul.b-family_ul
-                    li.b-family_li
-                        a.b-family_a(href='')
-                            span.b-family_img-hold
-                                //- Размеры изображений 55*55пк 
-                                img.b-family_img(alt='', src='/images/example/w41-h49-1.jpg')
-                            span.b-family_tx
-                                span Жена
-                    li.b-family_li
-                        a.b-family_a(href='')
-                            span.b-family_img-hold
-                                span.ico-family.ico-family__boy-19
-                            span.b-family_tx
-                                span Сын
-                                br
-                                span 18 лет
-                    li.b-family_li
-                        a.b-family_a(href='')
-                            span.b-family_img-hold
-                                span.ico-family.ico-family__girl-3
-                            span.b-family_tx
-                                span Дочь
-                                br
-                                span 4,5 года
-                    li.b-family_li
-                        a.b-family_a(href='')
-                            span.b-family_img-hold
-                                span.ico-family.ico-family__boy-small
-                            span.b-family_tx
-                                span Дочь
-                                br
-                                span 2,5 года
-                    li.b-family_li
-                        a.b-family_a(href='')
-                            span.b-family_img-hold
-                                span.ico-family.ico-family__boy-small
-                            span.b-family_tx
-                                span Дочь
-                                br
-                                span 2,5 года
-            //- /b-family
-    // /b-ava-large
+- var ava = {}
+- ava.a = {}
+- ava.a.icoStatus = 'ico-status__online',
+- ava.a.avaSpan = false,
+- ava.a.src = 'http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg'
+
+- ava.b = {}
+- ava.b.icoStatus = 'ico-status__online',
+- ava.b.avaSpan = false,
+- ava.b.src = 'http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg"'
+
+- var avaVarsTitle = { icoStatus: 'ico-status__online',src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg', avaNameTitle: 'Екатерина Прохожаева'}
+
+- var avaVarsSpan = {avaSpan: true, icoStatus: 'ico-status__online',src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}

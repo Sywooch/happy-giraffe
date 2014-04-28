@@ -139,14 +139,14 @@ module.exports = function(grunt){
       //   },
       // },
       // Следим за изменениями миксинов и унаследованных файлов
-      jadereload: {
-        files: ['new/jade/block/**/*.jade', 'new/jade/extend/**/*.jade'],
-        tasks: ['jade:all'],
-        options: {
-          spawn: false,
-          livereload: true,
-        },
-      },
+      // jadereload: {
+      //   files: ['new/jade/block/**/*.jade', 'new/jade/extend/**/*.jade'],
+      //   tasks: ['jade:all'],
+      //   options: {
+      //     spawn: false,
+      //     livereload: true,
+      //   },
+      // },
       // Следим за статическими страницами
       jadepage: {
         files: ['new/jade/page/**/*.jade'],

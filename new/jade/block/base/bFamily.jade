@@ -1,0 +1,68 @@
+//- b-family
+    mod
+    vars
+        item - array
+
+mixin bFamily(mod, vars)
+    //- b-family
+    .b-family
+        ul.b-family_ul
+            each item in vars
+                li.b-family_li
+                    a.b-family_a(href='')
+                        span.b-family_img-hold
+                            if (item.photo)
+                                //- Размеры изображений 55*55пк 
+                                img.b-family_img(alt='', src='/images/example/w41-h49-1.jpg')
+                            else
+                                span.ico-family(class='ico-family__#{item.ico}')
+                        span.b-family_tx
+                            span 
+                                = item.kinship
+                            if (item.age)
+                                br
+                                span 
+                                    = item.age
+    //- b-family
+
+
+- var bFamily = {}
+
+- bFamily.wife = {}
+- bFamily.wife.ico = 'wife'
+- bFamily.wife.kinship = 'Жена'
+
+- bFamily.baby = {}
+- bFamily.baby.ico = 'baby'
+- bFamily.baby.kinship = 'Ждем ребенка'
+
+- bFamily.boySmall = {}
+- bFamily.boySmall.ico = 'boy-small'
+- bFamily.boySmall.kinship = 'Сын'
+- bFamily.boySmall.age = '2,5 года'
+
+- bFamily.girl5 = {}
+- bFamily.girl5.ico = 'girl-5'
+- bFamily.girl5.kinship = 'Дочь'
+- bFamily.girl5.age = '5 лет'
+
+- bFamily.girl8 = {}
+- bFamily.girl8.ico = 'girl-8'
+- bFamily.girl8.kinship = 'Дочь'
+- bFamily.girl8.age = '8 лет'
+
+- bFamily.girl14 = {}
+- bFamily.girl14.ico = 'girl-14'
+- bFamily.girl14.kinship = 'Дочь'
+- bFamily.girl14.age = '14 лет'
+
+- bFamily.boy19 = {}
+- bFamily.boy19.ico = 'boy-19'
+- bFamily.boy19.kinship = 'Сын'
+- bFamily.boy19.age = '19 лет'
+
+//- Сборки по количеству членов семьи
+- bFamily.f2 = [bFamily.wife, bFamily.boySmall]
+- bFamily.f3 = [bFamily.wife, bFamily.girl5, bFamily.boySmall]
+- bFamily.f4 = [bFamily.wife, bFamily.girl8, bFamily.girl5, bFamily.boySmall]
+- bFamily.f5 = [bFamily.wife, bFamily.boy19, bFamily.girl8, bFamily.girl5, bFamily.boySmall]

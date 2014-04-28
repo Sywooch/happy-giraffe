@@ -60,9 +60,8 @@
     &_li {
         position: relative;
         margin: 0;
-        border-top: 1px solid #f0f0f0;
+        border-bottom: 1px solid #f0f0f0;
     }
-    &_li:first-child {border-top: none;}
     &_li-hold {padding: 20px 10px 20px 25px;}
     &_li-hold:hover {background: #fcfcfc;}
     &_li-hold .ava-list_li {margin-bottom: 0;margin-top: 3px;}
@@ -114,7 +113,7 @@
         .inline-block();
         width: 25px;
         height: 25px;
-        .img-retina('@{path-img}/u-notice_post-ico.png'; '@{path-img}/u-notice_post-ico-2x.png'; 270px; 25px);
+        .img-retina('@{path-img}/u-notice_post-ico.png'; '@{path-img}/u-notice_post-ico-2x.png'; 125px; 25px);
     }
     &_post-ico__post {background-position: 0 0;}
     &_post-ico__comment {background-position: -25px 0;}
@@ -189,5 +188,17 @@
         right: 30px;
         margin-top: -10px;
         color: @color-green;
+    }
+
+    &_settings-t {
+        width: 170px;
+        margin-right: 35px;
+        font-size: 14px;
+        line-height: 16px;
+        color: #000; 
+    }
+    &_settings-desc {
+        width: 340px;
+        margin-right: 100px;
     }
 }

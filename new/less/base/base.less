@@ -382,7 +382,7 @@
         margin: 0 0 2px;
         background: url() no-repeat;
         opacity: .5;
-        .img-retina('@{path-img}/side-menu_ico.png'; '@{path-img}/side-menu_ico-2x.png'; 400px; 40px);
+        .img-retina('@{path-img}/side-menu_ico.png'; '@{path-img}/side-menu_ico-2x.png'; 500px; 40px);
     }
     &_ico__all    {background-position: 0 0;}
     &_ico__new    {background-position: -50px 0;}
@@ -416,7 +416,7 @@
     }
     &_count {
         position: absolute;
-        top: 14px;
+        top: 8px;
         right: 13px;
         padding: 1px 5px;
         border: 2px solid #675495;
@@ -493,6 +493,31 @@
     }
     &__im-ava .btn-green {margin-top: 8px;}
     &__im-ava &_tx-sub {color: #a0a09f;}
+    
+    &__notice-new &_hold {margin-bottom: 100px;}
+    &__notice-new &_img {
+        width: 260px;
+        height: 240px;
+        margin-bottom: 20px;
+        background: url('@{path-img}/base/cap-empty_img__notice-new.gif') no-repeat;
+    }
+
+    &__notice-arhive &_hold {margin-bottom: 100px;}
+    &__notice-arhive &_img {
+        width: 307px;
+        height: 245px;
+        margin-bottom: 20px;
+        background: url('@{path-img}/base/cap-empty_img__notice-arhive.gif') no-repeat;
+    }
+
+    &__notice-hg &_hold {margin-bottom: 100px;}
+    &__notice-hg &_img {
+        width: 300px;
+        height: 275px;
+        margin-bottom: 20px;
+        background: url('@{path-img}/base/cap-empty_img__notice-hg.gif') no-repeat;
+    }
+
 
     &_hold {
         font-size: 12px;
@@ -503,7 +528,7 @@
         height: 60px;
         width: 60px;
         margin: 0 auto 8px;
-        background: url('@{path-img}/base/cap-empty_img.png') no-repeat 0 0;
+        background: url('@{path-img}/base/cap-empty_img.png') no-repeat;
     }
     &_img__white {background-position: -60px 0;}
     &_img__smile-gray {background-position: -120px 0;}
@@ -707,7 +732,7 @@
 /*
     Группа фильтров 
     filter-group
-        filter-group_i
+        filter-group_i  active
 */
 .filter-group {
     position: relative;
@@ -740,8 +765,12 @@
         color: #fff;
     }
 }
+/* filter-group */
 
-
+/* loader  __b-gray
+        &_tx
+        &_img
+*/
 .loader {
     min-height: 30px;
     text-align: center;
@@ -764,11 +793,13 @@
         margin: 0 4px;
     }
 }
+/* /loader */
 
 // Form ----------------------------
 /* 
     sidebar-search
-
+        &_itx
+        &_btn   active
 */
 .sidebar-search {
     position: relative;
@@ -829,6 +860,126 @@
         filter: alpha(opacity=30);
     }
 }
+
+/* 
+    Переключатель on off checkbox
+    onoffswitch 
+        input:checkbox .&_checkbox
+        label .&_label
+            &_hold
+                &_field
+                    &_inner
+            &_tx-hold
+                &_tx __on  __off
+
+*/
+.onoffswitch {
+    position: relative; 
+    .user-select(none);
+
+
+    &_checkbox {
+        display: none;
+    }
+    .lt-ie9 &_checkbox {.inline-block();}
+    &_checkbox:checked + &_label &_inner {
+        margin-left: 0;
+    }
+    &_checkbox:checked + &_label &_tx__off {
+        visibility: hidden;
+    }
+    &_checkbox:checked + &_label &_tx__on {
+        visibility: visible;
+    }
+    &_checkbox:checked + &_label &_switch {
+        left: 23px; 
+    }
+
+    &_label {
+        display: block;
+        cursor: pointer;
+        .border-radius(7px);
+    }
+    .lt-ie9 &_label {display: none;}
+    &_hold {
+        .inline-block();
+        position: relative;
+        width: 40px;
+    }
+    &_field {
+        overflow: hidden;
+        .border-radius(7px);
+    }
+    &_inner {
+        width: 200%; 
+        margin-left: -100%;
+        .transition(margin 0.3s ease-in 0s);
+    }
+    &_hold:before {
+        content: "";
+        position: absolute;
+        z-index: 8;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        .box-shadow(inset 0 1px 2px rgba(0,0,0,0.2));
+        .border-radius(7px);
+    }
+    &_inner:before,
+    &_inner:after {
+        content: "";
+        float: left; 
+        width: 50%; 
+        height: 14px; 
+        padding: 0;
+        .box-sizing(border-box);
+        .border-radius(7px);
+    }
+    &_inner:before {
+        padding-left: 0;
+        background-color: #68be5f;
+    }
+    &_inner:after {
+        padding-right: 5px;
+        background-color: #e6e6e6;
+    }
+    &_switch {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+        width: 18px; 
+        margin: -2px;
+        background: #fff;
+        border: 1px solid #cecece; 
+        .border-radius(9px);
+        .transition(all 0.3s ease-in 0s);
+    }
+    &_tx-hold {
+        .inline-block();
+        position: relative;
+        vertical-align: top;
+    }
+    &_tx {
+        position: absolute;
+        left: 0;
+        top: 0;
+        visibility: hidden;
+        margin-left: 10px;
+        color: @color-gray-light;
+        font-size: 12px;
+    }
+    &_tx__on {
+        color: @color-green;
+    }
+    &_tx__off {
+        visibility: visible;
+    }
+}
+/* /onoffswitch */
+
 
 
 /* inputs */

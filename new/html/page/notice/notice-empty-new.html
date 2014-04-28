@@ -26,7 +26,7 @@
   <script src="/new/javascript/common-markup.js"></script>
   <script src="//localhost:35729/livereload.js"></script>
 </head>
-<body class="body body__bg-base">
+<body class="body body__bg-base body__notice">
   <div class="layout-container">
     <div class="layout-header clearfix">
       <!-- header-fix-->
@@ -115,6 +115,7 @@
               <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
               <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                <!-- header-drop-->
                 <div class="header-drop">
                   <div class="header-menu clearfix">
                     <ul class="header-menu_ul">
@@ -143,7 +144,7 @@
                   </div>
                   <!-- /header-drop_b-->
                 </div>
-                <!-- /header-drop -->
+                <!-- /header-drop-->
               </li>
             </ul>
           </div>
@@ -154,137 +155,85 @@
     </div>
     <div class="layout-wrapper">
       <div class="layout-wrapper_frame clearfix">
-        <div class="layout-wrapper_hold clearfix">
-          <div class="layout-content clearfix">
-            <div class="margin-20">
-              <h2>Аватары</h2><a href="#avatar-load" class="popup-a">Загрузка аватара</a><br><br><br><a href="#avatar-load-img" class="popup-a">Загрузка аватара. Загружено изображение</a><br><br><br>
+        <script>
+          var notice = new function() {
+                  var self = this;
+                  function noticeHeight() {
+                      // 58 - шапка, что не скролится
+                      // 40 - отступы снизу + сверху
+                      var h = self.windowHeight - self.headerHeight - 58 - 40;
+                      if (h < 350) {
+                              h = 350;
+                              
+                      }
+                      self.contentBlock.height(h);
+                  }
+                  self.renew = function() {
+                      self.windowHeight = $(window).height();
+                      self.headerHeight = $('.layout-header').height();
+                      noticeHeight();
+                      addBaron('.scroll');
+                  }
+                  
+                  $(window).resize(function() {
+                      self.renew();
+                  });
+                  
+                  
+                  $(document).ready(function () {
+                      var contentBlock = ".u-notice_hold";
+                      self.contentBlock = $(contentBlock);
+                      self.renew();
+                  });
+                  
+          }();
+          
+        </script>
+        <div class="u-notice">
+          <!-- side-menu-->
+          <div class="side-menu side-menu__notice">
+            <div class="side-menu_hold">
+              <div class="side-menu_t side-menu_t__notice"></div>
+              <ul class="side-menu_ul">
+                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice"></span><span class="side-menu_tx">Новые </span><span class="side-menu_count">154</span></span><span class="verticalalign-m-help"></span></a></li>
+                <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice-arhive"></span><span class="side-menu_tx">Архив</span></span><span class="verticalalign-m-help"></span></a></li>
+                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__hg"></span><span class="side-menu_tx">Веселый </br> Жираф!</span></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- /side-menu-->
+          <div class="page-col page-col__notice">
+            <div class="page-col_top">
+              <div class="page-col_t-tx">Новые сигналы</div><a href="" class="u-notice_a-settings">Настройте сигналы</a>
+            </div>
+            <div class="page-col_cont">
+              <div class="u-notice_hold scroll">
+                <div class="scroll_scroller">
+                  <div class="scroll_cont">
+                    <!-- cap-empty-->
+                    <div class="cap-empty cap-empty__abs cap-empty__notice-new">
+                      <div class="cap-empty_hold">
+                        <div class="cap-empty_img"></div>
+                        <div class="cap-empty_t">У вас пока нет сигналов. </div>
+                      </div>
+                      <div class="verticalalign-m-help"></div>
+                    </div>
+                    <!-- /cap-empty-->
+                  </div>
+                </div>
+                <!-- scroll-bar-->
+                <div class="scroll_bar-hold">
+                  <div class="scroll_bar">
+                    <div class="scroll_bar-in"></div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
   </div>
   <div class="popup-container display-n"> 
-    <div id="avatar-load" class="popup popup-sign">
-      <div class="popup-sign_hold">
-        <div class="popup-sign_top">
-          <div class="popup-sign_title">Главное фото</div>
-        </div>
-        <div class="popup-sign_cont popup-sign_cont__wide">
-          <div class="popup-sign_img-upload">
-            <!-- Во время загрузки файла нужен класс .img-upload__load-->
-            <div class="img-upload">
-              <!-- Блок загрузки изображения-->
-              <div class="img-upload_hold">
-                <div class="img-upload_top">
-                  <div class="img-upload_btn-desc">
-                    <div class="img-upload_t">Загрузите фотографию с компьютера</div>
-                    <div class="img-upload_help">Поддерживаемые форматы: jpg и png</div>
-                  </div>
-                  <div class="file-fake">
-                    <button class="btn-green-simple btn-m file-fake_btn">Обзор</button>
-                    <input type="file" class="file-fake_inp">
-                  </div>
-                </div>
-                <div class="img-upload_desc">
-                  <div class="img-upload_help">Загружайте пожалуйста только свои фотографии</div>
-                </div>
-              </div>
-              <!-- Заглушка при загрузке файла-->
-              <div class="img-upload_i-load">
-                <!-- ширина для примера, ее нужно считать динамически-->
-                <div style="width: 50%;" class="img-upload_i-load-progress"></div>
-              </div>
-              <!-- Блок обрезки аватара-->
-              <div class="img-upload_uploaded"></div>
-            </div>
-          </div>
-          <div class="popup-sign_col-ava popup-sign_col-ava__think">
-            <div class="popup-sign_col-ava-t">Просмотр</div><a href="" class="ava ava__large"><img alt="" src="" class="ava_img"></a>
-            <div class="popup-sign_ava-row display-n"><a href="" class="ava ava__middle"><img alt="" src="" class="ava_img"></a><a href="" class="ava ava__female"><img alt="" src="" class="ava_img"></a><a href="" class="ava ava__small ava__female"><img alt="" src="" class="ava_img"></a>
-            </div>
-            <div class="margin-t5">
-              <div class="popup-sign_tx-help">Так будет выглядеть ваше главное фото <br>на страницах Веселого Жирафа</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="popup-sign_b clearfix margin-t20">
-        <div class="float-r">
-          <div class="btn-gray-simple btn-l">Отменить</div>
-        </div>
-      </div>
-    </div>
-    <!-- /popup-sign-->
-    <!-- .popup-sign-->
-    <div id="avatar-load-img" class="popup popup-sign">
-      <div class="popup-sign_hold">
-        <div class="popup-sign_top">
-          <div class="popup-sign_title">Главное фото</div>
-        </div>
-        <div class="popup-sign_cont popup-sign_cont__wide">
-          <div class="popup-sign_img-upload">
-            <div class="img-upload img-upload__uploaded">
-              <!-- Блок загрузки изображения-->
-              <div class="img-upload_hold">
-                <div class="img-upload_top">
-                  <div class="img-upload_btn-desc">
-                    <div class="img-upload_t">Загрузите фотографию с компьютера</div>
-                    <div class="img-upload_help">Поддерживаемые форматы: jpg и png</div>
-                  </div>
-                  <div class="file-fake">
-                    <button class="btn-green-simple btn-m file-fake_btn">Обзор</button>
-                    <input type="file" class="file-fake_inp">
-                  </div>
-                </div>
-                <div class="img-upload_desc">
-                  <div class="img-upload_help">Загружайте пожалуйста только свои фотографии</div>
-                </div>
-              </div>
-              <!-- Заглушка при загрузке файла-->
-              <div class="img-upload_i-load">
-                <!-- ширина для примера, ее нужно считать динамически-->
-                <div style="width: 50%;" class="img-upload_i-load-progress"></div>
-              </div>
-              <!-- Блок обрезки аватара-->
-              <div class="img-upload_uploaded"><a href="" title="Удалить" class="img-upload_i-del powertip"></a><img id="jcrop_target" src="/new/images/example/w500-h376.jpg">
-                <script>
-                  jQuery(function($){
-                      var api;
-                      $('#jcrop_target').Jcrop({
-                        // start off with jcrop-light class
-                        bgOpacity: 0.6,
-                        bgColor: '#2c87c0',
-                        addClass: 'jcrop-blue'
-                      },function(){
-                        api = this;
-                        api.setSelect([130,65,130+350,65+285]);
-                        api.setOptions({ bgFade: true });
-                        api.ui.selection.addClass('jcrop-selection');
-                      });
-                  });
-                </script>
-              </div>
-            </div>
-          </div>
-          <div class="popup-sign_col-ava popup-sign_col-ava__think">
-            <div class="popup-sign_col-ava-t">Просмотр</div><a href="" class="ava ava__large ava__female"><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"></a>
-            <div class="popup-sign_ava-row"><a href="" class="ava ava__middle ava__female"><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"></a><a href="" class="ava ava__female"><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"></a><a href="" class="ava ava__small ava__female"><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"></a>
-            </div>
-            <div class="margin-t5">
-              <div class="popup-sign_tx-help">Так будет выглядеть ваше главное фото <br>на страницах Веселого Жирафа</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="popup-sign_b clearfix margin-t20">
-        <div class="float-r">
-          <div class="btn-gray-simple btn-l">Отменить</div>
-          <div class="btn-green-simple btn-l margin-l5">Сохранить</div>
-        </div>
-      </div>
-    </div>
-    <!-- /popup-sign-->
   </div>
 </body></html>

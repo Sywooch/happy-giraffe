@@ -2,8 +2,8 @@
 	<title>Happy Giraffe</title>
 	
 	<link rel="stylesheet" type="text/css" href="/redactor/redactor.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
-	<link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/common.dev.css" />
+	<link rel="stylesheet" type="text/css" href="/stylesheets/global.dev.css" />
 	<!-- 
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	 -->

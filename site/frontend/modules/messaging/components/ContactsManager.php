@@ -162,7 +162,7 @@ class ContactsManager
                     FROM messaging__threads_users tu
                     # Получение количества непрочитанных сообщений
                     INNER JOIN messaging__messages m ON m.thread_id = tu.thread_id AND m.author_id != tu.user_id
-                    INNER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
+                    INNER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.dtime_delete IS NULL AND mu.user_id = tu.user_id
                     # Получение id собеседника
                     INNER JOIN messaging__threads_users tu2 ON tu.thread_id = tu2.thread_id AND tu2.user_id != tu.user_id
                     # Находится ли в чёрном списке
@@ -197,7 +197,7 @@ class ContactsManager
                 break;
         }
 
-        return Yii::app()->db->createCommand($sql)->queryScalar(array(':user_id' => $userId));
+        return (int)Yii::app()->db->createCommand($sql)->queryScalar(array(':user_id' => $userId));
     }
 
     protected function getSql($type) {
@@ -216,7 +216,7 @@ class ContactsManager
                       p.id AS pId, # ID аватара
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-					  SUM(IF(m.author_id != tu.user_id AND mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
+					  SUM(IF(m.author_id != tu.user_id AND mu.dtime_read IS NULL AND mu.dtime_delete IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
                       f.id IS NOT NULL AS isFriend, # Является ли другом
                       fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
                       fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
@@ -274,7 +274,7 @@ class ContactsManager
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
                     LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.dtime_delete IS NULL AND mu.user_id = tu.user_id
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом
@@ -307,7 +307,7 @@ class ContactsManager
                       p.id AS pId, # ID аватара
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-                      SUM(IF(m.author_id != tu.user_id AND mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
+                      SUM(IF(m.author_id != tu.user_id AND mu.dtime_read IS NULL AND mu.dtime_delete IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
                       f.id IS NOT NULL AS isFriend, # Является ли другом
                       fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
                       fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
@@ -393,7 +393,7 @@ class ContactsManager
                       p.id AS pId, # ID аватара
                       p.fs_name, # Аватар
                       UNIX_TIMESTAMP(t.updated) AS updated, # Дата последнего обновления диалога
-                      SUM(IF(m.author_id != tu.user_id AND mu.dtime_read IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
+                      SUM(IF(m.author_id != tu.user_id AND mu.dtime_read IS NULL AND mu.dtime_delete IS NULL AND mu.message_id IS NOT NULL, 1, 0)) AS unreadCount, # Количество непрочитанных сообщений
                       f.id IS NOT NULL AS isFriend, # Является ли другом
                       fr1.id IS NOT NULL AS hasOutgoingRequest, # Имеет ли исходящий запрос в друзья
                       fr2.id IS NOT NULL AS hasIncomingRequest # Имеет ли входящий запрос в друзья
@@ -450,7 +450,7 @@ class ContactsManager
                     INNER JOIN messaging__threads t ON tu.thread_id = t.id
                     # Получение количества непрочитанных сообщений
                     LEFT OUTER JOIN messaging__messages m ON m.thread_id = t.id AND m.author_id != tu.user_id
-                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.user_id = tu.user_id
+                    LEFT OUTER JOIN messaging__messages_users mu ON m.id = mu.message_id AND mu.dtime_read IS NULL AND mu.dtime_delete IS NULL AND mu.user_id = tu.user_id
                     # Получение аватара
                     LEFT OUTER JOIN album__photos p ON u.avatar_id = p.id
                     # Является ли другом

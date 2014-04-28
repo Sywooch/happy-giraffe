@@ -102,7 +102,7 @@ class MessagingMessageUser extends HActiveRecord
 	{
 		return array(
 			'unread' => array(
-				'condition' => $this->tableAlias . '.`dtime_read` IS NULL',
+				'condition' => $this->tableAlias . '.`dtime_read` IS NULL AND ' . $this->tableAlias . '.`dtime_delete` IS NOT NULL',
 			),
 		);
 	}

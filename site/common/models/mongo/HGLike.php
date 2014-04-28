@@ -8,6 +8,11 @@
  */
 class HGLike extends HMongoModel
 {
+    public function attributeNames()
+    {
+        return array();
+    }
+
     /**
      * @var HGLike
      */

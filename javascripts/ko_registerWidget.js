@@ -26,15 +26,24 @@ function RegisterWidgetViewModel(data, form) {
     self.monthesRange = DateRange.months();
     self.yearsRange = DateRange.years(data.minYear, data.maxYear);
 
+    self.avatar = new UserAvatar(self);
+    self.location = new UserLocation(data.countries);
+
     self.resend = function() {
         self.currentStep(self.STEP_EMAIL2);
     }
 
     self.uploadPhoto = function() {
+        self.avatar.buffer();
         self.currentStep(self.STEP_PHOTO);
     }
 
     self.saveAvatar = function() {
+        self.currentStep(self.STEP_REG2);
+    }
+
+    self.cancelAvatar = function() {
+        self.avatar.cancel();
         self.currentStep(self.STEP_REG2);
     }
 
@@ -68,9 +77,6 @@ function RegisterWidgetViewModel(data, form) {
         return null;
     });
 
-    self.avatar = new UserAvatar(self);
-    self.location = new UserLocation(data.countries);
-
     // для регистрации через вопрос специалисту
     if (data.newUser !== null) {
         self.setAttributes(data.newUser);
@@ -84,8 +90,18 @@ function RegisterWidgetViewModel(data, form) {
 function UserLocation(countries) {
     var self = this;
 
+    //опции страны для select2
+    self.countrySettings = {
+        width: '100%',
+        minimumResultsForSearch: -1,
+        dropdownCssClass: 'select2-drop__search-off',
+        escapeMarkup: function(m) { return m; },
+        placeholder: 'Страна'
+    }
+
+    //опции города для select2
     self.citySettings = {
-        minimumInputLength: 2,
+        //minimumInputLength: 2,
         width: '100%',
         dropdownCssClass: 'select2-drop__search-on',
         escapeMarkup: function(m) { return m; },
@@ -95,13 +111,15 @@ function UserLocation(countries) {
             data: function (term, page) {
                 return {
                     term: term,
+                    pageLimit: 10,
+                    page: page,
                     country_id: self.country_id()
                 };
             },
             results: function (data, page) {
                 var results = [];
-                for (var i in data) {
-                    var city = data[i];
+                for (var i in data.cities) {
+                    var city = data.cities[i];
 
                     var name = city.name;
                     if (city.type)
@@ -116,7 +134,7 @@ function UserLocation(countries) {
                         desc : desc
                     });
                 }
-                return { results : results };
+                return { results : results, more : data.more };
             }
         },
         formatResult: function(city, container, query, escapeMarkup) {
@@ -132,7 +150,20 @@ function UserLocation(countries) {
     self.city_id = ko.observable(null);
     self.country_id = ko.observable(null);
     self.availableCountries = ko.utils.arrayMap(countries, function (item) {
-        return new Country(item.id, item.name, item.code);
+        return new Country(item);
+    });
+
+    self.country = ko.computed(function() {
+        if (self.country_id() === null)
+            return null;
+
+        return ko.utils.arrayFirst(self.availableCountries, function(country) {
+            return country.id == self.country_id();
+        });
+    });
+
+    self.country_id.subscribe(function() {
+        self.city_id(null);
     });
 
     $('#RegisterFormStep2_city_id').on('select2-open', function() {
@@ -141,22 +172,26 @@ function UserLocation(countries) {
     });
 }
 
-function Country(id, name, code) {
-    this.id = id;
-    this.name = name;
-    this.code = code;
+function Country(data) {
+    this.id = data.id;
+    this.name = data.name;
+    this.code = data.code;
+    this.citiesFilled = data.citiesFilled;
 };
 
 function UserAvatar(parent) {
     var self = this;
 
-    self.imgSrc = ko.observable(null);
-    self.coords = null;
+    self.imgSrc = ko.observable('');
+    self.coords = ko.observable(null);
+
+    self.bufferImgSrc = ko.observable('');
+    self.bufferCoords = ko.observable(null);
 
     self.showPreview = function(coords) {
         var image = new Image();
         image.src = self.imgSrc();
-        self.coords = coords;
+        self.coords(coords);
 
         var sizes = [24, 40, 72, 200];
         for (var i in sizes) {
@@ -195,8 +230,22 @@ function UserAvatar(parent) {
         }
     }
 
+    self.buffer = function() {
+        self.bufferCoords(self.coords());
+        self.bufferImgSrc(self.imgSrc());
+    }
+
+    self.cancel = function() {
+        self.coords(self.bufferCoords());
+        self.imgSrc(self.bufferImgSrc());
+    }
+
+    self.isChanged = ko.computed(function() {
+        return (self.coords() != self.bufferCoords()) || (self.imgSrc() != self.bufferImgSrc());
+    });
+
     self.clear = function() {
-        self.imgSrc(null);
+        self.imgSrc('');
     }
 
     $('#AvatarUploadForm_image').fileupload({

@@ -333,10 +333,6 @@ mixin im-message(mod, vars)
         .im-message_hold
             .im-message_t
                 span.im-message_name(class=vars.mod_name) Александр Богоявленский
-                if (vars.messageRead == "read")
-                    span.im-message_t-read Сообщение прочитано
-                if (vars.messageRead == "read-no")
-                    span.im-message_t-read-no Сообщение не прочитано
             case vars.msgStatus
                 when 'cancel'
                     // Когда сообщение отменено или удалено то блок .b-control удалется из сообщения или к нему добавляется класс display-n

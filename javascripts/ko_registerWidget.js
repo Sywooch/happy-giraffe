@@ -26,23 +26,24 @@ function RegisterWidgetViewModel(data, form) {
     self.monthesRange = DateRange.months();
     self.yearsRange = DateRange.years(data.minYear, data.maxYear);
 
+    self.avatar = new UserAvatar(self);
+    self.location = new UserLocation(data.countries);
+
     self.resend = function() {
         self.currentStep(self.STEP_EMAIL2);
     }
 
     self.uploadPhoto = function() {
-        self.avatar.draftImgSrc(self.avatar.imgSrc());
+        self.avatar.buffer();
         self.currentStep(self.STEP_PHOTO);
     }
 
     self.saveAvatar = function() {
-        self.avatar.imgSrc(self.avatar.draftImgSrc());
-        self.avatar.draftImgSrc('');
         self.currentStep(self.STEP_REG2);
     }
 
     self.cancelAvatar = function() {
-        self.avatar.draftImgSrc('');
+        self.avatar.cancel();
         self.currentStep(self.STEP_REG2);
     }
 
@@ -75,9 +76,6 @@ function RegisterWidgetViewModel(data, form) {
         }
         return null;
     });
-
-    self.avatar = new UserAvatar(self);
-    self.location = new UserLocation(data.countries);
 
     // для регистрации через вопрос специалисту
     if (data.newUser !== null) {
@@ -185,13 +183,15 @@ function UserAvatar(parent) {
     var self = this;
 
     self.imgSrc = ko.observable('');
-    self.draftImgSrc = ko.observable('');
-    self.coords = null;
+    self.coords = ko.observable(null);
+
+    self.bufferImgSrc = ko.observable('');
+    self.bufferCoords = ko.observable(null);
 
     self.showPreview = function(coords) {
         var image = new Image();
         image.src = self.imgSrc();
-        self.coords = coords;
+        self.coords(coords);
 
         var sizes = [24, 40, 72, 200];
         for (var i in sizes) {
@@ -230,8 +230,22 @@ function UserAvatar(parent) {
         }
     }
 
+    self.buffer = function() {
+        self.bufferCoords(self.coords());
+        self.bufferImgSrc(self.imgSrc());
+    }
+
+    self.cancel = function() {
+        self.coords(self.bufferCoords());
+        self.imgSrc(self.bufferImgSrc());
+    }
+
+    self.isChanged = ko.computed(function() {
+        return (self.coords() != self.bufferCoords()) || (self.imgSrc() != self.bufferImgSrc());
+    });
+
     self.clear = function() {
-        self.draftImgSrc('');
+        self.imgSrc('');
     }
 
     $('#AvatarUploadForm_image').fileupload({
@@ -243,7 +257,7 @@ function UserAvatar(parent) {
             $('.img-upload').addClass('img-upload__load');
         },
         done: function (e, data) {
-            self.draftImgSrc(data.result.imgSrc);
+            self.imgSrc(data.result.imgSrc);
             $('.img-upload').removeClass('img-upload__load');
         },
         progressall: function (e, data) {

@@ -28,8 +28,13 @@ function removeA(arr) {
 $(document).ready(function () {
 
     $(document).ajaxComplete(function(event, xhr, settings) {
-        var json = $.parseJSON(xhr.responseText);
-        if (json !== null && json.hasOwnProperty('errors')) {
+        var isJson = true;
+        try {
+            var json = $.parseJSON(xhr.responseText);
+        } catch(e) {
+            isJson = false;
+        }
+        if (isJson && json !== null && json.hasOwnProperty('errors')) {
             $('.error-serv_hold').html('');
             jQuery.each(json.errors, function(i, val) {
                 $('.error-serv_hold').append('<p>' + val + '</p>');

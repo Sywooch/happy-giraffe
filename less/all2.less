@@ -8,7 +8,7 @@
 @import "/project/comments.less";
 @import "/project/favorites.less";
 @import "/project/find-friend.less";
-/*@import "/project/friends-list.less";*/
+@import "/project/friends-list.less";
 /*@import "/project/im.less";*/
 @import "/project/onair.less";
 @import "../redactor/redactor.less";
@@ -255,7 +255,11 @@
     .content-img  {float: none;margin: 0 0 10px;}
     .img-right {
         float: right;
-        margin: 0 0 10px 15px;
+        margin: 0 0 10px 20px;
+    }
+    .img-left {
+        float: left;
+        margin: 0 20px 10px 0;
     }
     .h2-services {
         font-weight: normal;
@@ -433,6 +437,46 @@
 }
 .giraffe-story-text .allocation {color: #1a1a1a;font-size: 13px;}
 /* /giraffe-story */
+
+/* article-heinz */
+.article-heinz {
+    margin: 30px 0;
+
+    &__blue {background: #eef8ff;}
+    &__blue &_t {background: #87c9f5;}
+    &__green {background: #f0fcf0;}
+    &__green &_t {background: #7ad67a;}
+    &__lilac {background: #faf2ff;}
+    &__lilac &_t {background: #c6a9d0;}
+    &__pink {background: #fef2f9;}
+    &__pink &_t {background: #fc95bf;}
+
+    .ico-family {
+        float: left;
+        margin-top: -25px;
+    }
+
+    &_t {
+        padding: 2px 25px 7px;
+        .border-top-radius(5px);
+    }
+    &_t h2 {
+        color: #fff;
+        margin: 0;
+        font-size: 20px;
+        font-family: Tahoma, Arial, Verdana, sans-serif;
+    }
+    &_hold {
+        padding: 10px 20px 10px;
+        .clearfix();
+    }
+    h3 {
+        font-size: 13px;
+        font-weight: bold;
+        margin: 10px 0 5px;
+    }
+}
+/* /article-heinz */
 
 /*===== Recipe settings =====*/
 /* baby_handbook_add_recipe.html */
@@ -1102,15 +1146,6 @@ table.fr_recipe_tb td { width: 50%;}
     &_sponsor-logo {}
 }
 /* /b-article-conversion */
-
-/* article-inner-b */
-.article-inner-b {
-    border: 1px solid #d2f2d2;
-    background: #e7f9e7;
-    padding: 20px 15px;
-    .clearfix();
-}
-/* /article-inner-b */
 
 /* b-photopost */
 .b-photopost {

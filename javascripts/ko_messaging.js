@@ -898,7 +898,6 @@ function ContactsManager(viewModel, model) {
 				contacts = ko.utils.arrayFilter(contacts, function(user) {
 					return !!user;
 				});
-				self.users.push.apply(self.users, contacts);
 				self.loadindContacts(false);
 				
 				//Поставим флажок о полной загрузки контактов

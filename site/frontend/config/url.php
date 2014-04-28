@@ -23,14 +23,14 @@ return array(
         // photo view
         //'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         array(
-            'class' => 'application.components.PhotoUrlRule',
+            'class' => 'site.frontend.components.PhotoUrlRule',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>',
             'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
             'blog' => true,
         ),
         //'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>' => array('albums/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         array(
-            'class' => 'application.components.PhotoUrlRule',
+            'class' => 'site.frontend.components.PhotoUrlRule',
             'pattern' => 'community/<community_id:\d+>/forum/(post|photoPost)/<content_id:\d+>/photo<photo_id:\d+>',
             'route' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
             'blog' => false,
@@ -50,7 +50,7 @@ return array(
         'moderation' => 'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend|qualityTest)>' => 'site/<_a>',
         '<view:(advertiser|abuse)>' => array('site/page'),
-        'job/php-developer' => 'site/vacancy',
+        'developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
         'subscribes' => 'myGiraffe/default/subscribes',
@@ -136,12 +136,12 @@ return array(
 
         /************************************************* community  *************************************************/
         array(
-            'class' => 'application.components.ClubUrlRule',
+            'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>',
             'route' => 'community/default/club',
         ),
         array(
-            'class' => 'application.components.ClubUrlRule',
+            'class' => 'site.frontend.components.ClubUrlRule',
             'pattern' => '<club:[\w-]+>/services',
             'route' => 'community/default/services',
         ),
@@ -358,5 +358,8 @@ return array(
         'antispam/<_c>/<_a>' => 'antispam/<_c>/<_a>',
         'signup/<_c>/<_a>' => 'signup/<_c>/<_a>',
         'geo/<_c>/<_a>' => 'geo/<_c>/<_a>',
+        'developers/<_c>/<_a>' => 'developers/<_c>/<_a>',
+
+        'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
     ),
 );

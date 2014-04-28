@@ -11,6 +11,7 @@ class SocialUserIdentity extends CBaseUserIdentity
     const ERROR_NOT_ASSOCIATED = 6;
 
     public $service;
+    private $_model;
 
     public function __construct($service)
     {
@@ -36,18 +37,19 @@ class SocialUserIdentity extends CBaseUserIdentity
                 $this->errorMessage = 'Этот социальный аккаунт не привязан';
             }
             else {
-                $model = User::model()->findByPk($serviceModel->user_id);
+                /** @var User _model */
+                $this->_model = User::model()->findByPk($serviceModel->user_id);
 
-                if ($model->status == User::STATUS_INACTIVE) {
+                if ($this->_model->status == User::STATUS_INACTIVE) {
                     $this->errorCode = self::ERROR_INACTIVE;
                     $this->errorMessage = 'Вы не подтвердили свой e-mail';
                 }
-                elseif ($model->isBanned) {
+                elseif ($this->_model->isBanned) {
                     $this->errorCode = self::ERROR_BANNED;
                     $this->errorMessage = 'Вы заблокированы';
                 }
                 else {
-                    foreach ($model->attributes as $k => $v)
+                    foreach ($this->_model->attributes as $k => $v)
                         $this->setState($k, $v);
                     $this->errorCode = self::ERROR_NONE;
                 }
@@ -64,5 +66,13 @@ class SocialUserIdentity extends CBaseUserIdentity
     public function getName()
     {
         return $this->getState('first_name');
+    }
+
+    /**
+     * @return User
+     */
+    public function getUserModel()
+    {
+        return $this->_model;
     }
 }

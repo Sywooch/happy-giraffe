@@ -220,10 +220,11 @@ class SiteCommand extends CConsoleCommand
         UserAttributes::set(1, 'all_visitors_count', $se_visits);
     }
 
-    public function actionFlushSchemaCache()
+    public function actionAfterDeploy()
     {
         Yii::app()->db->schema->getTables();
         Yii::app()->db->schema->refresh();
+        Yii::app()->clearGlobalState(ClientScript::RELEASE_ID_KEY);
     }
 
     public function actionCleanJsd()

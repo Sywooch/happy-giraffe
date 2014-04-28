@@ -70,7 +70,7 @@ $form = $this->beginWidget('CActiveForm', array(
             </div>
 
             <div class=" clearfix">
-                <button class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
+                <button class="btn-blue btn-h46 float-r"><?=$model->isNewRecord ? 'Добавить' : 'Сохранить'?></button>
                 <a href="javascript:void(0)" onclick="$.fancybox.close()" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
 
                 <div class="float-l">

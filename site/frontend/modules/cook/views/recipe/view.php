@@ -209,15 +209,21 @@ if (empty($this->meta_description))
         <?php $this->renderPartial('//banners/_post_footer', array('data' => $recipe)); ?>
 
         <noindex>
-            <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-                'model' => $recipe,
-                'type' => 'simple',
-                'options' => array(
-                    'title' => $recipe->title,
-                    'image' => $recipe->getContentImage(400),
-                    'description' => $recipe->text,
-                ),
-            )); ?>
+            <?php if (! Yii::app()->user->checkAccess('tester')): ?>
+                <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
+                    'model' => $recipe,
+                    'type' => 'simple',
+                    'options' => array(
+                        'title' => $recipe->title,
+                        'image' => $recipe->getContentImage(400),
+                        'description' => $recipe->text,
+                    ),
+                )); ?>
+            <?php else: ?>
+                <div style="text-align: center; margin-bottom: 10px;">
+                    <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $recipe)); ?>
+                </div>
+            <?php endif; ?>
         </noindex>
 
     </div>

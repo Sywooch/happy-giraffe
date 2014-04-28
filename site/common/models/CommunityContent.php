@@ -39,7 +39,7 @@
  * @method CommunityContent full()
  * @method CommunityContent findByPk()
  */
-class CommunityContent extends HActiveRecord
+class CommunityContent extends HActiveRecord implements IPreview
 {
     const TYPE_POST = 1;
     const TYPE_VIDEO = 2;
@@ -1145,5 +1145,23 @@ class CommunityContent extends HActiveRecord
         }
 
         return null;
+    }
+
+    /**
+     * @param int $length
+     * @param string $etc
+     * @return string
+     */
+    public function getPreviewText($length = 128, $etc = '...')
+    {
+        return Str::getDescription($this->getContent()->text, $length, $etc);
+    }
+
+    /**
+     * @return AlbumPhoto|null
+     */
+    public function getPreviewPhoto()
+    {
+        return $this->getPhoto();
     }
 }

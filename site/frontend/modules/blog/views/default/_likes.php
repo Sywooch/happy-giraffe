@@ -18,8 +18,6 @@
             ),
         )); ?>
     <?php else: ?>
-        <div style="text-align: center; margin-bottom: 10px;">
-            <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $data)); ?>
-        </div>
+        <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $data)); ?>
     <?php endif; ?>
 </noindex>

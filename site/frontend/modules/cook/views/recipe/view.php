@@ -220,9 +220,7 @@ if (empty($this->meta_description))
                     ),
                 )); ?>
             <?php else: ?>
-                <div style="text-align: center; margin-bottom: 10px;">
-                    <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $recipe)); ?>
-                </div>
+                <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $recipe)); ?>
             <?php endif; ?>
         </noindex>
 

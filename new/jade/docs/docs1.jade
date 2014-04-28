@@ -51,6 +51,14 @@ block layout-wrapper
                     h2.docs_h2 Кнопки
                 .docs_example.docs_example__indents
                     .padding-b10
+                        .btn-red(disabled) Не активная кнопка
+                        .btn-gray-light(disabled) Кнопка
+                        .btn-gray-simple(disabled) Кнопка
+                        .btn-green-simple(disabled) Кнопка
+                        .btn-blue-simple(disabled) Кнопка
+                        .btn-green(disabled) Кнопка
+                        br
+                    .padding-b10
                         .btn-red Кнопка
                         .btn-gray-light Кнопка
                         .btn-gray-simple Кнопка
@@ -112,6 +120,146 @@ block layout-wrapper
                                 span.social-btn_tx ВКонтакте
             .docs
                 .docs_desc
+                    h2.docs_h2 Form
+                .docs_example.docs_example__indents 
+                    .w-240.margin-b10
+                        //- нужно сделать миксин для инпута
+                        .inp-valid.inp-valid__abs.error
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                            .inp-valid_error
+                                .errorMessage
+                                    | E-mail не является правильным E-Mail адресом
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .w-240.margin-b10
+                        //- нужно сделать миксин для инпута
+                        .inp-valid.inp-valid__abs.success
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                            .inp-valid_error
+                                .errorMessage
+                                    | E-mail не является правильным E-Mail адресом
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .w-240.margin-b10
+                        //- нужно сделать миксин для инпута
+                        .inp-valid.inp-valid__abs
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                            .inp-valid_error
+                                .errorMessage
+                                    | E-mail не является правильным E-Mail адресом
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .margin-b10
+                        //- нужно сделать миксин для инпута
+                        .inp-valid.inp-valid__abs
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                            .inp-valid_error
+                                .errorMessage
+                                    | E-mail не является правильным E-Mail адресом
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .w-240.margin-b10
+                        //- нужно сделать миксин для select
+                        .inp-valid.inp-valid__abs
+                                select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выберите страну")
+                                    option
+                                    option(value="2") Россия
+                                    option(value="3") Беларусь
+                                    option(value="4") Казахстан
+                                    option(value="5") Молдова
+                                    option(value="6") Польша
+                                    option(value="7") Венгрия
+                                    option(value="8") Грузия
+                                    option(value="9") Албания
+                                    option(value="10") Лимпопо
+                                    option(value="11") Замбия
+                                .inp-valid_error
+                                    .errorMessage 
+                                        | Страна не вабрана
+                                .inp-valid_success.inp-valid_success__ico-check
+                    .w-240.margin-b10
+                        //- нужно сделать миксин для select
+                        .inp-valid.inp-valid__abs.success
+                            select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выберите страну")
+                                option
+                                option(value="2") Россия
+                                option(value="3") Беларусь
+                                option(value="4") Казахстан
+                                option(value="5") Молдова
+                                option(value="6") Польша
+                                option(value="7") Венгрия
+                                option(value="8") Грузия
+                                option(value="9") Албания
+                                option(value="10") Лимпопо
+                                option(value="11") Замбия
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Страна не вабрана
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .margin-b10
+                        //- нужно сделать миксин для select
+                        .inp-valid.inp-valid__abs.success
+                            select.select-cus.select-cus__search-off.select-cus__gray(placeholder="Выберите страну")
+                                option
+                                option(value="2") Россия
+                                option(value="3") Беларусь
+                                option(value="4") Казахстан
+                                option(value="5") Молдова
+                                option(value="6") Польша
+                                option(value="7") Венгрия
+                                option(value="8") Грузия
+                                option(value="9") Албания
+                                option(value="10") Лимпопо
+                                option(value="11") Замбия
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Страна не вабрана
+                            .inp-valid_success.inp-valid_success__ico-check
+                    //- нужно сделать миксин для select
+                    .inp-valid.inp-valid__abs.error
+                        select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выберите страну")
+                            option
+                            option(value="2") Россия
+                            option(value="3") Беларусь
+                            option(value="4") Казахстан
+                            option(value="5") Молдова
+                            option(value="6") Польша
+                            option(value="7") Венгрия
+                            option(value="8") Грузия
+                            option(value="9") Албания
+                            option(value="10") Лимпопо
+                            option(value="11") Замбия
+                        .inp-valid_error
+                            .errorMessage 
+                                | Страна не вабрана
+                        .inp-valid_success.inp-valid_success__ico-check
+                .docs_example.docs_example__indents
+                    .display-ib
+                        .inp-valid.inp-valid__abs.error
+                            .radio-icons.radio-icons__inline.margin-l20
+                                input#radio4.radio-icons_radio(type='radio', name='')
+                                label.radio-icons_label(for='radio4')
+                                    | Мужской
+                                input#radio3.radio-icons_radio(type='radio', name='')
+                                label.radio-icons_label(for='radio3')
+                                    | Женский
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Выберите пол
+                            .inp-valid_success.inp-valid_success__ico-check
+                .docs_example.docs_example__indents
+                    .display-ib
+                        .inp-valid.inp-valid__abs.success
+                            .radio-icons.radio-icons__inline.radio-icons__checkbox.margin-l20
+                                input#checkbox4.radio-icons_radio(type='checkbox', name='',checked="checked")
+                                label.radio-icons_label(for='checkbox4')
+                                    | Мужской
+                                input#checkbox3.radio-icons_radio(type='checkbox', name='')
+                                label.radio-icons_label(for='checkbox3')
+                                    | Женский
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Выберите пол
+                            .inp-valid_success.inp-valid_success__ico-check
+                        
+            .docs
+                .docs_desc
                     h2.docs_h2 Аватары
                 .docs_example.docs_example__indents
                     - avaVars = {src: '', icoStatus: 'ico-status__online'} 
@@ -134,6 +282,198 @@ block layout-wrapper
                     +ava("ava ava__male", avaVars)
                     - avaVars = {src: '/new/images/example/ava-large.jpg', icoStatus: ''} 
                     +ava("ava__large ava__male", avaVars)
+
+            .docs
+                .docs_desc
+                    h2.docs_h2 Семья
+                .docs_example
+                    .b-family-structure.clearfix
+                        .b-family-structure_upload
+                            .b-family-structure_note
+                                | Все просто. Перетащите в пустые квадраты
+                                br
+                                | членов вашей семьи
+                            .b-family.b-family__bg-none
+                                ul.b-family_ul
+                                    //
+                                         Объект для перетаскивания .b-family_li 
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__husband
+                                        .b-family_tx
+                                            span Муж
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__fiance
+                                        .b-family_tx
+                                            span Жених
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__boy-friend
+                                        .b-family_tx
+                                            span Друг
+                            .b-family.b-family__bg-none
+                                ul.b-family_ul
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__baby-plan
+                                        .b-family_tx
+                                            span Планируем ребенка
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__boy-wait
+                                        .b-family_tx
+                                            span Ждем мальчика
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__girl-wait
+                                        .b-family_tx
+                                            span Ждем девочку
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__baby
+                                        .b-family_tx
+                                            span Ждем ребенка
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__baby-two
+                                        .b-family_tx
+                                            span Ждем двойню
+                            .clearfix
+                                .float-l.margin-r20.w-130.textalign-c
+                                    .b-family_sub-t Дети от 0 до 1 года
+                                    .b-family.b-family__bg-none
+                                        ul.b-family_ul
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__girl-small
+                                                .b-family_tx
+                                                    span Дочь
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__boy-small
+                                                .b-family_tx
+                                                    span Сын
+                                .float-l.margin-r20.w-130.textalign-c
+                                    .b-family_sub-t  Дети от 1 до 3 лет
+                                    .b-family.b-family__bg-none
+                                        ul.b-family_ul
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__girl-3
+                                                .b-family_tx
+                                                    span Дочь
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__boy-3
+                                                .b-family_tx
+                                                    span Сын
+                                .float-l.margin-r20.w-130.textalign-c
+                                    .b-family_sub-t  Дети от 3 до 6 лет
+                                    .b-family.b-family__bg-none
+                                        ul.b-family_ul
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__girl-5
+                                                .b-family_tx
+                                                    span Дочь
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__boy-5
+                                                .b-family_tx
+                                                    span Сын
+                                .float-l.margin-r20.w-130.textalign-c
+                                    .b-family_sub-t Дети от 6 до 12 лет
+                                    .b-family.b-family__bg-none
+                                        ul.b-family_ul
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__girl-8
+                                                .b-family_tx
+                                                    span Дочь
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__boy-8
+                                                .b-family_tx
+                                                    span Сын
+                                .float-l.margin-r20.w-130.textalign-c
+                                    .b-family_sub-t Дети от 12 до 18 лет
+                                    .b-family.b-family__bg-none
+                                        ul.b-family_ul
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__girl-14
+                                                .b-family_tx
+                                                    span Дочь
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__boy-14
+                                                .b-family_tx
+                                                    span Сын
+                                .float-l.margin-r20.w-130.textalign-c
+                                    .b-family_sub-t Старше 18 лет
+                                    .b-family.b-family__bg-none
+                                        ul.b-family_ul
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__girl-19
+                                                .b-family_tx
+                                                    span Дочь
+                                            li.b-family_li
+                                                .b-family_img-hold
+                                                    .ico-family.ico-family__boy-19
+                                                .b-family_tx
+                                                    span Сын
+                        //
+                            Правая часть
+                        .b-family-structure_added
+                            .b-family.b-family__square
+                                .b-family_top.b-family_top__white-big
+                                //
+                                    Когда 9 ячеек не хватает для семьи, появляется еще ряд из 3 ячеек.
+                                ul.b-family_ul
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__wife
+                                        .b-family_tx
+                                            span Я
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__husband
+                                        .b-family_tx
+                                            span Муж
+                                        a.ico-close.b-family_del(href='')
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__boy-wait
+                                        .b-family_tx
+                                            span Ждем мальчика
+                                        a.ico-close.b-family_del(href='')
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__girl-small
+                                        .b-family_tx
+                                            span Дочь
+                                        a.ico-close.b-family_del(href='')
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__girl-8
+                                        .b-family_tx
+                                            span Дочь
+                                        a.ico-close.b-family_del(href='')
+                                    //
+                                         Когда курсор мыши с зажатой иконкой над квадратом добавить класс dragover 
+                                    li.b-family_li.b-family_li__empty.dragover
+                                    //
+                                         Когда курсор мыши с зажатой иконкой над квадратом и нельзя добавить (Например: второго мужа) довесить класс dragover-error 
+                                    li.b-family_li.b-family_li__empty.dragover-error
+                                    li.b-family_li.b-family_li__empty
+                                    li.b-family_li.b-family_li__empty
+                            .textalign-r.color-white
+                                //
+                                     Для удобства число можно положить в span или другой строчный тег 
+                                | Членов семьи: 
+                                span 5
             .docs
                 .docs_desc Иконки уарпвления
                     p   В кнопке spam есть выпадающий список
@@ -187,10 +527,10 @@ block layout-wrapper
                         .ico-family.ico-family__girl-5.margin-r10 
                         .ico-family.ico-family__boy-8.margin-r10 
                         .ico-family.ico-family__girl-8.margin-r10 
-                        .ico-family.ico-family__boy-8.margin-r14 
-                        .ico-family.ico-family__girl-8.margin-r14 
-                        .ico-family.ico-family__boy-8.margin-r19 
-                        .ico-family.ico-family__girl-8.margin-r19 
+                        .ico-family.ico-family__boy-14.margin-r14 
+                        .ico-family.ico-family__girl-14.margin-r14 
+                        .ico-family.ico-family__boy-19.margin-r19 
+                        .ico-family.ico-family__girl-19.margin-r19 
                         .ico-family.ico-family__fiance.margin-r19 
                         .ico-family.ico-family__bride.margin-r19 
                         .ico-family.ico-family__husband.margin-r19 
@@ -198,7 +538,8 @@ block layout-wrapper
                         .ico-family.ico-family__boy.margin-r19 
                         .ico-family.ico-family__girl.margin-r19
             .docs
-                .docs_desc Блок юзера
+                .docs_desc
+                    h2.docs_h2 Блок юзера
                 .docs_example.docs_example__indents
                     +b-user('b-user__w300',{signpost: true})
                     .docs_row

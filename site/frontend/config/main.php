@@ -79,6 +79,9 @@ return array(
         'site.common.behaviors.*',
         'site.frontend.extensions.status.EStatusBehavior',
         'site.frontend.extensions.geturl.EGetUrlBehavior',
+
+        'application.modules.onlineManager.widgets.*',
+        'application.modules.onlineManager.components.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -131,9 +134,14 @@ return array(
         'family',
         'antispam',
         'signup',
+        'mail',
+        'developers',
 	),
 	// application components
 	'components'=>array(
+        'securityManager' => array(
+            'validationKey' => '44ffc48eb95b605d20804ce9dff63ca7e1698d80',
+        ),
         'contentCompactor' => array(
             'class' => 'ext.contentCompactor.ContentCompactor',
             'options' => array(
@@ -231,6 +239,7 @@ return array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',
 			'allowAutoLogin'=>true,
+            'autoRenewCookie'=>true,
 			'loginUrl'=> array('/site/index', 'openLogin' => 1),
 		),
         'authManager'=>array(

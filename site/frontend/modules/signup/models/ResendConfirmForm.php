@@ -15,7 +15,7 @@ class ResendConfirmForm extends CFormModel
             array('email, verifyCode', 'required'),
             array('email', 'email'),
             array('id', 'safe'),
-            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements() || YII_DEBUG, 'captchaAction' => 'captcha2'),
+            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements() || YII_DEBUG, 'captchaAction' => '/signup/register/captcha2'),
         );
     }
 

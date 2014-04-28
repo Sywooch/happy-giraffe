@@ -2,32 +2,35 @@
 
 class DefaultController extends HController
 {
-    public function actionSearchCities($term, $country_id = null, $region_id = null)
+    public function actionSearchCities($term, $pageLimit = 10, $page = 1, $country_id = null, $region_id = null)
     {
         $filter_parts = FilterParts::model()->findAll();
         foreach ($filter_parts as $filter_part)
             $term = str_replace($filter_part->part . ' ', '', $term);
         $term = trim($term);
 
-        $criteria = new CDbCriteria(array(
-            'limit' => 10,
-            'with' => array(
-                'district',
-                'region',
-            ),
-            'order' => "CASE WHEN t.name like CONCAT(:name, ' %') THEN 0
-                WHEN t.name LIKE CONCAT(:name, '%') THEN 1
-                WHEN t.name LIKE CONCAT('% ', :name, '%') THEN 2
-                ELSE 3
-            END, t.name",
-            'params' => array(':name' => $term),
-        ));
+        $criteria = new CDbCriteria();
         $criteria->addSearchCondition('t.name', $term);
         if ($country_id !== null)
             $criteria->compare('t.country_id', $country_id);
 
         if ($region_id !== null)
             $criteria->compare('t.region_id', $region_id);
+
+        $countCriteria = clone $criteria;
+
+        $criteria->limit = $pageLimit;
+        $criteria->offset = $pageLimit * ($page - 1);
+        $criteria->with = array(
+            'district',
+            'region',
+        );
+        $criteria->order = "pos, t.type = 'г' DESC, CASE WHEN t.name like CONCAT(:name, ' %') THEN 0
+                WHEN t.name LIKE CONCAT(:name, '%') THEN 1
+                WHEN t.name LIKE CONCAT('% ', :name, '%') THEN 2
+                ELSE 3
+            END, t.name";
+        $criteria->params[':name'] = $term;
 
         $cities = GeoCity::model()->findAll($criteria);
 
@@ -46,6 +49,8 @@ class DefaultController extends HController
             );
         }
 
-        echo CJSON::encode($_cities);
+        $more = ($pageLimit * $page) < GeoCity::model()->count($countCriteria);
+
+        echo CJSON::encode(array('cities' => $_cities, 'more' => $more));
     }
 }

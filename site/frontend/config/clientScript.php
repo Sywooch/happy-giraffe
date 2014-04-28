@@ -224,6 +224,7 @@ return array(
             'js' => array(
                 'javascripts/soundmanager2.js',
             ),
+            'depends' => array('knockout', 'common', 'comet', 'jquery.ui', 'wysiwyg', 'baron'),
         ),
         'ko_favourites' => array(
             'baseUrl' => '/',
@@ -310,6 +311,13 @@ return array(
                 'new/javascript/wysiwyg.js',
             ),
             'depends' => array('knockout'),
+        ),
+        'baron' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/baron.js',
+            ),
+            'depends' => array('jquery'),
         ),
     )
 );

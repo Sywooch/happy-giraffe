@@ -16,6 +16,10 @@ class ClientScript extends CClientScript
      */
     const POS_AMD = 1000;
 
+    const URLS_STYLE_NONE = 0;
+    const URLS_STYLE_GET = 1;
+    const URLS_STYLE_FILENAME = 2;
+
     /**
      * @var array Настройки amd (requireJS)
      */
@@ -33,9 +37,12 @@ class ClientScript extends CClientScript
 
     // настройки оптимизации отдачи статики
     public $jsCombineEnabled;
+
     public $cssDomain;
     public $jsDomain;
     public $imagesDomain;
+
+    public $staticUrlsStyle = self::URLS_STYLE_GET;
 
     public function render(&$output)
     {
@@ -323,7 +330,18 @@ class ClientScript extends CClientScript
     protected function addReleaseId($url)
     {
         $r = $this->getReleaseId();
-        $url .= (strpos($url, '?') === false) ? '?r=' . $r : '&r=' . $r;
+        switch ($this->staticUrlsStyle) {
+            case self::URLS_STYLE_NONE:
+                break;
+            case self::URLS_STYLE_GET:
+                $url .= (strpos($url, '?') === false) ? '?r=' . $r : '&r=' . $r;
+                break;
+            case self::URLS_STYLE_FILENAME:
+                $dotPosition = strrpos($url, '.');
+                if ($dotPosition !== false) {
+                    $url = substr_replace($url, '.' . $r .  '.', $dotPosition, 1);
+                }
+        }
         return $url;
     }
 
@@ -419,7 +437,7 @@ class ClientScript extends CClientScript
         foreach ($this->scriptFiles as $position => $scriptFiles) {
             foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
                 unset($this->scriptFiles[$position][$scriptFile]);
-                if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0)
+                if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0 && strpos($scriptFile, '/', 1) !== 0)
                     $scriptFile = $this->getJsStaticDomain() . $scriptFile;
                 $scriptFile = $this->addReleaseId($scriptFile);
                 $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;

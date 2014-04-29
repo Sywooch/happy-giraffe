@@ -26,8 +26,8 @@
             </tr>
             <tr>
                 <td style="padding-top: 7px;padding-bottom: 10px;">
-                    <?php echo $comment->getCommentText(MailMessageNotificationDiscuss::COMMENT_LENGTH); ?>
-                    <?php if ($comment->exceedsLength(MailMessageNotificationDiscuss::COMMENT_LENGTH)): ?>
+                    <?php echo $comment->getCommentText(MailMessageNotification::COMMENT_LENGTH); ?>
+                    <?php if ($comment->exceedsLength(MailMessageNotification::COMMENT_LENGTH)): ?>
                         <a href="<?php echo $message->createUrl($comment->getUrl(true), 'readMore'); ?>" style="color:#289fd7;text-decoration:underline;font-size: 11px;font-family:tahoma, verdana, arial;">Читать далее</a>
                     <?php endif; ?>
                 </td>

@@ -31,13 +31,16 @@ abstract class MailSender extends CComponent
      */
     public function sendAll()
     {
-//        try {
+        try {
             if ($this->beforeSend()) {
                 $this->iterate();
             }
-//        } catch (Exception $e) {
-//            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
-//        }
+        } catch (Exception $e) {
+            ob_end_clean();
+            ob_end_clean();
+            ob_end_clean();
+            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
+        }
     }
 
     protected function getDeliveryType()

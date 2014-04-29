@@ -14,8 +14,11 @@ class YandexShareWidget extends CWidget
      */
     public $model;
 
+    public $title;
+    public $link;
     public $description;
     public $imageUrl;
+
     private $_id;
 
     public function init()
@@ -26,6 +29,14 @@ class YandexShareWidget extends CWidget
 
         if ($this->imageUrl === null) {
             $this->imageUrl = $this->getImageUrl();
+        }
+
+        if ($this->title === null) {
+            $this->title = $this->model->title;
+        }
+
+        if ($this->link === null) {
+            $this->link = $this->model->getUrl(false, true);
         }
     }
 
@@ -47,6 +58,8 @@ class YandexShareWidget extends CWidget
                     'gplus',
                 ),
             ),
+            'title' => $this->title,
+            'link' => $this->link,
             'description' => $this->description,
             'image' => $this->imageUrl,
         ));
@@ -74,6 +87,8 @@ class YandexShareWidget extends CWidget
     {
         /** @var ClientScript $cs */
         $cs = Yii::app()->clientScript;
+        $cs->registerMetaTag($this->title, null, null, array('property' => 'og:title'));
+        $cs->registerMetaTag($this->link, null, null, array('property' => 'og:link'));
         $cs->registerMetaTag($this->imageUrl, null, null, array('property' => 'og:image'));
         $cs->registerMetaTag($this->description, null, null, array('property' => 'og:description'));
     }

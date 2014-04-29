@@ -34,4 +34,9 @@ class MailMessageNotification extends MailMessage
     {
         return $this->totalCommentsCount - count($this->commentsToShow);
     }
+
+    public function getTemplateFile()
+    {
+        return 'notification';
+    }
 } 

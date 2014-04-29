@@ -83,7 +83,7 @@
                                                 <!--  BEGIN BODY // -->
 
                                                 <table cellpadding="0" cellspacing="0" border="0" width="530">
-                                                    <?php $message->render('notification/notificationComment123'); ?>
+                                                    <?php $message->render('notification/' . $message->type); ?>
                                                     <?php foreach ($message->commentsToShow as $comment): ?>
                                                         <?php $message->render('notification/_comment', compact('comment')); ?>
                                                     <?php endforeach; ?>

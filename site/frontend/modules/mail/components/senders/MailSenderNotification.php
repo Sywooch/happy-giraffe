@@ -69,7 +69,8 @@ class MailSenderNotification extends MailSender
 
     protected function getUsersCriteria()
     {
-        $criteria = parent::getUsersCriteria();
-        return $criteria->compare('online', 0);
+        $criteria = new CDbCriteria();
+        $criteria->compare('t.id', 12936);
+        return $criteria;
     }
 }

@@ -23,6 +23,7 @@ class YandexShareWidget extends CWidget
             'element' => $this->getElementId(),
             'theme' => 'counter',
             'elementStyle' => array(
+                'type' => 'small',
                 'quickServices' => array(
                     'vkontakte',
                     'odnoklassniki',

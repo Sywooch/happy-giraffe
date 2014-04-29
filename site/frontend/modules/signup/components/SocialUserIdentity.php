@@ -38,7 +38,7 @@ class SocialUserIdentity extends CBaseUserIdentity
             }
             else {
                 /** @var User _model */
-                $this->_model = User::model()->findByPk($serviceModel->user_id);
+                $this->_model = $serviceModel->user;
 
                 if ($this->_model->status == User::STATUS_INACTIVE) {
                     $this->errorCode = self::ERROR_INACTIVE;

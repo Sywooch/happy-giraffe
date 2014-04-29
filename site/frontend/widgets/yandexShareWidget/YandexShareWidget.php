@@ -86,6 +86,6 @@ class YandexShareWidget extends CWidget
     protected function getImageUrl()
     {
         $photo = $this->model->getPreviewPhoto();
-        return ($photo === null) ? $this->getDefaultImage() : $photo->getOriginalUrl();
+        return ($photo === null) ? $this->getDefaultImage() : $photo->getPreviewUrl(800, null, Image::WIDTH);
     }
 }

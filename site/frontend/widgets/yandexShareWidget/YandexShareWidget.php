@@ -43,9 +43,6 @@ class YandexShareWidget extends CWidget
     public function run()
     {
         $this->registerMeta();
-        if (! Yii::app()->user->checkAccess('tester'))
-            return;
-
         $this->registerScript();
         $json = CJSON::encode(array(
             'element' => $this->getElementId(),

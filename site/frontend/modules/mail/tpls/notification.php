@@ -93,13 +93,14 @@
                                                         </td>
                                                     </tr>
                                                     <?php if ($message->totalCommentsCount > count($message->commentsToShow)): ?>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td align="right">
-                                                            <a href="<?php echo $message->createUrl($message->model->getUrl(true, true), 'moreLink'); ?>" style="color: #3482e2; text-decoration:underline; font-size: 22px;">и еще <?php echo $message->getMoreCount(); ?> <?php echo Str::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $message->getMoreCount()); ?></a>
-                                                        </td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td align="right">
+                                                                <a href="<?php echo $message->createUrl($message->model->getUrl(true, true), 'moreLink'); ?>" style="color: #3482e2; text-decoration:underline; font-size: 22px;">и еще <?php echo $message->getMoreCount(); ?> <?php echo Str::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $message->getMoreCount()); ?></a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endif; ?>
                                                     
                                                 </table>
 

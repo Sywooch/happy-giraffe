@@ -34,8 +34,8 @@ class MailSenderNotification extends MailSender
         $notifications = Notification::model()->getNotificationsList($user->id, 0, 0, 999);
 
         foreach ($notifications as $notification) {
-            if ($notification->updated < strtotime($this->lastDeliveryTimestamp))
-                continue;
+//            if ($notification->updated < strtotime($this->lastDeliveryTimestamp))
+//                continue;
 
             if ($this->typesMap[$this->type] != $notification->type)
                 continue;
@@ -51,7 +51,7 @@ class MailSenderNotification extends MailSender
 
             $messageClass = $this->getMessageClassByNotification($notification);
             $message = new $messageClass($user, compact('model', 'commentsToShow', 'totalCommentsCount'));
-            Yii::app()->postman->send($message);
+            //Yii::app()->postman->send($message);
         }
     }
 

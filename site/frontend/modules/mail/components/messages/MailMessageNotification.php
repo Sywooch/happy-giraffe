@@ -10,8 +10,6 @@ class MailMessageNotification extends MailMessage
 {
     const COMMENT_LENGTH = 80;
 
-    public $type = 'notificationDiscuss';
-
     /**
      * @property HActiveRecord $model
      */

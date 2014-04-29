@@ -6,11 +6,15 @@
  * сообщений и передает их "почтальону" MailPostman
  */
 
-abstract class MailSender
+abstract class MailSender extends CComponent
 {
     const DEBUG_DEVELOPMENT = 0;
     const DEBUG_TESTING = 1;
     const DEBUG_PRODUCTION = 2;
+
+    public $type;
+    protected $lastDeliveryTimestamp;
+    protected $debugMode = self::DEBUG_DEVELOPMENT;
 
     /**
      * Обработка конкретно взятого пользователя
@@ -36,6 +40,11 @@ abstract class MailSender
         }
     }
 
+    protected function getDeliveryType()
+    {
+        return $this->type;
+    }
+
     /**
      * Процедура итерации
      *
@@ -57,6 +66,13 @@ abstract class MailSender
      */
     protected function beforeSend()
     {
+        $lastDelivery = MailSendersHistory::model()->getLastDelivery($this->getDeliveryType());
+        $this->lastDeliveryTimestamp = ($lastDelivery === null) ? null : $lastDelivery->timestamp;
+
+        $newDelivery = new MailSendersHistory();
+        $newDelivery->type = $this->type;
+        $newDelivery->save();
+
         return true;
     }
 
@@ -97,4 +113,6 @@ abstract class MailSender
 
         return $criteria;
     }
+
+
 }

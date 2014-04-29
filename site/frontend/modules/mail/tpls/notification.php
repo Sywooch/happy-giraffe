@@ -92,6 +92,7 @@
                                                             <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="20" border="0" />
                                                         </td>
                                                     </tr>
+                                                    <?php if ($message->totalCommentsCount > count($message->commentsToShow)): ?>
                                                     <tr>
                                                         <td></td>
                                                         <td></td>

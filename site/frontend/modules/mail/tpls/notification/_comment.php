@@ -21,7 +21,7 @@
         <table style="" cellpadding="0" cellspacing="0" border="0" width="100%">
             <tr>
                 <td>
-                    <a href="<?php echo $message->createUrl($message->user->getUrl(true), 'commentAuthorLink'); ?>" style="color:#289fd7;text-decoration:none;"><?php echo $message->user->getFullName(); ?></a>
+                    <a href="<?php echo $message->createUrl($comment->author->getUrl(true), 'commentAuthorLink'); ?>" style="color:#289fd7;text-decoration:none;"><?php echo $comment->author->getFullName(); ?></a>
                 </td>
             </tr>
             <tr>

@@ -13,7 +13,21 @@ class YandexShareWidget extends CWidget
      * @var HActiveRecord|IPreview
      */
     public $model;
+
+    public $description;
+    public $imageUrl;
     private $_id;
+
+    public function init()
+    {
+        if ($this->description === null) {
+            $this->description = $this->model->getPreviewText();
+        }
+
+        if ($this->imageUrl === null) {
+            $this->imageUrl = $this->getImageUrl();
+        }
+    }
 
     public function run()
     {
@@ -33,8 +47,8 @@ class YandexShareWidget extends CWidget
                     'gplus',
                 ),
             ),
-            'description' => $this->model->getPreviewText(),
-            'image' => $this->getImageUrl(),
+            'description' => $this->description,
+            'image' => $this->imageUrl,
         ));
         $this->render('view', compact('json'));
     }
@@ -47,7 +61,7 @@ class YandexShareWidget extends CWidget
         return $this->_id;
     }
 
-    public function registerScript()
+    protected function registerScript()
     {
         /** @var ClientScript $cs */
         $cs = Yii::app()->clientScript;
@@ -56,11 +70,12 @@ class YandexShareWidget extends CWidget
         ));
     }
 
-    public function registerMeta()
+    protected function registerMeta()
     {
         /** @var ClientScript $cs */
         $cs = Yii::app()->clientScript;
-        $cs->registerMetaTag($this->getImageUrl(), null, null, array('property' => 'og:image'));
+        $cs->registerMetaTag($this->imageUrl, null, null, array('property' => 'og:image'));
+        $cs->registerMetaTag($this->description, null, null, array('property' => 'og:description'));
     }
 
     protected function getDefaultImage()

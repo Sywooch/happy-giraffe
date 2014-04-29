@@ -88,7 +88,7 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <a href="<?php echo $message->getActivationUrl(); ?>?>" style="color: #0e72ed;font-size: 22px; " target="_blank">Зайти на сайт</a>
+                                                    <a href="<?php echo $message->getActivationUrl(); ?>" style="color: #0e72ed;font-size: 22px; " target="_blank">Зайти на сайт</a>
                                                 </td>
                                             </tr>
                                             <tr>

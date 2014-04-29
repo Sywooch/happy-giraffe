@@ -2,12 +2,12 @@
 
 class DefaultController extends HController
 {
-    public function filters()
-    {
-        return array(
-            'accessControl',
-        );
-    }
+//    public function filters()
+//    {
+//        return array(
+//            'accessControl',
+//        );
+//    }
 
     public function accessRules()
     {
@@ -63,14 +63,12 @@ class DefaultController extends HController
         }
     }
 
-    public function actionNotification($sendAll = false)
+    public function actionNotification()
     {
-        $sender = new MailSenderNotification();
-        if ($sendAll !== false) {
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_COMMENT);
+
             $sender->sendAll();
-        } else {
-            $sender->preview(Yii::app()->user->model);
-        }
+
     }
 
     public function actionDaily($date = null, $sendAll = false)

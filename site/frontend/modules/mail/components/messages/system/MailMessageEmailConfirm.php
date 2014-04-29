@@ -9,7 +9,7 @@
 
 class MailMessageEmailConfirm extends MailMessage
 {
-    public $type = 'emailConfirm';
+    public $type = 'confirmEmail';
 
     public $password;
 

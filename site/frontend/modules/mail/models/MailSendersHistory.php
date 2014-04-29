@@ -26,7 +26,7 @@ class MailSendersHistory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('timestamp', 'required'),
+			array('type', 'required'),
 			array('type', 'length', 'max'=>255),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.

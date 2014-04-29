@@ -141,6 +141,7 @@ return array(
 	'components'=>array(
         'postman' => array(
             'class' => 'application.modules.mail.components.MailPostman',
+        ),
         'securityManager' => array(
             'validationKey' => '44ffc48eb95b605d20804ce9dff63ca7e1698d80',
         ),

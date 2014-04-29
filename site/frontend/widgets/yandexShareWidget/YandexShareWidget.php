@@ -116,6 +116,7 @@ class YandexShareWidget extends CWidget
     protected function getDescription()
     {
         $description = $this->model->getPreviewText();
+        var_dump($description); die;
         return (strlen($description) > 0) ? $description : $this->getTitle();
     }
 }

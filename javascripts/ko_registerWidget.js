@@ -105,6 +105,7 @@ function UserLocation(countries) {
         width: '100%',
         dropdownCssClass: 'select2-drop__search-on',
         escapeMarkup: function(m) { return m; },
+        formatNoMatches: function () { return "Город не найден"; },
         ajax: {
             url : '/geo/default/searchCities/',
             dataType: 'json',

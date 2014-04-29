@@ -91,6 +91,7 @@ abstract class MailMessage extends CComponent
      */
     public function createUrl($url, $utmContent = null)
     {
+        return '';
         if (is_array($url))
         {
             if (isset($url[0]))

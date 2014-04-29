@@ -36,7 +36,7 @@ class SocialUserIdentity extends CBaseUserIdentity
                 $this->errorMessage = 'Этот социальный аккаунт не привязан';
             }
             else {
-                $model = User::model()->findByPk($serviceModel->user_id);
+                $model = $serviceModel->user;
 
                 if ($model->status == User::STATUS_INACTIVE) {
                     $this->errorCode = self::ERROR_INACTIVE;

@@ -7,6 +7,11 @@
  * To change this template use File | Settings | File Templates.
  */
 
+Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+Yii::import('site.frontend.modules.notifications.models.base.*');
+Yii::import('site.frontend.modules.notifications.models.*');
+Yii::import('site.frontend.modules.notifications.components.*');
+
 class MailSenderNotification extends MailSender
 {
     const TYPE_DISCUSS = 'notificationDiscuss';

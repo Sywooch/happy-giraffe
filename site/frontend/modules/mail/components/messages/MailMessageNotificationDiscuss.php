@@ -9,5 +9,5 @@
 
 class MailMessageNotificationDiscuss extends MailMessageNotification
 {
-
+    public $type = 'notificationDiscuss';
 }

@@ -9,12 +9,32 @@
 
 class MailSenderNotification extends MailSender
 {
+    const TYPE_DISCUSS = 'notificationDiscuss';
+    const TYPE_REPLY = 'notificationReply';
+    const TYPE_COMMENT = 'notificationComment';
+
+    protected $typesMap = array(
+        self::TYPE_DISCUSS => Notification::DISCUSS_CONTINUE,
+        self::TYPE_REPLY => Notification::REPLY_COMMENT,
+        self::TYPE_COMMENT => Notification::USER_CONTENT_COMMENT,
+    );
+
+    public function __construct($type)
+    {
+        $this->type = $type;
+    }
+
     public function process(User $user)
     {
-        $lastDelivery = MailDelivery::model()->getLastDelivery($user->id, 'dialogues');
         $notifications = Notification::model()->getNotificationsList($user->id, 0, 0, 999);
 
         foreach ($notifications as $notification) {
+            if ($notification->updated < strtotime($this->lastDeliveryTimestamp))
+                continue;
+
+            if ($this->typesMap[$this->type] != $notification->type)
+                continue;
+
             $model = CActiveRecord::model($notification->entity)->findByPk($notification->entity_id);
             $commentsIds = $notification->unread_model_ids;
             $criteria = new CDbCriteria();

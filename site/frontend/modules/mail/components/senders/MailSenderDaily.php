@@ -9,6 +9,7 @@
 
 class MailSenderDaily extends MailSender
 {
+    public $type = 'daily';
     protected $debugMode = self::DEBUG_TESTING;
 
     /**

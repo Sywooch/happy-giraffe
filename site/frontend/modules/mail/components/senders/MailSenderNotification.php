@@ -43,7 +43,7 @@ class MailSenderNotification extends MailSender
             $model = CActiveRecord::model($notification->entity)->findByPk($notification->entity_id);
             $commentsIds = $notification->unread_model_ids;
             $criteria = new CDbCriteria();
-            $criteria->limit = 5;
+            $criteria->limit = MailMessageNotification::COMMENTS_COUNT;
             $criteria->order = 't.created DESC';
             $criteria->addInCondition('t.id', $commentsIds);
             $commentsToShow = MailComment::model()->findAll($criteria);

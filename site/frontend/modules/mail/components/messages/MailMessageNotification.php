@@ -9,6 +9,7 @@
 class MailMessageNotification extends MailMessage
 {
     const COMMENT_LENGTH = 80;
+    const COMMENTS_COUNT = 5;
 
     /**
      * @property HActiveRecord $model

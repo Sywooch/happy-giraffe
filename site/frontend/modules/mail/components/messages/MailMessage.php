@@ -120,7 +120,12 @@ abstract class MailMessage extends CComponent
         $app = Yii::app();
         $data['message'] = $this;
         $runner = $app instanceof CConsoleApplication ? $app->getCommandRunner()->getCommand() : $app->controller;
+        try {
         $output = $runner->renderFile($this->getTemplateInternal($file), $data, true);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            die;
+        }
         if ($return) {
             return $output;
         } else {

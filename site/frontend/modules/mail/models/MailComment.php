@@ -9,27 +9,18 @@
 
 class MailComment extends Comment
 {
-    protected $processedText;
-
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
     }
 
-    public function init()
-    {
-        $this->processedText = strip_tags($this->text);
-    }
-
     public function getCommentText($length)
     {
-        $text = $this->processedText;
-        $text = Str::truncate($text, $length);
-        return $text;
+        return Str::getDescription($this->text, $length);
     }
 
     public function exceedsLength($length)
     {
-        return strlen($this->processedText) > $length;
+        return strlen($this->getCommentText($length)) > $length;
     }
 }

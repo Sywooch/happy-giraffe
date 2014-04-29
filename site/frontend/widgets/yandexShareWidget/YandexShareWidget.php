@@ -32,7 +32,7 @@ class YandexShareWidget extends CWidget
         }
 
         if ($this->url === null) {
-            $this->url = Yii::app()->request->url;
+            $this->url = Yii::app()->createAbsoluteUrl(Yii::app()->request->url);
         }
 
         if ($this->title === null) {

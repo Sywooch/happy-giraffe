@@ -57,7 +57,6 @@
         if (!empty($this->meta_keywords))
             $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
         ?>
-
         <!--[if IE 7]>
             <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
         <![endif]-->

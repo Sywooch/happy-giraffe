@@ -17,6 +17,7 @@ class ActivationUserIdentity extends CBaseUserIdentity
 
     public function authenticate()
     {
+        /** @var User $model */
         $model = User::model()->active()->findByAttributes(array(
             'activation_code' => $this->activationCode,
         ));
@@ -29,9 +30,7 @@ class ActivationUserIdentity extends CBaseUserIdentity
             $this->errorMessage = 'Код уже активирован';
         }
         else {
-            $model->status = User::STATUS_ACTIVE;
-            $model->email_confirmed = 1;
-            $model->update(array('status', 'email_confirmed'));
+            $model->activate();
             foreach ($model->attributes as $k => $v)
                 $this->setState($k, $v);
             $this->errorCode = self::ERROR_NONE;

@@ -3,6 +3,7 @@ date_default_timezone_set('Europe/Moscow');
 return array(
     'id' => 'happy-giraffe',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+    'runtimePath' => Yii::getPathOfAlias('site.frontend.runtime') . DIRECTORY_SEPARATOR,
     'name' => 'My Console Application',
     'sourceLanguage' => 'en',
     'language' => 'ru',
@@ -28,6 +29,8 @@ return array(
         'site.frontend.extensions.directmongosuite.*',
         'site.frontend.modules.antispam.models.*',
         'site.frontend.modules.antispam.components.*',
+        'site.frontend.modules.onlineManager.widgets.*',
+        'site.frontend.modules.onlineManager.components.*',
         'site.frontend.modules.geo.models.*',
         'site.frontend.modules.geo.components.*',
     ),
@@ -71,7 +74,7 @@ return array(
         ),
         'comet'=>array(
             'class' => 'site.frontend.extensions.Dklab_Realplexor',
-            'host' => 'www.plexor.happy-giraffe.ru',
+            'host' => 'plexor.www.happy-giraffe.ru',
             'port' => 10010,
             'namespace' => 'crm_',
         ),

@@ -100,25 +100,19 @@
                 <div class="inp-valid inp-valid__abs">
                     <?=$form->dropDownList($model, 'country_id', array(), array(
                         'class' => 'select-cus select-cus__gray',
-                        'data-bind' => 'value: location.country_id, options: location.availableCountries, optionsText: "name", optionsValue: "id", optionsCaption: "", select2: {
-                            width: "100%",
-                            dropdownCssClass: "select2-drop__search-on",
-                            searchInputPlaceholder: "Введите название",
-                            escapeMarkup: function(m) { return m; },
-                            placeholder: "Выберите страну"
-                        }',
+                        'data-bind' => 'value: location.country_id, options: location.availableCountries, optionsText: "name", optionsValue: "id", optionsCaption: "", select2: location.countrySettings',
                     ))?>
                     <div class="inp-valid_error">
-                        <?=$form->error($model, 'country_id')?>
+                        <?=$form->error($model, 'country_id', array('afterValidateAttribute' => 'js:validateCity'))?>
                     </div>
                     <div class="inp-valid_success inp-valid_success__ico-check"></div>
                 </div>
             </div>
-            <div class="popup-sign_row" data-bind="visible: location.country_id">
+            <div class="popup-sign_row" data-bind="visible: location.country() instanceof Country && location.country().citiesFilled">
                 <div class="inp-valid inp-valid__abs">
                     <?=$form->hiddenField($model, 'city_id', array(
                         'class' => 'select-cus select-cus__gray',
-                        'data-bind' => 'select2: location.citySettings',
+                        'data-bind' => 'value: location.city_id, select2: location.citySettings',
                     ))?>
                     <div class="inp-valid_error">
                         <?=$form->error($model, 'city_id')?>
@@ -144,6 +138,7 @@
                                 placeholder: "День"
                             }',
                         ))?>
+                        <?=$form->error($model, 'birthday_day', array('inputContainer' => false, 'hideErrorMessage' => true, 'afterValidateAttribute' => 'js:validateBirthday'))?>
                     </div>
                     <div class="float-l w-135 margin-r10">
                         <?=$form->dropDownList($model, 'birthday_month', array(), array(
@@ -156,6 +151,7 @@
                                 placeholder: "Месяц"
                             }',
                         ))?>
+                        <?=$form->error($model, 'birthday_month', array('inputContainer' => false, 'hideErrorMessage' => true, 'afterValidateAttribute' => 'js:validateBirthday'))?>
                     </div>
                     <div class="float-l w-80">
                         <?=$form->dropDownList($model, 'birthday_year', array(), array(
@@ -168,6 +164,7 @@
                                 placeholder: "Год"
                             }',
                         ))?>
+                        <?=$form->error($model, 'birthday_year', array('inputContainer' => false, 'hideErrorMessage' => true, 'afterValidateAttribute' => 'js:validateBirthday'))?>
                     </div>
                     <?=$form->hiddenField($model, 'birthday')?>
                     <div class="inp-valid_error">
@@ -207,7 +204,7 @@
         <div class="popup-sign_attr" data-bind="visible: ! social()">
             <div class="margin-b30">
                 <div class="popup-sign_row">
-                    <?php $this->widget('RegisterCaptcha'); ?>
+                    <?php $this->widget('RegisterCaptcha', array('captchaAction' => '/signup/register/captcha')); ?>
                 </div>
                 <div class="popup-sign_row">
                     <!--.popup-sign_capcha-inp-->
@@ -230,3 +227,60 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    function beforeValidateStep2(form) {
+        registerVm.saving(true);
+        return true;
+    }
+
+    function afterValidateStep2(form, data, hasError) {
+        if (! hasError) {
+            var data = form.serialize();
+            if (registerVm.avatar.imgSrc() !== null) {
+                data += '&' + $.param({
+                    RegisterFormStep2 : {
+                        avatar : {
+                            imgSrc : registerVm.avatar.imgSrc(),
+                            coords : registerVm.avatar.coords()
+                        }
+                    }
+                });
+            }
+            $.post(form.attr('action'), data, function(response) {
+                if (response.success) {
+                    registerVm.id(response.id);
+                    registerVm.currentStep(registerVm.STEP_EMAIL1);
+                }
+            }, 'json');
+        }
+        registerVm.saving(false);
+        return false;
+    }
+
+    function validateBirthday(form, attribute, data, hasError) {
+        if (registerVm.birthday_day.val() !== undefined && registerVm.birthday_month.val() !== undefined && registerVm.birthday_year.val() !== undefined) {
+            var formSettings = $.fn.yiiactiveform.getSettings(form);
+            var attrs = formSettings.attributes;
+            var birthdayAttr;
+            for (var i in attrs)
+                if (attrs[i].name == 'birthday')
+                    birthdayAttr = attrs[i];
+            $.fn.yiiactiveform.updateInput(birthdayAttr, data, form);
+        }
+    }
+
+    function validateCity(form, attribute, data, hasError) {
+        var formSettings = $.fn.yiiactiveform.getSettings(form);
+        var attrs = formSettings.attributes;
+        var cityAttr;
+        for (var i in attrs)
+            if (attrs[i].name == 'city_id')
+                cityAttr = attrs[i];
+        var cityInput = $.fn.yiiactiveform.getInputContainer(cityAttr, form);
+        cityInput.removeClass(
+            formSettings.validatingCssClass + ' ' +
+                formSettings.errorCssClass + ' ' +
+                formSettings.successCssClass
+        );
+    }
+</script>

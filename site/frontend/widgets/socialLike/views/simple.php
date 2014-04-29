@@ -39,7 +39,8 @@
     }
 
     $js = "
-        $('.vk_share_button').html(VK.Share.button('".$url."',{type: 'round', text: 'Мне нравится'}));
+        if (typeof VK != 'undefined')
+            $('.vk_share_button').html(VK.Share.button('".$url."',{type: 'round', text: 'Мне нравится'}));
     ";
 
     Yii::app()->clientScript

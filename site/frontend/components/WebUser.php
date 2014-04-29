@@ -1,8 +1,14 @@
 <?php
 class WebUser extends CWebUser
 {
+    /**
+     * @property User $_model
+     */
     private $_model = null;
 
+    /**
+     * @return User
+     */
     public function getModel()
     {
         if (! $this->isGuest && $this->_model === null)
@@ -14,10 +20,7 @@ class WebUser extends CWebUser
     {
         $model = $this->getModel();
         
-        $model->login_date = date('Y-m-d H:i:s');
-        $model->online = 1;
-        $model->last_ip = $_SERVER['REMOTE_ADDR'];
-        $model->update(array('login_date', 'online', 'last_ip'));
+        OnlineManager::online($model, true);
 
         if (! $fromCookie) {
             Yii::import('site.frontend.modules.cook.models.*');
@@ -31,8 +34,7 @@ class WebUser extends CWebUser
     {
         $model = $this->getModel();
 
-        $model->online = 0;
-        $model->update(array('online'));
+        OnlineManager::offline($model);
 
         unset(Yii::app()->request->cookies['not_guest']);
     }
@@ -51,31 +53,15 @@ class WebUser extends CWebUser
         return parent::beforeLogin($id, $states, $fromCookie);
     }
 
-    public function loginRequired()
+    public function getRememberDuration()
     {
-        $app=Yii::app();
-        $request=$app->getRequest();
+        return 3600*24*14;
+    }
 
-        if(!$request->getIsAjaxRequest())
-        {
-            $this->setReturnUrl($request->getUrl());
-            if(($url=$this->loginUrl)!==null)
-            {
-                if(is_array($url))
-                {
-                    $route=isset($url[0]) ? $url[0] : $app->defaultController;
-                    $url=$app->createUrl($route,array_splice($url,1));
-                }
-                $this->setState('openLogin', 1);
-                $request->redirect($url);
-            }
-        }
-        elseif(isset($this->loginRequiredAjaxResponse))
-        {
-            echo $this->loginRequiredAjaxResponse;
-            Yii::app()->end();
-        }
-
-        throw new CHttpException(403,Yii::t('yii','Login Required'));
+    public function login($identity, $duration = null)
+    {
+        if ($duration === null)
+            $duration = $this->getRememberDuration();
+        return parent::login($identity, $duration);
     }
 }

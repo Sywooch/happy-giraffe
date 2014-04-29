@@ -98,6 +98,14 @@ class DefaultController extends HController
             case 'CommunityContentGallery':
                 $contentId = Yii::app()->request->getQuery('content_id');
                 $model = CommunityContent::model()->findByPk($contentId);
+                $relatedModel = CommunityContentGalleryItem::model()->find(array(
+                    'with' => 'gallery',
+                    'condition' => 'content_id = :content_id AND photo_id = :photo_id',
+                    'params' => array(
+                        ':content_id' => $contentId,
+                        ':photo_id' => $photo_id,
+                    ),
+                ));
                 $collectionClass = 'PhotoPostPhotoCollection';
                 $collectionOptions = array('contentId' => $contentId);
                 break;
@@ -127,7 +135,7 @@ class DefaultController extends HController
 
         $this->layout = '//layouts/main';
         $this->pageTitle = $photoCollectionElement['title'] . ' - ' . $collection->properties['title'];
-        $this->render('singlePhoto', compact('collection', 'photo', 'photoCollectionElement', 'currentIndex', 'nextPhotoUrl', 'prevPhotoUrl', 'entity'));
+        $this->render('singlePhoto', compact('collection', 'photo', 'photoCollectionElement', 'currentIndex', 'nextPhotoUrl', 'prevPhotoUrl', 'entity', 'relatedModel'));
     }
 
     public function actionContestData($contestId, $photoId)

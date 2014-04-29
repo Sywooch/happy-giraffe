@@ -35,7 +35,7 @@ abstract class MailSender extends CComponent
             if ($this->beforeSend()) {
                 $this->iterate();
             }
-        } catch (CException $e) {
+        } catch (Exception $e) {
             Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
         }
     }

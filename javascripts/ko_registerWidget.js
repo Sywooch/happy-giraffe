@@ -94,9 +94,9 @@ function UserLocation(countries) {
     self.countrySettings = {
         width: '100%',
         minimumResultsForSearch: -1,
-        dropdownCssClass: 'select2-drop__search-off',
+        dropdownCssClass: 'select2-drop__search-off select2-drop__separated-first-item',
         escapeMarkup: function(m) { return m; },
-        placeholder: 'Страна'
+        placeholder: 'Выберите страну'
     }
 
     //опции города для select2

@@ -124,9 +124,8 @@ Yii::app()->clientScript->registerPackage('gallery');
                             'description' => $photo->w_description,
                         ),
                     ));  ?>
-                <?php else: ?>
-                    <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $relatedModel)); ?>
                 <?php endif; ?>
+                <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $relatedModel)); ?>
             <?php endif; ?>
 
         </div>

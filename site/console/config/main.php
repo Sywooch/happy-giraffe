@@ -3,7 +3,7 @@ date_default_timezone_set('Europe/Moscow');
 return array(
     'id' => 'happy-giraffe',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'runtimePath' => Yii::getPathOfAlias('site.frontend.runtime'),
+    'runtimePath' => Yii::getPathOfAlias('site.frontend.runtime') . DIRECTORY_SEPARATOR,
     'name' => 'My Console Application',
     'sourceLanguage' => 'en',
     'language' => 'ru',

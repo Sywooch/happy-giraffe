@@ -17,7 +17,7 @@
                 'description' => $data->preview,
             ),
         )); ?>
-    <?php else: ?>
-        <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $data)); ?>
     <?php endif; ?>
+    <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $data)); ?>
+
 </noindex>

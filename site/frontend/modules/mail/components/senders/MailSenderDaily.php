@@ -7,6 +7,23 @@
  * To change this template use File | Settings | File Templates.
  */
 
+Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+Yii::import('site.common.models.mongo.HGLike');
+Yii::import('site.common.models.mongo.Favourites');
+Yii::import('site.common.models.mongo.PageView');
+Yii::import('site.frontend.modules.favourites.components.*');
+Yii::import('site.frontend.modules.favourites.models.*');
+Yii::import('site.frontend.modules.friends.components.*');
+Yii::import('site.frontend.modules.friends.models.*');
+Yii::import('site.frontend.modules.messaging.components.*');
+Yii::import('site.frontend.modules.messaging.models.*');
+Yii::import('site.frontend.modules.cook.components.*');
+Yii::import('site.frontend.modules.cook.models.*');
+Yii::import('site.frontend.modules.notifications.components.*');
+Yii::import('site.frontend.modules.notifications.models.base.*');
+Yii::import('site.frontend.modules.notifications.models.*');
+Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
+
 class MailSenderDaily extends MailSender
 {
     public $type = 'daily';
@@ -51,29 +68,6 @@ class MailSenderDaily extends MailSender
     public function __construct($date = null)
     {
         $this->date = ($date === null) ? self::nextDate() : $date;
-
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.common.models.mongo.HGLike');
-        Yii::import('site.common.models.mongo.Favourites');
-        Yii::import('site.common.models.mongo.PageView');
-
-        Yii::import('site.frontend.modules.favourites.components.*');
-        Yii::import('site.frontend.modules.favourites.models.*');
-
-        Yii::import('site.frontend.modules.friends.components.*');
-        Yii::import('site.frontend.modules.friends.models.*');
-
-        Yii::import('site.frontend.modules.messaging.components.*');
-        Yii::import('site.frontend.modules.messaging.models.*');
-
-        Yii::import('site.frontend.modules.cook.components.*');
-        Yii::import('site.frontend.modules.cook.models.*');
-
-        Yii::import('site.frontend.modules.notifications.components.*');
-        Yii::import('site.frontend.modules.notifications.models.base.*');
-        Yii::import('site.frontend.modules.notifications.models.*');
-
-        Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
     }
 
     public static function nextDate()

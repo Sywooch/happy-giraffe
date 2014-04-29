@@ -14,6 +14,7 @@ class YandexShareWidget extends CWidget
      */
     public $model;
 
+    public $title;
     public $description;
     public $imageUrl;
     public $url;
@@ -31,7 +32,11 @@ class YandexShareWidget extends CWidget
         }
 
         if ($this->url === null) {
-            $this->url = $this->model->getUrl(false, true);
+            $this->url = Yii::app()->request->url;
+        }
+
+        if ($this->title === null) {
+            $this->title = Yii::app()->controller->pageTitle;
         }
     }
 
@@ -81,6 +86,7 @@ class YandexShareWidget extends CWidget
     {
         /** @var ClientScript $cs */
         $cs = Yii::app()->clientScript;
+        $cs->registerMetaTag($this->title, null, null, array('property' => 'og:title'));
         $cs->registerMetaTag($this->url, null, null, array('property' => 'og:url'));
         $cs->registerMetaTag($this->imageUrl, null, null, array('property' => 'og:image'));
         $cs->registerMetaTag($this->description, null, null, array('property' => 'og:description'));

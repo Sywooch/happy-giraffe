@@ -15,6 +15,7 @@
                     </div>
                 </div>
                 <div class="col-23">
+                    <?php if (false): ?>
                     <div class="b-join clearfix">
                         <div class="b-join_left">
                             <div class="b-join_tx"> Более <span class="b-join_tx-big"> 30 000 000</span> мам и пап</div>
@@ -28,6 +29,18 @@
                                 <?php $this->widget('AuthWidget', array('action' => '/signup/login/social')); ?>
                             </div>
                         </div>
+                    </div>
+                    <?php endif; ?>
+                    <div class="header-banner-728-90">
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- topline-soloway -->
+                        <ins class="adsbygoogle"
+                             style="display:inline-block;width:728px;height:90px"
+                             data-ad-client="ca-pub-3807022659655617"
+                             data-ad-slot="2287975288"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
                     </div>
                 </div>
             </div>

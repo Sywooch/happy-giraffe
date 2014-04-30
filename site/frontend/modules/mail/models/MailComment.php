@@ -26,7 +26,7 @@ class MailComment extends Comment
 
     public function isSpecialist()
     {
-        $spec = $this->author->getSpecialist($this->getCommentEntity()->rubric->community_id);
-        return $spec !== null;
+        $model = $this->getCommentEntity();
+        return $model instanceof CommunityContent && $this->author->getSpecialist($this->getCommentEntity()->rubric->community_id) !== null;
     }
 }

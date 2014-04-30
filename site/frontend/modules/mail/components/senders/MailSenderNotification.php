@@ -54,6 +54,10 @@ class MailSenderNotification extends MailSender
             $totalCommentsCount = count($commentsIds);
 
             $messageClass = $this->getMessageClassByNotification($notification);
+
+            echo $messageClass;
+            die;
+
             $message = new $messageClass($user, compact('model', 'commentsToShow', 'totalCommentsCount'));
             Yii::app()->postman->send($message);
         }

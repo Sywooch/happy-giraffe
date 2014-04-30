@@ -18,10 +18,13 @@
         <img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/arrow-answer-blue.gif" alt="" width="10" height="45" />
     </td>
     <td valign="top" bgcolor="#edfaff" style="background: #edfaff; padding: 12px 20px 15px 15px;border-radius: 5px;">
-        <table style="" cellpadding="0" cellspacing="0" border="0" width="100%">
+        <table style="" cellpadding="0" cellspacing="0" border="0" width="411px">
             <tr>
                 <td>
                     <a href="<?php echo $message->createUrl($comment->author->getUrl(true), 'commentAuthorLink'); ?>" style="color:#289fd7;text-decoration:none;"><?php echo $comment->author->getFullName(); ?></a>
+                    <?php if ($comment->isSpecialist()): ?>
+                        <span style="color:#e64c97; display:inline-block; padding-left: 5px;">врач акушер-гинеколог</span>
+                    <?php endif; ?>
                 </td>
             </tr>
             <tr>

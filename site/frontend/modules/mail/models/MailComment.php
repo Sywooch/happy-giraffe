@@ -23,4 +23,10 @@ class MailComment extends Comment
     {
         return strlen($this->getCommentText($length)) > $length;
     }
+
+    public function isSpecialist()
+    {
+        $spec = $this->author->getSpecialist($this->getCommentEntity()->rubric->community_id);
+        return $spec !== null;
+    }
 }

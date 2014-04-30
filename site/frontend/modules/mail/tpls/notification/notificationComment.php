@@ -6,7 +6,7 @@
 
 <tr>
     <td valign="top" style="padding-top: 5px;padding-right: 2px;">
-        <img src="http://109.87.248.203/new/images/mail/comment.png" style="display:block;">
+        <img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/comment.png" style="display:block;">
     </td>
     <td valign="top"></td>
     <td valign="top" style="padding: 12px 0 10px;">
@@ -14,7 +14,7 @@
             <?php if ($message->model instanceof CommunityContent && $message->model->type_id == CommunityContent::TYPE_QUESTION): ?>
                 <tr>
                     <td valign="top" style="padding-top: 5px;padding-right: 2px;">
-                        <img src="http://109.87.248.203/new/images/mail/ansver-question.png" style="display:block;">
+                        <img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/ansver-question.png" style="display:block;">
                     </td>
                     <td valign="top"></td>
                     <td valign="top" style="padding-top: 12px;">

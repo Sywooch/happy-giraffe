@@ -55,6 +55,8 @@ class MailSenderNotification extends MailSender
 
             $messageClass = $this->getMessageClassByNotification($notification);
 
+            ob_end_clean();
+            ob_end_clean();
             echo $messageClass;
             die;
 

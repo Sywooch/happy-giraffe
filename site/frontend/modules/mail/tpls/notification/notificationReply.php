@@ -32,7 +32,7 @@
                                 <table style="" cellpadding="0" cellspacing="0" border="0" width="365px">
                                     <tr>
                                         <td style="">
-                                            <?php echo $message->comment->getCommentText(MailMessageNotification::COMMENTS_LENGTH); ?>
+                                            <?php echo $message->comment->getCommentText(MailMessageNotification::COMMENT_LENGTH); ?>
                                         </td>
                                     </tr>
                                 </table>

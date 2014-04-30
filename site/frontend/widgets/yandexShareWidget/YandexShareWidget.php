@@ -94,7 +94,7 @@ class YandexShareWidget extends CWidget
 
     protected function getDefaultImage()
     {
-        return Yii::app()->request->hostInfo . '/new/images/external/vg-200-x-200-2.png';
+        return Yii::app()->request->hostInfo . '/new/images/external/vg-200-x-200.png';
     }
 
     protected function getTitle()

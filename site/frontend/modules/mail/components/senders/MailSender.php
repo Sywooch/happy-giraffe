@@ -19,7 +19,7 @@ function fatal_handler() {
         $errstr  = $error["message"];
     }
 
-    echo $errstr;
+    print_r($error);
     die;
 }
 

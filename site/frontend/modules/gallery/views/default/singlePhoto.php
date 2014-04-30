@@ -112,19 +112,6 @@ Yii::app()->clientScript->registerPackage('gallery');
                     <?php endif; ?>
                 <?php endif; ?>
             <?php else: ?>
-                <?php if (! Yii::app()->user->checkAccess('tester')): ?>
-                    <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-                        'title' => 'Вам понравилось фото?',
-                        'notice' => '<big>Это конкурсные баллы</big><p>Нажатие на кнопку социальных сетей +1 балл.<br />Нажатие сердечка от Весёлого Жирафа +2 балла.</p>',
-                        'model' => $photo,
-                        'type' => 'simple',
-                        'options' => array(
-                            'title' => CHtml::encode($photo->w_title),
-                            'image' => $photo->getPreviewUrl(180, 180),
-                            'description' => $photo->w_description,
-                        ),
-                    ));  ?>
-                <?php endif; ?>
                 <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $relatedModel)); ?>
             <?php endif; ?>
 

@@ -6,3 +6,4 @@
 ?>
 
 <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $data)); ?>
+

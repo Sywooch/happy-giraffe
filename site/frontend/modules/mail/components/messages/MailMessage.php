@@ -117,15 +117,10 @@ abstract class MailMessage extends CComponent
         /**
          * @var CConsoleApplication $app
          */
-        try {
-            $app = Yii::app();
-            $data['message'] = $this;
-            $runner = $app instanceof CConsoleApplication ? $app->getCommandRunner()->getCommand() : $app->controller;
-            $output = $runner->renderFile($this->getTemplateInternal($file), $data, true);
-        } catch (Exception $e) {
-            ob_end_clean();
-            echo $e->getMessage();
-        }
+        $app = Yii::app();
+        $data['message'] = $this;
+        $runner = $app instanceof CConsoleApplication ? $app->getCommandRunner()->getCommand() : $app->controller;
+        $output = $runner->renderFile($this->getTemplateInternal($file), $data, true);
         if ($return) {
             return $output;
         } else {

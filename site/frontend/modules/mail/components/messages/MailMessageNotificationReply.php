@@ -9,4 +9,9 @@
 class MailMessageNotificationReply extends MailMessageNotification
 {
     public $type = 'notificationReply';
+
+    /**
+     * @var MailComment
+     */
+    public $comment;
 } 

@@ -9,9 +9,9 @@
 register_shutdown_function( "fatal_handler" );
 
 function fatal_handler() {
+    $isError = false;
 
     $error = error_get_last();
-
     if( $error !== NULL) {
         $errno   = $error["type"];
         $errfile = $error["file"];
@@ -19,8 +19,19 @@ function fatal_handler() {
         $errstr  = $error["message"];
     }
 
-    print_r($error);
-    die;
+    switch($error['type']){
+        case E_ERROR:
+        case E_CORE_ERROR:
+        case E_COMPILE_ERROR:
+        case E_USER_ERROR:
+            $isError = true;
+            break;
+    }
+
+    if ($isError) {
+        print_r($error);
+        die;
+    }
 }
 
 abstract class MailSender extends CComponent

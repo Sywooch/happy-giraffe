@@ -1,31 +1,55 @@
 module.exports = function(grunt){
   var timer = require("grunt-timer");
+
   timer.init(grunt);
 
   // json for jade 
-  // var pathJade = "new/jade/mass/data.json";
-  
+  // var pathJade = "new/jade/array/*";
+
+
   grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    // Собираем все json в один
+    // 'merge-json': {
+    //     jadevars: {
+    //         src: [ "new/jade/json/**/*.json" ],
+    //         dest: "new/jade/vars.json"
+    //     },
+    // },
     jade: {
-      page: {
+      
+      // Пересобираем все шаблоны
+      all: {
         files: [{
-          "new/html/page/wysiwyg/wysiwyg.html": "new/jade/page/wysiwyg/wysiwyg.jade",
+          expand: true,
+          cwd: 'new/jade',
+          src: ['page/**/*.jade', '!block/**/*.jade', '!extend/**/*.jade'],
+          dest: 'new/html',
+          ext: ".html"
         }],
         options: {
           pretty: true,
           client: false,
           cache: true,
           nospawn : true,
-          ext: ".html",
-          expand: true,
-          //data: grunt.file.readJSON(pathJade)
+          // data: grunt.file.readJSON(pathJade)
+          // data: function(dest, src) {
+          //   // Return an object of data to pass to templates
+          //   return require('./new/jade/vars.json');
+          // },
+          // filters: {
+          //   json : function (str) {
+          //     return JSON.stringify(JSON.parse(str));
+          //   }
+          // }
         }
       },
-      all: {
+      // пересобираем документацию
+      docs: {
         files: [{
           expand: true,
           cwd: 'new/jade',
-          src: ['page/**/*.jade', '!block/**/*.jade', '!extend/**/*.jade'],
+          src: ['docs/**/*.jade', ],
           dest: 'new/html',
           ext: ".html"
         }],
@@ -105,22 +129,43 @@ module.exports = function(grunt){
     // },
 
     watch: {
-      reload: {
-        files: ['new/jade/block/**/*.jade', 'new/jade/extend/**/*.jade'],
-        tasks: ['jade:all'],
-        options: {
-          spawn: false,
-          livereload: true,
-        },
-      },
-      jade: {
+      // Следим за json
+      // 'merge-json': {
+      //   files: ['new/jade/json/**/*.json'],
+      //   tasks: ['merge-json'],
+      //   options: {
+      //     spawn: false,
+      //     livereload: true,
+      //   },
+      // },
+      // Следим за изменениями миксинов и унаследованных файлов
+      // jadereload: {
+      //   files: ['new/jade/block/**/*.jade', 'new/jade/extend/**/*.jade'],
+      //   tasks: ['jade:all'],
+      //   options: {
+      //     spawn: false,
+      //     livereload: true,
+      //   },
+      // },
+      // Следим за статическими страницами
+      jadepage: {
         files: ['new/jade/page/**/*.jade'],
-        tasks: ['jade:page'],
+        tasks: ['newer:jade:all'],
         options: {
           spawn: false,
           livereload: true,
         },
       },
+      // Пересобираем документацию
+      jadedocs: {
+        files: ['new/jade/docs/**/*.jade'],
+        tasks: ['jade:docs'],
+        options: {
+          spawn: false,
+          livereload: true,
+        },
+      },
+      // Следим за старым less 
       lessold: {
         files: ['less/**/*.less'],
         tasks: ['less:old', 'less:old_dev'],
@@ -128,6 +173,7 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
+      // следим за новым less
       less: {
         files: ['new/less/**/*.less'],
         tasks: ['less:newest', 'less:newestdev'],
@@ -135,6 +181,7 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
+      // Следим за изменениями в рассылках
       email: {
         files: ['new/html/email/**/*'],
         // tasks:['less:newest'],
@@ -147,6 +194,7 @@ module.exports = function(grunt){
       //   tasks: ['newer:imagemin'],
       // }
     },
+    // Поднимаем сервер
     connect: {
       server: {
         options: {
@@ -157,7 +205,9 @@ module.exports = function(grunt){
     },
   });
 
+  grunt.loadNpmTasks('grunt-merge-json');
   grunt.loadNpmTasks('grunt-contrib-jade');
+  grunt.loadNpmTasks('grunt-newer');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
@@ -166,26 +216,32 @@ module.exports = function(grunt){
 
   grunt.registerTask('default', [
     'connect',
-    'less',
+    // 'less',
+    // 'merge-json',
     'watch', 
   ]);
 
   grunt.event.on('watch', function(action, filepath, target) {
 
+    // Перешли на плагин newer //
     // Земеняем в пути к измененному файлу jade/page на html
     // var destFilePath = filepath.replace(/jade\\page/, 'html');
     // Изменяем расширение файла
     // grunt.log.write(action + ' ------- ' + target);
-    if (target == 'jade') {
-      var destFilePath = filepath.replace(/jade/g, 'html');
-      grunt.log.write(filepath + ' ------- ' + destFilePath);
-      // 'page' task jade 
-      grunt.config(['jade', 'page', 'files'], [
-        {src: filepath, dest: destFilePath }
-      ]);
-    }
+
+
+    // if (target == 'jade') {
+    //   var destFilePath = filepath.replace(/jade/g, 'html');
+    //   grunt.log.write(filepath + ' ------- ' + destFilePath);
+    //   // 'page' task jade 
+    //   grunt.config(['jade', 'page', 'files'], [
+    //     {src: filepath, dest: destFilePath }
+    //   ]);
+    // }
 
 
   });
+
+
 
 };

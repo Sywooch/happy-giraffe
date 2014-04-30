@@ -416,48 +416,14 @@
 						<div class="custom-likes-b">
 							<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
 						
-							<div class="like-block fast-like-block">
-														
-								<div class="box-1">
-									<div class="share_button">
-										<a href=""><img alt="" src="/images/share_button__odkl.png"></a>
-									</div>
-									<div class="share_button">
-										<div class="vk_share_button">
-											<a href=""><img alt="" src="/images/share_button__vk.png"></a>
-										</div>
-									</div>
+							<div class="like-block fast-like-block" style="font-size: 11px;">
+								<script type="text/javascript" src="//yandex.st/share/share.js"
+									charset="utf-8"></script>
+								<div class="yashare-auto-init" data-yashareL10n="ru"
+								 data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yashareTheme="counter" data-yashareType="small"
 
-									<div class="share_button">
-										<div class="fb-custom-like">
-											<a class="fb-custom-text" onclick="return Social.showFacebookPopup(this);" href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F">
-												<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится</a>
-											<div class="fb-custom-share-count">0</div>
-											<script type="text/javascript">
-												$.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
-													$('.fb-custom-share-count').html(json.shares || '0');
-												});
-											</script>
-										</div>
-									</div>
-									
-									<div class="share_button">
-										<div class="tw_share_button">
-											<iframe scrolling="no" frameborder="0" id="twitter-widget-0" allowtransparency="true" src="http://platform.twitter.com/widgets/tweet_button.1381275758.html#_=1381902509957&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=ru&amp;original_referer=http%3A%2F%2F109.87.248.203%2Fhtml%2Fsocial%2Fclubs%2Fclub-contest-photo_open.php&amp;size=m&amp;text=Happy%20Giraffe&amp;url=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 138px; height: 20px;"></iframe>
-											<script charset="utf-8" type="text/javascript">
-													if (typeof twttr == 'undefined')
-														window.twttr = (function (d,s,id) {
-															var t, js, fjs = d.getElementsByTagName(s)[0];
-															if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
-															js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
-															return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
-														}(document, "script", "twitter-wjs"));
-											</script>
-										</div>
-									</div>
-															
-								</div>
-							
+								></div> 	
+				
 							</div>
 						</div>
 												

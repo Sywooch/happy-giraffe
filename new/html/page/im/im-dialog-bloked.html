@@ -1,529 +1,393 @@
-<!DOCTYPE html>
-<html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Happy Giraffe</title>
-    <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-    <!-- including other jade works-->
-    <!-- ie8 -->
-    <!--+scripts(path)-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>
-      window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
-      
-    </script>
-    <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
-    <script src="/new/javascript/jquery.tooltipster.js"></script>
-    <script src="/new/javascript/jquery.magnific-popup.js"></script>
-    <script src="/new/javascript/baron.js"></script>
-    <script src="/new/javascript/select2.js"></script>
-    <script src="/new/redactor/redactor.js"></script>
-    <script src="/new/javascript/jquery.Jcrop.js"></script>
-    <script src="/new/javascript/common.js"></script>
-    <script src="/new/javascript/common-markup.js"></script>
-    <script src="//localhost:35729/livereload.js"></script>
-  </head>
-  <body class="body body__im">
-    <div class="layout-container">
-      <div class="error-serv display-n">
-        <div class="error-serv_hold"><span class="ico-error-smile margin-r5"></span>Произошла критическая ошибка. <a class="error-serv_a">Перезагрузить страницу</a></div>
-      </div>
-      <div class="layout-header clearfix">
-        <!-- header-fix-->
-        <script>
-          $(document).ready(function () {
-              $(window).on('scroll',function () {
-                  var contanerScroll = $(window).scrollTop();
-                  var header = $('.layout-header');
-                  console.log(header.height());
-                  if (contanerScroll > header.height() + header.offset().top) {
-                      $('.header-fix').fadeIn(400);
-                  } else {
-                      $('.header-fix').fadeOut(400);
-                  }
-              });
-          });
-        </script>
-        <div class="header-fix">
-          <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
-            <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header_i-arrow"></span></a>
-              <!-- header-drop-->
-              <div class="header-drop">
-                <div class="header-menu clearfix">
-                  <ul class="header-menu_ul">
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+<!DOCTYPE html><!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
+<!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<!-- a-->
+<!-- b-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title>
+  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
+  <!-- including other jade works-->
+  <!-- ie8 -->
+  <!--+scripts(path)-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    
+  </script>
+  <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <script src="/new/javascript/baron.js"></script>
+  <script src="/new/javascript/select2.js"></script>
+  <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <script src="/new/javascript/common.js"></script>
+  <script src="/new/javascript/common-markup.js"></script>
+  <script src="//localhost:35729/livereload.js"></script>
+</head>
+<body class="body body__im">
+  <div class="layout-container">
+    <div class="error-serv display-n">
+      <div class="error-serv_hold"><span class="ico-error-smile margin-r5"></span>Произошла критическая ошибка. <a class="error-serv_a">Перезагрузить страницу</a></div>
+    </div>
+    <div class="layout-header clearfix">
+      <!-- header-fix-->
+      <script>
+        $(document).ready(function () {
+            $(window).on('scroll',function () {
+                var contanerScroll = $(window).scrollTop();
+                var header = $('.layout-header');
+                console.log(header.height());
+                if (contanerScroll > header.height() + header.offset().top) {
+                    $('.header-fix').fadeIn(400);
+                } else {
+                    $('.header-fix').fadeOut(400);
+                }
+            });
+        });
+      </script>
+      <div class="header-fix">
+        <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
+          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+            <!-- header-drop-->
+            <div class="header-drop">
+              <div class="header-menu clearfix">
+                <ul class="header-menu_ul">
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                </ul>
+              </div>
+              <!-- header-drop_b-->
+              <div class="header-drop_b">
+                <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                <div class="club-list club-list__small clearfix">
+                  <ul class="club-list_ul clearfix">
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
                   </ul>
                 </div>
-                <!-- header-drop_b-->
-                <div class="header-drop_b">
-                  <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
-                  <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
-                  <div class="club-list club-list__small clearfix">
-                    <ul class="club-list_ul clearfix">
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"/></span></a></li>
+              </div>
+              <!-- /header-drop_b-->
+            </div>
+            <!-- /header-drop -->
+          </div>
+          <div class="header-fix-menu">
+            <ul class="header-menu_ul clearfix">
+              <!-- li.header-fix-menu_li
+              a.header-fix-menu_a(href='')
+                  span.header-fix-menu_tx прямой эфир
+              -->
+              <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /header-fix-->
+      <!-- header-->
+      <div class="header header__base">
+        <div class="header_hold clearfix">
+          <!-- logo-->
+          <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+          <!-- /logo-->
+          <!-- header-menu-->
+          <div class="header-menu">
+            <ul class="header-menu_ul clearfix">
+              <!-- li.header-menu_li
+              a.header-menu_a(href='')
+                  span.header-menu_ico.header-menu_ico__broadcast
+                  span.header-menu_tx
+                      | Прямой эфир
+              -->
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
+              <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
+              <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                <div class="header-drop">
+                  <div class="header-menu clearfix">
+                    <ul class="header-menu_ul">
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                    </ul>
+                  </div>
+                  <!-- header-drop_b-->
+                  <div class="header-drop_b">
+                    <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                    <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                    <div class="club-list club-list__small clearfix">
+                      <ul class="club-list_ul clearfix">
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- /header-drop_b-->
+                </div>
+                <!-- /header-drop -->
+              </li>
+            </ul>
+          </div>
+          <!-- /header-menu-->
+        </div>
+      </div>
+      <!-- /header-->
+    </div>
+    <div class="layout-wrapper">
+      <div class="layout-wrapper_hold clearfix">
+        <!-- im-->
+        <div class="im">
+          <!-- js ля расчетов положения почты-->
+          <script>
+            /* 
+            var im = new function() {
+                var self = this;
+                function imHeight() {
+                    // 50 - отступы от im
+                    var h = self.windowHeight - self.headerHeight - 50;
+                    if (h < 390) {
+                        h = 390
+                    }
+                    self.imCenter.height(h);
+                    // 57 - отступ под поле поиска
+                    self.imUserList.height(h - 57);
+                }
+                function containerHeight() {
+                    var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
+                    self.container.height(h);
+                }
+                function msgToBottom() {
+                    var contH = self.container.height();
+                    var contWrapH = self.contWrap.height();
+                    
+                    if (contH > contWrapH) {
+                        var h = contH - contWrapH - 5;
+                        self.contWrap.css({'padding-top' : h});
+                    } else {
+                        self.contWrap.css({'padding-top' : 0});
+                        
+                    }
+                }
+                self.renew = function() {
+                    self.windowHeight = $(window).height();
+                    imHeight();
+                    containerHeight();
+                    msgToBottom();
+                    // стриггерим события прокрутки, после изменения размеров
+                    self.container.find('.scroll_scroller').trigger('scroll');
+                    self.imCenter.find('.scroll_scroller').trigger('scroll');
+                    self.imUserList.find('.scroll_scroller').trigger('scroll');
+                }
+                
+                $(window).resize(function() {
+                    self.renew();
+                });
+                
+                $(document).on('koUpdate', 'section.im-center', function(event) {
+                    if(event.target == this)
+                    {
+                        var imCenter = this;
+                        self.imCenter = $(imCenter);
+                        self.imUserList = $(".im-user-list");
+                        self.container = $('.im-center_middle-hold', imCenter);
+                        self.centerTop = $('.im-center_top', imCenter);
+                        self.centerBottom = $('.im-center_bottom', imCenter);
+                        self.headerHeight = $('.layout-header').height();
+                        self.renew();
+                    }
+                });
+            }();
+            */
+            
+          </script>
+          <script>
+            var im = new function() {
+                    var self = this;
+                    function imHeight() {
+                            // 50 - отступы от im
+                            var h = self.windowHeight - self.headerHeight - 40;
+                            if (h < 390) {
+                                    h = 390;
+                            }
+                            self.imCenter.height(h);
+                            // 57 - отступ под поле поиска
+                            self.imUserList.height(h - 57);
+                    }
+                    function containerHeight() {
+                            var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
+                            self.container.height(h);
+                    }
+                    function msgToBottom() {
+                        var contH = self.container.height();
+                        var contWrapH = self.contWrap.height();
+                        
+                        if (contH > contWrapH) {
+                            var h = contH - contWrapH - 5;
+                            self.contWrap.css({'padding-top' : h});
+                        } else {
+                            self.contWrap.css({'padding-top' : 0});
+                            
+                        }
+                    }
+                    self.renew = function() {
+                            self.windowHeight = $(window).height();
+                            self.headerHeight = $('.layout-header').height();
+                            imHeight();
+                            containerHeight();
+                            msgToBottom();
+                    }
+                    
+                    $(window).resize(function() {
+                            self.renew();
+                    });
+                    
+                    $(document).on('koUpdate', 'section.im-center', function(event) {
+                            var imCenter = this;
+                            self.imCenter = $(imCenter);
+                            self.imUserList = $(".im-user-list");
+                            self.container = $('.im-center_middle-hold', imCenter);
+                            self.centerTop = $('.im-center_top', imCenter);
+                            self.centerBottom = $('.im-center_bottom', imCenter);
+                            self.headerHeight = $('.layout-header').height();
+                            self.renew();
+                    });
+                    
+                    
+                    $(document).ready(function () {
+                        var imCenter = ".im-center";
+                        self.imCenter = $(imCenter);
+                        self.imUserList = $(".im-user-list");
+                        self.container = $('.im-center_middle-hold', imCenter);
+                        self.centerTop = $('.im-center_top', imCenter);
+                        self.centerBottom = $('.im-center_bottom', imCenter);
+                        self.headerHeight = $('.layout-header').height();
+                        self.contWrap = $('.im-center_middle-w', imCenter);
+                        self.renew();
+                    });
+                    
+                    
+            }();
+            
+            
+            
+            //- var im = []
+            //- im.imHeight = function () {
+            //-     // 50 - отступы от im
+            //-     var h = im.windowHeight - im.headerHeight - 50; 
+            //-     if (h < 390) {
+            //-         h = 390
+            //-     }
+            
+            //-     im.imCenter.height(h);
+            //-     // 57 - отступ под поле поиска
+            //-     im.imUserList.height(h - 57);
+            //- }
+            //- im.containerHeight = function() {
+            //-     var h = im.imCenter.height() - im.centerTop.height() - im.centerBottom.height();
+            //-     console.log(im.container.height());
+            //-     im.container.height(h);
+            //- }
+            //- im.msgToBottom = function(){
+            //-     var contH = im.container.height();
+            //-     var contWrap = $('.im-center_middle-w');
+            
+            //-     if (contH > contWrap.height()) {
+            //-         var h = contH - contWrap.height() - 5;
+            //-         contWrap.css({'padding-top' : h});
+            //-         console.log(h )
+            //-     } else {
+            //-         contWrap.css({'padding-top' : 0});
+            //-     }
+            //- }
+            //- $(document).ready(function () {
+            //-     im.windowHeight = $(window).height(); 
+            //-     im.imCenter = $(".im-center");
+            //-     im.imUserList = $(".im-user-list");
+            
+            //-     im.container = $('.im-center_middle-hold');
+            //-     //- im.msgIndent = $('.im-center_msg-to-b');
+            
+            //-     im.centerTop = $('.im-center_top');
+            //-     im.centerBottom = $('.im-center_bottom');
+            
+            //-     im.headerHeight = $('.header').height();
+            
+            //-     im.imHeight();
+            //-     im.containerHeight();
+            //-     im.msgToBottom();
+            
+            //-     $(window).resize(function() {
+            //-         im.windowHeight = $(window).height();
+            //-         im.imHeight();
+            //-         im.containerHeight();
+            //-         im.msgToBottom();
+            //-     });
+            //- });
+            
+          </script>
+          <div class="im_hold clearfix">
+            <!-- im-sidebar-->
+            <section class="im-sidebar clearfix">
+              <div class="im-sidebar_panel">
+                <!-- side-menu-->
+                <div class="side-menu side-menu__im">
+                  <div class="side-menu_hold">
+                    <div class="side-menu_t"></div>
+                    <ul class="side-menu_ul">
+                      <li class="side-menu_li"><a href="" class="side-menu_i active"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__all"></span><span class="side-menu_tx">Все</span></span><span class="verticalalign-m-help"></span></a></li>
+                      <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__new"></span><span class="side-menu_tx">Новые</span><span class="side-menu_count">96</span></span><span class="verticalalign-m-help"></span></a></li>
+                      <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online"></span><span class="side-menu_tx">Кто онлайн</span><span class="side-menu_count-sub">5945</span></span><span class="verticalalign-m-help"></span></a></li>
+                      <li class="side-menu_li disabled"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online-friend"></span><span class="side-menu_tx">Друзья онлайн</span><span class="side-menu_count-sub">0</span></span><span class="verticalalign-m-help"></span></a></li>
                     </ul>
                   </div>
                 </div>
-                <!-- /header-drop_b-->
+                <!-- /side-menu-->
+                <div class="im-sidebar_sound"><a href="" class="im-sidebar_sound-ico"></a></div>
               </div>
-              <!-- /header-drop -->
-            </div>
-            <div class="header-fix-menu">
-              <ul class="header-menu_ul clearfix">
-                <!-- li.header-fix-menu_li
-                a.header-fix-menu_a(href='')
-                    span.header-fix-menu_tx прямой эфир
-                -->
-                <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- /header-fix-->
-        <!-- header-->
-        <div class="header header__base">
-          <div class="header_hold clearfix">
-            <!-- logo-->
-            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
-            <!-- /logo-->
-            <!-- header-menu-->
-            <div class="header-menu">
-              <ul class="header-menu_ul clearfix">
-                <!-- li.header-menu_li
-                a.header-menu_a(href='')
-                    span.header-menu_ico.header-menu_ico__broadcast
-                    span.header-menu_tx
-                        | Прямой эфир
-                -->
-                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
-                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
-                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
-                <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
-                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
-                <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
-                  <!-- header-drop-->
-                  <div class="header-drop">
-                    <div class="header-menu clearfix">
-                      <ul class="header-menu_ul">
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
-                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
-                      </ul>
-                    </div>
-                    <!-- header-drop_b-->
-                    <div class="header-drop_b">
-                      <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
-                      <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
-                      <div class="club-list club-list__small clearfix">
-                        <ul class="club-list_ul clearfix">
-                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"/></span></a></li>
-                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"/></span></a></li>
-                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"/></span></a></li>
-                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"/></span></a></li>
-                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"/></span></a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <!-- /header-drop_b-->
-                  </div>
-                  <!-- /header-drop-->
-                </li>
-              </ul>
-            </div>
-            <!-- /header-menu-->
-          </div>
-        </div>
-        <!-- /header-->
-      </div>
-      <div class="layout-wrapper">
-        <div class="layout-wrapper_hold clearfix">
-          <!-- im-->
-          <div class="im">
-            <!-- js ля расчетов положения почты-->
-            <script>
-              /* 
-              var im = new function() {
-                  var self = this;
-                  function imHeight() {
-                      // 50 - отступы от im
-                      var h = self.windowHeight - self.headerHeight - 50;
-                      if (h < 390) {
-                          h = 390
-                      }
-                      self.imCenter.height(h);
-                      // 57 - отступ под поле поиска
-                      self.imUserList.height(h - 57);
-                  }
-                  function containerHeight() {
-                      var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
-                      self.container.height(h);
-                  }
-                  function msgToBottom() {
-                      var contH = self.container.height();
-                      var contWrapH = self.contWrap.height();
-                      
-                      if (contH > contWrapH) {
-                          var h = contH - contWrapH - 5;
-                          self.contWrap.css({'padding-top' : h});
-                      } else {
-                          self.contWrap.css({'padding-top' : 0});
-                          
-                      }
-                  }
-                  self.renew = function() {
-                      self.windowHeight = $(window).height();
-                      imHeight();
-                      containerHeight();
-                      msgToBottom();
-                      // стриггерим события прокрутки, после изменения размеров
-                      self.container.find('.scroll_scroller').trigger('scroll');
-                      self.imCenter.find('.scroll_scroller').trigger('scroll');
-                      self.imUserList.find('.scroll_scroller').trigger('scroll');
-                  }
-                  
-                  $(window).resize(function() {
-                      self.renew();
-                  });
-                  
-                  $(document).on('koUpdate', 'section.im-center', function(event) {
-                      if(event.target == this)
-                      {
-                          var imCenter = this;
-                          self.imCenter = $(imCenter);
-                          self.imUserList = $(".im-user-list");
-                          self.container = $('.im-center_middle-hold', imCenter);
-                          self.centerTop = $('.im-center_top', imCenter);
-                          self.centerBottom = $('.im-center_bottom', imCenter);
-                          self.headerHeight = $('.layout-header').height();
-                          self.renew();
-                      }
-                  });
-              }();
-              */
-              
-            </script>
-            <script>
-              var im = new function() {
-                      var self = this;
-                      function imHeight() {
-                              // 50 - отступы от im
-                              var h = self.windowHeight - self.headerHeight - 40;
-                              if (h < 390) {
-                                      h = 390;
-                              }
-                              self.imCenter.height(h);
-                              // 57 - отступ под поле поиска
-                              self.imUserList.height(h - 57);
-                      }
-                      function containerHeight() {
-                              var h = self.imCenter.height() - self.centerTop.height() - self.centerBottom.height();
-                              self.container.height(h);
-                      }
-                      function msgToBottom() {
-                          var contH = self.container.height();
-                          var contWrapH = self.contWrap.height();
-                          
-                          if (contH > contWrapH) {
-                              var h = contH - contWrapH - 5;
-                              self.contWrap.css({'padding-top' : h});
-                          } else {
-                              self.contWrap.css({'padding-top' : 0});
-                              
-                          }
-                      }
-                      self.renew = function() {
-                              self.windowHeight = $(window).height();
-                              self.headerHeight = $('.layout-header').height();
-                              imHeight();
-                              containerHeight();
-                              msgToBottom();
-                      }
-                      
-                      $(window).resize(function() {
-                              self.renew();
-                      });
-                      
-                      $(document).on('koUpdate', 'section.im-center', function(event) {
-                              var imCenter = this;
-                              self.imCenter = $(imCenter);
-                              self.imUserList = $(".im-user-list");
-                              self.container = $('.im-center_middle-hold', imCenter);
-                              self.centerTop = $('.im-center_top', imCenter);
-                              self.centerBottom = $('.im-center_bottom', imCenter);
-                              self.headerHeight = $('.layout-header').height();
-                              self.renew();
-                      });
-                      
-                      
-                      $(document).ready(function () {
-                          var imCenter = ".im-center";
-                          self.imCenter = $(imCenter);
-                          self.imUserList = $(".im-user-list");
-                          self.container = $('.im-center_middle-hold', imCenter);
-                          self.centerTop = $('.im-center_top', imCenter);
-                          self.centerBottom = $('.im-center_bottom', imCenter);
-                          self.headerHeight = $('.layout-header').height();
-                          self.contWrap = $('.im-center_middle-w', imCenter);
-                          self.renew();
-                      });
-                      
-                      
-              }();
-              
-              
-              
-              //- var im = []
-              //- im.imHeight = function () {
-              //-     // 50 - отступы от im
-              //-     var h = im.windowHeight - im.headerHeight - 50; 
-              //-     if (h < 390) {
-              //-         h = 390
-              //-     }
-              
-              //-     im.imCenter.height(h);
-              //-     // 57 - отступ под поле поиска
-              //-     im.imUserList.height(h - 57);
-              //- }
-              //- im.containerHeight = function() {
-              //-     var h = im.imCenter.height() - im.centerTop.height() - im.centerBottom.height();
-              //-     console.log(im.container.height());
-              //-     im.container.height(h);
-              //- }
-              //- im.msgToBottom = function(){
-              //-     var contH = im.container.height();
-              //-     var contWrap = $('.im-center_middle-w');
-              
-              //-     if (contH > contWrap.height()) {
-              //-         var h = contH - contWrap.height() - 5;
-              //-         contWrap.css({'padding-top' : h});
-              //-         console.log(h )
-              //-     } else {
-              //-         contWrap.css({'padding-top' : 0});
-              //-     }
-              //- }
-              //- $(document).ready(function () {
-              //-     im.windowHeight = $(window).height(); 
-              //-     im.imCenter = $(".im-center");
-              //-     im.imUserList = $(".im-user-list");
-              
-              //-     im.container = $('.im-center_middle-hold');
-              //-     //- im.msgIndent = $('.im-center_msg-to-b');
-              
-              //-     im.centerTop = $('.im-center_top');
-              //-     im.centerBottom = $('.im-center_bottom');
-              
-              //-     im.headerHeight = $('.header').height();
-              
-              //-     im.imHeight();
-              //-     im.containerHeight();
-              //-     im.msgToBottom();
-              
-              //-     $(window).resize(function() {
-              //-         im.windowHeight = $(window).height();
-              //-         im.imHeight();
-              //-         im.containerHeight();
-              //-         im.msgToBottom();
-              //-     });
-              //- });
-              
-            </script>
-            <div class="im_hold clearfix">
-              <!-- im-sidebar-->
-              <section class="im-sidebar clearfix">
-                <div class="im-sidebar_panel">
-                  <!-- side-menu-->
-                  <div class="side-menu side-menu__im">
-                    <div class="side-menu_hold">
-                      <div class="side-menu_t"></div>
-                      <ul class="side-menu_ul">
-                        <li class="side-menu_li"><a href="" class="side-menu_i active"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__all"></span><span class="side-menu_tx">Все</span></span><span class="verticalalign-m-help"></span></a></li>
-                        <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__new"></span><span class="side-menu_tx">Новые</span><span class="side-menu_count">96</span></span><span class="verticalalign-m-help"></span></a></li>
-                        <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online"></span><span class="side-menu_tx">Кто онлайн</span><span class="side-menu_count-sub">5945</span></span><span class="verticalalign-m-help"></span></a></li>
-                        <li class="side-menu_li disabled"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online-friend"></span><span class="side-menu_tx">Друзья онлайн</span><span class="side-menu_count-sub">0</span></span><span class="verticalalign-m-help"></span></a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <!-- /side-menu-->
-                  <div class="im-sidebar_sound"><a href="" class="im-sidebar_sound-ico"></a></div>
+              <div class="im-sidebar_users">
+                <div class="im-sidebar_search clearfix">
+                  <input type="text" name="" placeholder="Поиск диалогов" class="im-sidebar_search-itx">
+                  <!-- При начале ввода добавить класс .active на кнопку-->
+                  <button class="im-sidebar_search-btn"></button>
                 </div>
-                <div class="im-sidebar_users">
-                  <div class="im-sidebar_search clearfix">
-                    <input type="text" name="" placeholder="Поиск диалогов" class="im-sidebar_search-itx"/>
-                    <!-- При начале ввода добавить класс .active на кнопку-->
-                    <button class="im-sidebar_search-btn"></button>
-                  </div>
-                  <!-- im-user-list-->
-                  <div class="im-user-list">
-                    <div class="scroll">
-                      <div class="scroll_scroller">
-                        <div class="scroll_cont">
-                          <!-- cap-empty-->
-                          <div class="cap-empty">
-                            <div class="cap-empty_hold">
-                              <div class="cap-empty_img"></div>
-                              <div class="cap-empty_tx-sub">По данному запросу <br> контактов не найдено.</div>
-                            </div>
-                            <div class="verticalalign-m-help"></div>
-                          </div>
-                          <!-- /cap-empty-->
-                        </div>
-                      </div>
-                      <div class="scroll_bar-hold">
-                        <div class="scroll_bar">
-                          <div class="scroll_bar-in"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /im-user-list-->
-                </div>
-              </section>
-              <!-- /im-sidebar-->
-              <!-- im-center-->
-              <section class="im-center">
-                <div class="im-center_top">
-                  <!-- im-panel-->
-                  <div class="im-panel">
-                    <div class="im-panel_actions">
-                      <div class="im-panel_ico-hold tooltip-click-b"><span title="Удалить диалог" class="im-panel_ico im-panel_ico__del powertip"></span>
-                        <!-- tooltip-drop-->
-                        <div class="tooltip-drop">
-                          <div class="tooltip-popup">
-                            <div class="tooltip-popup_t">Вы уверены?</div>
-                            <p class="tooltip-popup_tx">Все сообщения из данного диалога будут удалены.</p>
-                            <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
-                              <input type="checkbox" name="" id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox"/>Больше не показывать данное предупреждение
-                            </label>
-                            <div class="textalign-c clearfix">
-                              <button class="btn-green">Да</button>
-                              <button class="btn-gray-light">Нет</button>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- /tooltip-drop-->
-                      </div>
-                      <div class="im-panel_ico-hold tooltip-click-b"><span title="Заблокировать" class="im-panel_ico im-panel_ico__ban powertip"></span>
-                        <!-- /tooltip-drop-->
-                        <div class="tooltip-drop">
-                          <div class="tooltip-popup">
-                            <div class="tooltip-popup_t">Вы уверены?</div>
-                            <p class="tooltip-popup_tx">Данный пользователь и весь диалог с ним будут удалены, и он больше не сможет отправлять вам сообщения.</p>
-                            <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
-                              <input type="checkbox" name="" id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox"/>Больше не показывать данное предупреждение
-                            </label>
-                            <div class="textalign-c clearfix">
-                              <button class="btn-green">Да</button>
-                              <button class="btn-gray-light">Нет</button>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- /tooltip-drop-->
-                      </div>
-                    </div>
-                    <div class="im-panel_user clearfix">
-                      <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__middle ava__female"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                      <div class="im-panel_hold">
-                        <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
-                      </div>
-                      <!-- У иконки 3 состояния.
-                      Друг - im-panel_friend__fr
-                      Добавить в друзья - .im-panel_friend__add
-                      Приглашение отправленно - .im-panel_friend__added
-                      Предлагает дружбу - .im-panel_friend__append
-                      --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
-                    </div>
-                  </div>
-                  <!-- /im-panel-->
-                </div>
-                <div class="im-center_middle">
+                <!-- im-user-list-->
+                <div class="im-user-list">
                   <div class="scroll">
-                    <div class="im-center_middle-hold scroll_scroller">
-                      <div class="im-center_middle-w scroll_cont">
-                        <div class="im_loader"></div>
-                        <!-- im-message-->
-                        <div class="im-message">
-                          <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><span class="ico-status"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
+                    <div class="scroll_scroller">
+                      <div class="scroll_cont">
+                        <!-- cap-empty-->
+                        <div class="cap-empty">
+                          <div class="cap-empty_hold">
+                            <div class="cap-empty_img"></div>
+                            <div class="cap-empty_tx-sub">По данному запросу <br> контактов не найдено.</div>
                           </div>
-                          <div class="im-message_r">
-                            <div class="im-message_date">Несколько секунд назад</div>
-                            <div class="im-message_control">
-                              <!-- b-control-->
-                              <div class="b-control">
-                                <div class="b-control_hold">
-                                  <div class="b-control_i"><span title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></span>
-                                    <div class="b-control_drop"></div>
-                                  </div>
-                                  <div class="b-control_i"><span title="Удалить" class="b-control_ico powertip b-control_ico__delete"></span>
-                                    <div class="b-control_drop"></div>
-                                  </div>
-                                  <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
-                                    <div class="tooltip-drop">
-                                      <div class="tooltip-popup">
-                                        <div class="tooltip-popup_t">Укажите вид нарушения:</div>
-                                        <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
-                                        <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
-                                        input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
-                                        | Спам или реклама
-                                        -->
-                                        <label for="" class="tooltip-popup_label clearfix">
-                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Мошенничество
-                                        </label>
-                                        <label for="" class="tooltip-popup_label clearfix">
-                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Грубость, угрозы
-                                        </label>
-                                        <label for="" class="tooltip-popup_label clearfix">
-                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Интимный характер
-                                        </label>
-                                        <label for="" class="tooltip-popup_label clearfix">
-                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>Другое
-                                        </label>
-                                        <label for="" class="tooltip-popup_label clearfix">
-                                          <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio"/>
-                                          <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx"/>
-                                        </label>
-                                        <div class="clearfix textalign-c">
-                                          <button class="btn-green btn-inactive">Пожаловаться</button>
-                                          <button class="btn-gray-light">Отменить</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                              <!-- /b-control-->
-                            </div>
-                          </div>
-                          <div class="im-message_hold">
-                            <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span>
-                            </div>
-                            <div class="im-message_tx">
-                              <p>Уважаемая Зося, добрый день! </p>
-                              <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
-                            </div>
-                          </div>
+                          <div class="verticalalign-m-help"></div>
                         </div>
-                        <!-- /im-message-->
-                        <div class="im_loader"></div>
+                        <!-- /cap-empty-->
                       </div>
                     </div>
                     <div class="scroll_bar-hold">
@@ -533,31 +397,167 @@
                     </div>
                   </div>
                 </div>
-                <!-- im-center_bottom-->
-                <div class="im-center_bottom">
-                  <div class="im-center_bottom-w clearfix">
-                    <!-- cap-empty-->
-                    <div class="cap-empty cap-empty__im-b">
-                      <div class="cap-empty_hold">
-                        <div class="cap-empty_img"></div>
-                        <div class="cap-empty_t">Этот пользователь вас заблокировал</div>
-                        <div class="cap-empty_tx-sub">Вы не можете отправлять ему сообщения</div>
+                <!-- /im-user-list-->
+              </div>
+            </section>
+            <!-- /im-sidebar-->
+            <!-- im-center-->
+            <section class="im-center">
+              <div class="im-center_top">
+                <!-- im-panel-->
+                <div class="im-panel">
+                  <div class="im-panel_actions">
+                    <div class="im-panel_ico-hold tooltip-click-b"><span title="Удалить диалог" class="im-panel_ico im-panel_ico__del powertip"></span>
+                      <!-- tooltip-drop-->
+                      <div class="tooltip-drop">
+                        <div class="tooltip-popup">
+                          <div class="tooltip-popup_t">Вы уверены?</div>
+                          <p class="tooltip-popup_tx">Все сообщения из данного диалога будут удалены.</p>
+                          <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
+                            <input type="checkbox" name="" id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox">Больше не показывать данное предупреждение
+                          </label>
+                          <div class="textalign-c clearfix">
+                            <button class="btn-green">Да</button>
+                            <button class="btn-gray-light">Нет</button>
+                          </div>
+                        </div>
                       </div>
-                      <div class="verticalalign-m-help"></div>
+                      <!-- /tooltip-drop-->
                     </div>
-                    <!-- /cap-empty-->
+                    <div class="im-panel_ico-hold tooltip-click-b"><span title="Заблокировать" class="im-panel_ico im-panel_ico__ban powertip"></span>
+                      <!-- /tooltip-drop-->
+                      <div class="tooltip-drop">
+                        <div class="tooltip-popup">
+                          <div class="tooltip-popup_t">Вы уверены?</div>
+                          <p class="tooltip-popup_tx">Данный пользователь и весь диалог с ним будут удалены, и он больше не сможет отправлять вам сообщения.</p>
+                          <label for="im-tooltip-popup_checkbox" class="tooltip-popup_label-small clearfix">
+                            <input type="checkbox" name="" id="im-tooltip-popup_checkbox" class="tooltip-popup_checkbox">Больше не показывать данное предупреждение
+                          </label>
+                          <div class="textalign-c clearfix">
+                            <button class="btn-green">Да</button>
+                            <button class="btn-gray-light">Нет</button>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /tooltip-drop-->
+                    </div>
+                  </div>
+                  <div class="im-panel_user clearfix">
+                    <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                    <div class="im-panel_hold">
+                      <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
+                    </div>
+                    <!-- У иконки 3 состояния.
+                    Друг - im-panel_friend__fr
+                    Добавить в друзья - .im-panel_friend__add
+                    Приглашение отправленно - .im-panel_friend__added
+                    Предлагает дружбу - .im-panel_friend__append
+                    --><a href="" class="im-panel_friend im-panel_friend__added"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправленно</span></a>
                   </div>
                 </div>
-                <!-- /im-center_bottom-->
-              </section>
-              <!-- /im-center-->
-            </div>
+                <!-- /im-panel-->
+              </div>
+              <div class="im-center_middle">
+                <div class="scroll">
+                  <div class="im-center_middle-hold scroll_scroller">
+                    <div class="im-center_middle-w scroll_cont">
+                      <div class="im_loader"></div>
+                      <!-- im-message-->
+                      <div class="im-message">
+                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        </div>
+                        <div class="im-message_r">
+                          <div class="im-message_date">Несколько секунд назад</div>
+                          <div class="im-message_control">
+                            <!-- b-control-->
+                            <div class="b-control">
+                              <div class="b-control_hold">
+                                <div class="b-control_i"><span title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></span>
+                                  <div class="b-control_drop"></div>
+                                </div>
+                                <div class="b-control_i"><span title="Удалить" class="b-control_ico powertip b-control_ico__delete"></span>
+                                  <div class="b-control_drop"></div>
+                                </div>
+                                <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                                  <div class="tooltip-drop">
+                                    <div class="tooltip-popup">
+                                      <div class="tooltip-popup_t">Укажите вид нарушения:</div>
+                                      <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
+                                      <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                      input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                      | Спам или реклама
+                                      -->
+                                      <label for="" class="tooltip-popup_label clearfix">
+                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Мошенничество
+                                      </label>
+                                      <label for="" class="tooltip-popup_label clearfix">
+                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Грубость, угрозы
+                                      </label>
+                                      <label for="" class="tooltip-popup_label clearfix">
+                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Интимный характер
+                                      </label>
+                                      <label for="" class="tooltip-popup_label clearfix">
+                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Другое
+                                      </label>
+                                      <label for="" class="tooltip-popup_label clearfix">
+                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">
+                                        <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx">
+                                      </label>
+                                      <div class="clearfix textalign-c">
+                                        <button class="btn-green btn-inactive">Пожаловаться</button>
+                                        <button class="btn-gray-light">Отменить</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /b-control-->
+                          </div>
+                        </div>
+                        <div class="im-message_hold">
+                          <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span></div>
+                          <div class="im-message_tx">
+                            <p>Уважаемая Зося, добрый день! </p>
+                            <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /im-message-->
+                      <div class="im_loader"></div>
+                    </div>
+                  </div>
+                  <div class="scroll_bar-hold">
+                    <div class="scroll_bar">
+                      <div class="scroll_bar-in"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- im-center_bottom-->
+              <div class="im-center_bottom">
+                <div class="im-center_bottom-w clearfix">
+                  <!-- cap-empty-->
+                  <div class="cap-empty cap-empty__im-b">
+                    <div class="cap-empty_hold">
+                      <div class="cap-empty_img"></div>
+                      <div class="cap-empty_t">Этот пользователь вас заблокировал</div>
+                      <div class="cap-empty_tx-sub">Вы не можете отправлять ему сообщения</div>
+                    </div>
+                    <div class="verticalalign-m-help"></div>
+                  </div>
+                  <!-- /cap-empty-->
+                </div>
+              </div>
+              <!-- /im-center_bottom-->
+            </section>
+            <!-- /im-center-->
           </div>
-          <!-- /im-->
         </div>
+        <!-- /im-->
       </div>
     </div>
-    <div class="popup-container display-n">
-    </div>
-  </body>
-</html>
+  </div>
+  <div class="popup-container display-n">
+  </div>
+</body></html>

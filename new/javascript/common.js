@@ -68,7 +68,7 @@ $(function() {
             }
         });
         
-		$('.tooltip-click-b', self).tooltipster({
+		/*$('.tooltip-click-b', self).tooltipster({
 			trigger: 'click',
 			delay: 0,
 			onlyOne: false,
@@ -83,7 +83,7 @@ $(function() {
 				origin.tooltipster('update', d);
 				continueTooltip(d);
 			}
-		});
+		});*/
 		
 	});
 
@@ -119,7 +119,7 @@ $(function() {
     $(".select-cus__search-off").select2({
         width: '100%',
         minimumResultsForSearch: -1,
-        dropdownCssClass: 'select2-drop__search-off"',
+        dropdownCssClass: 'select2-drop__search-off',
         escapeMarkup: function(m) { return m; }
     });
 

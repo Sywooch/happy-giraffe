@@ -6,6 +6,23 @@
  * сообщений и передает их "почтальону" MailPostman
  */
 
+register_shutdown_function( "fatal_handler" );
+
+function fatal_handler() {
+
+    $error = error_get_last();
+
+    if( $error !== NULL) {
+        $errno   = $error["type"];
+        $errfile = $error["file"];
+        $errline = $error["line"];
+        $errstr  = $error["message"];
+    }
+
+    echo $errstr;
+    die;
+}
+
 abstract class MailSender extends CComponent
 {
     const DEBUG_DEVELOPMENT = 0;

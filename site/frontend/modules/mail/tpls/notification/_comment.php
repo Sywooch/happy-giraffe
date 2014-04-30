@@ -12,7 +12,7 @@
 </tr>
 <tr>
     <td valign="top" style="padding-top: 5px;padding-right: 2px;">
-        <img src="<?php echo $message->user->getAvatarUrl(); ?>" style="display:block;border-radius:36px;">
+        <img src="<?php echo $comment->author->getAvatarUrl(); ?>" style="display:block;border-radius:36px;">
     </td>
     <td valign="top">
         <img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/arrow-answer-blue.gif" alt="" width="10" height="45" />

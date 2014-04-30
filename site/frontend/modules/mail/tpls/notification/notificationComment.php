@@ -35,7 +35,7 @@
                         к  вашей записи <a href="<?php echo $message->createUrl($message->model->getUrl(true, true)); ?>"  style="color:#3482e2;text-decoration:underline;"><?php echo $message->model->title; ?></a>
                     </td>
                 </tr>
-                <?php if ($message->model instanceof AlbumPhoto); ?>
+                <?php if ($message->model instanceof AlbumPhoto): ?>
                 <tr>
                     <td style="padding-top:10px;">
                         <!-- Width 200px, height auto -->

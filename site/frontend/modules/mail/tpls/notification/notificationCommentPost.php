@@ -13,7 +13,7 @@
         <table style="" cellpadding="0" cellspacing="0" border="0" width="100%">
             <tr>
                 <td style="font-size: 16px;color: #111111">
-                    У вас <?php echo Str::GenerateNoun(array('новый комментарий', 'новых комментария', 'новых комментария'), $message->totalCommentsCount); ?>  <br />
+                    У вас <?php echo $message->totalCommentsCount; ?> <?php echo Str::GenerateNoun(array('новый комментарий', 'новых комментария', 'новых комментария'), $message->totalCommentsCount); ?>  <br />
                     к  вашей записи <a href="<?php echo $message->createUrl($message->model->getUrl(true, true)); ?>"  style="color:#3482e2;text-decoration:underline;"><?php echo $message->model->title; ?></a>
                 </td>
             </tr>

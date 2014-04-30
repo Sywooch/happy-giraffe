@@ -206,10 +206,9 @@ if (empty($this->meta_description))
             </div>
         </div>
 
-        <?php $this->renderPartial('//banners/_post_footer', array('data' => $recipe)); ?>
-
-
         <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $recipe)); ?>
+
+        <?php $this->renderPartial('//banners/_post_footer', array('data' => $recipe)); ?>
     </div>
 </div>
 

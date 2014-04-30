@@ -52,9 +52,13 @@ abstract class MailSender extends CComponent
      */
     protected function iterate()
     {
-        $iterator = $this->getIterator();
-        foreach ($iterator as $user) {
-            $this->process($user);
+        try {
+            $iterator = $this->getIterator();
+            foreach ($iterator as $user) {
+                $this->process($user);
+            }
+        } catch (Exception $e) {
+            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
         }
     }
 

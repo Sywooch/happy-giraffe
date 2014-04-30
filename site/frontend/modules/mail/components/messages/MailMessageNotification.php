@@ -6,10 +6,15 @@
  * Time: 17:04
  */
 
-class MailMessageNotification extends MailMessage
+abstract class MailMessageNotification extends MailMessage
 {
     const COMMENT_LENGTH = 80;
     const COMMENTS_COUNT = 5;
+
+    public function getSubTemplate()
+    {
+        return $this->type;
+    }
 
     /**
      * @property HActiveRecord $model

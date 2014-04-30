@@ -9,4 +9,15 @@
 class MailMessageNotificationComment extends MailMessageNotification
 {
     public $type = 'notificationComment';
+
+    public function getSubTemplate()
+    {
+        if ($this->model instanceof AlbumPhoto) {
+            return 'notificationCommentPhoto';
+        } elseif ($this->model instanceof CommunityContent && $this->model->type_id == CommunityContent::TYPE_QUESTION) {
+            return 'notificationCommentQuestion';
+        } else {
+            return 'notificationCommentPost';
+        }
+    }
 } 

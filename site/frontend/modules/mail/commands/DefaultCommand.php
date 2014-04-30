@@ -37,9 +37,21 @@ class DefaultCommand extends CConsoleCommand
         $sender->sendAll();
     }
 
-    public function actionNotificationsDiscuss()
+    public function actionNotificationsComment()
     {
         $sender = new MailSenderNotification(MailSenderNotification::TYPE_COMMENT);
+        $sender->sendAll();
+    }
+
+    public function actionNotificationsDiscuss()
+    {
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_DISCUSS);
+        $sender->sendAll();
+    }
+
+    public function actionNotificationsReply()
+    {
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_REPLY);
         $sender->sendAll();
     }
 

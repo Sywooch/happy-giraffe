@@ -13,8 +13,8 @@
         <table style="" cellpadding="0" cellspacing="0" border="0" width="100%">
             <tr>
                 <td style="font-size: 16px; color: #111111;">
-                    У вас 15 новых ответов <br />
-                    на ваш вопрос <a href=""  style="color:#3482e2;text-decoration:underline;">Гипертонус матки. Как лечить?</a>
+                    У вас <?php echo $message->totalCommentsCount; ?> новых ответов <br />
+                    на ваш вопрос <a href="<?php echo $message->model->getUrl(false, true); ?>"  style="color:#3482e2;text-decoration:underline;"><?php echo $message->model->title; ?></a>
                 </td>
             </tr>
         </table>

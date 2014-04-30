@@ -13,7 +13,7 @@
         <table style="" cellpadding="0" cellspacing="0" border="0" width="100%">
             <tr>
                 <td style="font-size: 16px; color: #111111;">
-                    У вас 15 новых ответов <br />
+                    У вас <?php echo Str::GenerateNoun(array('новый ответ', 'новых ответа', 'новых ответов'), $message->totalCommentsCount); ?> <br />
                     на ваш вопрос <a href=""  style="color:#3482e2;text-decoration:underline;">Гипертонус матки. Как лечить?</a>
                 </td>
             </tr>

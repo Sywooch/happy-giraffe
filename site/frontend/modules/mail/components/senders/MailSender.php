@@ -6,6 +6,22 @@
  * сообщений и передает их "почтальону" MailPostman
  */
 
+register_shutdown_function( "fatal_handler" );
+
+function fatal_handler() {
+
+    $error = error_get_last();
+
+    if( $error !== NULL) {
+        $errno   = $error["type"];
+        $errfile = $error["file"];
+        $errline = $error["line"];
+        $errstr  = $error["message"];
+    }
+
+    Yii::log($errstr, CLogger::LEVEL_ERROR, 'mail');
+}
+
 abstract class MailSender extends CComponent
 {
     const DEBUG_DEVELOPMENT = 0;
@@ -120,3 +136,4 @@ abstract class MailSender extends CComponent
 
 
 }
+

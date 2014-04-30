@@ -5,10 +5,30 @@ block vars
   - var bodyClass = 'body__bg1';
 
 block layout
-    // +side-menu__user("side-menu__user")
-    
+
+    mixin user-menu(mod, vars) 
+        // user-menu
+        .user-menu
+            .user-menu_ava
+                +ava('ava__middle ava__female', ava.a)
+            ul.user-menu_ul
+                each item, i in vars.items
+                    li.user-menu_li
+                        a.user-menu_i
+                            .user-menu_ico(class='user-menu_ico__#{vars.i}')
+                            .user-menu_tx vars.item
+
+        // /user-menu
+
+    - var userMenu = {}
+    - userMenu.a = {}
+    - userMenu.a.items = {}
+    - userMenu.a.items.profile = 'Анкета'
+
+    +user-menu('', userMenu.a)
+
     .page-col.page-col__user
         .page-col_cont
         
-
+        +layout-footer('layout-footer__in')
             

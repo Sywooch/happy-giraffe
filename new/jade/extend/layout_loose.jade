@@ -14,9 +14,9 @@ body.body(class='#{bodyClass}')
             .layout-header
                 
                 +header('header__base')
-            .layout-loose_hold
+            .layout-loose_hold.clearfix
                 block layout
-                +layout-footer('layout-footer__in')
+                
             +btn-scrolltop()
     .popup-container.display-n  
         block block-hidden

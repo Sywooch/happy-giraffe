@@ -257,6 +257,39 @@
 										</div>
 									</div>
 								</div>
+								<div class="article-settings">
+									<div class="article-settings_i">
+										<a href="" class="article-settings_a article-settings_a__settings powertip" title="Настройки"></a>
+									</div>
+									<div class="article-settings_hold display-b">
+										<div class="article-settings_i">
+											<a href="" class="article-settings_a article-settings_a__pin powertip" title="Прикрепить вверху"></a>
+										</div>
+										<div class="article-settings_i">
+											<a href="" class="article-settings_a article-settings_a__edit powertip"  title="Редактировать"></a>
+										</div>
+										<div class="article-settings_i">
+											<a href="javascript:void(0)" class="ico-users ico-users__friend active powertip" title="Приватность"></a>
+											<div class="article-settings_drop display-b">
+												<div class="article-settings_drop-i">
+													<a href="" class="article-settings_drop-a">
+													<span class="ico-users ico-users__all"></span>
+													Показывать всем
+													</a>
+												</div>
+												<div class="article-settings_drop-i">
+													<a href="" class="article-settings_drop-a">
+													<span class="ico-users ico-users__friend"></span>
+													Только друзьям
+													</a>
+												</div>
+											</div>
+										</div>
+										<div class="article-settings_i">
+											<a href="" class="article-settings_a article-settings_a__delete powertip"  title="Удалить"></a>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="b-article_cont clearfix">
@@ -339,6 +372,7 @@
 							</td>
 						</tr>
 					</table>
+					<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/articles.php'; ?>
 				</div>
 			</div>
 			</div>

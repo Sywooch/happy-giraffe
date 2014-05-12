@@ -1148,13 +1148,11 @@ class CommunityContent extends HActiveRecord implements IPreview
     }
 
     /**
-     * @param int $length
-     * @param string $etc
-     * @return string
+     * @return mixed|string
      */
-    public function getPreviewText($length = 128, $etc = '...')
+    public function getPreviewText()
     {
-        return Str::getDescription($this->getContent()->text, $length, $etc);
+        return $this->getContent()->text;
     }
 
     /**

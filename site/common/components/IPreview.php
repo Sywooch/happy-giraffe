@@ -9,11 +9,9 @@
 interface IPreview
 {
     /**
-     * @param int $length   Длина текста для превью
-     * @param string $etc   Окончание строки
-     * @return string       Текст модели для первью
+     * @return mixed
      */
-    public function getPreviewText($length = 128, $etc = '...');
+    public function getPreviewText();
 
     /**
      * @return AlbumPhoto|null

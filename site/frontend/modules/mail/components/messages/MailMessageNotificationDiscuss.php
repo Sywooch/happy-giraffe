@@ -10,4 +10,9 @@
 class MailMessageNotificationDiscuss extends MailMessageNotification
 {
     public $type = 'notificationDiscuss';
+
+    public function getSubject()
+    {
+        return 'Продолжение обсуждения';
+    }
 }

@@ -20,4 +20,9 @@ class MailMessageNotificationComment extends MailMessageNotification
             return 'notificationCommentPost';
         }
     }
+
+    public function getSubject()
+    {
+        return 'Новые комментарии';
+    }
 } 

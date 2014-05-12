@@ -14,4 +14,9 @@ class MailMessageNotificationReply extends MailMessageNotification
      * @var MailComment
      */
     public $comment;
+
+    public function getSubject()
+    {
+        return 'Новый ответ на ваш комментарий';
+    }
 } 

@@ -1086,13 +1086,11 @@ class CookRecipe extends CActiveRecord implements IPreview
     }
 
     /**
-     * @param int $length
-     * @param string $etc
-     * @return string
+     * @return mixed|string
      */
-    public function getPreviewText($length = 128, $etc = '...')
+    public function getPreviewText()
     {
-        return Str::getDescription($this->text, $length, $etc);
+        return $this->text;
     }
 
     /**

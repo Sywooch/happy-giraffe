@@ -110,12 +110,20 @@ class YandexShareWidget extends CWidget
     protected function getImageUrl()
     {
         $photo = $this->model->getPreviewPhoto();
-        return ($photo === null) ? $this->getDefaultImage() : $photo->getPreviewUrl(800, null, Image::WIDTH);
+
+        if ($photo === null) {
+            return $this->getDefaultImage();
+        } elseif ($photo instanceof AlbumPhoto) {
+            return $photo->getPreviewUrl(800, null, Image::WIDTH);
+        } else {
+            return $photo;
+        }
+
     }
 
     protected function getDescription()
     {
         $description = $this->model->getPreviewText();
-        return (strlen($description) > 0) ? $description : $this->getTitle();
+        return (strlen($description) > 0) ? Str::getDescription($description, 128) : $this->getTitle();
     }
 }

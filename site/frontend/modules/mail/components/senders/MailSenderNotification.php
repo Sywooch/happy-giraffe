@@ -81,4 +81,10 @@ class MailSenderNotification extends MailSender
                 return 'MailMessageNotificationComment';
         }
     }
+
+    protected function getUsersCriteria()
+    {
+        $criteria = parent::getUsersCriteria();
+        return $criteria->compare('online', 0);
+    }
 }

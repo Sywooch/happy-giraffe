@@ -7,10 +7,11 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 
 </head>
-<body class="body-gray theme theme__adfox theme__zirtec" style="">
-<!--AdFox START-->
+<body class="body-gray" style="background:#ffffff url(/images/branding/zyrtek/zyrtek-1920.jpg) no-repeat 50% 0px;cursor:pointer;">
 
-<div id="AdFox_banner_761862"><div style="height:0px;"></div><div id="adfoxBanner610364" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 1460px; z-index: -1;"><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="100%" height="1460" id="1000x320_shapka" align="middle">
+<!--AdFox START-->
+<div class="theme_banner-top">
+<div id="AdFox_banner_761862"><div id="adfoxBanner610364" style=" z-index: 9999;"><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="100%" height="320" id="1000x320_shapka" align="middle">
 				<param name="movie" value="1000x320_shapka.swf">
 				<param name="quality" value="high">
 				<param name="bgcolor" value="#ffffff">
@@ -23,7 +24,7 @@
 				<param name="salign" value="">
 				<param name="allowScriptAccess" value="sameDomain">
 				<!--[if !IE]>-->
-				<object type="application/x-shockwave-flash" data="http://adflasher.ru/www/banners/Zyrtec/4/1000x320_shapka.swf" align="middle"   width="100%" height="1460">
+				<object type="application/x-shockwave-flash" data="http://109.87.248.203/images/branding/zyrtek/1000x320_shapka.swf" align="middle"   width="100%" height="320">
 					<param name="movie" value="1000x320_shapka.swf">
 					<param name="quality" value="high">
 					<param name="bgcolor" value="#ffffff">
@@ -46,7 +47,9 @@
 			</object>
 
 
-		</div></div>
+		</div>
+</div>
+</div>
 <div class="layout-w1">
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
 	<div class="layout-container">
@@ -383,6 +386,11 @@
 	<div class="footer-push"></div>
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>
 </div>
+	<script>
+	$(window).load(function () {
+		$('body').addClass('theme theme__adfox theme__zyrtek').prepend("<div class='theme_banner-top'></div>");
 
+	});
+	</script> 
 </body>
 </html>

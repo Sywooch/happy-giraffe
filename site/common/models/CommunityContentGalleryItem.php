@@ -42,9 +42,12 @@ class CommunityContentGalleryItem extends CActiveRecord implements IPreview
 		);
 	}
 
-    public function getPreviewText($length = 128, $etc = '...')
+    /**
+     * @return mixed|string
+     */
+    public function getPreviewText()
     {
-        $postDescription = $this->gallery->content->getPreviewText($length, $etc);
+        $postDescription = $this->gallery->content->getPreviewText();
         return (strlen($postDescription) == 0) ? $this->description : $postDescription;
     }
 

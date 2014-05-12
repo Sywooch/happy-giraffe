@@ -16,6 +16,7 @@ class MailSenderNotification extends MailSender
 {
     public $debugMode = self::DEBUG_TESTING;
 
+    const TYPE_ALL = 'notification';
     const TYPE_DISCUSS = 'notificationDiscuss';
     const TYPE_REPLY = 'notificationReply';
     const TYPE_COMMENT = 'notificationComment';
@@ -26,7 +27,7 @@ class MailSenderNotification extends MailSender
         self::TYPE_COMMENT => Notification::USER_CONTENT_COMMENT,
     );
 
-    public function __construct($type = null)
+    public function __construct($type = self::TYPE_ALL)
     {
         $this->type = $type;
     }
@@ -39,7 +40,7 @@ class MailSenderNotification extends MailSender
             if ($notification->updated < strtotime($this->lastDeliveryTimestamp))
                 continue;
 
-            if ($this->type !== null && ($this->typesMap[$this->type] != $notification->type))
+            if ($this->type !== self::TYPE_ALL && ($this->typesMap[$this->type] != $notification->type))
                 continue;
 
             $model = CActiveRecord::model($notification->entity)->findByPk($notification->entity_id);

@@ -53,6 +53,12 @@ class DefaultController extends HController
         $this->redirect(urldecode($redirectUrl));
 	}
 
+    public function actionNotifications()
+    {
+        $sender = new MailSenderNotification();
+        $sender->sendAll();
+    }
+
     public function actionDialogues($sendAll = false)
     {
         $sender = new MailSenderDialogues();

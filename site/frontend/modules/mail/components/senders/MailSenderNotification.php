@@ -14,6 +14,8 @@ Yii::import('site.frontend.modules.notifications.components.*');
 
 class MailSenderNotification extends MailSender
 {
+    public $debugMode = self::DEBUG_TESTING;
+
     const TYPE_DISCUSS = 'notificationDiscuss';
     const TYPE_REPLY = 'notificationReply';
     const TYPE_COMMENT = 'notificationComment';
@@ -34,8 +36,8 @@ class MailSenderNotification extends MailSender
         $notifications = Notification::model()->getNotificationsList($user->id, 0, 0, 999);
 
         foreach ($notifications as $notification) {
-//            if ($notification->updated < strtotime($this->lastDeliveryTimestamp))
-//                continue;
+            if ($notification->updated < strtotime($this->lastDeliveryTimestamp))
+                continue;
 
             if ($this->typesMap[$this->type] != $notification->type)
                 continue;
@@ -78,12 +80,5 @@ class MailSenderNotification extends MailSender
             case Notification::USER_CONTENT_COMMENT:
                 return 'MailMessageNotificationComment';
         }
-    }
-
-    protected function getUsersCriteria()
-    {
-        $criteria = new CDbCriteria();
-        $criteria->compare('t.id', 10);
-        return $criteria;
     }
 }

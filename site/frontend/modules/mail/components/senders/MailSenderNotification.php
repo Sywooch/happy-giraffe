@@ -26,7 +26,7 @@ class MailSenderNotification extends MailSender
         self::TYPE_COMMENT => Notification::USER_CONTENT_COMMENT,
     );
 
-    public function __construct($type)
+    public function __construct($type = null)
     {
         $this->type = $type;
     }
@@ -39,7 +39,7 @@ class MailSenderNotification extends MailSender
             if ($notification->updated < strtotime($this->lastDeliveryTimestamp))
                 continue;
 
-            if ($this->typesMap[$this->type] != $notification->type)
+            if ($this->type !== null && ($this->typesMap[$this->type] != $notification->type))
                 continue;
 
             $model = CActiveRecord::model($notification->entity)->findByPk($notification->entity_id);

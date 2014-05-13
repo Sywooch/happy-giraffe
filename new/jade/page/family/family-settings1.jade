@@ -1,0 +1,39 @@
+include ../../block/config
+extend ../../extend/layout_loose
+
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_top-user.page-col_top-user__family
+            .ico-myfamily
+            .profile-settings-family
+                ul.profile-settings-family_ul
+                    li.profile-settings-family_li.active
+                        span.profile-settings-family_a
+                            span.profile-settings-family_count 1
+                            span.profile-settings-family_tx Состав моей семьи
+                    li.profile-settings-family_li
+                        a.profile-settings-family_a
+                            span.profile-settings-family_count 2
+                            span.profile-settings-family_tx О моей семье
+            a.a-profile-bg Фон анкеты
+        .page-col_cont.page-col_cont__in
+            .family-settings
+                .family-settings_hold
+                    .heading-l
+                    .family-settings_start-photo
+                        .family-settings_col
+                        .family-settings_start-photo-set
+                            a.btn-blue-simple.btn-s.margin-b10 Изменить
+                            br
+                            a.a-pseudo-icon.color-gray
+                                span.ico-close3.margin-r5
+                                span Удалить
+
+        +layout-footer('layout-footer__in')
+            

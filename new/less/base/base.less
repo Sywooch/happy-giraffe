@@ -62,6 +62,13 @@
     font-weight: bold;
     color: @color-link-title;
 }
+.heading-l {
+    margin: 15px 0;
+    font-size: 25px;
+    line-height: 29px;
+    color: #333;
+    font-weight: normal;
+}
 .heading-smallest {
     margin: 0;
     font-size: 14px;
@@ -87,6 +94,34 @@
         text-decoration:none !important;
         border-bottom-color:transparent;
     }
+}
+.a-pseudo-icon {
+    .inline-block();
+    margin: 0;
+    text-decoration: none;
+
+    &:hover &_tx {
+        text-decoration:none;
+        border-bottom-color:#2c95d6;
+        color: #2c95d6;
+    }
+    &__undeline &_tx {text-decoration: underline;}
+    &__undeline:hover &_tx {text-decoration: none;}
+
+    &_tx {
+        font-size: 12px;
+        border-bottom: 1px dotted #bab9b9;
+        color: #bab9b9;
+    }
+}
+.a-profile-bg {
+    .inline-block();
+    margin: 0 5px 0 0;
+    padding: 2px 25px 0 0;
+    color: #289fd7;
+    font-size: 13px;
+    line-height: 16px;
+    background: url('@{path-img}/ico/a-profile-bg.png') no-repeat 100% 0;
 }
 
 
@@ -185,6 +220,19 @@
         background: #f0f0f0;
         border-top-right-radius: 10px;
     }
+
+    &_top-user {
+        height: 70px;
+
+        .a-profile-bg {
+            float: right;
+            margin-top: 8px;
+        }
+    }
+    &_top-user__family {
+        padding: 25px 25px 10px;
+        height: 35px;
+    }
     &_t,
     &_t-tx {
         .inline-block();
@@ -215,10 +263,13 @@
         text-decoration: none;
         color: #aeadad;
     }
-    &_cont {}
+    &_cont:after:extend(.clearfix:after) {}
     &_cont__gray {
         background: #f0f0f0;
         .border-bottom-radius(10px);
+    }
+    &_cont__in {
+        padding: 0 20px 40px;
     }
 
     &_update {
@@ -359,6 +410,12 @@
     &__im-ava .btn-green {margin-top: 8px;}
     &__im-ava &_tx-sub {color: #a0a09f;}
 
+    &__profile-family {
+        margin-top: 150px;
+        height: 500px;
+    }
+    &__profile-family &_t {margin: 20px;}
+
     &_hold {
         font-size: 12px;
         line-height: 16px;
@@ -372,6 +429,11 @@
     }
     &_img__white {background-position: -60px 0;}
     &_img__smile-gray {background-position: -120px 0;}
+    &_img__family-big {
+        height: 180px;
+        width: 455px;
+        background: url('@{path-img}/base/cap-empty_img__family-big.png') no-repeat 50% 0;
+    }
     &_t {
         margin: 5px 0;
         color: #2d2d2d;

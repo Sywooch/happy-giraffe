@@ -1,0 +1,218 @@
+include ../../block/config
+extend ../../extend/layout_loose
+
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_top-user.page-col_top-user__family
+            .ico-myfamily
+            .profile-settings-family
+                ul.profile-settings-family_ul
+                    li.profile-settings-family_li.active
+                        span.profile-settings-family_a
+                            span.profile-settings-family_count 1
+                            span.profile-settings-family_tx Состав моей семьи
+                    li.profile-settings-family_li
+                        a.profile-settings-family_a
+                            span.profile-settings-family_count 2
+                            span.profile-settings-family_tx О моей семье
+
+            a.a-profile-bg Фон анкеты
+        .page-col_cont.page-col_cont__in
+            .b-family-structure.b-family-structure__narrow.clearfix
+                .b-family-structure_upload
+                    .b-family-structure_note
+                        | Все просто. Перетащите в пустые квадраты
+                        br
+                        | членов вашей семьи
+                    .b-family.b-family__bg-none
+                        ul.b-family_ul
+                            //
+                                 Объект для перетаскивания .b-family_li 
+                            li.b-family_li
+                                .b-family_img-hold
+                                    .ico-family.ico-family__husband
+                                .b-family_tx
+                                    span Муж
+                            li.b-family_li
+                                .b-family_img-hold
+                                    .ico-family.ico-family__fiance
+                                .b-family_tx
+                                    span Жених
+                            li.b-family_li
+                                .b-family_img-hold
+                                    .ico-family.ico-family__boy-friend
+                                .b-family_tx
+                                    span Друг
+                    .b-family.b-family__bg-none.b-family__w100
+                        ul.b-family_ul
+                            li.b-family_li
+                                .b-family_img-hold
+                                    .ico-family.ico-family__baby-plan
+                                .b-family_tx
+                                    span Планируем ребенка
+                            li.b-family_li
+                                .b-family_img-hold
+                                    .ico-family.ico-family__boy-wait
+                                .b-family_tx
+                                    span Ждем мальчика
+                            li.b-family_li
+                                .b-family_img-hold
+                                    .ico-family.ico-family__girl-wait
+                                .b-family_tx
+                                    span Ждем девочку
+                            li.b-family_li
+                                .b-family_img-hold
+                                    .ico-family.ico-family__baby
+                                .b-family_tx
+                                    span Ждем ребенка
+                            li.b-family_li
+                                .b-family_img-hold
+                                    .ico-family.ico-family__baby-two
+                                .b-family_tx
+                                    span Ждем двойню
+                    .clearfix
+                        .float-l.margin-r20.w-130.textalign-c
+                            .b-family_sub-t Дети от 0 до 1 года
+                            .b-family.b-family__bg-none
+                                ul.b-family_ul
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__girl-small
+                                        .b-family_tx
+                                            span Дочь
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__boy-small
+                                        .b-family_tx
+                                            span Сын
+                        .float-l.margin-r20.w-130.textalign-c
+                            .b-family_sub-t  Дети от 1 до 3 лет
+                            .b-family.b-family__bg-none
+                                ul.b-family_ul
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__girl-3
+                                        .b-family_tx
+                                            span Дочь
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__boy-3
+                                        .b-family_tx
+                                            span Сын
+                        .float-l.margin-r20.w-130.textalign-c
+                            .b-family_sub-t  Дети от 3 до 6 лет
+                            .b-family.b-family__bg-none
+                                ul.b-family_ul
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__girl-5
+                                        .b-family_tx
+                                            span Дочь
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__boy-5
+                                        .b-family_tx
+                                            span Сын
+                        .float-l.margin-r20.w-130.textalign-c
+                            .b-family_sub-t Дети от 6 до 12 лет
+                            .b-family.b-family__bg-none
+                                ul.b-family_ul
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__girl-8
+                                        .b-family_tx
+                                            span Дочь
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__boy-8
+                                        .b-family_tx
+                                            span Сын
+                        .float-l.margin-r20.w-130.textalign-c
+                            .b-family_sub-t Дети от 12 до 18 лет
+                            .b-family.b-family__bg-none
+                                ul.b-family_ul
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__girl-14
+                                        .b-family_tx
+                                            span Дочь
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__boy-14
+                                        .b-family_tx
+                                            span Сын
+                        .float-l.margin-r20.w-130.textalign-c
+                            .b-family_sub-t Старше 18 лет
+                            .b-family.b-family__bg-none
+                                ul.b-family_ul
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__girl-19
+                                        .b-family_tx
+                                            span Дочь
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__boy-19
+                                        .b-family_tx
+                                            span Сын
+                //
+                    Правая часть
+                .b-family-structure_added
+                            .b-family.b-family__square
+                                .b-family_top.b-family_top__empty
+                                //
+                                    Когда 9 ячеек не хватает для семьи, появляется еще ряд из 3 ячеек.
+                                ul.b-family_ul
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__wife
+                                        .b-family_tx
+                                            span Я
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__husband
+                                        .b-family_tx
+                                            span Муж
+                                        a.ico-close.b-family_del(href='')
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__boy-wait
+                                        .b-family_tx
+                                            span Ждем мальчика
+                                        a.ico-close.b-family_del(href='')
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__girl-small
+                                        .b-family_tx
+                                            span Дочь
+                                        a.ico-close.b-family_del(href='')
+                                    li.b-family_li
+                                        .b-family_img-hold
+                                            .ico-family.ico-family__girl-8
+                                        .b-family_tx
+                                            span Дочь
+                                        a.ico-close.b-family_del(href='')
+                                    //
+                                         Когда курсор мыши с зажатой иконкой над квадратом добавить класс dragover 
+                                    li.b-family_li.b-family_li__empty.dragover
+                                    //
+                                         Когда курсор мыши с зажатой иконкой над квадратом и нельзя добавить (Например: второго мужа) довесить класс dragover-error 
+                                    li.b-family_li.b-family_li__empty.dragover-error
+                                    li.b-family_li.b-family_li__empty
+                                    li.b-family_li.b-family_li__empty
+                
+            .float-r
+                .verticalalign-m
+                    span.color-gray-dark Членов семьи:
+                        // span для программистов, в верстке не используется 
+                        span 3
+                    a.btn-green-simple.btn-m.margin-l15.margin-r15 Все верно     
+
+        +layout-footer('layout-footer__in')
+            

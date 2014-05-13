@@ -35,7 +35,7 @@
     &__square &_li.dragover {border-color: #65c15d;}
     &__square &_li.dragover-error {border-color: #f8bdbd;}
     &__square &_li__empty {
-        border: 2px dashed #ace9a6;
+        border: 2px dashed #eed87b;
     }
     &__square &_img-hold {
         display: block;
@@ -49,9 +49,23 @@
         background: none;
         color: #1a1a1a;
     }
+    &__w100 &_ul {text-align: justify;}
+    &__w100 &_ul:after {
+        width: 100%;
+        height: 0;
+        visibility: hidden;
+        overflow: hidden;
+        content: '';
+        display: inline-block;
+    }
+    &__w100 &_li {width: 55px;}
 
     &_top {
         margin: 0 auto 15px;
+    }
+    &_top__empty {
+        margin: 20px auto 10px;
+        height: 28px;
     }
 /*    &_top__white {
         height: 22px;
@@ -62,7 +76,7 @@
         width: 250px;
         height: 28px;
         margin: 20px auto 20px;
-        background: url('@{path-img}/b-famyli_top__white-big.png') no-repeat;
+        // background: url('@{path-img}/b-famyli_top__white-big.png') no-repeat;
     }
 /*    &_top__blue {
         height: 22px;
@@ -75,7 +89,7 @@
         margin: 20px auto 35px;
         background: url(/images/b-famyli_top__blue-big.png) no-repeat;
     }*/
-    &_ul {margin: 8px -10px 0;}
+    &_ul {margin: 8px -7px 0;} /* -7px для убриания отступа в начале и конце строки у li элементов */
     &_li {
         .inline-block();
         vertical-align: top;
@@ -144,8 +158,18 @@
 
 /* b-family-structure */
 .b-family-structure {
-    background: #ffefab;
+    background: #66c25f;
 
+    &__narrow {margin: 10px 0 20px;}
+    &__narrow &_upload {
+        margin-left: 10px;
+    }
+    &__narrow &_added {
+        padding: 0 25px 28px;
+        width: 315px;
+        height: 470px;
+    }
+    &__narrow &_added .b-family_li {margin: 5px;}
     .b-family {
         font-size: 11px;
         margin: 0 0 10px;
@@ -159,33 +183,94 @@
         float: left;
         width: 355px;
         padding: 0 50px 28px;
-        background: #65c15d;
+        background: #fff0ab;
     }
     &_upload {
         float: left;
         padding: 15px 30px 5px 25px;
         width: 450px;
     }
+    &_upload .b-family__w100 {margin: 0 20px;}
     &_upload .b-family_li {
-        margin: 0 4px 13px;
+        margin: 0 4px 10px;
         cursor: pointer;
         z-index: 99;
+        text-align: center;
     }
     &_upload .b-family_img-hold {
         display: block;
-        width: auto;
+        
         max-width: none;
     }
     &_upload .b-family_tx {
-        width: auto;
-        color: #1a1a1a;
+        
+        color: #fff;
     }
+    &_upload .b-family_sub-t {color: @color-base;}
     &_note {
-        padding: 2px 40px 15px 0;
+        padding: 0px 40px 17px 0;
         background: url('@{path-img}/b-family-structure_note.png') no-repeat 50% 0;
-        color: @color-white;
         text-align: center;
         .font-s-mixin();
     }
 }
 /* /b-family-structure */
+
+/* 
+    .profile-settings-family
+        ul.profile-settings-family_ul
+            li.profile-settings-family_li.active
+                a.profile-settings-family_a
+                    span.profile-settings-family_count
+                    span.profile-settings-family_tx
+*/
+.profile-settings-family {
+    .inline-block();
+    margin: 0 20px;
+
+    &_ul {}
+    &_li {
+        .inline-block();
+        margin: 0 10px;
+    }
+    &_li.active &_a {
+        color: @color-base;
+        text-decoration: none;
+    }
+    &_a {
+        color: @color-gray-light;
+        font-size: 14px;
+    }
+    &_count {
+        .inline-block();
+        margin: 0 8px 0 0;
+        font-size: 30px;
+        line-height: 34px;
+        font-weight: bold;
+    }
+    &_tx {}
+}
+/* /profile-settings-family */
+
+/* 
+    family-settings 
+
+*/
+.family-settings {
+    margin: 20px 0 30px;
+
+    &_hold {
+        margin: 0 40px;
+    }
+    &_start-photo {
+        margin: 0 0 20px;
+    }
+    &_start-photo-set {
+        .inline-block();
+    }
+    &_col {
+        .inline-block();
+        width: 510px;
+    }
+}
+/* /family-settings */

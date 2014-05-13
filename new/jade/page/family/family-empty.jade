@@ -6,29 +6,14 @@ block vars
 
 block layout
 
-    mixin user-menu(mod, vars) 
-        // user-menu
-        .user-menu
-            .user-menu_ava
-                +ava('ava__middle ava__female', ava.a)
-            ul.user-menu_ul
-                each item, i in vars.items
-                    li.user-menu_li
-                        a.user-menu_i
-                            .user-menu_ico(class='user-menu_ico__#{vars.i}')
-                            .user-menu_tx vars.item
-
-        // /user-menu
-
-    - var userMenu = {}
-    - userMenu.a = {}
-    - userMenu.a.items = {}
-    - userMenu.a.items.profile = 'Анкета'
-
     +user-menu('', userMenu.a)
 
     .page-col.page-col__user
-        .page-col_cont
-        
+        .page-col_top-user.page-col_top-user__family
+            .ico-myfamily
+            a.a-profile-bg Фон анкеты
+        .page-col_cont.page-col_cont__in
+            +cap-empty("cap-empty__profile-family",{imgMod: 'cap-empty_img__family-big',  t: 'У вас не заполнена информация о вашей семье', txSub: "<a href='' class='btn-green-simple btn-m'>Заполнить</a>"})
+
         +layout-footer('layout-footer__in')
             

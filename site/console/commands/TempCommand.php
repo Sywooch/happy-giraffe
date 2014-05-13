@@ -268,4 +268,48 @@ class TempCommand extends CConsoleCommand
             echo $i . '/' . $count . "\n";
         }
     }
+
+    public function actionModerStats()
+    {
+        $moders = array(159841, 175718, 15426, 189230, 167771, 15994, 15814);
+        $dateFrom = '2014-05-01';
+        $dateTo = '2014-05-12';
+
+        $commentsCounts = Yii::app()->db->createCommand()
+            ->select('author_id, DATE(created) AS d, COUNT(*) AS c')
+            ->from('comments')
+            ->where(array('in', 'author_id'))
+            ->andWhere('removed = 0')
+            ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
+            ->queryAll();
+
+        $from = new DateTime($dateFrom);
+        $to = new DateTime($dateTo);
+        $period = new DatePeriod($from, new DateInterval('P1D'), $to);
+
+        $data = array();
+        foreach ($moders as $moder) {
+            $dataRow = array();
+            foreach ($period as $dt) {
+                $date = $dt->format('Y-m-d');
+
+                $count = 0;
+                foreach ($commentsCounts as $row) {
+                    if ($row['author_id'] == $moder && $row['d'] == $date) {
+                        $count = $row['c'];
+                    }
+                }
+
+                $dataRow[] = $count;
+            }
+            $data[] = $dataRow;
+        }
+
+        foreach ($data as $d) {
+            foreach ($d as $c) {
+                echo $c . ', ';
+            }
+            echo "\n";
+        }
+    }
 }

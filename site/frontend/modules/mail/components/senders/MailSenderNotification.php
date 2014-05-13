@@ -26,7 +26,7 @@ class MailSenderNotification extends MailSender
         self::TYPE_COMMENT => Notification::USER_CONTENT_COMMENT,
     );
 
-    public function __construct($typ)
+    public function __construct($type)
     {
         $this->type = $type;
     }

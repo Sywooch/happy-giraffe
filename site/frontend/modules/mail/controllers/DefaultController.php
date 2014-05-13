@@ -55,7 +55,13 @@ class DefaultController extends HController
 
     public function actionNotifications()
     {
-        $sender = new MailSenderNotification();
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_COMMENT);
+        $sender->sendAll();
+
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_DISCUSS);
+        $sender->sendAll();
+
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_REPLY);
         $sender->sendAll();
     }
 

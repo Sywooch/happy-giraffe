@@ -281,6 +281,7 @@ class TempCommand extends CConsoleCommand
             ->where(array('in', 'author_id'))
             ->andWhere('removed = 0')
             ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
+            ->group('author_id, d')
             ->queryAll();
 
         $from = new DateTime($dateFrom);
@@ -305,6 +306,9 @@ class TempCommand extends CConsoleCommand
             $data[] = $dataRow;
         }
 
-        print_r($commentsCounts);
+        foreach ($data as $d) {
+            echo implode(', ', $d);
+            echo "\n";
+        }
     }
 }

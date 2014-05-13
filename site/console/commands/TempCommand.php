@@ -285,32 +285,65 @@ class TempCommand extends CConsoleCommand
             ->group('author_id, d')
             ->queryAll();
 
+        $postsCounts = Yii::app()->db->createCommand()
+            ->select('author_id, DATE(created) AS d, COUNT(*) AS c')
+            ->from('community__contents')
+            ->where(array('in', 'author_id'))
+            ->andWhere('removed = 0')
+            ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
+            ->group('author_id, d')
+            ->queryAll();
+
+        $photosCounts = Yii::app()->db->createCommand()
+            ->select('author_id, DATE(created) AS d, COUNT(*) AS c')
+            ->from('album__photos')
+            ->where(array('in', 'author_id'))
+            ->andWhere('removed = 0')
+            ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
+            ->group('author_id, d')
+            ->queryAll();
+
+        $messagesCounts = Yii::app()->db->createCommand()
+            ->select('author_id, DATE(created) AS d, COUNT(*) AS c')
+            ->from('messaging__messages')
+            ->where(array('in', 'author_id'))
+            ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
+            ->group('author_id, d')
+            ->queryAll();
+
+        $sources = array($commentsCounts, $postsCounts, $messagesCounts, $photosCounts);
+
         $from = new DateTime($dateFrom);
         $to = new DateTime($dateTo);
         $period = new DatePeriod($from, new DateInterval('P1D'), $to);
 
         $data = array();
-        foreach ($moders as $moder) {
-            $dataRow = array();
-            $dataRow[] = 'http://www.happy-giraffe.ru/user/' . $moder . '/';
-            foreach ($period as $dt) {
-                $date = $dt->format('Y-m-d');
 
-                $count = 0;
-                foreach ($commentsCounts as $row) {
-                    if ($row['author_id'] == $moder && $row['d'] == $date) {
-                        $count = $row['c'];
+        foreach ($sources as $source) {
+            foreach ($moders as $moder) {
+                $dataRow = array();
+                $dataRow[] = 'http://www.happy-giraffe.ru/user/' . $moder . '/';
+                foreach ($period as $dt) {
+                    $date = $dt->format('Y-m-d');
+
+                    $count = 0;
+                    foreach ($source as $row) {
+                        if ($row['author_id'] == $moder && $row['d'] == $date) {
+                            $count = $row['c'];
+                        }
                     }
+
+                    $dataRow[] = $count;
                 }
-
-                $dataRow[] = $count;
+                $data[] = $dataRow;
             }
-            $data[] = $dataRow;
+            $data[] = array_fill(0, iterator_count($period), '');
         }
 
-        foreach ($data as $d) {
-            echo implode(', ', $d);
-            echo "\n";
+        $fp = fopen('stats.csv', 'w');
+        foreach ($data as $row) {
+            fputcsv($fp, $row);
         }
+        fclose($fp);
     }
 }

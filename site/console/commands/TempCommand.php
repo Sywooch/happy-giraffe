@@ -272,6 +272,7 @@ class TempCommand extends CConsoleCommand
     public function actionModerStats()
     {
         $moders = array(159841, 175718, 15426, 189230, 167771, 15994, 15814);
+        asort($moders);
         $dateFrom = '2014-05-01';
         $dateTo = '2014-05-12';
 
@@ -282,7 +283,6 @@ class TempCommand extends CConsoleCommand
             ->andWhere('removed = 0')
             ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
             ->group('author_id, d')
-            ->order('author_id ASC')
             ->queryAll();
 
         $from = new DateTime($dateFrom);

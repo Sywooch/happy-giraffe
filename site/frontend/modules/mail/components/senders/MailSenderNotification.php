@@ -39,7 +39,7 @@ class MailSenderNotification extends MailSender
             if ($notification->updated < strtotime($this->lastDeliveryTimestamp)) {
                 if ($user->id == 260855) {
                     echo $notification->updated . "\n";
-                    echo $this->lastDeliveryTimestamp;
+                    echo strtotime($this->lastDeliveryTimestamp);
                     die('0');
                 }
                 continue;

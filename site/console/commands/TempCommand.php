@@ -340,7 +340,7 @@ class TempCommand extends CConsoleCommand
             $data[] = array_fill(0, iterator_count($period), '');
         }
 
-        $fp = fopen('stats.csv', 'w');
+        $fp = fopen(Yii::getPathOfAlias('webroot') . 'stats.csv', 'w');
         foreach ($data as $row) {
             fputcsv($fp, $row);
         }

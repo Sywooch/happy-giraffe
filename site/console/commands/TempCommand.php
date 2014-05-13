@@ -325,7 +325,7 @@ class TempCommand extends CConsoleCommand
                 $date = $dt->format('Y-m-d');
                 $titleRow[] = $date;
             }
-            $date[] = $titleRow;
+            $data[] = $titleRow;
 
             foreach ($moders as $moder) {
                 $dataRow = array();

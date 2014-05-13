@@ -320,6 +320,13 @@ class TempCommand extends CConsoleCommand
         $data = array();
 
         foreach ($sources as $source) {
+            $titleRow = array('');
+            foreach ($period as $dt) {
+                $date = $dt->format('Y-m-d');
+                $titleRow[] = $date;
+            }
+            $date[] = $titleRow;
+
             foreach ($moders as $moder) {
                 $dataRow = array();
                 $dataRow[] = 'http://www.happy-giraffe.ru/user/' . $moder . '/';
@@ -337,7 +344,6 @@ class TempCommand extends CConsoleCommand
                 }
                 $data[] = $dataRow;
             }
-            $data[] = array_fill(0, iterator_count($period), '');
         }
 
         $fp = fopen(Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . 'stats.csv', 'w');

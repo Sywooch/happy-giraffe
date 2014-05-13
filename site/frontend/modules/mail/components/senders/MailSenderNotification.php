@@ -35,21 +35,23 @@ class MailSenderNotification extends MailSender
     {
         $notifications = Notification::model()->getNotificationsList($user->id, 0, 0, 999);
 
-        if ($user->id == 260855) {
-            echo count($notifications);
-        }
-
         foreach ($notifications as $notification) {
-            if ($notification->updated < strtotime($this->lastDeliveryTimestamp))
+            if ($notification->updated < strtotime($this->lastDeliveryTimestamp)) {
+                die('0');
                 continue;
+            }
 
-            if ($this->typesMap[$this->type] != $notification->type)
+            if ($this->typesMap[$this->type] != $notification->type) {
+                die('1');
                 continue;
+            }
 
             $model = CActiveRecord::model($notification->entity)->findByPk($notification->entity_id);
 
-            if ($model === null)
+            if ($model === null) {
+                die('2');
                 continue;
+            }
 
             $commentsIds = $notification->unread_model_ids;
             $criteria = new CDbCriteria();

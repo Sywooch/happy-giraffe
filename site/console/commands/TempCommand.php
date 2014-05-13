@@ -305,11 +305,6 @@ class TempCommand extends CConsoleCommand
             $data[] = $dataRow;
         }
 
-        foreach ($data as $d) {
-            foreach ($d as $c) {
-                echo $c . ', ';
-            }
-            echo "\n";
-        }
+        print_r($commentsCounts);
     }
 }

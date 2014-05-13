@@ -4120,24 +4120,24 @@ table.fr_recipe_tb td { width: 50%;}
     &__clearblue {}
     &__clearblue .b-section {margin-bottom: 30px;}
     
-    &__adfox {}
-    &__adfox .layout-container {
+    &__adfox {padding-bottom: 50px;}
+    &__adfox .layout-w1 {
         position: relative;
         overflow: hidden;
         background: #f0f0f0;
         width: 1000px;
-        margin: 0 auto 50px; 
-        .box-shadow(1px 1px 7px rgba(8,94,150,0.30));
+        margin: 0 auto; 
+        .box-shadow(0px 0px 3px rgba(0,0,0,0.1));
         z-index: 1;
     }
-    /*&__adfox .header-fix {
+    &__adfox .header-fix {
         width: 1000px;
         left: 50%;
         right: auto;
         margin-left: -500px;
-    }*/
+    }
 
-    &__kinder-spring .layout-container {margin-bottom: 150px;}
+    /*&__kinder-spring .layout-container {margin-bottom: 150px;}*/
 
 /*    &__adfox .start-page_container {
         width: 1000px;
@@ -4165,12 +4165,23 @@ table.fr_recipe_tb td { width: 50%;}
     }*/
 
     &__zyrtek {background-color: #fff;}
-    @media screen and (max-width: 1000px) {
-        &__zyrtek {background-position: -12px 0 !important;}  
+    &__zyrtek &_banner-top {
+        background: url('/images/branding/zyrtek/theme_banner-top-1024.jpg') no-repeat 50% 0;
     }
-    /*&__zyrtek .layout-container {
-        margin-top: 320px;
-    }*/
+    @media screen and (min-width: 1310px) {
+        &__zyrtek &_banner-top {
+            margin-right: 140px;
+            padding-left: 140px;
+            background: url('/images/branding/zyrtek/theme_banner-top-1320.jpg') no-repeat 50% 0;
+        }  
+    }
+    @media screen and (min-width: 1450px) {
+        &__zyrtek &_banner-top {
+            margin-right: 140px;
+            padding-left: 140px;
+            background: url('/images/branding/zyrtek/theme_banner-top-1920.jpg') no-repeat 50% 0;
+        }  
+    }
     
     &_banner-top {position: relative;}
     &_banner-top object {

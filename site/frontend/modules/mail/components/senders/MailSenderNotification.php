@@ -37,27 +37,16 @@ class MailSenderNotification extends MailSender
 
         foreach ($notifications as $notification) {
             if ($notification->updated < strtotime($this->lastDeliveryTimestamp)) {
-                if ($user->id == 260855) {
-                    echo $notification->updated . "\n";
-                    echo strtotime($this->lastDeliveryTimestamp);
-                    die('0');
-                }
                 continue;
             }
 
             if ($this->typesMap[$this->type] != $notification->type) {
-                if ($user->id == 260855) {
-                    die('1');
-                }
                 continue;
             }
 
             $model = CActiveRecord::model($notification->entity)->findByPk($notification->entity_id);
 
             if ($model === null) {
-                if ($user->id == 260855) {
-                    die('2');
-                }
                 continue;
             }
 

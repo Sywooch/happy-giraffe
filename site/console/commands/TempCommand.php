@@ -282,6 +282,7 @@ class TempCommand extends CConsoleCommand
             ->andWhere('removed = 0')
             ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
             ->group('author_id, d')
+            ->order('author_id ASC')
             ->queryAll();
 
         $from = new DateTime($dateFrom);
@@ -291,6 +292,7 @@ class TempCommand extends CConsoleCommand
         $data = array();
         foreach ($moders as $moder) {
             $dataRow = array();
+            $dataRow[] = 'http://www.happy-giraffe.ru/user/' . $moder . '/';
             foreach ($period as $dt) {
                 $date = $dt->format('Y-m-d');
 

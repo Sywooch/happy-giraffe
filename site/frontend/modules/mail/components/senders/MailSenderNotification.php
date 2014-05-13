@@ -35,6 +35,10 @@ class MailSenderNotification extends MailSender
     {
         $notifications = Notification::model()->getNotificationsList($user->id, 0, 0, 999);
 
+        if ($user->id == 260855) {
+            echo count($notifications);
+        }
+
         foreach ($notifications as $notification) {
             if ($notification->updated < strtotime($this->lastDeliveryTimestamp))
                 continue;

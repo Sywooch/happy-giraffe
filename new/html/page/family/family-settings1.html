@@ -16,9 +16,9 @@
   <!-- including other jade works-->
   <!-- ie8 -->
   <!--+scripts(path)-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <!-- script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")-->
   <script>
-    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    window.jQuery || document.write('<script src="/new/javascript/jquery-1.10.2.min.js"><\/script>')
     
   </script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
@@ -132,8 +132,8 @@
             <div class="ico-myfamily"></div>
             <div class="profile-settings-family">
               <ul class="profile-settings-family_ul">
-                <li class="profile-settings-family_li active"><span class="profile-settings-family_a"><span class="profile-settings-family_count">1</span><span class="profile-settings-family_tx">Состав моей семьи</span></span></li>
-                <li class="profile-settings-family_li"><a class="profile-settings-family_a"><span class="profile-settings-family_count">2</span><span class="profile-settings-family_tx">О моей семье</span></a></li>
+                <li class="profile-settings-family_li"><span class="profile-settings-family_a"><span class="profile-settings-family_count">1</span><span class="profile-settings-family_tx">Состав моей семьи</span></span></li>
+                <li class="profile-settings-family_li active"><a class="profile-settings-family_a"><span class="profile-settings-family_count">2</span><span class="profile-settings-family_tx">О моей семье</span></a></li>
               </ul>
             </div><a class="a-profile-bg">Фон анкеты</a>
           </div>
@@ -206,7 +206,7 @@
                   <div class="family-settings_desc">
                     <div class="family-settings_row">
                       <div class="display-ib margin-r10 w-300">
-                        <input class="itx-simple">
+                        <input class="itx-gray">
                       </div><a class="btn-green-simple btn-s">ok</a>
                     </div>
                     <div class="family-settings_row"><a class="family-settings_a-settings">Дата рождения </a></div>
@@ -214,8 +214,53 @@
                       <div class="photo-preview-row photo-preview-row__add clearfix">
                         <div class="photo-preview-row_hold">
                           <div class="photo-grid clearfix">
-                            <div class="photo-grid_row"><span class="photo-preview-row_add file-fake">
-                                <input type="file" name="" class="file-fake_inp"></span></div>
+                            <div class="photo-grid_row">
+                              <!--
+                              Высота фотографий 105пк
+                              Ширина линии 580 пк, построение линии изображения так же как в старой версии семьи
+                              -->
+                              <div class="photo-grid_i"><img alt="" src="/images/example/photo-grid-7.jpg" class="photo-grid_img">
+                                <div class="photo-grid_overlay"><span class="photo-grid_zoom"></span>
+                                  <div class="photo-grid_overlay-row">
+                                    <label for="photo-grid_check1" class="photo-grid_checbox-label powertip">
+                                      <input id="photo-grid_check1" type="checkbox" name="" title="Сделать основным" class="photo-grid_checkbox powertip">
+                                    </label>
+                                    <div class="float-r"><a href="" class="ico-del ico-del__white powertip"></a></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="photo-grid_i"><img alt="" src="/images/example/photo-grid-8.jpg" class="photo-grid_img">
+                                <div class="photo-grid_overlay"><span class="photo-grid_zoom"></span>
+                                  <div class="photo-grid_overlay-row">
+                                    <label for="photo-grid_check1" class="photo-grid_checbox-label powertip">
+                                      <input id="photo-grid_check1" type="checkbox" name="" title="Сделать основным" class="photo-grid_checkbox powertip">
+                                    </label>
+                                    <div class="float-r"><a href="" class="ico-del ico-del__white powertip"></a></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="photo-grid_i"><img alt="" src="/images/example/photo-grid-9.jpg" class="photo-grid_img">
+                                <div class="photo-grid_overlay"><span class="photo-grid_zoom"></span>
+                                  <div class="photo-grid_overlay-row">
+                                    <label for="photo-grid_check1" class="photo-grid_checbox-label powertip">
+                                      <input id="photo-grid_check1" type="checkbox" name="" title="Сделать основным" class="photo-grid_checkbox powertip">
+                                    </label>
+                                    <div class="float-r"><a href="" class="ico-del ico-del__white powertip"></a></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="photo-grid_i"><img alt="" src="/images/example/photo-grid-10.jpg" class="photo-grid_img">
+                                <div class="photo-grid_overlay"><span class="photo-grid_zoom"></span>
+                                  <div class="photo-grid_overlay-row">
+                                    <label for="photo-grid_check1" class="photo-grid_checbox-label powertip">
+                                      <input id="photo-grid_check1" type="checkbox" name="" title="Сделать основным" class="photo-grid_checkbox powertip">
+                                    </label>
+                                    <div class="float-r"><a href="" class="ico-del ico-del__white powertip"></a></div>
+                                  </div>
+                                </div>
+                              </div><span class="photo-preview-row_add file-fake">
+                                <input type="file" name="" class="file-fake_inp"></span>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -294,13 +339,25 @@
                         <div class="photo-preview-row_hold">
                           <div class="photo-grid clearfix">
                             <div class="photo-grid_row">
-                              <!--Высота фотографий 105пк 
+                              <!--
+                              Высота фотографий 105 пк 
+                              Ширина линии 580 пк, построение линии изображения так же как в старой версии семьи
                               -->
                               <div class="photo-grid_i"><img alt="" src="/images/example/photo-grid-7.jpg" class="photo-grid_img">
                                 <div class="photo-grid_overlay"><span class="photo-grid_zoom"></span>
                                   <div class="photo-grid_overlay-row">
                                     <label for="photo-grid_check1" class="photo-grid_checbox-label powertip">
-                                      <input id="photo-grid_check1" type="checkbox" name="" class="photo-grid_checkbox">
+                                      <input id="photo-grid_check1" type="checkbox" name="" title="Сделать основным" class="photo-grid_checkbox powertip">
+                                    </label>
+                                    <div class="float-r"><a href="" class="ico-del ico-del__white powertip"></a></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="photo-grid_i"><img alt="" src="/images/example/photo-grid-7.jpg" class="photo-grid_img">
+                                <div class="photo-grid_overlay"><span class="photo-grid_zoom"></span>
+                                  <div class="photo-grid_overlay-row">
+                                    <label for="photo-grid_check1" class="photo-grid_checbox-label powertip">
+                                      <input id="photo-grid_check1" type="checkbox" name="" title="Сделать основным" class="photo-grid_checkbox powertip">
                                     </label>
                                     <div class="float-r"><a href="" class="ico-del ico-del__white powertip"></a></div>
                                   </div>
@@ -310,17 +367,7 @@
                                 <div class="photo-grid_overlay"><span class="photo-grid_zoom"></span>
                                   <div class="photo-grid_overlay-row">
                                     <label for="photo-grid_check1" class="photo-grid_checbox-label powertip">
-                                      <input id="photo-grid_check1" type="checkbox" name="" class="photo-grid_checkbox">
-                                    </label>
-                                    <div class="float-r"><a href="" class="ico-del ico-del__white powertip"></a></div>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="photo-grid_i"><img alt="" src="/images/example/photo-grid-9.jpg" class="photo-grid_img">
-                                <div class="photo-grid_overlay"><span class="photo-grid_zoom"></span>
-                                  <div class="photo-grid_overlay-row">
-                                    <label for="photo-grid_check1" class="photo-grid_checbox-label powertip">
-                                      <input id="photo-grid_check1" type="checkbox" name="" class="photo-grid_checkbox">
+                                      <input id="photo-grid_check1" type="checkbox" name="" title="Сделать основным" class="photo-grid_checkbox powertip">
                                     </label>
                                     <div class="float-r"><a href="" class="ico-del ico-del__white powertip"></a></div>
                                   </div>
@@ -330,7 +377,27 @@
                                 <div class="photo-grid_overlay"><span class="photo-grid_zoom"></span>
                                   <div class="photo-grid_overlay-row">
                                     <label for="photo-grid_check1" class="photo-grid_checbox-label powertip">
-                                      <input id="photo-grid_check1" type="checkbox" name="" class="photo-grid_checkbox">
+                                      <input id="photo-grid_check1" type="checkbox" name="" title="Сделать основным" class="photo-grid_checkbox powertip">
+                                    </label>
+                                    <div class="float-r"><a href="" class="ico-del ico-del__white powertip"></a></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="photo-grid_i"><img alt="" src="/images/example/photo-grid-10.jpg" class="photo-grid_img">
+                                <div class="photo-grid_overlay"><span class="photo-grid_zoom"></span>
+                                  <div class="photo-grid_overlay-row">
+                                    <label for="photo-grid_check1" class="photo-grid_checbox-label powertip">
+                                      <input id="photo-grid_check1" type="checkbox" name="" title="Сделать основным" class="photo-grid_checkbox powertip">
+                                    </label>
+                                    <div class="float-r"><a href="" class="ico-del ico-del__white powertip"></a></div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="photo-grid_i"><img alt="" src="/images/example/photo-grid-9.jpg" class="photo-grid_img">
+                                <div class="photo-grid_overlay"><span class="photo-grid_zoom"></span>
+                                  <div class="photo-grid_overlay-row">
+                                    <label for="photo-grid_check1" class="photo-grid_checbox-label powertip">
+                                      <input id="photo-grid_check1" type="checkbox" name="" title="Сделать основным" class="photo-grid_checkbox powertip">
                                     </label>
                                     <div class="float-r"><a href="" class="ico-del ico-del__white powertip"></a></div>
                                   </div>
@@ -344,6 +411,37 @@
                     </div>
                   </div>
                 </div>
+                <div class="family-settings_member clearfix"><a class="family-settings_member-del a-pseudo-icon a-pseudo-icon__gray"><span class="a-pseudo-icon_tx">Удалить</span><span class="ico-close3 margin-l5"></span></a>
+                  <div class="family-settings_photo">
+                    <div class="family-settings_photo-hold"><img src="/new/images/example/w200-h125.jpg" alt="">
+                    </div>
+                  </div>
+                  <div class="family-settings_desc">
+                    <div class="family-settings_row">
+                      <div class="family-settings_name">Катя</div><a class="a-pseudo-icon a-pseudo-icon__underline a-pseudo-icon__gray margin-l10">
+                        <div class="b-control">
+                          <div class="b-control_i"><span title="Редактировать" class="b-control_ico powertip b-control_ico__edit"></span></div>
+                        </div><span class="a-pseudo-icon_tx">Редактировать</span></a>
+                    </div>
+                    <div class="family-settings_row">
+                      <div class="family-settings_birthday">22 января 2014 (6месяцев)</div><a class="a-pseudo-icon a-pseudo-icon__underline a-pseudo-icon__gray margin-l10">
+                        <div class="b-control">
+                          <div class="b-control_i"><span title="Редактировать" class="b-control_ico powertip b-control_ico__edit"></span></div>
+                        </div><span class="a-pseudo-icon_tx">Редактировать</span></a>
+                    </div>
+                    <div class="family-settings_row">
+                      <div class="photo-preview-row photo-preview-row__add clearfix">
+                        <div class="photo-preview-row_hold">
+                          <div class="photo-grid clearfix">
+                            <div class="photo-grid_row"><span class="photo-preview-row_add file-fake">
+                                <input type="file" name="" class="file-fake_inp"></span></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="family-settings_member"><a class="family-settings_member-add"></a></div>
               </div>
             </div>
           </div>

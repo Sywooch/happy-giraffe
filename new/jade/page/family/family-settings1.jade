@@ -13,11 +13,11 @@ block layout
             .ico-myfamily
             .profile-settings-family
                 ul.profile-settings-family_ul
-                    li.profile-settings-family_li.active
+                    li.profile-settings-family_li
                         span.profile-settings-family_a
                             span.profile-settings-family_count 1
                             span.profile-settings-family_tx Состав моей семьи
-                    li.profile-settings-family_li
+                    li.profile-settings-family_li.active
                         a.profile-settings-family_a
                             span.profile-settings-family_count 2
                             span.profile-settings-family_tx О моей семье
@@ -61,7 +61,6 @@ block layout
                                     .b-control
                                         .b-control_i
                                             span.b-control_ico.powertip.b-control_ico__edit(title='Редактировать')
-                                              
                                     span.a-pseudo-icon_tx Редактировать
                             .family-settings_row
                                 .photo-preview-row.photo-preview-row__add.clearfix
@@ -103,7 +102,7 @@ block layout
                         .family-settings_desc
                             .family-settings_row 
                                 .display-ib.margin-r10.w-300
-                                    input.itx-simple
+                                    input.itx-gray
                                 a.btn-green-simple.btn-s ok
                             .family-settings_row
                                 a.family-settings_a-settings Дата рождения 
@@ -112,6 +111,45 @@ block layout
                                     .photo-preview-row_hold
                                         .photo-grid.clearfix
                                             .photo-grid_row
+                                                //
+                                                    Высота фотографий 105пк
+                                                    Ширина линии 580 пк, построение линии изображения так же как в старой версии семьи
+                                                .photo-grid_i
+                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-7.jpg')
+                                                    .photo-grid_overlay
+                                                        span.photo-grid_zoom
+                                                        .photo-grid_overlay-row
+                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
+                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            .float-r
+                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                .photo-grid_i
+                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-8.jpg')
+                                                    .photo-grid_overlay
+                                                        span.photo-grid_zoom
+                                                        .photo-grid_overlay-row
+                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
+                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            .float-r
+                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                .photo-grid_i
+                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-9.jpg')
+                                                    .photo-grid_overlay
+                                                        span.photo-grid_zoom
+                                                        .photo-grid_overlay-row
+                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
+                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            .float-r
+                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                .photo-grid_i
+                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-10.jpg')
+                                                    .photo-grid_overlay
+                                                        span.photo-grid_zoom
+                                                        .photo-grid_overlay-row
+                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
+                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            .float-r
+                                                                a.ico-del.ico-del__white.powertip(href='')
                                                 span.photo-preview-row_add.file-fake
                                                     input.file-fake_inp(type='file', name='')
 
@@ -185,14 +223,24 @@ block layout
                                         .photo-grid.clearfix
                                             .photo-grid_row
                                                 //
-                                                     Высота фотографий 105пк 
+                                                     Высота фотографий 105 пк 
+                                                     Ширина линии 580 пк, построение линии изображения так же как в старой версии семьи
                                                 .photo-grid_i
                                                     img.photo-grid_img(alt='', src='/images/example/photo-grid-7.jpg')
                                                     .photo-grid_overlay
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
                                                             label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox(type='checkbox', name='')
+                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            .float-r
+                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                .photo-grid_i
+                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-7.jpg')
+                                                    .photo-grid_overlay
+                                                        span.photo-grid_zoom
+                                                        .photo-grid_overlay-row
+                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
+                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
                                                             .float-r
                                                                 a.ico-del.ico-del__white.powertip(href='')
                                                 .photo-grid_i
@@ -201,16 +249,7 @@ block layout
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
                                                             label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox(type='checkbox', name='')
-                                                            .float-r
-                                                                a.ico-del.ico-del__white.powertip(href='')
-                                                .photo-grid_i
-                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-9.jpg')
-                                                    .photo-grid_overlay
-                                                        span.photo-grid_zoom
-                                                        .photo-grid_overlay-row
-                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox(type='checkbox', name='')
+                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
                                                             .float-r
                                                                 a.ico-del.ico-del__white.powertip(href='')
                                                 .photo-grid_i
@@ -219,12 +258,64 @@ block layout
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
                                                             label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox(type='checkbox', name='')
+                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            .float-r
+                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                .photo-grid_i
+                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-10.jpg')
+                                                    .photo-grid_overlay
+                                                        span.photo-grid_zoom
+                                                        .photo-grid_overlay-row
+                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
+                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            .float-r
+                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                .photo-grid_i
+                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-9.jpg')
+                                                    .photo-grid_overlay
+                                                        span.photo-grid_zoom
+                                                        .photo-grid_overlay-row
+                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
+                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
                                                             .float-r
                                                                 a.ico-del.ico-del__white.powertip(href='')
                                                 span.photo-preview-row_add.file-fake
                                                     input.file-fake_inp(type='file', name='')
 
+                    .family-settings_member.clearfix
+                        a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray
+                            span.a-pseudo-icon_tx Удалить
+                            span.ico-close3.margin-l5
+                        .family-settings_photo
+                            .family-settings_photo-hold
+                                //- фотографии могут быть 200*200
+                                img(src="#{path}images/example/w200-h125.jpg", alt="")
+                        .family-settings_desc
+                            .family-settings_row 
+                                .family-settings_name Катя
+                                a.a-pseudo-icon.a-pseudo-icon__underline.a-pseudo-icon__gray.margin-l10
+                                    //- span.ico-edit
+                                    .b-control
+                                        .b-control_i
+                                            span.b-control_ico.powertip.b-control_ico__edit(title='Редактировать')
+                                    span.a-pseudo-icon_tx Редактировать
+                            .family-settings_row
+                                .family-settings_birthday 22 января 2014 (6месяцев)
+                                a.a-pseudo-icon.a-pseudo-icon__underline.a-pseudo-icon__gray.margin-l10
+                                    //- span.ico-edit
+                                    .b-control
+                                        .b-control_i
+                                            span.b-control_ico.powertip.b-control_ico__edit(title='Редактировать')
+                                    span.a-pseudo-icon_tx Редактировать
+                            .family-settings_row
+                                .photo-preview-row.photo-preview-row__add.clearfix
+                                    .photo-preview-row_hold
+                                        .photo-grid.clearfix
+                                            .photo-grid_row
+                                                span.photo-preview-row_add.file-fake
+                                                    input.file-fake_inp(type='file', name='')
+                    .family-settings_member
+                        a.family-settings_member-add
 
 
         +layout-footer('layout-footer__in')

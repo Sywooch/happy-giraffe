@@ -14,33 +14,29 @@ block layout
             .profile-settings-family
                 ul.profile-settings-family_ul
                     li.profile-settings-family_li
-                        span.profile-settings-family_a
+                        span.profile-settings-family_a(href="")
                             span.profile-settings-family_count 1
                             span.profile-settings-family_tx Состав моей семьи
                     li.profile-settings-family_li.active
-                        a.profile-settings-family_a
+                        a.profile-settings-family_a(href="")
                             span.profile-settings-family_count 2
                             span.profile-settings-family_tx О моей семье
-            a.a-profile-bg Фон анкеты
+            a.a-profile-bg(href="") Фон анкеты
         .page-col_cont.page-col_cont__in
             .family-settings
                 .family-settings_hold
                     .family-settings_fill
                         .family-settings_fill-t Главное семейное фото
-                        .btn-green-simple.btn-xm Загрузить
+                        a.btn-green-simple.btn-xm(href="") Загрузить
                         .family-settings_fill-photo
-
-                    .heading-l О нашей семье
-                    .family-settings_about-all
-                        .family-settings_col
-                            textarea.family-settings_textarea.itx-gray(placeholder='Напишите короткий рассказ о вашей семье',rows="8")
-                            .textalign-r
-                                a.btn-gray-simple.btn-xm.margin-r10 Отменить
-                                a.btn-green-simple.btn-xm Сохранить
+                    .family-settings_fill.family-settings_fill__about
+                        .family-settings_fill-t О нашей семье
+                        .family-settings_fill-about
+                        a.btn-green-simple.btn-xm(href="") Написать
 
                     .heading-l Подробнее о нас
                     .family-settings_member.clearfix
-                        a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray
+                        a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray(href="")
                             span.a-pseudo-icon_tx Удалить
                             span.ico-close3.margin-l5
                         .family-settings_photo
@@ -50,7 +46,7 @@ block layout
                         .family-settings_desc
                             .family-settings_row
                                 .family-settings_name Виктория
-                                a.a-pseudo-icon.a-pseudo-icon__underline.a-pseudo-icon__gray.margin-l10
+                                a.a-pseudo-icon.a-pseudo-icon__underline.a-pseudo-icon__gray.margin-l10(href="")
                                     //- span.ico-edit
                                     .b-control
                                         .b-control_i
@@ -65,7 +61,7 @@ block layout
                                                     input.file-fake_inp(type='file', name='')
 
                     .family-settings_member.clearfix
-                        a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray
+                        a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray(href="")
                             span.a-pseudo-icon_tx Удалить
                             span.ico-close3.margin-l5
                         .family-settings_photo
@@ -74,9 +70,9 @@ block layout
                                 img(src="#{path}images/example/w200-h125.jpg", alt="")
                         .family-settings_desc
                             .family-settings_row 
-                                a.family-settings_a-settings Имя моей дочери
+                                a.family-settings_a-settings(href="") Имя моей дочери
                             .family-settings_row
-                                a.family-settings_a-settings Дата рождения 
+                                a.family-settings_a-settings(href="") Дата рождения 
                             .family-settings_row
                                 .photo-preview-row.photo-preview-row__add.clearfix
                                     .photo-preview-row_hold

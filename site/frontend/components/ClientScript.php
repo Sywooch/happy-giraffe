@@ -98,11 +98,14 @@ class ClientScript extends CClientScript
     protected function processCssFiles()
     {
         foreach ($this->cssFiles as $url => $media) {
-            unset($this->cssFiles[$url]);
-            if ($this->getCssStaticDomain() !== null && strpos($url, '/') === 0)
-                $url = $this->getCssStaticDomain() . $url;
-            $url = $this->addReleaseId($url);
-            $this->cssFiles[$url] = $media;
+            if (strpos($url, '/') === 0 && strpos($url, '/', 1) !== 0) {
+                unset($this->cssFiles[$url]);
+                if ($this->getCssStaticDomain() !== null) {
+                    $url = $this->getCssStaticDomain() . $url;
+                }
+                $url = $this->addReleaseId($url);
+                $this->cssFiles[$url] = $media;
+            }
         }
     }
 
@@ -110,11 +113,14 @@ class ClientScript extends CClientScript
     {
         foreach ($this->scriptFiles as $position => $scriptFiles) {
             foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
-                unset($this->scriptFiles[$position][$scriptFile]);
-                if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0 && strpos($scriptFile, '/', 1) !== 0)
-                    $scriptFile = $this->getJsStaticDomain() . $scriptFile;
-                $scriptFile = $this->addReleaseId($scriptFile);
-                $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
+                if (strpos($scriptFile, '/') === 0 && strpos($scriptFile, '/', 1) !== 0) {
+                    unset($this->scriptFiles[$position][$scriptFile]);
+                    if ($this->getJsStaticDomain() !== null) {
+                        $scriptFile = $this->getJsStaticDomain() . $scriptFile;
+                    }
+                    $scriptFile = $this->addReleaseId($scriptFile);
+                    $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
+                }
             }
         }
     }

@@ -8,7 +8,10 @@
     &__im,
     &__snow {background:#9b8ec9 url('@{path-img}/body-circle-candy.jpg') no-repeat 50% 0;}
     &__white {background: #fff;}
-    &__bg1 {background:#9b8ec9 url('@{path-img}/body__bg/img1.jpg') no-repeat 50% 0;}
+    &__bg1 {
+        background:#9b8ec9 url('@{path-img}/body__bg/img1.jpg') no-repeat 50% 0;
+        background-attachment: fixed;
+    }
     
 }
 
@@ -63,7 +66,7 @@
     color: @color-link-title;
 }
 .heading-l {
-    margin: 15px 0;
+    margin: 10px 0;
     font-size: 25px;
     line-height: 29px;
     color: #333;
@@ -101,18 +104,20 @@
     text-decoration: none;
 
     &:hover &_tx {
-        text-decoration:none;
-        border-bottom-color:#2c95d6;
-        color: #2c95d6;
+        text-decoration:underline;
     }
-    &__undeline &_tx {text-decoration: underline;}
-    &__undeline:hover &_tx {text-decoration: none;}
+    &__underline &_tx {text-decoration: underline;}
+    &__underline:hover &_tx {text-decoration: none;}
+    &__gray &_tx {color: #bab9b9;}
 
     &_tx {
         font-size: 12px;
-        border-bottom: 1px dotted #bab9b9;
-        color: #bab9b9;
     }
+    .b-control {
+        margin-right: 5px;
+    }
+    .ico-close3 {vertical-align: middle;}
+    &:hover .ico-close3:extend(.ico-close3:hover) {}
 }
 .a-profile-bg {
     .inline-block();

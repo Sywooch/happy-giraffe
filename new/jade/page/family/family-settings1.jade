@@ -25,15 +25,207 @@ block layout
         .page-col_cont.page-col_cont__in
             .family-settings
                 .family-settings_hold
-                    .heading-l
-                    .family-settings_start-photo
+                    .heading-l Главное семейное фото
+                    .family-settings_photo-all
                         .family-settings_col
-                        .family-settings_start-photo-set
+                            img(src="#{path}images/example/w510-h310.jpg", alt="")
+                        .family-settings_photo-all-set
                             a.btn-blue-simple.btn-s.margin-b10 Изменить
                             br
-                            a.a-pseudo-icon.color-gray
+                            a.a-pseudo-icon.a-pseudo-icon__gray
                                 span.ico-close3.margin-r5
-                                span Удалить
+                                span.a-pseudo-icon_tx Удалить
+
+                    .heading-l О нашей семье
+                    .family-settings_about-all
+                        .family-settings_col
+                            textarea.family-settings_textarea.itx-gray(placeholder='Напишите короткий рассказ о вашей семье',rows="8")
+                            .textalign-r
+                                a.btn-gray-simple.btn-xm.margin-r10 Отменить
+                                a.btn-green-simple.btn-xm Сохранить
+
+                    .heading-l Подробнее о нас
+                    .family-settings_member.clearfix
+                        a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray
+                            span.a-pseudo-icon_tx Удалить
+                            span.ico-close3.margin-l5
+                        .family-settings_photo
+                            .family-settings_photo-hold
+                                //- фотографии могут быть 200*200
+                                img(src="#{path}images/example/w200-h125.jpg", alt="")
+                        .family-settings_desc
+                            .family-settings_row
+                                .family-settings_name Виктория
+                                a.a-pseudo-icon.a-pseudo-icon__underline.a-pseudo-icon__gray.margin-l10
+                                    //- span.ico-edit
+                                    .b-control
+                                        .b-control_i
+                                            span.b-control_ico.powertip.b-control_ico__edit(title='Редактировать')
+                                              
+                                    span.a-pseudo-icon_tx Редактировать
+                            .family-settings_row
+                                .photo-preview-row.photo-preview-row__add.clearfix
+                                    .photo-preview-row_hold
+                                        .photo-grid.clearfix
+                                            .photo-grid_row
+                                                span.photo-preview-row_add.file-fake
+                                                    input.file-fake_inp(type='file', name='')
+
+                    .family-settings_member.clearfix
+                        a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray
+                            span.a-pseudo-icon_tx Удалить
+                            span.ico-close3.margin-l5
+                        .family-settings_photo
+                            .family-settings_photo-hold
+                                //- фотографии могут быть 200*200
+                                img(src="#{path}images/example/w200-h125.jpg", alt="")
+                        .family-settings_desc
+                            .family-settings_row 
+                                a.family-settings_a-settings Имя моей дочери
+                            .family-settings_row
+                                a.family-settings_a-settings Дата рождения 
+                            .family-settings_row
+                                .photo-preview-row.photo-preview-row__add.clearfix
+                                    .photo-preview-row_hold
+                                        .photo-grid.clearfix
+                                            .photo-grid_row
+                                                span.photo-preview-row_add.file-fake
+                                                    input.file-fake_inp(type='file', name='')
+
+                    .family-settings_member.clearfix
+                        a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray
+                            span.a-pseudo-icon_tx Удалить
+                            span.ico-close3.margin-l5
+                        .family-settings_photo
+                            .family-settings_photo-hold
+                                //- фотографии могут быть 200*200
+                                .ico-family-big.ico-family-big__girl-small
+                        .family-settings_desc
+                            .family-settings_row 
+                                .display-ib.margin-r10.w-300
+                                    input.itx-simple
+                                a.btn-green-simple.btn-s ok
+                            .family-settings_row
+                                a.family-settings_a-settings Дата рождения 
+                            .family-settings_row
+                                .photo-preview-row.photo-preview-row__add.clearfix
+                                    .photo-preview-row_hold
+                                        .photo-grid.clearfix
+                                            .photo-grid_row
+                                                span.photo-preview-row_add.file-fake
+                                                    input.file-fake_inp(type='file', name='')
+
+                    .family-settings_member.clearfix
+                        a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray
+                            span.a-pseudo-icon_tx Удалить
+                            span.ico-close3.margin-l5
+                        .family-settings_photo
+                            .family-settings_photo-hold
+                                //- фотографии могут быть 200*200
+                                img(src="#{path}images/example/w200-h125.jpg", alt="")
+                        .family-settings_desc
+                            .family-settings_row 
+                                a.family-settings_a-settings Имя моей дочери
+                            .family-settings_row
+                                .display-ib.inp-valid.inp-valid__abs.error
+                                    .display-ib.l.w-75.margin-r10
+                                        select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
+                                            option
+                                            option(value="1") 1
+                                            option(value="2") 2
+                                            option(value="3") 3
+                                            option(value="4") 4
+                                            option(value="5") 5
+                                            option(value="6") 6
+                                            option(value="7") 7
+                                            option(value="8") 8
+                                            option(value="8") 9
+                                            option(value="10") 10
+                                            option(value="11") 11
+                                            option(value="12") 12
+                                            option(value="13") 13
+                                    .display-ib.w-110.margin-r10
+                                        select.select-cus.select-cus__search-off.select-cus__gray(placeholder="Месяц")
+                                            option
+                                            option(value="1") Января
+                                            option(value="2") Февраля
+                                            option(value="3") Марта
+                                            option(value="4") Апреля
+                                            option(value="5") Майя
+                                            option(value="6") Июня
+                                            option(value="7") Июля
+                                            option(value="8") Августа
+                                            option(value="9") Сентября
+                                            option(value="10") Октября
+                                            option(value="11") Ноября
+                                            option(value="12") Декабря
+                                    .display-ib.w-90.margin-r10
+                                        select.select-cus.select-cus__search-off.select-cus__gray(placeholder="Год")
+                                            option
+                                            option(value="1") 1912
+                                            option(value="2") 1913
+                                            option(value="3") 1914
+                                            option(value="4") 1915
+                                            option(value="5") 1916
+                                            option(value="6") 1917
+                                            option(value="7") 1918
+                                            option(value="8") 1919
+                                            option(value="8") 1920
+                                            option(value="10") 1921
+                                            option(value="11") 1922
+                                            option(value="12") 1923
+                                    a.btn-green-simple.btn-s ok
+                                    .inp-valid_error
+                                        .errorMessage 
+                                            | Не выбрана дата
+                                    .inp-valid_success.inp-valid_success__ico-check
+                            .family-settings_row
+                                .photo-preview-row.photo-preview-row__add.clearfix
+                                    .photo-preview-row_hold
+                                        .photo-grid.clearfix
+                                            .photo-grid_row
+                                                //
+                                                     Высота фотографий 105пк 
+                                                .photo-grid_i
+                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-7.jpg')
+                                                    .photo-grid_overlay
+                                                        span.photo-grid_zoom
+                                                        .photo-grid_overlay-row
+                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
+                                                                input#photo-grid_check1.photo-grid_checkbox(type='checkbox', name='')
+                                                            .float-r
+                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                .photo-grid_i
+                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-8.jpg')
+                                                    .photo-grid_overlay
+                                                        span.photo-grid_zoom
+                                                        .photo-grid_overlay-row
+                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
+                                                                input#photo-grid_check1.photo-grid_checkbox(type='checkbox', name='')
+                                                            .float-r
+                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                .photo-grid_i
+                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-9.jpg')
+                                                    .photo-grid_overlay
+                                                        span.photo-grid_zoom
+                                                        .photo-grid_overlay-row
+                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
+                                                                input#photo-grid_check1.photo-grid_checkbox(type='checkbox', name='')
+                                                            .float-r
+                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                .photo-grid_i
+                                                    img.photo-grid_img(alt='', src='/images/example/photo-grid-10.jpg')
+                                                    .photo-grid_overlay
+                                                        span.photo-grid_zoom
+                                                        .photo-grid_overlay-row
+                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
+                                                                input#photo-grid_check1.photo-grid_checkbox(type='checkbox', name='')
+                                                            .float-r
+                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                span.photo-preview-row_add.file-fake
+                                                    input.file-fake_inp(type='file', name='')
+
+
 
         +layout-footer('layout-footer__in')
             

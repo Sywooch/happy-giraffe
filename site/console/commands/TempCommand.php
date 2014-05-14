@@ -268,4 +268,88 @@ class TempCommand extends CConsoleCommand
             echo $i . '/' . $count . "\n";
         }
     }
+
+    public function actionModerStats()
+    {
+        $moders = array(159841, 175718, 15426, 189230, 167771, 15994, 15814);
+        sort($moders);
+        $dateFrom = '2014-05-01';
+        $dateTo = '2014-05-13';
+
+        $commentsCounts = Yii::app()->db->createCommand()
+            ->select('author_id, DATE(created) AS d, COUNT(*) AS c')
+            ->from('comments')
+            ->where(array('in', 'author_id'))
+            ->andWhere('removed = 0')
+            ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
+            ->group('author_id, d')
+            ->queryAll();
+
+        $postsCounts = Yii::app()->db->createCommand()
+            ->select('author_id, DATE(created) AS d, COUNT(*) AS c')
+            ->from('community__contents')
+            ->where(array('in', 'author_id'))
+            ->andWhere('removed = 0')
+            ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
+            ->group('author_id, d')
+            ->queryAll();
+
+        $photosCounts = Yii::app()->db->createCommand()
+            ->select('author_id, DATE(created) AS d, COUNT(*) AS c')
+            ->from('album__photos')
+            ->where(array('in', 'author_id'))
+            ->andWhere('removed = 0')
+            ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
+            ->group('author_id, d')
+            ->queryAll();
+
+        $messagesCounts = Yii::app()->db->createCommand()
+            ->select('author_id, DATE(created) AS d, COUNT(*) AS c')
+            ->from('messaging__messages')
+            ->where(array('in', 'author_id'))
+            ->andWhere('DATE(created) BETWEEN :dateFrom AND :dateTo', array(':dateFrom' => $dateFrom, ':dateTo' => $dateTo))
+            ->group('author_id, d')
+            ->queryAll();
+
+        $sources = array($commentsCounts, $postsCounts, $messagesCounts, $photosCounts);
+
+        $from = new DateTime($dateFrom);
+        $to = new DateTime($dateTo);
+        $period = new DatePeriod($from, new DateInterval('P1D'), $to);
+
+        $data = array();
+
+        foreach ($sources as $source) {
+            $titleRow = array('');
+            foreach ($period as $dt) {
+                $date = $dt->format('Y-m-d');
+                $titleRow[] = $date;
+            }
+            $data[] = $titleRow;
+
+            foreach ($moders as $moder) {
+                $dataRow = array();
+                $dataRow[] = 'http://www.happy-giraffe.ru/user/' . $moder . '/';
+                foreach ($period as $dt) {
+                    $date = $dt->format('Y-m-d');
+
+                    $count = 0;
+                    foreach ($source as $row) {
+                        if ($row['author_id'] == $moder && $row['d'] == $date) {
+                            $count = $row['c'];
+                        }
+                    }
+
+                    $dataRow[] = $count;
+                }
+                $data[] = $dataRow;
+            }
+        }
+
+        $fp = fopen(Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . 'stats.csv', 'w');
+        foreach ($data as $row) {
+            fputcsv($fp, $row);
+        }
+        fclose($fp);
+    }
 }

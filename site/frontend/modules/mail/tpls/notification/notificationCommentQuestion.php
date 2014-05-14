@@ -14,7 +14,7 @@
             <tr>
                 <td style="font-size: 16px; color: #111111;">
                     У вас <?php echo $message->totalCommentsCount; ?> <?php echo Str::GenerateNoun(array('новый ответ', 'новых ответа', 'новых ответов'), $message->totalCommentsCount); ?> <br />
-                    на ваш вопрос <a href=""  style="color:#3482e2;text-decoration:underline;">Гипертонус матки. Как лечить?</a>
+                    на ваш вопрос <a href="<?php echo $message->createUrl($message->model->getUrl(true, true)); ?>"  style="color:#3482e2;text-decoration:underline;"><?php echo $message->model->title; ?></a>
                 </td>
             </tr>
         </table>

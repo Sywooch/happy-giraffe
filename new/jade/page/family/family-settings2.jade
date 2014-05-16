@@ -10,7 +10,7 @@ block layout
 
     .page-col.page-col__user
         .page-col_top-user.page-col_top-user__family
-            .ico-myfamily
+            a.ico-myfamily(href="")
             .profile-settings-family
                 ul.profile-settings-family_ul
                     li.profile-settings-family_li
@@ -27,7 +27,9 @@ block layout
                 .family-settings_hold
                     .family-settings_fill
                         .family-settings_fill-t Главное семейное фото
-                        a.btn-green-simple.btn-xm(href="") Загрузить
+                        .file-fake
+                            .file-fake_btn.btn-green-simple.btn-xm Загрузить
+                            input.file-fake_inp(type="file")
                         .family-settings_fill-photo
                     .family-settings_fill.family-settings_fill__about
                         .family-settings_fill-t О нашей семье
@@ -42,15 +44,12 @@ block layout
                         .family-settings_photo
                             .family-settings_photo-hold
                                 //- фотографии могут быть 200*200
-                                img(src="#{path}images/example/w200-h125.jpg", alt="")
+                                .ico-family-big.ico-family-big__wife
                         .family-settings_desc
                             .family-settings_row
                                 .family-settings_name Виктория
-                                a.a-pseudo-icon.a-pseudo-icon__underline.a-pseudo-icon__gray.margin-l10(href="")
-                                    //- span.ico-edit
-                                    .b-control
-                                        .b-control_i
-                                            span.b-control_ico.powertip.b-control_ico__edit(title='Редактировать')
+                                a.a-pseudo-icon.a-pseudo-icon__gray.margin-l10(href="")
+                                    span.ico-edit.ico-edit__s
                                     span.a-pseudo-icon_tx Редактировать
                             .family-settings_row
                                 .photo-preview-row.photo-preview-row__add.clearfix
@@ -67,7 +66,7 @@ block layout
                         .family-settings_photo
                             .family-settings_photo-hold
                                 //- фотографии могут быть 200*200
-                                img(src="#{path}images/example/w200-h125.jpg", alt="")
+                                .ico-family-big.ico-family-big__girl-small
                         .family-settings_desc
                             .family-settings_row 
                                 a.family-settings_a-settings(href="") Имя моей дочери

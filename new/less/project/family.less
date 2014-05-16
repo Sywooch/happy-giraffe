@@ -45,7 +45,6 @@
         .box-shadow(none);
     }
     &__square &_tx {
-        width: auto;
         background: none;
         color: #1a1a1a;
     }
@@ -67,28 +66,12 @@
         margin: 20px auto 10px;
         height: 28px;
     }
-/*    &_top__white {
-        height: 22px;
-        width: 190px;
-        background: url(/images/b-famyli_top__white.png) no-repeat;
-    }*/
     &_top__white-big {
         width: 250px;
         height: 28px;
         margin: 20px auto 20px;
         // background: url('@{path-img}/b-famyli_top__white-big.png') no-repeat;
     }
-/*    &_top__blue {
-        height: 22px;
-        width: 190px;
-        background: url(/images/b-famyli_top__blue.png) no-repeat;
-    }
-    &_top__blue-big {
-        width: 274px;
-        height: 31px;
-        margin: 20px auto 35px;
-        background: url(/images/b-famyli_top__blue-big.png) no-repeat;
-    }*/
     &_ul {margin: 8px -7px 0;} /* -7px для убриания отступа в начале и конце строки у li элементов */
     &_li {
         .inline-block();
@@ -114,7 +97,8 @@
     &_img {max-height: 100%;}
     &_tx {
         display: block;
-        width: 55px;
+        width: 57px;
+        margin: 0 auto;
         padding: 2px 0 5px;
         color: #6a6a6a;
         background: #fff;
@@ -149,7 +133,6 @@
     }
     &_sub-t {
         font-size: @font-s;
-        font-weight: bold;
         color: @color-gray-dark;
     }
 }
@@ -199,11 +182,9 @@
     }
     &_upload .b-family_img-hold {
         display: block;
-        
         max-width: none;
     }
     &_upload .b-family_tx {
-        
         color: #fff;
     }
     &_upload .b-family_sub-t {color: @color-base;}
@@ -235,11 +216,15 @@
     }
     &_li.active &_a {
         color: @color-base;
-        text-decoration: none;
+        text-align: right;
     }
     &_a {
         color: @color-gray-light;
         font-size: 14px;
+        text-decoration: none;
+    }
+    &_a:hover {
+        color: @color-gray;
     }
     &_count {
         .inline-block();
@@ -284,6 +269,11 @@
     }
     &_about-all {
         margin-bottom: 40px;
+    }
+    &_about-all-tx {
+        font-size: 14px;
+        line-height: 19px;
+        margin: 5px;
     }
     &_textarea {
         margin-bottom: 10px;
@@ -348,6 +338,7 @@
     }
     &_row {
         margin-bottom: 10px;
+        min-height: 32px;
     }
     &_a-settings {
         .inline-block();
@@ -402,19 +393,7 @@
         bottom: -2px;
         border: 2px solid #fff;
     }
-    .photo-grid_zoom {
-        width: 25px;
-        height: 28px;
-        margin: -14px 0 0 -12px;
-        background-size: cover;
-    }
-    .ie8 & .photo-grid_zoom {
-        margin: -20px 0 0 -17px;
-        width: 34px;
-        height: 38px;
-        background: url('@{path-img}/photo-grid_zoom.png') no-repeat;
-    }
-
+    
     &__add {
         margin: 10px auto;
         width: auto;
@@ -456,3 +435,302 @@
     &_add:hover {background-position: 0 -104px;}
 }
 /* /photo-preview-row */
+
+.family-user {
+
+    &_album {
+        margin: 40px 0;
+        text-align: center;
+    }
+    &_album-a {
+        .inline-block();
+        background: url('@{path-img}/family-user_album-a.png') no-repeat;
+        padding: 10px 10px 5px 50px;
+        height: 15px;
+        font-size: 15px;
+        color: @color-gray-light;
+        text-decoration: none;
+    }
+    &_album-a:hover {
+        color: @color-gray;
+        background-position: 0 -30px;
+    }
+}
+
+/* 
+    .family-base-photo
+        a.family-base-photo_img-hold
+            img.family-base-photo_img-big
+        .family-base-photo_overlay
+            .family-base-photo_r
+                .family-base-photo_tx
+                    |
+                    .family-base-photo_count 60
+                    |
+                .family-base-photo_ico-album
+                .family-base-photo_arrow
+            .family-base-photo_ul
+                .family-base-photo_li
+                    a.family-base-photo_a-list
+                        img.family-base-photo_img-list
+*/
+.family-base-photo {
+    position: relative;
+
+    &_img-hold {
+        display: block;
+    }
+    &_img-big {
+        display: block;
+    }
+    &_overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 50px;
+        padding: 15px 20px;
+        background-color: #000;
+        background-color: rgba(0,0,0,.4);
+    }
+    &_r {
+        float: right;
+        text-decoration: none;
+    }
+    &_tx {
+        .inline-block();
+        vertical-align: middle;
+        text-align: right;
+        color: #fff;
+        font-size: 12px;
+    }
+    &_ico-album {
+        .inline-block();
+        vertical-align: middle;
+        width: 38px;
+        height: 30px;
+        margin: 0 10px;
+        background: url('@{path-img}/family-base-photo_ico-album.png') no-repeat;
+    }
+    &_arrow {
+        .inline-block();
+        vertical-align: middle;
+        width: 16px;
+        height: 56px;
+        background: url('@{path-img}/family-base-photo_arrow.png') no-repeat;
+    }
+    &_ul {
+        height: 50px;
+        overflow: hidden; // обрезать изображения если упадут вниз
+    }
+    &_li {
+        float: left;
+        margin: 0 10px 0 0;
+    }
+}
+/* /family-base-photo */
+
+/*
+    .family-about
+        .family-about_bubble
+           .family-about_t О нашей семье
+           .family-about_tx
+                | 
+        .family-about_ul
+            .family-about_li
+                .family-about_img-hold
+                    img.family-about_img
+                .family-about_member 
+*/
+.family-about {
+    padding: 20px 20px;
+    background-color: #3ca0dc;
+    
+    &_bubble {
+        position: relative;
+        width: 640px;
+        margin: 0 0 25px;
+        padding: 20px;
+        color: #fff;
+        background-color: #5ebaf2;
+        .border-radius(18px);
+    }
+    &_bubble:after {
+        content:'';
+        position: absolute;
+        bottom: -19px;
+        left: 130px;
+        width: 31px;
+        height: 19px;
+        background: url('@{path-img}/family-about_bubble-after.jpg') no-repeat;
+    }
+    &_t {
+        font-size: 25px;
+        font-weight: bold;
+    }
+    &_tx {font-size: 14px;}
+    &_ul {
+        margin: 0 -15px 0 0;
+    }
+    &_li {
+        .inline-block();
+        vertical-align: top;
+        margin: 0 11px 15px 0;
+    }
+    &_img-hold { // размер такой же как в блоке редактирвоания члена семьи в настройках
+        display: table-cell;
+        width: 200px; 
+        max-width: 200px;
+        height: 200px;
+        max-height: 200px;
+        vertical-align: middle;
+        text-align: center;
+        background-color: #2b99db;
+    }
+    &_img {
+        display: block;
+        margin: 0 auto;
+        max-height: 100%;
+    }
+    &_member {
+        margin-top: 5px;
+        font-size: 15px;
+        text-align: center;
+        color: #fff;
+    }
+}
+/* /family-about */
+
+/*
+    .family-grid
+        .family-grid_row
+            .family-grid_i
+                img.family-grid_img
+                .family-grid_overlay
+                    .family-grid_zoom
+*/
+.family-grid {
+    margin: 20px 0 0;
+    
+    &_row {
+        margin: 0 -25px 17px 0;
+    }
+    &_i {
+        position: relative;
+        float: left;
+        margin: 0 17px 0 0;
+        cursor: pointer;
+    }
+    &_i:hover &_overlay {
+        z-index: 10;
+        opacity: 1;
+    }
+    .ie8 &_i:hover &_overlay {display: block;filter: alpha(opacity=60);}
+    &_img {
+        display: block;
+    }
+    &_overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #290b45;
+        background: rgba(41,11,69,.4);
+        .transition(all 0.4s ease);
+        opacity: 0;
+    }
+    .ie8 &_overlay {display: none;filter: alpha(opacity=0);}
+    &_zoom {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+        width: 99px;
+        height: 99px;
+        background: url('@{path-img}/family-grid_zoom.png') no-repeat;
+    }
+    &_about {
+        position: relative;
+        float: left;
+        width: 236px;
+        z-index: 15;
+        padding: 20px;
+        color: #fff;
+    }
+    &_about:after {
+        content: "";
+        position: absolute;
+        top: 35px;
+        left: -20px;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        z-index: 5;
+        border: 10px solid transparent;
+    }
+    &_about__right {
+        margin: 0 17px 0 -30px;
+        .border-left-radius(18px);
+    }
+    &_about__left {
+        margin: 0 -13px 0 17px;
+        .border-right-radius(18px);
+    }
+    &_about__left:first-child{margin-left: 0;}
+    &_about__green {background-color: #4fb145;}
+    &_about__green &_about-photo-hold {background-color: #47a93d;}
+    &_about__green.family-grid_about__right:after {
+        border-right-color: #4fb145;
+    }
+    &_about__green.family-grid_about__left:after {
+        left: auto;
+        right: -20px;
+        border-left-color: #4fb145;
+    }
+    &_about__carrot {background-color: #ff7d0a;}
+    &_about__carrot &_about-photo-hold {background-color: #fb7702;}
+
+    &_about__carrot.family-grid_about__right:after {
+        border-right-color: #fb7702;
+    }
+    &_about__carrot.family-grid_about__left:after {
+        left: auto;
+        right: -20px;
+        border-left-color: #fb7702;
+    }
+    &_about-photo {
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+    &_about-photo-hold {
+        display: table-cell;
+        width: 55px; 
+        max-width: 55px;
+        height: 55px;
+        max-height: 55px;
+        vertical-align: middle;
+        text-align: center;
+    }
+    &_about-name {
+        .inline-block();
+        vertical-align: middle;
+        font-size: 11px;
+    }
+    &_about-tx-hold {
+        height: 100%;
+        overflow: hidden;
+        padding: 10px 0 60px;
+        .box-sizing(border-box);
+    }
+    &_about-tx {
+        position: relative;
+        font-size: 14px;
+        -webkit-column-width: 200px;
+        column-width: 200px;
+        height: 100%;
+        overflow: hidden;
+    }
+}
+/* /family-grid */

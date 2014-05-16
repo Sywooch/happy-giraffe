@@ -10,15 +10,15 @@ block layout
 
     .page-col.page-col__user
         .page-col_top-user.page-col_top-user__family
-            .ico-myfamily
+            a.ico-myfamily(href="")
             .profile-settings-family
                 ul.profile-settings-family_ul
                     li.profile-settings-family_li
-                        span.profile-settings-family_a
+                        a.profile-settings-family_a(href="")
                             span.profile-settings-family_count 1
                             span.profile-settings-family_tx Состав моей семьи
                     li.profile-settings-family_li.active
-                        a.profile-settings-family_a(href="")
+                        span.profile-settings-family_a
                             span.profile-settings-family_count 2
                             span.profile-settings-family_tx О моей семье
             a.a-profile-bg(href="") Фон анкеты
@@ -28,9 +28,11 @@ block layout
                     .heading-l Главное семейное фото
                     .family-settings_photo-all
                         .family-settings_col
-                            img(src="#{path}images/example/w510-h310.jpg", alt="")
+                            img.family-settings_photo-all-img(src="#{path}images/example/w510-h310.jpg", alt="")
                         .family-settings_photo-all-set
-                            a.btn-blue-simple.btn-s.margin-b10(href="") Изменить
+                            .file-fake
+                                .file-fake_btn.btn-blue-simple.btn-s.margin-b10(href="") Изменить
+                                input.file-fake_inp(type="file")
                             br
                             a.a-pseudo-icon.a-pseudo-icon__gray(href="")
                                 span.ico-close3.margin-r5
@@ -44,6 +46,14 @@ block layout
                                 a.btn-gray-simple.btn-xm.margin-r10 Отменить
                                 a.btn-green-simple.btn-xm Сохранить
 
+                    .heading-l О нашей семье
+                    .family-settings_about-all
+                        .family-settings_col
+                            .family-settings_about-all-tx Ученым-астрономам удалось совершить то, на фоне чего симуляция типа "Матрицы" выглядит древней компьютерной игрой 1980-х годов. Они при помощи комплекта программ компьютерного моделирования "Illustris" создали невероятно реалистичную математическую модель Вселенной, которая охватывает период ее развития, равный 13 миллионам лет. Виртуальное космическое пространство моделируется с невероятно высокой разрешающей способностью, а область моделируемого пространства представляет собой куб с гранью, длиной 350 миллионов световых лет. 
+                            a.a-pseudo-icon.a-pseudo-icon__gray(href="")
+                                    span.ico-edit.ico-edit__s
+                                    span.a-pseudo-icon_tx Редактировать
+
                     .heading-l Подробнее о нас
                     .family-settings_member.clearfix
                         a.family-settings_member-del.a-pseudo-icon.a-pseudo-icon__gray(href="")
@@ -56,11 +66,8 @@ block layout
                         .family-settings_desc
                             .family-settings_row
                                 .family-settings_name Виктория
-                                a.a-pseudo-icon.a-pseudo-icon__underline.a-pseudo-icon__gray.margin-l10(href="")
-                                    //- span.ico-edit
-                                    .b-control
-                                        .b-control_i
-                                            span.b-control_ico.powertip.b-control_ico__edit(title='Редактировать')
+                                a.a-pseudo-icon.a-pseudo-icon__gray.margin-l10(href="")
+                                    span.ico-edit.ico-edit__s
                                     span.a-pseudo-icon_tx Редактировать
                             .family-settings_row
                                 .photo-preview-row.photo-preview-row__add.clearfix
@@ -119,37 +126,33 @@ block layout
                                                     .photo-grid_overlay
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
-                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            +radioIcons("radio-icons__checkbox radio-icons__inline", radioIcons.photo)
                                                             .float-r
-                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                                a.ico-del2.powertip(href='', title="Удалить")
                                                 .photo-grid_i
                                                     img.photo-grid_img(alt='', src='/images/example/photo-grid-8.jpg')
                                                     .photo-grid_overlay
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
-                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            +radioIcons("radio-icons__checkbox radio-icons__inline", radioIcons.photo)
                                                             .float-r
-                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                                a.ico-del2.powertip(href='', title="Удалить")
                                                 .photo-grid_i
                                                     img.photo-grid_img(alt='', src='/images/example/photo-grid-9.jpg')
                                                     .photo-grid_overlay
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
-                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            +radioIcons("radio-icons__checkbox radio-icons__inline", radioIcons.photo)
                                                             .float-r
-                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                                a.ico-del2.powertip(href='', title="Удалить")
                                                 .photo-grid_i
                                                     img.photo-grid_img(alt='', src='/images/example/photo-grid-10.jpg')
                                                     .photo-grid_overlay
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
-                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            +radioIcons("radio-icons__checkbox radio-icons__inline", radioIcons.photo)
                                                             .float-r
-                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                                a.ico-del2.powertip(href='', title="Удалить")
                                                 span.photo-preview-row_add.file-fake
                                                     input.file-fake_inp(type='file', name='')
 
@@ -159,13 +162,14 @@ block layout
                             span.ico-close3.margin-l5
                         .family-settings_photo
                             .family-settings_photo-hold
-                                //- фотографии могут быть 200*200
+                                // фотографии могут быть 200*200
                                 img(src="#{path}images/example/w200-h125.jpg", alt="")
                         .family-settings_desc
                             .family-settings_row 
                                 a.family-settings_a-settings(href="") Имя моей дочери
                             .family-settings_row
-                                .display-ib.inp-valid.inp-valid__abs.error
+                                // Поле не обязательно к заполнению
+                                .display-ib.inp-valid.inp-valid__abs
                                     .display-ib.l.w-75.margin-r10
                                         select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
                                             option
@@ -230,55 +234,49 @@ block layout
                                                     .photo-grid_overlay
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
-                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            +radioIcons("radio-icons__checkbox radio-icons__inline", radioIcons.photo)
                                                             .float-r
-                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                                a.ico-del2.powertip(href='', title="Удалить")
                                                 .photo-grid_i
                                                     img.photo-grid_img(alt='', src='/images/example/photo-grid-7.jpg')
                                                     .photo-grid_overlay
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
-                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            +radioIcons("radio-icons__checkbox radio-icons__inline", radioIcons.photo)
                                                             .float-r
-                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                                a.ico-del2.powertip(href='', title="Удалить")
                                                 .photo-grid_i
                                                     img.photo-grid_img(alt='', src='/images/example/photo-grid-8.jpg')
                                                     .photo-grid_overlay
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
-                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            +radioIcons("radio-icons__checkbox radio-icons__inline", radioIcons.photo)
                                                             .float-r
-                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                                a.ico-del2.powertip(href='', title="Удалить")
                                                 .photo-grid_i
                                                     img.photo-grid_img(alt='', src='/images/example/photo-grid-10.jpg')
                                                     .photo-grid_overlay
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
-                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            +radioIcons("radio-icons__checkbox radio-icons__inline", radioIcons.photo)
                                                             .float-r
-                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                                a.ico-del2.powertip(href='', title="Удалить")
                                                 .photo-grid_i
                                                     img.photo-grid_img(alt='', src='/images/example/photo-grid-10.jpg')
                                                     .photo-grid_overlay
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
-                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            +radioIcons("radio-icons__checkbox radio-icons__inline", radioIcons.photo)
                                                             .float-r
-                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                                a.ico-del2.powertip(href='', title="Удалить")
                                                 .photo-grid_i
                                                     img.photo-grid_img(alt='', src='/images/example/photo-grid-9.jpg')
                                                     .photo-grid_overlay
                                                         span.photo-grid_zoom
                                                         .photo-grid_overlay-row
-                                                            label.photo-grid_checbox-label.powertip(for='photo-grid_check1')
-                                                                input#photo-grid_check1.photo-grid_checkbox.powertip(type='checkbox', name='', title="Сделать основным")
+                                                            +radioIcons("radio-icons__checkbox radio-icons__inline", radioIcons.photo)
                                                             .float-r
-                                                                a.ico-del.ico-del__white.powertip(href='')
+                                                                a.ico-del2.powertip(href='', title="Удалить")
                                                 span.photo-preview-row_add.file-fake
                                                     input.file-fake_inp(type='file', name='')
 
@@ -293,19 +291,13 @@ block layout
                         .family-settings_desc
                             .family-settings_row 
                                 .family-settings_name Катя
-                                a.a-pseudo-icon.a-pseudo-icon__underline.a-pseudo-icon__gray.margin-l10(href="")
-                                    //- span.ico-edit
-                                    .b-control
-                                        .b-control_i
-                                            span.b-control_ico.powertip.b-control_ico__edit(title='Редактировать')
+                                a.a-pseudo-icon.a-pseudo-icon__gray.margin-l10(href="")
+                                    span.ico-edit.ico-edit__s
                                     span.a-pseudo-icon_tx Редактировать
                             .family-settings_row
                                 .family-settings_birthday 22 января 2014 (6месяцев)
-                                a.a-pseudo-icon.a-pseudo-icon__underline.a-pseudo-icon__gray.margin-l10(href="")
-                                    //- span.ico-edit
-                                    .b-control
-                                        .b-control_i
-                                            span.b-control_ico.powertip.b-control_ico__edit(title='Редактировать')
+                                a.a-pseudo-icon.a-pseudo-icon__gray.margin-l10(href="")
+                                    span.ico-edit.ico-edit__s
                                     span.a-pseudo-icon_tx Редактировать
                             .family-settings_row
                                 .photo-preview-row.photo-preview-row__add.clearfix

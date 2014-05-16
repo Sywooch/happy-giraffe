@@ -42,7 +42,7 @@
 
     .layout-header {margin-top: 20px;}
     &_hold {
-        margin: 0 auto;
+        margin: 0 auto 30px;
     }
 }
 
@@ -109,26 +109,32 @@
     &__underline &_tx {text-decoration: underline;}
     &__underline:hover &_tx {text-decoration: none;}
     &__gray &_tx {color: #bab9b9;}
+    &__gray:hover &_tx {color: #999;text-decoration: none;}
 
     &_tx {
         font-size: 12px;
-    }
-    .b-control {
-        vertical-align: middle;
-        margin-right: 5px;
+        line-height: 16px;
     }
     .ico-close3 {vertical-align: middle;}
     &:hover .ico-close3:extend(.ico-close3:hover) {}
+    .ico-edit__s {
+        position: relative;
+        top: 1px;
+        margin-right: 5px;
+    }
+    &:hover .ico-edit__s:extend(.ico-edit__s:hover) {}
 }
 .a-profile-bg {
     .inline-block();
-    margin: 0 5px 0 0;
+    margin: 0;
     padding: 2px 25px 0 0;
     color: #289fd7;
     font-size: 13px;
     line-height: 16px;
     background: url('@{path-img}/ico/a-profile-bg.png') no-repeat 100% 0;
+    text-decoration: none;
 }
+.a-profile-bg:hover {text-decoration: underline;}
 
 
 .i-more {
@@ -155,7 +161,7 @@
     position: fixed;
     z-index: 15;
     bottom: 0;
-    right: 20px;
+    left: 0;
     width: 67px;
     height: 52px;
     background-image: url('@{path-img}/btn-scrolltop.png');
@@ -166,14 +172,14 @@
     @media screen and (min-width: 600px) {
         & {display: block;}
     }
-    @media screen and (min-width: 1200px) {
+    /*@media screen and (min-width: 1200px) {
         & {
             display: block;
-            right: auto;
+            left: auto;
             left: 50%;
             margin-left: 500px;
         }
-    }
+    }*/
 }
 // /отдельные элементы
 
@@ -232,12 +238,12 @@
         height: 70px;
 
         .a-profile-bg {
+            margin-top: -5px;
             float: right;
-            margin-top: 8px;
         }
     }
     &_top-user__family {
-        padding: 25px 25px 10px;
+        padding: 25px 20px 10px;
         height: 35px;
     }
     &_t,

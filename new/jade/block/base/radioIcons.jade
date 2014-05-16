@@ -1,0 +1,21 @@
+//- radioIcons
+    mod
+    vars
+        item - array
+
+mixin radioIcons(mod, vars)
+    .radio-icons(class=mod, class=vars.tooltipClass, title=vars.title)
+        input.radio-icons_radio(type='checkbox', name='',checked=vars.checked,id=vars.id)
+        label.radio-icons_label(for=vars.id)
+            - if (vars.label)
+                .radio-icons_label-tx
+                    != vars.label
+
+
+- var radioIcons = {}
+- radioIcons.photo = {}
+- radioIcons.photo.label = ""
+- radioIcons.photo.id = "checkbox1"
+- radioIcons.photo.checked = false
+- radioIcons.photo.title = "Сделать основным"
+- radioIcons.photo.tooltipClass = "powertip"

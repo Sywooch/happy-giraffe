@@ -58,6 +58,11 @@ class HController extends CController
             }
             unset($_GET['token']);
         }
+
+        // если запрос инициирован с помощью метода redirect, то читаем только с мастера
+        if (Yii::app()->db instanceof DbConnectionMan && Yii::app()->user->getFlash('redirected') !== null) {
+            Yii::app()->db->enableSlave = false;
+        }
     }
 
     protected function filterBySpamStatus()
@@ -279,5 +284,11 @@ class HController extends CController
             $viewsCount = Yii::app()->user->getState('viewsCount', 0);
             Yii::app()->user->setState('viewsCount', $viewsCount + 1);
         }
+    }
+
+    public function redirect($url,$terminate=true,$statusCode=302)
+    {
+        Yii::app()->user->setFlash('redirected', true);
+        parent::redirect($url,$terminate,$statusCode);
     }
 }

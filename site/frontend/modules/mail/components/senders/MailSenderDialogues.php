@@ -20,6 +20,8 @@ class MailSenderDialogues extends MailSender
 
     protected function process(User $user)
     {
+        var_dump($this->lastDeliveryTimestamp);
+
         $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
             'with' => array(
                 'message' => array(

@@ -20,8 +20,6 @@ class MailSenderDialogues extends MailSender
 
     protected function process(User $user)
     {
-        var_dump($this->lastDeliveryTimestamp);
-
         $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
             'with' => array(
                 'message' => array(
@@ -32,9 +30,6 @@ class MailSenderDialogues extends MailSender
                 ),
             ),
         ));
-
-        var_dump($messagesCount);
-        echo '<br><br>';
 
         if ($messagesCount > 0) {
             $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $this->lastDeliveryTimestamp);

@@ -2,12 +2,12 @@
 
 class DefaultController extends HController
 {
-    public function filters()
-    {
-        return array(
-            'accessControl',
-        );
-    }
+//    public function filters()
+//    {
+//        return array(
+//            'accessControl',
+//        );
+//    }
 
     public function accessRules()
     {
@@ -53,6 +53,18 @@ class DefaultController extends HController
         $this->redirect(urldecode($redirectUrl));
 	}
 
+    public function actionNotifications()
+    {
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_COMMENT);
+        $sender->sendAll();
+
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_DISCUSS);
+        $sender->sendAll();
+
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_REPLY);
+        $sender->sendAll();
+    }
+
     public function actionDialogues($sendAll = false)
     {
         $sender = new MailSenderDialogues();
@@ -63,14 +75,12 @@ class DefaultController extends HController
         }
     }
 
-    public function actionNotification($sendAll = false)
+    public function actionNotification()
     {
-        $sender = new MailSenderNotification();
-        if ($sendAll !== false) {
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_COMMENT);
+
             $sender->sendAll();
-        } else {
-            $sender->preview(Yii::app()->user->model);
-        }
+
     }
 
     public function actionDaily($date = null, $sendAll = false)

@@ -11,6 +11,7 @@ class MailSenderTest extends MailSender
 {
     public function process(User $user)
     {
-        return new MailMessageTest($user);
+        $message = new MailMessageTest($user);
+        Yii::app()->postman->send($message);
     }
 }

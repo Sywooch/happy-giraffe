@@ -16,8 +16,7 @@ class DefaultCommand extends CConsoleCommand
     public function init()
     {
         Yii::import('site.frontend.modules.mail.MailModule');
-        new MailModule('mail', null);
-        parent::init();
+        MailModule::externalImport();
     }
 
     /**
@@ -38,9 +37,21 @@ class DefaultCommand extends CConsoleCommand
         $sender->sendAll();
     }
 
-    public function actionNotifications()
+    public function actionNotificationsComment()
     {
-        $sender = new MailSenderNotification();
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_COMMENT);
+        $sender->sendAll();
+    }
+
+    public function actionNotificationsDiscuss()
+    {
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_DISCUSS);
+        $sender->sendAll();
+    }
+
+    public function actionNotificationsReply()
+    {
+        $sender = new MailSenderNotification(MailSenderNotification::TYPE_REPLY);
         $sender->sendAll();
     }
 
@@ -65,7 +76,7 @@ class DefaultCommand extends CConsoleCommand
     {
         Yii::app()->gearman->worker()->addFunction('sendEmail', function($job) {
             $message = unserialize($job->workload());
-            call_user_func_array(array('MailSender', 'send'), $message);
+            call_user_func_array(array('MailSender', 'sendEmail'), $message);
         });
         while (Yii::app()->gearman->worker()->work()) {
             echo "OK\n";

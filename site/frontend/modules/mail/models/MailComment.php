@@ -9,22 +9,24 @@
 
 class MailComment extends Comment
 {
-    protected $processedText;
-
-    public function init()
+    public static function model($className = __CLASS__)
     {
-        $this->processedText = strip_tags($this->text);
+        return parent::model($className);
     }
 
     public function getCommentText($length)
     {
-        $text = $this->processedText;
-        $text = Str::truncate($text, $length);
-        return $text;
+        return Str::getDescription($this->text, $length);
     }
 
     public function exceedsLength($length)
     {
-        return strlen($this->processedText) > $length;
+        return strlen($this->getCommentText($length)) > $length;
+    }
+
+    public function isSpecialist()
+    {
+        $model = $this->getCommentEntity();
+        return $model instanceof CommunityContent && $this->author->getSpecialist($this->getCommentEntity()->rubric->community_id) !== null;
     }
 }

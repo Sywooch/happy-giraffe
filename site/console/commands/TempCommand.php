@@ -271,7 +271,15 @@ class TempCommand extends CConsoleCommand
 
     public function actionModerStats()
     {
-        $moders = array(159841, 175718, 15426, 189230, 167771, 15994, 15814);
+        $moders = array(
+//            159841,
+//            175718,
+//            15426,
+//            189230,
+//            167771,
+//            15994,
+            15814,
+        );
         sort($moders);
         $dateFrom = '2014-05-01';
         $dateTo = '2014-05-13';

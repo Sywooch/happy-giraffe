@@ -83,52 +83,29 @@
                                                 <!--  BEGIN BODY // -->
 
                                                 <table cellpadding="0" cellspacing="0" border="0" width="530">
+                                                    <?php $message->render('notification/' . $message->getSubTemplate()); ?>
                                                     <tr>
-                                                        <td valign="top" style="padding-top: 10px;padding-right: 2px;">
-                                                            <img src="<?php echo Yii::app()->request->hostInfo; ?>/new/images/mail/discus.png" style="display:block;">
-                                                        </td>
-                                                        <td valign="top"></td>
-                                                        <td valign="top" style="padding-top: 12px;">
-                                                            <table style="" cellpadding="0" cellspacing="0" border="0" width="100%">
-                                                                <tr>
-                                                                    <td style="font-size: 16px; color: #111111;">
-                                                                        Продолжается обсуждение <br />
-                                                                        <a href="<?php echo $message->createUrl($message->model->getUrl(true, true), 'titleLink'); ?>"  style="color:#3482e2;text-decoration:underline;"><?php echo $message->model->title; ?></a>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="padding-top: 10px;padding-bottom: 10px;">
-                                                                        <table style="" cellpadding="0" cellspacing="0" border="0" >
-                                                                            <tr>
-                                                                                <td  style="padding-right: 10px;">
-                                                                                    
-                                                                                    <img src="<?php echo $message->model->author->getAvatarUrl(24); ?>" alt="" style="display:block;border-radius:12px;">
-                                                                                </td>
-                                                                                <td >
-                                                                                    <a href="<?php echo $message->createUrl($message->model->author->getUrl(true)); ?>" style="color:#289fd7;font:12px arial, helvetica, sans-serif;text-decoration:none;"><?php echo $message->model->author->getFullName(); ?></a>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
+                                                        <td  height="10" style="">
+                                                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="10" border="0" />
                                                         </td>
                                                     </tr>
                                                     <?php foreach ($message->commentsToShow as $comment): ?>
-                                                        <?php $message->render('notification/comments', compact('comment')); ?>
+                                                        <?php $message->render('notification/_comment', compact('comment')); ?>
                                                     <?php endforeach; ?>
                                                     <tr>
                                                         <td  height="20" style="">
                                                             <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="20" border="0" />
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td align="right">
-                                                            <a href="<?php echo $message->createUrl($message->model->getUrl(true, true), 'moreLink'); ?>" style="color: #3482e2; text-decoration:underline; font-size: 22px;">и еще <?php echo $message->getMoreCount(); ?> <?php echo Str::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $message->getMoreCount()); ?></a>
-                                                        </td>
-                                                    </tr>
+                                                    <?php if ($message->totalCommentsCount > count($message->commentsToShow)): ?>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td align="right">
+                                                                <a href="<?php echo $message->createUrl($message->model->getUrl(true, true), 'moreLink'); ?>" style="color: #3482e2; text-decoration:underline; font-size: 22px;">и еще <?php echo $message->getMoreCount(); ?> <?php echo Str::GenerateNoun(array('комментарий', 'комментария', 'комментариев'), $message->getMoreCount()); ?></a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php endif; ?>
                                                     
                                                 </table>
 

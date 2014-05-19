@@ -42,6 +42,8 @@ return array(
     'components' => array(
         'statePersister'=> array(
             'stateFile' => Yii::getPathOfAlias('site.frontend.runtime') . DIRECTORY_SEPARATOR . 'state.bin',
+        'postman' => array(
+            'class' => 'site.frontend.modules.mail.components.MailPostman',
         ),
         'log' => array(
             'class' => 'CLogRouter',

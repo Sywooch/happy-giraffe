@@ -159,7 +159,12 @@ abstract class MailMessage extends CComponent
         $utmString = http_build_query($utm);
         $glue = (strpos($url, '?') === false) ? '?' : '&';
 
-        return $url . $glue . $utmString;
+        $hashSymbolPos = strpos($url, '#');
+        if ($hashSymbolPos === false) {
+            return $url . $glue . $utmString;
+        } else {
+            return substr_replace($url, $glue . $utmString, $hashSymbolPos, 0);
+        }
     }
 
     /**

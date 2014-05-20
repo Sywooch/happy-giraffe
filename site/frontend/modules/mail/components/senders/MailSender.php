@@ -68,6 +68,26 @@ abstract class MailSender extends CComponent
         }
     }
 
+    public function preview(User $user)
+    {
+        /** @var MailPostman $postman */
+        $postman = Yii::app()->postman;
+        $mode = $postman->mode;
+        $postman->mode = MailPostman::MODE_ECHO;
+
+        try {
+            if ($this->beforeSend()) {
+                $this->process($user);
+            }
+        } catch (Exception $e) {
+            header('Content-Type: text/html; charset=utf-8');
+            echo $e->getMessage();
+            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
+        }
+
+        $postman->mode = $mode;
+    }
+
     protected function getDeliveryType()
     {
         return $this->type;

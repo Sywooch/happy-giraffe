@@ -13,6 +13,7 @@ class MailPostman extends CApplicationComponent
 
     const MODE_SIMPLE = 0;
     const MODE_QUEUE = 1;
+    const MODE_ECHO = 2;
 
     public $mode = self::MODE_SIMPLE;
 
@@ -23,10 +24,16 @@ class MailPostman extends CApplicationComponent
      */
     public function send(MailMessage $message)
     {
-        if ($this->mode == self::MODE_SIMPLE) {
-            $this->sendEmail($message);
-        } else {
-            $this->addToQueue($message);
+        switch ($this->mode) {
+            case self::MODE_SIMPLE:
+                $this->sendEmail($message);
+                break;
+            case self::MODE_QUEUE:
+                $this->addToQueue($message);
+                break;
+            case self::MODE_ECHO:
+                echo $message->getBody();
+                break;
         }
     }
 

@@ -7,7 +7,7 @@
             <a class="ico-redactor ico-redactor__social js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::BLOCK_SOCIAL_NETWORKS)) echo ' active'; ?>" href="#"
                onclick="Favourites.toggle(this, 7);return false;" title="Посты в соцсети"></a>
 
-            Еженедльная рассылка:
+            <span style="font-size: 10px;">Ежедневная рассылка:</span>
             <a class="ico-redactor ico-redactor__mail js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::BLOCK_MAIL)) echo ' active'; ?>" href="#"
                onclick="Favourites.toggle(this, <?=Favourites::BLOCK_MAIL ?>);return false;" title="Посты в рассылку"></a>
         <?php else: ?>
@@ -18,10 +18,11 @@
             <a class="ico-redactor ico-redactor__social js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::BLOCK_SOCIAL_NETWORKS)) echo ' active'; ?>" href="#"
                onclick="Favourites.toggle(this, 7);return false;" title="Посты в соцсети"></a>
 
+            <span style="font-size: 10px;">Еженедельная рассылка:</span>
             <a class="ico-redactor ico-redactor__mail js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::WEEKLY_MAIL)) echo ' active'; ?>" href="#"
                onclick="Favourites.toggle(this, <?=Favourites::WEEKLY_MAIL ?>);return false;" title="Посты в рассылку"></a>
 
-            Ежедневная рассылка:
+            <span style="font-size: 10px;">Ежедневная рассылка:</span>
             <a class="ico-redactor ico-redactor__mail js-tooltipsy<?php if (Favourites::inFavourites($model, Favourites::BLOCK_MAIL)) echo ' active'; ?>" href="#"
                onclick="Favourites.toggle(this, <?=Favourites::BLOCK_MAIL ?>);return false;" title="Посты в рассылку"></a>
         <?php endif; ?>

@@ -137,6 +137,8 @@ class MailSenderDaily extends MailSender
 
     public function process(User $user)
     {
+        die('0');
+
         $newMessagesCount = MessagingManager::unreadMessagesCount($user->id);
         $newFriendsCount = FriendRequest::model()->getCountByUserId($user->id);
         $newLikesCount = 0;

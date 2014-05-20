@@ -121,24 +121,16 @@ class MailSenderDaily extends MailSender
             'index' => 'zodiac',
         ));
 
-        echo '0';
-
         if (count($this->horoscopes) != 12) {
-            throw new CHttpException('Гороскоп на сегодня заполнен не для всех знаков зодиака');
+            throw new CException('Гороскоп на сегодня заполнен не для всех знаков зодиака');
         }
 
         if (count($this->tomorrowHoroscopes) != 12) {
             throw new CException('Гороскоп на завтра заполнен не для всех знаков зодиака');
         }
 
-        echo '1';
-
         NotificationCreate::generateLikes();
         NotificationCreate::generateFavourites();
-
-        echo '2';
-
-        die;
 
         return true;
     }

@@ -109,8 +109,6 @@ class MailSenderDaily extends MailSender
             }
         }
 
-        die('1');
-
         $this->horoscopes = Horoscope::model()->findAllByAttributes(array(
             'date' => $this->date,
         ), array(
@@ -122,8 +120,6 @@ class MailSenderDaily extends MailSender
         ), array(
             'index' => 'zodiac',
         ));
-
-        die('2');
 
         if (count($this->horoscopes) != 12) {
             throw new CHttpException('Гороскоп на сегодня заполнен не для всех знаков зодиака');

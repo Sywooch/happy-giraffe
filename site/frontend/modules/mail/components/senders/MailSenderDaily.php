@@ -82,8 +82,6 @@ class MailSenderDaily extends MailSender
 
     protected function beforeSend()
     {
-        die('2');
-
         $this->setFavourites();
 
         if ($this->recipe === null) {
@@ -133,6 +131,8 @@ class MailSenderDaily extends MailSender
 
         NotificationCreate::generateLikes();
         NotificationCreate::generateFavourites();
+
+        die('3');
 
         return true;
     }

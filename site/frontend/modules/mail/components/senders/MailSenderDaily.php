@@ -174,6 +174,8 @@ class MailSenderDaily extends MailSender
             'posts' => $this->posts,
         )));
 
+        die('1');
+
         Yii::app()->postman->send($message);
     }
 

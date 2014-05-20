@@ -133,18 +133,14 @@ class MailSenderDaily extends MailSender
             throw new CException('Гороскоп на завтра заполнен не для всех знаков зодиака');
         }
 
-        NotificationCreate::generateLikes();
-        NotificationCreate::generateFavourites();
-
-        die('3');
+//        NotificationCreate::generateLikes();
+//        NotificationCreate::generateFavourites();
 
         return true;
     }
 
     public function process(User $user)
     {
-        die('0');
-
         $newMessagesCount = MessagingManager::unreadMessagesCount($user->id);
         $newFriendsCount = FriendRequest::model()->getCountByUserId($user->id);
         $newLikesCount = 0;
@@ -181,8 +177,6 @@ class MailSenderDaily extends MailSender
             'photoPost' => $this->photoPost,
             'posts' => $this->posts,
         )));
-
-        die('1');
 
         Yii::app()->postman->send($message);
     }

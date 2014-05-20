@@ -73,7 +73,7 @@
                 });
             }
 
-            bJoinRowFixed('.js-b-join-row');
+            //bJoinRowFixed('.js-b-join-row');
         })
     </script>
     <div class="b-join-row js-b-join-row">

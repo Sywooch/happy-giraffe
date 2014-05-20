@@ -1,6 +1,7 @@
 .btn-red,
 .btn-gray-light,
 .btn-gray-simple,
+.btn-white,
 .btn-green-simple,
 .btn-blue-simple,
 .btn-green  {
@@ -18,6 +19,8 @@
     overflow: visible; /* IE7 input button fix */
     .border-radius(3px);
 }
+.btn-white[disabled],
+.btn-white:disabled,
 .btn-red[disabled],
 .btn-red:disabled,
 .btn-gray-simple[disabled],
@@ -89,7 +92,6 @@
         background: #419c37;
         padding: 0 14px;
     }
-
     &:hover .btn-arrow_ico {background: #38932e;}
 }
 
@@ -102,6 +104,27 @@
         background-color: #ebebeb;
         color: @color-gray-dark;
     }
+}
+
+.btn-white {
+    color: @color-gray-light;
+    border-color: #fff;
+    .box-sizing(border-box);
+    border: 2px solid #fff;
+
+    &:hover {
+        color: @color-gray;
+    }
+
+    .btn-s {line-height: 10px;}
+    .btn-m {line-height: 30px;}
+    .btn-xm {line-height: 38px;}
+    .btn-l {line-height: 43px;}
+    .btn-xl {line-height: 43px;}
+    .btn-xxl {line-height: 58px;}
+
+    &__gray {border-color: #ececec;}
+    &__gray:hover {border-color: #e1e1e1;}
 }
 
 .btn-green {

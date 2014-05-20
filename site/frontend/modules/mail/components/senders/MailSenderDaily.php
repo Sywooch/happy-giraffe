@@ -82,6 +82,8 @@ class MailSenderDaily extends MailSender
 
     protected function beforeSend()
     {
+        die('2');
+
         $this->setFavourites();
 
         if ($this->recipe === null) {

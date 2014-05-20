@@ -109,6 +109,8 @@ class MailSenderDaily extends MailSender
             }
         }
 
+        die('1');
+
         $this->horoscopes = Horoscope::model()->findAllByAttributes(array(
             'date' => $this->date,
         ), array(

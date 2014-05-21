@@ -119,7 +119,7 @@ class DefaultController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-        if ($content->type == CommunityContent::TYPE_REPOST) {
+        if ($content->type_id == CommunityContent::TYPE_REPOST) {
             Yii::app()->clientScript->registerLinkTag('canonical', null, $content->source->getUrl(false, true));
         }
 

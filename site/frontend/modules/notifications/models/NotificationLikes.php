@@ -6,7 +6,7 @@
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class NotificationLikes extends Notification
+class NotificationLikes extends NotificationSummary
 {
     /**
      * @var NotificationLikes

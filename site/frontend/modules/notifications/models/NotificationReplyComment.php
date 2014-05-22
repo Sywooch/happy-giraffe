@@ -17,6 +17,7 @@ class NotificationReplyComment extends NotificationGroup
      * @var int id комментария пользователя на который он получает ответы
      */
     public $comment_id;
+    protected $_comment = null;
 
     public function __construct()
     {
@@ -86,5 +87,12 @@ class NotificationReplyComment extends NotificationGroup
             elseif (in_array($comment->id, $exist['unread_model_ids']))
                 $this->removeCommentId($exist, 'unread_model_ids', $comment->id);
         }
+    }
+    
+    public function getComment()
+    {
+        if(is_null($this->_comment))
+            $this->_comment = Comment::model()->findByPk($this->comment_id);
+        return $this->_comment;
     }
 }

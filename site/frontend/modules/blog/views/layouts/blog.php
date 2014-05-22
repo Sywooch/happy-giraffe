@@ -8,6 +8,19 @@ $data['currentRubricId'] = $this->rubric_id;
 ?>
 <?php $this->beginContent('//layouts/main'); ?>
     <div class="content-cols clearfix">
+        <div class="col-23-middle">
+            <div class="blog-title-b blogInfo">
+                <?php if ($this->user->id == Yii::app()->user->id): ?>
+                    <a href="<?=$this->createUrl('settings/form')?>" class="blog-settings fancy powertip" title="Настройки блога"></a>
+                <?php endif; ?>
+                <div class="blog-title-b_img-hold" data-bind="if: photoThumbSrc() !== null">
+                    <img alt="" class="blog-title-b_img" data-bind="attr: { src : photoThumbSrcToShow }">
+                </div>
+                <div class="blog-title-b_t" data-bind="text: title, visible: title().length > 0"><?=$data['title']?></div>
+            </div>
+
+            <?=$content ?>
+        </div>
         <div class="col-1">
             <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'blog_link' => false, 'location' => true, 'age' => true)); ?>
 
@@ -110,20 +123,7 @@ $data['currentRubricId'] = $this->rubric_id;
             <?php $this->renderPartial('_popular'); ?>
 
         </div>
-        <div class="col-23-middle">
-            <div class="blog-title-b blogInfo">
-                <?php if ($this->user->id == Yii::app()->user->id): ?>
-                    <a href="<?=$this->createUrl('settings/form')?>" class="blog-settings fancy powertip" title="Настройки блога"></a>
-                <?php endif; ?>
-                <div class="blog-title-b_img-hold" data-bind="if: photoThumbSrc() !== null">
-                    <img alt="" class="blog-title-b_img" data-bind="attr: { src : photoThumbSrcToShow }">
-                </div>
-                <div class="blog-title-b_t" data-bind="text: title, visible: title().length > 0"><?=$data['title']?></div>
-            </div>
-
-            <?=$content ?>
-        </div>
-
+    
     </div>
     <script type="text/javascript">
         blogVM = new BlogViewModel(<?=CJSON::encode($data)?>);

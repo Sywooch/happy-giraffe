@@ -1,0 +1,55 @@
+include ../../block/config
+extend ../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    // b-main 
+    .b-main.b-main__white
+        .b-main_cols.clearfix
+            .b-main_col-1
+                +sidebar-search('sidebar-search__big padding-0', {placeholder: 'Поиск'})
+            .b-main_col-23
+                +userAddRecord('userAddRecord__s', userAddRecord.a)
+        .b-crumbs.b-crumbs__s
+            .b-crumbs_tx Я здесь
+            ul.b-crumbs_ul
+                li.b-crumbs_li
+                    a.b-crumbs_a(href="") Главная
+                li.b-crumbs_li
+                    +ava('ava__small', ava.a)
+                li.b-crumbs_li.b-crumbs_li__last
+                    span.b-crumbs_last Блог
+        section.userSection
+            .userSection_hold
+                .userSection_left
+                    h1.userSection_name Ангелина Богоявленская
+                    .margin-b5.clearfix
+                        | 33 года (28 января)
+                    .location.locationsmall.clearfix
+                        span.flag.flag-ua
+                        span.location_tx
+                            | Ярославская обл.
+                            | Переславль-Залесский
+                    .userSection_btn-hold.clearfix
+                        a.userSection_btn.powertip(href='')
+                            //
+                                виды иконки друзья
+                                userSection_ico__friend
+                                userSection_ico__friend-add
+                                userSection_ico__friend-added
+                                userSection_ico__friend-append
+                            span.userSection_ico.userSection_ico__friend-add
+                        a.userSection_btn.powertip(href='')
+                            span.userSection_ico.userSection_ico__dialog
+                .userSection_center
+                    .b-ava-large
+                        .b-ava-large_ava-hold
+                            +ava("ava__large ava__male", ava.c)
+                        span.b-ava-large_online На сайте
+                    .userSection_center-reg с Веселым Жирафом 2 года 5 месяцев 203 дня
+                .userSection_right
+                    .b-family.b-family__bg-dark
+                        .b-family_top.b-family_top__white
+

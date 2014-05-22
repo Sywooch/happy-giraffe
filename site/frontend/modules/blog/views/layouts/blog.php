@@ -25,7 +25,7 @@ $data['currentRubricId'] = $this->rubric_id;
         </div>
         <div class="col-1">
             <?php if ($this->action->id == 'view'): ?>
-                <div class="banner">
+                <div class="banner" style="margin: 20px 0;">
                     <!--AdFox START-->
                     <!--giraffe-->
                     <!--Площадка: Весёлый Жираф / * / *-->

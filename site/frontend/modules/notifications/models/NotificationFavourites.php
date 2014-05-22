@@ -6,7 +6,7 @@
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-class NotificationFavourites extends Notification
+class NotificationFavourites extends NotificationSummary
 {
     /**
      * @var NotificationFavourites
@@ -26,7 +26,7 @@ class NotificationFavourites extends Notification
     public function __construct()
     {
     }
-
+    
     /**
      * Создаение уведомления о новом избранном. Раз в день в 10 утра
      *

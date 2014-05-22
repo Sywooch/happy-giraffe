@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class Notification
  *
@@ -8,18 +9,58 @@
  */
 class Notification extends HMongoModel
 {
+
     /**
      * @var Notification
      */
     private static $_instance;
     private $_relatedModel = null;
     protected $_collection_name = 'notifications_new';
-    
+
+    /*    public function getAttributes($names = null)
+      {
+      $values = array();
+      foreach ($this->attributeNames() as $name)
+      {
+      $names = explode('.', $name);
+      $cur = $this;
+      foreach($names as $v)
+      {
+      $cur = $cur->$v;
+      }
+      $values[$name] = $cur;
+      }
+
+      if (is_array($names))
+      {
+      $values2 = array();
+      foreach ($names as $name)
+      $values2[$name] = isset($values[$name]) ? $values[$name] : null;
+      return $values2;
+      }
+      else
+      return $values;
+      }
+
+      public function __get($name)
+      {
+      var_dump($name);
+      if(strpos($name, '.') !== false)
+      {
+      var_dump($name);die;
+      }
+      else
+      {
+      return parent::__get($name);
+      }
+      }
+     */
+
     public function attributeNames()
     {
         return array(
             "type",
-            "entity",
+            //"entity",
             "entity_id",
             //"unread_model_ids",
             //"read_model_ids",
@@ -27,6 +68,8 @@ class Notification extends HMongoModel
             //"recipient_id",
             //"read",
             "count",
+            "visibleCount",
+            "url",
             "relatedModel"
         );
     }
@@ -37,7 +80,6 @@ class Notification extends HMongoModel
     const NEW_LIKE = 5;
     const NEW_FAVOURITE = 6;
     const NEW_REPOST = 7;
-
     const PAGE_SIZE = 20;
 
     public $type;
@@ -48,15 +90,17 @@ class Notification extends HMongoModel
 
     protected function __construct()
     {
+        
     }
 
     protected function __clone()
     {
+        
     }
-    
+
     public function getRelatedModel()
     {
-        if(is_null($this->_relatedModel))
+        if (is_null($this->_relatedModel) && !is_null($this->entity))
         {
             $this->_relatedModel = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         }
@@ -87,7 +131,7 @@ class Notification extends HMongoModel
             'updated' => EMongoCriteria::SORT_DESC,
             'recipient_id' => EMongoCriteria::SORT_DESC,
             'read' => EMongoCriteria::SORT_DESC,
-        ), array('name' => 'list_index'));
+            ), array('name' => 'list_index'));
 
         $this->getCollection()->ensureIndex(array(
             'type' => EMongoCriteria::SORT_DESC,
@@ -95,12 +139,12 @@ class Notification extends HMongoModel
             'entity' => EMongoCriteria::SORT_DESC,
             'entity_id' => EMongoCriteria::SORT_DESC,
             'read' => EMongoCriteria::SORT_DESC,
-        ), array('name' => 'find_one_index'));
+            ), array('name' => 'find_one_index'));
 
         $this->getCollection()->ensureIndex(array(
             'recipient_id' => EMongoCriteria::SORT_DESC,
             'read' => EMongoCriteria::SORT_DESC,
-        ), array('name' => 'count_index'));
+            ), array('name' => 'count_index'));
     }
 
     protected function sendSignal($count = 1)
@@ -116,8 +160,7 @@ class Notification extends HMongoModel
     public function readByPk($id)
     {
         $this->getCollection()->update(
-            array("_id" => $id),
-            array('$set' => array("read" => 1, "read_time" => time()))
+            array("_id" => $id), array('$set' => array("read" => 1, "read_time" => time()))
         );
     }
 
@@ -128,10 +171,9 @@ class Notification extends HMongoModel
     public function unreadByPk($id)
     {
         $this->getCollection()->update(
-            array("_id" => $id),
-            array(
-                '$set' => array("read" => 0),
-                '$unset' => array("read_time" => 1),
+            array("_id" => $id), array(
+            '$set' => array("read" => 0),
+            '$unset' => array("read_time" => 1),
             )
         );
     }
@@ -142,8 +184,7 @@ class Notification extends HMongoModel
     public function setRead()
     {
         $this->getCollection()->update(
-            array("_id" => $this->_id),
-            array('$set' => array("read" => 1, "read_time" => time()))
+            array("_id" => $this->_id), array('$set' => array("read" => 1, "read_time" => time()))
         );
     }
 
@@ -154,11 +195,9 @@ class Notification extends HMongoModel
     {
         $this->getCollection()->update(
             array(
-                "recipient_id" => (int)Yii::app()->user->id,
-                'read' => 0
-            ),
-            array('$set' => array("read" => 1, "read_time" => time())),
-            array('multiple' => true)
+            "recipient_id" => (int) Yii::app()->user->id,
+            'read' => 0
+            ), array('$set' => array("read" => 1, "read_time" => time())), array('multiple' => true)
         );
     }
 
@@ -172,12 +211,12 @@ class Notification extends HMongoModel
     {
         $this->getCollection()->insert(
             array_merge(array(
-                'type' => (int)$this->type,
-                'recipient_id' => (int)$this->recipient_id,
-                'read' => 0,
-                'count' => $count,
-                'updated' => time(),
-            ), $specific_fields)
+            'type' => (int) $this->type,
+            'recipient_id' => (int) $this->recipient_id,
+            'read' => 0,
+            'count' => $count,
+            'updated' => time(),
+                ), $specific_fields)
         );
 
         $this->sendSignal($count);
@@ -194,7 +233,7 @@ class Notification extends HMongoModel
         if (empty($user_id))
             $user_id = Yii::app()->user->id;
 
-        return $this->getCollection()->count(array("recipient_id" => (int)$user_id, "read" => 0));
+        return $this->getCollection()->count(array("recipient_id" => (int) $user_id, "read" => 0));
     }
 
     /**
@@ -209,17 +248,19 @@ class Notification extends HMongoModel
     public function getNotificationsList($user_id, $read = 0, $page = 0, $withRelated = false)
     {
         $cursor = $this->getCollection()->find(array(
-            'recipient_id' => (int)$user_id,
-            'read' => $read
-        ))->sort(array('updated' => -1))->limit(self::PAGE_SIZE)->skip($page * self::PAGE_SIZE);
+                'recipient_id' => (int) $user_id,
+                'read' => $read
+            ))->sort(array('updated' => -1))->limit(self::PAGE_SIZE)->skip($page * self::PAGE_SIZE);
 
-        
+
         $list = array();
         $related = array();
-        for ($i = 0; $i < self::PAGE_SIZE; $i++) {
-            if ($cursor->hasNext()) {
+        for ($i = 0; $i < self::PAGE_SIZE; $i++)
+        {
+            if ($cursor->hasNext())
+            {
                 $list[$i] = self::createNotification($cursor->getNext());
-                if($withRelated)
+                if ($withRelated && $list[$i]->entity)
                 {
                     $related[$list[$i]->entity][$list[$i]->entity_id] = $i;
                 }
@@ -238,7 +279,6 @@ class Notification extends HMongoModel
         return $list;
     }
 
-
     /**
      * Находит все непрочитанные уведомления связанные с записью/фото/видео
      *
@@ -251,10 +291,10 @@ class Notification extends HMongoModel
     {
         $models = array();
         $cursor = $this->getCollection()->find(array(
-            'recipient_id' => (int)$user_id,
+            'recipient_id' => (int) $user_id,
             'read' => 0,
             'entity' => $entity,
-            'entity_id' => (int)$entity_id,
+            'entity_id' => (int) $entity_id,
         ));
 
         while ($cursor->hasNext())
@@ -270,7 +310,8 @@ class Notification extends HMongoModel
      */
     public static function createNotification($object)
     {
-        switch ($object['type']) {
+        switch ($object['type'])
+        {
             case self::USER_CONTENT_COMMENT:
                 $class = 'NotificationUserContentComment';
                 break;
@@ -297,6 +338,8 @@ class Notification extends HMongoModel
         $model = new $class;
         foreach ($object as $key => $value)
             $model->$key = $value;
+
+        $model->afterFind();
 
         return $model;
     }
@@ -345,8 +388,10 @@ class Notification extends HMongoModel
      */
     public static function getContentName($model, $form = 0)
     {
-        if ($form == 1) {
-            switch (get_class($model)) {
+        if ($form == 1)
+        {
+            switch (get_class($model))
+            {
                 case 'AlbumPhoto':
                     return 'фото';
                 case 'CookRecipe':
@@ -362,7 +407,8 @@ class Notification extends HMongoModel
             return 'записи';
         }
 
-        switch (get_class($model)) {
+        switch (get_class($model))
+        {
             case 'AlbumPhoto':
                 return 'фото';
             case 'CookRecipe':
@@ -377,4 +423,11 @@ class Notification extends HMongoModel
 
         return 'записи';
     }
+
+    protected function afterFind()
+    {
+        if ($this->hasEventHandler('onAfterFind'))
+            $this->onAfterFind(new CEvent($this));
+    }
+
 }

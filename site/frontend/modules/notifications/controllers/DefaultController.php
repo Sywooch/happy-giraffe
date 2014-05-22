@@ -34,7 +34,7 @@ class DefaultController extends HController
     {
         $this->pageTitle = 'Новые уведомления';
         $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 0, $page, true);
-        NotificationRead::setReadSummaryNotifications($list);
+        //NotificationRead::setReadSummaryNotifications($list);
 
         if (Yii::app()->request->isAjaxRequest) {
             echo CJSON::encode(array(

@@ -224,7 +224,7 @@ return array(
             'js' => array(
                 'javascripts/soundmanager2.js',
             ),
-            'depends' => array('knockout', 'common', 'comet', 'jquery.ui', 'wysiwyg', 'baron'),
+            'depends' => array('knockout', 'common', 'comet', 'jquery.ui.widget', 'wysiwyg', 'baron'),
         ),
         'ko_favourites' => array(
             'baseUrl' => '/',
@@ -238,7 +238,7 @@ return array(
             'js' => array(
                 'javascripts/ko_family.js',
             ),
-            'depends' => array('knockout', 'jquery.ui', 'ko_library'),
+            'depends' => array('knockout', 'jquery.ui.widget', 'ko_library'),
         ),
         'jquery.ui.widget' => array(
             'baseUrl' => '/',
@@ -314,6 +314,7 @@ return array(
         ),
         'baron' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/baron.js',
             ),

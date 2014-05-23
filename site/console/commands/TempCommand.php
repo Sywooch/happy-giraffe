@@ -399,27 +399,7 @@ http://www.happy-giraffe.ru/community/31/forum/post/155685/
 http://www.happy-giraffe.ru/community/22/forum/post/156617/
 http://www.happy-giraffe.ru/community/4/forum/post/157284/
 http://www.happy-giraffe.ru/community/29/forum/post/156759/
-http://www.happy-giraffe.ru/community/22/forum/post/159657/
-http://www.happy-giraffe.ru/community/22/forum/post/148431/
-http://www.happy-giraffe.ru/community/39/forum/post/157877/
-http://www.happy-giraffe.ru/community/31/forum/post/157822/
-http://www.happy-giraffe.ru/community/22/forum/post/153334/
-http://www.happy-giraffe.ru/community/22/forum/post/158957/
-http://www.happy-giraffe.ru/user/162805/blog/post155495/
-http://www.happy-giraffe.ru/community/31/forum/post/168202/
-http://www.happy-giraffe.ru/community/22/forum/post/151971/
-http://www.happy-giraffe.ru/community/34/forum/post/153322/
-http://www.happy-giraffe.ru/community/22/forum/post/156976/
-http://www.happy-giraffe.ru/community/28/forum/post/160602/
-http://www.happy-giraffe.ru/community/33/forum/post/157036/
-http://www.happy-giraffe.ru/community/22/forum/post/150123/
-http://www.happy-giraffe.ru/user/148772/blog/post148195/
-http://www.happy-giraffe.ru/community/22/forum/post/161837/
-http://www.happy-giraffe.ru/community/22/forum/post/156792/
-http://www.happy-giraffe.ru/community/33/forum/post/156851/
-http://www.happy-giraffe.ru/community/34/forum/post/152216/
-http://www.happy-giraffe.ru/community/34/forum/post/150311/
-http://www.happy-giraffe.ru/community/33/forum/post/152675/";
+http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
         $urlsArray = explode("\n", $urls);
 

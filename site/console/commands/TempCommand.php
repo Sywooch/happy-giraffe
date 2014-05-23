@@ -433,6 +433,10 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
 
     public function actionLength()
     {
+        Yii::import('site.frontend.extensions.GoogleAnalytics');
+        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+        $ga->setProfile('ga:53688414');
+
         $criteria = new CDbCriteria();
         $criteria->with = array(
             'post',
@@ -442,16 +446,64 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         );
         $criteria->condition = 't.id > 129835 AND t.type_id = 1 AND t.removed = 0 AND (t.uniqueness = 100 OR t.uniqueness IS NULL) AND a.itemname IS NULL AND author.group = 0';
 
-
-        $fp = fopen(Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . 'stats.csv', 'w');
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
+        $urlToLength = array();
         foreach ($iterator as $d) {
-            fputcsv($fp, array($d->getUrl(false, true), strlen(strip_tags($d->post->text))));
+            $urlToLength[$d->getUrl(false, true)] = strlen(strip_tags($d->post->text));
         }
-        fclose($fp);
+        rsort($urlToLength);
+        $urlToLength = array_slice($urlToLength, 0, 2000);
+        foreach ($urlToLength as $url => $length) {
+            $ga->setDateRange('2014-05-19', '2014-05-19');
+
+            do {
+                $report = null;
+                try {
+                    $report = $ga->getReport(array(
+                        'metrics' => 'ga:entrances',
+                        'sort' => '-ga:entrances',
+                        'dimensions' => 'ga:source',
+                        'filters' => urlencode('ga:pagePath==' . $url),
+                    ));
+                } catch(Exception $e) {
+                    sleep(300);
+                    echo "waiting...\n";
+                }
+            } while ($report === null);
+
+            $googleBefore = isset($report['google']) ? $report['google']['ga:entrances'] : 0;
+            $yandexBefore = isset($report['yandex']) ? $report['yandex']['ga:entrances'] : 0;
+
+            $ga->setDateRange('2014-05-22', '2014-05-22');
+
+            do {
+                $report = null;
+                try {
+                    $report = $ga->getReport(array(
+                        'metrics' => 'ga:entrances',
+                        'sort' => '-ga:entrances',
+                        'dimensions' => 'ga:source',
+                        'filters' => urlencode('ga:pagePath==' . $url),
+                    ));
+                } catch(Exception $e) {
+                    sleep(300);
+                    echo "waiting...\n";
+                }
+            } while ($report === null);
+
+            $googleAfter = isset($report['google']) ? $report['google']['ga:entrances'] : 0;
+            $yandexAfter = isset($report['yandex']) ? $report['yandex']['ga:entrances'] : 0;
+
+            $resultRow = compact('url', 'length', 'googleBefore', 'googleAfter', 'yandexBefore', 'yandexAfter');
+
+            $model = new Seo4();
+            foreach ($resultRow as $k => $v) {
+                $model->$k = $v;
+            }
+        }
     }
 }
 

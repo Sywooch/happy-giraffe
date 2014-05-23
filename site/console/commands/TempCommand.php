@@ -455,6 +455,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         $iterator = new CDataProviderIterator($dp, 1000);
         $urlToLength = array();
         foreach ($iterator as $d) {
+            echo '1';
             $urlToLength[$d->getUrl(false, true)] = strlen(strip_tags($d->post->text));
         }
         rsort($urlToLength);

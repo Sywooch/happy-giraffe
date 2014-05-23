@@ -446,10 +446,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
                 'join' => 'LEFT OUTER JOIN auth__assignments a ON userid = author.id',
             ),
         );
-        //$criteria->condition = 't.id > 129835 AND t.type_id = 1 AND t.removed = 0 AND (t.uniqueness = 100 OR t.uniqueness IS NULL) AND a.itemname IS NULL AND author.group = 0';
-        $criteria->condition = 't.id = 33749';
-
-        echo CommunityContent::model()->count($criteria);
+        $criteria->condition = 't.id > 129835 AND t.type_id = 1 AND t.removed = 0 AND (t.uniqueness = 100 OR t.uniqueness IS NULL) AND a.itemname IS NULL AND author.group = 0';
 
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,
@@ -457,22 +454,19 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         $iterator = new CDataProviderIterator($dp, 1000);
         $urlToLength = array();
         foreach ($iterator as $d) {
-            echo 'fsfsdf';
-            $urlToLength[$d->getUrl(false, true)] = strlen(strip_tags($d->post->text));
+            $urlToLength[$d->getUrl()] = strlen(strip_tags($d->post->text));
         }
         arsort($urlToLength);
         $urlToLength = array_slice($urlToLength, 0, 2000);
         foreach ($urlToLength as $url => $length) {
             $ga->setDateRange('2014-05-19', '2014-05-19');
 
-            var_dump($url);
-            die;
-
             do {
                 $report = null;
                 try {
                     $report = $ga->getReport(array(
-                        'metrics' => 'ga:visits',
+                        'metrics' => 'ga:entrances',
+                        'sort' => '-ga:entrances',
                         'dimensions' => 'ga:source',
                         'filters' => urlencode('ga:pagePath==' . $url),
                     ));
@@ -481,9 +475,6 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
                     echo "waiting...\n";
                 }
             } while ($report === null);
-
-            var_dump($report);
-            die;
 
             $googleBefore = isset($report['google']) ? $report['google']['ga:entrances'] : 0;
             $yandexBefore = isset($report['yandex']) ? $report['yandex']['ga:entrances'] : 0;
@@ -508,6 +499,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
             $googleAfter = isset($report['google']) ? $report['google']['ga:entrances'] : 0;
             $yandexAfter = isset($report['yandex']) ? $report['yandex']['ga:entrances'] : 0;
 
+            $url = 'http://www.happy-giraffe.ru/' . $url;
             $resultRow = compact('url', 'length', 'googleBefore', 'googleAfter', 'yandexBefore', 'yandexAfter');
 
             $model = new Seo4();

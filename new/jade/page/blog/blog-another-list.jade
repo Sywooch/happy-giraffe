@@ -4,7 +4,6 @@ block vars
   - var bodyClass = 'body__bg1';
 
 block layout
-
     // b-main 
     .b-main.b-main__white
         .b-main_cols.clearfix
@@ -137,28 +136,10 @@ block layout
                         li.b-onair_li
                             a.b-onair_author(href="") Викториана
                             .b-onair_time 5 минут назад
-                            a.b-onair_t(href="") Бабушкины советы. Липа
+                            a.b-onair_t(href="") Бабушкины советы. Липа лечебная
                 .b-main_col-article
-                    +bArticle-single('')
-
-                    table.article-nearby.clearfix(ellpadding='0', cellspacing='0')
-                        tr
-                            td
-                                .article-nearby_hint Предыдущая запись
-                            td.article-nearby_r
-                                .article-nearby_hint Следующая запись
-                        tr
-                            td
-                                a.article-nearby_a.clearfix(href='')
-                                    span.article-nearby_img-hold
-                                        img(src='/images/example/w64-h61-2.jpg', alt='')
-                                    span.article-nearby_tx Как приготовить Монастыпскую избу
-                            td.article-nearby_r
-                                a.article-nearby_a.clearfix(href='')
-                                    span.article-nearby_tx Готовим  Торт Сметанник в домашних условиях
-                    .adv-banner
-                        a(href="", target="_blank")
-                            img(alt='', src='#{path}images/example/w600-h400.jpg')
+                    +www-article_text('b-article__list')
+                    +www-article_text('b-article__list')
                 .b-main_col-sidebar
                     .adv-banner.adv-banner__bd
                         a(href="") 
@@ -174,7 +155,7 @@ block layout
                             +ava('ava__small', ava.a)
                             a.article-similar_author(href="") Марина Правдин
                         .article-similar_row
-                            a.article-similar_t(href="") Наши первые движения 
+                            a.article-similar_t(href="") Наши первые движения
                         .article-similar_img-hold
                             a(href="")
                                 img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")

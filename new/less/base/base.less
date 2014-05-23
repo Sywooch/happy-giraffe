@@ -76,6 +76,22 @@
             .border-radius(8px);
         }
     }
+    &_cont {
+        margin: 0 20px;
+    }
+    &_col-hold {
+        &:extend(.clearfix all);
+    }
+    &_col-article {
+        float: left;
+        width: 600px;
+    }
+    &_col-sidebar {
+        float: left;
+        width: 240px;
+        margin-left: 20px;
+    }
+    &_col-sidebar:first-child {margin-left: 0;}
 }
 /* /b-main */
 
@@ -805,6 +821,15 @@
     }
 }
 
+.adv-banner {
+    margin: 0 0 20px;
+
+    &__bd {border: 1px solid #eee;}
+}
+.adv-yandex {
+    margin: 15px 15px 20px;
+}
+
 /* b-crumbs */
 .b-crumbs {
     margin: 10px 20px 10px 30px;
@@ -844,6 +869,22 @@
     }
 }
 /* /b-crumbs */
+
+.custom-likes {
+    text-align: center;
+    position: relative;
+
+    &_slogan {
+        margin: 15px 0 0;
+        text-align: center;
+        font-size: 11px;
+        color: @color-gray-dark;
+    }
+    &_in {
+        margin: 5px auto 20px;
+        text-align: center;
+    }
+}
 /* 
 ------------------------------------------------------------------
     js plugin class 

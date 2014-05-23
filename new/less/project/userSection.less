@@ -3,11 +3,17 @@
     userSection 
         &_left
             &_name
-
+            &_btn-hold
+                &_btn
+                    &_ico
+            &_panel
+                &_panel-ul
+                    &_panel-li
+                        &_panel-a
         &_center
+            .b-ava-large
             &_center-reg
         &_right
-        &_help
 
 */
 .userSection {
@@ -17,7 +23,8 @@
     color: #fff;
     
     .location_tx {color: #fff;}
-    .b-ava-large {margin-bottom: 5px;}
+    .b-ava-large {margin: 5px auto;}
+    .b-family_tx {color: #fff;}
     &_left {
         .inline-block();
         vertical-align: middle;
@@ -51,7 +58,7 @@
         color: #d9d2e9;
     }
     &_btn-hold {
-            margin: 20px 0 15px;
+            margin: 20px 0;
     }
     &_btn {
         float: left;
@@ -64,31 +71,6 @@
         .border-radius(40px);
     }
     &_btn:hover {background-color: #8573a7;}
-    /*    &_btn:hover &_ico__dialog      {background: #3998d1;}
-    &_btn:hover &_ico-hold__blog        {background: #63bb5b;}
-    &_btn:hover &_ico-hold__photo       {background: #e68832;}
-    &_btn:hover &_ico__friend-add,
-    &_btn:hover &_ico__friend-added,
-    &_btn:hover &_ico__friend-append,
-    &_btn:hover &_ico__friend      {background: #fbe170;}
-    &_btn:hover                          &_ico {background-position: 0 -30px;}
-    &_btn:hover &_ico__dialog  {background-position: 0px -30px;}
-    &_btn:hover &_ico-hold__blog         &_ico {background-position: -30px -30px;}
-    &_btn:hover &_ico-hold__photo        &_ico {background-position: -60px -30px;}
-    &_btn:hover &_ico__friend-add    {background-position: -90px -30px;}
-    &_btn:hover &_ico__friend-added  {background-position: -120px -30px;}
-    &_btn:hover &_ico__friend-append {background-position: -90px -30px;}
-    &_btn:hover &_ico__friend        {background-position: -150px 0px;}
-    &_ico-hold {
-        display: block;
-        width: 58px;
-        height: 42px;
-        margin-bottom: 4px;
-        padding: 16px 0 0;
-        background: #645596;
-        .box-shadow(inset 0 1px 1px rgba(0,0,0,0.25));
-        .border-radius(30px);
-    }*/
     &_ico {
         display: block;
         width: 50px;
@@ -101,11 +83,26 @@
     &_ico__friend-append {background-position: -100px 0;}
     &_ico__friend        {background-position: -50px 0;}
     &_ico__friend-add    {background-position: 0px 0;}
-    &_separator {
-        float: left;
-        width: 1px;
-        height: 63px;
-        margin: 0 11px;
-        background: #BBB2DA;
+    &_panel {
+        margin: 0;
+    }
+    &_panel-ul {}
+    &_panel-li {
+        .inline-block();
+        margin: 0 3px;
+    }
+    &_panel-li.active &_panel-a {font-weight: bold;}
+    &_panel-a {
+        .inline-block();
+        padding: 4px 10px;
+        color: #f3edfc;
+        text-decoration: none;
+    }
+    &_panel-li.active &_panel-a,
+    &_panel-a:hover {
+        text-decoration: none;
+        color: #fff;
+        background-color: #8573a7;
+        .border-radius(4px);
     }
 }

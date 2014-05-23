@@ -34,9 +34,23 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         };
         self.addNotifications(data.list);
         self.tab = ko.observable(1 * data.read);
+        /*self.tabs = [
+            function(item) {
+                return item.read == 0;
+            },
+            function(item) {
+                return item.read == 1;
+            },
+        ];
+        self.currentTab = ko.computed(function() {
+            self.tab();
+            return ko.utils.arrayFilter(self.notifications(), function(item) {
+                return self.tabs[self.tab()](item);
+            });
+        });
         self.changeTab = function(newTab) {
             self.tab(newTab);
-        };
+        };*/
         self.markAllAsReaded = function() {
             ko.utils.arrayForEach(self.notifications(), function(item) {
                 item.setReaded();
@@ -45,10 +59,9 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         self.load = function() {
             if (!self.loading() && !self.fullyLoaded) {
                 self.loading(true);
-                $.get('/notifications/', {'lastNotificationUpdate': self.lastNotificationUpdate}, function(data) {
-                    if (data.list.length < 20) {
+                $.get('/notifications/', {'lastNotificationUpdate': self.lastNotificationUpdate, read: self.tab()}, function(data) {
+                    if (data.list.length < 20)
                         self.fullyLoaded = true;
-                    }
                     self.addNotifications(data.list);
                     self.loading(false);
                 }, 'json');

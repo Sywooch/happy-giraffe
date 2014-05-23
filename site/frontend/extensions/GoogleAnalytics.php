@@ -196,7 +196,6 @@ class GoogleAnalytics {
 	* @return result from _postTo
     */
 	private function _callAPI($url) {
-        die('lol');
 		return $this->_postTo($url,array(),array("Authorization: GoogleLogin auth=".$this->_authCode));
 	}
 

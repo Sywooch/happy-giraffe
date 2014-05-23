@@ -469,7 +469,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
                 $report = null;
                 try {
                     $report = $ga->getReport(array(
-                        'metrics' => 'ga:entrances',
+                        'metrics' => 'ga:visits',
                         'dimensions' => 'ga:source',
                         'filters' => urlencode('ga:pagePath==' . $url),
                     ));

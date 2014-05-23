@@ -407,7 +407,8 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
         foreach ($urlsArray as $i => $url) {
             $r = CopyScape::getUniquenessByUrl($url);
-            fputcsv($fp, array(100 - $r->result[0]->percentmatched, (string) $r->allviewurl));
+            $u = (isset($r->result[0]->percentmatched)) ? 100 - $r->result[0]->percentmatched : 100;
+            fputcsv($fp, array($u, (string) $r->allviewurl));
             echo $i . "\n";
         }
     }

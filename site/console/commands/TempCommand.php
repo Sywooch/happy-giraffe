@@ -441,7 +441,17 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
             ),
         );
         $criteria->condition = 't.id > 129835 AND t.type_id = 1 AND t.removed = 0 AND (t.uniqueness = 100 OR t.uniqueness IS NULL) AND a.itemname IS NULL AND author.group = 0';
-        echo CommunityContent::model()->count($criteria);
+
+
+        $fp = fopen(Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . 'stats.csv', 'w');
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => $criteria,
+        ));
+        $iterator = new CDataProviderIterator($dp);
+        foreach ($iterator as $d) {
+            fputcsv($fp, array($d->id, strlen($d->post->text)));
+        }
+        fclose($fp);
     }
 }
 

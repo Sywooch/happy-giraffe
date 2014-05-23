@@ -462,55 +462,58 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         $i = 0;
         foreach ($urlToLength as $url => $length) {
             $i++;
-            $ga->setDateRange('2014-05-19', '2014-05-19');
 
-            do {
-                $report = null;
-                try {
-                    $report = $ga->getReport(array(
-                        'metrics' => 'ga:entrances',
-                        'sort' => '-ga:entrances',
-                        'dimensions' => 'ga:source',
-                        'filters' => urlencode('ga:pagePath==' . $url),
-                    ));
-                } catch(Exception $e) {
-                    sleep(300);
-                    echo "waiting...\n";
+            if (Seo4::model()->findByAttributes(array('url' => $url)) === null) {
+                $ga->setDateRange('2014-05-19', '2014-05-19');
+
+                do {
+                    $report = null;
+                    try {
+                        $report = $ga->getReport(array(
+                            'metrics' => 'ga:entrances',
+                            'sort' => '-ga:entrances',
+                            'dimensions' => 'ga:source',
+                            'filters' => urlencode('ga:pagePath==' . $url),
+                        ));
+                    } catch(Exception $e) {
+                        sleep(300);
+                        echo "waiting...\n";
+                    }
+                } while ($report === null);
+
+                $googleBefore = isset($report['google']) ? $report['google']['ga:entrances'] : 0;
+                $yandexBefore = isset($report['yandex']) ? $report['yandex']['ga:entrances'] : 0;
+
+                $ga->setDateRange('2014-05-22', '2014-05-22');
+
+                do {
+                    $report = null;
+                    try {
+                        $report = $ga->getReport(array(
+                            'metrics' => 'ga:entrances',
+                            'sort' => '-ga:entrances',
+                            'dimensions' => 'ga:source',
+                            'filters' => urlencode('ga:pagePath==' . $url),
+                        ));
+                    } catch(Exception $e) {
+                        sleep(300);
+                        echo "waiting...\n";
+                    }
+                } while ($report === null);
+
+                $googleAfter = isset($report['google']) ? $report['google']['ga:entrances'] : 0;
+                $yandexAfter = isset($report['yandex']) ? $report['yandex']['ga:entrances'] : 0;
+
+                $url = 'http://www.happy-giraffe.ru/' . $url;
+                $resultRow = compact('url', 'length', 'googleBefore', 'googleAfter', 'yandexBefore', 'yandexAfter');
+
+                $model = new Seo4();
+                $model->initSoftAttributes(array_keys($resultRow));
+                foreach ($resultRow as $k => $v) {
+                    $model->$k = $v;
                 }
-            } while ($report === null);
-
-            $googleBefore = isset($report['google']) ? $report['google']['ga:entrances'] : 0;
-            $yandexBefore = isset($report['yandex']) ? $report['yandex']['ga:entrances'] : 0;
-
-            $ga->setDateRange('2014-05-22', '2014-05-22');
-
-            do {
-                $report = null;
-                try {
-                    $report = $ga->getReport(array(
-                        'metrics' => 'ga:entrances',
-                        'sort' => '-ga:entrances',
-                        'dimensions' => 'ga:source',
-                        'filters' => urlencode('ga:pagePath==' . $url),
-                    ));
-                } catch(Exception $e) {
-                    sleep(300);
-                    echo "waiting...\n";
-                }
-            } while ($report === null);
-
-            $googleAfter = isset($report['google']) ? $report['google']['ga:entrances'] : 0;
-            $yandexAfter = isset($report['yandex']) ? $report['yandex']['ga:entrances'] : 0;
-
-            $url = 'http://www.happy-giraffe.ru/' . $url;
-            $resultRow = compact('url', 'length', 'googleBefore', 'googleAfter', 'yandexBefore', 'yandexAfter');
-
-            $model = new Seo4();
-            $model->initSoftAttributes(array_keys($resultRow));
-            foreach ($resultRow as $k => $v) {
-                $model->$k = $v;
+                $model->save();
             }
-            $model->save();
             echo '[' . $i . '/' . $count . ']' . "\n";
         }
     }

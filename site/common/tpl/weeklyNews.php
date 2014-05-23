@@ -8,7 +8,7 @@ $i = 0;
         <?php foreach ($models as $model): ?>
     <td style="width:340px;<?php if ($i % 2 != 0) echo "padding-left:20px" ?>" valign="top">
 
-        <?php if ($i == 1 && date("Y-m-d") == '2014-05-23'): ?>
+        <?php if ($i == 1 && date("Y-m-d") == '2014-05-26'): ?>
 
             <?php $rand = mt_rand(1000000000, 9999999999); ?>
             <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=458156&pid=1590426&bid=3264882&bn=3264882&rnd=<?=$rand?>">

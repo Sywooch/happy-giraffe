@@ -520,6 +520,8 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
 
     public function actionHuection()
     {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.common.models.mongo.*');
         echo Seo4::model()->count();
     }
 }

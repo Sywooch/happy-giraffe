@@ -447,7 +447,9 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
             ),
         );
         //$criteria->condition = 't.id > 129835 AND t.type_id = 1 AND t.removed = 0 AND (t.uniqueness = 100 OR t.uniqueness IS NULL) AND a.itemname IS NULL AND author.group = 0';
-        $criteria->condition = 't.id = 129835';
+        $criteria->condition = 't.id = 156702';
+
+        echo CommunityContent::model()->count($criteria);
 
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,
@@ -455,7 +457,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         $iterator = new CDataProviderIterator($dp, 1000);
         $urlToLength = array();
         foreach ($iterator as $d) {
-            echo '1';
+            echo 'fsfsdf';
             $urlToLength[$d->getUrl(false, true)] = strlen(strip_tags($d->post->text));
         }
         rsort($urlToLength);

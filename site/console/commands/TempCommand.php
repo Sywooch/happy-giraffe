@@ -449,7 +449,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $d) {
-            fputcsv($fp, array($d->id, strlen(strip_tags($d->post->text))));
+            fputcsv($fp, array($d->getUrl(false, true), strlen(strip_tags($d->post->text))));
         }
         fclose($fp);
     }

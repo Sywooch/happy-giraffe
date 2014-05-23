@@ -463,7 +463,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         foreach ($urlToLength as $url => $length) {
             $i++;
 
-            if (Seo4::model()->findByAttributes(array('url' => $url)) === null) {
+            if (Seo4::model()->findByAttributes(array('url' => 'http://www.happy-giraffe.ru' . $url)) === null) {
                 $ga->setDateRange('2014-05-19', '2014-05-19');
 
                 do {
@@ -504,7 +504,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
                 $googleAfter = isset($report['google']) ? $report['google']['ga:entrances'] : 0;
                 $yandexAfter = isset($report['yandex']) ? $report['yandex']['ga:entrances'] : 0;
 
-                $url = 'http://www.happy-giraffe.ru/' . $url;
+                $url = 'http://www.happy-giraffe.ru' . $url;
                 $resultRow = compact('url', 'length', 'googleBefore', 'googleAfter', 'yandexBefore', 'yandexAfter');
 
                 $model = new Seo4();

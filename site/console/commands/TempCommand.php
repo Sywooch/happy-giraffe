@@ -480,6 +480,9 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
                 }
             } while ($report === null);
 
+            var_dump($report);
+            die;
+
             $googleBefore = isset($report['google']) ? $report['google']['ga:entrances'] : 0;
             $yandexBefore = isset($report['yandex']) ? $report['yandex']['ga:entrances'] : 0;
 

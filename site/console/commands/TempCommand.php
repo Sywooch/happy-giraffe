@@ -465,7 +465,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         foreach ($urlToLength as $url => $length) {
             $ga->setDateRange('2014-05-19', '2014-05-19');
 
-            echo $url;
+            var_dump($url);
             die;
 
             do {

@@ -447,6 +447,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
             ),
         );
         $criteria->condition = 't.id > 129835 AND t.type_id = 1 AND t.removed = 0 AND (t.uniqueness = 100 OR t.uniqueness IS NULL) AND a.itemname IS NULL AND author.group = 0';
+        $criteria->limit = 1;
 
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,
@@ -502,6 +503,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
             $resultRow = compact('url', 'length', 'googleBefore', 'googleAfter', 'yandexBefore', 'yandexAfter');
 
             $model = new Seo4();
+            $model->initSoftAttributes(array_keys($resultRow));
             foreach ($resultRow as $k => $v) {
                 $model->$k = $v;
             }

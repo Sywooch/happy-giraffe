@@ -4,19 +4,16 @@
     <div class="u-notice_b u-notice_desc" data-bind="html: declOfNum(visibleCount(), ['Новый<br>комментарий','Новых<br>комментария','Новыч<br>комментариев'])"></div>
 </a>
 <div class="u-notice_b u-notice_users">
-    <!--<div class="ava-list">
-        <ul class="ava-list_ul">
-            <li class="ava-list_li"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+    <div class="ava-list">
+        <ul class="ava-list_ul" data-bind="foreach: comments">
+            <li class="ava-list_li" data-bind="with: author">
+                <a class="ava ava__small ava__male" href="" data-bind="attr: {href: url}">
+                    <span class="ico-status ico-status__online" data-bind="visible: online"></span>
+                    <img class="ava_img" src="" alt="" data-bind="attr: {src: avaOrDefaultImage}">
+                </a>
             </li>
-            <li class="ava-list_li"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
-            </li>
-            <li class="ava-list_li"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
-            </li>
-            <li class="ava-list_li"><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
-            </li>
-            <li class="ava-list_li"><a class="ava-list_last-tx">еще 11</a></li>
         </ul>
-    </div>-->
+    </div>
 </div>
-<a href="" class="u-notice_b u-notice_post-ico u-notice_post-ico__post"></a>
-<div class="u-notice_b u-notice_post"><a href="" class="u-notice_post-a" data-bind="html: relatedModel.contentTitle"></a></div>
+<a href="" class="u-notice_b u-notice_post-ico u-notice_post-ico__post" data-bind="attr: {href: url}"></a>
+<div class="u-notice_b u-notice_post"><a href="" class="u-notice_post-a" data-bind="html: relatedModel.contentTitle, attr: {href: url}"></a></div>

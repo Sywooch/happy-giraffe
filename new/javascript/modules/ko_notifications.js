@@ -7,7 +7,7 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         6: 'favorite',
         7: 'post',
     };
-    
+
     function Notify(data) {
         ko.utils.extend(this, data);
         var self = this;
@@ -21,15 +21,40 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
     }
     function ViewModel(data) {
         var self = this;
-        self.notifications = ko.observableArray(ko.utils.arrayMap(data.list, function(item) {
-            return new Notify(item);
-        }));
+        self.lastNotificationUpdate = false;
+        self.fullyLoaded = false;
+        self.loading = ko.observable(false);
+        self.notifications = ko.observableArray([]);
+        self.addNotifications = function(data) {
+            self.notifications(self.notifications().concat(ko.utils.arrayMap(data, function(item) {
+                if (!self.lastNotificationUpdate || self.lastNotificationUpdate > item.updated)
+                    self.lastNotificationUpdate = item.updated;
+                return new Notify(item);
+            })));
+        };
+        self.addNotifications(data.list);
+        self.tab = ko.observable(1 * data.read);
+        self.changeTab = function(newTab) {
+            self.tab(newTab);
+        };
         self.markAllAsReaded = function() {
             ko.utils.arrayForEach(self.notifications(), function(item) {
                 item.setReaded();
             });
         };
+        self.load = function() {
+            if (!self.loading() && !self.fullyLoaded) {
+                self.loading(true);
+                $.get('/notifications/', {'lastNotificationUpdate': self.lastNotificationUpdate}, function(data) {
+                    if (data.list.length < 20) {
+                        self.fullyLoaded = true;
+                    }
+                    self.addNotifications(data.list);
+                    self.loading(false);
+                }, 'json');
+            }
+        };
     }
-    
+
     return ViewModel;
 });

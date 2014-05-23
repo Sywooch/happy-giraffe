@@ -1,4 +1,4 @@
-<div class="layout-wrapper_frame clearfix" id="notifications">
+<div class="layout-wrapper_frame clearfix display-n" id="notifications" data-bind="css: {'display-n': false}">
     <script>
         define('notifications', ['common'], function() {
             return new function() {
@@ -33,7 +33,7 @@
 
             }();
         });
-        require(['notifications']);
+        require(['notifications', 'scrollEvents']);
     </script>
     <div class="u-notice">
         <!-- side-menu-->
@@ -41,9 +41,8 @@
             <div class="side-menu_hold">
                 <div class="side-menu_t side-menu_t__notice"></div>
                 <ul class="side-menu_ul">
-                    <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice"></span><span class="side-menu_tx">Новые </span><span class="side-menu_count">154</span></span><span class="verticalalign-m-help"></span></a></li>
-                    <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice-arhive"></span><span class="side-menu_tx">Архив</span></span><span class="verticalalign-m-help"></span></a></li>
-                    <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__hg"></span><span class="side-menu_tx">Веселый </br> Жираф!</span></span></a></li>
+                    <li class="side-menu_li" data-bind="css: {active: tab() == 0}"><a href="#" class="side-menu_i" data-bind="click: function() { changeTab(0); }"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice"></span><span class="side-menu_tx">Новые </span><span class="side-menu_count">154</span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li" data-bind="css: {active: tab() == 1}"><a href="#" class="side-menu_i" data-bind="click: function() { changeTab(1); }"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice-arhive"></span><span class="side-menu_tx">Прочитанные</span></span><span class="verticalalign-m-help"></span></a></li>
                 </ul>
             </div>
         </div>
@@ -54,7 +53,7 @@
             </div>
             <div class="page-col_cont">
                 <div class="u-notice_hold scroll">
-                    <div class="scroll_scroller">
+                    <div class="scroll_scroller" data-bind="show: {selector: 'li:gt(-5)', callback: load}">
                         <div class="scroll_cont">
                             <ul class="u-notice_ul" data-bind="foreach: notifications">
                                 <li class="u-notice_li">
@@ -71,6 +70,7 @@
                                     </div>
                                 </li>
                             </ul>
+                            <div class="im_loader" data-bind="visible: loading"><img src="/new/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка ранних уведомлений</span></div>
                         </div>
                     </div>
                     <!-- scroll-bar-->
@@ -85,74 +85,6 @@
     </div>
 </div>
 <?php
-$data = HJSON::encode($_data_, array(
-        'NotificationSummary' => array(
-            "type",
-            "updated",
-            "count",
-            "visibleCount",
-            "articles" => array(
-                'NotificationArticle' => array(
-                    'entity',
-                    'entity_id',
-                    'count',
-                    'model',
-                )
-            ),
-        ),
-        'NotificationReplyComment' => array(
-            "type",
-            "entity_id",
-            "updated",
-            "count",
-            "visibleCount",
-            "url",
-            "relatedModel" => array(
-                'CModel' => array(
-                    'id',
-                    'author' => array(
-                        'User' => array(
-                            'id',
-                            'avaOrDefaultImage',
-                        ),
-                    ),
-                    'created',
-                    'title',
-                    'type_id',
-                    'powerTipTitle',
-                    'contentTitle',
-                ),
-            ),
-            'comment' => array(
-                'Comment' => array(
-                    'text'
-                ),
-            ),
-        ),
-        'Notification' => array(
-            "type",
-            "entity_id",
-            "updated",
-            "count",
-            "visibleCount",
-            "url",
-            "relatedModel" => array(
-                'CModel' => array(
-                    'id',
-                    'author' => array(
-                        'User' => array(
-                            'id',
-                            'avaOrDefaultImage',
-                        ),
-                    ),
-                    'created',
-                    'title',
-                    'type_id',
-                    'powerTipTitle',
-                    'contentTitle',
-                ),
-            ),
-        ),
-    ));
+$data = HJSON::encode($_data_, $this->JSONConfig);
 Yii::app()->clientScript->registerAMD('notificationsVM', array('Notification' => 'ko_notifications', 'ko' => 'knockout'), "ko.applyBindings(new Notification(" . $data . "), document.getElementById('notifications')); console.log(" . $data . ");");
 ?>

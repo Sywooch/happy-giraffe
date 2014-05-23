@@ -89,6 +89,7 @@
             </script>
             <!--AdFox END-->
 
+            <?php if (false): ?>
             <div class="banner">
                 <!--  AdRiver code START. Type:extension Site:  PZ: 0 BN: 0 -->
                 <script type="text/javascript">
@@ -107,6 +108,7 @@
                 </script>
                 <!--  AdRiver code END  -->
             </div>
+            <?php endif; ?>
 
             <?php if (false && $this->action->id == 'view'): ?>
                 <div class="contest-tizer contest-tizer__13 clearfix">

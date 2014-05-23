@@ -102,6 +102,7 @@ $data['currentRubricId'] = $this->rubric_id;
                 </script>
                 <!--AdFox END-->
 
+                <?php if (false): ?>
                 <div class="banner">
                     <!--  AdRiver code START. Type:extension Site:  PZ: 0 BN: 0 -->
                     <script type="text/javascript">
@@ -120,6 +121,7 @@ $data['currentRubricId'] = $this->rubric_id;
                     </script>
                     <!--  AdRiver code END  -->
                 </div>
+                <?php endif; ?>
             <?php endif; ?>
 
             <?php $this->renderPartial('_popular'); ?>

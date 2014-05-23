@@ -141,7 +141,7 @@ class DefaultController extends HController
                 ->getContent()
                 ->forEdit
                 ->text;
-        if (!empty($content->uniqueness) && $content->uniqueness < 50)
+        if (is_int($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         if ($content->contestWork !== null)

@@ -522,7 +522,12 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.*');
-        echo Seo4::model()->count();
+
+        $fp = fopen(Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . 'stats2000.csv', 'w');
+        $models = Seo4::model()->findAll();
+        foreach ($models as $m) {
+            fputcsv($fp, $m->attributes);
+        }
     }
 }
 

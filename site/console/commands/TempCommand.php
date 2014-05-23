@@ -447,7 +447,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,
         ));
-        $iterator = new CDataProviderIterator($dp);
+        $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $d) {
             fputcsv($fp, array($d->id, strlen(strip_tags($d->post->text))));
         }

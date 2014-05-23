@@ -511,7 +511,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
                 $model->$k = $v;
             }
             $model->save();
-            echo '[' . $i . '/' . $count . ']';
+            echo '[' . $i . '/' . $count . ']' . "\n";
         }
     }
 }

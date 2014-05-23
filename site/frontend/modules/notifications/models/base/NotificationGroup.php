@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class NotificationNewComment
  *
@@ -8,26 +9,32 @@
  */
 class NotificationGroup extends Notification
 {
+
     /**
      * @var string Класс сущности
      */
     public $entity;
+
     /**
      * @var int id сущности
      */
     public $entity_id;
+
     /**
      * @var array массив id непрочитанных комментариев уведомления
      */
     public $unread_model_ids = array();
+
     /**
      * @var array массив id прочитанных комментариев уведомления
      */
     public $read_model_ids = array();
+
     /**
      * @var CommunityContent
      */
     protected $_entity = null;
+    protected $_comments = null;
 
     /**
      * Создаем уведомление о новом комментарии. Если уведомление к этому посту уже создавалось и еще не было
@@ -41,18 +48,20 @@ class NotificationGroup extends Notification
         $this->ensureIndex();
         $exist = $this->getCollection()->findOne(array_merge(array(
             'type' => $this->type,
-            'recipient_id' => (int)$this->recipient_id,
+            'recipient_id' => (int) $this->recipient_id,
             'read' => 0,
             'entity' => $this->entity,
-            'entity_id' => (int)$this->entity_id,
-        ), $params));
+            'entity_id' => (int) $this->entity_id,
+                ), $params));
 
-        if ($exist) {
+        if ($exist)
+        {
             //если такая модель уже есть в списке ничего не меняем
             if (in_array($model_id, $exist['unread_model_ids']))
                 return;
             $this->update($exist, $model_id);
-        } else
+        }
+        else
             $this->insert($model_id, $params);
     }
 
@@ -65,11 +74,10 @@ class NotificationGroup extends Notification
     public function update($exist, $model_id)
     {
         $this->getCollection()->update(
-            array("_id" => $exist['_id']),
-            array(
-                '$set' => array("updated" => time()),
-                '$inc' => array("count" => 1),
-                '$push' => array("unread_model_ids" => (int)$model_id),
+            array("_id" => $exist['_id']), array(
+            '$set' => array("updated" => time()),
+            '$inc' => array("count" => 1),
+            '$push' => array("unread_model_ids" => (int) $model_id),
             )
         );
 
@@ -85,13 +93,13 @@ class NotificationGroup extends Notification
     protected function insert($model_ids, $params = array())
     {
         if (!is_array($model_ids))
-            $model_ids = array((int)$model_ids);
+            $model_ids = array((int) $model_ids);
 
         parent::insert(array_merge(array(
             'entity' => $this->entity,
-            'entity_id' => (int)$this->entity_id,
+            'entity_id' => (int) $this->entity_id,
             'unread_model_ids' => $model_ids
-        ), $params), count($model_ids));
+                ), $params), count($model_ids));
     }
 
     /**
@@ -101,9 +109,10 @@ class NotificationGroup extends Notification
     public function setCommentRead($model_id)
     {
         foreach ($this->unread_model_ids as $key => $unread_model_id)
-            if ($unread_model_id == $model_id) {
+            if ($unread_model_id == $model_id)
+            {
                 unset($this->unread_model_ids[$key]);
-                $this->read_model_ids [] = (int)$model_id;
+                $this->read_model_ids [] = (int) $model_id;
             }
     }
 
@@ -118,18 +127,16 @@ class NotificationGroup extends Notification
             $this->read = 1;
 
         $this->getCollection()->update(
-            array('_id' => $this->_id),
-            array(
-                '$set' => array(
-                    'unread_model_ids' => $this->unread_model_ids,
-                    'read_model_ids' => $this->read_model_ids,
-                    'count' => (int)$this->count,
-                    'read' => (int)$this->read,
-                )
+            array('_id' => $this->_id), array(
+            '$set' => array(
+                'unread_model_ids' => $this->unread_model_ids,
+                'read_model_ids' => $this->read_model_ids,
+                'count' => (int) $this->count,
+                'read' => (int) $this->read,
+            )
             )
         );
     }
-
 
     /**
      * Удалить упоминание об удаленном комментарии в уведомлении.
@@ -144,13 +151,15 @@ class NotificationGroup extends Notification
         unset($exist[$attribute][array_search($comment_id, $exist[$attribute])]);
 
         //если уведомление стало пустым, удаляем
-        if (empty($exist['read_model_ids']) && empty($exist['unread_model_ids'])) {
+        if (empty($exist['read_model_ids']) && empty($exist['unread_model_ids']))
+        {
             $this->deleteByPk($exist['_id']);
-        } else {
+        }
+        else
+        {
             //иначе обновляем его
             $this->getCollection()->update(
-                array('_id' => $exist['_id']),
-                array('$set' => array(
+                array('_id' => $exist['_id']), array('$set' => array(
                     'read_model_ids' => $exist['read_model_ids'],
                     'unread_model_ids' => $exist['unread_model_ids'],
                     'count' => ($exist['count'] - 1),
@@ -201,7 +210,8 @@ class NotificationGroup extends Notification
      */
     public function getEntity()
     {
-        if ($this->_entity === null) {
+        if ($this->_entity === null)
+        {
             if ($this->entity == 'CommunityContent' || $this->entity == 'BlogContent')
                 $this->_entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
             else
@@ -218,4 +228,15 @@ class NotificationGroup extends Notification
     {
         return Str::GenerateNoun(array('Новый комментарий', 'Новых комментария', 'Новых комментариев'), $this->count);
     }
+
+    public function getComments()
+    {
+        if (is_null($this->_comments))
+        {
+            $this->_comments = Comment::model()->with('author')->findAllByPk($this->unread_model_ids);
+        }
+        
+        return $this->_comments;
+    }
+
 }

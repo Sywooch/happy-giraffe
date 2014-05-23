@@ -58,20 +58,7 @@ class Notification extends HMongoModel
 
     public function attributeNames()
     {
-        return array(
-            "type",
-            //"entity",
-            "entity_id",
-            //"unread_model_ids",
-            //"read_model_ids",
-            "updated",
-            //"recipient_id",
-            //"read",
-            "count",
-            "visibleCount",
-            "url",
-            "relatedModel"
-        );
+        return array();
     }
 
     const USER_CONTENT_COMMENT = 0;
@@ -245,12 +232,16 @@ class Notification extends HMongoModel
      * @param $withRelated bool Если true, то жадно загружает связанные модели из mysql
      * @return Notification[]
      */
-    public function getNotificationsList($user_id, $read = 0, $page = 0, $withRelated = false)
+    public function getNotificationsList($user_id, $read = 0, $lastNotificationUpdate = false, $withRelated = false)
     {
-        $cursor = $this->getCollection()->find(array(
-                'recipient_id' => (int) $user_id,
-                'read' => $read
-            ))->sort(array('updated' => -1))->limit(self::PAGE_SIZE)->skip($page * self::PAGE_SIZE);
+        $criteria = array(
+            'recipient_id' => (int) $user_id,
+            'read' => $read,
+        );
+        if ($lastNotificationUpdate)
+            $criteria['updated'] = array ('$lt' => $lastNotificationUpdate);
+
+        $cursor = $this->getCollection()->find($criteria)->sort(array('updated' => -1))->limit(self::PAGE_SIZE);
 
 
         $list = array();

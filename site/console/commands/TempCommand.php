@@ -529,5 +529,11 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
             fputcsv($fp, $m->attributes);
         }
     }
+
+    public function actionTestCopy()
+    {
+        $r = CopyScape::getUniquenessByUrl('http://www.happy-giraffe.ru/user/229277/blog/post166147/');
+        echo $r->result[0]->percentmatched;
+    }
 }
 

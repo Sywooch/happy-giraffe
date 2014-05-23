@@ -360,4 +360,75 @@ class TempCommand extends CConsoleCommand
         }
         fclose($fp);
     }
+
+    public function actionScape()
+    {
+//        $url = 'http://www.happy-giraffe.ru/community/33/forum/post/33749/';
+//        $r = CopyScape::getUniquenessByUrl($url);
+//        echo $r->result[0]->percentmatched;
+//        echo "\n";
+//        var_dump((string) $r->allviewurl);
+//        die;
+
+        $urls = "http://www.happy-giraffe.ru/community/30/forum/post/79091/
+http://www.happy-giraffe.ru/community/20/forum/post/83266/
+http://www.happy-giraffe.ru/community/12/forum/post/54039/
+http://www.happy-giraffe.ru/community/12/forum/post/82229/
+http://www.happy-giraffe.ru/test/pregnancy/
+http://www.happy-giraffe.ru/user/15292/blog/post68415/
+http://www.happy-giraffe.ru/community/31/forum/post/58232/
+http://www.happy-giraffe.ru/community/30/forum/post/60975/
+http://www.happy-giraffe.ru/community/20/forum/post/30106/
+http://www.happy-giraffe.ru/community/10/forum/post/4929/
+http://www.happy-giraffe.ru/community/10/forum/post/709/
+http://www.happy-giraffe.ru/community/16/forum/post/3696/
+http://www.happy-giraffe.ru/community/12/forum/post/3540/
+http://www.happy-giraffe.ru/community/12/forum/post/25785/
+http://www.happy-giraffe.ru/community/11/forum/post/27109/
+http://www.happy-giraffe.ru/community/22/forum/post/21359/
+http://www.happy-giraffe.ru/community/11/forum/post/80136/
+http://www.happy-giraffe.ru/community/28/forum/post/25799/
+http://www.happy-giraffe.ru/community/16/forum/post/28037/
+http://www.happy-giraffe.ru/community/22/forum/post/28281/
+http://www.happy-giraffe.ru/community/12/forum/post/3327/
+http://www.happy-giraffe.ru/community/26/forum/post/3336/
+http://www.happy-giraffe.ru/community/8/forum/post/2016/
+http://www.happy-giraffe.ru/community/2/forum/post/33421/
+http://www.happy-giraffe.ru/community/33/forum/post/95691/
+http://www.happy-giraffe.ru/community/34/forum/post/79603/
+http://www.happy-giraffe.ru/community/11/forum/post/21329/
+http://www.happy-giraffe.ru/community/20/forum/post/30096/
+http://www.happy-giraffe.ru/babySex/bloodRefresh/
+http://www.happy-giraffe.ru/user/15292/blog/post83473/
+http://www.happy-giraffe.ru/community/20/forum/post/31404/
+http://www.happy-giraffe.ru/community/20/forum/post/5184/
+http://www.happy-giraffe.ru/community/31/forum/post/76563/
+http://www.happy-giraffe.ru/community/33/forum/post/15802/
+http://www.happy-giraffe.ru/community/31/forum/post/72969/
+http://www.happy-giraffe.ru/community/31/forum/post/68302/
+http://www.happy-giraffe.ru/community/8/forum/post/47885/
+http://www.happy-giraffe.ru/community/3/forum/video/26057/
+http://www.happy-giraffe.ru/community/33/forum/post/27621/
+http://www.happy-giraffe.ru/community/2/forum/post/10099/
+http://www.happy-giraffe.ru/community/33/forum/post/42015/
+http://www.happy-giraffe.ru/community/25/forum/post/28273/
+http://www.happy-giraffe.ru/community/33/forum/post/5116/
+http://www.happy-giraffe.ru/community/33/forum/post/23737/
+http://www.happy-giraffe.ru/community/33/forum/post/21899/
+http://www.happy-giraffe.ru/community/33/forum/post/27679/
+http://www.happy-giraffe.ru/community/33/forum/post/30828/
+http://www.happy-giraffe.ru/
+http://www.happy-giraffe.ru/community/33/forum/post/4165/
+http://www.happy-giraffe.ru/community/1/forum/post/2384/";
+
+        $urlsArray = explode("\n", $urls);
+
+        $fp = fopen('file2.csv', 'w');
+
+        foreach ($urlsArray as $url) {
+            $r = CopyScape::getUniquenessByUrl($url);
+            fputcsv($fp, array($r->result[0]->percentmatched, (string) $r->allviewurl));
+        }
+    }
 }
+

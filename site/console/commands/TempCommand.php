@@ -517,5 +517,10 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
             echo '[' . $i . '/' . $count . ']' . "\n";
         }
     }
+
+    public function actionLengthOut()
+    {
+        echo Seo4::model()->count();
+    }
 }
 

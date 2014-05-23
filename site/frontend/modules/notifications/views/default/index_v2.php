@@ -41,8 +41,8 @@
             <div class="side-menu_hold">
                 <div class="side-menu_t side-menu_t__notice"></div>
                 <ul class="side-menu_ul">
-                    <li class="side-menu_li" data-bind="css: {active: tab() == 0}"><a href="#" class="side-menu_i" data-bind="click: function() { changeTab(0); }"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice"></span><span class="side-menu_tx">Новые </span><span class="side-menu_count">154</span></span><span class="verticalalign-m-help"></span></a></li>
-                    <li class="side-menu_li" data-bind="css: {active: tab() == 1}"><a href="#" class="side-menu_i" data-bind="click: function() { changeTab(1); }"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice-arhive"></span><span class="side-menu_tx">Прочитанные</span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li" data-bind="css: {active: tab() == 0}"><a href="?read=0" class="side-menu_i" data-bind="/*click: function() { changeTab(0); }*/"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice"></span><span class="side-menu_tx">Новые </span><span class="side-menu_count">154</span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li" data-bind="css: {active: tab() == 1}"><a href="?read=1" class="side-menu_i" data-bind="/*click: function() { changeTab(1); }*/"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice-arhive"></span><span class="side-menu_tx">Прочитанные</span></span><span class="verticalalign-m-help"></span></a></li>
                 </ul>
             </div>
         </div>

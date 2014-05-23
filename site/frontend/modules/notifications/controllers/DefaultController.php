@@ -31,18 +31,18 @@ class DefaultController extends HController
         parent::init();
     }
 
-    public function actionIndex($lastNotificationUpdate = false)
+    public function actionIndex($read = 0, $lastNotificationUpdate = false)
     {
-        $this->pageTitle = 'Новые уведомления';
-        $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 0, (int)$lastNotificationUpdate, true);
+        $this->pageTitle = $read ? 'Новые уведомления' : 'Прочитанные уведомления';
+        $list = Notification::model()->getNotificationsList(Yii::app()->user->id, (int)$read, (int)$lastNotificationUpdate, true);
         //NotificationRead::setReadSummaryNotifications($list);
 
         if (Yii::app()->request->isAjaxRequest)
         {
-            echo HJSON::encode(array('list' => $list, 'read' => false), $this->JSONConfig);
+            echo HJSON::encode(array('list' => $list, 'read' => $read), $this->JSONConfig);
         }
         else
-            $this->render('index_v2', array('list' => $list, 'read' => false));
+            $this->render('index_v2', array('list' => $list, 'read' => $read));
     }
 
     public function actionRead($page = 0)
@@ -91,9 +91,9 @@ class DefaultController extends HController
     {
         $authorConfig = array(
             'User' => array(
-                'id',
+                '(int)id',
                 'avaOrDefaultImage',
-                'online',
+                '(int)online',
                 'url',
             ),
         );
@@ -121,6 +121,7 @@ class DefaultController extends HController
                 "updated",
                 "count",
                 "visibleCount",
+                "read",
                 "articles" => array(
                     'NotificationArticle' => array(
                         'entity',
@@ -138,6 +139,7 @@ class DefaultController extends HController
                 "count",
                 "visibleCount",
                 "url",
+                "read",
                 "relatedModel" => $contentConfig,
                 'comments' => array(
                     'Comment' => array(
@@ -154,6 +156,7 @@ class DefaultController extends HController
                 "count",
                 "visibleCount",
                 "url",
+                "read",
                 "relatedModel" => $contentConfig,
                 'comment' => array(
                     'Comment' => array(
@@ -176,6 +179,7 @@ class DefaultController extends HController
                 "count",
                 "visibleCount",
                 "url",
+                "read",
                 "relatedModel" => $contentConfig,
             ),
         );

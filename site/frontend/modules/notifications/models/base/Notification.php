@@ -73,6 +73,7 @@ class Notification extends HMongoModel
     public $updated;
     public $recipient_id;
     public $read = 0;
+    public $read_time = null;
     public $count = 1;
 
     protected function __construct()
@@ -228,7 +229,7 @@ class Notification extends HMongoModel
      *
      * @param $user_id int id пользователя
      * @param int $read
-     * @param $page int номер страницы с уведомлениями
+     * @param $lastNotificationUpdate int дата, до которой загружать уведомления
      * @param $withRelated bool Если true, то жадно загружает связанные модели из mysql
      * @return Notification[]
      */
@@ -239,24 +240,24 @@ class Notification extends HMongoModel
             'read' => $read,
         );
         if ($lastNotificationUpdate)
-            $criteria['updated'] = array ('$lt' => $lastNotificationUpdate);
+            $criteria['updated'] = array('$lt' => $lastNotificationUpdate);
 
         $cursor = $this->getCollection()->find($criteria)->sort(array('updated' => -1))->limit(self::PAGE_SIZE);
 
 
         $list = array();
         $related = array();
-        for ($i = 0; $i < self::PAGE_SIZE; $i++)
+        $i = 0;
+        while ($cursor->hasNext())
         {
-            if ($cursor->hasNext())
+            $list[$i] = self::createNotification($cursor->getNext());
+            if ($withRelated && $list[$i]->entity)
             {
-                $list[$i] = self::createNotification($cursor->getNext());
-                if ($withRelated && $list[$i]->entity)
-                {
-                    $related[$list[$i]->entity][$list[$i]->entity_id] = $i;
-                }
+                $related[$list[$i]->entity][$list[$i]->entity_id] = $i;
             }
+            $i++;
         }
+
         foreach ($related as $class => $value)
         {
             $ids = array_keys($value);

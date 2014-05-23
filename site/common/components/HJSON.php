@@ -36,7 +36,14 @@ class HJSON extends CJSON
 
     public static function nameValue($name, $value, $config = array(), $subConfig = array())
     {
+        if ($name instanceof HJSONCanonicalName)
+            $value = $name->format($value);
         return self::encode(strval($name)) . ':' . self::encode($value, $config, $subConfig);
+    }
+
+    public static function canonicalName($name)
+    {
+        
     }
 
     protected static function encodeModel($var, $config = array(), $subConfig = array())
@@ -53,7 +60,8 @@ class HJSON extends CJSON
                     $field = $v;
                     $fieldConf = array();
                 }
-                $vars[] = self::nameValue($field, $var->{$field}, $config, $fieldConf);
+                $name = new HJSONCanonicalName($field);
+                $vars[] = self::nameValue($name, $var->{$name}, $config, $fieldConf);
             }
 
             return '{' . join(',', $vars) . '}';
@@ -96,8 +104,8 @@ class HJSON extends CJSON
                     $field = $v;
                     $fieldConf = array();
                 }
-
-                $vars[] = self::nameValue($field, $var[$field], $config, $fieldConf);
+                $name = new HJSONCanonicalName($field);
+                $vars[] = self::nameValue($name, $var[$name], $config, $fieldConf);
             }
 
             return '{' . join(',', $vars) . '}';
@@ -135,6 +143,41 @@ class HJSON extends CJSON
                 return $conf;
 
         return false;
+    }
+
+}
+
+class HJSONCanonicalName
+{
+
+    public $name = '';
+    public $type = null;
+    public $formatter = null;
+
+    public function __construct($str)
+    {
+        $m = array();
+        if (!preg_match('~^(\(([a-z]+)\)){0,1}([a-zA-Z0-9_]+)(\:([a-zA-Z0-9_]+)){0,1}$~', $str, $m))
+            throw new Exception('Неизвестный формат ' . $str);
+        if (!empty($m[2]))
+            $this->type = $m[2];
+        if (!empty($m[5]))
+            $this->formatter = $m[5];
+        $this->name = $m[3];
+    }
+
+    public function format($value)
+    {
+        if (!is_null($this->formatter))
+            $value = Yii::app()->format->format($value, $this->formatter);
+        if (!is_null($this->type))
+            $value = eval('return (' . $this->type . ')$value;');
+        return $value;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
 }

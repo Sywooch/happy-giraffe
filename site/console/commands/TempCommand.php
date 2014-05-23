@@ -510,6 +510,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
             foreach ($resultRow as $k => $v) {
                 $model->$k = $v;
             }
+            $model->save();
         }
     }
 }

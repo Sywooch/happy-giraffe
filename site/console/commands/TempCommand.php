@@ -425,9 +425,10 @@ http://www.happy-giraffe.ru/community/33/forum/post/152675/";
 
         $fp = fopen('file2.csv', 'w');
 
-        foreach ($urlsArray as $url) {
+        foreach ($urlsArray as $i => $url) {
             $r = CopyScape::getUniquenessByUrl($url);
             fputcsv($fp, array(100 - $r->result[0]->percentmatched, (string) $r->allviewurl));
+            echo $i . "\n";
         }
     }
 

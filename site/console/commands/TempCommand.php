@@ -438,7 +438,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
             'post',
             'author',
         );
-        $criteria->join = 'LEFT OUTER JOIN auth__assignments a ON userid = u.id';
+        $criteria->join = 'LEFT OUTER JOIN auth__assignments a ON userid = author.id';
         $criteria->condition = 't.id > 129835 AND t.type_id = 1 AND t.removed = 0 AND (t.uniqueness = 100 OR t.uniqueness IS NULL) AND a.itemname IS NULL AND author.group = 0';
         echo CommunityContent::model()->count($criteria);
     }

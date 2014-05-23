@@ -446,13 +446,13 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
                 'join' => 'LEFT OUTER JOIN auth__assignments a ON userid = author.id',
             ),
         );
-        $criteria->condition = 't.id > 129835 AND t.type_id = 1 AND t.removed = 0 AND (t.uniqueness = 100 OR t.uniqueness IS NULL) AND a.itemname IS NULL AND author.group = 0';
-        $criteria->limit = 1;
+        //$criteria->condition = 't.id > 129835 AND t.type_id = 1 AND t.removed = 0 AND (t.uniqueness = 100 OR t.uniqueness IS NULL) AND a.itemname IS NULL AND author.group = 0';
+        $criteria->condition = 't.id = 129835';
 
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,
         ));
-        $iterator = new CDataProviderIterator($dp, 1);
+        $iterator = new CDataProviderIterator($dp, 1000);
         $urlToLength = array();
         foreach ($iterator as $d) {
             $urlToLength[$d->getUrl(false, true)] = strlen(strip_tags($d->post->text));

@@ -518,7 +518,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         }
     }
 
-    public function actionLengthOut()
+    public function actionHuection()
     {
         echo Seo4::model()->count();
     }

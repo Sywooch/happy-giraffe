@@ -460,7 +460,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
             echo 'fsfsdf';
             $urlToLength[$d->getUrl(false, true)] = strlen(strip_tags($d->post->text));
         }
-        rsort($urlToLength);
+        arsort($urlToLength);
         $urlToLength = array_slice($urlToLength, 0, 2000);
         foreach ($urlToLength as $url => $length) {
             $ga->setDateRange('2014-05-19', '2014-05-19');

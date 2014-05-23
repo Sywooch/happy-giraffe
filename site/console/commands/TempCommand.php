@@ -451,6 +451,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => $criteria,
         ));
+        $count = $dp->totalItemCount;
         $iterator = new CDataProviderIterator($dp, 1000);
         $urlToLength = array();
         foreach ($iterator as $d) {
@@ -458,7 +459,9 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
         }
         arsort($urlToLength);
         $urlToLength = array_slice($urlToLength, 0, 2000);
+        $i = 0;
         foreach ($urlToLength as $url => $length) {
+            $i++;
             $ga->setDateRange('2014-05-19', '2014-05-19');
 
             do {
@@ -508,6 +511,7 @@ http://www.happy-giraffe.ru/community/1/forum/post/2384/";
                 $model->$k = $v;
             }
             $model->save();
+            echo '[' . $i . '/' . $count . ']';
         }
     }
 }

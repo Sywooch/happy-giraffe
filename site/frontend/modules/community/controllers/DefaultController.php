@@ -370,7 +370,7 @@ class DefaultController extends HController
         if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video', 'photoPost', 'question')))
             throw new CHttpException(404, 'Страницы не существует');
 
-        if ($this->club !== null && $this->club->id != $content->rubric->community->club_id || $content_type_slug != $content->type->slug) {
+        if ($this->forum !== null && $this->forum->id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: " . $content->url);
             Yii::app()->end();

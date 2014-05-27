@@ -44,15 +44,17 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
                     if(obj) {
                         obj.readed(true);
                     }
+                    self.viewModel.unreadCount(Math.max(0, self.viewModel.unreadCount() - 1));
                 }
                 comet.addEvent(5002, 'notificationReaded');
             }
         }
     };
 
-    function Notify(data) {
+    function Notify(data, viewModel) {
         ko.utils.extend(this, data);
         var self = this;
+        self.viewModel = viewModel;
         self.count = ko.observable(self.count);
         self.visibleCount = ko.observable(self.visibleCount);
         self.type = types[self.type];
@@ -69,12 +71,13 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         self.lastNotificationUpdate = false;
         self.fullyLoaded = false;
         self.loading = ko.observable(false);
+        self.unreadCount = ko.observable(data.unreadCount);
         self.notifications = ko.observableArray([]);
         self.addNotifications = function(data) {
             self.notifications(self.notifications().concat(ko.utils.arrayMap(data, function(item) {
                 if (!self.lastNotificationUpdate || self.lastNotificationUpdate > item.updated)
                     self.lastNotificationUpdate = item.updated;
-                return new Notify(item);
+                return new Notify(item, self);
             })));
         };
         self.addNotifications(data.list);

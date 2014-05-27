@@ -11,7 +11,7 @@ class MailSenderDialogues extends MailSender
 {
     public $type = 'dialogues';
     public $debugMode = self::DEBUG_TESTING;
-    protected $percent = 10;
+    protected $percent = 30;
 
     public function __construct()
     {

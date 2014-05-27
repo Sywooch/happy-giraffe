@@ -8,7 +8,7 @@ class DefaultController extends HController
     public function filters()
     {
         return array(
-            'ajaxOnly + readOne,readAll,unread',
+            'ajaxOnly + read,readAll',
             'accessControl'
         );
     }
@@ -34,7 +34,7 @@ class DefaultController extends HController
     public function actionIndex($read = 0, $lastNotificationUpdate = false)
     {
         $this->pageTitle = $read ? 'Новые уведомления' : 'Прочитанные уведомления';
-        $list = Notification::model()->getNotificationsList(Yii::app()->user->id, (int)$read, (int)$lastNotificationUpdate, true);
+        $list = Notification::model()->getNotificationsList(Yii::app()->user->id, (int) $read, (int) $lastNotificationUpdate, true);
         //NotificationRead::setReadSummaryNotifications($list);
 
         if (Yii::app()->request->isAjaxRequest)
@@ -45,40 +45,20 @@ class DefaultController extends HController
             $this->render('index_v2', array('list' => $list, 'read' => $read));
     }
 
-    public function actionRead($page = 0)
+    public function actionRead()
     {
-        $this->pageTitle = 'Прочитанные уведомления';
+        $notifications = Notification::model()->findAllByPk(Yii::app()->request->getPost('events', array()));
+        echo CJSON::encode($notifications);
+        $comet = new CometModel();
 
-        $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 1, $page);
-        if (Yii::app()->request->isAjaxRequest)
+        foreach ($notifications as $notification)
         {
-            echo CJSON::encode(array(
-                'success' => true,
-                'html' => $this->renderPartial('list', array('list' => $list, 'read' => true), true),
-                'empty' => empty($list)
-            ));
+            if ($notification->recipient_id == Yii::app()->user->id)
+            {
+                $notification->setRead();
+                $comet->send(Yii::app()->user->id, array('notification' => array('id' => $id)), CometModel::NOTIFY_READED);
+            }
         }
-        else
-            $this->render('index', array('list' => $list, 'read' => true));
-    }
-
-    public function actionReadOne()
-    {
-        $id = Yii::app()->request->getPost('id');
-        $model = Notification::model()->findByPk($id);
-        if (isset($model['_id']))
-            Notification::model()->readByPk($model['_id']);
-        echo CJSON::encode(array('status' => true));
-    }
-
-    public function actionUnread()
-    {
-        $id = Yii::app()->request->getPost('id');
-        $model = Notification::model()->findByPk($id);
-        if (isset($model['_id']))
-            Notification::model()->unreadByPk($model['_id']);
-
-        echo CJSON::encode(array('status' => true));
     }
 
     public function actionReadAll()
@@ -99,24 +79,28 @@ class DefaultController extends HController
         );
         $contentConfig = array(
             'AlbumPhoto' => array(
-                'id',
+                '(int)id',
                 'author' => $authorConfig,
                 'created',
                 'title',
                 'powerTipTitle',
+                'previewUrl',
                 'contentTitle',
+                'url',
             ),
             'CModel' => array(
-                'id',
+                '(int)id',
                 'author' => $authorConfig,
                 'created',
                 'title',
-                'type_id',
+                '(int)type_id',
                 'powerTipTitle',
                 'contentTitle',
+                'url',
         ));
         return array(
             'NotificationSummary' => array(
+                "(string)id",
                 "type",
                 "updated",
                 "count",
@@ -132,6 +116,7 @@ class DefaultController extends HController
                 ),
             ),
             'NotificationUserContentComment' => array(
+                "(string)id",
                 "type",
                 "entity",
                 "entity_id",
@@ -149,6 +134,7 @@ class DefaultController extends HController
                 ),
             ),
             'NotificationGroup' => array(
+                "(string)id",
                 "type",
                 "entity",
                 "entity_id",
@@ -172,6 +158,7 @@ class DefaultController extends HController
                 ),
             ),
             'Notification' => array(
+                "(string)id",
                 "type",
                 "entity",
                 "entity_id",

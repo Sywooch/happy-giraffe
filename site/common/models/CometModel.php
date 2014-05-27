@@ -63,6 +63,10 @@ class CometModel extends CComponent
     const FRIEND_REQUEST_SENT = 4000;
     const FRIEND_REQUEST_DECLINED = 4001;
     const FRIEND_ADDED = 4010;
+    
+    const NOTIFY_ADDED = 5001;
+    const NOTIFY_READED = 5002;
+    const NOTIFY_UPDATED = 5003;
 
     public $attributes = array();
     public $type;

@@ -15,6 +15,7 @@ abstract class MailSender extends CComponent
     public $type;
     protected $lastDeliveryTimestamp;
     protected $debugMode = self::DEBUG_DEVELOPMENT;
+    protected $percent = 100;
 
     /**
      * Обработка конкретно взятого пользователя
@@ -36,8 +37,8 @@ abstract class MailSender extends CComponent
                 $this->iterate();
             }
         } catch (Exception $e) {
-            echo $e->getMessage();
-            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
+            //echo $e->getMessage();
+            //Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
         }
     }
 
@@ -59,7 +60,8 @@ abstract class MailSender extends CComponent
                 $this->process($user);
             }
         } catch (Exception $e) {
-            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
+            echo $e->getMessage();
+            //Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
         }
     }
 
@@ -90,7 +92,9 @@ abstract class MailSender extends CComponent
     {
         $dp = new CActiveDataProvider('User', array(
             'criteria' => $this->getUsersCriteria(),
+            'pagination' => false,
         ));
+
         return new CDataProviderIterator($dp, 1000);
     }
 
@@ -111,14 +115,29 @@ abstract class MailSender extends CComponent
                 $criteria->compare('t.id', 12936);
                 break;
             case self::DEBUG_TESTING:
-                $criteria->join = 'INNER JOIN auth__assignments aa ON aa.userid = t.id AND aa.itemname = :itemname';
+                $criteria->join = 'LEFT OUTER JOIN auth__assignments aa ON aa.userid = t.id AND aa.itemname = :itemname';
                 $criteria->params[':itemname'] = 'tester';
+                $criteria->addCondition('aa.itemname IS NOT NULL');
+                $criteria = $this->limitByPercent($criteria);
                 break;
         }
 
         return $criteria;
     }
 
-
+    protected function limitByPercent(CDbCriteria $criteria)
+    {
+        if ($this->percent != 100) {
+            $count = User::model()->count();
+            $offset = round($count * (100 - $this->percent) / 100);
+            $last = User::model()->find(array(
+                'order' => 'id DESC',
+                'offset' => $offset,
+            ));
+            $criteria->addCondition('id < :lastId', 'OR');
+            $criteria->params[':lastId'] = $last->id;
+        }
+        return $criteria;
+    }
 }
 

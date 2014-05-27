@@ -520,15 +520,34 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
     public function actionFix()
     {
+        echo "posts\n";
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
-                'condition' => 'removed = 0 AND type_id = 1 AND t.id = 168497',
+                'condition' => 'removed = 0 AND type_id = 1',
                 'with' => 'post',
             ),
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $post) {
             $post->post->purified->clearCache();
+        }
+
+        echo "comments\n";
+        $dp = new CActiveDataProvider('Comment', array(
+            'criteria' => array(
+                'condition' => 'removed = 0',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $comment) {
+            $comment->purified->clearCache();
+        }
+
+        echo "messages\n";
+        $dp = new CActiveDataProvider('MessagingMessage');
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $message) {
+            $message->purified->clearCache();
         }
     }
 }

@@ -1,4 +1,4 @@
-define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], function(ko, comet) {
+define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], function(ko) {
     var types = {
         0: 'comment',
         1: 'reply',
@@ -6,6 +6,48 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         5: 'like',
         6: 'favorite',
         7: 'post',
+    };
+
+    
+    function AccumulatingRequest(timeout, url, data, callback) {
+        var self = this;
+        var events = ko.observableArray([]);
+        self.url = url;
+        self.data = data ? data : {};
+        self.callback = callback ? callback : function() { };
+        self.send = function(data) {
+            events.push(data);
+        };
+        ko.computed(function() {
+            if(events().length > 0) {
+                data = ko.utils.extend({}, self.data);
+                data.events = events();
+                $.post(self.url, data, self.callback, 'json');
+                events([]);
+            }
+        }).extend({ throttle: timeout });
+    }
+
+    Notify.prototype = {
+        objects: {},
+        binded: false,
+        request: new AccumulatingRequest(500, '/notifications/read/'),
+        addObject: function(obj) {
+            this.objects[obj.id] = obj;
+        },
+        bindEvents: function() {
+            var self = this;
+            if (!Notify.prototype.binded) {
+                Notify.prototype.binded = true;
+                Comet.prototype.notificationReaded = function(result, id) {
+                    var obj = self.objects[result.notification.id] ? self.objects[result.notification.id] : false;
+                    if(obj) {
+                        obj.readed(true);
+                    }
+                }
+                comet.addEvent(5002, 'notificationReaded');
+            }
+        }
     };
 
     function Notify(data) {
@@ -16,8 +58,11 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         self.type = types[self.type];
         self.readed = ko.observable(false);
         self.setReaded = function() {
-            self.readed(true);
+            self.request.send(self.id);
         };
+
+        self.addObject(self);
+        self.bindEvents();
     }
     function ViewModel(data) {
         var self = this;
@@ -35,22 +80,22 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         self.addNotifications(data.list);
         self.tab = ko.observable(1 * data.read);
         /*self.tabs = [
-            function(item) {
-                return item.read == 0;
-            },
-            function(item) {
-                return item.read == 1;
-            },
-        ];
-        self.currentTab = ko.computed(function() {
-            self.tab();
-            return ko.utils.arrayFilter(self.notifications(), function(item) {
-                return self.tabs[self.tab()](item);
-            });
-        });
-        self.changeTab = function(newTab) {
-            self.tab(newTab);
-        };*/
+         function(item) {
+         return item.read == 0;
+         },
+         function(item) {
+         return item.read == 1;
+         },
+         ];
+         self.currentTab = ko.computed(function() {
+         self.tab();
+         return ko.utils.arrayFilter(self.notifications(), function(item) {
+         return self.tabs[self.tab()](item);
+         });
+         });
+         self.changeTab = function(newTab) {
+         self.tab(newTab);
+         };*/
         self.markAllAsReaded = function() {
             ko.utils.arrayForEach(self.notifications(), function(item) {
                 item.setReaded();

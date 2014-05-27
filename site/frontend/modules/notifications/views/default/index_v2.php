@@ -55,6 +55,14 @@
                 <div class="u-notice_hold scroll">
                     <div class="scroll_scroller" data-bind="show: {selector: 'li:gt(-5)', callback: load}">
                         <div class="scroll_cont">
+                            <div class="cap-empty cap-empty__abs" data-bind="visible: notifications().length == 0, css: {'cap-empty__notice-new': tab() == 0, 'cap-empty__notice-arhive': tab() == 1}">
+                                <div class="cap-empty_hold">
+                                    <div class="cap-empty_img"></div>
+                                    <div class="cap-empty_t" data-bind="visible: tab() == 0">У вас пока нет сигналов.</div>
+                                    <div class="cap-empty_t" data-bind="visible: tab() == 1">Архив пуст</div>
+                                </div>
+                                <div class="verticalalign-m-help"></div>
+                            </div>
                             <ul class="u-notice_ul" data-bind="foreach: notifications">
                                 <li class="u-notice_li">
                                     <div class="u-notice_li-hold">

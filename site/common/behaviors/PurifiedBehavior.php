@@ -86,6 +86,8 @@ class PurifiedBehavior extends CActiveRecordBehavior
         foreach ($h1 as $header) {
             $header->outertext = '<h2>' . $header->innertext . '</h2>';
         }
+
+        return $doc->save();
     }
 
     private function fixUrls($text)

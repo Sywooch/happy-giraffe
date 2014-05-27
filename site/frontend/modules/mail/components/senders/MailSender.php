@@ -136,6 +136,7 @@ abstract class MailSender extends CComponent
             ));
             $criteria->addCondition('id < :lastId', 'OR');
             $criteria->params[':lastId'] = $last->id;
+            $criteria->order = 'id ASC';
         }
         return $criteria;
     }

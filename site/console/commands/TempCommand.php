@@ -522,7 +522,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
     {
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
-                'condition' => 'removed = 0 AND type_id = 1 AND id = 168497',
+                'condition' => 'removed = 0 AND type_id = 1 AND t.id = 168497',
                 'with' => 'post',
             ),
         ));

@@ -517,5 +517,19 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         $r = CopyScape::getUniquenessByUrl('http://www.happy-giraffe.ru/user/229277/blog/post166147/');
         echo $r->result[0]->percentmatched;
     }
+
+    public function actionFix()
+    {
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 'removed = 0 AND type_id = 1 AND id = 168497',
+                'with' => 'post',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $post) {
+            $post->post->purified->clearCache();
+        }
+    }
 }
 

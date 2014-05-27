@@ -36,10 +36,10 @@ abstract class HMongoModel extends CModel
 
     public function findAllByPk($ids)
     {
-        return $this->getCollection()->find(array('_id' => array_map(function($id)
+        return $this->getCollection()->find(array('_id' => array( '$in' => array_map(function($id)
                     {
                         return new MongoId($id);
-                    }, $ids)));
+                    }, $ids))));
     }
 
     /**

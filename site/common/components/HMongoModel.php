@@ -1,12 +1,13 @@
 <?php
+
 /**
  * Простая модель для монго-документа, реализует основные операции
  *
  * @author Alex Kireev <alexk984@gmail.com>
  */
-
 abstract class HMongoModel extends CModel
 {
+
     protected $_collection_name;
     protected $_db = 'happy_giraffe_db';
     protected $_collection;
@@ -33,6 +34,14 @@ abstract class HMongoModel extends CModel
         return $this->getCollection()->findOne(array('_id' => new MongoId($id)));
     }
 
+    public function findAllByPk($ids)
+    {
+        return $this->getCollection()->find(array('_id' => array_map(function($id)
+                    {
+                        return new MongoId($id);
+                    }, $ids)));
+    }
+
     /**
      * Удалить модель по id
      * @param $id
@@ -49,4 +58,5 @@ abstract class HMongoModel extends CModel
     {
         self::getCollection()->remove(array('_id' => $this->_id));
     }
+
 }

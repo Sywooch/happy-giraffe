@@ -270,6 +270,15 @@ class Notification extends HMongoModel
         }
         return $list;
     }
+    
+    public function findAllByPk($ids)
+    {
+        $cursor = parent::findAllByPk($ids);
+        $notifications = array();
+        while ($cursor->hasNext())
+            $notifications[] = self::createNotification($cursor->getNext());
+        return $notifications;
+    }
 
     /**
      * Находит все непрочитанные уведомления связанные с записью/фото/видео

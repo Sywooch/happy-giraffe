@@ -42,21 +42,20 @@ class DefaultController extends HController
             echo HJSON::encode(array('list' => $list, 'read' => $read), $this->JSONConfig);
         }
         else
-            $this->render('index_v2', array('list' => $list, 'read' => $read));
+            $this->render('index_v2', array('list' => $list, 'read' => $read, 'unreadCount' => Notification::model()->getUnreadCount()));
     }
 
     public function actionRead()
     {
         $notifications = Notification::model()->findAllByPk(Yii::app()->request->getPost('events', array()));
-        echo CJSON::encode($notifications);
         $comet = new CometModel();
-
+        echo CJSON::encode(array('success' => true));
         foreach ($notifications as $notification)
         {
             if ($notification->recipient_id == Yii::app()->user->id)
             {
                 $notification->setRead();
-                $comet->send(Yii::app()->user->id, array('notification' => array('id' => $id)), CometModel::NOTIFY_READED);
+                $comet->send(Yii::app()->user->id, array('notification' => array('id' => (string)$notification->id)), CometModel::NOTIFY_READED);
             }
         }
     }

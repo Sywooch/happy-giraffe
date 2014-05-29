@@ -125,8 +125,8 @@ class HController extends CController
 
         // seo-фильтр get-параметров
         if (in_array($this->uniqueId, array(
-            'blog',
-            'community',
+            'blog/default',
+            'community/default',
             'services/horoscope/default',
             'services/childrenDiseases/default',
             'cook/spices',

@@ -9,6 +9,7 @@ $data['currentRubricId'] = $this->rubric_id;
 <?php $this->beginContent('//layouts/main'); ?>
     <div class="content-cols clearfix">
         <div class="col-23-middle">
+            <?php if (false): ?>
             <div class="blog-title-b blogInfo">
                 <?php if ($this->user->id == Yii::app()->user->id): ?>
                     <a href="<?=$this->createUrl('settings/form')?>" class="blog-settings fancy powertip" title="Настройки блога"></a>
@@ -18,20 +19,13 @@ $data['currentRubricId'] = $this->rubric_id;
                 </div>
                 <div class="blog-title-b_t" data-bind="text: title, visible: title().length > 0"><?=$data['title']?></div>
             </div>
+            <?php endif; ?>
 
             <?=$content ?>
         </div>
         <div class="col-1">
-            <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'blog_link' => false, 'location' => true, 'age' => true)); ?>
-
-            <div class="aside-blog-desc blogInfo" data-bind="visible: descriptionToShow().length > 0">
-                <div class="aside-blog-desc_tx" data-bind="html: descriptionToShow"><?=$data['description']?></div>
-            </div>
-
-            <?php $this->renderPartial('_subscribers'); ?>
-
             <?php if ($this->action->id == 'view'): ?>
-                <div class="banner">
+                <div class="banner" style="margin: 20px 0;">
                     <!--AdFox START-->
                     <!--giraffe-->
                     <!--Площадка: Весёлый Жираф / * / *-->
@@ -63,6 +57,14 @@ $data['currentRubricId'] = $this->rubric_id;
                     <!-- _________________________AdFox Asynchronous code END___________________________ -->
                 </div>
             <?php endif; ?>
+
+            <?php $this->widget('Avatar', array('user' => $this->user, 'size' => 200, 'blog_link' => false, 'location' => true, 'age' => true)); ?>
+
+            <div class="aside-blog-desc blogInfo" data-bind="visible: descriptionToShow().length > 0">
+                <div class="aside-blog-desc_tx" data-bind="html: descriptionToShow"><?=$data['description']?></div>
+            </div>
+
+            <?php $this->renderPartial('_subscribers'); ?>
 
             <div class="menu-simple blogInfo" id="rubricsList" data-bind="visible: showRubrics">
                 <?php $this->renderPartial('_rubric_list', array('currentRubricId' => $this->rubric_id)); ?>
@@ -100,6 +102,7 @@ $data['currentRubricId'] = $this->rubric_id;
                 </script>
                 <!--AdFox END-->
 
+                <?php if (false): ?>
                 <div class="banner">
                     <!--  AdRiver code START. Type:extension Site:  PZ: 0 BN: 0 -->
                     <script type="text/javascript">
@@ -118,6 +121,7 @@ $data['currentRubricId'] = $this->rubric_id;
                     </script>
                     <!--  AdRiver code END  -->
                 </div>
+                <?php endif; ?>
             <?php endif; ?>
 
             <?php $this->renderPartial('_popular'); ?>

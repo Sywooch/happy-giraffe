@@ -33,16 +33,16 @@ block layout
                             | Ярославская обл.
                             | Переславль-Залесский
                     .userSection_btn-hold.clearfix
-                        a.userSection_btn.powertip(href='')
-                            //
-                                виды иконки друзья
-                                userSection_ico__friend
-                                userSection_ico__friend-add
-                                userSection_ico__friend-added
-                                userSection_ico__friend-append
-                            span.userSection_ico.userSection_ico__friend-add
-                        a.userSection_btn.powertip(href='')
-                            span.userSection_ico.userSection_ico__dialog
+                        //
+                            виды кнопок друзья 
+                            userSection_btn__friend
+                            userSection_btn__friend-add
+                            userSection_btn__friend-added
+                            userSection_btn__friend-append
+                        a.userSection_btn.userSection_btn__friend-add.powertip(href='')
+                            span.userSection_ico
+                        a.userSection_btn.userSection_btn__dialog.powertip(href='')
+                            span.userSection_ico
                     .userSection_panel
                         ul.userSection_panel-ul
                             li.userSection_panel-li
@@ -61,6 +61,9 @@ block layout
                     .userSection_center-reg с Веселым Жирафом 2 года 5 месяцев 203 дня
                 .userSection_right
                     +bFamily('', bFamily.a)
+        // стрелки листания записей можно расположить практически в любом месте по коду где удобней программисту, если за пределами класса .b-main то сказать верстальщику для небольшой правки.
+        a.b-main_arrow(href="")
+        a.b-main_arrow.b-main_arrow__r(href="")
         .b-main_cont
             .userSubscribers
                 span.userSubscribers_tx У моего блога 468 подписчиков
@@ -84,59 +87,59 @@ block layout
                     ul.b-onair_ul
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Длинный заголовок про то Сколько весит ваш ребенок? и как много каши он съедает за раз
                         li.b-onair_li
                             a.b-onair_author(href="") ----!Длинноеимясчертачками!-----
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Сколько весит ваш ребенок?
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Викториана
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Бабушкины советы. Липа лечебная
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Викториана
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Бабушкины советы. Липа лечебная
                         li.b-onair_li
                             a.b-onair_author(href="") Юля
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Викториана
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Бабушкины советы. Липа лечебная
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Викториана
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Бабушкины советы. Липа лечебная
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Викториана
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Бабушкины советы. Липа
                 .b-main_col-article
                     +bArticle-single('')
@@ -150,15 +153,118 @@ block layout
                         tr
                             td
                                 a.article-nearby_a.clearfix(href='')
-                                    span.article-nearby_img-hold
-                                        img(src='/images/example/w64-h61-2.jpg', alt='')
-                                    span.article-nearby_tx Как приготовить Монастыпскую избу
+                                    span.article-nearby_tx Как приготовить Монастыпскую избу 
                             td.article-nearby_r
                                 a.article-nearby_a.clearfix(href='')
                                     span.article-nearby_tx Готовим  Торт Сметанник в домашних условиях
                     .adv-banner
                         a(href="", target="_blank")
                             img(alt='', src='#{path}images/example/w600-h400.jpg')
+                    .comment-add
+                        .comment-add_t Комментировать
+                        .comment-add_hold
+                            a.comment-add_a Авторизуйтесь  
+                            | или 
+                            a.comment-add_a зарегистрируйтесь,
+                            | чтобы оставить комментарий
+                        .comment-add_editor.display-n
+                    
+                    +comments-open()
+
+                    .article-users
+                        .article-users_t Запись понравилась 
+                            .ava-list
+                                ul.ava-list_ul.clearfix
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava-list_last(href='')
+                                            span.ava-list_like-hg
+                                            | 3251
+                            .article-users_t Запись добавили в избранное 
+                            .ava-list
+                                ul.ava-list_ul.clearfix
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava-list_last(href='')
+                                            span.ava-list_favorite.active
+                                            | 3251 и вы
+
                 .b-main_col-sidebar
                     .adv-banner.adv-banner__bd
                         a(href="") 

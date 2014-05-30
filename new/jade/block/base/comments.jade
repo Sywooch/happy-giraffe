@@ -1,0 +1,434 @@
+
+//- comments
+//- Открытые комментарии в статьях
+//- mod 
+    vars
+        
+mixin comments-open (mod, vars)
+    // comments
+    .comments.comments__buble
+        .comments_t Комментарии 68 
+        .comments_hold
+            ul.comments_ul
+                // 
+                    варианты цветов комментов
+                    .comments_li__blue
+                    .comments_li__yellow
+                    .comments_li__red
+                    .comments_li__green
+                    .comments_li__lilac
+                li.comments_li.comments_li__blue.clearfix
+                    .comments_ava
+                        +ava("ava__middle", ava.a)
+                    .comments_frame
+                        .comments_header
+                            .tx-date 2 минуты назад
+                            a.a-light.comments_author(href="") Ангелина Богоявленская
+                            .user-actions.user-actions__small
+                                //     
+                                    Виды иконок друг 
+                                    user-actions_i__friend - друг
+                                    user-actions_i__friend-add - добавить в друзья
+                                    user-actions_i__friend-added - приглашение выслано
+                                    user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                                                                                             
+                                a.user-actions_i.user-actions_i__friend-add.powertip(href='', title="Добавить в друзья")
+                                    span.user-actions_ico
+                                a.user-actions_i.user-actions_i__message.powertip(href='', title="Написать сообщение")
+                                    span.user-actions_ico
+                        .comments_cont
+                            .wysiwyg-content
+                                p 
+                                    a.comments_ansver-for.a-light(href="") Ольга Максимова, 
+                                    |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                // одно фото в блок (ссылку)
+                                a.comments-gray_cont-img-w(href='')
+                                    img(alt='', src='/images/example/w220-h309-1.jpg')
+                                p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                        .comments_footer
+                            .float-r
+                                +b-control("", bControl.c)
+                            a.comments_ansver(href="") Ответить
+                            a.comments_like.like-hg-small.powertip(href="", title="Нравиться") 68
+                li.comments_li.comments_li__yellow.clearfix
+                    .comments_ava
+                        +ava("ava__middle", ava.c)
+                    .comments_frame
+                        .comments_header
+                            .tx-date 2 минуты назад
+                            a.a-light.comments_author(href="") Ангелина Богоявленская
+                            .user-actions.user-actions__small
+                                //     
+                                    Виды иконок друг 
+                                    user-actions_i__friend - друг
+                                    user-actions_i__friend-add - добавить в друзья
+                                    user-actions_i__friend-added - приглашение выслано
+                                    user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                                                                                             
+                                a.user-actions_i.user-actions_i__friend-added.powertip(href='', title="Добавить в друзья")
+                                    span.user-actions_ico
+                                a.user-actions_i.user-actions_i__message.powertip(href='', title="Написать сообщение")
+                                    span.user-actions_ico
+                        .comments_cont
+                            .wysiwyg-content
+                                p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                        .comments_footer
+                            .float-r
+                                +b-control("", bControl.c)
+                            a.comments_ansver(href="") Ответить
+                            a.comments_like.like-hg-small.powertip(href="", title="Нравиться") 68
+                li.comments_li.comments_li__red.comments_li__self.clearfix
+                    .comments_ava
+                        +ava("ava__middle", ava.b)
+                    .comments_frame
+                        .comments_header
+                            .tx-date 2 минуты назад
+                            a.a-light.comments_author(href="") Ангелина Богоявленская
+                            .user-actions.user-actions__small
+                                //     
+                                    Виды иконок друг 
+                                    user-actions_i__friend - друг
+                                    user-actions_i__friend-add - добавить в друзья
+                                    user-actions_i__friend-added - приглашение выслано
+                                    user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                                                                                             
+                                .user-actions_i.user-actions_i__friend
+                                    .user-actions_tx Друг
+                                a.user-actions_i.user-actions_i__message.powertip(href='', title="Написать сообщение")
+                                    span.user-actions_ico
+                        .comments_cont
+                            .wysiwyg-content
+                                p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                        .comments_footer
+                            .float-r
+                                +b-control("", bControl.b)
+                            // 
+                                самому себе нельзя ответить
+                                a.comments_ansver(href="") Ответить
+                            a.comments_like.like-hg-small.powertip(href="", title="Нравиться") 68
+                li.comments_li.comments_li__green.comments_li__self.clearfix
+                    .comments_ava
+                        +ava("ava__middle", ava.b)
+                    .comments_frame
+                        .comments_header
+                            .tx-date 2 минуты назад
+                            a.a-light.comments_author(href="") Ангелина Богоявленская
+                            .user-actions.user-actions__small
+                                //     
+                                    Виды иконок друг 
+                                    user-actions_i__friend - друг
+                                    user-actions_i__friend-add - добавить в друзья
+                                    user-actions_i__friend-added - приглашение выслано
+                                    user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                                                                                             
+                                a.user-actions_i.user-actions_i__friend-add.powertip(href='', title="Добавить в друзья")
+                                    span.user-actions_ico
+                                a.user-actions_i.user-actions_i__message.powertip(href='', title="Написать сообщение")
+                                    span.user-actions_ico
+                        .comments_cont
+                            .wysiwyg-content
+                                p Меняя название трека в альбоме он
+
+                        .comments_footer
+                            .float-r
+                                +b-control("", bControl.b)
+                            // 
+                                самому себе нельзя ответить
+                                a.comments_ansver(href="") Ответить
+                            a.comments_like.like-hg-small.powertip(href="", title="Нравиться") 68
+                li.comments_li.comments_li__lilac.comments_li__self.clearfix
+                    .comments_ava
+                        +ava("ava__middle", ava.b)
+                    .comments_frame
+                        .comments_header
+                            .tx-date 2 минуты назад
+                            a.a-light.comments_author(href="") Ангелина Богоявленская
+                            .user-actions.user-actions__small
+                                //     
+                                    Виды иконок друг 
+                                    user-actions_i__friend - друг
+                                    user-actions_i__friend-add - добавить в друзья
+                                    user-actions_i__friend-added - приглашение выслано
+                                    user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                                                                                             
+                                a.user-actions_i.user-actions_i__friend-add.powertip(href='', title="Добавить в друзья")
+                                    span.user-actions_ico
+                                a.user-actions_i.user-actions_i__message.powertip(href='', title="Написать сообщение")
+                                    span.user-actions_ico
+                        .comments_cont
+                            .wysiwyg-content
+                                p
+                                    span.comments_recovery Комментарий успешно удален. 
+                                        a(href="") Восстановить?
+
+                        .comments_footer
+                            .float-r
+                                +b-control("", bControl.b)
+                            // 
+                                самому себе нельзя ответить
+                                a.comments_ansver(href="") Ответить
+                            a.comments_like.like-hg-small.powertip(href="", title="Нравиться") 68
+    // /comments
+
+
+
+//- comments
+//- Открытые комментарии в статьях
+//- mod 
+    vars
+        
+mixin comments-article-list (mod, vars)
+    // comments
+    .comments
+        .comments_t 
+            a.comments_t-a(href="") Комментарии 68
+        .comments_hold.scroll.scroll__on
+            .scroll_scroller
+                ul.comments_ul.scroll_cont
+                    // 
+                        варианты цветов комментов
+                        .comments_li__blue
+                        .comments_li__yellow
+                        .comments_li__red
+                        .comments_li__green
+                        .comments_li__lilac
+                    li.comments_li.comments_li__blue.clearfix
+                        .comments_ava
+                            +ava("ava__middle", ava.a)
+                        .comments_frame
+                            .comments_header
+                                .tx-date 2 минуты назад
+                                a.a-light.comments_author(href="") Ангелина Богоявленская
+                                .user-actions.user-actions__small
+                                    //     
+                                        Виды иконок друг 
+                                        user-actions_i__friend - друг
+                                        user-actions_i__friend-add - добавить в друзья
+                                        user-actions_i__friend-added - приглашение выслано
+                                        user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                                                                                                 
+                                    a.user-actions_i.user-actions_i__friend-add.powertip(href='', title="Добавить в друзья")
+                                        span.user-actions_ico
+                                    a.user-actions_i.user-actions_i__message.powertip(href='', title="Написать сообщение")
+                                        span.user-actions_ico
+                            .comments_cont
+                                .wysiwyg-content
+                                    p 
+                                        a.comments_ansver-for.a-light(href="") Ольга Максимова, 
+                                        |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                    // одно фото в блок (ссылку)
+                                    a.comments-gray_cont-img-w(href='')
+                                        img(alt='', src='/images/example/w220-h309-1.jpg')
+                                    p Меняя название трека в альбоме
+
+                            .comments_footer
+                                .float-r
+                                    +b-control("", bControl.c)
+                                a.comments_ansver(href="") Ответить
+                                a.comments_like.like-hg-small.powertip(href="", title="Нравиться") 68
+            .scroll_bar-hold
+                .scroll_bar
+                    .scroll_bar-in
+        - if(vars.commentsAddActive)
+            +comments-add-active()
+        - else 
+            .comments_add
+                input.comments_add-inp.itx-gray(type="text", placeholder="Добавить комментарий")
+
+- var commetnsArticleList = {}
+- commetnsArticleList.a = {}
+- commetnsArticleList.a.commentsAddActive = false
+
+- commetnsArticleList.b = {}
+- commetnsArticleList.b.commentsAddActive = true
+
+//- comments
+//- Открытые комментарии в статьях
+//- mod 
+    vars
+        
+mixin comments-article-list-open (mod, vars)
+    // comments
+    .comments
+        .comments_t 
+            a.comments_t-a(href="") Комментарии 68
+            a.a-pseudo.font-s(href="") Скрыть все
+        // при раскрытии комментов доавляется класс .comments_hold__scroll
+        .comments_hold.comments_hold__scroll
+            .scroll
+                .scroll_scroller
+                    ul.comments_ul.scroll_cont
+                        // 
+                            варианты цветов комментов
+                            .comments_li__blue
+                            .comments_li__yellow
+                            .comments_li__red
+                            .comments_li__green
+                            .comments_li__lilac
+                        li.comments_li.comments_li__blue.clearfix
+                            .comments_ava
+                                +ava("ava__middle", ava.a)
+                            .comments_frame
+                                .comments_header
+                                    .tx-date 2 минуты назад
+                                    a.a-light.comments_author(href="") Ангелина Богоявленская
+                                    .user-actions.user-actions__small
+                                        //     
+                                            Виды иконок друг 
+                                            user-actions_i__friend - друг
+                                            user-actions_i__friend-add - добавить в друзья
+                                            user-actions_i__friend-added - приглашение выслано
+                                            user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                                                                                                     
+                                        a.user-actions_i.user-actions_i__friend-add.powertip(href='', title="Добавить в друзья")
+                                            span.user-actions_ico
+                                        a.user-actions_i.user-actions_i__message.powertip(href='', title="Написать сообщение")
+                                            span.user-actions_ico
+                                .comments_cont
+                                    .wysiwyg-content
+                                        p 
+                                            a.comments_ansver-for.a-light(href="") Ольга Максимова, 
+                                            |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                        // одно фото в блок (ссылку)
+                                        a.comments-gray_cont-img-w(href='')
+                                            img(alt='', src='/images/example/w220-h309-1.jpg')
+                                        p Меняя название трека в альбоме
+
+                                .comments_footer
+                                    .float-r
+                                        +b-control("", bControl.c)
+                                    a.comments_ansver(href="") Ответить
+                                    a.comments_like.like-hg-small.powertip(href="", title="Нравиться") 68
+                        li.comments_li.comments_li__blue.clearfix
+                            .comments_ava
+                                +ava("ava__middle", ava.a)
+                            .comments_frame
+                                .comments_header
+                                    .tx-date 2 минуты назад
+                                    a.a-light.comments_author(href="") Ангелина Богоявленская
+                                    .user-actions.user-actions__small
+                                        //     
+                                            Виды иконок друг 
+                                            user-actions_i__friend - друг
+                                            user-actions_i__friend-add - добавить в друзья
+                                            user-actions_i__friend-added - приглашение выслано
+                                            user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                                                                                                     
+                                        a.user-actions_i.user-actions_i__friend-add.powertip(href='', title="Добавить в друзья")
+                                            span.user-actions_ico
+                                        a.user-actions_i.user-actions_i__message.powertip(href='', title="Написать сообщение")
+                                            span.user-actions_ico
+                                .comments_cont
+                                    .wysiwyg-content
+                                        p 
+                                            a.comments_ansver-for.a-light(href="") Ольга Максимова, 
+                                            |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                        p Меняя название трека в альбоме
+
+                                .comments_footer
+                                    .float-r
+                                        +b-control("", bControl.c)
+                                    a.comments_ansver(href="") Ответить
+                                    a.comments_like.like-hg-small.powertip(href="", title="Нравиться") 68
+                        li.comments_li.comments_li__blue.clearfix
+                            .comments_ava
+                                +ava("ava__middle", ava.a)
+                            .comments_frame
+                                .comments_header
+                                    .tx-date 2 минуты назад
+                                    a.a-light.comments_author(href="") Ангелина Богоявленская
+                                    .user-actions.user-actions__small
+                                        //     
+                                            Виды иконок друг 
+                                            user-actions_i__friend - друг
+                                            user-actions_i__friend-add - добавить в друзья
+                                            user-actions_i__friend-added - приглашение выслано
+                                            user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                                                                                                     
+                                        a.user-actions_i.user-actions_i__friend-add.powertip(href='', title="Добавить в друзья")
+                                            span.user-actions_ico
+                                        a.user-actions_i.user-actions_i__message.powertip(href='', title="Написать сообщение")
+                                            span.user-actions_ico
+                                .comments_cont
+                                    .wysiwyg-content
+                                        p 
+                                            a.comments_ansver-for.a-light(href="") Ольга Максимова, 
+                                            |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                        // одно фото в блок (ссылку)
+                                        a.comments-gray_cont-img-w(href='')
+                                            img(alt='', src='/images/example/w220-h309-1.jpg')
+                                        p Меняя название трека в альбоме
+
+                                .comments_footer
+                                    .float-r
+                                        +b-control("", bControl.c)
+                                    a.comments_ansver(href="") Ответить
+                                    a.comments_like.like-hg-small.powertip(href="", title="Нравиться") 68
+                .scroll_bar-hold
+                    .scroll_bar
+                        .scroll_bar-in
+        - if(vars.commentsAddActive)
+            +comments-add-active()
+        - else 
+            .comments_add
+                input.comments_add-inp.itx-gray(type="text", placeholder="Добавить комментарий")
+
+- var commetnsArticleList = {}
+- commetnsArticleList.a = {}
+- commetnsArticleList.a.commentsAddActive = false
+
+- commetnsArticleList.b = {}
+- commetnsArticleList.b.commentsAddActive = true
+
+
+
+mixin comments-add-active(mod, vars)
+    .comments_add
+        // скрытый инпут, который заменяется на редактор
+        input.comments_add-inp.itx-gray.display-n(type="text", placeholder="Добавить комментарий")
+        script.
+            $(document).ready(function () { 
+              $('.wysiwyg-redactor').redactor({
+                  autoresize: true,
+                  toolbarExternal: '.wysiwyg-toolbar-btn',
+                  minHeight: 45,
+                  buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
+                  buttonsCustom: {
+                      smile: {
+                          title: 'smile',
+                          callback: function(buttonName, buttonDOM, buttonObject) {
+                              // your code, for example - getting code
+                              var html = this.get();
+                          }
+                      },
+                      h2: {
+                          title: 'h2',
+                          callback: function(buttonName, buttonDOM, buttonObject) {
+                              // your code, for example - getting code
+                              var html = this.get();
+                          }
+                      },
+                      h3: {
+                          title: 'h3',
+                          callback: function(buttonName, buttonDOM, buttonObject) {
+                              // your code, for example - getting code
+                              var html = this.get();
+                          }
+                      }
+                  }
+              });
+            });
+        .wysiwyg-h
+            .wysiwyg-toolbar
+                    a.wysiwyg-toolbar_close.ico-close3(href='')
+                    .wysiwyg-toolbar-btn
+            textarea.wysiwyg-redactor(name='')
+            .redactor-control.clearfix
+                .float-r
+                    .redactor-control_key
+                        input#redactor-control_key-checkbox.redactor-control_key-checkbox(type='checkbox', name='')
+                        label.redactor-control_key-label(for='redactor-control_key-checkbox') Enter - отправить
+                    button.btn-green-simple Отправить

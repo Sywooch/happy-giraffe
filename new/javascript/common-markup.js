@@ -21,7 +21,7 @@ $(function() {
         dropdownCssClass: 'select2-drop__1',
         escapeMarkup: function(m) { return m; }
     });*/
-
+    addBaron('.scroll');
         // Измененный tag select
     $(".select-cus__search-off").select2({
         width: '100%',

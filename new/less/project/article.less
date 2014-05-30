@@ -42,20 +42,24 @@
     /* new */
     &__list &_cont {
         float: left;
-        width: 513px;
-        margin-left: 10px;
+        width: 518px;
+        margin-left: 8px;
     }
-    &__single &_header .ava {vertical-align: top;}
+    &__single &_header .ava {
+        vertical-align: top;
+        margin-bottom: 10px;
+    }
     &__single &_t {font-size: 45px;}
+    &__single &_tale {display: none;}
     /* /new */
 
-    .wysiwyg-content {padding: 0 20px;}
     .custom-likes-b {margin: 0 0 30px;}
     &_repost &_cont {min-height: 115px;}
     &_in {
         min-height:159px;
         word-wrap: break-word;
     }
+    &_in .wysiwyg-content {padding: 0 20px;}
     &_in-img {
         position: relative;
         text-align: center;
@@ -109,8 +113,10 @@
         min-height:321px;
         padding: 12px 0 0;
         border: 1px solid #f5f5f5;
-        .border-radius(3px);
     }
+    &_cont .comments {margin: 15px 0 0 20px;}
+    &_cont .comments_ul {margin-right: 20px;}
+    &_cont .comments_frame {width: 430px;}
     &_cont-tale {
         position: absolute;
         left: -10px;
@@ -137,12 +143,13 @@
         margin: 0 20px 15px;
         font: bold 35px/35px Arial, Tahoma, Verdana, sans-serif;
         color: #196eb9;
+        letter-spacing: -0.6px;
     }
     &_t-a {
         color: #196eb9;
         text-decoration: none;
     }
-    &_t-a:hover {color: @color-link-light;}
+    &_t-a:hover {text-decoration: underline;}
     &_t-new {
         float: right;
         margin: 2px -23px 0 0;
@@ -337,9 +344,9 @@
 .like-control {
     position: relative;
     width: 56px;
-    padding: 15px 0;
+    padding: 10px 0;
     margin: 5px auto;
-    background: #ffe535;
+    background: #fae141;
     .border-radius(4px);
     text-align: center;
 
@@ -350,18 +357,30 @@
         .inline-block();
         margin: 0 auto;
         width: auto;
-        padding: 10px 20px 12px;
+        padding: 12px 15px 10px;
     }
     &__line &_hold {
         .inline-block();
-        margin: 0 20px;
+        margin: 0 15px;
     }
     
-    &_title {
+    &__s &_hold {margin: 7px 0;}
+    &__s &_ico {
+        width: 35px;
+        height: 35px;
+        background: url('@{path-img}/like-control__s_ico.png') no-repeat  0 0;
+    }
+    &__s &_i &_ico.active,
+    &__s &_i &_ico:hover {background-position: 0 -35px;}
+    &__s &_i__favorites &_ico{background-position: -35px 0;}
+    &__s &_i__favorites.active &_ico,
+    &__s &_i__favorites:hover &_ico {background-position: -35px -35px;}
+    
+    /*&_title {
         margin-bottom: 5px;
         font-size: 13px;
         color: #908850;
-    }
+    }*/
     &_hold {
         position: relative;
     }
@@ -395,7 +414,7 @@
     &_tx {
         color: #828281;
         text-decoration: none;
-        line-height: 12px;
+        line-height: 11px;
     }
     /*&_repost-complete {
         .inline-block();
@@ -477,28 +496,51 @@
     line-height: 30px;
     color: #a1a1a1;
     text-align: center;
-
-    .page {
+    
+    .yiiPager > li {
         .inline-block();
         margin: 0 3px;
-        background: #fafafa;
-        .border-radius(3px);
     }
+    .page {}
     .page a {
         .inline-block();
         padding: 0 10px;
+        background: #fff;
         color: #b5b5b5;
         text-decoration: none;
+        .border-radius(3px);
     }
     .page:hover,
-    .page.selected {
-        background: #6accff;
+    .page.selected {}
+    .page:hover a,
+    .page.selected a {
+        background-color: #6accff;
         font-weight: bold;
         color: #fff;
     }
-    .page:hover a,
-    .page.selected a {
-        color: #fff;
+    .next,
+    .previous {
+        .inline-block();
+        vertical-align: bottom;
+    }
+    .next > a,
+    .previous > a {
+        display: block;
+        height: 10px;
+        width: 5px;
+        padding: 10px 10px;
+        background: url('@{path-img}/yiipagination-arrow.png') no-repeat 10px 9px;
+
+        .border-radius(3px);
+    }
+    .previous > a:hover {
+        background-position: -42px 9px;
+        background-color: #6accff;
+    }
+    .next > a {background-position: 10px -92px;}
+    .next > a:hover {
+        background-color: #6accff;
+        background-position: -42px -92px;
     }
 }
 /* /yiipagination */
@@ -630,7 +672,7 @@
     color: #fff;
 
     .ava {
-        vertical-align: middle;
+        vertical-align: top;
     }
     &__green  {background-color: #52b547;}
     &__blue   {background-color: #4fa5e0;}
@@ -643,7 +685,7 @@
     }
     &_author {
         .inline-block();
-        vertical-align: middle;
+        vertical-align: top;
         margin: 0 10px;
         color: #fff;
         text-decoration: none;
@@ -689,9 +731,12 @@
         font: @fontsmall;
     }
     &_t {
+        display: block;
+        margin-top: 3px;
         color: @color-link-title;
         font-weight: bold;
         text-decoration: none;
+        line-height: 13px;
     }
     &_author:hover,
     &_t:hover {text-decoration: underline;}
@@ -701,21 +746,18 @@
 /* article-nearby */
 .article-nearby {
     position: relative;
-    width: 94.5%;
-    margin: 20px;
+    width: 100%;
+    margin: 20px 0;
 
     &_r {text-align: right;}
     &_r &_img-hold {margin: 0 0 0 10px;}
     &_hint {
-        font-size: 14px;
-        color: #232323;
+        color: @color-gray-dark;
     }
     &_a {
         display: block;
-        margin: 10px 0 0;
-        text-decoration: none;
     }
-    &_a:hover &_tx {text-decoration: none;}
+    &_a:hover &_tx {text-decoration: underline;}
     &_img-hold {
         .inline-block();
         vertical-align: middle;
@@ -726,11 +768,124 @@
         vertical-align: middle;
         max-width: 210px;
         padding: 0;
-        font: bold 11px/15px Tahoma, Arial, Verdana, sans-serif;
+        font: bold 11px/14px Tahoma, Arial, Verdana, sans-serif;
         color: #3782c1;
-        text-decoration: underline;
     }
 }
 /* /article-nearby */
 
+/* article-users */
+.article-users {
+    margin: 20px 0;
+    padding: 5px 0 10px;
+    
+    &_t {
+        margin: 15px 0 10px;
+        font-size: 13px;
+        line-height: 22px;
+    }
+}
+/* /article-users */
+
+
+/* ava-list */
+.ava-list {
+    margin: 10px 0;
+    padding: 0 0 10px;
+    
+    .ava {display: block;}
+    &_ul {}
+    &_li {
+        position: relative;
+        .inline-block();
+        vertical-align: middle;
+        margin: 0 2px 3px 0;
+    }
+    &_last {
+        .inline-block();
+        vertical-align: middle;
+        padding: 3px 8px 3px;
+        text-decoration: none;
+        color: #909090;
+        font-size: 11px;
+        line-height: 21px;
+        background: #ffe535;
+        .border-radius(4px);
+    }
+    &_last:hover &_like-hg {background-position: -21px 0;}
+    &_last:hover &_favorite {background-position: -21px -25px;}
+    &_like-hg {
+        margin: 0 3px 0 0;
+        .inline-block();
+        vertical-align: bottom;
+        width: 21px;
+        height: 25px;
+        background: url(/images/ava-list_last.png) no-repeat;
+    }
+    &_like-hg.active {background-position: -21px 0;}
+    &_favorite {
+        margin: 0 3px 0 0;
+        .inline-block();
+        vertical-align: bottom;
+        width: 21px;
+        height: 25px;
+        background: url(/images/ava-list_last.png) no-repeat 0 -25px;
+    }
+    &_favorite.active {background-position: -21px -25px;}
+}
+/* /ava-list */
+
+/* user-actions */
+.user-actions {
+    .inline-block();
+
+    &__small {}
+    &__small &_i__message             &_ico {background-position: 0 0;}
+    &__small &_i__message:hover       &_ico {background-position: 0 -50px;}
+    &__small &_i__friend              &_ico {background-position: -40px 0;}
+    &__small &_i__friend-add          &_ico {background-position: -20px 0;}
+    &__small &_i__friend-add:hover    &_ico {background-position: -20px -50px;}
+    &__small &_i__friend-added        &_ico {background-position: -60px 0;}
+    &__small &_i__friend-append       &_ico {background-position: -80px 0;}
+    &__small &_i__friend-append:hover &_ico {background-position: -20px -50px;}
+    &__small &_ico {
+        vertical-align: initial;
+        width: 20px;
+        height: 15px;
+        background: url(/images/user-actions_ico__small.png) no-repeat;
+    }
+    
+    &_i {
+        .inline-block();
+        margin: 0 1px;
+        text-decoration: none;
+    }
+    &_i__friend-added,
+    &_i__friend {cursor: default;}
+    &_i__friend &_tx {
+        color: #0eb31e;
+        margin: 0 2px 0 -3px;
+    }
+    &_ico {
+        .inline-block();
+        vertical-align: middle;
+        width: 25px;
+        height: 25px;
+        background: url(/images/user-actions_ico.png) no-repeat;
+    }
+    &_i__message             &_ico {background-position: 0 0;}
+    &_i__message:hover       &_ico {background-position: 0 -50px;}
+    &_i__friend              &_ico {background-position: -50px 0;}
+    &_i__friend-add          &_ico {background-position: -25px 0;}
+    &_i__friend-add:hover    &_ico {background-position: -25px -50px;}
+    &_i__friend-added        &_ico {background-position: -75px 0;}
+    &_i__friend-append       &_ico {background-position: -100px 0;}
+    &_i__friend-append:hover &_ico {background-position: -25px -50px;}
+    &_tx {
+        .inline-block();
+        .font-xs-mixin();
+        padding-bottom: 2px;
+    }
+}
+/* /user-actions */
 

@@ -5,19 +5,47 @@
 .userAddRecord {
 	margin: 0 20px 20px;
     padding: 7px 8px 7px 14px;
-    background: #e5e5e5;
+    background-color: #e5e5e5;
     .border-radius(4px);
-
+    
+    &:hover {background-color: #73c76a;}
+    &:hover &_tx {color: @color-gray-dark;}
     &__s {
         margin-bottom: 10px;
     }
     &__s &_ava-hold {margin-left: 5px;}
-    &__s &_ico {margin: 10px 32px;}
+    &__s &_ico {margin: 5px 32px;}
     /*&__small &_hold {width: 580px;}*/
+
+    &__blog {
+        width: 100%;
+        float: left;
+        margin: 10px 0 20px;
+        padding: 0;
+        background-color: transparent;
+    }
+    &__blog:hover {background-color: transparent;}
+    &__blog &_hold {
+        border: 2px solid #e5e5e5;
+        float: left;
+        margin: 0 0 0 10px;
+        width: 590px;
+    }
+    &__blog &_hold:after {
+        background: url('@{path-img}/userAddRecord__blog-after.png') no-repeat;
+        width: 12px;
+        height: 22px;
+        left: -12px;
+        border: none;
+    }
+    &__blog &_ico {
+        margin: 7px 34px 5px;
+    }
+    &__blog &_tx {color: @color-gray-dark;}
 
     &_ava-hold {
         float: left;
-        margin: 10px 0 0;
+        margin: 7px 0 0;
     }
     &_hold {
         position: relative;

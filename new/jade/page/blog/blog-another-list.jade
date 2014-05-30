@@ -32,16 +32,16 @@ block layout
                             | Ярославская обл.
                             | Переславль-Залесский
                     .userSection_btn-hold.clearfix
-                        a.userSection_btn.powertip(href='')
-                            //
-                                виды иконки друзья
-                                userSection_ico__friend
-                                userSection_ico__friend-add
-                                userSection_ico__friend-added
-                                userSection_ico__friend-append
-                            span.userSection_ico.userSection_ico__friend-add
-                        a.userSection_btn.powertip(href='')
-                            span.userSection_ico.userSection_ico__dialog
+                        //
+                            виды кнопок друзья 
+                            userSection_btn__friend
+                            userSection_btn__friend-add
+                            userSection_btn__friend-added
+                            userSection_btn__friend-append
+                        a.userSection_btn.userSection_btn__friend-add.powertip(href='')
+                            span.userSection_ico
+                        a.userSection_btn.userSection_btn__dialog.powertip(href='')
+                            span.userSection_ico
                     .userSection_panel
                         ul.userSection_panel-ul
                             li.userSection_panel-li
@@ -53,7 +53,7 @@ block layout
                             li.userSection_panel-li
                                 a.userSection_panel-a(href="") Фото
                 .userSection_center
-                    .b-ava-large
+                    .b-ava-large.b-ava-large__nohover
                         .b-ava-large_ava-hold
                             +ava("ava__large ava__male", ava.c)
                         span.b-ava-large_online На сайте
@@ -83,68 +83,70 @@ block layout
                     ul.b-onair_ul
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Длинный заголовок про то Сколько весит ваш ребенок? и как много каши он съедает за раз
                         li.b-onair_li
                             a.b-onair_author(href="") ----!Длинноеимясчертачками!-----
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Сколько весит ваш ребенок?
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Викториана
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Бабушкины советы. Липа лечебная
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Викториана
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Бабушкины советы. Липа лечебная
                         li.b-onair_li
                             a.b-onair_author(href="") Юля
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Викториана
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Бабушкины советы. Липа лечебная
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
-                            a.b-onair_t(href="") Моя Зоряна
-                        li.b-onair_li
-                            a.b-onair_author(href="") Викториана
-                            .b-onair_time 5 минут назад
-                            a.b-onair_t(href="") Бабушкины советы. Липа лечебная
-                        li.b-onair_li
-                            a.b-onair_author(href="") Ангелина
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Моя Зоряна
                         li.b-onair_li
                             a.b-onair_author(href="") Викториана
-                            .b-onair_time 5 минут назад
+                            .tx-date 5 минут назад
                             a.b-onair_t(href="") Бабушкины советы. Липа лечебная
+                        li.b-onair_li
+                            a.b-onair_author(href="") Ангелина
+                            .tx-date 5 минут назад
+                            a.b-onair_t(href="") Моя Зоряна
+                        li.b-onair_li
+                            a.b-onair_author(href="") Викториана
+                            .tx-date 5 минут назад
+                            a.b-onair_t(href="") Бабушкины советы. Липа
                 .b-main_col-article
-                    +www-article_text('b-article__list')
-                    +www-article_text('b-article__list')
+                    +www-article_text('b-article__list', wwwArticleText.a)
+                    +www-article_text('b-article__list', wwwArticleText.b)
+                    +pagination()
+                    
                 .b-main_col-sidebar
                     .adv-banner.adv-banner__bd
                         a(href="") 
                             img(src="#{path}images/example/w240-h400.jpg", alt="")
-                    // Варианты цветов блока
+                    // Варианты цветов блока 
                         article-similar__green
                         article-similar__blue
                         article-similar__lilac

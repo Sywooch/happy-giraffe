@@ -23,8 +23,12 @@ class YandexShareWidget extends CWidget
 
     public function init()
     {
+        if ($this->title === null) {
+            $this->title = $this->getTitle();
+        }
+
         if ($this->description === null) {
-            $this->description = $this->model->getPreviewText();
+            $this->description = $this->getDescription();
         }
 
         if ($this->imageUrl === null) {
@@ -32,20 +36,13 @@ class YandexShareWidget extends CWidget
         }
 
         if ($this->url === null) {
-            $this->url = Yii::app()->createAbsoluteUrl(Yii::app()->request->url);
-        }
-
-        if ($this->title === null) {
-            $this->title = Yii::app()->controller->pageTitle;
+            $this->url = $this->getUrl();
         }
     }
 
     public function run()
     {
         $this->registerMeta();
-        if (! Yii::app()->user->checkAccess('tester'))
-            return;
-
         $this->registerScript();
         $json = CJSON::encode(array(
             'element' => $this->getElementId(),
@@ -100,9 +97,33 @@ class YandexShareWidget extends CWidget
         return Yii::app()->request->hostInfo . '/new/images/external/vg-200-x-200.png';
     }
 
+    protected function getTitle()
+    {
+        return Yii::app()->controller->pageTitle;
+    }
+
+    protected function getUrl()
+    {
+        return Yii::app()->createAbsoluteUrl(Yii::app()->request->url);
+    }
+
     protected function getImageUrl()
     {
         $photo = $this->model->getPreviewPhoto();
-        return ($photo === null) ? $this->getDefaultImage() : $photo->getPreviewUrl(800, null, Image::WIDTH);
+
+        if ($photo === null) {
+            return $this->getDefaultImage();
+        } elseif ($photo instanceof AlbumPhoto) {
+            return $photo->getPreviewUrl(800, null, Image::WIDTH);
+        } else {
+            return $photo;
+        }
+
+    }
+
+    protected function getDescription()
+    {
+        $description = $this->model->getPreviewText();
+        return (strlen($description) > 0) ? Str::getDescription($description, 128) : $this->getTitle();
     }
 }

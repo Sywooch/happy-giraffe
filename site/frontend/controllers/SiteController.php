@@ -505,7 +505,7 @@ class SiteController extends HController
                 'dimensions' => 'ga:pagePath',
                 'max-results' => 10000,
                 'sort' => '-ga:visits',
-                'filters' => 'ga:source==yandex',
+                'filters' => 'ga:source==google',
             ));
             foreach ($pathes1 as $path => $value) {
                 $result[$path] = array(
@@ -542,7 +542,7 @@ class SiteController extends HController
             $_result = array();
             foreach ($result as $k => $r) {
                 $r['id'] = $k;
-                if ($r['period1'] > 20 && $r['diff'] < -25)
+                if ($r['diff'] < 0)
                     array_push($_result, $r);
             }
 

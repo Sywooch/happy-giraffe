@@ -113,6 +113,7 @@
 									<a href="" class="a-checkbox active"></a>
 								</div>
 							</div>
+							<div class="margin-b70"></div>
 						</div>
 						
 					</div>

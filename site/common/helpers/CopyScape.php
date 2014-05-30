@@ -30,4 +30,24 @@ class CopyScape
         }else
             return null;
     }
+
+    public static function getUniquenessByUrl($url)
+    {
+        $data = array(
+            'u' => 'mirasmurkov',
+            'k' => 'e4mownmg6njsrhrg',
+            'o' => 'csearch',
+            'q' => $url,
+            'c' => '1',
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://www.copyscape.com/api/?' . http_build_query($data));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $res = curl_exec($ch);
+        curl_close($ch);
+
+        $xml = new SimpleXMLElement($res);
+        return $xml;
+    }
 }

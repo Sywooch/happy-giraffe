@@ -37,6 +37,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
                     $value = $purifier->purify($value);
                     $value = $this->setWidgets($value);
                     $value = $this->fixUrls($value);
+                    $value = $this->fixh1($value);
                     $value = $this->clean($value);
                     Yii::app()->cache->set($cacheId, $value);
                 }
@@ -71,6 +72,22 @@ class PurifiedBehavior extends CActiveRecordBehavior
         parent::detach($owner);
 
         $owner->detachEventHandler('onAfterSave', array($this, 'clearCache'));
+    }
+
+    private function fixh1($text)
+    {
+        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+
+        $doc = str_get_html($text);
+        if ($doc == false)
+            return $text;
+
+        $h1 = $doc->find('h1');
+        foreach ($h1 as $header) {
+            $header->outertext = '<h2>' . $header->innertext . '</h2>';
+        }
+
+        return $doc->save();
     }
 
     private function fixUrls($text)

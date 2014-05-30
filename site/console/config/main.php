@@ -3,7 +3,6 @@ date_default_timezone_set('Europe/Moscow');
 return array(
     'id' => 'happy-giraffe',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'runtimePath' => Yii::getPathOfAlias('site.frontend.runtime') . DIRECTORY_SEPARATOR,
     'name' => 'My Console Application',
     'sourceLanguage' => 'en',
     'language' => 'ru',
@@ -41,6 +40,9 @@ return array(
         )
     ),
     'components' => array(
+        'statePersister'=> array(
+            'stateFile' => Yii::getPathOfAlias('site.frontend.runtime') . DIRECTORY_SEPARATOR . 'state.bin',
+        ),
         'postman' => array(
             'class' => 'site.frontend.modules.mail.components.MailPostman',
         ),

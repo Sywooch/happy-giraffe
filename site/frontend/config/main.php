@@ -451,16 +451,29 @@ return array(
                     'sitemap.xml' => array(
                         'index' => true,
                     ),
-                    'sitemapCommunity.xml' => array(
+                    'sitemapCommunity1.xml' => array(
                         'aliases' => array(
                             'application.modules.community.controllers.DefaultController',
                         ),
+                        'param' => 1,
                     ),
-                    'sitemapBlog.xml' => array(
+                    'sitemapCommunity2.xml' => array(
+                        'aliases' => array(
+                            'application.modules.community.controllers.DefaultController',
+                        ),
+                        'param' => 2,
+                    ),
+                    'sitemapBlog1.xml' => array(
                         'aliases' => array(
                             'application.modules.blog.controllers.DefaultController',
-
                         ),
+                        'param' => 1,
+                    ),
+                    'sitemapBlog2.xml' => array(
+                        'aliases' => array(
+                            'application.modules.blog.controllers.DefaultController'
+                        ),
+                        'param' => 2,
                     ),
                     'sitemapCook.xml' => array(
                         'aliases' => array(

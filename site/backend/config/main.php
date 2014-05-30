@@ -115,6 +115,6 @@ return array(
     'params' => array(
         'ufileStorageRoot' => 'temp_upload',
         'frontend_url'=>'http://www.happy-giraffe.ru/',
-        'photos_url'=>'http://img.happy-giraffe.ru',
+        'photos_url'=>'http://img.happy-giraffe.cdnvideo.ru',
     ),
 );

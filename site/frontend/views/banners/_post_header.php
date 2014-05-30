@@ -4,7 +4,7 @@
  */
 ?>
 
-<?php if ($data instanceof CommunityContent && ! $data->getIsFromBlog()): ?>
+<?php if (false): ?>
 <div style="margin: 15px;">
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad_post_header"></div>

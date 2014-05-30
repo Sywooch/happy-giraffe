@@ -24,7 +24,7 @@
  * @property CookCuisine $cuisine
  * @property AttachPhoto[] $attachPhotos
  */
-class CookRecipe extends CActiveRecord
+class CookRecipe extends CActiveRecord implements IPreview
 {
     const COOK_RECIPE_LOWFAT = 11;
     const COOK_RECIPE_LOWCAL = 40;
@@ -1083,5 +1083,21 @@ class CookRecipe extends CActiveRecord
     public function getCommentsCount()
     {
         return $this->getUnknownClassCommentsCount();
+    }
+
+    /**
+     * @return mixed|string
+     */
+    public function getPreviewText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * @return AlbumPhoto|null
+     */
+    public function getPreviewPhoto()
+    {
+        return $this->getMainPhoto();
     }
 }

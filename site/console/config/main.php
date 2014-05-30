@@ -28,6 +28,8 @@ return array(
         'site.frontend.extensions.directmongosuite.*',
         'site.frontend.modules.antispam.models.*',
         'site.frontend.modules.antispam.components.*',
+        'site.frontend.modules.onlineManager.widgets.*',
+        'site.frontend.modules.onlineManager.components.*',
         'site.frontend.modules.geo.models.*',
         'site.frontend.modules.geo.components.*',
     ),
@@ -38,6 +40,12 @@ return array(
         )
     ),
     'components' => array(
+        'statePersister'=> array(
+            'stateFile' => Yii::getPathOfAlias('site.frontend.runtime') . DIRECTORY_SEPARATOR . 'state.bin',
+        ),
+        'postman' => array(
+            'class' => 'site.frontend.modules.mail.components.MailPostman',
+        ),
         'log' => array(
             'class' => 'CLogRouter',
             'routes' => array(
@@ -68,7 +76,7 @@ return array(
         ),
         'comet'=>array(
             'class' => 'site.frontend.extensions.Dklab_Realplexor',
-            'host' => 'www.plexor.happy-giraffe.ru',
+            'host' => 'plexor.www.happy-giraffe.ru',
             'port' => 10010,
             'namespace' => 'crm_',
         ),

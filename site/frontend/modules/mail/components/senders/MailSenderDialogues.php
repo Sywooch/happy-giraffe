@@ -9,7 +9,10 @@
 
 class MailSenderDialogues extends MailSender
 {
+    public $type = 'dialogues';
     public $debugMode = self::DEBUG_TESTING;
+    protected $percent = 30;
+    protected $i = 0;
 
     public function __construct()
     {
@@ -19,24 +22,24 @@ class MailSenderDialogues extends MailSender
 
     protected function process(User $user)
     {
-        $lastDelivery = MailDelivery::model()->getLastDelivery($user->id, 'dialogues');
-        $after = $lastDelivery === null ? null : $lastDelivery->created;
+        $this->i++;
+        echo $this->i . '-' . $user->id . "\n";
         $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
             'with' => array(
                 'message' => array(
                     'joinType' => 'INNER JOIN',
                     'scopes' => array(
-                        'newer' => $after,
+                        'newer' => $this->lastDeliveryTimestamp,
                     ),
                 ),
             ),
         ));
 
         if ($messagesCount > 0) {
-            $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
-            $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);
+            $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $this->lastDeliveryTimestamp);
+            $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $this->lastDeliveryTimestamp);
             $message = new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount'));
-            $this->sendMessage($message);
+            Yii::app()->postman->send($message);
         }
     }
 

@@ -10,11 +10,17 @@
 class ClientScript extends CClientScript
 {
     const RELEASE_ID_KEY = 'Yii.ClientScript.releaseidkey';
+    const URLS_STYLE_NONE = 0;
+    const URLS_STYLE_GET = 1;
+    const URLS_STYLE_FILENAME = 2;
 
     public $jsCombineEnabled;
+
     public $cssDomain;
     public $jsDomain;
     public $imagesDomain;
+
+    public $staticUrlsStyle = self::URLS_STYLE_GET;
 
     public function getHasNoindex()
     {
@@ -40,11 +46,22 @@ class ClientScript extends CClientScript
     protected function addReleaseId($url)
     {
         $r = $this->getReleaseId();
-        $url .= (strpos($url, '?') === false) ? '?r=' . $r : '&r=' . $r;
+        switch ($this->staticUrlsStyle) {
+            case self::URLS_STYLE_NONE:
+                break;
+            case self::URLS_STYLE_GET:
+                $url .= (strpos($url, '?') === false) ? '?r=' . $r : '&r=' . $r;
+                break;
+            case self::URLS_STYLE_FILENAME:
+                $dotPosition = strrpos($url, '.');
+                if ($dotPosition !== false) {
+                    $url = substr_replace($url, '.' . $r .  '.', $dotPosition, 1);
+                }
+        }
         return $url;
     }
 
-    protected function getReleaseId()
+    public function getReleaseId()
     {
         $id = Yii::app()->getGlobalState(self::RELEASE_ID_KEY);
         if ($id === null) {
@@ -81,11 +98,14 @@ class ClientScript extends CClientScript
     protected function processCssFiles()
     {
         foreach ($this->cssFiles as $url => $media) {
-            unset($this->cssFiles[$url]);
-            if ($this->getCssStaticDomain() !== null && strpos($url, '/') === 0)
-                $url = $this->getCssStaticDomain() . $url;
-            $url = $this->addReleaseId($url);
-            $this->cssFiles[$url] = $media;
+            if (strpos($url, '/') === 0 && strpos($url, '/', 1) !== 0) {
+                unset($this->cssFiles[$url]);
+                if ($this->getCssStaticDomain() !== null) {
+                    $url = $this->getCssStaticDomain() . $url;
+                }
+                $url = $this->addReleaseId($url);
+                $this->cssFiles[$url] = $media;
+            }
         }
     }
 
@@ -93,11 +113,14 @@ class ClientScript extends CClientScript
     {
         foreach ($this->scriptFiles as $position => $scriptFiles) {
             foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
-                unset($this->scriptFiles[$position][$scriptFile]);
-                if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0)
-                    $scriptFile = $this->getJsStaticDomain() . $scriptFile;
-                $scriptFile = $this->addReleaseId($scriptFile);
-                $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
+                if (strpos($scriptFile, '/') === 0 && strpos($scriptFile, '/', 1) !== 0) {
+                    unset($this->scriptFiles[$position][$scriptFile]);
+                    if ($this->getJsStaticDomain() !== null) {
+                        $scriptFile = $this->getJsStaticDomain() . $scriptFile;
+                    }
+                    $scriptFile = $this->addReleaseId($scriptFile);
+                    $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
+                }
             }
         }
     }

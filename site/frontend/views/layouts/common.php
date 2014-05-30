@@ -57,7 +57,6 @@
         if (!empty($this->meta_keywords))
             $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
         ?>
-
         <!--[if IE 7]>
             <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
         <![endif]-->
@@ -179,6 +178,7 @@
         </script>
         <!--AdFox END-->
 
+        <?php if (false): ?>
         <!-- Soloway Javascript code START-->
         <script language="javascript" type="text/javascript"><!--
             var RndNum4NoCash = Math.round(Math.random() * 1000000000);
@@ -186,6 +186,7 @@
             document.write('<sc' + 'ript language="JavaScript" src="http://ad.adriver.ru/cgi-bin/erle.cgi?sid=196494&bt=16&target=blank&rnd=' + RndNum4NoCash + '&tail256=' + ar_Tail + '"></sc' + 'ript>');
             //--></script>
         <!-- Soloway Javascript code END -->
+        <?php endif; ?>
 
         <div style="display: none;">
         <a href="#popup-error" id="popup-error-link" class="fancy"></a>

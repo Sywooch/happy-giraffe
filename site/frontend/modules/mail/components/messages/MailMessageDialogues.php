@@ -46,14 +46,14 @@ class MailMessageDialogues extends MailMessage
 
     public function getTitle()
     {
-        if ($this->contactsCount == 1) {
+        if ($this->messagesCount == 1) {
             $str = 'У вас одно непрочитанное сообщение';
         } else {
             $str = 'У вас ' . $this->messagesCount . ' ' . Str::GenerateNoun(array(
                 'непрочитанное сообщение',
                 'непрочитанных сообщения',
                 'непрочитанных сообщений',
-            ), $this->contactsCount);
+            ), $this->messagesCount);
         }
 
         return parent::getTitle() . ' ' . $str . '.';

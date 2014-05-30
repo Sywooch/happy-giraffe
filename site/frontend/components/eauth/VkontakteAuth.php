@@ -76,7 +76,7 @@ class VkontakteAuth extends VKontakteOAuthService
 
     protected function setLocationAttributes($info)
     {
-        if (isset($info->country)) {
+        if ($info->country != 0) {
             $countryInfo = $this->makeSignedRequest('https://api.vk.com/method/places.getCountryById.json', array(
                 'query' => array(
                     'cids' => $info->country,
@@ -85,7 +85,7 @@ class VkontakteAuth extends VKontakteOAuthService
             $countryModel = GeoCountry::model()->findByAttributes(array('name' => $countryInfo->response[0]->name));
             $this->attributes['country_id'] = ($countryModel === null) ? null : $countryModel->id;
 
-            if (isset($info->city)) {
+            if ($info->city != 0) {
                 $cityInfo = $this->makeSignedRequest('https://api.vk.com/method/places.getCityById.json', array(
                     'query' => array(
                         'cids' => $info->city,

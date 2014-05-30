@@ -159,10 +159,19 @@ class MailCommand extends CConsoleCommand
         }
     }
 
+    public function actionVacancyTest($email)
+    {
+        $firstName = 'Андрей';
+        $subject = $firstName . ', мы ищем web-разработчика!';
+        $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', compact('firstName'), true);
+        ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф');
+    }
+
     public function actionVacancy()
     {
         $criteria = new EMongoCriteria();
-        $criteria->parsed('==', true);
+        $criteria->limit(1000);
+        $criteria->parsed('!=', false);
         $criteria->send('==', false);
         $models = HhResume::model()->findAll($criteria);
         foreach ($models as $m) {

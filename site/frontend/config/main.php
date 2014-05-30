@@ -79,6 +79,9 @@ return array(
         'site.common.behaviors.*',
         'site.frontend.extensions.status.EStatusBehavior',
         'site.frontend.extensions.geturl.EGetUrlBehavior',
+
+        'application.modules.onlineManager.widgets.*',
+        'application.modules.onlineManager.components.*',
     ),
 
 	'sourceLanguage' => 'en',
@@ -132,9 +135,16 @@ return array(
         'antispam',
         'signup',
         'mail',
+        'developers',
 	),
 	// application components
 	'components'=>array(
+        'postman' => array(
+            'class' => 'application.modules.mail.components.MailPostman',
+        ),
+        'securityManager' => array(
+            'validationKey' => '44ffc48eb95b605d20804ce9dff63ca7e1698d80',
+        ),
         'contentCompactor' => array(
             'class' => 'ext.contentCompactor.ContentCompactor',
             'options' => array(
@@ -232,6 +242,7 @@ return array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',
 			'allowAutoLogin'=>true,
+            'autoRenewCookie'=>true,
 			'loginUrl'=> array('/site/index', 'openLogin' => 1),
 		),
         'authManager'=>array(
@@ -440,16 +451,29 @@ return array(
                     'sitemap.xml' => array(
                         'index' => true,
                     ),
-                    'sitemapCommunity.xml' => array(
+                    'sitemapCommunity1.xml' => array(
                         'aliases' => array(
                             'application.modules.community.controllers.DefaultController',
                         ),
+                        'param' => 1,
                     ),
-                    'sitemapBlog.xml' => array(
+                    'sitemapCommunity2.xml' => array(
+                        'aliases' => array(
+                            'application.modules.community.controllers.DefaultController',
+                        ),
+                        'param' => 2,
+                    ),
+                    'sitemapBlog1.xml' => array(
                         'aliases' => array(
                             'application.modules.blog.controllers.DefaultController',
-
                         ),
+                        'param' => 1,
+                    ),
+                    'sitemapBlog2.xml' => array(
+                        'aliases' => array(
+                            'application.modules.blog.controllers.DefaultController'
+                        ),
+                        'param' => 2,
                     ),
                     'sitemapCook.xml' => array(
                         'aliases' => array(

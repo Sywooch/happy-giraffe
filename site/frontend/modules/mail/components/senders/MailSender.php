@@ -1,23 +1,21 @@
-
-
 <?php
 /**
  * Рассыльщик
  *
- * Отвечает главным образом за то, КОМУ отправлять письма, собирает необходимые для генерации данные и создает модели
- * сообщений
+ * Отвечает главным образом за то, КОМУ отправлять письма, собирает необходимые для генерации данные, создает модели
+ * сообщений и передает их "почтальону" MailPostman
  */
 
 abstract class MailSender extends CComponent
 {
-    const FROM_NAME = 'Весёлый Жираф';
-    const FROM_EMAIL = 'noreply@happy-giraffe.ru';
-
     const DEBUG_DEVELOPMENT = 0;
     const DEBUG_TESTING = 1;
     const DEBUG_PRODUCTION = 2;
 
+    public $type;
+    protected $lastDeliveryTimestamp;
     protected $debugMode = self::DEBUG_DEVELOPMENT;
+    protected $percent = 100;
 
     /**
      * Обработка конкретно взятого пользователя
@@ -30,8 +28,6 @@ abstract class MailSender extends CComponent
     /**
      * Отправить рассылку всем пользователям, для которых она может быть отправлена
      *
-     * Может быть перопределен, если до или после итерации необходимо выполнить какие-то действия
-     *
      * @return mixed
      */
     public function sendAll()
@@ -40,25 +36,70 @@ abstract class MailSender extends CComponent
             if ($this->beforeSend()) {
                 $this->iterate();
             }
-        } catch (CException $e) {
-            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
+        } catch (Exception $e) {
+            //echo $e->getMessage();
+            //Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
         }
     }
 
     public function preview(User $user)
     {
+        /** @var MailPostman $postman */
+        $postman = Yii::app()->postman;
+        $mode = $postman->mode;
+        $postman->mode = MailPostman::MODE_ECHO;
+
         try {
             if ($this->beforeSend()) {
                 $this->process($user);
             }
-        } catch (CException $e) {
-            header('content-type: text/html; charset=utf-8');
+        } catch (Exception $e) {
+            header('Content-Type: text/html; charset=utf-8');
             echo $e->getMessage();
+            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
+        }
+
+        $postman->mode = $mode;
+    }
+
+    protected function getDeliveryType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * Процедура итерации
+     *
+     * Вынесена отдельно, чтобы можно было удобно переопределять метод sendAll
+     */
+    protected function iterate()
+    {
+        try {
+            $iterator = $this->getIterator();
+            foreach ($iterator as $user) {
+                $this->process($user);
+            }
+        } catch (Exception $e) {
+            echo $e->getMessage();
+            //Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
         }
     }
 
+    /**
+     * Действия, которые должны быть совершены перед рассылкой и "обходом" пользователей. Рассылка будет сделана только
+     * в том случае, если данный момент возвращает истину
+     *
+     * @return bool
+     */
     protected function beforeSend()
     {
+        $lastDelivery = MailSendersHistory::model()->getLastDelivery($this->getDeliveryType());
+        $this->lastDeliveryTimestamp = ($lastDelivery === null) ? null : $lastDelivery->timestamp;
+
+        $newDelivery = new MailSendersHistory();
+        $newDelivery->type = $this->type;
+        $newDelivery->save();
+
         return true;
     }
 
@@ -71,7 +112,9 @@ abstract class MailSender extends CComponent
     {
         $dp = new CActiveDataProvider('User', array(
             'criteria' => $this->getUsersCriteria(),
+            'pagination' => false,
         ));
+
         return new CDataProviderIterator($dp, 1000);
     }
 
@@ -92,90 +135,30 @@ abstract class MailSender extends CComponent
                 $criteria->compare('t.id', 12936);
                 break;
             case self::DEBUG_TESTING:
-                $criteria->join = 'INNER JOIN auth__assignments aa ON aa.userid = t.id AND aa.itemname = :itemname';
+                $criteria->join = 'LEFT OUTER JOIN auth__assignments aa ON aa.userid = t.id AND aa.itemname = :itemname';
                 $criteria->params[':itemname'] = 'tester';
+                $criteria->addCondition('aa.itemname IS NOT NULL');
+                $criteria = $this->limitByPercent($criteria);
                 break;
         }
 
         return $criteria;
     }
 
-    /**
-     * Процедура итерации
-     *
-     * Вынесена отдельно, чтобы можно было удобно переопределять метод sendAll
-     */
-    protected function iterate()
+    protected function limitByPercent(CDbCriteria $criteria)
     {
-        $iterator = $this->getIterator();
-        foreach ($iterator as $user) {
-            $this->process($user);
+        if ($this->percent != 100) {
+            $count = User::model()->count();
+            $offset = round($count * (100 - $this->percent) / 100);
+            $last = User::model()->find(array(
+                'order' => 'id DESC',
+                'offset' => $offset,
+            ));
+            $criteria->addCondition('id < :lastId', 'OR');
+            $criteria->params[':lastId'] = $last->id;
+            $criteria->order = 'id ASC';
         }
-    }
-
-    /**
-     * Центральный метод отправки сообщения
-     *
-     * @param MailMessage $message
-     */
-    protected function sendMessage(MailMessage $message)
-    {
-        switch ($this->debugMode) {
-            case self::DEBUG_DEVELOPMENT:
-            case self::DEBUG_TESTING:
-                self::sendInternal($message);
-                break;
-            case self::DEBUG_PRODUCTION:
-                $this->addToQueue($message);
-                break;
-        }
-    }
-
-    /**
-     * Отправляет сообщение, в случае успеха помечает модель доставки как успешно отправленную
-     *
-     * @param $email
-     * @param $subject
-     * @param $body
-     * @param $fromEmail
-     * @param $fromName
-     * @param $deliveryId
-     */
-    public static function send($email, $subject, $body, $fromEmail, $fromName, $deliveryId)
-    {
-        if (ElasticEmail::send($email, $subject, $body, $fromEmail, $fromName)) {
-            $delivery = MailDelivery::model()->findByPk($deliveryId);
-            $delivery->sent();
-            echo "sent\n";
-        }
-    }
-
-    /**
-     * Добавить сообщение в очередь Gearman, используется в продакшне
-     *
-     * @param MailMessage $message
-     */
-    protected function addToQueue(MailMessage $message)
-    {
-        $workload = $this->messageToWorkload($message);
-
-        Yii::app()->gearman->client()->doBackground('sendEmail', serialize($workload));
-    }
-
-    protected function sendInternal(MailMessage $message)
-    {
-        call_user_func_array(array('MailSender', 'send'), $this->messageToWorkload($message));
-    }
-
-    protected function messageToWorkload(MailMessage $message)
-    {
-        return array(
-            'email' => $message->user->email,
-            'subject' => $message->getSubject(),
-            'body' => $message->getBody(),
-            'fromEmail' => self::FROM_EMAIL,
-            'fromName' => self::FROM_NAME,
-            'deliveryId' => $message->delivery->id,
-        );
+        return $criteria;
     }
 }
+

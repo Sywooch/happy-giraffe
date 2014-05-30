@@ -11,7 +11,7 @@
 <?=CHtml::endForm()?>
 
 <?php if ($dp !== null): ?>
-Сумма: <?=abs($s)?>
+Сумма: <?=$s?>
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $dp,

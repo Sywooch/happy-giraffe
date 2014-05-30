@@ -57,11 +57,11 @@ if (! isset($showComments))
 
         <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false, 'show_new' => isset($show_new) ? true : false)); ?>
 
+        <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
+
         <?php if ($full): ?>
             <?php $this->renderPartial('//banners/_post_footer', compact('data')); ?>
         <?php endif; ?>
-
-        <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
 
         <?php if ($full && $data->contestWork !== null): ?>
             <?php $this->renderPartial('application.modules.blog.views.default._contest', compact('data')); ?>

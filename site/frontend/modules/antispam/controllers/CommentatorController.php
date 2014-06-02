@@ -43,6 +43,7 @@ class CommentatorController extends HController
                 'url' => array('/antispam/commentator/comments', 'userId' => $user->id),
             );
         }, $commentators);
+        array_unshift($menuItems, array('label' => 'Все', 'url' => array('/antispam/commentator/comments'), 'active' => $userId === null));
 
         $this->render('index', compact('dp', 'menuItems'));
     }

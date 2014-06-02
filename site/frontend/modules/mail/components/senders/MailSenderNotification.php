@@ -36,6 +36,8 @@ class MailSenderNotification extends MailSender
         $notifications = Notification::model()->getNotificationsList($user->id, 0, 0, 999);
 
         foreach ($notifications as $notification) {
+            $this->checkSubscribesSettings($user, $notification);
+
             if ($notification->updated < strtotime($this->lastDeliveryTimestamp)) {
                 continue;
             }
@@ -82,6 +84,36 @@ class MailSenderNotification extends MailSender
                 return 'MailMessageNotificationReply';
             case Notification::USER_CONTENT_COMMENT:
                 return 'MailMessageNotificationComment';
+        }
+    }
+
+    protected function checkSubscribesSettings(User $user, Notification $notification)
+    {
+        if ($notification->type == Notification::DISCUSS_CONTINUE) {
+            if (UserAttributes::get($user->id, 'discussions', true) !== true) {
+                return;
+            }
+        }
+
+        if ($notification->type == Notification::REPLY_COMMENT) {
+            if (UserAttributes::get($user->id, 'replies', true) !== true) {
+                return;
+            }
+        }
+
+        if ($notification->type == Notification::USER_CONTENT_COMMENT) {
+            if ($notification instanceof NotificationGroup) {
+                $model = $notification->getEntity();
+                if ($model instanceof CommunityContent && $model->type_id == CommunityContent::TYPE_QUESTION) {
+                    $setting = 'answers';
+                } else {
+                    $setting = 'comments';
+                }
+            }
+
+            if (UserAttributes::get($user->id, $setting, true) !== true) {
+                return;
+            }
         }
     }
 

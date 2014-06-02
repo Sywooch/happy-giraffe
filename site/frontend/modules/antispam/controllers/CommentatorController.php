@@ -6,7 +6,7 @@
  * Time: 15:48
  */
 
-class CommentatorController extends HController
+class CommentatorController extends AntispamController
 {
     public $list = array(
         15426,

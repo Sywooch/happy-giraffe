@@ -34,6 +34,25 @@ switch ($data->type_id) {
 
 if (! isset($showComments))
     $showComments = true;
+
+$gplus = array(
+    'https://plus.google.com/102229503737913861260/' => array(
+        172277,
+        169922,
+    ),
+    'https://plus.google.com/102115350805461891146/' => array(
+        157262,
+    ),
+    'https://plus.google.com/115860092477751560643/' => array(
+        166387,
+    ),
+);
+
+foreach ($gplus as $account => $ids) {
+    if (in_array($data->id, $ids)) {
+        Yii::app()->clientScript->registerLinkTag('author', null, $account);
+    }
+}
 ?>
 <div class="b-article clearfix<?php if ($cssClass !== null): ?> <?=$cssClass?><?php endif; ?>" id="blog_settings_<?=$data->id ?>">
     <?php if ($data->source_id) $this->renderPartial('blog.views.default._repost', array('data' => $data)); ?>

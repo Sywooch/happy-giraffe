@@ -106,8 +106,8 @@ return array(
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/default/view',
         'user/<user_id:\d+>/blog' => 'blog/default/index',
         'newblog/<_a:>' => 'blog/default/<_a>',
-        'antispam' => 'blog/antispam/index',
-        'antispam/<_a>' => 'blog/antispam/index',
+//        'antispam' => 'blog/antispam/index',
+//        'antispam/<_a>' => 'blog/antispam/index',
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',

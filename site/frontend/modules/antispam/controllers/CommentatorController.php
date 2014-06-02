@@ -22,6 +22,7 @@ class CommentatorController extends AntispamController
     {
         $criteria = new CDbCriteria();
         $criteria->compare('removed', 0);
+        $criteria->order = 't.created DESC';
         $criteria->addCondition('t.created > DATE_SUB(NOW(), INTERVAL 1 MONTH)');
         if ($userId === null) {
             $criteria->addInCondition('author_id', $this->list);

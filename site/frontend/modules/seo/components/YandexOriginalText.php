@@ -65,7 +65,12 @@ class YandexOriginalText
         } while (false && $count > 0);
     }
 
-    public function add(SeoYandexOriginalText $model)
+    public function test(SeoYandexOriginalText &$model)
+    {
+        $model->priority = 99;
+    }
+
+    public function add(SeoYandexOriginalText &$model)
     {
         $xml = new \SimpleXMLElement('<xml/>');
         $root = $xml->addChild('original-text');

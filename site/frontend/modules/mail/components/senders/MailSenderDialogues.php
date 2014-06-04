@@ -10,9 +10,7 @@
 class MailSenderDialogues extends MailSender
 {
     public $type = 'dialogues';
-    public $debugMode = self::DEBUG_TESTING;
-    protected $percent = 30;
-    protected $i = 0;
+    public $debugMode = self::DEBUG_PRODUCTION;
 
     public function __construct()
     {
@@ -22,8 +20,6 @@ class MailSenderDialogues extends MailSender
 
     protected function process(User $user)
     {
-        $this->i++;
-        echo $this->i . '-' . $user->id . "\n";
         $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
             'with' => array(
                 'message' => array(

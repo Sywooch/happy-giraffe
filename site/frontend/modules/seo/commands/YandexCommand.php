@@ -40,6 +40,11 @@ class YandexCommand extends \CConsoleCommand
         }
     }
 
+    public function actionSync()
+    {
+        $this->original->sync();
+    }
+
     public function actionWorker()
     {
         $originalTexts = new YandexOriginalText();

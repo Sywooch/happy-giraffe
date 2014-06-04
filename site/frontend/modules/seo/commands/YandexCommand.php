@@ -25,11 +25,6 @@ class YandexCommand extends \CConsoleCommand
         $this->original = new YandexOriginalText();
     }
 
-    public function actionTest()
-    {
-        \Yii::
-    }
-
     public function actionIndex()
     {
         $models = SeoYandexOriginalText::model()->findAll(array(

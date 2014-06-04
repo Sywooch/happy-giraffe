@@ -86,14 +86,14 @@ class SeoYandexOriginalText extends \HActiveRecord
 	 * models according to data in model fields.
 	 * - Pass data provider to CGridView, CListView or any similar widget.
 	 *
-	 * @return CActiveDataProvider the data provider that can return the models
+	 * @return \CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria=new \CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('entity',$this->entity,true);
@@ -106,7 +106,7 @@ class SeoYandexOriginalText extends \HActiveRecord
 		$criteria->compare('updated',$this->updated,true);
 		$criteria->compare('priority',$this->priority);
 
-		return new CActiveDataProvider($this, array(
+		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}

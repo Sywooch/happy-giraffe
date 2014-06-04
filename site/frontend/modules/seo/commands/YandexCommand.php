@@ -12,7 +12,7 @@ namespace site\frontend\modules\seo\commands;
 use site\frontend\modules\seo\models\SeoYandexOriginalText;
 use site\frontend\modules\seo\components\YandexOriginalText;
 
-class DefaultCommand extends \CConsoleCommand
+class YandexCommand extends \CConsoleCommand
 {
     /**
      * @var YandexOriginalText

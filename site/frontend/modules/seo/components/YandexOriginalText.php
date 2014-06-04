@@ -38,14 +38,11 @@ class YandexOriginalText
     {
         $page = 0;
         do {
+            echo 'page ' . $page . "\n";
             $response = $this->api->client->get(self::ORIGINAL_TEXTS_URL, array('page' => $page));
             $xml = new \SimpleXMLElement($response);
             $count = count($xml->{'original-text'});
             foreach ($xml->{'original-text'} as $textElement) {
-                $text = (string) $textElement->content;
-                $url = $this->getUrlByText($text);
-                $id = $this->getIdByUrl($url);
-
                 $isAdded = SeoYandexOriginalText::model()->exists('external_id = :id', array(
                     ':id' => $textElement->id,
                 ));
@@ -54,14 +51,22 @@ class YandexOriginalText
                     continue;
                 }
 
+                $text = (string) $textElement->content;
                 $model = new SeoYandexOriginalText();
-                $model->entity = 'CommunityContent';
-                $model->entity_id = $id;
+                try {
+                    $url = $this->getUrlByText($text);
+                    $id = $this->getIdByUrl($url);
+                    $model->entity = 'CommunityContent';
+                    $model->entity_id = $id;
+                } catch (YandexOriginalTextException $e) {
+                    echo $e->getMessage();
+                }
                 $model->added = new \CDbExpression('NOW()');
-                $model->text = $text;
+                $model->external_text = $text;
                 $model->external_id = $textElement->id;
                 $model->save();
             }
+            $page++;
         } while ($count > 0);
     }
 
@@ -98,7 +103,7 @@ class YandexOriginalText
         }
 
         if ($id === null) {
-            throw new YandexOriginalTextException('Не удалось определить id поста по ссылке ' . $url);
+            throw new YandexOriginalTextException("Не удалось получить ID  по URL:\n" . $url);
         }
 
         return $id;
@@ -114,6 +119,12 @@ class YandexOriginalText
             'sortby' => 'rlv',
         ));
         $xml = new \SimpleXMLElement($response);
+
+        if (! isset($xml->response->results->grouping->group[0]))
+        {
+            throw new YandexOriginalTextException("Не удалось получить URL по тексту:\n" . $xml);
+        }
+
         $url = (string) $xml->response->results->grouping->group[0]->doc->url;
         return $url;
     }

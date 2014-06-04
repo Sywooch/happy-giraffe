@@ -17,22 +17,6 @@ class SeoModule extends \CWebModule
 			'seo.components.*',
             'site.common.extensions.restcurl.*',
 		));
-
-        $logPath = \Yii::getPathOfAlias('seo.log');
-
-        if (! is_dir($logPath)) {
-            mkdir($logPath);
-        }
-
-        $component = \Yii::createComponent(array(
-            'class' => 'CFileLogRoute',
-            'logPath' => $logPath,
-            'categories' => array($this->id),
-        ));
-
-
-
-        \Yii::app()->log->routes->add(null, $component);
 	}
 
 	public function beforeControllerAction($controller, $action)

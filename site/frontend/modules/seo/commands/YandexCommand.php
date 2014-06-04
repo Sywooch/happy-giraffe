@@ -11,6 +11,7 @@ namespace site\frontend\modules\seo\commands;
 
 use site\frontend\modules\seo\models\SeoYandexOriginalText;
 use site\frontend\modules\seo\components\YandexOriginalText;
+\Yii::import('site.common.extensions.restcurl.*');
 
 class YandexCommand extends \CConsoleCommand
 {
@@ -22,6 +23,11 @@ class YandexCommand extends \CConsoleCommand
     public function init()
     {
         $this->original = new YandexOriginalText();
+    }
+
+    public function actionTest()
+    {
+        \Yii::
     }
 
     public function actionIndex()

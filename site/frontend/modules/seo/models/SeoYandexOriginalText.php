@@ -17,7 +17,7 @@ namespace site\frontend\modules\seo\models;
  * @property string $updated
  * @property integer $priority
  */
-class SeoYandexOriginalText extends \HActiveRecord
+class SeoYandexOriginalText extends \CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -35,7 +35,6 @@ class SeoYandexOriginalText extends \HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('entity, entity_id, priority', 'required'),
 			array('priority', 'numerical', 'integerOnly'=>true),
 			array('entity', 'length', 'max'=>255),
 			array('entity_id', 'length', 'max'=>11),

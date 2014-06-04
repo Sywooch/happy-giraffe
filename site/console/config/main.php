@@ -16,7 +16,7 @@ return array(
             'class' => 'site.frontend.modules.mail.commands.DefaultCommand',
         ),
         'yandex' => array(
-            'class' => 'site.frontend.modules.seo.commands.YandexCommand',
+            'class' => '\site\frontend\modules\seo\commands\YandexCommand',
         ),
     ),
     'import' => array(

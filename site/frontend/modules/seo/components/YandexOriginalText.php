@@ -62,7 +62,7 @@ class YandexOriginalText
                 $model->external_id = $textElement->id;
                 $model->save();
             }
-        } while (false && $count > 0);
+        } while ($count > 0);
     }
 
     public function test(SeoYandexOriginalText &$model)

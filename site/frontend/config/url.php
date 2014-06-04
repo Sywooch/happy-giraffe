@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    'useStrictParsing' => true,
+    //'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -359,6 +359,7 @@ return array(
         'signup/<_c>/<_a>' => 'signup/<_c>/<_a>',
         'geo/<_c>/<_a>' => 'geo/<_c>/<_a>',
         'developers/<_c>/<_a>' => 'developers/<_c>/<_a>',
+        'seo/<_c>/<_a>' => 'seo/<_c>/<_a>',
 
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
     ),

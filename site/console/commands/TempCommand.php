@@ -553,14 +553,16 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
     public function actionUpdatePreviews()
     {
-//        $posts = new CActiveDataProvider('CommunityPost');
-//        $iterator = new CDataProviderIterator($posts);
-//        foreach ($iterator )
-        $post = CommunityPost::model()->findByPk(128317);
-        $preview = $post->previewSave->generatePreview($post->text);
-        Yii::app()->cache->delete('CommunityContent_' . $post->content_id . '_preview');
-        Yii::app()->cache->delete('BlogContent_' . $post->content_id . '_preview');
-        CommunityContent::model()->updateByPk($post->content_id, compact('preview'));
+        $posts = new CActiveDataProvider('CommunityPost');
+        $total = $posts->totalItemCount;
+        $iterator = new CDataProviderIterator($posts);
+        foreach ($iterator as $i => $post) {
+            $preview = $post->previewSave->generatePreview($post->text);
+            CommunityContent::model()->updateByPk($post->content_id, compact('preview'));
+            Yii::app()->cache->delete('CommunityContent_' . $post->content_id . '_preview');
+            Yii::app()->cache->delete('BlogContent_' . $post->content_id . '_preview');
+            echo '[' . ($i + 1) . '/' . $total . ']';
+        }
     }
 }
 

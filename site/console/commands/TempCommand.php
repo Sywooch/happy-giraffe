@@ -578,7 +578,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         echo $doc->save();
 
         $post->updateByPk($post->id, array('text' => $doc->save()));
-        Yii::app()->cache->delete('CommunityVideo_' . $post->id . '_text');
+        echo Yii::app()->cache->get('CommunityVideo_' . $post->id . '_text');
 
         die;
 

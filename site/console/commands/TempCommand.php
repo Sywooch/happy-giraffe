@@ -558,6 +558,10 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 //        foreach ($iterator )
         $post = CommunityPost::model()->findByPk(128317);
         $preview = $post->previewSave->generatePreview($post->text);
+
+        var_dump($preview);
+        die;
+
         CommunityContent::model()->updateByPk($post->content_id, compact('preview'));
     }
 }

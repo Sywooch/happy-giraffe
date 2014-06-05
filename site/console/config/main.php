@@ -40,9 +40,6 @@ return array(
         )
     ),
     'components' => array(
-        'securityManager' => array(
-            'validationKey' => '44ffc48eb95b605d20804ce9dff63ca7e1698d80',
-        ),
         'statePersister'=> array(
             'stateFile' => Yii::getPathOfAlias('site.frontend.runtime') . DIRECTORY_SEPARATOR . 'state.bin',
         ),

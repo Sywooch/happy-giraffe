@@ -561,7 +561,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
             CommunityContent::model()->updateByPk($post->content_id, compact('preview'));
             Yii::app()->cache->delete('CommunityContent_' . $post->content_id . '_preview');
             Yii::app()->cache->delete('BlogContent_' . $post->content_id . '_preview');
-            echo '[' . ($i + 1) . '/' . $total . ']';
+            echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
         }
     }
 }

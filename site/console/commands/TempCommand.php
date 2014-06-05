@@ -556,7 +556,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 //        $posts = new CActiveDataProvider('CommunityPost');
 //        $iterator = new CDataProviderIterator($posts);
 //        foreach ($iterator )
-        $post = CommunityPost::model()->findByPk(129042);
+        $post = CommunityPost::model()->findByPk(165202);
         $preview = $post->previewSave->generatePreview($post->test);
         CommunityContent::model()->updateByPk($post->content_id, compact('preview'));
     }

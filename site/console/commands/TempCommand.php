@@ -578,7 +578,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         echo $doc->save();
 
         $post->updateByPk($post->id, array('text' => $doc->save()));
-        echo $post->text;
+        var_dump($post->text);
 
         die;
 

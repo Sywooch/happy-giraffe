@@ -556,11 +556,11 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 //        $posts = new CActiveDataProvider('CommunityPost');
 //        $iterator = new CDataProviderIterator($posts);
 //        foreach ($iterator )
-        $post = CommunityPost::model()->with('content')->findByPk(128317);
+        $post = CommunityPost::model()->findByPk(128317);
         $preview = $post->previewSave->generatePreview($post->text);
+        Yii::app()->cache->delete('CommunityContent_' . $post->content_id . '_preview');
+        Yii::app()->cache->delete('BlogContent_' . $post->content_id . '_preview');
         CommunityContent::model()->updateByPk($post->content_id, compact('preview'));
-        echo Yii::app()->cache->get($post->content->purified->getCacheId('preview'));
-        $post->content->purified->clearCache();
     }
 }
 

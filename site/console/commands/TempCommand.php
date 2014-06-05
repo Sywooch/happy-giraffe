@@ -569,23 +569,10 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
     {
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
 
-        $post = CommunityVideo::model()->findByPk(7344);
-//        $doc = str_get_html($post->text);
-//        $h1 = $doc->find('h1');
-//        foreach ($h1 as $h) {
-//            $h->outertext = '<h2>' . $h->innertext . '</h2>';
-//        }
-//        echo $doc->save();
-//
-//        $post->updateByPk($post->id, array('text' => $doc->save()));
-        $post->purified->clearCache();
-        var_dump($post->purified->text);
-
-        die;
-
         $models = array('CommunityPost', 'CommunityVideo', 'CommunityPhotoPost');
 
         foreach ($models as $model) {
+            echo $model . ':' . "\n";
             $posts = new CActiveDataProvider($model);
             $total = $posts->totalItemCount;
             $iterator = new CDataProviderIterator($posts);
@@ -593,8 +580,12 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
                 $doc = str_get_html($post->text);
                 $h1 = $doc->find('h1');
                 foreach ($h1 as $h) {
-                    $h->outertext = '<p>' . $h->innertext . '</p>';
+                    $h->outertext = '<h2>' . $h->innertext . '</h2>';
                 }
+                $text = $doc->save();
+
+                $post->updateByPk($post->id, compact('text'));
+                $post->purified->clearCache();
                 echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
             }
         }

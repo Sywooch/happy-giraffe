@@ -82,7 +82,7 @@ foreach ($gplus as $account => $ids) {
         <?php
             foreach ($gplus2 as $account => $ids) {
                 if (in_array($data->id, $ids)) {
-                    echo 'Автор: ' . CHtml::link($data->author->fullName, $account . '?rel=author');
+                    echo '<p>Автор: ' . CHtml::link($data->author->fullName, $account . '?rel=author') . '</p>';
                 }
             }
         ?>

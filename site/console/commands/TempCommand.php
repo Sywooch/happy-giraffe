@@ -576,7 +576,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
             $h->outertext = '<p>' . $h->innertext . '</p>';
         }
         $post->updateByPk($post->id, array('text' => $doc->save()));
-        Yii::app()->cache->delete('CommunityPost_' . $post->content_id . '_text');
+        Yii::app()->cache->delete('CommunityPost_' . $post->id . '_text');
 
         die;
 

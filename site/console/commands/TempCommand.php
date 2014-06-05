@@ -573,10 +573,12 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         $doc = str_get_html($post->text);
         $h1 = $doc->find('h1');
         foreach ($h1 as $h) {
-            $h->outertext = '<h2>' . $h->innertext . '</h2>';
+            $h->outertext = '<p>' . $h->innertext . '</p>';
         }
+        echo $doc->save();
+
         $post->updateByPk($post->id, array('text' => $doc->save()));
-        $post->purified->clearCache();
+        Yii::app()->cache->delete('CommunityVideo_' . $post->id . '_text');
 
         die;
 

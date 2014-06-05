@@ -13,9 +13,17 @@
 <!--AdFox START-->
 <div class="theme_banner-top">
 	<div class="theme_banner-top-hold">
-
 		<a href="">
-			<img src="http://view-change.dev.happy-giraffe.ru/images/branding/hainz/play-game/hainz-1000.jpg" alt="" style="display:block; width: 1000px; height: 320px;">
+			<div class="hainz-fruit-game">
+				<div class="hainz-fruit-game_bank1 rotateOut"></div>
+				<div class="hainz-fruit-game_bank2 rotateOut"></div>
+				<div class="hainz-fruit-game_bank3 rotateOut"></div>
+				<div class="hainz-fruit-game_arrow"></div>
+				<div class="hainz-fruit-game_arrow hainz-fruit-game_arrow__2"></div>
+				<div class="hainz-fruit-game_btn"></div>
+			</div>
+		
+			<!-- <img src="http://view-change.dev.happy-giraffe.ru/images/branding/hainz/play-game/hainz-1000.jpg" alt="" style="display:block; width: 1000px; height: 320px;"> -->
 		</a>
 
 	</div>

@@ -28,6 +28,8 @@
   <script src="/new/javascript/baron.js"></script>
   <script src="/new/javascript/select2.js"></script>
   <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
   <script src="/new/javascript/jquery.Jcrop.js"></script>
   <script src="/new/javascript/common.js"></script>
   <script src="/new/javascript/common-markup.js"></script>
@@ -207,16 +209,20 @@
                       <div class="privacy-select float-l">
                         <div class="privacy-select_hold clearfix">
                           <div class="privacy-select_tx">Для кого:</div>
-                          <div class="privacy-select_drop-hold"><a href="" class="privacy-select_a"><span class="ico-users ico-users__friend active"></span><span class="privacy-select_a-tx">только<br>друзьям</span></a>
-                            <div class="privacy-select_drop display-b">
-                              <div class="privacy-select_i"><a href="" class="privacy-select_a"><span class="ico-users ico-users__all"></span><span class="privacy-select_a-tx">для<br>всех</span></a></div>
-                              <div class="privacy-select_i"><a href="" class="privacy-select_a"><span class="ico-users ico-users__friend"></span><span class="privacy-select_a-tx">только<br>друзьям</span></a></div>
+                          <div class="privacy-select_drop-hold dropdown dropup"><a href="" data-toggle="dropdown" data-target="#" id="dLabel1" class="privacy-select_a dropdown-toggle"><span class="ico-users ico-users__friend active"></span><span class="privacy-select_a-tx">только<br>друзьям</span></a>
+                            <div role="" aria-labelledby="dLabel1" class="privacy-select_drop dropdown-menu pull-right dropdown-menu__check">
+                              <div class="privacy-select_i"><a href="" class="privacy-select_a"><span class="ico-users ico-users__all"></span><span class="privacy-select_a-tx">
+                                    для
+                                    всех</span></a></div>
+                              <div class="privacy-select_i"><a href="" class="privacy-select_a"><span class="ico-users ico-users__friend"></span><span class="privacy-select_a-tx">
+                                    только
+                                    друзьям</span></a></div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <div class="postAdd_btns-hold"><a href="" class="btn-link-gray margin-r15">Отменить</a>
-                        <div class="btn-group"><span class="btn btn-xm postAdd_btn-out btn-warning">Предпросмотр</span>
+                      <div class="postAdd_btns-hold"><a href="" class="btn btn-secondary btn-xm margin-r15">Отменить</a>
+                        <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-warning">Предпросмотр</span>
                           <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-warning-dark"><i class="ico-arrow-d"></i></span>
                             <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
                               <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">

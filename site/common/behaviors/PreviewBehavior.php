@@ -3,7 +3,7 @@
 class PreviewBehavior extends CActiveRecordBehavior
 {
     const LIMIT_SMALL = 180;
-    const LIMIT_BIG = 500;
+    const LIMIT_BIG = 175;
     public $small_preview = false;
     public $search_video = false;
 
@@ -61,12 +61,12 @@ class PreviewBehavior extends CActiveRecordBehavior
                 if (empty($p_text))
                     continue;
 
-                if (self::LIMIT_BIG - Str::htmlTextLength($preview) < 100)
+                if (self::LIMIT_BIG - Str::htmlTextLength($preview) < 35)
                     return $preview;
 
                 $preview .= '<p>' . Str::truncate($p_text, (self::LIMIT_BIG - Str::htmlTextLength($preview)) * 2) . '</p>';
 
-                if (self::LIMIT_BIG - Str::htmlTextLength($preview) < 10)
+                if (self::LIMIT_BIG - Str::htmlTextLength($preview) < 4)
                     return $preview;
             }
 

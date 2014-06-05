@@ -10,11 +10,10 @@
         max-height: 400px;
         text-align: left;
     }
-    .a-imitation {color: #319FE4}
     .redactor_editor {max-height: 300px;}
     .redactor_editor:focus {border-color: #a3cff4;}
     .a-imitation {color: #319FE4}
-    &__map-route {padding: 20px 180px 20px 0;}
+    /*
     &__wide {
         margin: 20px;
         border-top: none;
@@ -25,7 +24,7 @@
         padding-left: 30px;
     }
     &__wide &_add {margin: 0 20px 0 30px;}
-    &__wide &_add__top {margin: 15px 20px;}
+    &__wide &_add__top {margin: 15px 20px;}*/
 
     &__small {padding: 10px 0 0;}
     &__small &_t {margin: 3px 0 0;}
@@ -41,7 +40,7 @@
     &__small &_add {margin: 0;padding: 0;}
     &__small &_add.active &_ava {margin-top: 3px;}
 
-    &__map-route {padding: 20px 180px 20px 0;}
+    /*&__map-route {padding: 20px 180px 20px 0;}
 
     &__activity {
         margin: 20px;
@@ -64,7 +63,7 @@
         width: 10px;
         height: 17px;
         background: url(/images/comments-gray__activity_cont.png) no-repeat;
-    }
+    }*/
 
     & &_i .wysiwyg-content {
         padding: 0;
@@ -107,14 +106,14 @@
     &_i__recovery:hover,
     &_i__recovery {background: #fff;}
     &_i__recovery p {color: #ccc;}
-    &_i__pink &_frame {
+    /*&_i__pink &_frame {
         margin: -12px 75px 0 50px;
         padding: 10px 10px;
         border: 1px solid #fecce7;
         border-width: 1px 0;
         background: #fff6fb;
     }
-    &_i__pink &_spec {color: #da559d;}
+    &_i__pink &_spec {color: #da559d;}*/
     &_i .wysiwyg-content p{margin: 0 0 6px;}
     &_i .wysiwyg-content img{margin: 0;}
     &_ava {
@@ -127,11 +126,6 @@
         width: 70px;
         text-align: right;
         margin-top: 4px;
-    }
-    &_date {
-        font-size: 9px;
-        line-height: 11px;
-        color: #ccc;
     }
     &_frame {margin: 0 75px 0 50px;}
     &_header {
@@ -171,10 +165,10 @@
         .border-radius(4px);
     }
     &_add {
-        padding: 15px 0;
+        padding: 15px 15px 0 0;
         margin: 0 20px;
     }
-    &_add__top {
+    /*&_add__top {
         margin: 15px 20px 25px;
         border: 1px solid #dedede;
         padding: 10px;
@@ -193,8 +187,8 @@
         padding: 7px 10px 17px;
         border: 1px solid #D9D9D9;
         .border-radius(0);
-    }
-
+    }*/
+    /*
     &_control {
         display: none;
         position: absolute;
@@ -222,10 +216,10 @@
         font-size: 11px;
         border-bottom: 1px dotted #289FD7;
         text-decoration: none;
-    }
+    }*/
 
     /* activity in profile */
-    &_article {
+    /*&_article {
         margin: 13px;
     }
     &_article-img {
@@ -244,7 +238,7 @@
         font: bold 17px/19px Tahoma, Arial, Verdana, sans-serif;
         color: #186fb8;
     }
-    &_article-t-a {color: #186fb8;}
+    &_article-t-a {color: #186fb8;}*/
 }
 
 /* message-ico */
@@ -311,12 +305,14 @@
     comments
 */
 .comments {
-    margin: 15px 0;
+    margin: 10px 0;
 
     .wysiwyg-content {
         font-size: 12px;
+        line-height: 16px;
     }
-    .wysiwyg-content > p {margin-bottom: 10px;}
+    .wysiwyg-content > p {margin-bottom: 6px;}
+    .tx-date {color: @color-gray-light;}
     &__buble &_li__blue &_cont {border: 2px solid #bbe5fb;}
     &__buble &_li__blue &_cont:after {background: url('@{path-img}/comments_li__blue.png') no-repeat;}
     &__buble &_li__yellow &_cont {border: 2px solid #ffe88b;}
@@ -335,14 +331,14 @@
     &__buble &_cont:after {
         content: '';
         position: absolute;
-        top: 11px;
+        top: 15px;
         left: -17px;
         width: 17px;
         height: 17px;
     }
 
     &_t {
-        margin: 10px 0;
+        margin: 0 0 10px;
         font-size: 15px;
     }
     &_t-a {
@@ -354,8 +350,12 @@
         background: url('@{path-img}/comments_t-a.png') no-repeat 100% 50%;
     }
     &_t-a:hover {text-decoration: underline;}
+    &_t-a__open {background: url('@{path-img}/comments_t-a__open.png') no-repeat 100% 50%;}
     &_hold {}
-    &_hold__scroll .scroll_scroller {max-height: 580px;}
+    &_hold__scroll {
+        margin-bottom: 10px;
+    }
+    &_hold__scroll .scroll_scroller {max-height: 550px;}
     &_li {
         margin: 20px 0;
     }
@@ -369,7 +369,7 @@
     &_li__self .like-hg-small:hover {background-position: 0 0;}
     &_ava {
         .inline-block();
-        margin-right: 5px;
+        margin: 5px 5px 5px 0;
     }
     &_frame {
         width: 475px;
@@ -414,7 +414,7 @@
         text-decoration: underline;
     }
     &_add {
-        margin: 5px 0 20px;
+        margin: 5px 15px 20px 0;
     }
 }
 /* /comments */

@@ -5,7 +5,7 @@ block vars
 
 block layout
 
-    // b-main 
+    // b-main  
     .b-main.b-main__white
         .b-main_cols.clearfix
             .b-main_col-1
@@ -24,7 +24,7 @@ block layout
         section.userSection
             .userSection_hold
                 .userSection_left
-                    h1.userSection_name Ангелина Богоявленская
+                    h1.userSection_name Ангелина Остапенко
                     .margin-b5.clearfix
                         | 33 года (28 января)
                     .location.locationsmall.clearfix
@@ -54,16 +54,15 @@ block layout
                             li.userSection_panel-li
                                 a.userSection_panel-a(href="") Фото
                 .userSection_center
-                    .b-ava-large
+                    .b-ava-large.b-ava-large__nohover
                         .b-ava-large_ava-hold
                             +ava("ava__large ava__male", ava.c)
                         span.b-ava-large_online На сайте
                     .userSection_center-reg с Веселым Жирафом 2 года 5 месяцев 203 дня
                 .userSection_right
                     +bFamily('', bFamily.a)
-        // стрелки листания записей можно расположить практически в любом месте по коду где удобней программисту, если за пределами класса .b-main то сказать верстальщику для небольшой правки.
-        a.b-main_arrow(href="")
-        a.b-main_arrow.b-main_arrow__r(href="")
+        // стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту 
+        a.post-arrow(href="")
         .b-main_cont
             .userSubscribers
                 span.userSubscribers_tx У моего блога 468 подписчиков

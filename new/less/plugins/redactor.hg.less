@@ -1,0 +1,53 @@
+
+//
+.redactor_box ::selection {
+  background: #c4e7ff;
+}
+.redactor_box ::-moz-selection {
+  background: #c4e7ff;
+}
+
+//
+.wysiwyg-post {
+
+    .scroll {
+        max-height: 450px;
+    }
+    .redactor_toolbar.redactor-toolbar-external {
+        border: none;
+        background-color: #fafafa;
+    }
+    .redactor_editor {
+        border-color: #f1f1f1;
+        color: @color-gray-dark;
+        /*.box-sizing(border-box);*/
+    }
+}
+
+body .redactor_box_fullscreen {
+    left: 50%;
+    width: 1000px;
+    margin: 0 0 0 -500px;
+}
+
+
+
+
+
+.redactor_toolbar li a.re-formatbtn {
+    background-color: #aaa;
+}
+.redactor_toolbar li a.re-formatbtn:hover {
+    background-color: #333;
+}
+
+
+//// Dropdown
+.redactor_dropdown {
+    padding: 0;
+
+    > a:hover {
+        background-color: transparent;
+        color: #dad8d8;
+    }
+}

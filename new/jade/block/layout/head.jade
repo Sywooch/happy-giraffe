@@ -19,6 +19,8 @@ mixin head (path)
         script.
             window.jQuery || document.write('<script src="#{path}/javascript/jquery-1.10.2.min.js"><\/script>')
 
+        script(src="#{path}javascript/bootstrap/dropdown.js")
+
         script(src="#{path}javascript/modernizr-2.7.1.min.js")
 
         //- tooltip
@@ -38,6 +40,8 @@ mixin head (path)
 
         //- wisywig
         script(src="#{path}redactor/redactor.js")
+        script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")
+        script(src="#{path}redactor/plugins/formatbtn/formatbtn.js")
 
         script(src="#{path}javascript/jquery.Jcrop.js")
 

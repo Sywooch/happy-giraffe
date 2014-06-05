@@ -1,21 +1,23 @@
+/*
 .btn-red,
 .btn-gray-light,
 .btn-gray-simple,
-.btn-green-simple,
 .btn-blue-simple,
+.btn-green-simple,
 .btn-green  {
     .inline-block();
     padding: 4px 13px 6px;
-    margin-bottom: 0;
+    margin-bottom: 0; // For input.btn
     font-size: 12px;
     line-height: 16px;
-    border:0;
+    border: 0;
     text-align: center;
-    text-decoration:none;
+    text-decoration: none;
     cursor: pointer;
     vertical-align: middle;
-    width: auto; /* IE 7 input button fix */
-    overflow: visible; /* IE7 input button fix */
+    white-space: nowrap;
+    width: auto; // IE 7 input button fix 
+    overflow: visible; // IE7 input button fix 
     .border-radius(3px);
 }
 .btn-red[disabled],
@@ -30,40 +32,57 @@
 .btn-blue-simple:disabled,
 .btn-green[disabled],
 .btn-green:disabled,
+.btn-disabled,
 .btn-inactive {
     position: relative;
     opacity: 0.5;
-    cursor: default;
+    cursor: not-allowed;
+    pointer-events: none; // Future-proof disabling of clicks
 }
-
+*/
+// дополнительные размеры из boostrap 
+// .btn-lg
+// .btn-sm
+// .btn-xs
 // размеры
 .btn-s {
+    padding: 4px 14px 5px;  //height 21
     font-size: 12px;
     line-height: 12px;
-    padding: 4px 14px 5px;
     .border-radius(3px);
 }
-
 .btn-m {
-    height:32px;
-    font: 14px/32px Arial, Tahoma, Verdana, sans-serif;
-    padding:0 18px;
+    padding: 5px 18px 7px; //height 32
+    font-size: 14px;
+    line-height: 20px;
+    .border-radius(3px);
+}
+.btn-xm {
+    padding: 10px 22px 10px; //height 40
+    font-size: 14px;
+    line-height: 20px;
     .border-radius(3px);
 }
 .btn-l {
-    height:46px;
-    font:17px/45px Arial, Tahoma, Verdana, sans-serif;
-    padding:0 25px;
+    padding: 12px 25px;  //height 46
+    font-size: 17px;
+    line-height: 22px;
     .border-radius(5px);
 }
-.btn-xl {height:55px;font: 20px/55px Arial, Tahoma, Verdana, sans-serif;padding:0 21px;.border-radius(5px);}
+.btn-xl {
+    padding: 14px 22px 15px;  //height 55
+    font-size: 20px;
+    line-height: 26px;
+    .border-radius(5px);
+}
 .btn-xxl {height:60px;line-height:60px;padding:0 20px;font-size:35px;.border-radius(5px);}
 // not use
 //.btn-xxxl {height:75px;line-height:75px;padding:0 35px;font-size:34px;.border-radius(8px);}
 
 
-
 // Цвета
+/*
+// (избавляться)
 .btn-blue-simple {
     color: #fff;
     background-color: #4b90bf;
@@ -71,22 +90,20 @@
     &:focus,
     &:hover {background-color: #4085b4;}
 }
-
+// (избавляться)
 .btn-green-simple {
     color: #fff;
     background-color: #4fb044;
 
     &:focus,
     &:hover {background-color: #47aa3e;}
-    .btn-arrow_ico {
-        display: inline-block;
-        background: #419c37;
-        padding: 0 14px;
-    }
 
+    .btn-arrow_ico {background: #419c37;}
     &:hover .btn-arrow_ico {background: #38932e;}
 }
 
+
+// (избавляться)
 .btn-gray-simple {
     color: @color-gray;
     background-color: #f0f0f0;
@@ -102,25 +119,24 @@
     color: #fff;
     .gvertical(#49cf43, #21a34a);
 
-    .ie8 & {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#49cf43', endColorstr='#21a34a',GradientType=0 ); /* IE6-8 */}
+    .ie8 & {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#49cf43', endColorstr='#21a34a',GradientType=0 ); }
     .ie9 & {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzcxZTE2YyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyMWEzNGEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+); }
     
     &:focus,
     &:hover {
         .gvertical(#54cf4e, #089735);
     }
-    .ie8 &:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#54cf4e', endColorstr='#089735',GradientType=0 ); /* IE6-8 */}
+    .ie8 &:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#54cf4e', endColorstr='#089735',GradientType=0 ); }
     .ie9 &:hover {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzU0Y2Y0ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODk3MzUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
 
 }
-
 
 .btn-gray-light {
     color: #757575;
     .gvertical(#f8f8f8, #dadadb);
 
     .ie7 &,
-    .ie8 & {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#dadadb',GradientType=0 ); /* IE6-8 */}
+    .ie8 & {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f8f8', endColorstr='#dadadb',GradientType=0 );}
     .ie9 .btn-gray-light {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y4ZjhmOCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlMmUxZTEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
     &:focus,
     &:hover {
@@ -128,7 +144,7 @@
         .gvertical(#f3f3f3, #d5d5d5);
     }
     .ie7 &:hover,
-    .ie8 &:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#c6c6c6',GradientType=0 ); /* IE6-8 */}
+    .ie8 &:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#c6c6c6',GradientType=0 ); }
 }
 
 .btn-red {
@@ -136,7 +152,7 @@
     .gvertical(#fb7350, #ea5832);
 
     .ie7 &,
-    .ie8 & {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea5832', endColorstr='#fb7350',GradientType=0 ); /* IE6-8 */}
+    .ie8 & {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ea5832', endColorstr='#fb7350',GradientType=0 );}
     .ie9 & {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZiNzM1MCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNlYTU4MzIiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+;)}
     
     &:focus,
@@ -145,21 +161,91 @@
         .gvertical(#f96943, #e14f29);
     }
     .ie7 &:hover,
-    .ie8 &:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f96943', endColorstr='#e14f29',GradientType=0 ); /* IE6-8 */}
-}
+    .ie8 &:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f96943', endColorstr='#e14f29',GradientType=0 ); }
+}*/
 
+
+// Кнопка с стрелкой. На старницах 404 и 500
 .btn-arrow {
 
     &__next {
         padding-right: 0;
     }
-    &__next &_ico {
+    &__next &_ico {}
+    &__next.btn-xm &_ico { margin-left: 22px;}
+    &__next.btn-l &_ico { 
+        margin: -12px 0 -12px 25px;
+        padding: 12px 14px;
+    }
+    &_ico {
         float: right;
         .border-right-radius(5px);
+        display: inline-block;
     }
-    &__next.btn-l &_ico {
-        margin-left: 25px;
-    }
-
-
 }
+
+
+
+// boostrap button 
+
+// button
+.btn {
+    text-decoration: none;
+
+    &:active,
+    &.active {
+        outline: 0;
+        background-image: none;
+        .box-shadow(none);
+    }
+    .ico-arrow-d {margin: 0 -5px;}
+
+    ////////////////////// Цвета 
+    // .btn-blue-simple
+    &-blue-simple:extend(.btn-primary all) {}
+    &-primary-dark {
+        .button-variant(#fff; #3981b2; #3981b2);
+    }
+
+    // Аналог зеленой кнопки .btn-green-simple (избавляться)
+    &-green-simple:extend(.btn,.btn-success all) {}
+    &-green:extend(.btn, .btn-success all) {}
+
+    &-success-dark {
+        .button-variant(#fff; #419c37; #419c37);
+    }
+
+    &-warning-dark {
+        .button-variant(#fff; #f07d02; #f07d02);
+    }
+    
+    // Серая кнопка,  .btn-gray-simple (избавляться) 
+    &-gray-simple,
+    &-secondary {
+        .button-variant(@color-gray; #fff; #eaeaea);
+    }
+    
+    // Серая кнопка (избавляться)
+    &-gray-light{
+        .button-variant(#757575; #f0f0f0; #f3f3f3);
+    }
+
+    // Аналог красной кнопки (избавляться)
+    &-red:extend(.btn-danger all) {}
+
+    
+}
+.btn-link {
+    text-decoration: none;
+
+    &:hover {text-decoration: underline;}
+    &-gray {
+        &:extend(.btn-link all);
+        color: @color-gray;
+
+        &:hover {color: @color-gray-dark;}
+    }
+}
+.btn-group.open .dropdown-toggle {.box-shadow(none);}
+
+

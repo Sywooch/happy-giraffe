@@ -16,6 +16,7 @@
     border-right: 1px solid #fafafa;
     margin-top: 5px;
     background: #fff;
+    background: rgba(0,0,0,.2);
     .user-select(none);
     
     &_ava {
@@ -24,13 +25,15 @@
 
         .ava {display: block;}
     }
-    &_ul {margin: 5px 0 5px;}
+    &_ul {}
     &_li {}
-    &_li.active &_i {background: #fafafa;}
-    &_li:hover &_ico,
-    &_li.active &_ico {opacity: 1;}
-    &_li:hover &_tx,
-    &_li.active &_tx  {color: #333;}
+    &_li:hover &_i,
+    &_li.active &_i {
+        background: #afafaf;
+        background: rgba(0,0,0,.1);
+    }
+    &_li:first-child &_i {padding-top: 20px;}
+    &_li:last-child &_i {padding-bottom: 20px;}
     &_li__find {
         background: #16b45a;
 
@@ -38,7 +41,6 @@
         &.active {background: #0f9b4b;}
     }
     &_li__find &_tx  {color: #fff;}
-    &_li__find &_ico {opacity: 1;}
     
     &_i {
         position: relative;
@@ -53,7 +55,6 @@
         margin: 0 auto 6px;
         width: 50px;
         height: 40px;
-        opacity: .4;
         .img-retina('@{path-img}/user-menu_ico.png'; '@{path-img}/user-menu_ico-2x.png'; 400px; 40px);
     }
     &_ico__profile    {background-position: 0 0;}
@@ -64,7 +65,7 @@
 
     &_tx {
         display: block;
-        color: #acacac;
+        color: #fff;
         font-size: @font-xs;
         line-height: @font-xs;
         text-transform: uppercase;

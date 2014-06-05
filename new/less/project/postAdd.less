@@ -1,0 +1,291 @@
+/* 
+	postAdd 
+
+*/
+.postAdd {
+
+    &_hold {
+        margin: 0 0 20px;
+    }
+    &_row {
+        margin: 0 0 30px;
+        &:extend(.clearfix all);
+    }
+    &_count {
+        float: left;
+        min-height: 1px;
+        width: 50px;
+        color: @color-gray-light;
+        font-size: 45px;
+        line-height: 32px;
+        font-weight: bold;
+    }
+    &_video-serv {
+        margin: 0 0 15px;
+        &:extend(.clearfix all);
+    }
+    &_video-serv-t {
+        .inline-block();
+        margin-top: 5px;
+        font-size: 14px;
+        color: @color-gray-dark;
+    }
+    &_video-serv-hold {
+        float: right;
+    }
+    &_video-serv-desc {
+        .inline-block();
+        vertical-align: middle;
+        margin: 2px 10px 0;
+        font-size: @fontsmallest;
+        color: @color-gray;
+    }
+    &_video-serv-i {
+        .inline-block();
+        vertical-align: middle;
+        margin: 0 5px;
+        width: 60px;
+        height: 30px;
+        background: url('@{path-img}/redactor/redactor-popup_video-serv-i.png') no-repeat;
+    }
+    &_video-serv-i.active {}
+    &_video-serv-i__youtube {background-position: 0 -30px;}
+    &_video-serv-i__youtube.active {background-position: 0 0;}
+    &_video-serv-i__rutube  {background-position: -60px -30px;}
+    &_video-serv-i__rutube.active  {background-position: -60px 0;}
+    &_video-serv-i__vimeo   {background-position: -120px -30px;}
+    &_video-serv-i__vimeo.active   {background-position: -120px 0;}
+    &_btns-hold {
+        float: right;
+    }
+    &_btn-out {
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 140px;
+    }
+}
+
+/* /postAdd */
+
+
+/* privacy-select */
+.privacy-select {
+    position: relative;
+    margin: 2px 0 0;
+
+    &_tx {
+        .inline-block();
+        vertical-align: middle;
+        padding: 3px 0 0 0;
+        font-size: 13px;
+        color: @color-gray-dark;
+    }
+    &_drop-hold {
+        .inline-block();
+        position: relative;
+        background: url(/images/privacy-select_drop-hold.png) no-repeat 100% 50%;
+    }
+
+    &_drop {
+        position: absolute;
+        left: 0;
+        top: 100%;
+        width: 118px;
+        border: 1px solid #dcecf6;
+        background: #fff;
+        text-align: left;
+        z-index: 500;
+        display: none;
+        .border-radius(3px);
+    }
+    &_drop &_a {padding-left: 15px;}
+    &_drop &_a-tx {
+        margin-top: 0;
+        color: @color-gray;
+    }
+    &_a {
+        display: block;
+        padding: 5px 15px 5px 5px;
+        font: 10px/10px Tahoma, Arial, Verdana, sans-serif;
+        color: #6b6b6b;
+        text-decoration: none;
+    }
+    &_a:hover { color: #3d3d3d; }
+    &_a:hover .ico-users__all {background-position: 0 -30px;}
+    &_a:hover .ico-users__friend {background-position: -40px -30px;}
+    &_a-tx {
+        .inline-block();
+        vertical-align: middle;
+        margin-top: -3px;
+    }
+}
+/* /privacy-select */
+
+/* 
+    b-insert 
+*/
+.b-insert {
+    
+    .error-serv {
+        width: 470px;
+        margin: 20px 0 20px;
+    }
+    &__center {
+        margin: 0 auto;
+        text-align: center;
+    
+        .error-serv {
+            margin-left: auto;
+            margin-right: auto;
+        }    
+    }
+    &__load &_hold {
+        width: 470px;
+        min-height: 120px;
+        padding: 80px 0;
+        background-color: #fafafa;
+    }
+    &_hold {
+        position: relative;
+        .inline-block();
+    }
+    &_close {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        z-index: 99;
+    }
+    &_inner {
+
+    }
+    &_cap-img {
+        display: block;
+        margin: 8px auto;
+    }
+    &_cap-img__video {
+        width: 107px;
+        height: 99px;
+        background: url('@{path-img}/b-insert_cap-img__video.png') no-repeat;
+    }
+    &_cap-img__link {
+        width: 129px;
+        height: 129px;
+        background: url('@{path-img}/b-insert_cap-img__link.png') no-repeat;
+    }
+    &_progress {
+        width: 130px;
+        margin: 0 auto;
+    }
+    &_tx {
+        color: @color-gray-light;
+    }
+}
+/* /b-insert */
+
+/* 
+    linkPost
+*/
+.linkPost {
+    
+    &__img &_control-hold {.inline-block();}
+    &__img &_img-hold {display: block;}
+    &__img &_a {width: 275px;}
+    &_hold {
+        position: relative;
+        background-color: #50aae0;
+        color: @color-white;
+        margin-bottom: 10px;
+    }
+    &_close {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+    }
+    &_img-hold {
+        display: none;
+        float: left;
+        width: 250px;
+        height: 180px;
+        overflow: hidden;
+        background-color: #3795ca;
+        background-color: rgba(0,0,0,.2);
+    }
+    &_img-ul {
+        width: 9999px;
+    }
+    &_img-li {
+        width: 250px;
+        height: 180px;
+        text-align: center;
+    }
+    &_img {
+        max-height: 100%;
+    }
+    &_in {
+        padding: 10px 20px;
+        overflow: hidden;
+    }
+    &_t {
+        font-size: 16px;
+        line-height: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        color: @color-white;
+    }
+    &_t:hover {text-decoration: underline;}
+    &_desc {
+        margin: 5px 0 10px;
+        height: 64px;
+        overflow: hidden;
+    }
+    &_a {
+        display: block;
+        position: absolute;
+        bottom: 13px;
+        right: 25px;
+        width: 530px;
+        color: @color-white;
+        text-decoration: none;
+        padding-left: 23px;
+        background: url('@{path-img}/linkPost_a.png') no-repeat;
+        height: 14px;
+        -ms-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    &_a:hover {text-decoration: underline;}
+    &_control-hold {
+        display: none;
+        margin: 2px 0 0 25px;
+    }
+    &_arrow {
+        .inline-block();
+        vertical-align: middle;
+        width: 8px;
+        height: 12px;
+        margin: 0 6px;
+        background: url('@{path-img}/linkPost_arrow.png') no-repeat;
+    }
+    &_arrow__r {
+        background-position: -8px 0;
+    }
+    &_control-this {
+        .inline-block();
+        vertical-align: middle;
+        padding: 0 3px;
+        margin: 0 3px 0 0;
+        font-size: 13px;
+        font-weight: bold;
+        color: @color-white;
+        background-color: #50aae0;
+        .border-radius(3px);
+    }
+    &_control-tx {
+        .inline-block();
+        vertical-align: middle;
+        font-size: 13px;
+        color: @color-gray-light;
+    }
+}
+/* /linkPost */

@@ -3,6 +3,7 @@
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <!-- a-->
 <!-- b-->
+<!-- c-->
 <!-- a-->
 <!-- b-->
 <head>
@@ -19,6 +20,7 @@
     window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
     
   </script>
+  <script src="/new/javascript/bootstrap/dropdown.js"></script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
   <script src="/new/javascript/jquery.tooltipster.js"></script>
   <script src="/new/javascript/jquery.magnific-popup.js"></script>
@@ -89,60 +91,85 @@
           </div>
           <div class="docs_example docs_example__indents">
             <div class="padding-b10">
-              <div disabled class="btn-red">Не активная кнопка</div>
-              <div disabled class="btn-gray-light">Кнопка</div>
-              <div disabled class="btn-gray-simple">Кнопка</div>
-              <div disabled class="btn-green-simple">Кнопка</div>
-              <div disabled class="btn-blue-simple">Кнопка</div>
-              <div disabled class="btn-green">Кнопка</div><br>
+              <div disabled class="btn btn-default">Кнопка</div>
+              <div disabled class="btn btn-primary">Кнопка</div>
+              <div disabled class="btn btn-success">Кнопка</div>
+              <div disabled class="btn btn-warning">Кнопка</div>
+              <div disabled class="btn btn-danger">Кнопка</div>
+              <div disabled class="btn btn-secondary">Кнопка</div>
+              <div disabled class="btn btn-secondary">Кнопка</div>
+              <div disabled class="btn btn-link">Кнопка</div>
+              <div disabled class="btn btn-link-gray">Кнопка</div><br>
+            </div>
+            <div class="padding-b10"><a href="" class="btn btn-default">Кнопка</a><a href="" class="btn btn-primary">Кнопка</a><a href="" class="btn btn-success">Кнопка</a><a href="" class="btn btn-warning">Кнопка</a><a href="" class="btn btn-danger">Кнопка</a><a href="" class="btn btn-secondary">Кнопка</a><a href="" class="btn btn-link">Кнопка</a><a href="" class="btn btn-link-gray">Кнопка</a><br>
             </div>
             <div class="padding-b10">
-              <div class="btn-red">Кнопка</div>
-              <div class="btn-gray-light">Кнопка</div>
-              <div class="btn-gray-simple">Кнопка</div>
-              <div class="btn-green-simple">Кнопка</div>
-              <div class="btn-blue-simple">Кнопка</div>
-              <div class="btn-green">Кнопка</div><br>
+              <div class="btn btn-default btn-s">Кнопка</div>
+              <div class="btn btn-primary btn-s">Кнопка</div>
+              <div class="btn btn-success btn-s">Кнопка</div>
+              <div class="btn btn-warning btn-s">Кнопка</div>
+              <div class="btn btn-danger btn-s">Кнопка</div>
+              <div class="btn btn-secondary btn-s">Кнопка</div>
+              <div class="btn btn-link btn-s">Кнопка</div>
+              <div class="btn btn-link-gray btn-s">Кнопка</div><br>
             </div>
             <div class="padding-b10">
-              <div class="btn-red btn-s">Кнопка</div>
-              <div class="btn-gray-light btn-s">Кнопка</div>
-              <div class="btn-gray-simple btn-s">Кнопка</div>
-              <div class="btn-green-simple btn-s">Кнопка</div>
-              <div class="btn-blue-simple btn-s">Кнопка</div>
-              <div class="btn-green btn-s">Кнопка</div><br>
+              <div class="btn btn-default btn-m">Кнопка</div>
+              <div class="btn btn-primary btn-m">Кнопка</div>
+              <div class="btn btn-success btn-m">Кнопка</div>
+              <div class="btn btn-warning btn-m">Кнопка</div>
+              <div class="btn btn-danger btn-m">Кнопка</div>
+              <div class="btn btn-secondary btn-m">Кнопка</div>
+              <div class="btn btn-link btn-m">Кнопка</div>
+              <div class="btn btn-link-gray btn-m">Кнопка</div><br>
             </div>
             <div class="padding-b10">
-              <div class="btn-red btn-m">Кнопка</div>
-              <div class="btn-gray-light btn-m">Кнопка</div>
-              <div class="btn-gray-simple btn-m">Кнопка</div>
-              <div class="btn-green-simple btn-m">Кнопка</div>
-              <div class="btn-blue-simple btn-m">Кнопка</div>
-              <div class="btn-green btn-m">Кнопка</div><br>
+              <div class="btn btn-default btn-xm">Кнопка</div>
+              <div class="btn btn-primary btn-xm">Кнопка</div>
+              <div class="btn btn-success btn-xm">Кнопка</div>
+              <div class="btn btn-warning btn-xm">Кнопка</div>
+              <div class="btn btn-danger btn-xm">Кнопка</div>
+              <div class="btn btn-secondary btn-xm">Кнопка</div>
+              <div class="btn btn-link btn-xm">Кнопка</div>
+              <div class="btn btn-link-gray btn-xm">Кнопка</div><br>
             </div>
             <div class="padding-b10">
-              <div class="btn-red btn-l">Кнопка</div>
-              <div class="btn-gray-light btn-l">Кнопка</div>
-              <div class="btn-gray-simple btn-l">Кнопка</div>
-              <div class="btn-green-simple btn-l">Кнопка</div>
-              <div class="btn-blue-simple btn-l">Кнопка</div>
-              <div class="btn-green btn-l">Кнопка</div><br>
+              <div class="btn btn-default btn-l">Кнопка</div>
+              <div class="btn btn-primary btn-l">Кнопка</div>
+              <div class="btn btn-success btn-l">Кнопка</div>
+              <div class="btn btn-warning btn-l">Кнопка</div>
+              <div class="btn btn-danger btn-l">Кнопка</div>
+              <div class="btn btn-secondary btn-l">Кнопка</div>
+              <div class="btn btn-link btn-l">Кнопка</div>
+              <div class="btn btn-link-gray btn-l">Кнопка</div><br>
             </div>
             <div class="padding-b10">
-              <div class="btn-red btn-xl">Кнопка</div>
-              <div class="btn-gray-light btn-xl">Кнопка</div>
-              <div class="btn-gray-simple btn-xl">Кнопка</div>
-              <div class="btn-green-simple btn-xl">Кнопка</div>
-              <div class="btn-blue-simple btn-xl">Кнопка</div>
-              <div class="btn-green btn-xl">Кнопка</div><br>
+              <div class="btn btn-default btn-xl">Кнопка</div>
+              <div class="btn btn-primary btn-xl">Кнопка</div>
+              <div class="btn btn-success btn-xl">Кнопка</div>
+              <div class="btn btn-info btn-xl">Кнопка</div>
+              <div class="btn btn-warning btn-xl">Кнопка</div>
+              <div class="btn btn-danger btn-xl">Кнопка</div>
+              <div class="btn btn-secondary btn-xl">Кнопка</div>
+              <div class="btn btn-link btn-xl">Кнопка</div>
+              <div class="btn btn-link-gray btn-xl">Кнопка</div><br>
+            </div>
+            <div class="padding-b10 clearfix">
+              <div class="w-300 float-l margin-r10">
+                <button class="btn btn-default btn-xxl btn-block">Кнопка</button>
+                <button class="btn btn-primary btn-xxl btn-block">Кнопка блок</button>
+                <button class="btn btn-success btn-xxl btn-block">Кнопка блок</button>
+                <button class="btn btn-warning btn-xxl btn-block">Кнопка</button>
+              </div>
+              <div class="w-240 float-l">
+                <button class="btn btn-danger btn-xxl btn-block">Кнопка уже</button>
+                <button class="btn btn-secondary btn-xxl btn-block">Кнопка</button>
+                <button class="btn btn-link btn-xxl btn-block">Кнопка</button>
+                <button class="btn btn-link-gray btn-xxl btn-block">Кнопка уже</button>
+              </div><br>
             </div>
             <div class="padding-b10">
-              <div class="btn-red btn-xxl">Кнопка</div>
-              <div class="btn-gray-light btn-xxl">Кнопка</div>
-              <div class="btn-gray-simple btn-xxl">Кнопка</div>
-              <div class="btn-green-simple btn-xxl">Кнопка</div>
-              <div class="btn-blue-simple btn-xxl">Кнопка</div>
-              <div class="btn-green btn-xxl">Кнопка</div><br>
+              <div class="btn-group"><a class="btn btn-xm btn-success">Left</a><a class="btn btn-xm btn-success">Middle</a><a class="btn btn-xm btn-info">Middle</a><a class="btn btn-xm btn-primary">Right</a></div>
             </div>
           </div>
         </div>
@@ -317,18 +344,18 @@
             <h2 class="docs_h2">Аватары</h2>
           </div>
           <div class="docs_example docs_example__indents">
-            <!--!= vars.avaSpan--><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"></a>
-            <!--!= vars.avaSpan--><a href="" class="ava ava__middle ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"></a>
-            <!--!= vars.avaSpan--><a href="" class="ava ava ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"></a>
-            <!--!= vars.avaSpan--><a href="" class="ava ava__large ava__male"><img alt="" src="" class="ava_img"></a><br>
-            <!--!= vars.avaSpan--><a href="" class="ava ava__small ava__female"><span class="ico-status ico-status__offline"></span><img alt="" src="" class="ava_img"></a>
-            <!--!= vars.avaSpan--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__offline"></span><img alt="" src="" class="ava_img"></a>
-            <!--!= vars.avaSpan--><a href="" class="ava ava ava__female"><span class="ico-status ico-status__offline"></span><img alt="" src="" class="ava_img"></a>
-            <!--!= vars.avaSpan--><a href="" class="ava ava__large ava__female"><img alt="" src="" class="ava_img"></a><br>
-            <!--!= vars.avaSpan--><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
-            <!--!= vars.avaSpan--><a href="" class="ava ava__middle ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
-            <!--!= vars.avaSpan--><a href="" class="ava ava ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
-            <!--!= vars.avaSpan--><a href="" class="ava ava__large ava__male"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__middle ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="" class="ava_img"></a><br>
+            <!-- ava--><a href="" class="ava ava__small ava__female"><span class="ico-status ico-status__offline"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__offline"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava ava__female"><span class="ico-status ico-status__offline"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__large ava__female"><img alt="" src="" class="ava_img"></a><br>
+            <!-- ava--><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__middle ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
           </div>
         </div>
         <div class="docs">
@@ -703,7 +730,7 @@
           <div class="docs_example docs_example__indents">
             <div class="b-user b-user__w300">
               <div class="b-user_ava">
-                <!--!= vars.avaSpan--><a href="" class="ava ava__middle ava__female"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+                <!-- ava--><a href="" class="ava ava__middle ava__female"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
               </div>
               <div class="b-user_hold">
                 <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div><a class="b-user_view">123</a><a class="b-user_check">123</a><a class="b-user_del">123</a>
@@ -712,7 +739,7 @@
             <div class="docs_row">
               <div class="b-user">
                 <div class="b-user_ava">
-                  <!--!= vars.avaSpan--><a href="" class="ava ava__middle ava__female"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+                  <!-- ava--><a href="" class="ava ava__middle ava__female"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
                 </div>
                 <div class="b-user_hold">
                   <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
@@ -764,16 +791,21 @@
             <div class="yiipagination">
               <div class="pager">
                 <ul class="yiiPager">
+                  <li class="previous"><a href=""></a></li>
                   <li class="page"><a href="">1</a></li>
                   <li class="page"><a href="">2</a></li>
-                  <li class="page selected"><a href="">3</a></li>
-                  <li class="page"><a href="">4</a></li>
+                  <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
+                  <li class="page-points">...</li>
                   <li class="page"><a href="">5</a></li>
                   <li class="page"><a href="">6</a></li>
-                  <li class="page"><a href="">7</a></li>
+                  <li class="page selected"><a href="">7</a></li>
                   <li class="page"><a href="">8</a></li>
                   <li class="page"><a href="">9</a></li>
-                  <li class="page"><a href="">10</a></li>
+                  <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
+                  <li class="page-points">...</li>
+                  <li class="page"><a href="">15</a></li>
+                  <li class="page"><a href="">16</a></li>
+                  <li class="next"><a href=""></a></li>
                 </ul>
               </div>
             </div>
@@ -849,7 +881,7 @@
               <div class="header-menu clearfix">
                 <ul class="header-menu_ul">
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
-                        <!--!= vars.avaSpan--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -900,12 +932,12 @@
                 <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
                 <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a">
-                    <!--!= vars.avaSpan--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                    <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
                   <div class="header-drop">
                     <div class="header-menu clearfix">
                       <ul class="header-menu_ul">
                         <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
-                              <!--!= vars.avaSpan--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                              <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                         <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                         <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                         <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -947,7 +979,7 @@
             <div class="logo logo__small"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a></div>
             <div class="header_t-big">Модератор</div>
             <div class="header_user">
-              <!--!= vars.avaSpan--><a href="" class="ava ava__middle ava__female"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a><a class="header_user-name">Александр Богоявленский</a>
+              <!-- ava--><a href="" class="ava ava__middle ava__female"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a><a class="header_user-name">Александр Богоявленский</a>
             </div>
           </div>
         </div>
@@ -972,13 +1004,13 @@
         <div class="header-fix header-fix__rel">
           <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
             <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a">
-                <!--!= vars.avaSpan--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+                <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
               <!-- header-drop-->
               <div class="header-drop">
                 <div class="header-menu clearfix">
                   <ul class="header-menu_ul">
                     <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
-                          <!--!= vars.avaSpan--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                          <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                     <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                     <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                     <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>

@@ -6,7 +6,6 @@ RedactorPlugins.fullscreen = {
 		this.fullscreen = false;
 
 		this.buttonAdd('fullscreen', 'Fullscreen', $.proxy(this.toggleFullscreen, this));
-		this.buttonSetRight('fullscreen');
 
 		if (this.opts.fullscreen) this.toggleFullscreen();
 	},
@@ -26,19 +25,19 @@ RedactorPlugins.fullscreen = {
 				this.boxcss = {};
 				this.toolcss.width = this.$toolbar.css('width');
 				this.toolcss.top = this.$toolbar.css('top');
+				this.toolcss.left = this.$toolbar.css('left');
 				this.toolcss.position = this.$toolbar.css('position');
+				this.toolcss.margin = this.$toolbar.css('margin');
 				this.boxcss.top = this.$box.css('top');
 			}
 
 			this.fsheight = this.$editor.height();
 
+			if (this.opts.maxHeight) this.$editor.css('max-height', '');
 			if (this.opts.iframe) html = this.get();
 
-			this.tmpspan = $('<span></span>');
-			this.$box.addClass('redactor_box_fullscreen').after(this.tmpspan);
-
-			$('body, html').css('overflow', 'hidden');
-			$('body').prepend(this.$box);
+			this.$box.addClass('redactor_box_fullscreen');
+			//$('body, html').css('overflow', 'hidden');
 
 			if (this.opts.iframe) this.fullscreenIframe(html);
 
@@ -57,18 +56,18 @@ RedactorPlugins.fullscreen = {
 			this.fullscreen = false;
 
 			$(window).off('resize', $.proxy(this.fullScreenResize, this));
-			$('body, html').css('overflow', '');
+			//$('body, html').css('overflow', '');
 
-			this.$box.removeClass('redactor_box_fullscreen').css({ width: 'auto', height: 'auto' });
+			this.$box.removeClass('redactor_box_fullscreen').css({height: 'auto' });
 
 			if (this.opts.iframe) html = this.$editor.html();
-			this.tmpspan.after(this.$box).remove();
 
 			if (this.opts.iframe) this.fullscreenIframe(html);
 			else this.sync();
 
 			var height = this.fsheight;
 			if (this.opts.autoresize) height = 'auto';
+			if (this.opts.maxHeight) this.$editor.css('max-height', this.opts.maxHeight);
 
 			if (this.opts.toolbarExternal)
 			{
@@ -76,7 +75,9 @@ RedactorPlugins.fullscreen = {
 				this.$toolbar.css({
 					'width': this.toolcss.width,
 					'top': this.toolcss.top,
-					'position': this.toolcss.position
+					'left': this.toolcss.left,
+					'position': this.toolcss.position,
+					'margin': this.toolcss.margin
 				});
 			}
 
@@ -90,10 +91,8 @@ RedactorPlugins.fullscreen = {
 	},
 	fullscreenIframe: function(html)
 	{
-		this.$editor = this.$frame.contents().find('body').attr({
-			'contenteditable': true,
-			'dir': this.opts.direction
-		});
+		this.$editor = this.$frame.contents().find('body');
+		this.$editor.attr({ 'contenteditable': true, 'dir': this.opts.direction });
 
 		// set document & window
 		if (this.$editor[0])
@@ -117,18 +116,23 @@ RedactorPlugins.fullscreen = {
 		var toolbarHeight = this.$toolbar.height();
 
 		var pad = this.$editor.css('padding-top').replace('px', '');
-		var height = $(window).height() - toolbarHeight;
-		this.$box.width($(window).width() - 2).height(height + toolbarHeight);
+		var height = $(window).height() - 86 - toolbarHeight;
+		/*this.$box.width($(window).width() - 2).height(height + toolbarHeight);*/
+		this.$box.height(height + toolbarHeight);
 
 		if (this.opts.toolbarExternal)
 		{
 			this.$toolbar.css({
-				'top': '0px',
-				'position': 'absolute',
-				'width': '100%'
+				'top': '20px',
+				'left': '50%',
+				'position': 'fixed',
+				'width': '1000px',
+				'margin': '0 0 0 -500px'
 			});
 
-			this.$box.css('top', toolbarHeight + 'px');
+			this.$box.css('top', 20 + toolbarHeight + 'px');
+			// высота редактора при toolbarExternal
+			height = height + toolbarHeight - pad;
 		}
 
 		if (!this.opts.iframe) this.$editor.height(height - (pad * 2));

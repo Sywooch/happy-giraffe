@@ -21,7 +21,10 @@ $(function() {
         dropdownCssClass: 'select2-drop__1',
         escapeMarkup: function(m) { return m; }
     });*/
+
+    /* Инициализация скролла */
     addBaron('.scroll');
+    
         // Измененный tag select
     $(".select-cus__search-off").select2({
         width: '100%',
@@ -101,5 +104,12 @@ $(function() {
         
         $this.tooltipster('show');
     })
+
+    var pageColHeight = $(window).height() - $('.layout-header').height() - 60;
+    $('.page-col').css({'min-height': pageColHeight});
+
+    
 });
+
+
 

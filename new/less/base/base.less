@@ -24,7 +24,8 @@
     position: relative;
     width: 960px;
     margin: 0 auto;
-
+    
+    .page-col {width: 880px;}
     &_hold {
         margin: 20px auto;
         background: #fff;
@@ -44,76 +45,6 @@
         margin: 0 auto 30px;
     }
 }
-
-/* b-main */
-.b-main {
-    position: relative;
-
-    &__white {background-color: #fff;}
-
-    /* col-1 */
-    &_col-1 {
-        width:240px;
-        margin-bottom: 1px;
-        margin-left: 20px;
-        padding-right:20px;
-        float:left;
-        position: relative;
-        
-        .b-ava-large {margin-top: 0px; margin-bottom: 30px;}
-    }
-
-    &_col-12,
-    &_col-23 {
-        width:700px;
-        float:left;
-        position: relative;
-
-        &__gray {
-            width: 720px;
-            margin-right: -20px;
-            background: #ebebeb;
-            .border-radius(8px);
-        }
-    }
-    &_cont {
-        margin: 0 20px;
-    }
-    &_col-hold {
-        &:extend(.clearfix all);
-    }
-    &_col-article {
-        float: left;
-        width: 600px;
-    }
-    &_col-sidebar {
-        float: left;
-        width: 240px;
-        margin-left: 20px;
-    }
-    &_col-sidebar:first-child {margin-left: 0;}
-
-    &_arrow {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        width: 59px;
-        height: 160px;
-        margin-top: -100px;
-        margin-left: -590px;
-        background: url(/images/photo-window_arrow.png) no-repeat 0 0;
-    }
-    &_arrow:hover {background-position: 0 -160px;}
-    &_arrow__r {
-        left: auto;
-        right: 50%;
-        margin-left: auto;
-        margin-right: -590px;
-        background-position: -59px 0;
-    }
-    &_arrow__r:hover {background-position: -59px -160px;}
-}
-/* /b-main */
 
 // Отдельные элементы
 .heading-xxl {
@@ -216,6 +147,21 @@
         }
     }*/
 }
+.post-arrow {
+    display: none;
+    position: fixed;
+    top: 50%;
+    right: 40px;
+    width: 62px;
+    height: 224px;
+    margin-top: -112px;
+    background: url('@{path-img}/post-arrow.png') no-repeat 0 0;
+    
+    &:hover {background-position: 0 -224px;}
+    @media screen and (min-width: 1230px) {
+        & {display: block;}
+    }
+}
 // /отдельные элементы
 
 /* 
@@ -226,9 +172,8 @@
             page-col_t
 */
 .page-col {
-    /*float: left;
-    width: 880px;*/
-    margin-left: 80px;
+    float: left;
+    width: 920px;
     background: #fff;
     .border-radius(10px);
     border-top-left-radius:0;
@@ -245,7 +190,7 @@
         vertical-align: top;
     }
     &__user {
-        margin: 5px 0 0 80px;
+        margin: 5px 0 0 0;
         .border-radius(0);
 
         .layout-footer_hold {
@@ -357,6 +302,50 @@
     }
 }
 /* /page-col */
+
+/* b-main */
+.b-main {
+    position: relative;
+
+    &__white {background-color: #fff;}
+
+    /* col-1 */
+    &_col-1 {
+        width:240px;
+        margin-bottom: 1px;
+        margin-left: 20px;
+        padding-right:20px;
+        float:left;
+        position: relative;
+        
+        .b-ava-large {margin-top: 0px; margin-bottom: 30px;}
+    }
+
+    &_col-12,
+    &_col-23 {
+        width:700px;
+        float:left;
+        position: relative;
+    }
+    &_cont {
+        margin: 0 20px;
+    }
+    &_col-hold {
+        &:extend(.clearfix all);
+    }
+    &_col-article {
+        float: left;
+        width: 600px;
+    }
+    &_col-sidebar {
+        float: left;
+        width: 240px;
+        margin-left: 20px;
+    }
+    &_col-sidebar:first-child {margin-left: 0;}
+
+}
+/* /b-main */
 
 /*
     Кнопки управления записи
@@ -922,7 +911,6 @@
     }
     &_li__last:after {display: none;}
     &_last {
-        font-weight: bold;
         color: #f17504;
     }
 }
@@ -1002,7 +990,7 @@
         left: 6px;
         width: 4px;
         background: #b9b9b9;
-        background: rgba(0,0,0,.2);
+        background: rgba(0,0,0,.15);
         .border-radius(6px);
         -webkit-transition: all .2s linear;
         transition: all .2s linear;
@@ -1069,7 +1057,11 @@
 
 
 
-/* docs */
+/* 
+    docs 
+    Правила для внешнего вида документации
+    Нужно наверно вынести в отдельный файл, что б не попадали стили на www
+*/
 .docs {
     position: relative;
     margin: 0px 0;

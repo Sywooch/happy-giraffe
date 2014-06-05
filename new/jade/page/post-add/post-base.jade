@@ -1,0 +1,61 @@
+include ../../block/config
+extend ../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in.b-main
+            
+            .b-main_col-hold.clearfix
+                // Добавление статьи
+                .postAdd
+                    +userAddRecord('userAddRecord__add', userAddRecord.c)
+                    .postAdd_hold
+                        .postAdd_row
+                            .postAdd_count 1
+                            .b-main_col-article
+                                // При очень длинном заголовке он показывается как ошибка за счет класса error и счтетчик отсчитывает в -
+                                .inp-valid.inp-valid__abs.error
+                                    input.itx-gray(type='text', placeholder="Введите заголовок видеопоста", value="Очень много букв в input, такие заголовки не бывают. Очень много букв в input, такие заголовки не бывают.")
+                                    .inp-valid_count -30
+
+                        .postAdd_row
+                            // Блочек описание видео сервисов 
+                            .postAdd_count 2
+                            .b-main_col-article
+                                script.
+                                    $(document).ready(function () { 
+                                      $('.wysiwyg-redactor').redactor({
+                                          autoresize: true,
+                                          toolbarExternal: '.wysiwyg-toolbar-btn',
+                                          minHeight: 450,
+                                          plugins: [ 'formatbtn', 'fullscreen'],
+                                          buttons: [''],
+                                          
+                                      });
+                                    });
+                                .wysiwyg-post.redactor_box
+                                    .wysiwyg-toolbar
+                                        .wysiwyg-toolbar-btn
+                                    .scroll.scroll__on
+                                        .scroll_scroller
+                                            .scroll_cont
+                                                textarea.wysiwyg-redactor(name=''. colrow="9")
+                                        .scroll_bar-hold
+                                            .scroll_bar
+                                                .scroll_bar-in
+
+
+                        +postAddRowBtns('', postAddRowBtns.a)
+
+                    // /Добавление статьи
+                // /postAdd
+
+        //- Футер не нужен
+            +layout-footer('layout-footer__in')
+
+

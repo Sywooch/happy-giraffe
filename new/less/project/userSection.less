@@ -58,7 +58,7 @@
         color: #d9d2e9;
     }
     &_btn-hold {
-            margin: 20px 0;
+            margin: 14px 0 ;
     }
     &_btn {
         float: left;
@@ -94,20 +94,21 @@
     &_panel-ul {}
     &_panel-li {
         .inline-block();
-        margin: 0 3px;
+        margin: 0 4px;
     }
-    &_panel-li.active &_panel-a {font-weight: bold;}
+    &_panel-li.active &_panel-a {
+        border-color: #fff;
+        background-color: #fff;
+        color: #9d8bbd;
+    }
     &_panel-a {
         .inline-block();
         padding: 4px 10px;
-        color: #f3edfc;
-        text-decoration: none;
-    }
-    &_panel-li.active &_panel-a,
-    &_panel-a:hover {
-        text-decoration: none;
         color: #fff;
-        background-color: #8573a7;
-        .border-radius(4px);
+        text-decoration: none;
+        border: 2px solid #d7cde9;
+    }
+    &_panel-a:hover {
+        border-color: #fff;
     }
 }

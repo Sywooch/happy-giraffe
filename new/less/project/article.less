@@ -2,7 +2,7 @@
  /* b-article */
 .b-article {
     position: relative;
-    margin: 0 0 30px;
+    margin: 0 0 40px;
     
     &__user-status &_cont {background: #cdecff;}
     &__user-status &_cont-tale {border-right-color: #cdecff;}
@@ -42,15 +42,15 @@
     /* new */
     &__list &_cont {
         float: left;
-        width: 518px;
-        margin-left: 8px;
+        width: 508px;
+        margin-left: 18px;
     }
     &__single &_header .ava {
         vertical-align: top;
         margin-bottom: 10px;
     }
     &__single &_t {font-size: 45px;}
-    &__single &_tale {display: none;}
+    &__single &_cont-tale {display: none;}
     /* /new */
 
     .custom-likes-b {margin: 0 0 30px;}
@@ -59,11 +59,11 @@
         min-height:159px;
         word-wrap: break-word;
     }
-    &_in .wysiwyg-content {padding: 0 20px;}
+    &_in .wysiwyg-content {padding: 0 15px;}
     &_in-img {
         position: relative;
         text-align: center;
-        margin: 0 -20px 10px;
+        margin: 0 -15px 10px;
     }
     &_in-img:hover &_in-img-overlay {display: block;}
     &_in-img img {
@@ -73,8 +73,8 @@
     &_in-img iframe {max-width:100%;}
     &_in .like-control__smallest {border-left: 1px solid #fff;}
     &_in-img-desc {
-        margin: -10px -20px 10px;
-        padding: 10px 20px 15px;
+        margin: -10px -15px 10px;
+        padding: 10px 15px 15px;
         font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
         color: #d5cedd;
         background: #4c385d;
@@ -114,8 +114,9 @@
         padding: 12px 0 0;
         border: 1px solid #f5f5f5;
     }
-    &_cont .comments {margin: 15px 0 0 20px;}
-    &_cont .comments_ul {margin-right: 20px;}
+    &_cont .comments_t {margin-right: 15px; margin-left: 15px;}
+    &_cont .comments_ul {margin-right: 15px; margin-left: 15px;}
+    &_cont .comments_add {margin-right: 15px; margin-left: 15px;}
     &_cont .comments_frame {width: 430px;}
     &_cont-tale {
         position: absolute;
@@ -126,7 +127,7 @@
         background: url('@{path-img}/b-article_cont-tale.png') no-repeat;
     }
     &_header {
-        margin: 0 20px 10px;
+        margin: 0 15px 10px;
     }
     &_header .ava {margin: 0 10px 0 0;}
     &_author {
@@ -140,7 +141,7 @@
         color: @color-gray;
     }
     &_t {
-        margin: 0 20px 15px;
+        margin: 0 15px 15px;
         font: bold 35px/35px Arial, Tahoma, Verdana, sans-serif;
         color: #196eb9;
         letter-spacing: -0.6px;
@@ -150,7 +151,7 @@
         text-decoration: none;
     }
     &_t-a:hover {text-decoration: underline;}
-    &_t-new {
+    /*&_t-new {
         float: right;
         margin: 2px -23px 0 0;
         padding: 0 10px;
@@ -158,15 +159,15 @@
         color: #fff;
         font-weight: normal;
         background: #0eba23;
-    }
-    &_album-header {
+    }*/
+    /*&_album-header {
         margin: 10px 20px 15px;
         font: 11px/12px Tahoma, Arial, Verdana, sans-serif;
         color: #707070;
-    }
+    }*/
     &_more {
         .inline-block();
-        margin:0 15px 15px 0;
+        margin:0 15px 10px 0;
         padding: 0 20px 0 0;
         background: url(/images/i-more.png) no-repeat 100% 10px;
         color: #196eb9;
@@ -177,7 +178,7 @@
         color: #378bcb;
         text-decoration: underline;
     }
-    &_more__white {
+    /*&_more__white {
         color: #fff;
         background: url(/images/i-more__white.png) no-repeat 100% 10px;
     }
@@ -259,7 +260,7 @@
         height: 2px;
         left: 0;
         top: 9px;
-    }
+    }*/
 
     /* new */
     &_left {
@@ -667,7 +668,7 @@
 
 /* article-similar */
 .article-similar {
-    margin: 0 0 20px;
+    margin: 0 0 30px;
     padding-top: 1px;
     color: #fff;
 
@@ -799,7 +800,7 @@
         position: relative;
         .inline-block();
         vertical-align: middle;
-        margin: 0 2px 3px 0;
+        margin: 0 3px 4px 0;
     }
     &_last {
         .inline-block();
@@ -884,7 +885,7 @@
     &_tx {
         .inline-block();
         .font-xs-mixin();
-        padding-bottom: 2px;
+        padding: 0 4px 2px;
     }
 }
 /* /user-actions */

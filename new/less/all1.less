@@ -1,13 +1,19 @@
 ///// Управдение объеденения файлов с помощью less 
 ///// Конечный файл не должен превышать 4096 селекторов. Браузеры IE не поддерживают большее количество в одном файле
 
+///// Обнуление и приведение свойств элементов к кроссбарузерности
+@import "base/normalize.less";
+@import "base/main.less";
+
+///// Bootstrap
+@import "bootstrap/bootstrap.less";
+@import "project/bootstrap.hg.less";
+
 ///// Переменные и примешивания
 @import "include/variables.less";
 @import "include/mixins.less";
 
-///// Базовые стили
-@import "base/normalize.less";
-@import "base/main.less";
+///// Базовые Слой
 @import "base/base.less";
 @import "base/buttons.less";
 @import "base/ico.less";
@@ -23,6 +29,7 @@
 @import "plugins/jquery.Jcrop.less";
 @import "plugins/magnific-popup.less";
 @import "plugins/redactor.less";
+@import "plugins/redactor.hg.less";
 @import "plugins/tooltipster.less";
 /*@import "plugins/selectize.default.less";
  @import "plugins/selectize.bootstap3.less"; 
@@ -45,6 +52,7 @@
 @import "project/header.less";
 @import "project/photo-window.less";
 @import "project/popup-sign.less";
+@import "project/postAdd.less";
 @import "project/userAddRecord.less";
 @import "project/user-menu.less";
 @import "project/userSection.less";
@@ -52,3 +60,6 @@
 @import "project/subscribersWidget.less";
 
 
+
+/// test 
+/*@import "../redactor/redactor.less";*/

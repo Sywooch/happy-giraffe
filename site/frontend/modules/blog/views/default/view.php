@@ -36,14 +36,17 @@ if (! isset($showComments))
     $showComments = true;
 
 $gplus = array(
-    'https://plus.google.com/102229503737913861260/' => array(
+    'https://plus.google.com/102229503737913861260' => array(
         172277,
         169922,
     ),
-    'https://plus.google.com/102115350805461891146/' => array(
+);
+
+$gplus2 = array(
+    'https://plus.google.com/102115350805461891146' => array(
         157262,
     ),
-    'https://plus.google.com/115860092477751560643/' => array(
+    'https://plus.google.com/115860092477751560643' => array(
         166387,
     ),
 );
@@ -75,6 +78,14 @@ foreach ($gplus as $account => $ids) {
         <!-- ko stopBinding: true -->
 
         <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false, 'show_new' => isset($show_new) ? true : false)); ?>
+
+        <?php
+            foreach ($gplus2 as $account => $ids) {
+                if (in_array($data->id, $ids)) {
+                    echo 'Автор: ' . CHtml::link($data->author->fullName, $account . '?rel=author');
+                }
+            }
+        ?>
 
         <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
 

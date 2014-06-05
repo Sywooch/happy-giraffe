@@ -567,7 +567,35 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
     public function actionRemoveH1()
     {
+        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
 
+        $post = CommunityVideo::model()->findByPk(7344);
+        $doc = str_get_html($post->text);
+        $h1 = $doc->find('h1');
+        foreach ($h1 as $h) {
+            $h->outertext = '<p>' . $h->innertext . '</p>';
+        }
+        $post->updateByPk($post->id, array('text' => $doc->save()));
+        Yii::app()->cache->delete('CommunityContent_' . $post->content_id . '_text');
+        Yii::app()->cache->delete('BlogContent_' . $post->content_id . '_text');
+
+        die;
+
+        $models = array('CommunityPost', 'CommunityVideo', 'CommunityPhotoPost');
+
+        foreach ($models as $model) {
+            $posts = new CActiveDataProvider($model);
+            $total = $posts->totalItemCount;
+            $iterator = new CDataProviderIterator($posts);
+            foreach ($iterator as $i => $post) {
+                $doc = str_get_html($post->text);
+                $h1 = $doc->find('h1');
+                foreach ($h1 as $h) {
+                    $h->outertext = '<p>' . $h->innertext . '</p>';
+                }
+                echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
+            }
+        }
     }
 }
 

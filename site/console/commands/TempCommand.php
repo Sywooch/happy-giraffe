@@ -564,5 +564,10 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
             echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
         }
     }
+
+    public function actionRemoveH1()
+    {
+
+    }
 }
 

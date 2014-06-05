@@ -15,7 +15,7 @@
 	<div class="theme_banner-top-hold">
 
 		<a href="">
-			<img src="http://109.87.248.203/images/branding/hainz/play-game/hainz-1000.jpg" alt="" style="display:block; width: 1000px; height: 320px;">
+			<img src="http://view-change.dev.happy-giraffe.ru/images/branding/hainz/play-game/hainz-1000.jpg" alt="" style="display:block; width: 1000px; height: 320px;">
 		</a>
 
 	</div>

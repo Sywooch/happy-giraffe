@@ -576,8 +576,13 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
             $posts = new CActiveDataProvider($model);
             $total = $posts->totalItemCount;
             $iterator = new CDataProviderIterator($posts);
-            foreach ($iterator as $i => $post) {
+            foreach ($iterator as $i => $post)
                 $doc = str_get_html($post->text);
+
+                if ($doc === false) {
+                    continue;
+                }
+
                 $h1 = $doc->find('h1');
                 foreach ($h1 as $h) {
                     $h->outertext = '<h2>' . $h->innertext . '</h2>';

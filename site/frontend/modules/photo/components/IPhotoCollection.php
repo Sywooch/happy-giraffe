@@ -5,7 +5,7 @@
  * Описывает методы, которые необходимы поддерживаться основной моделью для корректной работы коллекции
  */
 
-namespace components;
+namespace site\frontend\modules\photo\components;
 
 
 interface IPhotoCollection

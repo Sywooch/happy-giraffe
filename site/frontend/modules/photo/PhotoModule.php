@@ -1,7 +1,11 @@
 <?php
 
-class PhotoModule extends CWebModule
+namespace site\frontend\modules\photo;
+
+class PhotoModule extends \CWebModule
 {
+    public $controllerNamespace = '\site\frontend\modules\photo\controllers';
+
 	public function init()
 	{
 		// this method is called when the module is being created

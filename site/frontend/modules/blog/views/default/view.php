@@ -51,9 +51,11 @@ $gplus2 = array(
     ),
 );
 
-foreach ($gplus as $account => $ids) {
-    if (in_array($data->id, $ids)) {
-        Yii::app()->clientScript->registerLinkTag('author', null, $account);
+if ($full) {
+    foreach ($gplus as $account => $ids) {
+        if (in_array($data->id, $ids)) {
+            Yii::app()->clientScript->registerLinkTag('author', null, $account);
+        }
     }
 }
 ?>
@@ -80,9 +82,11 @@ foreach ($gplus as $account => $ids) {
         <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false, 'show_new' => isset($show_new) ? true : false)); ?>
 
         <?php
-            foreach ($gplus2 as $account => $ids) {
-                if (in_array($data->id, $ids)) {
-                    echo '<p style="margin-left: 20px;">Автор: ' . CHtml::link($data->author->fullName, $account . '?rel=author', array('target' => '_blank')) . '</p>';
+            if ($full) {
+                foreach ($gplus2 as $account => $ids) {
+                    if (in_array($data->id, $ids)) {
+                        echo '<p style="margin-left: 20px;">Автор: ' . CHtml::link($data->author->fullName, $account . '?rel=author', array('target' => '_blank')) . '</p>';
+                    }
                 }
             }
         ?>

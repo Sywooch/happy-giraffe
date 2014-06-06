@@ -50,6 +50,7 @@ class YandexShareWidget extends CWidget
             'elementStyle' => array(
                 'type' => 'small',
                 'quickServices' => array(
+                    'yaru',
                     'vkontakte',
                     'odnoklassniki',
                     'facebook',

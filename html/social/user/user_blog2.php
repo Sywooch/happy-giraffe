@@ -18,205 +18,6 @@
 		
 		<div class="layout-content clearfix">
 		<div class="content-cols clearfix">
-			<div class="col-1">
-
-				<div class="b-ava-large">
-					<div class="b-ava-large_ava-hold clearfix">
-						<a href="" class="ava powertip ava__large ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
-						<span class="b-ava-large_online">На сайте</span>
-						<a class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" href="">
-							<span class="b-ava-large_ico b-ava-large_ico__mail"></span>
-							<span class="b-ava-large_bubble-tx">+5</span>
-						</a>
-						<a class="b-ava-large_bubble b-ava-large_bubble__photo powertip" href="">
-							<span class="b-ava-large_ico b-ava-large_ico__photo"></span>
-							<span class="b-ava-large_bubble-tx">+50</span>
-						</a>
-						<a class="b-ava-large_bubble b-ava-large_bubble__blog powertip" href="">
-							<span class="b-ava-large_ico b-ava-large_ico__blog"></span>
-							<span class="b-ava-large_bubble-tx">+999</span>
-						</a>
-						<a class="b-ava-large_bubble b-ava-large_bubble__friend-add-onhover powertip" href="">
-							<span class="b-ava-large_ico b-ava-large_ico__friend-add"></span>
-						</a>
-					</div>
-					<div class="textalign-c">
-						<a class="b-ava-large_a" href="">Александр Богоявленский</a>
-						<span class="font-smallest color-gray"> 39 лет</span>
-					</div>
-					<div class="b-ava-large_location">
-						<div class="flag flag-ua" title="Украина"></div>
-               				Украина, Астраханская область
-					</div>
-				</div>
-				
-				<div class="aside-blog-desc">
-					<div class="aside-blog-desc_tx">
-						Пусть кто-то будет безумно красивый Пусть кто-то будет богаче и круче Мне наплевать, ведь ты - мой любимый.	Ты навсегда. Ты мой. Самый лучший.
-					</div>
-				</div>
-				<div class="clearfix">
-				<a href="" class="ava powertip ava__large ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
-				</div>
-				<div class="readers2">
-					<a href="" class="btn-green btn-medium">Подписаться</a>
-					<ul class="readers2_ul clearfix">
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava male small">
-								<span class="icon-status status-online"></span>
-							</a>
-						</li>
-					</ul>
-					<div class="clearfix">
-						<div class="readers2_count">Все подписчики (129)</div>
-					</div>
-				</div>
-				
-				<div class="menu-simple">
-					<ul class="menu-simple_ul">
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Обо всем</a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Свадьба - прекрасный миг</a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Прикольное видео </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Школа восточного танца  </a>
-						</li>
-						<li class="menu-simple_li active">
-							<a href="" class="menu-simple_a">Мой мужчина </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Детские передачи </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Свадьбы </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Кормление ребенка </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Воспитание детей </a>
-						</li>
-					</ul>
-				</div>
-				
-				<div class="fast-articles2 js-fast-articles2">
-					<div class="fast-articles2_t-ico"></div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> О моем первом бойфренде</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w190-h166.jpg" alt="" class="fast-articles2_i-img"></a>
-						</div>
-					</div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> Как мне предлагали руку и сердце</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<div class="photo-grid photo-grid__indent-sm clearfix">
-								<div class="photo-grid_row clearfix">
-									<div class="photo-grid_i" >
-										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x93/159841/fc78476c9f5ef91684257aa1bf0ab307.jpg" alt="">
-										<div class="photo-grid_overlay">
-											<span class="photo-grid_zoom"></span>
-										</div>
-									</div>
-									<div class="photo-grid_i">
-										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x93/159841/537a0df1f7c1aaa46fed45c036144365.jpg" alt="">
-										<div class="photo-grid_overlay">
-											<span class="photo-grid_zoom"></span>
-										</div>
-									</div>
-								</div>
-								<div class="photo-grid_row clearfix">
-									<div class="photo-grid_i">
-										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x83/159841/f339bac1aef5919a08bdb43474431326.jpg" alt="">
-										<div class="photo-grid_overlay">
-											<span class="photo-grid_zoom"></span>
-										</div>
-									</div>
-									<div class="photo-grid_i" >
-										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x83/159841/94b7650e47db01298d38d96f15a5ab3b.jpg" alt="">
-										<div class="photo-grid_overlay">
-											<span class="photo-grid_zoom"></span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-			</div>
 			<div class="col-23-middle">
 				<div class="blog-title-b">
 					<div class="blog-title-b_img-hold">
@@ -1114,6 +915,202 @@
 					</tr>
 				</table>
 
+			</div>
+			<div class="col-1">
+
+				<div class="b-ava-large">
+					<div class="b-ava-large_ava-hold clearfix">
+						<a href="" class="ava powertip ava__large ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+						<span class="b-ava-large_online">На сайте</span>
+						<a class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" href="">
+							<span class="b-ava-large_ico b-ava-large_ico__mail"></span>
+							<span class="b-ava-large_bubble-tx">+5</span>
+						</a>
+						<a class="b-ava-large_bubble b-ava-large_bubble__photo powertip" href="">
+							<span class="b-ava-large_ico b-ava-large_ico__photo"></span>
+							<span class="b-ava-large_bubble-tx">+50</span>
+						</a>
+						<a class="b-ava-large_bubble b-ava-large_bubble__blog powertip" href="">
+							<span class="b-ava-large_ico b-ava-large_ico__blog"></span>
+							<span class="b-ava-large_bubble-tx">+999</span>
+						</a>
+						<a class="b-ava-large_bubble b-ava-large_bubble__friend-add-onhover powertip" href="">
+							<span class="b-ava-large_ico b-ava-large_ico__friend-add"></span>
+						</a>
+					</div>
+					<div class="textalign-c">
+						<a class="b-ava-large_a" href="">Александр Богоявленский</a>
+						<span class="font-smallest color-gray"> 39 лет</span>
+					</div>
+					<div class="b-ava-large_location">
+						<div class="flag flag-ua" title="Украина"></div>
+               				Украина, Астраханская область
+					</div>
+				</div>
+				
+				<div class="aside-blog-desc">
+					<div class="aside-blog-desc_tx">
+						Пусть кто-то будет безумно красивый Пусть кто-то будет богаче и круче Мне наплевать, ведь ты - мой любимый.	Ты навсегда. Ты мой. Самый лучший.
+					</div>
+				</div>
+				<div class="readers2">
+					<a href="" class="btn-green btn-medium">Подписаться</a>
+					<ul class="readers2_ul clearfix">
+						<li class="readers2_li clearfix">
+							<a href="" class="ava female small">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
+							</a>
+						</li>
+						<li class="readers2_li clearfix">
+							<a href="" class="ava female small">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
+							</a>
+						</li>
+						<li class="readers2_li clearfix">
+							<a href="" class="ava female small">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
+							</a>
+						</li>
+						<li class="readers2_li clearfix">
+							<a href="" class="ava female small">
+							</a>
+						</li>
+						<li class="readers2_li clearfix">
+							<a href="" class="ava female small">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
+							</a>
+						</li>
+						<li class="readers2_li clearfix">
+							<a href="" class="ava male small">
+								<span class="icon-status status-online"></span>
+							</a>
+						</li>
+					</ul>
+					<div class="clearfix">
+						<div class="readers2_count">Все подписчики (129)</div>
+					</div>
+				</div>
+				
+				<div class="menu-simple">
+					<ul class="menu-simple_ul">
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Обо всем</a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Свадьба - прекрасный миг</a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Прикольное видео </a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Школа восточного танца  </a>
+						</li>
+						<li class="menu-simple_li active">
+							<a href="" class="menu-simple_a">Мой мужчина </a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Детские передачи </a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Свадьбы </a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Кормление ребенка </a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Воспитание детей </a>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="fast-articles2 js-fast-articles2">
+					<div class="fast-articles2_t-ico"></div>
+					<div class="fast-articles2_i">
+						<div class="fast-articles2_header clearfix">
+						
+							<div class="meta-gray">
+								<a href="" class="meta-gray_comment">
+									<span class="ico-comment ico-comment__gray"></span>
+									<span class="meta-gray_tx">35</span>
+								</a>
+								<div class="meta-gray_view">
+									<span class="ico-view ico-view__gray"></span>
+									<span class="meta-gray_tx">305</span>
+								</div>
+							</div>
+							
+							<div class="float-l">
+								<span class="font-smallest color-gray">Сегодня 13:25</span>
+							</div>
+						</div>
+						<div class="fast-articles2_i-t">
+							<a href="" class="fast-articles2_i-t-a"> О моем первом бойфренде</a>
+						</div>
+						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
+						<div class="fast-articles2_i-img-hold">
+							<a href=""><img src="/images/example/w190-h166.jpg" alt="" class="fast-articles2_i-img"></a>
+						</div>
+					</div>
+					<div class="fast-articles2_i">
+						<div class="fast-articles2_header clearfix">
+						
+							<div class="meta-gray">
+								<a href="" class="meta-gray_comment">
+									<span class="ico-comment ico-comment__gray"></span>
+									<span class="meta-gray_tx">35</span>
+								</a>
+								<div class="meta-gray_view">
+									<span class="ico-view ico-view__gray"></span>
+									<span class="meta-gray_tx">305</span>
+								</div>
+							</div>
+							
+							<div class="float-l">
+								<span class="font-smallest color-gray">Сегодня 13:25</span>
+							</div>
+						</div>
+						<div class="fast-articles2_i-t">
+							<a href="" class="fast-articles2_i-t-a"> Как мне предлагали руку и сердце</a>
+						</div>
+						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
+						<div class="fast-articles2_i-img-hold">
+							<div class="photo-grid photo-grid__indent-sm clearfix">
+								<div class="photo-grid_row clearfix">
+									<div class="photo-grid_i" >
+										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x93/159841/fc78476c9f5ef91684257aa1bf0ab307.jpg" alt="">
+										<div class="photo-grid_overlay">
+											<span class="photo-grid_zoom"></span>
+										</div>
+									</div>
+									<div class="photo-grid_i">
+										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x93/159841/537a0df1f7c1aaa46fed45c036144365.jpg" alt="">
+										<div class="photo-grid_overlay">
+											<span class="photo-grid_zoom"></span>
+										</div>
+									</div>
+								</div>
+								<div class="photo-grid_row clearfix">
+									<div class="photo-grid_i">
+										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x83/159841/f339bac1aef5919a08bdb43474431326.jpg" alt="">
+										<div class="photo-grid_overlay">
+											<span class="photo-grid_zoom"></span>
+										</div>
+									</div>
+									<div class="photo-grid_i" >
+										<img class="photo-grid_img" src="http://img.happy-giraffe.ru/thumbs/x83/159841/94b7650e47db01298d38d96f15a5ab3b.jpg" alt="">
+										<div class="photo-grid_overlay">
+											<span class="photo-grid_zoom"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 		</div>

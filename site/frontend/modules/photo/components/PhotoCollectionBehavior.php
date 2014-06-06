@@ -6,7 +6,7 @@
  * Time: 16:46
  */
 
-namespace components;
+namespace site\frontend\modules\photo\components;
 
 
 class PhotoCollectionBehavior extends \CActiveRecordBehavior

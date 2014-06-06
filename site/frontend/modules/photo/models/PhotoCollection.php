@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the model class for table "photo__collections".
  *
@@ -14,10 +13,13 @@
  * @property integer $removed
  *
  * The followings are the available model relations:
- * @property PhotoAttaches[] $photoAttaches
- * @property PhotoPhotos $cover
+ * @property PhotoAttach[] $photoAttaches
+ * @property PhotoPhoto $cover
  */
-class PhotoCollection extends CActiveRecord
+
+namespace site\frontend\modules\photo\models;
+
+class PhotoCollection extends \HActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -85,14 +87,14 @@ class PhotoCollection extends CActiveRecord
 	 * models according to data in model fields.
 	 * - Pass data provider to CGridView, CListView or any similar widget.
 	 *
-	 * @return CActiveDataProvider the data provider that can return the models
+	 * @return \CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria=new \CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('entity',$this->entity,true);
@@ -103,7 +105,7 @@ class PhotoCollection extends CActiveRecord
 		$criteria->compare('updated',$this->updated);
 		$criteria->compare('removed',$this->removed);
 
-		return new CActiveDataProvider($this, array(
+		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}

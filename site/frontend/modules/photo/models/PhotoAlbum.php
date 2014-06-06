@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the model class for table "photo__albums".
  *
@@ -10,7 +9,12 @@
  * @property string $created
  * @property string $updated
  */
-class PhotoAlbum extends CActiveRecord implements \components\IPhotoCollection
+
+namespace site\frontend\modules\photo\models;
+
+use site\frontend\modules\photo\components\IPhotoCollection;
+
+class PhotoAlbum extends \HActiveRecord implements IPhotoCollection
 {
 	/**
 	 * @return string the associated database table name
@@ -71,14 +75,14 @@ class PhotoAlbum extends CActiveRecord implements \components\IPhotoCollection
 	 * models according to data in model fields.
 	 * - Pass data provider to CGridView, CListView or any similar widget.
 	 *
-	 * @return CActiveDataProvider the data provider that can return the models
+	 * @return \CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria=new \CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('title',$this->title,true);
@@ -86,7 +90,7 @@ class PhotoAlbum extends CActiveRecord implements \components\IPhotoCollection
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
 
-		return new CActiveDataProvider($this, array(
+		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}

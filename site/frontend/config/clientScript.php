@@ -196,11 +196,17 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/upload.js',
+            ),
+            'depends' => array('knockout', 'jquery_file_upload'),
+        ),
+        'jquery_file_upload' => array(
+            'baseUrl' => '/',
+            'js' => array(
                 'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',
             ),
-            'depends' => array('knockout'),
+            'depends' => array('jquery'),
         ),
         'ko_menu' => array(
             'baseUrl' => '/',

@@ -361,5 +361,7 @@ return array(
         'developers/<_c>/<_a>' => 'developers/<_c>/<_a>',
 
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
+
+        'photo/<_c>/<_a>' => 'photo/<_c>/<_a>',
     ),
 );

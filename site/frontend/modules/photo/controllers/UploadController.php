@@ -6,7 +6,20 @@
  * Time: 10:38
  */
 
-class UploadController extends HController
-{
+namespace site\frontend\modules\photo\controllers;
 
+use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
+
+class UploadController extends \HController
+{
+    public function actionUpload()
+    {
+        $this->render('upload');
+    }
+
+    public function actionFromComputer()
+    {
+        $form = new FromComputerUploadForm();
+        $form->save();
+    }
 } 

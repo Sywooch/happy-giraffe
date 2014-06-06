@@ -136,6 +136,9 @@ return array(
         'signup',
         'mail',
         'developers',
+        'photo' => array(
+            'class' => '\site\frontend\modules\photo\PhotoModule',
+        ),
 	),
 	// application components
 	'components'=>array(

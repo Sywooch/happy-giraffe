@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the model class for table "photo__photos".
  *
@@ -15,10 +14,15 @@
  * @property string $updated
  *
  * The followings are the available model relations:
- * @property PhotoAttaches[] $photoAttaches
- * @property PhotoCollections[] $photoCollections
+ * @property PhotoAttach[] $photoAttaches
+ * @property PhotoCollection[] $photoCollections
  */
-class Photo extends CActiveRecord
+
+namespace site\frontend\modules\photo\models;
+
+use site\frontend\modules\photo\components\FileHelper;
+
+class Photo extends \HActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -87,14 +91,14 @@ class Photo extends CActiveRecord
 	 * models according to data in model fields.
 	 * - Pass data provider to CGridView, CListView or any similar widget.
 	 *
-	 * @return CActiveDataProvider the data provider that can return the models
+	 * @return \CActiveDataProvider the data provider that can return the models
 	 * based on the search/filter conditions.
 	 */
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
-		$criteria=new CDbCriteria;
+		$criteria=new \CDbCriteria;
 
 		$criteria->compare('id',$this->id,true);
 		$criteria->compare('title',$this->title,true);
@@ -106,7 +110,7 @@ class Photo extends CActiveRecord
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
 
-		return new CActiveDataProvider($this, array(
+		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
@@ -121,4 +125,35 @@ class Photo extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public static function createByPath($path, $userId = null)
+    {
+        if ($userId === null) {
+            if (\Yii::app()->user->isGuest) {
+                throw new \CHttpException('У нас проблемы');
+            } else {
+                $userId = \Yii::app()->user->id;
+            }
+        }
+
+        $imageSize = getimagesize($path);
+        $model = new Photo();
+        $model->width = $imageSize[0];
+        $model->height = $imageSize[1];
+        $model->original_name = FileHelper::getName($path);
+        $model->fs_name = sha1_file($path);
+
+    }
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+                'setUpdateOnCreate' => true,
+            )
+        );
+    }
 }

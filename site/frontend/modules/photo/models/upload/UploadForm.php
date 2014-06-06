@@ -9,9 +9,9 @@
 namespace site\frontend\modules\photo\models\upload;
 
 
-class FromComputerForm extends \CFormModel
+class UploadForm extends \CFormModel
 {
-    public $images;
+    protected $images = array();
 
     public function attributeLabels()
     {
@@ -23,7 +23,14 @@ class FromComputerForm extends \CFormModel
     public function rules()
     {
         return array(
-            array('images', 'file')
+
         );
+    }
+
+    public function save()
+    {
+        foreach ($this->images as $image) {
+
+        }
     }
 } 

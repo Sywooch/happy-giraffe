@@ -6,7 +6,9 @@
  * Time: 10:38
  */
 
-class CollectionController extends HController
+namespace site\frontend\modules\photo\controllers;
+
+class CollectionController extends \HController
 {
 
 } 

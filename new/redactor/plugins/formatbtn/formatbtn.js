@@ -24,7 +24,7 @@ RedactorPlugins.formatbtn = {
         dropdown['code'] = { title: "Code", callback: this.code };
 
 
-        this.buttonAdd('formatbtn', 'Advanced', false, dropdown);
+        this.buttonAddFirst('formatbtn', 'formatbtn', false, dropdown);
     },
     paragraph: function(buttonName, buttonDOM, buttonObj, e)
     {

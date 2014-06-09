@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the model class for table "photo__albums".
  *
@@ -8,13 +9,17 @@
  * @property string $description
  * @property string $created
  * @property string $updated
+ * @property string $author_id
+ *
+ * The followings are the available model relations:
+ * @property \User $author
  */
 
 namespace site\frontend\modules\photo\models;
 
 use site\frontend\modules\photo\components\IPhotoCollection;
 
-class PhotoAlbum extends \HActiveRecord implements IPhotoCollection
+class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection
 {
 	/**
 	 * @return string the associated database table name
@@ -32,12 +37,13 @@ class PhotoAlbum extends \HActiveRecord implements IPhotoCollection
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('description', 'required'),
+			array('description, author_id', 'required'),
 			array('title', 'length', 'max'=>255),
+			array('author_id', 'length', 'max'=>11),
 			array('created, updated', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, created, updated', 'safe', 'on'=>'search'),
+			array('id, title, description, created, updated, author_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -49,6 +55,7 @@ class PhotoAlbum extends \HActiveRecord implements IPhotoCollection
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'author' => array(self::BELONGS_TO, 'Users', 'author_id'),
 		);
 	}
 
@@ -63,6 +70,7 @@ class PhotoAlbum extends \HActiveRecord implements IPhotoCollection
 			'description' => 'Description',
 			'created' => 'Created',
 			'updated' => 'Updated',
+			'author_id' => 'Author',
 		);
 	}
 
@@ -89,6 +97,7 @@ class PhotoAlbum extends \HActiveRecord implements IPhotoCollection
 		$criteria->compare('description',$this->description,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
+		$criteria->compare('author_id',$this->author_id,true);
 
 		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -8,15 +8,21 @@
 
 namespace site\frontend\modules\photo\models\upload;
 
+use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\photo\models\PhotoCreate;
+
 
 class UploadForm extends \CFormModel
 {
-    protected $images = array();
+    /**
+     * @var PhotoCreate[]
+     */
+    protected $photos = array();
 
     public function attributeLabels()
     {
         return array(
-            'images' => 'Изображения',
+            'photos' => 'Изображения',
         );
     }
 
@@ -29,8 +35,17 @@ class UploadForm extends \CFormModel
 
     public function save()
     {
-        foreach ($this->images as $image) {
-
+        $data = array();
+        foreach ($this->photos as $photo) {
+            $photo->create();
+            $data[] = array(
+                'attributes' => \CMap::mergeArray($photo->attributes, array(
+                    'originalPath' => $photo->getOriginalUrl(),
+                )),
+                'errors' => $photo->errors,
+            );
         }
+
+        return \CJSON::encode($data);
     }
 } 

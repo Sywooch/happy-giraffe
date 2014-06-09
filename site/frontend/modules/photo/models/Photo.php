@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the model class for table "photo__photos".
  *
@@ -12,10 +13,12 @@
  * @property string $fs_name
  * @property string $created
  * @property string $updated
+ * @property string $author_id
  *
  * The followings are the available model relations:
  * @property PhotoAttach[] $photoAttaches
  * @property PhotoCollection[] $photoCollections
+ * @property \User $author
  */
 
 namespace site\frontend\modules\photo\models;
@@ -24,6 +27,8 @@ use site\frontend\modules\photo\components\FileHelper;
 
 class Photo extends \HActiveRecord
 {
+    const ROOT_ALIAS = 'site.common.uploads.photos.v2';
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -40,14 +45,15 @@ class Photo extends \HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('description, width, height, original_name', 'required'),
+			array('width, height, original_name, author_id', 'required'),
 			array('title', 'length', 'max'=>255),
 			array('width, height', 'length', 'max'=>5),
 			array('original_name, fs_name', 'length', 'max'=>100),
+			array('author_id', 'length', 'max'=>11),
 			array('created, updated', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, width, height, original_name, fs_name, created, updated', 'safe', 'on'=>'search'),
+			array('id, title, description, width, height, original_name, fs_name, created, updated, author_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -61,6 +67,7 @@ class Photo extends \HActiveRecord
 		return array(
 			'photoAttaches' => array(self::HAS_MANY, 'PhotoAttaches', 'photo_id'),
 			'photoCollections' => array(self::HAS_MANY, 'PhotoCollections', 'cover_id'),
+			'author' => array(self::BELONGS_TO, 'Users', 'author_id'),
 		);
 	}
 
@@ -79,6 +86,7 @@ class Photo extends \HActiveRecord
 			'fs_name' => 'Fs Name',
 			'created' => 'Created',
 			'updated' => 'Updated',
+			'author_id' => 'Author',
 		);
 	}
 
@@ -109,6 +117,7 @@ class Photo extends \HActiveRecord
 		$criteria->compare('fs_name',$this->fs_name,true);
 		$criteria->compare('created',$this->created,true);
 		$criteria->compare('updated',$this->updated,true);
+		$criteria->compare('author_id',$this->author_id,true);
 
 		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -126,25 +135,6 @@ class Photo extends \HActiveRecord
 		return parent::model($className);
 	}
 
-    public static function createByPath($path, $userId = null)
-    {
-        if ($userId === null) {
-            if (\Yii::app()->user->isGuest) {
-                throw new \CHttpException('У нас проблемы');
-            } else {
-                $userId = \Yii::app()->user->id;
-            }
-        }
-
-        $imageSize = getimagesize($path);
-        $model = new Photo();
-        $model->width = $imageSize[0];
-        $model->height = $imageSize[1];
-        $model->original_name = FileHelper::getName($path);
-        $model->fs_name = sha1_file($path);
-
-    }
-
     public function behaviors()
     {
         return array(
@@ -155,5 +145,15 @@ class Photo extends \HActiveRecord
                 'setUpdateOnCreate' => true,
             )
         );
+    }
+
+    public function getOriginalPath()
+    {
+        return \Yii::getPathOfAlias(self::ROOT_ALIAS . '.originals') . DIRECTORY_SEPARATOR . $this->fs_name;
+    }
+
+    public function getOriginalUrl()
+    {
+        return \Yii::app()->params['photos_url'] . '/originals/' . $this->fs_name;
     }
 }

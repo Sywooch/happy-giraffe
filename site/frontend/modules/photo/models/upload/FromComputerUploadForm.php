@@ -8,6 +8,7 @@
 
 namespace site\frontend\modules\photo\models\upload;
 
+use site\frontend\modules\photo\models\PhotoCreate;
 
 class FromComputerUploadForm extends UploadForm
 {
@@ -31,7 +32,10 @@ class FromComputerUploadForm extends UploadForm
     {
         $files = \CUploadedFile::getInstancesByName('files');
         foreach ($files as $file) {
-            $this->images[] = $file;
+            $photo = new PhotoCreate();
+            $photo->path = $file->getTempName();
+            $photo->original_name = $file->getName();
+            $this->photos[] = $photo;
         }
     }
 } 

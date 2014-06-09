@@ -20,6 +20,6 @@ class UploadController extends \HController
     public function actionFromComputer()
     {
         $form = new FromComputerUploadForm();
-        $form->save();
+        echo $form->save();
     }
 } 

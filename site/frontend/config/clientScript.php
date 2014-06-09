@@ -192,6 +192,13 @@ return array(
             ),
             'depends' => array('knockout', 'jquery.ui', 'touchPunch'),
         ),
+        'ko_photo' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_photo.js',
+            ),
+            'depends' => array('knockout', 'jquery_file_upload'),
+        ),
         'ko_upload' => array(
             'baseUrl' => '/',
             'js' => array(

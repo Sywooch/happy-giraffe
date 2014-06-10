@@ -199,10 +199,11 @@
         .box-shadow(none);
     }
     .ico-arrow-d {margin: 0 -5px;}
+    .ico-plus {margin: 0 5px 2px -5px;}
 
     ////////////////////// Цвета 
     // .btn-blue-simple
-    &-blue-simple:extend(.btn-primary all) {}
+    &-blue-simple:extend(.btn, .btn-primary all) {}
     &-primary-dark {
         .button-variant(#fff; #3981b2; #3981b2);
     }
@@ -223,6 +224,12 @@
     &-gray-simple,
     &-secondary {
         .button-variant(@color-gray; #fff; #eaeaea);
+
+        &:hover {
+            background: none;
+            color: @color-gray-dark;
+            border-color: #ccc;
+        }
     }
     
     // Серая кнопка (избавляться)

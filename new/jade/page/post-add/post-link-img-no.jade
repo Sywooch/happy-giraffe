@@ -13,13 +13,13 @@ block layout
             .b-main_col-hold.clearfix
                 // Добавление статьи
                 .postAdd
-                    +userAddRecord('userAddRecord__add', userAddRecord.c)
+                    +userAddRecord('userAddRecord__add', userAddRecord.d)
                     .postAdd_hold
                         .postAdd_row
                             .postAdd_count 1
                             .b-main_col-article
                                 .inp-valid.inp-valid__abs
-                                    input.itx-gray(type='text', placeholder="Введите заголовок статьи")
+                                    input.itx-gray(type='text', placeholder="Введите заголовок ")
                                     .inp-valid_count 150
 
                         .postAdd_row
@@ -41,26 +41,28 @@ block layout
                                                 // progressbar изначально уже весь заполнен
                                                 .progress.progress-striped.active.progress__cont
                                                     .progress-bar.progress-bar__cont(role='progressbar', aria-valuenow='100', aria-valuemin='0', aria-valuemax='100', style='width: 100%')
-                                            .b-insert_tx Подождите формируется анонс статьи
+                                            .b-insert_tx Подождите формируется анонс 
                                 // Через класс linkPost__img yправляется отображением изображения и кнопок управления
                                 .linkPost
                                     .linkPost_hold.clearfix
                                         .linkPost_close.ico-close4
                                         .linkPost_img-hold
                                             // Сделана карусель. Можно менять прозрачность у последователньости li-шек либо свдигать ul на 250пк по клику на стрелку. 
-                                            ul.linkPost_img-ul
+                                            ul.linkPost_img-ul.clearfix
                                                 li.linkPost_img-li
-                                                    a(href="")
-                                                        // Изображение 250*180 максимальные размеры. 
+                                                    a.verticalalign-m-el(href="")
+                                                        //  
                                                             Если фото в соотношении строн по горизонтали больше стандарта, то кадрируем (обрезаем) ширину к требуемым пропорциям.
                                                             Если фото больше по высоте чем стандарт, делаем превью высотою в 180 пк, поулчится ширина меньше 250 пк, изображение станет по центру.
                                                         img.linkPost_img(src="/new/images/example/w240-h183.jpg", alt="", height='180px')
+                                                    .verticalalign-m-help
                                                 li.linkPost_img-li
-                                                    a(href="")
-                                                        // Изображение 250*180 максимальные размеры. 
+                                                    a.verticalalign-m-el(href="")
+                                                        //  
                                                             Если фото в соотношении строн по горизонтали больше стандарта, то кадрируем (обрезаем) ширину к требуемым пропорциям.
                                                             Если фото больше по высоте чем стандарт, делаем превью высотою в 180 пк, поулчится ширина меньше 250 пк, изображение станет по центру.
                                                         img.linkPost_img(src="/new/images/example/w250-h180.jpg", alt="")
+                                                    .verticalalign-m-help
                                         .linkPost_in
                                             // Заголовок лучше обрезать чере определенное количество символов, 3 строки приблизительно 85
                                             a.linkPost_t(href="") Выделенные серверы под водой, буквально!? Перспективы разведения рыб в на серверах?! 88
@@ -88,7 +90,7 @@ block layout
                             .postAdd_count 3
                             .b-main_col-article
                                 .inp-valid.inp-valid__abs
-                                    textarea.itx-gray(rows='5', cols='40', placeholder="Ваш комментарий к статье")
+                                    textarea.itx-gray(rows='5', cols='40', placeholder="Ваш комментарий")
                                     .inp-valid_count 450
                         +postAddRowBtns('', postAddRowBtns.a)
 

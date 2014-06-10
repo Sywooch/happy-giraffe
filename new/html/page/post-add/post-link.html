@@ -28,6 +28,10 @@
   <script src="/new/javascript/baron.js"></script>
   <script src="/new/javascript/select2.js"></script>
   <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/redactor/lang/ru.js"></script>
+  <script src="/new/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/new/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
   <script src="/new/javascript/jquery.Jcrop.js"></script>
   <script src="/new/javascript/common.js"></script>
   <script src="/new/javascript/common-markup.js"></script>
@@ -137,8 +141,8 @@
                 <div class="userAddRecord clearfix userAddRecord__add">
                   <div class="userAddRecord_hold">
                     <div class="userAddRecord_draft-hold"><a href="" class="userAddRecord_draft">Черновики 2</a></div>
-                    <div class="userAddRecord_tx">Добавить видеопост
-                    </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a>
+                    <div class="userAddRecord_tx">Добавить ссылку
+                    </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a><a href="#popup-user-add-link" data-theme="transparent" title="Ссылка" class="userAddRecord_ico userAddRecord_ico__link fancy powertip"></a>
                   </div>
                 </div>
                 <!-- /userAddRecord-->
@@ -147,7 +151,7 @@
                     <div class="postAdd_count">1</div>
                     <div class="b-main_col-article">
                       <div class="inp-valid inp-valid__abs">
-                        <input type="text" placeholder="Введите заголовок статьи" class="itx-gray">
+                        <input type="text" placeholder="Введите заголовок" class="itx-gray">
                         <div class="inp-valid_count">150</div>
                       </div>
                     </div>
@@ -175,7 +179,7 @@
                                 <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
                               </div>
                             </div>
-                            <div class="b-insert_tx">Подождите формируется анонс статьи</div>
+                            <div class="b-insert_tx">Подождите формируется анонс</div>
                           </div>
                         </div>
                       </div>
@@ -185,17 +189,21 @@
                           <div class="linkPost_close ico-close4"></div>
                           <div class="linkPost_img-hold">
                             <!-- Сделана карусель. Можно менять прозрачность у последователньости li-шек либо свдигать ul на 250пк по клику на стрелку. -->
-                            <ul class="linkPost_img-ul">
-                              <li class="linkPost_img-li"><a href="">
-                                  <!-- Изображение 250*180 максимальные размеры. 
+                            <ul class="linkPost_img-ul clearfix">
+                              <li class="linkPost_img-li"><a href="" class="verticalalign-m-el">
+                                  <!--  
                                   Если фото в соотношении строн по горизонтали больше стандарта, то кадрируем (обрезаем) ширину к требуемым пропорциям.
                                   Если фото больше по высоте чем стандарт, делаем превью высотою в 180 пк, поулчится ширина меньше 250 пк, изображение станет по центру.
-                                  --><img src="/new/images/example/w240-h183.jpg" alt="" height="180px" class="linkPost_img"></a></li>
-                              <li class="linkPost_img-li"><a href="">
-                                  <!-- Изображение 250*180 максимальные размеры. 
+                                  --><img src="/new/images/example/w240-h183.jpg" alt="" height="180px" class="linkPost_img"></a>
+                                <div class="verticalalign-m-help"></div>
+                              </li>
+                              <li class="linkPost_img-li"><a href="" class="verticalalign-m-el">
+                                  <!--  
                                   Если фото в соотношении строн по горизонтали больше стандарта, то кадрируем (обрезаем) ширину к требуемым пропорциям.
                                   Если фото больше по высоте чем стандарт, делаем превью высотою в 180 пк, поулчится ширина меньше 250 пк, изображение станет по центру.
-                                  --><img src="/new/images/example/w250-h180.jpg" alt="" class="linkPost_img"></a></li>
+                                  --><img src="/new/images/example/w250-h180.jpg" alt="" class="linkPost_img"></a>
+                                <div class="verticalalign-m-help"></div>
+                              </li>
                             </ul>
                           </div>
                           <div class="linkPost_in">
@@ -219,7 +227,7 @@
                     <div class="postAdd_count">3</div>
                     <div class="b-main_col-article">
                       <div class="inp-valid inp-valid__abs">
-                        <textarea rows="5" cols="40" placeholder="Ваш комментарий к статье" class="itx-gray"></textarea>
+                        <textarea rows="5" cols="40" placeholder="Ваш комментарий" class="itx-gray"></textarea>
                         <div class="inp-valid_count">450</div>
                       </div>
                     </div>
@@ -228,17 +236,31 @@
                   <div class="postAdd_row">
                     <div class="postAdd_count"></div>
                     <div class="b-main_col-article clearfix">
-                      <div class="privacy-select float-l">
-                        <div class="privacy-select_hold clearfix">
-                          <div class="privacy-select_tx">Для кого:</div>
-                          <div class="privacy-select_drop-hold"><a href="" class="privacy-select_a"><span class="ico-users ico-users__friend active"></span><span class="privacy-select_a-tx">только<br>друзьям</span></a>
-                            <div class="privacy-select_drop display-b">
-                              <div class="privacy-select_i"><a href="" class="privacy-select_a"><span class="ico-users ico-users__all"></span><span class="privacy-select_a-tx">для<br>всех</span></a></div>
-                              <div class="privacy-select_i"><a href="" class="privacy-select_a"><span class="ico-users ico-users__friend"></span><span class="privacy-select_a-tx">только<br>друзьям</span></a></div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                      <!-- Блок управления приватностью записи-->
+                      <!--.privacy-select.float-l
+                      .privacy-select_hold.clearfix
+                          .privacy-select_tx Для кого:
+                          .privacy-select_drop-hold.dropdown.dropup
+                              a.privacy-select_a.dropdown-toggle(href='', data-toggle="dropdown", data-target="#", id="dLabel1")
+                                  span.ico-users.ico-users__friend.active
+                                  span.privacy-select_a-tx
+                                      | только
+                                      br
+                                      | друзьям
+                              .privacy-select_drop.dropdown-menu.pull-right.dropdown-menu__check(role='', aria-labelledby="dLabel1")
+                                  .privacy-select_i
+                                      a.privacy-select_a(href='')
+                                          span.ico-users.ico-users__all
+                                          span.privacy-select_a-tx
+                                              | для
+                                              | всех
+                                  .privacy-select_i
+                                      a.privacy-select_a(href='')
+                                          span.ico-users.ico-users__friend
+                                          span.privacy-select_a-tx
+                                              | только
+                                              | друзьям
+                      -->
                       <div class="postAdd_btns-hold"><a href="" class="btn btn-secondary btn-xm margin-r15">Отменить</a>
                         <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success">Опубликовать</span>
                           <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark"><i class="ico-arrow-d"></i></span>

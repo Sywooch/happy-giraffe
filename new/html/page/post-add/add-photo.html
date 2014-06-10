@@ -1,0 +1,731 @@
+<!DOCTYPE html><!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
+<!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<!-- a-->
+<!-- b-->
+<!-- c-->
+<!-- a-->
+<!-- b-->
+<!-- tag head-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title>
+  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
+  <!-- including other jade works-->
+  <!-- ie8 -->
+  <!--+scripts(path)-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    
+  </script>
+  <script src="/new/javascript/bootstrap/dropdown.js"></script>
+  <script src="/new/javascript/bootstrap/tab.js"></script>
+  <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <script src="/new/javascript/baron.js"></script>
+  <script src="/new/javascript/select2.js"></script>
+  <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/redactor/lang/ru.js"></script>
+  <script src="/new/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/new/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
+  <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <script src="/new/javascript/common.js"></script>
+  <script src="/new/javascript/common-markup.js"></script>
+  <script src="//localhost:35729/livereload.js"></script>
+</head>
+<!-- vars from template file-->
+<body class="body body__bg1">
+  <div class="layout-container">
+    <div class="layout-loose">
+      <div class="layout-header">
+        <!-- header-->
+        <div class="header header__base">
+          <div class="header_hold clearfix">
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <ul class="header-menu_ul clearfix">
+                <!-- li.header-menu_li
+                a.header-menu_a(href='')
+                    span.header-menu_ico.header-menu_ico__broadcast
+                    span.header-menu_tx
+                        | Прямой эфир
+                -->
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
+                <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a">
+                    <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                  <div class="header-drop">
+                    <div class="header-menu clearfix">
+                      <ul class="header-menu_ul">
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                              <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                      </ul>
+                    </div>
+                    <!-- header-drop_b-->
+                    <div class="header-drop_b">
+                      <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                      <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                      <div class="club-list club-list__small clearfix">
+                        <ul class="club-list_ul clearfix">
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /header-drop_b-->
+                  </div>
+                  <!-- /header-drop -->
+                </li>
+              </ul>
+            </div>
+            <!-- /header-menu-->
+          </div>
+        </div>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <div class="layout-wrapper_hold clearfix">
+          <div class="layout-content clearfix">
+            <div class="margin-20">
+              <h2>Загрузка одного фото </h2><a href="#photo-computer-one-empty" class="popup-a">Заглушка для загрузки одного фото</a><br><br><a href="#photo-computer-one-load" class="popup-a">Одно фото загружается</a><br><br>
+              <h2>Загрузка нескольких фото </h2><a href="#photo-computer-mylti-empty" class="popup-a">Заглушка для загрузки нескольких фото</a><br><br><a href="#photo-computer-mylti-load" class="popup-a">Несколько фото загружается</a><br><br><a href="#photo-computer-mylti-loaded" class="popup-a">Несколько фото загружено</a><br><br>
+              <h2>Загрузка фото по ссылке</h2><a href="#photo-link-empty" class="popup-a">Заглушка для загрузки фото по ссылке</a><br><br><a href="#photo-link-loaded" class="popup-a">Фото по ссылке загружено</a><br><br>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+    <!-- .popup-add-->
+    <!-- Заглушка для загрузки одного фото -->
+    <div id="photo-computer-one-empty" class="popup popup-add"><a href="" class="mfp-close">×</a>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <!-- .popup-add_frame__multi-->
+          <div id="photo-tab-computer" class="tab-pane active">
+            <div class="popup-add_frame">
+              <div class="popup-add_cap">
+                <!-- cap-empty-->
+                <div class="cap-empty cap-empty__addPhoto">
+                  <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_t">Выберите файлы с компьютера</div>
+                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp'></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div></div>
+                  </div>
+                  <div class="verticalalign-m-help"></div>
+                </div>
+                <!-- /cap-empty-->
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!-- .popup-add-->
+    <!-- Одно фото загружается-->
+    <div id="photo-computer-one-load" class="popup popup-add"><a href="" class="mfp-close">×</a>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <!-- tabs bootstrap, работают по id-->
+            <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <!-- tabs bootstrap, работают по id-->
+          <div id="photo-tab-computer" class="tab-pane active">
+            <div class="popup-add_frame">
+              <div class="popup-add_cap">
+                <!-- cap-empty-->
+                <div class="cap-empty cap-empty__addPhoto">
+                  <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_t">Выберите файлы с компьютера</div>
+                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp'></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div></div>
+                  </div>
+                  <div class="verticalalign-m-help"></div>
+                </div>
+                <!-- /cap-empty-->
+              </div>
+              <div class="textalign-c">
+                        <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                        -->
+                        <div class="i-photo i-photo__load"><a href="" class="ico-close4"></a>
+                          <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                          <!-- Загрузка фото-->
+                          <div class="i-photo_hold">
+                            <div class="i-photo_progress">
+                              <!-- boostrap progressbar-->
+                              <!-- progressbar изначально уже весь заполнен-->
+                              <div class="progress progress-striped active progress__cont">
+                                <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                              </div>
+                              <div class="i-photo_load-tx">Загрузка</div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /Блок фотографии-->
+              </div>
+            </div>
+            <div class="textalign-c">
+              <div class="btn btn-success">Добавить</div>
+            </div>
+          </div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!--//////////////////////////////////////////////////-->
+    <!-- .popup-add-->
+    <!-- Заглушка для загрузки нескольких фото -->
+    <div id="photo-computer-mylti-empty" class="popup popup-add"><a href="" class="mfp-close">×</a>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <div id="photo-tab-computer" class="tab-pane active">
+            <!-- К .popup-add_frame__multi при перетаскивании добавить class.dragover-->
+            <div class="popup-add_frame popup-add_frame__multi dragover">
+              <div class="popup-add_cap">
+                <!-- cap-empty-->
+                <div class="cap-empty cap-empty__addPhoto">
+                  <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_t">Выберите файлы с компьютера</div>
+                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp'></div>  <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div><div class='popup-add_cap-drag'>или перетащите фото сюда</div></div>
+                  </div>
+                  <div class="verticalalign-m-help"></div>
+                </div>
+                <!-- /cap-empty-->
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!-- .popup-add-->
+    <!-- Загружается несколько фото -->
+    <div id="photo-computer-mylti-load" class="popup popup-add"><a href="" class="mfp-close">×</a>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <div id="photo-tab-computer" class="tab-pane active">
+            <!-- К .popup-add_frame__multi при перетаскивании добавить class.dragover-->
+            <!-- При загрузке изображений нужно делать upadate baron скролл-->
+            <div class="popup-add_scroll scroll">
+              <div class="popup-add_frame popup-add_frame__multi">
+                <div class="scroll_scroller">
+                  <ul class="popup-add_multi clearfix scroll_cont">
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__loaded"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загруженное фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                                  </div>
+                                  <input type="text" placeholder="Введите заголовок" class="i-photo_t itx-gray">
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__load"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загрузка фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_progress">
+                                    <!-- boostrap progressbar-->
+                                    <!-- progressbar изначально уже весь заполнен-->
+                                    <div class="progress progress-striped active progress__cont">
+                                      <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                    </div>
+                                    <div class="i-photo_load-tx">Загрузка</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__loaded"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загруженное фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                                  </div>
+                                  <input type="text" placeholder="Введите заголовок" class="i-photo_t itx-gray">
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__load"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загрузка фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_progress">
+                                    <!-- boostrap progressbar-->
+                                    <!-- progressbar изначально уже весь заполнен-->
+                                    <div class="progress progress-striped active progress__cont">
+                                      <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                    </div>
+                                    <div class="i-photo_load-tx">Загрузка</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__load"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загрузка фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_progress">
+                                    <!-- boostrap progressbar-->
+                                    <!-- progressbar изначально уже весь заполнен-->
+                                    <div class="progress progress-striped active progress__cont">
+                                      <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                    </div>
+                                    <div class="i-photo_load-tx">Загрузка</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__load"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загрузка фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_progress">
+                                    <!-- boostrap progressbar-->
+                                    <!-- progressbar изначально уже весь заполнен-->
+                                    <div class="progress progress-striped active progress__cont">
+                                      <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                    </div>
+                                    <div class="i-photo_load-tx">Загрузка</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__error"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Ошибка-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_error-tx">IMG_5295.JPG</div>
+                                  <div class="i-photo_error-tx">Ошибка загрузки</div>
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__load"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загрузка фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_progress">
+                                    <!-- boostrap progressbar-->
+                                    <!-- progressbar изначально уже весь заполнен-->
+                                    <div class="progress progress-striped active progress__cont">
+                                      <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                    </div>
+                                    <div class="i-photo_load-tx">Загрузка</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__load"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загрузка фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_progress">
+                                    <!-- boostrap progressbar-->
+                                    <!-- progressbar изначально уже весь заполнен-->
+                                    <div class="progress progress-striped active progress__cont">
+                                      <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                    </div>
+                                    <div class="i-photo_load-tx">Загрузка</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__load"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загрузка фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_progress">
+                                    <!-- boostrap progressbar-->
+                                    <!-- progressbar изначально уже весь заполнен-->
+                                    <div class="progress progress-striped active progress__cont">
+                                      <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                    </div>
+                                    <div class="i-photo_load-tx">Загрузка</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__load"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загрузка фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_progress">
+                                    <!-- boostrap progressbar-->
+                                    <!-- progressbar изначально уже весь заполнен-->
+                                    <div class="progress progress-striped active progress__cont">
+                                      <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                    </div>
+                                    <div class="i-photo_load-tx">Загрузка</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__load"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загрузка фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_progress">
+                                    <!-- boostrap progressbar-->
+                                    <!-- progressbar изначально уже весь заполнен-->
+                                    <div class="progress progress-striped active progress__cont">
+                                      <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                    </div>
+                                    <div class="i-photo_load-tx">Загрузка</div>
+                                  </div>
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__loaded"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загруженное фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                                  </div>
+                                  <input type="text" placeholder="Введите заголовок" class="i-photo_t itx-gray">
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                  </ul>
+                </div>
+                <div class="scroll_bar-hold">
+                  <div class="scroll_bar">
+                    <div class="scroll_bar-in"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="popup-add_footer clearfix">
+              <div class="float-r">
+                <div class="btn btn-success">Добавить</div>
+              </div>
+              <div class="popup-add_footer-l"><span class="color-gray-light">Загружено  
+                  <spanc class="popup-add_footer-count">7 </spanc>из <span class="popup-add_footer-count">125</span></span>
+                <!-- boostrap progressbar-->
+                <!-- progressbar изначально уже весь заполнен-->
+                <div class="progress progress-striped active progress__cont progress__inline">
+                  <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                </div><a href="" class="btn-link btn-link-gray btn-s">Отменить загрузку </a>
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!-- .popup-add-->
+    <!-- Загрузилось несколько фото-->
+    <div id="photo-computer-mylti-loaded" class="popup popup-add"><a href="" class="mfp-close">×</a>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <div id="photo-tab-computer" class="tab-pane active">
+            <!-- К .popup-add_frame__multi при перетаскивании добавить class.dragover-->
+            <div class="popup-add_scroll scroll">
+              <div class="popup-add_frame popup-add_frame__multi">
+                <div class="scroll_scroller">
+                  <ul class="popup-add_multi clearfix scroll_cont">
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__loaded"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загруженное фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                                  </div>
+                                  <input type="text" placeholder="Введите заголовок" class="i-photo_t itx-gray">
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__loaded"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загруженное фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                                  </div>
+                                  <input type="text" placeholder="Введите заголовок" class="i-photo_t itx-gray">
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__error"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Ошибка-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_error-tx">IMG_5295.JPG</div>
+                                  <div class="i-photo_error-tx">Ошибка загрузки</div>
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                              -->
+                              <div class="i-photo i-photo__loaded"><a href="" class="ico-close4"></a>
+                                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                                <!-- Загруженное фото-->
+                                <div class="i-photo_hold">
+                                  <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                                  </div>
+                                  <input type="text" placeholder="Введите заголовок" class="i-photo_t itx-gray">
+                                </div>
+                              </div>
+                              <!-- /Блок фотографии-->
+                    </li>
+                  </ul>
+                </div>
+                <div class="scroll_bar-hold">
+                  <div class="scroll_bar">
+                    <div class="scroll_bar-in"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="popup-add_footer clearfix">
+              <div class="float-r">
+                <div class="btn btn-success">Добавить</div>
+              </div>
+              <div class="popup-add_footer-l"><span class="color-gray">Загружено  
+                  <spanc class="popup-add_footer-count">125 </spanc>из <span class="popup-add_footer-count">125</span></span>
+                <div class="file-fake">
+                  <input type="file" class="file-fake_inp"><a href="" class="file-fake_btn btn btn-primary btn-s"><span class="ico-plus ico-plus__s ico-plus__white"></span>Загрузить еще</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!--//////////////////////////////////////////////////-->
+    <!-- .popup-add-->
+    <!-- Одно фото по ссылке загружено-->
+    <div id="photo-link-empty" class="popup popup-add"><a href="" class="mfp-close">×</a>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <!-- tabs bootstrap, работают по id-->
+            <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li class="active"><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <!-- tabs bootstrap, работают по id-->
+          <div id="photo-tab-computer" class="tab-pane"></div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane active">
+            <div class="popup-add_frame">
+              <div class="popup-add_cap">
+                <!-- cap-empty-->
+                <div class="cap-empty cap-empty__addPhotoLink">
+                  <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_tx-top">Выберите файл из интернета</div>
+                    <div class="cap-empty_tx"><input type="text" placeholder="Вставте ссылку на изображение" class="itx-gray"></div>
+                    <div class="cap-empty_tx-sub">На любом сайте, кликните правой кнопкой по нужному  изображению <br> выберите “Копировать URL картинки” вставте сюда  и нажмите Ok</div>
+                  </div>
+                  <div class="verticalalign-m-help"></div>
+                </div>
+                <!-- /cap-empty-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!-- .popup-add-->
+    <!-- Одно фото по ссылке загружено-->
+    <div id="photo-link-loaded" class="popup popup-add"><a href="" class="mfp-close">×</a>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <!-- tabs bootstrap, работают по id-->
+            <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li class="active"><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <!-- tabs bootstrap, работают по id-->
+          <div id="photo-tab-computer" class="tab-pane"></div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane active">
+            <div class="popup-add_frame">
+              <div class="popup-add_cap">
+                <!-- cap-empty-->
+                <div class="cap-empty cap-empty__addPhotoLink">
+                  <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_tx-top">Выберите файл из интернета</div>
+                    <div class="cap-empty_tx"><input type="text" placeholder="Вставте ссылку на изображение" class="itx-gray"></div>
+                    <div class="cap-empty_tx-sub">На любом сайте, кликните правой кнопкой по нужному  изображению <br> выберите “Копировать URL картинки” вставте сюда  и нажмите Ok</div>
+                  </div>
+                  <div class="verticalalign-m-help"></div>
+                </div>
+                <!-- /cap-empty-->
+              </div>
+              <div class="textalign-c">
+                        <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+                        -->
+                        <div class="i-photo i-photo__loaded"><a href="" class="ico-close4"></a>
+                          <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                          <!-- Загруженное фото-->
+                          <div class="i-photo_hold">
+                            <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                              <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                            </div>
+                            <input type="text" placeholder="Введите заголовок" class="i-photo_t itx-gray">
+                          </div>
+                        </div>
+                        <!-- /Блок фотографии-->
+              </div>
+            </div>
+            <div class="textalign-c">
+              <div class="btn btn-success">Добавить</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+  </div>
+</body></html>

@@ -108,7 +108,10 @@ $(function() {
     var pageColHeight = $(window).height() - $('.layout-header').height() - 60;
     $('.page-col').css({'min-height': pageColHeight});
 
-    
+   
+    $('.popup-a').on('mfpOpen', function(e /*, params */) {
+        addBaron('.scroll');
+    });
 });
 
 

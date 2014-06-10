@@ -42,15 +42,21 @@
 
     &__cont {
         height: 12px;
-        border: 3px solid #e1e1e1;
+        border: 3px solid #eee;
         .border-radius(0);
     }
     &__cont .progress-bar {}
+    &__inline {
+        .inline-block();
+        vertical-align: middle;
+        width: 130px;
+        margin: 0 10px;
+    }
 }
 .progress-bar {
     .progress-striped &__cont {
         .box-shadow(none);
-        background-color: #e1e1e1;
+        background-color: #eee;
         background-image: -webkit-linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, transparent 75%, transparent);
         background-image: -o-linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, transparent 75%, transparent);
         background-image: linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, transparent 75%, transparent);

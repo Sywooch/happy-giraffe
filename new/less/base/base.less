@@ -540,106 +540,6 @@
 }
 /* /side-menu */
 
-/*
-    Заглушка 
-    cap-empty __abs     __rel   __im-b
-        cap-empty_hold
-            cap-empty_img
-            cap-empty_t
-            cap-empty_tx
-            cap-empty_tx-sub
-
-*/
-.cap-empty {
-    position: relative;
-    z-index: 100;
-    text-align: center;
-    .user-select(none);
-
-    &__abs {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 100;
-    }
-    &__abs &_hold {
-        display: inline-block;
-        vertical-align: middle;
-        margin: 0;
-        padding: 0;
-    }
-    &__rel {}
-    &__gray {background: #e6e6e6;}
-    &__white {background: #fff;}
-    &__blue {
-        background: #4772a7;
-        background: rgba(71,114,167,.75);
-    }
-    &__blue &_tx-sub {color: #fff;}
-    
-    &__im-b {
-        text-align: left;
-    }
-    &__im-b &_img {
-        float: left;
-        margin: 0 22px 0 120px;
-    }
-    &__im-b &_t {padding-top: 12px;}
-    &__im-b &_tx-sub {color: #a0a09f;}
-
-    &__im-ava {
-        background: #c9e6fd;
-        background: rgba(187,224,252,.8);
-        .border-right-radius(10px);
-    }
-    &__im-ava .btn-green {margin-top: 8px;}
-    &__im-ava &_tx-sub {color: #a0a09f;}
-
-    &_hold {
-        font-size: 12px;
-        line-height: 16px;
-    }
-    &_img {
-        display: block;
-        height: 60px;
-        width: 60px;
-        margin: 0 auto 8px;
-        background: url('@{path-img}/base/cap-empty_img.png') no-repeat 0 0;
-    }
-    &_img__white {background-position: -60px 0;}
-    &_img__smile-gray {background-position: -120px 0;}
-    &_t {
-        margin: 5px 0;
-        color: #2d2d2d;
-        font-size: 16px;
-    }
-    &_tx {
-        margin: 0 0 5px;
-    }
-    &_tx-sub {
-        margin: 5px 0;
-        color: #b3b6b7;
-    }
-    &_abs-msg {
-        position: absolute;
-        top: 20px;
-        left: 0;
-        right: 0;
-        text-align: center;
-        margin: 0 auto;
-    }
-    &_abs-msg-hold {
-        display: inline-block;
-        padding: 4px 10px;
-        color: #171717;
-        font-size: 14px;
-        background-color: #fdf48f;
-    }
-}
-/* /cap-empty */
-
 /* 
     friend-offer 
     Блок предложения дружбы
@@ -931,6 +831,25 @@
         text-align: center;
     }
 }
+
+.tabs-simple {
+    
+    &__inline { // vertical-align: middle;
+        .inline-block();
+        vertical-align: middle;
+
+        > li > a {padding: 0px 10px;}
+    }
+    a {
+        color: @color-gray;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: none;
+        color: @color-base;
+    }
+}
+
 /* 
 ------------------------------------------------------------------
     js plugin class 
@@ -987,8 +906,8 @@
         position: absolute;
         top: 4px;
         bottom: 4px;
-        left: 6px;
-        width: 4px;
+        right: 3px;
+        width: 3px;
         background: #b9b9b9;
         background: rgba(0,0,0,.15);
         .border-radius(6px);
@@ -1033,29 +952,6 @@
     }
 }
 /* powerTip */
-
-/* popup */
-.popup {
-    position: relative;
-    margin: 20px auto;
-
-    &__close-white .mfp-close{
-        color: #fff !important;
-    }
-/*    &__close-white .mfp-close:hover {
-        color: #eee;
-    }*/
-    &__error {
-        width: 500px;
-        .mfp-close {
-            height: 25px;
-            width: 30px;
-            line-height: 25px;
-        }
-    }
-}
-
-
 
 /* 
     docs 

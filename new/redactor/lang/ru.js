@@ -1,7 +1,7 @@
 (function ($) {
 $.Redactor.opts.langs['ru'] = {
 	html: 'Код',
-	video: 'Видео',
+	video: 'Вставить видео',
 	image: 'Изображение',
 	table: 'Таблица',
 	link: 'Ссылка',

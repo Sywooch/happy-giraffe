@@ -24,6 +24,8 @@ mixin userAddRecord(mod, vars)
             a.userAddRecord_ico.userAddRecord_ico__photo.fancy.powertip(href='#popup-user-add-photo', data-theme='transparent', title='Фото')
             a.userAddRecord_ico.userAddRecord_ico__video.fancy.active.powertip(href='#popup-user-add-video', data-theme='transparent', title='Видео')
             a.userAddRecord_ico.userAddRecord_ico__status.fancy.powertip(href='#popup-user-add-status', data-theme='transparent', title='Статус')
+            - if (vars.linkAdd)
+                a.userAddRecord_ico.userAddRecord_ico__link.fancy.powertip(href='#popup-user-add-link', data-theme='transparent', title='Ссылка')
 
     // /userAddRecord
     
@@ -32,13 +34,22 @@ mixin userAddRecord(mod, vars)
 - userAddRecord.a.ava = ava.a
 - userAddRecord.a.tx = 'Я хочу добавить'
 - userAddRecord.a.draft = false
+- userAddRecord.a.linkAdd = false
 
 - userAddRecord.b = {}
 - userAddRecord.b.ava = false
 - userAddRecord.b.tx = 'Я хочу добавить'
 - userAddRecord.b.draft = false
+- userAddRecord.b.linkAdd = false
 
 - userAddRecord.c = {}
 - userAddRecord.c.ava = false
 - userAddRecord.c.tx = 'Добавить видеопост'
 - userAddRecord.c.draft = true
+- userAddRecord.c.linkAdd = true
+
+- userAddRecord.d = {}
+- userAddRecord.d.ava = false
+- userAddRecord.d.tx = 'Добавить ссылку'
+- userAddRecord.d.draft = true
+- userAddRecord.d.linkAdd = true

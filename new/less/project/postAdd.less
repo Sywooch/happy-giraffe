@@ -3,12 +3,13 @@
 
 */
 .postAdd {
-
+    
+    .b-main_col-article &_video-serv {margin-top: -6px;}
     &_hold {
         margin: 0 0 20px;
     }
     &_row {
-        margin: 0 0 30px;
+        margin: 0 0 35px;
         &:extend(.clearfix all);
     }
     &_count {
@@ -21,7 +22,7 @@
         font-weight: bold;
     }
     &_video-serv {
-        margin: 0 0 15px;
+        margin: 0 0 10px;
         &:extend(.clearfix all);
     }
     &_video-serv-t {
@@ -128,7 +129,7 @@
     
     .error-serv {
         width: 470px;
-        margin: 20px 0 20px;
+        margin: 20px 0 10px;
     }
     &__center {
         margin: 0 auto;
@@ -189,7 +190,10 @@
     
     &__img &_control-hold {.inline-block();}
     &__img &_img-hold {display: block;}
-    &__img &_a {width: 275px;}
+    &__img &_a {
+        left: 265px;
+        width: 260px;
+    }
     &_hold {
         position: relative;
         background-color: #50aae0;
@@ -205,17 +209,18 @@
         display: none;
         float: left;
         width: 250px;
-        height: 180px;
+        height: 220px;
         overflow: hidden;
         background-color: #3795ca;
-        background-color: rgba(0,0,0,.2);
+        background-color: rgba(0,0,0,.1);
     }
     &_img-ul {
         width: 9999px;
     }
     &_img-li {
+        float: left;
         width: 250px;
-        height: 180px;
+        height: 220px;
         text-align: center;
     }
     &_img {
@@ -242,7 +247,7 @@
         display: block;
         position: absolute;
         bottom: 13px;
-        right: 25px;
+        left: 20px;
         width: 530px;
         color: @color-white;
         text-decoration: none;

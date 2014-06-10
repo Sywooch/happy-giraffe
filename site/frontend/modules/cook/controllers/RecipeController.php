@@ -24,12 +24,6 @@ class RecipeController extends HController
 
     public function filters()
     {
-        $filters[] = array(
-            'CHttpCacheFilter + view',
-            'lastModified' => $this->lastModified->getDateTime(),
-            'etagSeed' => $this->lastModified->getDateTime(),
-        );
-
         $filters = array(
             'accessControl',
 //            array(
@@ -40,6 +34,12 @@ class RecipeController extends HController
         );
 
         if (Yii::app()->user->isGuest) {
+            $filters[] = array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified->getDateTime(),
+                'etagSeed' => $this->lastModified->getDateTime(),
+            );
+
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,

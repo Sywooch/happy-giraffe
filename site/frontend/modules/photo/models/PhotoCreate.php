@@ -40,7 +40,7 @@ class PhotoCreate extends Photo
     {
         $hash = md5(uniqid($this->original_name . microtime(), true));
         $hash = substr_replace($hash, '/', 2, 0);
-        if (! is_dir())
+        //if (! is_dir())
         $hash = substr_replace($hash, '/', 5, 0);
         return $hash;
     }

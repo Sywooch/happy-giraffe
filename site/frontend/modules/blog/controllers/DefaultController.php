@@ -10,6 +10,17 @@ class DefaultController extends HController
     public $layout = 'blog';
     public $tempLayout = true;
 
+    public function behaviors()
+    {
+        return array(
+            'lastModified' => array(
+                'class' => 'LastModifiedBehavior',
+                'getParameter' => 'content_id',
+                'entity' => 'CommunityContent',
+            ),
+        );
+    }
+
     public function filters()
     {
         $filters = array(
@@ -18,6 +29,12 @@ class DefaultController extends HController
         );
 
         if (Yii::app()->user->isGuest) {
+            $filters[] = array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified->getDateTime(),
+                'etagSeed' => $this->lastModified->getDateTime(),
+            );
+
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,

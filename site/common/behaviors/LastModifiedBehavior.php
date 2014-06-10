@@ -9,16 +9,22 @@
 class LastModifiedBehavior extends CBehavior
 {
     public $entity;
+    public $action = 'view';
+    public $getParameter;
 
-    public function attach($owner)
+    public function getDateTime()
     {
-
+        return date("Y-m-d H:i:s", max($this->getContentLastUpdated(), $this->getLinksLastUpdated()));
     }
 
-    protected function lastModified()
+    protected function getTableName()
     {
-        $content_id = Yii::app()->request->getQuery('content_id');
+        return CActiveRecord::model($this->entity)->tableName();
+    }
 
+    protected function getContentLastUpdated()
+    {
+        $cId = Yii::app()->request->getQuery($this->getParameter);
         $sql = "SELECT
                     GREATEST(
                         COALESCE(MAX(c.created), '0000-00-00 00:00:00'),
@@ -26,22 +32,20 @@ class LastModifiedBehavior extends CBehavior
                         COALESCE(MAX(cm.created), '0000-00-00 00:00:00'),
                         COALESCE(MAX(cm.updated), '0000-00-00 00:00:00')
                     )
-                FROM community__contents c
+                FROM " . $this->getTableName() .  " c
                 LEFT OUTER JOIN comments cm
-                ON cm.entity = 'CommunityContent' AND cm.entity_id = :content_id
+                ON cm.entity = :entity AND cm.entity_id = :content_id
                 WHERE c.id = :content_id";
-
         $command = Yii::app()->db->createCommand($sql);
-        $command->bindValue(':content_id', $content_id, PDO::PARAM_INT);
-        $t1 = strtotime($command->queryScalar());
+        return strtotime($command->queryScalar(array(
+            ':content_id' => $cId,
+            ':entity' => $this->entity,
+        )));
+    }
 
-        //проверяем блок внутренней перелинковки
-        $url = 'http://www.happy-giraffe.ru' . Yii::app()->request->getRequestUri();
-        $t2 = InnerLinksBlock::model()->getUpTime($url);
-
-        if (empty($t2))
-            return $t1;
-
-        return date("Y-m-d H:i:s", max($t1, $t2));
+    protected function getLinksLastUpdated()
+    {
+        $url = Yii::app()->request->url;
+        return InnerLinksBlock::model()->getUpTime($url);
     }
 } 

@@ -16,7 +16,7 @@ class DefaultController extends HController
             'lastModified' => array(
                 'class' => 'LastModifiedBehavior',
                 'getParameter' => 'content_id',
-                'entity' => 'CommunityContent',
+                'entity' => 'BlogContent',
             ),
         );
     }

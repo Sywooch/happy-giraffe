@@ -29,7 +29,7 @@ class DefaultController extends HController
         if (Yii::app()->user->isGuest) {
             $filters[] = array(
                 'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified->getDateTime(),
+                //'lastModified' => $this->lastModified->getDateTime(),
                 'etagSeed' => $this->lastModified->getDateTime(),
             );
 

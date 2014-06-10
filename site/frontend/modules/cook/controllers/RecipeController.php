@@ -16,7 +16,7 @@ class RecipeController extends HController
         return array(
             'lastModified' => array(
                 'class' => 'LastModifiedBehavior',
-                'getParameter' => 'content_id',
+                'getParameter' => 'id',
                 'entity' => 'CookRecipe',
             ),
         );

@@ -11,8 +11,25 @@ class RecipeController extends HController
     public $section;
     public $club;
 
+    public function behaviors()
+    {
+        return array(
+            'lastModified' => array(
+                'class' => 'LastModifiedBehavior',
+                'getParameter' => 'content_id',
+                'entity' => 'CommunityContent',
+            ),
+        );
+    }
+
     public function filters()
     {
+        $filters[] = array(
+            'CHttpCacheFilter + view',
+            'lastModified' => $this->lastModified->getDateTime(),
+            'etagSeed' => $this->lastModified->getDateTime(),
+        );
+
         $filters = array(
             'accessControl',
 //            array(

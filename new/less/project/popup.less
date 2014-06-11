@@ -39,33 +39,41 @@
         padding: 20px 20px 30px;
         background-color: #fafafa;
     }
+    &_in__albums {padding-top: 5px;}
+    &_in__albums .tabs-simple > li:first-child > a {padding-left: 0;}
     &_scroll {
         margin: 0 -10px 15px 0;
         padding-right: 20px;
-        
     }
 
     &_frame {
         height: 470px;
+
+        .scroll_scroller {
+            max-height: 470px;
+        }
     }
     &_frame__multi {
         border: 2px dashed #d6d6d6;
-        .border-radius(10px);
     }
     &_frame__multi.dragover {border-color: #bbb;}
+    &_frame__album {height: 450px;}
     &_cap {
         padding: 50px 0 10px;
+
+        .file-fake {vertical-align: middle;}
     }
     &_cap-desc {
         .inline-block();
         vertical-align: middle;
-        margin: 15px -50px 15px 25px;
+        margin: 15px -50px 15px 20px;
         text-align: left;
+        font: @fontsmall;
     }
     &_cap-drag {
         margin: 20px;
         font-size: 28px;
-        color: #cccccc;
+        color: #ccc;
     }
     &_multi {
         padding: 12px 5px;
@@ -78,7 +86,6 @@
     }
     &_footer .progress {
         margin-left: 15px;
-        vertical-align: bottom;
     }
     &_footer .file-fake {
         margin-left: 15px;
@@ -100,16 +107,22 @@
     width: 155px;
     margin: 0 5px 13px;
 
-    .ico-close4 {
+    .ico-close5 {
         position: absolute;
-        top: -10px;
-        right: -10px;
+        top: -9px;
+        right: -9px;
         z-index: 5;
     }
     .itx-gray {
         font-size: 12px;
+        .border-radius(0);
     }
     .progress__cont {margin-bottom: 5px;}
+
+    &__empty {
+        height: 141px;
+        background-color: #eee;
+    }
     &__load {
         height: 141px;
         background-color: #fff;
@@ -171,4 +184,158 @@
 /* /i-photo */
 
 
+/* album-preview */
+.album-preview {
+    /* Превью альбовом */
+    &__album &_li {
+        width: 205px;
+        height: 190px;
+    }
+    &__album &_img-hold {
+        width: 205px;
+        height: 140px;
+    }
+    /* Превью фото маленькие */
+    &__s &_li {
+        width: auto;
+        height: auto;
+        margin: 3px 8px 3px 0;
+    }
+    &__s &_img-hold {
+        width: 75px;
+        height: 70px;
+    }
+    &__s &_check {
+        margin: -15px 0 0 -15px;
+        width: 30px;
+        height: 30px;
+        background: url('@{path-img}/album-preview__s_check.png') no-repeat;
+    }
+    &__s &_li.active &_check {background-position: 0 -30px;}
+    /* Превью фото средние */
+    &__m &_li {
+        width: auto;
+        height: auto;
+        margin: 5px 12px 5px 0;
+    }
+    &__m &_img-hold {
+        width: 155px;
+        height: 140px;
+    }
+    /* Превью фото большие */
+    &__xl &_li {
+        width: auto;
+        height: auto;
+        margin: 8px 16px 8px 0;
+    }
+    &__xl &_img-hold {
+        width: 325px;
+        height: 295px;
+    }
+    &__xl &_check {
+        margin: -63px 0 0 -63px;
+        width: 127px;
+        height: 127px;
+        background: url('@{path-img}/album-preview__xl_check.png') no-repeat;
+    }
+    &__xl &_li.active &_check {background-position: 0 -127px;}
+    /* */
+    &_li {
+        .inline-block();
+        margin: 5px 20px 20px 0;
+    }
+    &_li.active &_check {
+        display: block;
+        background-position: 0 -61px;
+    }
+    &_in {
+        display: block;
+        position: relative;
+        background-color: #707070;
+        cursor: pointer;
+    }
+    &_in:hover &_check,
+    &_in:hover &_overlay {display: block;}
+    &_img-hold {
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
+    }
+    &_img {
+        max-height: 100%;
+        &:extend(.verticalalign-m-el);
+    }
+    &_overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border: 2px solid #2f8be2;
+        background-color: #eee;
+        background-color: rgba(255,255,255,.6);
+    }
+    &_check {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -30px 0 0 -30px;
+        width: 61px;
+        height: 61px;
+        background: url('@{path-img}/album-preview_check.png') no-repeat;
+    }
+    &_hold {
+        padding: 10px 12px;
+        background-color: #fff;
+    }
+    &_t {
+        white-space: nowrap;
+        .text-overflow();
+    }
+    &_count {
+        margin: 6px 0 0;
+        font: @fontsmall;
+        color: #b6b6b6;
+    }
+}
+/* /album-preview */
 
+
+/* album-slider */
+.album-slider {
+
+    &_tx {
+        .inline-block();
+        padding: 0 10px;
+        font-size: 16px;
+        color: #b6b6b6;
+        cursor: pointer;
+    }
+    &_tx:hover {color: #a3d1ff;}
+    .ui-slider-horizontal {
+        .inline-block();
+        vertical-align: middle;
+        width: 140px;
+        position: relative;
+        margin-bottom: 6px;
+        padding: 0;
+        height: 4px;
+        background-color: #c9cbcd;
+        .border-radius(4px);
+    }
+    .ui-slider-horizontal:hover {background-color: #a3d1ff;}
+    .ui-slider-handle {
+        position: absolute;
+        display: block;
+        width: 14px;
+        height: 14px;
+        margin: -6px 0 0 -7px;
+        border: 1px solid #e6e6e6;
+        background-color: #fff;
+        outline: none;
+        .border-radius(15px);
+    }
+}
+/* /album-slider */

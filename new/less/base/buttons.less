@@ -242,6 +242,8 @@
 
     
 }
+.btn-group.open .dropdown-toggle {.box-shadow(none);}
+
 .btn-link {
     text-decoration: none;
 
@@ -250,9 +252,11 @@
         &:extend(.btn-link all);
         color: @color-gray;
 
-        &:hover {color: @color-gray-dark;}
+        &:hover {
+            color: @color-gray-dark;
+            text-decoration: none;
+        }
     }
 }
-.btn-group.open .dropdown-toggle {.box-shadow(none);}
 
 

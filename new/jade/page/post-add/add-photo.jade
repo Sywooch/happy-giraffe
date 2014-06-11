@@ -7,14 +7,17 @@ block vars
 
 block layout
     //- iPhoto
-        mod     .i-photo__load  .i-photo__error
+        mod     .i-photo__load  .i-photo__error  .i-photo__empty
         vars 
             type
     mixin iPhoto(mod, vars)
         // Блок фотографии 
             Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
         .i-photo(class=mod)
-            a.ico-close4(href="")
+            - if (vars.type == "empty")
+                .i-photo_hold
+            - else
+                a.ico-close5(href="")
             // Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость
             - if (vars.type == "load")
                 // Загрузка фото
@@ -42,6 +45,9 @@ block layout
         // /Блок фотографии
 
     - var iPhoto = {}
+    - iPhoto.empty = {}
+    - iPhoto.empty.type = "empty"
+
     - iPhoto.load = {}
     - iPhoto.load.type = "load"
     
@@ -59,34 +65,47 @@ block layout
         .layout-content.clearfix
             .margin-20
                 h2 Загрузка одного фото 
-                a.popup-a(href="#photo-computer-one-empty") Заглушка для загрузки одного фото
+                a.popup-a.popup-a__add(href="#photo-computer-one-empty") Заглушка для загрузки одного фото
                 br
                 br
-                a.popup-a(href="#photo-computer-one-load") Одно фото загружается
+                a.popup-a.popup-a__add(href="#photo-computer-one-load") Одно фото загружается
                 br
                 br
                 h2 Загрузка нескольких фото 
-                a.popup-a(href="#photo-computer-mylti-empty") Заглушка для загрузки нескольких фото
+                a.popup-a.popup-a__add(href="#photo-computer-mylti-empty") Заглушка для загрузки нескольких фото
                 br
                 br
-                a.popup-a(href="#photo-computer-mylti-load") Несколько фото загружается
+                a.popup-a.popup-a__add(href="#photo-computer-mylti-load") Несколько фото загружается
                 br
                 br
-                a.popup-a(href="#photo-computer-mylti-loaded") Несколько фото загружено
+                a.popup-a.popup-a__add(href="#photo-computer-mylti-loaded") Несколько фото загружено
                 br
                 br
                 h2 Загрузка фото по ссылке
-                a.popup-a(href="#photo-link-empty") Заглушка для загрузки фото по ссылке
+                a.popup-a.popup-a__add(href="#photo-link-empty") Заглушка для загрузки фото по ссылке
                 br
                 br
-                a.popup-a(href="#photo-link-loaded") Фото по ссылке загружено
+                a.popup-a.popup-a__add(href="#photo-link-loaded") Фото по ссылке загружено
+                br
+                br
+                h2 Загрузка фото из альбомов
+                a.popup-a.popup-a__add(href="#photo-albums-list") Фотографии из альбома, выбор альбома
+                br
+                br
+                a.popup-a.popup-a__add(href="#photo-album-list-m") Фотографии из альбома, средний размер
+                br
+                br
+                a.popup-a.popup-a__add(href="#photo-album-list-s") Фотографии из альбома, маленький размер
+                br
+                br
+                a.popup-a.popup-a__add(href="#photo-album-list-xl") Фотографии из альбома, большой размер
                 br
                 br
 
 block block-hidden 
     // .popup-add
     // Заглушка для загрузки одного фото 
-    #photo-computer-one-empty.popup.popup-add
+    #photo-computer-one-empty.popup.popup-add.popup-add__photos
         a.mfp-close(href="") ×
         .popup-add_hold
             .popup-add_top.clearfix
@@ -104,7 +123,10 @@ block block-hidden
                 #photo-tab-computer.tab-pane.active
                     .popup-add_frame
                         .popup-add_cap
+                            // Размер файла, необходимо указать программисту
                             +cap-empty("cap-empty__addPhoto", capEmpty.addPhoto)
+                        .textalign-c
+                            +iPhoto("i-photo__empty", iPhoto.empty)
                         
                 #photo-tab-album.tab-pane
                 #photo-tab-link.tab-pane
@@ -113,7 +135,7 @@ block block-hidden
 
     // .popup-add
     // Одно фото загружается
-    #photo-computer-one-load.popup.popup-add
+    #photo-computer-one-load.popup.popup-add.popup-add__photos
         a.mfp-close(href="") ×
         .popup-add_hold
             .popup-add_top.clearfix
@@ -137,7 +159,7 @@ block block-hidden
                             +iPhoto("i-photo__load", iPhoto.load)
 
                     .textalign-c
-                        .btn.btn-success Добавить
+                        .btn.btn-success.disabled Добавить
                 #photo-tab-album.tab-pane
                 #photo-tab-link.tab-pane
     // /popup-add
@@ -146,7 +168,7 @@ block block-hidden
     ////////////////////////////////////////////////////
     // .popup-add
     // Заглушка для загрузки нескольких фото 
-    #photo-computer-mylti-empty.popup.popup-add
+    #photo-computer-mylti-empty.popup.popup-add.popup-add__photos
         a.mfp-close(href="") ×
         .popup-add_hold
             .popup-add_top.clearfix
@@ -164,6 +186,7 @@ block block-hidden
                     // К .popup-add_frame__multi при перетаскивании добавить class.dragover
                     .popup-add_frame.popup-add_frame__multi.dragover
                         .popup-add_cap
+                            // Размер файла, необходимо указать программисту
                             +cap-empty("cap-empty__addPhoto", capEmpty.addPhotoMulti)
                         
                 #photo-tab-album.tab-pane
@@ -172,7 +195,7 @@ block block-hidden
 
     // .popup-add
     // Загружается несколько фото 
-    #photo-computer-mylti-load.popup.popup-add
+    #photo-computer-mylti-load.popup.popup-add.popup-add__photos
         a.mfp-close(href="") ×
         .popup-add_hold
             .popup-add_top.clearfix
@@ -192,7 +215,7 @@ block block-hidden
                     .popup-add_scroll.scroll
                         .popup-add_frame.popup-add_frame__multi
                             .scroll_scroller
-                                ul.popup-add_multi.clearfix.scroll_cont
+                                ul.popup-add_multi.scroll_cont
                                     li.popup-add_multi-li
                                         +iPhoto("i-photo__loaded", iPhoto.loaded)
                                     li.popup-add_multi-li
@@ -224,7 +247,7 @@ block block-hidden
                                     .scroll_bar-in
                     .popup-add_footer.clearfix
                         .float-r
-                            .btn.btn-success Добавить
+                            .btn.btn-success.disabled Добавить
                         .popup-add_footer-l
                             span.color-gray-light Загружено  
                                 spanc.popup-add_footer-count 7 
@@ -242,7 +265,7 @@ block block-hidden
 
     // .popup-add
     // Загрузилось несколько фото
-    #photo-computer-mylti-loaded.popup.popup-add
+    #photo-computer-mylti-loaded.popup.popup-add.popup-add__photos
         a.mfp-close(href="") ×
         .popup-add_hold
             .popup-add_top.clearfix
@@ -261,7 +284,7 @@ block block-hidden
                     .popup-add_scroll.scroll
                         .popup-add_frame.popup-add_frame__multi
                             .scroll_scroller
-                                ul.popup-add_multi.clearfix.scroll_cont
+                                ul.popup-add_multi.scroll_cont
                                     li.popup-add_multi-li
                                         +iPhoto("i-photo__loaded", iPhoto.loaded)
                                     li.popup-add_multi-li
@@ -294,12 +317,10 @@ block block-hidden
 
 
 
-
-
     ////////////////////////////////////////////////////
     // .popup-add
     // Одно фото по ссылке загружено
-    #photo-link-empty.popup.popup-add
+    #photo-link-empty.popup.popup-add.popup-add__photos
         a.mfp-close(href="") ×
         .popup-add_hold
             .popup-add_top.clearfix
@@ -321,11 +342,13 @@ block block-hidden
                     .popup-add_frame
                         .popup-add_cap
                             +cap-empty("cap-empty__addPhotoLink", capEmpty.addPhotoLink)
+                        .textalign-c
+                            +iPhoto("i-photo__empty", iPhoto.empty)
     // /popup-add
 
     // .popup-add
     // Одно фото по ссылке загружено
-    #photo-link-loaded.popup.popup-add
+    #photo-link-loaded.popup.popup-add.popup-add__photos
         a.mfp-close(href="") ×
         .popup-add_hold
             .popup-add_top.clearfix
@@ -353,6 +376,351 @@ block block-hidden
                                 
                     .textalign-c
                         .btn.btn-success Добавить
+    // /popup-add
+
+
+
+    //////////////////////////////////////////////////
+    // .popup-add s
+    // Фотографии из альбома, список альбомов
+    #photo-albums-list.popup.popup-add.popup-add__photos
+        a.mfp-close(href="") ×
+        .popup-add_hold
+            .popup-add_top.clearfix
+                .popup-add_t Добавить фотографии
+                ul.tabs-simple.tabs-simple__inline.nav.nav-tabs
+                    // tabs bootstrap, работают по id
+                    li
+                        a(href="#photo-tab-computer", data-toggle="tab") С компьютера
+                    li.active
+                        a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
+                    li
+                        a(href="#photo-tab-link", data-toggle="tab") Из интернета
+            .popup-add_in.popup-add_in__albums.tab-content
+                // tabs bootstrap, работают по id
+                #photo-tab-computer.tab-pane
+                #photo-tab-album.tab-pane.active
+
+                    ul.tabs-simple.nav.nav-tabs
+                        // tabs bootstrap, работают по id
+                        li.active
+                            a(href="#photo-albums") Мои альбомы 15
+                        li
+                            a(href="#photo-album-all") Все фото 468
+                    .tab-content
+                        #photo-albums.tab-pane.active
+                            .popup-add_scroll.scroll
+                                .popup-add_frame.popup-add_frame__album
+                                    .scroll_scroller
+                                        // Список альбомов
+                                        .album-preview.album-preview__album.scroll_cont
+                                            ul.album-preview_ul
+                                                li.album-preview_li
+                                                    .album-preview_in
+                                                        .album-preview_img-hold
+                                                            // 
+                                                            img.album-preview_img(src="/new/images/example/w205-h140.jpg", alt="")
+                                                        .album-preview_overlay
+                                                    .album-preview_hold
+                                                        .album-preview_t Выходные - мое хобби, а также очень интересно и познавательно ...
+                                                        .album-preview_count 38 фото
+                                                li.album-preview_li
+                                                    .album-preview_in
+                                                        .album-preview_img-hold
+                                                            // 
+                                                            img.album-preview_img(src="/new/images/example/w155-h110.jpg", alt="")
+                                                        .album-preview_overlay
+                                                    .album-preview_hold
+                                                        .album-preview_t Выходные - мое хобби, а также очень интересно и познавательно ...
+                                                        .album-preview_count 38 фото
+                                    .scroll_bar-hold
+                                        .scroll_bar
+                                            .scroll_bar-in
+                        #photo-album-open
+                            // Пустой список фото в альбоме
+
+                #photo-tab-link.tab-pane
+    // /popup-add
+
+    // .popup-add
+    // Фотографии из альбома, средний размер превью
+    #photo-album-list-m.popup.popup-add.popup-add__photos
+        a.mfp-close(href="") ×
+        .popup-add_hold
+            .popup-add_top.clearfix
+                .popup-add_t Добавить фотографии
+                ul.tabs-simple.tabs-simple__inline.nav.nav-tabs
+                    // tabs bootstrap, работают по id
+                    li
+                        a(href="#photo-tab-computer", data-toggle="tab") С компьютера
+                    li.active
+                        a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
+                    li
+                        a(href="#photo-tab-link", data-toggle="tab") Из интернета
+            .popup-add_in.popup-add_in__albums.tab-content
+                // tabs bootstrap, работают по id
+                #photo-tab-computer.tab-pane
+                #photo-tab-album.tab-pane.active
+
+                    ul.tabs-simple.nav.nav-tabs
+                        // tabs bootstrap, работают по id
+                        li
+                            a(href="#photo-albums") Мои альбомы 15
+                        li.active
+                            a(href="#photo-album-open") Семейный альбом 28
+                        li
+                            a(href="#photo-album-all") Все фото 468
+                    #photo-albums.tab-pane
+                        // Пустой список альбомов
+                    #photo-album-open.tab-pane.active
+                        .popup-add_scroll.scroll
+                            .popup-add_frame.popup-add_frame__album
+                                .scroll_scroller
+                                    // Список альбомов
+                                        .album-preview__s
+                                        .album-preview__m
+                                        .album-preview__xl
+                                    .album-preview.album-preview__m.scroll_cont
+                                        ul.album-preview_ul
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h110.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w205-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                .scroll_bar-hold
+                                    .scroll_bar
+                                        .scroll_bar-in
+                        .popup-add_footer.clearfix
+                            .popup-add_footer-l
+                                .album-slider
+                                    .album-slider_tx.album-slider_tx-minus -
+                                    // jquery iu slider 
+                                        инициализируется из common-makup.js в верстке загружается файл jquery-ui-1.10.4.custom.js
+                                        Есть CJuiSlider в yii 
+                                    .album-slider_hold
+                                    .album-slider_tx.album-slider_tx-plus +
+                            .float-r
+                                .btn.btn-link-gray Выберите фото 
+                                .btn.btn-success.disabled Добавить
+                #photo-tab-link.tab-pane
+    // /popup-add
+
+
+    // .popup-add
+    // Фотографии из альбома, маленький размер превью
+    #photo-album-list-s.popup.popup-add.popup-add__photos
+        a.mfp-close(href="") ×
+        .popup-add_hold
+            .popup-add_top.clearfix
+                .popup-add_t Добавить фотографии
+                ul.tabs-simple.tabs-simple__inline.nav.nav-tabs
+                    // tabs bootstrap, работают по id
+                    li
+                        a(href="#photo-tab-computer", data-toggle="tab") С компьютера
+                    li.active
+                        a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
+                    li
+                        a(href="#photo-tab-link", data-toggle="tab") Из интернета
+            .popup-add_in.popup-add_in__albums.tab-content
+                // tabs bootstrap, работают по id
+                #photo-tab-computer.tab-pane
+                #photo-tab-album.tab-pane.active
+
+                    ul.tabs-simple.nav.nav-tabs
+                        // tabs bootstrap, работают по id
+                        li
+                            a(href="#photo-albums") Мои альбомы 15
+                        li.active
+                            a(href="#photo-album-open") Семейный альбом 28
+                        li
+                            a(href="#photo-album-all") Все фото 468
+                    #photo-albums.tab-pane
+                        // Пустой список альбомов
+                    #photo-album-open.tab-pane.active
+                        .popup-add_scroll.scroll
+                            .popup-add_frame.popup-add_frame__album
+                                .scroll_scroller
+                                    // Список альбомов
+                                        .album-preview__s
+                                        .album-preview__m
+                                        .album-preview__xl
+                                    .album-preview.album-preview__s.scroll_cont
+                                        ul.album-preview_ul
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li.active
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h110.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w205-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                .scroll_bar-hold
+                                    .scroll_bar
+                                        .scroll_bar-in
+                        .popup-add_footer.clearfix
+                            .popup-add_footer-l
+                                .album-slider
+                                    .album-slider_tx.album-slider_tx-minus -
+                                    // jquery iu slider 
+                                        инициализируется из common-makup.js в верстке загружается файл jquery-ui-1.10.4.custom.js
+                                        Есть CJuiSlider в yii 
+                                    .album-slider_hold
+                                    .album-slider_tx.album-slider_tx-plus +
+                            .float-r
+                                .btn.btn-link-gray.disabled Выбрано: 1
+                                .btn.btn-success Добавить
+                #photo-tab-link.tab-pane
+    // /popup-add
+
+
+    // .popup-add
+    // Фотографии из альбома, большой размер превью
+    #photo-album-list-xl.popup.popup-add.popup-add__photos
+        a.mfp-close(href="") ×
+        .popup-add_hold
+            .popup-add_top.clearfix
+                .popup-add_t Добавить фотографии
+                ul.tabs-simple.tabs-simple__inline.nav.nav-tabs
+                    // tabs bootstrap, работают по id
+                    li
+                        a(href="#photo-tab-computer", data-toggle="tab") С компьютера
+                    li.active
+                        a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
+                    li
+                        a(href="#photo-tab-link", data-toggle="tab") Из интернета
+            .popup-add_in.popup-add_in__albums.tab-content
+                // tabs bootstrap, работают по id
+                #photo-tab-computer.tab-pane
+                #photo-tab-album.tab-pane.active
+
+                    ul.tabs-simple.nav.nav-tabs
+                        // tabs bootstrap, работают по id
+                        li
+                            a(href="#photo-albums") Мои альбомы 15
+                        li.active
+                            a(href="#photo-album-open") Семейный альбом 28
+                        li
+                            a(href="#photo-album-all") Все фото 468
+                    #photo-albums.tab-pane
+                        // Пустой список альбомов
+                    #photo-album-open.tab-pane.active
+                        .popup-add_scroll.scroll
+                            .popup-add_frame.popup-add_frame__album
+                                .scroll_scroller
+                                    // Список альбомов
+                                        .album-preview__s
+                                        .album-preview__m
+                                        .album-preview__xl
+                                    .album-preview.album-preview__xl.scroll_cont
+                                        ul.album-preview_ul
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w325-h295.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li.active
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h110.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li.active
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w325-h295.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w205-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                .scroll_bar-hold
+                                    .scroll_bar
+                                        .scroll_bar-in
+                        .popup-add_footer.clearfix
+                            .popup-add_footer-l
+                                .album-slider
+                                    .album-slider_tx.album-slider_tx-minus -
+                                    // jquery iu slider 
+                                        инициализируется из common-makup.js в верстке загружается файл jquery-ui-1.10.4.custom.js
+                                        Есть CJuiSlider в yii 
+                                    .album-slider_hold
+                                    .album-slider_tx.album-slider_tx-plus +
+                            .float-r
+                                .btn.btn-link-gray.disabled Выбрано: 1
+                                .btn.btn-success Добавить
+                #photo-tab-link.tab-pane
     // /popup-add
 
 

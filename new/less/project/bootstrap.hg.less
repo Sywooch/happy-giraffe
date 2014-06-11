@@ -29,19 +29,20 @@
 /* /.dropdown-menu */
 
 /* progress-bar */
-// 
-@-webkit-keyframes 'progress-bar-stripes' {
+
+@-webkit-keyframes 'progress-bar-stripes-invert' {
     from  { background-position: 0 0; }
-    to    { background-position: 80px 0; }
+    to    { background-position: 40px 0; }
 }
-@keyframes 'progress-bar-stripes' {
+@keyframes 'progress-bar-stripes-invert' {
     from  { background-position: 0 0; }
-    to    { background-position: 80px 0; }
+    to    { background-position: 40px 0; }
 }
 .progress {
-
+    
+    &.active .progress-bar {.animation(progress-bar-stripes-invert 1s linear infinite);}
     &__cont {
-        height: 12px;
+        height: 9px;
         border: 3px solid #eee;
         .border-radius(0);
     }
@@ -54,6 +55,7 @@
     }
 }
 .progress-bar {
+
     .progress-striped &__cont {
         .box-shadow(none);
         background-color: #eee;

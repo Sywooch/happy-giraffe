@@ -11,6 +11,17 @@ class RecipeController extends HController
     public $section;
     public $club;
 
+    public function behaviors()
+    {
+        return array(
+            'lastModified' => array(
+                'class' => 'LastModifiedBehavior',
+                'getParameter' => 'id',
+                'entity' => 'CookRecipe',
+            ),
+        );
+    }
+
     public function filters()
     {
         $filters = array(
@@ -23,6 +34,11 @@ class RecipeController extends HController
         );
 
         if (Yii::app()->user->isGuest) {
+            $filters[] = array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified->getDateTime(),
+            );
+
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,

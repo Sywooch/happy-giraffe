@@ -12,7 +12,7 @@ use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoCreate;
 
 
-class UploadForm extends \CFormModel
+abstract class UploadForm extends \CFormModel
 {
     /**
      * @var PhotoCreate[]

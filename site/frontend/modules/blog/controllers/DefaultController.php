@@ -32,7 +32,6 @@ class DefaultController extends HController
             $filters[] = array(
                 'CHttpCacheFilter + view',
                 'lastModified' => $this->lastModified->getDateTime(),
-                'etagSeed' => $this->lastModified->getDateTime(),
             );
 
             $filters [] = array(

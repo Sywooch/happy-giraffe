@@ -19,6 +19,7 @@
         <div class="textalign-c clearfix">
             <!-- ko foreach: photos -->
             <div class="b-add-img_i" data-bind="css: {'b-add-img_i__single': isSingle(), 'error': isError()}">
+                <span data-bind="text: id">1</span>
 
                 <div class="b-add-img_i-error-tx" data-bind="text: error, visible: isError()"></div>
 

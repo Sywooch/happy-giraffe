@@ -164,10 +164,9 @@ function CommentViewModel(data) {
     };
 
     self.commentsToShow = ko.computed(function() {
-        if (self.full() || self.extended())
-            return self.comments();
+        var limit = (self.full() || self.extended()) ? 100 : 3;
 
-        return self.comments().slice(self.comments.length - 3, self.comments().length);
+        return self.comments().slice(self.comments.length - limit, self.comments().length);
     });
 
     /*************************************** reply ****************************************/

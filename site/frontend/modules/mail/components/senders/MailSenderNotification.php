@@ -14,8 +14,7 @@ Yii::import('site.frontend.modules.notifications.components.*');
 
 class MailSenderNotification extends MailSender
 {
-    public $debugMode = self::DEBUG_TESTING;
-    protected $percent = 30;
+    public $debugMode = self::DEBUG_PRODUCTION;
 
     const TYPE_DISCUSS = 'notificationDiscuss';
     const TYPE_REPLY = 'notificationReply';

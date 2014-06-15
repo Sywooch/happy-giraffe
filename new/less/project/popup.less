@@ -27,7 +27,7 @@
     &__photos {}
 
     &_top {
-        padding: 20px 25px;
+        padding: 20px 37px;
     }
     &_top .tabs-simple {margin-left: 40px;}
     &_t {
@@ -40,7 +40,7 @@
         background-color: #fafafa;
     }
     &_in__albums {padding-top: 5px;}
-    &_in__albums .tabs-simple > li:first-child > a {padding-left: 0;}
+    /*&_in__albums .tabs-simple > li:first-child > a {padding-left: 10px;}*/
     &_scroll {
         margin: 0 -10px 15px 0;
         padding-right: 20px;
@@ -48,6 +48,7 @@
 
     &_frame {
         height: 470px;
+        padding: 0 5px;
 
         .scroll_scroller {
             max-height: 470px;
@@ -57,7 +58,7 @@
         border: 2px dashed #d6d6d6;
     }
     &_frame__multi.dragover {border-color: #bbb;}
-    &_frame__album {height: 450px;}
+    &_frame__album {height: 442px;}
     &_cap {
         padding: 50px 0 10px;
 
@@ -82,24 +83,28 @@
         .inline-block();
     }
     &_footer {
-        margin:  10px;
+        margin:  15px 20px 15px 17px;
     }
     &_footer .progress {
         margin-left: 15px;
+        margin-bottom: 2px;
     }
     &_footer .file-fake {
         margin-left: 15px;
         vertical-align: middle;
     }
+    &_footer .btn-link-gray.btn-s {
+        padding-top: 10px;
+        vertical-align: top;
+    }
     &_footer-l {
         float: left;
         margin-top: 8px;
     }
-
 }
 
 
-/* .i-photo */
+/* i-photo */
 .i-photo {
     .inline-block();
     vertical-align: top;
@@ -119,10 +124,10 @@
     }
     .progress__cont {margin-bottom: 5px;}
 
-    &__empty {
+    /*&__empty {
         height: 141px;
         background-color: #eee;
-    }
+    }*/
     &__load {
         height: 141px;
         background-color: #fff;
@@ -168,7 +173,7 @@
         padding: 5px;
         text-align: center;
         background-color: #aaa;
-        background-color: rgba(0,0,0,.25);
+        background-color: rgba(0,0,0,.4);
     }
     &_rotate {
         .inline-block();
@@ -199,7 +204,7 @@
     &__s &_li {
         width: auto;
         height: auto;
-        margin: 3px 8px 3px 0;
+        margin: 0 6px 6px 0;
     }
     &__s &_img-hold {
         width: 75px;
@@ -216,7 +221,7 @@
     &__m &_li {
         width: auto;
         height: auto;
-        margin: 5px 12px 5px 0;
+        margin: 0 12px 12px 0;
     }
     &__m &_img-hold {
         width: 155px;
@@ -226,7 +231,7 @@
     &__xl &_li {
         width: auto;
         height: auto;
-        margin: 8px 16px 8px 0;
+        margin: 0 12px 12px 0;
     }
     &__xl &_img-hold {
         width: 325px;
@@ -240,9 +245,12 @@
     }
     &__xl &_li.active &_check {background-position: 0 -127px;}
     /* */
+    &_ul {
+        margin: 8px -30px 0 10px;
+    }
     &_li {
         .inline-block();
-        margin: 5px 20px 20px 0;
+        margin: 5px 12px 6px 0;
     }
     &_li.active &_check {
         display: block;
@@ -272,7 +280,7 @@
         right: 0;
         bottom: 0;
         left: 0;
-        border: 2px solid #2f8be2;
+        border: 1px solid #a0ceee; /* #2f8be2; */
         background-color: #eee;
         background-color: rgba(255,255,255,.6);
     }
@@ -306,20 +314,12 @@
 /* album-slider */
 .album-slider {
 
-    &_tx {
-        .inline-block();
-        padding: 0 10px;
-        font-size: 16px;
-        color: #b6b6b6;
-        cursor: pointer;
-    }
-    &_tx:hover {color: #a3d1ff;}
     .ui-slider-horizontal {
         .inline-block();
         vertical-align: middle;
         width: 140px;
         position: relative;
-        margin-bottom: 6px;
+        margin: 0 10px 4px;
         padding: 0;
         height: 4px;
         background-color: #c9cbcd;
@@ -337,5 +337,14 @@
         outline: none;
         .border-radius(15px);
     }
+    &_tx {
+        .inline-block();
+        padding: 0;
+        font-size: 16px;
+        color: #b6b6b6;
+        cursor: pointer;
+    }
+    &_tx:hover {color: #a3d1ff;}
 }
 /* /album-slider */
+

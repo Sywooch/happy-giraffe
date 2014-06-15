@@ -45,8 +45,8 @@ block layout
         // /Блок фотографии
 
     - var iPhoto = {}
-    - iPhoto.empty = {}
-    - iPhoto.empty.type = "empty"
+    //- - iPhoto.empty = {}
+    //- - iPhoto.empty.type = "empty"
 
     - iPhoto.load = {}
     - iPhoto.load.type = "load"
@@ -106,7 +106,7 @@ block block-hidden
     // .popup-add
     // Заглушка для загрузки одного фото 
     #photo-computer-one-empty.popup.popup-add.popup-add__photos
-        a.mfp-close(href="") ×
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
         .popup-add_hold
             .popup-add_top.clearfix
                 .popup-add_t Добавить фотографии
@@ -125,8 +125,6 @@ block block-hidden
                         .popup-add_cap
                             // Размер файла, необходимо указать программисту
                             +cap-empty("cap-empty__addPhoto", capEmpty.addPhoto)
-                        .textalign-c
-                            +iPhoto("i-photo__empty", iPhoto.empty)
                         
                 #photo-tab-album.tab-pane
                 #photo-tab-link.tab-pane
@@ -136,7 +134,7 @@ block block-hidden
     // .popup-add
     // Одно фото загружается
     #photo-computer-one-load.popup.popup-add.popup-add__photos
-        a.mfp-close(href="") ×
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
         .popup-add_hold
             .popup-add_top.clearfix
                 .popup-add_t Добавить фотографии
@@ -158,8 +156,9 @@ block block-hidden
                         .textalign-c
                             +iPhoto("i-photo__load", iPhoto.load)
 
-                    .textalign-c
-                        .btn.btn-success.disabled Добавить
+                    .popup-add_footer
+                        .textalign-c
+                            a.btn.btn-success.disabled(href="") Добавить
                 #photo-tab-album.tab-pane
                 #photo-tab-link.tab-pane
     // /popup-add
@@ -169,7 +168,7 @@ block block-hidden
     // .popup-add
     // Заглушка для загрузки нескольких фото 
     #photo-computer-mylti-empty.popup.popup-add.popup-add__photos
-        a.mfp-close(href="") ×
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
         .popup-add_hold
             .popup-add_top.clearfix
                 .popup-add_t Добавить фотографии
@@ -196,7 +195,7 @@ block block-hidden
     // .popup-add
     // Загружается несколько фото 
     #photo-computer-mylti-load.popup.popup-add.popup-add__photos
-        a.mfp-close(href="") ×
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
         .popup-add_hold
             .popup-add_top.clearfix
                 .popup-add_t Добавить фотографии
@@ -247,7 +246,7 @@ block block-hidden
                                     .scroll_bar-in
                     .popup-add_footer.clearfix
                         .float-r
-                            .btn.btn-success.disabled Добавить
+                            a.btn.btn-success.disabled(href="") Добавить
                         .popup-add_footer-l
                             span.color-gray-light Загружено  
                                 spanc.popup-add_footer-count 7 
@@ -266,7 +265,7 @@ block block-hidden
     // .popup-add
     // Загрузилось несколько фото
     #photo-computer-mylti-loaded.popup.popup-add.popup-add__photos
-        a.mfp-close(href="") ×
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
         .popup-add_hold
             .popup-add_top.clearfix
                 .popup-add_t Добавить фотографии
@@ -298,7 +297,7 @@ block block-hidden
                                     .scroll_bar-in
                     .popup-add_footer.clearfix
                         .float-r
-                            .btn.btn-success Добавить
+                            a.btn.btn-success(href="") Добавить
                         .popup-add_footer-l
                             span.color-gray Загружено  
                                 spanc.popup-add_footer-count 125 
@@ -321,7 +320,7 @@ block block-hidden
     // .popup-add
     // Одно фото по ссылке загружено
     #photo-link-empty.popup.popup-add.popup-add__photos
-        a.mfp-close(href="") ×
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
         .popup-add_hold
             .popup-add_top.clearfix
                 .popup-add_t Добавить фотографии
@@ -342,14 +341,12 @@ block block-hidden
                     .popup-add_frame
                         .popup-add_cap
                             +cap-empty("cap-empty__addPhotoLink", capEmpty.addPhotoLink)
-                        .textalign-c
-                            +iPhoto("i-photo__empty", iPhoto.empty)
     // /popup-add
 
     // .popup-add
     // Одно фото по ссылке загружено
     #photo-link-loaded.popup.popup-add.popup-add__photos
-        a.mfp-close(href="") ×
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
         .popup-add_hold
             .popup-add_top.clearfix
                 .popup-add_t Добавить фотографии
@@ -373,9 +370,10 @@ block block-hidden
                         .textalign-c
 
                             +iPhoto("i-photo__loaded", iPhoto.loaded)
-                                
-                    .textalign-c
-                        .btn.btn-success Добавить
+                        
+                    .popup-add_footer
+                        .textalign-c
+                            a.btn.btn-success(href="") Добавить
     // /popup-add
 
 
@@ -384,7 +382,7 @@ block block-hidden
     // .popup-add s
     // Фотографии из альбома, список альбомов
     #photo-albums-list.popup.popup-add.popup-add__photos
-        a.mfp-close(href="") ×
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
         .popup-add_hold
             .popup-add_top.clearfix
                 .popup-add_t Добавить фотографии
@@ -445,7 +443,7 @@ block block-hidden
     // .popup-add
     // Фотографии из альбома, средний размер превью
     #photo-album-list-m.popup.popup-add.popup-add__photos
-        a.mfp-close(href="") ×
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
         .popup-add_hold
             .popup-add_top.clearfix
                 .popup-add_t Добавить фотографии
@@ -523,23 +521,22 @@ block block-hidden
                         .popup-add_footer.clearfix
                             .popup-add_footer-l
                                 .album-slider
-                                    .album-slider_tx.album-slider_tx-minus -
+                                    .album-slider_tx.album-slider_tx-minus &ndash;
                                     // jquery iu slider 
                                         инициализируется из common-makup.js в верстке загружается файл jquery-ui-1.10.4.custom.js
                                         Есть CJuiSlider в yii 
                                     .album-slider_hold
                                     .album-slider_tx.album-slider_tx-plus +
                             .float-r
-                                .btn.btn-link-gray Выберите фото 
-                                .btn.btn-success.disabled Добавить
+                                .btn.btn-link-gray.btn-s.disabled Выберите фото 
+                                a.btn.btn-success.disabled(href="") Добавить
                 #photo-tab-link.tab-pane
     // /popup-add
-
 
     // .popup-add
     // Фотографии из альбома, маленький размер превью
     #photo-album-list-s.popup.popup-add.popup-add__photos
-        a.mfp-close(href="") ×
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
         .popup-add_hold
             .popup-add_top.clearfix
                 .popup-add_t Добавить фотографии
@@ -601,6 +598,524 @@ block block-hidden
                                                 .album-preview_in
                                                     .album-preview_img-hold
                                                         // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
+                                                        img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                                                    .album-preview_overlay
+                                                    .album-preview_check
+                                            li.album-preview_li
+                                                .album-preview_in
+                                                    .album-preview_img-hold
+                                                        // 
                                                         img.album-preview_img(src="/new/images/example/w205-h140.jpg", alt="")
                                                     .album-preview_overlay
                                                     .album-preview_check
@@ -617,23 +1132,22 @@ block block-hidden
                         .popup-add_footer.clearfix
                             .popup-add_footer-l
                                 .album-slider
-                                    .album-slider_tx.album-slider_tx-minus -
+                                    .album-slider_tx.album-slider_tx-minus &ndash;
                                     // jquery iu slider 
                                         инициализируется из common-makup.js в верстке загружается файл jquery-ui-1.10.4.custom.js
                                         Есть CJuiSlider в yii 
                                     .album-slider_hold
                                     .album-slider_tx.album-slider_tx-plus +
                             .float-r
-                                .btn.btn-link-gray.disabled Выбрано: 1
-                                .btn.btn-success Добавить
+                                .btn.btn-link-gray.btn-s.disabled Выбрано: 1
+                                a.btn.btn-success(href="") Добавить
                 #photo-tab-link.tab-pane
     // /popup-add
-
 
     // .popup-add
     // Фотографии из альбома, большой размер превью
     #photo-album-list-xl.popup.popup-add.popup-add__photos
-        a.mfp-close(href="") ×
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
         .popup-add_hold
             .popup-add_top.clearfix
                 .popup-add_t Добавить фотографии
@@ -711,17 +1225,16 @@ block block-hidden
                         .popup-add_footer.clearfix
                             .popup-add_footer-l
                                 .album-slider
-                                    .album-slider_tx.album-slider_tx-minus -
+                                    .album-slider_tx.album-slider_tx-minus &ndash;
                                     // jquery iu slider 
                                         инициализируется из common-makup.js в верстке загружается файл jquery-ui-1.10.4.custom.js
                                         Есть CJuiSlider в yii 
                                     .album-slider_hold
                                     .album-slider_tx.album-slider_tx-plus +
                             .float-r
-                                .btn.btn-link-gray.disabled Выбрано: 1
-                                .btn.btn-success Добавить
+                                .btn.btn-link-gray.btn-s.disabled.verticalalign-base Выбрано: 1
+                                a.btn.btn-success(href="") Добавить
                 #photo-tab-link.tab-pane
     // /popup-add
-
 
 

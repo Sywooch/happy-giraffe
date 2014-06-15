@@ -98,9 +98,9 @@ module.exports = function(grunt){
         },
         options: {
           sourceMap: true,
-          /*sourceMapFilename: 'new/css/all1.css.map',*/
-          /*sourceMapRootpath: 'new/css',
-          sourceMapURL: 'new/css/all1.css.map',*/
+          sourceMapFilename: 'new/css/all1.css.map',
+          sourceMapRootpath: '../../',
+          //sourceMapURL: 'all1.css.map',
         }
       },
       newest: {

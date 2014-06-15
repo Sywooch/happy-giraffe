@@ -126,6 +126,7 @@ $(function() {
             sliderValue = albumSlider.slider( "value" ) + 1;
             albumSlider.slider( "value",  sliderValue );
         });
+        addBaron('.popup .scroll');
     });
 
 });

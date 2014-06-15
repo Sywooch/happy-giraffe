@@ -6,7 +6,7 @@
 */
 .sidebar-search {
     position: relative;
-    padding: 14px 15px 15px;
+    padding: 0 0 15px;
 
     &__big &_itx {
         border-color: #e5e5e5;
@@ -56,7 +56,9 @@
     position:relative;
     cursor:pointer;
     overflow:hidden;
-
+    
+    &:hover .btn-primary:extend(.btn-primary:hover){}
+    &:hover .btn-success:extend(.btn-success:hover){}
     &_btn {
         position:relative;
         z-index:2;

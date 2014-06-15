@@ -13871,13 +13871,13 @@ body.gallery {
   margin-left: 15px;
   vertical-align: middle;
 }
-.popup-add_footer .btn-link-gray.btn-s {
+.popup-add_footer .float-r .btn-link-gray.btn-s {
   padding-top: 10px;
   vertical-align: top;
 }
 .popup-add_footer-l {
   float: left;
-  margin-top: 8px;
+  margin-top: 6px;
 }
 /* i-photo */
 .i-photo {

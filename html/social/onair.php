@@ -9,8 +9,8 @@
 </head>
 <body class="body-gray">
 	
-<div class="layout-container">
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
+<div class="layout-container">
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 	<div class="layout-wrapper">
 		
@@ -18,7 +18,7 @@
 		<div class="layout-content clearfix">
 		<div class="content-cols clearfix">
 			<div class="col-1">
-				<div class="sidebar-search clearfix">
+				<div class="sidebar-search sidebar-search__big clearfix">
 					<input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
 					<!-- 
 					В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<!-- 
 		<div class="crumbs-small clearfix">
 			<ul class="crumbs-small_ul">  
 				<li class="crumbs-small_li">Я здесь:</li>
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 		</div>
-		
+		 -->
 		<div class="content-cols clearfix">
 			<div class="col-1">
 			

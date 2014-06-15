@@ -33,6 +33,37 @@
 }
 /* /logo */
 
+
+.header-banner-728-90 {
+    float: left;
+    width: 728px;
+    height: 90px;
+    margin-top: 12px;
+    margin-left: -4px;
+}
+
+/* 
+    Ссылки логина и регастрации в шапке у незарегестрированного пользователя
+    header-login
+        &_a
+*/
+.header-login {
+    margin-top: 5px;
+    text-align: right;
+
+    &_a {
+        .inline-block();
+        margin: 0 10px;
+        color: @color-gray-light;
+        text-decoration: none;
+    }
+    &_a:hover {
+        color: @color-gray;
+        text-decoration: underline;
+    }
+}
+/* /header-login */
+
 /* 
     header 
     Главная шапка сайта
@@ -126,7 +157,7 @@
         position: relative;
         .inline-block();
         vertical-align: top;
-        margin: 0 18px;
+        margin: 0 11px;
         text-align: center;
     }
     &_li__dropin &_a:hover &_ico,
@@ -161,6 +192,10 @@
     &_li.active &_tx {
         color: #808080;
         text-decoration: none;
+    }
+    &_li__dropin {
+        margin-left: 0;
+        margin-right: 0;
     }
     &_li__dropin.active .header-drop {display: block;}
     &_a {
@@ -340,7 +375,7 @@
         width: 90px;
         position: relative;
         z-index: 5;
-        margin: 14px 1.57% 0 0;
+        margin: 10px 2% 0 0;
         text-align: center;
         .ava {
             vertical-align: middle;

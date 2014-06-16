@@ -363,6 +363,6 @@ return array(
 
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
 
-        'onair' => 'blog/onair/index',
+        'onair' => 'blog/air/index',
     ),
 );

@@ -43,16 +43,22 @@ class YandexOriginalText
             $xml = new \SimpleXMLElement($response);
             $count = count($xml->{'original-text'});
             foreach ($xml->{'original-text'} as $textElement) {
-                $isAdded = SeoYandexOriginalText::model()->exists('external_id = :id', array(
+                $text = (string) $textElement->content;
+                $model = SeoYandexOriginalText::model()->find('external_id = :id', array(
                     ':id' => $textElement->id,
                 ));
 
-                if ($isAdded) {
-                    continue;
+                if ($model !== null) {
+                    if ($model->added !== null) {
+                        continue;
+                    }
+                } else {
+                    $model = new SeoYandexOriginalText();
+                    $model->added = new \CDbExpression('NOW()');
+                    $model->external_text = $text;
+                    $model->external_id = $textElement->id;
                 }
 
-                $text = (string) $textElement->content;
-                $model = new SeoYandexOriginalText();
                 try {
                     $url = $this->getUrlByText($text);
                     $id = $this->getIdByUrl($url);
@@ -61,9 +67,7 @@ class YandexOriginalText
                 } catch (YandexOriginalTextException $e) {
                     echo $e->getMessage();
                 }
-                $model->added = new \CDbExpression('NOW()');
-                $model->external_text = $text;
-                $model->external_id = $textElement->id;
+
                 $model->save();
             }
             $page++;

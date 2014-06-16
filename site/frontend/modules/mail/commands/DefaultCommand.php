@@ -75,7 +75,8 @@ class DefaultCommand extends CConsoleCommand
 
     public function actionWorker()
     {
-        ini_set('unserialize_callback_func', 'spl_autoload_call');
+        Yii::import('site.frontend.extensions.status.*');
+
         Yii::app()->gearman->worker()->addFunction('sendEmail', function($job) {
             $message = unserialize($job->workload());
             call_user_func_array(array('MailPostman', 'sendEmail'), $message);

@@ -1,4 +1,6 @@
-
+/*
+    Блок в шапке зазывающий на регистрацию. 
+    Заменен на баннер
 .b-join {
     margin: 0 0 0 20px;
 	padding: 20px 15px 20px 30px;
@@ -39,6 +41,7 @@
 		margin: 0 1px;
 	}
 }
+*/
 
 .b-join-row {
 	display: none;
@@ -89,9 +92,30 @@
 .header-banner-728-90 {
     width: 728px;
     height: 90px;
-    margin-top: 15px;
+    margin-top: 7px;
     margin-left: -4px;
 }
+
+/* 
+    Ссылки логина и регастрации в шапке у незарегестрированного пользователя
+    header-login
+        &_a
+*/
+.header-login {
+    text-align: right;
+
+    &_a {
+        .inline-block();
+        margin: 0 0 0 15px;
+        color: @color-gray;
+        text-decoration: none;
+    }
+    &_a:hover {
+        color: @color-link;
+        text-decoration: underline;
+    }
+}
+/* /header-login */
 
 .layout-header {
    position:relative;
@@ -107,7 +131,7 @@
         padding: 20px 0 15px 20px;
     }
     &__nologin .header .logo {
-        margin: 10px 0 12px 10px;
+        margin: 0 0 12px 10px;
         float: none;
         display: block;
     }
@@ -268,7 +292,7 @@
         position: relative;
         .inline-block();
         vertical-align: top;
-        margin: 0 18px;
+        margin: 0 11px;
         text-align: center;
     }
     &_li__dropin &_a:hover &_ico,
@@ -302,6 +326,11 @@
     &_a:hover &_tx,
     &_li.active &_tx {
         color: #808080;
+		text-decoration: none;
+    }
+    &_li__dropin {
+        margin-left: 0;
+        margin-right: 0;
     }
     &_li__dropin.active .header-drop {display: block;}
     &_a {

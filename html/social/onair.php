@@ -9,8 +9,8 @@
 </head>
 <body class="body-gray">
 	
-<div class="layout-container">
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
+<div class="layout-container">
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-new.php'; ?>
 	<div class="layout-wrapper">
 		
@@ -18,7 +18,7 @@
 		<div class="layout-content clearfix">
 		<div class="content-cols clearfix">
 			<div class="col-1">
-				<div class="sidebar-search clearfix">
+				<div class="sidebar-search sidebar-search__big clearfix">
 					<input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
 					<!-- 
 					В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
@@ -44,7 +44,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<!-- 
 		<div class="crumbs-small clearfix">
 			<ul class="crumbs-small_ul">  
 				<li class="crumbs-small_li">Я здесь:</li>
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 		</div>
-		
+		 -->
 		<div class="content-cols clearfix">
 			<div class="col-1">
 			
@@ -579,78 +579,9 @@
 					</ul>
 				</div>
 				
-				<div class="fast-articles2">
-					<div class="fast-articles2_t-ico"></div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> О моем первом бойфренде</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w205-h154.jpg" alt="" class="fast-articles2_i-img"></a>
-						</div>
-					</div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<span class="font-smallest color-gray">Сегодня 13:25</span>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> Как мне предлагали руку и сердце</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w205-h154.jpg" alt="" class="fast-articles2_i-img"></a>
-						</div>
-					</div>
-				</div>
-				
 			</div>
 			<div class="col-23-middle ">
 
-				<div class="tabs-simple">
-					<ul class="tabs-simple_ul">
-						<li class="tabs-simple_li active">
-							<a href="" class="tabs-simple_a">Весь прямой эфир 999</a>
-						</li>
-						<li class="tabs-simple_li">
-							<a href="" class="tabs-simple_a">Эфир клубов 779</a>
-						</li>
-						<li class="tabs-simple_li">
-							<a href="" class="tabs-simple_a">Эфир блогов 220</a>
-						</li>
-					</ul>
-				</div>
 				<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/articles.php'; ?>
 
 			</div>

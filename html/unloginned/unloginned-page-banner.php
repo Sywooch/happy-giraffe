@@ -19,7 +19,7 @@
                             <a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
                             <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
                         </div>
-                        <div class="sidebar-search clearfix">
+                        <div class="sidebar-search sidebar-search__big clearfix">
                             <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" id="" name="">
                             <!-- 
                             В начале ввода текста, скрыть sidebar-search_btn добавить класс active"
@@ -28,7 +28,11 @@
                         </div>
                     </div>
                     <div class="col-23">
-                        
+                        <div class="header-login">
+                            <a href="#loginWidget" class="header-login_a">Вход</a>
+                            <a href="#registerWidget" class="header-login_a">Регистрация</a>
+                        </div>
+
                         <div class="header-banner-728-90">
                             <img src="http://sdelaisait.ru/d/115290/d/728x90.jpg" alt="">
                         </div>

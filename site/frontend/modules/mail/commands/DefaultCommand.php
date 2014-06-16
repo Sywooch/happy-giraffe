@@ -76,6 +76,7 @@ class DefaultCommand extends CConsoleCommand
     public function actionWorker()
     {
         Yii::import('site.frontend.extensions.status.*');
+        Yii::import('zii.behaviors.*');
 
         Yii::app()->gearman->worker()->addFunction('sendEmail', function($job) {
             $message = unserialize($job->workload());

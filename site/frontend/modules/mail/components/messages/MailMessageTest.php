@@ -8,6 +8,8 @@
 
 class MailMessageTest extends MailMessage
 {
+    public $type = 'test';
+
     public function getSubject()
     {
         return 'Тестовое сообщение';

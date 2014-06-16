@@ -27,13 +27,15 @@
                             <button class="sidebar-search_btn"></button>
                         </div>
                     </div>
-                    <div class="header-login">
-                        <a href="#loginWidget" class="header-login_a">Войти</a>
-                        <a href="#registerWidget" class="header-login_a">Регистрация</a>
-                    </div>
+                    <div class="col-23">
+                        <div class="header-login">
+                            <a href="#loginWidget" class="header-login_a">Вход</a>
+                            <a href="#registerWidget" class="header-login_a">Регистрация</a>
+                        </div>
 
-                    <div class="header-banner-728-90">
-                        <img src="http://sdelaisait.ru/d/115290/d/728x90.jpg" alt="">
+                        <div class="header-banner-728-90">
+                            <img src="http://sdelaisait.ru/d/115290/d/728x90.jpg" alt="">
+                        </div>
                     </div>
                 </div>
             </div>

@@ -9,8 +9,13 @@
 namespace site\frontend\modules\photo\models;
 
 
+use site\frontend\modules\photo\components\PathManager;
+
 class PhotoCreate extends Photo
 {
+    const FS_NAME_LEVELS = 2;
+    const FS_NAME_SYMBOLS_PER_LEVEL = 2;
+
     const MAX_ORIGINAL_WIDTH = 2880;
     const MAX_ORIGINAL_HEIGHT = 1800;
 
@@ -32,6 +37,8 @@ class PhotoCreate extends Photo
                 $this->save();
             }
         } catch (\Exception $e) {
+            echo $e->getMessage();
+            die;
             $this->addError('path', 'Некорректный файл изображения');
         }
     }
@@ -39,10 +46,20 @@ class PhotoCreate extends Photo
     protected function generateFsName()
     {
         $hash = md5(uniqid($this->original_name . microtime(), true));
-        $hash = substr_replace($hash, '/', 2, 0);
-        //if (! is_dir())
-        $hash = substr_replace($hash, '/', 5, 0);
-        return $hash;
+
+        $path = '';
+        for ($i = 0; $i < self::FS_NAME_LEVELS; $i++) {
+            $dirName = substr($hash, $i * self::FS_NAME_SYMBOLS_PER_LEVEL, self::FS_NAME_SYMBOLS_PER_LEVEL);
+            $path .= $dirName . DIRECTORY_SEPARATOR;
+        }
+
+        if (! mkdir(PathManager::getOriginalsPath() . DIRECTORY_SEPARATOR . $path, 0777, true)) {
+            throw new \CException('Can\'t create dir');
+        }
+
+        $path .= substr($hash, self::FS_NAME_LEVELS * self::FS_NAME_SYMBOLS_PER_LEVEL);
+
+        return $path;
     }
 
     protected function beforeValidate()

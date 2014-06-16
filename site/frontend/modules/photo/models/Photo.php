@@ -24,11 +24,10 @@
 namespace site\frontend\modules\photo\models;
 
 use site\frontend\modules\photo\components\FileHelper;
+use site\frontend\modules\photo\components\PathManager;
 
 class Photo extends \HActiveRecord
 {
-    const ROOT_ALIAS = 'site.common.uploads.photos.v2';
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -147,13 +146,13 @@ class Photo extends \HActiveRecord
         );
     }
 
-    public function getOriginalPath()
-    {
-        return \Yii::getPathOfAlias(self::ROOT_ALIAS . '.originals') . DIRECTORY_SEPARATOR . $this->fs_name;
-    }
-
-    public function getOriginalUrl()
+    public function getUrl()
     {
         return \Yii::app()->params['photos_url'] . '/originals/' . $this->fs_name;
+    }
+
+    public function getPath()
+    {
+        return PathManager::getOriginalsPath() . DIRECTORY_SEPARATOR . $this->fs_name;
     }
 }

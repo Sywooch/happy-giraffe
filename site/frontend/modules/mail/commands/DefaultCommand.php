@@ -59,7 +59,7 @@ class DefaultCommand extends CConsoleCommand
     {
         $user = User::model()->findByPk(12936);
         $message = new MailMessageTest($user);
-        Yii::app()->postman->send($message);
+        Yii::app()->postman->send($message, MailPostman::MODE_QUEUE);
     }
 
     public function actionTestWarning()

@@ -98,7 +98,7 @@ class YandexOriginalText
         }
 
         if ($id === null) {
-            throw new YandexOriginalTextException("Не удалось получить ID  по URL:\n" . $url);
+            throw new YandexOriginalTextException("Не удалось получить ID  по URL:\n" . $url . "\n");
         }
 
         return $id;
@@ -117,7 +117,7 @@ class YandexOriginalText
 
         if (! isset($xml->response->results->grouping->group[0]))
         {
-            throw new YandexOriginalTextException("Не удалось получить URL по тексту:\n" . $text);
+            throw new YandexOriginalTextException("Не удалось получить URL по тексту:\n" . $text . "\n");
         }
 
         $url = (string) $xml->response->results->grouping->group[0]->doc->url;

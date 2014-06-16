@@ -6,7 +6,7 @@
  * Time: 12:21
  */
 
-class OnAirController extends HController
+class OnairController extends HController
 {
     public function actionIndex()
     {

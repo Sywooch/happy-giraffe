@@ -21,12 +21,26 @@ class MailPostman extends CApplicationComponent
      *
      * @param MailMessage $message
      */
-    public function send(MailMessage $message)
+    public function send(MailMessage $message, $mode = null)
     {
-        if ($this->mode == self::MODE_SIMPLE) {
+        $mode = $mode === null ? $this->mode : $mode;
+
+        if ($mode == self::MODE_SIMPLE) {
             $this->sendEmail($message);
         } else {
             $this->addToQueue($message);
+        }
+    }
+
+    /**
+     * Отправляет письмо, в случае успеха помечает модель доставки как успешно отправленную
+     *
+     * @param MailMessage $message
+     */
+    public function sendEmail(MailMessage $message)
+    {
+        if (ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
+            $message->delivery->sent();
         }
     }
 
@@ -35,20 +49,8 @@ class MailPostman extends CApplicationComponent
      *
      * @param MailMessage $message
      */
-    protected function addToQueue(MailMessage $message)
+    public function addToQueue(MailMessage $message)
     {
         Yii::app()->gearman->client()->doBackground('sendEmail', serialize($message));
-    }
-
-    /**
-     * Отправляет письмо, в случае успеха помечает модель доставки как успешно отправленную
-     *
-     * @param MailMessage $message
-     */
-    protected function sendEmail(MailMessage $message)
-    {
-        if (ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
-            $message->delivery->sent();
-        }
     }
 }

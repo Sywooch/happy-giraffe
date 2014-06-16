@@ -25,7 +25,7 @@ class DefaultController extends HController
     {
         $filters = array(
             'accessControl',
-            'ajaxOnly - index, view, save, live',
+           // 'ajaxOnly - index, view, save, live',
         );
 
         if (Yii::app()->user->isGuest) {

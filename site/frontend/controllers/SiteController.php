@@ -84,9 +84,6 @@ class SiteController extends HController
 	 */
 	public function actionIndex($openLogin = false)
 	{
-        echo 'test';
-        die;
-
         if ($openLogin !== false)
             Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createAbsoluteUrl(''));
 

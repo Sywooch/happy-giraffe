@@ -15,6 +15,9 @@ return array(
         // global
         '.*/index' => 404,
 
+
+        'onair' => 'blog/onair/index',
+
         'findFriends' => array('friends/find', 'defaultParams' => array('type' => 0)),
         'findFriends/byRegion' => array('friends/find', 'defaultParams' => array('type' => 1)),
         'findFriends/byInterests' => array('friends/find', 'defaultParams' => array('type' => 2)),
@@ -362,7 +365,5 @@ return array(
         'seo/<_c>/<_a>' => 'seo/<_c>/<_a>',
 
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
-
-        'onair' => 'blog/onair/index',
     ),
 );

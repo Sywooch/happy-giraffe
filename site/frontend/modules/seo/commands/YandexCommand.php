@@ -27,10 +27,7 @@ class YandexCommand extends \CConsoleCommand
 
     public function actionIndex()
     {
-        $models = SeoYandexOriginalText::model()->findAll(array(
-            'order' => 'priority DESC, id DESC',
-            'limit' => 100,
-        ));
+        $models = SeoYandexOriginalText::model()->pending()->findAll();
 
         foreach ($models as $model) {
             if ($this->original->add($model)) {

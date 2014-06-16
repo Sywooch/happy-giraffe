@@ -132,4 +132,15 @@ class SeoYandexOriginalText extends \CActiveRecord
             )
         );
     }
+
+    public function scopes()
+    {
+        return array(
+            'pending' => array(
+                'condition' => 'added IS NOT NULL',
+                'order' => 'priority DESC, id DESC',
+                'limit' => 100,
+            ),
+        );
+    }
 }

@@ -77,13 +77,15 @@ class YandexOriginalText
         $root->addChild('content', $model->full_text);
         $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, $xml->asXML());
 
-        $responseXml = new \SimpleXMLElement($response);
+        if ($this->api->client->status() != 201) {
+            return false;
+        }
 
+        $responseXml = new \SimpleXMLElement($response);
         $model->added = new \CDbExpression('NOW()');
         $model->external_id = $responseXml->id;
         $model->external_text = $responseXml->text;
-
-        return $this->api->client->status() == 201;
+        return true;
     }
 
     protected function getIdByUrl($url)
@@ -117,6 +119,7 @@ class YandexOriginalText
 
         if (! isset($xml->response->results->grouping->group[0]))
         {
+            var_dump($xml);
             throw new YandexOriginalTextException("Не удалось получить URL по тексту:\n" . $text . "\n");
         }
 

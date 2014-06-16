@@ -117,9 +117,7 @@ class YandexOriginalText
 
         if (! isset($xml->response->results->grouping->group[0]))
         {
-            var_dump($xml);
-            die;
-            throw new YandexOriginalTextException("Не удалось получить URL по тексту:\n" . $xml);
+            throw new YandexOriginalTextException("Не удалось получить URL по тексту:\n" . $text);
         }
 
         $url = (string) $xml->response->results->grouping->group[0]->doc->url;

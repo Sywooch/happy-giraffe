@@ -807,7 +807,7 @@ class Horoscope extends HActiveRecord implements IPreview
 
     public function getPreviewText()
     {
-        return $this->text;
+        return ($this->month === null && $this->year !== null) ? $this->health : $this->text;
     }
 
     public function getPreviewPhoto()

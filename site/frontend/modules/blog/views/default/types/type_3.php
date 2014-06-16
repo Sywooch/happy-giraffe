@@ -52,11 +52,6 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
     <?php if ($data->contestWork !== null && $this->id != 'contest') $this->renderPartial('application.modules.blog.views.default._contest_post', array('contest' => $data->contestWork->contest)); ?>
 
     <div class="b-article_in clearfix">
-        <?php //if (!empty($data->preview)):?>
-            <div class="wysiwyg-content clearfix">
-                <?= $data->purified->preview ?>
-            </div>
-        <?php //endif ?>
         <?php if ($data->contestWork === null): ?>
             <?php $this->widget('blog.widgets.PhotoPostWidget', array('post' => $data, 'full' => false)); ?>
         <?php else: ?>

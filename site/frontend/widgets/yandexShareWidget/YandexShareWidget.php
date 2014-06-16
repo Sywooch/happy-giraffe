@@ -50,6 +50,7 @@ class YandexShareWidget extends CWidget
             'elementStyle' => array(
                 'type' => 'small',
                 'quickServices' => array(
+                    'yaru',
                     'vkontakte',
                     'odnoklassniki',
                     'facebook',
@@ -124,6 +125,6 @@ class YandexShareWidget extends CWidget
     protected function getDescription()
     {
         $description = $this->model->getPreviewText();
-        return (strlen($description) > 0) ? Str::getDescription($description, 128) : $this->getTitle();
+        return (strlen($description) > 0) ? Str::getDescription($description, 128) : $this->title;
     }
 }

@@ -122,6 +122,7 @@ $(function() {
         dropdownCssClass: 'select2-drop__search-off',
         escapeMarkup: function(m) { return m; }
     });
+    $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
 
     // Измененный tag select c инпутом поиска
     $(".select-cus__search-on").select2({

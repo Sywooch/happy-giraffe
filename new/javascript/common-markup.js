@@ -22,18 +22,12 @@ $(function() {
         escapeMarkup: function(m) { return m; }
     });*/
 
-        // Измененный tag select
-    $(".select-cus__search-off").select2({
-        width: '100%',
-        minimumResultsForSearch: -1,
-        dropdownCssClass: 'select2-drop__search-off',
-        escapeMarkup: function(m) { return m; }
-    });
+
 
     // Измененный tag select c инпутом поиска
     $(".select-cus__search-on").select2({
         width: '100%',
-        dropdownCssClass: 'select2-drop__search-on select2-drop__separated-first-item',
+        dropdownCssClass: 'select2-drop__search-on',
         escapeMarkup: function(m) { return m; }
     });
 

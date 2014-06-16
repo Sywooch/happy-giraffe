@@ -7,18 +7,21 @@
 @import "/project/aside-filter.less";
 @import "/project/comments.less";
 @import "/project/favorites.less";
+/*
 @import "/project/find-friend.less";
 @import "/project/friends-list.less";
-/*@import "/project/im.less";*/
+@import "/project/im.less";
+*/
 @import "/project/onair.less";
-@import "../redactor/redactor.less";
 @import "/project/redactor.hg.less";
+@import "/project/sidebar.less";
 @import "/project/start-page.less";
 @import "/project/social.less";
 @import "/project/user-notice.less";
+@import "../redactor/redactor.less";
 /*@import "/project/vacancy.less";*/
 
-// new 
+// new
 // ---------------------------------------------------------------------------------------------
 @import "../new/less/project/popup-sign.less";
 @import "../new/less/plugins/jquery.Jcrop.less";
@@ -1241,7 +1244,7 @@ table.fr_recipe_tb td { width: 50%;}
     &__smallest .favorites-add-popup {left: 35px;top: -13px;}
 
     &__self &_ico__like:hover {background-position: 0 0;}
-    &__self &_ico__repost:hover {background-position: -200px 0;}
+    &__self &_ico__repost:hover {background-position: -200px -10px; }
     &__self .favorites-control_a:hover {background-position: -400px 0;}
 
     &_i {

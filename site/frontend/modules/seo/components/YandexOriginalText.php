@@ -49,7 +49,7 @@ class YandexOriginalText
                 ));
 
                 if ($model !== null) {
-                    if ($model->added !== null) {
+                    if ($model->entity_id !== null) {
                         continue;
                     }
                 } else {

@@ -70,11 +70,6 @@ class YandexOriginalText
         } while ($count > 0);
     }
 
-    public function test(SeoYandexOriginalText &$model)
-    {
-        $model->priority = 99;
-    }
-
     public function add(SeoYandexOriginalText &$model)
     {
         $xml = new \SimpleXMLElement('<xml/>');

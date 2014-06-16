@@ -15,7 +15,7 @@ class AirController extends HController
                 'order' => 't.created DESC',
             ),
         ));
-        $onlineUsers = User::model()->findAll('online = 1');
+        $onlineUsers = User::model()->findAll('online = 1 AND avatar_id IS NOT NULL');
         $this->render('index', compact('dp', 'onlineUsers'));
     }
 } 

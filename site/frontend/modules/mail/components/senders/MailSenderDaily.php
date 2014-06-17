@@ -178,7 +178,7 @@ class MailSenderDaily extends MailSender
             'posts' => $this->posts,
         )));
 
-        Yii::app()->postman->send($message);
+        $this->send($message);
     }
 
     protected function setFavourites()

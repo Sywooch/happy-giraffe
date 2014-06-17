@@ -50,9 +50,6 @@ class YandexCommand extends \CConsoleCommand
         \Yii::app()->gearman->worker()->addFunction('processOriginalText', function($job) use ($originalTexts) {
             $data = unserialize($job->workload());
 
-            print_r($data);
-            die;
-
             $model = new SeoYandexOriginalText();
             $model->setAttributes($data);
             $model->priority = 100;

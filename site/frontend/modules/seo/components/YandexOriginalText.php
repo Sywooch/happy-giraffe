@@ -130,14 +130,11 @@ class YandexOriginalText
             ));
             $xml = new \SimpleXMLElement($response);
             $hasError = ! isset($xml->response->error);
-            var_dump($hasError);
-            die;
             if ($hasError) {
-                var_dump($xml);
-                die;
+                echo $xml->response->error;
                 sleep(300);
             }
-        } while(! $hasError);
+        } while($hasError);
 
         if (! isset($xml->response->results->grouping->group[0]))
         {

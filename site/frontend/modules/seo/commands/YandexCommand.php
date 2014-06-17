@@ -40,8 +40,6 @@ class YandexCommand extends \CConsoleCommand
 
     public function actionSync($page = 0)
     {
-        echo $page;
-        die;
         $this->original->sync($page);
     }
 

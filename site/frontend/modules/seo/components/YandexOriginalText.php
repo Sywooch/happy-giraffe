@@ -43,6 +43,8 @@ class YandexOriginalText
 
     public function sync($page)
     {
+        echo $page;
+        die;
         do {
             echo 'page ' . $page . "\n";
             $response = $this->api->client->get(self::ORIGINAL_TEXTS_URL, array('page' => $page));

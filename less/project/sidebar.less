@@ -229,7 +229,6 @@
 	padding: 15px 23px;
 	background: #f6f6f6;
 	background: rgba(255,255,255,.4);
-	text-align: center;
 	.border-radius(5px);
 
 	&__blog-preview {
@@ -244,6 +243,9 @@
 		padding-top: 10px;
 		background-color: #fff;
 	}
+	&__m {padding: 15px 15px 20px;}
+	&__m &_li {margin: 0 5px 10px;}
+	.heading-small {text-align: center;}
 	.btn-green {
 		margin: -33px 0 15px;
 		font-size: 14px;
@@ -265,7 +267,10 @@
 		margin: 0px 0 15px;
 		font-size: 14px;
 	}
-	&_t-sm .icon-status {top: -2px;}
+	&_t-sm .icon-status {
+		top: -2px;
+		margin-right: 4px;
+	}
 }
 
 .fast-photos {padding:20px;margin-bottom:30px;border:1px solid #f2ebfa;text-align:center;}

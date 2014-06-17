@@ -143,4 +143,13 @@ class SeoYandexOriginalText extends \CActiveRecord
             ),
         );
     }
+
+    public static function getAttributesByModel(\HActiveRecord $contentModel, $priority = 0)
+    {
+        return array(
+            'entity' => $contentModel->getEntityName(),
+            'entity_id' => $contentModel->primaryKey,
+            'text' => $contentModel->text,
+        );
+    }
 }

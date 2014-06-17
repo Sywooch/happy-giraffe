@@ -18,11 +18,7 @@ class YandexOriginalTextBehavior extends \CActiveRecordBehavior
 
     protected function afterSave($event)
     {
-        $data = array(
-            'entity' => get_class($this->owner),
-            'entity_id' => $this->owner->id,
-            'text' => $this->owner->text,
-        );
+        $data = SeoYandexOriginalText::getAttributesByModel($this->owner);
 
         \Yii::app()->gearman->client()->doBackground('processOriginalText', serialize($data));
 

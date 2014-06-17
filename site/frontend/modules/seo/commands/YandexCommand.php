@@ -47,13 +47,11 @@ class YandexCommand extends \CConsoleCommand
     {
         $originalTexts = new YandexOriginalText();
 
-        \Yii::app()->gearman->worker()->addFunction('sendEmail', function($job) use ($originalTexts) {
+        \Yii::app()->gearman->worker()->addFunction('processOriginalText', function($job) use ($originalTexts) {
             $data = unserialize($job->workload());
 
             $model = new SeoYandexOriginalText();
-            $model->entity = $data['entity'];
-            $model->entity_id = $data['entity_id'];
-            $model->full_text = $data['text'];
+            $model->setAttributes($data);
             $model->priority = 100;
 
             $originalTexts->add($model);

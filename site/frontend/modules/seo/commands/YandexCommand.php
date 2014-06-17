@@ -56,7 +56,7 @@ class YandexCommand extends \CConsoleCommand
 
             $originalTexts->add($model);
 
-            var_dump($model);
+            var_dump($model->attributes);
             die;
 
             $model->save();

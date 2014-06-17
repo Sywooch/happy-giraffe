@@ -55,10 +55,6 @@ class YandexCommand extends \CConsoleCommand
             $model->priority = 100;
 
             $originalTexts->add($model);
-
-            print_r($model->attributes);
-            die;
-
             $model->save();
         });
         while (\Yii::app()->gearman->worker()->work()) {

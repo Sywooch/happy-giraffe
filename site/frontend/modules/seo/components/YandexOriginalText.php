@@ -83,6 +83,8 @@ class YandexOriginalText
 
     public function add(SeoYandexOriginalText &$model)
     {
+        echo '123';
+
         $length = strlen($model->full_text);
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
             if (! $model->isNewRecord) {
@@ -90,6 +92,8 @@ class YandexOriginalText
             }
             return true;
         }
+
+        echo '234';
 
         $xml = new \SimpleXMLElement('<xml/>');
         $root = $xml->addChild('original-text');

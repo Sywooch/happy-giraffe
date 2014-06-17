@@ -70,7 +70,7 @@ NotificationRead::getInstance()->SetVisited();
                 </span>
             </div>
             <div class="comments-gray_frame">
-                <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" onfocus="$('[href=#login]').trigger('click')">
+                <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" onfocus="$('[href=#loginWidget]').trigger('click')">
             </div>
         </div>
     <?php endif ?>

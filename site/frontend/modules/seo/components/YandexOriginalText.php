@@ -132,6 +132,7 @@ class YandexOriginalText
             $hasError = ! isset($xml->response->error);
             if ($hasError) {
                 var_dump($xml);
+                die;
                 sleep(300);
             }
         } while(! $hasError);

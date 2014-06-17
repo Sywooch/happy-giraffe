@@ -100,9 +100,6 @@ class YandexOriginalText
             return false;
         }
 
-        echo '123';
-        die;
-
         $responseXml = new \SimpleXMLElement($response);
         $model->added = new \CDbExpression('NOW()');
         $model->external_id = $responseXml->response->id;

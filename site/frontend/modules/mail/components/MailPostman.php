@@ -26,10 +26,16 @@ class MailPostman extends CApplicationComponent
     {
         $mode = $mode === null ? $this->mode : $mode;
 
-        if ($mode == self::MODE_SIMPLE) {
-            $this->sendEmail($message);
-        } else {
-            $this->addToQueue($message);
+        switch ($mode) {
+            case self::MODE_ECHO:
+                echo $message->getBody();
+                break;
+            case self::MODE_QUEUE:
+                $this->addToQueue($message);
+                break;
+            case self::MODE_SIMPLE:
+                $this->sendEmail($message);
+                break;
         }
     }
 

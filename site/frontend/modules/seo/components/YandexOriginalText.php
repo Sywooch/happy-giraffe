@@ -24,8 +24,13 @@ class YandexOriginalText
     public $client;
 
     private $patterns = array(
-        '#\/community\/(?:\d+)\/forum\/(?:\w+)\/(\d+)\/$#',
-        '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
+        'CommunityContent' => array(
+            '#\/community\/(?:\d+)\/forum\/(?:\w+)\/(\d+)\/$#',
+            '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
+        ),
+        'CookRecipe' => array(
+            '#\/cook\/(recipe|multivarka)\/(\d+)\/$#'
+        ),
     );
 
     public function __construct()
@@ -62,8 +67,9 @@ class YandexOriginalText
                 try {
                     $url = $this->getUrlByText($text);
                     $id = $this->getIdByUrl($url);
-                    $model->entity = 'CommunityContent';
-                    $model->entity_id = $id;
+                    list($entity, $entity_id) = $id;
+                    $model->entity = $entity;
+                    $model->entity_id = $entity_id;
                 } catch (YandexOriginalTextException $e) {
                     echo $e->getMessage();
                 }
@@ -95,11 +101,13 @@ class YandexOriginalText
     protected function getIdByUrl($url)
     {
         $id = null;
-        foreach ($this->patterns as $pattern) {
-            $c = preg_match($pattern, $url, $matches);
-            if ($c > 0) {
-                $id = $matches[1];
-                break;
+        foreach ($this->patterns as $entity => $patterns) {
+            foreach ($patterns as $pattern) {
+                $c = preg_match($pattern, $url, $matches);
+                if ($c > 0) {
+                    $id = array($entity, $matches[1]);
+                    break;
+                }
             }
         }
 
@@ -124,7 +132,7 @@ class YandexOriginalText
             $xml = new \SimpleXMLElement($response);
             $hasError = ! isset($xml->response->error);
             if ($hasError) {
-                echo $xml->response->error;
+                var_dump($xml);
                 sleep(300);
             }
         } while(! $hasError);

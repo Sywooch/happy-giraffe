@@ -55,4 +55,9 @@ class SimpleRecipe extends CookRecipe
 
         return $_counts;
     }
+
+    public function getEntityName()
+    {
+        return parent::getEntityName();
+    }
 }

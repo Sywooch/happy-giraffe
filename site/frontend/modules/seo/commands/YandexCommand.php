@@ -56,6 +56,9 @@ class YandexCommand extends \CConsoleCommand
 
             $originalTexts->add($model);
 
+            print_r($model);
+            die;
+
             $model->save();
         });
         while (\Yii::app()->gearman->worker()->work()) {

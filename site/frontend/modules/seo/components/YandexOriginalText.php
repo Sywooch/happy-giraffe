@@ -85,7 +85,10 @@ class YandexOriginalText
     {
         $length = strlen($model->full_text);
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
-            return $model->delete();
+            if (! $model->isNewRecord) {
+                return $model->delete();
+            }
+            return true;
         }
 
         $xml = new \SimpleXMLElement('<xml/>');

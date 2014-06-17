@@ -68,515 +68,374 @@
 		<div class="content-cols clearfix">
 			<div class="col-1">
 			
-				<div class="readers2 readers2__no-btn">
+				<div class="readers2 readers2__no-btn readers2__m">
 					<div class="readers2_t-sm heading-small">
-						<span class="icon-status icon-status__small status-online"></span>
-						Сейчас на сайте 345
+						<span class="icon-status icon-status__small icon-status__status-online"></span> 
+						Сейчас на сайте
 					</div>
-					<ul class="readers2_ul clearfix">
+					<ul class="readers2_ul  clearfix">
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava female small" href="">
-								<span class="icon-status status-online"></span>
-								<img src="http://img.happy-giraffe.ru/avatars/139790/small/66f1497c1937b445f3c93c12dae00150.jpg" alt="">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a class="ava male small" href="">
-								<span class="icon-status status-online"></span>
+							<a class="ava ava__female ava__middle" href="">
+								<span class="ico-status ico-status__online"></span>
+								<img class="ava_img" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG" alt="">
 							</a>
 						</li>
 					</ul>
+					<div class="readers2_sub-tx">и еще много <span class="readers2_smile"></span>!!!</div>
 				</div>
 				
 			</div>

@@ -11,9 +11,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Happy Giraffe</title>
-  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <!-- including .css-->
+  <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-  <!-- including other jade works-->
   <!-- ie8 -->
   <!--+scripts(path)-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -21,16 +21,36 @@
     window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
     
   </script>
-  <script src="/new/javascript/bootstrap/dropdown.js"></script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/dropdown.js"></script>
+  <script src="/new/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
   <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <!-- popup-->
+  <!-- script(src="#{path}javascript/jquery.fancybox.js")-->
   <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
+  <!-- custom select-->
+  <!-- script(src="#{path}javascript/selectize.js")-->
   <script src="/new/javascript/select2.js"></script>
+  <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/redactor/lang/ru.js"></script>
+  <script src="/new/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/new/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
   <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <!-- Базовый js (вызывается на всех страницах)-->
   <script src="/new/javascript/common.js"></script>
+  <!-- js для работы в верстке-->
   <script src="/new/javascript/common-markup.js"></script>
+  <!-- jquery-ui подключается для верстки, в yii есть аналог
+  компоненты 
+      slider 
+  -->
+  <script src="/new/javascript/jquery-ui-1.10.4.custom.js"></script>
+  <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
 <!-- vars from template file-->
@@ -204,7 +224,7 @@
                         <div class="scroll">
                           <div class="scroll_scroller">
                             <ul class="comments_ul scroll_cont">
-                              <!-- варианты цветов комментов можно указывать, как в открытых статьях, они не повлияют на верстку.
+                              <!-- варианты цветов комментов можно указывать, как в открытых статьях, они не повлияют на верстку .comments_li__blue
                               -->
                               <li class="comments_li clearfix">
                                 <div class="comments_ava">
@@ -274,7 +294,7 @@
                                   </div>
                                 </div>
                               </li>
-                              <li class="comments_li comments_li__blue clearfix">
+                              <li class="comments_li clearfix">
                                 <div class="comments_ava">
                                   <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                                 </div>
@@ -342,7 +362,7 @@
                                   </div>
                                 </div>
                               </li>
-                              <li class="comments_li comments_li__blue clearfix">
+                              <li class="comments_li clearfix">
                                 <div class="comments_ava">
                                   <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                                 </div>
@@ -413,7 +433,7 @@
                                   </div>
                                 </div>
                               </li>
-                              <li class="comments_li comments_li__blue clearfix">
+                              <li class="comments_li clearfix">
                                 <div class="comments_ava">
                                   <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                                 </div>
@@ -481,7 +501,7 @@
                                   </div>
                                 </div>
                               </li>
-                              <li class="comments_li comments_li__blue clearfix">
+                              <li class="comments_li clearfix">
                                 <div class="comments_ava">
                                   <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                                 </div>

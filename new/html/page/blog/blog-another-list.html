@@ -11,9 +11,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Happy Giraffe</title>
-  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <!-- including .css-->
+  <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-  <!-- including other jade works-->
   <!-- ie8 -->
   <!--+scripts(path)-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -21,21 +21,36 @@
     window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
     
   </script>
+  <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
   <script src="/new/javascript/bootstrap/dropdown.js"></script>
   <script src="/new/javascript/bootstrap/tab.js"></script>
-  <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <!-- tooltip-->
   <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <!-- popup-->
+  <!-- script(src="#{path}javascript/jquery.fancybox.js")-->
   <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
+  <!-- custom select-->
+  <!-- script(src="#{path}javascript/selectize.js")-->
   <script src="/new/javascript/select2.js"></script>
+  <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
   <script src="/new/redactor/lang/ru.js"></script>
   <script src="/new/redactor/plugins/fullscreen/fullscreen.js"></script>
   <script src="/new/redactor/plugins/btnvideo/btnvideo.js"></script>
   <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
   <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <!-- Базовый js (вызывается на всех страницах)-->
   <script src="/new/javascript/common.js"></script>
+  <!-- js для работы в верстке-->
   <script src="/new/javascript/common-markup.js"></script>
+  <!-- jquery-ui подключается для верстки, в yii есть аналог
+  компоненты 
+      slider 
+  -->
+  <script src="/new/javascript/jquery-ui-1.10.4.custom.js"></script>
+  <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
 <!-- vars from template file-->
@@ -390,6 +405,280 @@
                                   </div>
                                 </div>
                               </li>
+                              <li class="comments_li clearfix">
+                                <div class="comments_ava">
+                                  <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                                </div>
+                                <div class="comments_frame">
+                                  <div class="comments_header">
+                                    <div class="tx-date">2 минуты назад</div><a href="" class="a-light comments_author">Ангелина Богоявленская</a>
+                                    <div class="user-actions user-actions__small">
+                                      <!--     
+                                      Виды иконок друг 
+                                      user-actions_i__friend - друг
+                                      user-actions_i__friend-add - добавить в друзья
+                                      user-actions_i__friend-added - приглашение выслано
+                                      user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                      
+                                      --><a href="" title="Добавить в друзья" class="user-actions_i user-actions_i__friend-add powertip"><span class="user-actions_ico"></span></a><a href="" title="Написать сообщение" class="user-actions_i user-actions_i__message powertip"><span class="user-actions_ico"></span></a>
+                                    </div>
+                                  </div>
+                                  <div class="comments_cont">
+                                    <div class="wysiwyg-content">
+                                      <p><a href="" class="comments_ansver-for a-light">Ольга Максимова, </a> Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! </p>
+                                      <p>Меняя название трека в альбоме</p>
+                                    </div>
+                                  </div>
+                                  <div class="comments_footer">
+                                    <div class="float-r">
+                                      <!-- b-control-->
+                                      <div class="b-control">
+                                        <div class="b-control_hold">
+                                          <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                                            <div class="tooltip-drop">
+                                              <div class="tooltip-popup">
+                                                <div class="tooltip-popup_t">Укажите вид нарушения:</div>
+                                                <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
+                                                <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                                input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                                | Спам или реклама
+                                                -->
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Мошенничество
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Грубость, угрозы
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Интимный характер
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Другое
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">
+                                                  <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx">
+                                                </label>
+                                                <div class="clearfix textalign-c">
+                                                  <button class="btn-green btn-inactive">Пожаловаться</button>
+                                                  <button class="btn-gray-light">Отменить</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- /b-control-->
+                                    </div><a href="" class="comments_ansver">Ответить</a><a href="" title="Нравиться" class="comments_like like-hg-small powertip">68</a>
+                                  </div>
+                                </div>
+                              </li>
+                              <li class="comments_li clearfix">
+                                <div class="comments_ava">
+                                  <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                                </div>
+                                <div class="comments_frame">
+                                  <div class="comments_header">
+                                    <div class="tx-date">2 минуты назад</div><a href="" class="a-light comments_author">Ангелина Богоявленская</a>
+                                    <div class="user-actions user-actions__small">
+                                      <!--     
+                                      Виды иконок друг 
+                                      user-actions_i__friend - друг
+                                      user-actions_i__friend-add - добавить в друзья
+                                      user-actions_i__friend-added - приглашение выслано
+                                      user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                      
+                                      --><a href="" title="Добавить в друзья" class="user-actions_i user-actions_i__friend-add powertip"><span class="user-actions_ico"></span></a><a href="" title="Написать сообщение" class="user-actions_i user-actions_i__message powertip"><span class="user-actions_ico"></span></a>
+                                    </div>
+                                  </div>
+                                  <div class="comments_cont">
+                                    <div class="wysiwyg-content">
+                                      <p>
+                                         
+                                         Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                      </p>
+                                      <p>Меняя название трека в альбоме</p>
+                                    </div>
+                                  </div>
+                                  <div class="comments_footer">
+                                    <div class="float-r">
+                                      <!-- b-control-->
+                                      <div class="b-control">
+                                        <div class="b-control_hold">
+                                          <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                                            <div class="tooltip-drop">
+                                              <div class="tooltip-popup">
+                                                <div class="tooltip-popup_t">Укажите вид нарушения:</div>
+                                                <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
+                                                <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                                input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                                | Спам или реклама
+                                                -->
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Мошенничество
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Грубость, угрозы
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Интимный характер
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Другое
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">
+                                                  <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx">
+                                                </label>
+                                                <div class="clearfix textalign-c">
+                                                  <button class="btn-green btn-inactive">Пожаловаться</button>
+                                                  <button class="btn-gray-light">Отменить</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- /b-control-->
+                                    </div><a href="" class="comments_ansver">Ответить</a><a href="" title="Нравиться" class="comments_like like-hg-small powertip">8</a>
+                                  </div>
+                                </div>
+                              </li>
+                              <li class="comments_li clearfix">
+                                <div class="comments_ava">
+                                  <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                                </div>
+                                <div class="comments_frame">
+                                  <div class="comments_header">
+                                    <div class="tx-date">2 минуты назад</div><a href="" class="a-light comments_author">Ангелина Богоявленская</a>
+                                    <div class="user-actions user-actions__small">
+                                      <!--     
+                                      Виды иконок друг 
+                                      user-actions_i__friend - друг
+                                      user-actions_i__friend-add - добавить в друзья
+                                      user-actions_i__friend-added - приглашение выслано
+                                      user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                      
+                                      --><a href="" title="Добавить в друзья" class="user-actions_i user-actions_i__friend-add powertip"><span class="user-actions_ico"></span></a><a href="" title="Написать сообщение" class="user-actions_i user-actions_i__message powertip"><span class="user-actions_ico"></span></a>
+                                    </div>
+                                  </div>
+                                  <div class="comments_cont">
+                                    <div class="wysiwyg-content">
+                                      <p> Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! </p>
+                                      <p>Меняя название трека в альбоме</p>
+                                    </div>
+                                  </div>
+                                  <div class="comments_footer">
+                                    <div class="float-r">
+                                      <!-- b-control-->
+                                      <div class="b-control">
+                                        <div class="b-control_hold">
+                                          <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                                            <div class="tooltip-drop">
+                                              <div class="tooltip-popup">
+                                                <div class="tooltip-popup_t">Укажите вид нарушения:</div>
+                                                <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
+                                                <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                                input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                                | Спам или реклама
+                                                -->
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Мошенничество
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Грубость, угрозы
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Интимный характер
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Другое
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">
+                                                  <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx">
+                                                </label>
+                                                <div class="clearfix textalign-c">
+                                                  <button class="btn-green btn-inactive">Пожаловаться</button>
+                                                  <button class="btn-gray-light">Отменить</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- /b-control-->
+                                    </div><a href="" class="comments_ansver">Ответить</a><a href="" title="Нравиться" class="comments_like like-hg-small powertip">68</a>
+                                  </div>
+                                </div>
+                              </li>
+                              <li class="comments_li clearfix">
+                                <div class="comments_ava">
+                                  <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                                </div>
+                                <div class="comments_frame">
+                                  <div class="comments_header">
+                                    <div class="tx-date">20 минут назад</div><a href="" class="a-light comments_author">Ангелина Богоявленская</a>
+                                    <div class="user-actions user-actions__small">
+                                      <!--     
+                                      Виды иконок друг 
+                                      user-actions_i__friend - друг
+                                      user-actions_i__friend-add - добавить в друзья
+                                      user-actions_i__friend-added - приглашение выслано
+                                      user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                      
+                                      --><a href="" title="Добавить в друзья" class="user-actions_i user-actions_i__friend-add powertip"><span class="user-actions_ico"></span></a><a href="" title="Написать сообщение" class="user-actions_i user-actions_i__message powertip"><span class="user-actions_ico"></span></a>
+                                    </div>
+                                  </div>
+                                  <div class="comments_cont">
+                                    <div class="wysiwyg-content">
+                                      <p>Меняя название трека в альбоме</p>
+                                    </div>
+                                  </div>
+                                  <div class="comments_footer">
+                                    <div class="float-r">
+                                      <!-- b-control-->
+                                      <div class="b-control">
+                                        <div class="b-control_hold">
+                                          <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                                            <div class="tooltip-drop">
+                                              <div class="tooltip-popup">
+                                                <div class="tooltip-popup_t">Укажите вид нарушения:</div>
+                                                <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
+                                                <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                                input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                                | Спам или реклама
+                                                -->
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Мошенничество
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Грубость, угрозы
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Интимный характер
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Другое
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">
+                                                  <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx">
+                                                </label>
+                                                <div class="clearfix textalign-c">
+                                                  <button class="btn-green btn-inactive">Пожаловаться</button>
+                                                  <button class="btn-gray-light">Отменить</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- /b-control-->
+                                    </div><a href="" class="comments_ansver">Ответить</a><a href="" title="Нравиться" class="comments_like like-hg-small powertip"></a>
+                                  </div>
+                                </div>
+                              </li>
                             </ul>
                           </div>
                           <div class="scroll_bar-hold">
@@ -463,7 +752,7 @@
                     <!-- comments-->
                     <div class="comments">
                       <div class="comments_t"><a href="" class="comments_t-a">Комментарии 68</a></div>
-                      <div class="comments_hold scroll">
+                      <div class="comments_hold scroll scroll__on">
                         <div class="scroll_scroller">
                           <ul class="comments_ul scroll_cont">
                             <li class="comments_li clearfix">

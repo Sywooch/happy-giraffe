@@ -39,9 +39,8 @@ class YandexOriginalText
         $this->client = new \RESTClient();
     }
 
-    public function sync()
+    public function sync($page = 0)
     {
-        $page = 0;
         do {
             echo 'page ' . $page . "\n";
             $response = $this->api->client->get(self::ORIGINAL_TEXTS_URL, array('page' => $page));

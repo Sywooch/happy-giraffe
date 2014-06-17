@@ -102,7 +102,7 @@ class YandexOriginalText
 
         $responseXml = new \SimpleXMLElement($response);
 
-        var_dump($responseXml);
+        var_dump($response);
         die;
 
         $model->added = new \CDbExpression('NOW()');

@@ -144,12 +144,15 @@ class SeoYandexOriginalText extends \CActiveRecord
         );
     }
 
-    public static function getAttributesByModel(\HActiveRecord $contentModel, $priority = 0)
+    /**
+     * @param \HActiveRecord|\IPreview $contentModel
+     */
+    public static function getAttributesByModel(\HActiveRecord $contentModel)
     {
         return array(
             'entity' => $contentModel->getEntityName(),
             'entity_id' => $contentModel->primaryKey,
-            'text' => $contentModel->text,
+            'text' => $contentModel->getPreviewText(),
         );
     }
 }

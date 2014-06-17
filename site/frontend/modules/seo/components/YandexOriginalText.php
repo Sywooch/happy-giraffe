@@ -31,7 +31,7 @@ class YandexOriginalText
             '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
         ),
         'CookRecipe' => array(
-            '#\/cook\/(recipe|multivarka)\/(\d+)\/$#'
+            '#\/cook\/(?:recipe|multivarka)\/(\d+)\/$#'
         ),
     );
 

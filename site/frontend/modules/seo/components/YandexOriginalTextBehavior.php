@@ -13,7 +13,7 @@ use site\frontend\modules\seo\models\SeoYandexOriginalText;
 
 class YandexOriginalTextBehavior extends \CActiveRecordBehavior
 {
-    protected function afterSave($event)
+    public function afterSave($event)
     {
         $data = SeoYandexOriginalText::getAttributesByModel($this->owner);
         \Yii::app()->gearman->client()->doBackground('processOriginalText', serialize($data));

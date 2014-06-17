@@ -52,6 +52,10 @@ class YandexCommand extends \CConsoleCommand
 
             $model = new SeoYandexOriginalText();
             $model->setAttributes($data);
+
+            print_r($model->attributes);
+            die;
+
             $model->priority = 100;
 
             $originalTexts->add($model);

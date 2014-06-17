@@ -81,7 +81,7 @@ class YandexOriginalText
         } while ($count > 0);
     }
 
-    public function add(SeoYandexOriginalText &$model)
+    public function add(SeoYandexOriginalText $model)
     {
         echo '123';
 

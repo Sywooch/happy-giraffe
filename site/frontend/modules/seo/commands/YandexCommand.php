@@ -27,10 +27,7 @@ class YandexCommand extends \CConsoleCommand
 
     public function actionIndex()
     {
-        $models = SeoYandexOriginalText::model()->findAll(array(
-            'order' => 'priority DESC, id DESC',
-            'limit' => 100,
-        ));
+        $models = SeoYandexOriginalText::model()->pending()->findAll();
 
         foreach ($models as $model) {
             if ($this->original->add($model)) {
@@ -41,22 +38,20 @@ class YandexCommand extends \CConsoleCommand
         }
     }
 
-    public function actionSync()
+    public function actionSync($page = 0)
     {
-        $this->original->sync();
+        $this->original->sync($page);
     }
 
     public function actionWorker()
     {
         $originalTexts = new YandexOriginalText();
 
-        \Yii::app()->gearman->worker()->addFunction('sendEmail', function($job) use ($originalTexts) {
+        \Yii::app()->gearman->worker()->addFunction('processOriginalText', function($job) use ($originalTexts) {
             $data = unserialize($job->workload());
 
             $model = new SeoYandexOriginalText();
-            $model->entity = $data['entity'];
-            $model->entity_id = $data['entity_id'];
-            $model->full_text = $data['text'];
+            $model->setAttributes($data);
             $model->priority = 100;
 
             $originalTexts->add($model);

@@ -132,4 +132,24 @@ class SeoYandexOriginalText extends \CActiveRecord
             )
         );
     }
+
+    public function scopes()
+    {
+        return array(
+            'pending' => array(
+                'condition' => 'added IS NOT NULL',
+                'order' => 'priority DESC, id DESC',
+                'limit' => 100,
+            ),
+        );
+    }
+
+    public static function getAttributesByModel(\HActiveRecord $contentModel, $priority = 0)
+    {
+        return array(
+            'entity' => $contentModel->getEntityName(),
+            'entity_id' => $contentModel->primaryKey,
+            'text' => $contentModel->text,
+        );
+    }
 }

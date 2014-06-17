@@ -81,7 +81,7 @@ class YandexOriginalText
         } while ($count > 0);
     }
 
-    public function add(SeoYandexOriginalText $model)
+    public function add(SeoYandexOriginalText &$model)
     {
         $length = strlen($model->full_text);
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
@@ -102,8 +102,8 @@ class YandexOriginalText
 
         $responseXml = new \SimpleXMLElement($response);
         $model->added = new \CDbExpression('NOW()');
-        $model->external_id = $responseXml->response->id;
-        $model->external_text = $responseXml->response->text;
+        $model->external_id = $responseXml->id;
+        $model->external_text = $responseXml->text;
         return true;
     }
 

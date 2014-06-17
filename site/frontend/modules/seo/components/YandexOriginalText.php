@@ -131,7 +131,7 @@ class YandexOriginalText
             $xml = new \SimpleXMLElement($response);
             $hasError = ! isset($xml->response->error);
             if ($hasError) {
-                echo $xml->response->error;
+                var_dump($xml);
                 sleep(300);
             }
         } while($hasError);

@@ -58,8 +58,6 @@ abstract class MailSender extends CComponent
             echo $e->getMessage();
             Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
         }
-
-        $postman->mode = $mode;
     }
 
     protected function getDeliveryType()

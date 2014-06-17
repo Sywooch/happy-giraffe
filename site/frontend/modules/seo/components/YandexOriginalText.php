@@ -113,13 +113,21 @@ class YandexOriginalText
     protected function getUrlByText($text)
     {
         $rest = new \RESTClient();
-        $response = $rest->get('http://xmlsearch.yandex.ru/xmlsearch', array(
-            'user' => 'choojoy-work',
-            'key' => '03.158930922:9aab9c26009a4a2f58f3db048ad0fb58',
-            'query' => 'site:www.happy-giraffe.ru ' . $text,
-            'sortby' => 'rlv',
-        ));
-        $xml = new \SimpleXMLElement($response);
+
+        do {
+            $response = $rest->get('http://xmlsearch.yandex.ru/xmlsearch', array(
+                'user' => 'choojoy-work',
+                'key' => '03.158930922:9aab9c26009a4a2f58f3db048ad0fb58',
+                'query' => 'site:www.happy-giraffe.ru ' . $text,
+                'sortby' => 'rlv',
+            ));
+            $xml = new \SimpleXMLElement($response);
+            $hasError = ! isset($xml->response->error);
+            if ($hasError) {
+                echo $xml->response->error;
+                sleep(300);
+            }
+        } while(! $hasError);
 
         if (! isset($xml->response->results->grouping->group[0]))
         {

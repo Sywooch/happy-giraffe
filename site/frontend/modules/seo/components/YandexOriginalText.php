@@ -13,6 +13,8 @@ use site\frontend\modules\seo\models\SeoYandexOriginalText;
 
 class YandexOriginalText
 {
+    const MIN_SYMBOLS = 500;
+    const MAX_SYMBOLS = 32000;
     const ORIGINAL_TEXTS_URL = 'https://webmaster.yandex.ru/api/v2/hosts/6286558/original-texts';
 
     /**
@@ -81,6 +83,11 @@ class YandexOriginalText
 
     public function add(SeoYandexOriginalText &$model)
     {
+        $length = strlen($model->full_text);
+        if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
+            return $model->delete();
+        }
+
         $xml = new \SimpleXMLElement('<xml/>');
         $root = $xml->addChild('original-text');
         $root->addChild('content', $model->full_text);

@@ -53,7 +53,7 @@ class YandexCommand extends \CConsoleCommand
             $model = new SeoYandexOriginalText();
             $model->setAttributes($data);
 
-            print_r($data);
+            print_r($model);
             die;
 
             $model->priority = 100;

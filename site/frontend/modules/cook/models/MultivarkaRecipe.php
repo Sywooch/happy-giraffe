@@ -69,6 +69,6 @@ class MultivarkaRecipe extends CookRecipe
 
     public function getEntityName()
     {
-        return parent::getEntityName();
+        return get_parent_class();
     }
 }

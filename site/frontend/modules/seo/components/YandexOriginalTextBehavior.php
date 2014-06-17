@@ -15,8 +15,10 @@ class YandexOriginalTextBehavior extends \CActiveRecordBehavior
 {
     public function afterSave($event)
     {
-        $data = SeoYandexOriginalText::getAttributesByModel($this->owner);
-        \Yii::app()->gearman->client()->doBackground('processOriginalText', serialize($data));
+        if ($this->owner->author->group != \UserGroup::USER) {
+            $data = SeoYandexOriginalText::getAttributesByModel($this->owner);
+            \Yii::app()->gearman->client()->doBackground('processOriginalText', serialize($data));
+        }
 
         return parent::afterSave($event);
     }

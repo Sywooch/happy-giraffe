@@ -29,7 +29,7 @@ block layout-wrapper
                 a.popup-a(href="#login-retrieve2") Восстановление пароля, письмо отправлено 
                 br
                 br
- 
+                 
 
 block block-hidden 
     // .popup-sign
@@ -116,13 +116,25 @@ block block-hidden
                         .popup-sign_label Местоположение
                     .popup-sign_row
                         .inp-valid.inp-valid__abs.error
-                            select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выберите страну")
+                            // select-cus__js-country только для подключения js
+                            script.
+                                $(function() {
+                                    // Измененный tag select
+                                    $(".select-cus__js-country").select2({
+                                        width: '100%',
+                                        minimumResultsForSearch: -1,
+                                        dropdownCssClass: 'select2-drop__search-off select2-drop__separated-first-items',
+                                        // escapeMarkup: function(m) { return m; }
+                                    });
+                                });
+                            select.select-cus.select-cus__js-country.select-cus__gray(placeholder="Выберите страну")
                                 option
-                                option(value="2") Россия
-                                option(value="3") Беларусь
+                                option(value="1") Россия
+                                option(value="2") Украина
+                                option(value="3") Белоруссия
                                 option(value="4") Казахстан
-                                option(value="5") Молдова
-                                option(value="6") Польша
+                                option(value="5") Австралия
+                                option(value="6") Азербайджан
                                 option(value="7") Венгрия
                                 option(value="8") Грузия
                                 option(value="9") Албания
@@ -137,12 +149,12 @@ block block-hidden
                         .inp-valid.inp-valid__abs
                             select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выберите город")
                                 option
-                                option(value="2") Россия
-                                option(value="3") Беларусь
+                                option(value="1") Россия
+                                option(value="2") Украина
+                                option(value="3") Белоруссия
                                 option(value="4") Казахстан
-                                option(value="5") Молдова
-                                option(value="6") Польша
-                                option(value="7") Венгрия
+                                option(value="5") Австралия
+                                option(value="6") Азербайджан
                                 option(value="8") Грузия
                                 option(value="9") Албания
                                 option(value="10") Лимпопо

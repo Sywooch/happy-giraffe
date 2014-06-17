@@ -45,11 +45,11 @@ mixin b-ava-large(mod, vars)
                 span.location_tx 
                     = vars.locationTx
         - if (vars.family)
-            +bFamily('', vars.bFamily)
+            +bFamily('', vars.family)
             //- /b-family
     // /b-ava-large
 
-//- Варианты пере6менных для b-ava-large
+//- Варианты переменных для b-ava-large
 - var bAvaLarge = {}
 // a
 - bAvaLarge.a = {}
@@ -78,6 +78,6 @@ mixin b-ava-large(mod, vars)
 - bAvaLarge.c.delFreind = true
 - bAvaLarge.c.icoFriend = true
 - bAvaLarge.c.userNameTx = 'Александрa Житейская'
-- bAvaLarge.c.userAge = '22 года'
-- bAvaLarge.c.family = bFamily.f3
+- bAvaLarge.c.userAge = ''
+- bAvaLarge.c.family = bFamily.f2
 - bAvaLarge.c.locationTx = 'Россия, Переславль-Залесский, Астраханская область'

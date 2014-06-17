@@ -38,9 +38,9 @@ class YandexCommand extends \CConsoleCommand
         }
     }
 
-    public function actionSync()
+    public function actionSync($page = 0)
     {
-        $this->original->sync();
+        $this->original->sync($page);
     }
 
     public function actionWorker()

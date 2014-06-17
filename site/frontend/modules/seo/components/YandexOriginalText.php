@@ -39,7 +39,7 @@ class YandexOriginalText
         $this->client = new \RESTClient();
     }
 
-    public function sync($page = 0)
+    public function sync($page)
     {
         do {
             echo 'page ' . $page . "\n";

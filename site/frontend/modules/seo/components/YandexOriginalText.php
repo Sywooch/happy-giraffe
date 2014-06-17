@@ -129,7 +129,7 @@ class YandexOriginalText
                 'sortby' => 'rlv',
             ));
             $xml = new \SimpleXMLElement($response);
-            $hasError = ! isset($xml->response->error);
+            $hasError = isset($xml->response->error);
             if ($hasError) {
                 var_dump($xml);
                 sleep(300);

@@ -37,6 +37,8 @@ class MailPostman extends CApplicationComponent
                 $this->sendEmail($message);
                 break;
         }
+
+        return true;
     }
 
     /**
@@ -46,9 +48,7 @@ class MailPostman extends CApplicationComponent
      */
     public function sendEmail(MailMessage $message)
     {
-        if (ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
-            $message->delivery->sent();
-        }
+        ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME);
     }
 
     /**

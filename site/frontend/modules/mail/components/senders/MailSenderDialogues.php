@@ -39,7 +39,7 @@ class MailSenderDialogues extends MailSender
             $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $this->lastDeliveryTimestamp);
             $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $this->lastDeliveryTimestamp);
             $message = new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount'));
-            Yii::app()->postman->send($message);
+            $this->send($message);
         }
     }
 

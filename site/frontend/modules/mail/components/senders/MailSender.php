@@ -13,6 +13,8 @@ abstract class MailSender extends CComponent
     const DEBUG_PRODUCTION = 2;
 
     public $type;
+
+    protected $processStartTimestmap;
     protected $lastDeliveryTimestamp;
     protected $debugMode = self::DEBUG_DEVELOPMENT;
     protected $percent = 100;
@@ -51,13 +53,28 @@ abstract class MailSender extends CComponent
 
         try {
             if ($this->beforeSend()) {
-                $this->process($user);
+                $this->processInternal($user);
             }
         } catch (Exception $e) {
             header('Content-Type: text/html; charset=utf-8');
             echo $e->getMessage();
             Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
         }
+    }
+
+    protected function send(MailMessage $message)
+    {
+        /** @var MailPostman $postman */
+        $postman = Yii::app()->postman;
+        if ($postman->send($message)) {
+            $message->sent();
+        }
+    }
+
+    protected function processInternal(User $user)
+    {
+        $this->processStartTimestmap = time();
+        $this->process($user);
     }
 
     protected function getDeliveryType()
@@ -75,7 +92,7 @@ abstract class MailSender extends CComponent
         try {
             $iterator = $this->getIterator();
             foreach ($iterator as $user) {
-                $this->process($user);
+                $this->processInternal($user);
             }
         } catch (Exception $e) {
             echo $e->getMessage();

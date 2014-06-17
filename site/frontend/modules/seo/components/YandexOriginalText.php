@@ -123,6 +123,7 @@ class YandexOriginalText
 
         if (! isset($xml->response->results->grouping->group[0]))
         {
+            echo "status:" . $rest->status() . "\n";
             var_dump($xml);
             throw new YandexOriginalTextException("Не удалось получить URL по тексту:\n" . $text . "\n");
         }

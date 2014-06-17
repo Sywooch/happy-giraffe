@@ -136,9 +136,15 @@ return array(
         'signup',
         'mail',
         'developers',
+        'seo' => array(
+            'class' => '\site\frontend\modules\seo\SeoModule',
+        ),
 	),
 	// application components
 	'components'=>array(
+        'gearman' => array(
+            'class' => 'site.common.components.Gearman',
+        ),
         'postman' => array(
             'class' => 'application.modules.mail.components.MailPostman',
         ),

@@ -57,8 +57,9 @@ class DefaultCommand extends CConsoleCommand
 
     public function actionTest()
     {
-        $sender = new MailSenderTest();
-        $sender->sendAll();
+        $user = User::model()->findByPk(12936);
+        $message = new MailMessageTest($user);
+        Yii::app()->postman->send($message, MailPostman::MODE_QUEUE);
     }
 
     public function actionTestWarning()
@@ -74,9 +75,15 @@ class DefaultCommand extends CConsoleCommand
 
     public function actionWorker()
     {
+        Yii::import('site.frontend.extensions.status.*');
+        Yii::import('zii.behaviors.*');
+        Yii::import('site.frontend.extensions.geturl.*');
+        Yii::import('site.common.extensions.wr.*');
+
         Yii::app()->gearman->worker()->addFunction('sendEmail', function($job) {
             $message = unserialize($job->workload());
-            call_user_func_array(array('MailSender', 'sendEmail'), $message);
+            $postman = Yii::app()->postman;
+            call_user_func_array(array($postman, 'sendEmail'), array($message));
         });
         while (Yii::app()->gearman->worker()->work()) {
             echo "OK\n";

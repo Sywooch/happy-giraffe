@@ -101,13 +101,9 @@ class YandexOriginalText
         }
 
         $responseXml = new \SimpleXMLElement($response);
-
-        var_dump($response);
-        die;
-
         $model->added = new \CDbExpression('NOW()');
-        $model->external_id = $responseXml->id;
-        $model->external_text = $responseXml->text;
+        $model->external_id = $responseXml->response->id;
+        $model->external_text = $responseXml->response->text;
         return true;
     }
 

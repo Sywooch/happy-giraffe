@@ -435,7 +435,7 @@
 							</a>
 						</li>
 					</ul>
-					<div class="readers2_sub-tx">и еще много :)</div>
+					<div class="readers2_sub-tx">и еще много <span class="readers2_smile"></span>!!!</div>
 				</div>
 				
 			</div>

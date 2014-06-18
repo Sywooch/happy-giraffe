@@ -78,7 +78,7 @@ function PhotoCollectionViewModel(data) {
         _gaq.push(['_trackPageview', self.currentPhoto().url()]);
         yaCounter11221648.hit(self.currentPhoto().url());
         self.setLikesPosition();
-        $('#photo-window_banner iframe').attr('src', '/google.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
+        //$('#photo-window_banner iframe').attr('src', '/google.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
         if (self.collectionClass == 'ContestPhotoCollection')
             self.loadContestData();
 

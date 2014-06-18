@@ -75,6 +75,7 @@ class YandexCommand extends \CConsoleCommand
             $model = new SeoYandexOriginalText();
             $model->setAttributes(SeoYandexOriginalText::getAttributesByModel($contentModel));
             $model->priority = 99;
+            $model->external_id = null;
             $model->save();
         }
     }

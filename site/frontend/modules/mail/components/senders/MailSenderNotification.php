@@ -33,6 +33,8 @@ class MailSenderNotification extends MailSender
 
     public function process(User $user)
     {
+        echo $user->id . "\n";
+
         $notifications = Notification::model()->getNotificationsList($user->id, 0, 0, 999);
 
         foreach ($notifications as $notification) {

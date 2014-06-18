@@ -91,10 +91,9 @@ class YandexOriginalText
             return true;
         }
 
-        $xml = new \SimpleXMLElement('<xml/>');
-        $root = $xml->addChild('original-text');
-        $root->addChild('content', $model->full_text);
-        $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, $xml->asXML());
+        $xml = new \SimpleXMLElement('<original-text/>');
+        $xml->addChild('content', $model->full_text);
+        $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, urlencode($xml->asXML()));
 
         if ($this->api->client->status() != 201) {
             return false;
@@ -103,7 +102,7 @@ class YandexOriginalText
         $responseXml = new \SimpleXMLElement($response);
         $model->added = new \CDbExpression('NOW()');
         $model->external_id = $responseXml->id;
-        $model->external_text = $responseXml->text;
+        $model->external_text = $responseXml->content;
         return true;
     }
 

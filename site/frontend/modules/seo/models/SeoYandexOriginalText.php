@@ -152,7 +152,7 @@ class SeoYandexOriginalText extends \CActiveRecord
         return array(
             'entity' => $contentModel->getEntityName(),
             'entity_id' => $contentModel->primaryKey,
-            'full_text' => $contentModel->getPreviewText(),
+            'full_text' => strip_tags($contentModel->getPreviewText()),
         );
     }
 }

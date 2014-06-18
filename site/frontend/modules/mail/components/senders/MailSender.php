@@ -70,7 +70,7 @@ abstract class MailSender extends CComponent
         /** @var MailPostman $postman */
         $postman = Yii::app()->postman;
         if ($postman->send($message)) {
-            $message->sent();
+            $message->delivery->sent();
         }
     }
 

@@ -148,16 +148,14 @@ abstract class MailSender extends CComponent
     {
         $criteria = new CDbCriteria();
 
-        switch ($this->debugMode) {
-            case self::DEBUG_DEVELOPMENT:
+        if ($this->debugMode == self::DEBUG_DEVELOPMENT) {
                 $criteria->compare('t.id', 12936);
-                break;
-            case self::DEBUG_TESTING:
+        }
+        if (($this->debugMode == self::DEBUG_TESTING) || YII_DEBUG) {
                 $criteria->join = 'LEFT OUTER JOIN auth__assignments aa ON aa.userid = t.id AND aa.itemname = :itemname';
                 $criteria->params[':itemname'] = 'tester';
                 $criteria->addCondition('aa.itemname IS NOT NULL');
                 $criteria = $this->limitByPercent($criteria);
-                break;
         }
 
         return $criteria;

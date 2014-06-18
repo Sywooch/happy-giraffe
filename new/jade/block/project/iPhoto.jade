@@ -1,0 +1,64 @@
+//- iPhoto
+    mod     .i-photo__load  .i-photo__error  .i-photo__empty
+    vars 
+        type
+mixin iPhoto(mod, vars)
+    // Блок фотографии 
+        Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+    .i-photo(class=mod)
+        - if (vars.type == "empty")
+            .i-photo_hold
+        - else
+            a.ico-close5(href="")
+        // Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость
+        - if (vars.type == "load")
+            // Загрузка фото
+            .i-photo_hold
+                .i-photo_progress
+                    // boostrap progressbar
+                    // progressbar изначально уже весь заполнен
+                    .progress.progress-striped.active.progress__cont
+                        .progress-bar.progress-bar__cont(role='progressbar', aria-valuenow='100', aria-valuemin='0', aria-valuemax='100', style='width: 100%')
+                    .tx-hint Загрузка
+        - if (vars.type == "error")
+            // Ошибка
+            .i-photo_hold.error
+                .tx-hint IMG_5295.JPG
+                .tx-hint Ошибка загрузки
+
+        - if (vars.type == "ie")
+            // Вид для ие
+            .i-photo_hold
+                .i-photo_file-name IMG_5295.JPG
+                input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок')
+                // Продумать текст
+            .tx-hint Для предпросмотра загружаемых изображений нужно обновить браузер на более новый.
+        
+        - if (vars.type == "loaded")
+            // Загруженное фото
+            .i-photo_hold
+                .i-photo_img-hold
+                    img.i-photo_img(src='#{vars.src}', alt="")
+                    .i-photo_overlay
+                        a.i-photo_rotate(href="") 
+                        a.i-photo_rotate.i-photo_rotate__r(href="") 
+                input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок')
+    // /Блок фотографии
+
+- var iPhoto = {}
+//- - iPhoto.empty = {}
+//- - iPhoto.empty.type = "empty"
+
+- iPhoto.load = {}
+- iPhoto.load.type = "load"
+
+- iPhoto.error = {}
+- iPhoto.error.type = "error"
+
+- iPhoto.loaded = {}
+- iPhoto.loaded.type = "loaded"
+- iPhoto.loaded.src = "/new/images/example/w155-h110.jpg"
+
+- iPhoto.ie = {}
+- iPhoto.ie.type = "ie"
+- iPhoto.ie.src = "/new/images/example/w155-h110.jpg"

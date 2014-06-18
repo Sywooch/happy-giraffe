@@ -131,10 +131,19 @@
     &__load {
         height: 141px;
         background-color: #fff;
+        text-align: center;
     }
     &__load &_hold {
         padding: 90px 30px 0;
         background: url('@{path-img}/i-photo__load_hold.png') no-repeat 50% 25px;
+    }
+    &__ie {
+        width: 280px;
+    }
+    &__ie .tx-hint {
+        margin-top: 4px;
+        text-align: left;
+        color: @color-gray;
     }
     &__error {
         height: 137px;
@@ -143,17 +152,10 @@
         color: #fbcdcd;
         text-align: center;
     }
+    &__error .tx-hint {color: #fbcdcd;}
     &__error &_hold {
         padding-top: 90px;
         background: url('@{path-img}/i-photo__error_hold.png') no-repeat 50% 35px;
-    }
-    &_error-tx {
-        font: @fontsmall;
-    }
-    &_load-tx {
-        font: @fontsmall;
-        color: @color-gray-light;
-        text-align: center;
     }
     &_img-hold {
         position: relative;
@@ -185,6 +187,11 @@
     &_rotate:hover {background-position: 0 -16px;}
     &_rotate__r {background-position: -15px 0px;}
     &_rotate__r:hover {background-position: -15px -16px;}
+    &_file-name {
+        .inline-block();
+        margin: 10px;
+        text-align: left;
+    }
 }
 /* /i-photo */
 

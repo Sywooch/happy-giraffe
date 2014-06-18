@@ -6,60 +6,6 @@ block vars
 
 
 block layout
-    //- iPhoto
-        mod     .i-photo__load  .i-photo__error  .i-photo__empty
-        vars 
-            type
-    mixin iPhoto(mod, vars)
-        // Блок фотографии 
-            Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
-        .i-photo(class=mod)
-            - if (vars.type == "empty")
-                .i-photo_hold
-            - else
-                a.ico-close5(href="")
-            // Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость
-            - if (vars.type == "load")
-                // Загрузка фото
-                .i-photo_hold
-                    .i-photo_progress
-                        // boostrap progressbar
-                        // progressbar изначально уже весь заполнен
-                        .progress.progress-striped.active.progress__cont
-                            .progress-bar.progress-bar__cont(role='progressbar', aria-valuenow='100', aria-valuemin='0', aria-valuemax='100', style='width: 100%')
-                        .i-photo_load-tx Загрузка
-            - if (vars.type == "error")
-                // Ошибка
-                .i-photo_hold
-                    .i-photo_error-tx IMG_5295.JPG
-                    .i-photo_error-tx Ошибка загрузки
-            - if (vars.type == "loaded")
-                // Загруженное фото
-                .i-photo_hold
-                    .i-photo_img-hold
-                        img.i-photo_img(src='#{vars.src}', alt="")
-                        .i-photo_overlay
-                            a.i-photo_rotate(href="") 
-                            a.i-photo_rotate.i-photo_rotate__r(href="") 
-                    input.i-photo_t.itx-gray(type="text", placeholder='Введите заголовок')
-        // /Блок фотографии
-
-    - var iPhoto = {}
-    //- - iPhoto.empty = {}
-    //- - iPhoto.empty.type = "empty"
-
-    - iPhoto.load = {}
-    - iPhoto.load.type = "load"
-    
-    - iPhoto.error = {}
-    - iPhoto.error.type = "error"
-
-    - iPhoto.loaded = {}
-    - iPhoto.loaded.type = "loaded"
-    - iPhoto.loaded.src = "/new/images/example/w155-h110.jpg"
-
-
-
 
     .layout-wrapper_hold.clearfix
         .layout-content.clearfix
@@ -101,6 +47,7 @@ block layout
                 a.popup-a.popup-a__add(href="#photo-album-list-xl") Фотографии из альбома, большой размер
                 br
                 br
+                h3 Пример загрузки фото с помощью плагина
                 .file-fake
                     input#fileupload.file-fake_inp(type="file", multiple)
                     .btn.btn-primary Обзор
@@ -176,7 +123,7 @@ block layout
                             $.each(data.files, function (index, file) {
                                 var node = $(data.context.children()[index])
                                         //.append($('<span/>').text(file.name));
-                                        .append('<input type="text" placeholder="Введите заголовок" class="i-photo_t itx-gray" value=' + file.name + '>');
+                                        .append('<input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray" value=' + file.name + '>');
                                 //- if (!index) {
                                 //-     node
                                 //-         .append('<br>')
@@ -305,11 +252,11 @@ block block-hidden
                         .popup-add_cap
                             +cap-empty("cap-empty__addPhoto", capEmpty.addPhoto)
                         .textalign-c
-                            +iPhoto("i-photo__load", iPhoto.load)
+                            +iPhoto("i-photo__ie i-photo__loaded", iPhoto.ie)
 
                     .popup-add_footer
                         .textalign-c
-                            a.btn.btn-success.disabled(href="") Добавить
+                            a.btn.btn-success(href="") Добавить
                 #photo-tab-album.tab-pane
                 #photo-tab-link.tab-pane
     // /popup-add

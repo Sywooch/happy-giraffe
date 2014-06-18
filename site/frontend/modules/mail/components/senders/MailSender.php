@@ -6,6 +6,7 @@
  * сообщений и передает их "почтальону" MailPostman
  */
 
+Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
 Yii::import('site.common.models.mongo.UserAttributes');
 
 abstract class MailSender extends CComponent

@@ -361,6 +361,7 @@ return array(
         'developers/<_c>/<_a>' => 'developers/<_c>/<_a>',
         'seo/<_c>/<_a>' => 'seo/<_c>/<_a>',
 
+        'mail/default/redirect' => 'mail/default/redirect',
         'mail/<_c>/<_a>' => 'mail/<_c>/<_a>',
 
         'onair' => 'blog/air/index',

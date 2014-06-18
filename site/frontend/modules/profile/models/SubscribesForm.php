@@ -9,7 +9,7 @@
 
 class SubscribesForm extends CFormModel
 {
-    public $daily;
+//    public $daily;
     public $dialogues;
     public $comments;
     public $replies;
@@ -26,7 +26,7 @@ class SubscribesForm extends CFormModel
     public function attributeLabels()
     {
         return array(
-            'daily' => 'Ежедневная рассылка о новом о сайте',
+//            'daily' => 'Ежедневная рассылка о новом о сайте',
             'dialogues' => 'Новые сообщения в диалогах',
             'comments' => 'Новые комментарии к вашим записям, фото, видео',
             'replies' => 'Новые ответы на ваш комментарий',

@@ -38,7 +38,7 @@ class MailSenderNotification extends MailSender
         foreach ($notifications as $notification) {
             $this->checkSubscribesSettings($user, $notification);
 
-            if ($notification->updated < strtotime($this->lastDeliveryTimestamp) && $notification->updated > $this->startTime) {
+            if (($notification->updated < strtotime($this->lastDeliveryTimestamp)) && ($notification->updated > $this->startTime)) {
                 continue;
             }
 

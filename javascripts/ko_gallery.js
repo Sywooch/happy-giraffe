@@ -171,7 +171,18 @@ function PhotoCollectionViewModel(data) {
     yaCounter11221648.hit(self.currentPhoto().url());
     self.preloadImages(2, 2);
     setTimeout(function() {
-        adfox_reloadBanner('bn-1');
+        (function(bannerPlaceId, requestSrc, defaultLoad){
+            var
+                tgNS = window.ADFOX.RELOAD_CODE,
+                initData = tgNS.initBanner(bannerPlaceId,requestSrc);
+
+            $('#photo-window_banner').html(initData.html);
+
+            if(defaultLoad) {
+                tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
+            }
+        })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
+
         self.setLikesPosition();
         self.photoWindColH();
         addBaron($('#photo-window .scroll'));

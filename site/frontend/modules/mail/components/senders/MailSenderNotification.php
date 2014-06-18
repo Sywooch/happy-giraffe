@@ -38,6 +38,12 @@ class MailSenderNotification extends MailSender
         $notifications = Notification::model()->getNotificationsList($user->id, 0, 0, 999);
 
         foreach ($notifications as $notification) {
+            if ($user->id == 10) {
+                echo $notification->updated . "\n";
+                echo $this->lastDeliveryTimestamp . "\n";
+                echo $this->startTime . "\n";
+            }
+
             $this->checkSubscribesSettings($user, $notification);
 
             if (($notification->updated < strtotime($this->lastDeliveryTimestamp)) && ($notification->updated > $this->startTime)) {

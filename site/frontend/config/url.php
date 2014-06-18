@@ -361,7 +361,7 @@ return array(
         'developers/<_c>/<_a>' => 'developers/<_c>/<_a>',
         'seo/<_c>/<_a>' => 'seo/<_c>/<_a>',
 
-        'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
+        'mail/<_c>/<_a>' => 'mail/default/<_a>',
 
         'onair' => 'blog/air/index',
     ),

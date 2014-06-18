@@ -6,6 +6,8 @@
  * сообщений и передает их "почтальону" MailPostman
  */
 
+Yii::import('site.common.models.mongo.UserAttributes');
+
 abstract class MailSender extends CComponent
 {
     const DEBUG_DEVELOPMENT = 0;

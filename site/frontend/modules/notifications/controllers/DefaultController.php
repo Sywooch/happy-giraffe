@@ -1,9 +1,15 @@
 <?php
 
-class DefaultController extends HController
+namespace site\frontend\modules\notifications\controllers;
+
+class DefaultController extends \HController
 {
 
     public $layout = '//layouts/new/main';
+    
+    public $notifyClass = '\site\frontend\modules\notifications\models\Notification';
+
+    const PAGE_SIZE = 20;
 
     public function filters()
     {
@@ -27,43 +33,31 @@ class DefaultController extends HController
 
     public function init()
     {
-        Yii::import('site.frontend.modules.routes.models.*');
+        \Yii::import('site.frontend.modules.routes.models.*');
         parent::init();
     }
 
     public function actionIndex($read = 0, $lastNotificationUpdate = false)
     {
         $this->pageTitle = $read ? 'Новые уведомления' : 'Прочитанные уведомления';
-        $list = Notification::model()->getNotificationsList(Yii::app()->user->id, (int) $read, (int) $lastNotificationUpdate, true);
-        //NotificationRead::setReadSummaryNotifications($list);
+        $list = array();
 
-        if (Yii::app()->request->isAjaxRequest)
+        if (\Yii::app()->request->isAjaxRequest)
         {
-            echo HJSON::encode(array('list' => $list, 'read' => $read), $this->JSONConfig);
+            echo \HJSON::encode(array('list' => $list, 'read' => $read), $this->JSONConfig);
         }
         else
-            $this->render('index_v2', array('list' => $list, 'read' => $read, 'unreadCount' => Notification::model()->getUnreadCount()));
+            $this->render('index_v2', array('list' => $list, 'read' => $read, 'unreadCount' => 0));
     }
 
     public function actionRead()
     {
-        $notifications = Notification::model()->findAllByPk(Yii::app()->request->getPost('events', array()));
-        $comet = new CometModel();
-        echo CJSON::encode(array('success' => true));
-        foreach ($notifications as $notification)
-        {
-            if ($notification->recipient_id == Yii::app()->user->id)
-            {
-                $notification->setRead();
-                $comet->send(Yii::app()->user->id, array('notification' => array('id' => (string)$notification->id)), CometModel::NOTIFY_READED);
-            }
-        }
+
     }
 
     public function actionReadAll()
     {
-        Notification::model()->readAll();
-        echo CJSON::encode(array('status' => true));
+
     }
 
     public function getJSONConfig()

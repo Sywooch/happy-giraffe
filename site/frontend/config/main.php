@@ -121,7 +121,9 @@ return array(
         'valentinesDay',
         'routes',
         'messaging',
-        'notifications',
+        'notifications' => array(
+            'class' => 'site\frontend\modules\notifications\NotificationsModule',
+        ),
         'friends',
         'favourites',
         'scores',

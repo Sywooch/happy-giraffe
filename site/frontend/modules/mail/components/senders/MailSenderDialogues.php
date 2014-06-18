@@ -24,9 +24,6 @@ class MailSenderDialogues extends MailSender
             return;
         }
 
-        echo $user->id . "\n";
-
-
         $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
             'with' => array(
                 'message' => array(

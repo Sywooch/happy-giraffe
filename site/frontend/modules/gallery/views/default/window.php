@@ -124,9 +124,7 @@
             </div>
 
             <div id="photo-window_banner" class="photo-window_banner clearfix">
-                <div class="display-ib">
-
-                </div>
+                <iframe src="/google.html?<?=mt_rand(1000000000, 9999999999)?>" width="300" height="250" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
             </div>
         </div>
 
@@ -134,17 +132,17 @@
 </div>
 
 <script type="text/javascript">
-    (function(bannerPlaceId, requestSrc, defaultLoad){
-        var
-            tgNS = window.ADFOX.RELOAD_CODE,
-            initData = tgNS.initBanner(bannerPlaceId,requestSrc);
-
-        $('#photo-window_banner .display-ib').html(initData.html);
-
-        if(defaultLoad) {
-            tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
-        }
-    })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', false);
+//    (function(bannerPlaceId, requestSrc, defaultLoad){
+//        var
+//            tgNS = window.ADFOX.RELOAD_CODE,
+//            initData = tgNS.initBanner(bannerPlaceId,requestSrc);
+//
+//        $('#photo-window_banner').html(initData.html);
+//
+//        if(defaultLoad) {
+//            tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
+//        }
+//    })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
 
     photoViewVM = new PhotoCollectionViewModel(<?=CJSON::encode($json)?>);
     ko.applyBindings(photoViewVM, document.getElementById('photo-window'));

@@ -63,7 +63,7 @@ class YandexCommand extends \CConsoleCommand
         }
     }
 
-    public function addHg()
+    public function actionAddHg()
     {
         $dp = new \CActiveDataProvider('CommunityContent', array(
             'criteria' => array(

@@ -533,7 +533,7 @@ class ContactsManager
         );
     }
 
-    public static function getContactsForDelivery($userId, $limit, $after = null)
+    public static function getContactsForDelivery($userId, $limit, $after = null, $before = null)
     {
         $rows = MessagingMessageUser::model()->unread()->user($userId)->findAll(array(
             'select' => 'author.*, COUNT(*) AS unreadCount',
@@ -542,6 +542,7 @@ class ContactsManager
                     'joinType' => 'INNER JOIN',
                     'scopes' => array(
                         'newer' => $after,
+                        'older' => $before,
                     ),
                     'with' => array(
                         'author' => array(

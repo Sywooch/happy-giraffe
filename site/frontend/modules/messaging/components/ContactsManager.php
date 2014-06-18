@@ -568,7 +568,7 @@ class ContactsManager
                 'message' => array(
                     'scopes' => array(
                         'newer' => $after,
-                        'before' => $before,
+                        'older' => $before,
                     ),
                 ),
             ),

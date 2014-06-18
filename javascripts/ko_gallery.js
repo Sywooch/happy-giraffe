@@ -82,7 +82,9 @@ function PhotoCollectionViewModel(data) {
         if (self.collectionClass == 'ContestPhotoCollection')
             self.loadContestData();
 
-        adfox_reloadBanner('bn-1');
+        setTimeout(function() {
+            adfox_reloadBanner('bn-1');
+        }, 1)
     }
 
     self.setLikesPosition = function() {

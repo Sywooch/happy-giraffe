@@ -176,7 +176,7 @@ function PhotoCollectionViewModel(data) {
                 tgNS = window.ADFOX.RELOAD_CODE,
                 initData = tgNS.initBanner(bannerPlaceId,requestSrc);
 
-            $('#photo-window_banner').html(initData.html);
+            $('#photo-window_banner .display-ib').html(initData.html);
 
             if(defaultLoad) {
                 tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);

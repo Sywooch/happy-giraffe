@@ -74,7 +74,6 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.photoChanged = function() {
-        adfox_reloadBanner('bn-1');
         History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
         _gaq.push(['_trackPageview', self.currentPhoto().url()]);
         yaCounter11221648.hit(self.currentPhoto().url());
@@ -82,6 +81,8 @@ function PhotoCollectionViewModel(data) {
         $('#photo-window_banner iframe').attr('src', '/google.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
         if (self.collectionClass == 'ContestPhotoCollection')
             self.loadContestData();
+
+        adfox_reloadBanner('bn-1');
     }
 
     self.setLikesPosition = function() {
@@ -171,24 +172,24 @@ function PhotoCollectionViewModel(data) {
     yaCounter11221648.hit(self.currentPhoto().url());
     self.preloadImages(2, 2);
     setTimeout(function() {
-        (function(bannerPlaceId, requestSrc, defaultLoad){
-            var
-                tgNS = window.ADFOX.RELOAD_CODE,
-                initData = tgNS.initBanner(bannerPlaceId,requestSrc);
-
-            $('#photo-window_banner .display-ib').html(initData.html);
-
-            if(defaultLoad) {
-                tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
-            }
-        })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
-
         self.setLikesPosition();
         self.photoWindColH();
         addBaron($('#photo-window .scroll'));
     }, 200);
     if (self.collectionClass == 'ContestPhotoCollection')
         self.loadContestData();
+
+    (function(bannerPlaceId, requestSrc, defaultLoad){
+        var
+            tgNS = window.ADFOX.RELOAD_CODE,
+            initData = tgNS.initBanner(bannerPlaceId,requestSrc);
+
+        $('#photo-window_banner .display-ib').html(initData.html);
+
+        if(defaultLoad) {
+            tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
+        }
+    })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
 
     $(window).on('resize', self.resized);
 }

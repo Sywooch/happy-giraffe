@@ -74,6 +74,7 @@ function PhotoCollectionViewModel(data) {
     }
 
     self.photoChanged = function() {
+        adfox_reloadBanner();
         History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
         _gaq.push(['_trackPageview', self.currentPhoto().url()]);
         yaCounter11221648.hit(self.currentPhoto().url());
@@ -170,6 +171,7 @@ function PhotoCollectionViewModel(data) {
     yaCounter11221648.hit(self.currentPhoto().url());
     self.preloadImages(2, 2);
     setTimeout(function() {
+        adfox_reloadBanner();
         self.setLikesPosition();
         self.photoWindColH();
         addBaron($('#photo-window .scroll'));

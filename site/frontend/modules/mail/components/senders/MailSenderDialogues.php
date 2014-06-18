@@ -30,6 +30,7 @@ class MailSenderDialogues extends MailSender
                     'joinType' => 'INNER JOIN',
                     'scopes' => array(
                         'newer' => $this->lastDeliveryTimestamp,
+                        'older' => $this->startTime,
                     ),
                 ),
             ),

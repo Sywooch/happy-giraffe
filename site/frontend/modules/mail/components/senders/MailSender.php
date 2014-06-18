@@ -17,7 +17,7 @@ abstract class MailSender extends CComponent
 
     public $type;
 
-    protected $processStartTimestmap;
+    protected $startTime;
     protected $lastDeliveryTimestamp;
     protected $debugMode = self::DEBUG_DEVELOPMENT;
     protected $percent = 100;
@@ -76,7 +76,6 @@ abstract class MailSender extends CComponent
 
     protected function processInternal(User $user)
     {
-        $this->processStartTimestmap = time();
         $this->process($user);
     }
 
@@ -117,6 +116,8 @@ abstract class MailSender extends CComponent
         $newDelivery = new MailSendersHistory();
         $newDelivery->type = $this->type;
         $newDelivery->save();
+
+        $this->startTime = time();
 
         return true;
     }

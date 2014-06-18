@@ -20,11 +20,12 @@ class MailSenderDialogues extends MailSender
 
     protected function process(User $user)
     {
-        echo $user->id . "\n";
-
         if (UserAttributes::get($user->id, 'dialogues', true) !== true) {
             return;
         }
+
+        echo $user->id . "\n";
+
 
         $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
             'with' => array(

@@ -1,12 +1,24 @@
 ko.bindingHandlers.photoUpload = {
     init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
         $(element).magnificPopup({
-
+            type: 'ajax',
+            ajax: {
+                settings: {
+                    url: '/photo/upload/form/'
+                }
+            }
         });
     }
 };
 
-function PhotoUploadViewModel(element) {
+ko.bindingHandlers.fileUpload = {
+    update: function (element, valueAccessor) {
+        var options = valueAccessor() || {};
+        $(element).fileupload(options);
+    }
+};
+
+function PhotoUploadViewModel() {
     var self = this;
     self.photos = ko.observableArray();
 
@@ -20,7 +32,9 @@ function PhotoUploadViewModel(element) {
         });
     };
 
-    element.fileupload({
+    self.fileUploadSettings = {
+        dropZone: '.popup-add_frame__multi',
+        url: '/photo/upload/fromComputer/',
         add: function (e, data) {
             self.addPhoto(data.files[0].name);
             data.submit();
@@ -36,7 +50,7 @@ function PhotoUploadViewModel(element) {
             var photo = self.findPhotoByName(data.files[0].name);
             photo.status(photo.STATUS_FAIL);
         }
-    });
+    }
 }
 
 function PhotoUpload(data) {

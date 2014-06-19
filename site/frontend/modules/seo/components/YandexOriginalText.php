@@ -99,6 +99,8 @@ class YandexOriginalText
             return false;
         }
 
+        var_dump($response);
+
         $responseXml = new \SimpleXMLElement($response);
         $model->added = new \CDbExpression('NOW()');
         $model->external_id = $responseXml->id;

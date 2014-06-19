@@ -16,10 +16,37 @@ class PhotoCreate extends Photo
     const FS_NAME_LEVELS = 2;
     const FS_NAME_SYMBOLS_PER_LEVEL = 2;
 
-    const MAX_ORIGINAL_WIDTH = 2880;
-    const MAX_ORIGINAL_HEIGHT = 1800;
-
     public $path;
+    public $original_name;
+
+    protected $imageSize;
+
+    public function __construct($path, $originalName)
+    {
+        $this->path = $path;
+        $this->original_name = $originalName;
+    }
+
+    public function rules()
+    {
+        return array(
+            array('path', 'canGetImageSize'),
+        );
+    }
+
+    public function canGetImageSize($attribute, $params)
+    {
+        try {
+            $this->imageSize = getimagesize($this->$attribute);
+        } catch (\Exception $e) {
+            $this->addError('path', 'Некорректный файл изображения');
+        }
+    }
+
+    public function imageType($attribute, $params)
+    {
+
+    }
 
     public function create()
     {
@@ -33,11 +60,12 @@ class PhotoCreate extends Photo
             } else {
                 $typeToExtension = array(IMAGETYPE_JPEG => 'jpg', IMAGETYPE_GIF => 'gif', IMAGETYPE_PNG => 'png');
                 $this->fs_name = $this->generateFsName() . '.' . $typeToExtension[$type];
+                if (! copy($this->path, $this->getImagePath())) {
+                    $this->addError('path', 'Не удалось скопировать изображение');
+                }
                 $this->save();
             }
         } catch (\Exception $e) {
-            echo $e->getMessage();
-            die;
             $this->addError('path', 'Некорректный файл изображения');
         }
     }

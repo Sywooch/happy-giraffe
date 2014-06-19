@@ -146,12 +146,12 @@ class Photo extends \HActiveRecord
         );
     }
 
-    public function getUrl()
+    public function getImageUrl()
     {
         return \Yii::app()->params['photos_url'] . '/originals/' . $this->fs_name;
     }
 
-    public function getPath()
+    public function getImagePath()
     {
         return PathManager::getOriginalsPath() . DIRECTORY_SEPARATOR . $this->fs_name;
     }

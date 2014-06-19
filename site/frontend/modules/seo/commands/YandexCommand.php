@@ -62,4 +62,21 @@ class YandexCommand extends \CConsoleCommand
             echo "OK\n";
         }
     }
+
+    public function actionAddHg()
+    {
+        $dp = new \CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 'by_happy_giraffe = 1',
+            ),
+        ));
+        $iterator = new \CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $contentModel) {
+            $model = new SeoYandexOriginalText();
+            $model->setAttributes(SeoYandexOriginalText::getAttributesByModel($contentModel));
+            $model->priority = 99;
+            $model->external_id = null;
+            $model->save();
+        }
+    }
 } 

@@ -31,7 +31,7 @@ class YandexOriginalText
             '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
         ),
         'CookRecipe' => array(
-            '#\/cook\/(recipe|multivarka)\/(\d+)\/$#'
+            '#\/cook\/(?:recipe|multivarka)\/(\d+)\/$#'
         ),
     );
 
@@ -85,22 +85,27 @@ class YandexOriginalText
     {
         $length = strlen($model->full_text);
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
-            return $model->delete();
+            if (! $model->isNewRecord) {
+                return $model->delete();
+            }
+            return true;
         }
 
-        $xml = new \SimpleXMLElement('<xml/>');
-        $root = $xml->addChild('original-text');
-        $root->addChild('content', $model->full_text);
-        $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, $xml->asXML());
+        $xml = new \SimpleXMLElement('<original-text/>');
+        $xml->addChild('content', $model->full_text);
+        $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, urlencode($xml->asXML()));
 
         if ($this->api->client->status() != 201) {
             return false;
         }
 
+        echo $model->id . "\n";
+        var_dump($response);
+
         $responseXml = new \SimpleXMLElement($response);
         $model->added = new \CDbExpression('NOW()');
         $model->external_id = $responseXml->id;
-        $model->external_text = $responseXml->text;
+        $model->external_text = $responseXml->content;
         return true;
     }
 
@@ -137,8 +142,9 @@ class YandexOriginalText
             ));
             $xml = new \SimpleXMLElement($response);
             $hasError = isset($xml->response->error);
+            $hasError = $hasError && $xml->response->error->attributes()->code != 15;
             if ($hasError) {
-                var_dump($xml);
+                var_dump($xml->response->error->attributes()->code);
                 sleep(300);
             }
         } while($hasError);

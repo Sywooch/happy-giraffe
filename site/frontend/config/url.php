@@ -362,5 +362,7 @@ return array(
         'seo/<_c>/<_a>' => 'seo/<_c>/<_a>',
 
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
+
+        'onair' => 'blog/air/index',
     ),
 );

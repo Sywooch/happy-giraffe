@@ -14,7 +14,7 @@ class UploadController extends \HController
 {
     public function actionForm()
     {
-        $this->render('form');
+        $this->renderPartial('form');
     }
 
     public function actionUpload()

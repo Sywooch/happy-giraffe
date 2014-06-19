@@ -32,9 +32,7 @@ class FromComputerUploadForm extends UploadForm
     {
         $files = \CUploadedFile::getInstancesByName('files');
         foreach ($files as $file) {
-            $photo = new PhotoCreate();
-            $photo->path = $file->getTempName();
-            $photo->original_name = $file->getName();
+            $photo = new PhotoCreate($file->getTempName(), $file->getName());
             $this->photos[] = $photo;
         }
     }

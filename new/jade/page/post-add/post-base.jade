@@ -1,0 +1,120 @@
+include ../../block/config
+extend ../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in.b-main
+            
+            .b-main_col-hold.clearfix
+                // Добавление статьи
+                .postAdd
+                    +userAddRecord('userAddRecord__add', userAddRecord.c)
+                    .postAdd_hold
+                        .postAdd_row
+                            .postAdd_count 1
+                            .b-main_col-article
+                                // При очень длинном заголовке он показывается как ошибка за счет класса error и счтетчик отсчитывает в -
+                                .inp-valid.inp-valid__abs.error
+                                    input.itx-gray(type='text', placeholder="Введите заголовок видеопоста", value="Очень много букв в input, такие заголовки не бывают. Очень много букв в input, такие заголовки не бывают.")
+                                    .inp-valid_count -30
+
+                        .postAdd_row
+                            // Блочек описание видео сервисов
+                            .postAdd_count 2
+                            .b-main_col-article
+                                script.
+                                    $(document).ready(function () { 
+                                      $('.wysiwyg-redactor').redactor({
+                                          autoresize: true,
+                                          toolbarExternal: '.wysiwyg-toolbar-btn',
+                                          minHeight: 450,
+                                          cleanFontTag: false ,
+                                          cleanup: false,
+                                          lang: 'ru',
+                                          convertDivs: false,
+                                          plugins: [ 'formatbtn', 'btnvideo' ,'fullscreen'],
+                                          buttons: [  'image', ],
+                                          focusCallback: function()
+                                            {
+                                                addBaron('.scroll');
+                                            }
+                                      });
+                                    });
+                                .wysiwyg-post.redactor_box
+                                    .wysiwyg-toolbar
+                                        .wysiwyg-toolbar-btn
+                                    .scroll
+                                        .scroll_scroller
+                                            .scroll_cont
+                                                textarea.wysiwyg-redactor(name=''. colrow="9")
+                                                    p Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))
+                                                    p Не знаю насколько это правда, 
+                                                        b но я задумалась, 
+                                                        |а что же на самом деле нужно 
+                                                        i нашим мужчинам чтобы они чувствовали себя счастливыми.
+                                                    p Ведь на самом деле, 
+                                                        small запросы у женщин очень большие,
+                                                        | так ли это обстоит  у наших мужчин?
+                                                    h2 Что же на самом деле нужно нашим мужчинам
+                                                    p Может конечно они не признаются в своих самых заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему 
+                                                        strike мужчине.
+                                                        |  Как вы считаете?
+                                                    h3 Что же на самом деле нужно нашим мужчинам
+                                                    p Может конечно они не признаются в своих самых 
+                                                    // Через класс linkPost__img yправляется отображением изображения и кнопок управления 
+                                                    .linkPost.linkPost__img
+                                                        .linkPost_hold.clearfix
+                                                            .linkPost_close.ico-close4
+                                                            .linkPost_img-hold
+                                                                // Сделана карусель. Можно менять прозрачность у последователньости li-шек либо свдигать ul на 250пк по клику на стрелку. 
+                                                                ul.linkPost_img-ul.clearfix
+                                                                    li.linkPost_img-li
+                                                                        a(href="")
+                                                                            //  
+                                                                                Если фото в соотношении строн по горизонтали больше стандарта, то кадрируем (обрезаем) ширину к требуемым пропорциям.
+                                                                                Если фото больше по высоте чем стандарт, делаем превью высотою в 180 пк, поулчится ширина меньше 250 пк, изображение станет по центру.
+                                                                            img.linkPost_img(src="/new/images/example/w240-h183.jpg", alt="", height='180px')
+                                                                    li.linkPost_img-li
+                                                                        a(href="")
+                                                                            // 
+                                                                                Если фото в соотношении строн по горизонтали больше стандарта, то кадрируем (обрезаем) ширину к требуемым пропорциям.
+                                                                                Если фото больше по высоте чем стандарт, делаем превью высотою в 180 пк, поулчится ширина меньше 250 пк, изображение станет по центру.
+                                                                            img.linkPost_img(src="/new/images/example/w250-h180.jpg", alt="")
+                                                            .linkPost_in
+                                                                // Заголовок лучше обрезать чере определенное количество символов, 3 строки приблизительно 85
+                                                                a.linkPost_t(href="") Выделенные серверы под водой, буквально!? Перспективы разведения рыб в на серверах?! 88
+                                                                // Блока с описанием нет в ссылке внутри статьи
+                                                                // ссылка в 1 строку, остальное обрезается автоматически
+                                                                a.linkPost_a(href="") http://habrahabr.ru/company/ ua-hosting/blog/222669/
+                                                    p Может конечно они не признаются в своих самых 
+                                                    ul
+                                                        li Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только 
+                                                        li Письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.
+                                                    h3 Плетение из бисера кактус
+                                                    p Из бисера можно творить что угодно. Кто-то делает забавнейших животных, кто-то вышивает бисером невероятные цветы, кто-то создает бижутерию, ну а мы попробуем сплести из бисера кактусы. 
+                                                    ol
+                                                        li Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только 
+                                                        li Письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.
+                                                    p заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему
+                                                    h4 Недавно услышала такую фразу
+                                                    pre inp-valid.inp-valid__abs.error
+
+                                        .scroll_bar-hold
+                                            .scroll_bar
+                                                .scroll_bar-in
+
+
+                        +postAddRowBtns('', postAddRowBtns.a)
+
+                    // /Добавление статьи
+                // /postAdd
+
+        //- Футер не нужен
+            +layout-footer('layout-footer__in')
+
+

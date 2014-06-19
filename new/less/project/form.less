@@ -6,7 +6,18 @@
 */
 .sidebar-search {
     position: relative;
-    padding: 14px 15px 15px;
+    padding: 0 0 15px;
+
+    &__big &_itx {
+        border-color: #e5e5e5;
+        border-width: 2px;
+        padding: 10px 40px 10px 15px;
+        height: 38px;
+    }
+    &__big &_btn {
+        margin-top: -33px;
+        margin-right: 10px;
+    }
     
     &_itx {
         display: block;
@@ -45,7 +56,9 @@
     position:relative;
     cursor:pointer;
     overflow:hidden;
-
+    
+    &:hover .btn-primary:extend(.btn-primary:hover){}
+    &:hover .btn-success:extend(.btn-success:hover){}
     &_btn {
         position:relative;
         z-index:2;
@@ -141,10 +154,10 @@ textarea.error {
     &_hold {
         position: relative;
         left: -50%;
-        padding: 4px 30px;
+        padding: 4px 20px 4px 15px;
         border: 1px solid #fdb9ac;
         background: #fde3e3;
-        text-align: center;
+        text-align: left;
         font-size: 12px;
         color: #db9191;
     }
@@ -253,14 +266,17 @@ textarea.error {
 */
 .inp-valid {
     position: relative;
-    .clearfix();
-
+    &:extend(.clearfix all);
+    
+    .itx-gray:focus + &_count {color: #27ae60;}
     &.error &_error {display: inline-block;}
+    &.error &_count {color: @color-carrot !important;}
     &.error input,
     &.error .select2-choice {border-color: #fdb9ac !important;}
     &.success input,
     &.success .select2-choice {border-color: #a3e19c !important;}
     &.success &_success {display: block;}
+    &.success &_count {color: @color-green;}
     &__abs &_error {
         position: absolute;
         bottom: 100%;
@@ -277,6 +293,11 @@ textarea.error {
     &__abs &_success__ico-check {
         top: 50%;
         margin-top: -6px;
+    }
+    &__abs &_count {
+        position: absolute;
+        top: -15px;
+        right: 0;
     }
 
     &_error {
@@ -306,6 +327,14 @@ textarea.error {
     &_success{
         display: none;
     }
+    &_count {
+        float: right;
+        margin: 2px 4px;
+        font: @fontsmallest;
+        color: @color-gray;
+    }
+    &_count__green {color: #27ae60;}
+
 }
 /* /.inp-valid */
 

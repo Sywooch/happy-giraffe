@@ -8,7 +8,10 @@
     &__im,
     &__snow {background:#9b8ec9 url('@{path-img}/body-circle-candy.jpg') no-repeat 50% 0;}
     &__white {background: #fff;}
-    
+    &__bg1 {
+        background:#9b8ec9 url('@{path-img}/body__bg/img1.jpg') no-repeat 50% 0;
+        background-attachment: fixed;
+    }
 }
 
 .layout-container {
@@ -21,7 +24,8 @@
     position: relative;
     width: 960px;
     margin: 0 auto;
-
+    
+    .page-col {width: 880px;}
     &_hold {
         margin: 20px auto;
         background: #fff;
@@ -31,7 +35,16 @@
         margin: 20px auto;
     } 
 }
+.layout-loose {
+    position: relative;
+    width: 1000px;
+    margin: 0 auto;
 
+    .layout-header {margin-top: 20px;}
+    &_hold {
+        margin: 0 auto 30px;
+    }
+}
 
 // Отдельные элементы
 .heading-xxl {
@@ -65,6 +78,7 @@
     color: #111;
     font-weight: normal;
 }
+
 .a-pseudo {
     text-decoration:none;
     border-bottom: 1px dotted #2c95d6;
@@ -76,6 +90,12 @@
         text-decoration:none !important;
         border-bottom-color:transparent;
     }
+}
+.a-light {
+    text-decoration: none;
+    color: @color-link-light;
+
+    &:hover {text-decoration: underline;}
 }
 
 
@@ -98,29 +118,52 @@
     padding: 0 4px;
     background: #fff7af;
 }
+.tx-date {
+    font: @fontsmallest;
+    color: @color-gray;
+}
+.tx-hint {
+    font: @fontsmall;
+    color: @color-gray-light;
+}
 .btn-scrolltop {
     display: none;
     position: fixed;
     z-index: 15;
-    bottom: 0;
+    top: 0;
     right: 20px;
     width: 67px;
     height: 52px;
-    background-image: url('@{path-img}/btn-scrolltop.png');
+    background: url('@{path-img}/btn-scrolltop.png') -67px 0;;
     cursor: pointer;
 
-    &:hover {background-position: -67px 0;}
+    &:hover {background-position: 0 0;}
 
     @media screen and (min-width: 600px) {
         & {display: block;}
     }
-    @media screen and (min-width: 1200px) {
+    /*@media screen and (min-width: 1200px) {
         & {
             display: block;
             right: auto;
             left: 50%;
             margin-left: 500px;
         }
+    }*/
+}
+.post-arrow {
+    display: none;
+    position: fixed;
+    top: 50%;
+    right: 40px;
+    width: 62px;
+    height: 224px;
+    margin-top: -112px;
+    background: url('@{path-img}/post-arrow.png') no-repeat 0 0;
+    
+    &:hover {background-position: 0 -224px;}
+    @media screen and (min-width: 1230px) {
+        & {display: block;}
     }
 }
 // /отдельные элементы
@@ -134,11 +177,12 @@
 */
 .page-col {
     float: left;
-    width: 880px;
+    width: 920px;
     background: #fff;
-    border-radius: 10px;
+    .border-radius(10px);
     border-top-left-radius:0;
-
+    
+    .b-main_col-sidebar {margin-left: 30px;}
     &__friend &_cont {min-height: 570px;}
     &__aside-in &_hold {
         display: table-row;
@@ -148,6 +192,15 @@
         display: table-cell;
         width: 620px;
         vertical-align: top;
+    }
+    &__user {
+        margin: 5px 0 0 0;
+        .border-radius(0);
+
+        .layout-footer_hold {
+            padding: 0 20px 20px 145px;
+            background-position: 40px 0;
+        }
     }
     &_top {
         border-bottom: 1px solid #ededed;
@@ -164,6 +217,19 @@
     &_top__gray {
         background: #f0f0f0;
         border-top-right-radius: 10px;
+    }
+
+    &_top-user {
+        height: 70px;
+
+        .a-profile-bg {
+            margin-top: -5px;
+            float: right;
+        }
+    }
+    &_top-user__family {
+        padding: 25px 20px 10px;
+        height: 35px;
     }
     &_t,
     &_t-tx {
@@ -195,10 +261,13 @@
         text-decoration: none;
         color: #aeadad;
     }
-    &_cont {}
+    &_cont:after:extend(.clearfix:after) {}
     &_cont__gray {
         background: #f0f0f0;
         .border-bottom-radius(10px);
+    }
+    &_cont__in {
+        padding: 0 20px 40px;
     }
 
     &_update {
@@ -237,6 +306,50 @@
     }
 }
 /* /page-col */
+
+/* b-main */
+.b-main {
+    position: relative;
+
+    &__white {background-color: #fff;}
+
+    /* col-1 */
+    &_col-1 {
+        width:240px;
+        margin-bottom: 1px;
+        margin-left: 20px;
+        padding-right:20px;
+        float:left;
+        position: relative;
+        
+        .b-ava-large {margin-top: 0px; margin-bottom: 30px;}
+    }
+
+    &_col-12,
+    &_col-23 {
+        width:700px;
+        float:left;
+        position: relative;
+    }
+    &_cont {
+        margin: 0 20px;
+    }
+    &_col-hold {
+        &:extend(.clearfix all);
+    }
+    &_col-article {
+        float: left;
+        width: 600px;
+    }
+    &_col-sidebar {
+        float: left;
+        width: 240px;
+        margin-left: 20px;
+    }
+    &_col-sidebar:first-child {margin-left: 0;}
+
+}
+/* /b-main */
 
 /*
     Кнопки управления записи
@@ -431,106 +544,6 @@
 }
 /* /side-menu */
 
-/*
-    Заглушка 
-    cap-empty __abs     __rel   __im-b
-        cap-empty_hold
-            cap-empty_img
-            cap-empty_t
-            cap-empty_tx
-            cap-empty_tx-sub
-
-*/
-.cap-empty {
-    position: relative;
-    z-index: 100;
-    text-align: center;
-    .user-select(none);
-
-    &__abs {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        z-index: 100;
-    }
-    &__abs &_hold {
-        display: inline-block;
-        vertical-align: middle;
-        margin: 0;
-        padding: 0;
-    }
-    &__rel {}
-    &__gray {background: #e6e6e6;}
-    &__white {background: #fff;}
-    &__blue {
-        background: #4772a7;
-        background: rgba(71,114,167,.75);
-    }
-    &__blue &_tx-sub {color: #fff;}
-    
-    &__im-b {
-        text-align: left;
-    }
-    &__im-b &_img {
-        float: left;
-        margin: 0 22px 0 120px;
-    }
-    &__im-b &_t {padding-top: 12px;}
-    &__im-b &_tx-sub {color: #a0a09f;}
-
-    &__im-ava {
-        background: #c9e6fd;
-        background: rgba(187,224,252,.8);
-        .border-right-radius(10px);
-    }
-    &__im-ava .btn-green {margin-top: 8px;}
-    &__im-ava &_tx-sub {color: #a0a09f;}
-
-    &_hold {
-        font-size: 12px;
-        line-height: 16px;
-    }
-    &_img {
-        display: block;
-        height: 60px;
-        width: 60px;
-        margin: 0 auto 8px;
-        background: url('@{path-img}/base/cap-empty_img.png') no-repeat 0 0;
-    }
-    &_img__white {background-position: -60px 0;}
-    &_img__smile-gray {background-position: -120px 0;}
-    &_t {
-        margin: 5px 0;
-        color: #2d2d2d;
-        font-size: 16px;
-    }
-    &_tx {
-        margin: 0 0 5px;
-    }
-    &_tx-sub {
-        margin: 5px 0;
-        color: #b3b6b7;
-    }
-    &_abs-msg {
-        position: absolute;
-        top: 20px;
-        left: 0;
-        right: 0;
-        text-align: center;
-        margin: 0 auto;
-    }
-    &_abs-msg-hold {
-        display: inline-block;
-        padding: 4px 10px;
-        color: #171717;
-        font-size: 14px;
-        background-color: #fdf48f;
-    }
-}
-/* /cap-empty */
-
 /* 
     friend-offer 
     Блок предложения дружбы
@@ -658,7 +671,7 @@
     }
     &_tx {
         display: inline;
-        font-size: 11px;
+        font-size: 12px;
         color: #555454;
     }
 }
@@ -701,7 +714,7 @@
 /*
     Группа фильтров 
     filter-group
-        filter-group_i
+        filter-group_i  active
 */
 .filter-group {
     position: relative;
@@ -756,6 +769,88 @@
         display: inline-block;
         vertical-align: middle;
         margin: 0 4px;
+    }
+}
+
+.adv-banner {
+    margin: 0 0 20px;
+
+    &__bd {border: 1px solid #eee;}
+}
+.adv-yandex {
+    margin: 15px 15px 20px;
+}
+
+/* b-crumbs */
+.b-crumbs {
+    margin: 10px 20px 10px 30px;
+    font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
+    
+    &__s {}
+    
+    &_tx {
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 10px;
+        color: #9c9b9b;
+    }
+    &_ul {
+        .inline-block();
+        vertical-align: middle;
+    }
+    &_li {
+        .inline-block();
+        vertical-align: middle;
+        padding: 0 2px;
+
+        .ava {vertical-align: middle;}
+    }
+    &_li:after {
+        content: '>';
+        line-height: 12px;
+        .inline-block();
+        vertical-align: middle;
+        padding: 0 0 0 5px;
+        color: #cdcdcd;
+    }
+    &_li__last:after {display: none;}
+    &_last {
+        color: #f17504;
+    }
+}
+/* /b-crumbs */
+
+.custom-likes {
+    text-align: center;
+    position: relative;
+
+    &_slogan {
+        margin: 15px 0 0;
+        text-align: center;
+        font-size: 11px;
+        color: @color-gray-dark;
+    }
+    &_in {
+        margin: 5px auto 20px;
+        text-align: center;
+    }
+}
+
+.tabs-simple {
+    
+    &__inline { // vertical-align: middle;
+        .inline-block();
+        vertical-align: middle;
+
+        > li > a {padding: 0px 10px;}
+    }
+    a {
+        color: @color-gray;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: none;
+        color: @color-base;
     }
 }
 
@@ -815,10 +910,10 @@
         position: absolute;
         top: 4px;
         bottom: 4px;
-        left: 6px;
-        width: 4px;
+        right: 3px;
+        width: 3px;
         background: #b9b9b9;
-        background: rgba(0,0,0,.2);
+        background: rgba(0,0,0,.15);
         .border-radius(6px);
         -webkit-transition: all .2s linear;
         transition: all .2s linear;
@@ -862,30 +957,11 @@
 }
 /* powerTip */
 
-/* popup */
-.popup {
-    position: relative;
-    margin: 20px auto;
-
-    &__close-white .mfp-close{
-        color: #fff !important;
-    }
-/*    &__close-white .mfp-close:hover {
-        color: #eee;
-    }*/
-    &__error {
-        width: 500px;
-        .mfp-close {
-            height: 25px;
-            width: 30px;
-            line-height: 25px;
-        }
-    }
-}
-
-
-
-/* docs */
+/* 
+    docs 
+    Правила для внешнего вида документации
+    Нужно наверно вынести в отдельный файл, что б не попадали стили на www
+*/
 .docs {
     position: relative;
     margin: 0px 0;
@@ -894,10 +970,12 @@
     &_h1 {
         margin: 20px 20px;
         text-align: center;
+
     }
     &_h2 {
         margin-bottom: 10px;
         text-align: center;
+        font-size: 24px;
     }
     &_desc {
         padding: 20px 20px;

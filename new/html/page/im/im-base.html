@@ -3,13 +3,16 @@
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <!-- a-->
 <!-- b-->
+<!-- c-->
+<!-- a-->
+<!-- b-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Happy Giraffe</title>
-  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <!-- including .css-->
+  <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-  <!-- including other jade works-->
   <!-- ie8 -->
   <!--+scripts(path)-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -18,14 +21,35 @@
     
   </script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/dropdown.js"></script>
+  <script src="/new/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
   <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <!-- popup-->
+  <!-- script(src="#{path}javascript/jquery.fancybox.js")-->
   <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
+  <!-- custom select-->
+  <!-- script(src="#{path}javascript/selectize.js")-->
   <script src="/new/javascript/select2.js"></script>
+  <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/redactor/lang/ru.js"></script>
+  <script src="/new/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/new/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
   <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <!-- Базовый js (вызывается на всех страницах)-->
   <script src="/new/javascript/common.js"></script>
+  <!-- js для работы в верстке-->
   <script src="/new/javascript/common-markup.js"></script>
+  <!-- jquery-ui подключается для верстки, в yii есть аналог
+  компоненты 
+      slider 
+  -->
+  <script src="/new/javascript/jquery-ui-1.10.4.custom.js"></script>
+  <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__im">
@@ -51,12 +75,14 @@
       </script>
       <div class="header-fix">
         <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
-          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a">
+              <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
             <!-- header-drop-->
             <div class="header-drop">
               <div class="header-menu clearfix">
                 <ul class="header-menu_ul">
-                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                        <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -119,11 +145,13 @@
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
               <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
-              <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+              <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a">
+                  <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
                 <div class="header-drop">
                   <div class="header-menu clearfix">
                     <ul class="header-menu_ul">
-                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                            <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -380,127 +408,148 @@
                     <div class="scroll_scroller">
                       <div class="scroll_cont">
                         <div class="im-user-list_i clearfix active">
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Александр Богоявленский</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
                         <div class="im-user-list_i clearfix">
                           <div class="im-user-list_count">9</div>
-                          <div class="im-user-list_set"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span>
+                          <div class="im-user-list_set">
+                            <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
                             <div class="im-user-list_set-name"><a href="" class="im-user-list_set-a">Арина Поплавская</a></div>
                           </div>
                         </div>
@@ -559,7 +608,8 @@
                     </div>
                   </div>
                   <div class="im-panel_user clearfix">
-                    <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online--><a href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                    <!-- Если пользователь online .im-panel_user-status не нужнен, а в .ava .ico-status.ico-status__online-->
+                    <!-- ava--><a href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                     <div class="im-panel_hold">
                       <div class="im-panel_user-status">Был на сайте 2 мин назад</div><a href="" class="im-panel_user-name">Александр Богоявлен Богоявленский</a>
                     </div>
@@ -580,7 +630,8 @@
                       <div class="im_loader"><img src="/images/ico/ajax-loader.gif" alt="" class="im_loader-img"><span class="im_loader-tx">Загрузка ранних сообщений</span></div>
                       <!-- im-message-->
                       <div class="im-message">
-                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="im-message_ava">
+                          <!-- ava--><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="im-message_r">
                           <div class="im-message_date">Несколько секунд назад</div>
@@ -642,7 +693,8 @@
                       <!-- /im-message-->
                       <!-- im-message-->
                       <div class="im-message">
-                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="im-message_ava">
+                          <!-- ava--><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="im-message_r">
                           <div class="im-message_date">Несколько секунд назад</div>
@@ -704,7 +756,8 @@
                       <!-- /im-message-->
                       <!-- im-message-->
                       <div class="im-message">
-                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="im-message_ava">
+                          <!-- ava--><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="im-message_r">
                           <div class="im-message_date">Несколько секунд назад</div>
@@ -731,69 +784,8 @@
                       <!-- /im-message-->
                       <!-- im-message-->
                       <div class="im-message im-message__stick">
-                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
-                        </div>
-                        <div class="im-message_r">
-                          <div class="im-message_date">Несколько секунд назад</div>
-                          <div class="im-message_control">
-                            <!-- b-control-->
-                            <div class="b-control">
-                              <div class="b-control_hold">
-                                <div class="b-control_i"><span title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></span>
-                                  <div class="b-control_drop"></div>
-                                </div>
-                                <div class="b-control_i"><span title="Удалить" class="b-control_ico powertip b-control_ico__delete"></span>
-                                  <div class="b-control_drop"></div>
-                                </div>
-                                <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
-                                  <div class="tooltip-drop">
-                                    <div class="tooltip-popup">
-                                      <div class="tooltip-popup_t">Укажите вид нарушения:</div>
-                                      <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
-                                      <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
-                                      input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
-                                      | Спам или реклама
-                                      -->
-                                      <label for="" class="tooltip-popup_label clearfix">
-                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Мошенничество
-                                      </label>
-                                      <label for="" class="tooltip-popup_label clearfix">
-                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Грубость, угрозы
-                                      </label>
-                                      <label for="" class="tooltip-popup_label clearfix">
-                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Интимный характер
-                                      </label>
-                                      <label for="" class="tooltip-popup_label clearfix">
-                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Другое
-                                      </label>
-                                      <label for="" class="tooltip-popup_label clearfix">
-                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">
-                                        <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx">
-                                      </label>
-                                      <div class="clearfix textalign-c">
-                                        <button class="btn-green btn-inactive">Пожаловаться</button>
-                                        <button class="btn-gray-light">Отменить</button>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <!-- /b-control-->
-                          </div>
-                        </div>
-                        <div class="im-message_hold">
-                          <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span></div>
-                          <div class="im-message_tx">
-                            <p>Уважаемая Зося, добрый день! </p>
-                            <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- /im-message-->
-                      <!-- im-message-->
-                      <div class="im-message im-message__stick">
-                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="im-message_ava">
+                          <!-- ava--><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="im-message_r">
                           <div class="im-message_date">Несколько секунд назад</div>
@@ -855,7 +847,71 @@
                       <!-- /im-message-->
                       <!-- im-message-->
                       <div class="im-message im-message__stick">
-                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="im-message_ava">
+                          <!-- ava--><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        </div>
+                        <div class="im-message_r">
+                          <div class="im-message_date">Несколько секунд назад</div>
+                          <div class="im-message_control">
+                            <!-- b-control-->
+                            <div class="b-control">
+                              <div class="b-control_hold">
+                                <div class="b-control_i"><span title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></span>
+                                  <div class="b-control_drop"></div>
+                                </div>
+                                <div class="b-control_i"><span title="Удалить" class="b-control_ico powertip b-control_ico__delete"></span>
+                                  <div class="b-control_drop"></div>
+                                </div>
+                                <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                                  <div class="tooltip-drop">
+                                    <div class="tooltip-popup">
+                                      <div class="tooltip-popup_t">Укажите вид нарушения:</div>
+                                      <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
+                                      <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                      input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                      | Спам или реклама
+                                      -->
+                                      <label for="" class="tooltip-popup_label clearfix">
+                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Мошенничество
+                                      </label>
+                                      <label for="" class="tooltip-popup_label clearfix">
+                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Грубость, угрозы
+                                      </label>
+                                      <label for="" class="tooltip-popup_label clearfix">
+                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Интимный характер
+                                      </label>
+                                      <label for="" class="tooltip-popup_label clearfix">
+                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Другое
+                                      </label>
+                                      <label for="" class="tooltip-popup_label clearfix">
+                                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">
+                                        <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx">
+                                      </label>
+                                      <div class="clearfix textalign-c">
+                                        <button class="btn-green btn-inactive">Пожаловаться</button>
+                                        <button class="btn-gray-light">Отменить</button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /b-control-->
+                          </div>
+                        </div>
+                        <div class="im-message_hold">
+                          <div class="im-message_t"><span class="im-message_name im-message_name__self">Александр Богоявленский</span></div>
+                          <div class="im-message_tx">
+                            <p>Уважаемая Зося, добрый день! </p>
+                            <p>Прошу вас не ставить в ваши темы активные ссылки, а ставить картинки, так как правилами сайта активные ссылки на посторонние порталы запрещены, и будут удалены.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /im-message-->
+                      <!-- im-message-->
+                      <div class="im-message im-message__stick">
+                        <div class="im-message_ava">
+                          <!-- ava--><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="im-message_r">
                           <div class="im-message_date">Несколько секунд назад</div>
@@ -878,7 +934,8 @@
                       <!-- /im-message-->
                       <!-- im-message-->
                       <div class="im-message im-message__stick">
-                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="im-message_ava">
+                          <!-- ava--><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="im-message_r">
                           <div class="im-message_date">Несколько секунд назад</div>
@@ -902,7 +959,8 @@
                       <!-- /im-message-->
                       <!-- im-message-->
                       <div class="im-message im-message__stick">
-                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="im-message_ava">
+                          <!-- ava--><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="im-message_r">
                           <div class="im-message_date">Несколько секунд назад</div>
@@ -929,7 +987,8 @@
                       <!-- /im-message-->
                       <!-- im-message-->
                       <div class="im-message im-message__new im-message__stick">
-                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="im-message_ava">
+                          <!-- ava--><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="im-message_r">
                           <div class="im-message_date">Несколько секунд назад</div>
@@ -959,7 +1018,8 @@
                       <!-- /im-message-->
                       <!-- im-message-->
                       <div class="im-message">
-                        <div class="im-message_ava"><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="im-message_ava">
+                          <!-- ava--><a href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="im-message_r">
                           <div class="im-message_date">Несколько секунд назад</div>
@@ -1035,7 +1095,8 @@
               <!-- im-center_bottom-->
               <div class="im-center_bottom">
                 <div class="im-center_bottom-w clearfix">
-                  <div class="im-center_bottom-ava"><a href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                  <div class="im-center_bottom-ava">
+                    <!-- ava--><a href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                   </div>
                   <div class="im-center_bottom-hold">
                     <div class="redactor-control">

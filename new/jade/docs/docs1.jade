@@ -19,6 +19,7 @@ block layout-wrapper
                     ol
                         li Тектс списка 
                         li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    .tx-hint Текст подсказок
                 .docs_desc
                     h3.docs_h3 Заголовки
                 .docs_example.docs_example__indents
@@ -37,7 +38,7 @@ block layout-wrapper
                     br
                     a.i-more Дальше
             .docs
-                .docs_desc Выделеный текст. В поиске и т.д.
+                .docs_desc Выделеный текст. В поиске и т.д. 
                 .docs_example.docs_example__indents 
                     span.i-highlight Выделеный текст.
             .docs
@@ -51,61 +52,102 @@ block layout-wrapper
                     h2.docs_h2 Кнопки
                 .docs_example.docs_example__indents
                     .padding-b10
-                        .btn-red(disabled) Не активная кнопка
-                        .btn-gray-light(disabled) Кнопка
-                        .btn-gray-simple(disabled) Кнопка
-                        .btn-green-simple(disabled) Кнопка
-                        .btn-blue-simple(disabled) Кнопка
-                        .btn-green(disabled) Кнопка
+                        .btn.btn-default(disabled) Кнопка
+                        .btn.btn-primary(disabled) Кнопка
+                        .btn.btn-success(disabled) Кнопка
+                        //- .btn.btn-info(disabled) Кнопка
+                        .btn.btn-warning(disabled) Кнопка
+                        .btn.btn-danger(disabled) Кнопка
+                        .btn.btn-secondary(disabled) Кнопка
+                        .btn.btn-secondary(disabled) Кнопка
+                        .btn.btn-link(disabled) Кнопка
+                        .btn.btn-link-gray(disabled) Кнопка
+
                         br
                     .padding-b10
-                        .btn-red Кнопка
-                        .btn-gray-light Кнопка
-                        .btn-gray-simple Кнопка
-                        .btn-green-simple Кнопка
-                        .btn-blue-simple Кнопка
-                        .btn-green Кнопка
+                        a.btn.btn-default(href="") Кнопка
+                        a.btn.btn-primary(href="") Кнопка
+                        a.btn.btn-success(href="") Кнопка
+                        //- a.btn.btn-info(href="") Кнопка
+                        a.btn.btn-warning(href="") Кнопка
+                        a.btn.btn-danger(href="") Кнопка
+                        a.btn.btn-secondary(href="") Кнопка
+                        a.btn.btn-link(href="") Кнопка
+                        a.btn.btn-link-gray(href="") Кнопка
                         br
                     .padding-b10
-                        .btn-red.btn-s Кнопка
-                        .btn-gray-light.btn-s Кнопка
-                        .btn-gray-simple.btn-s Кнопка
-                        .btn-green-simple.btn-s Кнопка
-                        .btn-blue-simple.btn-s Кнопка
-                        .btn-green.btn-s Кнопка
+                        .btn.btn-default.btn-s Кнопка
+                        .btn.btn-primary.btn-s Кнопка
+                        .btn.btn-success.btn-s Кнопка
+                        //- .btn.btn-info.btn-s Кнопка
+                        .btn.btn-warning.btn-s Кнопка
+                        .btn.btn-danger.btn-s Кнопка
+                        .btn.btn-secondary.btn-s Кнопка
+                        .btn.btn-link.btn-s Кнопка
+                        .btn.btn-link-gray.btn-s Кнопка
                         br
                     .padding-b10
-                        .btn-red.btn-m Кнопка
-                        .btn-gray-light.btn-m Кнопка
-                        .btn-gray-simple.btn-m Кнопка
-                        .btn-green-simple.btn-m Кнопка
-                        .btn-blue-simple.btn-m Кнопка
-                        .btn-green.btn-m Кнопка
+                        .btn.btn-default.btn-m Кнопка
+                        .btn.btn-primary.btn-m Кнопка
+                        .btn.btn-success.btn-m Кнопка
+                        //- .btn.btn-info.btn-m Кнопка
+                        .btn.btn-warning.btn-m Кнопка
+                        .btn.btn-danger.btn-m Кнопка
+                        .btn.btn-secondary.btn-m Кнопка
+                        .btn.btn-link.btn-m Кнопка
+                        .btn.btn-link-gray.btn-m Кнопка
                         br
                     .padding-b10
-                        .btn-red.btn-l Кнопка
-                        .btn-gray-light.btn-l Кнопка
-                        .btn-gray-simple.btn-l Кнопка
-                        .btn-green-simple.btn-l Кнопка
-                        .btn-blue-simple.btn-l Кнопка
-                        .btn-green.btn-l Кнопка
+                        .btn.btn-default.btn-xm Кнопка
+                        .btn.btn-primary.btn-xm Кнопка
+                        .btn.btn-success.btn-xm Кнопка
+                        //- .btn.btn-info.btn-m Кнопка
+                        .btn.btn-warning.btn-xm Кнопка
+                        .btn.btn-danger.btn-xm Кнопка
+                        .btn.btn-secondary.btn-xm Кнопка
+                        .btn.btn-link.btn-xm Кнопка
+                        .btn.btn-link-gray.btn-xm Кнопка
                         br
                     .padding-b10
-                        .btn-red.btn-xl Кнопка
-                        .btn-gray-light.btn-xl Кнопка
-                        .btn-gray-simple.btn-xl Кнопка
-                        .btn-green-simple.btn-xl Кнопка
-                        .btn-blue-simple.btn-xl Кнопка
-                        .btn-green.btn-xl Кнопка
+                        .btn.btn-default.btn-l Кнопка
+                        .btn.btn-primary.btn-l Кнопка
+                        .btn.btn-success.btn-l Кнопка
+                        //- .btn.btn-info.btn-l Кнопка
+                        .btn.btn-warning.btn-l Кнопка
+                        .btn.btn-danger.btn-l Кнопка
+                        .btn.btn-secondary.btn-l Кнопка
+                        .btn.btn-link.btn-l Кнопка
+                        .btn.btn-link-gray.btn-l Кнопка
                         br
                     .padding-b10
-                        .btn-red.btn-xxl Кнопка
-                        .btn-gray-light.btn-xxl Кнопка
-                        .btn-gray-simple.btn-xxl Кнопка
-                        .btn-green-simple.btn-xxl Кнопка
-                        .btn-blue-simple.btn-xxl Кнопка
-                        .btn-green.btn-xxl Кнопка
+                        .btn.btn-default.btn-xl Кнопка
+                        .btn.btn-primary.btn-xl Кнопка
+                        .btn.btn-success.btn-xl Кнопка
+                        .btn.btn-info.btn-xl Кнопка
+                        .btn.btn-warning.btn-xl Кнопка
+                        .btn.btn-danger.btn-xl Кнопка
+                        .btn.btn-secondary.btn-xl Кнопка
+                        .btn.btn-link.btn-xl Кнопка
+                        .btn.btn-link-gray.btn-xl Кнопка
                         br
+                    .padding-b10.clearfix
+                        .w-300.float-l.margin-r10
+                            button.btn.btn-default.btn-xxl.btn-block Кнопка
+                            button.btn.btn-primary.btn-xxl.btn-block Кнопка блок
+                            button.btn.btn-success.btn-xxl.btn-block Кнопка блок
+                            button.btn.btn-warning.btn-xxl.btn-block Кнопка
+                        .w-240.float-l
+                            button.btn.btn-danger.btn-xxl.btn-block Кнопка уже
+                            button.btn.btn-secondary.btn-xxl.btn-block Кнопка
+                            button.btn.btn-link.btn-xxl.btn-block Кнопка
+                            button.btn.btn-link-gray.btn-xxl.btn-block Кнопка уже
+                        br
+                    .padding-b10
+                        .btn-group
+                            a.btn.btn-xm.btn-success Left
+                            a.btn.btn-xm.btn-success Middle
+                            a.btn.btn-xm.btn-info Middle
+                            a.btn.btn-xm.btn-primary Right
             .docs
                 .docs_desc Кнопки социальных сетей. Резиновые, занимают всю ширину родителя.
                 .docs_example.docs_example__indents 
@@ -285,8 +327,10 @@ block layout-wrapper
 
             .docs
                 .docs_desc
-                    h2.docs_h2 Семья
+                    h2.docs_h2 Семья 
                 .docs_example
+                    +bFamily('', bFamily.f2)
+                    // +bFamily('', bFamily.f5)  
                     .b-family-structure.clearfix
                         .b-family-structure_upload
                             .b-family-structure_note
@@ -478,8 +522,8 @@ block layout-wrapper
                 .docs_desc Иконки уарпвления
                     p   В кнопке spam есть выпадающий список
                 .docs_example.docs_example__indents
-                    - var bControl = ['delete', 'favorite', 'spam', 'edit', 'cancel']
-                    +b-control("position-rel", bControl)
+                    
+                    +b-control("position-rel", bControl.a)
             .docs
                 .docs_desc Иконки 
                 .docs_example.docs_example__indents
@@ -569,6 +613,16 @@ block layout-wrapper
                         +side-menu__im("side-menu__im")
                     .display-ib.margin-l20
                         +side-menu__antispam("side-menu__antispam")
+                    .display-ib.margin-l20
+                        +user-menu('', userMenu.a)
+            .docs
+                .docs_desc
+                    h2.docs_h2 Список друзей
+                .docs_example
+                    .display-ib.margin-l20
+                        .friend-list
+                            ul.friend-list_ul
+                                +friendsListItem('',friendsListItem.a)
 
 
     .docs

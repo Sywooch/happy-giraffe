@@ -4,26 +4,28 @@
         item - array
 
 mixin bFamily(mod, vars)
-    //- b-family
+    // b-family
     .b-family
+        - if (vars.title)
+            .b-family_top(class=vars.title)
         ul.b-family_ul
-            each item in vars
+            - each item in vars.items
                 li.b-family_li
                     a.b-family_a(href='')
                         span.b-family_img-hold
-                            if (item.photo)
+                            - if (item.photo)
                                 //- Размеры изображений 55*55пк 
                                 img.b-family_img(alt='', src='/images/example/w41-h49-1.jpg')
-                            else
+                            - else
                                 span.ico-family(class='ico-family__#{item.ico}')
                         span.b-family_tx
                             span 
                                 = item.kinship
-                            if (item.age)
+                            - if (item.age)
                                 br
                                 span 
                                     = item.age
-    //- b-family
+    // /b-family
 
 
 - var bFamily = {}
@@ -62,7 +64,19 @@ mixin bFamily(mod, vars)
 - bFamily.boy19.age = '19 лет'
 
 //- Сборки по количеству членов семьи
-- bFamily.f2 = [bFamily.wife, bFamily.boySmall]
-- bFamily.f3 = [bFamily.wife, bFamily.girl5, bFamily.boySmall]
-- bFamily.f4 = [bFamily.wife, bFamily.girl8, bFamily.girl5, bFamily.boySmall]
-- bFamily.f5 = [bFamily.wife, bFamily.boy19, bFamily.girl8, bFamily.girl5, bFamily.boySmall]
+- bFamily.f2 =  {}
+- bFamily.f3 =  {}
+- bFamily.f4 =  {}
+- bFamily.f5 =  {}
+- bFamily.f2.title =  false
+- bFamily.f3.title =  false
+- bFamily.f4.title =  false
+- bFamily.f5.title =  false
+- bFamily.f2.items = [bFamily.wife, bFamily.boySmall]
+- bFamily.f3.items = [bFamily.wife, bFamily.girl5, bFamily.boySmall]
+- bFamily.f4.items = [bFamily.wife, bFamily.girl8, bFamily.girl5, bFamily.boySmall]
+- bFamily.f5.items = [bFamily.wife, bFamily.boy19, bFamily.girl8, bFamily.girl5, bFamily.boySmall]
+
+- bFamily.a = {}
+- bFamily.a.title = 'b-family_top__white'
+- bFamily.a.items = bFamily.f4.items

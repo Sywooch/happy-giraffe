@@ -77,6 +77,26 @@
     
     &:hover {background-position: 0 -11px;}
 }
+.ico-close4 {
+    .inline-block();
+    width: 24px;
+    height: 24px;
+    .img-retina('@{path-img}/ico/ico-close4.png'; '@{path-img}/ico/ico-close4-2x.png'; 24px; 48px);
+    cursor: pointer;
+    
+    &:hover {background-position: 0 -24px;}
+}
+
+.ico-close5 {
+    .inline-block();
+    width: 18px;
+    height: 18px;
+    .img-retina('@{path-img}/ico/ico-close5.png'; '@{path-img}/ico/ico-close5-2x.png'; 18px; 36px);
+    cursor: pointer;
+    
+    &:hover {background-position: 0 -18px;}
+}
+
 .ico-update {
     .inline-block();
     vertical-align: middle;
@@ -89,6 +109,12 @@
     width: 20px;
     height: 18px;
     .img-retina('@{path-img}/ico/ico-check.png'; '@{path-img}/ico/ico-check-2x.png'; 20px; 18px);
+}
+.ico-check-s {
+    .inline-block();
+    width: 12px;
+    height: 11px;
+    .img-retina('@{path-img}/ico/ico-check-s.png'; '@{path-img}/ico/ico-check-c-2x.png'; 20px; 18px);
 }
 .ico-del {
     .inline-block();
@@ -139,6 +165,13 @@
     width: 20px;
     height: 20px;
     background: url('@{path-img}/ico/ico-arrow-r.png') no-repeat;
+}
+.ico-arrow-d {
+    .inline-block();
+    vertical-align: middle;
+    width: 12px;
+    height: 8px;
+    background: url('@{path-img}/ico/ico-arrow-d.png') no-repeat;
 }
 .ico-lock-big {
     .inline-block();
@@ -214,4 +247,29 @@
     height: 18px;
     margin: 0 5px;
     .img-retina('@{path-img}/ico/ico-error-smile.png'; '@{path-img}/ico/ico-error-smile-2x.png'; 18px; 18px);
+}
+.ico-plus {
+    .inline-block();
+    vertical-align: middle;
+
+    &__s {
+        width: 13px;
+        height: 13px;
+    }
+    &__s.ico-plus__white {background: url('@{path-img}/ico/ico-plus__s__white.png') no-repeat;}
+}
+.ico-users{
+    .inline-block();
+    width:40px;
+    height:30px;
+    background:url(/images/ico/ico-users.png) no-repeat;
+    vertical-align:middle;
+    margin-right:3px;
+
+    &__all          {background-position: 0 0;}
+    &__all.active,
+    &__all:hover    {background-position: 0 -30px;}
+    &__friend       {background-position: -40px 0;}
+    &__friend.active,
+    &__friend:hover {background-position: -40px -30px;}
 }

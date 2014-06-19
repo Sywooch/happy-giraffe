@@ -22,6 +22,9 @@ $(function() {
         escapeMarkup: function(m) { return m; }
     });*/
 
+    /* Инициализация скролла */
+    addBaron('.scroll');
+    
         // Измененный tag select
     $(".select-cus__search-off").select2({
         width: '100%',
@@ -92,7 +95,7 @@ $(function() {
             onlyOne: false,
             touchDevices: true,
             interactive: true,
-            contentCloning:true;
+            contentCloning:true,
             interactiveAutoClose: false,
             theme: '.tooltipster-white',
             position: 'bottom',
@@ -101,5 +104,32 @@ $(function() {
         
         $this.tooltipster('show');
     })
+
+    var pageColHeight = $(window).height() - $('.layout-header').height() - 60;
+    $('.page-col').css({'min-height': pageColHeight});
+
+   
+    $('.popup-a__add').on('mfpOpen', function(e /*, params */) {
+        addBaron('.popup .scroll');
+        
+        var albumSlider =  $(".album-slider_hold").slider({
+            min: 1,
+            max: 3,
+            value: 2,
+            
+        });
+        $( ".album-slider_tx-minus" ).click(function() {
+            sliderValue = albumSlider.slider( "value" ) - 1;
+            albumSlider.slider( "value",  sliderValue );
+        });
+        $( ".album-slider_tx-plus" ).click(function() {
+            sliderValue = albumSlider.slider( "value" ) + 1;
+            albumSlider.slider( "value",  sliderValue );
+        });
+        addBaron('.popup .scroll');
+    });
+
 });
+
+
 

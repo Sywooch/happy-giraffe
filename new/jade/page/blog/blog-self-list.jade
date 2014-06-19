@@ -1,0 +1,31 @@
+include ../../block/config
+extend ../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in.b-main
+            
+            .b-main_col-hold.clearfix
+                +userAddRecord('userAddRecord__blog', userAddRecord.b)
+                .b-main_col-article
+                    +www-article_text('b-article__list', wwwArticleText.a)
+                    +www-article_text('b-article__list', wwwArticleText.b)
+                    +pagination()
+                    
+                .b-main_col-sidebar
+                    +subscribersWidget('', subscribersWidget.a)
+                    .adv-banner.adv-banner__bd
+                        a(href="") 
+                            img(src="#{path}images/example/w240-h400.jpg", alt="")
+
+
+        +layout-footer('layout-footer__in')
+
+
+
+

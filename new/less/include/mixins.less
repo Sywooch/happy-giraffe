@@ -2,6 +2,7 @@
 // В файле все комментарии делать в less стиле // 
 // ----------------------------------------------------------
 
+
 // 1. ROOT  
 // Sizing shortcuts
 .size(@width; @height) {
@@ -38,7 +39,7 @@
     &:hover {text-decoration: underline;}
 }
 
-// пришлось добавить -mix что б отделить от подобных классов cosmetic.less с свойствами !impotant
+// пришлось добавить -mixin что б отделить от подобных классов cosmetic.less с свойствами !impotant
 .font-xs-mixin()  {font-size:9px;line-height: 11px;font-family: Tahoma, Arial, Verdana, sans-serif;}
 .font-s-mixin()   {font-size:11px;line-height: 14px;font-family: Tahoma, Arial, Verdana, sans-serif;}
 .font-n-mixin()   {font-size:12px;line-height: 1.4em;font-family:  Arial,Tahoma, Verdana, sans-serif;}
@@ -87,16 +88,17 @@ border-bottom : solid 1px @bottom-color; }
 // .box-shadow(HORIZONTAL VERTICAL BLUR COLOR)
 
 .box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
-        -webkit-box-shadow : @shadow;
-        box-shadow : @shadow; 
+    -webkit-box-shadow : @shadow;
+    box-shadow : @shadow; 
 }
 
 // .drop-shadow(HORIZONTAL, VERTICAL, BLUR, ALPHA);
 
 .drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
--webkit-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
--moz-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha); }
+    -webkit-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+    box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha); 
+}
 
 // .opacity(VALUE);
 
@@ -133,9 +135,9 @@ transform : scale(@ratio); }
 transform : skew(@x, @y); }
 
 // Transitions
-.transition(@transition) {
-    -webkit-transition: @transition;
-                    transition: @transition;
+.transition (@trans: 'all 0.3s ease') {
+    -webkit-transition: @trans;
+    transition: @trans;
 }
 .transition-property(@transition-property) {
     -webkit-transition-property: @transition-property;
@@ -157,13 +159,6 @@ transform : skew(@x, @y); }
 }
 
 // .translate(VALUE, VALUE)
-
-.translate(@x: 0, @y: 0) {
--webkit-transform : translate(@x, @y);
--moz-transform : translate(@x, @y);
--ms-transform : translate(@x, @y);
--o-transform : translate(@x, @y);
-transform : translate(@x, @y); }
 
 .translate3d(@x: 0, @y: 0, @z: 0) {
 -webkit-transform : translate(@x, @y, @z);
@@ -257,7 +252,7 @@ box-sizing : @boxsize; }
 
 // inline-block 
 .inline-block () {
-        display: inline-block;
+    display: inline-block;
 }
 
 // For image replacement
@@ -270,13 +265,25 @@ overflow : hidden; }
 // Hide from visual and speaking browsers
 
 .hidden() {
-display : none !important; 
+display : none; 
 visibility : hidden; }
 
 // Hide but maintain layout
 
 .invisible() { 
 visibility : hidden; }
+
+// Hidden but available to speaking browsers
+
+.visuallyhidden() { 
+overflow : hidden; 
+position : absolute;
+clip : rect(0 0 0 0); 
+height : 1px; 
+width : 1px;
+margin : -1px; 
+padding : 0; 
+border : 0; }
 
 // .resize(VALUE) (none, both, horizontal, vertical, inherit)
 
@@ -292,17 +299,6 @@ overflow : auto; }
 -o-user-select : @select;
 user-select : @select; }
 
-// Hidden but available to speaking browsers
-
-.visuallyhidden() { 
-overflow : hidden; 
-position : absolute;
-clip : rect(0 0 0 0); 
-height : 1px; 
-width : 1px;
-margin : -1px; 
-padding : 0; 
-border : 0; }
 
 // border-radius(VALUE);
 .border-radius (@radius: 5px) {
@@ -325,14 +321,6 @@ border : 0; }
     border-bottom-left-radius: @radius;
          border-top-left-radius: @radius;
 }
-
-// CSS ANIMATION 
-// transition ()
-.transition (@trans: 'all 0.3s ease') {
-        -webkit-transition: @trans;
-        transition: @trans;
-}
-
 
 // Retina images
 //

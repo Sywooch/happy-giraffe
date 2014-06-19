@@ -148,6 +148,13 @@ block layout-wrapper
                             a.btn.btn-xm.btn-success Middle
                             a.btn.btn-xm.btn-info Middle
                             a.btn.btn-xm.btn-primary Right
+                .docs_example.docs_example__indents
+                    .docs_row
+                        +postAddRowBtns('', postAddRowBtns.a)
+                    .docs_row
+                        +postAddRowBtns('', postAddRowBtns.b)
+                    .docs_row
+                        +postAddRowBtns('', postAddRowBtns.c)
             .docs
                 .docs_desc Кнопки социальных сетей. Резиновые, занимают всю ширину родителя.
                 .docs_example.docs_example__indents 
@@ -598,9 +605,28 @@ block layout-wrapper
                         .w-240
                             +sidebar-search('', {placeholder: 'Введите текст'})
             .docs
-                .docs_desc Табы управления страницы
+                .docs_desc Табы управления
                 .docs_example
                     +page-col_top-tabs('', {tabActive: 0, tabsTexts:['Все друзья 128', 'Друзья онлайн 12', 'Новые друзья 6'], sidebarSearch: true})
+                .docs_example
+                    span.margin-l20 Табы в 
+                        a(href="") строку 
+                    ul.tabs-simple.tabs-simple__inline.nav.nav-tabs
+                        li.active
+                            a(href="#photo-tab-computer", data-toggle="tab") С компьютера
+                        li
+                            a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
+                        li
+                            a(href="#photo-tab-link", data-toggle="tab") Из интернета
+                    | продолжение строки
+                .docs_example
+                    ul.tabs-simple.nav.nav-tabs
+                        li.active
+                            a(href="#photo-tab-computer", data-toggle="tab") С компьютера
+                        li
+                            a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
+                        li
+                            a(href="#photo-tab-link", data-toggle="tab") Из интернета 
             .docs
                 .docs_desc Пагинация на странице
                 .docs_example
@@ -638,11 +664,24 @@ block layout-wrapper
                         +iPhoto("i-photo__error", iPhoto.error)
             .docs
                 .docs_desc
-                    h2.docs_h2 Добавить контент 
-                .docs_example
-                    +userAddRecord('userAddRecord__add', userAddRecord.a)
-                    +userAddRecord('userAddRecord__add', userAddRecord.b)
-                    +userAddRecord('userAddRecord__add', userAddRecord.c)
+                    h2.docs_h2 Добавить контент  
+                .docs_example.docs_example__indents
+                    .docs_row
+                        .b-main.clearfix
+                            .b-main_col-23
+                                +userAddRecord('', userAddRecord.a)
+                    .docs_row
+                        +userAddRecord('userAddRecord__blog', userAddRecord.b)
+                    .docs_row
+                        +userAddRecord('userAddRecord__add', userAddRecord.c)
+            .docs
+                .docs_desc
+                    h2.docs_h2 Поиск 
+                .docs_example.docs_example__indents
+                    .docs_row
+                        .b-main.clearfix
+                            .b-main_col-23
+                                +userAddRecord('', userAddRecord.a)
 
 
     .docs

@@ -2673,6 +2673,7 @@ input[type="button"].btn-block {
 .docs_h2 {
   margin-bottom: 10px;
   text-align: center;
+  font-size: 24px;
 }
 .docs_desc {
   padding: 20px 20px;
@@ -8955,6 +8956,9 @@ html[dir="rtl"] .select2-search-choice-close {
   height: 57px;
   border-top-right-radius: 10px;
 }
+.aside-filter_top .sidebar-search {
+  padding: 12px 20px 0;
+}
 .aside-filter_hold {
   padding: 5px 20px 15px;
 }
@@ -14825,7 +14829,7 @@ body.gallery {
   margin-left: 5px;
 }
 .userAddRecord__s .userAddRecord_ico {
-  margin: 5px 32px;
+  margin: 5px 22px;
 }
 .userAddRecord__s .userAddRecord_hold {
   float: right;
@@ -14862,7 +14866,7 @@ body.gallery {
   background: url('/new/images/userAddRecord__blog-after.png') no-repeat;
 }
 .userAddRecord__blog .userAddRecord_ico {
-  margin: 7px 34px 5px;
+  margin: 7px 24px 5px;
 }
 .userAddRecord__add {
   margin: 15px 0 20px;

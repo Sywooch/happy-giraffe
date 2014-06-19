@@ -12,6 +12,11 @@ use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
 
 class UploadController extends \HController
 {
+    public function actionForm()
+    {
+        $this->render('form');
+    }
+
     public function actionUpload()
     {
         $this->render('upload');

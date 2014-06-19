@@ -242,7 +242,10 @@ class CookRecipe extends HActiveRecord implements IPreview
             'duplicate'=>array(
                 'class' => 'site.common.behaviors.DuplicateBehavior',
                 'error_text' => 'Вы только что создали рецепт с таким названием'
-            )
+            ),
+            'yandexwm' => array(
+                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
+            ),
         );
     }
 

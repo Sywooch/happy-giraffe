@@ -137,19 +137,22 @@ class SeoYandexOriginalText extends \CActiveRecord
     {
         return array(
             'pending' => array(
-                'condition' => 'added IS NOT NULL',
+                'condition' => 'added IS NULL',
                 'order' => 'priority DESC, id DESC',
                 'limit' => 100,
             ),
         );
     }
 
-    public static function getAttributesByModel(\HActiveRecord $contentModel, $priority = 0)
+    /**
+     * @param \HActiveRecord|\IPreview $contentModel
+     */
+    public static function getAttributesByModel(\HActiveRecord $contentModel)
     {
         return array(
             'entity' => $contentModel->getEntityName(),
             'entity_id' => $contentModel->primaryKey,
-            'text' => $contentModel->text,
+            'full_text' => strip_tags($contentModel->getPreviewText()),
         );
     }
 }

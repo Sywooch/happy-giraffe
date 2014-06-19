@@ -25,6 +25,6 @@ class BlogContent extends CommunityContent
 
     public function getEntityName()
     {
-        return parent::getEntityName();
+        return get_parent_class();
     }
 }

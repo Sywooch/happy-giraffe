@@ -13,10 +13,23 @@ use site\frontend\modules\seo\models\SeoYandexOriginalText;
 
 class YandexOriginalTextBehavior extends \CActiveRecordBehavior
 {
-    protected function afterSave($event)
+    public $roles = array('commentator', 'tester');
+
+    public function afterSave($event)
     {
-        $data = SeoYandexOriginalText::getAttributesByModel($this->owner);
-        \Yii::app()->gearman->client()->doBackground('processOriginalText', serialize($data));
+        $toAdd = false;
+
+        foreach ($this->roles as $role) {
+            if (\Yii::app()->user->checkAccess($role)) {
+                $toAdd = true;
+                break;
+            }
+        }
+
+        if ($this->owner->isNewRecord && $toAdd) {
+            $data = SeoYandexOriginalText::getAttributesByModel($this->owner);
+            \Yii::app()->gearman->client()->doBackground('processOriginalText', serialize($data));
+        }
 
         return parent::afterSave($event);
     }

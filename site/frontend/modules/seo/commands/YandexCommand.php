@@ -27,6 +27,9 @@ class YandexCommand extends \CConsoleCommand
 
     public function actionIndex()
     {
+        echo '123';
+        die;
+
         $models = SeoYandexOriginalText::model()->pending()->findAll();
 
         echo count($models);

@@ -33,6 +33,35 @@
 }
 /* /logo */
 
+
+.header-banner-728-90 {
+    width: 728px;
+    height: 90px;
+    margin-top: 10px;
+    margin-left: -4px;
+}
+
+/* 
+    Ссылки логина и регастрации в шапке у незарегестрированного пользователя
+    header-login
+        &_a
+*/
+.header-login {
+    text-align: right;
+
+    &_a {
+        .inline-block();
+        margin: 0 0 0 15px;
+        color: @color-gray;
+        text-decoration: none;
+    }
+    &_a:hover {
+        color: @color-link;
+        text-decoration: underline;
+    }
+}
+/* /header-login */
+
 /* 
     header 
     Главная шапка сайта
@@ -93,7 +122,6 @@
     &_user-name:hover {text-decoration: underline;}
     &_i-arrow {
         display: inline-block;
-        vertical-align: middle;
         width: 12px;
         height: 8px;
         margin: 0 0 0 4px;
@@ -126,7 +154,7 @@
         position: relative;
         .inline-block();
         vertical-align: top;
-        margin: 0 18px;
+        margin: 0 12px;
         text-align: center;
     }
     &_li__dropin &_a:hover &_ico,
@@ -162,6 +190,10 @@
         color: #808080;
         text-decoration: none;
     }
+    &_li__dropin {
+        margin-left: 0;
+        margin-right: 0;
+    }
     &_li__dropin.active .header-drop {display: block;}
     &_a {
         width: 76px;
@@ -170,7 +202,7 @@
         text-decoration: none;
         text-align: center;
     }
-    &_a:hover .header_i-arrow {background-position: 0 -8px;}
+    /*&_a:hover .header_i-arrow {background-position: 0 -8px;}*/
     &_ico {
         position: relative;
         display: block;
@@ -340,7 +372,7 @@
         width: 90px;
         position: relative;
         z-index: 5;
-        margin: 14px 1.57% 0 0;
+        margin: 10px 2% 0 0;
         text-align: center;
         .ava {
             vertical-align: middle;

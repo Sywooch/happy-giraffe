@@ -7,15 +7,19 @@
 @import "/project/aside-filter.less";
 @import "/project/comments.less";
 @import "/project/favorites.less";
-@import "/project/find-friend.less";
+/*
+@import "/project/find-friend.less";*/
 @import "/project/friends-list.less";
-/*@import "/project/im.less";*/
+/*@import "/project/im.less";
+// onair прямой эфир в фиксированном блоке скраю сайта
 @import "/project/onair.less";
-@import "../redactor/redactor.less";
+*/
 @import "/project/redactor.hg.less";
+@import "/project/sidebar.less";
 @import "/project/start-page.less";
 @import "/project/social.less";
 @import "/project/user-notice.less";
+@import "../redactor/redactor.less";
 /*@import "/project/vacancy.less";*/
 
 // new 
@@ -45,7 +49,7 @@
 
 
 
-/* not use
+/* not use 
 @import "/project/sections.less";
 
 */
@@ -1241,7 +1245,7 @@ table.fr_recipe_tb td { width: 50%;}
     &__smallest .favorites-add-popup {left: 35px;top: -13px;}
 
     &__self &_ico__like:hover {background-position: 0 0;}
-    &__self &_ico__repost:hover {background-position: -200px 0;}
+    &__self &_ico__repost:hover {background-position: -200px -10px; }
     &__self .favorites-control_a:hover {background-position: -400px 0;}
 
     &_i {
@@ -3814,6 +3818,13 @@ table.fr_recipe_tb td { width: 50%;}
         line-height: 34px;
         color: #919090;
     }
+    &_label__long {
+        float: none;
+        .inline-block();
+        vertical-align: middle;
+        line-height: 22px;
+        width: 90%; 
+    }
     &_label-row {
         color: #111;
         margin: 10px 0 10px;
@@ -4166,20 +4177,20 @@ table.fr_recipe_tb td { width: 50%;}
 
     &__zyrtek {background-color: #fff;}
     &__zyrtek &_banner-top {
-        background: url('/images/branding/zyrtek/theme_banner-top-1024.jpg') no-repeat 50% 0;
+        background: url('/images/branding/zyrtek/theme_banner-top-1024.jpg?1') no-repeat 50% 0;
     }
     @media screen and (min-width: 1310px) {
         &__zyrtek &_banner-top {
             margin-right: 140px;
             padding-left: 140px;
-            background: url('/images/branding/zyrtek/theme_banner-top-1320.jpg') no-repeat 50% 0;
+            background: url('/images/branding/zyrtek/theme_banner-top-1320.jpg?1') no-repeat 50% 0;
         }  
-    }
+    } 
     @media screen and (min-width: 1450px) {
         &__zyrtek &_banner-top {
             margin-right: 140px;
             padding-left: 140px;
-            background: url('/images/branding/zyrtek/theme_banner-top-1920.jpg') no-repeat 50% 0;
+            background: url('/images/branding/zyrtek/theme_banner-top-1920.jpg?1') no-repeat 50% 0;
         }  
     }
     
@@ -4187,6 +4198,10 @@ table.fr_recipe_tb td { width: 50%;}
     &_banner-top object {
         display: block;
         margin: 0 auto;
+    }
+    &_banner-top-hold {
+        width: 1000px;
+        margin: 0 auto; 
     }
 }
 
@@ -4320,6 +4335,78 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /clearblue */
+
+/* hainz-fruit-game */
+.hainz-fruit-game {
+    position: relative;
+    width: 1000px;
+    height: 320px;
+    background: url('/images/branding/hainz/play-game/hainz-1000.jpg') no-repeat;
+
+    &_bank1 {
+        position: absolute;
+        top: 134px;
+        left: 440px;
+        width: 75px;
+        height: 111px;
+        background: url('/images/branding/hainz/play-game/bank1.png') no-repeat;
+    }
+    &_bank1:hover,
+    &_bank2:hover,
+    &_bank3:hover {
+        -webkit-animation-name: thumb;
+        -webkit-animation-duration: 200ms;
+        -webkit-transform-origin:50% 50%;
+        -webkit-animation-iteration-count: 2;
+        -webkit-animation-timing-function: linear;
+    }
+    &_bank2 {
+        position: absolute;
+        top: 102px;
+        left: 581px;
+        width: 75px;
+        height: 140px;
+        background: url('/images/branding/hainz/play-game/bank2.png') no-repeat;
+    }
+    &_bank3 {
+        position: absolute;
+        top: 108px;
+        left: 731px;
+        width: 136px;
+        height: 137px;
+        background: url('/images/branding/hainz/play-game/bank3.png') no-repeat;
+    }
+    &_arrow {
+        position: absolute;
+        top: 151px;
+        left: 522px;
+        width: 53px;
+        height: 50px;
+        background: url('/images/branding/hainz/play-game/arrow.png') no-repeat;
+    }
+    &_arrow:hover {background-position: 0 -50px;}
+    &_arrow__2 {
+        left: 670px;
+    }
+    &_btn {
+        position: absolute;
+        top: 261px;
+        left: 659px;
+        width: 233px;
+        height: 44px;
+        background: url('/images/branding/hainz/play-game/btn.png') no-repeat;
+    }
+    &_btn:hover {background-position: 0 -44px;}
+
+}
+@-webkit-keyframes thumb {
+    0% { -webkit-transform: scale(1); }
+    50% { -webkit-transform: scale(0.9); }
+    100% { -webkit-transform: scale(1); }
+}
+
+/* /hainz-fruit-game */
+ 
 /* /branding pages*/
 
 /* such-post */

@@ -30,11 +30,11 @@ class YandexCommand extends \CConsoleCommand
         $models = SeoYandexOriginalText::model()->pending()->findAll();
 
         foreach ($models as $model) {
+            echo $model->id;
+
             if ($this->original->add($model)) {
-                echo '1';
                 $model->save();
             } else {
-                echo '0';
                 break;
             }
         }

@@ -76,15 +76,26 @@
               <li>Тектс списка </li>
               <li>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</li>
             </ol>
-            <div class="tx-hint">Текст подсказок</div>
+            <div class="tx-content">
+              <p>Самый обычный абзац. В статьях и т.д.</p>
+              <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
+            </div>
+            <div class="docs_row">
+              <div class="tx-hint">Текст подсказок</div>
+            </div>
+            <div class="docs_row">
+              <div class="tx-date">Текст даты</div>
+            </div>
           </div>
           <div class="docs_desc">
             <h3 class="docs_h3">Заголовки</h3>
           </div>
           <div class="docs_example docs_example__indents">
-            <div class="heading-xxl">.heading-h1</div>
+            <div class="heading-xxl">.heading-xxl</div>
+            <div class="heading-xl">.heading-xl</div>
             <div class="heading-small">.heading-small</div>
-            <div class="heading-smallest">.heading-smallest</div><a class="heading-link-xxl">.heading-link-xxl</a><br><a class="heading-link-xl">.heading-link-xl</a>
+            <div class="heading-xs">.heading-smallest</div><a class="heading-link-xxl">Заголовок большой ссылка в строку</a><br>
+            <div class="heading-link-xl">Заголовок в списке статей </div>
           </div>
           <div class="docs_desc">
             <h2 class="docs_h2">Ссылки</h2>
@@ -927,25 +938,6 @@
           </div>
         </div>
         <div class="docs">
-          <div class="docs_desc">Тянущийся поиск. Преняется в сайдбарах</div>
-          <div class="docs_example docs_example__indents">
-            <div class="sidebar-search clearfix">
-              <input type="text" name="" placeholder="Введите текст" class="sidebar-search_itx">
-              <!-- При начале ввода добавить класс .active на кнопку-->
-              <button class="sidebar-search_btn"></button>
-            </div>
-            <div class="docs_row">
-              <div class="w-240">
-                <div class="sidebar-search clearfix">
-                  <input type="text" name="" placeholder="Введите текст" class="sidebar-search_itx">
-                  <!-- При начале ввода добавить класс .active на кнопку-->
-                  <button class="sidebar-search_btn"></button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="docs">
           <div class="docs_desc">Табы управления</div>
           <div class="docs_example">
             <div class="page-col_top page-col_top__gray">
@@ -1287,9 +1279,16 @@
           </div>
           <div class="docs_example docs_example__indents">
             <div class="docs_row">
+              <div class="sidebar-search clearfix">
+                <input type="text" name="" placeholder="Введите текст" class="sidebar-search_itx">
+                <!-- При начале ввода добавить класс .active на кнопку-->
+                <button class="sidebar-search_btn"></button>
+              </div>
+            </div>
+            <div class="docs_row">
               <div class="b-main clearfix">
                 <div class="b-main_col-1">
-                  <div class="sidebar-search clearfix sidebar-search__big">
+                  <div class="sidebar-search clearfix">
                     <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx">
                     <!-- При начале ввода добавить класс .active на кнопку-->
                     <button class="sidebar-search_btn"></button>
@@ -1300,7 +1299,7 @@
             <div class="docs_row">
               <div class="b-main clearfix">
                 <div class="b-main_col-1">
-                  <div class="sidebar-search clearfix">
+                  <div class="sidebar-search clearfix sidebar-search__big">
                     <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx">
                     <!-- При начале ввода добавить класс .active на кнопку-->
                     <button class="sidebar-search_btn"></button>
@@ -1477,10 +1476,7 @@
             </div>
             <div class="header-fix-menu">
               <ul class="header-menu_ul clearfix">
-                <!-- li.header-fix-menu_li
-                a.header-fix-menu_a(href='')
-                    span.header-fix-menu_tx прямой эфир
-                -->
+                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a></li>
                 <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
                 <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
                 <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>

@@ -1623,24 +1623,10 @@ input[type="button"].btn-block {
   font-size: 40px;
   color: #333333;
 }
-.heading-link-xxl {
-  margin: 15px 0;
-  font-size: 30px;
-  font-weight: bold;
-  color: #196eb9;
-}
-.heading-link-xl {
+.heading-xl {
   margin: 15px 0;
   font-size: 25px;
-  font-weight: bold;
-  color: #196eb9;
-}
-.heading-smallest {
-  margin: 0;
-  font-size: 14px;
-  line-height: 16px;
-  color: #3d3d3d;
-  font-weight: normal;
+  color: #333333;
 }
 .heading-small {
   margin: 0;
@@ -1648,6 +1634,38 @@ input[type="button"].btn-block {
   line-height: 22px;
   color: #111;
   font-weight: normal;
+}
+.heading-xs {
+  margin: 0;
+  font-size: 14px;
+  line-height: 16px;
+  color: #3d3d3d;
+  font-weight: normal;
+}
+.heading-link-xxl {
+  display: inline-block;
+  margin: 15px 0;
+  font-size: 45px;
+  line-height: 50px;
+  font-weight: bold;
+  color: #196eb9;
+  text-decoration: none;
+  letter-spacing: -0.6px;
+}
+a.heading-link-xl:hover,
+a.heading-link-xxl:hover {
+  text-decoration: underline;
+}
+.heading-link-xl,
+.b-article_t {
+  display: inline-block;
+  margin: 15px 0;
+  font-size: 35px;
+  line-height: 38px;
+  font-weight: bold;
+  color: #196eb9;
+  text-decoration: none;
+  letter-spacing: -0.6px;
 }
 .a-pseudo {
   text-decoration: none;
@@ -1684,6 +1702,12 @@ input[type="button"].btn-block {
 .i-highlight {
   padding: 0 4px;
   background: #fff7af;
+}
+.tx-content,
+.wysiwyg-content {
+  font-size: 14px;
+  line-height: 19px;
+  color: #666666;
 }
 .tx-date {
   font: 9px/11px Tahoma, Arial, Verdana, sans-serif;
@@ -9432,6 +9456,7 @@ html[dir="rtl"] .select2-search-choice-close {
 }
 .b-article__single .b-article_t {
   font-size: 45px;
+  line-height: 50px;
 }
 .b-article__single .b-article_cont-tale {
   display: none;
@@ -9552,9 +9577,6 @@ html[dir="rtl"] .select2-search-choice-close {
 }
 .b-article_t {
   margin: 0 15px 15px;
-  font: bold 35px/35px Arial, Tahoma, Verdana, sans-serif;
-  color: #196eb9;
-  letter-spacing: -0.6px;
 }
 .b-article_t-a {
   color: #196eb9;
@@ -9583,9 +9605,6 @@ html[dir="rtl"] .select2-search-choice-close {
 /* wysiwyg-content  */
 .wysiwyg-content {
   padding: 0;
-  font-size: 14px;
-  line-height: 19px;
-  color: #666666;
   word-wrap: break-word;
 }
 .wysiwyg-content p {

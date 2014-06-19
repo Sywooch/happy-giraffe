@@ -52,24 +52,10 @@
     font-size: 40px;
     color: @color-base;
 }
-.heading-link-xxl {
-    margin: 15px 0;
-    font-size: 30px;
-    font-weight: bold;
-    color: @color-link-title;
-}
-.heading-link-xl {
-    margin: 15px 0;
+.heading-xl {
+    margin: 15px 0; // Можно изменить на необходимый
     font-size: 25px;
-    font-weight: bold;
-    color: @color-link-title;
-}
-.heading-smallest {
-    margin: 0;
-    font-size: 14px;
-    line-height: 16px;
-    color: #3d3d3d;
-    font-weight: normal;
+    color: @color-base;
 }
 .heading-small {
     margin: 0;
@@ -77,6 +63,35 @@
     line-height: 22px;
     color: #111;
     font-weight: normal;
+}
+.heading-xs {
+    margin: 0;
+    font-size: 14px;
+    line-height: 16px;
+    color: #3d3d3d;
+    font-weight: normal;
+}
+.heading-link-xxl {
+    .inline-block();
+    margin: 15px 0;
+    font-size: 45px;
+    line-height: 50px;
+    font-weight: bold;
+    color: @color-link-title;
+    text-decoration: none;
+    letter-spacing: -0.6px;
+}
+a.heading-link-xl:hover,
+a.heading-link-xxl:hover {text-decoration: underline;}
+.heading-link-xl {
+    .inline-block();
+    margin: 15px 0;
+    font-size: 35px;
+    line-height: 38px;
+    font-weight: bold;
+    color: @color-link-title;
+    text-decoration: none;
+    letter-spacing: -0.6px;
 }
 
 .a-pseudo {
@@ -117,6 +132,11 @@
 .i-highlight {
     padding: 0 4px;
     background: #fff7af;
+}
+.tx-content {
+    font-size: 14px;
+    line-height: 19px;
+    color: @color-gray-dark;
 }
 .tx-date {
     font: @fontsmallest;

@@ -49,7 +49,10 @@
         vertical-align: top;
         margin-bottom: 10px;
     }
-    &__single &_t {font-size: 45px;}
+    &__single &_t {
+        font-size: 45px;
+        line-height: 50px;
+    }
     &__single &_cont-tale {display: none;}
     /* /new */
 
@@ -142,9 +145,7 @@
     }
     &_t {
         margin: 0 15px 15px;
-        font: bold 35px/35px Arial, Tahoma, Verdana, sans-serif;
-        color: #196eb9;
-        letter-spacing: -0.6px;
+        &:extend(.heading-link-xl);
     }
     &_t-a {
         color: #196eb9;
@@ -272,10 +273,8 @@
 /* wysiwyg-content  */
 .wysiwyg-content {
     padding: 0;
-    font-size: 14px;
-    line-height: 19px;
-    color: @color-gray-dark;
     word-wrap: break-word;
+    &:extend(.tx-content);
 
     p {margin: 0 0 10px;}
     img {

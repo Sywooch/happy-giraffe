@@ -19,16 +19,23 @@ block layout-wrapper
                     ol
                         li Тектс списка 
                         li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
-                    .tx-hint Текст подсказок
+                    .tx-content
+                        p Самый обычный абзац. В статьях и т.д.
+                        p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    .docs_row
+                        .tx-hint Текст подсказок
+                    .docs_row
+                        .tx-date Текст даты
                 .docs_desc
                     h3.docs_h3 Заголовки
                 .docs_example.docs_example__indents
-                    .heading-xxl .heading-h1
+                    .heading-xxl .heading-xxl
+                    .heading-xl .heading-xl
                     .heading-small .heading-small
-                    .heading-smallest .heading-smallest
-                    a.heading-link-xxl .heading-link-xxl
+                    .heading-xs .heading-smallest
+                    a.heading-link-xxl Заголовок большой ссылка в строку
                     br
-                    a.heading-link-xl .heading-link-xl
+                    .heading-link-xl Заголовок в списке статей 
                 .docs_desc
                     h2.docs_h2 Ссылки
                 .docs_example.docs_example__indents
@@ -598,13 +605,6 @@ block layout-wrapper
                     .docs_row
                         +b-user('',{signpost: false})
             .docs
-                .docs_desc Тянущийся поиск. Преняется в сайдбарах
-                .docs_example.docs_example__indents
-                    +sidebar-search('', {placeholder: 'Введите текст'})
-                    .docs_row
-                        .w-240
-                            +sidebar-search('', {placeholder: 'Введите текст'})
-            .docs
                 .docs_desc Табы управления
                 .docs_example
                     +page-col_top-tabs('', {tabActive: 0, tabsTexts:['Все друзья 128', 'Друзья онлайн 12', 'Новые друзья 6'], sidebarSearch: true})
@@ -679,14 +679,15 @@ block layout-wrapper
                     h2.docs_h2 Поиск 
                 .docs_example.docs_example__indents
                     .docs_row
-                        .b-main.clearfix
-                            .b-main_col-1
-                                +sidebar-search('sidebar-search__big', {placeholder: 'Поиск'})
+                        +sidebar-search('', {placeholder: 'Введите текст'})
                     .docs_row
                         .b-main.clearfix
                             .b-main_col-1
                                 +sidebar-search('', {placeholder: 'Поиск'})
-
+                    .docs_row
+                        .b-main.clearfix
+                            .b-main_col-1
+                                +sidebar-search('sidebar-search__big', {placeholder: 'Поиск'})
 
     .docs
         .layout-wrapper

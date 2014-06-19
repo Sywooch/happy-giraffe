@@ -33,7 +33,6 @@ class PhotoCreate extends Photo
             } else {
                 $typeToExtension = array(IMAGETYPE_JPEG => 'jpg', IMAGETYPE_GIF => 'gif', IMAGETYPE_PNG => 'png');
                 $this->fs_name = $this->generateFsName() . '.' . $typeToExtension[$type];
-                copy($this->path, $this->getOriginalPath());
                 $this->save();
             }
         } catch (\Exception $e) {

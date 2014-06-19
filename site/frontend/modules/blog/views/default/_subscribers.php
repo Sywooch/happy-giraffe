@@ -1,12 +1,17 @@
 <div class="readers2" id="subscription-info">
-    <?php if (Yii::app()->user->id != $this->user->id):?>
-        <!-- ko if: isSubscribed() -->
-        <a href="" class="btn-green btn-medium" data-bind="click:toggleSubscription">Отписаться</a>
-        <!-- /ko -->
-        <!-- ko if: !isSubscribed() -->
-        <a href="" class="btn-green btn-medium" data-bind="click:toggleSubscription">Подписаться</a>
-        <!-- /ko -->
-    <?php endif ?>
+    <?php if (Yii::app()->user->isGuest): ?>
+        <a class="btn-green btn-medium popup-a" href="#registerWidget" >Подписаться</a>
+    <?php else: ?>
+    
+        <?php if (Yii::app()->user->id != $this->user->id):?>
+            <!-- ko if: isSubscribed() -->
+            <a href="" class="btn-green btn-medium" data-bind="click:toggleSubscription">Отписаться</a>
+            <!-- /ko -->
+            <!-- ko if: !isSubscribed() -->
+            <a href="" class="btn-green btn-medium" data-bind="click:toggleSubscription">Подписаться</a>
+            <!-- /ko -->
+        <?php endif ?>
+    <?php endif; ?>
 
     <ul class="readers2_ul clearfix">
         <?php $subscribers = UserBlogSubscription::model()->getSubscribers($this->user->id, 6); ?>

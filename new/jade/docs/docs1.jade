@@ -680,8 +680,12 @@ block layout-wrapper
                 .docs_example.docs_example__indents
                     .docs_row
                         .b-main.clearfix
-                            .b-main_col-23
-                                +userAddRecord('', userAddRecord.a)
+                            .b-main_col-1
+                                +sidebar-search('sidebar-search__big', {placeholder: 'Поиск'})
+                    .docs_row
+                        .b-main.clearfix
+                            .b-main_col-1
+                                +sidebar-search('', {placeholder: 'Поиск'})
 
 
     .docs

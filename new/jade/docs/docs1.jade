@@ -327,10 +327,39 @@ block layout-wrapper
 
             .docs
                 .docs_desc
-                    h2.docs_h2 Семья 
+                    h2.docs_h2 Семья
+                .docs_desc Иконки семьи
+                .docs_example.docs_example__indents
+                    .docs_row
+                        .ico-family.ico-family__baby-plan.margin-r10
+                        .ico-family.ico-family__baby.margin-r10   
+                        .ico-family.ico-family__baby-two.margin-r10 
+                        .ico-family.ico-family__boy-wait.margin-r10 
+                        .ico-family.ico-family__girl-wait.margin-r10 
+                        .ico-family.ico-family__boy-small.margin-r10 
+                        .ico-family.ico-family__girl-small.margin-r10 
+                        .ico-family.ico-family__boy-3.margin-r10 
+                        .ico-family.ico-family__girl-3.margin-r10 
+                        .ico-family.ico-family__boy-5.margin-r10 
+                        .ico-family.ico-family__girl-5.margin-r10 
+                        .ico-family.ico-family__boy-8.margin-r10 
+                        .ico-family.ico-family__girl-8.margin-r10 
+                        .ico-family.ico-family__boy-14.margin-r14 
+                        .ico-family.ico-family__girl-14.margin-r14 
+                        .ico-family.ico-family__boy-19.margin-r19 
+                        .ico-family.ico-family__girl-19.margin-r19 
+                        .ico-family.ico-family__fiance.margin-r19 
+                        .ico-family.ico-family__bride.margin-r19 
+                        .ico-family.ico-family__husband.margin-r19 
+                        .ico-family.ico-family__wife.margin-r19 
+                        .ico-family.ico-family__boy.margin-r19 
+                        .ico-family.ico-family__girl.margin-r19
+                
+                .docs_example.docs_example__indents
+
+                    .display-ib
+                        +bFamily('', bFamily.f5)
                 .docs_example
-                    +bFamily('', bFamily.f2)
-                    // +bFamily('', bFamily.f5)  
                     .b-family-structure.clearfix
                         .b-family-structure_upload
                             .b-family-structure_note
@@ -555,33 +584,6 @@ block layout-wrapper
                     .docs_row
                         .ico-error-smile
             .docs
-                .docs_desc Иконки семьи
-                .docs_example.docs_example__indents
-                    .docs_row
-                        .ico-family.ico-family__baby-plan.margin-r10
-                        .ico-family.ico-family__baby.margin-r10   
-                        .ico-family.ico-family__baby-two.margin-r10 
-                        .ico-family.ico-family__boy-wait.margin-r10 
-                        .ico-family.ico-family__girl-wait.margin-r10 
-                        .ico-family.ico-family__boy-small.margin-r10 
-                        .ico-family.ico-family__girl-small.margin-r10 
-                        .ico-family.ico-family__boy-3.margin-r10 
-                        .ico-family.ico-family__girl-3.margin-r10 
-                        .ico-family.ico-family__boy-5.margin-r10 
-                        .ico-family.ico-family__girl-5.margin-r10 
-                        .ico-family.ico-family__boy-8.margin-r10 
-                        .ico-family.ico-family__girl-8.margin-r10 
-                        .ico-family.ico-family__boy-14.margin-r14 
-                        .ico-family.ico-family__girl-14.margin-r14 
-                        .ico-family.ico-family__boy-19.margin-r19 
-                        .ico-family.ico-family__girl-19.margin-r19 
-                        .ico-family.ico-family__fiance.margin-r19 
-                        .ico-family.ico-family__bride.margin-r19 
-                        .ico-family.ico-family__husband.margin-r19 
-                        .ico-family.ico-family__wife.margin-r19 
-                        .ico-family.ico-family__boy.margin-r19 
-                        .ico-family.ico-family__girl.margin-r19
-            .docs
                 .docs_desc
                     h2.docs_h2 Блок юзера
                 .docs_example.docs_example__indents
@@ -620,9 +622,27 @@ block layout-wrapper
                     h2.docs_h2 Список друзей
                 .docs_example
                     .display-ib.margin-l20
-                        .friend-list
-                            ul.friend-list_ul
+                        .friends-list
+                            ul.friends-list_ul
                                 +friendsListItem('',friendsListItem.a)
+                                +friendsListItem('',friendsListItem.b)
+            .docs
+                .docs_desc
+                    h2.docs_h2 Превью фото при загрузке 
+                .docs_example
+                    .display-ib.margin-l20
+                        +iPhoto("i-photo__load", iPhoto.load)
+                    .display-ib.margin-l20
+                        +iPhoto("i-photo__loaded", iPhoto.loaded)
+                    .display-ib.margin-l20
+                        +iPhoto("i-photo__error", iPhoto.error)
+            .docs
+                .docs_desc
+                    h2.docs_h2 Добавить контент 
+                .docs_example
+                    +userAddRecord('userAddRecord__add', userAddRecord.a)
+                    +userAddRecord('userAddRecord__add', userAddRecord.b)
+                    +userAddRecord('userAddRecord__add', userAddRecord.c)
 
 
     .docs

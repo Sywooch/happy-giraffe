@@ -27,7 +27,7 @@ class MailSenderDialogues extends MailSender
         $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
             'with' => array(
                 'message' => array(
-                    'joinType' => 'INNER JOINf',
+                    'joinType' => 'INNER JOIN',
                     'scopes' => array(
                         'newer' => $this->lastDeliveryTimestamp,
                         'older' => $this->startTime,

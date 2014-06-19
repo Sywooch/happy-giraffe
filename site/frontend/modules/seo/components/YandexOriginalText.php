@@ -99,6 +99,7 @@ class YandexOriginalText
             return false;
         }
 
+        echo $model->id . "\n";
         var_dump($response);
 
         $responseXml = new \SimpleXMLElement($response);

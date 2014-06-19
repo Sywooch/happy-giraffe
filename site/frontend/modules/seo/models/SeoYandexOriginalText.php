@@ -139,7 +139,7 @@ class SeoYandexOriginalText extends \CActiveRecord
             'pending' => array(
                 'condition' => 'added IS NOT NULL',
                 'order' => 'priority DESC, id DESC',
-                'limit' => 100,
+                'limit' => 10,
             ),
         );
     }

@@ -1,3 +1,11 @@
+ko.bindingHandlers.photoUpload = {
+    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        $(element).magnificPopup({
+
+        });
+    }
+};
+
 function PhotoUploadViewModel(element) {
     var self = this;
     self.photos = ko.observableArray();

@@ -19,6 +19,7 @@ block layout-wrapper
                     ol
                         li Тектс списка 
                         li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    .tx-hint Текст подсказок
                 .docs_desc
                     h3.docs_h3 Заголовки
                 .docs_example.docs_example__indents
@@ -37,7 +38,7 @@ block layout-wrapper
                     br
                     a.i-more Дальше
             .docs
-                .docs_desc Выделеный текст. В поиске и т.д.
+                .docs_desc Выделеный текст. В поиске и т.д. 
                 .docs_example.docs_example__indents 
                     span.i-highlight Выделеный текст.
             .docs
@@ -326,8 +327,10 @@ block layout-wrapper
 
             .docs
                 .docs_desc
-                    h2.docs_h2 Семья
+                    h2.docs_h2 Семья 
                 .docs_example
+                    +bFamily('', bFamily.f2)
+                    // +bFamily('', bFamily.f5)  
                     .b-family-structure.clearfix
                         .b-family-structure_upload
                             .b-family-structure_note
@@ -610,6 +613,16 @@ block layout-wrapper
                         +side-menu__im("side-menu__im")
                     .display-ib.margin-l20
                         +side-menu__antispam("side-menu__antispam")
+                    .display-ib.margin-l20
+                        +user-menu('', userMenu.a)
+            .docs
+                .docs_desc
+                    h2.docs_h2 Список друзей
+                .docs_example
+                    .display-ib.margin-l20
+                        .friend-list
+                            ul.friend-list_ul
+                                +friendsListItem('',friendsListItem.a)
 
 
     .docs

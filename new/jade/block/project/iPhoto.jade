@@ -1,10 +1,10 @@
 //- iPhoto
-    mod     .i-photo__load  .i-photo__error  .i-photo__empty
+    mod     .i-photo__load  .i-photo__error  .i-photo__empty .i-photo__loaded  .i-photo__ie
     vars 
         type
 mixin iPhoto(mod, vars)
     // Блок фотографии 
-        Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error
+        Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
     .i-photo(class=mod)
         - if (vars.type == "empty")
             .i-photo_hold

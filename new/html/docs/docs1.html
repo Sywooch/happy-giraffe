@@ -10,9 +10,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Happy Giraffe</title>
-  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <!-- including .css-->
+  <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-  <!-- including other jade works-->
   <!-- ie8 -->
   <!--+scripts(path)-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -20,16 +20,36 @@
     window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
     
   </script>
-  <script src="/new/javascript/bootstrap/dropdown.js"></script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/dropdown.js"></script>
+  <script src="/new/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
   <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <!-- popup-->
+  <!-- script(src="#{path}javascript/jquery.fancybox.js")-->
   <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
+  <!-- custom select-->
+  <!-- script(src="#{path}javascript/selectize.js")-->
   <script src="/new/javascript/select2.js"></script>
+  <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/redactor/lang/ru.js"></script>
+  <script src="/new/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/new/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
   <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <!-- Базовый js (вызывается на всех страницах)-->
   <script src="/new/javascript/common.js"></script>
+  <!-- js для работы в верстке-->
   <script src="/new/javascript/common-markup.js"></script>
+  <!-- jquery-ui подключается для верстки, в yii есть аналог
+  компоненты 
+      slider 
+  -->
+  <script src="/new/javascript/jquery-ui-1.10.4.custom.js"></script>
+  <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__bg-base">
@@ -55,6 +75,7 @@
               <li>Тектс списка </li>
               <li>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</li>
             </ol>
+            <div class="tx-hint">Текст подсказок</div>
           </div>
           <div class="docs_desc">
             <h3 class="docs_h3">Заголовки</h3>
@@ -70,7 +91,7 @@
           <div class="docs_example docs_example__indents"><a>Обычная ссылка</a><br><span class="a-pseudo">Псевдоссылка. Наведение есть, но не тег а</span><br><a class="i-more">Дальше</a></div>
         </div>
         <div class="docs">
-          <div class="docs_desc">Выделеный текст. В поиске и т.д.</div>
+          <div class="docs_desc">Выделеный текст. В поиске и т.д. </div>
           <div class="docs_example docs_example__indents"><span class="i-highlight">Выделеный текст.</span></div>
         </div>
         <div class="docs">
@@ -360,9 +381,16 @@
         </div>
         <div class="docs">
           <div class="docs_desc">
-            <h2 class="docs_h2">Семья</h2>
+            <h2 class="docs_h2">Семья </h2>
           </div>
           <div class="docs_example">
+            <!-- b-family-->
+            <div class="b-family">
+              <ul class="b-family_ul">
+              </ul>
+            </div>
+            <!-- /b-family-->
+            <!-- +bFamily('', bFamily.f5) -->
             <div class="b-family-structure clearfix">
               <div class="b-family-structure_upload">
                 <div class="b-family-structure_note">Все просто. Перетащите в пустые квадраты<br>членов вашей семьи</div>
@@ -864,6 +892,81 @@
                 </div>
               </div>
               <!-- /side-menu-->
+            </div>
+            <div class="display-ib margin-l20">
+              <!-- user-menu-->
+              <div class="user-menu">
+                <div class="user-menu_ava">
+                  <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                </div>
+                <ul class="user-menu_ul">
+                  <li class="user-menu_li"><a class="user-menu_i">
+                      <div class="user-menu_ico user-menu_ico__profile"></div>
+                      <div class="user-menu_tx">Анкета
+                      </div></a></li>
+                  <li class="user-menu_li active"><a class="user-menu_i">
+                      <div class="user-menu_ico user-menu_ico__family"></div>
+                      <div class="user-menu_tx">Семья
+                      </div></a></li>
+                  <li class="user-menu_li"><a class="user-menu_i">
+                      <div class="user-menu_ico user-menu_ico__blog"></div>
+                      <div class="user-menu_tx">Блог
+                      </div></a></li>
+                  <li class="user-menu_li"><a class="user-menu_i">
+                      <div class="user-menu_ico user-menu_ico__photo"></div>
+                      <div class="user-menu_tx">Фото
+                      </div></a></li>
+                  <li class="user-menu_li"><a class="user-menu_i">
+                      <div class="user-menu_ico user-menu_ico__interest"></div>
+                      <div class="user-menu_tx">Интересы
+                      </div></a></li>
+                </ul>
+              </div>
+              <!-- /user-menu-->
+            </div>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Список друзей</h2>
+          </div>
+          <div class="docs_example">
+            <div class="display-ib margin-l20">
+              <div class="friend-list">
+                <ul class="friend-list_ul">
+                  <!--  != vars.bAvaLarge.avaVars.avaSpan-->
+                  <!--  each item in vars.bAvaLarge.avaVars!= item
+                  -->
+                  <li class="friends-list_li">
+                    <div class="friends-list_i"><span title="Удалить из друзей" class="ico-close2 powertip"></span>
+                      <!-- b-ava-large-->
+                      <div class="b-ava-large">
+                        <div class="b-ava-large_ava-hold clearfix">
+                          <!-- ava--><a href="" class="ava ava__large ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- - if (vars.userOnline)span.b-ava-large_online На сайте
+                          --><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
+                          <!-- - if (vars.icoFriendAdd)
+                          a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
+                              span.b-ava-large_ico.b-ava-large_ico__friend-add
+                              span.b-ava-large_bubble-tx 
+                          -->
+                        </div>
+                        <div class="textalign-c"><a href="" class="b-ava-large_a">Александр Богоявленский</a><span class="b-ava-large_age">42 года</span></div>
+                        <div class="location location__small clearfix">
+                          <div title="Россия" class="flag flag-ru"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
+                        </div>
+                        <!-- b-family-->
+                        <div class="b-family">
+                          <ul class="b-family_ul">
+                          </ul>
+                        </div>
+                        <!-- /b-family-->
+                      </div>
+                      <!-- /b-ava-large-->
+                    </div>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

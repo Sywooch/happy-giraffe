@@ -36,6 +36,8 @@ class MailSenderDialogues extends MailSender
             ),
         ));
 
+        echo $user->id . ' - ' . $messagesCount . "\n";
+
         if ($messagesCount > 0) {
             $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $this->lastDeliveryTimestamp, $this->startTime);
             $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $this->lastDeliveryTimestamp, $this->startTime);

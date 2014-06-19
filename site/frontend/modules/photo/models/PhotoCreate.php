@@ -11,21 +11,20 @@ namespace site\frontend\modules\photo\models;
 use site\frontend\modules\photo\components\FileHelper;
 use site\frontend\modules\photo\components\PathManager;
 
-class PhotoCreate extends \CFormModel
+class PhotoCreate extends Photo
 {
     const FS_NAME_LEVELS = 2;
     const FS_NAME_SYMBOLS_PER_LEVEL = 2;
 
     public $path;
-    public $original_name;
-    public $width;
-    public $height;
     public $type;
 
     protected $imageSize;
 
     public function __construct($path, $originalName)
     {
+        parent::__construct();
+
         $this->original_name = $originalName;
         $this->path = $path;
 
@@ -46,30 +45,6 @@ class PhotoCreate extends \CFormModel
         );
     }
 
-    public function save()
-    {
-        $photo = new Photo();
-        $photo->setAttributes($this->attributes);
-        $photo->fs_name = $this->getFsName();
-        if (! copy($this->path, $photo->getImagePath())) {
-            throw new \CException('Невозможно скопировать файл');
-        }
-        $photo->save();
-        return $photo;
-    }
-
-    protected function setImageSize()
-    {
-        try {
-            $this->imageSize = getimagesize($this->path);
-            $this->width = $this->imageSize[0];
-            $this->height = $this->imageSize[1];
-            $this->type = $this->imageSize[2];
-        } catch (\Exception $e) {
-            $this->addError($this->path, 'Некорректный файл изображения');
-        }
-    }
-
     public function validType($attribute)
     {
         if (! in_array($this->$attribute, array(IMAGETYPE_JPEG, IMAGETYPE_GIF, IMAGETYPE_PNG))) {
@@ -85,7 +60,7 @@ class PhotoCreate extends \CFormModel
 
     protected function getFsName()
     {
-        $hash = md5(uniqid($this->originalName . microtime(), true));
+        $hash = md5(uniqid($this->original_name . microtime(), true));
 
         $path = '';
         for ($i = 0; $i < self::FS_NAME_LEVELS; $i++) {
@@ -102,7 +77,16 @@ class PhotoCreate extends \CFormModel
         return $path;
     }
 
-
+    protected function beforeSave()
+    {
+        if (parent::beforeSave()) {
+            $this->fs_name = $this->getFsName();
+            if (! copy($this->path, $this->getImagePath())) {
+                throw new \CException('Невозможно скопировать файл');
+            }
+        }
+        return true;
+    }
 
     protected function beforeValidate()
     {

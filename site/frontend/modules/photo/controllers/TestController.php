@@ -11,6 +11,8 @@ namespace site\frontend\modules\photo\controllers;
 
 class TestController extends \HController
 {
+    public $layout = '//layouts/new/main';
+
     public function actionUpload()
     {
         $this->render('upload');

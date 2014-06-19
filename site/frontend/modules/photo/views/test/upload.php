@@ -4,8 +4,14 @@ $cs = Yii::app()->clientScript;
 $cs->registerPackage('ko_photo');
 ?>
 
-<div id="test">
-    <a data-bind="photoUpload: null">Загрузить фото</a>
+<div class="layout-wrapper_frame clearfix">
+    <div class="layout-wrapper_hold clearfix">
+        <div class="layout-content clearfix">
+            <div id="test">
+                <a data-bind="photoUpload: null">Загрузить фото</a>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript">

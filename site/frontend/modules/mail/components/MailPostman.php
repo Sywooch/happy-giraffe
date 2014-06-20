@@ -13,6 +13,7 @@ class MailPostman extends CApplicationComponent
 
     const MODE_SIMPLE = 0;
     const MODE_QUEUE = 1;
+    const MODE_ECHO = 2;
 
     public $mode = self::MODE_SIMPLE;
 
@@ -25,11 +26,19 @@ class MailPostman extends CApplicationComponent
     {
         $mode = $mode === null ? $this->mode : $mode;
 
-        if ($mode == self::MODE_SIMPLE) {
-            $this->sendEmail($message);
-        } else {
-            $this->addToQueue($message);
+        switch ($mode) {
+            case self::MODE_ECHO:
+                echo $message->getBody();
+                break;
+            case self::MODE_QUEUE:
+                $this->addToQueue($message);
+                break;
+            case self::MODE_SIMPLE:
+                $this->sendEmail($message);
+                break;
         }
+
+        return true;
     }
 
     /**
@@ -39,9 +48,7 @@ class MailPostman extends CApplicationComponent
      */
     public function sendEmail(MailMessage $message)
     {
-        if (ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME)) {
-            $message->delivery->sent();
-        }
+        ElasticEmail::send($message->user->email, $message->getSubject(), $message->getBody(), self::FROM_EMAIL, self::FROM_NAME);
     }
 
     /**

@@ -12,8 +12,15 @@ class VacancyForm extends CFormModel
     public $hhUrl;
     public $cvUrl;
 
+    protected $type;
+
     private $debugEmails = array('pavel@happy-giraffe.ru', 'nikita@happy-giraffe.ru');
     private $productionEmails = array('info@happy-giraffe.ru', 'pavel@happy-giraffe.ru', 'nikita@happy-giraffe.ru');
+
+    public function __construct($type)
+    {
+        $this->type = $type;
+    }
 
     public function getEmails()
     {
@@ -57,7 +64,14 @@ class VacancyForm extends CFormModel
     {
         foreach ($this->emails as $e) {
             $html = Yii::app()->controller->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancy.php', array('form' => $this), true);
-            ElasticEmail::send($e, 'Отклик на вакансию PHP-разработчика, ' . $this->fullName, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
+            ElasticEmail::send($e, $this->getSubject(), $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
         }
+    }
+
+    protected function getSubject()
+    {
+        $subject = ($this->type == 'backend') ? 'Отклик на вакансию PHP-разработчика' : 'Отклик на вакансию Frontend-разработчика';
+        $subject .= ', ' . $this->fullName;
+        return $subject;
     }
 }

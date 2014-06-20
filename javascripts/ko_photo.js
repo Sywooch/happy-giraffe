@@ -15,12 +15,23 @@ ko.bindingHandlers.fileUpload = {
     update: function (element, valueAccessor) {
         var options = valueAccessor() || {};
         $(element).fileupload(options);
+
+        if (options.hasOwnProperty('dropZone')) {
+            var dropZone = $(options.dropZone);
+            dropZone.on('dragover', function() {
+                dropZone.addClass('dragover');
+            })
+            dropZone.on('dragleave', function() {
+                dropZone.removeClass('dragover');
+            })
+        }
     }
 };
 
 function PhotoUploadViewModel() {
     var self = this;
     self.photos = ko.observableArray();
+    self.test = ko.observable(true);
 
     self.addPhoto = function(original_name) {
         self.photos.push(new PhotoUpload({ original_name : original_name }));

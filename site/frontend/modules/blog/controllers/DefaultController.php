@@ -119,9 +119,6 @@ class DefaultController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-        //сохраняем просматриваемую модель
-        NotificationRead::getInstance()->setContentModel($content);
-
         if (! Yii::app()->user->isGuest)
             $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');
         $this->breadcrumbs += array(

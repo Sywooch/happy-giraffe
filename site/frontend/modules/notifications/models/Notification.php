@@ -40,7 +40,7 @@ class Notification extends \EMongoDocument
 
     /**
      *
-     * @var string Тип оповещения (см константы TYPE_*)
+     * @var int Тип оповещения (см константы TYPE_*)
      */
     public $type;
 
@@ -58,13 +58,13 @@ class Notification extends \EMongoDocument
 
     /**
      *
-     * @var int Количество непрочитанных уведомлений
+     * @var int Количество непрочитанных уведомлений, обновляется автоматически
      */
     public $unreadCount = 0;
 
     /**
      *
-     * @var int Количество прочитанных уведомлений
+     * @var int Количество прочитанных уведомлений, обновляется автоматически
      */
     public $readCount = 0;
 
@@ -159,7 +159,7 @@ class Notification extends \EMongoDocument
      */
     public static function getUnreadCount()
     {
-        return self::model()->unread(\Yii::app()->user->id)->count();
+        return self::model()->unread()->byUser(\Yii::app()->user->id)->count();
     }
 
     public function beforeSave()
@@ -202,7 +202,7 @@ class Notification extends \EMongoDocument
 
     public static function markAllSignalsAsRead($userId)
     {
-        $models = self::model()->unread($userId)->findAll();
+        $models = self::model()->unread()->byUser($userId)->findAll();
         foreach ($models as $model)
         {
             $model->readAll();
@@ -214,10 +214,49 @@ class Notification extends \EMongoDocument
 
     /**
      * 
+     * @return \site\frontend\modules\notifications\models\Notification
+     */
+    public function unread()
+    {
+        $this->dbCriteria->addCond('unreadCount', '>', 0);
+
+        return $this;
+    }
+
+    /**
+     * Фильтр по событиям на определённую сущность
+     * @param mixed $entity Модель с int атрибутом id или массив array('entity' => class, 'entityId' => id)
+     * @return \site\frontend\modules\notifications\models\DiscussSubscription
+     */
+    public function byEntity($entity)
+    {
+        if (is_object($model))
+            $model = array('entity' => get_class($model), 'entityId' => (int) $model->id);
+
+        $this->dbCriteria->addCond('entity.class', '==', $model['entity']);
+        $this->dbCriteria->addCond('entityId.id', '==', $model['entityId']);
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param int $type
+     * @return \site\frontend\modules\notifications\models\Notification
+     */
+    public function byType($type)
+    {
+        $this->dbCriteria->addCond('type', '==', (int) $type);
+
+        return $this;
+    }
+
+    /**
+     * 
      * @param int $userId
      * @return \site\frontend\modules\notifications\models\Notification
      */
-    public function unread($userId)
+    public function byUser($userId)
     {
         $this->dbCriteria->addCond('userId', '==', (int) $userId);
 

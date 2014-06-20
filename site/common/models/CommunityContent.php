@@ -22,6 +22,7 @@
  * @property string $real_time
  * @property int $source_id
  * @property int $privacy
+ * @property string $powerTipTitle Подсказка для вывода в списках
  *
  * The followings are the available model relations:
  *

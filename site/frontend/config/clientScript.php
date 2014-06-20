@@ -3,6 +3,13 @@
 return array(
     'class' => 'application.components.ClientScript',
     'packages' => array(
+        'bootstrap' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'new/javascript/bootstrap/dropdown.js',
+                'new/javascript/bootstrap/tab.js',
+            ),
+        ),
         'touchPunch' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -197,7 +204,7 @@ return array(
             'js' => array(
                 'javascripts/ko_photo.js',
             ),
-            'depends' => array('knockout', 'jquery_file_upload'),
+            'depends' => array('knockout', 'jquery_file_upload', 'bootstrap', 'baron'),
         ),
         'ko_upload' => array(
             'baseUrl' => '/',

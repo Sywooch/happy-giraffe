@@ -20,22 +20,29 @@ class MailSenderDialogues extends MailSender
 
     protected function process(User $user)
     {
+        if (UserAttributes::get($user->id, 'dialogues', true) !== true) {
+            return;
+        }
+
         $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
             'with' => array(
                 'message' => array(
                     'joinType' => 'INNER JOIN',
                     'scopes' => array(
                         'newer' => $this->lastDeliveryTimestamp,
+                        'older' => $this->startTime,
                     ),
                 ),
             ),
         ));
 
+        echo $user->id . ' - ' . $messagesCount . "\n";
+
         if ($messagesCount > 0) {
-            $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $this->lastDeliveryTimestamp);
-            $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $this->lastDeliveryTimestamp);
+            $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $this->lastDeliveryTimestamp, $this->startTime);
+            $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $this->lastDeliveryTimestamp, $this->startTime);
             $message = new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount'));
-            Yii::app()->postman->send($message);
+            $this->send($message);
         }
     }
 

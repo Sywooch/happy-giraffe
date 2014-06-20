@@ -122,7 +122,7 @@ class MailSenderDaily extends MailSender
         ));
 
         if (count($this->horoscopes) != 12) {
-            throw new CHttpException('Гороскоп на сегодня заполнен не для всех знаков зодиака');
+            throw new CException('Гороскоп на сегодня заполнен не для всех знаков зодиака');
         }
 
         if (count($this->tomorrowHoroscopes) != 12) {
@@ -137,6 +137,10 @@ class MailSenderDaily extends MailSender
 
     public function process(User $user)
     {
+        if (UserAttributes::get($user->id, 'daily', true) !== true) {
+            return;
+        }
+
         $newMessagesCount = MessagingManager::unreadMessagesCount($user->id);
         $newFriendsCount = FriendRequest::model()->getCountByUserId($user->id);
         $newLikesCount = 0;
@@ -174,7 +178,7 @@ class MailSenderDaily extends MailSender
             'posts' => $this->posts,
         )));
 
-        Yii::app()->postman->send($message);
+        $this->send($message);
     }
 
     protected function setFavourites()

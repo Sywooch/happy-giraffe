@@ -69,11 +69,16 @@ Yii::app()->clientScript
     ->registerScript('routes_waypoints', $waypoints_js, CClientScript::POS_BEGIN)
     ->registerScriptFile($baseUrl . '/routes.js');
 
+$this->breadcrumbs = array(
+    'Интересы и увлечения' => array('/interests-and-hobby'),
+    'Наш автомобиль' => array('/auto'),
+    'Маршруты'
+);
 ?>
 <div class="margin-l-20">
     <div class="col-white padding-20 clearfix">
 
-        <div id="crumbs"><a href="/">Главная</a> &gt; <a href="/auto/">Авто</a> &gt; <span>Маршруты</span></div>
+        <!-- <div id="crumbs"><a href="/">Главная</a> &gt; <a href="/auto/">Авто</a> &gt; <span>Маршруты</span></div> -->
 
         <div class="map-route-search">
             <a href="javascript:;" class="map-route-search_new a-pseudo" onclick="$('form.map-route-search_form').toggle();">Новый маршрут</a>
@@ -178,6 +183,21 @@ Yii::app()->clientScript
             <div class="col-23">
                 <?php $this->renderPartial('//banners/_route'); ?>
                 <?php $this->renderPartial('_transit_points', array('route' => $route, 'texts' => $texts, 'points' => $points)); ?>
+                <!-- banner -->
+                <div class="ban-route-danger">
+                    <a href="http://www.happy-giraffe.ru/community/21/forum/photoPost/176862/" class="ban-route-danger_a">
+                        <div class="ban-route-danger_ava">
+
+                            <span href="" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/24x24/220231/avabdc8f4a293ba7a8614e61a14082f0993.jpg" class="ava_img"></span>
+                            <span class="ban-route-danger_ava-name">Марина Шевкопляс</span>
+                        </div>
+                        <div class="ban-route-danger_t">20 самых опасных маршрутов в мире</div>
+                        <div class="textalign-r">
+                            <div class="btn-green-simple">Смотреть</div>
+                        </div>
+                    </a>
+                </div>
+                <!-- /banner -->
 
                 <div class="map-route-other" style="display: none;">
 

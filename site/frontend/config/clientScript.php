@@ -268,5 +268,12 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
+        'vacancy' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/vacancy.js',
+            ),
+            'depends' => array('ko_upload'),
+        ),
     )
 );

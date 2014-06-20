@@ -13,7 +13,7 @@ class VacancyController extends HController
 
     public function actionForm($type)
     {
-        $model = new VacancyForm();
+        $model = new VacancyForm($type);
 
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'vacancyForm')
         {

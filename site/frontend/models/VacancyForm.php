@@ -6,9 +6,9 @@
 
 class VacancyForm extends CFormModel
 {
-    public $fullName = 'Василий Пупкин';
-    public $email = 'vasya.pupkin@gmail.com';
-    public $phoneNumber = '+7 (905) 363-53-73';
+    public $fullName;
+    public $email;
+    public $phoneNumber;
     public $hhUrl;
     public $cvUrl;
 

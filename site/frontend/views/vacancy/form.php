@@ -148,7 +148,7 @@ $this->bodyClass = 'body__vacancy';
                 <?php $this->endWidget(); ?>
             </div>
             <div class="vacancy_footer">
-                Другие вакансии компании:
+                Другие вакансии компании:&nbsp;
                 <?php if ($type == 'backend'): ?>
                     <?=CHtml::link('Frontend-разработчик', array('vacancy/form', 'type' => 'frontend'))?>
                 <?php else: ?>

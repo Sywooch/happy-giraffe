@@ -61,6 +61,44 @@
     }
 }
 
+/* f-about */
+.f-about {
+    margin: 20px 0 65px;
+    padding: 3% 3.2% 1%;
+    background-color: #f5f5f5;
+    line-height: 18px;
+
+    &_col-l {
+        .inline-block();
+        vertical-align: middle;
+        width: 25%;
+    }
+    &_col-r {
+        .inline-block();
+        vertical-align: middle;
+        width: 74%;
+    }
+    &_row {
+        margin: 0 0 25px;
+    }
+    &_upload {
+        .inline-block();
+        vertical-align: middle;
+        padding: 5px 10px 5px 25px;
+        color: #999;
+        background: url('@{path-img}/f-about_upload.png') no-repeat;
+
+        .ico-close3 {margin-left: 7px;}
+    }
+    &_or {
+        margin: -20px 0 15px;
+        font: 20px/20px Georgia, 'Times New Roman', Times, serif;
+        font-style: italic;
+        color: #cdcdcd;
+    }
+}
+/* /f-about */
+
 /* vote-vacancy */
 .vote-vacancy {
     margin: 20px 30px 50px 0;
@@ -117,7 +155,6 @@
     .f-about_col-r {width: 69%;}
     .f-about_label {
         font-size: 16px;
-        line-height: ;
         color: #666;
     }
     .f-about_col-r .btn-xxl {
@@ -125,6 +162,10 @@
         line-height: 72px;
         height: 72px;
         padding: 0 49px;
+    }
+    .file-fake {
+        vertical-align: middle;
+        margin: 0 15px 0 5px;
     }
 
     &_header {
@@ -156,7 +197,7 @@
         background: url('@{path-img}/vacancy_logo.png') no-repeat;
     }
     &_row {
-        padding: 55px 80px 65px 70px;
+        padding: 55px 10px 65px 40px;
         color: #fff;
         font-size: 16px;
         line-height: 23px;
@@ -166,15 +207,15 @@
     &_row__carrot {background: #f39c12;}
     &_row-t {
         .inline-block();
-        width: 290px;
+        width: 320px;
         vertical-align: middle;
-        font-size: 35px;
+        font-size: 32px;
         line-height: 35px;
         font-weight: bold;
     }
     &_row-desc {
         .inline-block();
-        width: 555px;
+        width: 570px;
         vertical-align: middle;
     }
     &_row-desc:first-child {
@@ -184,7 +225,7 @@
     &_ul {}
     &_li {
         background: url('@{path-img}/bullet1.png') no-repeat 0 13px;
-        padding: 5px 0 5px 20px; 
+        padding: 0 0 0 20px; 
     }
     &_about-t {
         margin: 0;
@@ -205,6 +246,23 @@
         color: #666;
         margin: 5px 0 10px;
     }
+    &_ico-pdf,
+    &_ico-doc {
+        .inline-block();
+        vertical-align: middle;
+        width: 16px;
+        height: 16px;
+        margin: 0 3px;
+        background: url('@{path-img}/vacancy_ico-pdf.png') no-repeat;
+    }
+    &_ico-doc {
+        background: url('@{path-img}/vacancy_ico-doc.png') no-repeat;
+    }
+    &_footer {
+        margin: 20px 40px 50px;
+        font-size: 16px;
+        color: #666;
+    }
 }
 /* /vacancy */
 
@@ -213,11 +271,14 @@
     color: #333;
     padding: 35px 80px 110px;
     background:#fafafa url('@{path-img}/worker-1.png') no-repeat 50% 125px;
+
+    &__frontend {background-position: 50% 130px;}
     
     &_title {
-        font: bold 38px/38px Arial, Tahoma, Verdana, sans-serif;
-        margin: 0;
+        font: bold 37px/38px 'Arial black' Arial, Tahoma, Verdana, sans-serif;
+        margin: 0 0 5px;
         text-align: center;
+        text-transform: uppercase;
     }
     &_title-sub {
         font-size: 16px;
@@ -225,6 +286,12 @@
         color: #666;
         text-align: center;
         margin: 0 0 70px;
+    }
+    &_func {
+        margin: -30px 0 40px;
+        font: 20px/20px "Courier New", Courier, monospace;
+        text-align: center;
+        color: #4289ff;
     }
     &_col-l {
         float: left;
@@ -237,9 +304,7 @@
     }
     &_t {
         font: bold 28px/24px Arial, Tahoma, Verdana, sans-serif;
-        padding: 0 0 9px;
-        border-bottom: 1px solid #d5d5d5;
-        margin: 0 0 9px;
+        padding: 0 0 8px;
     }
     &_desc {
         font-size: 15px;
@@ -253,10 +318,21 @@
         margin: 0 -25px;
         background: url('@{path-img}/pay-1.png') no-repeat;
     }
+    &_pay-2 {
+        width: 295px;
+        height: 214px;
+        margin: 0 -25px;
+        background: url('@{path-img}/pay-2.png') no-repeat;
+    }
     &_skils {
         width: 252px;
         height: 151px;
         background: url('@{path-img}/skils.png') no-repeat;
+    }
+    &_skils-2 {
+        width: 252px;
+        height: 122px;
+        background: url('@{path-img}/skils-2.png') no-repeat;
     }
 }
 /* /requirements */

@@ -24,6 +24,7 @@ class UploadController extends \HController
 
     public function actionFromComputer()
     {
+        sleep(10);
         $form = new FromComputerUploadForm();
         echo $form->save();
     }

@@ -224,22 +224,6 @@ $this->breadcrumbs = array(
                 </script>
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
 
-                <!-- banner -->
-                <div class="ban-route-danger" style="display: none;">
-                    <a href="http://www.happy-giraffe.ru/community/21/forum/photoPost/176862/" class="ban-route-danger_a">
-                        <div class="ban-route-danger_ava">
-
-                            <span href="" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/24x24/220231/avabdc8f4a293ba7a8614e61a14082f0993.jpg" class="ava_img"></span>
-                            <span class="ban-route-danger_ava-name">Марина Шевкопляс</span>
-                        </div>
-                        <div class="ban-route-danger_t">20 самых опасных маршрутов в мире</div>
-                        <div class="textalign-r">
-                            <div class="btn-green-simple">Смотреть</div>
-                        </div>
-                    </a>
-                </div>
-                <!-- /banner -->
-
                 <div class="map-route-other" style="display: none;">
 
                     <?php //$this->renderPartial('links', array('route' => $route)); ?>

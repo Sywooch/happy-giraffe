@@ -34,9 +34,11 @@ function afterValidateVacancy(form, data, hasError) {
                 $('.vacancy_send').removeClass('display-n');
                 $('.f-about').addClass('display-n');
             }
+            $(form).find('button').removeAttr('disabled');
         }, 'json');
+    } else {
+        $(form).find('button').removeAttr('disabled');
     }
-    $(form).find('button').removeAttr('disabled');
     return false;
 }
 

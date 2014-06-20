@@ -30,12 +30,16 @@ ko.bindingHandlers.fileUpload = {
 
 function PhotoUploadViewModel() {
     var self = this;
-    self.photos = ko.observableArray();
-    self.test = ko.observable(true);
+
+    self.STATUS_LOADING = 0;
+    self.STATUS_SUCCESS = 1;
+    self.STATUS_FAIL = 2;
+
+    self.photos = ko.observableArray([]);
 
     self.addPhoto = function(original_name) {
-        self.photos.push(new PhotoUpload({ original_name : original_name }));
-    }
+        self.photos.push(new PhotoUpload({ original_name : original_name }, self));
+    };
 
     self.findPhotoByName = function(name) {
         return ko.utils.arrayFirst(self.photos(), function (photo) {
@@ -43,48 +47,51 @@ function PhotoUploadViewModel() {
         });
     };
 
+    self.loadingPhotos = ko.computed(function() {
+        return ko.utils.arrayFilter(self.photos(), function(photo) {
+            return photo.status() == self.STATUS_LOADING;
+        });
+    });
+
+    self.loading = ko.computed(function() {
+        return self.loadingPhotos().length > 0;
+    });
+
     self.fileUploadSettings = {
         dropZone: '.popup-add_frame__multi',
         url: '/photo/upload/fromComputer/',
         add: function (e, data) {
-            console.log(data.files);
-
             self.addPhoto(data.files[0].name);
             data.submit();
         },
         done: function (e, data) {
-            console.log(data.files);
             var photo = self.findPhotoByName(data.files[0].name);
             //console.log(photo);
             //$.extend(photo, new PhotoUpload(data));
-            photo.status(photo.STATUS_SUCCESS);
+            photo.status(self.STATUS_SUCCESS);
         },
         fail: function(e, data) {
             var photo = self.findPhotoByName(data.files[0].name);
-            photo.status(photo.STATUS_FAIL);
+            photo.status(self.STATUS_FAIL);
         }
-    }
+    };
 }
 
-function PhotoUpload(data) {
+function PhotoUpload(data, parent) {
     var self = this;
     $.extend(self, new Photo(data));
 
-    self.STATUS_LOADING = 0;
-    self.STATUS_SUCCESS = 1;
-    self.STATUS_FAIL = 2;
-
-    self.status = ko.observable(self.STATUS_LOADING);
+    self.status = ko.observable(parent.STATUS_LOADING);
     self.errors = ko.observableArray();
 
     self.cssClass = ko.computed(function() {
         switch (self.status()) {
-            case self.STATUS_LOADING:
-                return 'photo-pending';
-            case self.STATUS_SUCCESS:
-                return 'photo-success';
-            case self.STATUS_FAIL:
-                return 'photo-fail';
+            case parent.STATUS_LOADING:
+                return 'i-photo__load';
+            case parent.STATUS_SUCCESS:
+                return 'i-photo__loaded';
+            case parent.STATUS_FAIL:
+                return 'i-photo__error';
         }
     });
 }

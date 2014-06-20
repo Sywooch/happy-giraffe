@@ -2,13 +2,9 @@ document.domain = document.domain;
 
 function addBaron(el) {
     $(el).each(function() {
-        console.log('1');
-
         if (this.baron) {
             this.baron.update();
-            console.log('2');
         } else {
-            console.log('3');
             this.baron = $(this).baron({
                 scroller: '.scroll_scroller',
                 barOnCls: 'scroll__on',

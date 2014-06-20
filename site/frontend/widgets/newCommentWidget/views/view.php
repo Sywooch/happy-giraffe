@@ -9,7 +9,6 @@
 //))){
 
     $comments = $this->getComments();
-NotificationRead::getInstance()->SetVisited();
 $allCount = ($this->full) ? count($comments) : $this->model->getCommentsCount();
 $data = array(
     'entity' => $this->entity,
@@ -21,11 +20,6 @@ $data = array(
     'allCount' => (int)$allCount,
     'messaging__enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
 );
-
-//помечаем комментарии как прочитанные
-foreach($comments as $comment)
-    NotificationRead::getInstance()->addShownComment($comment);
-NotificationRead::getInstance()->SetVisited();
 
 ?>
 <!-- ko stopBinding: true -->

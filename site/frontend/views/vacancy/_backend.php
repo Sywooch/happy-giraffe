@@ -51,7 +51,7 @@
     </div>
 </div>
 <div class="vacancy_row vacancy_row__carrot">
-    <h3 class="vacancy_row-t">Что нужно <br> будет	<br>делать</h3>
+    <h3 class="vacancy_row-t">Что нужно <br> будет	делать</h3>
     <div class="vacancy_row-desc">
         <ul class="vacancy_ul">
             <li class="vacancy_li">Общаться с командой (без этого вообще нельзя делать продукт!).</li>

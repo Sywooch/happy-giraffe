@@ -47,11 +47,13 @@ function PhotoUploadViewModel() {
         dropZone: '.popup-add_frame__multi',
         url: '/photo/upload/fromComputer/',
         add: function (e, data) {
+            console.log(data.files);
+
             self.addPhoto(data.files[0].name);
             data.submit();
         },
         done: function (e, data) {
-            console.log(data.result);
+            console.log(data.files);
             var photo = self.findPhotoByName(data.files[0].name);
             //console.log(photo);
             //$.extend(photo, new PhotoUpload(data));

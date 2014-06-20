@@ -6,13 +6,14 @@
 
 class VacancyForm extends CFormModel
 {
-    public $fullName;
-    public $email;
-    public $phoneNumber;
+    public $fullName = 'Василий Пупкин';
+    public $email = 'vasya.pupkin@gmail.com';
+    public $phoneNumber = '+7 (905) 363-53-73';
     public $hhUrl;
+    public $cvUrl;
 
     private $debugEmails = array('pavel@happy-giraffe.ru', 'nikita@happy-giraffe.ru');
-    private $productionEmails = array('info@happy-giraffe.ru');
+    private $productionEmails = array('info@happy-giraffe.ru', 'pavel@happy-giraffe.ru', 'nikita@happy-giraffe.ru');
 
     public function getEmails()
     {
@@ -26,6 +27,7 @@ class VacancyForm extends CFormModel
             array('email', 'email'),
             array('phoneNumber', 'match', 'pattern' => '/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/', 'message' => 'Введите корректный номер телефона'),
             array('hhUrl', 'validateLink'),
+            array('cvUrl', 'url'),
         );
     }
 
@@ -40,17 +42,6 @@ class VacancyForm extends CFormModel
         }
     }
 
-    public function cityRequired($attribute, $params)
-    {
-        if ($this->country_id) {
-            $country = GeoCountry::model()->findByPk($this->country_id);
-            if ($country->citiesFilled) {
-                $req = CValidator::createValidator('required', $this, array('city_id'));
-                $req->validate($this);
-            }
-        }
-    }
-
     public function attributeLabels()
     {
         return array(
@@ -58,6 +49,7 @@ class VacancyForm extends CFormModel
             'email' => 'E-mail',
             'phoneNumber' => 'Контактный <br>телефон',
             'hhUrl' => 'Ссылка на резюме <br> на HeadHunter',
+            'cvUrl' => 'Ссылка на загруженное резюме',
         );
     }
 

@@ -50,7 +50,9 @@ return array(
         'moderation' => 'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend|qualityTest)>' => 'site/<_a>',
         '<view:(advertiser|abuse)>' => array('site/page'),
-        'developer' => 'site/vacancy',
+        'developer' => array('vacancy/form', 'defaultParams' => array('type' => 'backend')),
+        'frontend-developer' => array('vacancy/form', 'defaultParams' => array('type' => 'frontend')),
+        'vacancy/upload' => 'vacancy/upload',
 
         //===================== Subscribes =========================//
         'subscribes' => 'myGiraffe/default/subscribes',

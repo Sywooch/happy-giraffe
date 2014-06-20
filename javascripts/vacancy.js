@@ -1,0 +1,46 @@
+function VacancyViewModel() {
+    var self = this;
+
+    self.cv = ko.observable(null);
+
+    self.clearCv = function() {
+        self.cv(null);
+    }
+
+    self.cvValue = ko.computed(function() {
+        return self.cv() === null ? '' : self.cv().url();
+    });
+
+    $('input[type=file]').fileupload({
+        url: '/vacancy/upload/',
+        dataType: 'json',
+
+        done: function(e, data) {
+            self.cv(new Cv(data.result));
+        }
+    });
+}
+
+function Cv(data) {
+    var self = this;
+    self.name = ko.observable(data.name);
+    self.url = ko.observable(data.url);
+}
+
+function afterValidateVacancy(form, data, hasError) {
+    if (! hasError) {
+        $.post(form.attr('action'), form.serialize(), function(response) {
+            if (response.success) {
+                $('.vacancy_send').removeClass('display-n');
+                $('.f-about').addClass('display-n');
+            }
+        }, 'json');
+    }
+    $(form).find('button').removeAttr('disabled');
+    return false;
+}
+
+function beforeValidateVacancy(form) {
+    $(form).find('button').attr('disabled', 'disabled');
+    return true;
+}

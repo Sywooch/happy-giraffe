@@ -3,6 +3,19 @@
 return array(
     'class' => 'application.components.ClientScript',
     'packages' => array(
+        'userSettings' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_userSettings.js',
+            ),
+        ),
+        'ko_settings' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_settings.js',
+            ),
+            'depends' => array('knockout', 'userSettings'),
+        ),
         'touchPunch' => array(
             'baseUrl' => '/',
             'js' => array(

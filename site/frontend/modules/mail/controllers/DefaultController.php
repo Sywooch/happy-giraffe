@@ -65,22 +65,10 @@ class DefaultController extends HController
         $sender->sendAll();
     }
 
-    public function actionDialogues($sendAll = false)
+    public function actionDialogues()
     {
         $sender = new MailSenderDialogues();
-        if ($sendAll !== false) {
-            $sender->sendAll();
-        } else {
-            $sender->preview(Yii::app()->user->model);
-        }
-    }
-
-    public function actionNotification()
-    {
-        $sender = new MailSenderNotification(MailSenderNotification::TYPE_COMMENT);
-
-            $sender->sendAll();
-
+        $sender->sendAll();
     }
 
     public function actionDaily($date = null, $sendAll = false)

@@ -35,6 +35,8 @@ class UserAttributes extends EMongoDocument
             'user_id' => (int) $user_id,
         ));
 
+        filter_var($value, FILTER_VALIDATE_BOOLEAN);
+
         if ($model === null) {
             $model = new self;
             $model->user_id = (int) $user_id;

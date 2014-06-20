@@ -391,7 +391,7 @@ class MessagingMessage extends HActiveRecord
      */
     public function older($date = null)
     {
-        $this->dateCompare($date, '<');
+        $this->dateCompare($date, '<', 'older');
 
         return $this;
     }
@@ -406,12 +406,12 @@ class MessagingMessage extends HActiveRecord
      */
     public function newer($date = null)
     {
-        $this->dateCompare($date, '>');
+        $this->dateCompare($date, '>', 'newer');
 
         return $this;
     }
 
-    protected function dateCompare($date, $sign)
+    protected function dateCompare($date, $sign, $param)
     {
         if ($date === null)
             return $this;
@@ -422,10 +422,10 @@ class MessagingMessage extends HActiveRecord
         if (is_int($date)) {
             $criteria->addCondition('`' . $alias . '`.`created` ' . $sign . ' FROM_UNIXTIME(:older)');
         } else {
-            $criteria->addCondition('`' . $alias . '`.`created` ' . $sign . ' :older');
+            $criteria->addCondition('`' . $alias . '`.`created` ' . $sign . ' :' . $param);
         }
 
-        $criteria->params['older'] = $date;
+        $criteria->params[$param] = $date;
 
         return $this;
     }

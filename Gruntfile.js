@@ -69,6 +69,10 @@ module.exports = function(grunt){
         files: {
           'stylesheets/common.css': ['less/all1.less'],
           'stylesheets/global.css': ['less/all2.less'],
+          // стили страницы вакансий
+          'stylesheets/vacancy.css': ['less/vacancy.less'],
+          // стили html баннеров, независимы от всего 
+          'stylesheets/banner.css': ['less/banner.less']
         },
         options: {
           compress: true,
@@ -83,7 +87,6 @@ module.exports = function(grunt){
         files: {
           'stylesheets/common.dev.css': ['less/all1.less'],
           'stylesheets/global.dev.css': ['less/all2.less'],
-          'stylesheets/vacancy.css': ['less/vacancy.less']
         },
         options: {
           sourceMap: true,

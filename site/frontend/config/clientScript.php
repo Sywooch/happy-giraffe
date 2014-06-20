@@ -219,6 +219,23 @@ return array(
                 'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',
+                'jQuery-File-Upload/js/jquery.fileupload-process.js',
+                'jQuery-File-Upload/js/jquery.fileupload-image.js',
+            ),
+            'depends' => array('jquery', 'blob', 'load_image'),
+        ),
+        'blob' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'JavaScript-Canvas-to-Blob-master/js/canvas-to-blob.js',
+            ),
+            'depends' => array('jquery'),
+        ),
+        'load_image' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'JavaScript-Load-Image-master/js/load-image.js',
+                'JavaScript-Load-Image-master/js/load-image-meta.js',
             ),
             'depends' => array('jquery'),
         ),

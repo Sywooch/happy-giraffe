@@ -46,7 +46,6 @@
         <ul class="vacancy_ul">
             <li class="vacancy_li">Опыт работы с JavaScript (от одного года) и фреймворками backbone.js, knockout.js или подобными (проект использует knockout.js)</li>
             <li class="vacancy_li">Опыт работы с PHP5 (проект использует Yii)</li>
-            <li class="vacancy_li">Желателен опыт работы с backbone.js, knockout.js или подобными (проект использует knockout.js).</li>
             <li class="vacancy_li">Чтение книг Фаулера, Банды четырех, Джоэла Спольски и других (никто не умирал от дополнительных знаний)</li>
             <li class="vacancy_li">Опыт работы в нагруженных проектах (перетаскивание шкафов и серверных стоек не в счет)</li>
         </ul>

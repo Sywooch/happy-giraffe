@@ -38,7 +38,7 @@ class CvForm extends CFormModel
 
         $fileName = md5_file($this->cv->getTempName()) . '.' . $this->cv->getExtensionName();
         if ($this->cv->saveAs($path . DIRECTORY_SEPARATOR . $fileName)) {
-            $this->cvUrl = Yii::app()->getBaseUrl(true) . '/uploads/cv/' . $fileName;
+            $this->cvUrl = Yii::app()->getBaseUrl(true) . '/upload/cv/' . $fileName;
             return true;
         }
         return false;

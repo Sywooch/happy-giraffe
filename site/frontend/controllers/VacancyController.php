@@ -29,7 +29,7 @@ class VacancyController extends HController
             echo CJSON::encode(compact('success'));
         } else {
             $this->layout = '//layouts/common';
-            $this->pageTitle = 'Вакансия «Web-разработчик»';
+            $this->pageTitle = ($type == 'backend') ? 'Вакансия «Web-разработчик»' : 'Вакансия «Frontend-разработчик»';
             $this->render('form', compact('model', 'type'));
         }
     }

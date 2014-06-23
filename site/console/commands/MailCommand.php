@@ -182,7 +182,8 @@ class MailCommand extends CConsoleCommand
         $criteria->parsed('!=', false);
         //$criteria->send('==', false);
         $models = HhResume::model()->findAll($criteria);
-        echo count($models);
+        $a = count($models);
+        var_dump($a);
         die;
         foreach ($models as $m) {
             if (isset($m->contacts['Эл. почта'])) {

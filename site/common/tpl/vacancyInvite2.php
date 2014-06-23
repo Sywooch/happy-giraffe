@@ -46,7 +46,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td valign="top" align="center">
-                                                            <a href="http://www.happy-giraffe.ru/?utm_source=email" target="_blank">
+                                                            <a href="http://www.happy-giraffe.ru/?utm_source=happygiraffe&utm_medium=email&utm_campaign=jobs_frontend" target="_blank">
                                                                 <img src="http://www.happy-giraffe.ru/new/images/mail/mail-top-logo.png" width="221px" height="62px"/>
                                                             </a>
                                                         </td>
@@ -91,7 +91,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="font-size: 20px;" align="right"><a href="http://www.happy-giraffe.ru/jobs/frontend-developer/?utm_source=email" style="color: #3587ec; ">Узнать!</a></td>
+                                                        <td style="font-size: 20px;" align="right"><a href="http://www.happy-giraffe.ru/jobs/frontend-developer/?utm_source=happygiraffe&utm_medium=email&utm_campaign=jobs_frontend" style="color: #3587ec; ">Узнать!</a></td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -227,7 +227,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td align="center" colspan="2"  height="85">
-                                                            <a href="http://www.happy-giraffe.ru/jobs/frontend-developer/?utm_source=email" style="color:#fff; font-size:39px;text-decoration:none; padding:20px 75px; background-color: #4fb044;">Узнать!</a>
+                                                            <a href="http://www.happy-giraffe.ru/jobs/frontend-developer/?utm_source=happygiraffe&utm_medium=email&utm_campaign=jobs_frontend" style="color:#fff; font-size:39px;text-decoration:none; padding:20px 75px; background-color: #4fb044;">Узнать!</a>
                                                         </td>
                                                     </tr>
 
@@ -247,7 +247,7 @@
                                                 <!-- BEGIN FOOTER // -->
                                                 <table border="0" cellpadding="0" cellspacing="0" width="100%" >
                                                     <tr>
-                                                        <td style="color: #666666; font-size: 15px;">А еще нам нужен <a href="" style="color: #3587ec; ">BACKEND - РАЗРАБОТЧИК</a></td>
+                                                        <td style="color: #666666; font-size: 15px;">А еще нам нужен <a href="http://www.happy-giraffe.ru/jobs/developer/?utm_source=happygiraffe&utm_medium=email&utm_campaign=jobs_frontend" style="color: #3587ec; ">BACKEND - РАЗРАБОТЧИК</a></td>
                                                     </tr>
                                                     <tr>
                                                         <td  height="50" >
@@ -257,7 +257,7 @@
                                                     <tr>
                                                         <td style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;padding-bottom:17px;">
                                                             С наилучшими пожеланиями,<br/>
-                                                            <span style="color: #3587ec;"><a href="http://www.happy-giraffe.ru/?utm_source=email" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
+                                                            <span style="color: #3587ec;"><a href="http://www.happy-giraffe.ru/?utm_source=happygiraffe&utm_medium=email&utm_campaign=jobs_frontend" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
                                                         </td>
                                                     </tr>
                                                     <tr>

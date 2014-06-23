@@ -100,7 +100,7 @@
 
 
                                                                     <td width="290" valign="top">
-                                                                        <img src="http://www.happy-giraffe.ru3/new/images/mail/vacancy/vacancy-man2.jpg" alt="" />
+                                                                        <img src="http://www.happy-giraffe.ru/new/images/mail/vacancy/vacancy-man2.jpg" alt="" />
                                                                     </td>
                                                                     <td width="310" style="padding-right:20px;">
                                                                         <table border="0" cellpadding="0" cellspacing="0">
@@ -129,7 +129,7 @@
                                                                             </tr>
                                                                             <tr>
                                                                                 <td  height="104" >
-                                                                                    <img src="http://www.happy-giraffe.ru3/new/images/mail/vacancy/vacancy-skils.png" alt="Умения" height="104" width="252" border="0" />
+                                                                                    <img src="http://www.happy-giraffe.ru/new/images/mail/vacancy/vacancy-skils.png" alt="Умения" height="104" width="252" border="0" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>

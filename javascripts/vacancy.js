@@ -11,12 +11,18 @@ function VacancyViewModel() {
         return self.cv() === null ? '' : self.cv().url();
     });
 
+    self.loading = ko.observable(false);
+
     $('input[type=file]').fileupload({
         url: '/vacancy/upload/',
         dataType: 'json',
-
+        add: function(e, data) {
+            self.loading(true);
+            data.submit();
+        },
         done: function(e, data) {
             self.cv(new Cv(data.result));
+            self.loading(false);
         }
     });
 }

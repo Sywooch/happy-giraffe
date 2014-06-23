@@ -70,12 +70,10 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="color: #333333; font-size: 35px; font-weight: bold;" align="center">МЫ ИЩЕМ</td>
+                                                        <td style="color: #333333; font-size: 35px; line-height:38px; font-weight: bold;" align="center">МЫ ИЩЕМ</td>
                                                     </tr>
-
-
                                                     <tr>
-                                                        <td style="color: #333333; font-size: 35px; font-weight: bold;" align="center">FRONTEND - РАЗРАБОЧИКА</td>
+                                                        <td style="color: #333333; font-size: 35px; line-height:38px; font-weight: bold;" align="center">FRONTEND - РАЗРАБОЧИКА</td>
                                                     </tr>
                                                     <tr>
                                                         <td  height="7" >

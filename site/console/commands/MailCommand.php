@@ -178,7 +178,7 @@ class MailCommand extends CConsoleCommand
     public function actionVacancy()
     {
         $criteria = new EMongoCriteria();
-        $criteria->limit(1);
+        $criteria->offset(1);
         $criteria->parsed('!=', false);
 //        $criteria->send('==', false);
         $models = HhResume::model()->findAll($criteria);

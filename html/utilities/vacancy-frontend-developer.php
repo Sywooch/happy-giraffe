@@ -39,7 +39,7 @@
 					</div>
 					<div class="requirements_col-r">
 						<h3 class="requirements_t">Увлеченный <br>и талантливый</h3>
-						<div class="requirements_desc">Главное - это умение быстро <br> и профессионально вазрабатывать <br>Web-проекты любой сложности</div>
+						<div class="requirements_desc">Интересуется современными технологиями и обладает большим кругозором</div>
 						<h3 class="requirements_t">Умелый</h3>
 						<div class="requirements_desc">
 							<!-- ### -->

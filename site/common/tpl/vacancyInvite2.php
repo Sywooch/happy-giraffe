@@ -263,8 +263,7 @@
                                                     <tr>
                                                         <td style="border-top:1px solid #e6e5e5;padding:6px 0;">
 
-                                                            <p style="font:10px tahoma, arial, sans-serif; color: #979696;">Это письмо было сгенерированно автоматически. Пожалуйста не отвечайте на него. Если вы хотите обратиться в службу поддержки сайта «Веселый Жираф», напишите нам по адресу <span style=" color: #3587ec;"><a href="mailto:info@happy-giraffe.ru" target="_blank" style="color: #3587ec;">info@happy-giraffe.ru</a></span><br/></p>
-                                                            <p style="font:10px tahoma, arial, sans-serif; color: #979696;">150014, проспект Толбухина, д.8/75, ТЦ "Петровский Пассаж"</p>
+                                                            <p style="font:10px tahoma, arial, sans-serif; color: #979696;">150014, Ярославль, проспект Толбухина, д.8/75, бизнес-центр "Петровский Пассаж"</p>
                                                             <br/>
 
                                                         </td>

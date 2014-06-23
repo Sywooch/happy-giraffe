@@ -162,7 +162,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td style="color: #666666; font-size: 15px;">Главное - это умение быстро и профессионально разрабатывать Web-проекты любой сложности</td>
+                                                                                <td style="color: #666666; font-size: 15px;">Интересуется современными технологиями и обладает большим кругозором</td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td  height="15" >
@@ -226,7 +226,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td align="center" colspan="2">
+                                                        <td align="center" colspan="2"  height="85">
                                                             <a href="http://www.happy-giraffe.ru/jobs/frontend-developer/?utm_source=email" style="color:#fff; font-size:39px;text-decoration:none; padding:20px 75px; background-color: #4fb044;">Узнать!</a>
                                                         </td>
                                                     </tr>
@@ -247,8 +247,11 @@
                                                 <!-- BEGIN FOOTER // -->
                                                 <table border="0" cellpadding="0" cellspacing="0" width="100%" >
                                                     <tr>
-                                                        <td  height="70" >
-                                                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="70" width="100%" border="0" />
+                                                        <td style="color: #666666; font-size: 15px;">А еще нам нужен <a href="" style="color: #3587ec; ">BACKEND - РАЗРАБОТЧИК</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td  height="50" >
+                                                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="50" width="100%" border="0" />
                                                         </td>
                                                     </tr>
                                                     <tr>

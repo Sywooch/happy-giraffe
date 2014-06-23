@@ -159,12 +159,20 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionVacancyTest($email)
+    public function actionVacancyTest()
     {
-        $firstName = 'Андрей';
-        $subject = $firstName . ', мы ищем web-разработчика!';
-        $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', compact('firstName'), true);
-        ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф');
+        $a = array(
+            'pavel@happy-giraffe.ru' => 'Павел',
+            'nikita@happy-giraffe.ru' => 'Никита',
+            'tantalid@mail.ru' => 'Андрей',
+            'andrey@happy-giraffe.ru' => 'Андрей',
+        );
+
+        foreach ($a as $email => $firstName) {
+            $subject = $firstName . ', мы ищем Frontend-разработчика!';
+            $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', compact('firstName'), true);
+            ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф');
+        }
     }
 
     public function actionVacancy()

@@ -70,12 +70,12 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td style="color: #333333; font-size: 35px; font-weight: bold;" align="center">МЫ ИЩЕМ</td>
+                                                        <td style="color: #333333; font-size: 35px; line-height: 38px; font-weight: bold;" align="center">МЫ ИЩЕМ</td>
                                                     </tr>
 
 
                                                     <tr>
-                                                        <td style="color: #333333; font-size: 35px; font-weight: bold;" align="center">FRONTEND - РАЗРАБОЧИКА</td>
+                                                        <td style="color: #333333; font-size: 35px; line-height: 38px; font-weight: bold;" align="center">FRONTEND - РАЗРАБОЧИКА</td>
                                                     </tr>
                                                     <tr>
                                                         <td  height="7" >
@@ -114,7 +114,7 @@
                                                                                 <td style="color: #333333; font-size: 20px; font-weight:bold;">Умелый </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td  height="3" >
+                                                                                <td  height="3" style="font-size:0; line-height:0;">
                                                                                     <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="100%" border="0" />
                                                                                 </td>
                                                                             </tr>
@@ -141,7 +141,7 @@
                                                                                 <td style="color: #333333; font-size: 20px; font-weight:bold;">Умный и адекватный </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td  height="3" >
+                                                                                <td  height="3" style="font-size:0; line-height:0;">
                                                                                     <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="100%" border="0" />
                                                                                 </td>
                                                                             </tr>
@@ -157,7 +157,7 @@
                                                                                 <td style="color: #333333; font-size: 20px; font-weight:bold;">Увлеченный и талантливый </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td  height="3" >
+                                                                                <td  height="3"   style="font-size:0; line-height:0;">
                                                                                     <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="100%" border="0" />
                                                                                 </td>
                                                                             </tr>
@@ -173,7 +173,7 @@
                                                                                 <td style="color: #333333; font-size: 20px; font-weight:bold;">Ответственный </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td  height="3" >
+                                                                                <td  height="3" style="font-size:0; line-height:0;" >
                                                                                     <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="100%" border="0" />
                                                                                 </td>
                                                                             </tr>
@@ -191,7 +191,7 @@
                                                                                 <td style="color: #333333; font-size: 20px; font-weight:bold;">Вознаграждение </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td  height="3" >
+                                                                                <td  height="3" style="font-size:0; line-height:0;" >
                                                                                     <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="100%" border="0" />
                                                                                 </td>
                                                                             </tr>
@@ -207,7 +207,7 @@
                                                                                 <td style="color: #666666; font-size: 15px;">в зависимости от вашего опыта и скорости работы</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td  height="3" >
+                                                                                <td  height="3" style="font-size:0; line-height:0;" >
                                                                                     <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="100%" border="0" />
                                                                                 </td>
                                                                             </tr>

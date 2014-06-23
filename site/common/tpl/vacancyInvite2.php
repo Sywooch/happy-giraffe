@@ -199,8 +199,8 @@
                                                                                 <td style="color: #333333; font-size: 14px; font-weight: bold;">от 40 000 до 80 000 рублей</td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td  height="5" >
-                                                                                    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="5" width="100%" border="0" />
+                                                                                <td  height="3"  style="font-size:0; line-height:0;">
+                                                                                    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="3" width="100%" border="0" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>

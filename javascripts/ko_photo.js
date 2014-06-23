@@ -37,8 +37,8 @@ function PhotoUploadViewModel() {
 
     self.photos = ko.observableArray([]);
 
-    self.addPhoto = function(original_name) {
-        self.photos.push(new PhotoUpload({ original_name : original_name }, self));
+    self.addPhoto = function(original_name, jqXHR) {
+        self.photos.push(new PhotoUpload({ original_name : original_name }, jqXHR, self));
     };
 
     self.findPhotoByName = function(name) {
@@ -53,16 +53,36 @@ function PhotoUploadViewModel() {
         });
     });
 
+    self.successPhotos = ko.computed(function() {
+        return ko.utils.arrayFilter(self.photos(), function(photo) {
+            return photo.status() == self.STATUS_SUCCESS;
+        });
+    });
+
     self.loading = ko.computed(function() {
         return self.loadingPhotos().length > 0;
     });
+
+    self.removePhoto = function(photo) {
+        if (photo.status() == self.STATUS_LOADING) {
+            photo.jqXHR.abort();
+        }
+        self.photos.remove(photo);
+    }
+
+    self.cancellAll = function()
+    {
+        ko.utils.arrayForEach(self.loadingPhotos(), function(photo) {
+            photo.jqXHR.abort();
+        });
+    }
 
     self.fileUploadSettings = {
         dropZone: '.popup-add_frame__multi',
         url: '/photo/upload/fromComputer/',
         add: function (e, data) {
-            self.addPhoto(data.files[0].name);
-            data.submit();
+            var jqXHR = data.submit();
+            self.addPhoto(data.files[0].name, jqXHR);
         },
         done: function (e, data) {
             var photo = self.findPhotoByName(data.files[0].name);
@@ -71,16 +91,19 @@ function PhotoUploadViewModel() {
             photo.status(self.STATUS_SUCCESS);
         },
         fail: function(e, data) {
-            var photo = self.findPhotoByName(data.files[0].name);
-            photo.status(self.STATUS_FAIL);
+            if (e.errorThrown != 'abort') {
+                var photo = self.findPhotoByName(data.files[0].name);
+                photo.status(self.STATUS_FAIL);
+            }
         }
     };
 }
 
-function PhotoUpload(data, parent) {
+function PhotoUpload(data, jqXHR, parent) {
     var self = this;
-    $.extend(self, new Photo(data));
+    ko.utils.extend(self, new Photo(data));
 
+    self.jqXHR = jqXHR;
     self.status = ko.observable(parent.STATUS_LOADING);
     self.errors = ko.observableArray();
 

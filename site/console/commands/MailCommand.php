@@ -170,7 +170,7 @@ class MailCommand extends CConsoleCommand
 
         foreach ($a as $email => $firstName) {
             $subject = $firstName . ', мы ищем Frontend-разработчика!';
-            $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacanvyInvite2.php', compact('firstName'), true);
+            $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite2.php', compact('firstName'), true);
             ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф');
         }
     }

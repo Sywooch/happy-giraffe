@@ -108,7 +108,8 @@ $this->bodyClass = 'body__vacancy';
                     </label>
                     <div class="file-fake">
                         <input type="file" class="file-fake_inp" name="cv">
-                        <div class="btn-blue-simple file-fake_btn">Прикрепить </div>
+                        <button class="btn-blue-simple file-fake_btn" data-bind="disable: loading">Прикрепить </button>
+                        <img src="/images/ico/ajax-loader.gif" alt="" data-bind="visible: loading" style="margin: 0 0 0 10px; vertical-align: bottom;">
                     </div>
                     <!-- ko with: cv() -->
                     <div class="f-about_upload">

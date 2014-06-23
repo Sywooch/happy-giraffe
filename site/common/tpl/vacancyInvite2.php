@@ -221,8 +221,8 @@
                                                     </tr>
 
                                                     <tr>
-                                                        <td  height="50" >
-                                                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="70" width="100%" border="0" />
+                                                        <td  height="45" >
+                                                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="45" width="100%" border="0" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -233,7 +233,7 @@
 
                                                     <tr>
                                                         <td  height="40" >
-                                                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="20" width="100%" border="0" />
+                                                            <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="40" width="100%" border="0" />
                                                         </td>
                                                     </tr>
 

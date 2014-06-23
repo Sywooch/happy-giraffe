@@ -66,11 +66,12 @@ function PhotoUploadViewModel() {
     self.removePhoto = function(photo) {
         if (photo.status() == self.STATUS_LOADING) {
             photo.jqXHR.abort();
+        } else {
+            self.photos.remove(photo);
         }
-        self.photos.remove(photo);
     }
 
-    self.cancellAll = function()
+    self.cancelAll = function()
     {
         ko.utils.arrayForEach(self.loadingPhotos(), function(photo) {
             photo.jqXHR.abort();
@@ -91,8 +92,10 @@ function PhotoUploadViewModel() {
             photo.status(self.STATUS_SUCCESS);
         },
         fail: function(e, data) {
-            if (e.errorThrown != 'abort') {
-                var photo = self.findPhotoByName(data.files[0].name);
+            var photo = self.findPhotoByName(data.files[0].name);
+            if (data.errorThrown == 'abort') {
+                self.photos.remove(photo);
+            } else {
                 photo.status(self.STATUS_FAIL);
             }
         }

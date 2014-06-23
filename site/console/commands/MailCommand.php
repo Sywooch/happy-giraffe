@@ -180,14 +180,16 @@ class MailCommand extends CConsoleCommand
         $criteria = new EMongoCriteria();
         $criteria->limit(1000);
         $criteria->parsed('!=', false);
-        $criteria->send('==', false);
+        //$criteria->send('==', false);
         $models = HhResume::model()->findAll($criteria);
+        echo count($models);
+        die;
         foreach ($models as $m) {
             if (isset($m->contacts['Эл. почта'])) {
                 $email = $m->contacts['Эл. почта'];
                 $firstName = $m->firstName;
-                $subject = $firstName . ', мы ищем опытных разработчиков для Веселого Жирафа';
-                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', compact('firstName'), true);
+                $subject = $firstName . ', мы ищем Frontend-разработчика!';
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite2.php', compact('firstName'), true);
                 if (ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф')) {
                     $m->send = true;
                     $m->save();

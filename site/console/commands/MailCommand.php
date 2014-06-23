@@ -178,9 +178,9 @@ class MailCommand extends CConsoleCommand
     public function actionVacancy()
     {
         $criteria = new EMongoCriteria();
-        $criteria->offset(1);
+        $criteria->limit(1000);
         $criteria->parsed('!=', false);
-//        $criteria->send('==', false);
+        $criteria->send('==', false);
         $models = HhResume::model()->findAll($criteria);
         foreach ($models as $m) {
             if (isset($m->contacts['Эл. почта'])) {

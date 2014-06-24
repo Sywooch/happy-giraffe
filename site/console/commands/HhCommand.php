@@ -71,6 +71,7 @@ class HhCommand extends CConsoleCommand
         ));
 
         for ($i = 0; true; $i++) {
+            echo "page: $i\n";
             curl_setopt($ch, CURLOPT_URL, $this->getPageUrl($query, $i));
             $response = curl_exec($ch);
             if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200)
@@ -94,8 +95,7 @@ class HhCommand extends CConsoleCommand
 
         foreach ($html->find('div[data-hh-resume-hash]') as $a) {
             $hash = $a->getAttribute('data-hh-resume-hash');
-            echo $hash;
-            die;
+            echo "resume: $hash\n";
             try {
                 $model = new HhResume();
                 $model->_id = $hash;

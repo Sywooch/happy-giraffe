@@ -22,32 +22,32 @@ class BaseBehavior extends \CBehavior
         ));
     }
 
-    protected function beforeSave($event)
+    public function beforeSave($event)
     {
         return true;
     }
 
-    protected function afterSave($event)
+    public function afterSave($event)
     {
         return true;
     }
 
-    protected function beforeDelete($event)
+    public function beforeDelete($event)
     {
         return true;
     }
 
-    protected function afterDelete($event)
+    public function afterDelete($event)
     {
         return true;
     }
 
-    protected function beforeFind($event)
+    public function beforeFind($event)
     {
         return true;
     }
 
-    protected function afterFind($event)
+    public function afterFind($event)
     {
         return true;
     }

@@ -26,23 +26,21 @@ namespace site\frontend\modules\notifications\behaviors;
 class CommentBehavior extends \CActiveRecordBehavior
 {
 
-    protected function beforeSave($event)
+    public function beforeSave($event)
     {
-        echo 321; die;
         return parent::beforeSave($event);
     }
 
-    protected function afterSave($event)
+    public function afterSave($event)
     {
-        echo 123; die;
         if ($this->owner->isNewRecord)
         {
             $this->addNotifications($this->owner);
             // если комментирует не автор, то подпишем его
-            if ($model->author_id != $model->commentEntity->author_id)
+            if ($this->owner->author_id != $this->owner->commentEntity->author_id)
                 $this->addNotificationDiscussSubscription($this->owner);
         }
-        
+
         return parent::afterSave($event);
     }
 
@@ -63,7 +61,6 @@ class CommentBehavior extends \CActiveRecordBehavior
      */
     protected function addNotificationDiscuss($model)
     {
-
         $subscriptions = \site\frontend\modules\notifications\models\DiscussSubscription::model()->byModel(array('entity' => $model->entity, 'entityId' => $model->entity_id))->findAll();
         foreach ($subscriptions as $subscription)
             $this->saveNotificationDiscuss($model, $subscription->userId);
@@ -97,7 +94,7 @@ class CommentBehavior extends \CActiveRecordBehavior
      */
     protected function addNotificationDiscussSubscription($model)
     {
-        $class = "\site\frontend\modules\notifications\models\DiscussSubscription";
+        $class = '\site\frontend\modules\notifications\models\DiscussSubscription';
         $count = $class::model()->byModel(array('entity' => $model->entity, 'entityId' => $model->entity_id))->byUser($model->author_id)->count();
         // Нет подписки, создаём
         if ($count == 0)
@@ -140,7 +137,7 @@ class CommentBehavior extends \CActiveRecordBehavior
      */
     protected function addNotificationReply($model)
     {
-        if ($model->author_id == $model->commentEntity->author_id)
+        if ($model->author_id == $model->commentEntity->author_id || is_null($model->response))
             return;
 
         $entity = $model->response;
@@ -170,11 +167,11 @@ class CommentBehavior extends \CActiveRecordBehavior
         $notification = \site\frontend\modules\notifications\models\Notification::model()
             ->byType($type)
             ->byUser((int) $userId)
-            ->byEntity(array('entity' => $modelClass, 'entityId' => (int) $model->entity_id))
+            ->byEntity(array('entity' => $modelClass, 'entityId' => (int) $modelId))
             ->find();
         if (is_null($notification))
         {
-            $entity = $model->commentEntity;
+            $entity = \CActiveRecord::model($modelClass)->findByPk($modelId);
             $notification = new \site\frontend\modules\notifications\models\Notification();
             $notification->type = $type;
             $notification->entity = new \site\frontend\modules\notifications\models\Entity($entity);

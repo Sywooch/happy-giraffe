@@ -73,6 +73,10 @@ class HhCommand extends CConsoleCommand
         for ($i = 0; true; $i++) {
             curl_setopt($ch, CURLOPT_URL, $this->getPageUrl($query, $i));
             $response = curl_exec($ch);
+
+            echo $response;
+            die;
+
             if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200)
                 $this->parsePage($response, $query);
             else

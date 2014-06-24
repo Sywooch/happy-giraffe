@@ -95,13 +95,16 @@ class HhCommand extends CConsoleCommand
 
         foreach ($html->find('div[data-hh-resume-hash]') as $a) {
             $hash = $a->getAttribute('data-hh-resume-hash');
-            echo "resume: $hash\n";
+            echo "resume: $hash";
             try {
                 $model = new HhResume();
                 $model->_id = $hash;
                 $model->query = $query;
                 $model->save();
-            } catch (MongoCursorException $e) {}
+            } catch (MongoCursorException $e) {
+                echo " already exists";
+            }
+            echo "\n";
         }
     }
 

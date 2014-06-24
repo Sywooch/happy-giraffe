@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $data
+ */
+?>
+
 <div id="photo-computer-mylti-empty" class="popup popup-add popup-add__photos">
     <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
     <div class="popup-add_hold">
@@ -10,7 +16,7 @@
             </ul>
         </div>
         <div class="popup-add_in tab-content">
-            <?php $this->renderPartial('_fromComputer'); ?>
+            <?php $this->renderPartial('_fromComputer', compact('data')); ?>
             <?php $this->renderPartial('_fromAlbums'); ?>
             <?php $this->renderPartial('_byUrl'); ?>
         </div>

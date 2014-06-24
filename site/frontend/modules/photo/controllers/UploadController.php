@@ -14,7 +14,8 @@ class UploadController extends \HController
 {
     public function actionForm()
     {
-        $this->renderPartial('form');
+        $data = \CJSON::encode($_GET);
+        $this->renderPartial('form', compact('data'));
     }
 
     public function actionUpload()

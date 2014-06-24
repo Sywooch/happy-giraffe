@@ -116,7 +116,7 @@ class CommentBehavior extends \CActiveRecordBehavior
      */
     protected function addNotificationComment($model)
     {
-        $notification = $this->findOrCreateNotification($model->entity, $model->entity_id, $model->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_USER_CONTENT_COMMENT);
+        $notification = $this->findOrCreateNotification($model->entity, $model->entity_id, $model->commentEntity->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_USER_CONTENT_COMMENT);
 
         $comment = new \site\frontend\modules\notifications\models\Entity($model);
         $comment->title = $model->text;
@@ -173,6 +173,7 @@ class CommentBehavior extends \CActiveRecordBehavior
         {
             $entity = \CActiveRecord::model($modelClass)->findByPk($modelId);
             $notification = new \site\frontend\modules\notifications\models\Notification();
+            $notification->userId = (int) $userId;
             $notification->type = $type;
             $notification->entity = new \site\frontend\modules\notifications\models\Entity($entity);
         }

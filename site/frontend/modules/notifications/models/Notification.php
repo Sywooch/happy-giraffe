@@ -165,7 +165,7 @@ class Notification extends \EMongoDocument
     public function beforeSave()
     {
         $unreadCount = count($this->unreadEntities);
-        if ($this->unreadCount > $unreadCount)
+        if (is_null($this->dtimeUpdate) || $this->unreadCount > $unreadCount)
             $this->updateTime();
         $this->unreadCount = $unreadCount;
         $this->readCount = count($this->readEntities);
@@ -234,7 +234,7 @@ class Notification extends \EMongoDocument
             $entity = array('entity' => get_class($model), 'entityId' => (int) $model->id);
 
         $this->dbCriteria->addCond('entity.class', '==', $entity['entity']);
-        $this->dbCriteria->addCond('entityId.id', '==', $entity['entityId']);
+        $this->dbCriteria->addCond('entity.id', '==', $entity['entityId']);
 
         return $this;
     }

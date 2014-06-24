@@ -15,7 +15,7 @@ class VacancyForm extends CFormModel
     protected $type;
 
     private $debugEmails = array('pavel@happy-giraffe.ru', 'nikita@happy-giraffe.ru');
-    private $productionEmails = array('info@happy-giraffe.ru');
+    private $productionEmails = array('info@happy-giraffe.ru', 'pavel@happy-giraffe.ru');
 
     public function __construct($type)
     {

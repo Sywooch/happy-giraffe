@@ -94,8 +94,10 @@ class HhCommand extends CConsoleCommand
         $html = str_get_html($response);
 
         $resumes = $html->find('div[data-hh-resume-hash]');
-        echo count($resumes);
-        die;
+
+        if (count($resumes) == 0) {
+            Yii::app()->end();
+        }
 
         foreach ($html->find('div[data-hh-resume-hash]') as $a) {
             $hash = $a->getAttribute('data-hh-resume-hash');

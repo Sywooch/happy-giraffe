@@ -14,9 +14,7 @@ ko.bindingHandlers.photoUpload = {
 ko.bindingHandlers.fileUpload = {
     update: function (element, valueAccessor) {
         var options = valueAccessor() || {};
-        $(element).fileupload(options).on('fileuploadprocessalways', function (e, data) {
-//            alert('123');
-        });
+        $(element).fileupload(options);
 
         if (options.hasOwnProperty('dropZone')) {
             var dropZone = $(options.dropZone);
@@ -27,16 +25,6 @@ ko.bindingHandlers.fileUpload = {
                 dropZone.removeClass('dragover');
             })
         }
-    }
-};
-
-ko.bindingHandlers.canvas = {
-    init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-
-    },
-    update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-        var context = valueAccessor().getContext('2d');
-        context.drawImage(element, 0, 0);
     }
 };
 
@@ -91,7 +79,6 @@ function PhotoUploadViewModel() {
     }
 
 
-    var originalAdd = $.blueimp.fileupload.prototype.options.add;
     self.fileUploadSettings = {
         dropZone: '.popup-add_frame__multi',
         url: '/photo/upload/fromComputer/',
@@ -103,17 +90,12 @@ function PhotoUploadViewModel() {
         add: function (e, data) {
             var jqXHR = data.submit();
             self.addPhoto(data.files[0].name, jqXHR, URL.createObjectURL(data.files[0]));
-            originalAdd.call(this, e, data);
+            $.blueimp.fileupload.prototype.options.add.call(this, e, data);
         },
         done: function (e, data) {
             var photo = self.findPhotoByName(data.files[0].name);
-
-            photo.preview = data.files[0].preview.toDataURL();
-
-            console.log(data.files[0].preview.getContext('2d'));
-
-            //console.log(photo);
-            //$.extend(photo, new PhotoUpload(data));
+            photo.canvas = data.files[0].preview;
+            photo.previewUrl = data.files[0].preview.toDataURL();
             photo.status(self.STATUS_SUCCESS);
         },
         fail: function(e, data) {

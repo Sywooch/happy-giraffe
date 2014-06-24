@@ -29,6 +29,7 @@ class AirController extends HController
     {
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
+                'condition' => 't.created > DATE_SUB(NOW(), INTERVAL 48 HOUR)',
                 'order' => 't.created DESC',
             ),
         ));

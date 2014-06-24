@@ -73,10 +73,6 @@ class HhCommand extends CConsoleCommand
         for ($i = 0; true; $i++) {
             curl_setopt($ch, CURLOPT_URL, $this->getPageUrl($query, $i));
             $response = curl_exec($ch);
-
-            echo $response;
-            die;
-
             if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200)
                 $this->parsePage($response, $query);
             else
@@ -98,6 +94,8 @@ class HhCommand extends CConsoleCommand
 
         foreach ($html->find('div[data-hh-resume-hash]') as $a) {
             $hash = $a->getAttribute('data-hh-resume-hash');
+            echo $hash;
+            die;
             try {
                 $model = new HhResume();
                 $model->_id = $hash;

@@ -230,11 +230,11 @@ class Notification extends \EMongoDocument
      */
     public function byEntity($entity)
     {
-        if (is_object($model))
-            $model = array('entity' => get_class($model), 'entityId' => (int) $model->id);
+        if (is_object($entity))
+            $entity = array('entity' => get_class($model), 'entityId' => (int) $model->id);
 
-        $this->dbCriteria->addCond('entity.class', '==', $model['entity']);
-        $this->dbCriteria->addCond('entityId.id', '==', $model['entityId']);
+        $this->dbCriteria->addCond('entity.class', '==', $entity['entity']);
+        $this->dbCriteria->addCond('entityId.id', '==', $entity['entityId']);
 
         return $this;
     }

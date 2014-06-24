@@ -1,11 +1,17 @@
+<?php
+/**
+ * @var $data
+ */
+?>
+
 <div id="photo-tab-computer" class="tab-pane active">
-    <div class="popup-add_frame popup-add_frame__multi" data-bind="visible: photos().length == 0">
+    <div class="popup-add_frame" data-bind="visible: photos().length == 0, css: { 'popup-add_frame__multi' : multiple }">
         <div class="popup-add_cap">
             <div class="cap-empty cap-empty__addPhoto">
                 <div class="cap-empty_hold">
                     <div class="cap-empty_img"></div>
                     <div class="cap-empty_t">Выберите файлы с компьютера</div>
-                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp' data-bind="fileUpload: fileUploadSettings" multiple></div>  <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div><div class='popup-add_cap-drag'>или перетащите фотографии сюда</div></div>
+                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp' data-bind="fileUpload: { options: fileUploadSettings, multiple: multiple }"></div>  <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div><div class='popup-add_cap-drag' data-bind="visible: multiple">или перетащите фотографии сюда</div></div>
                 </div>
                 <div class="verticalalign-m-help"></div>
             </div>
@@ -40,11 +46,9 @@
                             <!-- /ko -->
 
                             <!-- ko if: status() == $root.STATUS_FAIL -->
-                            <div class="i-photo i-photo__error">
-                                <div class="i-photo_hold error">
-                                    <div class="tx-hint">IMG_5295.JPG</div>
-                                    <div class="tx-hint">Ошибка загрузки</div>
-                                </div>
+                            <div class="i-photo_hold error">
+                                <div class="tx-hint" data-bind="text: original_name"></div>
+                                <div class="tx-hint">Ошибка загрузки</div>
                             </div>
                             <!-- /ko -->
                         </div>
@@ -79,6 +83,6 @@
 </div>
 
 <script type="text/javascript">
-    uploadVM = new PhotoUploadViewModel();
+    uploadVM = new FromComputerViewModel(<?=$data?>);
     ko.applyBindings(uploadVM, document.getElementById('photo-tab-computer'));
 </script>

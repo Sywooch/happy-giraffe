@@ -8,7 +8,8 @@ $cs->registerPackage('ko_photo');
     <div class="layout-wrapper_hold clearfix">
         <div class="layout-content clearfix">
             <div id="test">
-                <a data-bind="photoUpload: null">Загрузить фото</a>
+                <p><a data-bind="photoUpload: { multiple : true }">Загрузить много фото</a></p>
+                <p><a data-bind="photoUpload: { multiple : false }">Загрузить одно фото</a></p>
             </div>
         </div>
     </div>

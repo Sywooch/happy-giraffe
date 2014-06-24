@@ -16,8 +16,8 @@ Yii::import('site.common.components.Hh.*');
 
 class HhCommand extends CConsoleCommand
 {
-    const LOGIN = 'mira@happy-giraffe.ru';
-    const PASSWORD = 'mirahh';
+    const LOGIN = 'n.ikita@happy-giraffe.ru';
+    const PASSWORD = 'happy-giraffe';
 
     public function actionSync($code)
     {
@@ -50,8 +50,8 @@ class HhCommand extends CConsoleCommand
             CURLOPT_COOKIEFILE => $this->getCookie(),
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => array(
-                'username' => 'mira@happy-giraffe.ru',
-                'password' => 'mirahh',
+                'username' => self::LOGIN,
+                'password' => self::PASSWORD,
             ),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,

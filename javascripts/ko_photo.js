@@ -4,7 +4,8 @@ ko.bindingHandlers.photoUpload = {
             type: 'ajax',
             ajax: {
                 settings: {
-                    url: '/photo/upload/form/'
+                    url: '/photo/upload/form/',
+                    data : valueAccessor()
                 }
             }
         });
@@ -13,7 +14,13 @@ ko.bindingHandlers.photoUpload = {
 
 ko.bindingHandlers.fileUpload = {
     update: function (element, valueAccessor) {
-        var options = valueAccessor() || {};
+        var data = valueAccessor();
+        var options = data.options || {};
+        var multiple = data.multiple;
+        var el = $(element);
+
+        el.prop('multiple', multiple);
+
         $(element).fileupload(options);
 
         if (options.hasOwnProperty('dropZone')) {
@@ -28,14 +35,48 @@ ko.bindingHandlers.fileUpload = {
     }
 };
 
-function PhotoUploadViewModel() {
+function PhotoUploadViewModel(data) {
     var self = this;
 
     self.STATUS_LOADING = 0;
     self.STATUS_SUCCESS = 1;
     self.STATUS_FAIL = 2;
 
+    self.multiple = data.multiple === 'true';
+}
+
+function PhotoUploadSingleViewModel() {
+    var self = this;
+    self.photo = ko.observable();
+}
+
+function PhotoUploadMultipleViewModel() {
+    var self = this;
     self.photos = ko.observableArray([]);
+}
+
+function FromComputerViewModel(data) {
+    var self = this;
+    ko.utils.extend(self, new PhotoUploadViewModel(data));
+
+    if (self.multiple) {
+        ko.utils.extend(self, new FromComputerMultipleViewModel());
+    } else {
+        ko.utils.extend(self, new FromComputerSingleViewModel());
+    }
+}
+
+function FromComputerSingleViewModel() {
+
+}
+
+function FromComputerMultipleViewModel() {
+    var self = this;
+
+
+    ko.utils.extend(self, new PhotoUploadMultipleViewModel());
+
+    console.log(self.STATUS_SUCCESS);
 
     self.addPhoto = function(original_name, jqXHR, previewUrl) {
         self.photos.push(new PhotoUpload({ original_name : original_name }, jqXHR, previewUrl, self));
@@ -78,7 +119,6 @@ function PhotoUploadViewModel() {
         });
     }
 
-
     self.fileUploadSettings = {
         dropZone: '.popup-add_frame__multi',
         url: '/photo/upload/fromComputer/',
@@ -88,12 +128,14 @@ function PhotoUploadViewModel() {
         previewMaxHeight: 110,
         previewCrop: true,
         add: function (e, data) {
+            console.log(data);
             var jqXHR = data.submit();
             self.addPhoto(data.files[0].name, jqXHR, URL.createObjectURL(data.files[0]));
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);
         },
         done: function (e, data) {
             var photo = self.findPhotoByName(data.files[0].name);
+            console.log();
             photo.canvas = data.files[0].preview;
             photo.previewUrl = data.files[0].preview.toDataURL();
             photo.status(self.STATUS_SUCCESS);

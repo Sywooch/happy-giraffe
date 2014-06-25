@@ -14912,8 +14912,9 @@ body.gallery {
 .userAddRecord__blog .userAddRecord_hold {
   border: 2px solid #e5e5e5;
   float: left;
+  padding-right: 30px;
   margin: 0 0 0 10px;
-  width: 590px;
+  width: auto;
 }
 .userAddRecord__blog .userAddRecord_hold:hover {
   border-color: #73c76a;
@@ -15018,6 +15019,20 @@ body.gallery {
 .userAddRecord_ico__link:hover {
   background-position: -500px -100px;
 }
+.userAddRecord_ico__photo-add {
+  background-position: -600px 0;
+}
+.userAddRecord_ico__photo-add.active,
+.userAddRecord_ico__photo-add:hover {
+  background-position: -600px -100px;
+}
+.userAddRecord_ico__album {
+  background-position: -700px 0;
+}
+.userAddRecord_ico__album.active,
+.userAddRecord_ico__album:hover {
+  background-position: -700px -100px;
+}
 .userAddRecord_ico__question {
   width: 50px;
   margin-right: 10px;
@@ -15026,6 +15041,31 @@ body.gallery {
 .userAddRecord_ico__question.active,
 .userAddRecord_ico__question:hover {
   background-position: -390px -100px;
+}
+.userAddRecord_i {
+  display: inline-block;
+  vertical-align: middle;
+  text-decoration: none;
+  color: #cccccc;
+}
+.userAddRecord_i:hover {
+  color: #333333;
+}
+.userAddRecord_i .userAddRecord_ico {
+  margin-right: 10px;
+}
+.userAddRecord_i.active .userAddRecord_ico__photo-add,
+.userAddRecord_i:hover .userAddRecord_ico__photo-add {
+  background-position: -600px -100px;
+}
+.userAddRecord_i.active .userAddRecord_ico__album,
+.userAddRecord_i:hover .userAddRecord_ico__album {
+  background-position: -700px -100px;
+}
+.userAddRecord_desc {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 10px 0 0;
 }
 .userAddRecord_draft-hold {
   float: right;
@@ -15335,5 +15375,74 @@ body.gallery {
   padding-right: 19px;
   background: url('/new/images/subscribersWidget_more.png') no-repeat 100% 60%;
 }
+/*
+    Заглушка пустого раздела
+
+    .section-empty
+        .section-empty_t ...
+        ul.section-empty_ul
+            li.section-empty_li
+                a.section-empty_i
+                    .section-empty_ico
+                    .section-empty_ico-tx ...
+        .section-empty_desc
+            .section-empty_desc-tx
+
+*/
+.section-empty {
+  margin: 80px 0 180px;
+}
+.section-empty_t {
+  margin: 15px 0;
+  font-size: 25px;
+  text-align: center;
+}
+.section-empty_ul {
+  margin: 45px 20px 25px;
+  text-align: center;
+}
+.section-empty_li {
+  display: inline-block;
+  margin: 0 25px 25px;
+}
+.section-empty_i {
+  display: block;
+  border: 1px solid #f5f5f5;
+  width: 125px;
+  padding: 15px 10px 18px;
+  color: #cccccc;
+  text-decoration: none;
+}
+.section-empty_i:hover {
+  border-color: #4ec0f6;
+  color: #333333;
+}
+.section-empty_i:hover .section-empty_ico__photo {
+  background-position: 0 -70px;
+}
+.section-empty_i:hover .section-empty_ico__album {
+  background-position: -100px -70px;
+}
+.section-empty_ico {
+  display: block;
+  margin: 0 auto 5px;
+  width: 100px;
+  height: 70px;
+  background: url('/new/images/section-empty_ico.png') no-repeat;
+}
+.section-empty_ico__photo {
+  background-position: 0 0;
+}
+.section-empty_ico__album {
+  background-position: -100px 0;
+}
+.section-empty_desc {
+  padding: 5px 300px 20px 170px;
+  background: url('/new/images/section-empty_desc.jpg') no-repeat 600px 0;
+  color: #999999;
+  font-size: 14px;
+  line-height: 20px;
+}
+/* /section-empty */
 /*@import "../redactor/redactor.less";*/
 /*# sourceMappingURL=../../new/css/all1.css.map */

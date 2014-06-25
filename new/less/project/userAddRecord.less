@@ -48,8 +48,9 @@
     &__blog &_hold {
         border: 2px solid #e5e5e5;
         float: left;
+        padding-right: 30px;
         margin: 0 0 0 10px;
-        width: 590px;
+        width: auto;
     }
     &__blog &_hold:hover {border-color: #73c76a;}
     &__blog &_hold:hover:after {background-position: 0 -22px;}
@@ -128,6 +129,12 @@
     &_ico__link {background-position: -500px 0;}
     &_ico__link.active,
     &_ico__link:hover {background-position: -500px -100px;}
+    &_ico__photo-add {background-position: -600px 0;}
+    &_ico__photo-add.active,
+    &_ico__photo-add:hover {background-position: -600px -100px;}
+    &_ico__album {background-position: -700px 0;}
+    &_ico__album.active,
+    &_ico__album:hover {background-position: -700px -100px;}
     &_ico__question {
         width: 50px;
         margin-right: 10px;
@@ -135,6 +142,24 @@
     }
     &_ico__question.active,
     &_ico__question:hover {background-position: -390px -100px;}
+    // Иконки с описанием
+    &_i {
+        .inline-block();
+        vertical-align: middle;
+        text-decoration: none;
+        color: @color-gray-light;
+    }
+    &_i:hover {color: @color-base;}
+    &_i &_ico {margin-right: 10px;}
+    &_i.active &_ico__photo-add,
+    &_i:hover &_ico__photo-add {background-position: -600px -100px;}
+    &_i.active &_ico__album,
+    &_i:hover &_ico__album {background-position: -700px -100px;}
+    &_desc {
+        .inline-block();
+        vertical-align: middle;
+        margin: 0 10px 0 0;
+    }
 
     &_draft-hold {
         float: right;

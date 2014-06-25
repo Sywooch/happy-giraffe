@@ -75,7 +75,7 @@ function PhotoCollectionViewModel(data) {
 
     self.photoChanged = function() {
         History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
-        _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+        ga('send', 'pageview', self.currentPhoto().url());
         yaCounter11221648.hit(self.currentPhoto().url());
         self.setLikesPosition();
         //$('#photo-window_banner iframe').attr('src', '/google.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
@@ -170,7 +170,7 @@ function PhotoCollectionViewModel(data) {
 
     self.currentPhotoIndex.valueHasMutated();
     History.pushState(self.currentPhoto(), self.currentPhoto().title().length > 0 ? self.currentPhoto().title() : self.properties.title + ' - фото ' + self.currentNaturalIndex(), self.currentPhoto().url());
-    _gaq.push(['_trackPageview', self.currentPhoto().url()]);
+    ga('send', 'pageview', self.currentPhoto().url());
     yaCounter11221648.hit(self.currentPhoto().url());
     self.preloadImages(2, 2);
     setTimeout(function() {

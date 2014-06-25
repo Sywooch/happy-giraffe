@@ -25,7 +25,7 @@
 
 <script type="text/html" id="photo-template">
 <div class="i-photo" data-bind="css: cssClass"><a href="" class="ico-close5" data-bind="click: $parent.removePhoto"></a>
-    <!-- ko if: status() == $root.STATUS_SUCCESS -->
+    <!-- ko if: status() == PhotoUpload.STATUS_SUCCESS -->
     <div class="i-photo_hold">
         <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="attr: { src : previewUrl }">
             <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
@@ -34,7 +34,7 @@
     </div>
     <!-- /ko -->
 
-    <!-- ko if: status() == $root.STATUS_LOADING -->
+    <!-- ko if: status() == PhotoUpload.STATUS_LOADING -->
     <div class="i-photo_hold">
         <div class="i-photo_progress">
             <div class="progress progress-striped active progress__cont">
@@ -45,7 +45,7 @@
     </div>
     <!-- /ko -->
 
-    <!-- ko if: status() == $root.STATUS_FAIL -->
+    <!-- ko if: status() == PhotoUpload.STATUS_FAIL -->
     <div class="i-photo_hold error">
         <div class="tx-hint" data-bind="text: original_name"></div>
         <div class="tx-hint">Ошибка загрузки</div>

@@ -61,9 +61,33 @@ function PhotoUploadMultipleViewModel() {
     self.photos = ko.observableArray([]);
 }
 
-function FromComputerSingleViewModel(data) {
+function FromComputerViewModel(data) {
     var self = this;
     PhotoUploadViewModel.apply(self, arguments);
+
+    self.populatePhoto = function(data) {
+        var jqXHR = data.submit();
+        return new PhotoUploadFromComputer({ original_name : data.files[0].name }, jqXHR, self);
+    }
+
+    self.photoDone = function(photo, data) {
+        photo.previewUrl = data.files[0].preview.toDataURL();
+        photo.status(self.STATUS_SUCCESS);
+    }
+
+    self.fileUploadSettings = {
+        url: '/photo/upload/fromComputer/',
+        disableImageResize: /Android(?!.*Chrome)|Opera/
+            .test(window.navigator.userAgent),
+        previewMaxWidth: 155,
+        previewMaxHeight: 110,
+        previewCrop: true
+    };
+}
+
+function FromComputerSingleViewModel(data) {
+    var self = this;
+    FromComputerViewModel.apply(self, arguments);
 
     self.removePhoto = function() {
         if (self.photo().status() == self.STATUS_LOADING) {
@@ -73,21 +97,13 @@ function FromComputerSingleViewModel(data) {
         }
     }
 
-    self.fileUploadSettings = {
-        url: '/photo/upload/fromComputer/',
-        disableImageResize: /Android(?!.*Chrome)|Opera/
-            .test(window.navigator.userAgent),
-        previewMaxWidth: 155,
-        previewMaxHeight: 110,
-        previewCrop: true,
+    $.extend(self.fileUploadSettings, {
         add: function (e, data) {
-            var jqXHR = data.submit();
-            self.photo(new PhotoUploadFromComputer({ original_name : data.files[0].name }, jqXHR, self));
+            self.photo(self.populatePhoto(data));
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);
         },
         done: function (e, data) {
-            self.photo().previewUrl = data.files[0].preview.toDataURL();
-            self.photo().status(self.STATUS_SUCCESS);
+            self.photoDone(self.photo(), data);
         },
         fail: function(e, data) {
             if (data.errorThrown == 'abort') {
@@ -96,16 +112,12 @@ function FromComputerSingleViewModel(data) {
                 self.photo().status(self.STATUS_FAIL);
             }
         }
-    };
+    });
 }
 
 function FromComputerMultipleViewModel(data) {
     var self = this;
-    PhotoUploadViewModel.apply(self, arguments);
-
-    self.addPhoto = function(original_name, jqXHR) {
-        self.photos.push(new PhotoUploadFromComputer({ original_name : original_name }, jqXHR, self));
-    };
+    FromComputerViewModel.apply(self, arguments);
 
     self.findPhotoByName = function(name) {
         return ko.utils.arrayFirst(self.photos(), function (photo) {
@@ -144,23 +156,15 @@ function FromComputerMultipleViewModel(data) {
         });
     }
 
-    self.fileUploadSettings = {
+    $.extend(self.fileUploadSettings, {
         dropZone: '.popup-add_frame__multi',
-        url: '/photo/upload/fromComputer/',
-        disableImageResize: /Android(?!.*Chrome)|Opera/
-            .test(window.navigator.userAgent),
-        previewMaxWidth: 155,
-        previewMaxHeight: 110,
-        previewCrop: true,
         add: function (e, data) {
-            var jqXHR = data.submit();
-            self.addPhoto(data.files[0].name, jqXHR);
+            self.photos.push(self.populatePhoto(data));
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);
         },
         done: function (e, data) {
             var photo = self.findPhotoByName(data.files[0].name);
-            photo.previewUrl = data.files[0].preview.toDataURL();
-            photo.status(self.STATUS_SUCCESS);
+            self.photoDone(photo, data);
         },
         fail: function(e, data) {
             var photo = self.findPhotoByName(data.files[0].name);
@@ -170,7 +174,7 @@ function FromComputerMultipleViewModel(data) {
                 photo.status(self.STATUS_FAIL);
             }
         }
-    };
+    });
 }
 
 function Photo(data) {
@@ -178,11 +182,11 @@ function Photo(data) {
     self.original_name = data.original_name;
 }
 
-function PhotoUpload(data, previewUrl, parent) {
+function PhotoUpload(data, parent) {
     var self = this;
     Photo.apply(self, arguments);
 
-    self.previewUrl = previewUrl;
+    self.previewUrl = ko.observable();
     self.status = ko.observable(parent.STATUS_LOADING);
     self.errors = ko.observableArray();
 
@@ -198,7 +202,8 @@ function PhotoUpload(data, previewUrl, parent) {
     });
 }
 
-function PhotoUploadFromComputer(data, jqXHR, previewUrl, parent) {
+function PhotoUploadFromComputer(data, jqXHR, parent) {
+    console.log(parent);
     var self = this;
     PhotoUpload.apply(self, arguments);
     self.jqXHR = jqXHR;

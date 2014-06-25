@@ -2673,6 +2673,7 @@ input[type="button"].btn-block {
 .docs_h2 {
   margin-bottom: 10px;
   text-align: center;
+  font-size: 24px;
 }
 .docs_desc {
   padding: 20px 20px;
@@ -13946,13 +13947,18 @@ body.gallery {
 .i-photo_img-hold {
   position: relative;
   height: 110px;
+  width: 155px;
   background-color: #707070;
+  overflow: hidden;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
 }
 .i-photo_img-hold:hover .i-photo_overlay {
   display: block;
 }
 .i-photo_img {
-  max-height: 100%;
+  margin: -22px 0 -22px;
 }
 .i-photo_overlay {
   display: none;

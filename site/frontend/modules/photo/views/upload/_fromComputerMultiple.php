@@ -43,7 +43,7 @@
                     <span class="popup-add_footer-count" data-bind="text: successPhotos().length"></span> из <span class="popup-add_footer-count" data-bind="text: photos().length"></span></span>
             <!-- ko if: ! loading() -->
             <div class="file-fake">
-                <input type="file" class="file-fake_inp" data-bind="fileUpload: fileUploadSettings, multiple: true"><a href="" class="file-fake_btn btn btn-primary btn-s"><span class="ico-plus ico-plus__s ico-plus__white"></span>Загрузить еще</a>
+                <input type="file" class="file-fake_inp" data-bind="fileUpload: { options: fileUploadSettings, multiple: true }"><a href="" class="file-fake_btn btn btn-primary btn-s"><span class="ico-plus ico-plus__s ico-plus__white"></span>Загрузить еще</a>
             </div>
             <!-- /ko -->
             <!-- ko if: loading -->

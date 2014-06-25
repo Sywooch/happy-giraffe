@@ -9,13 +9,17 @@
 namespace site\frontend\modules\photo\controllers;
 
 use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
+use site\frontend\modules\photo\models\upload\PopupForm;
 
 class UploadController extends \HController
 {
     public function actionForm()
     {
-        $data = \CJSON::encode($_GET);
-        $this->renderPartial('form', compact('data'));
+        $form = new PopupForm();
+        $form->attributes = $_GET;
+        if ($form->validate()) {
+            $this->renderPartial('form', compact('form'));
+        }
     }
 
     public function actionUpload()

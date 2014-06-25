@@ -66,6 +66,12 @@ $data['currentRubricId'] = $this->rubric_id;
 
             <?php $this->renderPartial('_subscribers'); ?>
 
+            <?php if ($this->action->id == 'view'): ?>
+                <div class="banner">
+                    <?php $this->renderPartial('//banners/_sidebar'); ?>
+                </div>
+            <?php endif; ?>
+
             <div class="menu-simple blogInfo" id="rubricsList" data-bind="visible: showRubrics">
                 <?php $this->renderPartial('_rubric_list', array('currentRubricId' => $this->rubric_id)); ?>
             </div>

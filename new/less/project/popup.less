@@ -160,11 +160,16 @@
     &_img-hold {
         position: relative;
         height: 110px;
+        width: 155px;
         background-color: #707070;
+        overflow: hidden;
+        display: table-cell;
+        vertical-align: middle;
+        text-align: center;
     }
     &_img-hold:hover &_overlay {display: block;}
     &_img {
-        max-height: 100%;
+        margin: -22px 0 -22px;
     }
     &_overlay {
         display: none;

@@ -46,7 +46,7 @@ abstract class UploadForm extends \CFormModel
                 'attributes' => \CMap::mergeArray($photo->attributes, array(
                     'originalPath' => $photo->getImageUrl(),
                 )),
-                'errors' => $photo->errors,
+                'error' => $photo->hasErrors(),
             );
         }
 

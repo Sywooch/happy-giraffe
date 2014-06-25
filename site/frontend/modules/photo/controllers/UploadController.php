@@ -30,7 +30,6 @@ class UploadController extends \HController
 
     public function actionFromComputer()
     {
-        sleep(3);
         $form = new FromComputerUploadForm();
         if ($form->validate()) {
             echo $form->save();
@@ -40,7 +39,7 @@ class UploadController extends \HController
     public function actionByUrl()
     {
         $form = new ByUrlUploadForm();
-        $form->attributes = array('url' => 'http://fotoshops.org/uploads/taginator/Oct-2013/image.jpg');
+        $form->attributes = $_POST;
         if ($form->validate()) {
             echo $form->save();
         }

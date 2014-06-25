@@ -84,8 +84,9 @@ class PhotoCreate extends Photo
             if (! copy($this->path, $this->getImagePath())) {
                 throw new \CException('Невозможно скопировать файл');
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
     protected function beforeValidate()
@@ -94,7 +95,8 @@ class PhotoCreate extends Photo
             if ($this->author_id === null && ! \Yii::app()->user->isGuest) {
                 $this->author_id = \Yii::app()->user->id;
             }
+            return true;
         }
-        return true;
+        return false;
     }
 } 

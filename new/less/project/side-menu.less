@@ -1,0 +1,148 @@
+/*
+    Фильтр списка пользователей
+
+    side-menu __im      __antispam
+        side-menu_t
+        side-menu_ul
+            side-menu_li
+                side-menu_i
+                    side-menu_ico
+                    side-menu_tx
+                    [side-menu_count]
+
+*/
+.side-menu {
+    float: left;
+    width: 80px;
+    background: #675495;
+    .border-left-radius(10px);
+    .user-select(none);
+    
+    @media screen and (max-height: 530px) {
+        &__im &_tx {display: none;}
+        &__im &_i {
+            padding: 7px 15px 4px;
+            height: 50px;
+        }
+        &__im &_count {top: 4px;}
+        &__im &_count-sub {top: 3px;}
+    }
+    @media screen and (max-height: 630px) {
+        &__im &_i {
+            padding: 4px 15px 2px;
+        }
+    }
+    &__im &_li:last-child {
+        border-bottom: 1px solid #7361a1;
+        border-bottom-left-radius: none;
+    }
+
+    &__antispam &_ico {
+        .img-retina('@{path-img}/side-menu_ico__antispam.png'; '@{path-img}/side-menu_ico__antispam-2x.png'; 300px; 80px);
+    }
+
+    &_t {
+        display: block;
+        height: 57px;
+        background: url('@{path-img}/side-menu_t.png') no-repeat;
+        border-top-left-radius: 10px;
+    }
+    &_t__moderator {background: url('@{path-img}/side-menu_t__moderator.png') no-repeat;}
+    &_t__friends {background: url('@{path-img}/side-menu_t__friends.png') no-repeat;}
+    &_ul {}
+    &_li {border-bottom: 1px solid #7361a1;}
+    &_li:last-child {
+        border-bottom: none;
+        border-bottom-left-radius: 10px;
+    }
+    &_li.active,
+    &_li:hover {background: #5c4b86;}
+    &_li.disabled:hover {background: none;}
+    &_li.disabled &_ico {opacity: .1;}
+    &_li.disabled &_count-sub,
+    &_li.disabled &_tx  {color: #8476a7;}
+    &_li.active &_ico {opacity: 1;}
+    &_li.active &_tx  {color: #fff;}
+    &_li:hover &_count,
+    &_li.active &_count {border-color: #5c4b86;}
+    &_li__find {
+        background: #16b45a;
+
+        &:hover,
+        &.active {background: #0f9b4b;}
+    }
+    &_li__find &_tx  {color: #fff;}
+    &_li__find &_ico {opacity: 1;}
+    
+    &_i {
+        position: relative;
+        display: block;
+        height: 70px;
+        padding: 15px 15px 15px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    &_i-hold {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    &_ico {
+        display: block;
+        width: 50px;
+        height: 40px;
+        margin: 0 0 2px;
+        background: url() no-repeat;
+        opacity: .5;
+        .img-retina('@{path-img}/side-menu_ico.png'; '@{path-img}/side-menu_ico-2x.png'; 400px; 40px);
+    }
+    &_ico__all    {background-position: 0 0;}
+    &_ico__new    {background-position: -50px 0;}
+    &_ico__online {background-position: -100px 0;height: 32px;}
+    &_ico__online-friend {background-position: -150px 0;}
+    &_ico__find   {background-position: -200px 0;}
+    &_ico__friend-new {background-position: -250px 0;}
+    &_ico__friend-add {background-position: -300px 0;}
+    &_ico__advice {background-position: -350px 0;}
+    
+    // antispam модуль
+    &_ico__broadcast {background-position: 0 0;}
+    &_ico__expert    {background-position: -50px 0;}
+    &_ico__deleted   {background-position: -100px 0;}
+    &_ico__question  {background-position: -300px 0;}
+    &_ico__ul-white             {background-position: -150px 0; opacity:1;}
+    &_ico__ul-black             {background-position: -200px 0; opacity:1;}
+    &_ico__ul-block             {background-position: -250px 0; opacity:1;}
+    &_i.active &_ico__ul-black  {background-position: -200px -40px;}
+    &_i.active &_ico__ul-white  {background-position: -150px -40px;}
+    &_i.active &_ico__ul-block  {background-position: -250px -40px;}
+    // /antispam
+
+    &_tx {
+        display: block;
+        color: #bdb7ce;
+        font-size: @font-s;
+        line-height: @font-s;
+    }
+    &_count {
+        position: absolute;
+        top: 14px;
+        right: 13px;
+        padding: 1px 5px;
+        border: 2px solid #675495;
+        background: #fa5327;
+        .border-radius(10px);
+        color: #fff;
+        font-size: @font-xs;
+    }
+    &_count-sub {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: #bdb7ce;
+        font-size: @font-xs;
+        line-height: @font-xs;
+    }
+
+}
+/* /side-menu */

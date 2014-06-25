@@ -1,0 +1,173 @@
+include ../../block/config
+extend ../../extend/layout_loose
+
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_top-user.page-col_top-user__family
+            .ico-myfamily
+            .profile-settings-family
+                ul.profile-settings-family_ul
+                    li.profile-settings-family_li
+                        a.profile-settings-family_a(href="")
+                            span.profile-settings-family_count 1
+                            span.profile-settings-family_tx Состав моей семьи
+                    li.profile-settings-family_li
+                        a.profile-settings-family_a(href="")
+                            span.profile-settings-family_count 2
+                            span.profile-settings-family_tx О моей семье
+            a.a-profile-bg(href="") Фон анкеты
+        .page-col_cont.page-col_cont__in
+            .family-user
+                // family-base-photo
+                .family-base-photo
+                    a.family-base-photo_img-hold(href="")
+                        img.family-base-photo_img-big(src="#{path}images/example/w880-h585-1.jpg", alt="")
+                    .family-base-photo_overlay
+                        a.family-base-photo_r
+                            .family-base-photo_tx
+                                | Семейный альбом
+                                br
+                                span.family-base-photo_count 60 
+                                |  фото
+                            .family-base-photo_ico-album
+                            .family-base-photo_arrow
+                        ul.family-base-photo_ul.clearfix
+                            // Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.
+                            li.family-base-photo_li
+                                a.family-base-photo_a-list
+                                    //- высота изображений 50px
+                                    img.family-base-photo_img-list(src="#{path}images/example/w80-h50-1.jpg", alt="")
+                            li.family-base-photo_li
+                                a.family-base-photo_a-list
+                                    img.family-base-photo_img-list(src="#{path}images/example/w80-h50-2.jpg", alt="")
+                            li.family-base-photo_li
+                                a.family-base-photo_a-list
+                                    //- высота изображений 50px
+                                    img.family-base-photo_img-list(src="#{path}images/example/w80-h50-1.jpg", alt="")
+                            li.family-base-photo_li
+                                a.family-base-photo_a-list
+                                    img.family-base-photo_img-list(src="#{path}images/example/w70-h50-1.jpg", alt="")
+                            li.family-base-photo_li
+                                a.family-base-photo_a-list
+                                    img.family-base-photo_img-list(src="#{path}images/example/w80-h50-2.jpg", alt="")
+                // /family-base-photo
+                // family-about
+                .family-about
+                    .family-about_bubble
+                       .family-about_t О нашей семье
+                       .family-about_tx
+                            | Наша семья состоит из трех человек: папа Дима, мама Наташа и доченька Машенька. История нашего знакомства с главой семейства началась еще 2 года назад, когда я поехала в командировку в г. Саратов. Тогда я с двумя своими коллегами отправились повышать квалификацию. Проучившись три недели, мы успешно сдали экзамены и готовились отправиться домой. За 3 часа до отправления поезда моя коллега решила познакомить меня со своим братом и говорит, шутя, что привезла ему невесту. Мы все посмеялись, пошутили, потом встречи, расставания, бесконечные звонки, тысячи смс ... Дима показал 
+                    ul.family-about_ul
+                        li.family-about_li
+                            .family-about_img-hold
+                                img.family-about_img(src="#{path}images/example/w200-h200-1.jpg", alt="")
+                            .family-about_member Я
+                        li.family-about_li
+                            .family-about_img-hold
+                                img.family-about_img(src="#{path}images/example/w200-h125.jpg", alt="")
+                            .family-about_member Жена  Виктория
+                        li.family-about_li
+                            .family-about_img-hold
+                                .ico-family-big.ico-family-big__boy-small
+                            .family-about_member 
+                                | Сын Данилка
+                                br 
+                                | 16 месяцев
+                        li.family-about_li
+                            .family-about_img-hold
+                                .ico-family-big.ico-family-big__girl-8
+                            .family-about_member 
+                                |Дочь
+                                br
+                                | от 6 до 12 лет
+                        li.family-about_li
+                            .family-about_img-hold
+                                .ico-family-big.ico-family-big__girl-8
+                            .family-about_member 
+                                |Дочь
+                                br
+                                | от 6 до 12 лет
+                // /family-about
+
+                // family-grid
+                .family-grid
+                    .family-grid_row.clearfix
+                        a.family-grid_i
+                            img.family-grid_img(src="#{path}images/example/w558-h360-1.jpg", alt="")
+                            .family-grid_overlay
+                                span.family-grid_zoom
+                        a.family-grid_i
+                            img.family-grid_img(src="#{path}images/example/w305-h360-1.jpg", alt="")
+                            .family-grid_overlay
+                                span.family-grid_zoom
+                    .family-grid_row.clearfix
+                        a.family-grid_i
+                            img.family-grid_img(src="#{path}images/example/w295-h360-1.jpg", alt="")
+                            .family-grid_overlay
+                                span.family-grid_zoom
+                        // Высота блока зависит от изображений - отступы 40px
+                        .family-grid_about.family-grid_about__green.family-grid_about__right(style="height: 320px;")
+                            .family-grid_about-hold
+                                .family-grid_about-photo
+                                    .family-grid_about-photo-hold
+                                        img.family-grid_about-img(src="/images/example/w41-h49-1.jpg", alt="")
+                                .family-grid_about-name 
+                                    | Муж
+                                    br
+                                    | Потап
+                            .family-grid_about-tx-hold
+                                .family-grid_about-tx В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и покаВ половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и покаВ половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока
+
+                        a.family-grid_i
+                            img.family-grid_img(src="#{path}images/example/w305-h360-2.jpg", alt="")
+                            .family-grid_overlay
+                                span.family-grid_zoom
+
+                    .family-grid_row.clearfix
+                        a.family-grid_i
+                            img.family-grid_img(src="#{path}images/example/w305-h360-1.jpg", alt="")
+                            .family-grid_overlay
+                                span.family-grid_zoom
+                        a.family-grid_i
+                            img.family-grid_img(src="#{path}images/example/w558-h360-1.jpg", alt="")
+                            .family-grid_overlay
+                                span.family-grid_zoom
+                    .family-grid_row.clearfix
+                        // Высота блока зависит от изображений - отступы 40px
+                        .family-grid_about.family-grid_about__carrot.family-grid_about__left(style="height: 320px;")
+                            .family-grid_about-hold
+                                .family-grid_about-photo
+                                    .family-grid_about-photo-hold
+                                        .ico-family.ico-family__boy-small
+                                .family-grid_about-name 
+                                    | Сын 
+                                    br
+                                    | Данилка
+                                    br 
+                                    | 18 месяцев
+                            .family-grid_about-tx В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока
+
+                        a.family-grid_i
+                            img.family-grid_img(src="#{path}images/example/w295-h360-1.jpg", alt="")
+                            .family-grid_overlay
+                                span.family-grid_zoom
+                        a.family-grid_i
+                            img.family-grid_img(src="#{path}images/example/w305-h360-2.jpg", alt="")
+                            .family-grid_overlay
+                                span.family-grid_zoom
+                // /family-grid
+                .family-user_album 
+                    a.family-user_album-a(href="")
+                        | Смотреть семейный альбом
+
+
+
+
+        +layout-footer('layout-footer__in')
+            

@@ -2,6 +2,7 @@
 .btn-red,
 .btn-gray-light,
 .btn-gray-simple,
+.btn-white,
 .btn-blue-simple,
 .btn-green-simple,
 .btn-green  {
@@ -20,6 +21,8 @@
     overflow: visible; // IE7 input button fix 
     .border-radius(3px);
 }
+.btn-white[disabled],
+.btn-white:disabled,
 .btn-red[disabled],
 .btn-red:disabled,
 .btn-gray-simple[disabled],
@@ -63,6 +66,12 @@
     line-height: 20px;
     .border-radius(3px);
 }
+.btn-xm {
+    height:40px;
+    font: 14px/40px Arial, Tahoma, Verdana, sans-serif;
+    padding:0 22px;
+    .border-radius(3px);
+}
 .btn-l {
     padding: 12px 25px;  //height 46
     font-size: 17px;
@@ -98,7 +107,11 @@
     &:focus,
     &:hover {background-color: #47aa3e;}
 
-    .btn-arrow_ico {background: #419c37;}
+    .btn-arrow_ico {
+        display: inline-block;
+        background: #419c37;
+        padding: 0 14px;
+    }
     &:hover .btn-arrow_ico {background: #38932e;}
 }
 
@@ -113,6 +126,27 @@
         background-color: #ebebeb;
         color: @color-gray-dark;
     }
+}
+
+.btn-white {
+    color: @color-gray-light;
+    border-color: #fff;
+    .box-sizing(border-box);
+    border: 2px solid #fff;
+
+    &:hover {
+        color: @color-gray;
+    }
+
+    .btn-s {line-height: 10px;}
+    .btn-m {line-height: 30px;}
+    .btn-xm {line-height: 38px;}
+    .btn-l {line-height: 43px;}
+    .btn-xl {line-height: 43px;}
+    .btn-xxl {line-height: 58px;}
+
+    &__gray {border-color: #ececec;}
+    &__gray:hover {border-color: #e1e1e1;}
 }
 
 .btn-green {

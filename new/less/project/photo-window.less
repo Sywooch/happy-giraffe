@@ -115,6 +115,35 @@ body.gallery {overflow:hidden;}
 		top:auto;
 		bottom: 25px;
 	}
+	&__bg1 {
+        background:#9b8ec9 url('@{path-img}/body__bg/img1.jpg') no-repeat 50% 0;
+        background-attachment: fixed;
+    }
+    &__bg1 &_count {color: #fff;}
+    &__family {
+    	.comments-gray_sent {
+    		background-color: #4fb145;
+    		color: #fff;
+    	}
+    }
+    &_col-in {
+    	margin: 10px -20px 0 -20px;
+    	padding: 30px 20px 0 20px;
+		background:#4fb145 url('@{path-img}/photo-window__family_col-in.png') no-repeat;
+		color: #fff;
+
+		.b-family_img-hold {
+			.inline-block();
+			vertical-align: middle;
+		}
+		.b-family_tx {
+			color: #fff;
+			.inline-block();
+			vertical-align: middle;
+			background: none;
+			text-align: left;
+		}
+    }
 	&_w {
 		position: relative;
 		top: 0;
@@ -154,7 +183,7 @@ body.gallery {overflow:hidden;}
 		overflow: hidden;
 	}
 	&_col-hold {
-		padding: 12px 0;
+		padding: 0;
 		height: auto;
 	}
 	&_banner {
@@ -169,7 +198,7 @@ body.gallery {overflow:hidden;}
 		margin: 0 auto;
 	}
 	&_cont {}
-	&_cont .scroll_cont {padding: 0 20px 0 19px;}
+	&_cont .scroll_cont {padding: 12px 20px 0;}
 	&_cont .itx-gray {
 		resize:none;
 		line-height: 16px;

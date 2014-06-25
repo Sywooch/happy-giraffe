@@ -173,6 +173,19 @@ function FromComputerMultipleViewModel(data) {
     });
 }
 
+function ByUrlViewModel() {
+    var self = this;
+    PhotoUploadViewModel.apply(self, arguments);
+
+    self.url = ko.observable('');
+
+    self.url.subscribe(function(val) {
+        $.post('/photo/upload/byUrl/', { url : val }, function(response) {
+            console.log(response);
+        }, 'json');
+    });
+}
+
 function Photo(data) {
     var self = this;
     self.original_name = data.original_name;

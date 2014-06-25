@@ -28,6 +28,6 @@
 </div>
 
 <script type="text/javascript">
-    uploadVM = new FromComputerSingleViewModel(<?=$form->toJSON()?>);
-    ko.applyBindings(uploadVM, document.getElementById('photo-tab-computer'));
+    computer = new FromComputerSingleViewModel(<?=$form->toJSON()?>);
+    ko.applyBindings(computer, document.getElementById('photo-tab-computer'));
 </script>

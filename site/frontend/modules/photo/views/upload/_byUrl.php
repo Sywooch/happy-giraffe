@@ -23,6 +23,6 @@
 </div>
 
 <script type="text/javascript">
-    uploadVM = new ByUrlViewModel(<?=$form->toJSON()?>);
-    ko.applyBindings(uploadVM, document.getElementById('photo-tab-link'));
+    url = new ByUrlViewModel(<?=$form->toJSON()?>);
+    ko.applyBindings(url, document.getElementById('photo-tab-link'));
 </script>

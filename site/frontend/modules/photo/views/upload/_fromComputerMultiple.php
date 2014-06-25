@@ -11,7 +11,7 @@
                 <div class="cap-empty_hold">
                     <div class="cap-empty_img"></div>
                     <div class="cap-empty_t">Выберите файлы с компьютера</div>
-                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp' data-bind="fileUpload: { options: fileUploadSettings, multiple: true }"></div>  <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div><div class='popup-add_cap-drag' data-bind="visible: multiple">или перетащите фотографии сюда</div></div>
+                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp' name="image" data-bind="fileUpload: { options: fileUploadSettings, multiple: true }"></div>  <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div><div class='popup-add_cap-drag' data-bind="visible: multiple">или перетащите фотографии сюда</div></div>
                 </div>
                 <div class="verticalalign-m-help"></div>
             </div>
@@ -40,7 +40,7 @@
         <div class="float-r"><button href="" class="btn btn-success" data-bind="disable: loading">Добавить</button></div>
         <div class="popup-add_footer-l">
                 <span class="color-gray-light">Загружено
-                    <span class="popup-add_footer-count" data-bind="text: successPhotos().length"></span> из <span class="popup-add_footer-count" data-bind="text: photos().length"></span></span>
+                    <span class="popup-add_footer-count" data-bind="text: successPhotos().length"></span> из <span class="popup-add_footer-count" name="image" data-bind="text: photos().length"></span></span>
             <!-- ko if: ! loading() -->
             <div class="file-fake">
                 <input type="file" class="file-fake_inp" data-bind="fileUpload: { options: fileUploadSettings, multiple: true }"><a href="" class="file-fake_btn btn btn-primary btn-s"><span class="ico-plus ico-plus__s ico-plus__white"></span>Загрузить еще</a>

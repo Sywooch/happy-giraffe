@@ -28,6 +28,11 @@ class FromComputerUploadForm extends UploadForm
         ));
     }
 
+    public function __construct()
+    {
+        $this->files = \CUploadedFile::getInstanceByName('image');
+    }
+
     public function populate()
     {
         $files = \CUploadedFile::getInstancesByName('files');

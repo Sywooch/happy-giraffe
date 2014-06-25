@@ -188,20 +188,18 @@ function PhotoUpload(data, parent) {
 
     self.cssClass = ko.computed(function() {
         switch (self.status()) {
-            case parent.STATUS_LOADING:
+            case PhotoUpload.STATUS_LOADING:
                 return 'i-photo__load';
-            case parent.STATUS_SUCCESS:
+            case PhotoUpload.STATUS_SUCCESS:
                 return 'i-photo__loaded';
-            case parent.STATUS_FAIL:
+            case PhotoUpload.STATUS_FAIL:
                 return 'i-photo__error';
         }
     });
 }
-PhotoUpload.prototype = {
-    STATUS_LOADING : 0,
-    STATUS_SUCCESS : 1,
-    STATUS_FAIL : 2
-}
+PhotoUpload.STATUS_LOADING = 0;
+PhotoUpload.STATUS_SUCCESS = 1;
+PhotoUpload.STATUS_FAIL = 2;
 
 function PhotoUploadFromComputer(data, jqXHR, parent) {
     var self = this;

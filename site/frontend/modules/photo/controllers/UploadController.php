@@ -8,6 +8,7 @@
 
 namespace site\frontend\modules\photo\controllers;
 
+use site\frontend\modules\photo\models\upload\ByUrlUploadForm;
 use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
 use site\frontend\modules\photo\models\upload\PopupForm;
 
@@ -29,7 +30,19 @@ class UploadController extends \HController
 
     public function actionFromComputer()
     {
+        $i = \CUploadedFile::getInstanceByName('files');
+        var_dump($i);
+        die;
+
         $form = new FromComputerUploadForm();
-        echo $form->save();
+    }
+
+    public function actionByUrl()
+    {
+        $form = new ByUrlUploadForm();
+        $form->attributes = array('url' => 'http://fotoshops.org/uploads/taginator/Oct-2013/image.jpg');
+        if ($form->validate()) {
+            echo $form->save();
+        }
     }
 } 

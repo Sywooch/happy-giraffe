@@ -81,6 +81,10 @@ class PhotoCreate extends Photo
     {
         if (parent::beforeSave()) {
             $this->fs_name = $this->getFsName();
+
+            var_dump(is_file($this->path));
+            die;
+
             if (! copy($this->path, $this->getImagePath())) {
                 throw new \CException('Невозможно скопировать файл');
             }

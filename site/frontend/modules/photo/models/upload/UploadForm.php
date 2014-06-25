@@ -14,6 +14,8 @@ use site\frontend\modules\photo\models\PhotoCreate;
 
 abstract class UploadForm extends \CFormModel
 {
+    abstract public function populate();
+
     /**
      * @var PhotoCreate[]
      */
@@ -35,6 +37,8 @@ abstract class UploadForm extends \CFormModel
 
     public function save()
     {
+        $this->populate();
+
         $data = array();
         foreach ($this->photos as $photo) {
             $photo->save();

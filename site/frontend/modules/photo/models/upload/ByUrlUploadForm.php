@@ -25,16 +25,8 @@ class ByUrlUploadForm extends UploadForm
     public function populate()
     {
         $image = file_get_contents($this->url);
-        $tmpHandle = tmpfile();
-        fwrite($tmpHandle, $image);
-        $metaData = stream_get_meta_data($tmpHandle);
-
-
-
-        $tmpFilename = $metaData['uri'];
-
-
-
-        $this->photos[] = new PhotoCreate($tmpFilename, basename($this->url));
+        $tmpFile = tempnam(sys_get_temp_dir(), 'php');
+        file_put_contents($tmpFile, $image);
+        $this->photos[] = new PhotoCreate($tmpFile, basename($this->url));
     }
 } 

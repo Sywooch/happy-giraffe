@@ -17,8 +17,8 @@
         </div>
         <div class="popup-add_in tab-content">
             <?php $this->renderPartial('_fromComputer', compact('form')); ?>
-            <?php $this->renderPartial('_fromAlbums'); ?>
-            <?php $this->renderPartial('_byUrl'); ?>
+            <?php $this->renderPartial('_fromAlbums', compact('form')); ?>
+            <?php $this->renderPartial('_byUrl', compact('form')); ?>
         </div>
     </div>
 </div>

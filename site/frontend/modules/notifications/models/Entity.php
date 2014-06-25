@@ -20,7 +20,7 @@ class Entity extends \EMongoEmbeddedDocument
     {
         if ($entity)
         {
-            $this->id = (int) $entity->id;
+            $this->id = isset($entity->id) ? (int) $entity->id : null;
             $this->class = get_class($entity);
             $this->title = isset($entity->contentTitle) ? $entity->contentTitle : null;
             $this->tooltip = isset($entity->powerTipTitle) ? $entity->powerTipTitle : null;

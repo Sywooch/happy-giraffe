@@ -13,8 +13,13 @@ class TestController extends \HController
 {
     public $layout = '//layouts/new/main';
 
-    public function actionUpload()
+    public function actionUploadSingle()
     {
-        $this->render('upload');
+        $this->render('uploadSingle');
+    }
+
+    public function actionUploadMultiple()
+    {
+        $this->render('uploadMultiple');
     }
 } 

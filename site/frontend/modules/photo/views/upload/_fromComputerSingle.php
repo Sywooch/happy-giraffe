@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="popup-add_footer" data-bind="visible: photo() !== null">
-        <div class="textalign-c"><a href="" class="btn btn-success">Добавить</a></div>
+        <div class="textalign-c"><a href="" class="btn btn-success" data-bind="disable: loading, click: add">Добавить</a></div>
     </div>
 </div>
 

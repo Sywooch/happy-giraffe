@@ -38,7 +38,6 @@ class FromComputerUploadForm extends UploadForm
 
     public function populate()
     {
-        $photo = new PhotoCreate($this->file->getTempName(), $this->file->getName());
-        $this->photos[] = $photo;
+        $this->photo = new PhotoCreate($this->file->getTempName(), $this->file->getName());
     }
 } 

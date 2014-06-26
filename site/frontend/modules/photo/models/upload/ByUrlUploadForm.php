@@ -27,6 +27,6 @@ class ByUrlUploadForm extends UploadForm
         $image = file_get_contents($this->url);
         $tmpFile = tempnam(sys_get_temp_dir(), 'php');
         file_put_contents($tmpFile, $image);
-        $this->photos[] = new PhotoCreate($tmpFile, basename($this->url));
+        $this->photo = new PhotoCreate($tmpFile, basename($this->url));
     }
 } 

@@ -31,9 +31,7 @@ class UploadController extends \HController
     public function actionFromComputer()
     {
         $form = new FromComputerUploadForm();
-        if ($form->validate()) {
-            echo $form->save();
-        }
+        echo $form->save();
     }
 
     public function actionByUrl()

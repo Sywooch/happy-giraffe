@@ -12,33 +12,33 @@ use site\frontend\modules\photo\models\PhotoCreate;
 
 class FromComputerUploadForm extends UploadForm
 {
-    public $files;
+    /**
+     * @var \CUploadedFile
+     */
+    public $file;
 
     public function attributeLabels()
     {
         return \CMap::mergeArray(parent::attributeLabels(), array(
-            'files' => 'Файлы изображений',
+            'file' => 'Файлы изображений',
         ));
     }
 
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
-            array('files', 'file'),
+            array('file', 'file'),
         ));
     }
 
     public function __construct()
     {
-        $this->files = \CUploadedFile::getInstanceByName('image');
+        $this->file = \CUploadedFile::getInstanceByName('image');
     }
 
     public function populate()
     {
-        $files = \CUploadedFile::getInstancesByName('files');
-        foreach ($files as $file) {
-            $photo = new PhotoCreate($file->getTempName(), $file->getName());
-            $this->photos[] = $photo;
-        }
+        $photo = new PhotoCreate($this->file->getTempName(), $this->file->getName());
+        $this->photos[] = $photo;
     }
 } 

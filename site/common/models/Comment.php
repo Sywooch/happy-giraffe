@@ -246,6 +246,13 @@ class Comment extends HActiveRecord
     public function beforeDelete()
     {
         Comment::model()->updateByPk($this->id, array('removed' => 1));
+        
+        /** @todo Переписать через save */
+        $this->removed = 1;
+        $notification = $this->asa('notificationBehavior');
+        if($notification)
+            $notification->afterSave(new CEvent($this));
+        
         Scoring::commentRemoved($this);
 
         return false;

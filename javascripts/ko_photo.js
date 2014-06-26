@@ -209,13 +209,16 @@ function ByUrlViewModel() {
     PhotoUploadViewModel.apply(self, arguments);
 
     self.url = ko.observable('');
-    self.loading = ko.observable(false);
+    self.throttledUrl = ko.computed(self.url).extend({ throttle: 400 });
 
-    self.url.subscribe(function(val) {
-        self.loading(true);
+    self.loading = ko.computed(function() {
+        return self.photo() && self.photo().status() == PhotoUpload.STATUS_LOADING;
+    });
+
+    self.throttledUrl.subscribe(function(val) {
+        self.photo(new PhotoUpload());
         $.post('/photo/upload/byUrl/', { url : val }, function(response) {
             self.processResponse(self.photo(), response);
-            self.loading(false);
         }, 'json');
     });
 }

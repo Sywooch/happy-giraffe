@@ -77,7 +77,7 @@
         color: #ccc;
     }
     &_multi {
-        padding: 12px 5px;
+        padding: 12px 0;
     }
     &_multi-li {
         .inline-block();
@@ -118,10 +118,6 @@
         right: -9px;
         z-index: 5;
     }
-    .itx-gray {
-        font-size: 12px;
-        .border-radius(0);
-    }
     .progress__cont {margin-bottom: 5px;}
 
     /*&__empty {
@@ -147,6 +143,7 @@
     }
     &__error {
         height: 137px;
+        width: 151px;
         border: 2px solid #fee8e8;
         background-color: #fff;
         color: #fbcdcd;
@@ -157,9 +154,14 @@
         padding-top: 90px;
         background: url('@{path-img}/i-photo__error_hold.png') no-repeat 50% 35px;
     }
+
+    &_hold {
+        position: relative;
+    }
     &_img-hold {
         position: relative;
-        height: 110px;
+        max-height: 141px;
+        height: 141px;
         width: 155px;
         background-color: #707070;
         overflow: hidden;
@@ -169,14 +171,14 @@
     }
     &_img-hold:hover &_overlay {display: block;}
     &_img {
-        margin: -22px 0 -22px;
+        margin: 0;
     }
     &_overlay {
         display: none;
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 0;
+        bottom: 31px;
         padding: 5px;
         text-align: center;
         background-color: #aaa;
@@ -192,6 +194,12 @@
     &_rotate:hover {background-position: 0 -16px;}
     &_rotate__r {background-position: -15px 0px;}
     &_rotate__r:hover {background-position: -15px -16px;}
+    &_itx {
+        position: absolute;
+        bottom: 0;
+        font-size: 12px;
+        .border-radius(0);
+    }
     &_file-name {
         .inline-block();
         margin: 10px;

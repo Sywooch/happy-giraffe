@@ -9,12 +9,18 @@ $cs->registerPackage('ko_photo');
         <div class="layout-content clearfix">
             <div id="test">
                 <p><a data-bind="photoUpload: { data : { multiple : false } }">Загрузить одно фото</a></p>
+
+                <div data-bind="with: photo">
+                    <p>Прямая ссылка: <a data-bind="attr: { href : imageUrl }, text: imageUrl"></a></p>
+                    <p>Изображение: <img data-bind="attr: { src : imageUrl }"></p>
+                    <p>Оригинальное имя: <span data-bind="text: original_name"></span></p>
+                    <p>Ширина: <span data-bind="text: width"></span></p>
+                    <p>Высота: <span data-bind="text: height"></span></p>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-<div id="photo"></div>
 
 <script type="text/javascript">
     function TestViewModel() {

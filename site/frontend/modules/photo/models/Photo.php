@@ -148,7 +148,7 @@ class Photo extends \HActiveRecord
 
     public function getImageUrl()
     {
-        return \Yii::app()->params['photos_url'] . '/originals/' . $this->fs_name;
+        return \Yii::app()->params['photos_url'] . '/v2/originals/' . $this->fs_name;
     }
 
     public function getImagePath()

@@ -48,7 +48,7 @@ function PhotoUploadViewModel(data) {
 
     self.processResponse = function(photo, response) {
         if (response.success) {
-            $.extend(photo, response);
+            $.extend(photo, response.attributes);
             photo.status(PhotoUpload.STATUS_SUCCESS);
         } else {
             photo.status(PhotoUpload.STATUS_FAIL);
@@ -77,7 +77,7 @@ function FromComputerViewModel(data) {
 
     self.photoDone = function(photo, data) {
         photo.previewUrl = data.files[0].preview.toDataURL();
-        self.processResponse(data.result);
+        self.processResponse(photo, data.result);
     }
 
     self.fileUploadSettings = {
@@ -109,7 +109,6 @@ function FromComputerSingleViewModel(data) {
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);
         },
         done: function (e, data) {
-            console.log(data.response());
             self.photoDone(self.photo(), data);
         },
         fail: function(e, data) {

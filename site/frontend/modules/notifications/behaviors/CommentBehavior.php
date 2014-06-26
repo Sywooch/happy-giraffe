@@ -23,7 +23,7 @@ namespace site\frontend\modules\notifications\behaviors;
  * @property \Comment $owner 
  * @author Кирилл
  */
-class CommentBehavior extends \CActiveRecordBehavior
+class CommentBehavior extends BaseBehavior
 {
 
     public function afterSave($event)
@@ -72,17 +72,18 @@ class CommentBehavior extends \CActiveRecordBehavior
         foreach ($signals as &$signal)
         {
             $save = false;
-            foreach ($signal->readEntities as &$entity)
-            {
-                if ($entity->id == $model->id && $entity->class == get_class($model))
+            if($signal->readEntities)
+                foreach ($signal->readEntities as &$entity)
                 {
-                    $entity->title = $model->getRemoveDescription();
-                    $entity->url = $model->commentEntity->url;
-                    $save = true;
-                    break;
+                    if ($entity->id == $model->id && $entity->class == get_class($model))
+                    {
+                        $entity->title = $model->getRemoveDescription();
+                        $entity->url = $model->commentEntity->url;
+                        $save = true;
+                        break;
+                    }
                 }
-            }
-            if (!$save)
+            if ($signal->unreadEntities || !$save)
                 foreach ($signal->unreadEntities as &$entity)
                 {
                     if ($entity->id == $model->id && $entity->class == get_class($model))
@@ -100,6 +101,8 @@ class CommentBehavior extends \CActiveRecordBehavior
         // Удаление подписки
         $count = \Comment::model()->countByAttributes(array(
             'author_id' => $model->author_id,
+            'entity' => $model->entity,
+            'entity_id' => $model->entity_id,
         ));
         if ($count == 0)
             \site\frontend\modules\notifications\models\DiscussSubscription::model()->byUser((int) $model->author_id)->byModel($model->commentEntity)->deleteAll();
@@ -111,7 +114,7 @@ class CommentBehavior extends \CActiveRecordBehavior
      */
     protected function addNotificationDiscuss($model)
     {
-        $subscriptions = \site\frontend\modules\notifications\models\DiscussSubscription::model()->byModel(array('entity' => $model->entity, 'entityId' => $model->entity_id))->findAll();
+        $subscriptions = \site\frontend\modules\notifications\models\DiscussSubscription::model()->byModel(array('entity' => $model->entity, 'entityId' => (int) $model->entity_id))->findAll();
         foreach ($subscriptions as $subscription)
             $this->saveNotificationDiscuss($model, $subscription->userId);
     }
@@ -145,13 +148,13 @@ class CommentBehavior extends \CActiveRecordBehavior
     protected function addNotificationDiscussSubscription($model)
     {
         $class = '\site\frontend\modules\notifications\models\DiscussSubscription';
-        $count = $class::model()->byModel(array('entity' => $model->entity, 'entityId' => $model->entity_id))->byUser($model->author_id)->count();
+        $count = $class::model()->byModel(array('entity' => $model->entity, 'entityId' => (int) $model->entity_id))->byUser($model->author_id)->count();
         // Нет подписки, создаём
         if ($count == 0)
         {
-            $subscription = new $class($model->author_id);
+            $subscription = new $class((int) $model->author_id);
             $subscription->entity = $model->entity;
-            $subscription->entityId = $model->entity_id;
+            $subscription->entityId = (int) $model->entity_id;
             $subscription->save();
         }
     }

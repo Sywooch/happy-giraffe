@@ -39,16 +39,12 @@ abstract class UploadForm extends \CFormModel
     {
         $this->populate();
 
-        $result = array();
-        foreach ($this->photos as $photo) {
-            $success = $this->validate() && $photo->save();
-            $data = compact('success');
-            if ($success) {
-                $data['attributes'] = $photo->attributes;
-            }
-            $result[] = $data;
+        $success = $this->validate() && $this->photo->save();
+        $data = compact('success');
+        if ($success) {
+            $data['attributes'] = $this->photo->attributes;
         }
 
-        return \CJSON::encode($result);
+        return \CJSON::encode($data);
     }
 } 

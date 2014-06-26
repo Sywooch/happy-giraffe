@@ -30,7 +30,7 @@
         <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="attr: { src : previewUrl }">
             <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
         </div>
-        <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray" data-bind="value: title">
+        <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
     </div>
     <!-- /ko -->
 

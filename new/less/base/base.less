@@ -46,7 +46,9 @@
     }
 }
 
+////////////////////////////////////////////////////////////////
 // Отдельные элементы
+// Заголовки
 .heading-xxl {
     margin: 15px 0; // Можно изменить на необходимый
     font-size: 40px;
@@ -115,6 +117,9 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     color: #111;
     font-weight: normal;
 }
+
+//////////////////////////////////
+// Ссылки
 .a-pseudo {
     text-decoration:none;
     border-bottom: 1px dotted #2c95d6;
@@ -173,6 +178,9 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 .a-profile-bg:hover {text-decoration: underline;}
 
 
+
+//////////////////////////////////////////
+// i отдельные элементы
 .i-more {
     .inline-block();
     margin: 0;
@@ -192,6 +200,28 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     padding: 0 4px;
     background: #fff7af;
 }
+.i-allphoto {
+    margin: 40px 0;
+    text-align: center;
+
+    &_a {
+        .inline-block();
+        background: url('@{path-img}/family-user_album-a.png') no-repeat;
+        padding: 10px 10px 5px 50px;
+        height: 15px;
+        font-size: 15px;
+        color: @color-gray-light;
+        text-decoration: none;
+    }
+    &_a:hover {
+        color: @color-gray;
+        background-position: 0 -30px;
+    }
+}
+
+
+////////////////////////////////////////////////
+// Текстовые эелементы
 .tx-content {
     font-size: 14px;
     line-height: 19px;
@@ -205,6 +235,9 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     font: @fontsmall;
     color: @color-gray-light;
 }
+///////////
+
+
 .btn-scrolltop {
     display: none;
     position: fixed;
@@ -273,7 +306,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         vertical-align: top;
     }
     &__user {
-        margin: 5px 0 0 0;
+        margin: 5px auto 0;
         .border-radius(0);
 
         .layout-footer_hold {
@@ -392,7 +425,13 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 .b-main {
     position: relative;
 
-    &__white {background-color: #fff;}
+    &__white {
+        background-color: #fff;
+
+        .page-col {
+            float: none;
+        }
+    }
 
     /* col-1 */
     &_col-1 {
@@ -785,6 +824,8 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         color: @color-base;
     }
 }
+
+
 
 /* 
 ------------------------------------------------------------------

@@ -1,0 +1,31 @@
+include ../../block/config
+extend ../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg-base';
+
+block layout
+    .b-main.b-main__white
+        +userSection()
+        //- +user-menu('', userMenu.a)
+
+        .page-col.page-col__user
+            .page-col_cont.page-col_cont__in
+
+                //- +userAddRecord('userAddRecord__blog', userAddRecord.albums)
+
+                +bAlbum('', bAlbum.d)
+                +bAlbum('', bAlbum.e)
+
+
+                .heading-small.margin-t40 
+                    | Последние добавленные фото
+                    .float-r
+                        .btn.btn-link.btn-link-gray.btn-s Все фотографии 628
+
+                +imgGrid('', imgGrid.a)
+
+                .i-allphoto 
+                    a.i-allphoto_a(href="")
+                        | Смотреть все фотографии
+
+        +layout-footer('layout-footer__in')

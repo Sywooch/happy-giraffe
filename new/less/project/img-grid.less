@@ -1,0 +1,223 @@
+/*
+    .img-grid
+        .img-grid_row
+            .img-grid_i
+                img.img-grid_img
+                .img-grid_overlay
+                    .img-grid_zoom
+*/
+.img-grid {
+    margin: 20px 0 0;
+    
+    &_row {
+        margin: 0 -25px 20px 0;
+    }
+    &_i {
+        position: relative;
+        float: left;
+        margin: 0 20px 0 0;
+        cursor: pointer;
+        color: #fff;
+    }
+    &_i:hover &_overlay {
+        z-index: 10;
+        opacity: 1;
+    }
+    .ie8 &_i:hover &_overlay {display: block;filter: alpha(opacity=60);}
+    &_i.loading &_overlay {display: none;}
+    &_i.loading &_loading {display: block;}
+    &_img {
+        display: block;
+    }
+    &_overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #290b45;
+        background: rgba(0,0,0,.35);
+        .transition(all 0.4s ease);
+        opacity: 0;
+    }
+    .ie8 &_overlay {display: none;filter: alpha(opacity=0);}
+    &_zoom {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+        width: 99px;
+        height: 99px;
+        background: url('@{path-img}/img-grid_zoom.png') no-repeat;
+    }
+    &_loading {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    &_loading__purple {background-color: #bfafdc;}
+    &_loading__yellow {background-color: #ffefab;}
+    &_loading__carrot {background-color: #ffac62;}
+    &_loading__green {background-color: #b1ddad;}
+    &_loading__blue {background-color: #b1d9f1;}
+    &_loading-hold {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        margin-top: -40px;
+        text-align: center;
+    }
+    &_loading-tx {
+        margin: 10px;
+        color: #fff;
+    }
+
+    //////////////// О фото, применяется в семье
+    &_about {
+        position: relative;
+        float: left;
+        width: 236px;
+        z-index: 15;
+        padding: 20px;
+        color: #fff;
+    }
+    &_about:after {
+        content: "";
+        position: absolute;
+        top: 35px;
+        left: -20px;
+        width: 0;
+        height: 0;
+        border-color: transparent;
+        z-index: 5;
+        border: 10px solid transparent;
+    }
+    &_about__right {
+        margin: 0 17px 0 -30px;
+        .border-left-radius(18px);
+    }
+    &_about__left {
+        margin: 0 -13px 0 17px;
+        .border-right-radius(18px);
+    }
+    &_about__left:first-child{margin-left: 0;}
+    &_about__green {background-color: #4fb145;}
+    &_about__green &_about-photo-hold {background-color: #47a93d;}
+    &_about__green.img-grid_about__right:after {
+        border-right-color: #4fb145;
+    }
+    &_about__green.img-grid_about__left:after {
+        left: auto;
+        right: -20px;
+        border-left-color: #4fb145;
+    }
+    &_about__carrot {background-color: #ff7d0a;}
+    &_about__carrot &_about-photo-hold {background-color: #fb7702;}
+
+    &_about__carrot.img-grid_about__right:after {
+        border-right-color: #fb7702;
+    }
+    &_about__carrot.img-grid_about__left:after {
+        left: auto;
+        right: -20px;
+        border-left-color: #fb7702;
+    }
+    &_about-photo {
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+    &_about-photo-hold {
+        display: table-cell;
+        width: 55px; 
+        max-width: 55px;
+        height: 55px;
+        max-height: 55px;
+        vertical-align: middle;
+        text-align: center;
+    }
+    &_about-name {
+        .inline-block();
+        vertical-align: middle;
+        font-size: 11px;
+    }
+    &_about-tx-hold {
+        height: 100%;
+        overflow: hidden;
+        padding: 10px 0 60px;
+        .box-sizing(border-box);
+    }
+    &_about-tx {
+        position: relative;
+        font-size: 14px;
+        -webkit-column-width: 200px;
+        column-width: 200px;
+        height: 100%;
+        overflow: hidden;
+    }
+    ////////////
+
+    /// ico в альбомах
+    &_ico-ava {
+        position: absolute;
+        top: 10px;
+        left: 12px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+        background: url('@{path-img}/img-grid_ico-ava.png') no-repeat;
+    }
+    &_ico-ava:hover {background-position: 0 -50px;}
+    &_ico-ava:hover:after {display: block;}
+    &_ico-ava.active {background-position: 0 -100px;}
+    &_ico-ava.active:hover {background-position: 0 -100px;}
+    &_ico-ava.active:hover:after {display: none;}
+    &_ico-ava:after {
+        content: 'На главную анкеты';
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: -5px;
+        width: 60px;
+        margin-top: 5px;
+        font-size: 11px;
+        line-height: 11px;
+        color: #fff;
+        text-align: center;
+    }
+    &_ico-album {
+        position: absolute;
+        top: 10px;
+        right: 12px;
+        width: 56px;
+        height: 50px;
+        margin-top: 5px;
+        cursor: pointer;
+        background: url('@{path-img}/img-grid_ico-album.png') no-repeat;
+    }
+    &_ico-album:hover {background-position: 0 -50px;}
+    &_ico-album:hover:after {display: block;}
+    &_ico-album.active {background-position: 0 -100px;}
+    &_ico-album.active:hover {background-position: 0 -100px;}
+    &_ico-album.active:hover:after {display: none;}
+    &_ico-album:after {
+        content: 'На главную альбома';
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: -5px;
+        width: 60px;
+        font-size: 11px;
+        line-height: 11px;
+        color: #fff;
+        text-align: center;
+    }
+    &_overlay-b {}
+    &_ico-del {}
+    &_ico-edit {}
+    &_ico-move {}
+}
+/* /img-grid */

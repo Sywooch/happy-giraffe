@@ -1,0 +1,95 @@
+/*
+    .user-album
+        .user-album_top
+            .user-album_count-hold
+                .user-album_count 26
+                .user-album_tx фото
+            .user-album_t ...
+                a.ico-edit
+            .user-album_desc ...
+                a.ico-edit
+            .user-album_control
+                a.user-album_del(href="")
+
+                a.user-album_sort(href="") Упорядочить фото
+                a.user-album_move(href="") Переместить в другой альбом
+*/
+.user-album {
+    
+    .b-crumbs {
+        margin: 40px 0;
+    }
+    .img-grid {margin-top: 10px;}
+    &_top {
+        
+        .ico-edit__s {margin-left: 10px;}
+    }
+    &_t {
+        &:extend(.heading-link-xl);
+        margin: 0 200px 5px 0;
+    }
+    &_desc {
+        &:extend(.tx-content);
+        margin: 0 200px 0 0;
+
+        .ico-edit__s {vertical-align: middle;}
+    }
+    &_count-hold {
+        float: right;
+        margin: 0 10px;
+        text-align: center;
+        color: @color-link-title;
+    }
+    &_count {
+        font-size: 60px;
+        line-height: 60px;
+    }
+    &_count-tx {
+        font-size: 28px;
+        line-height: 28px;
+    }
+    &_control {
+        margin-top: 25px;
+    }
+    &_del {
+        position: relative;
+        float: right;
+        margin: 0 15;
+        width: 40px;
+        height: 40px;
+        background: url('@{path-img}/album-empty_del.png') no-repeat;
+    }
+    &_del:hover {background-position: 0 -40px;}
+    &_sort,
+    &_move {
+        .inline-block();
+        margin: 5px 30px 0 0;
+        padding-top: 10px;
+        padding-left: 32px;
+        color: @color-gray;
+        background: url('@{path-img}/user-album_sort.png') no-repeat;
+        text-decoration: none;
+    }
+    &_sort:hover {
+        color: @color-base;
+        background-position: 0 -30px;
+    }
+    &_move {background: url('@{path-img}/user-album_move.png') no-repeat;}
+    &_move:hover {
+        color: @color-base;
+        background-position: 0 -30px;
+    }
+    /*&_del:hover:after {display: block;}
+    &_del:after {
+        content: 'Удалить альбом';
+        display: none;
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        margin-left: -50px;
+        width: 100px;
+        text-align: center;
+        color: @color-gray;
+    }*/
+}
+/* /user-album */

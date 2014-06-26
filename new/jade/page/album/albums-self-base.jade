@@ -1,0 +1,51 @@
+include ../../block/config
+extend ../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in
+
+            +userAddRecord('userAddRecord__blog', userAddRecord.albums)
+
+            +bAlbum('', bAlbum.b)
+            +bAlbum('', bAlbum.c)
+
+            .heading-small.margin-t40 Альбомы без фотографий
+            // album-empty
+            .album-empty
+                .album-empty_hold
+                    a.album-empty_t(href="") Харьковский уикенд
+                    .album-empty_desc В половине чашке горячей воды разведем желатин. Дадим ему остыть. Для торта разводим согласно инструкции. Поломаем не небольшие кусочки ... 
+                a.album-photo-add(href="") 
+                a.album-empty_del(href="") 
+                .album-empty_count 0
+            // /album-empty
+
+            // album-empty
+            .album-empty
+                .album-empty_hold
+                    a.album-empty_t(href="") Харьковский уикенд
+                a.album-photo-add(href="") 
+                a.album-empty_del(href="") 
+                .album-empty_count 0
+            // /album-empty
+
+
+            .heading-small.margin-t40 
+                | Последние добавленные фото
+                .float-r
+                    .btn.btn-link.btn-link-gray.btn-s Фото вне альбомов 28
+                    .btn.btn-link.btn-link-gray.btn-s Все фотографии 628
+
+            +imgGrid('', imgGrid.a)
+            .i-allphoto 
+                a.i-allphoto_a(href="")
+                    | Смотреть все фотографии
+
+
+        +layout-footer('layout-footer__in')

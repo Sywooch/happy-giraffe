@@ -1,0 +1,86 @@
+//- b-album
+    mod     
+    vars 
+mixin bAlbum(mod, vars)
+    // b-album
+    section.b-album(class=mod)
+        a.b-album_img-hold(href="")
+            // Максимальная высота 580 пк
+            // Если изображения маленькие, блок становится 500 px, а изображения становятся по центру
+            img.b-album_img-big(src="#{path}images/example/#{vars.img}", alt="")
+        - if (vars.top)
+            .b-album_top
+                .tx-date Обновлен  Вчера 13:45
+                h3.b-album_title Ялта ♥♥♥
+                // 2 строки описания, предположительно 140 символов
+                .b-album_desc В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие 
+                .b-album_count-hold
+                    .b-album_count 240
+                    .b-album_count-tx фото
+        .b-album_overlay
+            a.b-album_r
+                - if (vars.tx)
+                    .b-album_tx
+                        != vars.tx
+                        
+                .b-album_ico-album
+                .b-album_arrow
+            ul.b-album_prev.clearfix
+                // Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="")
+                        //- высота изображений 50-70 px
+                        img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="")
+                        img.b-album_prev-img(src="#{path}images/example/w46-h70-1.jpg", alt="")
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="")
+                        img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="")
+                        img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="")
+                        img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                - if (vars.prevAdd)
+                    li.b-album_prev-li
+                        a.album-photo-add(href="")
+                    
+// /b-album
+
+- var bAlbum = {}
+
+- bAlbum.a = {}
+- bAlbum.a.top = false
+- bAlbum.a.img = 'w430-h580.jpg'
+- bAlbum.a.tx = 'Семейный альбом <br> <span>60 </span> фото'
+- bAlbum.a.prevAdd = false
+
+- bAlbum.b = {}
+- bAlbum.b.top = true
+- bAlbum.b.img = 'w880-h580-1.jpg'
+- bAlbum.b.tx = 'Смотреть  <br> все фото &nbsp;'
+- bAlbum.b.prevAdd = true
+
+- bAlbum.c = {}
+- bAlbum.c.top = true
+- bAlbum.c.img = 'w305-h360-1.jpg'
+- bAlbum.c.tx = 'Смотреть  <br> все фото &nbsp;'
+- bAlbum.c.prevAdd = true
+
+//- Альбом вид гостя
+- bAlbum.d = {}
+- bAlbum.d.top = true
+- bAlbum.d.img = 'w880-h580-1.jpg'
+- bAlbum.d.tx = 'Смотреть  <br> все фото &nbsp;'
+- bAlbum.d.prevAdd = false
+
+- bAlbum.e = {}
+- bAlbum.e.top = true
+- bAlbum.e.img = 'w430-h580.jpg'
+- bAlbum.e.tx = 'Смотреть  <br> все фото &nbsp;'
+- bAlbum.e.prevAdd = false
+
+
+

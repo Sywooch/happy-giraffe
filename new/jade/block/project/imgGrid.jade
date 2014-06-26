@@ -1,0 +1,72 @@
+//- img-grid
+    mod     
+    vars 
+        
+//- mixin imgGrid(mod, vars)
+    // img-grid
+    .img-grid(class=mod)
+        - each row in vars.rows
+            // Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.
+            .img-grid_row.clearfix
+                - each item in row.img
+                    //- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.
+                    // До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.
+                    - if (typeof(item) == 'string')
+                        .img-grid_i
+                            // Высота изображений может отличаться в зависимости от ряда
+                            img.img-grid_img(src="#{path}images/example/#{item}", alt="")
+                            .img-grid_overlay
+                                span.img-grid_zoom
+
+                    - else 
+                        .img-grid_i.loading
+                            img.img-grid_img(src="", alt="", width='160', height='260')
+                            .img-grid_overlay
+                                span.img-grid_zoom
+                            // Блок процесса загрузки фото
+                            // Цвета 
+                                img-grid_loading__purple
+                                img-grid_loading__yellow
+                                img-grid_loading__carrot
+                                img-grid_loading__green
+                                img-grid_loading__blue
+                            .img-grid_loading(class="img-grid_loading__#{item.color}")
+                                .img-grid_loading-hold
+                                    img(src="#{path}images/ico/ajax-loader.gif", alt="")
+                                    .img-grid_loading-tx Загрузка фотографии
+
+
+//- - var imgGrid = {}
+
+//- - imgGrid.loadingPurple = {}
+//- - imgGrid.loadingPurple.color = 'purple'
+//- - imgGrid.loadingYellow = {}
+//- - imgGrid.loadingYellow.color = 'yellow'
+//- - imgGrid.loadingCarrot = {}
+//- - imgGrid.loadingCarrot.color = 'carrot'
+//- - imgGrid.loadingGreen = {}
+//- - imgGrid.loadingGreen.color = 'green'
+//- - imgGrid.loadingBlue = {}
+//- - imgGrid.loadingBlue.color = 'blue'
+
+//- - imgGrid.row1 = {}
+//- - imgGrid.row1.img = ['w558-h360-1.jpg', 'w305-h360-1.jpg']
+
+//- - imgGrid.row2 = {}
+//- - imgGrid.row2.img = ['w305-h360-1.jpg', 'w558-h360-1.jpg']
+//- - imgGrid.row2.loadingColor = 'purple'
+
+//- - imgGrid.row3 = {}
+//- - imgGrid.row3.img = ['w280-h370-1.jpg','w280-h370-2.jpg','w280-h370-3.jpg']
+
+//- - imgGrid.rowColor = {}
+//- - imgGrid.rowColor.img = [imgGrid.loadingPurple, imgGrid.loadingYellow, imgGrid.loadingCarrot, imgGrid.loadingGreen, imgGrid.loadingBlue]
+
+
+//- - imgGrid.a = {}
+//- - imgGrid.a.rows = [imgGrid.row1, imgGrid.row3, imgGrid.row2, imgGrid.rowColor]
+
+
+            
+
+

@@ -8,6 +8,8 @@
 
 namespace site\frontend\modules\photo\models\upload;
 
+use site\frontend\modules\photo\components\FileHelper;
+use site\frontend\modules\photo\components\PathManager;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoCreate;
 
@@ -48,5 +50,17 @@ abstract class UploadForm extends \CFormModel
         }
 
         return \CJSON::encode($data);
+    }
+
+    protected function getPreview()
+    {
+        $image = \Yii::app()->phpThumb->create($this->photo->getImagePath());
+        $image->resize(150, 110);
+        $name = $this->photo->getImagePath();
+        $name = str_replace($this->photo->fs_name, $this->photo->fs_name . '_preview', $name);
+        $image->save($name);
+        $url = $this->photo->getImageUrl();
+        $url = str_replace($this->photo->fs_name, $this->photo->fs_name . '_preview', $url);
+        return $url;
     }
 } 

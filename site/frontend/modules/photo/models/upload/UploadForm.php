@@ -42,7 +42,9 @@ abstract class UploadForm extends \CFormModel
         $success = $this->validate() && $this->photo->save();
         $data = compact('success');
         if ($success) {
-            $data['attributes'] = $this->photo->attributes;
+            $data['attributes'] = \CMap::mergeArray($this->photo->attributes, array(
+                'imageUrl' => $this->photo->getImageUrl(),
+            ));
         }
 
         return \CJSON::encode($data);

@@ -4,7 +4,8 @@ ko.bindingHandlers.photoUpload = {
         var data = value.data;
         var callback = value.callback;
         ko.bindingHandlers.photoUpload.callback = function(photo) {
-            alert(photo.id);
+            viewModel.photo(photo);
+            $.magnificPopup.close();
         };
         $(element).magnificPopup({
             type: 'ajax',
@@ -223,6 +224,9 @@ function Photo(data) {
     var self = this;
     self.id = data.id;
     self.original_name = data.original_name;
+    self.imageUrl = data.imageUrl;
+    self.width = data.width;
+    self.height = data.height;
 }
 
 function PhotoUpload(data, parent) {

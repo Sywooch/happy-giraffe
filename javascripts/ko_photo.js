@@ -45,6 +45,15 @@ function PhotoUploadViewModel(data) {
     } else {
         PhotoUploadSingleViewModel.apply(self);
     }
+
+    self.processResponse = function(photo, response) {
+        if (response.success) {
+            $.extend(photo, response);
+            photo.status(PhotoUpload.STATUS_SUCCESS);
+        } else {
+            photo.status(PhotoUpload.STATUS_FAIL);
+        }
+    }
 }
 
 function PhotoUploadSingleViewModel() {
@@ -68,10 +77,11 @@ function FromComputerViewModel(data) {
 
     self.photoDone = function(photo, data) {
         photo.previewUrl = data.files[0].preview.toDataURL();
-        photo.status(PhotoUpload.STATUS_SUCCESS);
+        self.processResponse(data.result);
     }
 
     self.fileUploadSettings = {
+        dataType: 'json',
         url: '/photo/upload/fromComputer/',
         disableImageResize: /Android(?!.*Chrome)|Opera/
             .test(window.navigator.userAgent),
@@ -99,6 +109,7 @@ function FromComputerSingleViewModel(data) {
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);
         },
         done: function (e, data) {
+            console.log(data.response());
             self.photoDone(self.photo(), data);
         },
         fail: function(e, data) {
@@ -181,7 +192,7 @@ function ByUrlViewModel() {
 
     self.url.subscribe(function(val) {
         $.post('/photo/upload/byUrl/', { url : val }, function(response) {
-            console.log(response);
+            self.processResponse(self.photo(), response);
         }, 'json');
     });
 }

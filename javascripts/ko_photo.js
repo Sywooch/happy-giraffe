@@ -58,11 +58,38 @@ function PhotoUploadViewModel(data) {
     var self = this;
 
     self.multiple = data.multiple;
+    self.photos = ko.observableArray([]);
+    self.photo = ko.computed({
+        read: function () {
+            return self.photos().length > 0 ? self.photos()[0] : null;
+        },
+        write: function (value) {
+            self.photos([value]);
+        }
+    });
 
-    if (self.multiple) {
-        PhotoUploadMultipleViewModel.apply(self);
-    } else {
-        PhotoUploadSingleViewModel.apply(self);
+    self.loadingPhotos = ko.computed(function() {
+        return ko.utils.arrayFilter(self.photos(), function(photo) {
+            return photo.status() == PhotoUpload.STATUS_LOADING;
+        });
+    });
+
+    self.successPhotos = ko.computed(function() {
+        return ko.utils.arrayFilter(self.photos(), function(photo) {
+            return photo.status() == PhotoUpload.STATUS_SUCCESS;
+        });
+    });
+
+    self.loading = ko.computed(function() {
+        return self.loadingPhotos().length > 0;
+    });
+
+    self.added = function(photo) {
+        if (self.multiple) {
+            self.photos.push(photo);
+        } else {
+            self.photo(photo);
+        }
     }
 
     self.processResponse = function(photo, response) {
@@ -85,31 +112,18 @@ function PhotoUploadViewModel(data) {
     }
 }
 
-function PhotoUploadSingleViewModel() {
-    var self = this;
-    self.photo = ko.observable(null);
-}
-
-function PhotoUploadMultipleViewModel() {
-    var self = this;
-    self.photos = ko.observableArray([]);
-}
-
-function FromComputerViewModel(data) {
-    var self = this;
-    PhotoUploadViewModel.apply(self, arguments);
-
-    self.populatePhoto = function(data) {
+function asFromComputer() {
+    this.populatePhoto = function(data) {
         var jqXHR = data.submit();
-        return new PhotoUploadFromComputer({ original_name : data.files[0].name }, jqXHR, self);
+        return new PhotoUploadFromComputer({ original_name : data.files[0].name }, jqXHR, this);
     }
 
-    self.photoDone = function(photo, data) {
+    this.photoDone = function(photo, data) {
         photo.previewUrl = data.files[0].preview.toDataURL();
-        self.processResponse(photo, data.result);
+        this.processResponse(photo, data.result);
     }
 
-    self.fileUploadSettings = {
+    this.fileUploadSettings = {
         dataType: 'json',
         url: '/photo/upload/fromComputer/',
         disableImageResize: /Android(?!.*Chrome)|Opera/
@@ -121,9 +135,7 @@ function FromComputerViewModel(data) {
 
 function FromComputerSingleViewModel(data) {
     var self = this;
-    FromComputerViewModel.apply(self, arguments);
-
-    self.loading = ko.observable(false);
+    PhotoUploadViewModel.apply(self, arguments);
 
     self.removePhoto = function() {
         if (self.photo().status() == PhotoUpload.STATUS_LOADING) {
@@ -135,14 +147,12 @@ function FromComputerSingleViewModel(data) {
 
     $.extend(self.fileUploadSettings, {
         add: function (e, data) {
-            self.loading(true);
-            self.photo(self.populatePhoto(data));
+            self.added(self.populatePhoto(data));
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);
         },
         done: function (e, data) {
             self.photo().file = data.files[0];
             self.photoDone(self.photo(), data);
-            self.loading(false);
         },
         fail: function(e, data) {
             if (data.errorThrown == 'abort') {
@@ -153,32 +163,17 @@ function FromComputerSingleViewModel(data) {
         }
     });
 }
+asFromComputer.call(FromComputerSingleViewModel.prototype);
 
 function FromComputerMultipleViewModel(data) {
     var self = this;
-    FromComputerViewModel.apply(self, arguments);
+    PhotoUploadViewModel.apply(self, arguments);
 
     self.findPhotoByName = function(name) {
         return ko.utils.arrayFirst(self.photos(), function (photo) {
             return photo.original_name == name;
         });
     };
-
-    self.loadingPhotos = ko.computed(function() {
-        return ko.utils.arrayFilter(self.photos(), function(photo) {
-            return photo.status() == PhotoUpload.STATUS_LOADING;
-        });
-    });
-
-    self.successPhotos = ko.computed(function() {
-        return ko.utils.arrayFilter(self.photos(), function(photo) {
-            return photo.status() == PhotoUpload.STATUS_SUCCESS;
-        });
-    });
-
-    self.loading = ko.computed(function() {
-        return self.loadingPhotos().length > 0;
-    });
 
     self.removePhoto = function(photo) {
         if (photo.status() == PhotoUpload.STATUS_LOADING) {
@@ -198,7 +193,7 @@ function FromComputerMultipleViewModel(data) {
     $.extend(self.fileUploadSettings, {
         dropZone: '.popup-add_frame__multi',
         add: function (e, data) {
-            self.photos.push(self.populatePhoto(data));
+            self.added(self.populatePhoto(data));
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);
         },
         done: function (e, data) {
@@ -215,6 +210,7 @@ function FromComputerMultipleViewModel(data) {
         }
     });
 }
+asFromComputer.call(FromComputerMultipleViewModel.prototype);
 
 function ByUrlViewModel() {
     var self = this;
@@ -223,12 +219,8 @@ function ByUrlViewModel() {
     self.url = ko.observable('');
     self.throttledUrl = ko.computed(self.url).extend({ throttle: 400 });
 
-    self.loading = ko.computed(function() {
-        return self.photo() && self.photo().status() == PhotoUpload.STATUS_LOADING;
-    });
-
     self.throttledUrl.subscribe(function(val) {
-        self.photo(new PhotoUpload({}, self));
+        self.added(new PhotoUpload({}, self));
         $.post('/photo/upload/byUrl/', { url : val }, function(response) {
             self.processResponse(self.photo(), response);
         }, 'json');

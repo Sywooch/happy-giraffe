@@ -210,9 +210,20 @@ function ByUrlViewModel() {
     
     self.throttledUrl.subscribe(function(val) {
         self.added(new PhotoUpload({}, self));
-        self.photo().jqXHR = $.post('/photo/upload/byUrl/', { url : val }, function(response) {
-            self.processResponse(self.photo(), response);
-        }, 'json');
+
+        self.photo().jqXHR = $.ajax({
+            url: '/photo/upload/byUrl/',
+            type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                self.processResponse(self.photo(), data);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                if (errorThrown != 'abort') {
+                    self.photo().status(PhotoUpload.STATUS_FAIL);
+                }
+            }
+        });
     });
 }
 

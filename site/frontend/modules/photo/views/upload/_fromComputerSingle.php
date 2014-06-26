@@ -4,7 +4,7 @@
  */
 ?>
 
-<div id="photo-tab-computer" class="tab-pane active">
+<div id="photo-tab-computer" class="tab-pane">
     <div class="popup-add_frame">
         <div class="popup-add_cap">
             <!-- cap-empty-->
@@ -23,7 +23,7 @@
         </div>
     </div>
     <div class="popup-add_footer" data-bind="visible: photo() !== null">
-        <div class="textalign-c"><a href="" class="btn btn-success" data-bind="disable: loading, click: add">Добавить</a></div>
+        <div class="textalign-c"><a href="" class="btn btn-success" data-bind="disable: loading">Добавить</a></div>
     </div>
 </div>
 

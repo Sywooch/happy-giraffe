@@ -1,4 +1,4 @@
-<div id="photo-tab-link" class="tab-pane active">
+<div id="photo-tab-link" class="tab-pane active" style="display: none;" data-bind="visible: true">
     <div class="popup-add_frame">
         <div class="popup-add_cap">
             <!-- cap-empty-->

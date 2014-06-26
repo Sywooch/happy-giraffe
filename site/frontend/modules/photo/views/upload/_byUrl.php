@@ -1,7 +1,12 @@
-<div id="photo-tab-link" class="tab-pane active" style="display: none;" data-bind="visible: true">
+<?php
+/**
+ * @var $form site\frontend\modules\photo\models\upload\PopupForm
+ */
+?>
+
+<div id="photo-tab-link" class="tab-pane active">
     <div class="popup-add_frame">
         <div class="popup-add_cap">
-            <!-- cap-empty-->
             <div class="cap-empty cap-empty__addPhotoLink">
                 <div class="cap-empty_hold">
                     <div class="cap-empty_img"></div>
@@ -11,14 +16,13 @@
                 </div>
                 <div class="verticalalign-m-help"></div>
             </div>
-            <!-- /cap-empty-->
         </div>
         <div class="textalign-c" data-bind="template: { name: 'photo-template', if: photo() !== null, data: photo }">
 
         </div>
     </div>
-    <div class="popup-add_footer">
-        <div class="textalign-c"><a href="" class="btn btn-success">Добавить</a></div>
+    <div class="popup-add_footer" data-bind="visible: photo() !== null">
+        <div class="textalign-c"><a href="" class="btn btn-success" data-bind="disable: loading, click: add">Добавить</a></div>
     </div>
 </div>
 

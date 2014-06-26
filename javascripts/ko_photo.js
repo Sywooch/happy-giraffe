@@ -226,6 +226,7 @@ function ByUrlViewModel() {
 function Photo(data) {
     var self = this;
     self.id = data.id;
+    self.title = data.title;
     self.original_name = data.original_name;
     self.imageUrl = data.imageUrl;
     self.width = data.width;

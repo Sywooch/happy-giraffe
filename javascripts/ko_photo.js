@@ -92,6 +92,15 @@ function PhotoUploadViewModel(data) {
         }
     }
 
+    self.removePhoto = function(photo) {
+        if (photo.status() == PhotoUpload.STATUS_LOADING) {
+            photo.jqXHR.abort();
+            self.photos.remove(photo);
+        } else {
+            self.photos.remove(photo);
+        }
+    }
+
     self.processResponse = function(photo, response) {
         if (response.success) {
             $.extend(photo, response.attributes);
@@ -115,7 +124,7 @@ function PhotoUploadViewModel(data) {
 function asFromComputer() {
     this.populatePhoto = function(data) {
         var jqXHR = data.submit();
-        return new PhotoUploadFromComputer({ original_name : data.files[0].name }, jqXHR, this);
+        return new PhotoUpload({ original_name : data.files[0].name }, jqXHR, this);
     }
 
     this.photoDone = function(photo, data) {
@@ -137,14 +146,6 @@ function FromComputerSingleViewModel(data) {
     var self = this;
     PhotoUploadViewModel.apply(self, arguments);
 
-    self.removePhoto = function() {
-        if (self.photo().status() == PhotoUpload.STATUS_LOADING) {
-            self.photo().jqXHR.abort();
-        } else {
-            self.photo(null);
-        }
-    }
-
     $.extend(self.fileUploadSettings, {
         add: function (e, data) {
             self.added(self.populatePhoto(data));
@@ -155,9 +156,7 @@ function FromComputerSingleViewModel(data) {
             self.photoDone(self.photo(), data);
         },
         fail: function(e, data) {
-            if (data.errorThrown == 'abort') {
-                self.photo(null);
-            } else {
+            if (data.errorThrown != 'abort') {
                 self.photo().status(PhotoUpload.STATUS_FAIL);
             }
         }
@@ -174,14 +173,6 @@ function FromComputerMultipleViewModel(data) {
             return photo.original_name == name;
         });
     };
-
-    self.removePhoto = function(photo) {
-        if (photo.status() == PhotoUpload.STATUS_LOADING) {
-            photo.jqXHR.abort();
-        } else {
-            self.photos.remove(photo);
-        }
-    }
 
     self.cancelAll = function()
     {
@@ -202,9 +193,7 @@ function FromComputerMultipleViewModel(data) {
         },
         fail: function(e, data) {
             var photo = self.findPhotoByName(data.files[0].name);
-            if (data.errorThrown == 'abort') {
-                self.photos.remove(photo);
-            } else {
+            if (data.errorThrown != 'abort') {
                 photo.status(PhotoUpload.STATUS_FAIL);
             }
         }
@@ -218,10 +207,10 @@ function ByUrlViewModel() {
 
     self.url = ko.observable('');
     self.throttledUrl = ko.computed(self.url).extend({ throttle: 400 });
-
+    
     self.throttledUrl.subscribe(function(val) {
         self.added(new PhotoUpload({}, self));
-        $.post('/photo/upload/byUrl/', { url : val }, function(response) {
+        self.photo().jqXHR = $.post('/photo/upload/byUrl/', { url : val }, function(response) {
             self.processResponse(self.photo(), response);
         }, 'json');
     });
@@ -237,17 +226,14 @@ function Photo(data) {
     self.height = data.height;
 }
 
-function PhotoUpload(data, parent) {
+function PhotoUpload(data, jqXHR, parent) {
     var self = this;
     Photo.apply(self, arguments);
 
+    self.jqXHR = jqXHR;
     self.previewUrl = ko.observable();
     self.status = ko.observable(PhotoUpload.STATUS_LOADING);
     self.errors = ko.observableArray();
-
-    self.rotate = function() {
-        console.log(self.file);
-    }
 
     self.cssClass = ko.computed(function() {
         switch (self.status()) {
@@ -263,9 +249,3 @@ function PhotoUpload(data, parent) {
 PhotoUpload.STATUS_LOADING = 0;
 PhotoUpload.STATUS_SUCCESS = 1;
 PhotoUpload.STATUS_FAIL = 2;
-
-function PhotoUploadFromComputer(data, jqXHR, parent) {
-    var self = this;
-    PhotoUpload.apply(self, arguments);
-    self.jqXHR = jqXHR;
-}

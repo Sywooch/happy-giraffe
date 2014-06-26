@@ -8,9 +8,10 @@ $cs->registerPackage('ko_photo');
     <div class="layout-wrapper_hold clearfix">
         <div class="layout-content clearfix">
             <div id="test">
-                <p><a data-bind="photoUpload: { data : { multiple : false } }">Загрузить одно фото</a></p>
+                <p><a data-bind="photoUpload: { data: { multiple : false }, observable: photo }">Загрузить одно фото</a></p>
 
                 <div data-bind="with: photo">
+                    <p>ID: <span data-bind="text: id"></span></p>
                     <p>Прямая ссылка: <a data-bind="attr: { href : imageUrl }, text: imageUrl"></a></p>
                     <p>Изображение: <img data-bind="attr: { src : imageUrl }"></p>
                     <p>Оригинальное имя: <span data-bind="text: original_name"></span></p>
@@ -26,6 +27,7 @@ $cs->registerPackage('ko_photo');
     function TestViewModel() {
         var self = this;
         self.photo = ko.observable(null);
+        self.photos = ko.observableArray([]);
     }
 
     $(function () {

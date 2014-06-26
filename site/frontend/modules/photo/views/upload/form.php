@@ -10,7 +10,7 @@
         <div class="popup-add_top clearfix">
             <div class="popup-add_t">Добавить фотографии</div>
             <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
-                <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+                <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
                 <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
                 <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
             </ul>
@@ -22,6 +22,10 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    $('a[href="#photo-tab-computer"]').tab('show');
+</script>
 
 <script type="text/html" id="photo-template">
 <div class="i-photo" data-bind="css: cssClass"><a href="" class="ico-close5" data-bind="click: $parent.removePhoto"></a>

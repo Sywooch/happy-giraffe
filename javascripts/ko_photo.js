@@ -1,5 +1,11 @@
 ko.bindingHandlers.photoUpload = {
     init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+        var value = valueAccessor();
+        var data = value.data;
+        var callback = value.callback;
+        ko.bindingHandlers.photoUpload.callback = function(photo) {
+            alert(photo.id);
+        };
         $(element).magnificPopup({
             type: 'ajax',
             ajax: {
@@ -54,6 +60,16 @@ function PhotoUploadViewModel(data) {
             photo.status(PhotoUpload.STATUS_FAIL);
         }
     }
+
+    self.add = function() {
+        if (data.multiple) {
+            ko.utils.arrayForEach(self.photos(), function(photo) {
+                ko.bindingHandlers.photoUpload.callback(photo);
+            });
+        } else {
+            ko.bindingHandlers.photoUpload.callback(self.photo());
+        }
+    }
 }
 
 function PhotoUploadSingleViewModel() {
@@ -95,6 +111,8 @@ function FromComputerSingleViewModel(data) {
     var self = this;
     FromComputerViewModel.apply(self, arguments);
 
+    self.loading = ko.observable(false);
+
     self.removePhoto = function() {
         if (self.photo().status() == PhotoUpload.STATUS_LOADING) {
             self.photo().jqXHR.abort();
@@ -105,11 +123,13 @@ function FromComputerSingleViewModel(data) {
 
     $.extend(self.fileUploadSettings, {
         add: function (e, data) {
+            self.loading(true);
             self.photo(self.populatePhoto(data));
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);
         },
         done: function (e, data) {
             self.photoDone(self.photo(), data);
+            self.loading(false);
         },
         fail: function(e, data) {
             if (data.errorThrown == 'abort') {
@@ -188,10 +208,13 @@ function ByUrlViewModel() {
     PhotoUploadViewModel.apply(self, arguments);
 
     self.url = ko.observable('');
+    self.loading = ko.observable(false);
 
     self.url.subscribe(function(val) {
+        self.loading(true);
         $.post('/photo/upload/byUrl/', { url : val }, function(response) {
             self.processResponse(self.photo(), response);
+            self.loading(false);
         }, 'json');
     });
 }

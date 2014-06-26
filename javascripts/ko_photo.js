@@ -103,8 +103,7 @@ function FromComputerViewModel(data) {
         disableImageResize: /Android(?!.*Chrome)|Opera/
             .test(window.navigator.userAgent),
         previewMaxWidth: 155,
-        previewMaxHeight: 110,
-        previewCrop: true
+        previewMaxHeight: 110
     };
 }
 
@@ -129,6 +128,7 @@ function FromComputerSingleViewModel(data) {
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);
         },
         done: function (e, data) {
+            self.photo().file = data.files[0];
             self.photoDone(self.photo(), data);
             self.loading(false);
         },
@@ -240,6 +240,10 @@ function PhotoUpload(data, parent) {
     self.previewUrl = ko.observable();
     self.status = ko.observable(PhotoUpload.STATUS_LOADING);
     self.errors = ko.observableArray();
+
+    self.rotate = function() {
+        console.log(self.file);
+    }
 
     self.cssClass = ko.computed(function() {
         switch (self.status()) {

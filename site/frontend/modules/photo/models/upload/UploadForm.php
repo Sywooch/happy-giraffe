@@ -46,6 +46,7 @@ abstract class UploadForm extends \CFormModel
         if ($success) {
             $data['attributes'] = \CMap::mergeArray($this->photo->attributes, array(
                 'imageUrl' => $this->photo->getImageUrl(),
+                'previewUrl' => $this->getPreview(),
             ));
         }
 

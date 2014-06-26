@@ -216,7 +216,7 @@ function ByUrlViewModel() {
     });
 
     self.throttledUrl.subscribe(function(val) {
-        self.photo(new PhotoUpload());
+        self.photo(new PhotoUpload({}, self));
         $.post('/photo/upload/byUrl/', { url : val }, function(response) {
             self.processResponse(self.photo(), response);
         }, 'json');

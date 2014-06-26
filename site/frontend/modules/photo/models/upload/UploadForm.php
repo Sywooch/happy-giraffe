@@ -17,9 +17,9 @@ abstract class UploadForm extends \CFormModel
     abstract public function populate();
 
     /**
-     * @var PhotoCreate[]
+     * @var PhotoCreate
      */
-    protected $photos = array();
+    protected $photo;
 
     public function attributeLabels()
     {
@@ -39,17 +39,16 @@ abstract class UploadForm extends \CFormModel
     {
         $this->populate();
 
-        $data = array();
+        $result = array();
         foreach ($this->photos as $photo) {
-            $photo->save();
-            $data[] = array(
-                'attributes' => \CMap::mergeArray($photo->attributes, array(
-                    'originalPath' => $photo->getImageUrl(),
-                )),
-                'error' => $photo->hasErrors(),
-            );
+            $success = $this->validate() && $photo->save();
+            $data = compact('success');
+            if ($success) {
+                $data['attributes'] = $photo->attributes;
+            }
+            $result[] = $data;
         }
 
-        return \CJSON::encode($data);
+        return \CJSON::encode($result);
     }
 } 

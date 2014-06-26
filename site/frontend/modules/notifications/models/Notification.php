@@ -231,7 +231,7 @@ class Notification extends \EMongoDocument
     public function byEntity($entity)
     {
         if (is_object($entity))
-            $entity = array('entity' => get_class($model), 'entityId' => (int) $model->id);
+            $entity = array('entity' => get_class($entity), 'entityId' => (int) $entity->id);
 
         $this->dbCriteria->addCond('entity.class', '==', $entity['entity']);
         $this->dbCriteria->addCond('entity.id', '==', $entity['entityId']);
@@ -263,6 +263,38 @@ class Notification extends \EMongoDocument
         return $this;
     }
 
+    /**
+     * Добавляет условие, находящее сигналы, в которых есть упоминание об указанной сущности
+     * Не рекомендуется использовать без дополнительных ограницений
+     * 
+     * @param mixed $entity Модель с int атрибутом id или массив array('entity' => class, 'entityId' => id)
+     * @return \site\frontend\modules\notifications\models\Notification
+     */
+    public function byInitiatingEntity($entity)
+    {
+        if (is_object($entity))
+            $entity = array('entity' => get_class($entity), 'entityId' => (int) $entity->id);
+        
+        $conds = $this->dbCriteria->getConditions();
+        
+        $conds['$where'] = new \MongoCode('
+            function() {
+                if(this.unreadEntities)
+                for(var i = 0; i < this.unreadEntities.length; i++) {
+                    if(this.unreadEntities[i].id == entityId && this.unreadEntities[i].class == entity)
+                        return true;
+                }
+                if(this.readEntities)
+                for(var i = 0; i < this.readEntities.length; i++) {
+                    if(this.readEntities[i].id == entityId && this.readEntities[i].class == entity)
+                        return true;
+                }
+            }', $entity);
+        
+        $this->dbCriteria->setConditions($conds);
+        
+        return $this;
+    }
 }
 
 ?>

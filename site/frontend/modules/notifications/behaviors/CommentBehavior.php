@@ -34,7 +34,11 @@ class CommentBehavior extends \CActiveRecordBehavior
             // если комментирует не автор, то подпишем его
             if ($this->owner->author_id != $this->owner->commentEntity->author_id)
                 $this->addNotificationDiscussSubscription($this->owner);
+        } elseif ($this->owner->removed)
+        {
+            $this->afterRemove($this->owner);
         }
+
 
         return parent::afterSave($event);
     }
@@ -48,6 +52,57 @@ class CommentBehavior extends \CActiveRecordBehavior
         $this->addNotificationDiscuss($model);
         $this->addNotificationComment($model);
         $this->addNotificationReply($model);
+    }
+
+    /**
+     * Комментарий помечен как удалённый
+     * 1. Найти все сигналы для этого коммента
+     * 2. Поменять тексты на Comment::getRemoveDescription
+     * 3. Удаляем ссылку
+     * 4. Проверяем есть ли ещё комментарии у данного пользователя и удаляем подписку, если нет
+     * 
+     * @param \Comment $model
+     */
+    protected function afterRemove($model)
+    {
+        // Находим все сигналы, у которых в прочитанных или непрочитанных сигналах есть
+        // интересующая нас сущность
+        $signals = \site\frontend\modules\notifications\models\Notification::model()->byInitiatingEntity($model)->findAll();
+        // Перебирём все сигналы, а в них все сущности, проставив новый текст, и сохранив их
+        foreach ($signals as &$signal)
+        {
+            $save = false;
+            foreach ($signal->readEntities as &$entity)
+            {
+                if ($entity->id == $model->id && $entity->class == get_class($model))
+                {
+                    $entity->title = $model->getRemoveDescription();
+                    $entity->url = $model->commentEntity->url;
+                    $save = true;
+                    break;
+                }
+            }
+            if (!$save)
+                foreach ($signal->unreadEntities as &$entity)
+                {
+                    if ($entity->id == $model->id && $entity->class == get_class($model))
+                    {
+                        $entity->title = $model->getRemoveDescription();
+                        $entity->url = $model->commentEntity->url;
+                        $save = true;
+                        break;
+                    }
+                }
+            if ($save)
+                $signal->save();
+        }
+
+        // Удаление подписки
+        $count = \Comment::model()->countByAttributes(array(
+            'author_id' => $model->author_id,
+        ));
+        if ($count == 0)
+            \site\frontend\modules\notifications\models\DiscussSubscription::model()->byUser((int) $model->author_id)->byModel($model->commentEntity)->deleteAll();
     }
 
     /**

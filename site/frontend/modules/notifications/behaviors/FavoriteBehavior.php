@@ -25,15 +25,27 @@ class FavoriteBehavior extends BaseBehavior
 
     /**
      * 
-     * @param \HGLike $model
+     * @param \Favourite $model
      */
     protected function addNotification($model)
     {
         $entity = \CommunityContent::model($model->model_name)->findByPk($model->model_id);
         $notification = $this->findOrCreateNotification($model->model_name, (int) $model->model_id, $entity->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_NEW_FAVOURITE);
-        $favorite = new \site\frontend\modules\notifications\models\Entity($model);
-        $notification->unreadEntities[] = $favorite;
-        $notification->save();
+
+        $exists = false;
+        if ($notification->unreadEntities)
+            foreach ($notification->unreadEntities as $unreadFavorite)
+            {
+                if (!$exists && $unreadFavorite->userId == $model->user_id && $unreadFavorite->class == get_class($model))
+                    $exists = true;
+            }
+        if (!$exists)
+        {
+            $favorite = new \site\frontend\modules\notifications\models\Entity($model);
+            $favorite->userId = $model->user_id;
+            $notification->unreadEntities[] = $favorite;
+            $notification->save();
+        }
     }
 
 }

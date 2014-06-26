@@ -15,6 +15,7 @@ class Entity extends \EMongoEmbeddedDocument
     public $tooltip;
     public $title;
     public $url;
+    public $userId;
 
     public function __construct($entity = false, $scenario = 'insert')
     {
@@ -25,6 +26,7 @@ class Entity extends \EMongoEmbeddedDocument
             $this->title = isset($entity->contentTitle) ? $entity->contentTitle : null;
             $this->tooltip = isset($entity->powerTipTitle) ? $entity->powerTipTitle : null;
             $this->url = isset($entity->url) ? $entity->url : null;
+            $this->userId = isset($entity->author_id) ? (int) $entity->author_id : null;
         }
         parent::__construct($scenario);
     }

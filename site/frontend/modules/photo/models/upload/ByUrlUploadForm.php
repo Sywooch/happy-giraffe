@@ -1,18 +1,18 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 11/06/14
- * Time: 15:45
+ * Форма загрузки фото по URL
+ *
+ * Конкретная релизация формы для загрузки фото по URL с внешнего ресурса
  */
 
 namespace site\frontend\modules\photo\models\upload;
-
-
 use site\frontend\modules\photo\models\PhotoCreate;
 
 class ByUrlUploadForm extends UploadForm
 {
+    /**
+     * @var string URL изображения
+     */
     public $url;
 
     public function rules()
@@ -27,6 +27,6 @@ class ByUrlUploadForm extends UploadForm
         $image = file_get_contents($this->url);
         $tmpFile = tempnam(sys_get_temp_dir(), 'php');
         file_put_contents($tmpFile, $image);
-        $this->photo = new PhotoCreate($tmpFile, basename($this->url));
+        return new PhotoCreate($tmpFile, basename($this->url));
     }
 } 

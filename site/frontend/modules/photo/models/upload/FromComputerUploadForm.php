@@ -1,19 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 06/06/14
- * Time: 12:13
+ * Форма загрузки с компьютера
+ *
+ * Конкретная реализация форма для загрузки изображения с компьютера
  */
 
 namespace site\frontend\modules\photo\models\upload;
-
 use site\frontend\modules\photo\models\PhotoCreate;
 
 class FromComputerUploadForm extends UploadForm
 {
     /**
-     * @var \CUploadedFile
+     * @var \CUploadedFile загруженный файл
      */
     public $file;
 
@@ -38,6 +36,6 @@ class FromComputerUploadForm extends UploadForm
 
     public function populate()
     {
-        $this->photo = new PhotoCreate($this->file->getTempName(), $this->file->getName());
+        return new PhotoCreate($this->file->getTempName(), $this->file->getName());
     }
 } 

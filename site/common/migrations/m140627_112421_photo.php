@@ -18,10 +18,10 @@ CREATE TABLE `photo__albums` (
   PRIMARY KEY (`id`),
   KEY `author_id` (`author_id`),
   CONSTRAINT `photo__albums_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
 
-DROP TABLE IF EXISTS `photo__attaches`;
+        $this->execute("DROP TABLE IF EXISTS `photo__attaches`;
 
 CREATE TABLE `photo__attaches` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -36,11 +36,11 @@ CREATE TABLE `photo__attaches` (
   KEY `collection_id` (`collection_id`),
   CONSTRAINT `photo__attaches_ibfk_1` FOREIGN KEY (`photo_id`) REFERENCES `photo__photos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `photo__attaches_ibfk_2` FOREIGN KEY (`collection_id`) REFERENCES `photo__collections` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
 
 
-DROP TABLE IF EXISTS `photo__collections`;
+        $this->execute("DROP TABLE IF EXISTS `photo__collections`;
 
 CREATE TABLE `photo__collections` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -54,11 +54,11 @@ CREATE TABLE `photo__collections` (
   PRIMARY KEY (`id`),
   KEY `cover_id` (`cover_id`),
   CONSTRAINT `photo__collections_ibfk_1` FOREIGN KEY (`cover_id`) REFERENCES `photo__photos` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 
 
 
-DROP TABLE IF EXISTS `photo__photos`;
+        $this->execute("DROP TABLE IF EXISTS `photo__photos`;
 
 CREATE TABLE `photo__photos` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

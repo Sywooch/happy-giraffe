@@ -36,7 +36,6 @@ class UploadController extends \HController
 
     public function actionByUrl()
     {
-        sleep(5);
         $form = new ByUrlUploadForm();
         $form->attributes = $_POST;
         if ($form->validate()) {

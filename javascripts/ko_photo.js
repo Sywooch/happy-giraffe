@@ -35,12 +35,7 @@ ko.bindingHandlers.photoUpload = {
 // Биндинг для плагина jQuery File Upload
 ko.bindingHandlers.fileUpload = {
     update: function (element, valueAccessor) {
-        var data = valueAccessor();
-        var options = data.options || {};
-        var multiple = data.multiple;
-        var el = $(element);
-
-        el.prop('multiple', multiple);
+        var options = valueAccessor() || {};
 
         $(element).fileupload(options);
 
@@ -155,6 +150,7 @@ function FromComputerSingleViewModel(data) {
     PhotoUploadViewModel.apply(self, arguments);
 
     $.extend(self.fileUploadSettings, {
+        maxNumberOfFiles: 1,
         add: function (e, data) {
             self.added(self.populatePhoto(data));
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);

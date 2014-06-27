@@ -20,7 +20,7 @@
                                 <li class="album-preview_li">
                                     <div class="album-preview_in">
                                         <div class="album-preview_img-hold">
-                                            <!-- --><img src="/new/images/example/w205-h140.jpg" alt="" class="album-preview_img">
+                                            <!-- --><img src="" alt="" class="album-preview_img" data-bind="attr: { src : cover.coverUrl }">
                                         </div>
                                         <div class="album-preview_overlay"></div>
                                     </div>

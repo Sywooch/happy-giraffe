@@ -72,27 +72,27 @@ class TestController extends \HController
 
         \Yii::beginProfile('read-s3');
         $file = $filesystem->read('1344242897872.jpg');
-        \Yii::endProfile('block1');
+        \Yii::endProfile('read-s3');
 
         \Yii::beginProfile('read-local');
         $file2 = $filesystem2->read('1344242897872.jpg');
-        \Yii::endProfile('block2');
+        \Yii::endProfile('read-local');
 
         \Yii::beginProfile('write-s3');
         $filesystem->write(md5(microtime()), $file);
-        \Yii::endProfile('block1');
+        \Yii::endProfile('write-s3');
 
         \Yii::beginProfile('write-local');
         $filesystem2->write(md5(microtime()), $file);
-        \Yii::endProfile('block2');
+        \Yii::endProfile('write-local');
 
         \Yii::beginProfile('exists-s3');
         $filesystem->has(md5(microtime()));
-        \Yii::endProfile('block1');
+        \Yii::endProfile('exists-s3');
 
         \Yii::beginProfile('exists-local');
         $filesystem2->has(md5(microtime()));
-        \Yii::endProfile('block2');
+        \Yii::endProfile('exists-local');
     }
 
 

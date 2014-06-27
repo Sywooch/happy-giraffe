@@ -4,6 +4,7 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
+use site\frontend\modules\photo\models\upload\AttachForm;
 use site\frontend\modules\photo\models\upload\ByUrlUploadForm;
 use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
 use site\frontend\modules\photo\models\upload\PopupForm;
@@ -38,6 +39,13 @@ class UploadController extends \HController
     public function actionByUrl()
     {
         $form = new ByUrlUploadForm();
+        $form->attributes = $_POST;
+        echo $form->save();
+    }
+
+    public function actionAttach()
+    {
+        $form = new AttachForm();
         $form->attributes = $_POST;
         echo $form->save();
     }

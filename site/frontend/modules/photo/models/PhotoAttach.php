@@ -36,7 +36,7 @@ class PhotoAttach extends \HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('photo_id, collection_id, data', 'required'),
+			array('photo_id, collection_id', 'required'),
 			array('photo_id, collection_id, position', 'length', 'max'=>11),
 			array('created, updated', 'safe'),
 			// The following rule is used by search().

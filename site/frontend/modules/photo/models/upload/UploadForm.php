@@ -48,17 +48,30 @@ abstract class UploadForm extends \CFormModel
                 'imageUrl' => $this->photo->getImageUrl(),
                 'previewUrl' => $this->getPreview(),
             ));
+        } else {
+            $data['error'] = $this->getFirstError();
         }
 
         return \CJSON::encode($data);
     }
 
+    protected function getFirstError()
+    {
+        $errors = \CMap::mergeArray($this->getErrors(), $this->photo->getErrors());
+        return $errors[key($errors)][0];
+    }
+
     protected function getPreview()
     {
+        /** @var \GdThumb $image */
         $image = \Yii::app()->phpThumb->create($this->photo->getImagePath());
 
-        if (($this->photo->width / $this->photo->height) > 150)
-        $image->resize(150, 110);
+        if (($this->photo->width / $this->photo->height) > (155 / 140)) {
+            $image->resize(0, 140);
+            $image->cropFromCenter(155, 140);
+        } else {
+            $image->resize(0, 140);
+        }
 
         $name = $this->photo->getImagePath();
         $name = str_replace($this->photo->fs_name, $this->photo->fs_name . '_preview', $name);

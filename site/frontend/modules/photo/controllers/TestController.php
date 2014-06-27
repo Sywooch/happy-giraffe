@@ -70,29 +70,31 @@ class TestController extends \HController
         $filesystem = new Filesystem(new Adapter($client, 'test-happygiraffe'));
         $filesystem2 = new Filesystem(new Adapter2(\Yii::getPathOfAlias('webroot')));
 
-        \Yii::beginProfile('read-s3');
-        $file = $filesystem->read('1344242897872.jpg');
-        \Yii::endProfile('read-s3');
+        for ($i = 0; $i < 10; $i++) {
+            \Yii::beginProfile('read-s3');
+            $file = $filesystem->read('1344242897872.jpg');
+            \Yii::endProfile('read-s3');
 
-        \Yii::beginProfile('read-local');
-        $file2 = $filesystem2->read('1344242897872.jpg');
-        \Yii::endProfile('read-local');
+            \Yii::beginProfile('read-local');
+            $file2 = $filesystem2->read('1344242897872.jpg');
+            \Yii::endProfile('read-local');
 
-        \Yii::beginProfile('write-s3');
-        $filesystem->write(md5(microtime()), $file);
-        \Yii::endProfile('write-s3');
+            \Yii::beginProfile('write-s3');
+            $filesystem->write(md5(microtime()), $file);
+            \Yii::endProfile('write-s3');
 
-        \Yii::beginProfile('write-local');
-        $filesystem2->write(md5(microtime()), $file);
-        \Yii::endProfile('write-local');
+            \Yii::beginProfile('write-local');
+            $filesystem2->write(md5(microtime()), $file);
+            \Yii::endProfile('write-local');
 
-        \Yii::beginProfile('exists-s3');
-        $filesystem->has(md5(microtime()));
-        \Yii::endProfile('exists-s3');
+            \Yii::beginProfile('exists-s3');
+            $filesystem->has(md5(microtime()));
+            \Yii::endProfile('exists-s3');
 
-        \Yii::beginProfile('exists-local');
-        $filesystem2->has(md5(microtime()));
-        \Yii::endProfile('exists-local');
+            \Yii::beginProfile('exists-local');
+            $filesystem2->has(md5(microtime()));
+            \Yii::endProfile('exists-local');
+        }
     }
 
 

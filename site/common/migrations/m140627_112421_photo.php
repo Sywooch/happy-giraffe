@@ -6,9 +6,6 @@ class m140627_112421_photo extends CDbMigration
 	{
         $this->execute("
 
-        # Dump of table photo__albums
-# ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `photo__albums`;
 
 CREATE TABLE `photo__albums` (
@@ -23,10 +20,6 @@ CREATE TABLE `photo__albums` (
   CONSTRAINT `photo__albums_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
-# Dump of table photo__attaches
-# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `photo__attaches`;
 
@@ -47,9 +40,6 @@ CREATE TABLE `photo__attaches` (
 
 
 
-# Dump of table photo__collections
-# ------------------------------------------------------------
-
 DROP TABLE IF EXISTS `photo__collections`;
 
 CREATE TABLE `photo__collections` (
@@ -67,9 +57,6 @@ CREATE TABLE `photo__collections` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-
-# Dump of table photo__photos
-# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `photo__photos`;
 

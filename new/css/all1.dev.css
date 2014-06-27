@@ -11058,7 +11058,7 @@ html[dir="rtl"] .select2-search-choice-close {
   color: #fff;
 }
 .album-photo-add__big {
-  margin: 25px 0;
+  margin: 0 0 20px;
   width: 600px;
   height: 300px;
 }
@@ -16260,6 +16260,7 @@ body.gallery {
   margin-left: 15px;
   color: #999999;
 }
+.user-album_del,
 .user-album_sort,
 .user-album_move {
   display: inline-block;
@@ -16270,6 +16271,7 @@ body.gallery {
   background: url('/new/images/user-album_sort.png') no-repeat;
   text-decoration: none;
 }
+.user-album_move:hover,
 .user-album_sort:hover {
   color: #333333;
   background-position: 0 -30px;
@@ -16277,34 +16279,16 @@ body.gallery {
 .user-album_move {
   background: url('/new/images/user-album_move.png') no-repeat;
 }
-.user-album_move:hover {
-  color: #333333;
-  background-position: 0 -30px;
-}
 .user-album_del {
   position: relative;
   float: right;
-  margin: 0 22px;
-  width: 40px;
-  height: 40px;
-  background: url('/new/images/album-empty_del.png') no-repeat;
+  margin: 5px 0;
+  padding: 10px 32px 0 10px;
+  background: url('/new/images/user-album_del.png') no-repeat 100% 0;
 }
 .user-album_del:hover {
-  background-position: 0 -40px;
-}
-.user-album_del:hover:after {
-  display: block;
-}
-.user-album_del:after {
-  content: 'Удалить альбом';
-  display: none;
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  margin-left: -50px;
-  width: 100px;
-  text-align: center;
-  color: #999999;
+  background-position: 100% -30px;
+  color: #333333;
 }
 /* /user-album */
 /*

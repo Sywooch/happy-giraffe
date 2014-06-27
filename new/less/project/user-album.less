@@ -76,6 +76,7 @@
         margin-left: 15px;
         color: @color-gray;
     }
+    &_del,
     &_sort,
     &_move {
         .inline-block();
@@ -86,35 +87,22 @@
         background: url('@{path-img}/user-album_sort.png') no-repeat;
         text-decoration: none;
     }
+    &_move:hover,
     &_sort:hover {
         color: @color-base;
         background-position: 0 -30px;
     }
     &_move {background: url('@{path-img}/user-album_move.png') no-repeat;}
-    &_move:hover {
-        color: @color-base;
-        background-position: 0 -30px;
-    }
     &_del {
         position: relative;
         float: right;
-        margin: 0 22px;
-        width: 40px;
-        height: 40px;
-        background: url('@{path-img}/album-empty_del.png') no-repeat;
+        margin: 5px 0;
+        padding: 10px 32px 0 10px;
+        background: url('@{path-img}/user-album_del.png') no-repeat 100% 0;
     }
-    &_del:hover {background-position: 0 -40px;}
-    &_del:hover:after {display: block;}
-    &_del:after {
-        content: 'Удалить альбом';
-        display: none;
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        margin-left: -50px;
-        width: 100px;
-        text-align: center;
-        color: @color-gray;
+    &_del:hover {
+        background-position: 100% -30px;
+        color: @color-base;
     }
 }
 /* /user-album */

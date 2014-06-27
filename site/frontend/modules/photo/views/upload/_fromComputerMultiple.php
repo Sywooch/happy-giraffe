@@ -42,7 +42,7 @@
                 <span class="color-gray-light">Загружено
                     <span class="popup-add_footer-count" data-bind="text: successPhotos().length"></span> из <span class="popup-add_footer-count" name="image" data-bind="text: photos().length"></span></span>
             <div class="file-fake" data-bind="visible: ! loading()">
-                <input type="file" class="file-fake_inp" name="image" data-bind="fileUpload: { options: fileUploadSettings, multiple: true }"><a href="" class="file-fake_btn btn btn-primary btn-s"><span class="ico-plus ico-plus__s ico-plus__white"></span>Загрузить еще</a>
+                <input type="file" class="file-fake_inp" name="image" data-bind="fileUpload: { options: fileUploadSettingsMore, multiple: true }"><a href="" class="file-fake_btn btn btn-primary btn-s"><span class="ico-plus ico-plus__s ico-plus__white"></span>Загрузить еще</a>
             </div>
             <div class="progress progress-striped active progress__cont progress__inline" data-bind="visible: loading">
                 <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>

@@ -30,14 +30,12 @@ class UploadController extends \HController
 
     public function actionFromComputer()
     {
-        sleep(3);
         $form = new FromComputerUploadForm();
         echo $form->save();
     }
 
     public function actionByUrl()
     {
-        sleep(3);
         $form = new ByUrlUploadForm();
         $form->attributes = $_POST;
         if ($form->validate()) {

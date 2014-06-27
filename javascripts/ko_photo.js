@@ -109,14 +109,24 @@ function PhotoUploadViewModel(data) {
         }
     }
 
+    self.photoIds = function() {
+        return ko.utils.arrayMap(self.photos(), function(photo) {
+            return photo.id;
+        });
+    }
+
     self.add = function() {
-        if (data.multiple) {
-            ko.utils.arrayForEach(self.photos(), function(photo) {
-                ko.bindingHandlers.photoUpload.callback(photo);
-            });
-        } else {
-            ko.bindingHandlers.photoUpload.callback(self.photo());
-        }
+        $.post('/photo/upload/attach/', { collectionId : 1, ids : self.photoIds() }, function(response) {
+            if (response.success) {
+                if (data.multiple) {
+                    ko.utils.arrayForEach(self.photos(), function(photo) {
+                        ko.bindingHandlers.photoUpload.callback(photo);
+                    });
+                } else {
+                    ko.bindingHandlers.photoUpload.callback(self.photo());
+                }
+            }
+        }, 'json');
     }
 }
 

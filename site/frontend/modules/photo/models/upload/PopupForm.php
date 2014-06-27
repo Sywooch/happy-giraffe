@@ -51,6 +51,9 @@ class PopupForm extends \CFormModel
                 'title' => $album->title,
                 'count' => $album->photoCollection->attachesCount,
                 'cover' => $album->photoCollection->getCover()->toJSON(),
+                'photos' => array_map(function($attach) {
+                    return $attach->photo->toJSON();
+                }, $album->photoCollection->attaches),
             );
         }, $this->getAlbums());
     }

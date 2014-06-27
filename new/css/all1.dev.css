@@ -13972,6 +13972,8 @@ body.gallery {
 .i-photo_itx {
   position: absolute;
   bottom: 0;
+  left: 0;
+  width: 100%;
   font-size: 12px;
   border-radius: 0;
 }

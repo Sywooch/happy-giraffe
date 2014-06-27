@@ -72,7 +72,7 @@ class CommentBehavior extends BaseBehavior
         foreach ($signals as &$signal)
         {
             $save = false;
-            if($signal->readEntities)
+            if ($signal->readEntities)
                 foreach ($signal->readEntities as &$entity)
                 {
                     if ($entity->id == $model->id && $entity->class == get_class($model))
@@ -194,7 +194,8 @@ class CommentBehavior extends BaseBehavior
             return;
 
         $entity = $model->response;
-        $notification = $this->findOrCreateNotification(get_class($entity), $entity->id, $model->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_REPLY_COMMENT);
+        $notification = $this->findOrCreateNotification(get_class($entity), $entity->id, $model->response->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_REPLY_COMMENT);
+        $notification->entity->title = $model->response->text;
 
         $comment = new \site\frontend\modules\notifications\models\Entity($model);
         $comment->title = $model->text;

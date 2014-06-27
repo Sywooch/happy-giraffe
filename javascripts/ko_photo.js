@@ -255,6 +255,9 @@ function PhotoAlbum(data) {
     self.title = data.title;
     self.cover = new Photo(data.cover);
     self.count = data.count;
+    self.photos = ko.utils.arrayMap(data, function(data) {
+        return new Photo(data);
+    });
 }
 
 // Основная модель фотографии
@@ -308,4 +311,10 @@ function FromAlbumsViewModel(data) {
     self.albums = ko.utils.arrayMap(data, function(data) {
         return new PhotoAlbum(data);
     });
+
+    self.currentAlbum = ko.observable(null);
+
+    self.selectAlbum = function(album) {
+        self.currentAlbum(album);
+    }
 }

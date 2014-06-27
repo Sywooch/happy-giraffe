@@ -11,6 +11,22 @@ use site\frontend\modules\photo\models\upload\PopupForm;
 
 class UploadController extends \HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
+        );
+    }
+
     /**
      * Выводит попап загрузки фото
      */

@@ -1,3 +1,4 @@
+// Биндинг для загрузки фото
 ko.bindingHandlers.photoUpload = {
     init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
         var value = valueAccessor();
@@ -31,6 +32,7 @@ ko.bindingHandlers.photoUpload = {
     }
 };
 
+// Биндинг для плагина jQuery File Upload
 ko.bindingHandlers.fileUpload = {
     update: function (element, valueAccessor) {
         var data = valueAccessor();
@@ -54,6 +56,7 @@ ko.bindingHandlers.fileUpload = {
     }
 };
 
+// Основная модель загрузки фото
 function PhotoUploadViewModel(data) {
     var self = this;
 
@@ -122,6 +125,7 @@ function PhotoUploadViewModel(data) {
     }
 }
 
+// Mixin, общие методы для двух форм загрузки с компьютера
 function asFromComputer() {
     this.populatePhoto = function(data) {
         var jqXHR = data.submit();
@@ -145,6 +149,7 @@ function asFromComputer() {
     };
 }
 
+// Модель одиночной загрузки файла с компьютера
 function FromComputerSingleViewModel(data) {
     var self = this;
     PhotoUploadViewModel.apply(self, arguments);
@@ -167,6 +172,7 @@ function FromComputerSingleViewModel(data) {
 }
 asFromComputer.call(FromComputerSingleViewModel.prototype);
 
+// Модель множественной загрузки с компьютера
 function FromComputerMultipleViewModel(data) {
     var self = this;
     PhotoUploadViewModel.apply(self, arguments);
@@ -207,6 +213,7 @@ function FromComputerMultipleViewModel(data) {
 }
 asFromComputer.call(FromComputerMultipleViewModel.prototype);
 
+// Модель загрузки по URL
 function ByUrlViewModel() {
     var self = this;
     PhotoUploadViewModel.apply(self, arguments);
@@ -236,6 +243,7 @@ function ByUrlViewModel() {
     });
 }
 
+// Основная модель фотографии
 function Photo(data) {
     var self = this;
     self.id = data.id;
@@ -246,6 +254,7 @@ function Photo(data) {
     self.height = data.height;
 }
 
+// Модель фотографии в рамках функционала загрузки фото
 function PhotoUpload(data, jqXHR, parent) {
     var self = this;
     Photo.apply(self, arguments);

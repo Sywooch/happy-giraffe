@@ -53,8 +53,8 @@ class PhotoAttach extends \HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'photo' => array(self::BELONGS_TO, 'PhotoPhotos', 'photo_id'),
-			'collection' => array(self::BELONGS_TO, 'PhotoCollections', 'collection_id'),
+			'photo' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\Photo', 'photo_id'),
+			'collection' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\PhotoCollection', 'collection_id'),
 		);
 	}
 

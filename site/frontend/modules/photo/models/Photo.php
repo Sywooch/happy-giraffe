@@ -155,4 +155,38 @@ class Photo extends \HActiveRecord
     {
         return PathManager::getOriginalsPath() . DIRECTORY_SEPARATOR . $this->fs_name;
     }
+
+    public function toJSON()
+    {
+        return \CMap::mergeArray($this->attributes, array(
+            'imageUrl' => $this->getImageUrl(),
+            'previewUrl' => $this->getPreviewUrl(155, 140),
+            'coverUrl' => $this->getPreviewUrl(205, 140),
+        ));
+    }
+
+    /**
+     * Создает миниатюру фотографии и возвращает ее URL
+     * @return string URL миниатюры фотографии
+     * @todo временный метод, убрать после разработки механизма создания миниатюр
+     */
+    protected function getPreviewUrl($width, $height)
+    {
+        /** @var \GdThumb $image */
+        $image = \Yii::app()->phpThumb->create($this->photo->getImagePath());
+
+        if (($this->photo->width / $this->photo->height) > ($width / $height)) {
+            $image->resize(0, $height);
+            $image->cropFromCenter($width, $height);
+        } else {
+            $image->resize(0, $height);
+        }
+
+        $name = $this->photo->getImagePath();
+        $name = str_replace($this->photo->fs_name, $this->photo->fs_name . '_preview', $name);
+        $image->save($name);
+        $url = $this->photo->getImageUrl();
+        $url = str_replace($this->photo->fs_name, $this->photo->fs_name . '_preview', $url);
+        return $url;
+    }
 }

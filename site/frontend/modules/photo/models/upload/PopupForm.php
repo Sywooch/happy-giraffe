@@ -43,13 +43,14 @@ class PopupForm extends \CFormModel
         return \CJSON::encode($this->attributes);
     }
 
-    protected function getAlbumsJSON()
+    public function getAlbumsJSON()
     {
         return array_map(function($album) {
             /** @var PhotoAlbum $album */
             return array(
                 'title' => $album->title,
                 'count' => $album->photoCollection->attachesCount,
+                'cover' => $album->photoCollection->getCover()->toJSON(),
             );
         }, $this->getAlbums());
     }
@@ -59,6 +60,6 @@ class PopupForm extends \CFormModel
      */
     protected function getAlbums()
     {
-        return array(PhotoAlbum::model()->with('photoCollection, photoCollection.attachesCount'));
+        return array(PhotoAlbum::model()->with(array('photoCollection', 'photoCollection.attachesCount'))->find());
     }
 } 

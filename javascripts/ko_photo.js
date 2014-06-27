@@ -249,6 +249,14 @@ function ByUrlViewModel() {
     });
 }
 
+function PhotoAlbum(data) {
+    var self = this;
+    self.id = data.id;
+    self.title = data.title;
+    self.cover = new Photo(data.cover);
+    self.count = data.count;
+}
+
 // Основная модель фотографии
 function Photo(data) {
     var self = this;
@@ -292,3 +300,10 @@ function PhotoUpload(data, jqXHR, parent) {
 PhotoUpload.STATUS_LOADING = 0;
 PhotoUpload.STATUS_SUCCESS = 1;
 PhotoUpload.STATUS_FAIL = 2;
+
+function FromAlbumsViewModel(data) {
+    var self = this;
+    self.albums = ko.utils.arrayMap(data, function(data) {
+        return new PhotoAlbum(data);
+    });
+}

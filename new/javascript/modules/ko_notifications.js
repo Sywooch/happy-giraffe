@@ -55,8 +55,7 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         ko.utils.extend(this, data);
         var self = this;
         self.viewModel = viewModel;
-        self.count = ko.observable(self.count);
-        self.visibleCount = ko.observable(self.visibleCount);
+        self.count = ko.observable(viewModel.read ? self.readCount : self.unreadCount);
         self.type = types[self.type];
         self.readed = ko.observable(false);
         self.setReaded = function() {
@@ -75,8 +74,8 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         self.notifications = ko.observableArray([]);
         self.addNotifications = function(data) {
             self.notifications(self.notifications().concat(ko.utils.arrayMap(data, function(item) {
-                if (!self.lastNotificationUpdate || self.lastNotificationUpdate > item.updated)
-                    self.lastNotificationUpdate = item.updated;
+                if (!self.lastNotificationUpdate || self.lastNotificationUpdate > item.dtimeUpdate)
+                    self.lastNotificationUpdate = item.dtimeUpdate;
                 return new Notify(item, self);
             })));
         };

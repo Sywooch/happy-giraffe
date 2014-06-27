@@ -1,14 +1,20 @@
-<a href="" class="u-notice_b u-notice_ico u-notice_ico__like"></a>
-<div class="u-notice_b u-notice_spec">
-    <div class="u-notice_b u-notice_count" data-bind="text: visibleCount"></div>
+<a href="" class="u-notice_b u-notice_ico u-notice_ico__like" data-bind="attr: {href: entity.url}"></a>
+<a href="" class="u-notice_b u-notice_spec" data-bind="attr: {href: entity.url}">
+    <div class="u-notice_b u-notice_count" data-bind="text: count"></div>
     <div class="u-notice_b u-notice_desc">Нравится</div>
-    <div data-bind="foreach: articles">
-        <div>
-            <!--<a href="" class="u-notice_b u-notice_ico u-notice_ico__like" data-bind="attr: {href: model.url}"></a>-->
-            <div class="u-notice_b u-notice_count" data-bind="text: count"></div>
-            <a href="" class="u-notice_b u-notice_post-ico u-notice_post-ico__post" data-bind="attr: {href: model.url}"></a>
-            <img data-bind="attr: {src: model.previewUrl}, visible: model.previewUrl" src="" />
-            <div class="u-notice_b u-notice_post"><a href="" class="u-notice_post-a" data-bind="html: model.contentTitle, attr: {href: model.url}"></a></div>
-        </div>
+</a>
+<div class="u-notice_b u-notice_users">
+    <div class="ava-list">
+        <!-- Аватарки
+        <ul class="ava-list_ul" data-bind="foreach: comments">
+            <li class="ava-list_li" data-bind="with: author">
+                <a class="ava ava__small ava__male" href="" data-bind="attr: {href: url}">
+                    <span class="ico-status ico-status__online" data-bind="visible: online"></span>
+                    <img class="ava_img" src="" alt="" data-bind="attr: {src: avaOrDefaultImage}">
+                </a>
+            </li>
+        </ul> -->
     </div>
 </div>
+<a href="" class="u-notice_b u-notice_post-ico u-notice_post-ico__post" data-bind="attr: {href: entity.url}"></a>
+<div class="u-notice_b u-notice_post"><a href="" class="u-notice_post-a" data-bind="html: entity.title, attr: {href: entity.url}"></a></div>

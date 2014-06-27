@@ -106,6 +106,7 @@ function PhotoUploadViewModel(data) {
             $.extend(photo, response.attributes);
             photo.status(PhotoUpload.STATUS_SUCCESS);
         } else {
+            photo.error(response.error);
             photo.status(PhotoUpload.STATUS_FAIL);
         }
     }
@@ -128,7 +129,9 @@ function asFromComputer() {
     }
 
     this.photoDone = function(photo, data) {
-        photo.previewUrl = data.files[0].preview.toDataURL();
+//        if (data.files[0].preview) {
+//            photo.previewUrl = data.files[0].preview.toDataURL();
+//        }
         this.processResponse(photo, data.result);
     }
 
@@ -215,6 +218,9 @@ function ByUrlViewModel() {
             url: '/photo/upload/byUrl/',
             type: 'POST',
             dataType: 'json',
+            data: {
+                url : self.url()
+            },
             success: function(data) {
                 self.processResponse(self.photo(), data);
             },
@@ -244,7 +250,15 @@ function PhotoUpload(data, jqXHR, parent) {
     self.jqXHR = jqXHR;
     self.previewUrl = ko.observable();
     self.status = ko.observable(PhotoUpload.STATUS_LOADING);
-    self.errors = ko.observableArray();
+    self.error = ko.observable();
+
+    self.rotateLeft = function() {
+        alert('Функция пока недоступна');
+    }
+
+    self.rotateRight = function() {
+        alert('Функция пока недоступна');
+    }
 
     self.cssClass = ko.computed(function() {
         switch (self.status()) {

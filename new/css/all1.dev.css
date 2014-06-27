@@ -1585,6 +1585,10 @@ input[type="button"].btn-block {
   background: #9b8ec9 url('/new/images/body__bg/img1.jpg') no-repeat 50% 0;
   background-attachment: fixed;
 }
+.body__bg2 {
+  background: #2a477f url('/new/images/body__bg/img2.jpg') no-repeat 50% 0;
+  background-attachment: fixed;
+}
 .layout-container {
   width: 100%;
   min-height: 100%;
@@ -1781,7 +1785,7 @@ a.heading-link-xxl:hover {
 .i-allphoto_a {
   display: inline-block;
   background: url('/new/images/family-user_album-a.png') no-repeat;
-  padding: 10px 10px 5px 50px;
+  padding: 7px 10px 8px 50px;
   height: 15px;
   font-size: 15px;
   color: #cccccc;
@@ -1790,6 +1794,22 @@ a.heading-link-xxl:hover {
 .i-allphoto_a:hover {
   color: #999999;
   background-position: 0 -30px;
+}
+.i-info {
+  margin: 10px 0;
+  border-left: 5px solid #b3e9b5;
+  padding: 11px 20px 11px 45px;
+  font-size: 12px;
+  color: #3f9143;
+  background: #e3fbe4 url('/new/images/i-info.png') no-repeat 6px 5px;
+}
+.i-affix {
+  position: relative;
+}
+.i-affix.affix {
+  position: fixed;
+  top: 0;
+  z-index: 100;
 }
 .tx-content,
 .wysiwyg-content,
@@ -1831,7 +1851,7 @@ a.heading-link-xxl:hover {
 .btn-scrolltop:hover {
   background-position: 0 0;
 }
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 1100px) {
   .btn-scrolltop {
     display: block;
   }
@@ -1889,7 +1909,7 @@ a.heading-link-xxl:hover {
 }
 .page-col__user .layout-footer_hold {
   padding: 0 20px 20px 145px;
-  background-position: 40px 0;
+  background-position: 40px 10px;
 }
 .page-col_top {
   border-bottom: 1px solid #ededed;
@@ -2376,10 +2396,23 @@ a.heading-link-xxl:hover {
   margin: 10px 20px 10px 30px;
   font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
 }
+.b-crumbs__m {
+  font-size: 13px;
+  margin: 21px 0;
+}
+.b-crumbs__m .b-crumbs_a {
+  text-decoration: none;
+}
+.b-crumbs__m .b-crumbs_a:hover {
+  text-decoration: underline;
+}
+.b-crumbs__m .b-crumbs_last {
+  color: #666666;
+}
 .b-crumbs_tx {
   display: inline-block;
   vertical-align: middle;
-  margin-right: 10px;
+  margin-right: 8px;
   color: #9c9b9b;
 }
 .b-crumbs_ul {
@@ -2399,8 +2432,8 @@ a.heading-link-xxl:hover {
   line-height: 12px;
   display: inline-block;
   vertical-align: middle;
-  padding: 0 0 0 5px;
-  color: #cdcdcd;
+  padding: 0 0 0 8px;
+  color: #999;
 }
 .b-crumbs_li__last:after {
   display: none;
@@ -2656,16 +2689,16 @@ a.heading-link-xxl:hover {
 }
 .btn-xm {
   padding: 10px 22px 10px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 20px;
   border-radius: 3px;
 }
-.btn-xm {
-  height: 40px;
-  font: 14px/40px Arial, Tahoma, Verdana, sans-serif;
-  padding: 0 22px;
-  border-radius: 3px;
-}
+/*.btn-xm {
+    height:40px;
+    font: 14px/40px Arial, Tahoma, Verdana, sans-serif;
+    padding:0 22px;
+    .border-radius(3px);
+}*/
 .btn-l {
   padding: 12px 25px;
   font-size: 17px;
@@ -3684,6 +3717,17 @@ fieldset[disabled] .btn-gray-light.active {
 }
 .ico-plus__s.ico-plus__white {
   background: url('/new/images/ico/ico-plus__s__white.png') no-repeat;
+}
+.ico-zoom {
+  width: 99px;
+  height: 99px;
+  background: url('/new/images/img-grid_zoom.png') no-repeat;
+}
+.ico-zoom__abs {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -50px 0 0 -50px;
 }
 .ico-users {
   display: inline-block;
@@ -10688,7 +10732,7 @@ html[dir="rtl"] .select2-search-choice-close {
 /* /b-ava-large */
 /*
     Заглушка 
-    cap-empty __abs     __rel   __im-b
+    cap-empty __abs  __rel __im-b  __im-ava  __profile-family  __addPhoto  __addPhotoLink  __gray  __white  __blue
         cap-empty_hold
             cap-empty_img
             cap-empty_t
@@ -10725,6 +10769,7 @@ html[dir="rtl"] .select2-search-choice-close {
 }
 .cap-empty__white {
   background: #fff;
+  background: rgba(255, 255, 255, 0.95);
 }
 .cap-empty__blue {
   background: #4772a7;
@@ -10861,13 +10906,27 @@ html[dir="rtl"] .select2-search-choice-close {
 .b-album_img-hold {
   display: table-cell;
   vertical-align: middle;
-  height: 500px;
+  height: 580px;
   width: 880px;
   text-align: center;
   background: #4d445c;
 }
+.b-album_img-hold:hover .b-album_img-hold-ovr {
+  display: block;
+}
 .b-album_img-big {
   display: inline-block;
+}
+.b-album_img-hold-ovr {
+  display: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 .b-album_overlay {
   position: absolute;
@@ -10876,7 +10935,7 @@ html[dir="rtl"] .select2-search-choice-close {
   right: 0;
   z-index: 10;
   /*height: 50px;*/
-  padding: 13px 20px;
+  padding: 10px 20px;
   background-color: #000;
   background-color: rgba(0, 0, 0, 0.4);
 }
@@ -10941,6 +11000,11 @@ html[dir="rtl"] .select2-search-choice-close {
   line-height: 42px;
   font-weight: bold;
   margin-right: 200px;
+  color: #fff;
+  text-decoration: none;
+}
+.b-album_title:hover {
+  text-decoration: underline;
 }
 .b-album_desc {
   color: #fff;
@@ -10954,7 +11018,7 @@ html[dir="rtl"] .select2-search-choice-close {
 }
 .b-album_count {
   font-size: 60px;
-  line-height: 60px;
+  line-height: 50px;
 }
 .b-album_count-tx {
   font-size: 28px;
@@ -11098,7 +11162,7 @@ html[dir="rtl"] .select2-search-choice-close {
 .album-empty_count {
   display: inline-block;
   vertical-align: middle;
-  color: #999999;
+  color: #cccccc;
   font-size: 60px;
 }
 /* /album-empty */
@@ -12081,6 +12145,9 @@ html[dir="rtl"] .select2-search-choice-close {
 .img-grid_i.loading .img-grid_loading {
   display: block;
 }
+.img-grid_i__del:hover .img-grid_loading {
+  display: none;
+}
 .img-grid_img {
   display: block;
 }
@@ -12091,7 +12158,7 @@ html[dir="rtl"] .select2-search-choice-close {
   right: 0;
   bottom: 0;
   background: #290b45;
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(41, 11, 69, 0.35);
   -o-transition: all 0.4s ease;
   -webkit-transition: all 0.4s ease;
   transition: all 0.4s ease;
@@ -12100,15 +12167,6 @@ html[dir="rtl"] .select2-search-choice-close {
 .ie8 .img-grid_overlay {
   display: none;
   filter: alpha(opacity=0);
-}
-.img-grid_zoom {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -50px 0 0 -50px;
-  width: 99px;
-  height: 99px;
-  background: url('/new/images/img-grid_zoom.png') no-repeat;
 }
 .img-grid_loading {
   display: none;
@@ -12137,11 +12195,16 @@ html[dir="rtl"] .select2-search-choice-close {
   position: absolute;
   top: 50%;
   width: 100%;
-  margin-top: -40px;
+  margin-top: -22px;
   text-align: center;
 }
+.img-grid_loading-hold .progress {
+  width: 50%;
+  margin: 0 auto;
+  opacity: 0.7;
+}
 .img-grid_loading-tx {
-  margin: 10px;
+  margin: 5px;
   color: #fff;
 }
 .img-grid_about {
@@ -12302,7 +12365,7 @@ html[dir="rtl"] .select2-search-choice-close {
   display: none;
 }
 .img-grid_ico-album:after {
-  content: 'На главную альбома';
+  content: 'На обложку альбома';
   display: none;
   position: absolute;
   top: 100%;
@@ -13259,8 +13322,10 @@ html[dir="rtl"] .select2-search-choice-close {
   z-index: 2;
   margin: -210px 0 0;
   padding: 10px 0 40px;
-  border-top: 1px solid #e7e7e7;
-  background: #fafafa;
+  /*border-top: 1px solid #e7e7e7;*/
+  -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  background: #fff;
   font: normal 11px/16px tahoma, arial, helvetica, sens-serif;
   color: #a2a1a1;
 }
@@ -13271,7 +13336,7 @@ html[dir="rtl"] .select2-search-choice-close {
   width: 780px;
   margin: 0 auto;
   padding: 0 20px 20px 200px;
-  background: url(/images/layout-footer_hold.png) no-repeat 60px 9px;
+  background: url(/images/layout-footer_hold.png) no-repeat 60px 10px;
 }
 .footer-list {
   padding: 20px 0;
@@ -13535,9 +13600,10 @@ textarea.error {
 .radio-icons__inline {
   display: inline-block;
 }
+.radio-icons__inline .radio-icons_label {
+  margin-right: 5px;
+}
 .radio-icons__checkbox .radio-icons_label {
-  min-height: 19px;
-  line-height: 19px;
   background-image: url("/new/images/input-checkbox.png");
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
@@ -13571,11 +13637,10 @@ textarea.error {
 .radio-icons_label {
   display: inline-block;
   vertical-align: top;
-  margin: 0;
   color: #cccccc;
-  padding-left: 18px;
-  min-height: 18px;
-  line-height: 18px;
+  padding-left: 19px;
+  min-height: 19px;
+  line-height: 19px;
   cursor: pointer;
   background-image: url("/new/images/input-radio.png");
   background-repeat: no-repeat;
@@ -15076,6 +15141,8 @@ body.gallery {
   /* Превью фото средние */
   /* Превью фото большие */
   /* */
+  /* drag */
+  /* /drag */
 }
 .album-preview__album .album-preview_li {
   width: 205px;
@@ -15104,9 +15171,12 @@ body.gallery {
   background-position: 0 -30px;
 }
 .album-preview__m .album-preview_li {
-  width: auto;
-  height: auto;
   margin: 0 12px 12px 0;
+}
+.album-preview__m .album-preview_li__drag {
+  width: 151px;
+  height: 136px;
+  border: 2px dashed #d9d9d9;
 }
 .album-preview__m .album-preview_img-hold {
   width: 155px;
@@ -15130,6 +15200,9 @@ body.gallery {
 .album-preview__xl .album-preview_li.active .album-preview_check {
   background-position: 0 -127px;
 }
+.album-preview__drag .album-preview_in {
+  cursor: move;
+}
 .album-preview_ul {
   margin: 8px -30px 0 10px;
 }
@@ -15144,7 +15217,7 @@ body.gallery {
 .album-preview_in {
   display: block;
   position: relative;
-  background-color: #707070;
+  background-color: #e1e1e1;
   cursor: pointer;
 }
 .album-preview_in:hover .album-preview_check,
@@ -15186,9 +15259,15 @@ body.gallery {
   background-color: #fff;
 }
 .album-preview_t {
+  display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: #666666;
+  text-decoration: none;
+}
+.album-preview_t:hover {
+  text-decoration: underline;
 }
 .album-preview_count {
   margin: 6px 0 0;
@@ -16111,24 +16190,19 @@ body.gallery {
                 a.user-album_move(href="") Переместить в другой альбом
 */
 .user-album {
-  /*&_del:hover:after {display: block;}
-    &_del:after {
-        content: 'Удалить альбом';
-        display: none;
-        position: absolute;
-        bottom: -10px;
-        left: 50%;
-        margin-left: -50px;
-        width: 100px;
-        text-align: center;
-        color: @color-gray;
-    }*/
-}
-.user-album .b-crumbs {
-  margin: 26px 0;
+  margin-top: 30px;
 }
 .user-album .img-grid {
   margin-top: 10px;
+}
+.user-album .album-preview_ul {
+  margin-left: 0;
+}
+.user-album .album-preview__m .album-preview_li {
+  margin-right: 21px;
+}
+.user-album .album-preview__album .album-preview_li {
+  margin-right: 16px;
 }
 .user-album_top .ico-edit__s {
   margin-left: 10px;
@@ -16139,12 +16213,9 @@ body.gallery {
 .user-album_desc {
   margin: 5px 250px 10px 0;
 }
-.user-album_desc .ico-edit__s {
-  vertical-align: middle;
-}
 .user-album_count-hold {
   float: right;
-  margin: 0 10px;
+  margin: 0 10px 10px;
   text-align: center;
   color: #196eb9;
 }
@@ -16157,25 +16228,37 @@ body.gallery {
 }
 .user-album_count {
   font-size: 60px;
-  line-height: 60px;
+  line-height: 50px;
 }
 .user-album_count-tx {
   font-size: 28px;
   line-height: 28px;
 }
 .user-album_control {
-  margin-top: 15px;
+  margin: 0 0 15px;
 }
-.user-album_del {
-  position: relative;
-  float: right;
-  margin: 0 15;
-  width: 40px;
-  height: 40px;
-  background: url('/new/images/album-empty_del.png') no-repeat;
+.user-album_control .heading-small {
+  margin-top: 4px;
 }
-.user-album_del:hover {
-  background-position: 0 -40px;
+.user-album_control .i-affix {
+  padding-top: 10px;
+}
+.user-album_control .affix {
+  width: 880px;
+  margin-left: -20px;
+  padding: 10px 20px 10px;
+  background: #fff;
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+.user-album_control-sel {
+  margin-top: 7px;
+}
+.user-album_control-count {
+  display: inline-block;
+  vertical-align: bottom;
+  margin-left: 15px;
+  color: #999999;
 }
 .user-album_sort,
 .user-album_move {
@@ -16197,6 +16280,31 @@ body.gallery {
 .user-album_move:hover {
   color: #333333;
   background-position: 0 -30px;
+}
+.user-album_del {
+  position: relative;
+  float: right;
+  margin: 0 22px;
+  width: 40px;
+  height: 40px;
+  background: url('/new/images/album-empty_del.png') no-repeat;
+}
+.user-album_del:hover {
+  background-position: 0 -40px;
+}
+.user-album_del:hover:after {
+  display: block;
+}
+.user-album_del:after {
+  content: 'Удалить альбом';
+  display: none;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  margin-left: -50px;
+  width: 100px;
+  text-align: center;
+  color: #999999;
 }
 /* /user-album */
 /*

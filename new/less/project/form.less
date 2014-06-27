@@ -173,10 +173,9 @@ textarea.error {
     &__inline {
         .inline-block();
     }
+    &__inline &_label {margin-right: 5px;}
     &__checkbox {}
     &__checkbox &_label {
-        min-height: 19px;
-        line-height: 19px;
         .img-retina('@{path-img}/input-checkbox.png'; '@{path-img}/input-checkbox-2x.png'; 18px; 219px);
     }
 
@@ -197,11 +196,10 @@ textarea.error {
     &_label {
         .inline-block();
         vertical-align: top;
-        margin: 0;
         color: @color-gray-light;
-        padding-left: 18px;
-        min-height: 18px;
-        line-height: 18px;
+        padding-left: 19px;
+        min-height: 19px;
+        line-height: 19px;
         cursor: pointer;
         .img-retina('@{path-img}/input-radio.png'; '@{path-img}/input-radio-2x.png'; 18px; 218px);
         background-repeat: no-repeat;

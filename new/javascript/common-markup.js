@@ -1,47 +1,10 @@
 
 $(function() {
-    // Измененный tag select c инпутом поиска
-/*    $('.select-cus__search-on').selectize({
-        create: true,
-        dropdownParent: 'body'
-    });
-    // Измененный tag select
-    $('.select-cus__search-off').selectize({
-        create: true,
-        dropdownParent: 'body',
-        onDropdownOpen: function(){
-            // Делает не возможным ввод в input при открытом списке, без autocomplite
-            this.$wrapper.find('input').attr({disabled: 'disabled'})
-        }
-    });*/
-/*    $(".select-cus__search-on").select2({
-        width: '100%',
-        minimumResultsForSearch: -1,
-        containerCssClass: 'select2__blue',
-        dropdownCssClass: 'select2-drop__1',
-        escapeMarkup: function(m) { return m; }
-    });*/
 
 
     /* Инициализация скролла */
     addBaron('.scroll');
     
-        // Измененный tag select
-    /*$(".select-cus__search-off").select2({
-        width: '100%',
-        minimumResultsForSearch: -1,
-        dropdownCssClass: 'select2-drop__search-off',
-        escapeMarkup: function(m) { return m; }
-    });*/
-
-
-    // Измененный tag select c инпутом поиска
-    /*$(".select-cus__search-on").select2({
-        width: '100%',
-        dropdownCssClass: 'select2-drop__search-on',
-        escapeMarkup: function(m) { return m; }
-    });*/
-
     function selectCus__SearchOnDesc(state) {
         if (!state.id) return state.text; // optgroup
         return "<div class='select2-result_i'>" + state.text + "</div><div class='select2-result_desc'>Текст описание</div>";
@@ -131,6 +94,19 @@ $(function() {
             albumSlider.slider( "value",  sliderValue );
         });
         addBaron('.popup .scroll');
+    });
+
+    // Фиксация элемента при скролле
+    $('.i-affix').affix({
+        offset: {
+            top: function () {
+                return (this.top = $('.i-affix').offset().top)
+            }
+        }
+      });
+    $('.i-affix').on('affix.bs.affix', function () {
+        $this = $(this);
+        $this.parent().css( "height", $this.outerHeight() );
     });
 
 });

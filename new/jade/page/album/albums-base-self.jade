@@ -1,12 +1,12 @@
 include ../../block/config
 extend ../../extend/layout_loose
 block vars
-  - var bodyClass = 'body__bg1';
+  - var bodyClass = 'body__bg2';
 
 block layout
 
     +user-menu('', userMenu.a)
-
+  
     .page-col.page-col__user
         .page-col_cont.page-col_cont__in
 
@@ -19,7 +19,7 @@ block layout
             // album-empty
             .album-empty
                 .album-empty_hold
-                    a.album-empty_t(href="") Харьковский уикенд
+                    a.album-empty_t(href="") Харьковский уикенд 
                     .album-empty_desc В половине чашке горячей воды разведем желатин. Дадим ему остыть. Для торта разводим согласно инструкции. Поломаем не небольшие кусочки ... 
                 a.album-photo-add(href="") 
                 a.album-empty_del(href="") 
@@ -35,8 +35,7 @@ block layout
                 .album-empty_count 0
             // /album-empty
 
-
-            .heading-small.margin-t40 
+            .heading-small.margin-t60 
                 | Последние добавленные фото
                 .float-r
                     .btn.btn-link.btn-link-gray.btn-s Фото вне альбомов 28

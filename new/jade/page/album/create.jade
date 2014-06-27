@@ -1,0 +1,53 @@
+include ../../block/config
+extend ../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in.b-main
+            
+            .b-main_col-hold.clearfix
+                .b-crumbs.b-crumbs__m
+                    ul.b-crumbs_ul
+                        li.b-crumbs_li
+                            a.b-crumbs_a(href="") Мои фото
+                        li.b-crumbs_li.b-crumbs_li__last
+                            span.b-crumbs_last  Создание альбома
+
+                // Добавление 
+                .postAdd
+                    .postAdd_hold.margin-t40
+                        .postAdd_row
+                            .postAdd_count 1
+                            .b-main_col-article
+                                .inp-valid.inp-valid__abs
+                                    input.itx-gray(type='text', placeholder="Введите заголовок альбома")
+                                    .inp-valid_count 150
+
+                        .postAdd_row
+                            .postAdd_count 2
+                            .b-main_col-article
+                                .inp-valid.inp-valid__abs
+                                    textarea.itx-gray(rows='5', cols='40', placeholder="Введите описание альбома")
+                                    .inp-valid_count 450
+                        .postAdd_row
+                            .postAdd_count 
+                            .b-main_col-article
+                                .postAdd_btns-hold
+                                    a.btn.btn-secondary.btn-xm.margin-r15(href="") Отменить
+                                    a.btn.btn-success.btn-xm(href="") Создать альбом
+
+                       
+
+                    // /Добавление 
+
+        //- Футер не нужен
+        +layout-footer('layout-footer__in')
+
+
+
+

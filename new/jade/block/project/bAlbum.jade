@@ -5,13 +5,15 @@ mixin bAlbum(mod, vars)
     // b-album
     section.b-album(class=mod)
         a.b-album_img-hold(href="")
-            // Максимальная высота 580 пк
-            // Если изображения маленькие, блок становится 500 px, а изображения становятся по центру
+            // Высота изображений 580 пк
+            // Если изображения маленькие, они становятся по центру
             img.b-album_img-big(src="#{path}images/example/#{vars.img}", alt="")
+            .b-album_img-hold-ovr
+                .ico-zoom.ico-zoom__abs
         - if (vars.top)
             .b-album_top
                 .tx-date Обновлен  Вчера 13:45
-                h3.b-album_title Ялта ♥♥♥
+                a.b-album_title(href="") Ялта ♥♥♥
                 // 2 строки описания, предположительно 140 символов
                 .b-album_desc В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие 
                 .b-album_count-hold

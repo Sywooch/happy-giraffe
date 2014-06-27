@@ -26,6 +26,7 @@
     .ie8 &_i:hover &_overlay {display: block;filter: alpha(opacity=40);}
     &_i.loading &_overlay {display: none;}
     &_i.loading &_loading {display: block;}
+    &_i__del:hover &_loading {display: none;}
     &_img {
         display: block;
     }
@@ -36,20 +37,12 @@
         right: 0;
         bottom: 0;
         background: #290b45;
-        background: rgba(0,0,0,.35);
+        background: rgba(41,11,69,.35);
         .transition(all 0.4s ease);
         opacity: 0;
     }
     .ie8 &_overlay {display: none;filter: alpha(opacity=0);}
-    &_zoom {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -50px 0 0 -50px;
-        width: 99px;
-        height: 99px;
-        background: url('@{path-img}/img-grid_zoom.png') no-repeat;
-    }
+    
     &_loading {
         display: none;
         position: absolute;
@@ -67,11 +60,17 @@
         position: absolute;
         top: 50%;
         width: 100%;
-        margin-top: -40px;
+        margin-top: -22px;
         text-align: center;
+
+        .progress {
+            width: 50%;
+            margin: 0 auto;
+            opacity: 0.7;
+        }
     }
     &_loading-tx {
-        margin: 10px;
+        margin: 5px;
         color: #fff;
     }
 
@@ -203,7 +202,7 @@
     &_ico-album.active:hover {background-position: 0 -100px;}
     &_ico-album.active:hover:after {display: none;}
     &_ico-album:after {
-        content: 'На главную альбома';
+        content: 'На обложку альбома';
         display: none;
         position: absolute;
         top: 100%;

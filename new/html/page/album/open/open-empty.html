@@ -24,6 +24,7 @@
     
   </script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/affix.js"></script>
   <script src="/new/javascript/bootstrap/dropdown.js"></script>
   <script src="/new/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
@@ -56,7 +57,7 @@
   <script src="//localhost:35729/livereload.js"></script>
 </head>
 <!-- vars from template file-->
-<body class="body body__bg1">
+<body class="body body__bg2">
   <div class="layout-container">
     <div class="layout-loose">
       <div class="layout-header">
@@ -148,29 +149,34 @@
         <div class="page-col page-col__user">
           <div class="page-col_cont page-col_cont__in">
             <div class="user-album">
-              <div class="b-crumbs b-crumbs__s">
+              <div class="b-crumbs b-crumbs__m">
                 <ul class="b-crumbs_ul">
                   <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Мои фото</a></li>
                   <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last"> Харьковский уикенд</span></li>
                 </ul>
               </div>
               <div class="user-album_top clearfix">
+                <!-- Счетчик серого цвета из-за .user-album_count-hold__gray-->
                 <div class="user-album_count-hold user-album_count-hold__gray">
                   <div class="user-album_count">0</div>
-                  <div class="user-album_count-tx">фото</div><a href="" class="user-album_del"></a>
+                  <div class="user-album_count-tx">фото</div>
                 </div>
                 <h1 class="user-album_t">
-                  <div class="display-ib margin-r10 w-400">
-                    <input type="text" value="Виктория" class="itx-gray">
+                  <!-- Заголовок-->
+                  <div class="user-album_switch display-n">Харьковский уикенд<a class="ico-edit ico-edit__s"></a></div>
+                  <!-- Редактирование заголовка-->
+                  <div class="user-album_switch">
+                    <div class="display-ib margin-r10 w-400">
+                      <input type="text" value="Виктория" class="itx-gray">
+                    </div>
                   </div>
-                  <div class="btn btn-green btn-m">Ok</div>
                 </h1>
-                <div class="user-album_desc">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.<a class="ico-edit ico-edit__s"></a></div>
-                <div class="album-photo-add album-photo-add__big">
-                  <div class="album-photo-add_hold">Загрузить <br>фото в альбом</div>
-                </div>
+                <div class="user-album_desc">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. <a class="ico-edit ico-edit__s"></a></div>
               </div>
-              <!-- +imgGrid('', imgGrid.b)-->
+              <div class="user-album_control clearfix"><a href="" class="user-album_del"></a></div>
+              <div class="album-photo-add album-photo-add__big">
+                <div class="album-photo-add_hold">Загрузить <br>фото в альбом</div>
+              </div>
             </div>
           </div>
           <!-- layout-footer-->

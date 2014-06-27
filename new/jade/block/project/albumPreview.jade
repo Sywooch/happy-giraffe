@@ -1,0 +1,59 @@
+//- album-preview
+    mod     
+    vars 
+mixin albumPreview(mod, vars)
+
+    // Список альбомов
+        .album-preview__s
+        .album-preview__m
+        .album-preview__xl
+    .album-preview(class=mod)
+        ul.album-preview_ul
+            - each img, i  in vars.items.img
+                - if (img == 'drag')
+                    // .album-preview_li__drag и .display-n классы на элемент что тащаят
+                    li.album-preview_li.album-preview_li__drag
+                        .album-preview_in.display-n
+                            .album-preview_img-hold
+                                // 
+                                img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
+                            .album-preview_overlay
+                - else
+                    li.album-preview_li
+                        a.album-preview_in(href="")
+                            .album-preview_img-hold
+                                // 
+                                img.album-preview_img(src="/new/images/example/#{img}", alt="")
+                            .album-preview_overlay
+                            - if (vars.check)
+                                .album-preview_check
+                        - if (vars.album)
+                            .album-preview_hold
+                                a.album-preview_t(href="") 
+                                    = vars.items.tx[i]
+                                .album-preview_count 
+                                    = vars.items.count[i]
+
+
+- var albumPreview = {}
+
+- albumPreview.a = {}
+- albumPreview.a.album = false
+- albumPreview.a.items = {}
+- albumPreview.a.items.img = ['w155-h140.jpg', 'drag', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', ]
+
+- albumPreview.b = {}
+- albumPreview.b.check = true
+- albumPreview.b.album = false
+- albumPreview.b.items = {}
+- albumPreview.b.items.img = ['w155-h140.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', 'w155-h140.jpg', 'w95-h140-2.jpg', 'w155-h140-2.jpg', 'w95-h140-1.jpg', ]
+
+- albumPreview.album1 = {}
+- albumPreview.album1.check = false
+- albumPreview.album1.album = true
+- albumPreview.album1.items = {}
+- albumPreview.album1.items.tx = ['Моя семья', 'Мои работы по рукоделию', 'Выходные - мое хобби, а также очень интересно и познавательно ', 'Моя семья', 'Мои работы по рукоделию', ]
+- albumPreview.album1.items.count = ['25 фото', '145 фото','25 фото', '145 фото', '1 фото']
+- albumPreview.album1.items.img = ['w205-h140.jpg', 'w205-h140-2.jpg','w205-h140.jpg', 'w205-h140-2.jpg', 'w205-h140.jpg']
+
+

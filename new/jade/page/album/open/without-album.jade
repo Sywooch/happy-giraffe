@@ -1,0 +1,32 @@
+include ../../../block/config
+extend ../../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg2';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in
+
+            +userAddRecord('userAddRecord__blog', userAddRecord.albums)
+
+            .user-album
+    
+                .user-album_top.clearfix
+                    .user-album_count-hold
+                        .user-album_count 26
+                        .user-album_count-tx фото
+                    h1.user-album_t
+                        // Заголовок
+                        .user-album_switch
+                            | Фотографии без альбомов
+                    
+                .user-album_control.clearfix
+                    a.user-album_sort(href="") Упорядочить фото
+                    a.user-album_move(href="") Переместить в другой альбом
+                        
+                +imgGrid('', imgGrid.b)
+            
+        +layout-footer('layout-footer__in')

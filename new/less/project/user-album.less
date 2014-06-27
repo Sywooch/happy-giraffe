@@ -15,11 +15,15 @@
                 a.user-album_move(href="") Переместить в другой альбом
 */
 .user-album {
+    margin-top: 30px;
     
-    .b-crumbs {
-        margin: 26px 0;
-    }
     .img-grid {margin-top: 10px;}
+    .album-preview_ul {
+        margin-left: 0;
+    }
+    .album-preview__m .album-preview_li {margin-right: 21px;}
+    .album-preview__album .album-preview_li {margin-right: 16px;}
+
     &_top {
         
         .ico-edit__s {margin-left: 10px;}
@@ -31,12 +35,10 @@
     &_desc {
         &:extend(.tx-content);
         margin: 5px 250px 10px 0;
-
-        .ico-edit__s {vertical-align: middle;}
     }
     &_count-hold {
         float: right;
-        margin: 0 10px;
+        margin: 0 10px 10px;
         text-align: center;
         color: @color-link-title;
 
@@ -48,24 +50,32 @@
     &_count-hold__gray {color: @color-gray;}
     &_count {
         font-size: 60px;
-        line-height: 60px;
+        line-height: 50px;
     }
     &_count-tx {
         font-size: 28px;
         line-height: 28px;
     }
     &_control {
-        margin-top: 15px;
+        margin: 0 0 15px;
+
+        .heading-small {margin-top: 4px;}
+        .i-affix {padding-top: 10px;}
+        .affix {
+            width: 880px;
+            margin-left: -20px;
+            padding: 10px 20px 10px;
+            background: #fff;
+            .box-shadow(0 1px 4px rgba(0,0,0,0.15));
+        }
     }
-    &_del {
-        position: relative;
-        float: right;
-        margin: 0 15;
-        width: 40px;
-        height: 40px;
-        background: url('@{path-img}/album-empty_del.png') no-repeat;
+    &_control-sel {margin-top: 7px;}
+    &_control-count {
+        .inline-block();
+        vertical-align: bottom;
+        margin-left: 15px;
+        color: @color-gray;
     }
-    &_del:hover {background-position: 0 -40px;}
     &_sort,
     &_move {
         .inline-block();
@@ -85,7 +95,16 @@
         color: @color-base;
         background-position: 0 -30px;
     }
-    /*&_del:hover:after {display: block;}
+    &_del {
+        position: relative;
+        float: right;
+        margin: 0 22px;
+        width: 40px;
+        height: 40px;
+        background: url('@{path-img}/album-empty_del.png') no-repeat;
+    }
+    &_del:hover {background-position: 0 -40px;}
+    &_del:hover:after {display: block;}
     &_del:after {
         content: 'Удалить альбом';
         display: none;
@@ -96,6 +115,6 @@
         width: 100px;
         text-align: center;
         color: @color-gray;
-    }*/
+    }
 }
 /* /user-album */

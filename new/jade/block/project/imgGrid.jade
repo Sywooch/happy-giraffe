@@ -16,26 +16,36 @@ mixin imgGrid(mod, vars)
                                         br  
                                         | фото в альбом
                         - else
-                            .img-grid_i
-                                // Высота изображений может отличаться в зависимости от ряда
-                                img.img-grid_img(src="#{path}images/example/#{item}", alt="")
-                                .img-grid_overlay
-                                    span.img-grid_zoom
-                                    - if (row.inAlbum)
-                                        - if (row.ava == true)
-                                            .img-grid_ico-ava.active
-                                            - row.ava = false
-                                        - else 
-                                            .img-grid_ico-ava
-                                        - if (row.album == true)
-                                            .img-grid_ico-album.active
-                                            - row.album = false
-                                        - else 
-                                            .img-grid_ico-album
-                                        .img-grid_overlay-b
-                                            .img-grid_ico-del.powertip(title="Удалить фото")
-                                            .img-grid_ico-edit.powertip(title="Редактировать")
-                                            .img-grid_ico-move.powertip(title="Переместить")
+                            - if (row.albumPhotoDel)
+                                .img-grid_i.img-grid_i__del
+                                    // Высота изображений может отличаться в зависимости от ряда
+                                    img.img-grid_img(src="#{path}images/example/#{item}", alt="")
+                                    // Заглушка удаленной фото
+                                    +cap-empty('cap-empty__abs cap-empty__white', capEmpty.albumPhotoDel)
+                                    - row.albumPhotoDel = false
+                            - else 
+                                .img-grid_i
+                                    // Высота изображений может отличаться в зависимости от ряда
+                                    img.img-grid_img(src="#{path}images/example/#{item}", alt="")
+                                    
+                                        
+                                    .img-grid_overlay
+                                        span.ico-zoom.ico-zoom__abs
+                                        - if (row.inAlbum)
+                                            - if (row.ava == true)
+                                                .img-grid_ico-ava.active
+                                                - row.ava = false
+                                            - else 
+                                                .img-grid_ico-ava
+                                            - if (row.album == true)
+                                                .img-grid_ico-album.active
+                                                - row.album = false
+                                            - else 
+                                                .img-grid_ico-album
+                                            .img-grid_overlay-b
+                                                .img-grid_ico-del.powertip(title="Удалить фото")
+                                                .img-grid_ico-edit.powertip(title="Редактировать")
+                                                .img-grid_ico-move.powertip(title="Переместить")
                                     
                     - else
                         //- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.
@@ -43,7 +53,7 @@ mixin imgGrid(mod, vars)
                         .img-grid_i.loading
                             img.img-grid_img(src="", alt="", width='160', height='260')
                             .img-grid_overlay
-                                span.img-grid_zoom
+                                span.ico-zoom.ico-zoom__abs
                             // Блок процесса загрузки фото
                             // Цвета 
                                 img-grid_loading__purple
@@ -53,7 +63,8 @@ mixin imgGrid(mod, vars)
                                 img-grid_loading__blue
                             .img-grid_loading(class="img-grid_loading__#{item.color}")
                                 .img-grid_loading-hold
-                                    img(src="#{path}images/ico/ajax-loader.gif", alt="")
+                                    .progress.progress-striped.active.progress__cont
+                                        .progress-bar.progress-bar__cont(role='progressbar', aria-valuenow='100', aria-valuemin='0', aria-valuemax='100', style="width: 100%;" )
                                     .img-grid_loading-tx Загрузка фотографии
 
 
@@ -92,8 +103,9 @@ mixin imgGrid(mod, vars)
 - imgGrid.row5 = {}
 - imgGrid.row5.img = ['w280-h370-1.jpg', 'w280-h370-2.jpg', 'w280-h370-3.jpg']
 - imgGrid.row5.inAlbum = {} //  в альбоме
-- imgGrid.row4.ava = false
-- imgGrid.row4.album = false
+- imgGrid.row5.ava = false
+- imgGrid.row5.album = false
+- imgGrid.row5.albumPhotoDel = true
 
 - imgGrid.row6 = {}
 - imgGrid.row6.img = ['album-photo-add', 'w280-h370-3.jpg', 'w280-h370-1.jpg']

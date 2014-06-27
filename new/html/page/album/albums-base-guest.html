@@ -24,6 +24,7 @@
     
   </script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/affix.js"></script>
   <script src="/new/javascript/bootstrap/dropdown.js"></script>
   <script src="/new/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
@@ -171,12 +172,14 @@
           <div class="page-col page-col__user">
             <div class="page-col_cont page-col_cont__in">
               <!-- b-album-->
-              <div class="b-album"><a href="" class="b-album_img-hold">
-                  <!-- Максимальная высота 580 пк-->
-                  <!-- Если изображения маленькие, блок становится 500 px, а изображения становятся по центру--><img src="/new/images/example/w880-h580-1.jpg" alt="" class="b-album_img-big"></a>
+              <section class="b-album"><a href="" class="b-album_img-hold">
+                  <!-- Высота изображений 580 пк-->
+                  <!-- Если изображения маленькие, они становятся по центру--><img src="/new/images/example/w880-h580-1.jpg" alt="" class="b-album_img-big">
+                  <div class="b-album_img-hold-ovr">
+                    <div class="ico-zoom ico-zoom__abs"></div>
+                  </div></a>
                 <div class="b-album_top">
-                  <div class="tx-date">Обновлен  Вчера 13:45</div>
-                  <div class="b-album_title">Ялта ♥♥♥</div>
+                  <div class="tx-date">Обновлен  Вчера 13:45</div><a href="" class="b-album_title">Ялта ♥♥♥</a>
                   <!-- 2 строки описания, предположительно 140 символов-->
                   <div class="b-album_desc">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие </div>
                   <div class="b-album_count-hold">
@@ -198,14 +201,16 @@
                     <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img"></a></li>
                   </ul>
                 </div>
-              </div>
+              </section>
               <!-- b-album-->
-              <div class="b-album"><a href="" class="b-album_img-hold">
-                  <!-- Максимальная высота 580 пк-->
-                  <!-- Если изображения маленькие, блок становится 500 px, а изображения становятся по центру--><img src="/new/images/example/w430-h580.jpg" alt="" class="b-album_img-big"></a>
+              <section class="b-album"><a href="" class="b-album_img-hold">
+                  <!-- Высота изображений 580 пк-->
+                  <!-- Если изображения маленькие, они становятся по центру--><img src="/new/images/example/w430-h580.jpg" alt="" class="b-album_img-big">
+                  <div class="b-album_img-hold-ovr">
+                    <div class="ico-zoom ico-zoom__abs"></div>
+                  </div></a>
                 <div class="b-album_top">
-                  <div class="tx-date">Обновлен  Вчера 13:45</div>
-                  <div class="b-album_title">Ялта ♥♥♥</div>
+                  <div class="tx-date">Обновлен  Вчера 13:45</div><a href="" class="b-album_title">Ялта ♥♥♥</a>
                   <!-- 2 строки описания, предположительно 140 символов-->
                   <div class="b-album_desc">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие </div>
                   <div class="b-album_count-hold">
@@ -227,7 +232,7 @@
                     <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img"></a></li>
                   </ul>
                 </div>
-              </div>
+              </section>
               <div class="heading-small margin-t40">Последние добавленные фото
                 <div class="float-r">
                   <div class="btn btn-link btn-link-gray btn-s">Все фотографии 628</div>
@@ -237,38 +242,53 @@
               <div class="img-grid">
                 <!-- Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.-->
                 <div class="img-grid_row clearfix">
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i">
+                  <div class="img-grid_i">
                     <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w558-h360-1.jpg" alt="" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div></a>
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                    </div>
+                  </div>
+                  <div class="img-grid_i">
                     <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w305-h360-1.jpg" alt="" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div></a>
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                    </div>
+                  </div>
                 </div>
                 <!-- Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.-->
                 <div class="img-grid_row clearfix">
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i">
+                  <div class="img-grid_i">
                     <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w280-h370-1.jpg" alt="" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div></a>
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                    </div>
+                  </div>
+                  <div class="img-grid_i">
                     <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w280-h370-2.jpg" alt="" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div></a>
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                    </div>
+                  </div>
+                  <div class="img-grid_i">
                     <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w280-h370-3.jpg" alt="" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div></a>
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                    </div>
+                  </div>
                 </div>
                 <!-- Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.-->
                 <div class="img-grid_row clearfix">
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i">
+                  <div class="img-grid_i">
                     <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w305-h360-1.jpg" alt="" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div></a>
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                    </div>
+                  </div>
+                  <div class="img-grid_i">
                     <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w558-h360-1.jpg" alt="" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div></a>
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                    </div>
+                  </div>
                 </div>
                 <!-- Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.-->
                 <div class="img-grid_row clearfix">
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i loading"><img src="" alt="" width="160" height="260" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div>
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <div class="img-grid_i loading"><img src="" alt="" width="160" height="260" class="img-grid_img">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
                     <!-- Блок процесса загрузки фото-->
                     <!-- Цвета 
                     img-grid_loading__purple
@@ -278,12 +298,17 @@
                     img-grid_loading__blue
                     -->
                     <div class="img-grid_loading img-grid_loading__purple">
-                      <div class="img-grid_loading-hold"><img src="/new/images/ico/ajax-loader.gif" alt="">
+                      <div class="img-grid_loading-hold">
+                        <div class="progress progress-striped active progress__cont">
+                          <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" class="progress-bar progress-bar__cont"></div>
+                        </div>
                         <div class="img-grid_loading-tx">Загрузка фотографии</div>
                       </div>
-                    </div></a>
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i loading"><img src="" alt="" width="160" height="260" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div>
+                    </div>
+                  </div>
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <div class="img-grid_i loading"><img src="" alt="" width="160" height="260" class="img-grid_img">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
                     <!-- Блок процесса загрузки фото-->
                     <!-- Цвета 
                     img-grid_loading__purple
@@ -293,12 +318,17 @@
                     img-grid_loading__blue
                     -->
                     <div class="img-grid_loading img-grid_loading__yellow">
-                      <div class="img-grid_loading-hold"><img src="/new/images/ico/ajax-loader.gif" alt="">
+                      <div class="img-grid_loading-hold">
+                        <div class="progress progress-striped active progress__cont">
+                          <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" class="progress-bar progress-bar__cont"></div>
+                        </div>
                         <div class="img-grid_loading-tx">Загрузка фотографии</div>
                       </div>
-                    </div></a>
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i loading"><img src="" alt="" width="160" height="260" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div>
+                    </div>
+                  </div>
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <div class="img-grid_i loading"><img src="" alt="" width="160" height="260" class="img-grid_img">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
                     <!-- Блок процесса загрузки фото-->
                     <!-- Цвета 
                     img-grid_loading__purple
@@ -308,12 +338,17 @@
                     img-grid_loading__blue
                     -->
                     <div class="img-grid_loading img-grid_loading__carrot">
-                      <div class="img-grid_loading-hold"><img src="/new/images/ico/ajax-loader.gif" alt="">
+                      <div class="img-grid_loading-hold">
+                        <div class="progress progress-striped active progress__cont">
+                          <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" class="progress-bar progress-bar__cont"></div>
+                        </div>
                         <div class="img-grid_loading-tx">Загрузка фотографии</div>
                       </div>
-                    </div></a>
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i loading"><img src="" alt="" width="160" height="260" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div>
+                    </div>
+                  </div>
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <div class="img-grid_i loading"><img src="" alt="" width="160" height="260" class="img-grid_img">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
                     <!-- Блок процесса загрузки фото-->
                     <!-- Цвета 
                     img-grid_loading__purple
@@ -323,12 +358,17 @@
                     img-grid_loading__blue
                     -->
                     <div class="img-grid_loading img-grid_loading__green">
-                      <div class="img-grid_loading-hold"><img src="/new/images/ico/ajax-loader.gif" alt="">
+                      <div class="img-grid_loading-hold">
+                        <div class="progress progress-striped active progress__cont">
+                          <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" class="progress-bar progress-bar__cont"></div>
+                        </div>
                         <div class="img-grid_loading-tx">Загрузка фотографии</div>
                       </div>
-                    </div></a>
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.--><a class="img-grid_i loading"><img src="" alt="" width="160" height="260" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="img-grid_zoom"></span></div>
+                    </div>
+                  </div>
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <div class="img-grid_i loading"><img src="" alt="" width="160" height="260" class="img-grid_img">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
                     <!-- Блок процесса загрузки фото-->
                     <!-- Цвета 
                     img-grid_loading__purple
@@ -338,10 +378,14 @@
                     img-grid_loading__blue
                     -->
                     <div class="img-grid_loading img-grid_loading__blue">
-                      <div class="img-grid_loading-hold"><img src="/new/images/ico/ajax-loader.gif" alt="">
+                      <div class="img-grid_loading-hold">
+                        <div class="progress progress-striped active progress__cont">
+                          <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" class="progress-bar progress-bar__cont"></div>
+                        </div>
                         <div class="img-grid_loading-tx">Загрузка фотографии</div>
                       </div>
-                    </div></a>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="i-allphoto"><a href="" class="i-allphoto_a">Смотреть все фотографии</a></div>

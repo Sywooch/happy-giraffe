@@ -1,8 +1,21 @@
-<a href="" class="u-notice_b u-notice_ico u-notice_ico__answer" data-bind="attr: {href: url}"></a>
-<a href="" class="u-notice_b u-notice_spec" data-bind="attr: {href: url}">
+<a href="" class="u-notice_b u-notice_ico u-notice_ico__answer" data-bind="attr: {href: entity.url}"></a>
+<a href="" class="u-notice_b u-notice_spec" data-bind="attr: {href: entity.url}">
     <div class="u-notice_b u-notice_count" data-bind="text: count"></div>
     <div class="u-notice_b u-notice_desc" data-bind="html: declOfNum(count(), ['Ответ на ваш<br>комментарий','Ответа на ваш<br>комментарий','Ответов на ваш<br>комментарий'])"></div>
 </a>
-<div class="u-notice_b u-notice_users"></div>
-<a href="" class="u-notice_b u-notice_post-ico u-notice_post-ico__comment"></a>
-<div class="u-notice_b u-notice_post"><a class="u-notice_comment" data-bind="attr: {href: url}, html: comment.text"></a></div>
+<div class="u-notice_b u-notice_users">
+    <div class="ava-list">
+        <!--<ul class="ava-list_ul" data-bind="foreach: comments">
+            <li class="ava-list_li" data-bind="with: author">
+                <a class="ava ava__small ava__male" href="" data-bind="attr: {href: entity.url}">
+                    <span class="ico-status ico-status__online" data-bind="visible: online"></span>
+                    <img class="ava_img" src="" alt="" data-bind="attr: {src: avaOrDefaultImage}">
+                </a>
+            </li>
+        </ul>-->
+    </div>
+</div>
+<a href="" class="u-notice_b u-notice_post-ico u-notice_post-ico__comment" data-bind="attr: {href: entity.url}"></a>
+<div class="u-notice_b u-notice_post">
+    <a href="" class="u-notice_comment" data-bind="html: entity.title, attr: {href: entity.url}"></a>
+</div>

@@ -129,4 +129,19 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection
     {
         return $this->description;
     }
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
+            'PhotoCollectionBehavior' => array(
+                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+            ),
+        );
+    }
 }

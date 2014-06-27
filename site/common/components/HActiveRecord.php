@@ -136,6 +136,11 @@ class HActiveRecord extends CActiveRecord
         return $users;
     }
 
+    public function getEntityName()
+    {
+        $reflect = new ReflectionClass($this);
+        return $reflect->getShortName();
+    }
 //    protected function beforeFind()
 //    {
 //        parent::$db = $this->getConnectionForSelect();

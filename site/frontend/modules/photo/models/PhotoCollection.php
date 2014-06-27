@@ -121,4 +121,12 @@ class PhotoCollection extends \HActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function getCover()
+    {
+        $related = $this->getRelated('cover');
+        if ($related === null) {
+            return $this->attaches[0]->photo;
+        }
+    }
 }

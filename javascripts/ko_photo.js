@@ -201,6 +201,9 @@ function FromComputerMultipleViewModel(data) {
             }
         }
     });
+
+    self.fileUploadSettingsMore = $.extend({}, self.fileUploadSettings);
+    self.fileUploadSettingsMore.dropZone = null;
 }
 asFromComputer.call(FromComputerMultipleViewModel.prototype);
 

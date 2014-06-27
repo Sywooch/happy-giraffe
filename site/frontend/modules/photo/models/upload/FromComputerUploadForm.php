@@ -29,11 +29,6 @@ class FromComputerUploadForm extends UploadForm
         ));
     }
 
-    public function __construct()
-    {
-        $this->file = \CUploadedFile::getInstanceByName('image');
-    }
-
     public function populate()
     {
         return new PhotoCreate($this->file->getTempName(), $this->file->getName());

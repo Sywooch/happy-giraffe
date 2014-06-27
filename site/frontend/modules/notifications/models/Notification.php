@@ -264,6 +264,19 @@ class Notification extends \EMongoDocument
     }
 
     /**
+     * 
+     * @param type $date
+     * @return \site\frontend\modules\notifications\models\Notification
+     */
+    public function earlier($date)
+    {
+        if ($date)
+            $this->dbCriteria->addCond('dtimeUpdate', '<', (int) $date);
+
+        return $this;
+    }
+
+    /**
      * Добавляет условие, находящее сигналы, в которых есть упоминание об указанной сущности
      * Не рекомендуется использовать без дополнительных ограницений
      * 
@@ -274,9 +287,9 @@ class Notification extends \EMongoDocument
     {
         if (is_object($entity))
             $entity = array('entity' => get_class($entity), 'entityId' => (int) $entity->id);
-        
+
         $conds = $this->dbCriteria->getConditions();
-        
+
         $conds['$where'] = new \MongoCode('
             function() {
                 if(this.unreadEntities)
@@ -290,11 +303,26 @@ class Notification extends \EMongoDocument
                         return true;
                 }
             }', $entity);
-        
+
         $this->dbCriteria->setConditions($conds);
-        
+
         return $this;
     }
+
+    public function limit($limit)
+    {
+        $this->dbCriteria->limit($limit);
+
+        return $this;
+    }
+
+    public function orderByDate()
+    {
+        $this->dbCriteria->sort('dtimeUpdate', \EMongoCriteria::SORT_DESC);
+
+        return $this;
+    }
+
 }
 
 ?>

@@ -266,6 +266,8 @@ function Photo(data) {
     self.imageUrl = data.imageUrl;
     self.width = data.width;
     self.height = data.height;
+
+    self.coverUrl = data.coverUrl;
 }
 
 // Модель фотографии в рамках функционала загрузки фото

@@ -1,24 +1,45 @@
-//- img-grid
-    mod     
-    vars 
-        
-//- mixin imgGrid(mod, vars)
+
+mixin imgGrid(mod, vars)
     // img-grid
     .img-grid(class=mod)
         - each row in vars.rows
             // Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.
             .img-grid_row.clearfix
                 - each item in row.img
-                    //- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.
-                    // До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать.
                     - if (typeof(item) == 'string')
-                        .img-grid_i
-                            // Высота изображений может отличаться в зависимости от ряда
-                            img.img-grid_img(src="#{path}images/example/#{item}", alt="")
-                            .img-grid_overlay
-                                span.img-grid_zoom
-
-                    - else 
+                        - if (item == 'album-photo-add')
+                            // При создании ряда изображений нужно выставить высоту и ширину блоку, что б получалась полный ряд
+                            .img-grid_i(style="width: 280px; height: 380px;")
+                                .album-photo-add.album-photo-add__m
+                                    .album-photo-add_hold 
+                                        | Загрузить еще
+                                        br  
+                                        | фото в альбом
+                        - else
+                            .img-grid_i
+                                // Высота изображений может отличаться в зависимости от ряда
+                                img.img-grid_img(src="#{path}images/example/#{item}", alt="")
+                                .img-grid_overlay
+                                    span.img-grid_zoom
+                                    - if (row.inAlbum)
+                                        - if (row.ava == true)
+                                            .img-grid_ico-ava.active
+                                            - row.ava = false
+                                        - else 
+                                            .img-grid_ico-ava
+                                        - if (row.album == true)
+                                            .img-grid_ico-album.active
+                                            - row.album = false
+                                        - else 
+                                            .img-grid_ico-album
+                                        .img-grid_overlay-b
+                                            .img-grid_ico-del.powertip(title="Удалить фото")
+                                            .img-grid_ico-edit.powertip(title="Редактировать")
+                                            .img-grid_ico-move.powertip(title="Переместить")
+                                    
+                    - else
+                        //- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.
+                        // До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. 
                         .img-grid_i.loading
                             img.img-grid_img(src="", alt="", width='160', height='260')
                             .img-grid_overlay
@@ -36,37 +57,54 @@
                                     .img-grid_loading-tx Загрузка фотографии
 
 
-//- - var imgGrid = {}
+- var imgGrid = {}
 
-//- - imgGrid.loadingPurple = {}
-//- - imgGrid.loadingPurple.color = 'purple'
-//- - imgGrid.loadingYellow = {}
-//- - imgGrid.loadingYellow.color = 'yellow'
-//- - imgGrid.loadingCarrot = {}
-//- - imgGrid.loadingCarrot.color = 'carrot'
-//- - imgGrid.loadingGreen = {}
-//- - imgGrid.loadingGreen.color = 'green'
-//- - imgGrid.loadingBlue = {}
-//- - imgGrid.loadingBlue.color = 'blue'
+- imgGrid.loadingPurple = {}
+- imgGrid.loadingPurple.color = 'purple'
+- imgGrid.loadingYellow = {}
+- imgGrid.loadingYellow.color = 'yellow'
+- imgGrid.loadingCarrot = {}
+- imgGrid.loadingCarrot.color = 'carrot'
+- imgGrid.loadingGreen = {}
+- imgGrid.loadingGreen.color = 'green'
+- imgGrid.loadingBlue = {}
+- imgGrid.loadingBlue.color = 'blue'
 
-//- - imgGrid.row1 = {}
-//- - imgGrid.row1.img = ['w558-h360-1.jpg', 'w305-h360-1.jpg']
+- imgGrid.rowColor = {}
+- imgGrid.rowColor.img = [imgGrid.loadingPurple, imgGrid.loadingYellow, imgGrid.loadingCarrot, imgGrid.loadingGreen, imgGrid.loadingBlue]
 
-//- - imgGrid.row2 = {}
-//- - imgGrid.row2.img = ['w305-h360-1.jpg', 'w558-h360-1.jpg']
-//- - imgGrid.row2.loadingColor = 'purple'
+- imgGrid.row1 = {}
+- imgGrid.row1.img = ['w558-h360-1.jpg', 'w305-h360-1.jpg']
 
-//- - imgGrid.row3 = {}
-//- - imgGrid.row3.img = ['w280-h370-1.jpg','w280-h370-2.jpg','w280-h370-3.jpg']
+- imgGrid.row2 = {}
+- imgGrid.row2.img = ['w305-h360-1.jpg', 'w558-h360-1.jpg']
 
-//- - imgGrid.rowColor = {}
-//- - imgGrid.rowColor.img = [imgGrid.loadingPurple, imgGrid.loadingYellow, imgGrid.loadingCarrot, imgGrid.loadingGreen, imgGrid.loadingBlue]
-
-
-//- - imgGrid.a = {}
-//- - imgGrid.a.rows = [imgGrid.row1, imgGrid.row3, imgGrid.row2, imgGrid.rowColor]
+- imgGrid.row3 = {}
+- imgGrid.row3.img = ['w280-h370-1.jpg','w280-h370-2.jpg', 'w280-h370-3.jpg']
 
 
-            
+- imgGrid.row4 = {}
+- imgGrid.row4.img = ['w305-h360-1.jpg', 'w558-h360-1.jpg']
+- imgGrid.row4.inAlbum = {} //  в альбоме
+- imgGrid.row4.ava = true
+- imgGrid.row4.album = true
+
+- imgGrid.row5 = {}
+- imgGrid.row5.img = ['w280-h370-1.jpg', 'w280-h370-2.jpg', 'w280-h370-3.jpg']
+- imgGrid.row5.inAlbum = {} //  в альбоме
+- imgGrid.row4.ava = false
+- imgGrid.row4.album = false
+
+- imgGrid.row6 = {}
+- imgGrid.row6.img = ['album-photo-add', 'w280-h370-3.jpg', 'w280-h370-1.jpg']
+- imgGrid.row6.inAlbum = {} //  в альбоме
+- imgGrid.row6.ava = false
+- imgGrid.row6.album = false
 
 
+
+- imgGrid.a = {}
+- imgGrid.a.rows = [imgGrid.row1, imgGrid.row3, imgGrid.row2, imgGrid.rowColor]
+
+- imgGrid.b = {}
+- imgGrid.b.rows = [imgGrid.row6, imgGrid.row4, imgGrid.row5, imgGrid.rowColor]

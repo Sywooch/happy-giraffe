@@ -133,6 +133,7 @@
     width: 90px;
     height: 70px;
     background-color: #73c76a;
+    cursor: pointer;
 
     &:hover {background-color: #4baa41;}
 
@@ -156,6 +157,52 @@
         font-size: 55px;
         line-height: 70px;
         color: #fff;
+    }
+
+    &__big {
+        margin: 25px 0;
+        width: 600px;
+        height: 300px;
+    }
+    &__big:before {
+        margin: 10px;
+        border-width: 2px;
+    }
+    &__big:after {
+        display: none;
+    }
+    &__big &_hold {
+        margin-top: -35px;
+        margin-left: -150px;
+        padding: 10px 20px 10px 105px;
+    }
+
+    &__m {
+        width: 100%;
+        height: 100%;
+    }
+    &__m:before {
+        margin: 7px;
+        border-width: 2px;
+    }
+    &__m:after {
+        display: none;
+    }
+    &__m &_hold {
+        margin: -65px 0 0 -106px;
+        padding: 80px 20px 10px 20px;
+        background-position: 50% 0;
+        text-align: center;
+    }
+    &_hold {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: 0 auto;
+        font-size: 25px;
+        line-height: 25px;
+        color: #fff;
+        background: url('@{path-img}/album-photo-add_hold.png') no-repeat;
     }
 }
 

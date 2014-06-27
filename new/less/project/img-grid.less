@@ -23,7 +23,7 @@
         z-index: 10;
         opacity: 1;
     }
-    .ie8 &_i:hover &_overlay {display: block;filter: alpha(opacity=60);}
+    .ie8 &_i:hover &_overlay {display: block;filter: alpha(opacity=40);}
     &_i.loading &_overlay {display: none;}
     &_i.loading &_loading {display: block;}
     &_img {
@@ -182,7 +182,7 @@
         top: 100%;
         left: -5px;
         width: 60px;
-        margin-top: 5px;
+        margin-top: 3px;
         font-size: 11px;
         line-height: 11px;
         color: #fff;
@@ -194,7 +194,6 @@
         right: 12px;
         width: 56px;
         height: 50px;
-        margin-top: 5px;
         cursor: pointer;
         background: url('@{path-img}/img-grid_ico-album.png') no-repeat;
     }
@@ -215,9 +214,32 @@
         color: #fff;
         text-align: center;
     }
-    &_overlay-b {}
-    &_ico-del {}
-    &_ico-edit {}
-    &_ico-move {}
+    &_overlay-b {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 10px 10px;
+        background: #290b45;
+        background: rgba(0,0,0,.45);
+    }
+    .ie8 &_overlay-b {display: none;filter: alpha(opacity=50);}
+    &_ico-del,
+    &_ico-edit,
+    &_ico-move {
+        .inline-block();
+        width: 20px;
+        height: 20px;
+        margin: 0 10px;
+        background: url('@{path-img}/img-grid_ico-move.png') no-repeat;
+    }
+    &_ico-edit {
+        background: url('@{path-img}/img-grid_ico-edit.png') no-repeat;
+    }
+    &_ico-del {
+        float: right;
+        margin-right: 0;
+        background: url('@{path-img}/img-grid_ico-del.png') no-repeat;
+    }
 }
 /* /img-grid */

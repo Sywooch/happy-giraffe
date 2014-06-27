@@ -107,8 +107,10 @@ $(function() {
         $this.tooltipster('show');
     })
 
-    var pageColHeight = $(window).height() - $('.layout-header').height() - 60;
-    $('.page-col').css({'min-height': pageColHeight});
+    // layout-footer
+    var layoutFooterInHeight = $('.layout-footer').height() + 50 // 50 padding
+    var pageColHeight = $(window).height() - $('.layout-header').height() - layoutFooterInHeight - 100;
+    $('.page-col_cont').css({'min-height': pageColHeight});
 
    
     $('.popup-a__add').on('mfpOpen', function(e /*, params */) {

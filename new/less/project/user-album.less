@@ -17,7 +17,7 @@
 .user-album {
     
     .b-crumbs {
-        margin: 40px 0;
+        margin: 26px 0;
     }
     .img-grid {margin-top: 10px;}
     &_top {
@@ -26,11 +26,11 @@
     }
     &_t {
         &:extend(.heading-link-xl);
-        margin: 0 200px 5px 0;
+        margin: 0 250px 5px 0;
     }
     &_desc {
         &:extend(.tx-content);
-        margin: 0 200px 0 0;
+        margin: 5px 250px 10px 0;
 
         .ico-edit__s {vertical-align: middle;}
     }
@@ -39,7 +39,13 @@
         margin: 0 10px;
         text-align: center;
         color: @color-link-title;
+
     }
+    &_count-hold &_del {
+        float: none;
+        .inline-block();
+    }
+    &_count-hold__gray {color: @color-gray;}
     &_count {
         font-size: 60px;
         line-height: 60px;
@@ -49,7 +55,7 @@
         line-height: 28px;
     }
     &_control {
-        margin-top: 25px;
+        margin-top: 15px;
     }
     &_del {
         position: relative;

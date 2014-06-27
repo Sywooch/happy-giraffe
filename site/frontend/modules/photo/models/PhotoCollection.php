@@ -56,8 +56,9 @@ class PhotoCollection extends \HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'photoAttaches' => array(self::HAS_MANY, 'PhotoAttaches', 'collection_id'),
-			'cover' => array(self::BELONGS_TO, 'PhotoPhotos', 'cover_id'),
+			'attaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\PhotoAttach', 'collection_id'),
+            'attachesCount' => array(self::STAT, 'site\frontend\modules\photo\models\PhotoAttach', 'collection_id'),
+			'cover' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\Photo', 'cover_id'),
 		);
 	}
 

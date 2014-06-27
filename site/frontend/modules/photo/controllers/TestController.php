@@ -13,6 +13,22 @@ use site\frontend\modules\photo\models\PhotoAlbum;
 
 class TestController extends \HController
 {
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    public function accessRules()
+    {
+        return array(
+            array('deny',
+                'users' => array('?'),
+            ),
+        );
+    }
+
     public $layout = '//layouts/new/main';
 
     public function actionTest()

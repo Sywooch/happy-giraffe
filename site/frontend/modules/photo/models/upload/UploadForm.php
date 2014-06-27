@@ -56,7 +56,10 @@ abstract class UploadForm extends \CFormModel
     protected function getPreview()
     {
         $image = \Yii::app()->phpThumb->create($this->photo->getImagePath());
+
+        if (($this->photo->width / $this->photo->height) > 150)
         $image->resize(150, 110);
+
         $name = $this->photo->getImagePath();
         $name = str_replace($this->photo->fs_name, $this->photo->fs_name . '_preview', $name);
         $image->save($name);

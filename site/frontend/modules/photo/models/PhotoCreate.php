@@ -68,7 +68,8 @@ class PhotoCreate extends Photo
             $path .= $dirName . DIRECTORY_SEPARATOR;
         }
 
-        if (! mkdir(PathManager::getOriginalsPath() . DIRECTORY_SEPARATOR . $path, 0777, true)) {
+        $dir = PathManager::getOriginalsPath() . DIRECTORY_SEPARATOR . $path;
+        if (! is_dir($dir) && ! mkdir($dir, 0777, true)) {
             throw new \CException('Невозможно создать папку');
         }
 

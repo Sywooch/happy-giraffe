@@ -7,14 +7,14 @@
  */
 
 namespace site\common\components\flysystem;
-
-
-use League\Flysystem\Adapter\AwsS3;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\PluginInterface;
 
 class UrlPlugin implements PluginInterface
 {
+    /**
+     * @var FileSystemInterface
+     */
     protected $filesystem;
 
     public function setFilesystem(FilesystemInterface $filesystem)

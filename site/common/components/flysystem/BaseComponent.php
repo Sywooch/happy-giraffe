@@ -11,14 +11,20 @@ use League\Flysystem\Filesystem;
 
 abstract class BaseComponent extends \CApplicationComponent
 {
+    /**
+     * @var Filesystem
+     */
     protected $filesystem;
 
+    /**
+     * @return \League\Flysystem\Adapter\AbstractAdapter
+     */
     protected abstract function getAdapter();
 
     public function init()
     {
         parent::init();
-        $this->filesystem = $this->getAdapter();
+        $this->filesystem = new Filesystem($this->getAdapter());
         $this->filesystem->addPlugin(new UrlPlugin());
     }
 

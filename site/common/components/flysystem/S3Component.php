@@ -8,22 +8,47 @@
 
 namespace site\common\components\flysystem;
 use Aws\S3\S3Client;
-use League\Flysystem\Filesystem;
 
 class S3Component extends BaseComponent
 {
+    /**
+     * @var string AWSAccessKeyId
+     */
     public $key;
+
+    /**
+     * @var string AWSSecretKey
+     */
     public $secret;
+
+    /**
+     * @var string корзина
+     */
     public $bucket;
+
+    /**
+     * @var string префикс
+     */
     public $prefix;
 
+    /**
+     * @return S3Adapter
+     */
     protected function getAdapter()
     {
-        $client = S3Client::factory(array(
+        $client = $this->getClient();
+
+        return new S3Adapter($client, $this->bucket, $this->prefix);
+    }
+
+    /**
+     * @return S3Client
+     */
+    protected function getClient()
+    {
+        return S3Client::factory(array(
             'key'    => $this->key,
             'secret' => $this->secret,
         ));
-
-        return new Filesystem(new S3Adapter($client, $this->bucket, $this->prefix));
     }
 } 

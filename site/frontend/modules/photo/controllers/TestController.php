@@ -10,18 +10,6 @@
 
 namespace site\frontend\modules\photo\controllers;
 
-\Yii::setPathOfAlias('League',\Yii::getPathOfAlias('application.vendor.League'));
-\Yii::setPathOfAlias('Guzzle',\Yii::getPathOfAlias('application.vendor.Guzzle'));
-\Yii::setPathOfAlias('Aws',\Yii::getPathOfAlias('application.vendor.Aws'));
-\Yii::setPathOfAlias('Symfony',\Yii::getPathOfAlias('application.vendor.Symfony'));
-
-use site\frontend\modules\photo\models\PhotoAlbum;
-
-use Aws\S3\S3Client;
-use League\Flysystem\Filesystem;
-use League\Flysystem\Adapter\AwsS3 as Adapter;
-use League\Flysystem\Adapter\Local as Adapter2;
-
 class TestController extends \HController
 {
     public function filters()
@@ -60,40 +48,9 @@ class TestController extends \HController
 
     public function actionFlysystem()
     {
-        header('Content-Type: text/html; charset=utf-8');
+        header('Content-Type: image/jpeg');
 
-        $client = S3Client::factory(array(
-            'key'    => 'AKIAIRCLO4AYJCJRTV4Q',
-            'secret' => '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',
-        ));
-
-        $filesystem = new Filesystem(new Adapter($client, 'test-happygiraffe'));
-        $filesystem2 = new Filesystem(new Adapter2(\Yii::getPathOfAlias('webroot')));
-
-
-        \Yii::beginProfile('read-s3');
-        $file = $filesystem->read('1344242897872.jpg');
-        \Yii::endProfile('read-s3');
-
-        \Yii::beginProfile('read-local');
-        $file2 = $filesystem2->read('1344242897872.jpg');
-        \Yii::endProfile('read-local');
-
-        \Yii::beginProfile('write-s3');
-        $filesystem->write(md5(microtime()), $file);
-        \Yii::endProfile('write-s3');
-
-        \Yii::beginProfile('write-local');
-        $filesystem2->write(md5(microtime()), $file);
-        \Yii::endProfile('write-local');
-
-        \Yii::beginProfile('exists-s3');
-        $filesystem->has(md5(microtime()));
-        \Yii::endProfile('exists-s3');
-
-        \Yii::beginProfile('exists-local');
-        $filesystem2->has(md5(microtime()));
-        \Yii::endProfile('exists-local');
+        echo \Yii::app()->controller->module->fs->read('1344242897872.jpg');
     }
 
 

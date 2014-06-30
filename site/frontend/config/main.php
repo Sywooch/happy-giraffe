@@ -14,6 +14,13 @@ return array(
 	// preloading 'log' component
 	'preload'=>array('log'),
 
+    'aliases' => array(
+        'League' => 'site.common.vendor.League',
+        'Guzzle' => 'site.common.vendor.Guzzle',
+        'Aws' => 'site.common.vendor.Aws',
+        'Symfony' => 'site.common.vendor.Symfony',
+    ),
+
 	// autoloading model and component classes
 	'import'=>array(
         'site.common.components.*',
@@ -138,6 +145,12 @@ return array(
         'developers',
         'photo' => array(
             'class' => '\site\frontend\modules\photo\PhotoModule',
+            'components' => array(
+                'fs' => array(
+                    'class' => '\site\common\components\flysystem\Local',
+                    'pathAlias' => 'webroot',
+                ),
+            ),
         ),
 	),
 	// application components

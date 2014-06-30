@@ -10,6 +10,10 @@
 
 namespace site\frontend\modules\photo\controllers;
 
+use Imagine\Image\Box;
+use Imagine\Image\Point;
+use Imagine\Imagick\Imagine;
+
 class TestController extends \HController
 {
     public function filters()
@@ -48,8 +52,15 @@ class TestController extends \HController
 
     public function actionFlysystem()
     {
-        \Yii::app()->getModule('photo')->fs->write('3.txt', 'param pam pam');
-        echo \Yii::app()->getModule('photo')->fs->getUrl('3.txt');
+        header('Content-Type: image/jpeg');
+
+        $a = \Yii::app()->getModule('photo')->fs->read('1344242897872.jpg');
+
+        $imagine = new Imagine();
+        $image = $imagine->load($a);
+        $image->crop(new Point(0, 0), new Box(500, 500));
+
+        echo $image->get('png');
     }
 
 

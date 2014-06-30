@@ -7,6 +7,7 @@
  */
 
 namespace site\common\components\flysystem;
+use League\Flysystem\AdapterInterface;
 use League\Flysystem\Filesystem;
 
 abstract class BaseComponent extends \CApplicationComponent
@@ -24,7 +25,9 @@ abstract class BaseComponent extends \CApplicationComponent
     public function init()
     {
         parent::init();
-        $this->filesystem = new Filesystem($this->getAdapter());
+        $this->filesystem = new Filesystem($this->getAdapter(), null, array(
+            'visibility' => AdapterInterface::VISIBILITY_PUBLIC,
+        ));
         $this->filesystem->addPlugin(new UrlPlugin());
     }
 

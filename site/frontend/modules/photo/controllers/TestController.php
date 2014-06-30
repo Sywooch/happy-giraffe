@@ -11,6 +11,7 @@
 namespace site\frontend\modules\photo\controllers;
 
 use Imagine\Image\Box;
+use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
 use Imagine\Imagick\Imagine;
 
@@ -52,17 +53,29 @@ class TestController extends \HController
 
     public function actionFlysystem()
     {
-        header('Content-Type: image/jpeg');
+        //header('Content-Type: image/jpeg');
 
-        $a = \Yii::app()->getModule('photo')->fs->read('1344242897872.jpg');
+        //$a = \Yii::app()->getModule('photo')->fs->read('1344242897872.jpg');
 
         $imagine = new Imagine();
-        $image = $imagine->load($a);
-        $image->crop(new Point(0, 0), new Box(500, 500));
+        $image = $imagine->open(\Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . '14-01-06.jpg');
 
-        echo $image->get('png');
+        \Yii::beginProfile('ok');
+        for ($i = 0; $i < 10; $i++) {
+            $image->resize(new Box(mt_rand(100, 1000), mt_rand(100, 1000)));
+            //$image->show('png');
+        }
+        \Yii::endProfile('ok');
     }
 
-
+    protected function test($width, $height, &$image)
+    {
+        $size = $image->getSize();
+        $ratio = $size->getWidth() / $size->getHeight();
+        $image->resize(new Box($ratio * $height, $height));
+        if ($ratio >= $width / $height) {
+            $image->crop(new Point(($ratio * $height - $height) / 2, 0), new Box($width, $height));
+        }
+    }
 }
 

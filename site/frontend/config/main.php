@@ -147,8 +147,10 @@ return array(
             'class' => '\site\frontend\modules\photo\PhotoModule',
             'components' => array(
                 'fs' => array(
-                    'class' => '\site\common\components\flysystem\Local',
-                    'pathAlias' => 'webroot',
+                    'class' => '\site\common\components\flysystem\S3Component',
+                    'key' => 'AKIAIRCLO4AYJCJRTV4Q',
+                    'secret' => '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',
+                    'bucket' => 'test-happygiraffe',
                 ),
             ),
         ),

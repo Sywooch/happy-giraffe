@@ -48,9 +48,9 @@ class TestController extends \HController
 
     public function actionFlysystem()
     {
-        header('Content-Type: image/jpeg');
+        //header('Content-Type: image/jpeg');
 
-        echo \Yii::app()->controller->module->fs->read('1344242897872.jpg');
+        echo \Yii::app()->getModule('photo')->fs->getUrl('1341473345239.jpg');
     }
 
 

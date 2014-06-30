@@ -19,7 +19,11 @@ mixin albumPreview(mod, vars)
                                 img.album-preview_img(src="/new/images/example/w155-h140.jpg", alt="")
                             .album-preview_overlay
                 - else
-                    li.album-preview_li
+                    - if (i == 1)
+                        - var active = 'active'
+                    - else 
+                        - active = ''
+                    li.album-preview_li(class=active)
                         a.album-preview_in(href="")
                             .album-preview_img-hold
                                 // 

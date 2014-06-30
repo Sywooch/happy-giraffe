@@ -1,0 +1,415 @@
+
+<!-- a-->
+<!-- b-->
+<!-- c-->
+<!-- a-->
+<!-- b--><!DOCTYPE html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Happy Giraffe</title>
+    <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
+    <!-- including other jade works-->
+    <!-- ie8 -->
+    <!--+scripts(path)-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script>
+      window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+      
+    </script>
+    <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+    <script src="/new/javascript/jquery.tooltipster.js"></script>
+    <script src="/new/javascript/jquery.magnific-popup.js"></script>
+    <script src="/new/javascript/baron.js"></script>
+    <script src="/new/javascript/select2.js"></script>
+    <script src="/new/redactor/redactor.js"></script>
+    <script src="/new/javascript/jquery.Jcrop.js"></script>
+    <script src="/new/javascript/common.js"></script>
+    <script src="/new/javascript/common-markup.js"></script>
+    <script src="//localhost:35729/livereload.js"></script>
+  </head>
+  <body class="body body__photo-window">
+    <div class="layout-container">
+      <div class="layout-header">
+        <!-- header-fix-->
+        <script>
+          $(document).ready(function () {
+              $(window).on('scroll',function () {
+                  var contanerScroll = $(window).scrollTop();
+                  var header = $('.layout-header');
+                  console.log(header.height());
+                  if (contanerScroll > header.height() + header.offset().top) {
+                      $('.header-fix').fadeIn(400);
+                  } else {
+                      $('.header-fix').fadeOut(400);
+                  }
+              });
+          });
+        </script>
+        <div class="header-fix">
+          <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
+            <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a">
+                <!--!= vars.avaSpan--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header_i-arrow"></span></a>
+              <!-- header-drop-->
+              <div class="header-drop">
+                <div class="header-menu clearfix">
+                  <ul class="header-menu_ul">
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                          <!--!= vars.avaSpan--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                  </ul>
+                </div>
+                <!-- header-drop_b-->
+                <div class="header-drop_b">
+                  <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                  <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                  <div class="club-list club-list__small clearfix">
+                    <ul class="club-list_ul clearfix">
+                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"/></span></a></li>
+                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"/></span></a></li>
+                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"/></span></a></li>
+                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"/></span></a></li>
+                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"/></span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- /header-drop_b-->
+              </div>
+              <!-- /header-drop -->
+            </div>
+            <div class="header-fix-menu">
+              <ul class="header-menu_ul clearfix">
+                <!-- li.header-fix-menu_li
+                a.header-fix-menu_a(href='')
+                    span.header-fix-menu_tx прямой эфир
+                -->
+                <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
+                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
+                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
+                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
+                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- /header-fix-->
+        <!-- header-->
+        <div class="header header__base">
+          <div class="header_hold clearfix">
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
+                <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a">
+                    <!--!= vars.avaSpan--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                  <div class="header-drop">
+                    <div class="header-menu clearfix">
+                      <ul class="header-menu_ul">
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                              <!--!= vars.avaSpan--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                      </ul>
+                    </div>
+                    <!-- header-drop_b-->
+                    <div class="header-drop_b">
+                      <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                      <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                      <div class="club-list club-list__small clearfix">
+                        <ul class="club-list_ul clearfix">
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"/></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"/></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"/></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"/></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"/></span></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /header-drop_b-->
+                  </div>
+                  <!-- /header-drop -->
+                </li>
+              </ul>
+            </div>
+            <!-- /header-menu-->
+          </div>
+        </div>
+        <!-- /header-->
+      </div>
+      <div class="layout-wrapper">
+        <div class="layout-wrapper_frame clearfix">
+        </div>
+      </div>
+    </div>
+    <script>
+      /* Height block comment scroll in photo-window */
+      function photoWindColH () {
+          var colCont = $(".photo-window_cont");
+          var bannerH = document.getElementById('photo-window_banner').offsetHeight;
+          colCont.height($(window).height() - bannerH - 24);
+          
+      }
+      
+      /* Позиция блока с лайками */
+      function likePos () {
+          var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+          $('.photo-window .like-control').css({'bottom' : likeBottom});
+      }
+      
+      $(document).ready(function () {
+          photoWindColH();
+          likePos();
+          
+      /* custom scroll */
+        var scroll = $('.scroll').baron({
+          scroller: '.scroll_scroller',
+          barOnCls: 'scroll__on',
+          container: '.scroll_cont',
+          track: '.scroll_bar-hold',
+          bar: '.scroll_bar'
+        });
+        
+        
+      });
+      $(window).resize(function () {
+          photoWindColH();
+          likePos();
+      });
+      
+    </script>
+    <div class="photo-window display-b">
+      <!-- --><a href="" class="photo-window_close"></a>
+      <!-- Конец просмотра-->
+      <div class="photo-window-end">
+        <div class="photo-window-end_hold">
+          <div class="photo-window-end_top"><span class="photo-window-end_top-tx">Вы посмотрели альбом пользователя</span>
+            <!--!= vars.avaSpan--><a href="" class="ava ava__small ava__fwmale"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"/></a><a href="">Валерия Остапенко</a>
+            <div class="user-actions">
+              <!--
+              Виды иконок друг 
+              user-actions_i__friend - друг
+              user-actions_i__friend-add - добавить в друзья
+              user-actions_i__friend-added - приглашение выслано
+              user-actions_i__friend-append - встречное приглашение в друзья, принять
+              
+              --><a href="" class="user-actions_i user-actions_i__friend-add powertip"><span class="user-actions_ico"></span></a><a href="" class="user-actions_i user-actions_i__message powertip"><span class="user-actions_ico"></span></a>
+            </div>
+          </div>
+          <div class="photo-window-end_t">Харьковский уикенд<a href="" class="re-watch">
+              <div class="re-watch_tx">Посмотреть сначала</div></a></div>
+          <div class="custom-likes-b">
+            <div class="custom-likes-b_slogan">Поделитесь с друзьями! </div>
+            <div class="custom-likes-b_hold">
+              <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+              <div data-yashareL10n="ru" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yashareTheme="counter" data-yashareType="small" class="yashare-auto-init"></div>
+            </div>
+          </div>
+          <div class="photo-window-end_t-sub">Смотрите другие альбомы </div>
+          <div class="photo-window-end_in">
+            <!-- Список альбомов
+            .album-preview__s
+            .album-preview__m
+            .album-preview__xl
+            -->
+            <div class="album-preview album-preview__album">
+              <ul class="album-preview_ul">
+                <li class="album-preview_li  album-preview_li__big"><a href="" class="album-preview_in">
+                    <div class="album-preview_img-hold">
+                      <!-- --><img src="/new/images/example/w480-h340.jpg" alt="" class="album-preview_img"/>
+                    </div>
+                    <div class="album-preview_overlay"></div></a>
+                  <div class="album-preview_hold"><a href="" class="album-preview_t">Моя семья</a>
+                    <div class="album-preview_count">25 фото
+                    </div>
+                  </div>
+                </li>
+                <li class="album-preview_li active "><a href="" class="album-preview_in">
+                    <div class="album-preview_img-hold">
+                      <!-- --><img src="/new/images/example/w205-h140-2.jpg" alt="" class="album-preview_img"/>
+                    </div>
+                    <div class="album-preview_overlay"></div></a>
+                  <div class="album-preview_hold"><a href="" class="album-preview_t">Мои работы по рукоделию</a>
+                    <div class="album-preview_count">145 фото
+                    </div>
+                  </div>
+                </li>
+                <li class="album-preview_li  "><a href="" class="album-preview_in">
+                    <div class="album-preview_img-hold">
+                      <!-- --><img src="/new/images/example/w205-h140.jpg" alt="" class="album-preview_img"/>
+                    </div>
+                    <div class="album-preview_overlay"></div></a>
+                  <div class="album-preview_hold"><a href="" class="album-preview_t">Выходные - мое хобби, а также очень интересно и познавательно </a>
+                    <div class="album-preview_count">25 фото
+                    </div>
+                  </div>
+                </li>
+                <li class="album-preview_li  "><a href="" class="album-preview_in">
+                    <div class="album-preview_img-hold">
+                      <!-- --><img src="/new/images/example/w205-h140-2.jpg" alt="" class="album-preview_img"/>
+                    </div>
+                    <div class="album-preview_overlay"></div></a>
+                  <div class="album-preview_hold"><a href="" class="album-preview_t">Моя семья</a>
+                    <div class="album-preview_count">145 фото
+                    </div>
+                  </div>
+                </li>
+                <li class="album-preview_li  "><a href="" class="album-preview_in">
+                    <div class="album-preview_img-hold">
+                      <!-- --><img src="/new/images/example/w205-h140.jpg" alt="" class="album-preview_img"/>
+                    </div>
+                    <div class="album-preview_overlay"></div></a>
+                  <div class="album-preview_hold"><a href="" class="album-preview_t">Мои работы по рукоделию</a>
+                    <div class="album-preview_count">145 фото
+                    </div>
+                  </div>
+                </li>
+                <li class="album-preview_li  "><a href="" class="album-preview_in">
+                    <div class="album-preview_img-hold">
+                      <!-- --><img src="/new/images/example/w205-h140-2.jpg" alt="" class="album-preview_img"/>
+                    </div>
+                    <div class="album-preview_overlay"></div></a>
+                  <div class="album-preview_hold"><a href="" class="album-preview_t">Моя семья</a>
+                    <div class="album-preview_count">25 фото
+                    </div>
+                  </div>
+                </li>
+                <li class="album-preview_li  "><a href="" class="album-preview_in">
+                    <div class="album-preview_img-hold">
+                      <!-- --><img src="/new/images/example/w205-h140.jpg" alt="" class="album-preview_img"/>
+                    </div>
+                    <div class="album-preview_overlay"></div></a>
+                  <div class="album-preview_hold"><a href="" class="album-preview_t">Мои работы по рукоделию</a>
+                    <div class="album-preview_count">145 фото
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Обычное окно-->
+      <!-- .photo-window_w
+      .photo-window_top
+          .photo-window_date Фото добавлено
+              br
+              span 15 мая
+          .photo-window_count 25 из 52 
+      //
+           Обрабатывать клик на .photo-window_c для листания следующего изображения 
+      .photo-window_c
+          .photo-window_img-hold
+              img.photo-window_img(src='/images/example/w960-h537-1.jpg', alt='')
+              .verticalalign-m-help
+          a.photo-window_arrow.photo-window_arrow__l.fancy(href='#photo-window-end', data-theme='white-simple')
+          a.photo-window_arrow.photo-window_arrow__r.fancy(href='#photo-window-end', data-theme='white-simple')
+          .like-control.clearfix
+              a.like-control_ico.like-control_ico__like(href='') 865
+              .favorites-control
+                  a.favorites-control_a(href='') 12365
+                  .favorites-add-popup.favorites-add-popup__right
+                      .favorites-add-popup_t Добавить запись в избранное
+                      .favorites-add-popup_i.clearfix
+                          img.favorites-add-popup_i-img(src='/images/example/w60-h40.jpg', alt='')
+                          .favorites-add-popup_i-hold Неравный брак. Смертельно опасен или жизненно необходим?
+                      .favorites-add-popup_row
+                          label.favorites-add-popup_label(for='') Теги:
+                          span.favorites-add-popup_tag
+                              a.favorites-add-popup_tag-a(href='') отношения
+                              a.ico-close(href='')
+                          span.favorites-add-popup_tag
+                              a.favorites-add-popup_tag-a(href='') любовь
+                              a.ico-close(href='')
+                      .favorites-add-popup_row.margin-b10
+                          a.textdec-none(href='')
+                              span.ico-plus2.margin-r5
+                              span.a-pseudo-gray.color-gray Добавить тег
+                      .favorites-add-popup_row
+                          label.favorites-add-popup_label(for='') Комментарий:
+                          .float-r.color-gray 0/150
+                      .favorites-add-popup_row
+                          textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
+                      .favorites-add-popup_row.textalign-c.margin-t10
+                          a.btn-gray-light(href='') Отменить
+                          a.btn-green(href='') Добавить
+                          
+      .photo-window_b
+          a.photo-window_del(href="") Удалить
+          a.photo-window_edit(href="") Редактировать
+          .custom-likes-b
+              .custom-likes-b_slogan Поделитесь с друзьями!
+              .custom-likes-b_hold
+                  script(type="text/javascript", src="//yandex.st/share/share.js", charset="utf-8")
+                  .yashare-auto-init(data-yashareL10n="ru", data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir", data-yashareTheme="counter", data-yashareType="small")
+                  
+      .photo-window_col
+          .photo-window_col-hold.scroll
+              .scroll_scroller.photo-window_cont
+                  .scroll_cont
+                      .photo-window_cont-t.clearfix
+                          .meta-gray
+                              a.meta-gray_comment(href='')
+                                  span.ico-comment.ico-comment__gray
+                                  span.meta-gray_tx 35
+                              .meta-gray_view
+                                  span.ico-view.ico-view__gray
+                                  span.meta-gray_tx 305
+                          .b-user-info.b-user-info__middle.float-l
+                              +ava('ava__middle ava__female', ava.a)
+                              .b-user-info_hold
+                                  a.b-user-info_name(href='') Ангелина Богоявленская
+                                  +userActions()
+                                  
+                      .photo-window_about
+                          | Фотопост 
+                          a.photo-window_about-a(href='') Места моих путешествий
+                      .photo-window_t
+                          // input.itx-gray(type='text', name='', placeholder='Введите название фото и нажмите Enter')
+                          
+                          | Детский лагерь «Зеркальный». Ленинградская область. <a class="ico-edit powertip" href=""></a> 
+                      .photo-window_desc-hold
+                          .photo-window_desc.clearfix
+                              p
+                                  | В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.
+                                  a.ico-edit.powertip(href='')
+                      .comments-gray.comments-gray__small
+                          .comments-gray_add.active.clearfix
+                              .comments-gray_ava
+                                  +ava('ava__small ava__female', avaVars)
+                              .comments-gray_frame
+                                  textarea.itx-gray(name=' ', cols='15', rows='2', placeholder='Введите ваш комментарий и нажмите Enter')
+                          .comments-gray_t
+                              span.comments-gray_t-tx
+                                  | Комментарии 
+                                  span.color-gray (28)
+                              a#comments-show.font-small(href='') Показать 
+                              // Показывается затем ищезает
+                              .comments-gray_sent.display-b Комментарий успешно отправлен.
+              .scroll_bar-hold
+                  .scroll_bar
+                      .scroll_bar-in
+          #photo-window_banner.photo-window_banner.clearfix
+              img(src='/images/example/w300-h250.jpg', alt='alt')
+      -->
+    </div>
+  </body>
+</html>

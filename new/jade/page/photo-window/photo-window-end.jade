@@ -51,15 +51,32 @@ html.no-js
             a.photo-window_close(href='')
             // Конец просмотра
             .photo-window-end
-                
-                
+                .photo-window-end_hold
+                    .photo-window-end_top 
+                        span.photo-window-end_top-tx Вы посмотрели альбом пользователя
+                        +ava('ava__small ava__fwmale', ava.a)
+                        a(href="") Валерия Остапенко
+                        +userActions()
+                    .photo-window-end_t Харьковский уикенд
+                        a.re-watch(href="") 
+                            .re-watch_tx Посмотреть сначала
+                    .custom-likes-b
+                        .custom-likes-b_slogan Поделитесь с друзьями! 
+                        .custom-likes-b_hold
+                            script(type="text/javascript", src="//yandex.st/share/share.js", charset="utf-8")
+                            .yashare-auto-init(data-yashareL10n="ru", data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir", data-yashareTheme="counter", data-yashareType="small")
+                    .photo-window-end_t-sub Смотрите другие альбомы 
+
+                    .photo-window-end_in 
+                        +albumPreview('album-preview__album', albumPreview.photoWindow)
+
             // Обычное окно
             // .photo-window_w
                 .photo-window_top
                     .photo-window_date Фото добавлено
                         br
                         span 15 мая
-                    .photo-window_count 25 из 52
+                    .photo-window_count 25 из 52 
                 //
                      Обрабатывать клик на .photo-window_c для листания следующего изображения 
                 .photo-window_c

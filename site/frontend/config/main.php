@@ -19,6 +19,7 @@ return array(
         'Guzzle' => 'site.common.vendor.Guzzle',
         'Aws' => 'site.common.vendor.Aws',
         'Symfony' => 'site.common.vendor.Symfony',
+        'Imagine' => 'site.common.vendor.Imagine',
     ),
 
 	// autoloading model and component classes

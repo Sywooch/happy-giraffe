@@ -9,7 +9,7 @@
 namespace site\common\components\flysystem;
 use League\Flysystem\Filesystem;
 
-abstract class Base extends \CApplicationComponent
+abstract class BaseComponent extends \CApplicationComponent
 {
     protected $filesystem;
 
@@ -19,6 +19,7 @@ abstract class Base extends \CApplicationComponent
     {
         parent::init();
         $this->filesystem = $this->getAdapter();
+        $this->filesystem->addPlugin(new UrlPlugin());
     }
 
     public function __call($method, $args)

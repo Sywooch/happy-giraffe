@@ -10,7 +10,7 @@ namespace site\common\components\flysystem;
 use League\Flysystem\Filesystem;
 use League\Flysystem\Adapter\Local as Adapter;
 
-class Local extends Base
+class LocalComponent extends BaseComponent
 {
     public $pathAlias;
 

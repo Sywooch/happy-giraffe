@@ -115,9 +115,11 @@
 /* b-user-info */
 .b-user-info {
     .ava__small{margin-top: 3px;}
+    .user-actions {display: block;}
     &__middle &_hold {}
     &_hold {
         .inline-block();
+        vertical-align: top;
         margin-left: 4px;
     }
     &_name {
@@ -271,3 +273,24 @@
     }
 }
 /* /club-list */
+
+/* custom-likes-b */
+.custom-likes-b {
+    text-align: center;
+    position: relative;
+    /*&__like-white {
+        padding: 5px 0 20px;
+        background: #fff;
+    }*/
+    &_slogan {
+        margin: 15px 0 5px;
+        text-align: center;
+        font-size: 11px;
+        color: @color-gray-dark;
+    }
+    &_hold {
+        margin: 0 auto;
+        text-align: center;
+    }
+}
+/* /custom-likes-b */

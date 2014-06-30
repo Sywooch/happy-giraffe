@@ -47,8 +47,14 @@ html.no-js
             });
 
         .photo-window.display-b
-            .photo-window_w
-                a.photo-window_close(href='')
+            // 
+            a.photo-window_close(href='')
+            // Конец просмотра
+            .photo-window-end
+                
+                
+            // Обычное окно
+            // .photo-window_w
                 .photo-window_top
                     .photo-window_date Фото добавлено
                         br
@@ -118,7 +124,7 @@ html.no-js
                                         .b-user-info_hold
                                             a.b-user-info_name(href='') Ангелина Богоявленская
                                             +userActions()
-                                            
+
                                 .photo-window_about
                                     | Фотопост 
                                     a.photo-window_about-a(href='') Места моих путешествий

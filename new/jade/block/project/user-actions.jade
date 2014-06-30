@@ -1,0 +1,20 @@
+//- Действия с пользователем
+mixin userActions(mod, vars)
+    .user-actions
+        //
+            Виды иконок друг 
+            user-actions_i__friend - друг
+            user-actions_i__friend-add - добавить в друзья
+            user-actions_i__friend-added - приглашение выслано
+            user-actions_i__friend-append - встречное приглашение в друзья, принять
+        
+        a.user-actions_i.user-actions_i__friend-add.powertip(href="")
+            span.user-actions_ico
+        a.user-actions_i.user-actions_i__message.powertip(href="")
+            span.user-actions_ico
+
+
+//- vars
+- var userActions = {}
+
+- userActions.a = {}

@@ -29,8 +29,10 @@
 @import "../new/less/plugins/magnific-popup.less";
 @import "../new/less/plugins/select2.less";
 @import "../new/less/plugins/select2.hg.less";
+
 @import "../new/less/project/form.less";
 @import "../new/less/project/msg-fast.less";
+@import "../new/less/project/user-actions.less";
 @import "../new/less/project/photo-window.less";
 
 
@@ -4996,61 +4998,6 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /adfox-banner-html */
-
-/* user-actions */
-.user-actions {
-    .inline-block();
-
-    &__small {}
-    &__small &_i__message             &_ico {background-position: 0 0;}
-    &__small &_i__message:hover       &_ico {background-position: 0 -50px;}
-    &__small &_i__friend              &_ico {background-position: -40px 0;}
-    &__small &_i__friend-add          &_ico {background-position: -20px 0;}
-    &__small &_i__friend-add:hover    &_ico {background-position: -20px -50px;}
-    &__small &_i__friend-added        &_ico {background-position: -60px 0;}
-    &__small &_i__friend-append       &_ico {background-position: -80px 0;}
-    &__small &_i__friend-append:hover &_ico {background-position: -20px -50px;}
-    &__small &_ico {
-        vertical-align: initial;
-        width: 20px;
-        height: 15px;
-        background: url(/images/user-actions_ico__small.png) no-repeat;
-    }
-    
-    &_i {
-        .inline-block();
-        margin: 0 1px;
-        text-decoration: none;
-    }
-    &_i__friend-added,
-    &_i__friend {cursor: default;}
-    &_i__friend &_tx {
-        color: #0eb31e;
-        margin: 0 2px 0 -3px;
-    }
-    &_ico {
-        .inline-block();
-        vertical-align: middle;
-        width: 25px;
-        height: 25px;
-        background: url(/images/user-actions_ico.png) no-repeat;
-    }
-    &_i__message             &_ico {background-position: 0 0;}
-    &_i__message:hover       &_ico {background-position: 0 -50px;}
-    &_i__friend              &_ico {background-position: -50px 0;}
-    &_i__friend-add          &_ico {background-position: -25px 0;}
-    &_i__friend-add:hover    &_ico {background-position: -25px -50px;}
-    &_i__friend-added        &_ico {background-position: -75px 0;}
-    &_i__friend-append       &_ico {background-position: -100px 0;}
-    &_i__friend-append:hover &_ico {background-position: -25px -50px;}
-    &_tx {
-        .inline-block();
-        .font-xs-mixin();
-        padding-bottom: 2px;
-    }
-}
-/* /user-actions */
-
 
 
 // new 

@@ -153,6 +153,18 @@ return array(
                     'secret' => '0FqgJyA/QNsKcCQecHwAcNC2mK1X5fSRed2wRT7D',
                     'bucket' => 'test-happygiraffe',
                 ),
+                'thumbs' => array(
+                    'class' => '\site\frontend\modules\photo\ThumbsManager',
+                    'presets' => array(
+                        'upload' => array(
+                            'filter' => 'UploadPreview',
+                            'params' => array(
+                                'width' => 155,
+                                'height' => 140,
+                            ),
+                        ),
+                    ),
+                )
             ),
         ),
 	),

@@ -7,15 +7,20 @@
  */
 
 namespace site\common\components\flysystem;
-use League\Flysystem\Filesystem;
-use League\Flysystem\Adapter\Local as Adapter;
+use League\Flysystem\Adapter\Local;
 
 class LocalComponent extends BaseComponent
 {
+    /**
+     * @var string алиас пути
+     */
     public $pathAlias;
 
+    /**
+     * @return Local
+     */
     protected function getAdapter()
     {
-        return new Filesystem(new Adapter(\Yii::getPathOfAlias($this->pathAlias)));
+        return new Local(\Yii::getPathOfAlias($this->pathAlias));
     }
 } 

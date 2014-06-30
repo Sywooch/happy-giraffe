@@ -7,8 +7,6 @@
  */
 
 namespace site\common\components\flysystem;
-
-
 use League\Flysystem\Adapter\AwsS3;
 
 class S3Adapter extends AwsS3

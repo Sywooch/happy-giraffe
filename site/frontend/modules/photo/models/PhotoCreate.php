@@ -68,11 +68,6 @@ class PhotoCreate extends Photo
             $path .= $dirName . DIRECTORY_SEPARATOR;
         }
 
-        $dir = PathManager::getOriginalsPath() . DIRECTORY_SEPARATOR . $path;
-        if (! is_dir($dir) && ! mkdir($dir, 0777, true)) {
-            throw new \CException('Невозможно создать папку');
-        }
-
         $path .= substr($hash, self::FS_NAME_LEVELS * self::FS_NAME_SYMBOLS_PER_LEVEL) . '.' . $this->getExtension();
 
         return $path;
@@ -82,7 +77,9 @@ class PhotoCreate extends Photo
     {
         if (parent::beforeSave()) {
             $this->fs_name = $this->getFsName();
-            if (! copy($this->path, $this->getImagePath())) {
+            $success = \Yii::app()->getModule('photo')->fs->save('originals/' . $this->fs_name);
+
+            if (! $success) {
                 throw new \CException('Невозможно скопировать файл');
             }
             return true;

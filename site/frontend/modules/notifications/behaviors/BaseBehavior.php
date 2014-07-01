@@ -61,9 +61,10 @@ class BaseBehavior extends \CBehavior
      * @param int $modelId Id модели, для которой сигнал
      * @param int $userId Id пользователя, для которого сигнал
      * @param int $type Тип сигнала (см константы \site\frontend\modules\notifications\models\Notification::TYPE_*)
+     * @param array $avatar Массив (id пользователя, url аватарки)
      * @return \site\frontend\modules\notifications\models\Notification
      */
-    protected function findOrCreateNotification($modelClass, $modelId, $userId, $type)
+    protected function findOrCreateNotification($modelClass, $modelId, $userId, $type, $avatar = false)
     {
         $notification = \site\frontend\modules\notifications\models\Notification::model()
             ->byType($type)
@@ -78,6 +79,10 @@ class BaseBehavior extends \CBehavior
             $notification->type = $type;
             $notification->entity = new \site\frontend\modules\notifications\models\Entity($entity);
         }
+
+        // Добавим аватарку
+        if ($avatar)
+            $notification->addAvatar($avatar[0], $avatar[1]);
 
         return $notification;
     }

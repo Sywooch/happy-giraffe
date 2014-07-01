@@ -129,11 +129,11 @@ class CommentBehavior extends BaseBehavior
      */
     protected function saveNotificationDiscuss($model, $userId)
     {
-        $notification = $this->findOrCreateNotification($model->entity, $model->entity_id, $userId, \site\frontend\modules\notifications\models\Notification::TYPE_DISCUSS_CONTINUE);
+        $notification = $this->findOrCreateNotification($model->entity, $model->entity_id, $userId, \site\frontend\modules\notifications\models\Notification::TYPE_DISCUSS_CONTINUE, array($model->author_id, $model->author->getAvaOrDefaultImage(\Avatar::SIZE_MICRO)));
 
         $comment = new \site\frontend\modules\notifications\models\Entity($model);
         $comment->title = $model->text;
-
+        
         $notification->unreadEntities[] = $comment;
 
         $notification->save();
@@ -169,7 +169,7 @@ class CommentBehavior extends BaseBehavior
      */
     protected function addNotificationComment($model)
     {
-        $notification = $this->findOrCreateNotification($model->entity, $model->entity_id, $model->commentEntity->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_USER_CONTENT_COMMENT);
+        $notification = $this->findOrCreateNotification($model->entity, $model->entity_id, $model->commentEntity->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_USER_CONTENT_COMMENT, array($model->author_id, $model->author->getAvaOrDefaultImage(\Avatar::SIZE_MICRO)));
 
         $comment = new \site\frontend\modules\notifications\models\Entity($model);
         $comment->title = $model->text;
@@ -194,7 +194,7 @@ class CommentBehavior extends BaseBehavior
             return;
 
         $entity = $model->response;
-        $notification = $this->findOrCreateNotification(get_class($entity), $entity->id, $model->response->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_REPLY_COMMENT);
+        $notification = $this->findOrCreateNotification(get_class($entity), $entity->id, $model->response->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_REPLY_COMMENT, array($model->author_id, $model->author->getAvaOrDefaultImage(\Avatar::SIZE_MICRO)));
         $notification->entity->title = $model->response->text;
 
         $comment = new \site\frontend\modules\notifications\models\Entity($model);

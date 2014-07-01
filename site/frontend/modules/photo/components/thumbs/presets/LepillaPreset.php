@@ -24,12 +24,16 @@ class LepillaPreset extends Preset
 
     public function apply(ImageInterface $image)
     {
-        $size = $image->getSize();
-        $fromRatio = $size->getWidth() / $size->getHeight();
-        $toRatio = $this->width / $this->height;
-        $image->resize(new Box($size->getWidth() * $fromRatio, $this->height));
-        if ($fromRatio >= $toRatio) {
-            $start = new Point(0, ($size->getWidth() * $fromRatio - $this->height) / 2);
+        $imageSize = $image->getSize();
+        $imageWidth = $imageSize->getWidth();
+        $imageHeight = $imageSize->getHeight();
+        $imageRatio = $imageWidth / $imageHeight;
+        $presetRatio = $this->width / $this->height;
+        $newWidth = $imageRatio * $this->height;
+
+        $image->resize(new Box($newWidth, $this->height));
+        if ($imageRatio >= $presetRatio) {
+            $start = new Point(($newWidth - $this->width) / 2, 0);
             $image->crop($start, new Box($this->width, $this->height));
         }
     }

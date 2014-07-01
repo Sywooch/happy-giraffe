@@ -25,10 +25,17 @@ abstract class BaseComponent extends \CApplicationComponent
     public function init()
     {
         parent::init();
-        $this->filesystem = new Filesystem($this->getAdapter(), null, array(
+
+
+        $this->filesystem = new Filesystem($this->getAdapter(), $this->getCache(), array(
             'visibility' => AdapterInterface::VISIBILITY_PUBLIC,
         ));
         $this->filesystem->addPlugin(new UrlPlugin());
+    }
+
+    protected function getCache()
+    {
+        return null;
     }
 
     public function __call($method, $args)

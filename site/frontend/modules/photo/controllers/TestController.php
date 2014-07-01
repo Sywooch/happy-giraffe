@@ -65,9 +65,21 @@ class TestController extends \HController
 
     public function actionFlysystem()
     {
-        /** @var \League\Flysystem\Filesystem $fs */
+        //header('Content-Type: image/jpeg');
+        header('Content-Type: text/html; charset=utf-8');
+        /** @var \Gaufrette\Filesystem $fs */
         $fs = \Yii::app()->getModule('photo')->fs;
-        print_r($fs->listContents('thumbs'));
+        \Yii::beginProfile('test');
+        echo $fs->getUrl('originals/fb/02/d7daf1e1645d502f0cf42446f916.jpg');
+        \Yii::endProfile('test');
+
+//        \Yii::beginProfile('test1');
+//        $fs->read('originals/fb/02/d7daf1e1645d502f0cf42446f916.jpg');
+//        \Yii::endProfile('test1');
+//
+//        \Yii::beginProfile('file-get-contents');
+//        echo file_get_contents(\Yii::getPathOfAlias('site.common.data.temp') . '/originals/fb/02/d7daf1e1645d502f0cf42446f916.jpg');
+//        \Yii::endProfile('file-get-contents');
     }
 
     protected function test($width, $height, &$image)

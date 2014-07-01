@@ -20,6 +20,7 @@ return array(
         'Aws' => 'site.common.vendor.Aws',
         'Symfony' => 'site.common.vendor.Symfony',
         'Imagine' => 'site.common.vendor.Imagine',
+        'Gaufrette' => 'site.common.vendor.Gaufrette',
     ),
 
 	// autoloading model and component classes
@@ -147,11 +148,19 @@ return array(
         'photo' => array(
             'class' => '\site\frontend\modules\photo\PhotoModule',
             'components' => array(
+//                'fs' => array(
+//                    'class' => '\site\common\components\flysystem\PhotoS3Component',
+//                    'key' => 'AKIAIRCLO4AYJCJRTV4Q',
+//                    'secret' => '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',
+//                    'bucket' => 'test-happygiraffe',
+//                    'cachePathAlias' => 'site.common.data.temp',
+//                ),
                 'fs' => array(
-                    'class' => '\site\common\components\flysystem\S3Component',
+                    'class' => '\site\common\components\gaufrette\PhotoS3Component',
                     'key' => 'AKIAIRCLO4AYJCJRTV4Q',
                     'secret' => '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',
                     'bucket' => 'test-happygiraffe',
+                    'cachePathAlias' => 'site.common.data.temp',
                 ),
                 'thumbs' => array(
                     'class' => '\site\frontend\modules\photo\components\thumbs\ThumbsManager',

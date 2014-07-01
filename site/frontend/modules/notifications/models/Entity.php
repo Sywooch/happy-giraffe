@@ -62,6 +62,10 @@ class Entity extends \EMongoEmbeddedDocument
         {
             $result = 'photo';
         }
+        elseif ($this->class == 'Comment')
+        {
+            $result = 'comment';
+        }
 
         return $result;
     }

@@ -37,4 +37,20 @@ class LepillaPreset extends Preset
             $image->crop($start, new Box($this->width, $this->height));
         }
     }
+
+    public function getWidth($imageWidth, $imageHeight)
+    {
+        $imageRatio = $imageWidth / $imageHeight;
+        $presetRatio = $this->width / $this->height;
+        if ($imageRatio >= $presetRatio) {
+            return $this->width;
+        } else {
+            return $imageRatio * $this->height;
+        }
+    }
+
+    public function getHeight($imageWidth, $imageHeight)
+    {
+        return $this->height;
+    }
 } 

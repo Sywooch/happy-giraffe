@@ -14,6 +14,7 @@ use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
 use Imagine\Imagick\Imagine;
+use League\Flysystem\Filesystem;
 use site\frontend\modules\photo\models\Photo;
 
 class TestController extends \HController
@@ -57,26 +58,16 @@ class TestController extends \HController
         $photo = Photo::model()->find();
         /** @var \site\frontend\modules\photo\components\thumbs\ThumbsManager $thumbsManager */
         $thumbsManager = \Yii::app()->getModule('photo')->thumbs;
-        //$thumbsManager->saveThumb($photo, 'uploadMin');
+        $thumb = $thumbsManager->getThumb($photo, 'uploadMin');
 
-        echo \CHtml::link($thumbsManager->getThumb($photo, 'uploadMin'), $thumbsManager->getThumb($photo, 'uploadMin'));
+        echo \CHtml::image($thumb->getSrc(), '', array('width' => $thumb->getWidth(), 'height' => $thumb->getHeight()));
     }
 
     public function actionFlysystem()
     {
-        //header('Content-Type: image/jpeg');
-
-        //$a = \Yii::app()->getModule('photo')->fs->read('1344242897872.jpg');
-
-        $imagine = new Imagine();
-        $image = $imagine->open(\Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . '14-01-06.jpg');
-
-        \Yii::beginProfile('ok');
-        for ($i = 0; $i < 10; $i++) {
-            $image->resize(new Box(mt_rand(100, 1000), mt_rand(100, 1000)));
-            //$image->show('png');
-        }
-        \Yii::endProfile('ok');
+        /** @var \League\Flysystem\Filesystem $fs */
+        $fs = \Yii::app()->getModule('photo')->fs;
+        print_r($fs->listContents('thumbs'));
     }
 
     protected function test($width, $height, &$image)

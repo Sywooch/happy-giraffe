@@ -5,17 +5,17 @@
 </a>
 <div class="u-notice_b u-notice_users">
     <div class="ava-list">
-        <!--<ul class="ava-list_ul" data-bind="foreach: comments">
-            <li class="ava-list_li" data-bind="with: author">
-                <a class="ava ava__small ava__male" href="" data-bind="attr: {href: entity.url}">
-                    <span class="ico-status ico-status__online" data-bind="visible: online"></span>
-                    <img class="ava_img" src="" alt="" data-bind="attr: {src: avaOrDefaultImage}">
+        <ul class="ava-list_ul" data-bind="foreach: {data: avatars().slice(0,4), as: 'user'}">
+            <li class="ava-list_li">
+                <a class="ava ava__small ava__male" href="" data-bind="attr: {href: user.url}">
+                    <img class="ava_img" src="" alt="" data-bind="attr: {src: user.avatar}">
                 </a>
             </li>
-        </ul>-->
+        </ul>
+        <span class="ava-list_last-tx" data-bind="visible: avatars().length > 4, text: 'еще ' + (avatars().length - 4)"></span>
     </div>
 </div>
-<a href="" class="u-notice_b u-notice_post-ico u-notice_post-ico__post" data-bind="attr: {href: entity.url}"></a>
+<a href="" data-bind="attr: {href: entity.url}, attr: {class: 'u-notice_b u-notice_post-ico u-notice_post-ico__' + entity.type}"></a>
 <div class="u-notice_b u-notice_post">
     <a href="" class="u-notice_post-a" data-bind="html: entity.title, attr: {href: entity.url}"></a>
 </div>

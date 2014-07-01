@@ -4,10 +4,8 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         1: 'reply',
         2: 'discuss',
         5: 'like',
-        6: 'favorite',
-        7: 'post',
+        6: 'favorite'
     };
-
     
     function AccumulatingRequest(timeout, url, data, callback) {
         var self = this;
@@ -26,6 +24,13 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
                 events([]);
             }
         }).extend({ throttle: timeout });
+    }
+    
+    function User(id, avatar) {
+        var self = this;
+        self.id = id;
+        self.avatar = avatar;
+        self.url = '/user/' + id + '/';
     }
 
     Notify.prototype = {
@@ -58,9 +63,24 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         self.count = ko.observable(viewModel.read ? self.readCount : self.unreadCount);
         self.type = types[self.type];
         self.readed = ko.observable(false);
+        
+        self.unreadAvatars = [];
+        for(var userId in data.unreadAvatars) {
+            self.unreadAvatars.push(new User(userId, data.unreadAvatars[userId]));
+        }
+        self.unreadAvatars = ko.observableArray(self.unreadAvatars);
+        self.readAvatars = [];
+        for(var userId in data.readAvatars) {
+            self.readAvatars.push(new User(userId, data.readAvatars[userId]));
+        }
+        self.readAvatars = ko.observableArray(self.readAvatars);
+        
         self.setReaded = function() {
             self.request.send(self.id);
         };
+        self.avatars = ko.computed(function() {
+            return self.viewModel.tab() == 0 ? self.unreadAvatars() : self.readAvatars();
+        });
 
         self.addObject(self);
         self.bindEvents();
@@ -72,6 +92,7 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         self.loading = ko.observable(false);
         self.unreadCount = ko.observable(data.unreadCount);
         self.notifications = ko.observableArray([]);
+        self.tab = ko.observable(1 * data.read);
         self.addNotifications = function(data) {
             self.notifications(self.notifications().concat(ko.utils.arrayMap(data, function(item) {
                 if (!self.lastNotificationUpdate || self.lastNotificationUpdate > item.dtimeUpdate)
@@ -80,7 +101,6 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
             })));
         };
         self.addNotifications(data.list);
-        self.tab = ko.observable(1 * data.read);
         /*self.tabs = [
          function(item) {
          return item.read == 0;

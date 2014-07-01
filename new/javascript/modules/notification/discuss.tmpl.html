@@ -7,7 +7,14 @@
 </a>
 <div class="u-notice_b u-notice_users">
     <div class="ava-list">
-
+        <ul class="ava-list_ul" data-bind="foreach: {data: avatars().slice(0,4), as: 'user'}">
+            <li class="ava-list_li">
+                <a class="ava ava__small ava__male" href="" data-bind="attr: {href: user.url}">
+                    <img class="ava_img" src="" alt="" data-bind="attr: {src: user.avatar}">
+                </a>
+            </li>
+        </ul>
+        <span class="ava-list_last-tx" data-bind="visible: avatars().length > 4, text: 'еще ' + (avatars().length - 4)"></span>
     </div>
 </div>
 <a class="u-notice_b u-notice_post-ico u-notice_post-ico__post" href="" data-bind="attr: {href: entity.url}"></a>

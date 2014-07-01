@@ -9,7 +9,7 @@
 namespace site\frontend\modules\photo\components\thumbs\presets;
 use Imagine\Image\ImageInterface;
 
-abstract class Preset extends \CComponent
+interface PresetInterface
 {
-    abstract function apply(ImageInterface $image);
+    function apply(ImageInterface $image);
 } 

@@ -11,7 +11,7 @@ use Imagine\Image\Box;
 use Imagine\Image\Point;
 use Imagine\Image\ImageInterface;
 
-class LepillaPreset extends Preset
+class LepillaPreset implements PresetInterface
 {
     public $width;
     public $height;

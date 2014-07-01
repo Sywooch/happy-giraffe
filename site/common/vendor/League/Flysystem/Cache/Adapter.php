@@ -81,6 +81,8 @@ class Adapter extends AbstractCache
         if (($file = $this->adapter->read($this->file)) !== null) {
             $this->setFromStorage($file['contents']);
         }
+
+        $this->adapter
     }
 
     /**

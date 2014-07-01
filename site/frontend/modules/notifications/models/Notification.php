@@ -78,6 +78,16 @@ class Notification extends \EMongoDocument
      */
     public $readEntities;
 
+    /**
+     * @var array Массив аватарок пользователей из непрочитанных уведомлений
+     */
+    public $unreadAvatars;
+
+    /**
+     * @var array Массив аватарок пользователей из прочитанных уведомлений
+     */
+    public $readAvatars;
+
     public function indexes()
     {
         return array(
@@ -185,19 +195,40 @@ class Notification extends \EMongoDocument
                 'id' => $entity->id,
                 'class' => get_class($entity),
             );
+        $userId = false;
         foreach ($this->unreadEntities as $k => $e)
             if ($e->id == $entity['id'])
             {
+                $userId = $e->userId;
                 $this->readEntities[] = $e;
                 unset($this->unreadEntities[$k]);
                 return;
             }
+
+        // Переносим аватарку в прочитанные
+        $this->readAvatars[$userId] = $this->unreadAvatars[$userId];
+
+        // Необходимо ли удалить аватарку
+        if ($userId)
+        {
+            $unRead = false;
+            foreach ($this->unreadEntities as $k => $e)
+            {
+                if ($e->userId == $userId)
+                    $unRead = true;
+            }
+            // Если больше нет непрочитанных уведомлений от данного пользователя, то удалим аватарку
+            if (!$unRead)
+                unset($this->unreadAvatars[$userId]);
+        }
     }
 
     public function readAll()
     {
         $this->readEntities = \CMap::mergeArray($this->readEntities, $this->unreadEntities);
+        $this->readAvatars = \CMap::mergeArray($this->readAvatars, $this->unreadAvatars);
         $this->unreadEntities = array();
+        $this->unreadAvatars = array();
     }
 
     public static function markAllSignalsAsRead($userId)
@@ -207,6 +238,27 @@ class Notification extends \EMongoDocument
         {
             $model->readAll();
             $model->save();
+        }
+    }
+
+    /**
+     * Добавление автарки к сигналу
+     * 
+     * @param int $userId id пользователя, чья аватарка добавляется
+     * @param string $avatarUrl url аватарки
+     * @param bool $unread добавить для непрочитанного сигнала
+     */
+    public function addAvatar($userId, $avatarUrl, $unread = true)
+    {
+        $avatars = false;
+        if ($unread)
+            $avatars = &$this->unreadAvatars;
+        else
+            $avatars = &$this->readAvatars;
+
+        if (!isset($avatars[$userId]))
+        {
+            $avatars[$userId] = $avatarUrl;
         }
     }
 

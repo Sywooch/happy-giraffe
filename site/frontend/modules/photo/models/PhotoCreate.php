@@ -77,7 +77,7 @@ class PhotoCreate extends Photo
     {
         if (parent::beforeSave()) {
             $this->fs_name = $this->getFsName();
-            $success = \Yii::app()->getModule('photo')->fs->save('originals/' . $this->fs_name);
+            $success = \Yii::app()->getModule('photo')->fs->write('originals/' . $this->fs_name, file_get_contents($this->path));
 
             if (! $success) {
                 throw new \CException('Невозможно скопировать файл');

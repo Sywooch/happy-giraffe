@@ -154,10 +154,12 @@ return array(
                     'bucket' => 'test-happygiraffe',
                 ),
                 'thumbs' => array(
-                    'class' => '\site\frontend\modules\photo\thumbs\ThumbsManager',
+                    'class' => '\site\frontend\modules\photo\components\thumbs\ThumbsManager',
                     'presets' => array(
-                        'lepilla' => array(
-                            array('uploadPreview', 'width' => 155, 'height' => 140),
+                        'uploadMin' => array(
+                            'lepilla',
+                            'width' => 155,
+                            'height' => 140
                         ),
                     ),
                 ),

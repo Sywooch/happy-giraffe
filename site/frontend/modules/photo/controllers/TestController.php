@@ -14,6 +14,7 @@ use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
 use Imagine\Imagick\Imagine;
+use site\frontend\modules\photo\models\Photo;
 
 class TestController extends \HController
 {
@@ -49,6 +50,16 @@ class TestController extends \HController
     public function actionUploadMultiple()
     {
         $this->render('uploadMultiple');
+    }
+
+    public function actionPresets()
+    {
+        $photo = Photo::model()->find();
+        /** @var \site\frontend\modules\photo\components\thumbs\ThumbsManager $thumbsManager */
+        $thumbsManager = \Yii::app()->getModule('photo')->thumbs;
+        //$thumbsManager->saveThumb($photo, 'uploadMin');
+
+        echo \CHtml::link($thumbsManager->getThumb($photo, 'uploadMin'), $thumbsManager->getThumb($photo, 'uploadMin'));
     }
 
     public function actionFlysystem()

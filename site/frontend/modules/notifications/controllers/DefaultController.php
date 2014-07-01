@@ -65,6 +65,7 @@ class DefaultController extends \HController
             'tooltip',
             'title',
             'url',
+            'type',
         );
         return array(
             'site\frontend\modules\notifications\models\Notification' => array(
@@ -76,10 +77,12 @@ class DefaultController extends \HController
                 'unreadEntities' => array(
                     'site\frontend\modules\notifications\models\Entity' => $entity,
                 ),
+                'unreadAvatars',
                 'readCount',
                 'readEntities' => array(
                     'site\frontend\modules\notifications\models\Entity' => $entity,
                 ),
+                'readAvatars',
                 'dtimeUpdate',
             ),
         );

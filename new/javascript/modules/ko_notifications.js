@@ -6,26 +6,27 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
         5: 'like',
         6: 'favorite'
     };
-    
+
     function AccumulatingRequest(timeout, url, data, callback) {
         var self = this;
         var events = ko.observableArray([]);
         self.url = url;
         self.data = data ? data : {};
-        self.callback = callback ? callback : function() { };
+        self.callback = callback ? callback : function() {
+        };
         self.send = function(data) {
             events.push(data);
         };
         ko.computed(function() {
-            if(events().length > 0) {
+            if (events().length > 0) {
                 data = ko.utils.extend({}, self.data);
                 data.events = events();
                 $.post(self.url, data, self.callback, 'json');
                 events([]);
             }
-        }).extend({ throttle: timeout });
+        }).extend({throttle: timeout});
     }
-    
+
     function User(id, avatar) {
         var self = this;
         self.id = id;
@@ -44,14 +45,32 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
             var self = this;
             if (!Notify.prototype.binded) {
                 Notify.prototype.binded = true;
-                Comet.prototype.notificationReaded = function(result, id) {
-                    var obj = self.objects[result.notification.id] ? self.objects[result.notification.id] : false;
-                    if(obj) {
-                        obj.readed(true);
-                    }
+
+                // Сигнал прочитан, уменьшим счётчики
+                Comet.prototype.notificationUpdate = function(result, id) {
                     self.viewModel.unreadCount(Math.max(0, self.viewModel.unreadCount() - 1));
                 }
                 comet.addEvent(5002, 'notificationReaded');
+
+                // Новый сигнал
+                Comet.prototype.notificationAdded = function(result, id) {
+                    self.viewModel.addNotification(result.notification);
+                    self.viewModel.unreadCount(self.viewModel.unreadCount() + 1);
+                }
+                comet.addEvent(5001, 'notificationAdded');
+
+                // Обновление сигнала, в т.ч. может стать прочитанным, или может обновиться сигнал из архива, и стать прочитанным
+                Comet.prototype.notificationUpdated = function(result, id) {
+                    var obj = self.objects[result.notification.id] ? self.objects[result.notification.id] : false;
+                    if (obj) {
+                        // обновление сигнала из списка
+                        obj.update(result.notification);
+                    } else if (((result.notification.unreadCount > 0) && self.tab() == 0) || ((result.notification.readCount > 0) && self.tab() == 1)) {
+                        // надо добавить в список
+                        self.viewModel.addNotification(result.notification);
+                    } // иначе нас данный сигнал не интересует
+                }
+                comet.addEvent(5003, 'notificationUpdated');
             }
         }
     };
@@ -59,28 +78,42 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
     function Notify(data, viewModel) {
         ko.utils.extend(this, data);
         var self = this;
+
         self.viewModel = viewModel;
-        self.count = ko.observable(viewModel.read ? self.readCount : self.unreadCount);
-        self.type = types[self.type];
-        self.readed = ko.observable(false);
-        
-        self.unreadAvatars = [];
-        for(var userId in data.unreadAvatars) {
-            self.unreadAvatars.push(new User(userId, data.unreadAvatars[userId]));
-        }
-        self.unreadAvatars = ko.observableArray(self.unreadAvatars);
-        self.readAvatars = [];
-        for(var userId in data.readAvatars) {
-            self.readAvatars.push(new User(userId, data.readAvatars[userId]));
-        }
-        self.readAvatars = ko.observableArray(self.readAvatars);
-        
+        self.count = ko.observable(0);
+        self.type = types[data.type];
+        self.unreadAvatars = ko.observableArray([]);
+        self.readAvatars = ko.observableArray([]);
+        self.unreadEntities = ko.observableArray([]);
+        self.readEntities = ko.observableArray([]);
+
         self.setReaded = function() {
             self.request.send(self.id);
         };
         self.avatars = ko.computed(function() {
             return self.viewModel.tab() == 0 ? self.unreadAvatars() : self.readAvatars();
         });
+
+        self.update = function(data) {
+            self.count(self.viewModel.tab() == 1 ? data.readCount : data.unreadCount);
+            self.readed = ko.observable(false);
+
+            var unreadAvatars = [];
+            for (var userId in data.unreadAvatars) {
+                unreadAvatars.push(new User(userId, data.unreadAvatars[userId]));
+            }
+            self.unreadAvatars(unreadAvatars);
+
+            var readAvatars = [];
+            for (var userId in data.readAvatars) {
+                readAvatars.push(new User(userId, data.readAvatars[userId]));
+            }
+            self.readAvatars(readAvatars);
+
+            self.readEntities(data.readEntities);
+            self.unreadEntities(data.unreadEntities);
+        }
+        self.update(data);
 
         self.addObject(self);
         self.bindEvents();
@@ -99,6 +132,9 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
                     self.lastNotificationUpdate = item.dtimeUpdate;
                 return new Notify(item, self);
             })));
+        };
+        self.addNotification = function(data) {
+            self.notifications.unshift(new Notify(data, self));
         };
         self.addNotifications(data.list);
         /*self.tabs = [

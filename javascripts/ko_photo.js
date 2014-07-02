@@ -58,28 +58,44 @@ ko.bindingHandlers.thumb = {
         var preset = value.preset;
 
         var src = 'http://img.virtual-giraffe.ru/v2/thumbs/' + preset + '/' + photo.fs_name();
-        var width = getWidth(photo.width(), photo.height());
-        var height = getHeight(photo.width(), photo.height());
+//        var width = ThumbManager.prototype.getWidth(photo.width(), photo.height(), 'uploadMin');
+//        var height = ThumbManager.prototype.getHeight(photo.width(), photo.height(), 'uploadMin');
 
         $(element).attr('src', src);
-        $(element).attr('width', width + 'px');
-        $(element).attr('height', height + 'px');
+//        $(element).attr('width', width + 'px');
+//        $(element).attr('height', height + 'px');
     }
 };
 
-function getWidth(imageWidth, imageHeight) {
-    var imageRatio = imageWidth / imageHeight;
-    var presetRatio = 155 / 140;
-    if (imageRatio >= presetRatio) {
-        return 155;
-    } else {
-        return imageRatio * 140;
-    }
+function ThumbManager() {
+
+}
+ThumbManager.prototype.getWidth = function(width, height, preset) {
+  return ThumbManager.prototype.presets[preset].getWidth(width, height);
+}
+ThumbManager.prototype.getHeight = function(width, height, preset) {
+    return ThumbManager.prototype.presets[preset].getHeight(width, height);
 }
 
-function getHeight(imageWidth, imageHeight) {
-    return 140;
+ThumbManager.prototype = {
+    presets: [],
+    getWidth: function(width, height, preset) {
+        return ThumbManager.prototype.presets[preset].getWidth(width, height);
+    },
+    getHeight: function(width, height, preset) {
+        return ThumbManager.prototype.presets[preset].getHeight(width, height);
+    }
 }
+$.getJSON('/photo/test/presets/', function(response) {
+    $.each(response, function(index, value) {
+        var name = index;
+        delete value[0];
+        var config = value;
+        ThumbManager.prototype.presets[name] = config;
+    });
+});
+
+
 
 // Основная модель загрузки фото
 function PhotoUploadViewModel(data) {

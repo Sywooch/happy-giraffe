@@ -101,7 +101,7 @@ function PhotoUploadViewModel(data) {
 
     self.processResponse = function(photo, response) {
         if (response.success) {
-            $.extend(photo, response.attributes);
+            ko.mapping.fromJS(response.attributes, photo);
             photo.status(PhotoUpload.STATUS_SUCCESS);
         } else {
             photo.error(response.error);
@@ -284,11 +284,20 @@ function PhotoUpload(data, jqXHR, parent) {
     self.error = ko.observable();
 
     self.rotateLeft = function() {
-        alert('Функция пока недоступна');
+        self.rotate(-90);
     }
 
     self.rotateRight = function() {
-        alert('Функция пока недоступна');
+        self.rotate(90);
+    }
+
+    self.rotate = function(angle) {
+        $.post('/photo/upload/rotate/', { photoId : self.id, angle : angle }, function(response) {
+            if (response.success) {
+                console.log(response.photo);
+                self.previewUrl(response.photo.previewUrl);
+            }
+        }, 'json');
     }
 
     self.cssClass = ko.computed(function() {

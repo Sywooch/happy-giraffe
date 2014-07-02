@@ -21,8 +21,11 @@
         vertical-align: initial;
         width: 20px;
         height: 15px;
-        background: url(/images/user-actions_ico__small.png) no-repeat;
+        background: url('@{path-img}/user-actions_ico__small.png') no-repeat;
     }
+
+    &__white.user-actions__small &_i__friend-add &_ico {background-position: -100px 0;}
+    &__white.user-actions__small &_i__message &_ico {background-position: -120px 0;}
     
     &_i {
         .inline-block();
@@ -40,7 +43,7 @@
         vertical-align: middle;
         width: 25px;
         height: 25px;
-        background: url(/images/user-actions_ico.png) no-repeat;
+        background: url('@{path-img}/user-actions_ico.png') no-repeat;
     }
     &_i__message             &_ico {background-position: 0 0;}
     &_i__message:hover       &_ico {background-position: 0 -50px;}

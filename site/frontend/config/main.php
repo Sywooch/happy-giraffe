@@ -170,6 +170,11 @@ return array(
                             'width' => 155,
                             'height' => 140
                         ),
+                        'uploadMid' => array(
+                            'lepilla',
+                            'width' => 300,
+                            'height' => 200
+                        ),
                     ),
                 ),
             ),

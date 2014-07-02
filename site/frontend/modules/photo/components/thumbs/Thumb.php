@@ -34,7 +34,7 @@ class Thumb extends \CComponent
 
     public function getUrl()
     {
-        return \Yii::app()->getModule('photo')->fs->getUrl($this->getFsPath($this->photo, $this->preset->name));
+        return \Yii::app()->fs->getUrl($this->getFsPath($this->photo, $this->preset->name));
     }
 
     public function getFsPath()

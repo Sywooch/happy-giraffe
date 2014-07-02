@@ -38,9 +38,9 @@ class ThumbsManager extends \CApplicationComponent
     public function createThumb(Photo $photo, $presetName)
     {
         $thumb = $this->getThumb($photo, $presetName);
-        $image = $this->imagine->load(\Yii::app()->getModule('photo')->fs->read($photo->getOriginalFsPath()));
+        $image = $this->imagine->load(\Yii::app()->fs->read($photo->getOriginalFsPath()));
         $thumb->preset->apply($image);
-        \Yii::app()->getModule('photo')->fs->write($thumb->getFsPath(), $image->get('gif'));
+        \Yii::app()->fs->write($thumb->getFsPath(), $image->get('gif'));
         return $thumb;
     }
 

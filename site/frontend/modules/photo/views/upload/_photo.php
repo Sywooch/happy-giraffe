@@ -2,7 +2,7 @@
     <div class="i-photo" data-bind="css: cssClass"><a href="" class="ico-close5" data-bind="click: $parent.removePhoto"></a>
         <!-- ko if: status() == PhotoUpload.STATUS_SUCCESS -->
         <div class="i-photo_hold">
-            <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { preset : 'uploadMin', photo : $data }">
+            <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="attr: { src : previewUrl }">
                 <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: rotateRight"></a></div>
             </div>
             <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">

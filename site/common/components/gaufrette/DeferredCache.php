@@ -13,15 +13,13 @@ namespace site\common\components\gaufrette;
 
 class DeferredCache extends CustomCache
 {
-    public $source;
-
     public function write($key, $content, array $metadata = null)
     {
         $data = array(
             'key' => $key,
             'content' => $content,
         );
-        \Yii::app()->gearman->client()->doBackground('defferedWrite', serialize($data));
+        \Yii::app()->gearman->client()->doBackground('deferredWrite', serialize($data));
 
         return $this->cache->write($key, $content);
     }

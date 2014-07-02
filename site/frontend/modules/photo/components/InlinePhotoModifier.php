@@ -20,10 +20,10 @@ class InlinePhotoModifier extends \CComponent
     public static function rotate(Photo $photo, $angle)
     {
         $imagine = new Imagine();
-        $image = $imagine->load(\Yii::app()->getModule('photo')->fs->read($photo->getOriginalFsPath()));
+        $image = $imagine->load(\Yii::app()->fs->read($photo->getOriginalFsPath()));
         $image->rotate($angle);
         $photo->imageUpdated();
-        \Yii::app()->getModule('photo')->fs->write($photo->getOriginalFsPath(), $image->get('jpg'));
+        \Yii::app()->fs->write($photo->getOriginalFsPath(), $image->get('jpg'));
         return true;
     }
 } 

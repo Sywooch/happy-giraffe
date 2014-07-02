@@ -30,7 +30,7 @@ class ThumbsManager extends \CApplicationComponent
 
     public function createAll(Photo $photo)
     {
-        foreach ($this->presets as $presetName) {
+        foreach ($this->presets as $presetName => $config) {
             $this->createThumb($photo, $presetName);
         }
     }
@@ -40,7 +40,7 @@ class ThumbsManager extends \CApplicationComponent
         $thumb = $this->getThumb($photo, $presetName);
         $image = $this->imagine->load(\Yii::app()->fs->read($photo->getOriginalFsPath()));
         $thumb->preset->apply($image);
-        \Yii::app()->fs->write($thumb->getFsPath(), $image->get('gif'));
+        \Yii::app()->fs->write($thumb->getFsPath(), $image->get('gif'), true);
         return $thumb;
     }
 

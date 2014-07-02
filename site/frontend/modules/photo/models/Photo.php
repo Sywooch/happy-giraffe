@@ -148,7 +148,7 @@ class Photo extends \HActiveRecord
 
     public function getOriginalUrl()
     {
-        return \Yii::app()->getModule('photo')->fs->getUrl($this->getFsPath());
+        return \Yii::app()->getModule('photo')->fs->getUrl($this->getOriginalFsPath());
     }
 
     public function getOriginalFsPath()
@@ -159,8 +159,8 @@ class Photo extends \HActiveRecord
     public function toJSON()
     {
         return \CMap::mergeArray($this->attributes, array(
-            'imageUrl' => $this->getImageUrl(),
-            'previewUrl' => '',
+            'imageUrl' => $this->getOriginalUrl(),
+            'previewUrl' => \Yii::app()->getModule('photo')->thumbs->getThumb($this, 'uploadMin')->save()->getUrl(),
             'coverUrl' => '',
         ));
     }

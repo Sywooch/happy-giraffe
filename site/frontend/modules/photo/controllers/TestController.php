@@ -69,9 +69,9 @@ class TestController extends \HController
         header('Content-Type: text/html; charset=utf-8');
         /** @var \Gaufrette\Filesystem $fs */
         $fs = \Yii::app()->getModule('photo')->fs;
-        \Yii::beginProfile('test');
-        echo $fs->getUrl('originals/fb/02/d7daf1e1645d502f0cf42446f916.jpg');
-        \Yii::endProfile('test');
+
+        print_r($fs->listCon)
+
 
 //        \Yii::beginProfile('test1');
 //        $fs->read('originals/fb/02/d7daf1e1645d502f0cf42446f916.jpg');

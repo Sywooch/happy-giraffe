@@ -35,28 +35,16 @@ class ThumbsManager extends \CApplicationComponent
         }
     }
 
-    public function saveThumb(Photo $photo, $presetName)
+    public function createThumb($photo, $presetName)
     {
-        $preset = $this->createPreset($presetName);
-        $image = $this->imagine->load(\Yii::app()->getModule('photo')->fs->read($photo->getOriginalFsPath()));
-        $preset->apply($image);
-        \Yii::app()->getModule('photo')->fs->write($this->getFsPath($photo, $presetName), $image->get('jpg'));
+        $thumb = $this->getThumb($photo, $presetName);
+        $thumb->save();
     }
 
     public function getThumb($photo, $presetName)
     {
         $preset = $this->createPreset($presetName);
         return new Thumb($photo, $preset);
-    }
-
-    public function getUrl($photo, $presetName)
-    {
-        return \Yii::app()->getModule('photo')->getUrl($this->getFsPath($photo, $presetName));
-    }
-
-    protected function getFsPath($photo, $presetName)
-    {
-        return 'thumbs/' . $presetName . '/' . $photo->fs_name;
     }
 
     protected function createPreset($presetName)
@@ -69,6 +57,8 @@ class ThumbsManager extends \CApplicationComponent
         $className = '\site\frontend\modules\photo\components\thumbs\presets\\' . ucfirst($config[0]) . 'Preset';
         $params = array_slice($config, 1);
         $reflect  = new \ReflectionClass($className);
-        return $reflect->newInstanceArgs($params);
+        $preset = $reflect->newInstanceArgs($params);
+        $preset->name = $presetName;
+        return $preset;
     }
 } 

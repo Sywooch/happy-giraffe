@@ -13,6 +13,16 @@ use Gaufrette\Adapter\Cache;
 
 class CustomCache extends Cache
 {
+    public function getSource()
+    {
+        return $this->source;
+    }
+
+    public function getCache()
+    {
+        return $this->cache;
+    }
+
     public function exists($key)
     {
         if ($this->needsReload($key)) {

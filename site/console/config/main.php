@@ -36,14 +36,6 @@ return array(
         'site.frontend.modules.geo.models.*',
         'site.frontend.modules.geo.components.*',
     ),
-    'aliases' => array(
-        'League' => 'site.common.vendor.League',
-        'Guzzle' => 'site.common.vendor.Guzzle',
-        'Aws' => 'site.common.vendor.Aws',
-        'Symfony' => 'site.common.vendor.Symfony',
-        'Imagine' => 'site.common.vendor.Imagine',
-        'Gaufrette' => 'site.common.vendor.Gaufrette',
-    ),
     'behaviors' => array(
         'edms' => array(
             'class'=>'EDMSBehavior',

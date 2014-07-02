@@ -39,7 +39,7 @@ class TestController extends \HController
 
     public function actionPresets()
     {
-        echo \CJSON::encode(\Yii::app()->getModule('photo')->thumbs->presets);
+        echo \CJSON::encode(\Yii::app()->thumbs->presets);
     }
 
     public function actionTest()
@@ -62,7 +62,7 @@ class TestController extends \HController
 //    {
 //        $photo = Photo::model()->find();
 //        /** @var \site\frontend\modules\photo\components\thumbs\ThumbsManager $thumbsManager */
-//        $thumbsManager = \Yii::app()->getModule('photo')->thumbs;
+//        $thumbsManager = \Yii::app()->thumbs;
 //        $thumb = $thumbsManager->getThumb($photo, 'uploadMin');
 //
 //        echo \CHtml::image($thumb->getUrl(), '', array('width' => $thumb->getWidth(), 'height' => $thumb->getHeight()));
@@ -76,7 +76,7 @@ class TestController extends \HController
         //header('Content-Type: image/jpeg');
         header('Content-Type: text/html; charset=utf-8');
         /** @var \Gaufrette\Filesystem $fs */
-        $fs = \Yii::app()->getModule('photo')->fs;
+        $fs = \Yii::app()->fs;
 
 //        print_r($fs->listCon)
 

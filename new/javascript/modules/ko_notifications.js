@@ -1,4 +1,4 @@
-define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], function(ko) {
+define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyDebug'], function(ko) {
     var types = {
         0: 'comment',
         1: 'reply',
@@ -54,7 +54,7 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
 
                 // Новый сигнал
                 Comet.prototype.notificationAdded = function(result, id) {
-                    self.viewModel.addNotification(result.notification);
+                    happyDebug.log('ko_notifications.ViewModel.addNotification', 'log', 'Добавлен новый сигнал', self.viewModel.addNotification(result.notification));
                     self.viewModel.unreadCount(self.viewModel.unreadCount() + 1);
                 }
                 comet.addEvent(5001, 'notificationAdded');
@@ -65,9 +65,10 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
                     if (obj) {
                         // обновление сигнала из списка
                         obj.update(result.notification);
+                        happyDebug.log('ko_notifications.ViewModel.updateNotification', 'log', 'Обновлен сигнал из списка', obj);
                     } else if (((result.notification.unreadCount > 0) && self.tab() == 0) || ((result.notification.readCount > 0) && self.tab() == 1)) {
                         // надо добавить в список
-                        self.viewModel.addNotification(result.notification);
+                        happyDebug.log('ko_notifications.ViewModel.addNotification', 'log', 'Добавлен новый сигнал', self.viewModel.addNotification(result.notification));
                     } // иначе нас данный сигнал не интересует
                 }
                 comet.addEvent(5003, 'notificationUpdated');
@@ -134,26 +135,11 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common'], functi
             })));
         };
         self.addNotification = function(data) {
-            self.notifications.unshift(new Notify(data, self));
+            var signal = new Notify(data, self);
+            self.notifications.unshift(signal);
+            return signal;
         };
         self.addNotifications(data.list);
-        /*self.tabs = [
-         function(item) {
-         return item.read == 0;
-         },
-         function(item) {
-         return item.read == 1;
-         },
-         ];
-         self.currentTab = ko.computed(function() {
-         self.tab();
-         return ko.utils.arrayFilter(self.notifications(), function(item) {
-         return self.tabs[self.tab()](item);
-         });
-         });
-         self.changeTab = function(newTab) {
-         self.tab(newTab);
-         };*/
         self.markAllAsReaded = function() {
             ko.utils.arrayForEach(self.notifications(), function(item) {
                 item.setReaded();

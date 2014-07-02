@@ -1,5 +1,11 @@
 
 // Form ----------------------------
+::-webkit-input-placeholder { color: #ccc;font-weight: normal;opacity: 1;}
+::-moz-placeholder          { color: #ccc;font-weight: normal;opacity: 1;}
+:-moz-placeholder           { color: #ccc;font-weight: normal;opacity: 1;}
+:placeholder                { color: #ccc;font-weight: normal;opacity: 1;}
+.placeholder                { color: #ccc;font-weight: normal;opacity: 1;}
+
 /* 
     sidebar-search
 
@@ -196,7 +202,7 @@ textarea.error {
     &_label {
         .inline-block();
         vertical-align: top;
-        color: @color-gray-light;
+        color: @color-gray;
         padding-left: 19px;
         min-height: 19px;
         line-height: 19px;
@@ -208,7 +214,7 @@ textarea.error {
     .ie8 &_label {padding-left: 0;background: none;}
     &_label:focus,
     &_label:hover {
-        color: #333;
+        color: @color-base;
         background-position: 0 -200px;
     }
     &_label-tx {

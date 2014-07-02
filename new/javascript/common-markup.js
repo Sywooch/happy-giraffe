@@ -42,14 +42,15 @@ $(function() {
     // });
     $(".select-cus__add").select2({
         width:'100%',
+        dropdownCssClass: 'select2-drop__add',
+        allowClear: true,
 
-        data: [{id: "foo", text:"Вова"},{id:"bar", text:"bar"}],
+        data: [{id: "foo", text:"Вова"},{id:"bar1", text:"Молодеж"},{id:"bar2", text:"Псков"},{id:"bar3", text:"Транспорт"}],
         // createSearchChoice: function (term) {
         //     var text = term + (lastResults.some(function(r) { return r.text == term }) ? "" :  " (Новый альбом)"/*)*/;
         //     return { id: term, text: text };
         // },
-        // minimumInputLength:1,
-        dropdownCssClass: 'select2-drop__add',
+        searchInputPlaceholder: 'Название альбома',
         createSearchChoice:function(term, data) {
              if ( $(data).filter( function() {
                return this.text.localeCompare(term)===0;
@@ -58,6 +59,7 @@ $(function() {
              }
            },
         // Возможен вариант решения http://www.bootply.com/122726
+        // minimumInputLength:1,
 
         // allowClear:true,
         // formatNoMatches: function(term) {

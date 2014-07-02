@@ -43,14 +43,14 @@ block layout
                         .float-r
                             .display-ib.w-400.margin-r15
                                 input.select-cus.select-cus__add.select-cus__gray(type="text", placeholder="Выберите альбом или создайте новый")
-                                //- select.select-cus.select-cus__add.select-cus__gray(placeholder="Выберите альбом или создайте новый")
-                                //-     option 
-                                //-     option Фото без альбома
-                                //-     option Фотоальбом 1
-                                //-     option Фотоальбом 2
+                                // select.select-cus.select-cus__add.select-cus__gray(placeholder="Выберите альбом или создайте новый")
+                                    option 
+                                    option Фото без альбома
+                                    option Фотоальбом 1
+                                    option Фотоальбом 2
                             // Пока не выбран альбом кнопка неактивна
-                            .btn.btn-green.disabled Переместить
-                            .btn.btn-link.btn-link-gray Отмена
+                            .btn.btn-green.btn-xs.disabled Переместить
+                            .btn.btn-link-gray.btn-xs Отмена
                         .user-album_control-sel
                             +radioIcons('radio-icons__inline radio-icons__checkbox', radioIcons.selectAll)
                             .user-album_control-count

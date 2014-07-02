@@ -4,6 +4,8 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
+use site\frontend\modules\photo\components\InlinePhotoModifier;
+use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\upload\AttachForm;
 use site\frontend\modules\photo\models\upload\ByUrlUploadForm;
 use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
@@ -57,6 +59,20 @@ class UploadController extends \HController
         $form = new ByUrlUploadForm();
         $form->attributes = $_POST;
         echo $form->save();
+    }
+
+    public function actionRotate()
+    {
+        $photoId = \Yii::app()->request->getPost('photoId');
+        $angle = \Yii::app()->request->getPost('angle');
+
+        $photo = Photo::model()->findByPk($photoId);
+        $success = InlinePhotoModifier::rotate($photo, $angle);
+        $response = compact('success');
+        if ($success) {
+            $response['photo'] = $photo->toJSON();
+        }
+        echo \CJSON::encode($response);
     }
 
     public function actionAttach()

@@ -58,24 +58,9 @@ class PhotoCreate extends Photo
         return $typeToExtension[$this->type];
     }
 
-    protected function createFsName()
-    {
-        $hash = md5(uniqid($this->original_name . microtime(), true));
-
-        $path = '';
-        for ($i = 0; $i < self::FS_NAME_LEVELS; $i++) {
-            $dirName = substr($hash, $i * self::FS_NAME_SYMBOLS_PER_LEVEL, self::FS_NAME_SYMBOLS_PER_LEVEL);
-            $path .= $dirName . DIRECTORY_SEPARATOR;
-        }
-
-        $path .= substr($hash, self::FS_NAME_LEVELS * self::FS_NAME_SYMBOLS_PER_LEVEL) . '.' . $this->getExtension();
-
-        return $path;
-    }
-
     protected function saveFile()
     {
-        $this->fs_name = $this->createFsName();
+        $this->fs_name = $this->createFsName($this->getExtension());
         return \Yii::app()->getModule('photo')->fs->write($this->getOriginalFsPath(), file_get_contents($this->path));
     }
 

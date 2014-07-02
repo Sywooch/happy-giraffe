@@ -28,17 +28,20 @@ class ThumbsManager extends \CApplicationComponent
         $this->imagine = new Imagine();
     }
 
-    public function generateAll($photo)
+    public function createAll($photo)
     {
         foreach ($this->presets as $presetName) {
-            $this->saveThumb($photo, $presetName);
+            $this->createThumb($photo, $presetName);
         }
     }
 
     public function createThumb($photo, $presetName)
     {
         $thumb = $this->getThumb($photo, $presetName);
-        $thumb->save();
+        $image = $this->imagine->load(\Yii::app()->getModule('photo')->fs->read($photo->getOriginalFsPath()));
+        $thumb->preset->apply($image);
+        \Yii::app()->getModule('photo')->fs->write($thumb->getFsPath(), $image->get('jpg'));
+        return $thumb;
     }
 
     public function getThumb($photo, $presetName)

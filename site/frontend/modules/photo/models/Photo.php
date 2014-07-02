@@ -160,7 +160,7 @@ class Photo extends \HActiveRecord
     {
         return \CMap::mergeArray($this->attributes, array(
             'imageUrl' => $this->getOriginalUrl(),
-            'previewUrl' => \Yii::app()->getModule('photo')->thumbs->getThumb($this, 'uploadMin')->save()->getUrl(),
+            'previewUrl' => \Yii::app()->getModule('photo')->thumbs->createThumb($this, 'uploadMin')->getUrl(),
             'coverUrl' => '',
         ));
     }

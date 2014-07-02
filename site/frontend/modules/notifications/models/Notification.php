@@ -10,7 +10,7 @@ namespace site\frontend\modules\notifications\models;
  * @property Entity $entity Сущность, к которой привязаны события
  * @property \EMongoCriteria $dbCriteria
  */
-class Notification extends \EMongoDocument
+class Notification extends \EMongoDocument implements \IHToJSON
 {
     /**
      * Новый комментарий
@@ -124,6 +124,9 @@ class Notification extends \EMongoDocument
                 'arrayPropertyName' => 'readEntities',
                 'arrayDocClassName' => 'site\frontend\modules\notifications\models\Entity'
             ),
+            'cometBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\CometBehavior',
+            ),
         );
     }
 
@@ -169,7 +172,7 @@ class Notification extends \EMongoDocument
      */
     public static function getUnreadCount()
     {
-        return self::model()->unread()->byUser(\Yii::app()->user->id)->count();
+        return self::model()->byRead(0)->byUser(\Yii::app()->user->id)->count();
     }
 
     public function beforeSave()
@@ -262,15 +265,34 @@ class Notification extends \EMongoDocument
         }
     }
 
+    public function toJSON()
+    {
+        return array(
+            'id' => (string) $this->_id,
+            'type' => $this->type,
+            'entity' => $this->entity,
+            'unreadCount' => $this->unreadCount,
+            'unreadEntities' => $this->unreadEntities,
+            'unreadAvatars' => $this->unreadAvatars,
+            'readCount' => $this->readCount,
+            'readEntities' => $this->readEntities,
+            'readAvatars' => $this->readAvatars,
+            'dtimeUpdate' => $this->dtimeUpdate,
+        );
+    }
+
     /* scopes */
 
     /**
      * 
      * @return \site\frontend\modules\notifications\models\Notification
      */
-    public function unread()
+    public function byRead($read)
     {
-        $this->dbCriteria->addCond('unreadCount', '>', 0);
+        if($read == 0)
+            $this->dbCriteria->addCond('unreadCount', '>', 0);
+        else
+            $this->dbCriteria->addCond('readCount', '>', 0);
 
         return $this;
     }

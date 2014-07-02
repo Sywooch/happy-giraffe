@@ -60,7 +60,7 @@ class TestController extends \HController
         $thumbsManager = \Yii::app()->getModule('photo')->thumbs;
         $thumb = $thumbsManager->getThumb($photo, 'uploadMin');
 
-        echo \CHtml::image($thumb->getSrc(), '', array('width' => $thumb->getWidth(), 'height' => $thumb->getHeight()));
+        echo \CHtml::image($thumb->getUrl(), '', array('width' => $thumb->getWidth(), 'height' => $thumb->getHeight()));
     }
 
     public function actionFlysystem()
@@ -70,7 +70,7 @@ class TestController extends \HController
         /** @var \Gaufrette\Filesystem $fs */
         $fs = \Yii::app()->getModule('photo')->fs;
 
-        print_r($fs->listCon)
+//        print_r($fs->listCon)
 
 
 //        \Yii::beginProfile('test1');

@@ -15,6 +15,9 @@ return array(
         'email' => array(
             'class' => 'site.frontend.modules.mail.commands.DefaultCommand',
         ),
+        'photo' => array(
+            'class' => 'site\frontend\modules\photo\commands\DefaultCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

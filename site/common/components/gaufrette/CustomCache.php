@@ -24,6 +24,11 @@ class CustomCache extends Cache
 
     public function getUrl($key)
     {
+
+
+        if (method_exists($this->cache, 'getUrl')) {
+            return $this->cache->getUrl($key);
+        }
         if (method_exists($this->source, 'getUrl')) {
             return $this->source->getUrl($key);
         }

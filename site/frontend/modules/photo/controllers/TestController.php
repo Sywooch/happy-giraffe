@@ -37,6 +37,11 @@ class TestController extends \HController
 
     public $layout = '//layouts/new/main';
 
+    public function actionPresets()
+    {
+        echo \CJSON::encode(\Yii::app()->getModule('photo')->thumbs->presets);
+    }
+
     public function actionTest()
     {
         $album = PhotoAlbum::model()->with('photoCollection.attachesCount')->find();
@@ -53,15 +58,15 @@ class TestController extends \HController
         $this->render('uploadMultiple');
     }
 
-    public function actionPresets()
-    {
-        $photo = Photo::model()->find();
-        /** @var \site\frontend\modules\photo\components\thumbs\ThumbsManager $thumbsManager */
-        $thumbsManager = \Yii::app()->getModule('photo')->thumbs;
-        $thumb = $thumbsManager->getThumb($photo, 'uploadMin');
-
-        echo \CHtml::image($thumb->getUrl(), '', array('width' => $thumb->getWidth(), 'height' => $thumb->getHeight()));
-    }
+//    public function actionPresets()
+//    {
+//        $photo = Photo::model()->find();
+//        /** @var \site\frontend\modules\photo\components\thumbs\ThumbsManager $thumbsManager */
+//        $thumbsManager = \Yii::app()->getModule('photo')->thumbs;
+//        $thumb = $thumbsManager->getThumb($photo, 'uploadMin');
+//
+//        echo \CHtml::image($thumb->getUrl(), '', array('width' => $thumb->getWidth(), 'height' => $thumb->getHeight()));
+//    }
 
     public function actionFlysystem()
     {

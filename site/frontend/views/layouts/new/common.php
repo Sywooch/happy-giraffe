@@ -16,6 +16,7 @@ if (! Yii::app()->user->isGuest)
 {
     if($cs->useAMD)
         $cs
+            ->registerAMD('happyDebug', array('happyDebug'), 'happyDebug.log("main", "info", "happyDebug инициализирован");')
             ->registerAMD('Realplexor-reg', array('common', 'comet'), 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
     else
         $cs

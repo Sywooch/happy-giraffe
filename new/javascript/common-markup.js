@@ -18,6 +18,75 @@ $(function() {
         escapeMarkup: function(m) { return m; }
     });
 
+    // Измененный tag select 
+    // $(".select-cus__add").select2({
+    //     width: '100%',
+    //     /*multiple: true,*/
+    //     maximumSelectionSize: 1,
+    //     maximumInputLength: 150,
+    //     /*tags:["red", "green", "blue"],*/
+    //     createSearchChoice: function (term) {
+    //         var text = term ;
+    //         return { id: term, text: text };
+    //     },
+    //     createSearchChoicePosition: 'bottom',
+    //     /*dropdownCssClass: 'select2-drop__search-on',*/
+    //     /*searchInputPlaceholder: "Выберите альбом или создайте новый",*/
+    //     /*escapeMarkup: function(m) { return m; }*/
+
+    //     /*tokenSeparators: [","],*/
+        
+    //     /*data: [{id: "foo", text:"foo"},{id:"bar", text:"bar"}],*/
+
+        
+    // });
+    $(".select-cus__add").select2({
+        width:'100%',
+
+        data: [{id: "foo", text:"Вова"},{id:"bar", text:"bar"}],
+        // createSearchChoice: function (term) {
+        //     var text = term + (lastResults.some(function(r) { return r.text == term }) ? "" :  " (Новый альбом)"/*)*/;
+        //     return { id: term, text: text };
+        // },
+        // minimumInputLength:1,
+        dropdownCssClass: 'select2-drop__add',
+        createSearchChoice:function(term, data) {
+             if ( $(data).filter( function() {
+               return this.text.localeCompare(term)===0;
+             }).length===0) {
+               return {id:term, text:term};
+             }
+           },
+        // Возможен вариант решения http://www.bootply.com/122726
+
+        // allowClear:true,
+        // formatNoMatches: function(term) {
+        //     $('.select2-input').keyup(function(e) {
+        //         if(e.keyCode == 13) {
+        //             var newTerm = $('#newTerm').val();
+        //             //alert('adding:'+newTerm);
+        //             $('<option>'+newTerm+'</option>').appendTo('.select-cus__add');
+        //             $('.select-cus__add').select2('val',newTerm); // select the new term
+        //             $(".select-cus__add").select2('close');       // close the dropdown
+        //         }
+        //         // },
+        //     })
+        // }
+    
+    //     formatNoMatches: function(term) {
+    //         console.log(term)
+    //         /* customize the no matches output */
+    //         return "<input class='form-control' id='newTerm' value='"+term+"'><a href='#' id='addNew' class='btn btn-default'>Create</a>"
+    //     }
+    //   .parent().find('.select2-with-searchbox').on('click','#addNew',function(){
+    //     /* add the new term */
+    //     var newTerm = $('#newTerm').val();
+    //     //alert('adding:'+newTerm);
+    //     $('<option>'+newTerm+'</option>').appendTo('.select-cus__add');
+    //     $('.select-cus__add').select2('val',newTerm); // select the new term
+    //     $(".select-cus__add").select2('close');       // close the dropdown
+    });
+
 
     // Стандартные подсказки
     $('.powertip, .redactor_toolbar li a, [data-tooltip]').tooltipster({

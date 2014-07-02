@@ -1,7 +1,7 @@
 include ../../block/config
 extend ../../extend/layout_loose
 block vars
-  - var bodyClass = 'body__bg1';
+  - var bodyClass = 'body__bg2';
 
 block layout
 
@@ -38,16 +38,16 @@ block layout
                             .postAdd_count 
                             .b-main_col-article
                                 .postAdd_btns-hold
-                                    a.btn.btn-secondary.btn-xm.margin-r15(href="") Отменить
+                                    a.btn.btn-link-gray.btn-xm.margin-r15(href="") Отменить
                                     a.btn.btn-success.btn-xm(href="") Создать альбом
 
                        
 
-                    // /Добавление 
+                // /Добавление 
 
-        //- Футер не нужен
+        // Футер 
         +layout-footer('layout-footer__in')
-
+        // /Футер
 
 
 

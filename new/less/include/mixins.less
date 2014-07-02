@@ -1,25 +1,21 @@
 // ----------------------------------------------------------
 // В файле все комментарии делать в less стиле // 
 // ----------------------------------------------------------
-
+@import "include/lesshat.less";
 
 // 1. ROOT  
 // Sizing shortcuts
-.size(@width; @height) {
-    width: @width;
-    height: @height;
-}
 .square(@size) {
     .size(@size; @size);
 }
 // Placeholder text
-.placeholder(@color: @input-color-placeholder) {
+/*.placeholder(@color: @input-color-placeholder) {
         &:-moz-placeholder            { color: @color; } // Firefox 4-18
         &::-moz-placeholder           { color: @color;   // Firefox 19+
                                                                     opacity: 1; } // See https://github.com/twbs/bootstrap/pull/11526
         &:-ms-input-placeholder       { color: @color; } // Internet Explorer 10+
         &::-webkit-input-placeholder  { color: @color; } // Safari and Chrome
-}               
+}  */             
 // 2. TYPOGRAPHY            
 
 .font-size(@font-size: 16){
@@ -28,11 +24,11 @@
     font-size : ~"@{rem}rem";
 }
 
-.text-overflow() {
+/*.text-overflow() {
     overflow : hidden;
     text-overflow : ellipsis;
     white-space : nowrap;
-}
+}*/
 
 .text-dec_onhover() {
     text-decoration: none;
@@ -96,16 +92,15 @@ border-bottom : solid 1px @bottom-color; }
 
 .drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
     -webkit-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
-    -moz-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
     box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha); 
 }
 
 // .opacity(VALUE);
 
-.opacity(@opacity : .5) {
+/*.opacity(@opacity : .5) {
 -webkit-opacity : @opacity;
 -moz-opacity : @opacity;
-opacity : @opacity; }
+opacity : @opacity; }*/
 
 // .rotate(VALUEdeg);
 

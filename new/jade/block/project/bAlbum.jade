@@ -15,7 +15,7 @@ mixin bAlbum(mod, vars)
                 .tx-date Обновлен  Вчера 13:45
                 a.b-album_title(href="") Ялта ♥♥♥
                 // 2 строки описания, предположительно 140 символов
-                .b-album_desc В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие 
+                a.b-album_desc(href="") В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие 
                 .b-album_count-hold
                     .b-album_count 240
                     .b-album_count-tx фото
@@ -25,7 +25,7 @@ mixin bAlbum(mod, vars)
                     .b-album_tx
                         != vars.tx
                         
-                .b-album_ico-album
+                .b-album_ico-album(class=vars.icoAlbumMod)
                 .b-album_arrow
             ul.b-album_prev.clearfix
                 // Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.
@@ -33,18 +33,23 @@ mixin bAlbum(mod, vars)
                     a.b-album_prev-a(href="")
                         //- высота изображений 50-70 px
                         img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                        .b-album_prev-hold
                 li.b-album_prev-li
                     a.b-album_prev-a(href="")
                         img.b-album_prev-img(src="#{path}images/example/w46-h70-1.jpg", alt="")
+                        .b-album_prev-hold
                 li.b-album_prev-li
                     a.b-album_prev-a(href="")
                         img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                        .b-album_prev-hold
                 li.b-album_prev-li
                     a.b-album_prev-a(href="")
                         img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                        .b-album_prev-hold
                 li.b-album_prev-li
                     a.b-album_prev-a(href="")
                         img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                        .b-album_prev-hold
                 - if (vars.prevAdd)
                     li.b-album_prev-li
                         a.album-photo-add(href="")
@@ -57,6 +62,7 @@ mixin bAlbum(mod, vars)
 - bAlbum.a.top = false
 - bAlbum.a.img = 'w430-h580.jpg'
 - bAlbum.a.tx = 'Семейный альбом <br> <span>60 </span> фото'
+- bAlbum.a.icoAlbumMod = 'b-album_ico-album__family'
 - bAlbum.a.prevAdd = false
 
 - bAlbum.b = {}

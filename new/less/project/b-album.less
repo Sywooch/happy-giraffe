@@ -57,7 +57,9 @@
         float: right;
         margin-top: 6px;
         text-decoration: none;
+        opacity: 0.7;
     }
+    &_r:hover {opacity: 1;}
     &_tx {
         .inline-block();
         vertical-align: middle;
@@ -73,6 +75,9 @@
         margin: 0 10px;
         background: url('@{path-img}/b-album_ico-album.png') no-repeat;
     }
+    &_ico-album__family {
+        background: url('@{path-img}/b-album_ico-album__family.png') no-repeat;
+    }
     &_arrow {
         .inline-block();
         vertical-align: middle;
@@ -84,6 +89,20 @@
     &_prev-li {
         float: left;
         margin: 0 5px 0 0;
+    }
+    &_prev-a {
+        position: relative;
+        display: inline-block;
+    }
+    &_prev-a:hover &_prev-hold {display: block;}
+    &_prev-hold {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        border: 1px solid #87b5d5;
     }
 
 
@@ -120,8 +139,10 @@
     &_title:hover {text-decoration: underline;}
     &_desc {
         &:extend(.tx-content);
+        display: block;
         color: #fff;
         margin-right: 340px;
+        text-decoration: none;
     }
     &_count-hold {
         position: absolute;
@@ -251,10 +272,15 @@
         color: @color-gray;
     }
     &_desc {
+        display: block;
         margin: 5px 0;
         color: @color-gray;
+        text-decoration: none;
 
         &:extend(.tx-content);
+    }
+    &_desc:hover {
+        color: @color-gray-dark;
     }
     &_del {
         position: relative;

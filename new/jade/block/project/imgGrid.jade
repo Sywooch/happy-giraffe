@@ -2,13 +2,14 @@
 mixin imgGrid(mod, vars)
     // img-grid
     .img-grid(class=mod)
+        // Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.
         - each row in vars.rows
-            // Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.
+            // Ряд изображений
             .img-grid_row.clearfix
                 - each item in row.img
                     - if (typeof(item) == 'string')
                         - if (item == 'album-photo-add')
-                            // При создании ряда изображений нужно выставить высоту и ширину блоку, что б получалась полный ряд
+                            // Нужно выставить высоту и ширину блоку, что б получалася полный ряд
                             .img-grid_i(style="width: 280px; height: 380px;")
                                 .album-photo-add.album-photo-add__m
                                     .album-photo-add_hold 
@@ -63,8 +64,8 @@ mixin imgGrid(mod, vars)
                                 img-grid_loading__blue
                             .img-grid_loading(class="img-grid_loading__#{item.color}")
                                 .img-grid_loading-hold
-                                    .progress.progress-striped.active.progress__cont
-                                        .progress-bar.progress-bar__cont(role='progressbar', aria-valuenow='100', aria-valuemin='0', aria-valuemax='100', style="width: 100%;" )
+                                    .css-progress
+                                        div 
                                     .img-grid_loading-tx Загрузка фотографии
 
 

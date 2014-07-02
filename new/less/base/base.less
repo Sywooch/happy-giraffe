@@ -1,6 +1,6 @@
 // layout
 .body {
-    min-width: 960px;
+    min-width: 1000px;
     background:#af9bd2;
     word-wrap: break-word;
     
@@ -207,7 +207,8 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 .i-allphoto {
     margin: 40px 0;
     text-align: center;
-
+    
+    &__family &_a {background-image: url('@{path-img}/family-user_album-a__family.png');}
     &_a {
         .inline-block();
         background: url('@{path-img}/family-user_album-a.png') no-repeat;
@@ -1002,3 +1003,61 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     }
 }
 /* /docs */
+
+
+
+
+/**
+ * (C)Leanest CSS spinner ever
+ */
+
+/*.keyframes(~'spin, 100%{ transform: rotate(1turn); }' );*/
+.keyframes(~'spin, 0%{ transform: rotate(0deg); } 100%{ transform: rotate(360deg);}');
+
+.css-progress {
+    position: relative;
+    display: inline-block;
+    width: 5em;
+    height: 5em;
+    margin: 0 12px;
+    font-size: 5px;
+    text-indent: 999em;
+    overflow: hidden;
+    opacity: .7;
+    .animation(spin 1s infinite steps(8));
+}
+
+.css-progress:before,
+.css-progress:after,
+.css-progress > div:before,
+.css-progress > div:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 2.25em; /* (container width - part width)/2  */
+    width: .5em;
+    height: 1.5em;
+    border-radius: .2em;
+    background: #eee;
+    .box-shadow(0 3.6em #eee); /* container height - part height */
+    .transform-origin(50% 2.5em); /* container height / 2 */
+}
+
+.css-progress:before {
+    background: #777;
+}
+
+.css-progress:after {
+    .rotate(-45deg);
+    background: #888;
+}
+
+.css-progress > div:before {
+    .rotate(-90deg);
+    background: #999;
+}
+
+.css-progress > div:after {
+    .rotate(-135deg);
+    background: #bbb;
+}

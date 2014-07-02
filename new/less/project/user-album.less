@@ -23,7 +23,10 @@
     }
     .album-preview__m .album-preview_li {margin-right: 21px;}
     .album-preview__album .album-preview_li {margin-right: 16px;}
-
+    .album-preview_t {
+        font-weight: bold;
+        color: #196eb9;
+    }
     &_top {
         
         .ico-edit__s {margin-left: 10px;}
@@ -41,13 +44,8 @@
         margin: 0 10px 10px;
         text-align: center;
         color: @color-link-title;
-
     }
-    &_count-hold &_del {
-        float: none;
-        .inline-block();
-    }
-    &_count-hold__gray {color: @color-gray;}
+    &_count-hold__gray {color: @color-gray-light;}
     &_count {
         font-size: 60px;
         line-height: 50px;
@@ -59,7 +57,6 @@
     &_control {
         margin: 0 0 15px;
 
-        .heading-small {margin-top: 4px;}
         .i-affix {padding-top: 10px;}
         .affix {
             width: 880px;
@@ -73,6 +70,7 @@
     &_control-count {
         .inline-block();
         vertical-align: bottom;
+        line-height: 18px;
         margin-left: 15px;
         color: @color-gray;
     }

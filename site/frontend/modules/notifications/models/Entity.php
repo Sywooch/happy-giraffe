@@ -5,9 +5,10 @@ namespace site\frontend\modules\notifications\models;
 /**
  * Description of Entity
  *
+ * @property-read string $type тип контента: post,video,photo,status,question,comment
  * @author Кирилл
  */
-class Entity extends \EMongoEmbeddedDocument
+class Entity extends \EMongoEmbeddedDocument implements \IHToJSON
 {
 
     public $id;
@@ -68,6 +69,16 @@ class Entity extends \EMongoEmbeddedDocument
         }
 
         return $result;
+    }
+    
+    public function toJSON()
+    {
+        return array(
+            'tooltip' => $this->tooltip,
+            'title' => $this->title,
+            'url' => $this->url,
+            'type' => $this->type,
+        );
     }
 
 }

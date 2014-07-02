@@ -28,29 +28,35 @@ class ThumbsManager extends \CApplicationComponent
         $this->imagine = new Imagine();
     }
 
+    public function generateAll($photo)
+    {
+        foreach ($this->presets as $presetName) {
+            $this->saveThumb($photo, $presetName);
+        }
+    }
+
     public function saveThumb(Photo $photo, $presetName)
     {
         $preset = $this->createPreset($presetName);
-
-        $image = $this->imagine->load(\Yii::app()->getModule('photo')->fs->read('originals/' . $photo->fs_name));
-
-
-
+        $image = $this->imagine->load(\Yii::app()->getModule('photo')->fs->read($photo->getOriginalFsPath()));
         $preset->apply($image);
-
-        \Yii::app()->getModule('photo')->fs->write('thumbs/' . $presetName . '/' . $photo->fs_name, $image->get('jpg'));
+        \Yii::app()->getModule('photo')->fs->write($this->getFsPath($photo, $presetName), $image->get('jpg'));
     }
 
     public function getThumb($photo, $presetName)
     {
         $preset = $this->createPreset($presetName);
-
         return new Thumb($photo, $preset);
     }
 
-    protected function getPath($photo, $preset)
+    public function getUrl($photo, $presetName)
     {
+        return \Yii::app()->getModule('photo')->getUrl($this->getFsPath($photo, $presetName));
+    }
 
+    protected function getFsPath($photo, $presetName)
+    {
+        return 'thumbs/' . $presetName . '/' . $photo->fs_name;
     }
 
     protected function createPreset($presetName)

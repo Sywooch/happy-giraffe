@@ -58,7 +58,7 @@ class PhotoCreate extends Photo
         return $typeToExtension[$this->type];
     }
 
-    protected function getFsName()
+    protected function createFsName()
     {
         $hash = md5(uniqid($this->original_name . microtime(), true));
 
@@ -73,13 +73,17 @@ class PhotoCreate extends Photo
         return $path;
     }
 
+    protected function saveFile()
+    {
+        $this->fs_name = $this->createFsName();
+        $path = PathManager::getOriginalPath($this);
+        return \Yii::app()->getModule('photo')->fs->write($path, file_get_contents($this->path));
+    }
+
     protected function beforeSave()
     {
         if (parent::beforeSave()) {
-            $this->fs_name = $this->getFsName();
-            $success = \Yii::app()->getModule('photo')->fs->write('originals/' . $this->fs_name, file_get_contents($this->path));
-
-            if (! $success) {
+            if (! $this->saveFile()) {
                 throw new \CException('Невозможно скопировать файл');
             }
             return true;

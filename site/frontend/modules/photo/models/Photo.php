@@ -146,47 +146,22 @@ class Photo extends \HActiveRecord
         );
     }
 
-    public function getImageUrl()
+    public function getOriginalUrl()
     {
-        return \Yii::app()->params['photos_url'] . '/v2/originals/' . $this->fs_name;
+        return \Yii::app()->getModule('photo')->fs->getUrl($this->getFsPath());
     }
 
-    public function getImagePath()
+    public function getOriginalFsPath()
     {
-        return PathManager::getOriginalsPath() . DIRECTORY_SEPARATOR . $this->fs_name;
+        return 'originals/' . $this->fs_name;
     }
 
     public function toJSON()
     {
         return \CMap::mergeArray($this->attributes, array(
             'imageUrl' => $this->getImageUrl(),
-            'previewUrl' => $this->getPreviewUrl(155, 140),
-            'coverUrl' => $this->getPreviewUrl(205, 140),
+            'previewUrl' => '',
+            'coverUrl' => '',
         ));
-    }
-
-    /**
-     * Создает миниатюру фотографии и возвращает ее URL
-     * @return string URL миниатюры фотографии
-     * @todo временный метод, убрать после разработки механизма создания миниатюр
-     */
-    protected function getPreviewUrl($width, $height)
-    {
-        /** @var \GdThumb $image */
-        $image = \Yii::app()->phpThumb->create($this->getImagePath());
-
-        if (($this->width / $this->height) > ($width / $height)) {
-            $image->resize(0, $height);
-            $image->cropFromCenter($width, $height);
-        } else {
-            $image->resize(0, $height);
-        }
-
-        $name = $this->getImagePath();
-        $name = str_replace($this->fs_name, $this->fs_name . $width . $height, $name);
-        $image->save($name);
-        $url = $this->getImageUrl();
-        $url = str_replace($this->fs_name, $this->fs_name . $width . $height, $url);
-        return $url;
     }
 }

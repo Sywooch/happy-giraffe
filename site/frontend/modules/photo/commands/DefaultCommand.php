@@ -19,7 +19,7 @@ class DefaultCommand extends \CConsoleCommand
             $data = unserialize($job->workload());
             $key = $data['key'];
             $content = $data['content'];
-            $adapter = $app->getModule('photo')->fs->getAdapter()->cache;
+            $adapter = \Yii::app()->fs->getAdapter()->source;
             $adapter->write($key, $content);
         });
         while (\Yii::app()->gearman->worker()->work()) {

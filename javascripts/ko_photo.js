@@ -57,9 +57,9 @@ ko.bindingHandlers.thumb = {
         var photo = value.photo;
         var preset = value.preset;
 
-        var src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name;
-        var width = getWidth(photo.width, photo.height);
-        var height = getHeight(photo.width, photo.height);
+        var src = 'http://img.virtual-giraffe.ru/v2/thumbs/' + preset + '/' + photo.fs_name();
+        var width = getWidth(photo.width(), photo.height());
+        var height = getHeight(photo.width(), photo.height());
 
         $(element).attr('src', src);
         $(element).attr('width', width + 'px');
@@ -68,7 +68,7 @@ ko.bindingHandlers.thumb = {
 };
 
 function getWidth(imageWidth, imageHeight) {
-    var imageRatio = imageWidth / $mageHeight;
+    var imageRatio = imageWidth / imageHeight;
     var presetRatio = 155 / 140;
     if (imageRatio >= presetRatio) {
         return 155;

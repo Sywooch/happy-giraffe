@@ -9,7 +9,7 @@
 namespace site\frontend\modules\photo\components;
 
 
-use Imagine\Gmagick\Imagine;
+use Imagine\Imagick\Imagine;
 use site\frontend\modules\photo\models\Photo;
 
 class InlinePhotoModifier extends \CComponent
@@ -17,11 +17,13 @@ class InlinePhotoModifier extends \CComponent
     const ROTATE_LEFT = 0;
     const ROTATE_RIGHT = 1;
 
-    public static function rotate(Photo $photo, $side)
+    public static function rotate(Photo $photo, $angle)
     {
         $imagine = new Imagine();
-        $image = $imagine->load($photo->getOriginalFsPath());
-        $image->rotate($side == self::ROTATE_LEFT ? -90 : 90);
+        $image = $imagine->load(\Yii::app()->getModule('photo')->fs->read($photo->getOriginalFsPath()));
+        $image->rotate($angle);
+        $photo->imageUpdated();
         \Yii::app()->getModule('photo')->fs->write($photo->getOriginalFsPath(), $image->get('jpg'));
+        return true;
     }
 } 

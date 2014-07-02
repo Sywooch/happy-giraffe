@@ -28,6 +28,9 @@ use site\frontend\modules\photo\components\PathManager;
 
 class Photo extends \HActiveRecord
 {
+    const FS_NAME_LEVELS = 2;
+    const FS_NAME_SYMBOLS_PER_LEVEL = 2;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -144,6 +147,27 @@ class Photo extends \HActiveRecord
                 'setUpdateOnCreate' => true,
             )
         );
+    }
+
+    public function imageUpdated()
+    {
+        $this->fs_name = $this->createFsName(pathinfo($this->fs_name, PATHINFO_EXTENSION));
+        $this->update('fs_name');
+    }
+
+    protected function createFsName($extension)
+    {
+        $hash = md5(uniqid($this->original_name . microtime(), true));
+
+        $path = '';
+        for ($i = 0; $i < self::FS_NAME_LEVELS; $i++) {
+            $dirName = substr($hash, $i * self::FS_NAME_SYMBOLS_PER_LEVEL, self::FS_NAME_SYMBOLS_PER_LEVEL);
+            $path .= $dirName . DIRECTORY_SEPARATOR;
+        }
+
+        $path .= substr($hash, self::FS_NAME_LEVELS * self::FS_NAME_SYMBOLS_PER_LEVEL) . '.' . $extension;
+
+        return $path;
     }
 
     public function getOriginalUrl()

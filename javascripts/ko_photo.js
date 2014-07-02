@@ -51,6 +51,36 @@ ko.bindingHandlers.fileUpload = {
     }
 };
 
+ko.bindingHandlers.thumb = {
+    update: function (element, valueAccessor) {
+        var value = valueAccessor();
+        var photo = value.photo;
+        var preset = value.preset;
+
+        var src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name;
+        var width = getWidth(photo.width, photo.height);
+        var height = getHeight(photo.width, photo.height);
+
+        $(element).attr('src', src);
+        $(element).attr('width', width + 'px');
+        $(element).attr('height', height + 'px');
+    }
+};
+
+function getWidth(imageWidth, imageHeight) {
+    var imageRatio = imageWidth / $mageHeight;
+    var presetRatio = 155 / 140;
+    if (imageRatio >= presetRatio) {
+        return 155;
+    } else {
+        return imageRatio * 140;
+    }
+}
+
+function getHeight(imageWidth, imageHeight) {
+    return 140;
+}
+
 // Основная модель загрузки фото
 function PhotoUploadViewModel(data) {
     var self = this;
@@ -101,7 +131,8 @@ function PhotoUploadViewModel(data) {
 
     self.processResponse = function(photo, response) {
         if (response.success) {
-            ko.mapping.fromJS(response.attributes, photo);
+            console.log(response.attributes);
+            ko.mapping.fromJS(response.attributes, {}, photo);
             photo.status(PhotoUpload.STATUS_SUCCESS);
         } else {
             photo.error(response.error);
@@ -263,12 +294,12 @@ function PhotoAlbum(data) {
 // Основная модель фотографии
 function Photo(data) {
     var self = this;
-    self.id = data.id;
-    self.title = data.title;
-    self.original_name = data.original_name;
-    self.imageUrl = data.imageUrl;
-    self.width = data.width;
-    self.height = data.height;
+    self.id = ko.observable(data.id);
+    self.title = ko.observable(data.title);
+    self.original_name = ko.observable(data.original_name);
+    self.imageUrl = ko.observable(data.imageUrl);
+    self.width = ko.observable(data.width);
+    self.height = ko.observable(data.height);
 
     self.coverUrl = data.coverUrl;
 }
@@ -288,13 +319,12 @@ function PhotoUpload(data, jqXHR, parent) {
     }
 
     self.rotateRight = function() {
-        self.rotate(90);
+        self.rotate(90)
     }
 
     self.rotate = function(angle) {
-        $.post('/photo/upload/rotate/', { photoId : self.id, angle : angle }, function(response) {
+        $.post('/photo/upload/rotate/', { angle : angle, photoId : self.id }, function(response) {
             if (response.success) {
-                console.log(response.photo);
                 self.previewUrl(response.photo.previewUrl);
             }
         }, 'json');
@@ -327,3 +357,4 @@ function FromAlbumsViewModel(data) {
         self.currentAlbum(album);
     }
 }
+

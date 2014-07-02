@@ -94,5 +94,5 @@
 </div>
 <?php
 $data = HJSON::encode($_data_);
-Yii::app()->clientScript->registerAMD('notificationsVM', array('Notification' => 'ko_notifications', 'ko' => 'knockout'), "ko.applyBindings(new Notification(" . $data . "), document.getElementById('notifications')); console.log(" . $data . ");");
+Yii::app()->clientScript->registerAMD('notificationsVM', array('Notification' => 'ko_notifications', 'ko' => 'knockout', 'happyDebug' => 'happyDebug'), "ko.applyBindings(new Notification(" . $data . "), document.getElementById('notifications')); happyDebug.log('notificationsVM', 'info', 'Применился биндинг', " . $data . ");");
 ?>

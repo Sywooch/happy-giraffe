@@ -85,4 +85,9 @@ class PhotoCreate extends Photo
         }
         return false;
     }
+
+    protected function afterSave()
+    {
+        \Yii::app()->gearman->client()->doBackground('createThumbs', $this->id);
+    }
 } 

@@ -20,7 +20,16 @@ class DefaultCommand extends \CConsoleCommand
             $key = $data['key'];
             $content = $data['content'];
             \Yii::app()->fs->getAdapter()->getSource()->write($key, $content);
+            echo "deferredWrite\n";
         });
+
+        \Yii::app()->gearman->worker()->addFunction('createThumbs', function($job) {
+            $photoId = $job->workload();
+            $photo = Photo::model()->findByPk($photoId);
+            \Yii::app()->thumbs->createAll($photo);
+            echo "createThums\n";
+        });
+
         while (\Yii::app()->gearman->worker()->work()) {
             echo "OK\n";
         }

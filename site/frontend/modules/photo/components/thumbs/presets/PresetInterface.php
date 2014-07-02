@@ -12,4 +12,6 @@ use Imagine\Image\ImageInterface;
 interface PresetInterface
 {
     function apply(ImageInterface $image);
+    function getWidth($imageWidth, $imageHeight);
+    function getHeight($imageWidth, $imageHeight);
 } 

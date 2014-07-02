@@ -76,8 +76,7 @@ class PhotoCreate extends Photo
     protected function saveFile()
     {
         $this->fs_name = $this->createFsName();
-        $path = PathManager::getOriginalPath($this);
-        return \Yii::app()->getModule('photo')->fs->write($path, file_get_contents($this->path));
+        return \Yii::app()->getModule('photo')->fs->write($this->getOriginalFsPath(), file_get_contents($this->path));
     }
 
     protected function beforeSave()

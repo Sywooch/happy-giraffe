@@ -65,6 +65,9 @@ class TestController extends \HController
 
     public function actionFlysystem()
     {
+        \Yii::app()->gearman->client()->doBackground('createThumbs', '123');
+
+        die;
         //header('Content-Type: image/jpeg');
         header('Content-Type: text/html; charset=utf-8');
         /** @var \Gaufrette\Filesystem $fs */

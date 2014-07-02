@@ -13,11 +13,17 @@ use site\frontend\modules\photo\models\Photo;
 
 class DefaultCommand extends \CConsoleCommand
 {
-    public function actionThumbsWorker()
+    public function actionWorker()
     {
-        \Yii::app()->gearman->worker()->addFunction('createThumbs', function($photoId) {
-            $photo = Photo::model()->findByPk($photoId);
-            \Yii::app()->getModule('photo')->thumbs->createAll($photo);
+        \Yii::app()->gearman->worker()->addFunction('defferedWrite', function($job) {
+            $data = unserialize($job->workload());
+            $key = $data['key'];
+            $content = $data['content'];
+            $adapter = $app->getModule('photo')->fs->getAdapter()->cache;
+            $adapter->write($key, $content);
         });
+        while (\Yii::app()->gearman->worker()->work()) {
+            echo "OK\n";
+        }
     }
 } 

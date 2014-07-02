@@ -10,7 +10,7 @@ namespace site\frontend\modules\photo\components\thumbs;
 
 
 use Imagine\Imagick\Imagine;
-use site\frontend\modules\photo\components\thumbs\presets\Preset;
+use site\frontend\modules\photo\components\thumbs\presets\PresetInterface;
 use site\frontend\modules\photo\models\Photo;
 
 class ThumbsManager extends \CApplicationComponent
@@ -28,23 +28,23 @@ class ThumbsManager extends \CApplicationComponent
         $this->imagine = new Imagine();
     }
 
-    public function createAll($photo)
+    public function createAll(Photo $photo)
     {
         foreach ($this->presets as $presetName) {
             $this->createThumb($photo, $presetName);
         }
     }
 
-    public function createThumb($photo, $presetName)
+    public function createThumb(Photo $photo, $presetName)
     {
         $thumb = $this->getThumb($photo, $presetName);
         $image = $this->imagine->load(\Yii::app()->getModule('photo')->fs->read($photo->getOriginalFsPath()));
         $thumb->preset->apply($image);
-        \Yii::app()->getModule('photo')->fs->write($thumb->getFsPath(), $image->get('jpg'));
+        \Yii::app()->getModule('photo')->fs->write($thumb->getFsPath(), $image->get('gif'));
         return $thumb;
     }
 
-    public function getThumb($photo, $presetName)
+    public function getThumb(Photo $photo, $presetName)
     {
         $preset = $this->createPreset($presetName);
         return new Thumb($photo, $preset);

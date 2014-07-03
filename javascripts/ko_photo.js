@@ -270,10 +270,12 @@ function ByUrlViewModel() {
 
 function PhotoCollection(data) {
     var self = this;
+    self.id = ko.observable(data.id);
     self.attachesCount = ko.observable(data.attachesCount);
     self.attaches = ko.observableArray(ko.utils.arrayMap(data.attaches, function(attach) {
         return new PhotoAttach(attach);
     }));
+    self.cover = ko.observable(new Photo(data.cover));
 }
 
 function PhotoAttach(data) {
@@ -292,6 +294,8 @@ function PhotoAlbum(data) {
 
 // Основная модель фотографии
 function Photo(data) {
+    console.log(data);
+
     var self = this;
     self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
@@ -344,14 +348,22 @@ PhotoUpload.STATUS_FAIL = 2;
 
 function FromAlbumsViewModel(data) {
     var self = this;
-    self.albums = ko.utils.arrayMap(data, function(data) {
-        return new PhotoAlbum(data);
-    });
+    PhotoUploadViewModel.apply(self, arguments);
 
-    self.currentAlbum = ko.observable(null);
+    self.currentAlbum = ko.observable(null)
+
+    self.albums = ko.observableArray(ko.utils.arrayMap(data.albums[0], function(album) {
+        console.log(album);
+        return new PhotoAlbum(album);
+    }));
 
     self.selectAlbum = function(album) {
-        self.currentAlbum(album);
+        $.get('/photo/upload/fromAlbumsStep2/', { collectionId : album.photoCollection().id() }, function(response) {
+            album.photoCollection().attaches(ko.utils.arrayMap(response, function(attach) {
+                return new PhotoAttach(attach);
+            }));
+            self.currentAlbum(album);
+        }, 'json');
     }
 }
 

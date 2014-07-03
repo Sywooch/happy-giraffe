@@ -26,7 +26,7 @@ namespace site\frontend\modules\photo\models;
 use site\frontend\modules\photo\components\FileHelper;
 use site\frontend\modules\photo\components\PathManager;
 
-class Photo extends \HActiveRecord
+class Photo extends \HActiveRecord implements \IHToJSON
 {
     const FS_NAME_LEVELS = 2;
     const FS_NAME_SYMBOLS_PER_LEVEL = 2;
@@ -182,10 +182,14 @@ class Photo extends \HActiveRecord
 
     public function toJSON()
     {
-        return \CMap::mergeArray($this->attributes, array(
-            'imageUrl' => $this->getOriginalUrl(),
-            'previewUrl' => \Yii::app()->thumbs->createThumb($this, 'uploadMin')->getUrl(),
-            'coverUrl' => '',
-        ));
+        return array(
+            'id' => $this->id,
+            'title' => $this->title,
+            'original_name' => $this->original_name,
+            'fs_name' => $this->fs_name,
+            'width' => (int) $this->width,
+            'height' => (int) $this->height,
+            'originalUrl' => $this->getOriginalUrl(),
+        );
     }
 }

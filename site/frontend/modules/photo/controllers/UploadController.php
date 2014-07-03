@@ -6,6 +6,7 @@
 namespace site\frontend\modules\photo\controllers;
 use site\frontend\modules\photo\components\InlinePhotoModifier;
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\upload\AttachForm;
 use site\frontend\modules\photo\models\upload\ByUrlUploadForm;
 use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
@@ -27,6 +28,28 @@ class UploadController extends \HController
                 'users' => array('?'),
             ),
         );
+    }
+
+    public function actionFromAlbumsStep1()
+    {
+        $album = PhotoAlbum::model()->find();
+
+        $a = \HJSON::encode(array('albums' => $album), array(
+            'site\frontend\modules\photo\models\PhotoAlbum' => array(
+                'id',
+                'title',
+                'description',
+                'photoCollection' => array(
+                    'site\frontend\modules\photo\models\PhotoCollection' => array(
+                        'id',
+                        '(int)attachesCount',
+                        'cover',
+                    ),
+                ),
+            ),
+        ));
+
+        $this->render('test', compact('a'));
     }
 
     /**

@@ -12,8 +12,8 @@ $cs->registerPackage('ko_photo');
 
                 <div data-bind="with: photo">
                     <p>ID: <span data-bind="text: id"></span></p>
-                    <p>Прямая ссылка: <a data-bind="attr: { href : imageUrl }, text: imageUrl"></a></p>
-                    <p>Изображение: <img data-bind="attr: { src : imageUrl }"></p>
+                    <p>Прямая ссылка: <a data-bind="attr: { href : originalUrl }, text: originalUrl"></a></p>
+                    <p>Изображение: <img data-bind="attr: { src : originalUrl }"></p>
                     <p>Оригинальное имя: <span data-bind="text: original_name"></span></p>
                     <p>Ширина: <span data-bind="text: width"></span></p>
                     <p>Высота: <span data-bind="text: height"></span></p>

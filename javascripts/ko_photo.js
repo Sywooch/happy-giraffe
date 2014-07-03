@@ -57,12 +57,15 @@ ko.bindingHandlers.thumb = {
         var photo = value.photo;
         var preset = value.preset;
 
-        var src = 'http://img.virtual-giraffe.ru/proxy_public_file/v2/thumbs/' + preset + '/' + photo.fs_name();
-        $(element).attr('src', src);
-
-        photo.fs_name.subscribe(function(fs_name) {
+        function update() {
             var src = 'http://img.virtual-giraffe.ru/proxy_public_file/v2/thumbs/' + preset + '/' + photo.fs_name();
             $(element).attr('src', src);
+        }
+
+        update();
+
+        photo.fs_name.subscribe(function(fs_name) {
+            update();
         });
     }
 };
@@ -265,15 +268,26 @@ function ByUrlViewModel() {
     });
 }
 
+function PhotoCollection(data) {
+    var self = this;
+    self.attachesCount = ko.observable(data.attachesCount);
+    self.attaches = ko.observableArray(ko.utils.arrayMap(data.attaches, function(attach) {
+        return new PhotoAttach(attach);
+    }));
+}
+
+function PhotoAttach(data) {
+    var self = this;
+    self.position = ko.observable(data.position);
+    self.photo = new Photo(data.photo);
+}
+
 function PhotoAlbum(data) {
     var self = this;
-    self.id = data.id;
-    self.title = data.title;
-    self.cover = new Photo(data.cover);
-    self.count = data.count;
-    self.photos = ko.utils.arrayMap(data, function(data) {
-        return new Photo(data);
-    });
+    self.id = ko.observable(data.id);
+    self.title = ko.observable(data.title);
+    self.description = ko.observable(data.description);
+    self.photoCollection = ko.observable(new PhotoCollection(data.photoCollection));
 }
 
 // Основная модель фотографии

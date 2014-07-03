@@ -15,5 +15,5 @@
         <span class="ava-list_last-tx" data-bind="visible: avatars().length > 4, text: 'еще ' + (avatars().length - 4)"></span>
     </div>
 </div>
-<a href="" class="u-notice_b u-notice_post-ico u-notice_post-ico__post" data-bind="attr: {href: entity.url}"></a>
-<div class="u-notice_b u-notice_post"><a href="" class="u-notice_post-a" data-bind="html: entity.title, attr: {href: entity.url}"></a></div>
+<a href="" data-bind="attr: {href: entity.url, class: 'u-notice_b u-notice_post-ico u-notice_post-ico__' + entity.type}"></a>
+<div class="u-notice_b u-notice_post"><a href="" class="u-notice_post-a" data-bind="html: title, attr: {href: entity.url}"></a></div>

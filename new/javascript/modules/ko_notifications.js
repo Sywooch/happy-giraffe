@@ -87,6 +87,20 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyD
         self.readAvatars = ko.observableArray([]);
         self.unreadEntities = ko.observableArray([]);
         self.readEntities = ko.observableArray([]);
+        self.entities = ko.computed(function() {
+            return self.viewModel.tab() == 0 ? self.unreadEntities() : self.readEntities();
+        });
+
+        self.title = ko.computed(function() {
+            if (self.entity.type == 'comment' || self.type == 'comment') {
+                if (self.entities() && self.entities()[0])
+                    return self.entities()[0].title;
+            }
+            return self.entity.title;
+        });
+        self.tooltip = ko.computed(function() {
+            return '';
+        });
 
         self.setReaded = function() {
             self.request.send(self.id);

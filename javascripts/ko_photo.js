@@ -58,44 +58,9 @@ ko.bindingHandlers.thumb = {
         var preset = value.preset;
 
         var src = 'http://img.virtual-giraffe.ru/v2/thumbs/' + preset + '/' + photo.fs_name();
-//        var width = ThumbManager.prototype.getWidth(photo.width(), photo.height(), 'uploadMin');
-//        var height = ThumbManager.prototype.getHeight(photo.width(), photo.height(), 'uploadMin');
-
         $(element).attr('src', src);
-//        $(element).attr('width', width + 'px');
-//        $(element).attr('height', height + 'px');
     }
 };
-
-function ThumbManager() {
-
-}
-ThumbManager.prototype.getWidth = function(width, height, preset) {
-  return ThumbManager.prototype.presets[preset].getWidth(width, height);
-}
-ThumbManager.prototype.getHeight = function(width, height, preset) {
-    return ThumbManager.prototype.presets[preset].getHeight(width, height);
-}
-
-ThumbManager.prototype = {
-    presets: [],
-    getWidth: function(width, height, preset) {
-        return ThumbManager.prototype.presets[preset].getWidth(width, height);
-    },
-    getHeight: function(width, height, preset) {
-        return ThumbManager.prototype.presets[preset].getHeight(width, height);
-    }
-}
-$.getJSON('/photo/test/presets/', function(response) {
-    $.each(response, function(index, value) {
-        var name = index;
-        delete value[0];
-        var config = value;
-        ThumbManager.prototype.presets[name] = config;
-    });
-});
-
-
 
 // Основная модель загрузки фото
 function PhotoUploadViewModel(data) {
@@ -146,12 +111,11 @@ function PhotoUploadViewModel(data) {
     }
 
     self.processResponse = function(photo, response) {
-        if (response.success) {
-            console.log(response.attributes);
-            ko.mapping.fromJS(response.attributes, {}, photo);
+        if (response.form.success) {
+            ko.mapping.fromJS(response.photo, {}, photo);
             photo.status(PhotoUpload.STATUS_SUCCESS);
         } else {
-            photo.error(response.error);
+            photo.error(response.form.firstError);
             photo.status(PhotoUpload.STATUS_FAIL);
         }
     }
@@ -313,11 +277,11 @@ function Photo(data) {
     self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
     self.original_name = ko.observable(data.original_name);
-    self.imageUrl = ko.observable(data.imageUrl);
     self.width = ko.observable(data.width);
     self.height = ko.observable(data.height);
+    self.fs_name = ko.observable(data.fs_name);
 
-    self.coverUrl = data.coverUrl;
+    self.originalUrl = ko.observable(data.originalUrl);
 }
 
 // Модель фотографии в рамках функционала загрузки фото

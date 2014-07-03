@@ -92,9 +92,11 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyD
         });
 
         self.title = ko.computed(function() {
-            if (self.entity.type == 'comment' || self.type == 'comment') {
-                if (self.entities() && self.entities()[0])
-                    return self.entities()[0].title;
+            if(self.type == 'like' && self.entity.type == 'comment') {
+                return self.entity.title;
+            }
+            if ((self.entity.type == 'comment' || self.type == 'comment') && self.entities() && self.entities()[0]) {
+                return self.entities()[0].title;
             }
             return self.entity.title;
         });

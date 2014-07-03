@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 06/06/14
- * Time: 14:34
+ * Класс для быстрых операций с фото
  */
 
 namespace site\frontend\modules\photo\components;
@@ -17,6 +14,12 @@ class InlinePhotoModifier extends \CComponent
     const ROTATE_LEFT = 0;
     const ROTATE_RIGHT = 1;
 
+    /**
+     * Повернуть фото
+     * @param Photo $photo
+     * @param int $angle
+     * @return bool
+     */
     public static function rotate(Photo $photo, $angle)
     {
         $imagine = new Imagine();

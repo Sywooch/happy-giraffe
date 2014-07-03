@@ -1,9 +1,8 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 02/07/14
- * Time: 14:29
+ * Консольная команда модуля
+ *
+ * Предназначена для обработки отложенных операций сервером очередей
  */
 
 namespace site\frontend\modules\photo\commands;
@@ -13,8 +12,12 @@ use site\frontend\modules\photo\models\Photo;
 
 class DefaultCommand extends \CConsoleCommand
 {
+    /**
+     * Основной воркер, должен быть всегда запущен для корректной работы приложения
+     */
     public function actionWorker()
     {
+        // Эта функция необходима для корректной работы кеш-адаптера DeferredCache, записывает файл в исходную ФС
         \Yii::app()->gearman->worker()->addFunction('deferredWrite', function($job) {
             $data = unserialize($job->workload());
             $key = $data['key'];
@@ -23,6 +26,7 @@ class DefaultCommand extends \CConsoleCommand
             echo "deferredWrite:\n$key\n\n";
         });
 
+        // Эта функция спакетно создает миниатюры для загруженных/обновленных изображений
         \Yii::app()->gearman->worker()->addFunction('createThumbs', function($job) {
             $photoId = $job->workload();
             $photo = Photo::model()->findByPk($photoId);

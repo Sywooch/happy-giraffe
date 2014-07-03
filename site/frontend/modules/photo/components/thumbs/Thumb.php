@@ -75,7 +75,7 @@ class Thumb extends \CComponent
         if ($this->image === null) {
             $this->process();
         }
-        $this->image->show($this->getFormat());
+        $this->image->show($this->getFormat(), $this->getOptions());
     }
 
     /**
@@ -84,7 +84,7 @@ class Thumb extends \CComponent
     public function save()
     {
         $this->process();
-        \Yii::app()->fs->write($this->getFsPath(), $this->image->get($this->getFormat()), true);
+        \Yii::app()->fs->write($this->getFsPath(), $this->image->get($this->getFormat(), $this->getOptions()), true);
     }
 
     protected function process()
@@ -96,5 +96,30 @@ class Thumb extends \CComponent
     protected function getFormat()
     {
         return pathinfo($this->photo->fs_name, PATHINFO_EXTENSION);
+    }
+
+    protected function getOptions()
+    {
+        $options = array();
+        if ($this->getFormat() == 'jpg') {
+            $options['jpeg_quality'] = $this->getJpegQuality();
+        }
+        return $options;
+    }
+
+    protected function getJpegQuality()
+    {
+        $width = $this->image->getSize()->getWidth();
+        $config = \Yii::app()->thumbs->quality;
+        $q = array_pop($config);
+        $config = array_reverse($config, true);
+        foreach ($config as $minWidth => $quality) {
+            if ($width <= $minWidth) {
+                $q = $quality;
+            } else {
+                break;
+            }
+        }
+        return $q;
     }
 } 

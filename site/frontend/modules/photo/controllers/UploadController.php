@@ -68,11 +68,7 @@ class UploadController extends \HController
 
         $photo = Photo::model()->findByPk($photoId);
         $success = InlinePhotoModifier::rotate($photo, $angle);
-        $response = compact('success');
-        if ($success) {
-            $response['photo'] = $photo->toJSON();
-        }
-        echo \CJSON::encode($response);
+        echo \HJSON::encode(array('photo' => $photo));
     }
 
     public function actionAttach()

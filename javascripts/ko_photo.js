@@ -1,3 +1,4 @@
+// Биндинг для загрузки фото
 ko.bindingHandlers.photoUpload = {
     init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
         var value = valueAccessor();
@@ -31,14 +32,10 @@ ko.bindingHandlers.photoUpload = {
     }
 };
 
+// Биндинг для плагина jQuery File Upload
 ko.bindingHandlers.fileUpload = {
     update: function (element, valueAccessor) {
-        var data = valueAccessor();
-        var options = data.options || {};
-        var multiple = data.multiple;
-        var el = $(element);
-
-        el.prop('multiple', multiple);
+        var options = valueAccessor() || {};
 
         $(element).fileupload(options);
 
@@ -54,6 +51,7 @@ ko.bindingHandlers.fileUpload = {
     }
 };
 
+// Основная модель загрузки фото
 function PhotoUploadViewModel(data) {
     var self = this;
 
@@ -106,21 +104,33 @@ function PhotoUploadViewModel(data) {
             $.extend(photo, response.attributes);
             photo.status(PhotoUpload.STATUS_SUCCESS);
         } else {
+            photo.error(response.error);
             photo.status(PhotoUpload.STATUS_FAIL);
         }
     }
 
+    self.photoIds = function() {
+        return ko.utils.arrayMap(self.photos(), function(photo) {
+            return photo.id;
+        });
+    }
+
     self.add = function() {
-        if (data.multiple) {
-            ko.utils.arrayForEach(self.photos(), function(photo) {
-                ko.bindingHandlers.photoUpload.callback(photo);
-            });
-        } else {
-            ko.bindingHandlers.photoUpload.callback(self.photo());
-        }
+        $.post('/photo/upload/attach/', { collectionId : 1, ids : self.photoIds() }, function(response) {
+            if (response.success) {
+                if (data.multiple) {
+                    ko.utils.arrayForEach(self.photos(), function(photo) {
+                        ko.bindingHandlers.photoUpload.callback(photo);
+                    });
+                } else {
+                    ko.bindingHandlers.photoUpload.callback(self.photo());
+                }
+            }
+        }, 'json');
     }
 }
 
+// Mixin, общие методы для двух форм загрузки с компьютера
 function asFromComputer() {
     this.populatePhoto = function(data) {
         var jqXHR = data.submit();
@@ -128,7 +138,9 @@ function asFromComputer() {
     }
 
     this.photoDone = function(photo, data) {
-        photo.previewUrl = data.files[0].preview.toDataURL();
+//        if (data.files[0].preview) {
+//            photo.previewUrl = data.files[0].preview.toDataURL();
+//        }
         this.processResponse(photo, data.result);
     }
 
@@ -142,11 +154,13 @@ function asFromComputer() {
     };
 }
 
+// Модель одиночной загрузки файла с компьютера
 function FromComputerSingleViewModel(data) {
     var self = this;
     PhotoUploadViewModel.apply(self, arguments);
 
     $.extend(self.fileUploadSettings, {
+        maxNumberOfFiles: 1,
         add: function (e, data) {
             self.added(self.populatePhoto(data));
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);
@@ -164,6 +178,7 @@ function FromComputerSingleViewModel(data) {
 }
 asFromComputer.call(FromComputerSingleViewModel.prototype);
 
+// Модель множественной загрузки с компьютера
 function FromComputerMultipleViewModel(data) {
     var self = this;
     PhotoUploadViewModel.apply(self, arguments);
@@ -198,9 +213,13 @@ function FromComputerMultipleViewModel(data) {
             }
         }
     });
+
+    self.fileUploadSettingsMore = $.extend({}, self.fileUploadSettings);
+    self.fileUploadSettingsMore.dropZone = null;
 }
 asFromComputer.call(FromComputerMultipleViewModel.prototype);
 
+// Модель загрузки по URL
 function ByUrlViewModel() {
     var self = this;
     PhotoUploadViewModel.apply(self, arguments);
@@ -215,6 +234,9 @@ function ByUrlViewModel() {
             url: '/photo/upload/byUrl/',
             type: 'POST',
             dataType: 'json',
+            data: {
+                url : self.url()
+            },
             success: function(data) {
                 self.processResponse(self.photo(), data);
             },
@@ -227,6 +249,18 @@ function ByUrlViewModel() {
     });
 }
 
+function PhotoAlbum(data) {
+    var self = this;
+    self.id = data.id;
+    self.title = data.title;
+    self.cover = new Photo(data.cover);
+    self.count = data.count;
+    self.photos = ko.utils.arrayMap(data, function(data) {
+        return new Photo(data);
+    });
+}
+
+// Основная модель фотографии
 function Photo(data) {
     var self = this;
     self.id = data.id;
@@ -235,8 +269,11 @@ function Photo(data) {
     self.imageUrl = data.imageUrl;
     self.width = data.width;
     self.height = data.height;
+
+    self.coverUrl = data.coverUrl;
 }
 
+// Модель фотографии в рамках функционала загрузки фото
 function PhotoUpload(data, jqXHR, parent) {
     var self = this;
     Photo.apply(self, arguments);
@@ -244,7 +281,15 @@ function PhotoUpload(data, jqXHR, parent) {
     self.jqXHR = jqXHR;
     self.previewUrl = ko.observable();
     self.status = ko.observable(PhotoUpload.STATUS_LOADING);
-    self.errors = ko.observableArray();
+    self.error = ko.observable();
+
+    self.rotateLeft = function() {
+        alert('Функция пока недоступна');
+    }
+
+    self.rotateRight = function() {
+        alert('Функция пока недоступна');
+    }
 
     self.cssClass = ko.computed(function() {
         switch (self.status()) {
@@ -260,3 +305,16 @@ function PhotoUpload(data, jqXHR, parent) {
 PhotoUpload.STATUS_LOADING = 0;
 PhotoUpload.STATUS_SUCCESS = 1;
 PhotoUpload.STATUS_FAIL = 2;
+
+function FromAlbumsViewModel(data) {
+    var self = this;
+    self.albums = ko.utils.arrayMap(data, function(data) {
+        return new PhotoAlbum(data);
+    });
+
+    self.currentAlbum = ko.observable(null);
+
+    self.selectAlbum = function(album) {
+        self.currentAlbum(album);
+    }
+}

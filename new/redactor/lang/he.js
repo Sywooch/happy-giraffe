@@ -68,7 +68,6 @@ $.Redactor.opts.langs['he'] = {
 	underline: 'קו תחתון',
 	alignment: 'יישור',
 	filename: 'Name (optional)',
-	edit: 'Edit',
-	center: 'Center'
+	edit: 'Edit'
 };
 })( jQuery );

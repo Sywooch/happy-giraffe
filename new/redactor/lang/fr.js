@@ -50,7 +50,7 @@ $.Redactor.opts.langs['fr'] = {
 	text: 'Texte',
 	mailto: 'Courriel',
 	web: 'Adresse URL',
-	video_html_code: 'Code d\'intégration du video',
+	video_html_code: 'Code d\'intégration de la vidéo',
 	file: 'Insérer un fichier...',
 	upload: 'Téléverser',
 	download: 'Télécharger',
@@ -68,7 +68,6 @@ $.Redactor.opts.langs['fr'] = {
 	underline: 'Souligner',
 	alignment: 'Alignement',
 	filename: 'Nom de fichier (optionnel)',
-	edit: 'Edit',
-	center: 'Center'
+	edit: 'Edit'
 };
 })( jQuery );

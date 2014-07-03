@@ -37,5 +37,8 @@ return array(
                 ),
             ),
         ),
+        'imagine' => array(
+            'class' => '\site\common\components\ImagineComponent',
+        ),
     ),
 );

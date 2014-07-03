@@ -9,7 +9,7 @@ namespace site\frontend\modules\photo\models\upload;
 
 use site\frontend\modules\photo\models\PhotoAlbum;
 
-class PopupForm extends \CFormModel
+class PopupForm extends \CFormModel implements \IHToJSON
 {
     /**
      * @var bool мультизагрузочная форма
@@ -38,10 +38,10 @@ class PopupForm extends \CFormModel
      * Формирует JSON для передачи обработанных данных с клиента
      * @return string JSON для клиента
      */
-    public function toJSON()
-    {
-        return \CJSON::encode($this->attributes);
-    }
+//    public function toJSON()
+//    {
+//        return \CJSON::encode($this->attributes);
+//    }
 
     public function getAlbumsJSON()
     {
@@ -63,6 +63,34 @@ class PopupForm extends \CFormModel
      */
     protected function getAlbums()
     {
-        return array(PhotoAlbum::model()->with(array('photoCollection', 'photoCollection.attachesCount'))->find());
+        return array(PhotoAlbum::model()->with(array('photoCollection', 'photoCollection.attachesCount'))->findAll());
+    }
+
+    public function __toString()
+    {
+        return \HJSON::encode(array(
+            'form' => $this,
+            'albums' => $this->getAlbums(),
+        ), array(
+            'site\frontend\modules\photo\models\PhotoAlbum' => array(
+                'id',
+                'title',
+                'description',
+                'photoCollection' => array(
+                    'site\frontend\modules\photo\models\PhotoCollection' => array(
+                        'id',
+                        '(int)attachesCount',
+                        'cover',
+                    ),
+                ),
+            ),
+        ));
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'multiple' => (bool) $this->multiple,
+        );
     }
 } 

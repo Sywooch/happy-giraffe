@@ -7,6 +7,7 @@ namespace site\frontend\modules\photo\controllers;
 use site\frontend\modules\photo\components\InlinePhotoModifier;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\upload\AttachForm;
 use site\frontend\modules\photo\models\upload\ByUrlUploadForm;
 use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
@@ -32,24 +33,22 @@ class UploadController extends \HController
 
     public function actionFromAlbumsStep1()
     {
-        $album = PhotoAlbum::model()->find();
+        $form = new PopupForm();
+        $form->multiple = 'true';
 
-        $a = \HJSON::encode(array('albums' => $album), array(
-            'site\frontend\modules\photo\models\PhotoAlbum' => array(
-                'id',
-                'title',
-                'description',
-                'photoCollection' => array(
-                    'site\frontend\modules\photo\models\PhotoCollection' => array(
-                        'id',
-                        '(int)attachesCount',
-                        'cover',
-                    ),
-                ),
+        echo $form;
+    }
+
+    public function actionFromAlbumsStep2()
+    {
+        $photos = PhotoAttach::model()->findAll();
+
+        echo \HJSON::encode($photos, array(
+            'site\frontend\modules\photo\models\PhotoAttach' => array(
+                '(int)position',
+                'photo',
             ),
         ));
-
-        $this->render('test', compact('a'));
     }
 
     /**

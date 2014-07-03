@@ -20,20 +20,15 @@ return array(
         'thumbs' => array(
             'class' => '\site\frontend\modules\photo\components\thumbs\ThumbsManager',
             'presets' => array(
-                'uploadMin' => array(
+                'uploadPreview' => array(
                     'lepilla',
                     'width' => 155,
                     'height' => 140
                 ),
-                'uploadMid' => array(
+                'uploadAlbumCover' => array(
                     'lepilla',
-                    'width' => 310,
-                    'height' => 280
-                ),
-                'uploadMax' => array(
-                    'lepilla',
-                    'width' => 620,
-                    'height' => 560,
+                    'width' => 205,
+                    'height' => 140,
                 ),
             ),
             'quality' => array(

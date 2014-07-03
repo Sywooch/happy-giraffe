@@ -247,6 +247,15 @@
 .btn-link {
     text-decoration: none;
 
+    &.disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        &:hover,
+        &:focus {
+          color: @link-color;
+        }
+    }
+
     &:hover {text-decoration: underline;}
     &-gray {
         &:extend(.btn-link all);
@@ -255,6 +264,14 @@
         &:hover {
             color: @color-gray-dark;
             text-decoration: none;
+        }
+        &.disabled,
+        &[disabled],
+        fieldset[disabled] & {
+            &:hover,
+            &:focus {
+              color: @color-gray;
+            }
         }
     }
 }

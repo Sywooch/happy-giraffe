@@ -49,6 +49,7 @@
     &_frame {
         height: 470px;
         padding: 0 5px;
+        overflow: hidden;
 
         .scroll_scroller {
             max-height: 470px;
@@ -81,6 +82,7 @@
     }
     &_multi-li {
         .inline-block();
+        vertical-align: top;
     }
     &_footer {
         margin:  15px 20px 15px 17px;
@@ -229,6 +231,7 @@
         margin: 0 6px 6px 0;
     }
     &__s &_img-hold {
+        max-width: 75px;
         width: 75px;
         height: 70px;
     }
@@ -246,6 +249,7 @@
         margin: 0 12px 12px 0;
     }
     &__m &_img-hold {
+        max-width: 155px;
         width: 155px;
         height: 140px;
     }
@@ -256,6 +260,7 @@
         margin: 0 12px 12px 0;
     }
     &__xl &_img-hold {
+        max-width: 325px;
         width: 325px;
         height: 295px;
     }
@@ -267,11 +272,13 @@
     }
     &__xl &_li.active &_check {background-position: 0 -127px;}
     /* */
+    
     &_ul {
         margin: 8px -30px 0 10px;
     }
     &_li {
         .inline-block();
+        vertical-align: top;
         margin: 5px 12px 6px 0;
     }
     &_li.active &_check {

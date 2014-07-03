@@ -30,7 +30,7 @@ mixin iPhoto(mod, vars)
             // Вид для ие
             .i-photo_hold
                 .i-photo_file-name IMG_5295.JPG
-                input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок')
+                input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок', maxlength="150")
                 // Продумать текст
             .tx-hint Для предпросмотра загружаемых изображений нужно обновить браузер на более новый.
         
@@ -42,7 +42,7 @@ mixin iPhoto(mod, vars)
                     .i-photo_overlay
                         a.i-photo_rotate(href="") 
                         a.i-photo_rotate.i-photo_rotate__r(href="") 
-                input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок')
+                input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок', maxlength="150")
     // /Блок фотографии
 
 - var iPhoto = {}

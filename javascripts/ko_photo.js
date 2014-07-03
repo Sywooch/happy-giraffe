@@ -52,13 +52,18 @@ ko.bindingHandlers.fileUpload = {
 };
 
 ko.bindingHandlers.thumb = {
-    update: function (element, valueAccessor) {
+    init: function (element, valueAccessor) {
         var value = valueAccessor();
         var photo = value.photo;
         var preset = value.preset;
 
-        var src = 'http://img.virtual-giraffe.ru/v2/thumbs/' + preset + '/' + photo.fs_name();
+        var src = 'http://img.virtual-giraffe.ru/proxy_public_file/v2/thumbs/' + preset + '/' + photo.fs_name();
         $(element).attr('src', src);
+
+        photo.fs_name.subscribe(function(fs_name) {
+            var src = 'http://img.virtual-giraffe.ru/proxy_public_file/v2/thumbs/' + preset + '/' + photo.fs_name();
+            $(element).attr('src', src);
+        });
     }
 };
 
@@ -304,9 +309,7 @@ function PhotoUpload(data, jqXHR, parent) {
 
     self.rotate = function(angle) {
         $.post('/photo/upload/rotate/', { angle : angle, photoId : self.id }, function(response) {
-            if (response.success) {
-                self.previewUrl(response.photo.previewUrl);
-            }
+            ko.mapping.fromJS(response.photo, {}, self);
         }, 'json');
     }
 

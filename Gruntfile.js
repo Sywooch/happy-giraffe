@@ -159,15 +159,15 @@ module.exports = function(grunt){
     },
 
     // Удаляем файлы
-    clean: {
-      new: ['new/css/tidy.css']
-    },
+    // clean: {
+    //   new: ['new/css/tidy.css']
+    // },
 
     //чистим css от не используемых стилей
     uncss: {
       new: {
         options: {
-          stylesheets  : ['/css/all1.css'],
+          stylesheets  : ['/css/all1.dev.css'],
           timeout      : 1000,
 
           htmlroot     : 'new',
@@ -177,7 +177,7 @@ module.exports = function(grunt){
           ],
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
-        dest: 'new/css/tidy1.css'
+        dest: 'new/css/all1.dev.css'
       },
     },
 
@@ -190,7 +190,7 @@ module.exports = function(grunt){
           report: 'max'
         },
         files: {
-          'new/css/all1.min.css': 'new/css/all1.dev.css'
+          'new/css/all1.dev.css': 'new/css/all1.dev.css'
         }
       }
     },
@@ -200,7 +200,7 @@ module.exports = function(grunt){
           report: 'gzip'
         },
         files: {
-          'new/css/output.css': ['new/css/all1.dev.css']
+          'new/css/all1.css': ['new/css/all1.dev.css']
         }
       }
     },
@@ -226,8 +226,8 @@ module.exports = function(grunt){
   // grunt.loadNpmTasks('grunt-newer');
   // grunt.loadNpmTasks('grunt-uncss');
 
-  grunt.registerTask('bild', ['less:newest','uncss', 'cssmin']);
-  grunt.registerTask('css', ['less:newest','uncss', 'cssmin']);
+  grunt.registerTask('bild', ['css', 'jade']);
+  grunt.registerTask('css', ['less:newest','uncss', 'cssmin', 'csso']);
   grunt.registerTask('default', [
     'connect',
     // 'uncss',

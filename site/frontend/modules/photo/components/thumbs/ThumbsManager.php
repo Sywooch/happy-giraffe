@@ -1,9 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 01/07/14
- * Time: 15:52
+ * Менеджер миниатюр
  */
 
 namespace site\frontend\modules\photo\components\thumbs;
@@ -28,6 +25,10 @@ class ThumbsManager extends \CApplicationComponent
         $this->imagine = new Imagine();
     }
 
+    /**
+     * Создать миниатюры всех доступных пресетов для переданного фото
+     * @param Photo $photo
+     */
     public function createAll(Photo $photo)
     {
         foreach ($this->presets as $presetName => $config) {
@@ -35,6 +36,12 @@ class ThumbsManager extends \CApplicationComponent
         }
     }
 
+    /**
+     * Сгенерировать миниатюру фото по заданному имени пресета
+     * @param Photo $photo
+     * @param $presetName
+     * @return Thumb
+     */
     public function createThumb(Photo $photo, $presetName)
     {
         $thumb = $this->getThumb($photo, $presetName);
@@ -44,12 +51,24 @@ class ThumbsManager extends \CApplicationComponent
         return $thumb;
     }
 
+    /**
+     * Получить миниатюру фото по заданному имени пресета
+     * @param Photo $photo
+     * @param $presetName
+     * @return Thumb
+     */
     public function getThumb(Photo $photo, $presetName)
     {
         $preset = $this->createPreset($presetName);
         return new Thumb($photo, $preset);
     }
 
+    /**
+     * Инициализирует класс пресета
+     * @param $presetName
+     * @return presets\PresetInterface
+     * @throws \CException
+     */
     protected function createPreset($presetName)
     {
         if (! array_key_exists($presetName, $this->presets)) {

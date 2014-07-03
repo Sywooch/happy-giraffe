@@ -1,15 +1,15 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 02/07/14
- * Time: 09:54
+ * Абстрактный пресет
  */
 
 namespace site\frontend\modules\photo\components\thumbs\presets;
 
 
-class Preset extends \CComponent
+abstract class Preset extends \CComponent
 {
+    /**
+     * @var string псевдоним пресета
+     */
     public $name;
 } 

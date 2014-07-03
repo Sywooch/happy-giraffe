@@ -19,19 +19,19 @@ class DefaultCommand extends \CConsoleCommand
     {
         // Эта функция необходима для корректной работы кеш-адаптера DeferredCache, записывает файл в исходную ФС
         \Yii::app()->gearman->worker()->addFunction('deferredWrite', function($job) {
-            $data = unserialize($job->workload());
-            $key = $data['key'];
-            $content = $data['content'];
-            \Yii::app()->fs->getAdapter()->getSource()->write($key, $content);
-            echo "deferredWrite:\n$key\n\n";
+//            $data = unserialize($job->workload());
+//            $key = $data['key'];
+//            $content = $data['content'];
+//            \Yii::app()->fs->getAdapter()->getSource()->write($key, $content);
+//            echo "deferredWrite:\n$key\n\n";
         });
 
         // Эта функция спакетно создает миниатюры для загруженных/обновленных изображений
         \Yii::app()->gearman->worker()->addFunction('createThumbs', function($job) {
-            $photoId = $job->workload();
-            $photo = Photo::model()->findByPk($photoId);
-            \Yii::app()->thumbs->createAll($photo);
-            echo "createThums\n";
+//            $photoId = $job->workload();
+//            $photo = Photo::model()->findByPk($photoId);
+//            \Yii::app()->thumbs->createAll($photo);
+//            echo "createThums\n";
         });
 
         while (\Yii::app()->gearman->worker()->work()) {

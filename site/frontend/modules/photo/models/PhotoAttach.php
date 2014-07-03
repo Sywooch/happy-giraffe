@@ -18,7 +18,7 @@
 
 namespace site\frontend\modules\photo\models;
 
-class PhotoAttach extends \HActiveRecord
+class PhotoAttach extends \HActiveRecord implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name
@@ -115,4 +115,12 @@ class PhotoAttach extends \HActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function toJSON()
+    {
+        return array(
+            'position' => (int) $this->position,
+            'photo' => $this->photo,
+        );
+    }
 }

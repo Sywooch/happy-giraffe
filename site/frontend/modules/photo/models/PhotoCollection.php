@@ -14,7 +14,7 @@
  *
  * The followings are the available model relations:
  * @property PhotoAttach[] $photoAttaches
- * @property PhotoPhoto $cover
+ * @property Photo $cover
  */
 
 namespace site\frontend\modules\photo\models;
@@ -56,9 +56,9 @@ class PhotoCollection extends \HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'attaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\PhotoAttach', 'collection_id'),
+			'attaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\Photoattach', 'collection_id'),
             'attachesCount' => array(self::STAT, 'site\frontend\modules\photo\models\PhotoAttach', 'collection_id'),
-			'cover' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\Photo', 'cover_id'),
+			'userDefinedCover' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\Photo', 'cover_id'),
 		);
 	}
 
@@ -124,7 +124,7 @@ class PhotoCollection extends \HActiveRecord
 
     public function getCover()
     {
-        $related = $this->getRelated('cover');
+        $related = $this->userDefinedCover;
         if ($related === null) {
             return $this->attaches[0]->photo;
         }

@@ -1,10 +1,10 @@
 module.exports = function(grunt){
-  var timer = require("grunt-timer");
+  require('time-grunt')(grunt);
 
-  timer.init(grunt);
+  //timer.init(grunt);
+  require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
 
     jade: {
       
@@ -22,6 +22,16 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
+          // data: grunt.file.readJSON(pathJade)
+          // data: function(dest, src) {
+          //   // Return an object of data to pass to templates
+          //   return require('./new/jade/vars.json');
+          // },
+          // filters: {
+          //   json : function (str) {
+          //     return JSON.stringify(JSON.parse(str));
+          //   }
+          // }
         }
       },
       // пересобираем документацию
@@ -49,6 +59,10 @@ module.exports = function(grunt){
         files: {
           'stylesheets/common.css': ['less/all1.less'],
           'stylesheets/global.css': ['less/all2.less'],
+          // стили страницы вакансий
+          'stylesheets/vacancy.css': ['less/vacancy.less'],
+          // стили html баннеров, независимы от всего 
+          'stylesheets/banner.css': ['less/banner.less']
         },
         options: {
           compress: true,
@@ -63,8 +77,6 @@ module.exports = function(grunt){
         files: {
           'stylesheets/common.dev.css': ['less/all1.less'],
           'stylesheets/global.dev.css': ['less/all2.less'],
-          // Стили для страниц вакансии
-          //'stylesheets/vacancy.css': ['less/vacancy.less']
         },
         options: {
           sourceMap: true,
@@ -79,37 +91,25 @@ module.exports = function(grunt){
         },
         options: {
           sourceMap: true,
-          sourceMapFilename: 'new/css/all1.css.map',
-          sourceMapRootpath: '../../',
-          //sourceMapURL: 'all1.css.map',
+          /*sourceMapFilename: 'new/css/all1.css.map',*/
+          /*sourceMapRootpath: 'new/css',
+          sourceMapURL: 'new/css/all1.css.map',*/
         }
       },
-      newest: {
-        files: {
-          'new/css/all1.css': ['new/less/all1.less'] 
-        },
-        options: {
-          compress: true,
-          cleancss: true,
-        }
-      }
+      // newest: {
+      //   files: {
+      //     'new/css/all1.css': ['new/less/all1.less'] 
+      //   },
+      //   options: {
+      //     compress: true,
+      //     cleancss: true,
+      //   }
+      // }
     },
 
-    // imagemin: {
-    //   dynamic: {
-    //     files: [{
-    //       expand: true,
-    //       cwd: 'new/images',
-    //       src: ['**/*.{png,jpg,gif}'],
-    //       dest: 'new/images1',
-    //     }],
-    //     options: {
-    //         cache: false
-    //     }
-    //   }
-    // },
 
     watch: {
+
       // Следим за статическими страницами
       jadepage: {
         files: ['new/jade/page/**/*.jade'],
@@ -137,9 +137,9 @@ module.exports = function(grunt){
         },
       },
       // следим за новым less
-      less: {
+      newless: {
         files: ['new/less/**/*.less'],
-        tasks: ['less:newest', 'less:newestdev'],
+        tasks: [/*'less:newest',*/ 'less:newestdev', 'cssmin', 'csso'],
         options: {
           livereload: true,
         },
@@ -157,42 +157,87 @@ module.exports = function(grunt){
       //   tasks: ['newer:imagemin'],
       // }
     },
+
+    // Удаляем файлы
+    clean: {
+      new: ['new/css/tidy.css']
+    },
+
+    //чистим css от не используемых стилей
+    uncss: {
+      new: {
+        options: {
+          stylesheets  : ['/css/all1.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'new',
+          ignore       : [
+            // Выбираем все стили где в начале .select2
+            /.select2+/,
+          ],
+        },
+        src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
+        dest: 'new/css/tidy1.css'
+      },
+    },
+
+    // Сжимаем css
+    cssmin: {
+      dist: {
+        options: {
+          compatibility: 'ie8',
+          keepSpecialComments: 0,
+          report: 'max'
+        },
+        files: {
+          'new/css/all1.min.css': 'new/css/all1.dev.css'
+        }
+      }
+    },
+    csso: {
+      compress: {
+        options: {
+          report: 'gzip'
+        },
+        files: {
+          'new/css/output.css': ['new/css/all1.dev.css']
+        }
+      }
+    },
+
     // Поднимаем сервер
     connect: {
       server: {
         options: {
           port: 4000,
-          hostname: '0.0.0.0',
           base: '.',
         }
       }
     },
   });
 
-  grunt.loadNpmTasks('grunt-merge-json');
-  grunt.loadNpmTasks('grunt-contrib-jade');
-  grunt.loadNpmTasks('grunt-newer');
-  grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-imagemin');
-  grunt.loadNpmTasks('grunt-newer');
+  // grunt.loadNpmTasks('grunt-merge-json');
+  // grunt.loadNpmTasks('grunt-contrib-jade');
+  // grunt.loadNpmTasks('grunt-newer');
+  // grunt.loadNpmTasks('grunt-contrib-less');
+  // grunt.loadNpmTasks('grunt-contrib-watch');
+  // grunt.loadNpmTasks('grunt-contrib-connect');
+  // grunt.loadNpmTasks('grunt-contrib-imagemin');
+  // grunt.loadNpmTasks('grunt-newer');
+  // grunt.loadNpmTasks('grunt-uncss');
 
+  grunt.registerTask('bild', ['less:newest','uncss', 'cssmin']);
+  grunt.registerTask('css', ['less:newest','uncss', 'cssmin']);
   grunt.registerTask('default', [
     'connect',
-    // 'less',
+    // 'uncss',
+    // 'merge-json',
     'watch', 
   ]);
-  grunt.registerTask('all', [
-    'less',
-    'jade', 
-  ]);
-  grunt.registerTask('push', [
-    'less',
-    //'jade', 
-  ]);
 
-  grunt.event.on('watch', function(action, filepath, target) {});
+  // grunt.event.on('watch', function(action, filepath, target) {
+
+  // });
 
 
 

@@ -31,6 +31,8 @@ class Entity extends \EMongoEmbeddedDocument implements \IHToJSON
             $this->userId = isset($entity->author_id) ? (int) $entity->author_id : null;
             if($entity instanceof \CommunityContent)
                 $this->typeId = (int) $entity->type_id;
+            if($entity instanceof \Comment)
+                $this->title = $entity->text;
         }
         parent::__construct($scenario);
     }

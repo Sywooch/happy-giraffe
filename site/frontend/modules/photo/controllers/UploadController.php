@@ -43,12 +43,7 @@ class UploadController extends \HController
     {
         $photos = PhotoAttach::model()->findAll();
 
-        echo \HJSON::encode($photos, array(
-            'site\frontend\modules\photo\models\PhotoAttach' => array(
-                '(int)position',
-                'photo',
-            ),
-        ));
+        echo \HJSON::encode($photos);
     }
 
     /**

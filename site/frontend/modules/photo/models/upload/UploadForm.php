@@ -6,9 +6,10 @@
  */
 
 namespace site\frontend\modules\photo\models\upload;
+use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoCreate;
 
-abstract class UploadForm extends \CFormModel
+abstract class UploadForm extends \CFormModel implements \IHToJSON
 {
     /**
      * @return PhotoCreate возвращает модель создаваемой фотографии
@@ -19,6 +20,11 @@ abstract class UploadForm extends \CFormModel
      * @var PhotoCreate модель создаваемой фотографии
      */
     protected $photo;
+
+    /**
+     * @var bool загружено ли фото
+     */
+    protected $success;
 
     public function attributeLabels()
     {
@@ -42,15 +48,11 @@ abstract class UploadForm extends \CFormModel
     {
         $this->photo = $this->populate();
 
-        $success = $this->validate() && $this->photo->save();
-        $data = compact('success');
-        if ($success) {
-            $data['attributes'] = $this->photo->toJSON();
-        } else {
-            $data['error'] = $this->getFirstError();
-        }
-
-        return \CJSON::encode($data);
+        $this->success = $this->validate() && $this->photo->save();
+        echo \HJSON::encode(array(
+            'photo' => $this->photo,
+            'form' => $this,
+        ));
     }
 
     /**
@@ -60,6 +62,17 @@ abstract class UploadForm extends \CFormModel
     protected function getFirstError()
     {
         $errors = \CMap::mergeArray($this->getErrors(), $this->photo->getErrors());
-        return $errors[key($errors)][0];
+        if (count($errors) > 0) {
+            return $errors[key($errors)][0];
+        }
+        return '';
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'firstError' => $this->getFirstError(),
+            'success' => (bool) $this->success,
+        );
     }
 } 

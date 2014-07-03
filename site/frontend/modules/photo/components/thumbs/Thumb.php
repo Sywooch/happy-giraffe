@@ -18,9 +18,15 @@ class Thumb extends \CComponent
     public $photo;
 
     /**
-     * @var presets\PresetInterface используемый для создания миниатюры пресет
+     * @var presets\PresetInterface|presets\Preset используемый для создания миниатюры пресет
      */
     public $preset;
+
+    /**
+     * @var \Imagine\Imagick\Image
+     */
+    protected $image;
+
 
     public function __construct(Photo $photo, PresetInterface $preset)
     {
@@ -62,5 +68,33 @@ class Thumb extends \CComponent
     public function getFsPath()
     {
         return 'thumbs/' . $this->preset->name . '/' . $this->photo->fs_name;
+    }
+
+    public function show()
+    {
+        if ($this->image === null) {
+            $this->process();
+        }
+        $this->image->show($this->getFormat());
+    }
+
+    /**
+     * Сгенерировать миниатюру фото по заданному имени пресета
+     */
+    public function save()
+    {
+        $this->process();
+        \Yii::app()->fs->write($this->getFsPath(), $this->image->get($this->getFormat()), true);
+    }
+
+    protected function process()
+    {
+        $this->image = \Yii::app()->imagine->load(\Yii::app()->fs->read($this->photo->getOriginalFsPath()));
+        $this->preset->apply($this->image);
+    }
+
+    protected function getFormat()
+    {
+        return pathinfo($this->photo->fs_name, PATHINFO_EXTENSION);
     }
 } 

@@ -14,15 +14,9 @@ class ThumbsManager extends \CApplicationComponent
 {
     public $presets;
 
-    /**
-     * @var Imagine
-     */
-    protected $imagine;
-
     public function init()
     {
         parent::init();
-        $this->imagine = new Imagine();
     }
 
     /**
@@ -32,35 +26,25 @@ class ThumbsManager extends \CApplicationComponent
     public function createAll(Photo $photo)
     {
         foreach ($this->presets as $presetName => $config) {
-            $this->createThumb($photo, $presetName);
+            $this->getThumb($photo, $presetName, true);
         }
-    }
-
-    /**
-     * Сгенерировать миниатюру фото по заданному имени пресета
-     * @param Photo $photo
-     * @param $presetName
-     * @return Thumb
-     */
-    public function createThumb(Photo $photo, $presetName)
-    {
-        $thumb = $this->getThumb($photo, $presetName);
-        $image = $this->imagine->load(\Yii::app()->fs->read($photo->getOriginalFsPath()));
-        $thumb->preset->apply($image);
-        \Yii::app()->fs->write($thumb->getFsPath(), $image->get('gif'), true);
-        return $thumb;
     }
 
     /**
      * Получить миниатюру фото по заданному имени пресета
      * @param Photo $photo
-     * @param $presetName
+     * @param string $presetName
+     * @param bool $create
      * @return Thumb
      */
-    public function getThumb(Photo $photo, $presetName)
+    public function getThumb(Photo $photo, $presetName, $create = false)
     {
         $preset = $this->createPreset($presetName);
-        return new Thumb($photo, $preset);
+        $thumb = new Thumb($photo, $preset);
+        if ($create) {
+            $thumb->save();
+        }
+        return $thumb;
     }
 
     /**

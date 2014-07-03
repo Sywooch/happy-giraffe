@@ -93,8 +93,8 @@ html.no-js
                                     a.btn-green(href='') Добавить
                     
                 .photo-window_b
-                    // Нет у гостя a.photo-window_del(href="") Удалить
-                    // Нет у гостя a.photo-window_edit(href="") Редактировать
+                    a.photo-window_del(href="") Удалить
+                    a.photo-window_edit(href="") Редактировать
                     .custom-likes-b
                         .custom-likes-b_slogan Поделитесь с друзьями!
                         .custom-likes-b_hold
@@ -117,21 +117,22 @@ html.no-js
                                         +ava('ava__middle ava__female', ava.a)
                                         .b-user-info_hold
                                             a.b-user-info_name(href='') Ангелина Богоявленская
-                                            +userActions('user-actions__small')
+                                            //- +userActions('user-actions__small')
                                             
                                 .photo-window_about
                                     | Фотопост 
                                     a.photo-window_about-a(href='') Места моих путешествий
                                 .photo-window_t
-                                    // input.itx-gray(type='text', name='', placeholder='Введите название фото и нажмите Enter')
-                                    
-                                    | Детский лагерь «Зеркальный». Ленинградская область. 
-                                    // Нет у гостя <a class="ico-edit powertip" href=""></a> 
+                                    // После нажатия ico-edit появляется input.
+                                    .display-n
+                                        | Детский лагерь «Зеркальный». Ленинградская область. <a class="ico-edit ico-edit__s powertip" href=""></a> 
+                                    div
+                                        input.itx-gray(type='text', name='', placeholder='Название фото')
                                 .photo-window_desc-hold
                                     .photo-window_desc.clearfix
                                         p
                                             | В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.
-                                            // Нет у гостя a.ico-edit.powertip(href='')
+                                            a.ico-edit.ico-edit__s.powertip(href='')
                                 .comments-gray.comments-gray__small
                                     .comments-gray_add.active.clearfix
                                         .comments-gray_frame
@@ -142,7 +143,7 @@ html.no-js
                                             span.color-gray (28)
                                         a#comments-show.font-small(href='') Показать 
                                         // Показывается затем ищезает
-                                        .comments-gray_sent.display-b Комментарий успешно отправлен.
+                                        .comments-gray_sent.display-n Комментарий успешно отправлен.
                         .scroll_bar-hold
                             .scroll_bar
                                 .scroll_bar-in

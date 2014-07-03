@@ -36,6 +36,13 @@ return array(
                     'height' => 560,
                 ),
             ),
+            'quality' => array(
+                72 => 100,
+                100 => 90,
+                200 => 85,
+                350 => 80,
+                75,
+            ),
         ),
         'imagine' => array(
             'class' => '\site\common\components\ImagineComponent',

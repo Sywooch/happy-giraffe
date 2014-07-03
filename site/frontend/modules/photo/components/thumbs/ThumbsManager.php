@@ -13,6 +13,7 @@ use site\frontend\modules\photo\models\Photo;
 class ThumbsManager extends \CApplicationComponent
 {
     public $presets;
+    public $quality;
 
     public function init()
     {

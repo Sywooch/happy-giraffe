@@ -20,7 +20,7 @@ class DefaultCommand extends \CConsoleCommand
             $key = $data['key'];
             $content = $data['content'];
             \Yii::app()->fs->getAdapter()->getSource()->write($key, $content);
-            echo "deferredWrite\n";
+            echo "deferredWrite:\n$key\n\n";
         });
 
         \Yii::app()->gearman->worker()->addFunction('createThumbs', function($job) {

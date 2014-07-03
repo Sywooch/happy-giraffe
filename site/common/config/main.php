@@ -27,8 +27,13 @@ return array(
                 ),
                 'uploadMid' => array(
                     'lepilla',
-                    'width' => 300,
-                    'height' => 200
+                    'width' => 310,
+                    'height' => 280
+                ),
+                'uploadMax' => array(
+                    'lepilla',
+                    'width' => 620,
+                    'height' => 560,
                 ),
             ),
         ),

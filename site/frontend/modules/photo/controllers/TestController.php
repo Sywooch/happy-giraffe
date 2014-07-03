@@ -70,13 +70,24 @@ class TestController extends \HController
 
     public function actionFlysystem()
     {
-        \Yii::app()->gearman->client()->doBackground('createThumbs', '123');
+        $imagine = new Imagine();
+        $image = $imagine->load(file_get_contents('http://upload.wikimedia.org/wikipedia/commons/2/2c/Rotating_earth_%28large%29.gif'));
 
-        die;
-        //header('Content-Type: image/jpeg');
-        header('Content-Type: text/html; charset=utf-8');
-        /** @var \Gaufrette\Filesystem $fs */
-        $fs = \Yii::app()->fs;
+        $image->layers()->coalesce();
+        foreach ($image->layers() as $frame) {
+            $frame->resize(new Box(100, 100));
+        }
+
+        $image->save(\Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR . '1.gif', array('animated' => true));
+
+
+//        \Yii::app()->gearman->client()->doBackground('createThumbs', '123');
+//
+//        die;
+//        //header('Content-Type: image/jpeg');
+//        header('Content-Type: text/html; charset=utf-8');
+//        /** @var \Gaufrette\Filesystem $fs */
+//        $fs = \Yii::app()->fs;
 
 //        print_r($fs->listCon)
 

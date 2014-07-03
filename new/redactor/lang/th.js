@@ -68,7 +68,6 @@ $.Redactor.opts.langs['th'] = {
 	underline: 'เส้นใต้',
 	alignment: 'การจัดวาง',
 	filename: 'Name (optional)',
-	edit: 'Edit',
-	center: 'Center'
+	edit: 'Edit'
 };
 })( jQuery );

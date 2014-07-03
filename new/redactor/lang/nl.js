@@ -68,12 +68,10 @@ $.Redactor.opts.langs['nl'] = {
 	fullscreen: 'Volledig scherm',
 	deleted: 'Verwijderd',
 	anchor: 'Anker',
-	link_new_tab: 'Open link in nieuw tabblad',
-	underline: 'Onderstrepen',
-	alignment: 'Uitlijning',
-	filename: 'Naam (optioneel)',
-	edit: 'Bewerk',
-	center: 'Center'
+	link_new_tab: 'Open link in new tab',
+	underline: 'Underline',
+	alignment: 'Alignment',
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );
-

@@ -67,7 +67,6 @@
 		underline: 'Podvuci',
 		alignment: 'Poravnanje',
 		filename: 'Naziv (neobavezno)',
-		edit: 'Edit',
-		center: 'Center'
+		edit: 'Edit'
 	};
 })(jQuery);

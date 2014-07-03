@@ -68,8 +68,7 @@ $.Redactor.opts.langs['eo'] = {
 	link_new_tab: 'Malfermu hiperligilon en novan langeton', // imperative
 	underline: 'Substrekita', // adjective
 	alignment: 'Ĝisrandigo', // substantive
-	filename: 'Dosiernomo (fakultativa)', // substantive
-	edit: 'Redaktu', // imperative
-	center: 'Center'
+	filename: 'Name (optional)',
+	edit: 'Edit'
 };
 })( jQuery );

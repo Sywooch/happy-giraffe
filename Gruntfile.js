@@ -139,7 +139,7 @@ module.exports = function(grunt){
       // следим за новым less
       newless: {
         files: ['new/less/**/*.less'],
-        tasks: [/*'less:newest',*/ 'less:newestdev', 'cssmin', 'csso'],
+        tasks: [/*'less:newest',*/ 'less:newestdev', 'cmq', 'cssmin', 'csso'],
         options: {
           livereload: true,
         },
@@ -173,12 +173,29 @@ module.exports = function(grunt){
           htmlroot     : 'new',
           ignore       : [
             // Выбираем все стили где в начале .select2
+            /.dropdown+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.redactor+/,
             /.select2+/,
+            /.tooltip+/,
           ],
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
         dest: 'new/css/all1.dev.css'
       },
+    },
+
+    // Объеденяем медиа запросы в css
+    cmq: {
+      options: {
+        log: true
+      },
+      new: {
+        files: {
+          'new/css': ['new/css/all1.dev.css']
+        }
+      }
     },
 
     // Сжимаем css
@@ -227,7 +244,7 @@ module.exports = function(grunt){
   // grunt.loadNpmTasks('grunt-uncss');
 
   grunt.registerTask('bild', ['css', 'jade']);
-  grunt.registerTask('css', ['less:newest','uncss', 'cssmin', 'csso']);
+  grunt.registerTask('css', ['less:newestdev','uncss', 'cmq', 'cssmin', 'csso']);
   grunt.registerTask('default', [
     'connect',
     // 'uncss',

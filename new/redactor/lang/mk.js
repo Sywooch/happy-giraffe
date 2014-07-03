@@ -68,7 +68,6 @@ $.Redactor.opts.langs['mk'] = {
 	underline: 'Подвлечи',
 	alignment: 'Порамнување',
 	filename: 'Name (optional)',
-	edit: 'Edit',
-	center: 'Center'
+	edit: 'Edit'
 };
 })( jQuery );

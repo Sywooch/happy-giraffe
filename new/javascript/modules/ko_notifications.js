@@ -95,10 +95,16 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyD
             if(self.type == 'like' && self.entity.type == 'comment') {
                 return self.entity.title;
             }
-            if ((self.entity.type == 'comment' || self.type == 'comment') && self.entities() && self.entities()[0]) {
+            if ((self.entity.type == 'comment' || self.type == 'discuss' || self.type == 'comment') && self.entities() && self.entities()[0]) {
                 return self.entities()[0].title;
             }
             return self.entity.title;
+        });
+        self.link = ko.computed(function() {
+            if(self.type != 'like' && self.type != 'favorite' && self.entities()[0]) {
+                return self.entities()[0].url;
+            }
+            return self.entity.url;
         });
         self.tooltip = ko.computed(function() {
             return '';

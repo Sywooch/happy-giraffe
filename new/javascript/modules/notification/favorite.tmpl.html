@@ -1,5 +1,5 @@
-<a href="" class="u-notice_b u-notice_ico u-notice_ico__favorite" data-bind="attr: {href: entity.url}"></a>
-<a href="" class="u-notice_b u-notice_spec" data-bind="attr: {href: entity.url}">
+<a href="" class="u-notice_b u-notice_ico u-notice_ico__favorite" data-bind="attr: {href: link}"></a>
+<a href="" class="u-notice_b u-notice_spec" data-bind="attr: {href: link}">
     <div class="u-notice_b u-notice_count" data-bind="text: count"></div>
     <div class="u-notice_b u-notice_desc">В избранное</div>
 </a>
@@ -15,5 +15,5 @@
         <span class="ava-list_last-tx" data-bind="visible: avatars().length > 4, text: 'еще ' + (avatars().length - 4)"></span>
     </div>
 </div>
-<a href="" data-bind="attr: {href: entity.url, class: 'u-notice_b u-notice_post-ico u-notice_post-ico__' + entity.type}"></a>
-<div class="u-notice_b u-notice_post"><a href="" class="u-notice_post-a" data-bind="html: title, attr: {href: entity.url}"></a></div>
+<a href="" data-bind="attr: {href: link, class: 'u-notice_b u-notice_post-ico u-notice_post-ico__' + entity.type}"></a>
+<div class="u-notice_b u-notice_post"><a href="" class="u-notice_post-a" data-bind="html: title, attr: {href: link}"></a></div>

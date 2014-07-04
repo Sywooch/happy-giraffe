@@ -4,7 +4,7 @@
  */
 ?>
 
-<div id="photo-tab-link" class="tab-pane active">
+<div id="photo-tab-link" class="tab-pane">
     <div class="popup-add_frame">
         <div class="popup-add_cap">
             <div class="cap-empty cap-empty__addPhotoLink">
@@ -27,6 +27,6 @@
 </div>
 
 <script type="text/javascript">
-    url = new ByUrlViewModel(<?=$form->toJSON()?>);
+    url = new ByUrlViewModel(<?=$form?>);
     ko.applyBindings(url, document.getElementById('photo-tab-link'));
 </script>

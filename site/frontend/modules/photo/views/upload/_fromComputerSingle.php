@@ -26,6 +26,6 @@
 </div>
 
 <script type="text/javascript">
-    computer = new FromComputerSingleViewModel(<?=$form->toJSON()?>);
+    computer = new FromComputerSingleViewModel(<?=$form?>);
     ko.applyBindings(computer, document.getElementById('photo-tab-computer'));
 </script>

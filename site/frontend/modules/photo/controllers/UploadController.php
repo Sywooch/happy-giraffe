@@ -39,9 +39,9 @@ class UploadController extends \HController
         echo $form;
     }
 
-    public function actionFromAlbumsStep2()
+    public function actionFromAlbumsStep2($collectionId)
     {
-        $photos = PhotoAttach::model()->findAll();
+        $photos = PhotoAttach::model()->collection($collectionId)->findAll();
 
         echo \HJSON::encode($photos);
     }

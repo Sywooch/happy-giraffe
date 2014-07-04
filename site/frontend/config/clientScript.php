@@ -204,7 +204,7 @@ return array(
             'js' => array(
                 'javascripts/ko_photo.js',
             ),
-            'depends' => array('knockout', 'jquery_file_upload', 'bootstrap', 'baron'),
+            'depends' => array('knockout', 'jquery_file_upload', 'bootstrap', 'baron', 'jquery.ui'),
         ),
         'ko_upload' => array(
             'baseUrl' => '/',

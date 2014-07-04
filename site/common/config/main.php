@@ -23,7 +23,12 @@ return array(
                 'uploadPreview' => array(
                     'lepilla',
                     'width' => 155,
-                    'height' => 140
+                    'height' => 140,
+                ),
+                'uploadPreviewBig' => array(
+                    'lepilla',
+                    'width' => 325,
+                    'height' => 295,
                 ),
                 'uploadAlbumCover' => array(
                     'lepilla',

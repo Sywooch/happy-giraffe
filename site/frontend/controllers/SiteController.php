@@ -505,7 +505,7 @@ class SiteController extends HController
                 'dimensions' => 'ga:pagePath',
                 'max-results' => 10000,
                 'sort' => '-ga:visits',
-                'filters' => 'ga:source==google',
+                'filters' => 'ga:source==yandex',
             ));
             foreach ($pathes1 as $path => $value) {
                 $result[$path] = array(
@@ -553,10 +553,10 @@ class SiteController extends HController
             $dp = new CArrayDataProvider($_result, array(
                 'sort' => array(
                     'attributes' => array('id', 'period1', 'period2', 'diffC', 'diff'),
-                    'defaultOrder' => array('period1'=>true),
+                    'defaultOrder' => array('diffC'=>false),
                 ),
                 'pagination' => array(
-                    'pageSize' => 200,
+                    'pageSize' => 5000,
                 ),
             ));
         }

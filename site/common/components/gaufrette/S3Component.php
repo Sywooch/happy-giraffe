@@ -37,7 +37,7 @@ class S3Component extends BaseComponent
      */
     protected function getAdapter()
     {
-        return new AwsS3($this->getClient(), $this->bucket);
+        return new AwsS3($this->getClient(), $this->bucket, array(), true);
     }
 
     protected function getClient()

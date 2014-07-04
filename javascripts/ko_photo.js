@@ -229,7 +229,7 @@ function FromComputerMultipleViewModel(data) {
 
     self.findPhotoByName = function(name) {
         return ko.utils.arrayFirst(self.photos(), function (photo) {
-            return photo.original_name == name;
+            return photo.original_name() == name;
         });
     };
 
@@ -300,7 +300,7 @@ function PhotoCollection(data) {
     self.attaches = ko.observableArray(ko.utils.arrayMap(data.attaches, function(attach) {
         return new PhotoAttach(attach);
     }));
-    self.cover = ko.observable(new Photo(data.cover));
+    self.cover = ko.observable(null);
 }
 
 function PhotoAttach(data) {
@@ -319,8 +319,6 @@ function PhotoAlbum(data) {
 
 // Основная модель фотографии
 function Photo(data) {
-    console.log(data);
-
     var self = this;
     self.id = ko.observable(data.id);
     self.title = ko.observable(data.title);
@@ -413,7 +411,6 @@ function FromAlbumsViewModel(data) {
     });
 
     self.albums = ko.observableArray(ko.utils.arrayMap(data.albums[0], function(album) {
-        console.log(album);
         return new PhotoAlbum(album);
     }));
 

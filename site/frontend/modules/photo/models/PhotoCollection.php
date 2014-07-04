@@ -133,4 +133,13 @@ class PhotoCollection extends \HActiveRecord
             return $this->attaches[0]->photo;
         }
     }
+
+    public function scopes()
+    {
+        return array(
+            'notEmpty' => array(
+                'join' => 'INNER JOIN ' . PhotoAttach::model()->tableName() . ' ON ' . $this->getTableAlias().'.id = ' . PhotoAttach::model()->tableName() . '.collection_id',
+            ),
+        );
+    }
 }

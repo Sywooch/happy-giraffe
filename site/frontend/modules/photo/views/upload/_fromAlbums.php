@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="popup-add_footer clearfix">
+            <div class="popup-add_footer clearfix" data-bind="visible: currentAlbum() !== null">
                 <div class="popup-add_footer-l">
                     <div class="album-slider">
                         <div class="album-slider_tx album-slider_tx-minus" data-bind="click: function() { updateThumbsSize(-1) }">&ndash;</div>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="float-r">
-                    <div class="btn btn-link-gray btn-s disabled">Выберите фото </div><a href="" class="btn btn-success disabled">Добавить</a>
+                    <div class="btn btn-link-gray btn-s disabled">Выберите фото </div><button href="" class="btn btn-success" data-bind="click: add, disable: photos().length == 0">Добавить</button>
                 </div>
             </div>
         </div>
@@ -72,6 +72,6 @@
 </div>
 
 <script type="text/javascript">
-    albums = new FromAlbumsViewModel(<?=$form?>);
+    albums = new FromAlbumsViewModel(<?=$form->output()?>);
     ko.applyBindings(albums, document.getElementById('photo-tab-album'));
 </script>

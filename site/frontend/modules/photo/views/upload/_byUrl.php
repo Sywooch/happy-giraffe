@@ -27,6 +27,6 @@
 </div>
 
 <script type="text/javascript">
-    url = new ByUrlViewModel(<?=$form?>);
+    url = new ByUrlViewModel(<?=$form->output()?>);
     ko.applyBindings(url, document.getElementById('photo-tab-link'));
 </script>

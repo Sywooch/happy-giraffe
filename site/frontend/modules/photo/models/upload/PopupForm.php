@@ -63,10 +63,17 @@ class PopupForm extends \CFormModel implements \IHToJSON
      */
     protected function getAlbums()
     {
-        return array(PhotoAlbum::model()->with(array('photoCollection', 'photoCollection.attachesCount'))->findAll());
+        return PhotoAlbum::model()->findAll(array(
+            'with' => array(
+                'photoCollection' => array(
+                    'scopes' => 'notEmpty',
+                    'with' => 'attachesCount',
+                ),
+            ),
+        ));
     }
 
-    public function __toString()
+    public function output()
     {
         return \HJSON::encode(array(
             'form' => $this,

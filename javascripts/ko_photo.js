@@ -60,7 +60,7 @@ ko.bindingHandlers.thumb = {
         var preset = value.preset;
 
         function update() {
-            var src = 'http://img.virtual-giraffe.ru/proxy_public_file/v2/thumbs/' + preset + '/' + photo.fs_name();
+            var src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
             $(element).attr('src', src);
         }
 
@@ -300,7 +300,7 @@ function PhotoCollection(data) {
     self.attaches = ko.observableArray(ko.utils.arrayMap(data.attaches, function(attach) {
         return new PhotoAttach(attach);
     }));
-    self.cover = ko.observable(null);
+    self.cover = ko.observable(new Photo(data.cover));
 }
 
 function PhotoAttach(data) {

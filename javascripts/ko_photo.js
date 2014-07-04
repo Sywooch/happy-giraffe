@@ -124,17 +124,13 @@ function PhotoAddViewModel(data) {
     }
 
     self.add = function() {
-        $.post('/photo/upload/attach/', { collectionId : 1, ids : self.photoIds() }, function(response) {
-            if (response.success) {
-                if (data.multiple) {
-                    ko.utils.arrayForEach(self.photos(), function(photo) {
-                        ko.bindingHandlers.photoUpload.callback(photo);
-                    });
-                } else {
-                    ko.bindingHandlers.photoUpload.callback(self.photo());
-                }
-            }
-        }, 'json');
+        if (self.multiple) {
+            ko.utils.arrayForEach(self.photos(), function(photo) {
+                ko.bindingHandlers.photoUpload.callback(photo);
+            });
+        } else {
+            ko.bindingHandlers.photoUpload.callback(self.photo());
+        }
     }
 }
 
@@ -176,6 +172,16 @@ function PhotoUploadViewModel(data) {
             photo.error(response.form.firstError);
             photo.status(PhotoUpload.STATUS_FAIL);
         }
+    }
+
+    var costil = self.add;
+
+    self.add = function() {
+        $.post('/photo/upload/attach/', { collectionId : 1, ids : self.photoIds() }, function(response) {
+            if (response.success) {
+                costil();
+            }
+        }, 'json');
     }
 }
 
@@ -306,6 +312,12 @@ function PhotoCollection(data) {
         return new PhotoAttach(attach);
     }));
     self.cover = ko.observable(new Photo(data.cover));
+
+    self.addAttaches = function (data) {
+        self.attaches(self.attaches().concat(ko.utils.arrayMap(data, function(item) {
+            return new PhotoAttach(item);
+        })));
+    }
 }
 
 function PhotoAttach(data) {
@@ -392,7 +404,7 @@ function FromAlbumsViewModel(data) {
 
     self.updateThumbsSize = function(diff) {
         self.thumbsSize(self.thumbsSize() + diff);
-    }
+    };
 
     self.thumbsSizeClass = ko.computed(function() {
         switch (self.thumbsSize()) {
@@ -415,7 +427,7 @@ function FromAlbumsViewModel(data) {
         }
     });
 
-    self.albums = ko.observableArray(ko.utils.arrayMap(data.albums[0], function(album) {
+    self.albums = ko.observableArray(ko.utils.arrayMap(data.albums, function(album) {
         return new PhotoAlbum(album);
     }));
 
@@ -424,12 +436,16 @@ function FromAlbumsViewModel(data) {
     }
 
     self.selectAlbum = function(album) {
-        $.get('/photo/upload/fromAlbumsStep2/', { collectionId : album.photoCollection().id() }, function(response) {
-            album.photoCollection().attaches(ko.utils.arrayMap(response, function(attach) {
-                return new FromAlbumsPhotoAttach(attach, self);
-            }));
+        if (album.photoCollection().attaches().length == 0) {
+            $.get('/photo/upload/fromAlbumsStep2/', { collectionId : album.photoCollection().id() }, function(response) {
+                album.photoCollection().attaches(ko.utils.arrayMap(response, function(attach) {
+                    return new FromAlbumsPhotoAttach(attach, self);
+                }));
+                self.currentAlbum(album);
+            }, 'json');
+        } else {
             self.currentAlbum(album);
-        }, 'json');
+        }
     }
 
     self.selectAttach = function(attach) {

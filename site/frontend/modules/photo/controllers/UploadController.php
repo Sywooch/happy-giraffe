@@ -31,14 +31,6 @@ class UploadController extends \HController
         );
     }
 
-    public function actionFromAlbumsStep1()
-    {
-        $form = new PopupForm();
-        $form->multiple = 'true';
-
-        echo $form;
-    }
-
     public function actionFromAlbumsStep2($collectionId)
     {
         $photos = PhotoAttach::model()->collection($collectionId)->findAll();

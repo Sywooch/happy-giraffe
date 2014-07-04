@@ -22,16 +22,6 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
-          // data: grunt.file.readJSON(pathJade)
-          // data: function(dest, src) {
-          //   // Return an object of data to pass to templates
-          //   return require('./new/jade/vars.json');
-          // },
-          // filters: {
-          //   json : function (str) {
-          //     return JSON.stringify(JSON.parse(str));
-          //   }
-          // }
         }
       },
       // пересобираем документацию
@@ -53,7 +43,14 @@ module.exports = function(grunt){
       }
     },
 
-    
+    // Удаляем файлы
+    // clean: {
+    //   new: ['new/css/tidy.css']
+    // },
+
+    ///////////////////////////////////////////////////
+    // css
+    //чистим css от не используемых стилей
     less: {
       old: {
         files: {
@@ -67,10 +64,6 @@ module.exports = function(grunt){
         options: {
           compress: true,
           cleancss: true,
-          // sourceMap: true,
-          // sourceMapFilename: 'css/all.css.map',
-          // sourceMapRootpath: '',
-          // sourceMapBasepath: ''
         }
       },
       old_dev: {
@@ -80,9 +73,6 @@ module.exports = function(grunt){
         },
         options: {
           sourceMap: true,
-          // sourceMapFilename: 'css/all.css.map',
-          // sourceMapRootpath: '',
-          // sourceMapBasepath: ''
         }
       },
       newestdev: {
@@ -107,6 +97,88 @@ module.exports = function(grunt){
       // }
     },
 
+    uncss: {
+      new: {
+        options: {
+          stylesheets  : ['/css/all1.dev.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'new',
+          ignore       : [
+            // Выбираем все стили где в начале .clsss
+            /.dropdown+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.redactor+/,
+            /.select2+/,
+            /.tooltip+/,
+          ],
+        },
+        src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
+        dest: 'new/css/all1.css'
+      },
+    },
+    // Объеденяем медиа запросы в css
+    cmq: {
+      options: {
+        log: true
+      },
+      new: {
+        files: {
+          'new/css/all1.css': ['new/css/all1.dev.css']
+        }
+      }
+    },
+    // Сжимаем css
+    cssmin: {
+      dist: {
+        options: {
+          compatibility: 'ie8',
+          keepSpecialComments: 0,
+          report: 'max'
+        },
+        files: {
+          'new/css/all1.css': 'new/css/all1.css'
+        }
+      }
+    },
+    // Умное сжате css
+    csso: {
+      compress: {
+        options: {
+          report: 'gzip'
+        },
+        files: {
+          'new/css/all1.css': ['new/css/all1.css']
+        }
+      }
+    },
+    // /css
+    ////////////////////////////// 
+
+    svgmin: {                       // Task
+      options: {                  // Configuration that will be passed directly to SVGO
+          plugins: [{
+              removeViewBox: false
+          }, {
+              removeUselessStrokeAndFill: false
+          }, {
+              convertPathData: { 
+                  straightCurves: false // advanced SVGO plugin option
+              }
+          }]
+      },
+      dist: {                     // Target
+          files: [{               // Dictionary of files
+              expand: true,       // Enable dynamic expansion.
+              cwd: 'new/images/svg',     // Src matches are relative to this path.
+              src: ['**/*.svg'],  // Actual pattern(s) to match.
+              dest: 'new/images/svg/min',       // Destination path prefix.
+              ext: '.min.svg'     // Dest filepaths will have this extension.
+              // ie: optimise img/src/branding/logo.svg and store it in img/branding/logo.min.svg
+          }]
+      },
+    },
 
     watch: {
 
@@ -139,7 +211,7 @@ module.exports = function(grunt){
       // следим за новым less
       newless: {
         files: ['new/less/**/*.less'],
-        tasks: [/*'less:newest',*/ 'less:newestdev', 'cmq', 'cssmin', 'csso'],
+        tasks: ['less:newestdev'/*, 'cmq', 'cssmin', 'csso'*/],
         options: {
           livereload: true,
         },
@@ -152,74 +224,6 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
-      // imagemin: {
-      //   files: ['new/images/**/*.{png,jpg,gif}'],
-      //   tasks: ['newer:imagemin'],
-      // }
-    },
-
-    // Удаляем файлы
-    // clean: {
-    //   new: ['new/css/tidy.css']
-    // },
-
-    //чистим css от не используемых стилей
-    uncss: {
-      new: {
-        options: {
-          stylesheets  : ['/css/all1.dev.css'],
-          timeout      : 1000,
-
-          htmlroot     : 'new',
-          ignore       : [
-            // Выбираем все стили где в начале .select2
-            /.dropdown+/,
-            /.jcrop+/,
-            /.mfp+/,
-            /.redactor+/,
-            /.select2+/,
-            /.tooltip+/,
-          ],
-        },
-        src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
-        dest: 'new/css/all1.dev.css'
-      },
-    },
-
-    // Объеденяем медиа запросы в css
-    cmq: {
-      options: {
-        log: true
-      },
-      new: {
-        files: {
-          'new/css': ['new/css/all1.dev.css']
-        }
-      }
-    },
-
-    // Сжимаем css
-    cssmin: {
-      dist: {
-        options: {
-          compatibility: 'ie8',
-          keepSpecialComments: 0,
-          report: 'max'
-        },
-        files: {
-          'new/css/all1.dev.css': 'new/css/all1.dev.css'
-        }
-      }
-    },
-    csso: {
-      compress: {
-        options: {
-          report: 'gzip'
-        },
-        files: {
-          'new/css/all1.css': ['new/css/all1.dev.css']
-        }
-      }
     },
 
     // Поднимаем сервер

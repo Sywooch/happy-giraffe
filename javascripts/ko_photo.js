@@ -60,6 +60,7 @@ ko.bindingHandlers.thumb = {
 
         function update() {
             var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
+            src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
             $(element).attr('src', src);
         }
 

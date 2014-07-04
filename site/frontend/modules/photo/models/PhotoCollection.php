@@ -124,6 +124,10 @@ class PhotoCollection extends \HActiveRecord
 
     public function getCover()
     {
+        if (empty($this->attaches)) {
+            return null;
+        }
+
         $related = $this->userDefinedCover;
         if ($related === null) {
             return $this->attaches[0]->photo;

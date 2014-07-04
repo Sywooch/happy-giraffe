@@ -4,7 +4,7 @@
  */
 ?>
 
-<div id="photo-tab-computer" class="tab-pane active">
+<div id="photo-tab-computer" class="tab-pane">
     <div class="popup-add_frame popup-add_frame__multi" data-bind="visible: photos().length == 0">
         <div class="popup-add_cap">
             <div class="cap-empty cap-empty__addPhoto">
@@ -52,6 +52,6 @@
 </div>
 
 <script type="text/javascript">
-    uploadVM = new FromComputerMultipleViewModel(<?=$form->toJSON()?>);
+    uploadVM = new FromComputerMultipleViewModel(<?=$form?>);
     ko.applyBindings(uploadVM, document.getElementById('photo-tab-computer'));
 </script>

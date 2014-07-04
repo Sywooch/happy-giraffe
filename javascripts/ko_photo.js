@@ -95,8 +95,7 @@ ko.bindingHandlers.slider = {
     }
 };
 
-// Основная модель загрузки фото
-function PhotoUploadViewModel(data) {
+function PhotoAddViewModel(data) {
     var self = this;
 
     self.multiple = data.form.multiple;
@@ -110,46 +109,11 @@ function PhotoUploadViewModel(data) {
         }
     });
 
-    self.loadingPhotos = ko.computed(function() {
-        return ko.utils.arrayFilter(self.photos(), function(photo) {
-            return photo.status() == PhotoUpload.STATUS_LOADING;
-        });
-    });
-
-    self.successPhotos = ko.computed(function() {
-        return ko.utils.arrayFilter(self.photos(), function(photo) {
-            return photo.status() == PhotoUpload.STATUS_SUCCESS;
-        });
-    });
-
-    self.loading = ko.computed(function() {
-        return self.loadingPhotos().length > 0;
-    });
-
     self.added = function(photo) {
         if (self.multiple) {
             self.photos.push(photo);
         } else {
             self.photo(photo);
-        }
-    }
-
-    self.removePhoto = function(photo) {
-        if (photo.status() == PhotoUpload.STATUS_LOADING) {
-            photo.jqXHR.abort();
-            self.photos.remove(photo);
-        } else {
-            self.photos.remove(photo);
-        }
-    }
-
-    self.processResponse = function(photo, response) {
-        if (response.form.success) {
-            ko.mapping.fromJS(response.photo, {}, photo);
-            photo.status(PhotoUpload.STATUS_SUCCESS);
-        } else {
-            photo.error(response.form.firstError);
-            photo.status(PhotoUpload.STATUS_FAIL);
         }
     }
 
@@ -171,6 +135,47 @@ function PhotoUploadViewModel(data) {
                 }
             }
         }, 'json');
+    }
+}
+
+// Основная модель загрузки фото
+function PhotoUploadViewModel(data) {
+    var self = this;
+    PhotoAddViewModel.apply(self, arguments);
+
+    self.loadingPhotos = ko.computed(function() {
+        return ko.utils.arrayFilter(self.photos(), function(photo) {
+            return photo.status() == PhotoUpload.STATUS_LOADING;
+        });
+    });
+
+    self.successPhotos = ko.computed(function() {
+        return ko.utils.arrayFilter(self.photos(), function(photo) {
+            return photo.status() == PhotoUpload.STATUS_SUCCESS;
+        });
+    });
+
+    self.loading = ko.computed(function() {
+        return self.loadingPhotos().length > 0;
+    });
+
+    self.removePhoto = function(photo) {
+        if (photo.status() == PhotoUpload.STATUS_LOADING) {
+            photo.jqXHR.abort();
+            self.photos.remove(photo);
+        } else {
+            self.photos.remove(photo);
+        }
+    }
+
+    self.processResponse = function(photo, response) {
+        if (response.form.success) {
+            ko.mapping.fromJS(response.photo, {}, photo);
+            photo.status(PhotoUpload.STATUS_SUCCESS);
+        } else {
+            photo.error(response.form.firstError);
+            photo.status(PhotoUpload.STATUS_FAIL);
+        }
     }
 }
 
@@ -306,7 +311,7 @@ function PhotoCollection(data) {
 function PhotoAttach(data) {
     var self = this;
     self.position = ko.observable(data.position);
-    self.photo = ko.observable(new PhotoUpload(data.photo));
+    self.photo = ko.observable(new Photo(data.photo));
 }
 
 function PhotoAlbum(data) {
@@ -380,7 +385,7 @@ function FromAlbumsPhotoAttach(data, parent) {
 
 function FromAlbumsViewModel(data) {
     var self = this;
-    PhotoUploadViewModel.apply(self, arguments);
+    PhotoAddViewModel.apply(self, arguments);
 
     self.currentAlbum = ko.observable(null);
     self.thumbsSize = ko.observable(2);

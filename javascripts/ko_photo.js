@@ -51,8 +51,7 @@ ko.bindingHandlers.fileUpload = {
     }
 };
 
-
-
+// Биндинг для отображения миниатюр
 ko.bindingHandlers.thumb = {
     update: function (element, valueAccessor) {
         var value = valueAccessor();
@@ -72,6 +71,7 @@ ko.bindingHandlers.thumb = {
     }
 };
 
+// Биндинг слайдера
 ko.bindingHandlers.slider = {
     init: function (element, valueAccessor, allBindingsAccessor) {
         var options = allBindingsAccessor().sliderOptions || {};
@@ -95,6 +95,7 @@ ko.bindingHandlers.slider = {
     }
 };
 
+// Основная модель вставки фотографий
 function PhotoAddViewModel(data) {
     var self = this;
 
@@ -191,13 +192,6 @@ function asFromComputer() {
         return new PhotoUpload({ original_name : data.files[0].name }, jqXHR, this);
     }
 
-    this.photoDone = function(photo, data) {
-//        if (data.files[0].preview) {
-//            photo.previewUrl = data.files[0].preview.toDataURL();
-//        }
-        this.processResponse(photo, data.result);
-    }
-
     this.fileUploadSettings = {
         dataType: 'json',
         url: '/photo/upload/fromComputer/',
@@ -221,7 +215,7 @@ function FromComputerSingleViewModel(data) {
         },
         done: function (e, data) {
             self.photo().file = data.files[0];
-            self.photoDone(self.photo(), data);
+            self.processResponse(self.photo(), data.result);
         },
         fail: function(e, data) {
             if (data.errorThrown != 'abort') {
@@ -258,7 +252,7 @@ function FromComputerMultipleViewModel(data) {
         },
         done: function (e, data) {
             var photo = self.findPhotoByName(data.files[0].name);
-            self.photoDone(photo, data);
+            self.processResponse(photo, data.result);
         },
         fail: function(e, data) {
             var photo = self.findPhotoByName(data.files[0].name);
@@ -394,6 +388,7 @@ function FromAlbumsPhotoAttach(data, parent) {
     });
 }
 
+// Модель вставки из альбомов
 function FromAlbumsViewModel(data) {
     var self = this;
     PhotoAddViewModel.apply(self, arguments);

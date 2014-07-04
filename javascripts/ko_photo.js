@@ -51,8 +51,10 @@ ko.bindingHandlers.fileUpload = {
     }
 };
 
+
+
 ko.bindingHandlers.thumb = {
-    init: function (element, valueAccessor) {
+    update: function (element, valueAccessor) {
         var value = valueAccessor();
         var photo = value.photo;
         var preset = value.preset;
@@ -70,11 +72,34 @@ ko.bindingHandlers.thumb = {
     }
 };
 
+ko.bindingHandlers.slider = {
+    init: function (element, valueAccessor, allBindingsAccessor) {
+        var options = allBindingsAccessor().sliderOptions || {};
+        $(element).slider(options);
+        ko.utils.registerEventHandler(element, "slidechange", function (event, ui) {
+            var observable = valueAccessor();
+            observable(ui.value);
+        });
+        ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
+            $(element).slider("destroy");
+        });
+        ko.utils.registerEventHandler(element, "slide", function (event, ui) {
+            var observable = valueAccessor();
+            observable(ui.value);
+        });
+    },
+    update: function (element, valueAccessor) {
+        var value = ko.utils.unwrapObservable(valueAccessor());
+        if (isNaN(value)) value = 0;
+        $(element).slider("value", value);
+    }
+};
+
 // Основная модель загрузки фото
 function PhotoUploadViewModel(data) {
     var self = this;
 
-    self.multiple = data.multiple;
+    self.multiple = data.form.multiple;
     self.photos = ko.observableArray([]);
     self.photo = ko.computed({
         read: function () {
@@ -281,7 +306,7 @@ function PhotoCollection(data) {
 function PhotoAttach(data) {
     var self = this;
     self.position = ko.observable(data.position);
-    self.photo = new Photo(data.photo);
+    self.photo = ko.observable(new PhotoUpload(data.photo));
 }
 
 function PhotoAlbum(data) {
@@ -346,24 +371,71 @@ PhotoUpload.STATUS_LOADING = 0;
 PhotoUpload.STATUS_SUCCESS = 1;
 PhotoUpload.STATUS_FAIL = 2;
 
+function FromAlbumsPhotoAttach(data, parent) {
+    var self = this;
+    PhotoAttach.apply(self, arguments);
+
+    self.isActive = ko.computed(function() {
+        return parent.photos().indexOf(self.photo()) != -1;
+    });
+}
+
 function FromAlbumsViewModel(data) {
     var self = this;
     PhotoUploadViewModel.apply(self, arguments);
 
-    self.currentAlbum = ko.observable(null)
+    self.currentAlbum = ko.observable(null);
+    self.thumbsSize = ko.observable(2);
+
+    self.updateThumbsSize = function(diff) {
+        self.thumbsSize(self.thumbsSize() + diff);
+    }
+
+    self.thumbsSizeClass = ko.computed(function() {
+        switch (self.thumbsSize()) {
+            case 1:
+                return 'album-preview__s';
+            case 2:
+                return 'album-preview__m';
+            case 3:
+                return 'album-preview__xl';
+        }
+    });
+
+    self.thumbsPreset = ko.computed(function() {
+        switch (self.thumbsSize()) {
+            case 1:
+            case 2:
+                return 'uploadPreview';
+            case 3:
+                return 'uploadPreviewBig';
+        }
+    });
 
     self.albums = ko.observableArray(ko.utils.arrayMap(data.albums[0], function(album) {
         console.log(album);
         return new PhotoAlbum(album);
     }));
 
+    self.unselectAlbum = function() {
+        self.currentAlbum(null);
+    }
+
     self.selectAlbum = function(album) {
         $.get('/photo/upload/fromAlbumsStep2/', { collectionId : album.photoCollection().id() }, function(response) {
             album.photoCollection().attaches(ko.utils.arrayMap(response, function(attach) {
-                return new PhotoAttach(attach);
+                return new FromAlbumsPhotoAttach(attach, self);
             }));
             self.currentAlbum(album);
         }, 'json');
+    }
+
+    self.selectAttach = function(attach) {
+        if (attach.isActive()) {
+            self.photos.remove(attach.photo());
+        } else {
+            self.added(attach.photo());
+        }
     }
 }
 

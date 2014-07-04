@@ -11,6 +11,13 @@ return array(
     ),
     'components' => array(
         'fs' => array(
+            'class' => '\site\common\components\gaufrette\S3Component',
+            'key' => 'AKIAIRCLO4AYJCJRTV4Q',
+            'secret' => '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',
+            'bucket' => 'test-happygiraffe',
+//            'cachePathAlias' => 'site.common.uploads.photos.v2',
+        ),
+        'fs1' => array(
             'class' => '\site\common\components\gaufrette\PhotoS3Component',
             'key' => 'AKIAIRCLO4AYJCJRTV4Q',
             'secret' => '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',

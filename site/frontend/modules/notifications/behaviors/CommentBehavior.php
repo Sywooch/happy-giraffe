@@ -20,11 +20,17 @@ namespace site\frontend\modules\notifications\behaviors;
  *  б) о новом комментарии/ответе на вопрос
  *  в) об ответе на комментарий
  *
- * @property \Comment $owner 
+ * @property \Comment $owner
+ * @property bool $isAuthor Является ли автор комментария автором контента
  * @author Кирилл
  */
 class CommentBehavior extends BaseBehavior
 {
+
+    protected function getIsAuthor()
+    {
+        return $this->owner->author_id == $this->owner->commentEntity->author_id;
+    }
 
     public function afterSave($event)
     {
@@ -32,7 +38,7 @@ class CommentBehavior extends BaseBehavior
         {
             $this->addNotifications($this->owner);
             // если комментирует не автор, то подпишем его
-            if ($this->owner->author_id != $this->owner->commentEntity->author_id)
+            if (!$this->isAuthor)
                 $this->addNotificationDiscussSubscription($this->owner);
         } elseif ($this->owner->removed)
         {
@@ -49,9 +55,14 @@ class CommentBehavior extends BaseBehavior
      */
     protected function addNotifications($model)
     {
+        // Просмотрим подписки, и создадим сигналы
         $this->addNotificationDiscuss($model);
-        $this->addNotificationComment($model);
-        $this->addNotificationReply($model);
+        // Если пишет не автор статьи, то добавим событие нового комментария
+        if (!$this->isAuthor)
+            $this->addNotificationComment($model);
+        // Если это ответ на комментарий, то добавим сигнал об ответе на комментарий
+        if (!is_null($model->response))
+            $this->addNotificationReply($model);
     }
 
     /**
@@ -114,9 +125,19 @@ class CommentBehavior extends BaseBehavior
      */
     protected function addNotificationDiscuss($model)
     {
+
         $subscriptions = \site\frontend\modules\notifications\models\DiscussSubscription::model()->byModel(array('entity' => $model->entity, 'entityId' => (int) $model->entity_id))->findAll();
         foreach ($subscriptions as $subscription)
-            $this->saveNotificationDiscuss($model, $subscription->userId);
+        // Если подписанный пользователь не является: автором комментария; автором комментария, на который ответили; автором статьи. То, добавим сигнал.
+            if (
+                // не автор комментария
+                $subscription->userId != $model->author_id &&
+                // не автор коммента, на который ответили
+                (is_null($model->response) || $subscription->userId != $model->response->author_id) &&
+                // не автор статьи
+                $subscription->userId != $model->commentEntity->author_id
+            )
+                $this->saveNotificationDiscuss($model, $subscription->userId);
     }
 
     /**
@@ -133,7 +154,7 @@ class CommentBehavior extends BaseBehavior
 
         $comment = new \site\frontend\modules\notifications\models\Entity($model);
         $comment->title = $model->text;
-        
+
         $notification->unreadEntities[] = $comment;
 
         $notification->save();
@@ -163,12 +184,15 @@ class CommentBehavior extends BaseBehavior
      * Метод добавляет сигнал о новом комментарии, этот сигнал:
      * 1. Добавляется для автора комментируемой сущности
      * 2. Создаётся для комментируемой сущности, т.е. для одного поста
+     * 3. Не добавляется, если это ответ на комментарий, автором которого является автор статьи
      * может быть только один сигнал о новых комментариях, и только у автора поста
      * 
      * @param \Comment $model
      */
     protected function addNotificationComment($model)
     {
+        if (!is_null($model->response) && $model->response->author_id == $model->commentEntity->author_id)
+            return;
         $notification = $this->findOrCreateNotification($model->entity, $model->entity_id, $model->commentEntity->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_USER_CONTENT_COMMENT, array($model->author_id, $model->author->getAvaOrDefaultImage(\Avatar::SIZE_MICRO)));
 
         $comment = new \site\frontend\modules\notifications\models\Entity($model);
@@ -184,13 +208,13 @@ class CommentBehavior extends BaseBehavior
      * 1. Добавляется только для автора комментария, на который ответили
      * 2. Создаётся для комментария, на который ответили,
      * т.е. может быть несколько для одного поста
-     * 3. Не создаётся для автора комментируемой сущности
+     * 3. Не создаётся, если отвечает автор комментария
      * 
      * @param \Comment $model
      */
     protected function addNotificationReply($model)
     {
-        if ($model->author_id == $model->commentEntity->author_id || is_null($model->response))
+        if ($model->author_id == $model->response->author_id)
             return;
 
         $entity = $model->response;

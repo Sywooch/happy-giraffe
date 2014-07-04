@@ -33,7 +33,7 @@ class S3Component extends BaseComponent
     public $prefix;
 
     /**
-     * @return Aws3
+     * @return AwsS3
      */
     protected function getAdapter()
     {

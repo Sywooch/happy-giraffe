@@ -122,15 +122,15 @@ function PhotoAddViewModel(data) {
             return photo.id;
         });
     }
-
-    self.add = function() {
-        if (self.multiple) {
-            ko.utils.arrayForEach(self.photos(), function(photo) {
-                ko.bindingHandlers.photoUpload.callback(photo);
-            });
-        } else {
-            ko.bindingHandlers.photoUpload.callback(self.photo());
-        }
+}
+PhotoAddViewModel.prototype.add = function() {
+    var self = this;
+    if (self.multiple) {
+        ko.utils.arrayForEach(self.photos(), function(photo) {
+            ko.bindingHandlers.photoUpload.callback(photo);
+        });
+    } else {
+        ko.bindingHandlers.photoUpload.callback(self.photo());
     }
 }
 
@@ -174,16 +174,15 @@ function PhotoUploadViewModel(data) {
         }
     }
 
-    var costil = self.add;
-
     self.add = function() {
         $.post('/photo/upload/attach/', { collectionId : 1, ids : self.photoIds() }, function(response) {
             if (response.success) {
-                costil();
+                PhotoAddViewModel.prototype.add.call(self);
             }
         }, 'json');
     }
 }
+PhotoUploadViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
 
 // Mixin, общие методы для двух форм загрузки с компьютера
 function asFromComputer() {
@@ -456,4 +455,4 @@ function FromAlbumsViewModel(data) {
         }
     }
 }
-
+FromAlbumsViewModel.prototype = Object.create(PhotoAddViewModel.prototype);

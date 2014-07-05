@@ -41,21 +41,65 @@ class CacheAdapter extends AbstractAdapter
         return $this->cache->write($path, $contents, $config);
     }
 
+    public function update($path, $contents, $config = null)
+    {
+        $this->source->update($path, $contents, $config);
+
+        return $this->cache->update($path, $contents, $config);
+    }
+
+    public function rename($path, $newpath)
+    {
+        $this->source->rename($path, $newpath);
+
+        return $this->cache->rename($path, $newpath);
+    }
+
+    public function delete($path)
+    {
+        return $this->source->delete($path) && $this->cache->delete($path);
+    }
+
+    public function deleteDir($dirname)
+    {
+        return $this->source->deleteDir($dirname) && $this->cache->deleteDir($dirname);
+    }
+
+    public function getMetadata($path)
+    {
+        if ($this->needsReload($path)) {
+            return $this->source->getMetadata($path);
+        } else {
+            return $this->cache->getMetadata($path);
+        }
+    }
+
     public function getTimestamp($path)
     {
         return $this->getMetadata($path);
     }
 
+    public function getSize($path)
+    {
+        return $this->getMetadata($path);
+    }
+
+    public function getMimetype($path)
+    {
+        if ($this->needsReload($path)) {
+            return $this->source->getMimetype($path);
+        } else {
+            return $this->cache->getMimetype($path);
+        }
+    }
+
     public function read($path)
     {
         if ($this->needsReload($path)) {
-            $contents = $this->source->read($path);
-            $this->cache->write($path, $contents);
+            return $this->source->read($path);
         } else {
-            $contents = $this->cache->read($path);
+            return $this->cache->read($path);
         }
-
-        return compact($contents, $path);
     }
 
     public function has($path)
@@ -64,6 +108,16 @@ class CacheAdapter extends AbstractAdapter
             return $this->source->has($path);
         }
         return $this->cache->has($path);
+    }
+
+    public function listContents($directory = '', $recursive = false)
+    {
+        return $this->source->listContents($directory, $recursive);
+    }
+
+    public function createDir($dirname, $options = null)
+    {
+        return $this->source->createDir($dirname, $options) && $this->cache->createDir($dirname, $options);
     }
 
     public function needsReload($key)

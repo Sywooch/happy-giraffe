@@ -55,14 +55,22 @@ class CommentBehavior extends BaseBehavior
      */
     protected function addNotifications($model)
     {
-        // Просмотрим подписки, и создадим сигналы
-        $this->addNotificationDiscuss($model);
-        // Если пишет не автор статьи, то добавим событие нового комментария
-        if (!$this->isAuthor)
-            $this->addNotificationComment($model);
-        // Если это ответ на комментарий, то добавим сигнал об ответе на комментарий
-        if (!is_null($model->response))
-            $this->addNotificationReply($model);
+        // Если комментарий к вопросу, то может быть только сигнал об ответе на вопрос
+        if ($model->commentEntity->type_id == \CommunityContent::TYPE_QUESTION)
+        {
+            $this->addNotificationAnswer($model);
+        }
+        else
+        {
+            // Просмотрим подписки, и создадим сигналы
+            $this->addNotificationDiscuss($model);
+            // Если пишет не автор статьи, то добавим событие нового комментария
+            if (!$this->isAuthor)
+                $this->addNotificationComment($model);
+            // Если это ответ на комментарий, то добавим сигнал об ответе на комментарий
+            if (!is_null($model->response))
+                $this->addNotificationReply($model);
+        }
     }
 
     /**
@@ -130,7 +138,7 @@ class CommentBehavior extends BaseBehavior
         foreach ($subscriptions as $subscription)
         // Если подписанный пользователь не является: автором комментария; автором комментария, на который ответили; автором статьи. То, добавим сигнал.
             if (
-                // не автор комментария
+            // не автор комментария
                 $subscription->userId != $model->author_id &&
                 // не автор коммента, на который ответили
                 (is_null($model->response) || $subscription->userId != $model->response->author_id) &&
@@ -194,6 +202,29 @@ class CommentBehavior extends BaseBehavior
         if (!is_null($model->response) && $model->response->author_id == $model->commentEntity->author_id)
             return;
         $notification = $this->findOrCreateNotification($model->entity, $model->entity_id, $model->commentEntity->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_USER_CONTENT_COMMENT, array($model->author_id, $model->author->getAvaOrDefaultImage(\Avatar::SIZE_MICRO)));
+
+        $comment = new \site\frontend\modules\notifications\models\Entity($model);
+        $comment->title = $model->text;
+
+        $notification->unreadEntities[] = $comment;
+
+        $notification->save();
+    }
+
+    /**
+     * Метод добавляет сигнал об ответе на вопрос, этот сигнал:
+     * 1. Добавляется для автора комментируемой сущности
+     * 2. Создаётся для комментируемой сущности, т.е. для одного поста
+     * 3. Не добавляется, если это комментарий автора вопросв
+     * может быть только один сигнал о новых комментариях, и только у автора поста
+     * 
+     * @param \Comment $model
+     */
+    protected function addNotificationAnswer($model)
+    {
+        if ($this->isAuthor)
+            return;
+        $notification = $this->findOrCreateNotification($model->entity, $model->entity_id, $model->commentEntity->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_ANSWER, array($model->author_id, $model->author->getAvaOrDefaultImage(\Avatar::SIZE_MICRO)));
 
         $comment = new \site\frontend\modules\notifications\models\Entity($model);
         $comment->title = $model->text;

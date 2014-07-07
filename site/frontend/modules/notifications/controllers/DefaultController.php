@@ -38,7 +38,7 @@ class DefaultController extends \HController
 
     public function actionIndex($read = 0, $lastNotificationUpdate = false)
     {
-        $this->pageTitle = $read ? 'Новые уведомления' : 'Прочитанные уведомления';
+        $this->pageTitle = !$read ? 'Новые сигналы' : 'Архив';
         $list = \site\frontend\modules\notifications\models\Notification::model()
             ->byUser(\Yii::app()->user->id)
             ->byRead($read)

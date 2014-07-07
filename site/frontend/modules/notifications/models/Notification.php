@@ -29,6 +29,11 @@ class Notification extends \EMongoDocument implements \IHToJSON
     const TYPE_DISCUSS_CONTINUE = 2;
 
     /**
+     * Ответ на вопрос
+     */
+    const TYPE_ANSWER = 3;
+
+    /**
      * Новый лайк
      */
     const TYPE_NEW_LIKE = 5;
@@ -289,7 +294,7 @@ class Notification extends \EMongoDocument implements \IHToJSON
      */
     public function byRead($read)
     {
-        if($read == 0)
+        if ($read == 0)
             $this->dbCriteria->addCond('unreadCount', '>', 0);
         else
             $this->dbCriteria->addCond('readCount', '>', 0);

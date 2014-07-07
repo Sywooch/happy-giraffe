@@ -1,5 +1,11 @@
 
 // Form ----------------------------
+::-webkit-input-placeholder { color: #ccc;font-weight: normal;opacity: 1;}
+::-ms-input-placeholder     { color: #ccc;font-weight: normal;opacity: 1;}
+::-moz-placeholder          { color: #ccc;font-weight: normal;opacity: 1;}
+:-moz-placeholder           { color: #ccc;font-weight: normal;opacity: 1;}
+:placeholder                { color: #ccc;font-weight: normal;opacity: 1;}
+
 /* 
     sidebar-search
 
@@ -89,8 +95,12 @@
     .box-sizing(border-box);
     .border-radius(3px);
     .transition(all 0.4s ease);
+    .placeholder(#ccc);
+
 
     &:focus {border-color: #a0ceee;}
+
+
 }
 .itx-simple {
     width: 100%;

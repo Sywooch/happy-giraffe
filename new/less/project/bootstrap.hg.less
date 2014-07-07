@@ -30,11 +30,15 @@
 
 /* progress-bar */
 
-@-webkit-keyframes 'progress-bar-stripes-invert' {
+@-webkit-keyframes progress-bar-stripes-invert {
     from  { background-position: 0 0; }
     to    { background-position: 40px 0; }
 }
-@keyframes 'progress-bar-stripes-invert' {
+@-o-keyframes progress-bar-stripes-invert {
+    from  { background-position: 0 0; }
+    to    { background-position: 40px 0; }
+}
+@keyframes progress-bar-stripes-invert {
     from  { background-position: 0 0; }
     to    { background-position: 40px 0; }
 }
@@ -59,9 +63,9 @@
     .progress-striped &__cont {
         .box-shadow(none);
         background-color: #eee;
-        background-image: -webkit-linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, transparent 75%, transparent);
-        background-image: -o-linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, transparent 75%, transparent);
-        background-image: linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, transparent 75%, transparent);
+        background-image: -webkit-linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, #eee 75%);
+        background-image: -o-linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, #eee 75%);
+        background-image: linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, #eee 75%);
     }
 }
 /* /progress-bar */

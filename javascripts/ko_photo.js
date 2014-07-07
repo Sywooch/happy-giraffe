@@ -107,14 +107,10 @@ function PhotoAddViewModel(data) {
             return self.photos().length > 0 ? self.photos()[0] : null;
         },
         write: function (value) {
-            if (value === null) {
-                self.photos.removeAll();
-            } else {
-                if (self.photo() !== null) {
-                    self.removePhoto(self.photo());
-                }
-                self.photos([value]);
+            if (self.photo() !== null) {
+                self.removePhoto(self.photo());
             }
+            self.photos.push(value);
         }
     });
 

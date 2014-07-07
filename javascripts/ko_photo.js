@@ -142,6 +142,10 @@ PhotoAddViewModel.prototype.add = function() {
         ko.bindingHandlers.photoUpload.callback(self.photo());
     }
 }
+PhotoAddViewModel.prototype.removePhoto = function(photo) {
+    var self = this;
+    self.photos.remove(photo);
+}
 
 // Основная модель загрузки фото
 function PhotoUploadViewModel(data) {
@@ -167,10 +171,8 @@ function PhotoUploadViewModel(data) {
     self.removePhoto = function(photo) {
         if (photo.status() == PhotoUpload.STATUS_LOADING) {
             photo.jqXHR.abort();
-            self.photos.remove(photo);
-        } else {
-            self.photos.remove(photo);
         }
+        PhotoAddViewModel.prototype.removePhoto.call(self, arguments);
     }
 
     self.processResponse = function(photo, response) {
@@ -456,7 +458,7 @@ function FromAlbumsViewModel(data) {
 
     self.selectAttach = function(attach) {
         if (attach.isActive()) {
-            self.photos.remove(attach.photo());
+            self.removePhoto(attach.photo());
         } else {
             self.added(attach.photo());
         }

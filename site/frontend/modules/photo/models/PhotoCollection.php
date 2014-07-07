@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is the model class for table "photo__collections".
  *
@@ -9,17 +10,16 @@
  * @property string $key
  * @property string $cover_id
  * @property string $created
- * @property integer $updated
- * @property integer $removed
+ * @property string $updated
  *
  * The followings are the available model relations:
- * @property PhotoAttach[] $photoAttaches
- * @property Photo $cover
+ * @property PhotoAttaches[] $photoAttaches
+ * @property PhotoPhotos $cover
  */
 
 namespace site\frontend\modules\photo\models;
 
-class PhotoCollection extends \HActiveRecord
+class PhotoCollection extends \HActiveRecord implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name
@@ -37,14 +37,12 @@ class PhotoCollection extends \HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-//			array('updated, removed', 'required'),
-//			array('updated, removed', 'numerical', 'integerOnly'=>true),
-//			array('entity, key', 'length', 'max'=>255),
-//			array('entity_id, cover_id', 'length', 'max'=>11),
-//			array('created', 'safe'),
+			array('entity, key', 'length', 'max'=>255),
+			array('entity_id, cover_id', 'length', 'max'=>11),
+			array('created, updated', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, entity, entity_id, key, cover_id, created, updated, removed', 'safe', 'on'=>'search'),
+			array('id, entity, entity_id, key, cover_id, created, updated', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -56,9 +54,9 @@ class PhotoCollection extends \HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'attaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\Photoattach', 'collection_id'),
+            'attaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\Photoattach', 'collection_id'),
             'attachesCount' => array(self::STAT, 'site\frontend\modules\photo\models\PhotoAttach', 'collection_id'),
-			'userDefinedCover' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\Photo', 'cover_id'),
+            'userDefinedCover' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\Photo', 'cover_id'),
 		);
 	}
 
@@ -75,7 +73,6 @@ class PhotoCollection extends \HActiveRecord
 			'cover_id' => 'Cover',
 			'created' => 'Created',
 			'updated' => 'Updated',
-			'removed' => 'Removed',
 		);
 	}
 
@@ -103,8 +100,7 @@ class PhotoCollection extends \HActiveRecord
 		$criteria->compare('key',$this->key,true);
 		$criteria->compare('cover_id',$this->cover_id,true);
 		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated);
-		$criteria->compare('removed',$this->removed);
+		$criteria->compare('updated',$this->updated,true);
 
 		return new \CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -140,6 +136,16 @@ class PhotoCollection extends \HActiveRecord
             'notEmpty' => array(
                 'join' => 'INNER JOIN ' . PhotoAttach::model()->tableName() . ' ON ' . $this->getTableAlias().'.id = ' . PhotoAttach::model()->tableName() . '.collection_id',
             ),
+        );
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'id' => $this->id,
+            'attachesCount' => $this->attachesCount,
+            'attaches' => $this->attaches,
+            'cover' => $this->cover,
         );
     }
 }

@@ -54,7 +54,7 @@ $cs->registerPackage('ko_photo');
         }));
 
         self.add = function(photo, event) {
-            var attach = new PhotoAttach({});
+            var attach = new PhotoAttach({ photo : photo });
             attach.photo(photo);
             event.photoCollection().attaches.push(attach);
         }

@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-23-middle">
                     <div class="padding-l20">
-                        <div class="b-section_t">Гороскопы <br> от Веселого Жирафа</div>
+                        <h1 class="b-section_t">Гороскопы <br> от Веселого Жирафа</h1>
                         <div class="margin-t10 color-gray-dark clearfix">
                             Самые правдивые астрологические прогнозы для всех знаков Зодиака на каждый день
                         </div>

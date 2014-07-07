@@ -124,7 +124,7 @@
             </div>
 
             <div id="photo-window_banner" class="photo-window_banner clearfix">
-                <iframe src="/direct4.html?<?=mt_rand(1000000000, 9999999999)?>" width="300" height="350" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
+                <iframe src="/google.html?<?=mt_rand(1000000000, 9999999999)?>" width="300" height="250" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
             </div>
         </div>
 

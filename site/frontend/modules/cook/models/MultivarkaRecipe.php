@@ -66,9 +66,4 @@ class MultivarkaRecipe extends CookRecipe
         else
             return 'Рецепты для мультиварки  <span class=\'color-gray\' > ' . $this->title . '</span>';
     }
-
-    public function getEntityName()
-    {
-        return get_parent_class();
-    }
 }

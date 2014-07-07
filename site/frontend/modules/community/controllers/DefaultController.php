@@ -11,31 +11,15 @@ class DefaultController extends HController
     public $rubric_id;
     public $forum;
 
-    public function behaviors()
-    {
-        return array(
-            'lastModified' => array(
-                'class' => 'LastModifiedBehavior',
-                'getParameter' => 'content_id',
-                'entity' => 'CommunityContent',
-            ),
-        );
-    }
-
     public function filters()
     {
         $filters = array();
 
         if (Yii::app()->user->isGuest) {
-            $filters[] = array(
-                'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified->getDateTime(),
-            );
-
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,
-                'varyByParam' => array('content_id', 'openGallery'),
+                'varyByParam' => array('content_id'),
             );
 
             $filters [] = array(

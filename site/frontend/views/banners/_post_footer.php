@@ -1,5 +1,5 @@
 <div style="margin: 15px;">
-    <?php if (false && $data instanceof CommunityContent && ! $data->getIsFromBlog()): ?>
+    <?php if ($data instanceof CommunityContent && ! $data->getIsFromBlog()): ?>
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad_post_footer"></div>
     <script type="text/javascript">

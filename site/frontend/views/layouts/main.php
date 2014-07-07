@@ -24,16 +24,10 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     </div>
 <?php endif ?>
 
-    <?php /* Фиксированные элементы */ ?>
+<div class="layout-w1">
     <?php if (! Yii::app()->user->isGuest): ?>
         <?php $this->renderPartial('//_menu_fix'); ?>
-    <?php else: ?>
-        <?php $this->renderPartial('//_header_guest_fix'); ?>
     <?php endif; ?>
-
-<div class="layout-w1">
-
-
     <div class="layout-container" id="layout-container">
         <?php if (Yii::app()->user->isGuest): ?>
             <?php $this->renderPartial('//_header_guest'); ?>
@@ -93,7 +87,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                     <?php if (!Yii::app()->user->isGuest && $this->showAddBlock):?>
                         <div class="content-cols clearfix">
                             <div class="col-1">
-                                <div class="sidebar-search sidebar-search__big clearfix">
+                                <div class="sidebar-search clearfix">
                                     <form action="/search/">
                                         <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(event, this)">
                                         <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>

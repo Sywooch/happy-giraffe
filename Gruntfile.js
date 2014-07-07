@@ -139,7 +139,7 @@ module.exports = function(grunt){
       // следим за новым less
       newless: {
         files: ['new/less/**/*.less'],
-        tasks: [/*'less:newest',*/ 'less:newestdev', /*'cmq',*/ 'cssmin', 'csso'],
+        tasks: [/*'less:newest',*/ 'less:newestdev', /*'cmq','cssmin', 'csso'*/ ],
         options: {
           livereload: true,
         },

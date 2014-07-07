@@ -17,7 +17,7 @@
 */
 .b-album {
     position: relative;
-    margin: 0 0 30px;
+    margin: 30px 0 30px;
 
     &_img-hold {
         display: table-cell;
@@ -57,9 +57,9 @@
         float: right;
         margin-top: 6px;
         text-decoration: none;
-        opacity: 0.7;
+        opacity: 1;
     }
-    &_r:hover {opacity: 1;}
+    &_r:hover {opacity: 0.7;}
     &_tx {
         .inline-block();
         vertical-align: middle;
@@ -102,7 +102,7 @@
         right: 0;
         bottom: 0;
         left: 0;
-        border: 1px solid #87b5d5;
+        border: 2px solid #A591CD; // #4baa41;
     }
 
 
@@ -170,8 +170,12 @@
     height: 70px;
     background-color: #73c76a;
     cursor: pointer;
+    text-decoration: none;
 
-    &:hover {background-color: #4baa41;}
+    &:hover {
+        background-color: #4baa41;
+        text-decoration: none;
+    }
 
     &:before {
         content: "";
@@ -193,6 +197,7 @@
         font-size: 55px;
         line-height: 70px;
         color: #fff;
+        text-decoration: none;
     }
 
     &__big {
@@ -264,12 +269,12 @@
         font-size: 35px;
         line-height: 35px;
         font-weight: bold;
-        color: @color-gray-light;
+        color: @color-gray;
         text-decoration: none;
     }
     &_t:hover {
         text-decoration: underline;
-        color: @color-gray;
+        color: @color-gray-dark;
     }
     &_desc {
         display: block;

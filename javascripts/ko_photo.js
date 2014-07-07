@@ -59,8 +59,8 @@ ko.bindingHandlers.thumb = {
         var preset = value.preset;
 
         function update() {
-            //var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
-            src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
+            var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
+            //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
             $(element).attr('src', src);
         }
 
@@ -232,16 +232,16 @@ function FromComputerMultipleViewModel(data) {
     var self = this;
     PhotoUploadViewModel.apply(self, arguments);
 
-    self.findPhotoByName = function(name) {
+    self.findPhotoByRequest = function(request) {
         return ko.utils.arrayFirst(self.photos(), function (photo) {
-            return photo.original_name() == name;
+            return photo.jqXHR == request;
         });
     };
 
     self.cancelAll = function()
     {
         ko.utils.arrayForEach(self.loadingPhotos(), function(photo) {
-            photo.jqXHR.abort();
+            self.removePhoto(photo);
         });
     }
 
@@ -252,11 +252,11 @@ function FromComputerMultipleViewModel(data) {
             $.blueimp.fileupload.prototype.options.add.call(this, e, data);
         },
         done: function (e, data) {
-            var photo = self.findPhotoByName(data.files[0].name);
+            var photo = self.findPhotoByRequest(data.jqXHR);
             self.processResponse(photo, data.result);
         },
         fail: function(e, data) {
-            var photo = self.findPhotoByName(data.files[0].name);
+            var photo = self.findPhotoByRequest(data.jqXHR);
             if (data.errorThrown != 'abort') {
                 photo.status(PhotoUpload.STATUS_FAIL);
             }

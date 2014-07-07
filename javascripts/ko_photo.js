@@ -100,6 +100,7 @@ ko.bindingHandlers.slider = {
 function PhotoAddViewModel(data) {
     var self = this;
 
+    self.collectionId = data.form.collectionId;
     self.multiple = data.form.multiple;
     self.photos = ko.observableArray([]);
     self.photo = ko.computed({
@@ -182,7 +183,7 @@ function PhotoUploadViewModel(data) {
     }
 
     self.add = function() {
-        $.post('/photo/upload/attach/', { collectionId : 1, ids : self.photoIds() }, function(response) {
+        $.post('/photo/upload/attach/', { collectionId : self.collectionId, ids : self.photoIds() }, function(response) {
             if (response.success) {
                 PhotoAddViewModel.prototype.add.call(self);
             }
@@ -314,7 +315,7 @@ function PhotoCollection(data) {
     self.attaches = ko.observableArray(ko.utils.arrayMap(data.attaches, function(attach) {
         return new PhotoAttach(attach);
     }));
-    self.cover = ko.observable(new Photo(data.cover));
+    self.cover = ko.observable(data.cover === null ? null : new Photo(data.cover));
 
     self.addAttaches = function (data) {
         self.attaches(self.attaches().concat(ko.utils.arrayMap(data, function(item) {

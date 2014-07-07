@@ -58,7 +58,6 @@
         </div>
 
         <?php if ($this->action->id == 'view'): ?>
-            <?php if (false): ?>
             <div class="banner">
                 <!--  AdRiver code START. Type:extension Site:  PZ: 0 BN: 0 -->
                 <script type="text/javascript">
@@ -77,7 +76,6 @@
                 </script>
                 <!--  AdRiver code END  -->
             </div>
-            <?php endif; ?>
         <?php endif; ?>
     </div>
     <div class="col-23-middle ">

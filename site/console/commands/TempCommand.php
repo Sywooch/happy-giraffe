@@ -550,50 +550,5 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
             $message->purified->clearCache();
         }
     }
-
-    public function actionUpdatePreviews()
-    {
-        $posts = new CActiveDataProvider('CommunityPost');
-        $total = $posts->totalItemCount;
-        $iterator = new CDataProviderIterator($posts);
-        foreach ($iterator as $i => $post) {
-            $preview = $post->previewSave->generatePreview($post->text);
-            CommunityContent::model()->updateByPk($post->content_id, compact('preview'));
-            Yii::app()->cache->delete('CommunityContent_' . $post->content_id . '_preview');
-            Yii::app()->cache->delete('BlogContent_' . $post->content_id . '_preview');
-            echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
-        }
-    }
-
-    public function actionRemoveH1()
-    {
-        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
-
-        $models = array('CommunityPost', 'CommunityVideo', 'CommunityPhotoPost');
-
-        foreach ($models as $model) {
-            echo $model . ':' . "\n";
-            $posts = new CActiveDataProvider($model);
-            $total = $posts->totalItemCount;
-            $iterator = new CDataProviderIterator($posts);
-            foreach ($iterator as $i => $post) {
-                $doc = str_get_html($post->text);
-
-                if ($doc === false) {
-                    continue;
-                }
-
-                $h1 = $doc->find('h1');
-                foreach ($h1 as $h) {
-                    $h->outertext = '<h2>' . $h->innertext . '</h2>';
-                }
-                $text = $doc->save();
-
-                $post->updateByPk($post->id, compact('text'));
-                $post->purified->clearCache();
-                echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
-            }
-        }
-    }
 }
 

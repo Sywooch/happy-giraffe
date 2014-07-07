@@ -85,7 +85,7 @@ class HController extends CController
 //        if (Yii::app()->user->id == 22 && !($this->id == 'happyBirthdayMira' || $this->route == 'site/logout' || $this->route == 'ajax/sendcomment'))
 //            $this->redirect(array('happyBirthdayMira/index'));
 
-//        $this->_mobileRedirect();
+        $this->_mobileRedirect();
 
         // отключение повторной подгрузки jquery
         if (Yii::app()->request->isAjaxRequest) {
@@ -121,7 +121,6 @@ class HController extends CController
             'fb_source',
             'action_object_map',
             'open_gallery',
-            'openGallery',
         );
 
         // seo-фильтр get-параметров

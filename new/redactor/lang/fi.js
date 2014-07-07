@@ -68,7 +68,6 @@ $.Redactor.opts.langs['fi'] = {
 	underline: 'Alleviivaa',
 	alignment: 'Tasaus',
 	filename: 'Nimi (valinnainen)',
-	edit: 'Edit',
-	center: 'Center'
+	edit: 'Edit'
 };
 })( jQuery );

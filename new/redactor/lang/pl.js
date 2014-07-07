@@ -69,7 +69,6 @@ $.Redactor.opts.langs['pl'] = {
 	underline: 'Pokdreślony',
 	alignment: 'Wyrównanie',
 	filename: 'Name (optional)',
-	edit: 'Edit',
-	center: 'Center'
+	edit: 'Edit'
 };
 })( jQuery );

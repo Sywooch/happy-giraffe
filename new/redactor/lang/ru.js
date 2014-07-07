@@ -1,7 +1,7 @@
 (function ($) {
 $.Redactor.opts.langs['ru'] = {
 	html: 'Код',
-	video: 'Вставить видео',
+	video: 'Видео',
 	image: 'Изображение',
 	table: 'Таблица',
 	link: 'Ссылка',
@@ -69,7 +69,6 @@ $.Redactor.opts.langs['ru'] = {
 	underline: 'Подчеркнутый',
 	alignment: 'Выравнивание',
 	filename: 'Название (необязательно)',
-	edit: 'Ред.',
-	center: 'По центру'
+	edit: 'Ред.'
 };
 })( jQuery );

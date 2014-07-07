@@ -68,7 +68,6 @@
 		underline: 'Understreking',
 		alignment: 'Justering',
 		filename: 'Filnavn (valgfritt)',
-		edit: 'Edit',
-		center: 'Center'
+		edit: 'Edit'
 	};
 })(jQuery);

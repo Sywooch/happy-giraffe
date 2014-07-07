@@ -49,7 +49,7 @@
         <!-- /side-menu-->
         <div class="page-col page-col__notice">
             <div class="page-col_top">
-                <div class="page-col_t-tx">Новые сигналы</div><!--<a href="" class="u-notice_a-settings">Настройте сигналы</a>--><a href="" class="u-notice_a-arhive" data-bind="click: markAllAsReaded"><span class="u-notice_a-arhive-tx">Отметить всё как прочитанное</span><span class="ico-check-gray"></span></a>
+                <div class="page-col_t-tx" data-bind="text: tab() == 0 ? 'Новые сигналы' : 'Архив'"></div><!--<a href="" class="u-notice_a-settings">Настройте сигналы</a>--><a href="" class="u-notice_a-arhive" data-bind="click: markAllAsReaded, visible: tab() == 0"><span class="u-notice_a-arhive-tx">Отметить всё как прочитанное</span><span class="ico-check-gray"></span></a>
             </div>
             <div class="page-col_cont">
                 <div class="u-notice_hold scroll">
@@ -70,11 +70,11 @@
                                         <!-- /ko -->
                                         <a href="" class="u-notice_b u-notice_check" data-bind="click: setReaded, visible: $root.tab() == 0">
                                             <div class="ico-check-gray"></div>
-                                            <div class="u-notice_check-tx">Прочитано</div>
+                                            <div class="u-notice_check-tx">В архив</div>
                                         </a>
                                     </div>
                                     <div class="u-notice_overlay" data-bind="css: {'display-b': readed}">
-                                        <div class="u-notice_overlay-tx">Сигнал отмечен как прочитанный</div>
+                                        <div class="u-notice_overlay-tx">Сигнал перемещен в архив</div>
                                     </div>
                                 </li>
                             </ul>

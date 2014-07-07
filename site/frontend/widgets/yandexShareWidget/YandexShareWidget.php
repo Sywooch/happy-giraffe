@@ -50,6 +50,7 @@ class YandexShareWidget extends CWidget
             'elementStyle' => array(
                 'type' => 'small',
                 'quickServices' => array(
+                    'yaru',
                     'vkontakte',
                     'odnoklassniki',
                     'facebook',
@@ -94,7 +95,7 @@ class YandexShareWidget extends CWidget
 
     protected function getDefaultImage()
     {
-        return Yii::app()->request->hostInfo . '/new/images/external/vg-200-x-200.png';
+        return Yii::app()->request->hostInfo . '/new/images/external/vg-150-x-150.png';
     }
 
     protected function getTitle()
@@ -124,6 +125,6 @@ class YandexShareWidget extends CWidget
     protected function getDescription()
     {
         $description = $this->model->getPreviewText();
-        return (strlen($description) > 0) ? Str::getDescription($description, 128) : $this->getTitle();
+        return (strlen($description) > 0) ? Str::getDescription($description, 128) : $this->title;
     }
 }

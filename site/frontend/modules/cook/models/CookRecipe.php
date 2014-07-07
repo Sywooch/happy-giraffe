@@ -24,7 +24,7 @@
  * @property CookCuisine $cuisine
  * @property AttachPhoto[] $attachPhotos
  */
-class CookRecipe extends CActiveRecord implements IPreview
+class CookRecipe extends HActiveRecord implements IPreview
 {
     const COOK_RECIPE_LOWFAT = 11;
     const COOK_RECIPE_LOWCAL = 40;
@@ -242,7 +242,10 @@ class CookRecipe extends CActiveRecord implements IPreview
             'duplicate'=>array(
                 'class' => 'site.common.behaviors.DuplicateBehavior',
                 'error_text' => 'Вы только что создали рецепт с таким названием'
-            )
+            ),
+            'yandexwm' => array(
+                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
+            ),
         );
     }
 

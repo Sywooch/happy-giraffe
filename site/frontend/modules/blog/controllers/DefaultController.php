@@ -10,18 +10,34 @@ class DefaultController extends HController
     public $layout = 'blog';
     public $tempLayout = true;
 
+    public function behaviors()
+    {
+        return array(
+            'lastModified' => array(
+                'class' => 'LastModifiedBehavior',
+                'getParameter' => 'content_id',
+                'entity' => 'BlogContent',
+            ),
+        );
+    }
+
     public function filters()
     {
         $filters = array(
             'accessControl',
-            'ajaxOnly - index, view, save, live',
+           // 'ajaxOnly - index, view, save, live',
         );
 
         if (Yii::app()->user->isGuest) {
+            $filters[] = array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified->getDateTime(),
+            );
+
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,
-                'varyByParam' => array('content_id'),
+                'varyByParam' => array('content_id', 'openGallery'),
             );
 
             $filters [] = array(

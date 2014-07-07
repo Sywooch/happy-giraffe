@@ -138,6 +138,8 @@ return array(
         'developers',
         'photo' => array(
             'class' => '\site\frontend\modules\photo\PhotoModule',
+        'seo' => array(
+            'class' => '\site\frontend\modules\seo\SeoModule',
         ),
 	),
 	// application components

@@ -10,6 +10,19 @@ return array(
                 'new/javascript/bootstrap/tab.js',
             ),
         ),
+        'userSettings' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_userSettings.js',
+            ),
+        ),
+        'ko_settings' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_settings.js',
+            ),
+            'depends' => array('knockout', 'userSettings'),
+        ),
         'touchPunch' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -291,6 +304,13 @@ return array(
                 'javascripts/baron.js',
             ),
             'depends' => array('jquery'),
+        ),
+        'vacancy' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/vacancy.js',
+            ),
+            'depends' => array('ko_upload'),
         ),
     )
 );

@@ -16,6 +16,7 @@ use Imagine\Image\Point;
 use Imagine\Imagick\Imagine;
 use League\Flysystem\Filesystem;
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\photo\models\PhotoAlbum;
 
 class TestController extends \HController
 {
@@ -103,6 +104,27 @@ class TestController extends \HController
         if ($ratio >= $width / $height) {
             $image->crop(new Point(($ratio * $height - $height) / 2, 0), new Box($width, $height));
         }
+    }
+
+    public function actionAlbums()
+    {
+        $albums = PhotoAlbum::model()->user(\Yii::app()->user->id)->findAll();
+        $json = \HJSON::encode($albums, array(
+            'site\frontend\modules\photo\models\PhotoAlbum' => array(
+                'id',
+                'title',
+                'description',
+                'photoCollection' => array(
+                    'site\frontend\modules\photo\models\PhotoCollection' => array(
+                        'id',
+                        '(int)attachesCount',
+                        'attaches',
+                        'cover',
+                    ),
+                ),
+            ),
+        ));
+        $this->render('albums', compact('json'));
     }
 }
 

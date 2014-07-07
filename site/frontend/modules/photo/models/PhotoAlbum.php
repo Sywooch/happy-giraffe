@@ -19,7 +19,7 @@ namespace site\frontend\modules\photo\models;
 
 use site\frontend\modules\photo\components\IPhotoCollection;
 
-class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection
+class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
 {
 	/**
 	 * @return string the associated database table name
@@ -142,6 +142,22 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection
             'PhotoCollectionBehavior' => array(
                 'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
             ),
+        );
+    }
+
+    public function user($userId)
+    {
+        $this->getDbCriteria()->compare($this->getTableAlias() . '.author_id', $userId);
+        return $this;
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'id' => $this->id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'photoCollection' => $this->photoCollection,
         );
     }
 }

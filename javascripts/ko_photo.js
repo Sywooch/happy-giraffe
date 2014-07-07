@@ -277,24 +277,30 @@ function ByUrlViewModel() {
     self.throttledUrl = ko.computed(self.url).extend({ throttle: 400 });
     
     self.throttledUrl.subscribe(function(val) {
-        self.added(new PhotoUpload({}, self));
+        if (val.length > 0) {
+            self.added(new PhotoUpload({}, self));
 
-        self.photo().jqXHR = $.ajax({
-            url: '/photo/upload/byUrl/',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                url : self.url()
-            },
-            success: function(data) {
-                self.processResponse(self.photo(), data);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                if (errorThrown != 'abort') {
-                    self.photo().status(PhotoUpload.STATUS_FAIL);
+            self.photo().jqXHR = $.ajax({
+                url: '/photo/upload/byUrl/',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    url : val
+                },
+                success: function(data) {
+                    self.processResponse(self.photo(), data);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    if (errorThrown != 'abort') {
+                        self.photo().status(PhotoUpload.STATUS_FAIL);
+                    }
                 }
+            });
+        } else {
+            if (self.photo() !== null) {
+                self.photo(null);
             }
-        });
+        }
     });
 }
 

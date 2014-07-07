@@ -186,4 +186,9 @@ class HActiveRecord extends CActiveRecord
 //    {
 //        return $connection->cache(60)->createCommand('SHOW STATUS WHERE `variable_name` = \'Threads_connected\';')->queryScalar();
 //    }
+
+    public function getEntityName()
+    {
+        return get_class($this);
+    }
 }

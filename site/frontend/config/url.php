@@ -50,7 +50,9 @@ return array(
         'moderation' => 'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend|qualityTest)>' => 'site/<_a>',
         '<view:(advertiser|abuse)>' => array('site/page'),
-        'developer' => 'site/vacancy',
+        'jobs/developer' => array('vacancy/form', 'defaultParams' => array('type' => 'backend')),
+        'jobs/frontend-developer' => array('vacancy/form', 'defaultParams' => array('type' => 'frontend')),
+        'vacancy/upload' => 'vacancy/upload',
 
         //===================== Subscribes =========================//
         'subscribes' => 'myGiraffe/default/subscribes',
@@ -359,9 +361,10 @@ return array(
         'signup/<_c>/<_a>' => 'signup/<_c>/<_a>',
         'geo/<_c>/<_a>' => 'geo/<_c>/<_a>',
         'developers/<_c>/<_a>' => 'developers/<_c>/<_a>',
-
-        'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
+        'seo/<_c>/<_a>' => 'seo/<_c>/<_a>',
 
         'photo/<_c>/<_a>' => 'photo/<_c>/<_a>',
+        'mail/<_c>/<_a>' => 'mail/<_c>/<_a>',
+        'onair' => 'blog/air/index',
     ),
 );

@@ -303,6 +303,8 @@ function ByUrlViewModel() {
                     }
                 }
             });
+        } else {
+            self.photo(null);
         }
     });
 }

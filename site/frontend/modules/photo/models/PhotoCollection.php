@@ -37,11 +37,11 @@ class PhotoCollection extends \HActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('updated, removed', 'required'),
-			array('updated, removed', 'numerical', 'integerOnly'=>true),
-			array('entity, key', 'length', 'max'=>255),
-			array('entity_id, cover_id', 'length', 'max'=>11),
-			array('created', 'safe'),
+//			array('updated, removed', 'required'),
+//			array('updated, removed', 'numerical', 'integerOnly'=>true),
+//			array('entity, key', 'length', 'max'=>255),
+//			array('entity_id, cover_id', 'length', 'max'=>11),
+//			array('created', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, entity, entity_id, key, cover_id, created, updated, removed', 'safe', 'on'=>'search'),

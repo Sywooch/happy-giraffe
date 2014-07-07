@@ -16,6 +16,10 @@ class PopupForm extends \CFormModel implements \IHToJSON
      */
     public $multiple;
 
+    public $userId;
+
+    public $collectionId;
+
     /**
      * Фильтр преобразования строки в логической значение
      * @param $val string
@@ -31,6 +35,7 @@ class PopupForm extends \CFormModel implements \IHToJSON
         return array(
             array('multiple', 'filter', 'filter' => array($this, 'setMultiple')),
             array('multiple', 'boolean'),
+            array('collectionId', 'safe'),
         );
     }
 
@@ -63,7 +68,7 @@ class PopupForm extends \CFormModel implements \IHToJSON
      */
     protected function getAlbums()
     {
-        return PhotoAlbum::model()->findAll(array(
+        return PhotoAlbum::model()->user($this->userId)->findAll(array(
             'with' => array(
                 'photoCollection' => array(
                     'scopes' => 'notEmpty',
@@ -98,6 +103,7 @@ class PopupForm extends \CFormModel implements \IHToJSON
     {
         return array(
             'multiple' => (bool) $this->multiple,
+            'collectionId' => $this->collectionId,
         );
     }
 } 

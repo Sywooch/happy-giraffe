@@ -12,7 +12,7 @@
                     <div class="cap-empty_img"></div>
                     <div class="cap-empty_t">Выберите файл из интернета</div>
                     <div class="cap-empty_tx"><input type="text" placeholder="Вставте ссылку на изображение" class="itx-gray" data-bind="value: url, valueUpdate: 'input'"></div>
-                    <div class="cap-empty_tx-sub">На любом сайте кликните правой кнопкой по нужному изображению, выберите “Копировать URL картинки” и вставте сюда</div>
+                    <div class="cap-empty_tx-sub">На любом сайте кликните правой кнопкой по нужному изображению, выберите “Копировать URL картинки” и вставьте сюда</div>
                 </div>
                 <div class="verticalalign-m-help"></div>
             </div>

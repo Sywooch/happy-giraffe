@@ -48,7 +48,7 @@ class RecipeController extends HController
             $filters [] = array(
                 'COutputCache + index',
                 'duration' => 300,
-                'varyByParam' => array('type', 'section'),
+                'varyByParam' => array('type', 'section', 'SimpleRecipe_page'),
             );
         }
 

@@ -36,6 +36,7 @@ class VacancyController extends HController
 
     public function actionUpload()
     {
+        sleep(1);
         $model = new CvForm();
         if ($model->validate() && $model->save()) {
             echo $model->result();

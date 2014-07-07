@@ -35,7 +35,7 @@ class DefaultController extends HController
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,
-                'varyByParam' => array('content_id'),
+                'varyByParam' => array('content_id', 'openGallery'),
             );
 
             $filters [] = array(

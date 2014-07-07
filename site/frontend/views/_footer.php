@@ -2,7 +2,7 @@
     <div class="layout-footer_hold">
 
         <ul class="footer-list">
-            <li class="footer-list_li"><a href="http://m.happy-giraffe.ru" class="footer-list_a">Мобильная версия</a></li>
+            <!--<li class="footer-list_li"><a href="http://m.happy-giraffe.ru" class="footer-list_a">Мобильная версия</a></li>-->
             <li class="footer-list_li"><span>О проекте</span></li>
             <li class="footer-list_li"><span>Правила</span></li>
             <li class="footer-list_li"><a href="<?=$this->createUrl('/site/page', array('view' => 'advertiser'))?>" class="footer-list_a">Реклама </a></li>

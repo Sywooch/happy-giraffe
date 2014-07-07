@@ -3,6 +3,7 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyD
         0: 'comment',
         1: 'reply',
         2: 'discuss',
+        3: 'answer',
         5: 'like',
         6: 'favorite'
     };

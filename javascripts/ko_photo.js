@@ -107,7 +107,14 @@ function PhotoAddViewModel(data) {
             return self.photos().length > 0 ? self.photos()[0] : null;
         },
         write: function (value) {
-            self.photos([value]);
+            if (value === null) {
+                self.photos.removeAll();
+            } else {
+                if (self.photo() !== null) {
+                    self.removePhoto(self.photo());
+                }
+                self.photos([value]);
+            }
         }
     });
 
@@ -296,10 +303,6 @@ function ByUrlViewModel() {
                     }
                 }
             });
-        } else {
-            if (self.photo() !== null) {
-                self.photo(null);
-            }
         }
     });
 }

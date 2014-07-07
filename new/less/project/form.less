@@ -275,6 +275,7 @@ textarea.error {
     position: relative;
     &:extend(.clearfix all);
     
+    .itx-gray {display: block;}
     .itx-gray:focus + &_count {color: #27ae60;}
     &.error &_error {display: inline-block;}
     &.error &_count {color: @color-carrot !important;}
@@ -338,7 +339,7 @@ textarea.error {
         float: right;
         margin: 2px 4px;
         font: @fontsmallest;
-        color: @color-gray;
+        color: @color-gray-light;
     }
     &_count__green {color: #27ae60;}
 

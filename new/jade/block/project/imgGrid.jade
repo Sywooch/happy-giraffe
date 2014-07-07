@@ -32,17 +32,18 @@ mixin imgGrid(mod, vars)
                                         
                                     .img-grid_overlay
                                         span.ico-zoom.ico-zoom__abs
-                                        - if (row.inAlbum)
-                                            - if (row.ava == true)
+                                        - if (vars.inAlbum)
+                                            - if (vars.ava == true)
                                                 .img-grid_ico-ava.active
-                                                - row.ava = false
+                                                - vars.ava = false
                                             - else 
                                                 .img-grid_ico-ava
-                                            - if (row.album == true)
-                                                .img-grid_ico-album.active
-                                                - row.album = false
-                                            - else 
-                                                .img-grid_ico-album
+                                            - if (vars.inAlbum != 'withoutAlbum')
+                                                - if (vars.album == true)
+                                                    .img-grid_ico-album.active
+                                                    - vars.album = false
+                                                - else 
+                                                    .img-grid_ico-album
                                             .img-grid_overlay-b
                                                 .img-grid_ico-del.powertip(title="Удалить фото")
                                                 .img-grid_ico-edit.powertip(title="Редактировать")
@@ -64,7 +65,7 @@ mixin imgGrid(mod, vars)
                                 img-grid_loading__blue
                             .img-grid_loading(class="img-grid_loading__#{item.color}")
                                 .img-grid_loading-hold
-                                    .css-progress
+                                    .css-progress.css-progress__xl
                                         div 
                                     .img-grid_loading-tx Загрузка фотографии
 
@@ -97,9 +98,7 @@ mixin imgGrid(mod, vars)
 
 - imgGrid.row4 = {}
 - imgGrid.row4.img = ['w305-h360-1.jpg', 'w558-h360-1.jpg']
-- imgGrid.row4.inAlbum = {} //  в альбоме
-- imgGrid.row4.ava = true
-- imgGrid.row4.album = true
+
 
 - imgGrid.row5 = {}
 - imgGrid.row5.img = ['w280-h370-1.jpg', 'w280-h370-2.jpg', 'w280-h370-3.jpg']
@@ -110,14 +109,22 @@ mixin imgGrid(mod, vars)
 
 - imgGrid.row6 = {}
 - imgGrid.row6.img = ['album-photo-add', 'w280-h370-3.jpg', 'w280-h370-1.jpg']
-- imgGrid.row6.inAlbum = {} //  в альбоме
-- imgGrid.row6.ava = false
-- imgGrid.row6.album = false
 
 
 
 - imgGrid.a = {}
 - imgGrid.a.rows = [imgGrid.row1, imgGrid.row3, imgGrid.row2, imgGrid.rowColor]
+- imgGrid.a.inAlbum = {} //  в альбоме
+- imgGrid.a.ava = true
+- imgGrid.a.album = true
 
 - imgGrid.b = {}
 - imgGrid.b.rows = [imgGrid.row6, imgGrid.row4, imgGrid.row5, imgGrid.rowColor]
+- imgGrid.b.inAlbum = {} //  в альбоме
+- imgGrid.b.ava = true
+- imgGrid.b.album = true
+
+- imgGrid.c = {}
+- imgGrid.c.rows = [imgGrid.row6, imgGrid.row4, imgGrid.row5, imgGrid.rowColor]
+- imgGrid.c.inAlbum = 'withoutAlbum' //  в альбоме
+- imgGrid.c.ava = true

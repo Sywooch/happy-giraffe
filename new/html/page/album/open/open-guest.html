@@ -118,6 +118,38 @@
       </div>
       <div class="layout-loose_hold clearfix">
         <div class="b-main b-main__white">
+          <div class="b-main_cols clearfix">
+            <div class="b-main_col-1">
+              <div class="sidebar-search clearfix sidebar-search__big">
+                <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx">
+                <!-- При начале ввода добавить класс .active на кнопку-->
+                <button class="sidebar-search_btn"></button>
+              </div>
+            </div>
+            <div class="b-main_col-23">
+              <!-- userAddRecord-->
+              <div class="userAddRecord clearfix userAddRecord__s userAddRecord__s">
+                <div class="userAddRecord_ava-hold">
+                  <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                </div>
+                <div class="userAddRecord_hold">
+                  <div class="userAddRecord_tx">Я хочу добавить
+                  </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a><a href="#popup-user-add-link" data-theme="transparent" title="Ссылка" class="userAddRecord_ico userAddRecord_ico__link fancy powertip"></a>
+                </div>
+              </div>
+              <!-- /userAddRecord-->
+            </div>
+          </div>
+          <div class="b-crumbs b-crumbs__s">
+            <div class="b-crumbs_tx">Я здесь</div>
+            <ul class="b-crumbs_ul">
+              <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Главная</a></li>
+              <li class="b-crumbs_li">
+                <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+              </li>
+              <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Фото</span></li>
+            </ul>
+          </div>
           <!-- userSection-->
           <section class="userSection">
             <div class="userSection_hold">
@@ -136,22 +168,14 @@
                   userSection_btn__friend-append
                   --><a href="" class="userSection_btn userSection_btn__friend-add powertip"><span class="userSection_ico"></span></a><a href="" class="userSection_btn userSection_btn__dialog powertip"><span class="userSection_ico"></span></a>
                 </div>
-                <div class="userSection_panel">
-                  <ul class="userSection_panel-ul">
-                    <li class="userSection_panel-li"><a href="" class="userSection_panel-a">Анкета</a></li>
-                    <li class="userSection_panel-li"><a href="" class="userSection_panel-a">Семья </a></li>
-                    <li class="userSection_panel-li active"><a href="" class="userSection_panel-a">Блог </a></li>
-                    <li class="userSection_panel-li"><a href="" class="userSection_panel-a">Фото</a></li>
-                  </ul>
-                </div>
               </div>
               <div class="userSection_center">
+                <div class="userSection_center-reg">с Веселым Жирафом 2 года 5 месяцев 203 дня</div>
                 <div class="b-ava-large b-ava-large__nohover">
                   <div class="b-ava-large_ava-hold">
                     <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                   </div><span class="b-ava-large_online">На сайте</span>
                 </div>
-                <div class="userSection_center-reg">с Веселым Жирафом 2 года 5 месяцев 203 дня</div>
               </div>
               <div class="userSection_right">
                 <!-- b-family-->
@@ -166,6 +190,14 @@
                 </div>
                 <!-- /b-family-->
               </div>
+            </div>
+            <div class="userSection_panel">
+              <ul class="userSection_panel-ul">
+                <li class="userSection_panel-li"><a href="" class="userSection_panel-a">Анкета</a></li>
+                <li class="userSection_panel-li"><a href="" class="userSection_panel-a">Семья </a></li>
+                <li class="userSection_panel-li active"><a href="" class="userSection_panel-a">Блог </a></li>
+                <li class="userSection_panel-li"><a href="" class="userSection_panel-a">Фото</a></li>
+              </ul>
             </div>
           </section>
           <!-- /userSection-->
@@ -195,50 +227,100 @@
                 <!-- img-grid-->
                 <div class="img-grid">
                   <!-- Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.-->
+                  <!-- Ряд изображений-->
                   <div class="img-grid_row clearfix">
                     <div class="img-grid_i">
                       <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w558-h360-1.jpg" alt="" class="img-grid_img">
                       <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                        <div class="img-grid_ico-ava active"></div>
+                        <div class="img-grid_ico-album active"></div>
+                        <div class="img-grid_overlay-b">
+                          <div title="Удалить фото" class="img-grid_ico-del powertip"></div>
+                          <div title="Редактировать" class="img-grid_ico-edit powertip"></div>
+                          <div title="Переместить" class="img-grid_ico-move powertip"></div>
+                        </div>
                       </div>
                     </div>
                     <div class="img-grid_i">
                       <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w305-h360-1.jpg" alt="" class="img-grid_img">
                       <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                        <div class="img-grid_ico-ava"></div>
+                        <div class="img-grid_ico-album"></div>
+                        <div class="img-grid_overlay-b">
+                          <div title="Удалить фото" class="img-grid_ico-del powertip"></div>
+                          <div title="Редактировать" class="img-grid_ico-edit powertip"></div>
+                          <div title="Переместить" class="img-grid_ico-move powertip"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <!-- Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.-->
+                  <!-- Ряд изображений-->
                   <div class="img-grid_row clearfix">
                     <div class="img-grid_i">
                       <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w280-h370-1.jpg" alt="" class="img-grid_img">
                       <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                        <div class="img-grid_ico-ava"></div>
+                        <div class="img-grid_ico-album"></div>
+                        <div class="img-grid_overlay-b">
+                          <div title="Удалить фото" class="img-grid_ico-del powertip"></div>
+                          <div title="Редактировать" class="img-grid_ico-edit powertip"></div>
+                          <div title="Переместить" class="img-grid_ico-move powertip"></div>
+                        </div>
                       </div>
                     </div>
                     <div class="img-grid_i">
                       <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w280-h370-2.jpg" alt="" class="img-grid_img">
                       <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                        <div class="img-grid_ico-ava"></div>
+                        <div class="img-grid_ico-album"></div>
+                        <div class="img-grid_overlay-b">
+                          <div title="Удалить фото" class="img-grid_ico-del powertip"></div>
+                          <div title="Редактировать" class="img-grid_ico-edit powertip"></div>
+                          <div title="Переместить" class="img-grid_ico-move powertip"></div>
+                        </div>
                       </div>
                     </div>
                     <div class="img-grid_i">
                       <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w280-h370-3.jpg" alt="" class="img-grid_img">
                       <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                        <div class="img-grid_ico-ava"></div>
+                        <div class="img-grid_ico-album"></div>
+                        <div class="img-grid_overlay-b">
+                          <div title="Удалить фото" class="img-grid_ico-del powertip"></div>
+                          <div title="Редактировать" class="img-grid_ico-edit powertip"></div>
+                          <div title="Переместить" class="img-grid_ico-move powertip"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <!-- Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.-->
+                  <!-- Ряд изображений-->
                   <div class="img-grid_row clearfix">
                     <div class="img-grid_i">
                       <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w305-h360-1.jpg" alt="" class="img-grid_img">
                       <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                        <div class="img-grid_ico-ava"></div>
+                        <div class="img-grid_ico-album"></div>
+                        <div class="img-grid_overlay-b">
+                          <div title="Удалить фото" class="img-grid_ico-del powertip"></div>
+                          <div title="Редактировать" class="img-grid_ico-edit powertip"></div>
+                          <div title="Переместить" class="img-grid_ico-move powertip"></div>
+                        </div>
                       </div>
                     </div>
                     <div class="img-grid_i">
                       <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/new/images/example/w558-h360-1.jpg" alt="" class="img-grid_img">
                       <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                        <div class="img-grid_ico-ava"></div>
+                        <div class="img-grid_ico-album"></div>
+                        <div class="img-grid_overlay-b">
+                          <div title="Удалить фото" class="img-grid_ico-del powertip"></div>
+                          <div title="Редактировать" class="img-grid_ico-edit powertip"></div>
+                          <div title="Переместить" class="img-grid_ico-move powertip"></div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <!-- Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.-->
+                  <!-- Ряд изображений-->
                   <div class="img-grid_row clearfix">
                     <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
                     <div class="img-grid_i loading"><img src="" alt="" width="160" height="260" class="img-grid_img">
@@ -253,8 +335,8 @@
                       -->
                       <div class="img-grid_loading img-grid_loading__purple">
                         <div class="img-grid_loading-hold">
-                          <div class="progress progress-striped active progress__cont">
-                            <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" class="progress-bar progress-bar__cont"></div>
+                          <div class="css-progress css-progress__xl">
+                            <div></div>
                           </div>
                           <div class="img-grid_loading-tx">Загрузка фотографии</div>
                         </div>
@@ -273,8 +355,8 @@
                       -->
                       <div class="img-grid_loading img-grid_loading__yellow">
                         <div class="img-grid_loading-hold">
-                          <div class="progress progress-striped active progress__cont">
-                            <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" class="progress-bar progress-bar__cont"></div>
+                          <div class="css-progress css-progress__xl">
+                            <div></div>
                           </div>
                           <div class="img-grid_loading-tx">Загрузка фотографии</div>
                         </div>
@@ -293,8 +375,8 @@
                       -->
                       <div class="img-grid_loading img-grid_loading__carrot">
                         <div class="img-grid_loading-hold">
-                          <div class="progress progress-striped active progress__cont">
-                            <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" class="progress-bar progress-bar__cont"></div>
+                          <div class="css-progress css-progress__xl">
+                            <div></div>
                           </div>
                           <div class="img-grid_loading-tx">Загрузка фотографии</div>
                         </div>
@@ -313,8 +395,8 @@
                       -->
                       <div class="img-grid_loading img-grid_loading__green">
                         <div class="img-grid_loading-hold">
-                          <div class="progress progress-striped active progress__cont">
-                            <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" class="progress-bar progress-bar__cont"></div>
+                          <div class="css-progress css-progress__xl">
+                            <div></div>
                           </div>
                           <div class="img-grid_loading-tx">Загрузка фотографии</div>
                         </div>
@@ -333,8 +415,8 @@
                       -->
                       <div class="img-grid_loading img-grid_loading__blue">
                         <div class="img-grid_loading-hold">
-                          <div class="progress progress-striped active progress__cont">
-                            <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;" class="progress-bar progress-bar__cont"></div>
+                          <div class="css-progress css-progress__xl">
+                            <div></div>
                           </div>
                           <div class="img-grid_loading-tx">Загрузка фотографии</div>
                         </div>

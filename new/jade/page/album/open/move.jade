@@ -41,7 +41,8 @@ block layout
                     // инициализация i-affix в common-markup.js
                     .i-affix.clearfix
                         .float-r
-                            .display-ib.w-400.margin-r15
+                            .display-ib.w-350.margin-r15
+                                // select2 сделан через input для использования createSearchChoice. Если так не хорошо, нужно переделать вызов select2
                                 input.select-cus.select-cus__add.select-cus__gray(type="text", placeholder="Выберите альбом или создайте новый")
                                 // select.select-cus.select-cus__add.select-cus__gray(placeholder="Выберите альбом или создайте новый")
                                     option 
@@ -49,8 +50,8 @@ block layout
                                     option Фотоальбом 1
                                     option Фотоальбом 2
                             // Пока не выбран альбом кнопка неактивна
-                            .btn.btn-green.btn-xs.disabled Переместить
-                            .btn.btn-link-gray.btn-xs Отмена
+                            .btn.btn-green.btn-ms.disabled Переместить
+                            .btn.btn-link-gray.btn-ms Отмена
                         .user-album_control-sel
                             +radioIcons('radio-icons__inline radio-icons__checkbox', radioIcons.selectAll)
                             .user-album_control-count

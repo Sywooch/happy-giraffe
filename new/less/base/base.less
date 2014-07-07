@@ -224,7 +224,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     }
 }
 .i-info {
-    margin: 10px 0;
+    margin: 10px 0 15px;
     border-left: 5px solid #b3e9b5;
     padding: 11px 20px 11px 45px;
     font-size: @font-base;
@@ -330,7 +330,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         vertical-align: top;
     }
     &__user {
-        margin: 5px auto 0;
+        margin: 4px auto 0;
         .border-radius(0);
 
         .layout-footer_hold {
@@ -459,10 +459,9 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 
     /* col-1 */
     &_col-1 {
-        width:240px;
+        width:260px;
         margin-bottom: 1px;
         margin-left: 20px;
-        padding-right:20px;
         float:left;
         position: relative;
         
@@ -1019,11 +1018,14 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     display: inline-block;
     width: 5em;
     height: 5em;
-    margin: 0 11px;
-    font-size: 4px;
+    margin: 0 24px;
+    font-size: 10px;
     text-indent: 999em;
     overflow: hidden;
     .animation(spin 1s infinite steps(8));
+
+    &__xl {font-size: 10px;}
+    &__s {font-size: 4px;}
 
     &:before,
     &:after,
@@ -1032,32 +1034,32 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         content: '';
         position: absolute;
         top: 0;
-        left: 2.2em; /* (container width - part width)/2  */
+        left: 2.251em; /* (container width - part width)/2  влияет на траекторию */
         width: 0.6em;
         height: 1.6em;
-        border-radius: 1em;
+        border-radius: 10px;
         background: #fff;
-        .box-shadow(0 3.2em #fff); /* container height - part height */
+        .box-shadow(0 3.4em #fff); /* container height - part height */
         .transform-origin(50% 2.5em); /* container height / 2 */
     }
 
     &:before {
-        .box-shadow(0 3.2em rgba(255,255,255,8));
+        .box-shadow(0 3.4em rgba(255,255,255,.6));
     }
 
     &:after {
         .rotate(-45deg);
-        .box-shadow(0 3.2em rgba(255,255,255,.6));
+        .box-shadow(0 3.4em rgba(255,255,255,.5));
     }
 
      > div:before {
         .rotate(-90deg);
-        .box-shadow(0 3.2em rgba(255,255,255,.4));
+        .box-shadow(0 3.4em rgba(255,255,255,.4));
     }
 
      > div:after {
         .rotate(-135deg);
-        .box-shadow(0 3.2em rgba(255,255,255,.15));
+        .box-shadow(0 3.4em rgba(255,255,255, .2));
     }
 }
 

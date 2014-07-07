@@ -45,7 +45,7 @@ $(function() {
         dropdownCssClass: 'select2-drop__add',
         allowClear: true,
 
-        data: [{id: "foo", text:"Вова"},{id:"bar1", text:"Молодеж"},{id:"bar2", text:"Псков"},{id:"bar3", text:"Транспорт"}],
+        data: [{id: "foo", text:"Вова"},{id:"bar1", text:"Молодеж"},{id:"bar2", text:"Псков"},{id:"bar3", text:"Псков2"},{id:"bar4", text:"Псков3"},{id:"bar5", text:"Псков4"},{id:"bar6", text:"Псков5"},{id:"bar7", text:"Псков6"},{id:"bar8", text:"Псков7"},{id:"bar9", text:"Транспорт"}],
         // createSearchChoice: function (term) {
         //     var text = term + (lastResults.some(function(r) { return r.text == term }) ? "" :  " (Новый альбом)"/*)*/;
         //     return { id: term, text: text };

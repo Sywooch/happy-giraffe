@@ -1,7 +1,10 @@
 <a href="" class="u-notice_b u-notice_ico u-notice_ico__answer-q" data-bind="attr: {href: link}"></a>
 <a href="" class="u-notice_b u-notice_spec" data-bind="attr: {href: link}">
     <div class="u-notice_b u-notice_count" data-bind="text: count"></div>
-    <div class="u-notice_b u-notice_desc" data-bind="html: declOfNum(count(), ['Ответ на<br>ваш вопрос','Ответа на<br>ваш вопрос','Ответов на<br>ваш вопрос'])"></div>
+    <div class="u-notice_b u-notice_desc">
+        <span data-bind="html: declOfNum(count(), ['Ответ на<br>ваш вопрос','Ответа на<br>ваш вопрос','Ответов на<br>ваш вопрос'])"></span>
+        <div class="u-notice_desc-go"> Перейти</div>
+    </div>
 </a>
 <div class="u-notice_b u-notice_users">
     <div class="ava-list">

@@ -21,10 +21,6 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
         <?php $this->widget('application.modules.blog.widgets.LikeWidget', array('model' => $model)); ?>
 
         <!-- ko stopBinding: true -->
-        <?php $this->widget('application.modules.blog.widgets.RepostWidget', array('model' => $model, 'right' => true)); ?>
-        <!-- /ko -->
-
-        <!-- ko stopBinding: true -->
         <?php $this->widget('FavouriteWidget', array('model' => $model, 'right' => true)); ?>
         <!-- /ko -->
 

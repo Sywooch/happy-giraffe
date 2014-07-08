@@ -3,7 +3,9 @@
  * @var User $user
  */
 $user = $this->user;
-$this->beginContent('//layouts/main'); ?>
+Yii::app()->clientScript->registerPackage('ko_settings');
+?>
+<?php $this->beginContent('//layouts/main');?>
     <div class="content-cols">
         <div class="col-1">
             <?php $this->widget('Avatar', array('user' => $user, 'size' => 200, 'location' => true)) ?>
@@ -34,6 +36,12 @@ $this->beginContent('//layouts/main'); ?>
                         array(
                             'label' => 'Пароль',
                             'url' => array('/profile/settings/password'),
+                            'linkOptions' => array('class' => 'cont-nav_a'),
+                            'itemOptions' => array('class' => 'cont-nav_i'),
+                        ),
+                        array(
+                            'label' => 'Рассылки',
+                            'url' => array('/profile/settings/subscribes'),
                             'linkOptions' => array('class' => 'cont-nav_a'),
                             'itemOptions' => array('class' => 'cont-nav_i'),
                         ),

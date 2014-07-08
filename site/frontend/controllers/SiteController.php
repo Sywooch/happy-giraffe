@@ -82,13 +82,10 @@ class SiteController extends HController
 	/**
 	 * @sitemap changefreq=daily
 	 */
-	public function actionIndex()
+	public function actionIndex($openLogin = false)
 	{
-        $openLogin = Yii::app()->user->getState('openLogin', false);
         if ($openLogin !== false)
-            Yii::app()->user->setState('openLogin', null);
-        if (isset($_GET['openLogin']))
-            throw new CHttpException(404);
+            Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createAbsoluteUrl(''));
 
         if (! Yii::app()->user->isGuest)
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));
@@ -106,7 +103,7 @@ class SiteController extends HController
 	    if ($error = Yii::app()->errorHandler->error)
 	    {
 	    	if (Yii::app()->request->isAjaxRequest)
-                Yii::app()->displayError($error->code, $error->message, $error->file, $error->line);
+                echo $error->message;
 	    	else
             {
                 $viewFile = Yii::app()->getSystemViewPath() . DIRECTORY_SEPARATOR . 'error' . $error['code'] . '.php';
@@ -439,9 +436,25 @@ class SiteController extends HController
 
     public function actionVacancy()
     {
-        $this->layout = '//layouts/common';
-        $this->pageTitle = 'Вакансия «PHP-разработчик»';
-        $this->render('vacancy');
+        $model = new VacancyForm();
+
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'vacancyForm')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+
+        if (isset($_POST['VacancyForm'])) {
+            $model->attributes = $_POST['VacancyForm'];
+            $success = $model->validate();
+            if ($success)
+                $model->send();
+            echo CJSON::encode(compact('success'));
+        } else {
+            $this->layout = '//layouts/common';
+            $this->pageTitle = 'Вакансия «Web-разработчик»';
+            $this->render('vacancy', compact('model'));
+        }
     }
 
     public function actionVacancySend()
@@ -529,7 +542,7 @@ class SiteController extends HController
             $_result = array();
             foreach ($result as $k => $r) {
                 $r['id'] = $k;
-                if ($r['period1'] > 20 && $r['diff'] < -25)
+                if ($r['diff'] < 0)
                     array_push($_result, $r);
             }
 
@@ -540,10 +553,10 @@ class SiteController extends HController
             $dp = new CArrayDataProvider($_result, array(
                 'sort' => array(
                     'attributes' => array('id', 'period1', 'period2', 'diffC', 'diff'),
-                    'defaultOrder' => array('period1'=>true),
+                    'defaultOrder' => array('diffC'=>false),
                 ),
                 'pagination' => array(
-                    'pageSize' => 200,
+                    'pageSize' => 5000,
                 ),
             ));
         }

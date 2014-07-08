@@ -10,18 +10,34 @@ class DefaultController extends HController
     public $layout = 'blog';
     public $tempLayout = true;
 
+    public function behaviors()
+    {
+        return array(
+            'lastModified' => array(
+                'class' => 'LastModifiedBehavior',
+                'getParameter' => 'content_id',
+                'entity' => 'BlogContent',
+            ),
+        );
+    }
+
     public function filters()
     {
         $filters = array(
             'accessControl',
-            'ajaxOnly - index, view, save, live',
+           // 'ajaxOnly - index, view, save, live',
         );
 
         if (Yii::app()->user->isGuest) {
+            $filters[] = array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified->getDateTime(),
+            );
+
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,
-                'varyByParam' => array('content_id'),
+                'varyByParam' => array('content_id', 'openGallery'),
             );
 
             $filters [] = array(
@@ -118,6 +134,10 @@ class DefaultController extends HController
 
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
+        if ($content->type_id == CommunityContent::TYPE_REPOST) {
+            Yii::app()->clientScript->registerLinkTag('canonical', null, $content->source->getUrl(false, true));
+        }
 
         //сохраняем просматриваемую модель
         NotificationRead::getInstance()->setContentModel($content);
@@ -397,6 +417,9 @@ class DefaultController extends HController
         if ($model === null || $model->author_id !== $this->user->id)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
+        if ($model->author_id == 34531)
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
         return $model;
     }
 
@@ -413,7 +436,7 @@ class DefaultController extends HController
         return $model;
     }
 
-    public function sitemapView()
+    public function sitemapView($param)
     {
         $models = Yii::app()->db->createCommand()
             ->select('c.id, c.created, c.updated, c.author_id')
@@ -421,6 +444,9 @@ class DefaultController extends HController
             ->join('community__rubrics r', 'c.rubric_id = r.id')
             ->join('community__content_types ct', 'c.type_id = ct.id')
             ->where('r.user_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
+            ->limit(50000)
+            ->offset(($param - 1) * 50000)
+            ->order('c.id ASC')
             ->queryAll();
 
         $data = array();

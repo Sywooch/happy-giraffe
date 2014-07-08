@@ -144,7 +144,7 @@ class NotificationDiscussSubscription extends HMongoModel
     public function createDiscussNotifications()
     {
         $cursor = $this->getCollection()->find(array(
-            'time' => array('$lt' => (time() - 3600 * 24))
+            'time' => array('$lt' => (time() - 900))
         ));
 
         while ($cursor->hasNext()) {

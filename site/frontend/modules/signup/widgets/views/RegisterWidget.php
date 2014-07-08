@@ -28,18 +28,15 @@
         </div>
         <div class="popup-sign_b clearfix margin-t20" data-bind="visible: currentStep() == STEP_PHOTO">
             <div class="float-r">
-                <div class="btn-green-simple btn-l" data-bind="click: saveAvatar">Сохранить</div>
+                <div class="btn-gray-simple btn-l" data-bind="click: cancelAvatar">Отменить</div> <button class="btn-green-simple btn-l margin-l5" data-bind="click: saveAvatar, disable: ! avatar.isChanged()">Сохранить</button>
             </div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
-    $(function() {
-        registerVm = new RegisterWidgetViewModel(<?=CJSON::encode($json)?>, $('#registerForm'));
-        ko.applyBindings(registerVm, document.getElementById('registerWidget'));
-    });
-
+    registerVm = new RegisterWidgetViewModel(<?=CJSON::encode($json)?>, $('#registerForm'));
+    ko.applyBindings(registerVm, document.getElementById('registerWidget'));
 
     $(function() {
         if (<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?>)
@@ -47,55 +44,4 @@
                 registerVm.open();
             }, 3000);
     });
-
-    function afterValidateStep1(form, data, hasError) {
-        if (! hasError) {
-            $.post(form.attr('action'), form.serialize(), function(response) {
-                if (response.success) {
-                    registerVm.id(response.id);
-                    registerVm.currentStep(registerVm.STEP_REG2);
-                }
-            }, 'json');
-        }
-        return false;
-    }
-
-    function beforeValidateStep2(form) {
-        registerVm.saving(true);
-        return true;
-    }
-
-    function afterValidateStep2(form, data, hasError) {
-        if (! hasError) {
-            var data = form.serialize();
-            if (registerVm.avatar.imgSrc() !== null) {
-                data += '&' + $.param({
-                    RegisterFormStep2 : {
-                        avatar : {
-                            imgSrc : registerVm.avatar.imgSrc(),
-                            coords : registerVm.avatar.coords
-                        }
-                    }
-                });
-            }
-            $.post(form.attr('action'), data, function(response) {
-                if (response.success) {
-                    registerVm.id(response.id);
-                    registerVm.currentStep(registerVm.STEP_EMAIL1);
-                }
-            }, 'json');
-        }
-        registerVm.saving(false);
-        return false;
-    }
-
-    function afterValidateResend(form, data, hasError) {
-        if (! hasError) {
-            $.post(form.attr('action'), form.serialize(), function(response) {
-                if (response.success)
-                    registerVm.currentStep(registerVm.STEP_EMAIL1);
-            }, 'json');
-        }
-        return false;
-    }
 </script>

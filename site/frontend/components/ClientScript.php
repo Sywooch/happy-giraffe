@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by JetBrains PhpStorm.
  * User: mikita
@@ -6,15 +7,18 @@
  * Time: 11:23 AM
  * To change this template use File | Settings | File Templates.
  */
-
 class ClientScript extends CClientScript
 {
+
     const RELEASE_ID_KEY = 'Yii.ClientScript.releaseidkey';
-    
+
     /**
      * Специальная константа, для вставки скриптов в обход исключений, при вставке скрипта подменяется на CClientScript::POS_HEAD
      */
     const POS_AMD = 1000;
+    const URLS_STYLE_NONE = 0;
+    const URLS_STYLE_GET = 1;
+    const URLS_STYLE_FILENAME = 2;
 
     /**
      * @var array Настройки amd (requireJS)
@@ -30,24 +34,24 @@ class ClientScript extends CClientScript
      * @var bool Если true, то используется AMD, обычное использование методов registerScript и подобных приведёт к генерации исключения 
      */
     public $useAMD = false;
-
     // настройки оптимизации отдачи статики
     public $jsCombineEnabled;
     public $cssDomain;
     public $jsDomain;
     public $imagesDomain;
+    public $staticUrlsStyle = self::URLS_STYLE_GET;
 
     public function render(&$output)
     {
-        if($this->amdFile && $this->useAMD)
+        if ($this->amdFile && $this->useAMD)
             $this->renderAMDConfig();
 
-        if(!$this->hasScripts)
+        if (!$this->hasScripts)
             return;
 
         $this->renderCoreScripts();
 
-        if(!empty($this->scriptMap))
+        if (!empty($this->scriptMap))
             $this->remapScripts();
 
         $this->unifyScripts();
@@ -57,25 +61,25 @@ class ClientScript extends CClientScript
         $this->processImages($output);
 
         $this->renderHead($output);
-        if($this->enableJavaScript)
+        if ($this->enableJavaScript)
         {
             $this->renderBodyBegin($output);
             $this->renderBodyEnd($output);
         }
     }
-    
+
     /**
      * Метод добавляет скрипты для вставки в HEAD страницы, необходимые для работы requireJS
      */
     protected function renderAMDConfig()
     {
         // Соберём конфиги
-        $this->amd['urlArgs'] = 'r=' . rand(0,1000);//$this->releaseId;
+        $this->amd['urlArgs'] = 'r=' . rand(0, 1000); //$this->releaseId;
         $this->addPackagesToAMDConfig();
         $conf = $this->amd;
         $eval = $conf['eval'];
         unset($conf['eval']);
-        
+
         // Добавим наши скрипты в самое начало
         $this->hasScripts = true;
         if (!isset($this->scriptFiles[self::POS_HEAD]))
@@ -89,7 +93,7 @@ class ClientScript extends CClientScript
             'amd' => 'require.config(' . CJSON::encode($conf) . ");\n" . $eval . "console.log(" . CJSON::encode($this->amd) . ")",
             ) + $this->scripts[self::POS_HEAD];
     }
-    
+
     /**
      * Метод добавляет настройки, портированные из пакетов ClientScript в настройки shim для requireJS
      */
@@ -115,7 +119,7 @@ class ClientScript extends CClientScript
                         $paths[$url] = $name;
                     // Допишем зависимости от других модулей
                     if (isset($config['depends']))
-                        $shim[$name]['deps'] = CMap::mergeArray ($config['depends'], $shim[$name]['deps']);
+                        $shim[$name]['deps'] = CMap::mergeArray($config['depends'], $shim[$name]['deps']);
                 }
                 else
                 // не один файл в пакете
@@ -135,14 +139,14 @@ class ClientScript extends CClientScript
                         if (isset($config['depends']))
                             $shim[$paths[$url]]['deps'] = $config['depends'];
                         // Добавим предыдущий модуль в зависимости (необходимо для загрузки цепочкой)
-                        if($pre)
+                        if ($pre)
                             $shim[$paths[$url]]['deps'][] = $pre;
                         // Запомним предыдущий модуль
                         $pre = $paths[$url];
                     }
                     // Допишем зависимости от других модулей
-                    if(isset($config['depends']))
-                        $fake[$name] = CMap::mergeArray ($config['depends'], $fake[$name]);
+                    if (isset($config['depends']))
+                        $fake[$name] = CMap::mergeArray($config['depends'], $fake[$name]);
                 }
                 // добавим опцию для пакетов в clientScript,
                 // соответствующую опции exports в shim
@@ -158,14 +162,14 @@ class ClientScript extends CClientScript
         $this->amd = CMap::mergeArray(array(
                 'paths' => $paths,
                 'shim' => $shim,
-        ), $this->amd);
+                ), $this->amd);
         // Для фейковых модулей нужно выполнить их иницмализацию
         if (!isset($this->amd['eval']))
             $this->amd['eval'] = '';
         foreach ($fake as $name => $deps)
             $this->amd['eval'].= "define(\"" . $name . "\", " . CJSON::encode($deps) . ", function() { return null; });\n";
     }
-    
+
     /**
      * Метод предназначен для преобразования путей из оригинального через scriptMap в путь, пригодный для requireJS
      * 
@@ -180,7 +184,7 @@ class ClientScript extends CClientScript
             $script = $this->scriptMap[$name];
         else
             $script = $baseUrl . '/' . $script;
-        return str_replace('.js' , '', $script);
+        return str_replace('.js', '', $script);
     }
 
     /**
@@ -237,7 +241,7 @@ class ClientScript extends CClientScript
 
         return false;
     }
-    
+
     /**
      * Метод, генерирующий исключение
      * 
@@ -245,7 +249,7 @@ class ClientScript extends CClientScript
      */
     protected function exception()
     {
-        throw new Exception ('Необходимо использовать метод ClientScript::registerAMD для работы в режиме AMD');
+        throw new Exception('Необходимо использовать метод ClientScript::registerAMD для работы в режиме AMD');
     }
 
     /**
@@ -266,7 +270,6 @@ class ClientScript extends CClientScript
             return parent::registerScript($id, $script, $position == self::POS_AMD ? self::POS_HEAD : $position, $htmlOptions);
     }
 
-
     /**
      * Смотри CClientScript::registerCoreScript.
      * 
@@ -281,7 +284,6 @@ class ClientScript extends CClientScript
         else
             return parent::registerCoreScript($name);
     }
-
 
     /**
      * Смотри CClientScript::registerPackage.
@@ -307,9 +309,9 @@ class ClientScript extends CClientScript
      * @param array $htmlOptions
      * @return ClientScript
      */
-    public function registerScriptFile($url,$position=null,array $htmlOptions=array())
+    public function registerScriptFile($url, $position = null, array $htmlOptions = array())
     {
-        if($this->useAMD)
+        if ($this->useAMD)
             $this->exception();
         else
             return parent::registerScriptFile($url, $position, $htmlOptions);
@@ -323,18 +325,28 @@ class ClientScript extends CClientScript
     protected function addReleaseId($url)
     {
         $r = $this->getReleaseId();
-        $url .= (strpos($url, '?') === false) ? '?r=' . $r : '&r=' . $r;
+        switch ($this->staticUrlsStyle)
+        {
+            case self::URLS_STYLE_NONE:
+                break;
+            case self::URLS_STYLE_GET:
+                $url .= (strpos($url, '?') === false) ? '?r=' . $r : '&r=' . $r;
+                break;
+            case self::URLS_STYLE_FILENAME:
+                $dotPosition = strrpos($url, '.');
+                if ($dotPosition !== false)
+                {
+                    $url = substr_replace($url, '.' . $r . '.', $dotPosition, 1);
+                }
+        }
         return $url;
     }
 
-    /**
-     * Генерирует новый id после каждого релиза
-     * @return bool|mixed|string
-     */
-    protected function getReleaseId()
+    public function getReleaseId()
     {
         $id = Yii::app()->getGlobalState(self::RELEASE_ID_KEY);
-        if ($id === null) {
+        if ($id === null)
+        {
             $id = Yii::app()->securityManager->generateRandomString(32, false);
             Yii::app()->setGlobalState(self::RELEASE_ID_KEY, $id);
         }
@@ -347,7 +359,8 @@ class ClientScript extends CClientScript
      */
     public function renderCoreScripts()
     {
-        if ($this->jsCombineEnabled !== true) {
+        if ($this->jsCombineEnabled !== true)
+        {
             parent::renderCoreScripts();
             return;
         }
@@ -363,22 +376,25 @@ class ClientScript extends CClientScript
 
         $releaseId = $this->getReleaseId();
         $combinedScripts = array();
-        foreach ($this->scriptFiles as $position => $scriptFiles) {
+        foreach ($this->scriptFiles as $position => $scriptFiles)
+        {
             $hash = md5($releaseId . $position);
             $dir = substr($hash, 0, 2);
             $file = substr($hash, 2);
             $dirPath = Yii::getPathOfAlias('application.www-submodule.jsd') . DIRECTORY_SEPARATOR . $dir;
             $path = $dirPath . DIRECTORY_SEPARATOR . $file . '.js';
-            if (! file_exists($path)) {
+            if (!file_exists($path))
+            {
                 $js = '';
-                foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
+                foreach ($scriptFiles as $scriptFile => $scriptFileValue)
+                {
                     if (strpos($scriptFile, '/') === 0)
                         $scriptFile = Yii::getPathOfAlias('webroot') . $scriptFile;
                     $fileSrc = file_get_contents($scriptFile);
                     $js .= $fileSrc . ';';
                 }
 
-                if (! is_dir($dirPath))
+                if (!is_dir($dirPath))
                     mkdir($dirPath);
                 file_put_contents($path, $js);
             }
@@ -402,12 +418,18 @@ class ClientScript extends CClientScript
      */
     protected function processCssFiles()
     {
-        foreach ($this->cssFiles as $url => $media) {
-            unset($this->cssFiles[$url]);
-            if ($this->getCssStaticDomain() !== null && strpos($url, '/') === 0)
-                $url = $this->getCssStaticDomain() . $url;
-            $url = $this->addReleaseId($url);
-            $this->cssFiles[$url] = $media;
+        foreach ($this->cssFiles as $url => $media)
+        {
+            if (strpos($url, '/') === 0 && strpos($url, '/', 1) !== 0)
+            {
+                unset($this->cssFiles[$url]);
+                if ($this->getCssStaticDomain() !== null)
+                {
+                    $url = $this->getCssStaticDomain() . $url;
+                }
+                $url = $this->addReleaseId($url);
+                $this->cssFiles[$url] = $media;
+            }
         }
     }
 
@@ -416,8 +438,10 @@ class ClientScript extends CClientScript
      */
     protected function processJsFiles()
     {
-        foreach ($this->scriptFiles as $position => $scriptFiles) {
-            foreach ($scriptFiles as $scriptFile => $scriptFileValue) {
+        foreach ($this->scriptFiles as $position => $scriptFiles)
+        {
+            foreach ($scriptFiles as $scriptFile => $scriptFileValue)
+            {
                 unset($this->scriptFiles[$position][$scriptFile]);
                 if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0)
                     $scriptFile = $this->getJsStaticDomain() . $scriptFile;
@@ -438,7 +462,8 @@ class ClientScript extends CClientScript
      */
     protected function processImages(&$content)
     {
-        if ($this->getImagesStaticDomain() !== null) {
+        if ($this->getImagesStaticDomain() !== null)
+        {
             $content = preg_replace('#img src="(\/[^"]*)"#', 'img src="' . $this->getImagesStaticDomain() . "$1\"", $content);
         }
     }
@@ -481,4 +506,5 @@ class ClientScript extends CClientScript
     {
         return $this->imagesDomain;
     }
+
 }

@@ -264,21 +264,21 @@ class User extends HActiveRecord
             array('blog_description', 'length', 'max' => 150),
             array('blog_photo_id', 'default', 'setOnEmpty' => true, 'value' => null),
 
-            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signup,signup_full'),
-
-            //-----
-
-            //general
-            array('birthday_day, birthday_month, birthday_year', 'safe'),
-
-            //signup
-            array('email, first_name, last_name', 'required', 'on' => 'signupStep1, signupStep2, signupStep2Social'),
-            array('birthday, gender', 'required', 'on' => 'signupStep2, signupStep2Social'),
-            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signupStep2'),
-            array('email', 'unique', 'on' => 'signupStep1, signupStep2, signupStep2Social', 'message' => 'Этот E-Mail уже используется'),
-
-            //login
-            array('email, password', 'required', 'on' => 'login'),
+//            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signup,signup_full'),
+//
+//            //-----
+//
+//            //general
+//            array('birthday_day, birthday_month, birthday_year', 'safe'),
+//
+//            //signup
+//            array('email, first_name, last_name', 'required', 'on' => 'signupStep1, signupStep2, signupStep2Social'),
+//            array('birthday, gender', 'required', 'on' => 'signupStep2, signupStep2Social'),
+//            array('verifyCode', 'CaptchaExtendedValidator', 'allowEmpty'=> ! CCaptcha::checkRequirements(), 'on' => 'signupStep2'),
+//            array('email', 'unique', 'on' => 'signupStep1, signupStep2, signupStep2Social', 'message' => 'Этот E-Mail уже используется'),
+//
+//            //login
+//            array('email, password', 'required', 'on' => 'login'),
         );
     }
 
@@ -286,45 +286,6 @@ class User extends HActiveRecord
     {
         if ($this->password !== $this->hashPassword($this->current_password)) $this->addError($attribute, 'Текущий пароль введён неверно.');
 
-    }
-
-    public function passwordValidator($attribute, $params)
-    {
-        if ($this->password == '' || $this->email == '')
-            return false;
-        $userModel = $this->find(array(
-            'condition' => 'email=:email AND password=:password and blocked = 0 and deleted = 0',
-            'params' => array(
-                ':email' => $_POST['User']['email'],
-                ':password' => $this->hashPassword($_POST['User']['password']),
-            )));
-        if ($userModel) {
-            if (in_array(AntispamStatusManager::getUserStatus($userModel->id), array(AntispamStatusManager::STATUS_BLOCKED, AntispamStatusManager::STATUS_BLACK)))
-                $this->addError('password', 'Вы заблокированы');
-
-            $identity = new UserIdentity($userModel->getAttributes());
-            $identity->authenticate();
-            if ($identity->errorCode == UserIdentity::ERROR_NONE) {
-                $duration = $this->remember == 1 ? 2592000 : 0;
-                Yii::app()->user->login($identity, $duration);
-                $userModel->login_date = date('Y-m-d H:i:s');
-                $userModel->online = 1;
-                $userModel->last_ip = $_SERVER['REMOTE_ADDR'];
-                $userModel->save(false);
-            } else {
-                $this->addError('password', 'Ошибка авторизации');
-            }
-        } else {
-            $this->addError('password', 'Ошибка авторизации');
-        }
-    }
-
-    public function checkUserPassword($attribute, $params)
-    {
-        $userModel = $this->find(array('condition' => 'email="' . $this->email . '" AND password="' . $this->hashPassword($this->password) . '"'));
-        if (!$userModel) {
-            $this->addError($attribute, 'Не найден пользователь с таким именем и паролем');
-        }
     }
 
     /**
@@ -1127,20 +1088,6 @@ class User extends HActiveRecord
         return User::model()->findAll($criteria);
     }
 
-    public function getCanDuel()
-    {
-        $connection = Yii::app()->db;
-        $sql = '
-            SELECT count(*)
-            FROM ' . DuelQuestion::model()->tableName() . ' q
-            JOIN ' . DuelAnswer::model()->tableName() . ' a ON q.id = a.question_id
-            WHERE (ends > NOW() OR ends IS NULL) AND user_id = :user_id;
-        ';
-        $command = $connection->createCommand($sql);
-        $command->bindValue(':user_id', $this->id, PDO::PARAM_INT);
-        return $command->queryScalar() == 0;
-    }
-
     public function getActivityUpdated()
     {
         if (UserAttributes::get($this->id, 'activityLastVisited') === false) {
@@ -1646,5 +1593,12 @@ class User extends HActiveRecord
     public function getIsBanned()
     {
         return in_array(AntispamStatusManager::getUserStatus($this->id), array(AntispamStatusManager::STATUS_BLOCKED, AntispamStatusManager::STATUS_BLACK));
+    }
+
+    public function activate()
+    {
+        $this->status = self::STATUS_ACTIVE;
+        $this->email_confirmed = 1;
+        $this->update(array('status', 'email_confirmed'));
     }
 }

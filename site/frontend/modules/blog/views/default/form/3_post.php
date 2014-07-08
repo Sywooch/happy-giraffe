@@ -58,7 +58,7 @@
         <?=$form->errorSummary(array($model, $slaveModel)) ?>
     </div>
     <div class=" clearfix">
-        <button class="btn-blue btn-h46 float-r" data-bind="click: add, css: { 'btn-inactive': upload().photos().length < 3}"><?=$model->isNewRecord ? 'Добавить' : 'Редактировать'?></button>
+        <button class="btn-blue btn-h46 float-r" data-bind="click: add, css: { 'btn-inactive': upload().photos().length < 3}"><?=$model->isNewRecord ? 'Добавить' : 'Сохранить'?></button>
         <a href="" class="btn-gray-light btn-h46 float-r margin-r15" onclick="$.fancybox.close();return false;">Отменить</a>
 
         <?php if (empty($club_id)):?>

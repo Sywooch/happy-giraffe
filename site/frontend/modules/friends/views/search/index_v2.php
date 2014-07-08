@@ -1,6 +1,6 @@
 <?php $this->pageTitle = 'Мои друзья'; ?>
-<div class="layout-wrapper_frame clearfix" id="friendsBindings">
-    <?php $this->renderPartial('friends.views._menu'); ?>
+<?php $this->bodyClass = 'body__bg-base';?>
+<div class="layout-wrapper_frame clearfix" id="friendsBindings">    <?php $this->renderPartial('friends.views._menu'); ?>
     <div class="page-col page-col__friend page-col__aside-in">
         <div class="page-col_hold">
             <div class="page-col_cont">

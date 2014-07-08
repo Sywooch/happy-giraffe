@@ -13,7 +13,7 @@
  * @property AlbumPhoto $photo
  * @property CommunityContentGallery $gallery
  */
-class CommunityContentGalleryItem extends CActiveRecord
+class CommunityContentGalleryItem extends CActiveRecord implements IPreview
 {
 	public static function model($className=__CLASS__)
 	{
@@ -41,4 +41,18 @@ class CommunityContentGalleryItem extends CActiveRecord
 			'gallery' => array(self::BELONGS_TO, 'CommunityContentGallery', 'gallery_id'),
 		);
 	}
+
+    /**
+     * @return mixed|string
+     */
+    public function getPreviewText()
+    {
+        $postDescription = $this->gallery->content->getPreviewText();
+        return (strlen($postDescription) == 0) ? $this->description : $postDescription;
+    }
+
+    public function getPreviewPhoto()
+    {
+        return $this->photo;
+    }
 }

@@ -17,7 +17,7 @@
  * @property string $good_days
  * @property string $bad_days
  */
-class Horoscope extends HActiveRecord
+class Horoscope extends HActiveRecord implements IPreview
 {
     public $type;
     public $good_days_array = array();
@@ -803,5 +803,15 @@ class Horoscope extends HActiveRecord
             . '</p><p><span class="red">Личная жизнь.</span>' . $this->personal . '</p>';
         else
             return $this->text;
+    }
+
+    public function getPreviewText()
+    {
+        return ($this->month === null && $this->year !== null) ? $this->health : $this->text;
+    }
+
+    public function getPreviewPhoto()
+    {
+        return '/images/widget/horoscope/big/' . $this->zodiac . ' .png';
     }
 }

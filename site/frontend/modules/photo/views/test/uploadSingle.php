@@ -18,15 +18,18 @@
 </div>
 
 <script type="text/javascript">
-    function TestViewModel() {
-        var self = this;
-        self.photo = ko.observable(null);
-        self.photos = ko.observableArray([]);
-    }
+    requirejs(['knockout', 'ko_photo'], function(ko) {
+        function TestViewModel() {
+            var self = this;
+            self.photo = ko.observable(null);
+            self.photos = ko.observableArray([]);
+        }
 
-    $(function () {
+
         test = new TestViewModel();
         ko.applyBindings(test, document.getElementById('test'));
     });
+
+
 </script>
 

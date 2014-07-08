@@ -27,6 +27,7 @@ return array(
     ),
     'packages' => array(
         'bootstrap' => array(
+            'amd' => true,
             'baseUrl' => '/',
             'js' => array(
                 'new/javascript/bootstrap/dropdown.js',
@@ -261,13 +262,13 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
-        'ko_photo' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/ko_photo.js',
-            ),
-            'depends' => array('knockout', 'jquery_file_upload', 'bootstrap', 'baron', 'jquery.ui'),
-        ),
+//        'ko_photo' => array(
+//            'baseUrl' => '/',
+//            'js' => array(
+//                'javascripts/ko_photo.js',
+//            ),
+//            'depends' => array('knockout', 'jquery_file_upload', 'bootstrap', 'baron', 'jquery.ui'),
+//        ),
         'ko_upload' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -277,6 +278,7 @@ return array(
         ),
         'jquery_file_upload' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
@@ -284,10 +286,11 @@ return array(
                 'jQuery-File-Upload/js/jquery.fileupload-process.js',
                 'jQuery-File-Upload/js/jquery.fileupload-image.js',
             ),
-            'depends' => array('jquery', 'blob', 'load_image'),
+            'depends' => array('jquery', 'blob'),
         ),
         'blob' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'JavaScript-Canvas-to-Blob-master/js/canvas-to-blob.js',
             ),
@@ -295,6 +298,7 @@ return array(
         ),
         'load_image' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'JavaScript-Load-Image-master/js/load-image.js',
                 'JavaScript-Load-Image-master/js/load-image-meta.js',
@@ -354,13 +358,6 @@ return array(
                 'new/javascript/wysiwyg.js',
             ),
             'depends' => array('knockout'),
-        ),
-        'baron' => array(
-            'baseUrl' => '/',
-            'js' => array(
-                'javascripts/baron.js',
-            ),
-            'depends' => array('jquery'),
         ),
     )
 );

@@ -51,7 +51,9 @@
     </div>
 </div>
 
+<?php if (false): ?>
 <script type="text/javascript">
     uploadVM = new FromComputerMultipleViewModel(<?=$form->output()?>);
     ko.applyBindings(uploadVM, document.getElementById('photo-tab-computer'));
 </script>
+<?php endif; ?>

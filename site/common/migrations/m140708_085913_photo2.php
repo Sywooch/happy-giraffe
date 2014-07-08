@@ -4,9 +4,12 @@ class m140708_085913_photo2 extends CDbMigration
 {
 	public function up()
 	{
-        $this->execute("DROP TABLE IF EXISTS `photo__photos`;
+        $this->execute("DROP TABLE IF EXISTS `photo__attaches`;");
+        $this->execute("DROP TABLE IF EXISTS `photo__collections`;");
+        $this->execute("DROP TABLE IF EXISTS `photo__albums`;");
+        $this->execute("DROP TABLE IF EXISTS `photo__photos`;");
 
-CREATE TABLE `photo__photos` (
+        $this->execute("CREATE TABLE `photo__photos` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL DEFAULT '',
   `description` text NOT NULL,
@@ -22,9 +25,7 @@ CREATE TABLE `photo__photos` (
   CONSTRAINT `photo__photos_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ");
-        $this->execute("DROP TABLE IF EXISTS `photo__albums`;
-
-CREATE TABLE `photo__albums` (
+        $this->execute("CREATE TABLE `photo__albums` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `title` varchar(255) NOT NULL DEFAULT '',
   `description` text NOT NULL,
@@ -35,9 +36,7 @@ CREATE TABLE `photo__albums` (
   KEY `author_id` (`author_id`),
   CONSTRAINT `photo__albums_ibfk_1` FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-        $this->execute("DROP TABLE IF EXISTS `photo__collections`;
-
-CREATE TABLE `photo__collections` (
+        $this->execute("CREATE TABLE `photo__collections` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entity` varchar(255) DEFAULT NULL,
   `entity_id` int(11) unsigned DEFAULT NULL,
@@ -49,9 +48,7 @@ CREATE TABLE `photo__collections` (
   KEY `cover_id` (`cover_id`),
   CONSTRAINT `photo__collections_ibfk_1` FOREIGN KEY (`cover_id`) REFERENCES `photo__photos` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-        $this->execute("DROP TABLE IF EXISTS `photo__attaches`;
-
-CREATE TABLE `photo__attaches` (
+        $this->execute("CREATE TABLE `photo__attaches` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `photo_id` int(11) unsigned NOT NULL,
   `collection_id` int(11) unsigned NOT NULL,

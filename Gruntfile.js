@@ -148,7 +148,7 @@ module.exports = function(grunt){
       },
       lite: {
         options: {
-          stylesheets  : ['/css/all1.dev.css'],
+          stylesheets  : ['/css/lite.dev.css'],
           timeout      : 1000,
 
           htmlroot     : 'new',
@@ -159,7 +159,7 @@ module.exports = function(grunt){
             /.tooltip+/,
           ],
         },
-        src: ['new/html/page/**/*-lite.html'],
+        src: ['new/html/page/**/*-lite.html', 'new/html/page/lite/**/*.html'],
         dest: 'new/css/lite.css'
       },
     },
@@ -170,7 +170,7 @@ module.exports = function(grunt){
       },
       new: {
         files: {
-          'new/css/all1.css': ['new/css/all1.dev.css']
+          'new/css/all1.css': ['new/css/all1.css']
         }
       },
       lite: {
@@ -204,7 +204,7 @@ module.exports = function(grunt){
     },
     // Умное сжате css
     csso: {
-      compress: {
+      new: {
         options: {
           report: 'gzip'
         },
@@ -328,8 +328,6 @@ module.exports = function(grunt){
   grunt.registerTask('css-lite', ['less:litedev','uncss:lite', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   grunt.registerTask('default', [
     'connect',
-    // 'uncss',
-    // 'merge-json',
     'watch', 
   ]);
 

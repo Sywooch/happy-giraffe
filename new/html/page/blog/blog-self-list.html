@@ -1,11 +1,11 @@
-<!DOCTYPE html><!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
-<!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <!-- a-->
 <!-- b-->
 <!-- c-->
 <!-- a-->
 <!-- b-->
+<!-- c-->
 <!-- tag head-->
 <head>
   <meta charset="utf-8">
@@ -32,7 +32,6 @@
   <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
   <!-- custom select-->
-  <!-- script(src="#{path}javascript/selectize.js")-->
   <script src="/new/javascript/select2.js"></script>
   <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
@@ -67,12 +66,7 @@
             <!-- header-menu-->
             <div class="header-menu">
               <ul class="header-menu_ul clearfix">
-                <!-- li.header-menu_li
-                a.header-menu_a(href='')
-                    span.header-menu_ico.header-menu_ico__broadcast
-                    span.header-menu_tx
-                        | Прямой эфир
-                -->
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
@@ -723,7 +717,7 @@
                       </div>
                       <div class="comments_add">
                         <!-- скрытый инпут, который заменяется на редактор-->
-                        <input type="text" placeholder="Добавить комментарий" class="comments_add-inp itx-gray display-n"/>
+                        <input type="text" placeholder="Добавить комментарий" class="comments_add-inp itx-gray display-n">
                         <script>
                           $(document).ready(function () { 
                             $('.wysiwyg-redactor').redactor({
@@ -765,7 +759,7 @@
                           <div class="redactor-control clearfix">
                             <div class="float-r">
                               <div class="redactor-control_key">
-                                <input id="redactor-control_key-checkbox" type="checkbox" name="" class="redactor-control_key-checkbox"/>
+                                <input id="redactor-control_key-checkbox" type="checkbox" name="" class="redactor-control_key-checkbox">
                                 <label for="redactor-control_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
                               </div>
                               <button class="btn-green-simple">Отправить</button>
@@ -863,8 +857,7 @@
               </div>
             </div>
           </div>
-          <!-- /layout-footer
-          -->
+          <!-- /layout-footer-->
         </div>
       </div>
       <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>

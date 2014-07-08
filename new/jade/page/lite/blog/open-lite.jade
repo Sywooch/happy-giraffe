@@ -1,5 +1,5 @@
-include ../../block/config
-extend ../../extend/layout_lite
+include ../../../block/config
+extend ../../../extend/layout_lite
 block vars
   - var bodyClass = 'body__bg1 body__lite';
 
@@ -21,7 +21,7 @@ block layout
         .b-main_cont
             .b-main_col-hold
                 .b-main_col-article
-                    +bArticle-single('b-article__lite')
+                    //+bArticle-single('b-article__lite')
 
                     table.article-nearby.clearfix(ellpadding='0', cellspacing='0')
                         tr
@@ -48,7 +48,7 @@ block layout
                             | чтобы оставить комментарий
                         .comment-add_editor.display-n
                     
-                    +comments-open()
+                    //+comments-open()
 
                     .article-users
                         .article-users_t Запись понравилась 
@@ -199,9 +199,8 @@ block layout
                         .article-similar_img-hold
                             a(href="")
                                 img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
-
-
-
+    
+    +layout-footer-lite('layout-footer__in')
 
 
 

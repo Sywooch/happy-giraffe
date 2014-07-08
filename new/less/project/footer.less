@@ -1,22 +1,22 @@
 .layout-footer {
     position: relative;
     z-index: 2;
-    margin:-210px 0 0;
-    padding:10px 0 40px;
-    border-top: 1px solid #e7e7e7;
-    background: #fafafa;
+    margin: -210px 0 0;
+    background: #fff;
     font:normal 11px/16px tahoma, arial, helvetica, sens-serif;
     color: #a2a1a1;
+    .box-shadow(0 1px 2px rgba(0,0,0,0.15));
     
     &__in {
         margin-top: 0;
     }
-
+    
     &_hold {
-        width: 780px;
         margin: 0 auto;
-        padding: 0 20px 20px 200px;
-        background: url(/images/layout-footer_hold.png) no-repeat 60px 9px;
+        width: 780px;
+        padding: 10px 20px 60px 200px;
+        background: url(/images/layout-footer_hold.png) no-repeat 70px 20px;
+        
     }
 }
 
@@ -28,6 +28,7 @@
         padding: 0 10px 0 15px;
         background: url(/images/footer-list_li.png) no-repeat 0 7px;
     }
+    &_li__first,
     &_li:first-child {
         padding-left: 0;
         background: none;
@@ -72,8 +73,8 @@
     }
 }
 
-.layout-footer .copy {padding-left:20px;color:#9e9d9e;}
-.layout-footer .copy .icon-18{vertical-align: middle;padding: 0 25px;}
+/*.layout-footer .copy {padding-left:20px;color:#9e9d9e;}
+.layout-footer .copy .icon-18{vertical-align: middle;padding: 0 25px;}*/
 .counter-rambler {
     float:right;
     margin:0 60px 0 10px;

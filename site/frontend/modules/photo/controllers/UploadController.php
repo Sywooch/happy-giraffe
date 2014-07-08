@@ -41,7 +41,7 @@ class UploadController extends \HController
         $form->attributes = $_GET;
         $form->userId = \Yii::app()->user->id;
         if ($form->validate()) {
-            $this->renderPartial('form', compact('form'));
+            $this->renderPartial('form', compact('form'), false, true);
         }
     }
 

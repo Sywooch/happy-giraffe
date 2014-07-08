@@ -26,7 +26,9 @@
     </div>
 </div>
 
+<?php if (false): ?>
 <script type="text/javascript">
     url = new ByUrlViewModel(<?=$form->output()?>);
     ko.applyBindings(url, document.getElementById('photo-tab-link'));
 </script>
+<?php endif; ?>

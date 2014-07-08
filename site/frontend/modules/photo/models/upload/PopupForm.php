@@ -16,8 +16,14 @@ class PopupForm extends \CFormModel implements \IHToJSON
      */
     public $multiple;
 
+    /**
+     * @var int ID пользователя
+     */
     public $userId;
 
+    /**
+     * @var int ID коллекции
+     */
     public $collectionId;
 
     /**
@@ -37,30 +43,6 @@ class PopupForm extends \CFormModel implements \IHToJSON
             array('multiple', 'boolean'),
             array('collectionId', 'safe'),
         );
-    }
-
-    /**
-     * Формирует JSON для передачи обработанных данных с клиента
-     * @return string JSON для клиента
-     */
-//    public function toJSON()
-//    {
-//        return \CJSON::encode($this->attributes);
-//    }
-
-    public function getAlbumsJSON()
-    {
-        return array_map(function($album) {
-            /** @var PhotoAlbum $album */
-            return array(
-                'title' => $album->title,
-                'count' => $album->photoCollection->attachesCount,
-                'cover' => $album->photoCollection->getCover()->toJSON(),
-                'photos' => array_map(function($attach) {
-                    return $attach->photo->toJSON();
-                }, $album->photoCollection->attaches),
-            );
-        }, $this->getAlbums());
     }
 
     /**

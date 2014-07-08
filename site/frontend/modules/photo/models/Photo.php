@@ -186,9 +186,9 @@ class Photo extends \HActiveRecord implements \IHToJSON
             'id' => $this->id,
             'title' => $this->title,
             'original_name' => $this->original_name,
-            'fs_name' => $this->fs_name,
             'width' => (int) $this->width,
             'height' => (int) $this->height,
+            'fs_name' => $this->fs_name,
             'originalUrl' => $this->getOriginalUrl(),
         );
     }

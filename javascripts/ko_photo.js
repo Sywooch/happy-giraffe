@@ -16,6 +16,8 @@ ko.bindingHandlers.photoUpload = {
         var callback = value.callback || defaultCallback;
 
         ko.bindingHandlers.photoUpload.callback = function(photo) {
+            console.log(callback);
+
             callback(photo);
             $.magnificPopup.close();
         };
@@ -99,8 +101,6 @@ ko.bindingHandlers.slider = {
 // Основная модель вставки фотографий
 function PhotoAddViewModel(data) {
     var self = this;
-
-    console.log(data);
 
     self.collectionId = data.form.collectionId;
     self.multiple = data.form.multiple;

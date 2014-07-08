@@ -19,6 +19,7 @@ class UploadController extends \HController
     {
         return array(
             'accessControl',
+            'ajaxOnly',
         );
     }
 
@@ -29,13 +30,6 @@ class UploadController extends \HController
                 'users' => array('?'),
             ),
         );
-    }
-
-    public function actionFromAlbumsStep2($collectionId)
-    {
-        $photos = PhotoAttach::model()->collection($collectionId)->findAll();
-
-        echo \HJSON::encode($photos);
     }
 
     /**

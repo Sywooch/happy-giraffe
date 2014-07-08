@@ -1,0 +1,207 @@
+include ../../block/config
+extend ../../extend/layout_lite
+block vars
+  - var bodyClass = 'body__bg1 body__lite';
+
+block layout
+
+    // b-main 
+    .b-main.b-main__white.clearfix
+        .b-crumbs.b-crumbs__s
+            .b-crumbs_tx Я здесь
+            ul.b-crumbs_ul
+                li.b-crumbs_li
+                    a.b-crumbs_a(href="") Главная
+                li.b-crumbs_li
+                    +ava('ava__small', ava.a)
+                li.b-crumbs_li.b-crumbs_li__last
+                    span.b-crumbs_last Блог
+        // стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту 
+        a.post-arrow(href="")
+        .b-main_cont
+            .b-main_col-hold
+                .b-main_col-article
+                    +bArticle-single('b-article__lite')
+
+                    table.article-nearby.clearfix(ellpadding='0', cellspacing='0')
+                        tr
+                            td
+                                .article-nearby_hint Предыдущая запись
+                            td.article-nearby_r
+                                .article-nearby_hint Следующая запись
+                        tr
+                            td
+                                a.article-nearby_a.clearfix(href='')
+                                    span.article-nearby_tx Как приготовить Монастыпскую избу 
+                            td.article-nearby_r
+                                a.article-nearby_a.clearfix(href='')
+                                    span.article-nearby_tx Готовим  Торт Сметанник в домашних условиях
+                    .adv-banner
+                        a(href="", target="_blank")
+                            img(alt='', src='#{path}images/example/w600-h400.jpg')
+                    .comment-add
+                        .comment-add_t Комментировать
+                        .comment-add_hold
+                            a.comment-add_a Авторизуйтесь  
+                            | или 
+                            a.comment-add_a зарегистрируйтесь,
+                            | чтобы оставить комментарий
+                        .comment-add_editor.display-n
+                    
+                    +comments-open()
+
+                    .article-users
+                        .article-users_t Запись понравилась 
+                            .ava-list
+                                ul.ava-list_ul.clearfix
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava-list_last(href='')
+                                            span.ava-list_like-hg
+                                            | 3251
+                            .article-users_t Запись добавили в избранное 
+                            .ava-list
+                                ul.ava-list_ul.clearfix
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava-list_last(href='')
+                                            span.ava-list_favorite.active
+                                            | 3251 и вы
+
+                .b-main_col-sidebar
+                    .adv-banner.adv-banner__bd
+                        a(href="") 
+                            img(src="#{path}images/example/w240-h400.jpg", alt="")
+                    // Варианты цветов блока
+                        article-similar__green
+                        article-similar__blue
+                        article-similar__lilac
+                        article-similar__red
+                        article-similar__yellow
+                    .article-similar.article-similar__lilac
+                        .article-similar_row
+                            +ava('ava__small', ava.a)
+                            a.article-similar_author(href="") Марина Правдин
+                        .article-similar_row
+                            a.article-similar_t(href="") Наши первые движения 
+                        .article-similar_img-hold
+                            a(href="")
+                                img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
+                    .article-similar.article-similar__red
+                        .article-similar_row
+                            +ava('ava__small', ava.a)
+                            a.article-similar_author(href="") Марина Правдинwerwerweryrtyrtyrtyrtyrtyа
+                        .article-similar_row
+                            a.article-similar_t(href="") Наши первые движения
+                        .article-similar_img-hold
+                            a(href="")
+                                img.article-similar_img(src="#{path}images/example/w240-h176.jpg", alt="")
+                    .article-similar.article-similar__yellow
+                        .article-similar_row
+                            +ava('ava__small', ava.a)
+                            a.article-similar_author(href="") Марина !!Красотуля!!
+                        .article-similar_row
+                            a.article-similar_t(href="") Наши первые движения по полу в окружении родителей
+                        .article-similar_img-hold
+                            a(href="")
+                                img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
+                    .article-similar.article-similar__blue
+                        .article-similar_row
+                            +ava('ava__small', ava.a)
+                            a.article-similar_author(href="") Марина Правдина
+                        .article-similar_row
+                            a.article-similar_t(href="") Коррекция фигуры: убираем висячий дряблый живот
+                        .article-similar_img-hold
+                            a(href="")
+                                img.article-similar_img(src="#{path}images/example/w240-h183.jpg", alt="")
+                    .article-similar.article-similar__green
+                        .article-similar_row
+                            +ava('ava__small', ava.a)
+                            a.article-similar_author(href="") Марина Правдина
+                        .article-similar_row
+                            a.article-similar_t(href="") Обязательства мешают любовным отношениям
+                        .article-similar_img-hold
+                            a(href="")
+                                img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
+
+
+
+
+
+

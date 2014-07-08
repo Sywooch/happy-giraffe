@@ -37,7 +37,6 @@ mixin head (path)
         script(src="#{path}javascript/baron.js")
 
         // custom select
-        // script(src="#{path}javascript/selectize.js")
         script(src="#{path}javascript/select2.js")
 
         // wisywig
@@ -57,6 +56,66 @@ mixin head (path)
             компоненты 
                 slider 
         script(src="#{path}javascript/jquery-ui-1.10.4.custom.js")
+
+        // livereload
+        script(src="//localhost:35729/livereload.js")
+
+
+
+
+mixin headLite (path)
+    head
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        //- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        title Happy Giraffe
+
+        // на продакшене lite.css
+        <link rel="stylesheet" type="text/css" href="/new/css/lite.dev.css" />
+
+        // <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
+
+        //+scripts(path)
+        script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+        script.
+            window.jQuery || document.write('<script src="#{path}/javascript/jquery-1.10.2.min.js"><\/script>')
+
+        script(src="#{path}javascript/modernizr-2.7.1.min.js")
+        // Адаптивные изображения tag picture
+        script(src="#{path}javascript/picturefill.min.js")
+
+        //- script(src="#{path}javascript/bootstrap/dropdown.js")
+        //- script(src="#{path}javascript/bootstrap/tab.js")
+
+        // tooltip
+        //- script(src="#{path}javascript/jquery.tooltipster.js")
+
+        // popup
+        //- script(src="#{path}javascript/jquery.magnific-popup.js")
+
+        // custom scroll
+        //- script(src="#{path}javascript/baron.js")
+
+        // custom select
+        //- script(src="#{path}javascript/select2.js")
+
+        // wisywig
+        //- script(src="#{path}redactor/redactor.js")
+        //- script(src="#{path}redactor/lang/ru.js")
+        //- script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")
+        //- script(src="#{path}redactor/plugins/btnvideo/btnvideo.js")
+        //- script(src="#{path}redactor/plugins/formatbtn/formatbtn.js")
+
+        //- script(src="#{path}javascript/jquery.Jcrop.js")
+
+        // Базовый js (вызывается на всех страницах)
+        //- script(src="#{path}javascript/common.js")
+        // js для работы в верстке
+        script(src="#{path}javascript/common-markup-lite.js")
+        //- jquery-ui подключается для верстки, в yii есть аналог
+            компоненты 
+                slider 
+        //- script(src="#{path}javascript/jquery-ui-1.10.4.custom.js")
 
         // livereload
         script(src="//localhost:35729/livereload.js")

@@ -40,7 +40,24 @@ module.exports = function(grunt){
           nospawn : true,
           // data: grunt.file.readJSON(pathJade)
         }
-      }
+      },
+      // lite версии страниц
+      // lite: {
+      //   files: [{
+      //     expand: true,
+      //     cwd: 'new/jade',
+      //     src: ['page/**/*-lite.jade', ],
+      //     dest: 'new/html',
+      //     ext: ".html"
+      //   }],
+      //   options: {
+      //     pretty: true,
+      //     client: false,
+      //     cache: true,
+      //     nospawn : true,
+      //     // data: grunt.file.readJSON(pathJade)
+      //   }
+      // }
     },
 
     // Удаляем файлы
@@ -84,6 +101,17 @@ module.exports = function(grunt){
           /*sourceMapFilename: 'new/css/all1.css.map',*/
           /*sourceMapRootpath: 'new/css',
           sourceMapURL: 'new/css/all1.css.map',*/
+        },
+      },
+      litedev: {
+        files: {
+          'new/css/lite.dev.css': ['new/less/lite.less'] 
+        },
+        options: {
+          sourceMap: true,
+          /*sourceMapFilename: 'new/css/all1.css.map',*/
+          /*sourceMapRootpath: 'new/css',
+          sourceMapURL: 'new/css/all1.css.map',*/
         }
       },
       // newest: {
@@ -107,6 +135,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .clsss
             /.dropdown+/,
+            /.flag+/,
             /.jcrop+/,
             /.mfp+/,
             /.redactor+/,
@@ -116,6 +145,22 @@ module.exports = function(grunt){
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
         dest: 'new/css/all1.css'
+      },
+      lite: {
+        options: {
+          stylesheets  : ['/css/all1.dev.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'new',
+          ignore       : [
+            // Выбираем все стили где в начале .clsss
+            /.dropdown+/,
+            /.mfp+/,
+            /.tooltip+/,
+          ],
+        },
+        src: ['new/html/page/**/*-lite.html'],
+        dest: 'new/css/lite.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -127,11 +172,16 @@ module.exports = function(grunt){
         files: {
           'new/css/all1.css': ['new/css/all1.dev.css']
         }
+      },
+      lite: {
+        files: {
+          'new/css/lite.css': ['new/css/lite.css']
+        }
       }
     },
     // Сжимаем css
     cssmin: {
-      dist: {
+      new: {
         options: {
           compatibility: 'ie8',
           keepSpecialComments: 0,
@@ -139,6 +189,16 @@ module.exports = function(grunt){
         },
         files: {
           'new/css/all1.css': 'new/css/all1.css'
+        }
+      },
+      lite: {
+        options: {
+          compatibility: 'ie8',
+          keepSpecialComments: 0,
+          report: 'max'
+        },
+        files: {
+          'new/css/lite.css': 'new/css/lite.css'
         }
       }
     },
@@ -150,6 +210,14 @@ module.exports = function(grunt){
         },
         files: {
           'new/css/all1.css': ['new/css/all1.css']
+        }
+      },
+      lite: {
+        options: {
+          report: 'gzip'
+        },
+        files: {
+          'new/css/lite.css': ['new/css/lite.css']
         }
       }
     },
@@ -216,6 +284,14 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
+      // следим за новым less
+      liteless: {
+        files: ['new/less/**/*.less'],
+        tasks: ['less:litedev'/*, 'cmq', 'cssmin', 'csso'*/],
+        options: {
+          livereload: true,
+        },
+      },
       // Следим за изменениями в рассылках
       email: {
         files: ['new/html/email/**/*'],
@@ -247,8 +323,9 @@ module.exports = function(grunt){
   // grunt.loadNpmTasks('grunt-newer');
   // grunt.loadNpmTasks('grunt-uncss');
 
-  grunt.registerTask('bild', ['css', 'jade']);
-  grunt.registerTask('css', ['less:newestdev','uncss', 'cmq', 'cssmin', 'csso']);
+  grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
+  grunt.registerTask('css-new', ['less:newestdev','uncss:new', 'cmq:new', 'cssmin:new', 'csso:new']);
+  grunt.registerTask('css-lite', ['less:litedev','uncss:lite', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   grunt.registerTask('default', [
     'connect',
     // 'uncss',

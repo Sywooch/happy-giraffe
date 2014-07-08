@@ -1,0 +1,28 @@
+include ../../../block/config
+extend ../../../extend/layout_lite
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in
+            
+            .section-empty
+                .section-empty_t Что бы вы хотели добавить в свой блог?
+                ul.section-empty_ul
+                    li.section-empty_li
+                        .section-empty_ico
+                        .section-empty_ico-tx Запись
+                .section-empty_desc
+                    .section-empty_desc-tx Добавляйте записи в свой блог ополучайте баллы в свою личную копилку успехов! Скрасте записи фотографиями, видео, ссылками и делитесь ими с друзьями.
+
+                
+                // /postAdd
+
+        //- Футер не нужен
+            +layout-footer('layout-footer__in')
+
+

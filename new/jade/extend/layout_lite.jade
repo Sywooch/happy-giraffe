@@ -3,7 +3,7 @@ doctype html
 | <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 include ../block/config
 // tag head
-+head(path)
++headLite(path)
 // vars from template file
 - var bodyClass = ''; 
 block vars
@@ -11,8 +11,8 @@ body.body(class='#{bodyClass}')
     .layout-container
         .layout-loose
             .layout-header
-                
-                +header('header__base')
+            
+                +header('')
             .layout-loose_hold.clearfix
                 block layout
                 

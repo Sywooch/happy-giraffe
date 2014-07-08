@@ -43,10 +43,10 @@ ko.bindingHandlers.fileUpload = {
             var dropZone = $(options.dropZone);
             dropZone.on('dragover', function() {
                 dropZone.addClass('dragover');
-            })
+            });
             dropZone.on('dragleave', function() {
                 dropZone.removeClass('dragover');
-            })
+            });
         }
     }
 };
@@ -99,6 +99,8 @@ ko.bindingHandlers.slider = {
 // Основная модель вставки фотографий
 function PhotoAddViewModel(data) {
     var self = this;
+
+    console.log(data);
 
     self.collectionId = data.form.collectionId;
     self.multiple = data.form.multiple;
@@ -308,6 +310,7 @@ function ByUrlViewModel() {
     });
 }
 
+// Основная модель коллекции
 function PhotoCollection(data) {
     var self = this;
     self.id = ko.observable(data.id);
@@ -316,20 +319,17 @@ function PhotoCollection(data) {
         return new PhotoAttach(attach);
     }));
     self.cover = ko.observable(data.cover === null ? null : new Photo(data.cover));
-
-    self.addAttaches = function (data) {
-        self.attaches(self.attaches().concat(ko.utils.arrayMap(data, function(item) {
-            return new PhotoAttach(item);
-        })));
-    }
 }
 
+// Основная модель аттача
 function PhotoAttach(data) {
     var self = this;
+    self.id = ko.observable(data.id);
     self.position = ko.observable(data.position);
     self.photo = ko.observable(new Photo(data.photo));
 }
 
+// Основная модель фотоальбома
 function PhotoAlbum(data) {
     var self = this;
     self.id = ko.observable(data.id);
@@ -347,7 +347,6 @@ function Photo(data) {
     self.width = ko.observable(data.width);
     self.height = ko.observable(data.height);
     self.fs_name = ko.observable(data.fs_name);
-
     self.originalUrl = ko.observable(data.originalUrl);
 }
 
@@ -442,7 +441,7 @@ function FromAlbumsViewModel(data) {
 
     self.selectAlbum = function(album) {
         if (album.photoCollection().attaches().length == 0) {
-            $.get('/photo/upload/fromAlbumsStep2/', { collectionId : album.photoCollection().id() }, function(response) {
+            $.get('/photo/collection/getAttaches/', { collectionId : album.photoCollection().id() }, function(response) {
                 album.photoCollection().attaches(ko.utils.arrayMap(response, function(attach) {
                     return new FromAlbumsPhotoAttach(attach, self);
                 }));

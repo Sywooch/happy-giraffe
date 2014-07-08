@@ -1,9 +1,6 @@
-<?php Yii::app()->clientScript->registerPackage('ko_friends'); ?>
-<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.history.js', CClientScript::POS_HEAD); ?>
 <?php $this->pageTitle = 'Мои друзья'; ?>
 <?php $this->bodyClass = 'body__bg-base';?>
-<div class="layout-wrapper_frame clearfix">
-    <?php $this->renderPartial('friends.views._menu'); ?>
+<div class="layout-wrapper_frame clearfix" id="friendsBindings">    <?php $this->renderPartial('friends.views._menu'); ?>
     <div class="page-col page-col__friend page-col__aside-in">
         <div class="page-col_hold">
             <div class="page-col_cont">
@@ -14,8 +11,8 @@
                 </div>
                 <!-- ko if: ! (users().length == 0 && loading() === false) -->
                 <div class="friends-list">
-                    <ul class="friends-list_ul">
-                        <!-- ko template: { name : 'search-template', foreach : users } -->
+                    <ul class="friends-list_ul" data-bind="foreach : users">
+                        <!-- ko module: { name: "user-tile", template: "user/friends-search-tile", data: $data  } -->
                         <!-- /ko -->
                     </ul>
                     <div class="loader loader__b-gray" data-bind="visible: loading"><img src="/images/ico/ajax-loader.gif" class="loader_img">
@@ -198,12 +195,6 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        vm = new FriendsSearchViewModel(<?= CJSON::encode($json) ?>);
-        ko.applyBindings(vm);
-    });
-</script>
-
-<?php $this->renderPartial('/_searchCard'); ?>
+<?php
+Yii::app()->clientScript->registerAMD('messagingVM', array('FriendsSearchViewModel' => 'ko_friendsSearch', 'ko' => 'knockout'), "ko.applyBindings(new FriendsSearchViewModel(" . CJSON::encode($json) . "), $('#friendsBindings')[0]);");
+?>

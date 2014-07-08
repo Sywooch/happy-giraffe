@@ -58,41 +58,6 @@ mixin b-control(mod, items)
 
     // /b-control
 
-//- .b-cap
-//- Заглушка
-    mod
-    vars
-        imgMod
-        txTop
-        txTopMod
-        t
-        tMod
-        tx
-        txMod
-        txSub
-        txSubMod
-        topAbsMsg
-        topAbsMsgMod
-
-mixin cap-empty(mod, vars)
-    // cap-empty
-    .cap-empty(class=mod)
-        if (vars.topAbsMsg)
-            .cap-empty_abs-msg(class=vars.topAbsMsgMod)
-                .cap-empty_abs-msg-hold!= vars.topAbsMsg
-        else 
-            .cap-empty_hold
-                .cap-empty_img(class=vars.imgMod)
-                - if (vars.txTop)
-                    .cap-empty_tx-top(class=vars.txTopMod)!= vars.txTop
-                - if (vars.t)
-                    .cap-empty_t(class=vars.tMod)!= vars.t
-                - if (vars.tx)
-                    .cap-empty_tx(class=vars.txMod)!= vars.tx
-                - if (vars.txSub)
-                    .cap-empty_tx-sub(class=vars.txSubMod)!= vars.txSub
-            .verticalalign-m-help
-    // /cap-empty
 
 //- Пейджинатор
 mixin pagination(mod)
@@ -132,7 +97,7 @@ mixin b-user(mod,vars)
         .b-user_hold
             .b-user_row
                 a.b-user_name Ангелина Богоявленская
-            - if (vars.signpost)
+            if (vars.signpost)
                 a.b-user_view 123
                 a.b-user_check 123
                 a.b-user_del 123
@@ -146,7 +111,7 @@ mixin btn-scrolltop()
     mod
     vars
 mixin sidebar-search(mod, vars)
-    .sidebar-search.clearfix
+    .sidebar-search.clearfix(class=mod)
         input.sidebar-search_itx(type='text', name='', placeholder=vars.placeholder)
         // При начале ввода добавить класс .active на кнопку
         button.sidebar-search_btn

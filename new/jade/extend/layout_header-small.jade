@@ -1,16 +1,19 @@
-include ../block/config
 doctype html
-html.no-js
-    +head(path)
-    body.body
-        - var avaVars = { icoStatus: 'ico-status__online',src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
-        .layout-container
-            .layout-header
-                +header-fix()
-                +header__small("", {empty: false})
-            .layout-wrapper
-                .layout-wrapper_frame.clearfix
-                    block layout-wrapper
-        +btn-scrolltop()
-        .popup-container.display-n  
-            block block-hidden
+| <!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
+| <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+| <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+include ../block/config
++head(path)
+body.body
+    - var avaVars = { icoStatus: 'ico-status__online',src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg'}
+    .layout-container
+        .layout-header
+            +header-fix()
+            +header__small("", {empty: false})
+        .layout-wrapper
+            .layout-wrapper_frame.clearfix
+                block layout-wrapper
+    +btn-scrolltop()
+    .popup-container.display-n  
+        block block-hidden
+| </html>

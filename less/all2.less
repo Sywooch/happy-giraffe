@@ -7,16 +7,32 @@
 @import "/project/aside-filter.less";
 @import "/project/comments.less";
 @import "/project/favorites.less";
-@import "/project/find-friend.less";
+/*
+@import "/project/find-friend.less";*/
 @import "/project/friends-list.less";
-@import "/project/im.less";
+/*@import "/project/im.less";
+// onair прямой эфир в фиксированном блоке скраю сайта
 @import "/project/onair.less";
-@import "../new/less/project/photo-window.less";
-@import "/project/redactor.less";
+*/
+@import "/project/redactor.hg.less";
+@import "/project/sidebar.less";
 @import "/project/start-page.less";
 @import "/project/social.less";
 @import "/project/user-notice.less";
-@import "/project/vacancy.less";
+@import "../redactor/redactor.less";
+/*@import "/project/vacancy.less";*/
+
+// new 
+// ---------------------------------------------------------------------------------------------
+@import "../new/less/project/popup-sign.less";
+@import "../new/less/plugins/jquery.Jcrop.less";
+@import "../new/less/plugins/magnific-popup.less";
+@import "../new/less/plugins/select2.less";
+@import "../new/less/plugins/select2.hg.less";
+@import "../new/less/project/form.less";
+@import "../new/less/project/msg-fast.less";
+@import "../new/less/project/photo-window.less";
+
 
 /// services
 @import "/project/services/cook.less";
@@ -33,7 +49,7 @@
 
 
 
-/* not use
+/* not use 
 @import "/project/sections.less";
 
 */
@@ -241,6 +257,14 @@
         margin: 0 0 5px;
     }
     .content-img  {float: none;margin: 0 0 10px;}
+    .img-right {
+        float: right;
+        margin: 0 0 10px 20px;
+    }
+    .img-left {
+        float: left;
+        margin: 0 20px 10px 0;
+    }
     .h2-services {
         font-weight: normal;
         color: #0D0D0D;
@@ -417,6 +441,46 @@
 }
 .giraffe-story-text .allocation {color: #1a1a1a;font-size: 13px;}
 /* /giraffe-story */
+
+/* article-heinz */
+.article-heinz {
+    margin: 30px 0;
+
+    &__blue {background: #eef8ff;}
+    &__blue &_t {background: #87c9f5;}
+    &__green {background: #f0fcf0;}
+    &__green &_t {background: #7ad67a;}
+    &__lilac {background: #faf2ff;}
+    &__lilac &_t {background: #c6a9d0;}
+    &__pink {background: #fef2f9;}
+    &__pink &_t {background: #fc95bf;}
+
+    .ico-family {
+        float: left;
+        margin-top: -25px;
+    }
+
+    &_t {
+        padding: 2px 25px 7px;
+        .border-top-radius(5px);
+    }
+    &_t h2 {
+        color: #fff;
+        margin: 0;
+        font-size: 20px;
+        font-family: Tahoma, Arial, Verdana, sans-serif;
+    }
+    &_hold {
+        padding: 10px 20px 10px;
+        .clearfix();
+    }
+    h3 {
+        font-size: 13px;
+        font-weight: bold;
+        margin: 10px 0 5px;
+    }
+}
+/* /article-heinz */
 
 /*===== Recipe settings =====*/
 /* baby_handbook_add_recipe.html */
@@ -626,7 +690,7 @@ table.fr_recipe_tb td { width: 50%;}
     &__question &_t-a {color: #fff;}
 
     .wysiwyg-content {padding: 0 20px;}
-    .custom-likes-b {margin: 0 0 30px;}
+    .custom-likes-b {margin: 15px 0 35px;}
     &_repost &_cont {min-height: 115px;}
     &_in {
         min-height:159px;
@@ -1181,7 +1245,7 @@ table.fr_recipe_tb td { width: 50%;}
     &__smallest .favorites-add-popup {left: 35px;top: -13px;}
 
     &__self &_ico__like:hover {background-position: 0 0;}
-    &__self &_ico__repost:hover {background-position: -200px 0;}
+    &__self &_ico__repost:hover {background-position: -200px -10px; }
     &__self .favorites-control_a:hover {background-position: -400px 0;}
 
     &_i {
@@ -1853,7 +1917,7 @@ table.fr_recipe_tb td { width: 50%;}
     font-size: 11px;
     line-height: 11px;
     color: @color-gray-light;
-    background: url(/images/like-hg-small.png) no-repeat 0 0;
+    background: data-uri('../images/like-hg-small.png') no-repeat;
     text-decoration: none;
     &.active,
     &:hover { background-position: 0 -50px;}
@@ -2028,7 +2092,7 @@ table.fr_recipe_tb td { width: 50%;}
 
 /* popup-user-add-record */
 .popup-user-add-record {
-    width: 1000px;
+    /*width: 1000px;*/
 
     .user-add-record {
         margin: 0 0 10px;
@@ -3026,8 +3090,33 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /b-interest */
 
-/* widget-friends */
+/* widget-friends  */
+
+// Планируется внедерние
 .widget-friends {
+    margin: 10px 0 40px;
+    &_ul {
+        margin: 5px -16px 0 0;
+    }
+    &_i {
+        .inline-block();
+        vertical-align: top;
+        margin:15px 10px 0 0;
+    }
+    &_find {
+        .inline-block();
+        vertical-align: top;
+        margin: 10px 4px 0 -3px;
+    }
+    &_find-a {
+        display: block;
+        width: 80px;
+        height: 81px;
+        background: url(/images/widget-friends_find.png) no-repeat;
+    }
+    &_find-a:hover {background-position: 0 -81px;}
+}
+/*.widget-friends {
     margin: 10px 0 40px;
     padding: 15px;
     background: #f5f5f5;
@@ -3059,7 +3148,7 @@ table.fr_recipe_tb td { width: 50%;}
         background: url(/images/widget-friends_find.png) no-repeat;
     }
     &_find-a:hover {background-position: 0 -81px;}
-}
+}*/
 /* /widget-friends */
 
 /* user-awards */
@@ -3729,6 +3818,13 @@ table.fr_recipe_tb td { width: 50%;}
         line-height: 34px;
         color: #919090;
     }
+    &_label__long {
+        float: none;
+        .inline-block();
+        vertical-align: middle;
+        line-height: 22px;
+        width: 90%; 
+    }
     &_label-row {
         color: #111;
         margin: 10px 0 10px;
@@ -4035,18 +4131,24 @@ table.fr_recipe_tb td { width: 50%;}
     &__clearblue {}
     &__clearblue .b-section {margin-bottom: 30px;}
     
-    &__adfox {}
-    &__adfox .layout-container {
+    &__adfox {padding-bottom: 50px;}
+    &__adfox .layout-w1 {
         position: relative;
         overflow: hidden;
         background: #f0f0f0;
         width: 1000px;
-        margin: 0 auto 50px; 
-        .box-shadow(1px 1px 7px rgba(8,94,150,0.30));
+        margin: 0 auto; 
+        .box-shadow(0px 0px 3px rgba(0,0,0,0.1));
         z-index: 1;
     }
+    &__adfox .header-fix {
+        width: 1000px;
+        left: 50%;
+        right: auto;
+        margin-left: -500px;
+    }
 
-    &__kinder-spring .layout-container {margin-bottom: 150px;}
+    /*&__kinder-spring .layout-container {margin-bottom: 150px;}*/
 
 /*    &__adfox .start-page_container {
         width: 1000px;
@@ -4072,7 +4174,35 @@ table.fr_recipe_tb td { width: 50%;}
     @media screen and (min-width: 1400px) {
         &__adkinder {background:#b7ddf2 url(/images/branding/kinder/theme__adkinder-1920.jpg) no-repeat 50% 0px;}
     }*/
+
+    &__zyrtek {background-color: #fff;}
+    &__zyrtek &_banner-top {
+        background: url('/images/branding/zyrtek/theme_banner-top-1024.jpg?1') no-repeat 50% 0;
+    }
+    @media screen and (min-width: 1310px) {
+        &__zyrtek &_banner-top {
+            margin-right: 140px;
+            padding-left: 140px;
+            background: url('/images/branding/zyrtek/theme_banner-top-1320.jpg?1') no-repeat 50% 0;
+        }  
+    } 
+    @media screen and (min-width: 1450px) {
+        &__zyrtek &_banner-top {
+            margin-right: 140px;
+            padding-left: 140px;
+            background: url('/images/branding/zyrtek/theme_banner-top-1920.jpg?1') no-repeat 50% 0;
+        }  
+    }
     
+    &_banner-top {position: relative;}
+    &_banner-top object {
+        display: block;
+        margin: 0 auto;
+    }
+    &_banner-top-hold {
+        width: 1000px;
+        margin: 0 auto; 
+    }
 }
 
 .cover {
@@ -4109,7 +4239,7 @@ table.fr_recipe_tb td { width: 50%;}
 
 /* cover-contest */
 .cover-contest {
-    margin: 278px 0 209px;
+    margin: 283px 0 209px;
     .body-guest & {margin-top: 235px;}
 
     &__pets1  {background:#4e4064 url(/images/contest/club/pets1/cover-contest__pets1.jpg) no-repeat 50% 0;}
@@ -4205,6 +4335,78 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /clearblue */
+
+/* hainz-fruit-game */
+.hainz-fruit-game {
+    position: relative;
+    width: 1000px;
+    height: 320px;
+    background: url('/images/branding/hainz/play-game/hainz-1000.jpg') no-repeat;
+
+    &_bank1 {
+        position: absolute;
+        top: 134px;
+        left: 440px;
+        width: 75px;
+        height: 111px;
+        background: url('/images/branding/hainz/play-game/bank1.png') no-repeat;
+    }
+    &_bank1:hover,
+    &_bank2:hover,
+    &_bank3:hover {
+        -webkit-animation-name: thumb;
+        -webkit-animation-duration: 200ms;
+        -webkit-transform-origin:50% 50%;
+        -webkit-animation-iteration-count: 2;
+        -webkit-animation-timing-function: linear;
+    }
+    &_bank2 {
+        position: absolute;
+        top: 102px;
+        left: 581px;
+        width: 75px;
+        height: 140px;
+        background: url('/images/branding/hainz/play-game/bank2.png') no-repeat;
+    }
+    &_bank3 {
+        position: absolute;
+        top: 108px;
+        left: 731px;
+        width: 136px;
+        height: 137px;
+        background: url('/images/branding/hainz/play-game/bank3.png') no-repeat;
+    }
+    &_arrow {
+        position: absolute;
+        top: 151px;
+        left: 522px;
+        width: 53px;
+        height: 50px;
+        background: url('/images/branding/hainz/play-game/arrow.png') no-repeat;
+    }
+    &_arrow:hover {background-position: 0 -50px;}
+    &_arrow__2 {
+        left: 670px;
+    }
+    &_btn {
+        position: absolute;
+        top: 261px;
+        left: 659px;
+        width: 233px;
+        height: 44px;
+        background: url('/images/branding/hainz/play-game/btn.png') no-repeat;
+    }
+    &_btn:hover {background-position: 0 -44px;}
+
+}
+@-webkit-keyframes thumb {
+    0% { -webkit-transform: scale(1); }
+    50% { -webkit-transform: scale(0.9); }
+    100% { -webkit-transform: scale(1); }
+}
+
+/* /hainz-fruit-game */
+ 
 /* /branding pages*/
 
 /* such-post */
@@ -4317,29 +4519,6 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /such-post */
-
-/* f-about */
-.f-about {
-    margin: 20px 0 65px;
-    padding: 3% 3.2% 1%;
-    background-color: #f5f5f5;
-    line-height: 18px;
-
-    &_col-l {
-        .inline-block();
-        vertical-align: middle;
-        width: 25%;
-    }
-    &_col-r {
-        .inline-block();
-        vertical-align: middle;
-        width: 74%;
-    }
-    &_row {
-        margin: 0 0 25px;
-    }
-}
-/* /f-about */
 
 /* ava-list */
 .ava-list {
@@ -4851,14 +5030,8 @@ table.fr_recipe_tb td { width: 50%;}
 
 
 
-
 // new 
 // ---------------------------------------------------------------------------------------------
-@import "../new/less/project/popup-sign.less";
-@import "../new/less/plugins/jquery.Jcrop.less";
-@import "../new/less/plugins/magnific-popup.less";
-@import "../new/less/plugins/select2.less";
-@import "../new/less/plugins/select2.hg.less";
 
 
 .popup {
@@ -4867,61 +5040,5 @@ table.fr_recipe_tb td { width: 50%;}
     padding: 0;
 }
 
-/* 
-    Валидация форм
-    .inp-valid 
-*/
-.inp-valid {
-    position: relative;
-    .clearfix();
-
-    &.error &_error {display: inline-block;}
-    &.error input {border-color: #fdb9ac !important;}
-    &.success &_success {display: block;}
-    &__abs &_error {
-        position: absolute;
-        bottom: 100%;
-        left: 0;
-        z-index: 1000;
-        white-space: nowrap;
-    }
-    &__abs &_success {
-        position: absolute;
-        left: 100%;
-        margin-left: 10px;
-        z-index: 1000;
-    }
-    &__abs &_success__ico-check {
-        top: 50%;
-        margin-top: -6px;
-    }
-
-    &_error {
-        display: none;
-        padding: 8px 10px 8px 33px;
-         background: #fde3e3 url(/new/images/inp-valid_error.png) no-repeat 7px 6px;
-    }
-    &_error:after {
-        content: ' ';
-        position: absolute;
-        left: 10px;
-        bottom: -12px;
-        border: 6px solid transparent;
-        border-top-color: #fde3e3;
-    }
-    &_error .errorMessage {
-        color: #db9191 !important;
-        font-size: 12px !important;
-        margin: 0;
-    }
-    &_success__ico-check {
-        .inline-block();
-        width: 12px;
-        height: 11px;
-        .img-retina('/new/images/inp-valid_success__ico-check.png'; '/new/images/inp-valid_success__ico-check-2x.png'; 12px; 11px);
-    }
-    &_success{
-        display: none;
-    }
-}
-/* /.inp-valid */
+// html banners  
+@import "/banner/ban-route-danger.less";

@@ -365,7 +365,7 @@ body .redactor_air .redactor_toolbar {
     text-decoration: none;
     font-size: 0;
     line-height: 0;
-    .img-retina('@{path-img}/redactor/redactor_toolbar.png'; '@{path-img}/redactor/redactor_toolbar2x.png'; auto; 25px;);
+    .img-retina('@{path-img}/redactor/redactor_toolbar.png'; '@{path-img}/redactor/redactor_toolbar-2x.png'; 925px; 50px;);
 
     cursor: pointer;
     zoom: 1;
@@ -576,20 +576,15 @@ body .redactor_air .redactor_toolbar {
     padding: 20px 30px;
 
 }
-#redactor_modal_close {
+#redactor_modal_close:extend(.ico-close3) {
     position: absolute;
     top: 10px;
     right: 10px;
-    width: 11px;
-    height: 11px;
     cursor: pointer;
     z-index: 500;
     text-indent: -9999px;
-    background: url(/images/ico/ico-close3.png) no-repeat;
 }
-#redactor_modal_close:hover {
-    background-position: 0 -11px;
-}
+#redactor_modal_close:hover:extend(.ico-close3:hover) {}
 #redactor_modal label {
     display: block !important;
     float: none !important;

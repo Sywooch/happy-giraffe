@@ -4,6 +4,7 @@
 .btn-blue-simple,
 .btn-gray,
 .btn-gray-light,
+.btn-gray-simple,
 .btn-amethyst,
 .btn-orange,
 .btn-gold,
@@ -81,6 +82,23 @@
 .btn-xxl {height:60px;line-height:60px;padding:0 20px;font-size:35px;.border-radius(5px);}
 .btn-xxxl {height:75px;line-height:75px;padding:0 35px;font-size:34px;.border-radius(8px);}
 
+.btn-red[disabled],
+.btn-red:disabled,
+.btn-gray-simple[disabled],
+.btn-gray-simple:disabled,
+.btn-gray-light[disabled],
+.btn-gray-light:disabled,
+.btn-green-simple[disabled],
+.btn-green-simple:disabled,
+.btn-blue-simple[disabled],
+.btn-blue-simple:disabled,
+.btn-green[disabled],
+.btn-green:disabled,
+.btn-inactive {
+    position: relative;
+    opacity: 0.5;
+    cursor: default;
+}
 
 
 // Цвета
@@ -202,6 +220,17 @@
 }
 .ie7 .btn-gray-light:hover,
 .ie8 .btn-gray-light:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eaeaea', endColorstr='#c6c6c6',GradientType=0 ); /* IE6-8 */}
+
+
+.btn-gray-simple {
+    color: @color-gray;
+    background-color: #f0f0f0;
+
+    &:hover {
+        background-color: #ebebeb;
+        color: @color-gray-dark;
+    }
+} 
 
 .btn-orange {
 	color: #fff;

@@ -119,14 +119,16 @@ $(function() {
     $(".select-cus__search-off").select2({
         width: '100%',
         minimumResultsForSearch: -1,
-        dropdownCssClass: 'select2-drop__search-off"',
+        dropdownCssClass: 'select2-drop__search-off',
         escapeMarkup: function(m) { return m; }
     });
+    $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
 
     // Измененный tag select c инпутом поиска
     $(".select-cus__search-on").select2({
         width: '100%',
         dropdownCssClass: 'select2-drop__search-on',
+        searchInputPlaceholder: "Начните вводить",
         escapeMarkup: function(m) { return m; }
     });
 

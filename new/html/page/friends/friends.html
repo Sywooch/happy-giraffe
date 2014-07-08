@@ -1,34 +1,33 @@
 <!DOCTYPE html><!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
 <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<!-- a-->
+<!-- b-->
+<!-- c-->
+<!-- a-->
+<!-- b-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Happy Giraffe</title>
-  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.css" />
+  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
   <!-- including other jade works-->
-  <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
+  <!-- ie8 -->
+  <!--+scripts(path)-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
     
   </script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
-  <!-- tooltip-->
   <script src="/new/javascript/jquery.tooltipster.js"></script>
-  <!-- popup-->
   <script src="/new/javascript/jquery.magnific-popup.js"></script>
-  <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
-  <!-- custom select-->
   <script src="/new/javascript/select2.js"></script>
-  <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
   <script src="/new/javascript/jquery.Jcrop.js"></script>
-  <!-- Базовый js (вызывается на всех страницах)-->
   <script src="/new/javascript/common.js"></script>
-  <!-- js для работы в верстке-->
   <script src="/new/javascript/common-markup.js"></script>
   <script src="//localhost:35729/livereload.js"></script>
 </head>
@@ -52,12 +51,14 @@
       </script>
       <div class="header-fix">
         <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
-          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header_i-arrow"></span></a>
+          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a">
+              <!--!= vars.avaSpan--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
             <!-- header-drop-->
             <div class="header-drop">
               <div class="header-menu clearfix">
                 <ul class="header-menu_ul">
-                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                        <!--!= vars.avaSpan--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -72,11 +73,11 @@
                 <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
                 <div class="club-list club-list__small clearfix">
                   <ul class="club-list_ul clearfix">
-                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"/></span></a></li>
-                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"/></span></a></li>
-                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"/></span></a></li>
-                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"/></span></a></li>
-                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"/></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
                   </ul>
                 </div>
               </div>
@@ -109,23 +110,19 @@
           <!-- header-menu-->
           <div class="header-menu">
             <ul class="header-menu_ul clearfix">
-              <!-- li.header-menu_li
-              a.header-menu_a(href='')
-                  span.header-menu_ico.header-menu_ico__broadcast
-                  span.header-menu_tx
-                      | Прямой эфир
-              -->
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
               <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
-              <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
-                <!-- header-drop-->
+              <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a">
+                  <!--!= vars.avaSpan--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
                 <div class="header-drop">
                   <div class="header-menu clearfix">
                     <ul class="header-menu_ul">
-                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                            <!--!= vars.avaSpan--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -140,17 +137,17 @@
                     <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
                     <div class="club-list club-list__small clearfix">
                       <ul class="club-list_ul clearfix">
-                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"/></span></a></li>
-                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"/></span></a></li>
-                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"/></span></a></li>
-                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"/></span></a></li>
-                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"/></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
                       </ul>
                     </div>
                   </div>
                   <!-- /header-drop_b-->
                 </div>
-                <!-- /header-drop-->
+                <!-- /header-drop -->
               </li>
             </ul>
           </div>
@@ -177,7 +174,7 @@
         <div class="page-col page-col__friend">
           <div class="page-col_top page-col_top__gray">
             <div class="sidebar-search clearfix">
-              <input type="text" name="" placeholder="Введите имя и/или фамилию" class="sidebar-search_itx"/>
+              <input type="text" name="" placeholder="Введите имя и/или фамилию" class="sidebar-search_itx">
               <!-- При начале ввода добавить класс .active на кнопку-->
               <button class="sidebar-search_btn"></button>
             </div>
@@ -190,89 +187,82 @@
           <div class="page-col_cont">
             <div class="friends-list">
               <ul class="friends-list_ul">
+                <!--  != vars.bAvaLarge.avaVars.avaSpan-->
+                <!--  each item in vars.bAvaLarge.avaVars!= item
+                -->
                 <li class="friends-list_li friends-list_banner"><a href=""><img src="/new/images/banner/friends-list_banner.png"></a></li>
+                <!--  != vars.bAvaLarge.avaVars.avaSpan-->
+                <!--  each item in vars.bAvaLarge.avaVars!= item
+                -->
                 <li class="friends-list_li">
                   <div class="friends-list_i"><span title="Удалить из друзей" class="ico-close2 powertip"></span>
                     <!-- b-ava-large-->
                     <div class="b-ava-large">
-                      <div class="b-ava-large_ava-hold clearfix"><a href="" class="ava ava__large ava__male"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"/></a><span class="b-ava-large_online">На сайте</span><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a><a href="" title="Друг" class="b-ava-large_bubble b-ava-large_bubble__friend"><span class="b-ava-large_ico b-ava-large_ico__friend"></span><span class="b-ava-large_bubble-tx">Друг</span></a>
+                      <div class="b-ava-large_ava-hold clearfix">
+                        <!--!= vars.avaSpan--><a href="" class="ava ava__large ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                        <!-- - if (vars.userOnline)span.b-ava-large_online На сайте
+                        --><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
+                        <!-- - if (vars.icoFriendAdd)
+                        a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
+                            span.b-ava-large_ico.b-ava-large_ico__friend-add
+                            span.b-ava-large_bubble-tx 
+                        -->
                       </div>
                       <div class="textalign-c"><a href="" class="b-ava-large_a">Александр Богоявленский</a><span class="b-ava-large_age">42 года</span></div>
                       <div class="location location__small clearfix">
-                        <div title="Казахстан" class="flag flag-kz"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
+                        <div title="Россия" class="flag flag-ru"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
                       </div>
+                      <!-- b-family-->
                       <div class="b-family">
                         <ul class="b-family_ul">
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><img alt="" src="/images/example/w41-h49-1.jpg" class="b-family_img"/></span><span class="b-family_tx"><span>Жена</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-19"></span></span><span class="b-family_tx"><span>Сын</span><br/><span>18 лет</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-3"></span></span><span class="b-family_tx"><span>Дочь</span><br/><span>4,5 года</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Дочь</span><br/><span>2,5 года</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Дочь</span><br/><span>2,5 года</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span>Жена</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-19"></span></span><span class="b-family_tx"><span>Сын</span><br><span>19 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>8 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-5"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>5 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Сын</span><br><span>2,5 года</span></span></a></li>
                         </ul>
                       </div>
+                      <!-- /b-family-->
                     </div>
                     <!-- /b-ava-large-->
                   </div>
                 </li>
+                <!--  != vars.bAvaLarge.avaVars.avaSpan-->
+                <!--  each item in vars.bAvaLarge.avaVars!= item
+                -->
                 <li class="friends-list_li friends-list_banner"><a href=""><img src="/new/images/banner/friends-list_banner.png"></a></li>
+                <!--  != vars.bAvaLarge.avaVars.avaSpan-->
+                <!--  each item in vars.bAvaLarge.avaVars!= item
+                -->
                 <li class="friends-list_li">
                   <div class="friends-list_i"><span title="Удалить из друзей" class="ico-close2 powertip"></span>
                     <!-- b-ava-large-->
                     <div class="b-ava-large">
-                      <div class="b-ava-large_ava-hold clearfix"><a href="" class="ava ava__large ava__male"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"/></a><span class="b-ava-large_online">На сайте</span><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a><a href="" title="Друг" class="b-ava-large_bubble b-ava-large_bubble__friend"><span class="b-ava-large_ico b-ava-large_ico__friend"></span><span class="b-ava-large_bubble-tx">Друг</span></a>
+                      <div class="b-ava-large_ava-hold clearfix">
+                        <!--!= vars.avaSpan--><a href="" class="ava ava__large ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                        <!-- - if (vars.userOnline)span.b-ava-large_online На сайте
+                        --><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
+                        <!-- - if (vars.icoFriendAdd)
+                        a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
+                            span.b-ava-large_ico.b-ava-large_ico__friend-add
+                            span.b-ava-large_bubble-tx 
+                        -->
                       </div>
-                      <div class="textalign-c"><a href="" class="b-ava-large_a">Александра Ушакова-Младшая</a><span class="b-ava-large_age">19 лет</span></div>
+                      <div class="textalign-c"><a href="" class="b-ava-large_a">Александр Богоявленский</a><span class="b-ava-large_age">42 года</span></div>
                       <div class="location location__small clearfix">
-                        <div title="Казахстан" class="flag flag-kz"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
+                        <div title="Россия" class="flag flag-ru"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
                       </div>
+                      <!-- b-family-->
                       <div class="b-family">
                         <ul class="b-family_ul">
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><img alt="" src="/images/example/w41-h49-1.jpg" class="b-family_img"/></span><span class="b-family_tx"><span>Жена</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-19"></span></span><span class="b-family_tx"><span>Сын</span><br/><span>18 лет</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-3"></span></span><span class="b-family_tx"><span>Дочь</span><br/><span>4,5 года</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Дочь</span><br/><span>2,5 года</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Дочь</span><br/><span>2,5 года</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span>Жена</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-19"></span></span><span class="b-family_tx"><span>Сын</span><br><span>19 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>8 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-5"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>5 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Сын</span><br><span>2,5 года</span></span></a></li>
                         </ul>
                       </div>
-                    </div>
-                    <!-- /b-ava-large-->
-                  </div>
-                </li>
-                <li class="friends-list_li friends-list_banner"><a href=""><img src="/new/images/banner/friends-list_banner.png"></a></li>
-                <li class="friends-list_li">
-                  <div class="friends-list_i"><span title="Удалить из друзей" class="ico-close2 powertip"></span>
-                    <!-- b-ava-large-->
-                    <div class="b-ava-large">
-                      <div class="b-ava-large_ava-hold clearfix"><a href="" class="ava ava__large ava__male"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"/></a><span class="b-ava-large_online">На сайте</span><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a><a href="" title="Друг" class="b-ava-large_bubble b-ava-large_bubble__friend"><span class="b-ava-large_ico b-ava-large_ico__friend"></span><span class="b-ava-large_bubble-tx">Друг</span></a>
-                      </div>
-                      <div class="textalign-c"><a href="" class="b-ava-large_a">Александра Ушакова-Младшая</a><span class="b-ava-large_age">19 лет</span></div>
-                      <div class="location location__small clearfix">
-                        <div title="Казахстан" class="flag flag-kz"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
-                      </div>
-                    </div>
-                    <!-- /b-ava-large-->
-                  </div>
-                </li>
-                <li class="friends-list_li friends-list_banner"><a href=""><img src="/new/images/banner/friends-list_banner.png"></a></li>
-                <li class="friends-list_li">
-                  <div class="friends-list_i"><span title="Удалить из друзей" class="ico-close2 powertip"></span>
-                    <!-- b-ava-large-->
-                    <div class="b-ava-large">
-                      <div class="b-ava-large_ava-hold clearfix"><a href="" class="ava ava__large ava__male"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"/></a><span class="b-ava-large_online">На сайте</span><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a><a href="" title="Друг" class="b-ava-large_bubble b-ava-large_bubble__friend"><span class="b-ava-large_ico b-ava-large_ico__friend"></span><span class="b-ava-large_bubble-tx">Друг</span></a>
-                      </div>
-                      <div class="textalign-c"><a href="" class="b-ava-large_a">Александра Ушакова-Младшая</a><span class="b-ava-large_age">39 лет</span></div>
-                      <div class="location location__small clearfix">
-                        <div title="Казахстан" class="flag flag-kz"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
-                      </div>
-                      <div class="b-family">
-                        <ul class="b-family_ul">
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><img alt="" src="/images/example/w41-h49-1.jpg" class="b-family_img"/></span><span class="b-family_tx"><span>Жена</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-19"></span></span><span class="b-family_tx"><span>Сын</span><br/><span>18 лет</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-3"></span></span><span class="b-family_tx"><span>Дочь</span><br/><span>4,5 года</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Дочь</span><br/><span>2,5 года</span></span></a></li>
-                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Дочь</span><br/><span>2,5 года</span></span></a></li>
-                        </ul>
-                      </div>
+                      <!-- /b-family-->
                     </div>
                     <!-- /b-ava-large-->
                     <!-- cap-empty-->
@@ -288,32 +278,82 @@
                     <!-- /cap-empty-->
                   </div>
                 </li>
+                <!--  != vars.bAvaLarge.avaVars.avaSpan-->
+                <!--  each item in vars.bAvaLarge.avaVars!= item
+                -->
                 <li class="friends-list_li friends-list_banner"><a href=""><img src="/new/images/banner/friends-list_banner.png"></a></li>
+                <!--  != vars.bAvaLarge.avaVars.avaSpan-->
+                <!--  each item in vars.bAvaLarge.avaVars!= item
+                -->
                 <li class="friends-list_li">
                   <div class="friends-list_i"><span title="Удалить из друзей" class="ico-close2 powertip"></span>
                     <!-- b-ava-large-->
                     <div class="b-ava-large">
-                      <div class="b-ava-large_ava-hold clearfix"><a href="" class="ava ava__large ava__male"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"/></a><span class="b-ava-large_online">На сайте</span><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a><a href="" title="Друг" class="b-ava-large_bubble b-ava-large_bubble__friend"><span class="b-ava-large_ico b-ava-large_ico__friend"></span><span class="b-ava-large_bubble-tx">Друг</span></a>
+                      <div class="b-ava-large_ava-hold clearfix">
+                        <!--!= vars.avaSpan--><a href="" class="ava ava__large ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                        <!-- - if (vars.userOnline)span.b-ava-large_online На сайте
+                        --><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
+                        <!-- - if (vars.icoFriendAdd)
+                        a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
+                            span.b-ava-large_ico.b-ava-large_ico__friend-add
+                            span.b-ava-large_bubble-tx 
+                        -->
                       </div>
-                      <div class="textalign-c"><a href="" class="b-ava-large_a">Александра Ушакова-Младшая-Младшая</a><span class="b-ava-large_age">19 лет</span></div>
+                      <div class="textalign-c"><a href="" class="b-ava-large_a">Александр Богоявленский</a><span class="b-ava-large_age">42 года</span></div>
                       <div class="location location__small clearfix">
-                        <div title="Казахстан" class="flag flag-kz"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
+                        <div title="Россия" class="flag flag-ru"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
                       </div>
+                      <!-- b-family-->
+                      <div class="b-family">
+                        <ul class="b-family_ul">
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span>Жена</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-19"></span></span><span class="b-family_tx"><span>Сын</span><br><span>19 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>8 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-5"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>5 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Сын</span><br><span>2,5 года</span></span></a></li>
+                        </ul>
+                      </div>
+                      <!-- /b-family-->
                     </div>
                     <!-- /b-ava-large-->
                   </div>
                 </li>
+                <!--  != vars.bAvaLarge.avaVars.avaSpan-->
+                <!--  each item in vars.bAvaLarge.avaVars!= item
+                -->
                 <li class="friends-list_li friends-list_banner"><a href=""><img src="/new/images/banner/friends-list_banner.png"></a></li>
+                <!--  != vars.bAvaLarge.avaVars.avaSpan-->
+                <!--  each item in vars.bAvaLarge.avaVars!= item
+                -->
                 <li class="friends-list_li">
                   <div class="friends-list_i"><span title="Удалить из друзей" class="ico-close2 powertip"></span>
                     <!-- b-ava-large-->
                     <div class="b-ava-large">
-                      <div class="b-ava-large_ava-hold clearfix"><a href="" class="ava ava__large ava__male"><span class="ico-status"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"/></a><span class="b-ava-large_online">На сайте</span><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a><a href="" title="Друг" class="b-ava-large_bubble b-ava-large_bubble__friend"><span class="b-ava-large_ico b-ava-large_ico__friend"></span><span class="b-ava-large_bubble-tx">Друг</span></a>
+                      <div class="b-ava-large_ava-hold clearfix">
+                        <!--!= vars.avaSpan--><a href="" class="ava ava__large ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                        <!-- - if (vars.userOnline)span.b-ava-large_online На сайте
+                        --><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
+                        <!-- - if (vars.icoFriendAdd)
+                        a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
+                            span.b-ava-large_ico.b-ava-large_ico__friend-add
+                            span.b-ava-large_bubble-tx 
+                        -->
                       </div>
-                      <div class="textalign-c"><a href="" class="b-ava-large_a">Александра Ушакова-Младшая-Младшая</a><span class="b-ava-large_age">19 лет</span></div>
+                      <div class="textalign-c"><a href="" class="b-ava-large_a">Александр Богоявленский</a><span class="b-ava-large_age">42 года</span></div>
                       <div class="location location__small clearfix">
-                        <div title="Казахстан" class="flag flag-kz"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
+                        <div title="Россия" class="flag flag-ru"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
                       </div>
+                      <!-- b-family-->
+                      <div class="b-family">
+                        <ul class="b-family_ul">
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span>Жена</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-19"></span></span><span class="b-family_tx"><span>Сын</span><br><span>19 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>8 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-5"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>5 лет</span></span></a></li>
+                          <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Сын</span><br><span>2,5 года</span></span></a></li>
+                        </ul>
+                      </div>
+                      <!-- /b-family-->
                     </div>
                     <!-- /b-ava-large-->
                   </div>

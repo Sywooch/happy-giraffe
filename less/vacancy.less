@@ -1,0 +1,336 @@
+// Переменные и примешивания
+@import "/include/variables.less";
+@import "/include/mixins.less";
+
+
+.layout-thin {
+    margin: 0 65px;
+    font-size: 15px;
+    line-height: 24px;
+    color: #555;
+}
+.layout-hg-bg {
+    background:#fafafa url(/images/layout-hg-bg.gif) no-repeat 50% 100%;
+}
+
+.b-avacancy {
+
+    .heading-title{
+        margin: 20px 0;
+    }
+    .f-about {margin-left: -30px;}
+    &_help {
+        font-size: 12px;
+    }
+}
+
+.hg-monitor {
+    margin: 0;
+    background: #fdfdfd; /* Old browsers */
+    background: -moz-linear-gradient(top,  #fdfdfd 0%, #fdfdfd 69%, #f1eff3 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fdfdfd), color-stop(69%,#fdfdfd), color-stop(100%,#f1eff3)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  #fdfdfd 0%,#fdfdfd 69%,#f1eff3 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  #fdfdfd 0%,#fdfdfd 69%,#f1eff3 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  #fdfdfd 0%,#fdfdfd 69%,#f1eff3 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  #fdfdfd 0%,#fdfdfd 69%,#f1eff3 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fdfdfd', endColorstr='#f1eff3',GradientType=0 ); /* IE6-8 */
+
+    .ie9 & {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZkZmRmZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjY5JSIgc3RvcC1jb2xvcj0iI2ZkZmRmZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmMWVmZjMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
+
+    &_in {
+        margin: 0 auto;
+        width: 1000px;
+        height: 724px;
+        background: url(/images/hg-monitor_in.jpg) no-repeat;
+    }
+}
+
+.hg-about {
+    padding: 35px 0 50px;
+
+    &_logo {
+        float: left;
+        width: 130px;
+        height: 160px;
+        margin: 0 0px 0 30px;
+        background: url(/images/hg-about_logo.png) no-repeat;
+    }
+    &_desc {
+        padding: 13px 0 0 210px;
+
+    }
+}
+
+/* f-about */
+.f-about {
+    margin: 20px 0 65px;
+    padding: 3% 3.2% 1%;
+    background-color: #f5f5f5;
+    line-height: 18px;
+
+    &_col-l {
+        .inline-block();
+        vertical-align: middle;
+        width: 25%;
+    }
+    &_col-r {
+        .inline-block();
+        vertical-align: middle;
+        width: 74%;
+    }
+    &_row {
+        margin: 0 0 25px;
+    }
+    &_upload {
+        .inline-block();
+        vertical-align: middle;
+        padding: 5px 10px 5px 25px;
+        color: #999;
+        background: url('@{path-img}/f-about_upload.png') no-repeat;
+
+        .ico-close3 {margin-left: 7px;}
+    }
+    &_or {
+        margin: -20px 0 15px;
+        font: 20px/20px Georgia, 'Times New Roman', Times, serif;
+        font-style: italic;
+        color: #cdcdcd;
+    }
+}
+/* /f-about */
+
+/* vote-vacancy */
+.vote-vacancy {
+    margin: 20px 30px 50px 0;
+
+    &_q {
+        margin: 0 0 30px;
+        padding: 0 0 30px;
+        border-bottom: 1px solid #eee;
+    }
+    &_q:last-child {border-bottom: 0;}
+    &_l {
+        float: left;
+        width: 170px;
+    }
+    &_l-tx {
+        font-style: italic;
+        font-size: 15px;
+        color: #fa5606;
+    }
+    &_r {
+        margin-left: 205px;
+    }
+    &_desc {
+        margin: 0 15px 15px 8px;
+    }
+    &_desc p {margin: 5px 0;}
+    &_code {
+        font-family: monospace;
+        font-style: italic;
+    }
+}
+/* /vote-vacancy */
+
+
+
+/* vacancy */
+@path-img: '/images/vacancy';
+.body__vacancy {
+    height: 100%;
+    background: #66508c url('/new/images/body-circle-candy__dark.png') no-repeat 50% 0;
+
+    .layout-container {
+        padding: 30px 0 100px;
+    }  
+}
+.vacancy {
+    background: #fff;
+    
+    .f-about {
+        margin: 20px 160px 40px;
+        background: #fff;
+    }
+    .f-about_col-l {width: 30%;}
+    .f-about_col-r {width: 69%;}
+    .f-about_label {
+        font-size: 16px;
+        color: #666;
+    }
+    .f-about_col-r .btn-xxl {
+        font-size: 30px;
+        line-height: 72px;
+        height: 72px;
+        padding: 0 49px;
+    }
+    .file-fake {
+        vertical-align: middle;
+        margin: 0 15px 0 5px;
+    }
+
+    &_header {
+        background: #ffffff url('@{path-img}/header.png') repeat-x 0 0;
+        padding: 1px 0;
+    }
+    &_header-tx {
+        margin: 0 120px 50px;
+        text-align: center;
+        font-size: 16px;
+        line-height: 25px;
+        color: #666;
+    }
+    &_header-big {
+        font-size: 20px;
+        line-height: 12px;
+        font-weight: bold;
+        color: #8566bd;
+        margin-top: -3px;
+    }
+    &_header-highlight {
+        line-height: 12px;
+        background: #fff991;
+    }
+    &_logo {
+        width: 335px;
+        height: 95px;
+        margin: 60px auto 25px;
+        background: url('@{path-img}/vacancy_logo.png') no-repeat;
+    }
+    &_row {
+        padding: 55px 10px 65px 40px;
+        color: #fff;
+        font-size: 16px;
+        line-height: 23px;
+    }
+    &_row__blue {background: #29a7f9;}
+    &_row__green {background: #1cca65;}
+    &_row__carrot {background: #f39c12;}
+    &_row-t {
+        .inline-block();
+        width: 320px;
+        vertical-align: middle;
+        font-size: 32px;
+        line-height: 35px;
+        font-weight: bold;
+    }
+    &_row-desc {
+        .inline-block();
+        width: 570px;
+        vertical-align: middle;
+    }
+    &_row-desc:first-child {
+        width: 490px;
+        padding-right: 65px;
+    }
+    &_ul {}
+    &_li {
+        background: url('@{path-img}/bullet1.png') no-repeat 0 13px;
+        padding: 0 0 0 20px; 
+    }
+    &_about-t {
+        margin: 0;
+        font-size: 35px;
+        font-weight: bold;
+    }
+    &_help {
+        margin-top: 10px;
+        font-size: 13px;
+    }
+    &_send {
+        text-align: center;
+        padding: 330px 100px 120px;
+        background: url('@{path-img}/send.png') no-repeat 50% 95px;
+    }
+    &_send-tx {
+        font-size: 16px;
+        color: #666;
+        margin: 5px 0 10px;
+    }
+    &_ico-pdf,
+    &_ico-doc {
+        .inline-block();
+        vertical-align: middle;
+        width: 16px;
+        height: 16px;
+        margin: 0 3px;
+        background: url('@{path-img}/vacancy_ico-pdf.png') no-repeat;
+    }
+    &_ico-doc {
+        background: url('@{path-img}/vacancy_ico-doc.png') no-repeat;
+    }
+    &_footer {
+        margin: 20px 40px 50px;
+        font-size: 16px;
+        color: #666;
+    }
+}
+/* /vacancy */
+
+/* requirements */
+.requirements {
+    color: #333;
+    padding: 35px 80px 110px;
+    background: #fafafa url('@{path-img}/worker-1.png') no-repeat 50% 130px;
+    
+    &_title {
+        font: bold 37px/38px 'Arial black', Arial, Tahoma, Verdana, sans-serif;
+        margin: 0 -20px 5px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    &_title-sub {
+        font-size: 16px;
+        line-height: 25px;
+        color: #666;
+        text-align: center;
+        margin: 0 0 70px;
+    }
+    &_func {
+        margin: -30px 0 40px;
+        font: 20px/20px "Courier New", Courier, monospace;
+        text-align: center;
+        color: #4289ff;
+    }
+    &_col-l {
+        float: left;
+        width: 250px;
+        text-align: right;
+    }
+    &_col-r {
+        float: right;
+        width: 250px;
+    }
+    &_t {
+        font: bold 28px/24px Arial, Tahoma, Verdana, sans-serif;
+        padding: 0 0 8px;
+    }
+    &_desc {
+        font-size: 15px;
+        line-height: 20px;
+        min-height: 80px;
+        color: #666;
+    }
+    &_pay {
+        width: 295px;
+        height: 213px;
+        margin: 0 -25px;
+        background: url('@{path-img}/pay-1.png') no-repeat;
+    }
+    &_pay-2 {
+        width: 295px;
+        height: 214px;
+        margin: 0 -25px;
+        background: url('@{path-img}/pay-2.png') no-repeat;
+    }
+    &_skils {
+        width: 252px;
+        height: 151px;
+        background: url('@{path-img}/skils.png') no-repeat;
+    }
+    &_skils-2 {
+        width: 252px;
+        height: 122px;
+        background: url('@{path-img}/skils-2.png') no-repeat;
+    }
+}
+/* /requirements */

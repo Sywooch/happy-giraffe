@@ -7,7 +7,7 @@
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/head.php'; ?>
 
 </head>
-<body class="body-gray theme theme__adfox theme__nutella" style="background:#cde6ff url(/images/branding/nutella-carnival/theme__nutella-carnival-1920.jpg) no-repeat 50% 0px; background-attachment: fixed;">
+<body class="body-gray theme theme__adfox theme__nutella" style="background:#cde6ff url(/images/branding/nutella-carnival/theme__nutella-carnival-1920.jpg) no-repeat 50% 0px; background-attachment: fixed;padding-top:250px;">
 <!--AdFox START-->
 <!--giraffe-->
 <!--Площадка: Весёлый Жираф / * / *-->

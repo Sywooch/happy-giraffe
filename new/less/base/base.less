@@ -34,6 +34,23 @@
 
 
 // Отдельные элементы
+.heading-xxl {
+    margin: 15px 0; // Можно изменить на необходимый
+    font-size: 40px;
+    color: @color-base;
+}
+.heading-link-xxl {
+    margin: 15px 0;
+    font-size: 30px;
+    font-weight: bold;
+    color: @color-link-title;
+}
+.heading-link-xl {
+    margin: 15px 0;
+    font-size: 25px;
+    font-weight: bold;
+    color: @color-link-title;
+}
 .heading-smallest {
     margin: 0;
     font-size: 14px;
@@ -217,6 +234,8 @@
         display: table-cell;
         width: 260px;
         .border-right-radius(10px);
+        
+        .aside-filter_hold {width: 220px;}
     }
 }
 /* /page-col */
@@ -742,220 +761,6 @@
     }
 }
 
-// Form ----------------------------
-/* 
-    sidebar-search
-
-*/
-.sidebar-search {
-    position: relative;
-    padding: 14px 15px 15px;
-    
-    &_itx {
-        display: block;
-        width: 100%;
-        height: 28px;
-        padding: 6px 35px 6px 15px;
-        border: 1px solid #e1dfdf;
-        font-size: 14px;
-        line-height: 16px;
-        background: #fff;
-        .box-sizing(border-box);
-        .border-radius(18px);
-        .transition(all 0.3s ease);
-    }
-    &_itx:focus {border-color: #afd0fb;}
-    &_btn {
-        background: url('@{path-img}/im/im-sidebar_search-btn.png') no-repeat 50% 50%;
-        border: 0;
-        cursor: pointer;
-        float: right;
-        height: 28px;
-        margin: -28px 5px 0 0;
-        width: 30px;
-    }
-    &_btn.active { background: url('@{path-img}/ico/ico-close.png') no-repeat 50% 50%;}
-}
-
-/* 
-    Скрытый input загрузки файлов
-    file-fake 
-        file-fake_btn
-        file-fake_inp
-*/
-.file-fake {
-    display:inline-block;
-    position:relative;
-    cursor:pointer;
-    overflow:hidden;
-
-    &_btn {
-        position:relative;
-        z-index:2;
-        cursor: pointer;
-    }
-    &_inp {
-        opacity:0;
-        position:absolute;
-        z-index:3;
-        right:0;
-        top:0;
-        height:100%;
-        display:block;
-        cursor:pointer;
-        filter: alpha(opacity=30);
-    }
-}
-
-/* 
-    Валидация форм
-    .inp-valid
-*/
-.inp-valid {
-    position: relative;
-    .clearfix();
-
-    &.error &_error {display: inline-block;}
-    &.error input,
-    &.error .selectize-control.single .selectize-input {border-color: #fdb9ac !important;}
-    &.success &_success {display: block;}
-    &__abs &_error {
-        position: absolute;
-        bottom: 100%;
-        left: 0;
-        z-index: 1000;
-        white-space: nowrap;
-    }
-    &__abs &_success {
-        position: absolute;
-        left: 100%;
-        margin-left: 10px;
-        z-index: 1000;
-    }
-    &__abs &_success__ico-check {
-        top: 50%;
-        margin-top: -6px;
-    }
-
-    &_error {
-        display: none;
-        padding: 8px 10px 8px 33px;
-         background: #fde3e3 url('@{path-img}/inp-valid_error.png') no-repeat 7px 6px;
-    }
-    &_error:after {
-        content: ' ';
-        position: absolute;
-        left: 10px;
-        bottom: -12px;
-        border: 6px solid transparent;
-        border-top-color: #fde3e3;
-    }
-    &_error .errorMessage {
-        color: #db9191 !important;
-        font-size: 12px !important;
-        margin: 0;
-    }
-    &_success__ico-check {
-        .inline-block();
-        width: 12px;
-        height: 11px;
-        .img-retina('@{path-img}/inp-valid_success__ico-check.png'; '@{path-img}/inp-valid_success__ico-check-2x.png'; 12px; 11px);
-    }
-    &_success{
-        display: none;
-    }
-}
-/* /.inp-valid */
-
-/* inputs */
-.itx-gray {
-    width: 100%;
-    border: 1px solid #e6e6e6;
-    padding: 7px 10px;
-    background: #fff;
-    color: #333;
-    .box-sizing(border-box);
-    .border-radius(3px);
-    .transition(all 0.4s ease);
-
-    &:focus {border-color: #a0ceee;}
-}
-.itx-simple {
-    width: 100%;
-    border: 1px solid #e0e1e2;
-    padding: 7px 8px 7px 10px;
-    font-size: 14px;
-    line-height: 19px;
-    color: #333;
-    background: #fff;
-    .box-sizing(border-box);
-    .border-radius(3px);
-
-    &:focus {border-color: #d6d8d9;}
-    &.error {border-color: #f9cbcb;}
-
-    &__blue {
-        border-color: #daebf5;
-    }
-    &__blue:focus {
-        border-color: #cee9f1;
-    }
-}
-/* errors */
-input.error[type="text"], 
-input.error[type="password"], 
-textarea.error {
-    border: 1px solid #F9CBCB !important;
-}
-.errorSummary {
-    display: block;
-    overflow: hidden;
-    margin: 10px 5px;
-    padding: 10px 15px;
-    border: 1px solid #fdb9ac;
-    text-align: center;
-    line-height: normal !important;
-    background: #fde3e3;
-    font-size: 13px;
-    color: #db9191 !important;
-}
-.errorMessage {
-    color: #FF8888 !important;
-    font-size: 11px !important;
-    line-height: normal !important;
-    margin: 5px 0;
-    overflow: hidden;
-}
-.error-serv {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    margin: 0;
-    z-index: 900;
-    
-    &__rel {
-        position: relative;
-        top: auto;
-        left: auto;
-    }
-    &__rel &_hold {left: auto;}
-    &_hold {
-        position: relative;
-        left: -50%;
-        padding: 4px 30px;
-        border: 1px solid #fdb9ac;
-        background: #fde3e3;
-        text-align: center;
-        font-size: 12px;
-        color: #db9191;
-    }
-    &_a {
-        .inline-block();
-        margin: 0 0 0 10px;
-        color: #a3a3a3;
-    }
-}
-
 /* 
 ------------------------------------------------------------------
     js plugin class 
@@ -1079,3 +884,41 @@ textarea.error {
         }
     }
 }
+
+
+
+/* docs */
+.docs {
+    position: relative;
+    margin: 0px 0;
+    padding: 10px 0;
+    
+    &_h1 {
+        margin: 20px 20px;
+        text-align: center;
+    }
+    &_h2 {
+        margin-bottom: 10px;
+        text-align: center;
+    }
+    &_desc {
+        padding: 20px 20px;
+        color: @color-base;
+        font-size: 14px;
+        background: #fafafa;
+    }
+    &_example {
+        position: relative;
+        margin: 10px 0;
+        padding: 20px 0;
+        border-bottom: 1px solid #aaa;
+        .clearfix();
+    }
+    &_example__indents {
+        padding: 20px 30px;
+    }
+    &_row {
+        margin: 5px 0;
+    }
+}
+/* /docs */

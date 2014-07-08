@@ -107,23 +107,6 @@
             }
         };
 
-        ko.bindingHandlers.select2 = {
-            init: function(element, valueAccessor) {
-                $(element).select2(valueAccessor());
-
-                ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-                    $(element).select2('destroy');
-                });
-            },
-            update: function(element, valueAccessor, allBindingsAccessor) {
-                // подпишемся на обновление следующих значений
-                ko.unwrap(allBindingsAccessor.get('value'));
-                ko.unwrap(allBindingsAccessor.get('options'));
-                // стриггерим изменения, что бы select2 смог перестроиться
-                $(element).trigger('change');
-            }
-        };
-
         ko.bindingHandlers.selectize = {
             init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
 
@@ -172,10 +155,13 @@
             },
             update: function(element, valueAccessor, allBindingsAccessor) {
                 // подпишемся на обновление следующих значений
-                ko.unwrap(allBindingsAccessor.get('value'));
+        var val = ko.unwrap(allBindingsAccessor.get('value'));
                 ko.unwrap(allBindingsAccessor.get('options'));
                 // стриггерим изменения, что бы select2 смог перестроиться
-                $(element).trigger('change');
+        if ($(element).attr('type') == 'hidden' && val === null)
+            $(element).select2('data', null);
+        else
+            $(element).trigger('change');
             }
         };
 

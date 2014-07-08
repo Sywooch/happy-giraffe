@@ -16,10 +16,10 @@
         display: inline-block;
     }
     &_hold {
-        background: #f7f6f8;
+        background: #fafafa;
     }
     &_top {
-        padding: 30px 60px 25px;
+        padding: 30px 45px 25px;
         background: #fff url('@{path-img}/header.png') repeat-x;
         text-align: center;
     }
@@ -39,7 +39,7 @@
         padding: 30px 60px 35px;
         .clearfix();
     }
-    &_cont__wide {padding: 30px 45px;}
+    &_cont__wide {padding: 15px 45px 20px;}
     &_social {
         .inline-block();
         vertical-align: top;
@@ -68,6 +68,7 @@
         display: block;
         max-width: none;
     }
+    &_col-ava .btn-blue-simple {margin-top: 7px;}
     &_col-ava__think {
         float: right;
         margin-right: 0;
@@ -88,7 +89,7 @@
     }
     &_label {
         margin: 3px 0 -2px 2px;
-        line-height: 18px;
+        line-height: 17px;
     }
     &_b {
         text-align: center;
@@ -162,7 +163,10 @@
         margin: 20px 0 30px;
     }
     &_capcha,
-    &_capcha-img {display: block;}
+    &_capcha-img {
+        display: block;
+        cursor: pointer;
+    }
 }
 /* /popup-sign */
 
@@ -209,182 +213,6 @@
 }
 /* /social-btn */
 
-
-/* radio-icons */
-.radio-icons {
-
-    &__inline {
-        .inline-block();
-        vertical-align: middle;
-    }
-
-    &_radio {display: none;}
-    .ie7 &_radio,
-    .ie8 &_radio {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        padding: 0;
-        margin: 0 5px 0 0;
-        vertical-align: middle;
-    }
-    &_radio:checked + &_label {
-        color: #333;
-        background-position: 0 -100px;
-    }
-    &_label {
-        .inline-block();
-        vertical-align: top;
-        margin: 0 15px 0 0;
-        color: @color-gray-light;
-        padding-left: 24px;
-        min-height: 18px;
-        line-height: 18px;
-        cursor: pointer;
-        .img-retina('@{path-img}/input-radio.png'; '@{path-img}/input-radio-2x.png'; 18px; 218px);
-        background-repeat: no-repeat;
-    }
-    .ie7 &_label,
-    .ie8 &_label {padding-left: 0;background: none;}
-    &_label:hover {
-        color: #333;
-        background-position: 0 -200px;
-    }
-}
-/* /radio-icons */
-
-/* checkbox-icons */
-.checkbox-icons {
-
-    &__inline {
-        .inline-block();
-        vertical-align: middle;
-    }
-
-    &_radio {display: none;}
-    .ie7 &_radio,
-    .ie8 &_radio {
-        display: inline-block;
-        width: 16px;
-        height: 16px;
-        padding: 0;
-        margin: 8px 5px 0 0;
-    }
-    &_radio:checked + &_label {
-        color: #333;
-        background-position: 0 -100px;
-    }
-    &_label {
-        .inline-block();
-        vertical-align: top;
-        margin: 0 15px 0 0;
-        color: #777;
-        padding-left: 24px;
-        min-height: 19px;
-        line-height: 19px;
-        cursor: pointer;
-        .img-retina('@{path-img}/input-checkbox.png'; '@{path-img}/input-checkbox-2x.png'; 18px; 219px);
-        background-repeat: no-repeat;
-    }
-    .ie7 &_label,
-    .ie8 &_label {padding-left: 0;background: none;}
-    &_label:hover {
-        color: #333;
-        background-position: 0 -200px;
-    }
-}
-/* /checkbox-icons */
-
-/* img-upload */
-.img-upload {
-    position: relative;
-    margin-bottom: 15px;
-    background-color: #fff;
-    .clearfix();
-    
-    &__load {min-height: 300px;}
-    &__load &_i-load {display: block;}
-    &__uploaded &_hold {display: none;}
-    &__uploaded &_uploaded {display: block;}
-    &_hold {
-        padding: 55px 0 5px;
-        background: url('@{path-img}/img-upload_hold.png') no-repeat 50% 120px;
-    }
-    &_top {margin: 0 0 160px;}
-    &_top .file-fake {
-        .inline-block();
-        margin: 5px 0 0;
-    }
-    &_btn-desc {
-        .inline-block();
-        width: 330px;
-        margin: 0 25px 0 0;
-        text-align: right;
-    }
-    &_t {
-        font-size: 16px;
-    }
-    &_help {
-        .font-s-mixin();
-        color: @color-gray-light;
-    }
-    &_desc {
-        margin: 20px 20px 50px;
-        text-align: center;
-    }
-
-    &_i-load {
-        display: none;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -3px 0 0 -75px;
-        height: 5px;
-        width: 150px;
-        background: #61c3fd;
-    }
-    &_i-load-progress {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 5px;
-        width: 0;
-        background: #2e8fc9;
-    }
-    &_uploaded {
-        display: none;
-        position: relative;
-        z-index: 1; // fix chrome bug При наведении на крестик удаления то  аватара сбоку на время становится квадратная. Вызвано transition и rotate &_i-del
-    }
-    &_i-del {
-        position: absolute;
-        top: 0;
-        right: -20px;
-        .inline-block();
-        
-        width: 0.7em;
-        height: 0.7em;
-        line-height: 0.7em;
-        font-size: 24px;
-        font-family: Tahoma, Arial, Verdana, sans-serif;
-        cursor: pointer;
-        color: #a9b0b7;
-        text-decoration: none;
-        .transition(all 300ms);
-        /*background: url(/images/ico/ico-close2.png) no-repeat;*/
-        &:before {
-            content:'×';
-            position: relative;
-            top: -2px;
-        }
-        &:hover {
-            color: #4b4d4f;
-            .rotate(90deg);
-        }
-    }
-}
-/* /img-upload */
-
 /* html tag modificator */
 .html__reg-step3 {
     height: 100%;
@@ -414,3 +242,4 @@
     .mfp-bg {background: none;}
 }
 /* html tag modificator */
+

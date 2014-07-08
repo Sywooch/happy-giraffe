@@ -23,6 +23,7 @@ function CommentViewModel(data) {
 
     self.sending = ko.observable(false);
     self.focusEditor = function () {
+        console.log('123');
         setTimeout(function () {
             self.editor.redactor('focusEnd');
         }, 100);
@@ -78,7 +79,7 @@ function CommentViewModel(data) {
     };
     self.goBottom = function () {
         if (userIsGuest)
-            $('a[href=#login]').trigger('click');
+            $('a[href=#loginWidget]').trigger('click');
 
         if (self.full())
             $('body').stop().animate({scrollTop: $('.layout-wrapper').height()}, "normal");
@@ -106,7 +107,8 @@ function CommentViewModel(data) {
 //            });
 
             var wysiwyg = new HgWysiwyg($('#' + id), {
-                toolbarExternal: '.wysiwyg-toolbar-btn',
+                focus: false,
+                toolbarExternal: '.wysiwyg-toolbar-btn:empty',
                 minHeight: 68,
                 buttons: ['bold', 'italic', 'underline'],
                 plugins: ['imageCustom', 'smilesModal', 'videoModal'],
@@ -178,7 +180,7 @@ function CommentViewModel(data) {
     });
 
     self.Reply = function (comment) {
-        if (self.opened())
+        if (self.opened() !== false)
             self.opened(false);
         self.response(comment);
         self.initEditor('reply_' + self.response().id());
@@ -210,7 +212,7 @@ function NewComment(data, parent) {
 
     self.Like = function () {
         if (userIsGuest)
-            $('a[href=#login]').trigger('click');
+            $('a[href=#loginWidget]').trigger('click');
         else if (CURRENT_USER_ID != self.author.id()) {
             $.post('/ajaxSimple/commentLike/', {id: self.id}, function (response) {
                 if (response.status) {
@@ -273,7 +275,7 @@ function NewComment(data, parent) {
 
     self.Reply = function () {
         if (userIsGuest)
-            $('a[href=#login]').trigger('click');
+            $('a[href=#loginWidget]').trigger('click');
         else
             self.parent.Reply(self);
     };

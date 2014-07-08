@@ -25,13 +25,12 @@
 @import "/project/chzn.less";
 @import "/project/content-cols.less";
 @import "/project/content-search.less";
-@import "/project/contest.less";
+
 @import "/project/gallery.less";
 @import "/project/header.less";
 @import "/project/like-block.less";
 @import "/project/popup.less";
 @import "/project/seo-tags.less";
-@import "/project/sidebar.less";
 @import "/project/user-career.less";
 
 // Стили оставшиеся с старых версий
@@ -61,15 +60,6 @@
 .layout-wrapper_banner-t {
 	margin: 20px 0 5px;
 	display: none;
-}
-.layout-thin {
-	margin: 0 65px;
-	font-size: 15px;
-	line-height: 24px;
-	color: #555;
-}
-.layout-hg-bg {
-	background:#fafafa url(/images/layout-hg-bg.gif) no-repeat 50% 100%;
 }
 .push,
 .footer-push {height:209px;}
@@ -110,6 +100,10 @@
 		text-decoration: none;
 	}
 	&_a:hover {text-decoration: underline;color: #6a6a6a;}
+	&_rambler-count {
+		float: right;
+		margin: -15px 10px 0;
+	}
 }
 
 .footer-ul-bold {
@@ -284,7 +278,7 @@
 
 .content-title-new {font-size:32px;color:#232323;margin-bottom:40px;text-align:center;padding-top:15px;}
 .content-title-new span {display:block;font-size:11px;font-family:tahoma, arial, helvetica, sans-serif;}
-.content-title-new .description {margin:5px 40px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;background:#fefdd9;padding:8px 12px;position:relative;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;behavior: url(/stylesheets/PIE.htc);color:#040404;}
+.content-title-new .description {margin:5px 40px;font-size:13px;font-family:tahoma, arial, helvetica, sans-serif;background:#fefdd9;padding:8px 12px;position:relative;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;color:#040404;}
 .content-title-new .description:after {display:block;content:'';width:8px;height:19px;background:url(/images/common.png) no-repeat -460px -289px;position:absolute;left:-8px;top:2px;}
 .content-title-new .settings {display:inline-block;*zoom:1;*display:inline;width:15px;height:15px;background:url(/images/common.png) no-repeat -313px -190px;position:relative;top:-1px;}
 .content-title-new .settings:hover {background-position:-330px -190px;}
@@ -1208,6 +1202,9 @@
 	counter-increment: item;
 }
 /* /Page moderation rules moder-rule */
+
+// 
+@import "/project/contest.less";
 /* /layout project
 -------------------------------------------------------------------- */
 

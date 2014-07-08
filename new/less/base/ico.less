@@ -21,12 +21,13 @@
     line-height: 19px;
     text-align: center;
     text-decoration: none;
-    background: #e74c3c;
     color: #fff;
     .border-radius(12px);
-    // background: url('@{path-img}/ico/ico-cancel.png') no-repeat;
+    background-color: #e74c3c;
+    /*background-image: url('@{path-img}/ico/ico-cancel.png');
+    background-repeat: no-repeat;*/
 
-    &:hover {background: #d83e32;}
+    &:hover {background-color: #d83e32;}
 }
 .ico-loader {
     .inline-block();
@@ -71,10 +72,11 @@
     .inline-block();
     width: 11px;
     height: 11px;
-    background: url(/images/ico/ico-close3.png) no-repeat;
+    background: data-uri('../../images/ico/ico-close3.png') no-repeat;
     cursor: pointer;
+    
+    &:hover {background-position: 0 -11px;}
 }
-.ico-close3:hover {background-position: 0 -11px;}
 .ico-update {
     .inline-block();
     vertical-align: middle;
@@ -152,13 +154,13 @@
     background: url(/images/ico/ico-family.png) no-repeat 0 -605px;
 
 
-    @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+    /*@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
     only screen and (min-resolution: 144dpi) {
         & {
-            background:url(/images/ico-family2x.png) no-repeat 0 -605px;
+            background:url(/images/ico-family-2x.png) no-repeat 0 -605px;
             background-size: 220px;
         }
-    }
+    }*/
 
     &__baby-plan     {background-position: 0 -605px;}
     &__baby          {background-position: 0 0;}

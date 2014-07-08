@@ -5,10 +5,13 @@
     "grunt-cli": "latest",
     "grunt-contrib-watch": "latest",
     "grunt-contrib-less": "latest",
+    "grunt-merge-json": "latest",
     "grunt-contrib-jade": "latest",
+    "grunt-newer": "latest",
     "grunt-contrib-connect": "latest",
     "grunt-contrib-imagemin": "latest",
     "grunt-timer": "latest",
-    "nib": "latest"
+    "nib": "latest",
+    "grunt-newer": "latest"
   }
 }

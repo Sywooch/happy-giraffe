@@ -92,144 +92,6 @@
 		</div>
 		
 		<div class="content-cols clearfix">
-			<div class="col-1">
-				<div class="readers2">
-					<a href="" class="btn-green btn-medium">Подписаться</a>
-					<ul class="readers2_ul clearfix">
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava female small">
-								<span class="icon-status status-online"></span>
-								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
-							</a>
-						</li>
-						<li class="readers2_li clearfix">
-							<a href="" class="ava male small">
-								<span class="icon-status status-online"></span>
-							</a>
-						</li>
-					</ul>
-					<div class="clearfix">
-						<div class="readers2_count">Все подписчики (129)</div>
-					</div>
-				</div>
-				
-				<div class="menu-simple">
-					<ul class="menu-simple_ul">
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Обо всем</a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Свадьба - прекрасный миг</a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Прикольное видео </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Школа восточного танца  </a>
-						</li>
-						<li class="menu-simple_li active">
-							<a href="" class="menu-simple_a">Мой мужчина </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Детские передачи </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Свадьбы </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Кормление ребенка </a>
-						</li>
-						<li class="menu-simple_li">
-							<a href="" class="menu-simple_a">Воспитание детей </a>
-						</li>
-					</ul>
-				</div>
-				
-				<div class="fast-articles2 js-fast-articles2">
-					<div class="fast-articles2_t-ico"></div>
-					<div class="fast-articles2_t">Популярные записи</div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<a href="" class="fast-articles2_author">
-									<span class="ico-status ico-status__offline"></span>
-									<span class="fast-articles2_author-tx">Татьяна</span>
-								</a>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> О моем первом бойфренде</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w220-h164-1.jpg" alt="" class="fast-articles2_i-img"></a>
-						</div>
-					</div>
-					<div class="fast-articles2_i">
-						<div class="fast-articles2_header clearfix">
-						
-							<div class="meta-gray">
-								<a href="" class="meta-gray_comment">
-									<span class="ico-comment ico-comment__gray"></span>
-									<span class="meta-gray_tx">35</span>
-								</a>
-								<div class="meta-gray_view">
-									<span class="ico-view ico-view__gray"></span>
-									<span class="meta-gray_tx">305</span>
-								</div>
-							</div>
-							
-							<div class="float-l">
-								<a href="" class="fast-articles2_author">
-									<span class="ico-status ico-status__online"></span>
-									<span class="fast-articles2_author-tx">Татьяна</span>
-								</a>
-							</div>
-						</div>
-						<div class="fast-articles2_i-t">
-							<a href="" class="fast-articles2_i-t-a"> Как мне предлагали руку и сердце</a>
-						</div>
-						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
-						<div class="fast-articles2_i-img-hold">
-							<a href=""><img src="/images/example/w220-h165-1.jpg" alt="" class="fast-articles2_i-img"></a>
-						</div>
-					</div>
-				</div>
-				
-			</div>
 			<div class="col-23-middle ">
 				<div class="clearfix margin-r20 margin-b20">
 					<a href="" class="btn-blue btn-h46 float-r">Добавить в клуб</a>
@@ -416,48 +278,14 @@
 						<div class="custom-likes-b">
 							<div class="custom-likes-b_slogan">Поделитесь с друзьями!</div>
 						
-							<div class="like-block fast-like-block">
-														
-								<div class="box-1">
-									<div class="share_button">
-										<a href=""><img alt="" src="/images/share_button__odkl.png"></a>
-									</div>
-									<div class="share_button">
-										<div class="vk_share_button">
-											<a href=""><img alt="" src="/images/share_button__vk.png"></a>
-										</div>
-									</div>
+							<div class="like-block fast-like-block" style="font-size: 11px;">
+								<script type="text/javascript" src="//yandex.st/share/share.js"
+									charset="utf-8"></script>
+								<div class="yashare-auto-init" data-yashareL10n="ru"
+								 data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yashareTheme="counter" data-yashareType="small"
 
-									<div class="share_button">
-										<div class="fb-custom-like">
-											<a class="fb-custom-text" onclick="return Social.showFacebookPopup(this);" href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F">
-												<i class="pluginButtonIcon img sp_like sx_like_fav"></i>Мне нравится</a>
-											<div class="fb-custom-share-count">0</div>
-											<script type="text/javascript">
-												$.getJSON("http://graph.facebook.com", { id : document.location.href }, function(json){
-													$('.fb-custom-share-count').html(json.shares || '0');
-												});
-											</script>
-										</div>
-									</div>
-									
-									<div class="share_button">
-										<div class="tw_share_button">
-											<iframe scrolling="no" frameborder="0" id="twitter-widget-0" allowtransparency="true" src="http://platform.twitter.com/widgets/tweet_button.1381275758.html#_=1381902509957&amp;count=horizontal&amp;id=twitter-widget-0&amp;lang=ru&amp;original_referer=http%3A%2F%2F109.87.248.203%2Fhtml%2Fsocial%2Fclubs%2Fclub-contest-photo_open.php&amp;size=m&amp;text=Happy%20Giraffe&amp;url=http%3A%2F%2Fdev.happy-giraffe.ru%2Fuser%2F13217%2Fblog%2Fpost22589%2F" class="twitter-share-button twitter-tweet-button twitter-count-horizontal" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 138px; height: 20px;"></iframe>
-											<script charset="utf-8" type="text/javascript">
-													if (typeof twttr == 'undefined')
-														window.twttr = (function (d,s,id) {
-															var t, js, fjs = d.getElementsByTagName(s)[0];
-															if (d.getElementById(id)) return; js=d.createElement(s); js.id=id;
-															js.src="//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
-															return window.twttr || (t = { _e: [], ready: function(f){ t._e.push(f) } });
-														}(document, "script", "twitter-wjs"));
-											</script>
-										</div>
-									</div>
-															
-								</div>
-							
+								></div> 	
+				
 							</div>
 						</div>
 												
@@ -638,6 +466,145 @@
 					</tr>
 				</table>
 
+			</div>
+			
+			<div class="col-1">
+				<div class="readers2">
+					<a href="" class="btn-green btn-medium">Подписаться</a>
+					<ul class="readers2_ul clearfix">
+						<li class="readers2_li clearfix">
+							<a href="" class="ava female small">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
+							</a>
+						</li>
+						<li class="readers2_li clearfix">
+							<a href="" class="ava female small">
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
+							</a>
+						</li>
+						<li class="readers2_li clearfix">
+							<a href="" class="ava female small">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
+							</a>
+						</li>
+						<li class="readers2_li clearfix">
+							<a href="" class="ava female small">
+							</a>
+						</li>
+						<li class="readers2_li clearfix">
+							<a href="" class="ava female small">
+								<span class="icon-status status-online"></span>
+								<img alt="" src="http://img.happy-giraffe.ru/avatars/34531/small/2fd2c2d5e773c3cb8a36ce231fbc6ce0.JPG">
+							</a>
+						</li>
+						<li class="readers2_li clearfix">
+							<a href="" class="ava male small">
+								<span class="icon-status status-online"></span>
+							</a>
+						</li>
+					</ul>
+					<div class="clearfix">
+						<div class="readers2_count">Все подписчики (129)</div>
+					</div>
+				</div>
+				
+				<div class="menu-simple">
+					<ul class="menu-simple_ul">
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Обо всем</a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Свадьба - прекрасный миг</a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Прикольное видео </a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Школа восточного танца  </a>
+						</li>
+						<li class="menu-simple_li active">
+							<a href="" class="menu-simple_a">Мой мужчина </a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Детские передачи </a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Свадьбы </a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Кормление ребенка </a>
+						</li>
+						<li class="menu-simple_li">
+							<a href="" class="menu-simple_a">Воспитание детей </a>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="fast-articles2 js-fast-articles2">
+					<div class="fast-articles2_t-ico"></div>
+					<div class="fast-articles2_t">Популярные записи</div>
+					<div class="fast-articles2_i">
+						<div class="fast-articles2_header clearfix">
+						
+							<div class="meta-gray">
+								<a href="" class="meta-gray_comment">
+									<span class="ico-comment ico-comment__gray"></span>
+									<span class="meta-gray_tx">35</span>
+								</a>
+								<div class="meta-gray_view">
+									<span class="ico-view ico-view__gray"></span>
+									<span class="meta-gray_tx">305</span>
+								</div>
+							</div>
+							
+							<div class="float-l">
+								<a href="" class="fast-articles2_author">
+									<span class="ico-status ico-status__offline"></span>
+									<span class="fast-articles2_author-tx">Татьяна</span>
+								</a>
+							</div>
+						</div>
+						<div class="fast-articles2_i-t">
+							<a href="" class="fast-articles2_i-t-a"> О моем первом бойфренде</a>
+						</div>
+						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
+						<div class="fast-articles2_i-img-hold">
+							<a href=""><img src="/images/example/w220-h164-1.jpg" alt="" class="fast-articles2_i-img"></a>
+						</div>
+					</div>
+					<div class="fast-articles2_i">
+						<div class="fast-articles2_header clearfix">
+						
+							<div class="meta-gray">
+								<a href="" class="meta-gray_comment">
+									<span class="ico-comment ico-comment__gray"></span>
+									<span class="meta-gray_tx">35</span>
+								</a>
+								<div class="meta-gray_view">
+									<span class="ico-view ico-view__gray"></span>
+									<span class="meta-gray_tx">305</span>
+								</div>
+							</div>
+							
+							<div class="float-l">
+								<a href="" class="fast-articles2_author">
+									<span class="ico-status ico-status__online"></span>
+									<span class="fast-articles2_author-tx">Татьяна</span>
+								</a>
+							</div>
+						</div>
+						<div class="fast-articles2_i-t">
+							<a href="" class="fast-articles2_i-t-a"> Как мне предлагали руку и сердце</a>
+						</div>
+						<div class="fast-articles2_i-desc">Практически нет девушки, которая не переживала </div>
+						<div class="fast-articles2_i-img-hold">
+							<a href=""><img src="/images/example/w220-h165-1.jpg" alt="" class="fast-articles2_i-img"></a>
+						</div>
+					</div>
+				</div>
+				
 			</div>
 		</div>
 		</div>

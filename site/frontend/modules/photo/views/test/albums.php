@@ -1,3 +1,9 @@
+<?php
+/** @var ClientScript $cs */
+$cs = Yii::app()->clientScript;
+$cs->registerPackage('ko_photo');
+?>
+
 <style>
     .album .title {
         font-size: 21px;
@@ -24,7 +30,7 @@
                     </p>
                     <!-- /ko -->
                     <p>
-                        <a href="" data-bind="photoUpload: { data: { multiple: true, collectionId: $data.photoCollection().id() }, callback: $root.add($data) }">Загрузить фото</a>
+                        <a href="" data-bind="photoUpload: { data: { multiple: true, collectionId: $data.photoCollection().id() }, callback: function(data) {$root.add(data, $data)} }">Загрузить фото</a>
                     </p>
                 </div>
                 <!-- /ko -->
@@ -47,18 +53,10 @@
             return new PhotoAlbum(item);
         }));
 
-        self.ok = function(data) {
-
-        }
-
-        self.add = function(data) {
-            return function(photo) {
-                console.log(photo);
-                console.log(data);
-                var attach = new PhotoAttach({ photo : photo });
-                attach.photo(photo);
-                data.photoCollection().attaches.push(attach);
-            };
+        self.add = function(photo, event) {
+            var attach = new PhotoAttach({ photo : photo });
+            attach.photo(photo);
+            event.photoCollection().attaches.push(attach);
         }
 
         self.newTitle = ko.observable('');

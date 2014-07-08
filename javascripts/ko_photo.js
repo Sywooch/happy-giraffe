@@ -61,7 +61,7 @@ ko.bindingHandlers.thumb = {
         var preset = value.preset;
 
         function update() {
-            var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
+            var src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
             //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
             $(element).attr('src', src);
         }

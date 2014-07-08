@@ -44,7 +44,12 @@ class HController extends CController
         parent::init();
 
         if (! Yii::app()->request->isAjaxRequest)
-            Yii::app()->clientScript->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD);
+        {
+            if(Yii::app()->clientScript->useAMD)
+                Yii::app()->clientScript->registerAMD('serverTime', array(), 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)');
+            else
+                Yii::app()->clientScript->registerScript('serverTime', 'var serverTime = ' . time() . '; serverTimeDelta = new Date().getTime() - (serverTime * 1000)', CClientScript::POS_HEAD);
+        }
 
 //        if (YII_DEBUG === false && ($this->module === null || $this->module == 'messaging'))
 //            $this->combineStatic();
@@ -95,6 +100,7 @@ class HController extends CController
                 'jquery.yiiactiveform.js' => false,
                 'jquery.ba-bbq.js' => false,
                 'jquery.yiilistview.js' => false,
+                'require2.1.11-jquery1.10.2.js' => false,
             );
         }
 
@@ -188,7 +194,10 @@ class HController extends CController
             file_put_contents($path, $js);
         }
 
-        Yii::app()->clientScript->registerScriptFile('/jsd/' . $dir . '/' . $file . '.js', CClientScript::POS_END);
+        if(Yii::app()->clientScript->useAMD)
+            Yii::app()->clientScript->registerAMDFile(array('jquery', 'common'), '/jsd/' . $dir . '/' . $file . '.js');
+        else
+            Yii::app()->clientScript->registerScriptFile('/jsd/' . $dir . '/' . $file . '.js', CClientScript::POS_END);
 
         return parent::afterRender($view, $output);
     }

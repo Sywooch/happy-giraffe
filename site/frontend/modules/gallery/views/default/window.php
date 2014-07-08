@@ -1,5 +1,7 @@
 <?php
-    $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
+$cs = Yii::app()->clientScript;
+$cs->useAMD = CJSON::decode(Yii::app()->request->getQuery('useAMD', false));
+$model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
 ?>
 <div class="photo-window" id="photo-window">
     <div class="photo-window_w">
@@ -131,7 +133,11 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    photoViewVM = new PhotoCollectionViewModel(<?=CJSON::encode($json)?>);
-    ko.applyBindings(photoViewVM, document.getElementById('photo-window'));
-</script>
+<?php if ($cs->useAMD): ?>
+    <?php  $cs->registerAMD('photoCollectionVM', array('PhotoCollectionViewModel' => 'gallery', 'ko' => 'knockout'), "photoViewVM = new PhotoCollectionViewModel(" . CJSON::encode($json) . "); ko.applyBindings(photoViewVM, document.getElementById('photo-window'));"); ?>
+<?php else: ?>
+    <script type="text/javascript">
+        photoViewVM = new PhotoCollectionViewModel(<?=CJSON::encode($json)?>);
+        ko.applyBindings(photoViewVM, document.getElementById('photo-window'));
+    </script>
+<?php endif; ?>

@@ -18,7 +18,7 @@ class PhotoS3Component extends S3Component
     protected function getAdapter()
     {
         $s3 = parent::getAdapter();
-        $local = new CustomLocalAdapter('/var/cache/img_hgru', true);
+        $local = new CustomLocalAdapter(\Yii::getPathOfAlias($this->cachePathAlias), true);
         return new DeferredCache($s3, $local, 3600);
     }
 } 

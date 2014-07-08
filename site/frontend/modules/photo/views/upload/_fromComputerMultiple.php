@@ -46,7 +46,7 @@
             </div>
             <div class="progress progress-striped active progress__cont progress__inline" data-bind="visible: loading">
                 <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
-            </div><a href="" class="btn-link btn-link-gray btn btn-s" data-bind="click: cancelAll">Отменить загрузку </a>
+            </div><a href="" class="btn-link btn-link-gray btn btn-s" data-bind="click: cancelAll, visible: loading">Отменить загрузку </a>
         </div>
     </div>
 </div>

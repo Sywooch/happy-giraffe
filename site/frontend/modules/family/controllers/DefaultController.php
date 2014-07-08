@@ -13,6 +13,7 @@ class DefaultController extends HController
     {
         return array(
             array('deny',
+                'actions' => array('data', 'save', 'signup'),
                 'users'=>array('?'),
             ),
         );

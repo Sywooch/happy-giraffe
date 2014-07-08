@@ -57,7 +57,6 @@
         if (!empty($this->meta_keywords))
             $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
         ?>
-
         <!--[if IE 7]>
             <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
         <![endif]-->
@@ -90,17 +89,15 @@
         <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
         <!-- /Yandex.Metrika counter -->
 
-        <script type="text/javascript">
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', '<?=Yii::app()->params['gaCode']  ?>']);
-            _gaq.push(['_trackPageview']);
+            ga('create', 'UA-27545132-1', 'happy-giraffe.ru');
+            ga('send', 'pageview');
 
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
         </script>
 
         <script type="text/javascript">
@@ -148,6 +145,7 @@
         <!--/ tns-counter.ru -->
         <?php endif; ?>
 
+        <?php if (false): ?>
         <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->
@@ -178,7 +176,9 @@
             // -->
         </script>
         <!--AdFox END-->
+        <?php endif; ?>
 
+        <?php if (false): ?>
         <!-- Soloway Javascript code START-->
         <script language="javascript" type="text/javascript"><!--
             var RndNum4NoCash = Math.round(Math.random() * 1000000000);
@@ -186,6 +186,7 @@
             document.write('<sc' + 'ript language="JavaScript" src="http://ad.adriver.ru/cgi-bin/erle.cgi?sid=196494&bt=16&target=blank&rnd=' + RndNum4NoCash + '&tail256=' + ar_Tail + '"></sc' + 'ript>');
             //--></script>
         <!-- Soloway Javascript code END -->
+        <?php endif; ?>
 
         <div style="display: none;">
         <a href="#popup-error" id="popup-error-link" class="fancy"></a>

@@ -13,6 +13,7 @@ class Favourites extends EMongoDocument
     const WEEKLY_MAIL = 6;
     const BLOCK_SOCIAL_NETWORKS = 7;
     const CLUB_MORE = 8;
+    const BLOCK_MAIL = 9;
 
     public $block;
     public $entity;
@@ -89,10 +90,18 @@ class Favourites extends EMongoDocument
             $fav = new Favourites;
             $fav->entity = get_class($model);
             $fav->entity_id = (int)$model->primaryKey;
-            if ($block == self::WEEKLY_MAIL)
-                $fav->date = date("Y-m-d", strtotime('next monday', time() - 3600*24));
-            else
-                $fav->date = date("Y-m-d", strtotime('+1 day'));
+
+            switch ($block) {
+                case self::WEEKLY_MAIL:
+                    $fav->date = date("Y-m-d", strtotime('next monday', time() - 3600*24));
+                    break;
+                case self::BLOCK_MAIL:
+                    Yii::import('application.modules.mail.components.senders.*');
+                    $fav->date = MailSenderDaily::nextDate();
+                    break;
+                default:
+                    $fav->date = date("Y-m-d", strtotime('+1 day'));
+            }
 
             $criteria = new EMongoCriteria;
             $criteria->date('==', $fav->date);

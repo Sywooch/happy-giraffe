@@ -14,6 +14,7 @@
  */
 class MessagingMessageUser extends HActiveRecord
 {
+    public $unreadCount;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -101,7 +102,7 @@ class MessagingMessageUser extends HActiveRecord
 	{
 		return array(
 			'unread' => array(
-				'condition' => $this->tableAlias . '.`dtime_read` IS NULL',
+				'condition' => $this->tableAlias . '.`dtime_read` IS NULL AND ' . $this->tableAlias . '.`dtime_delete` IS NULL',
 			),
 		);
 	}

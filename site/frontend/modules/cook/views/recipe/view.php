@@ -10,6 +10,7 @@ if (empty($this->meta_description))
         <!-- Название блюда должно иметь класс fn  для микроформатов -->
         <h1 class="b-article_t fn">
             <?=$recipe->title?>
+            <?php $this->widget('site.frontend.widgets.favoritesWidget.FavouritesWidget', array('model' => $recipe)); ?>
         </h1>
 
         <?php $this->renderPartial('//banners/_post_header', array('data' => $recipe)); ?>
@@ -205,20 +206,9 @@ if (empty($this->meta_description))
             </div>
         </div>
 
+        <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $recipe)); ?>
+
         <?php $this->renderPartial('//banners/_post_footer', array('data' => $recipe)); ?>
-
-        <noindex>
-            <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-                'model' => $recipe,
-                'type' => 'simple',
-                'options' => array(
-                    'title' => $recipe->title,
-                    'image' => $recipe->getContentImage(400),
-                    'description' => $recipe->text,
-                ),
-            )); ?>
-        </noindex>
-
     </div>
 </div>
 

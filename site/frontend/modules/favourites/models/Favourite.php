@@ -220,7 +220,7 @@ class Favourite extends CActiveRecord
         $criteria->condition = 'model_name = :model_name AND model_id = :model_id';
         $criteria->params = array(':model_name' => $modelName, ':model_id' => $model->id);
         $criteria->limit = $limit;
-        if (! Yii::app()->user->isGuest)
+        if (Yii::app() instanceof CWebApplication && ! Yii::app()->user->isGuest)
             $criteria->compare('user_id', '<>' . Yii::app()->user->id);
 
         return $this->findAll($criteria);

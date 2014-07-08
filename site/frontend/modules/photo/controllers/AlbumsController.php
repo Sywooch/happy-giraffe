@@ -7,8 +7,6 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
-
-
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoCollection;
 

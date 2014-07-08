@@ -1,9 +1,3 @@
-<?php
-/** @var ClientScript $cs */
-$cs = Yii::app()->clientScript;
-$cs->registerPackage('ko_photo');
-?>
-
 <style>
     .mphoto {
         border: 1px #000 solid;

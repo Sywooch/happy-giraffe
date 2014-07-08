@@ -7,7 +7,6 @@
 
 namespace site\frontend\modules\photo\components;
 
-
 class PhotoCollectionBehavior extends \CActiveRecordBehavior
 {
     /**

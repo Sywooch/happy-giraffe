@@ -4,8 +4,6 @@
  */
 
 namespace site\frontend\modules\photo\components;
-
-
 use Imagine\Imagick\Imagine;
 use site\frontend\modules\photo\models\Photo;
 

@@ -6,7 +6,6 @@
  */
 
 namespace site\frontend\modules\photo\components\thumbs;
-
 use site\frontend\modules\photo\components\thumbs\presets\PresetInterface;
 use site\frontend\modules\photo\models\Photo;
 
@@ -26,7 +25,6 @@ class Thumb extends \CComponent
      * @var \Imagine\Imagick\Image
      */
     protected $image;
-
 
     public function __construct(Photo $photo, PresetInterface $preset)
     {
@@ -70,6 +68,10 @@ class Thumb extends \CComponent
         return 'thumbs/' . $this->preset->name . '/' . $this->photo->fs_name;
     }
 
+
+    /**
+     * Отобразить миниатюру
+     */
     public function show()
     {
         if ($this->image === null) {
@@ -87,17 +89,26 @@ class Thumb extends \CComponent
         \Yii::app()->fs->write($this->getFsPath(), $this->image->get($this->getFormat(), $this->getOptions()), true);
     }
 
+    /**
+     * Обработать фото для получения нужной миниатюры
+     */
     protected function process()
     {
         $this->image = \Yii::app()->imagine->load(\Yii::app()->fs->read($this->photo->getOriginalFsPath()));
         $this->preset->apply($this->image);
     }
 
+    /**
+     * @return string формат для Imagine
+     */
     protected function getFormat()
     {
         return pathinfo($this->photo->fs_name, PATHINFO_EXTENSION);
     }
 
+    /**
+     * @return array опции для Imagine
+     */
     protected function getOptions()
     {
         $options = array();
@@ -107,6 +118,13 @@ class Thumb extends \CComponent
         return $options;
     }
 
+    /**
+     * Подсчитать качество JPEG для изображения
+     *
+     * Зависит от ширины изображения, настройки задаются в конфигурации компонента
+     *
+     * @return int качество JPEG
+     */
     protected function getJpegQuality()
     {
         $width = $this->image->getSize()->getWidth();

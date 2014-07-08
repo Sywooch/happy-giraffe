@@ -6,8 +6,6 @@
  */
 
 namespace site\frontend\modules\photo\commands;
-
-
 use site\frontend\modules\photo\models\Photo;
 
 class DefaultCommand extends \CConsoleCommand

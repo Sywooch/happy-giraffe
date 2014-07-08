@@ -7,7 +7,6 @@
 
 namespace site\frontend\modules\photo\components;
 
-
 interface IPhotoCollection
 {
     /**

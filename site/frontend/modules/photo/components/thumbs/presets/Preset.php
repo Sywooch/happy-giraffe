@@ -5,7 +5,6 @@
 
 namespace site\frontend\modules\photo\components\thumbs\presets;
 
-
 abstract class Preset extends \CComponent
 {
     /**

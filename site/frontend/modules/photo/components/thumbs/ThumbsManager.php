@@ -12,13 +12,15 @@ use site\frontend\modules\photo\models\Photo;
 
 class ThumbsManager extends \CApplicationComponent
 {
+    /**
+     * @var array конфигурация пресетов
+     */
     public $presets;
-    public $quality;
 
-    public function init()
-    {
-        parent::init();
-    }
+    /**
+     * @var array конфигурация соответсвия ширины и качества JPEG
+     */
+    public $quality;
 
     /**
      * Создать миниатюры всех доступных пресетов для переданного фото

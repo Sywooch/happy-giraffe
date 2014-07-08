@@ -1,9 +1,3 @@
-<?php
-/** @var ClientScript $cs */
-$cs = Yii::app()->clientScript;
-$cs->registerPackage('ko_photo');
-?>
-
 <style>
     .album .title {
         font-size: 21px;

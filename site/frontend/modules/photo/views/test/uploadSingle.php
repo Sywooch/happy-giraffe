@@ -1,9 +1,3 @@
-<?php
-/** @var ClientScript $cs */
-$cs = Yii::app()->clientScript;
-$cs->registerPackage('ko_photo');
-?>
-
 <div class="layout-wrapper_frame clearfix">
     <div class="layout-wrapper_hold clearfix">
         <div class="layout-content clearfix">

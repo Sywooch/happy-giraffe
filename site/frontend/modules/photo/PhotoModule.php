@@ -17,7 +17,9 @@ class PhotoModule extends \CWebModule
 			'photo.components.*',
 		));
 
-        \Yii::app()->clientScript->useAMD = true;
+        /** @var \ClientScript $cs */
+        $cs = \Yii::app()->clientScript;
+        $cs->useAMD = true;
 	}
 
 	public function beforeControllerAction($controller, $action)

@@ -25,13 +25,10 @@
     </div>
 </div>
 
-<?php
-Yii::app()->clientScript->registerAMD('fromComputerSingleVM', array('Photo' => 'ko_photo','ko' => 'knockout'), "fromComputerSingle = new FromComputerSingleViewModel(" . $form->output() . "); ko.applyBindings(fromComputerSingle, document.getElementById('photo-tab-computer')); return fromComputerSingle;");
-?>
-
-<?php if (false): ?>
 <script type="text/javascript">
-    computer = new FromComputerSingleViewModel(<?=$form->output()?>);
-    ko.applyBindings(computer, document.getElementById('photo-tab-computer'));
+    require(['ko_photo', 'knockout'], function(photo, ko) {
+        console.log(photo);
+
+        ko.applyBindings(new FromComputerSingleViewModel(<?=$form->output()?>), document.getElementById('photo-tab-computer'));
+    });
 </script>
-<?php endif; ?>

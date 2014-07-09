@@ -26,13 +26,15 @@
 </div>
 
 <script type="text/javascript">
-    function TestViewModel() {
-        var self = this;
-        self.photos = ko.observableArray([]);
-    }
+    requirejs(['knockout', 'ko_photo'], function(ko) {
+        function TestViewModel() {
+            var self = this;
+            self.photos = ko.observableArray([]);
+        }
 
-    $(function () {
-        ko.applyBindings(new TestViewModel(), document.getElementById('test'));
+        $(function () {
+            ko.applyBindings(new TestViewModel(), document.getElementById('test'));
+        });
     });
 </script>
 

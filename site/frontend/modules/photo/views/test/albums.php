@@ -1,9 +1,3 @@
-<?php
-/** @var ClientScript $cs */
-$cs = Yii::app()->clientScript;
-$cs->registerPackage('ko_photo');
-?>
-
 <style>
     .album .title {
         font-size: 21px;
@@ -46,29 +40,31 @@ $cs->registerPackage('ko_photo');
 </div>
 
 <script type="text/javascript">
-    function AlbumsViewModel(data) {
-        var self = this;
+    requirejs(['knockout', 'ko_photo'], function(ko) {
+        function AlbumsViewModel(data) {
+            var self = this;
 
-        self.albums = ko.observableArray(ko.utils.arrayMap(data, function(item) {
-            return new PhotoAlbum(item);
-        }));
+            self.albums = ko.observableArray(ko.utils.arrayMap(data, function(item) {
+                return new PhotoAlbum(item);
+            }));
 
-        self.add = function(photo, event) {
-            var attach = new PhotoAttach({ photo : photo });
-            attach.photo(photo);
-            event.photoCollection().attaches.push(attach);
+            self.add = function(photo, event) {
+                var attach = new PhotoAttach({ photo : photo });
+                attach.photo(photo);
+                event.photoCollection().attaches.push(attach);
+            }
+
+            self.newTitle = ko.observable('');
+            self.newDescription = ko.observable('');
+
+            self.create = function() {
+                $.post('/photo/albums/create/', { title: self.newTitle(), description: self.newDescription() }, function(data) {
+                    self.albums.push(new PhotoAlbum(data));
+                }, 'json');
+            }
         }
 
-        self.newTitle = ko.observable('');
-        self.newDescription = ko.observable('');
-
-        self.create = function() {
-            $.post('/photo/albums/create/', { title: self.newTitle(), description: self.newDescription() }, function(data) {
-                self.albums.push(new PhotoAlbum(data));
-            }, 'json');
-        }
-    }
-
-    a = new AlbumsViewModel(<?=$json?>);
-    ko.applyBindings(a, document.getElementById('albums'));
+        a = new AlbumsViewModel(<?=$json?>);
+        ko.applyBindings(a, document.getElementById('albums'));
+    });
 </script>

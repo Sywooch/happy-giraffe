@@ -11,6 +11,8 @@ use site\frontend\modules\photo\models\PhotoCreate;
 
 abstract class UploadForm extends \CFormModel implements \IHToJSON
 {
+    const PRESET_NAME = 'uploadPreview';
+
     /**
      * @return PhotoCreate возвращает модель создаваемой фотографии
      */
@@ -47,8 +49,10 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
     public function save()
     {
         $this->photo = $this->populate();
-
         $this->success = $this->validate() && $this->photo->save();
+        if ($this->success) {
+            \Yii::app()->thumbs->getThumb($this->photo, self::PRESET_NAME, true);
+        }
         echo \HJSON::encode(array(
             'photo' => $this->photo,
             'form' => $this,

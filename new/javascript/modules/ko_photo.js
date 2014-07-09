@@ -474,5 +474,7 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
     window.FromComputerSingleViewModel = FromComputerSingleViewModel;
     window.FromComputerMultipleViewModel = FromComputerMultipleViewModel;
     window.FromAlbumsViewModel = FromAlbumsViewModel;
+    window.PhotoAlbum = PhotoAlbum;
+    window.PhotoAttach = PhotoAttach;
     window.ByUrlViewModel = ByUrlViewModel;
 });

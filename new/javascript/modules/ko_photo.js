@@ -1,4 +1,4 @@
-define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_upload'], function(ko, mapping) {
+define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_upload', 'jquery.ui'], function(ko, mapping) {
     // Биндинг для загрузки фото
     ko.bindingHandlers.photoUpload = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {

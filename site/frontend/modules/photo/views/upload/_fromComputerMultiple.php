@@ -51,9 +51,8 @@
     </div>
 </div>
 
-<?php if (false): ?>
 <script type="text/javascript">
-    uploadVM = new FromComputerMultipleViewModel(<?=$form->output()?>);
-    ko.applyBindings(uploadVM, document.getElementById('photo-tab-computer'));
+    require(['knockout', 'ko_photo'], function(ko) {
+        ko.applyBindings(new FromComputerMultipleViewModel(<?=$form->output()?>), document.getElementById('photo-tab-computer'));
+    });
 </script>
-<?php endif; ?>

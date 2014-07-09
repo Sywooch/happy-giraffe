@@ -26,9 +26,7 @@
 </div>
 
 <script type="text/javascript">
-    require(['ko_photo', 'knockout'], function(photo, ko) {
-        console.log(photo);
-
+    require(['knockout', 'ko_photo'], function(ko) {
         ko.applyBindings(new FromComputerSingleViewModel(<?=$form->output()?>), document.getElementById('photo-tab-computer'));
     });
 </script>

@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="popup-add_footer clearfix" data-bind="visible: photos().length > 0">
-        <div class="float-r"><button href="" class="btn btn-success" data-bind="disable: loading, click: add">Добавить</button></div>
+        <div class="float-r"><button class="btn btn-success" data-bind="disable: loading, click: add">Добавить</button></div>
         <div class="popup-add_footer-l">
                 <span class="color-gray-light">Загружено
                     <span class="popup-add_footer-count" data-bind="text: successPhotos().length"></span> из <span class="popup-add_footer-count" name="image" data-bind="text: photos().length"></span></span>

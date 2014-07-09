@@ -10,6 +10,7 @@ class AuthWidget extends EAuthWidget
 {
     public $cssFile = false;
     public $view = 'outside';
+    public $predefinedServices = array('vkontakte', 'odnoklassniki');
 
     public function run()
     {

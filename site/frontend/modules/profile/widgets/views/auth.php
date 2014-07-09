@@ -10,6 +10,10 @@
         </thead>
         <tbody>
         <?php foreach ($services as $name => $service): ?>
+
+            <?php var_dump($service); ?>
+
+
             <?php if(($us = UserSocialService::model()->findByUser($name, Yii::app()->user->id)) != null): ?>
                 <tr>
                     <td class="form-settings_td textalign-l">

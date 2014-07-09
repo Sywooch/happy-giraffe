@@ -1,4 +1,53 @@
-define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_upload', 'jquery.ui'], function(ko, mapping) {
+define('ko_photo', ['knockout'], function(ko) {
+    // Основная модель коллекции
+    function PhotoCollection(data) {
+        var self = this;
+        self.id = ko.observable(data.id);
+        self.attachesCount = ko.observable(data.attachesCount);
+        self.attaches = ko.observableArray(ko.utils.arrayMap(data.attaches, function(attach) {
+            return new PhotoAttach(attach);
+        }));
+        self.cover = ko.observable(data.cover === null ? null : new Photo(data.cover));
+    }
+
+    // Основная модель аттача
+    function PhotoAttach(data) {
+        var self = this;
+        self.id = ko.observable(data.id);
+        self.position = ko.observable(data.position);
+        self.photo = ko.observable(new Photo(data.photo));
+    }
+
+    // Основная модель фотоальбома
+    function PhotoAlbum(data) {
+        var self = this;
+        self.id = ko.observable(data.id);
+        self.title = ko.observable(data.title);
+        self.description = ko.observable(data.description);
+        self.photoCollection = ko.observable(new PhotoCollection(data.photoCollection));
+    }
+
+    // Основная модель фотографии
+    function Photo(data) {
+        var self = this;
+        self.id = ko.observable(data.id);
+        self.title = ko.observable(data.title);
+        self.original_name = ko.observable(data.original_name);
+        self.width = ko.observable(data.width);
+        self.height = ko.observable(data.height);
+        self.fs_name = ko.observable(data.fs_name);
+        self.originalUrl = ko.observable(data.originalUrl);
+    }
+
+    return {
+        Photo: Photo,
+        PhotoAttach: PhotoAttach,
+        PhotoAlbum: PhotoAlbum,
+        PhotoCollection: PhotoCollection
+    }
+});
+
+define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap', 'jquery_file_upload', 'jquery.ui'], function(ko, mapping, ko_photo) {
     // Биндинг для загрузки фото
     ko.bindingHandlers.photoUpload = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -97,6 +146,8 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
             $(element).slider("value", value);
         }
     };
+
+
 
     // Основная модель вставки фотографий
     function PhotoAddViewModel(data) {
@@ -310,50 +361,10 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
         });
     }
 
-    // Основная модель коллекции
-    function PhotoCollection(data) {
-        var self = this;
-        self.id = ko.observable(data.id);
-        self.attachesCount = ko.observable(data.attachesCount);
-        self.attaches = ko.observableArray(ko.utils.arrayMap(data.attaches, function(attach) {
-            return new PhotoAttach(attach);
-        }));
-        self.cover = ko.observable(data.cover === null ? null : new Photo(data.cover));
-    }
-
-    // Основная модель аттача
-    function PhotoAttach(data) {
-        var self = this;
-        self.id = ko.observable(data.id);
-        self.position = ko.observable(data.position);
-        self.photo = ko.observable(new Photo(data.photo));
-    }
-
-    // Основная модель фотоальбома
-    function PhotoAlbum(data) {
-        var self = this;
-        self.id = ko.observable(data.id);
-        self.title = ko.observable(data.title);
-        self.description = ko.observable(data.description);
-        self.photoCollection = ko.observable(new PhotoCollection(data.photoCollection));
-    }
-
-    // Основная модель фотографии
-    function Photo(data) {
-        var self = this;
-        self.id = ko.observable(data.id);
-        self.title = ko.observable(data.title);
-        self.original_name = ko.observable(data.original_name);
-        self.width = ko.observable(data.width);
-        self.height = ko.observable(data.height);
-        self.fs_name = ko.observable(data.fs_name);
-        self.originalUrl = ko.observable(data.originalUrl);
-    }
-
     // Модель фотографии в рамках функционала загрузки фото
     function PhotoUpload(data, jqXHR, parent) {
         var self = this;
-        Photo.apply(self, arguments);
+        ko_photo.Photo.apply(self, arguments);
 
         self.jqXHR = jqXHR;
         self.previewUrl = ko.observable();
@@ -391,7 +402,7 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
 
     function FromAlbumsPhotoAttach(data, parent) {
         var self = this;
-        PhotoAttach.apply(self, arguments);
+        ko_photo.PhotoAttach.apply(self, arguments);
 
         self.isActive = ko.computed(function() {
             return parent.photos().indexOf(self.photo()) != -1;
@@ -432,7 +443,7 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
         });
 
         self.albums = ko.observableArray(ko.utils.arrayMap(data.albums, function(album) {
-            return new PhotoAlbum(album);
+            return new ko_photo.PhotoAlbum(album);
         }));
 
         self.unselectAlbum = function() {
@@ -471,10 +482,11 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
     FromAlbumsViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
 
     window.PhotoUpload = PhotoUpload;
-    window.FromComputerSingleViewModel = FromComputerSingleViewModel;
-    window.FromComputerMultipleViewModel = FromComputerMultipleViewModel;
-    window.FromAlbumsViewModel = FromAlbumsViewModel;
-    window.PhotoAlbum = PhotoAlbum;
-    window.PhotoAttach = PhotoAttach;
-    window.ByUrlViewModel = ByUrlViewModel;
+
+    return {
+        FromComputerSingleViewModel: FromComputerSingleViewModel,
+        FromComputerMultipleViewModel: FromComputerMultipleViewModel,
+        FromAlbumsViewModel: FromAlbumsViewModel,
+        ByUrlViewModel: ByUrlViewModel
+    };
 });

@@ -1,7 +1,4 @@
 define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_upload'], function(ko, mapping) {
-
-    console.log(mapping);
-
     // Биндинг для загрузки фото
     ko.bindingHandlers.photoUpload = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -179,7 +176,7 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
 
         self.processResponse = function(photo, response) {
             if (response.form.success) {
-                ko.mapping.fromJS(response.photo, {}, photo);
+                mapping.fromJS(response.photo, {}, photo);
                 photo.status(PhotoUpload.STATUS_SUCCESS);
             } else {
                 photo.error(response.form.firstError);
@@ -215,7 +212,7 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
     }
 
     // Модель одиночной загрузки файла с компьютера
-    window.FromComputerSingleViewModel = function(data) {
+    function FromComputerSingleViewModel(data) {
         var self = this;
         PhotoUploadViewModel.apply(self, arguments);
 
@@ -354,7 +351,7 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
     }
 
     // Модель фотографии в рамках функционала загрузки фото
-    window.PhotoUpload = function(data, jqXHR, parent) {
+    function PhotoUpload(data, jqXHR, parent) {
         var self = this;
         Photo.apply(self, arguments);
 
@@ -464,4 +461,10 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
         }
     }
     FromAlbumsViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
+
+    window.PhotoUpload = PhotoUpload;
+    window.FromComputerSingleViewModel = FromComputerSingleViewModel;
+    window.FromComputerMultipleViewModel = FromComputerMultipleViewModel;
+    window.FromAlbumsViewModel = FromAlbumsViewModel;
+    window.ByUrlViewModel = ByUrlViewModel;
 });

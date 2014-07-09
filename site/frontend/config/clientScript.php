@@ -20,10 +20,10 @@ return array(
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
         ),
-    /* 'eval' => '
-      ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
-      ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
-      ', */
+        /* 'eval' => '
+          ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
+          ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
+          ', */
     ),
     'packages' => array(
         'bootstrap' => array(
@@ -33,6 +33,19 @@ return array(
                 'new/javascript/bootstrap/dropdown.js',
                 'new/javascript/bootstrap/tab.js',
             ),
+        ),
+        'userSettings' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_userSettings.js',
+            ),
+        ),
+        'ko_settings' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_settings.js',
+            ),
+            'depends' => array('knockout', 'userSettings'),
         ),
         'touchPunch' => array(
             'baseUrl' => '/',
@@ -146,13 +159,6 @@ return array(
                 'imagesloaded',
             ),
         ),
-        'baron' => array(
-            'baseUrl' => '/',
-            'amd' => true,
-            'js' => array(
-                'javascripts/baron.js',
-            ),
-        ),
         'history' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -190,7 +196,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_post.js',
-            //'javascripts/baron.js',
+                //'javascripts/baron.js',
             ),
             'depends' => array('knockout', 'baron', 'ko_favourites', 'ko_upload', 'ko_library'),
         ),
@@ -254,6 +260,14 @@ return array(
             ),
             'depends' => array('knockout', 'jquery.ui', 'ko_library'),
         ),
+        'jquery.ui' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery-ui.min.js',
+            ),
+            'depends' => array('jquery'),
+        ),
         'jquery.ui.widget' => array(
             'baseUrl' => '/',
             'amd' => true,
@@ -262,17 +276,12 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
-//        'ko_photo' => array(
-//            'baseUrl' => '/',
-//            'js' => array(
-//                'javascripts/ko_photo.js',
-//            ),
-//            'depends' => array('knockout', 'jquery_file_upload', 'bootstrap', 'baron', 'jquery.ui'),
-//        ),
         'ko_upload' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/upload.js',
+
             ),
             'depends' => array('knockout', 'jquery_file_upload'),
         ),
@@ -280,30 +289,10 @@ return array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
-                'jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',
-                'jQuery-File-Upload/js/jquery.fileupload-process.js',
-                'jQuery-File-Upload/js/jquery.fileupload-image.js',
             ),
-            'depends' => array('jquery', 'blob'),
-        ),
-        'blob' => array(
-            'baseUrl' => '/',
-            'amd' => true,
-            'js' => array(
-                'JavaScript-Canvas-to-Blob-master/js/canvas-to-blob.js',
-            ),
-            'depends' => array('jquery'),
-        ),
-        'load_image' => array(
-            'baseUrl' => '/',
-            'amd' => true,
-            'js' => array(
-                'JavaScript-Load-Image-master/js/load-image.js',
-                'JavaScript-Load-Image-master/js/load-image-meta.js',
-            ),
-            'depends' => array('jquery'),
+            'depends' => array('jquery', 'jquery.ui.widget'),
         ),
         'ko_menu' => array(
             'baseUrl' => '/',
@@ -358,6 +347,21 @@ return array(
                 'new/javascript/wysiwyg.js',
             ),
             'depends' => array('knockout'),
+        ),
+        'baron' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/baron.js',
+            ),
+            'depends' => array('jquery'),
+        ),
+        'vacancy' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/vacancy.js',
+            ),
+            'depends' => array('ko_upload'),
         ),
     )
 );

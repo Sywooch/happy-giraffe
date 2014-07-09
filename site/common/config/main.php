@@ -22,7 +22,6 @@ return array(
             'key' => 'AKIAIRCLO4AYJCJRTV4Q',
             'secret' => '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',
             'bucket' => 'test-happygiraffe',
-            'cachePathAlias' => 'site.common.uploads.photos.v2',
         ),
         'thumbs' => array(
             'class' => '\site\frontend\modules\photo\components\thumbs\ThumbsManager',

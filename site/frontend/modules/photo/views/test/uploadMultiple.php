@@ -26,15 +26,13 @@
 </div>
 
 <script type="text/javascript">
-    requirejs(['knockout', 'ko_photo'], function(ko) {
+    require(['knockout', 'ko_photoUpload'], function(ko) {
         function TestViewModel() {
             var self = this;
             self.photos = ko.observableArray([]);
         }
 
-        $(function () {
-            ko.applyBindings(new TestViewModel(), document.getElementById('test'));
-        });
+        ko.applyBindings(new TestViewModel(), document.getElementById('test'));
     });
 </script>
 

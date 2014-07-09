@@ -18,16 +18,14 @@
 </div>
 
 <script type="text/javascript">
-    requirejs(['knockout', 'ko_photo'], function(ko) {
+    require(['knockout', 'ko_photoUpload'], function(ko) {
         function TestViewModel() {
             var self = this;
             self.photo = ko.observable(null);
             self.photos = ko.observableArray([]);
         }
 
-
-        test = new TestViewModel();
-        ko.applyBindings(test, document.getElementById('test'));
+        ko.applyBindings(new TestViewModel(), document.getElementById('test'));
     });
 
 

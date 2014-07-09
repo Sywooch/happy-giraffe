@@ -13,12 +13,18 @@ use Gaufrette\Adapter\Local;
 
 class PhotoS3Component extends S3Component
 {
-    public $cachePathAlias;
+    public $cachePath;
 
     protected function getAdapter()
     {
         $s3 = parent::getAdapter();
-        $local = new CustomLocalAdapter('/var/cache/img_hgru', true);
+
+        $path = \Yii::getPathOfAlias($this->cachePath);
+        if ($path === false) {
+            $path = $this->cachePath;
+        }
+
+        $local = new CustomLocalAdapter($path, true);
         return new DeferredCache($s3, $local, 3600);
     }
 } 

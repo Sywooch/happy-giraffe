@@ -26,9 +26,8 @@
     </div>
 </div>
 
-<?php if (false): ?>
 <script type="text/javascript">
-    url = new ByUrlViewModel(<?=$form->output()?>);
-    ko.applyBindings(url, document.getElementById('photo-tab-link'));
+    require(['knockout', 'ko_photo'], function(ko) {
+        ko.applyBindings(new ByUrlViewModel(<?=$form->output()?>), document.getElementById('photo-tab-link'));
+    });
 </script>
-<?php endif; ?>

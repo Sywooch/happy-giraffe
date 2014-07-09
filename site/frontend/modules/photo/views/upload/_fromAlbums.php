@@ -71,9 +71,8 @@
     </div>
 </div>
 
-<?php if (false): ?>
 <script type="text/javascript">
-    albums = new FromAlbumsViewModel(<?=$form->output()?>);
-    ko.applyBindings(albums, document.getElementById('photo-tab-album'));
+    require(['knockout', 'ko_photo'], function(ko) {
+        ko.applyBindings(new FromAlbumsViewModel(<?=$form->output()?>), document.getElementById('photo-tab-album'));
+    });
 </script>
-<?php endif; ?>

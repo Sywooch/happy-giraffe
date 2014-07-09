@@ -143,12 +143,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             </div>
         </div>
 
-        <?php if ($this->route == 'services/test/default/view' && $_GET['slug'] == 'pregnancy'): ?>
-            <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" class="cover cover-clearblue" target="_blank" onclick="_gaq.push(['_trackEvent','Outgoing Links','www.clearblue.com'])">
-                <div class="cover-clearblue_b"></div>
-            </a>
-        <?php endif; ?>
-
         <?php if ($this->id == 'contest'): ?>
             <div class="cover cover-contest cover-contest__<?=$this->contest->cssClass?>"></div>
         <?php endif; ?>

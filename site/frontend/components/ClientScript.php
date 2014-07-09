@@ -23,7 +23,7 @@ class ClientScript extends CClientScript
     /**
      * @var array Настройки amd (requireJS)
      */
-    public $amd = array();
+    public $amd = array('paths' => array(), 'shim' => array());
 
     /**
      * @var string URL до файла, загружаемого первым, должен содержать requireJS
@@ -219,6 +219,45 @@ class ClientScript extends CClientScript
     public function registerAMDFile($depends, $file)
     {
         return $this->registerScript($file, '$(document).ready(function() { require(' . CJSON::encode($depends) . ', function() { require(["' . $file . '"]); }); });', self::POS_AMD);
+    }
+
+    /**
+     * Метод, добавляющий в конфиг amd скрипт, описанный в corePackages.
+     * 
+     * @param string $name
+     * @return ClientScript
+     */
+    public function registerAMDCoreScript($name)
+    {
+        if (isset($this->packages[$name])) // есть в конфиге clientScript, сам загрузится из зависимостей requirejs
+            return $this;
+        if (isset($this->amd['shim'][$name])) // уже описан в конфиге amd
+            return $this;
+        if (is_null($this->corePackages))
+            $this->corePackages = require(YII_PATH . '/web/js/packages.php');
+        if (isset($this->corePackages[$name]) && isset($this->corePackages[$name]['js']))
+        {
+            $package = $this->corePackages[$name];
+            // опубликуем скрипт
+            if (isset($package['basePath']))
+                $baseUrl = Yii::app()->getAssetManager()->publish(Yii::getPathOfAlias($package['basePath']));
+            else
+                $baseUrl = $this->getCoreScriptUrl();
+            /** @todo Есть несколько пакетов, в которых не один скрипт. Необходимо дописать как в addPackagesToAMDConfig */
+            $url = $baseUrl . '/' . substr($package['js'][0], 0, -3);
+            // добавим скрипт в конфиг
+            $this->amd['paths'][$name] = $url;
+            $this->amd['shim'][$name] = array();
+            // загрузим зависимости
+            if (isset($package['depends']))
+                foreach ($package['depends'] as $dependence)
+                {
+                    $this->registerAMDCoreScript($dependence);
+                    $this->amd['shim'][$name][] = $dependence;
+                }
+        }
+        
+        return $this;
     }
 
     public function getHasNoindex()

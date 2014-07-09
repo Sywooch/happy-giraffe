@@ -17,9 +17,7 @@ class PhotoModule extends \CWebModule
 			'photo.components.*',
 		));
 
-        /** @var \ClientScript $cs */
-        $cs = \Yii::app()->clientScript;
-        $cs->registerPackage('ko_photo');
+        \Yii::app()->clientScript->useAMD = true;
 	}
 
 	public function beforeControllerAction($controller, $action)

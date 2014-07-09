@@ -26,6 +26,7 @@
 </div>
 
 <script type="text/javascript">
-    computer = new FromComputerSingleViewModel(<?=$form->output()?>);
-    ko.applyBindings(computer, document.getElementById('photo-tab-computer'));
+    require(['knockout', 'ko_photo'], function(ko) {
+        ko.applyBindings(new FromComputerSingleViewModel(<?=$form->output()?>), document.getElementById('photo-tab-computer'));
+    });
 </script>

@@ -22,11 +22,12 @@
         </div>
     </div>
     <div class="popup-add_footer" data-bind="visible: photo() !== null">
-        <div class="textalign-c"><a href="" class="btn btn-success" data-bind="disable: loading, click: add">Добавить</a></div>
+        <div class="textalign-c"><button href="" class="btn btn-success" data-bind="disable: loading, click: add">Добавить</button></div>
     </div>
 </div>
 
 <script type="text/javascript">
-    url = new ByUrlViewModel(<?=$form->output()?>);
-    ko.applyBindings(url, document.getElementById('photo-tab-link'));
+    require(['knockout', 'ko_photo'], function(ko) {
+        ko.applyBindings(new ByUrlViewModel(<?=$form->output()?>), document.getElementById('photo-tab-link'));
+    });
 </script>

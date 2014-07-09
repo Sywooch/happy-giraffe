@@ -259,6 +259,14 @@ return array(
             ),
             'depends' => array('knockout', 'jquery.ui', 'ko_library'),
         ),
+        'jquery.ui' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery-ui.min.js',
+            ),
+            'depends' => array('jquery'),
+        ),
         'jquery.ui.widget' => array(
             'baseUrl' => '/',
             'amd' => true,
@@ -333,6 +341,7 @@ return array(
         ),
         'baron' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/baron.js',
             ),

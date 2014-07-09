@@ -1,4 +1,7 @@
-define('ko_photo', ['knockout', 'bootstrap', 'jquery_file_upload'], function(ko) {
+define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_upload'], function(ko, mapping) {
+
+    console.log(mapping);
+
     // Биндинг для загрузки фото
     ko.bindingHandlers.photoUpload = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -351,7 +354,7 @@ define('ko_photo', ['knockout', 'bootstrap', 'jquery_file_upload'], function(ko)
     }
 
     // Модель фотографии в рамках функционала загрузки фото
-    function PhotoUpload(data, jqXHR, parent) {
+    window.PhotoUpload = function(data, jqXHR, parent) {
         var self = this;
         Photo.apply(self, arguments);
 

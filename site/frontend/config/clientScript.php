@@ -151,13 +151,6 @@ return array(
                 'imagesloaded',
             ),
         ),
-        'baron' => array(
-            'baseUrl' => '/',
-            'amd' => true,
-            'js' => array(
-                'javascripts/baron.js',
-            ),
-        ),
         'history' => array(
             'baseUrl' => '/',
             'js' => array(

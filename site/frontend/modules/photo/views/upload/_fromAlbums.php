@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="float-r">
-                    <div class="btn btn-link-gray btn-s disabled">Выберите фото </div><button href="" class="btn btn-success" data-bind="click: add, disable: photos().length == 0">Добавить</button>
+                    <div class="btn btn-link-gray btn-s disabled" data-bind="text: hint"></div><button class="btn btn-success" data-bind="click: add, disable: photos().length == 0">Добавить</button>
                 </div>
             </div>
         </div>

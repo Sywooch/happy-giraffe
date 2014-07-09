@@ -61,7 +61,7 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
 
             function update() {
                 var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
-                src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
+                //src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
                 //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
                 $(element).attr('src', src);
             }
@@ -437,7 +437,7 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
 
         self.unselectAlbum = function() {
             self.currentAlbum(null);
-        }
+        };
 
         self.selectAlbum = function(album) {
             if (album.photoCollection().attaches().length == 0) {
@@ -450,7 +450,7 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
             } else {
                 self.currentAlbum(album);
             }
-        }
+        };
 
         self.selectAttach = function(attach) {
             if (attach.isActive()) {
@@ -458,7 +458,15 @@ define('ko_photo', ['knockout', 'knockout.mapping', 'bootstrap', 'jquery_file_up
             } else {
                 self.added(attach.photo());
             }
-        }
+        };
+
+        self.hint = ko.computed(function() {
+            if (self.photos().length > 0) {
+                return 'Выбрано: ' + self.photos().length;
+            } else {
+                return 'Выберите фото';
+            }
+        });
     }
     FromAlbumsViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
 

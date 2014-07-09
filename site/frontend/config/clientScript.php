@@ -19,6 +19,7 @@ return array(
             'preload' => '/javascripts/jquery.preload.min',
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
+            'ko_photoUpload' => 'ko_photo',
         ),
         /* 'eval' => '
           ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";

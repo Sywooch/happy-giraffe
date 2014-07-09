@@ -27,7 +27,7 @@
 </div>
 
 <script type="text/javascript">
-    require(['knockout', 'ko_photo'], function(ko) {
-        ko.applyBindings(new ByUrlViewModel(<?=$form->output()?>), document.getElementById('photo-tab-link'));
+    require(['ko_photoUpload', 'knockout'], function(upload, ko) {
+        ko.applyBindings(new upload.ByUrlViewModel(<?=$form->output()?>), document.getElementById('photo-tab-link'));
     });
 </script>

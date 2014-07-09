@@ -52,7 +52,7 @@
 </div>
 
 <script type="text/javascript">
-    require(['knockout', 'ko_photo'], function(ko) {
-        ko.applyBindings(new FromComputerMultipleViewModel(<?=$form->output()?>), document.getElementById('photo-tab-computer'));
+    require(['ko_photoUpload', 'knockout'], function(upload, ko) {
+        ko.applyBindings(new upload.FromComputerMultipleViewModel(<?=$form->output()?>), document.getElementById('photo-tab-computer'));
     });
 </script>

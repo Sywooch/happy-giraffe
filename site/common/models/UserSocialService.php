@@ -111,6 +111,9 @@ class UserSocialService extends HActiveRecord
             case 'odnoklassniki':
                 $url = 'http://www.odnoklassniki.ru/profile/' . $this->service_id;
                 break;
+            case 'google_oauth':
+                $url = 'https://plus.google.com/' . $this->service_id;
+                break;
             default:
                 $url = '';
         }

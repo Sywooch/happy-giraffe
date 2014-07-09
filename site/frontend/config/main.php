@@ -213,6 +213,11 @@ return array(
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
                     'title' => 'ВКонтакте',
                 ),
+                'google' => array(
+                    'class' => 'application.components.eauth.GoogleAuth',
+                    'client_id' => '152056798430-h2dd83jfs4q4mka119s1tftorp0171ol.apps.googleusercontent.com',
+                    'client_secret' => '-DJ8DaGP9nK7rpvo11eT38ys',
+                ),
 //                'facebook' => array(
 //                    'class' => 'CustomFacebookService',
 //                    'client_id' => '412497558776154',

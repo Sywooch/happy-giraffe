@@ -43,7 +43,7 @@ class ThumbsManager extends \CApplicationComponent
     public function getThumb(Photo $photo, $presetName, $create = false)
     {
         $preset = $this->createPreset($presetName);
-        $thumb = new Thumb($photo, $preset);
+        $thumb = ThumbFactory::create($photo, $preset);
         if ($create) {
             $thumb->save();
         }

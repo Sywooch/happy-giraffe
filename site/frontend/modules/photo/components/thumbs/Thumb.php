@@ -22,15 +22,14 @@ class Thumb extends \CComponent
     public $preset;
 
     /**
+     * @var
+     */
+    public $format;
+
+    /**
      * @var \Imagine\Imagick\Image
      */
     protected $image;
-
-    public function __construct(Photo $photo, PresetInterface $preset)
-    {
-        $this->photo = $photo;
-        $this->preset = $preset;
-    }
 
     /**
      * Ширина миниатюры
@@ -74,10 +73,8 @@ class Thumb extends \CComponent
      */
     public function show()
     {
-        if ($this->image === null) {
-            $this->process();
-        }
-        $this->image->show($this->getFormat(), $this->getOptions());
+        $this->process();
+        $this->image->show($this->format, $this->getOptions());
     }
 
     /**
@@ -86,29 +83,24 @@ class Thumb extends \CComponent
     public function save()
     {
         $this->process();
-        \Yii::app()->fs->write($this->getFsPath(), $this->image->get($this->getFormat(), $this->getOptions()), true);
+        \Yii::app()->fs->write($this->getFsPath(), $this->image->get($this->format, $this->getOptions()), true);
+    }
+
+    /**
+     * Загрузить и обработать фото
+     */
+    protected function process()
+    {
+        $this->image = \Yii::app()->imagine->load(\Yii::app()->fs->read($this->photo->getOriginalFsPath()));
+        $this->processImage();
     }
 
     /**
      * Обработать фото для получения нужной миниатюры
      */
-    protected function process()
+    protected function processImage()
     {
-        $this->image = \Yii::app()->imagine->load(\Yii::app()->fs->read($this->photo->getOriginalFsPath()));
-        if ($this->getFormat() != )
         $this->preset->apply($this->image);
-        $this->image->layers()->coalesce();
-        foreach ($this->image->layers() as $frame) {
-            $this->preset->apply($frame);
-        }
-    }
-
-    /**
-     * @return string формат для Imagine
-     */
-    protected function getFormat()
-    {
-        return pathinfo($this->photo->fs_name, PATHINFO_EXTENSION);
     }
 
     /**
@@ -116,36 +108,6 @@ class Thumb extends \CComponent
      */
     protected function getOptions()
     {
-        $options = array();
-        if ($this->getFormat() == 'jpg') {
-            $options['jpeg_quality'] = $this->getJpegQuality();
-        }
-        if ($this->getFormat() == 'gif') {
-            $options['animated'] = true;
-        }
-        return $options;
-    }
-
-    /**
-     * Подсчитать качество JPEG для изображения
-     *
-     * Зависит от ширины изображения, настройки задаются в конфигурации компонента
-     *
-     * @return int качество JPEG
-     */
-    protected function getJpegQuality()
-    {
-        $width = $this->image->getSize()->getWidth();
-        $config = \Yii::app()->thumbs->quality;
-        $q = array_pop($config);
-        $config = array_reverse($config, true);
-        foreach ($config as $minWidth => $quality) {
-            if ($width <= $minWidth) {
-                $q = $quality;
-            } else {
-                break;
-            }
-        }
-        return $q;
+        return array();
     }
 } 

@@ -95,7 +95,12 @@ class Thumb extends \CComponent
     protected function process()
     {
         $this->image = \Yii::app()->imagine->load(\Yii::app()->fs->read($this->photo->getOriginalFsPath()));
+        if ($this->getFormat() != )
         $this->preset->apply($this->image);
+        $this->image->layers()->coalesce();
+        foreach ($this->image->layers() as $frame) {
+            $this->preset->apply($frame);
+        }
     }
 
     /**
@@ -114,6 +119,9 @@ class Thumb extends \CComponent
         $options = array();
         if ($this->getFormat() == 'jpg') {
             $options['jpeg_quality'] = $this->getJpegQuality();
+        }
+        if ($this->getFormat() == 'gif') {
+            $options['animated'] = true;
         }
         return $options;
     }

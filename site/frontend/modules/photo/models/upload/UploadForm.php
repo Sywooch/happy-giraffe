@@ -28,6 +28,8 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
      */
     protected $success;
 
+    protected $error;
+
     public function attributeLabels()
     {
         return array(
@@ -48,11 +50,19 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
      */
     public function save()
     {
-        $this->photo = $this->populate();
-        $this->success = $this->validate() && $this->photo->save();
-        if ($this->success) {
-            \Yii::app()->thumbs->getThumb($this->photo, self::PRESET_NAME, true);
+        if ($this->validate()) {
+            $this->photo = $this->populate();
+            if ($this->photo->save()) {
+                \Yii::app()->thumbs->getThumb($this->photo, self::PRESET_NAME, true);
+            } else {
+                $errors = $this->photo->getErrors();
+                $this->error = $errors[key($errors)][0];
+            }
+        } else {
+            $errors = $this->getErrors();
+            $this->error = $errors[key($errors)][0];
         }
+
         echo \HJSON::encode(array(
             'photo' => $this->photo,
             'form' => $this,
@@ -65,7 +75,7 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
      */
     protected function getFirstError()
     {
-        $errors = \CMap::mergeArray($this->getErrors(), $this->photo->getErrors());
+        $errors = $this->photo === null ? $this->getErrors() : $this->photo->getErrors();
         if (count($errors) > 0) {
             return $errors[key($errors)][0];
         }
@@ -75,8 +85,8 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
     public function toJSON()
     {
         return array(
-            'firstError' => $this->getFirstError(),
-            'success' => (bool) $this->success,
+            'error' => $this->error,
+            'success' => $this->error === null,
         );
     }
 } 

@@ -48,7 +48,7 @@ class PhotoCreate extends Photo
     public function validType($attribute)
     {
         if (! in_array($this->$attribute, array(IMAGETYPE_JPEG, IMAGETYPE_GIF, IMAGETYPE_PNG))) {
-            $this->addError($attribute, 'Изображение должно быть изображение в формате JPEG, PNG или GIF');
+            $this->addError($attribute, 'Загружаются только файлы jpg, png, gif');
         }
     }
 

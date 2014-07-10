@@ -268,7 +268,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         PhotoUploadViewModel.apply(self, arguments);
 
         $.extend(self.fileUploadSettings, {
-            maxNumberOfFiles: 1,
             add: function (e, data) {
                 self.added(self.populatePhoto(data));
                 $.blueimp.fileupload.prototype.options.add.call(this, e, data);
@@ -306,9 +305,12 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
 
         $.extend(self.fileUploadSettings, {
             dropZone: '.popup-add_frame__multi',
+            sequentialUploads: true,
             add: function (e, data) {
-                self.added(self.populatePhoto(data));
-                $.blueimp.fileupload.prototype.options.add.call(this, e, data);
+                if (self.successPhotos().length < 300) {
+                    self.added(self.populatePhoto(data));
+                    $.blueimp.fileupload.prototype.options.add.call(this, e, data);
+                }
             },
             done: function (e, data) {
                 var photo = self.findPhotoByRequest(data.jqXHR);

@@ -305,7 +305,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
 
         $.extend(self.fileUploadSettings, {
             dropZone: '.popup-add_frame__multi',
-            sequentialUploads: true,
             add: function (e, data) {
                 if (self.successPhotos().length < 300) {
                     self.added(self.populatePhoto(data));

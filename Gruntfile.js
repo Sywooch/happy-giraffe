@@ -154,7 +154,7 @@ module.exports = function(grunt){
           htmlroot     : 'new',
           ignore       : [
             // Выбираем все стили где в начале .clsss
-            /.dropdown+/,
+            // /.dropdown+/,
             /.mfp+/,
             /.tooltip+/,
           ],

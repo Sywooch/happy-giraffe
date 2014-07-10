@@ -101,6 +101,7 @@ $(function() {
         type: 'inline',
         overflowY: 'auto',
         tClose: 'Закрыть',
+        tLoading: 'Загружается &nbsp;<img src="/new/images/ico/ajax-loader.gif">',
         fixedBgPos: true,
         
         // When elemened is focused, some mobile browsers in some cases zoom in

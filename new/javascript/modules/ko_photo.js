@@ -230,7 +230,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
                 mapping.fromJS(response.photo, {}, photo);
                 photo.status(PhotoUpload.STATUS_SUCCESS);
             } else {
-                photo.error(response.form.firstError);
+                photo.error(response.form.error);
                 photo.status(PhotoUpload.STATUS_FAIL);
             }
         }
@@ -368,23 +368,22 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         ko_photo.Photo.apply(self, arguments);
 
         self.jqXHR = jqXHR;
-        self.previewUrl = ko.observable();
         self.status = ko.observable(PhotoUpload.STATUS_LOADING);
         self.error = ko.observable();
 
         self.rotateLeft = function() {
             self.rotate(-90);
-        }
+        };
 
         self.rotateRight = function() {
-            self.rotate(90)
-        }
+            self.rotate(90);
+        };
 
         self.rotate = function(angle) {
             $.post('/photo/upload/rotate/', { angle : angle, photoId : self.id }, function(response) {
                 mapping.fromJS(response.photo, {}, self);
             }, 'json');
-        }
+        };
 
         self.cssClass = ko.computed(function() {
             switch (self.status()) {

@@ -23,7 +23,7 @@
         <!-- ko if: status() == PhotoUpload.STATUS_FAIL -->
         <div class="i-photo_hold error">
             <div class="tx-hint" data-bind="text: original_name"></div>
-            <div class="tx-hint">Ошибка загрузки</div>
+            <div class="tx-hint" data-bind="text: error"></div>
         </div>
         <!-- /ko -->
     </div>

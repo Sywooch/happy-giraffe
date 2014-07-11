@@ -15,6 +15,13 @@ class ByUrlUploadForm extends UploadForm
      */
     public $url;
 
+    public function attributeLabels()
+    {
+        return \CMap::mergeArray(parent::attributeLabels(), array(
+            'url' => 'Ссылка',
+        ));
+    }
+
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
@@ -22,7 +29,7 @@ class ByUrlUploadForm extends UploadForm
         ));
     }
 
-    public function populate()
+    protected function populate()
     {
         $image = file_get_contents($this->url);
         $tmpFile = tempnam(sys_get_temp_dir(), 'php');

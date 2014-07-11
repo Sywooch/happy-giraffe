@@ -18,7 +18,7 @@ class FromComputerUploadForm extends UploadForm
     public function attributeLabels()
     {
         return \CMap::mergeArray(parent::attributeLabels(), array(
-            'file' => 'Файлы изображений',
+            'file' => 'Файл изображения',
         ));
     }
 
@@ -29,7 +29,7 @@ class FromComputerUploadForm extends UploadForm
         ));
     }
 
-    public function populate()
+    protected function populate()
     {
         return new PhotoCreate($this->file->getTempName(), $this->file->getName());
     }

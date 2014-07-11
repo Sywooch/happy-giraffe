@@ -111,7 +111,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
             function update() {
                 var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
                 src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
-                src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
+                //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
                 $(element).attr('src', src);
             }
 

@@ -27,6 +27,7 @@
 
 <script type="text/javascript">
     require(['ko_photoUpload', 'knockout'], function(upload, ko) {
-        ko.applyBindings(new upload.FromComputerSingleViewModel(<?=$form->output()?>), document.getElementById('photo-tab-computer'));
+        bbb = new upload.FromComputerSingleViewModel(<?=$form->output()?>);
+        ko.applyBindings(bbb, document.getElementById('photo-tab-computer'));
     });
 </script>

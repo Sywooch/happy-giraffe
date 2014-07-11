@@ -73,6 +73,7 @@
 
 <script type="text/javascript">
     require(['ko_photoUpload', 'knockout'], function(upload, ko) {
-        ko.applyBindings(new upload.FromAlbumsViewModel(<?=$form->output()?>), document.getElementById('photo-tab-album'));
+        ccc = new upload.FromAlbumsViewModel(<?=$form->output()?>);
+        ko.applyBindings(ccc, document.getElementById('photo-tab-album'));
     });
 </script>

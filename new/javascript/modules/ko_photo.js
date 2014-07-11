@@ -162,7 +162,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
             },
             write: function (value) {
                 if (self.photo() !== null) {
-                    self.removePhoto(self.photo());
+                    self.removePhotoInternal(self.photo());
                 }
                 self.photos.push(value);
             }
@@ -181,6 +181,10 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
                 return photo.id;
             });
         }
+
+        self.removePhoto = function(photo) {
+            self.removePhotoInternal(photo);
+        }
     }
     PhotoAddViewModel.prototype.add = function() {
         var self = this;
@@ -191,11 +195,11 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         } else {
             ko.bindingHandlers.photoUpload.callback(self.photo());
         }
-    }
-    PhotoAddViewModel.prototype.removePhoto = function(photo) {
+    };
+    PhotoAddViewModel.prototype.removePhotoInternal = function(photo) {
         var self = this;
         self.photos.remove(photo);
-    }
+    };
 
     // Основная модель загрузки фото
     function PhotoUploadViewModel(data) {
@@ -218,13 +222,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
             return self.loadingPhotos().length > 0;
         });
 
-        self.removePhoto = function(photo) {
-            if (photo.status() == PhotoUpload.STATUS_LOADING) {
-                photo.jqXHR.abort();
-            }
-            PhotoAddViewModel.prototype.removePhoto.call(self, photo);
-        }
-
         self.processResponse = function(photo, response) {
             if (response.form.success) {
                 mapping.fromJS(response.photo, {}, photo);
@@ -234,16 +231,24 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
                 photo.status(PhotoUpload.STATUS_FAIL);
             }
         }
-
-        self.add = function() {
-            $.post('/photo/upload/attach/', { collectionId : self.collectionId, ids : self.photoIds() }, function(response) {
-                if (response.success) {
-                    PhotoAddViewModel.prototype.add.call(self);
-                }
-            }, 'json');
-        }
     }
     PhotoUploadViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
+    PhotoUploadViewModel.prototype.add = function() {
+        var self = this;
+        $.post('/photo/upload/attach/', { collectionId : self.collectionId, ids : self.photoIds() }, function(response) {
+            if (response.success) {
+                PhotoAddViewModel.prototype.add.call(self);
+            }
+        }, 'json');
+    }
+    PhotoUploadViewModel.prototype.removePhotoInternal = function(photo) {
+        var self = this;
+        if (photo.status() == PhotoUpload.STATUS_LOADING) {
+            photo.jqXHR.abort();
+        }
+        PhotoAddViewModel.prototype.removePhotoInternal.call(self, photo);
+    };
+
 
     // Mixin, общие методы для двух форм загрузки с компьютера
     function asFromComputer() {
@@ -283,6 +288,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
             }
         });
     }
+    FromComputerSingleViewModel.prototype = Object.create(PhotoUploadViewModel.prototype);
     asFromComputer.call(FromComputerSingleViewModel.prototype);
 
     // Модель множественной загрузки с компьютера
@@ -299,7 +305,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         self.cancelAll = function()
         {
             ko.utils.arrayForEach(self.loadingPhotos(), function(photo) {
-                self.removePhoto(photo);
+                self.removePhotoInternal(photo);
             });
         }
 
@@ -326,6 +332,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         self.fileUploadSettingsMore = $.extend({}, self.fileUploadSettings);
         self.fileUploadSettingsMore.dropZone = null;
     }
+    FromComputerMultipleViewModel.prototype = Object.create(PhotoUploadViewModel.prototype);
     asFromComputer.call(FromComputerMultipleViewModel.prototype);
 
     // Модель загрузки по URL
@@ -357,9 +364,15 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
                     }
                 });
             } else {
-                self.photo(null);
+
             }
         });
+    }
+    ByUrlViewModel.prototype = Object.create(PhotoUploadViewModel.prototype);
+    ByUrlViewModel.prototype.removePhotoInternal = function(photo) {
+        var self = this;
+        self.url('');
+        PhotoUploadViewModel.prototype.removePhotoInternal.call(self, photo);
     }
 
     // Модель фотографии в рамках функционала загрузки фото

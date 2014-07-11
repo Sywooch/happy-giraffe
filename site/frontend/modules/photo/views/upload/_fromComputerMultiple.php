@@ -53,6 +53,7 @@
 
 <script type="text/javascript">
     require(['ko_photoUpload', 'knockout'], function(upload, ko) {
-        ko.applyBindings(new upload.FromComputerMultipleViewModel(<?=$form->output()?>), document.getElementById('photo-tab-computer'));
+        ddd = new upload.FromComputerMultipleViewModel(<?=$form->output()?>);
+        ko.applyBindings(ddd, document.getElementById('photo-tab-computer'));
     });
 </script>

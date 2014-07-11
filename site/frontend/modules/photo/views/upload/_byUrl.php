@@ -28,6 +28,7 @@
 
 <script type="text/javascript">
     require(['ko_photoUpload', 'knockout'], function(upload, ko) {
-        ko.applyBindings(new upload.ByUrlViewModel(<?=$form->output()?>), document.getElementById('photo-tab-link'));
+        aaa = new upload.ByUrlViewModel(<?=$form->output()?>);
+        ko.applyBindings(aaa, document.getElementById('photo-tab-link'));
     });
 </script>

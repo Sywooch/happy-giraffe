@@ -2,7 +2,7 @@
     <div class="layout-wrapper_hold clearfix">
         <div class="layout-content clearfix">
             <div id="test">
-                <p><a data-bind="photoUpload: { data: { multiple : false }, observable: photo }">Загрузить одно фото</a></p>
+                <p><a data-bind="photoUpload: { data: { multiple: false, collectionId: 1 }, observable: photo }">Загрузить одно фото</a></p>
 
                 <div data-bind="with: photo">
                     <p>ID: <span data-bind="text: id"></span></p>

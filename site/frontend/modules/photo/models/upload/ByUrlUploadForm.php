@@ -6,6 +6,7 @@
  */
 
 namespace site\frontend\modules\photo\models\upload;
+use Guzzle\Http\Client;
 use site\frontend\modules\photo\models\PhotoCreate;
 
 class ByUrlUploadForm extends UploadForm
@@ -31,7 +32,8 @@ class ByUrlUploadForm extends UploadForm
 
     protected function populate()
     {
-        $image = file_get_contents($this->url);
+        $client = new Client();
+        $image = $client->get($this->url)->send()->getBody(true);
         $tmpFile = tempnam(sys_get_temp_dir(), 'php');
         file_put_contents($tmpFile, $image);
         return new PhotoCreate($tmpFile, basename($this->url));

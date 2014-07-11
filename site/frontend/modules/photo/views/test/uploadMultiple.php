@@ -8,7 +8,7 @@
     <div class="layout-wrapper_hold clearfix">
         <div class="layout-content clearfix">
             <div id="test">
-                <p><a data-bind="photoUpload: { data : { multiple : true }, observable: photos }">Загрузить много фото</a></p>
+                <p><a data-bind="photoUpload: { data: { multiple: true, collectionId: 2 }, observable: photos }">Загрузить много фото</a></p>
 
                 <!-- ko foreach: photos -->
                 <div class="mphoto">

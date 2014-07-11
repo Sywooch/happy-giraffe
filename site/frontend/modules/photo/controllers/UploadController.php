@@ -50,7 +50,6 @@ class UploadController extends \HController
      */
     public function actionFromComputer()
     {
-        sleep(3);
         $form = new FromComputerUploadForm();
         $form->file = \CUploadedFile::getInstanceByName('image');
         echo $form->save();

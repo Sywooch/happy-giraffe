@@ -110,7 +110,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
 
             function update() {
                 var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
-                src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
+                //src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
                 //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
                 $(element).attr('src', src);
             }
@@ -208,13 +208,13 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
 
         self.loadingPhotos = ko.computed(function() {
             return ko.utils.arrayFilter(self.photos(), function(photo) {
-                return photo.status() == PhotoUpload.STATUS_LOADING;
+                return photo.status() == PhotoUpload.prototype.STATUS_LOADING;
             });
         });
 
         self.successPhotos = ko.computed(function() {
             return ko.utils.arrayFilter(self.photos(), function(photo) {
-                return photo.status() == PhotoUpload.STATUS_SUCCESS;
+                return photo.status() == PhotoUpload.prototype.STATUS_SUCCESS;
             });
         });
 
@@ -225,10 +225,10 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         self.processResponse = function(photo, response) {
             if (response.form.success) {
                 mapping.fromJS(response.photo, {}, photo);
-                photo.status(PhotoUpload.STATUS_SUCCESS);
+                photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
             } else {
                 photo.error(response.form.error);
-                photo.status(PhotoUpload.STATUS_FAIL);
+                photo.status(PhotoUpload.prototype.STATUS_FAIL);
             }
         }
     }
@@ -243,7 +243,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
     }
     PhotoUploadViewModel.prototype.removePhotoInternal = function(photo) {
         var self = this;
-        if (photo.status() == PhotoUpload.STATUS_LOADING) {
+        if (photo.status() == PhotoUpload.prototype.STATUS_LOADING) {
             photo.jqXHR.abort();
         }
         PhotoAddViewModel.prototype.removePhotoInternal.call(self, photo);
@@ -259,11 +259,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
 
         this.fileUploadSettings = {
             dataType: 'json',
-            url: '/photo/upload/fromComputer/',
-            disableImageResize: /Android(?!.*Chrome)|Opera/
-                .test(window.navigator.userAgent),
-            previewMaxWidth: 155,
-            previewMaxHeight: 110
+            url: '/photo/upload/fromComputer/'
         };
     }
 
@@ -275,7 +271,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         $.extend(self.fileUploadSettings, {
             add: function (e, data) {
                 self.added(self.populatePhoto(data));
-                $.blueimp.fileupload.prototype.options.add.call(this, e, data);
             },
             done: function (e, data) {
                 self.photo().file = data.files[0];
@@ -283,7 +278,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
             },
             fail: function(e, data) {
                 if (data.errorThrown != 'abort') {
-                    self.photo().status(PhotoUpload.STATUS_FAIL);
+                    self.photo().status(PhotoUpload.prototype.STATUS_FAIL);
                 }
             }
         });
@@ -312,9 +307,8 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         $.extend(self.fileUploadSettings, {
             dropZone: '.popup-add_frame__multi',
             add: function (e, data) {
-                if (self.successPhotos().length < 300) {
+                if (self.photos().length < 300) {
                     self.added(self.populatePhoto(data));
-                    $.blueimp.fileupload.prototype.options.add.call(this, e, data);
                 }
             },
             done: function (e, data) {
@@ -324,7 +318,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
             fail: function(e, data) {
                 var photo = self.findPhotoByRequest(data.jqXHR);
                 if (data.errorThrown != 'abort') {
-                    photo.status(PhotoUpload.STATUS_FAIL);
+                    photo.status(PhotoUpload.prototype.STATUS_FAIL);
                 }
             }
         });
@@ -359,7 +353,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         if (errorThrown != 'abort') {
-                            self.photo().status(PhotoUpload.STATUS_FAIL);
+                            self.photo().status(PhotoUpload.prototype.STATUS_FAIL);
                         }
                     }
                 });
@@ -381,7 +375,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         ko_photo.Photo.apply(self, arguments);
 
         self.jqXHR = jqXHR;
-        self.status = ko.observable(PhotoUpload.STATUS_LOADING);
+        self.status = ko.observable(PhotoUpload.prototype.STATUS_LOADING);
         self.error = ko.observable();
 
         self.rotateLeft = function() {
@@ -400,18 +394,18 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
 
         self.cssClass = ko.computed(function() {
             switch (self.status()) {
-                case PhotoUpload.STATUS_LOADING:
+                case PhotoUpload.prototype.STATUS_LOADING:
                     return 'i-photo__load';
-                case PhotoUpload.STATUS_SUCCESS:
+                case PhotoUpload.prototype.STATUS_SUCCESS:
                     return 'i-photo__loaded';
-                case PhotoUpload.STATUS_FAIL:
+                case PhotoUpload.prototype.STATUS_FAIL:
                     return 'i-photo__error';
             }
         });
     }
-    PhotoUpload.STATUS_LOADING = 0;
-    PhotoUpload.STATUS_SUCCESS = 1;
-    PhotoUpload.STATUS_FAIL = 2;
+    PhotoUpload.prototype.STATUS_LOADING = 0;
+    PhotoUpload.prototype.STATUS_SUCCESS = 1;
+    PhotoUpload.prototype.STATUS_FAIL = 2;
 
     function FromAlbumsPhotoAttach(data, parent) {
         var self = this;
@@ -493,8 +487,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         });
     }
     FromAlbumsViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
-
-    window.PhotoUpload = PhotoUpload;
 
     return {
         FromComputerSingleViewModel: FromComputerSingleViewModel,

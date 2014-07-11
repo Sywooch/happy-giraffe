@@ -71,7 +71,7 @@ class TestController extends \HController
 
     public function actionFlysystem()
     {
-        echo \Yii::app()->fsFly->read('5.txt');
+        phpinfo();
 
 
 

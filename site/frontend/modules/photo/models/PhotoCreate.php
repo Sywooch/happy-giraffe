@@ -25,6 +25,10 @@ class PhotoCreate extends Photo
     {
         parent::__construct();
 
+        if (! is_file($path)) {
+            throw new \CException('Файл отсутствует');
+        }
+
         $this->original_name = $originalName;
         $this->path = $path;
 

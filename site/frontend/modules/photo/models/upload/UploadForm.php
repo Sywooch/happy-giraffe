@@ -6,6 +6,7 @@
  */
 
 namespace site\frontend\modules\photo\models\upload;
+use Aws\CloudFront\Exception\Exception;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoCreate;
 
@@ -16,7 +17,7 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
     /**
      * @return PhotoCreate возвращает модель создаваемой фотографии
      */
-    abstract public function populate();
+    abstract protected function populate();
 
     /**
      * @var PhotoCreate модель создаваемой фотографии
@@ -26,14 +27,12 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
     /**
      * @var bool загружено ли фото
      */
-    protected $success;
-
-    protected $error;
+    protected $success = false;
 
     public function attributeLabels()
     {
         return array(
-            'photos' => 'Изображения',
+            'photo' => 'Изображение',
         );
     }
 
@@ -51,19 +50,17 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
     public function save()
     {
         if ($this->validate()) {
-            $this->photo = $this->populate();
-            if ($this->photo->save()) {
-                \Yii::app()->thumbs->getThumb($this->photo, self::PRESET_NAME, true);
-            } else {
-                $errors = $this->photo->getErrors();
-                $this->error = $errors[key($errors)][0];
+            try {
+                $this->photo = $this->populate();
+                if ($this->success = $this->photo->save()) {
+                    \Yii::app()->thumbs->getThumb($this->photo, self::PRESET_NAME, true);
+                }
+            } catch (\Exception $e) {
+                $this->addError('photo', 'Неизвестная ошибка');
             }
-        } else {
-            $errors = $this->getErrors();
-            $this->error = $errors[key($errors)][0];
         }
 
-        echo \HJSON::encode(array(
+        return \HJSON::encode(array(
             'photo' => $this->photo,
             'form' => $this,
         ));
@@ -75,18 +72,24 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
      */
     protected function getFirstError()
     {
-        $errors = $this->photo === null ? $this->getErrors() : $this->photo->getErrors();
-        if (count($errors) > 0) {
-            return $errors[key($errors)][0];
+        if (! $this->hasErrors() && ! $this->photo->hasErrors()) {
+            return null;
         }
-        return '';
+
+        if ($this->hasErrors()) {
+            $errors = $this->getErrors();
+        } else {
+            $errors = $this->photo->getErrors();
+        }
+
+        return $errors[key($errors)][0];
     }
 
     public function toJSON()
     {
         return array(
-            'error' => $this->error,
-            'success' => $this->error === null,
+            'error' => $this->getFirstError(),
+            'success' => $this->success,
         );
     }
 } 

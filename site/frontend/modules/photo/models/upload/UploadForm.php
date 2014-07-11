@@ -56,7 +56,7 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
                     \Yii::app()->thumbs->getThumb($this->photo, self::PRESET_NAME, true);
                 }
             } catch (\Exception $e) {
-                $this->addError('photo', 'Неизвестная ошибка');
+                $this->addError('photo', 'Ошибка загрузки');
             }
         }
 

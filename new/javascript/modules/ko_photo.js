@@ -111,7 +111,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
             function update() {
                 var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
                 //src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
-                //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
+                src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
                 $(element).attr('src', src);
             }
 
@@ -306,17 +306,18 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
 
         $.extend(self.fileUploadSettings, {
             dropZone: '.popup-add_frame__multi',
+            sequentialUploads: true,
             add: function (e, data) {
                 if (self.photos().length < 300) {
                     self.added(self.populatePhoto(data));
                 }
             },
             done: function (e, data) {
-                var photo = self.findPhotoByRequest(data.jqXHR);
+                var photo = self.loadingPhotos()[0];
                 self.processResponse(photo, data.result);
             },
             fail: function(e, data) {
-                var photo = self.findPhotoByRequest(data.jqXHR);
+                var photo = self.loadingPhotos()[0];
                 if (data.errorThrown != 'abort') {
                     photo.status(PhotoUpload.prototype.STATUS_FAIL);
                 }

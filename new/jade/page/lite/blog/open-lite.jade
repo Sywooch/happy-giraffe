@@ -4,7 +4,8 @@ block vars
   - var bodyClass = 'body__bg1 body__lite';
 
 block layout
-
+    script.
+        var __reflowMeterSetup=(function(){var B=false;function A(){var G=document.documentElement;var H=G.className;G.className+=" UNUSEDCLASS";G.style.display="none";var F=G.offsetWidth+G.offsetHeight;var J=new Date().getTime();G.style.display="";G.className=H;var E=G.offsetWidth+G.offsetHeight;var I=new Date().getTime()-J+"ms";var D=document.getElementById("REFLOWMETER");if(D){D.innerHTML=I}document.title=I}function C(){if(B){return }var D=document.createElement("a");D.id="REFLOWMETER";D.onclick=A;D.style.position="absolute";D.style.zIndex="9999";D.style.top="0";D.style.left="0";D.style.width="6em";D.style.padding="0.2em 0.5em";D.style.cursor="pointer";D.style.textAlign="center";D.style.color="#fff";D.style.background="red";document.body.appendChild(D);B=true;A()}if((window.location.href.split("?")[1]||"").indexOf("reflow-meter")>-1){window.onload=C}return C})();
     // b-main 
     .b-main.b-main__white.clearfix
         .b-crumbs.b-crumbs__s
@@ -21,8 +22,14 @@ block layout
         .b-main_cont
             .b-main_col-hold
                 .b-main_col-article
-                    //+bArticle-single('b-article__lite')
-
+                    +bArticle-single('b-article__lite')
+                    +bArticle-single('b-article__lite')
+                    +bArticle-single('b-article__lite')
+                    +bArticle-single('b-article__lite')
+                    +bArticle-single('b-article__lite')
+                    +bArticle-single('b-article__lite')
+                    +bArticle-single('b-article__lite')
+                    
                     table.article-nearby.clearfix(ellpadding='0', cellspacing='0')
                         tr
                             td
@@ -48,7 +55,7 @@ block layout
                             | чтобы оставить комментарий
                         .comment-add_editor.display-n
                     
-                    //+comments-open()
+                    +comments-open()
 
                     .article-users
                         .article-users_t Запись понравилась 

@@ -29,7 +29,7 @@ class DefaultController extends HController
         );
 
         if (Yii::app()->user->isGuest) {
-            $filters[] = array(
+            /*$filters[] = array(
                 'CHttpCacheFilter + view',
                 'lastModified' => $this->lastModified->getDateTime(),
             );
@@ -38,7 +38,7 @@ class DefaultController extends HController
                 'COutputCache + view',
                 'duration' => 300,
                 'varyByParam' => array('content_id', 'openGallery'),
-            );
+            );*/
 
             $filters [] = array(
                 'COutputCache + index',
@@ -150,8 +150,11 @@ class DefaultController extends HController
             $content->rubric->title => $content->rubric->getUrl(),
             $content->title,
         );
-
-        $this->render('view', array('data' => $content, 'full' => true));
+        
+        if (Yii::app()->user->isGuest)
+            $this->render('view_requirejs', array('data' => $content, 'full' => true));
+        else
+            $this->render('view', array('data' => $content, 'full' => true));
     }
 
     public function actionRemove()

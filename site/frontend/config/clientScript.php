@@ -8,17 +8,25 @@ return array(
         'waitSeconds' => 0,
         'wrapShim' => false,
         'shim' => array(
+            'AdFox' => array(),
         ),
         'paths' => array(
             'knockout-amd-helpers' => 'knockout-amd-helpers.min',
             'wysiwyg' => '/new/javascript/wysiwyg',
             'ko_library' => '/javascripts/ko_library',
+            'ko_blog' => '/javascripts/ko_blog',
+            'ko_post' => '/javascripts/ko_post',
+            'ko_favourites' => '/javascripts/ko_favourites',
+            'ko_registerWidget' => '/javascripts/ko_registerWidget',
+            'ko_community' => '/javascripts/ko_community',
+            'ko_photoWidget' => '/javascripts/ko_photoWidget',
             'ko_comments' => '/javascripts/comments',
             'moment' => '/javascripts/moment.ru.min',
             'gallery' => '/javascripts/ko_gallery',
             'preload' => '/javascripts/jquery.preload.min',
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
+            'AdFox' => '/javascripts/fox',
         ),
     /* 'eval' => '
       ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -91,11 +99,39 @@ return array(
                 'scrollEvents',
                 'comet',
                 'base64',
-                'baron'
+                'baron',
+                'addtocopy',
+                'jquery.placeholder',
+                'jquery.fancybox',
             ),
+        ),
+        'addtocopy' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/addtocopy.js'
+            ),
+            'depends' => array('jquery'),
+        ),
+        'jquery.fancybox' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery.fancybox-1.3.4.js'
+            ),
+            'depends' => array('jquery'),
+        ),
+        'jquery.placeholder' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery.placeholder.min.js'
+            ),
+            'depends' => array('jquery'),
         ),
         'jcrop' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/jquery.Jcrop.min.js',
             ),
@@ -153,6 +189,7 @@ return array(
         ),
         'history' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/history.js',
             ),

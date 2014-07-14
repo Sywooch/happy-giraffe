@@ -17,7 +17,7 @@
         <?php $this->widget('AuthWidget', array('action' => '/signup/register/social', 'view' => 'inside')); ?>
     </div>
     <div class="popup-sign_col">
-        <?php $form = $this->beginWidget('CActiveForm', array(
+        <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
             'id' => 'registerFormStep1',
             'action' => array('/signup/register/step1'),
             'enableAjaxValidation' => true,

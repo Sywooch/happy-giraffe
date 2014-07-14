@@ -62,7 +62,7 @@ module.exports = function(grunt){
           // стили страницы вакансий
           'stylesheets/vacancy.css': ['less/vacancy.less'],
           // стили html баннеров, независимы от всего 
-          'stylesheets/banner.css': ['less/banner.less']
+          // 'stylesheets/banner.css': ['less/banner.less']
         },
         options: {
           compress: true,
@@ -139,7 +139,7 @@ module.exports = function(grunt){
       // следим за новым less
       newless: {
         files: ['new/less/**/*.less'],
-        tasks: [/*'less:newest',*/ 'less:newestdev', /*'cmq','cssmin', 'csso'*/ ],
+        tasks: ['less:newest', 'less:newestdev', /*'cmq','cssmin', 'csso'*/ ],
         options: {
           livereload: true,
         },

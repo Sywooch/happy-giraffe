@@ -584,6 +584,9 @@
 									</ul>
 								</div>
 							</div>
+							<div class="banner-box">
+								<iframe src="/html/banner/ban-route-danger.php" frameborder="0" width="680" height="375"></iframe>
+							</div>
 
 
 								<div class="comments-gray comments-gray__map-route">

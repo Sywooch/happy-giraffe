@@ -1,10 +1,11 @@
 ﻿<?php
-Yii::app()->clientScript
-    ->registerCoreScript('yiiactiveform')
-    ->registerPackage('ko_layout')
-    ->registerPackage('ko_post')
-    ->registerPackage('ko_menu')
-;
+if(!Yii::app()->clientScript->useAMD)
+    Yii::app()->clientScript
+        ->registerCoreScript('yiiactiveform')
+        ->registerPackage('ko_layout')
+        ->registerPackage('ko_post')
+        ->registerPackage('ko_menu')
+    ;
 
 if (! Yii::app()->user->isGuest)
     Yii::app()->clientScript

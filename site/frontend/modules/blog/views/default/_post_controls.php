@@ -74,10 +74,10 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
         </div>
     <?php endif; ?>
 </div>
-
-<script type="text/javascript">
-    $(function () {
-        viewModel = new BlogRecordSettings(<?=CJSON::encode($ViewModelData)?>);
-        ko.applyBindings(viewModel, document.getElementById('blog_settings_<?=$data->id ?>'));
-    });
-</script>
+<?php
+$js = "ko.applyBindings(new BlogRecordSettings(" . CJSON::encode($ViewModelData) . "), document.getElementById('blog_settings_" . $data->id . "'));";
+$cs = Yii::app()->clientScript;
+if ($cs->useAMD)
+    $cs->registerAMD('BlogRecordSettings#' . $data->id, array('ko' => 'knockout', 'ko_post' => 'ko_post'), $js);
+else
+    $cs->registerScript('BlogRecordSettings#' . $data->id, $js, ClientScript::POS_LOAD);

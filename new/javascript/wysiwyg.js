@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 12.08.13
  */
-(function() {
+(function(window) {
     function f() {
         HgWysiwyg.prototype = {
             loaded : false,

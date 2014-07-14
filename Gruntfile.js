@@ -96,15 +96,15 @@ module.exports = function(grunt){
           sourceMapURL: 'new/css/all1.css.map',*/
         }
       },
-      // newest: {
-      //   files: {
-      //     'new/css/all1.css': ['new/less/all1.less'] 
-      //   },
-      //   options: {
-      //     compress: true,
-      //     cleancss: true,
-      //   }
-      // }
+      newest: {
+        files: {
+          'new/css/all1.css': ['new/less/all1.less'] 
+        },
+        options: {
+          compress: true,
+          cleancss: true,
+        }
+      }
     },
 
 

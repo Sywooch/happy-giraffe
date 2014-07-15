@@ -226,7 +226,6 @@ class AlbumPhoto extends HActiveRecord
     {
         $this->removed = 1;
         $this->save(false);
-        NotificationDelete::entityRemoved($this);
 
         if (!empty($this->album_id) && in_array($this->album->type, array(0, 1, 3)))
             Scoring::photoRemoved($this);

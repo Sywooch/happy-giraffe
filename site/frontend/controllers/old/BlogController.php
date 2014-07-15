@@ -231,9 +231,6 @@ class BlogController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-        //сохраняем просматриваемую модель
-        NotificationRead::getInstance()->setContentModel($content);
-
         //проверяем переход с других сайтов по ссылкам комментаторов
         //Yii::import('site.frontend.modules.signal.models.CommentatorLink');
         //CommentatorLink::checkPageVisit('BlogContent', $content_id);

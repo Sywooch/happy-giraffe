@@ -18,46 +18,24 @@ $(function() {
         escapeMarkup: function(m) { return m; }
     });
 
-    // Измененный tag select 
-    // $(".select-cus__add").select2({
-    //     width: '100%',
-    //     /*multiple: true,*/
-    //     maximumSelectionSize: 1,
-    //     maximumInputLength: 150,
-    //     /*tags:["red", "green", "blue"],*/
-    //     createSearchChoice: function (term) {
-    //         var text = term ;
-    //         return { id: term, text: text };
-    //     },
-    //     createSearchChoicePosition: 'bottom',
-    //     /*dropdownCssClass: 'select2-drop__search-on',*/
-    //     /*searchInputPlaceholder: "Выберите альбом или создайте новый",*/
-    //     /*escapeMarkup: function(m) { return m; }*/
 
-    //     /*tokenSeparators: [","],*/
-        
-    //     /*data: [{id: "foo", text:"foo"},{id:"bar", text:"bar"}],*/
-
-        
-    // });
+    lastResults = [];
     $(".select-cus__add").select2({
         width:'100%',
         dropdownCssClass: 'select2-drop__add',
         allowClear: true,
 
         data: [{id: "foo", text:"Вова"},{id:"bar1", text:"Молодеж"},{id:"bar2", text:"Псков"},{id:"bar3", text:"Псков2"},{id:"bar4", text:"Псков3"},{id:"bar5", text:"Псков4"},{id:"bar6", text:"Псков5"},{id:"bar7", text:"Псков6"},{id:"bar8", text:"Псков7"},{id:"bar9", text:"Транспорт"}],
-        // createSearchChoice: function (term) {
-        //     var text = term + (lastResults.some(function(r) { return r.text == term }) ? "" :  " (Новый альбом)"/*)*/;
-        //     return { id: term, text: text };
-        // },
+        createSearchChoice: function (term) {
+            if(lastResults.some(function(r) { return r.text == term })) {
+                return { id: term, text: term };
+            }
+            else {
+                return { id: term, text: term + " (новый альбом) " };
+            }
+        },
         searchInputPlaceholder: 'Название альбома',
-        createSearchChoice:function(term, data) {
-             if ( $(data).filter( function() {
-               return this.text.localeCompare(term)===0;
-             }).length===0) {
-               return {id:term, text:term};
-             }
-           },
+
         // Возможен вариант решения http://www.bootply.com/122726
         // minimumInputLength:1,
 

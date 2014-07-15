@@ -201,6 +201,26 @@
     height: 15px;
     background: url('@{path-img}/ico/ico-edit-s-white.png') no-repeat;
 }
+
+.ico-trash,
+.ico-photo-edit,
+.ico-move {
+    .inline-block();
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+    background: url('@{path-img}/ico/ico-move.png') no-repeat;
+}
+.ico-photo-edit {
+    background: url('@{path-img}/ico/ico-photo-edit.png') no-repeat;
+}
+.ico-trash {
+    float: right;
+    margin-right: 0;
+    background: url('@{path-img}/ico/ico-trash.png') no-repeat;
+}
+
+
 .ico-myfamily {
     .inline-block();
     width: 210px;
@@ -256,7 +276,7 @@
     height: 160px;
     .img-retina('@{path-img}/ico/ico-family-big.png'; '@{path-img}/ico/ico-family-big-2x.png'; 320px; 2080px);
 
-    &__baby          {background-position: 0px 0;}
+    &__baby          {background-position: 0 0;}
     &__baby-two      {background-position: -160px 0;}
     &__boy-wait      {background-position: 0 -160px;}
     &__girl-wait     {background-position: -160px -160px;}

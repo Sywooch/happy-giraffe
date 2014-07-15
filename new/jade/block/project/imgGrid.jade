@@ -45,12 +45,12 @@ mixin imgGrid(mod, vars)
                                                 - else 
                                                     .img-grid_ico-album
                                             .img-grid_overlay-b
-                                                .img-grid_ico-del.powertip(title="Удалить фото")
-                                                .img-grid_ico-edit.powertip(title="Редактировать")
-                                                .img-grid_ico-move.powertip(title="Переместить")
+                                                a.ico-trash.powertip(href="", title="Удалить фото")
+                                                a.ico-photo-edit.powertip(href="", title="Редактировать")
+                                                a.ico-move.powertip(href="", title="Переместить")
                                     
                     - else
-                        //- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.
+                        // При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.
                         // До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. 
                         .img-grid_i.loading
                             img.img-grid_img(src="#", alt="", width='160', height='260')
@@ -66,7 +66,23 @@ mixin imgGrid(mod, vars)
                             .img-grid_loading(class="img-grid_loading__#{item.color}")
                                 .img-grid_loading-hold
                                     .css-progress.css-progress__xl
-                                        div 
+                                        //- svg#svg.svg-loader(version="1.1" viewBox="0 0 300 300" preserveAspectRatio="xMinYMin meet" class="svg-content")
+                                            defs
+                                                  rect#rect(width='50', height='150', rx='25', ry='25')
+                                                g(transform='rotate(225 250 250)')
+                                                    g
+                                                        use#one(style='fill: #0FF0FF;', x='225', y='0', xlink:href='#rect')
+                                                        use#five(style='fill: #0FF0FF;', x='225', y='350', xlink:href='#rect')
+                                                    g(transform='rotate(45, 250, 250)')
+                                                        use#two(x='225', y='0', xlink:href='#rect')
+                                                        use#six(x='225', y='350', xlink:href='#rect')
+                                                    g(transform='rotate(90, 250, 250)')
+                                                        use#three(x='225', y='0', xlink:href='#rect')
+                                                        use#seven(x='225', y='350', xlink:href='#rect')
+                                                    g(transform='rotate(135, 250, 250)')
+                                                        use#four(x='225', y='0', xlink:href='#rect')
+                                                        use#eight(x='225', y='350', xlink:href='#rect')
+
                                     .img-grid_loading-tx Загрузка фотографии
 
 

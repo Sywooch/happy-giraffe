@@ -465,7 +465,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         float:left;
         position: relative;
         
-        .b-ava-large {margin-top: 0px; margin-bottom: 30px;}
+        .b-ava-large {margin: 0 0 30px;}
     }
 
     &_col-12,
@@ -844,7 +844,7 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         .inline-block();
         vertical-align: middle;
 
-        > li > a {padding: 0px 10px;}
+        > li > a {padding: 0 10px;}
     }
     a {
         color: @color-gray;
@@ -854,6 +854,26 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         text-decoration: none;
         color: @color-base;
     }
+}
+
+.css-progress {
+    display: inline-block;
+    margin: 0 25px;
+    -webkit-animation:loader 1s linear infinite;
+    -moz-animation:loader 1s linear infinite;
+    animation:loader 1s linear infinite;
+    background-color: #fff;
+    background: data-uri('../../new/images/ico/loader.png') no-repeat;
+    // background: data-uri('../../images/ico/ico-close3.png') no-repeat;
+
+    &__xl {
+        width: 50px;
+        height: 50px;
+    }
+
+    @-moz-keyframes loader { 100% { -moz-transform: rotate(360deg); } }
+    @-webkit-keyframes loader { 100% { -webkit-transform: rotate(360deg); } }
+    @keyframes loader { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 }
 
 

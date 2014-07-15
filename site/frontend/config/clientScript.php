@@ -182,6 +182,7 @@ return array(
                 'new/javascript/wysiwyg.js',
             ),
             'depends' => array(
+                'jquery',
                 'ko_upload',
                 'redactor',
                 'imagesloaded',

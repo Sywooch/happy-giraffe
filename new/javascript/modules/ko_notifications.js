@@ -48,7 +48,7 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyD
                 Notify.prototype.binded = true;
 
                 // Сигнал прочитан, уменьшим счётчики
-                Comet.prototype.notificationUpdate = function(result, id) {
+                Comet.prototype.notificationReaded = function(result, id) {
                     self.viewModel.unreadCount(Math.max(0, self.viewModel.unreadCount() - 1));
                 }
                 comet.addEvent(5002, 'notificationReaded');
@@ -65,9 +65,14 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyD
                     var obj = self.objects[result.notification.id] ? self.objects[result.notification.id] : false;
                     if (obj) {
                         // обновление сигнала из списка
-                        obj.update(result.notification);
-                        happyDebug.log('ko_notifications.ViewModel.updateNotification', 'log', 'Обновлен сигнал из списка', obj);
-                    } else if (((result.notification.unreadCount > 0) && self.tab() == 0) || ((result.notification.readCount > 0) && self.tab() == 1)) {
+                        if(self.viewModel.tab() == 0 && result.notification.unreadCount == 0) {
+                            obj.readed(true);
+                            happyDebug.log('ko_notifications.ViewModel.readNotification', 'log', 'Прочитан сигнал из списка', obj);
+                        } else {
+                            obj.update(result.notification);
+                            happyDebug.log('ko_notifications.ViewModel.updateNotification', 'log', 'Обновлен сигнал из списка', obj);
+                        }
+                    } else if (((result.notification.unreadCount > 0) && self.viewModel.tab() == 0) || ((result.notification.readCount > 0) && self.viewModel.tab() == 1)) {
                         // надо добавить в список
                         happyDebug.log('ko_notifications.ViewModel.addNotification', 'log', 'Добавлен новый сигнал', self.viewModel.addNotification(result.notification));
                     } // иначе нас данный сигнал не интересует
@@ -108,7 +113,7 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyD
             return self.entity.url;
         });
         self.tooltip = ko.computed(function() {
-            return '';
+            return 'title';
         });
 
         self.setReaded = function() {

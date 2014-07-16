@@ -180,8 +180,8 @@
             </td>
         </tr>
         <tr>
-            <td  height="30">
-                <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="30" width="100%" border="0" />
+            <td  height="20">
+                <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="20" width="100%" border="0" />
             </td>
         </tr>
     </table>

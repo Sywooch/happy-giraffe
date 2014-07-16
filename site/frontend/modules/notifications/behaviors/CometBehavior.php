@@ -16,22 +16,35 @@ class CometBehavior extends \CActiveRecordBehavior
      *
      * @var \CometModel 
      */
-    protected $_comet = null;
+    protected static $comet = null;
+    protected $_oldUnreadCount = null;
 
-    public function getComet()
+    public static function getComet()
     {
 
-        if (is_null($this->_comet))
+        if (is_null(self::$comet))
         {
-            $this->_comet = new \CometModel();
+            self::$comet = new \CometModel();
         }
-        return $this->_comet;
+        return self::$comet;
+    }
+
+    public function afterFind($event)
+    {
+        $this->_oldUnreadCount = $this->owner->unreadCount;
+
+        return parent::afterFind($event);
     }
 
     public function afterSave($event)
     {
         $type = $this->owner->isNewRecord ? \CometModel::NOTIFY_ADDED : \CometModel::NOTIFY_UPDATED;
-        $this->comet->send($this->owner->userId, array('notification' => $this->owner->toJSON()), $type);
+        self::getComet()->send($this->owner->userId, array('notification' => $this->owner->toJSON()), $type);
+
+        $diff = $this->owner->unreadCount - $this->_oldUnreadCount;
+        $count = ($this->_oldUnreadCount == 0 ? +1 : ($this->owner->unreadCount == 0 ? -1 : 0));
+        if ($diff !== 0)
+            $this->comet->send($this->owner->userId, array('unreadSum' => $diff, 'unreadCount' => $count), \CometModel::TYPE_UPDATE_NOTIFICATIONS);
 
         return parent::afterSave($event);
     }

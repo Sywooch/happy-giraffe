@@ -63,7 +63,7 @@ class DefaultController extends \HController
                 return new \MongoId($event);
             }, $events);
         $notifications = \site\frontend\modules\notifications\models\Notification::model()->byUser(\Yii::app()->user->id)->findAllByPk($events);
-        $comet = new \CometModel();
+/*        $comet = new \CometModel();
         foreach ($notifications as $notification)
         {
             $notification->readAll();
@@ -71,7 +71,7 @@ class DefaultController extends \HController
 
             // отправим событие о прочтении
             $comet->send(\Yii::app()->user->id, array('notification' => array('id' => (string) $notification->_id)), \CometModel::NOTIFY_READED);
-        }
+        }*/
 
         echo \CJSON::encode(array('success' => true));
     }

@@ -23,7 +23,6 @@ class CometModel extends CComponent
     const TYPE_SCORES_EARNED = 23;
 
     //user notifications
-    const TYPE_NEW_NOTIFICATION = 1000;
     const TYPE_NEW_FRIEND_REQUEST = 1001;
 
     const TYPE_UPDATE_NOTIFICATIONS = 100;
@@ -65,7 +64,6 @@ class CometModel extends CComponent
     const FRIEND_ADDED = 4010;
     
     const NOTIFY_ADDED = 5001;
-    const NOTIFY_READED = 5002;
     const NOTIFY_UPDATED = 5003;
 
     public $attributes = array();

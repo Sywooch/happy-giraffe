@@ -47,16 +47,15 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyD
             if (!Notify.prototype.binded) {
                 Notify.prototype.binded = true;
 
-                // Сигнал прочитан, уменьшим счётчики
-                Comet.prototype.notificationReaded = function(result, id) {
-                    self.viewModel.unreadCount(Math.max(0, self.viewModel.unreadCount() - 1));
+                // Счётчик изменён
+                Comet.prototype.notificationCountChanged = function(result, id) {
+                    self.viewModel.unreadCount(Math.max(0, self.viewModel.unreadCount() + result.unreadSum));
                 }
-                comet.addEvent(5002, 'notificationReaded');
+                comet.addEvent(100, 'notificationCountChanged');
 
                 // Новый сигнал
                 Comet.prototype.notificationAdded = function(result, id) {
                     happyDebug.log('ko_notifications.ViewModel.addNotification', 'log', 'Добавлен новый сигнал', self.viewModel.addNotification(result.notification));
-                    self.viewModel.unreadCount(self.viewModel.unreadCount() + 1);
                 }
                 comet.addEvent(5001, 'notificationAdded');
 

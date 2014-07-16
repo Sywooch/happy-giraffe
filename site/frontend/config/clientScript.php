@@ -14,6 +14,7 @@ return array(
             'wysiwyg' => '/new/javascript/wysiwyg',
             'ko_library' => '/javascripts/ko_library',
             'ko_comments' => '/javascripts/comments',
+            'ko_menu' => '/javascripts/ko_menu',
             'moment' => '/javascripts/moment.ru.min',
             'gallery' => '/javascripts/ko_gallery',
             'preload' => '/javascripts/jquery.preload.min',

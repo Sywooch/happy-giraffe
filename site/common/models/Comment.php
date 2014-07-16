@@ -136,6 +136,9 @@ class Comment extends HActiveRecord
     public function behaviors()
     {
         return array(
+            'ContentBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
+            ),
             'notificationBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\CommentBehavior',
             ),

@@ -134,11 +134,48 @@
                                         <!-- // END BODY -->
                                     </td>
                                 </tr>
-                                <?php $message->render('_footer'); ?>
+                                <tr>
+                                    <td align="center" valign="top">
+                                        <!-- BEGIN FOOTER // -->
+                                        <table border="0" cellpadding="0" cellspacing="0" width="100%" >
+                                            <tr>
+                                                <td  height="60" style="">
+                                                    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="60" width="100%" border="0" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;">
+                                                    С наилучшими пожеланиями,<br/>
+                                                    <span style="color: #3587ec;"><a href="<?php echo $message->getActivationUrl(); ?>" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td  height="40" style="">
+                                                    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="40" width="100%" border="0" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="border-top:1px solid #e6e5e5;padding:6px 0;">
+
+                                                    <p style="font:10px tahoma, arial, sans-serif; color: #979696;">Это письмо было сгенерированно автоматически. Пожалуйста не отвечайте на него. Если вы хотите обратиться в службу поддержки сайта «Веселый Жираф», напишите нам по адресу <span style=" color: #3587ec;"><a href="mailto:support@happy-giraffe.ru" target="_blank" style="color: #3587ec;">support@happy-giraffe.ru</a></span><br/>
+                                                        <br/>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td  height="10" style="">
+                                                    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="10" width="100%" border="0" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <!-- // END FOOTER -->
+                                    </td>
+                                </tr>
                             </table>
                             <!-- // END TEMPLATE -->
                         </td>
-                        <td width="20px">
+                        <td width="20">
                             <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="1" width="100%" border="0" />
                         </td>
                     </tr>
@@ -146,8 +183,8 @@
             </td>
         </tr>
         <tr>
-            <td  height="30">
-                <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="30" width="100%" border="0" />
+            <td  height="20">
+                <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="20" width="100%" border="0" />
             </td>
         </tr>
     </table>

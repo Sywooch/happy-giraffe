@@ -104,6 +104,15 @@ module.exports = function(grunt){
           compress: true,
           cleancss: true,
         }
+      },
+      aviary: {
+        files: {
+          'new/css/plugins/aviary.hg.css': ['new/less/plugins/aviary.hg.less'] 
+        },
+        options: {
+          compress: true,
+          cleancss: true,
+        }
       }
     },
 
@@ -140,6 +149,14 @@ module.exports = function(grunt){
       newless: {
         files: ['new/less/**/*.less'],
         tasks: ['less:newest', 'less:newestdev', /*'cmq','cssmin', 'csso'*/ ],
+        options: {
+          livereload: true,
+        },
+      },
+      // следим за новым less
+      aviary: {
+        files: ['new/less/**/aviary.hg.less'],
+        tasks: ['less:aviary'],
         options: {
           livereload: true,
         },
@@ -220,6 +237,18 @@ module.exports = function(grunt){
           'new/css/all1.css': ['new/css/all1.dev.css']
         }
       }
+    },
+
+    csscomb: {
+      options: {
+          config: 'new/less/bootstrap/.csscomb.json'
+      },
+      aviary: {
+          files: {
+              'new/less/plugins/aviary.hg.less': ['new/less/plugins/aviary.hg.less'],
+          },
+      },
+        
     },
 
     // Поднимаем сервер

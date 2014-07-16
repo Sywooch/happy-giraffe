@@ -31,9 +31,11 @@ $(function() {
                 return { id: term, text: term };
             }
             else {
-                return { id: term, text: term + " (новый альбом) " };
+                return { id: term, text: term + " &nbsp; <span class='color-gray font-s'> Новый альбом</span> " };
             }
         },
+        formatSelection: selectCus__SearchOnDesc,
+        escapeMarkup: function(m) { return m; },
         searchInputPlaceholder: 'Название альбома',
 
         // Возможен вариант решения http://www.bootply.com/122726

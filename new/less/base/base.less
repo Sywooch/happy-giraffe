@@ -54,14 +54,13 @@
 // Отдельные элементы
 // Заголовки
 .heading-xxl {
-    margin: 15px 0; // Можно изменить на необходимый
-    font-size: 40px;
-    color: @color-base;
-}
-.heading-xl {
-    margin: 15px 0; // Можно изменить на необходимый
-    font-size: 25px;
-    color: @color-base;
+    margin: 15px auto; // Можно изменить на необходимый
+    font-size: 45px;
+    line-height: 50px;
+    font-weight: bold;
+    color: @color-link-title;
+    text-decoration: none;
+    letter-spacing: -0.6px;
 }
 .heading-small {
     margin: 0;
@@ -79,7 +78,7 @@
 }
 .heading-link-xxl {
     .inline-block();
-    margin: 15px 0;
+    margin: 15px auto;
     font-size: 45px;
     line-height: 50px;
     font-weight: bold;
@@ -208,18 +207,18 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     margin: 40px 0;
     text-align: center;
     
-    &__family &_a {background-image: url('@{path-img}/family-user_album-a__family.png');}
+    &__family &_a {background-image: url('@{path-img}/i-allphoto__family.png');}
     &_a {
         .inline-block();
-        background: url('@{path-img}/family-user_album-a.png') no-repeat;
+        background: url('@{path-img}/i-allphoto.png') no-repeat;
         padding: 7px 10px 8px 50px;
         height: 15px;
         font-size: 15px;
-        color: @color-gray-light;
+        color: @color-gray;
         text-decoration: none;
     }
     &_a:hover {
-        color: @color-gray;
+        color: @color-gray-dark;
         background-position: 0 -30px;
     }
 }
@@ -859,11 +858,11 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 .css-progress {
     display: inline-block;
     margin: 0 25px;
-    -webkit-animation:loader 1s linear infinite;
-    -moz-animation:loader 1s linear infinite;
-    animation:loader 1s linear infinite;
+    -webkit-animation:loader 1s steps(5) infinite;
+    -moz-animation:loader 1s steps(5) infinite;
+    animation:loader 1s steps(5) infinite;
     background-color: #fff;
-    background: data-uri('../../new/images/ico/loader.png') no-repeat;
+    background: url('../../new/images/svg/preloader.svg') no-repeat;
     // background: data-uri('../../images/ico/ico-close3.png') no-repeat;
 
     &__xl {

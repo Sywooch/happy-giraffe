@@ -1,11 +1,15 @@
+<!doctype html>
+<html>
 <?php
     $theme = $_GET['theme'];
 ?>
 
 <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="/new/css/plugins/aviary.hg.css">
+    <script src="http://localhost:35729/livereload.js"></script>
 </head>
-
+<body class="body__avpw">
 <!-- Load Feather code -->
 <script type="text/javascript" src="http://feather.aviary.com/js/feather.js"></script>
 
@@ -41,3 +45,5 @@
 
 <!-- Add an edit button, passing the HTML id of the image and the public URL of the image -->
 <p><input type='image' src='http://images.aviary.com/images/edit-photo.png' value='Edit photo' onclick="return launchEditor('image1', 'http://images.aviary.com/imagesv5/feather_default.jpg');" /></p>
+</body>
+</html>

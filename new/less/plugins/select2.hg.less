@@ -61,7 +61,7 @@
 
 .select2-drop {
     margin-top: 2px;
-    color: @color-gray;
+    color: @color-base;
     .box-shadow(0 0 4px rgba(0, 0, 0, 0.15));
     .border-radius(0);
     
@@ -73,8 +73,10 @@
         padding: 0;
     }
     .select2-results .select2-highlighted {
-        background: #fafafa;
-        color: @color-base;
+        background: #fff;
+        color: @color-gray-light;
+
+        .select2-match {color: @color-gray-light;}
     }
     .select2-results .select2-result-label {padding: 4px 15px 5px;}
     .select2-search {margin-top: 4px;}

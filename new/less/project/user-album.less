@@ -27,18 +27,20 @@
         font-weight: bold;
         color: #196eb9;
     }
+    .heading-small {margin: 40px 0 10px;}
     &_top {
         
         .ico-edit__s {margin-left: 10px;}
     }
     &_t {
-        &:extend(.heading-link-xl);
+        &:extend(.heading-link-xxl);
+        
         display: block;
-        margin: 0 250px 5px 0;
+        margin: 0 250px 10px 0;
     }
     &_desc {
         &:extend(.tx-content);
-        margin: 5px 250px 10px 0;
+        margin: 5px 250px 20px 0;
     }
     &_count-hold {
         float: right;
@@ -88,7 +90,7 @@
     }
     &_move:hover,
     &_sort:hover {
-        color: @color-base;
+        color: @color-gray-dark;
         background-position: 0 -30px;
     }
     &_move {background: url('@{path-img}/user-album_move.png') no-repeat;}
@@ -101,7 +103,7 @@
     }
     &_del:hover {
         background-position: 100% -30px;
-        color: @color-base;
+        color: @color-gray-dark;
     }
 }
 /* /user-album */

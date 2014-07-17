@@ -54,9 +54,9 @@ class YandexCommand extends \CConsoleCommand
             $model->setAttributes($data);
             $model->priority = 100;
 
-            $originalTexts->add($model);
-
-            $model->save();
+            if ($originalTexts->add($model)) {
+                $model->save();
+            }
         });
         while (\Yii::app()->gearman->worker()->work()) {
             echo "OK\n";

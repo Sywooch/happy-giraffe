@@ -48,6 +48,13 @@ define('ko_photo', ['knockout'], function(ko) {
 });
 
 define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap', 'jquery_file_upload', 'jquery.ui'], function(ko, mapping, ko_photo) {
+    function PresetManager() {
+        var self = this;
+        self.presets = [];
+
+        $.get
+    }
+
     // Биндинг для загрузки фото
     ko.bindingHandlers.photoUpload = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {

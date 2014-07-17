@@ -29,6 +29,8 @@ class YandexCommand extends \CConsoleCommand
     {
         $models = SeoYandexOriginalText::model()->pending()->findAll();
 
+        echo count($models);
+
         foreach ($models as $model) {
             if ($this->original->add($model)) {
                 $model->save();

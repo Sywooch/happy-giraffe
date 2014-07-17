@@ -13,13 +13,13 @@ use Imagine\Filter\Advanced\RelativeResize;
 
 class RelativeResizeFilter extends RelativeResize implements CustomFilterInterface
 {
-    public function getWidth()
+    public function getWidth($imageWidth, $imageHeight)
     {
-
+        return 100;
     }
 
-    public function getHeight()
+    public function getHeight($imageWidth, $imageHeight)
     {
-
+        return 100;
     }
 } 

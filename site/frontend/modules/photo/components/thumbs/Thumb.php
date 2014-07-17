@@ -17,7 +17,7 @@ class Thumb extends \CComponent
     public $photo;
 
     /**
-     * @var presets\PresetInterface|presets\Preset используемый для создания миниатюры пресет
+     * @var filters\CustomFilterInterface|filters\Filter используемый для создания миниатюры пресет
      */
     public $preset;
 

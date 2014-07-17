@@ -65,6 +65,9 @@ class UploadController extends \HController
         echo $form->save();
     }
 
+    /**
+     * Поворот фото
+     */
     public function actionRotate()
     {
         $photoId = \Yii::app()->request->getPost('photoId');
@@ -75,6 +78,9 @@ class UploadController extends \HController
         echo \HJSON::encode(array('photo' => $photo));
     }
 
+    /**
+     * Создание связей коллекции с фотографиями
+     */
     public function actionAttach()
     {
         $form = new AttachForm();

@@ -7,12 +7,12 @@
  * из центра. В противном случае, изображение получается в ширину меньше, чем задано пресетом, но без обрезки.
  */
 
-namespace site\frontend\modules\photo\components\thumbs\presets;
+namespace site\frontend\modules\photo\components\thumbs\filters;
 use Imagine\Image\Box;
 use Imagine\Image\Point;
 use Imagine\Image\ImageInterface;
 
-class LepillaPreset extends Preset implements PresetInterface
+class LepillaFilter extends Filter implements CustomFilterInterface
 {
     public $width;
     public $height;

@@ -7,7 +7,7 @@
  */
 
 namespace site\frontend\modules\photo\components\thumbs;
-use site\frontend\modules\photo\components\thumbs\presets\PresetInterface;
+use site\frontend\modules\photo\components\thumbs\filters\CustomFilterInterface;
 use site\frontend\modules\photo\models\Photo;
 
 class ThumbFactory
@@ -20,11 +20,11 @@ class ThumbFactory
 
     /**
      * @param Photo $photo
-     * @param PresetInterface $preset
+     * @param CustomFilterInterface $preset
      * @return Thumb
      * @throws \CException
      */
-    public static function create(Photo $photo, PresetInterface $preset)
+    public static function create(Photo $photo, CustomFilterInterface $preset)
     {
         $format = pathinfo($photo->fs_name, PATHINFO_EXTENSION);
         if (! array_key_exists($format, self::$map)) {

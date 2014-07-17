@@ -41,6 +41,11 @@ return array(
                     'width' => 205,
                     'height' => 140,
                 ),
+                'rowGrid' => array(
+                    'relativeResize',
+                    'method' => 'heighten',
+                    'parameter' => 200,
+                ),
             ),
             'quality' => array(
                 72 => 100,

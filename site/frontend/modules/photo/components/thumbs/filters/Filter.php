@@ -3,9 +3,9 @@
  * Абстрактный пресет
  */
 
-namespace site\frontend\modules\photo\components\thumbs\presets;
+namespace site\frontend\modules\photo\components\thumbs\filters;
 
-abstract class Preset extends \CComponent
+abstract class Filter extends \CComponent
 {
     /**
      * @var string псевдоним пресета

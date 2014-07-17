@@ -40,7 +40,7 @@
 </div>
 
 <script type="text/javascript">
-    require(['knockout', 'ko_photo', 'ko_photoUpload'], function(ko, ko_photo) {
+    require(['knockout', 'ko_photo', 'ko_photoUpload', 'rowGrid'], function(ko, ko_photo) {
         function AlbumsViewModel(data) {
             var self = this;
 

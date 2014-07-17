@@ -3,17 +3,11 @@
  * Интерфейс пресета
  */
 
-namespace site\frontend\modules\photo\components\thumbs\presets;
-use Imagine\Image\ImageInterface;
+namespace site\frontend\modules\photo\components\thumbs\filters;
+use Imagine\Filter\FilterInterface;
 
-interface PresetInterface
+interface CustomFilterInterface extends FilterInterface
 {
-    /**
-     * Применить пресет к изображению
-     * @param ImageInterface $image
-     */
-    function apply(ImageInterface $image);
-
     /**
      * Подсчитать ширину полученного изображения
      * @param int $imageWidth

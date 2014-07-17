@@ -364,5 +364,13 @@ return array(
             ),
             'depends' => array('ko_upload'),
         ),
+        'rowGrid' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'new/javascript/jquery.row-grid.min.js',
+            ),
+            'depends' => array('jquery'),
+        ),
     )
 );

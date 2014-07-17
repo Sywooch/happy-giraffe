@@ -53,7 +53,7 @@ class ThumbsManager extends \CApplicationComponent
     /**
      * Инициализирует класс пресета
      * @param $presetName
-     * @return presets\PresetInterface
+     * @return filters\CustomFilterInterface
      * @throws \CException
      */
     protected function createPreset($presetName)
@@ -63,7 +63,7 @@ class ThumbsManager extends \CApplicationComponent
         }
 
         $config = $this->presets[$presetName];
-        $className = '\site\frontend\modules\photo\components\thumbs\presets\\' . ucfirst($config[0]) . 'Preset';
+        $className = '\site\frontend\modules\photo\components\thumbs\presets\\' . ucfirst($config[0]) . 'Filter';
         $params = array_slice($config, 1);
         $reflect  = new \ReflectionClass($className);
         $preset = $reflect->newInstanceArgs($params);

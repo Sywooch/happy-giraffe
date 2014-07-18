@@ -64,13 +64,14 @@ class SeoTempCommand extends CConsoleCommand
             foreach ($patterns as $pattern) {
                 if (preg_match($pattern, $path, $matches) == 1) {
                     $id = $matches[1];
-                    $post = \CommunityContent::model()->findByPk($id);
+                    $post = \CommunityContent::model()->resetScope()->findByPk($id);
                     $text = $post->getContent()->text;
                     $dom = str_get_html($text);
                     $result[$path]['url'] = $path;
                     $result[$path]['title'] = $post->title;
                     $result[$path]['strong'] = count($dom->find('strong'));
                     $result[$path]['em'] = count($dom->find('em'));
+                    $result[$path]['removed'] = $post->removed;
                 }
             }
         }

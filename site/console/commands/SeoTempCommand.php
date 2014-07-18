@@ -92,9 +92,7 @@ class SeoTempCommand extends CConsoleCommand
         }
         $fp = fopen($path, 'w');
 
-        foreach ($paths as $fields) {
-            print_r($fields);
-            die;
+        foreach ($result as $fields) {
             fputcsv($fp, $fields);
         }
 

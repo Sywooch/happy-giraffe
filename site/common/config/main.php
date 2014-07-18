@@ -27,22 +27,22 @@ return array(
             'class' => '\site\frontend\modules\photo\components\thumbs\ThumbsManager',
             'presets' => array(
                 'uploadPreview' => array(
-                    'lepilla',
+                    'filter' => 'lepilla',
                     'width' => 155,
                     'height' => 140,
                 ),
                 'uploadPreviewBig' => array(
-                    'lepilla',
+                    'filter' => 'lepilla',
                     'width' => 325,
                     'height' => 295,
                 ),
                 'uploadAlbumCover' => array(
-                    'lepilla',
+                    'filter' => 'lepilla',
                     'width' => 205,
                     'height' => 140,
                 ),
                 'rowGrid' => array(
-                    'relativeResize',
+                    'filter' => 'relativeResize',
                     'method' => 'heighten',
                     'parameter' => 200,
                 ),

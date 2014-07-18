@@ -72,6 +72,7 @@ class SeoTempCommand extends CConsoleCommand
                     }
 
                     if ($post->by_happy_giraffe == 0) {
+                        unset($result[$path]);
                         continue;
                     }
 

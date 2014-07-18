@@ -128,7 +128,7 @@ class SeoCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria(array(
             'order' => 't.id DESC',
-            'condition' => 't.entity_id = 120903 AND t.entity = \'Comment\'',
+            'condition' => 't.entity_id = 120903 AND t.entity = \'CommunityContent\'',
         ));
 
         $dp = new CActiveDataProvider('Comment', array(

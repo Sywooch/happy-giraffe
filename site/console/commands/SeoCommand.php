@@ -136,12 +136,13 @@ class SeoCommand extends CConsoleCommand
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $comment) {
-            echo $comment->id . "\n";
             if ($dom = str_get_html($comment->text)) {
                 $needUpdate = false;
                 foreach ($dom->find('a') as $a) {
                     if (preg_match('#\/user\/(\d+)\/$#', $a->href, $matches)) {
                         $id = $matches[1];
+                        echo $id;
+                        die;
                         $user = User::model()->findByPk($id);
                         if ($user === null || $user->deleted = 1) {
                             $needUpdate = true;

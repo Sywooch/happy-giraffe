@@ -142,7 +142,7 @@ class SeoCommand extends CConsoleCommand
                     if (preg_match('#\/user\/(\d+)\/$#', $a->href, $matches)) {
                         $id = $matches[1];
                         $user = User::model()->findByPk($id);
-                        var_dump($user === null || $user->deleted = 1);
+                        var_dump($user);
                         die;
                         if ($user === null || $user->deleted = 1) {
                             $needUpdate = true;

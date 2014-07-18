@@ -50,10 +50,41 @@ define('ko_photo', ['knockout'], function(ko) {
 define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap', 'jquery_file_upload', 'jquery.ui'], function(ko, mapping, ko_photo) {
     function PresetManager() {
         var self = this;
-        self.presets = [];
 
-        $.get
+        $.get('/photo/default/presets', function(response) {
+            self.presets = response;
+        });
+
+
+
+        self.filters = {
+            lepilla: {
+                getWidth: function(imageWidth, imageHeight, presetConfig) {
+                    var imageRatio = imageWidth / imageHeight;
+                    var presetRatio = presetConfig.width / presetConfig.height;
+                    if (imageRatio >= presetRatio) {
+                        return presetConfig.width;
+                    } else {
+                        return imageRatio * presetConfig.height;
+                    }
+                },
+                getHeight: function(imageWidth, imageHeight, presetConfig) {
+                    return presetConfig.height;
+                }
+            }
+        }
+
+        self.getWidth = function(imageWidth, imageHeight, preset) {
+            var config = self.presets[preset];
+            return self.filters[config.filter].getWidth(imageWidth, imageHeight, config);
+        }
+
+        self.getHeight = function(imageWidth, imageHeight, preset) {
+            var config = self.presets[preset];
+            return self.filters[config.filter].getHeight(imageWidth, imageHeight, config);
+        }
     }
+    presetManager = new PresetManager();
 
     // Биндинг для загрузки фото
     ko.bindingHandlers.photoUpload = {
@@ -120,6 +151,8 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
                 //src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
                 //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
                 $(element).attr('src', src);
+//                $(element).css('width', presetManager.getWidth(photo.width(), photo.height(), preset));
+//                $(element).css('height', presetManager.getHeight(photo.width(), photo.height(), preset));
             }
 
             update();

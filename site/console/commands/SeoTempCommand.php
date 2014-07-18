@@ -60,6 +60,7 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
 
+        $_result = array();
         foreach ($result as $path => $value) {
             foreach ($patterns as $pattern) {
                 if (preg_match($pattern, $path, $matches) == 1) {
@@ -76,20 +77,22 @@ class SeoTempCommand extends CConsoleCommand
                         continue;
                     }
 
-                    $result[$path]['url'] = $path;
-                    $result[$path]['title'] = $post->title;
-                    $result[$path]['removed'] = $post->removed;
-                    $result[$path]['diff'] = strtr($result[$path]['period1'] == 0 ? '-' : ($result[$path]['period2'] - $result[$path]['period1']) * 100 / $result[$path]['period1'], '.', ',');
-                    $result[$path]['diffC'] = $result[$path]['period2'] - $result[$path]['period1'];
+                    $value['url'] = $path;
+                    $value['title'] = $post->title;
+                    $value['removed'] = $post->removed;
+                    $value['diff'] = strtr($value['period1'] == 0 ? '-' : ($value['period2'] - $value['period1']) * 100 / $value['period1'], '.', ',');
+                    $value['diffC'] = $value['period2'] - $value['period1'];
 
                     $text = $post->getContent()->text;
                     if ($dom = str_get_html($text)) {
-                        $result[$path]['strong'] = count($dom->find('strong'));
-                        $result[$path]['em'] = count($dom->find('em'));
+                        $value['strong'] = count($dom->find('strong'));
+                        $value['em'] = count($dom->find('em'));
                     } else {
-                        $result[$path]['strong'] = 0;
-                        $result[$path]['em'] = 0;
+                        $value['strong'] = 0;
+                        $value['em'] = 0;
                     }
+
+                    $_result[] = $value;
                 }
             }
         }
@@ -100,7 +103,7 @@ class SeoTempCommand extends CConsoleCommand
         }
         $fp = fopen($path, 'w');
 
-        foreach ($result as $fields) {
+        foreach ($_result as $fields) {
             fputcsv($fp, $fields);
         }
 

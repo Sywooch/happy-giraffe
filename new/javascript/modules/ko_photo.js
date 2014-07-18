@@ -51,11 +51,24 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
     function PresetManager() {
         var self = this;
 
-        $.get('/photo/default/presets', function(response) {
-            self.presets = response;
-        });
+        self.presets = null;
 
+        self.init = function(callback) {
+            if (self.initialized === null) {
+                self.initializing = false;
+                $.get('/photo/default/presets', function(response) {
+                    self.presets = response;
+                    console.log(self.presets);
+                    callback();
+                }, 'json');
+            } else {
+                callback();
+            }
+        };
 
+        self.inited = function() {
+            return self.presets.length > 0;
+        }
 
         self.filters = {
             lepilla: {
@@ -75,13 +88,17 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         }
 
         self.getWidth = function(imageWidth, imageHeight, preset) {
-            var config = self.presets[preset];
-            return self.filters[config.filter].getWidth(imageWidth, imageHeight, config);
+            self.init(function() {
+                var config = self.presets[preset];
+                return self.filters[config.filter].getWidth(imageWidth, imageHeight, config);
+            });
         }
 
         self.getHeight = function(imageWidth, imageHeight, preset) {
-            var config = self.presets[preset];
-            return self.filters[config.filter].getHeight(imageWidth, imageHeight, config);
+            self.init(function() {
+                var config = self.presets[preset];
+                return self.filters[config.filter].getHeight(imageWidth, imageHeight, config);
+            });
         }
     }
     presetManager = new PresetManager();
@@ -151,8 +168,8 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
                 //src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
                 //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
                 $(element).attr('src', src);
-//                $(element).css('width', presetManager.getWidth(photo.width(), photo.height(), preset));
-//                $(element).css('height', presetManager.getHeight(photo.width(), photo.height(), preset));
+                $(element).css('width', '10px', preset);
+                $(element).css('height', presetManager.getHeight(photo.width(), photo.height(), preset));
             }
 
             update();

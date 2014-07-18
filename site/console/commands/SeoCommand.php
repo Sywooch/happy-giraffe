@@ -128,7 +128,6 @@ class SeoCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria(array(
             'order' => 't.id DESC',
-            'condition' => 'id = 1192041',
         ));
 
         $dp = new CActiveDataProvider('Comment', array(
@@ -136,6 +135,7 @@ class SeoCommand extends CConsoleCommand
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $comment) {
+            echo $comment->id . "\n";
             if ($dom = str_get_html($comment->text)) {
                 $needUpdate = false;
                 foreach ($dom->find('a') as $a) {

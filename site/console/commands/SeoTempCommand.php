@@ -81,8 +81,10 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
 
-        $path = Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . '1807.csv';
-        unlink($path);
+        $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . '1807.csv';
+        if (is_file($path)) {
+            unlink($path);
+        }
         $fp = fopen($path, 'w');
 
         foreach ($paths as $fields) {

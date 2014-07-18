@@ -141,9 +141,9 @@ class SeoCommand extends CConsoleCommand
                 foreach ($dom->find('a') as $a) {
                     if (preg_match('#\/user\/(\d+)\/$#', $a->href, $matches)) {
                         $id = $matches[1];
-                        echo $id;
-                        die;
                         $user = User::model()->findByPk($id);
+                        var_dump($user === null || $user->deleted = 1);
+                        die;
                         if ($user === null || $user->deleted = 1) {
                             $needUpdate = true;
                             $a->outertext = '<span class="a-imitation">' . $a->innertext . '</span>';

@@ -63,7 +63,7 @@ class ThumbsManager extends \CApplicationComponent
         }
 
         $config = $this->presets[$presetName];
-        $className = '\site\frontend\modules\photo\components\thumbs\presets\\' . ucfirst($config[0]) . 'Filter';
+        $className = '\site\frontend\modules\photo\components\thumbs\filters\\' . ucfirst($config['filter']) . 'Filter';
         $params = array_slice($config, 1);
         $reflect  = new \ReflectionClass($className);
         $preset = $reflect->newInstanceArgs($params);

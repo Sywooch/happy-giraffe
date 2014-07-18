@@ -66,12 +66,12 @@ class SeoTempCommand extends CConsoleCommand
                     $id = $matches[1];
                     $post = \CommunityContent::model()->resetScope()->findByPk($id);
 
-                    if ($post->by_happy_giraffe == 0) {
+                    if ($post === null) {
+                        echo $path . "\n";
                         continue;
                     }
 
-                    if ($post === null) {
-                        echo $path . "\n";
+                    if ($post->by_happy_giraffe == 0) {
                         continue;
                     }
 

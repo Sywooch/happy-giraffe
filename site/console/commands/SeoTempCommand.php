@@ -77,7 +77,7 @@ class SeoTempCommand extends CConsoleCommand
                         continue;
                     }
 
-                    $value['url'] = $path;
+                    $value['url'] = 'http://www.happy-giraffe.ru' . $path;
                     $value['title'] = $post->title;
                     $value['removed'] = $post->removed;
                     $value['diff'] = strtr($value['period1'] == 0 ? '-' : ($value['period2'] - $value['period1']) * 100 / $value['period1'], '.', ',');

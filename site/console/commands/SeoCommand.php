@@ -121,5 +121,40 @@ class SeoCommand extends CConsoleCommand
 //        Yii::import('site.frontend.extensions.*');
 //        PageStatistics::model()->export();
 //    }
+
+    public function actionFixUsersUrls()
+    {
+        include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+
+        $criteria = new CDbCriteria(array(
+            'order' => 't.id DESC',
+            'condition' => 'id = 1192041',
+        ));
+
+        $dp = new CActiveDataProvider('Comment', array(
+            'criteria' => $criteria,
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $comment) {
+            if ($dom = str_get_html($comment->text)) {
+                $needUpdate = false;
+                foreach ($dom->find('a') as $a) {
+                    if (preg_match('#\/user\/(\d+)\/$#', $a->href, $matches)) {
+                        $id = $matches[1];
+                        $user = User::model()->findByPk($id);
+                        if ($user === null || $user->deleted = 1) {
+                            $needUpdate = true;
+                            $a->outertext = '<span class="a-imitation">' . $a->innertext . '</span>;'
+                        }
+                    }
+                }
+                if ($needUpdate) {
+                    $comment->text = (string) $dom;
+                    $comment->update(array('text'));
+                    $comment->purified->clearCache();
+                }
+            }
+        }
+    }
 }
 

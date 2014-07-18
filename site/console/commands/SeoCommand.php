@@ -144,7 +144,7 @@ class SeoCommand extends CConsoleCommand
                         $user = User::model()->findByPk($id);
                         if ($user === null || $user->deleted = 1) {
                             $needUpdate = true;
-                            $a->outertext = '<span class="a-imitation">' . $a->innertext . '</span>;'
+                            $a->outertext = '<span class="a-imitation">' . $a->innertext . '</span>';
                         }
                     }
                 }

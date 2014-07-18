@@ -73,6 +73,8 @@ class SeoTempCommand extends CConsoleCommand
                     $result[$path]['url'] = $path;
                     $result[$path]['title'] = $post->title;
                     $result[$path]['removed'] = $post->removed;
+                    $result[$path]['diff'] = strtr($result[$path]['period1'] == 0 ? '-' : ($result[$path]['period2'] - $result[$path]['period1']) * 100 / $result[$path]['period1'], '.', ',');
+                    $result[$path]['diffC'] = $result[$path]['period2'] - $result[$path]['period1'];
 
                     $text = $post->getContent()->text;
                     if ($dom = str_get_html($text)) {

@@ -128,6 +128,7 @@ class SeoCommand extends CConsoleCommand
 
         $criteria = new CDbCriteria(array(
             'order' => 't.id DESC',
+            'condition' => 't.id = 1192307',
         ));
 
         $dp = new CActiveDataProvider('Comment', array(

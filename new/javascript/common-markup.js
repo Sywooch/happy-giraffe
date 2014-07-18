@@ -110,26 +110,8 @@ $(function() {
     var pageColHeight = $(window).height() - $('.layout-header').height() - 60;
     $('.page-col').css({'min-height': pageColHeight});
 
-   
-    $('.popup-a__add').on('mfpOpen', function(e /*, params */) {
-        addBaron('.popup .scroll');
-        
-        var albumSlider =  $(".album-slider_hold").slider({
-            min: 1,
-            max: 3,
-            value: 2,
-            
-        });
-        $( ".album-slider_tx-minus" ).click(function() {
-            sliderValue = albumSlider.slider( "value" ) - 1;
-            albumSlider.slider( "value",  sliderValue );
-        });
-        $( ".album-slider_tx-plus" ).click(function() {
-            sliderValue = albumSlider.slider( "value" ) + 1;
-            albumSlider.slider( "value",  sliderValue );
-        });
-        addBaron('.popup .scroll');
-    });
+
+
 
 });
 

@@ -65,6 +65,11 @@ class SeoTempCommand extends CConsoleCommand
                 if (preg_match($pattern, $path, $matches) == 1) {
                     $id = $matches[1];
                     $post = \CommunityContent::model()->resetScope()->findByPk($id);
+                    if ($post === null) {
+                        echo $path . "\n";
+                        continue;
+                    }
+
                     $text = $post->getContent()->text;
                     $dom = str_get_html($text);
                     $result[$path]['url'] = $path;

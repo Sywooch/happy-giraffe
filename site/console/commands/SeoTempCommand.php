@@ -72,7 +72,6 @@ class SeoTempCommand extends CConsoleCommand
 
                     $text = $post->getContent()->text;
                     $dom = str_get_html($text);
-                    $result[$path]['url'] = $path;
                     $result[$path]['title'] = $post->title;
                     $result[$path]['strong'] = count($dom->find('strong'));
                     $result[$path]['em'] = count($dom->find('em'));
@@ -88,6 +87,8 @@ class SeoTempCommand extends CConsoleCommand
         $fp = fopen($path, 'w');
 
         foreach ($paths as $fields) {
+            print_r($fields);
+            die;
             fputcsv($fp, $fields);
         }
 

@@ -60,7 +60,7 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
 
-        foreach ($paths as $path => $value) {
+        foreach ($result as $path => $value) {
             foreach ($patterns as $pattern) {
                 if (preg_match($pattern, $path, $matches) == 1) {
                     $id = $matches[1];

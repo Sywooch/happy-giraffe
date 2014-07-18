@@ -74,5 +74,13 @@ class SeoTempCommand extends CConsoleCommand
                 }
             }
         }
+
+        $fp = fopen(Yii::getPathOfAlias('site.common.data') . DIRECTORY_SEPARATOR . '1807.csv', 'w');
+
+        foreach ($paths as $fields) {
+            fputcsv($fp, $fields);
+        }
+
+        fclose($fp);
     }
 } 

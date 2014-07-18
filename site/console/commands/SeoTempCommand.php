@@ -36,7 +36,7 @@ class SeoTempCommand extends CConsoleCommand
         );
         $result = array();
 
-        $ga = new \GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
         $ga->setProfile('ga:53688414');
 
         $paths = $this->getPathes($ga, '2014-05-19', '2014-05-19', 'google');

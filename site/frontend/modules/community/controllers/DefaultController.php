@@ -479,4 +479,12 @@ class DefaultController extends HController
 
         return $data;
     }
+
+    public function actionContacts()
+    {
+        $this->forum = Community::model()->findByPk(Community::COMMUNITY_NEWS);
+        $this->pageTitle = 'О нас';
+        $this->layout = '//layouts/news';
+        $this->render('contacts');
+    }
 }

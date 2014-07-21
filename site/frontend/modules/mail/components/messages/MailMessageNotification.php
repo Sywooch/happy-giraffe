@@ -8,7 +8,7 @@
 
 abstract class MailMessageNotification extends MailMessage
 {
-    const COMMENT_LENGTH = 80;
+    const COMMENT_LENGTH = 9999;
     const COMMENTS_COUNT = 5;
 
     public function getSubTemplate()

@@ -136,6 +136,12 @@
                                                     <span style="color: #3587ec;"><a href="http://www.happy-giraffe.ru" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
                                                 </td>
                                             </tr>
+                        
+                                            <tr>
+                                                <td  height="40" style="">
+                                                    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="40" width="100%" border="0" />
+                                                </td>
+                                            </tr>       
                                             <tr>
                                                 <td style="border-top:1px solid #e6e5e5;padding:6px 0;">
 
@@ -164,8 +170,8 @@
             </td>
         </tr>
         <tr>
-            <td  height="30">
-                <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="30" width="100%" border="0" />
+            <td  height="20">
+                <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="20" width="100%" border="0" />
             </td>
         </tr>
     </table>

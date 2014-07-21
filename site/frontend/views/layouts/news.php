@@ -58,7 +58,7 @@
                     'items' => array(
                         array(
                             'label' => 'О нас',
-                            'url' => array('community/contacts'),
+                            'url' => array('/community/default/contacts'),
                             'active' => $this->action->id == 'contacts',
                         ),
 //                        array(

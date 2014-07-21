@@ -177,9 +177,9 @@ class CommunityContent extends HActiveRecord implements IPreview
 //            'duplicate' => array(
 //                'class' => 'site.common.behaviors.DuplicateBehavior',
 //            ),
-            'yandexwm' => array(
-                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
-            ),
+//            'yandexwm' => array(
+//                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
+//            ),
         );
     }
 

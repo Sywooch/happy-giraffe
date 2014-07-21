@@ -501,6 +501,7 @@ class Comment extends HActiveRecord
                 'avatar' => $comment->author->getAvatarUrl(40),
                 'online' => (bool)$comment->author->online,
                 'url' => $comment->author->getUrl(),
+                'deleted' => $comment->author->deleted,
             ),
             'likesCount' => HGLike::model()->countByEntity($comment),
             'userLikes' => HGLike::model()->hasLike($comment, Yii::app()->user->id),

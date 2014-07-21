@@ -129,6 +129,14 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
+        'jquery.flydiv' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery.flydiv.js'
+            ),
+            'depends' => array('jquery'),
+        ),
         'jcrop' => array(
             'baseUrl' => '/',
             'amd' => true,
@@ -263,10 +271,10 @@ return array(
         'ko_friends' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_friends.js',
-                'javascripts/ko_friendsSearch.js',
+                'new/javascript/modules/ko_friends.js',
+                'new/javascript/modules/ko_friendsSearch.js',
             ),
-            'depends' => array('knockout', 'ko_library'),
+            'depends' => array('knockout', 'ko_library', 'history2'),
         ),
         'soundmanager' => array(
             'baseUrl' => '/',
@@ -358,17 +366,15 @@ return array(
             'js' => array(
                 'javascripts/ko_registerWidget.js',
             ),
-            'depends' => array('knockout', 'common', 'jcrop', 'ko_upload', 'ko_library'),
+            'depends' => array('jquery', 'knockout', 'common', 'jcrop', 'ko_upload', 'ko_library'),
         ),
         'favouriteWidget' => array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/FavouriteWidget.js',
                 'javascripts/imagesloaded.pkgd.min.js',
-                'javascripts/wysiwyg.js',
-                'new/javascript/wysiwyg.js',
             ),
-            'depends' => array('knockout'),
+            'depends' => array('knockout', 'wysiwyg', 'jquery', 'jquery.flydiv'),
         ),
         'baron' => array(
             'baseUrl' => '/',

@@ -28,7 +28,7 @@
 
                 $items[] = array(
                     'label' => 'Все новости',
-                    'url' => array('community/default/forum', 'forum_id' => $this->forum->id),
+                    'url' => array('/community/default/forum', 'forum_id' => $this->forum->id),
                     'template' => '<span>{menu}</span>',//<div class="count">' . $this->community->count . '</div>',
                     'active' => ! (in_array($this->action->id, array('contacts', 'authors'))) && $this->rubric_id === null,
                 );
@@ -58,7 +58,7 @@
                     'items' => array(
                         array(
                             'label' => 'О нас',
-                            'url' => array('community/contacts'),
+                            'url' => array('/community/default/contacts'),
                             'active' => $this->action->id == 'contacts',
                         ),
 //                        array(

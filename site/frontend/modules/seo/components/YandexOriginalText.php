@@ -88,7 +88,7 @@ class YandexOriginalText
             if (! $model->isNewRecord) {
                 return $model->delete();
             }
-            return true;
+            return false;
         }
 
         $xml = new \SimpleXMLElement('<original-text/>');

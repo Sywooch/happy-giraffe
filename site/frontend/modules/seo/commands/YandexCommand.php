@@ -30,10 +30,9 @@ class YandexCommand extends \CConsoleCommand
         $models = SeoYandexOriginalText::model()->pending()->findAll();
 
         foreach ($models as $model) {
+            echo $model->id . "\n";
             if ($this->original->add($model)) {
                 $model->save();
-            } else {
-                break;
             }
         }
     }
@@ -54,9 +53,9 @@ class YandexCommand extends \CConsoleCommand
             $model->setAttributes($data);
             $model->priority = 100;
 
-            $originalTexts->add($model);
-
-            $model->save();
+            if ($originalTexts->add($model)) {
+                $model->save();
+            }
         });
         while (\Yii::app()->gearman->worker()->work()) {
             echo "OK\n";

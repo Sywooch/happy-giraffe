@@ -152,12 +152,12 @@
                                                     </table>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td  height="30" style="">
-                                                    <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="30" width="100%" border="0" />
-                                                </td>
-                                            </tr>
                                             <?php if ($message->contactsCount != 3): ?>
+                                                <tr>
+                                                    <td  height="30" style="">
+                                                        <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="30" width="100%" border="0" />
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <td align="center">
                                                         <a href="<?php echo $message->createUrl(array('/messaging/default/index', 'readMessagesLink')); ?>" style="color:#3482e2; font-size:24px;" target="_blank">Прочитать сообщение</a>

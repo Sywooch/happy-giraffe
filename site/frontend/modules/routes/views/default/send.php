@@ -33,18 +33,3 @@ $url = $route->getUrl(true);
         </a>
     </div>
 </div>
-
-<script type="text/javascript">
-    function SendRoute() {
-        $.post('/auto/routes/sendEmail/', $('#send-route-form').serialize(), function (response) {
-            if (response.status) {
-                $('#send-success').show();
-
-                setTimeout(function() {
-                    $('#send-success').hide();
-                    $('#SendRoute_friend_email').val('');
-                }, 2000)
-            }
-        }, 'json');
-    }
-</script>

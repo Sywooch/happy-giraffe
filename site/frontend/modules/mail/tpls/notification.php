@@ -116,8 +116,8 @@
                                         </tr>
 
                                         <tr>
-                                            <td  height="50" style="">
-                                                <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="50" width="100%" border="0" />
+                                            <td  height="5" style="">
+                                                <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="5" width="100%" border="0" />
                                             </td>
                                         </tr>
                                         <?php $message->render('_footer'); ?>
@@ -132,8 +132,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td  height="30">
-                        <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="30" width="100%" border="0" />
+                    <td  height="20">
+                        <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="20" width="100%" border="0" />
                     </td>
                 </tr>
             </table>

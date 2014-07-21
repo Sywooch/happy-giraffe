@@ -85,7 +85,7 @@ class DefaultController extends HController
         $contents = BlogContent::model()->getBlogContents($user_id, $rubric_id);
 
         if ($this->user->hasRssContent())
-            $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
+            $this->rssFeed = $this->createUrl('/rss/user', array('user_id' => $user_id));
 
         if (! Yii::app()->user->isGuest)
             $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');

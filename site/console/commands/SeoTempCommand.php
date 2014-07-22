@@ -31,6 +31,7 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionReplaceSingleEm()
     {
+        $result = array();
         $dp = new CActiveDataProvider('CommunityPost');
         $iterator = new CDataProviderIterator($dp);
         foreach ($iterator as $post) {
@@ -41,11 +42,13 @@ class SeoTempCommand extends CConsoleCommand
                     $el->outertext = '<i>' . $el->innertext . '</i>';
                     CommunityPost::model()->updateByPk($post->id, array('text' => (string) $dom));
                     $post->purified->clearCache();
-                    echo $post->content->getUrl(true);
-                    die;
+                    $url = $post->content->getUrl(false, true));
+                    $result[] = array($url);
+                    echo $url . "\n";
                 }
             }
         }
+        $this->writeCsv('emToI', $result);
     }
 
     public function actionStrong()
@@ -167,6 +170,21 @@ class SeoTempCommand extends CConsoleCommand
         $fp = fopen($path, 'w');
 
         foreach ($result as $fields) {
+            fputcsv($fp, $fields);
+        }
+
+        fclose($fp);
+    }
+
+    protected function writeCsv($name, $data)
+    {
+        $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . $name . '.csv';
+        if (is_file($path)) {
+            unlink($path);
+        }
+        $fp = fopen($path, 'w');
+
+        foreach ($data as $fields) {
             fputcsv($fp, $fields);
         }
 

@@ -40,6 +40,7 @@ class SeoTempCommand extends CConsoleCommand
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $post) {
+            echo $post->id . "\n";
             if ($dom = str_get_html($post->text)) {
                 $em = $dom->find('em');
                 if (count($em) == 1) {

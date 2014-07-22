@@ -94,6 +94,11 @@ class YandexOriginalText
 
         $xml = new \SimpleXMLElement('<original-text/>');
         $xml->addChild('content', $model->full_text);
+
+        echo $model->id . "\n";
+        var_dump($xml->asXML());
+        die;
+
         $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, urlencode($xml->asXML()));
 
 //        if ($this->api->client->status() != 201) {

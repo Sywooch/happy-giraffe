@@ -1,8 +1,5 @@
 <?php
-Yii::app()->clientScript
-    ->registerScriptFile('/javascripts/ko_friends.js')
-    ->registerScriptFile('/javascripts/ko_friendsSearch.js')
-;
+Yii::app()->clientScript->registerPackage('ko_friends');
 ?><div id="friendsList" class="friends-list friends-list__family margin-t20">
     <!-- ko template: { name : 'request-template', foreach : users } -->
 

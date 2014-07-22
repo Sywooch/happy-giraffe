@@ -11,7 +11,7 @@
 </div>
 <div class="popup-sign_cont">
     <div class="popup-sign_col">
-        <?php $form = $this->beginWidget('CActiveForm', array(
+        <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
             'id' => 'resendConfirmForm',
             'action' => array('/signup/register/resend'),
             'enableAjaxValidation' => true,

@@ -11,15 +11,31 @@ class DefaultController extends HController
     public $rubric_id;
     public $forum;
 
+    public function behaviors()
+    {
+        return array(
+            'lastModified' => array(
+                'class' => 'LastModifiedBehavior',
+                'getParameter' => 'content_id',
+                'entity' => 'CommunityContent',
+            ),
+        );
+    }
+
     public function filters()
     {
         $filters = array();
 
         if (Yii::app()->user->isGuest) {
+            /*$filters[] = array(
+                'CHttpCacheFilter + view',
+                'lastModified' => $this->lastModified->getDateTime(),
+            );
+
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,
-                'varyByParam' => array('content_id'),
+                'varyByParam' => array('content_id', 'openGallery'),
             );
 
             $filters [] = array(
@@ -38,7 +54,7 @@ class DefaultController extends HController
                 'COutputCache + section',
                 'duration' => 300,
                 'varyByParam' => array('section_id', 'CommunityContent_page'),
-            );
+            );*/
         }
 
         return $filters;
@@ -141,7 +157,7 @@ class DefaultController extends HController
                 ->getContent()
                 ->forEdit
                 ->text;
-        if (!empty($content->uniqueness) && $content->uniqueness < 50)
+        if (is_int($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         if ($content->contestWork !== null)
@@ -162,8 +178,10 @@ class DefaultController extends HController
         if (!Yii::app()->user->isGuest) {
             UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
         }
-
-        $this->render('view', compact('content'));
+        if (Yii::app()->user->isGuest)
+            $this->render('view_requirejs', compact('content'));
+        else
+            $this->render('view', compact('content'));
     }
 
     public function actionServices($club)
@@ -369,11 +387,14 @@ class DefaultController extends HController
         if (!empty($content_type_slug) && !in_array($content_type_slug, array('post', 'video', 'photoPost', 'question')))
             throw new CHttpException(404, 'Страницы не существует');
 
-        if ($this->club !== null && $this->club->id != $content->rubric->community->club_id || $content_type_slug != $content->type->slug) {
+        if ($this->forum !== null && $this->forum->id != $content->rubric->community->id || $content_type_slug != $content->type->slug) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: " . $content->url);
             Yii::app()->end();
         }
+
+        if ($content->author_id == 34531)
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
         return $content;
     }
@@ -431,7 +452,7 @@ class DefaultController extends HController
         return $this->createUrl($route, $params);
     }
 
-    public function sitemapView()
+    public function sitemapView($param)
     {
         $models = Yii::app()->db->createCommand()
             ->select('c.id, c.created, c.updated, r.community_id, ct.slug')
@@ -439,6 +460,9 @@ class DefaultController extends HController
             ->join('community__rubrics r', 'c.rubric_id = r.id')
             ->join('community__content_types ct', 'c.type_id = ct.id')
             ->where('r.community_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
+            ->limit(50000)
+            ->offset(($param - 1) * 50000)
+            ->order('c.id ASC')
             ->queryAll();
 
         $data = array();

@@ -1,10 +1,3 @@
-/**
- * Дополнительные часто используемые байндинги
- * Author: alexk984
- * Date: 12.08.13
- */
-(function() {
-    function f(ko) {
         function FavouriteWidget(data) {
             var self = this;
 
@@ -16,15 +9,30 @@
             self.adding = ko.observable(null);
             self.favouritesMainPage = typeof favouritesModel !== "undefined";
 
-            self.clickHandler = function() {
-                if (! self.active()) {
-                    $.get('/favourites/default/getEntityData/', { modelName : self.modelName, modelId : self.modelId}, function(response) {
+    self.clickHandler = function(data, event) {
+        if (! self.active()) {
+            if (self.adding() === null) {
+                $.get('/favourites/default/getEntityData/', { modelName : self.modelName, modelId : self.modelId}, function(response) {
                         self.adding(new Entity(response, self));
-                    }, 'json');
-                } else {
-                    self.remove();
-                }
+                        $('html').one('click', function() {
+                            self.adding(null);
+                        });
+
+                        $(event.target).parents('.favorites-add-popup').one('click', function(event){
+                            event.stopPropagation();
+                        });
+
+                        $(event.target).one('click', function(event){
+                            event.stopPropagation();
+                        });
+                }, 'json');
+            } else {
+                self.cancel();
             }
+        } else {
+            self.remove();
+        }
+    }
 
             self.add = function(data, event) {
                 self.adding().addTag();
@@ -141,16 +149,4 @@
                     self.tagsInputValue('');
                 }
             }
-        }
-    };
-    if (typeof define === 'function' && define['amd']) {
-        define('favouriteWidget', ['knockout'], f);
-        require(["knockout", "knockout-amd-helpers", "text"], function(ko) {
-            ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
-            ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
-            ko.amdTemplateEngine.defaultRequireTextPluginName = "text";
-        });
-    } else {
-        f(window.ko);
-    }
-})(window);
+}

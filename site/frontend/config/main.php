@@ -139,9 +139,18 @@ return array(
         'signup',
         'mail',
         'developers',
+        'seo' => array(
+            'class' => '\site\frontend\modules\seo\SeoModule',
+        ),
 	),
 	// application components
 	'components'=>array(
+        'gearman' => array(
+            'class' => 'site.common.components.Gearman',
+        ),
+        'postman' => array(
+            'class' => 'application.modules.mail.components.MailPostman',
+        ),
         'securityManager' => array(
             'validationKey' => '44ffc48eb95b605d20804ce9dff63ca7e1698d80',
         ),
@@ -451,16 +460,29 @@ return array(
                     'sitemap.xml' => array(
                         'index' => true,
                     ),
-                    'sitemapCommunity.xml' => array(
+                    'sitemapCommunity1.xml' => array(
                         'aliases' => array(
                             'application.modules.community.controllers.DefaultController',
                         ),
+                        'param' => 1,
                     ),
-                    'sitemapBlog.xml' => array(
+                    'sitemapCommunity2.xml' => array(
+                        'aliases' => array(
+                            'application.modules.community.controllers.DefaultController',
+                        ),
+                        'param' => 2,
+                    ),
+                    'sitemapBlog1.xml' => array(
                         'aliases' => array(
                             'application.modules.blog.controllers.DefaultController',
-
                         ),
+                        'param' => 1,
+                    ),
+                    'sitemapBlog2.xml' => array(
+                        'aliases' => array(
+                            'application.modules.blog.controllers.DefaultController'
+                        ),
+                        'param' => 2,
                     ),
                     'sitemapCook.xml' => array(
                         'aliases' => array(

@@ -63,6 +63,11 @@ class HController extends CController
             }
             unset($_GET['token']);
         }
+
+        // если запрос инициирован с помощью метода redirect, то читаем только с мастера
+        if (Yii::app()->db instanceof DbConnectionMan && Yii::app()->user->getFlash('redirected') !== null) {
+            Yii::app()->db->enableSlave = false;
+        }
     }
 
     protected function filterBySpamStatus()
@@ -85,7 +90,7 @@ class HController extends CController
 //        if (Yii::app()->user->id == 22 && !($this->id == 'happyBirthdayMira' || $this->route == 'site/logout' || $this->route == 'ajax/sendcomment'))
 //            $this->redirect(array('happyBirthdayMira/index'));
 
-        $this->_mobileRedirect();
+//        $this->_mobileRedirect();
 
         // отключение повторной подгрузки jquery
         if (Yii::app()->request->isAjaxRequest) {
@@ -122,12 +127,13 @@ class HController extends CController
             'fb_source',
             'action_object_map',
             'open_gallery',
+            'openGallery',
         );
 
         // seo-фильтр get-параметров
         if (in_array($this->uniqueId, array(
-            'blog',
-            'community',
+            'blog/default',
+            'community/default',
             'services/horoscope/default',
             'services/childrenDiseases/default',
             'cook/spices',
@@ -288,5 +294,11 @@ class HController extends CController
             $viewsCount = Yii::app()->user->getState('viewsCount', 0);
             Yii::app()->user->setState('viewsCount', $viewsCount + 1);
         }
+    }
+
+    public function redirect($url,$terminate=true,$statusCode=302)
+    {
+        Yii::app()->user->setFlash('redirected', true);
+        parent::redirect($url,$terminate,$statusCode);
     }
 }

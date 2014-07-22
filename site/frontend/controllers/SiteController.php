@@ -542,7 +542,7 @@ class SiteController extends HController
             $_result = array();
             foreach ($result as $k => $r) {
                 $r['id'] = $k;
-                if ($r['period1'] > 20 && $r['diff'] < -25)
+                if ($r['diff'] < 0)
                     array_push($_result, $r);
             }
 
@@ -553,10 +553,10 @@ class SiteController extends HController
             $dp = new CArrayDataProvider($_result, array(
                 'sort' => array(
                     'attributes' => array('id', 'period1', 'period2', 'diffC', 'diff'),
-                    'defaultOrder' => array('period1'=>true),
+                    'defaultOrder' => array('diffC'=>false),
                 ),
                 'pagination' => array(
-                    'pageSize' => 200,
+                    'pageSize' => 5000,
                 ),
             ));
         }

@@ -16,7 +16,7 @@
         </div><a class="btn-s btn-blue-simple" data-bind="click: uploadPhoto, text: (avatar.imgSrc() === null) ? 'Загрузить' : 'Изменить'"></a>
     </div>
     <div class="popup-sign_col popup-sign_col__vetical-m">
-        <?php $form = $this->beginWidget('CActiveForm', array(
+        <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
             'id' => 'registerFormStep2',
             'action' => array('/signup/register/step2'),
             'enableAjaxValidation' => true,
@@ -241,7 +241,7 @@
                     RegisterFormStep2 : {
                         avatar : {
                             imgSrc : registerVm.avatar.imgSrc(),
-                            coords : registerVm.avatar.coords
+                            coords : registerVm.avatar.coords()
                         }
                     }
                 });

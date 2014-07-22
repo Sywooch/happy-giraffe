@@ -69,11 +69,16 @@ Yii::app()->clientScript
     ->registerScript('routes_waypoints', $waypoints_js, CClientScript::POS_BEGIN)
     ->registerScriptFile($baseUrl . '/routes.js');
 
+$this->breadcrumbs = array(
+    'Интересы и увлечения' => array('/interests-and-hobby'),
+    'Наш автомобиль' => array('/auto'),
+    'Маршруты'
+);
 ?>
 <div class="margin-l-20">
     <div class="col-white padding-20 clearfix">
 
-        <div id="crumbs"><a href="/">Главная</a> &gt; <a href="/auto/">Авто</a> &gt; <span>Маршруты</span></div>
+        <!-- <div id="crumbs"><a href="/">Главная</a> &gt; <a href="/auto/">Авто</a> &gt; <span>Маршруты</span></div> -->
 
         <div class="map-route-search">
             <a href="javascript:;" class="map-route-search_new a-pseudo" onclick="$('form.map-route-search_form').toggle();">Новый маршрут</a>
@@ -178,6 +183,38 @@ Yii::app()->clientScript
             <div class="col-23">
                 <?php $this->renderPartial('//banners/_route'); ?>
                 <?php $this->renderPartial('_transit_points', array('route' => $route, 'texts' => $texts, 'points' => $points)); ?>
+
+                <!--AdFox START-->
+                <!--giraffe-->
+                <!--Площадка: Весёлый Жираф / * / *-->
+                <!--Тип баннера: Безразмерный 680х470-->
+                <!--Расположение: <низ страницы>-->
+                <script type="text/javascript">
+                    <!--
+                    if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+                    if (typeof(document.referrer) != 'undefined') {
+                        if (typeof(afReferrer) == 'undefined') {
+                            afReferrer = escape(document.referrer);
+                        }
+                    } else {
+                        afReferrer = '';
+                    }
+                    var addate = new Date();
+                    var scrheight = '', scrwidth = '';
+                    if (self.screen) {
+                        scrwidth = screen.width;
+                        scrheight = screen.height;
+                    } else if (self.java) {
+                        var jkit = java.awt.Toolkit.getDefaultToolkit();
+                        var scrsize = jkit.getScreenSize();
+                        scrwidth = scrsize.width;
+                        scrheight = scrsize.height;
+                    }
+                    document.write('<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/211012/prepareCode?pp=i&amp;ps=bkqy&amp;p2=evor&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+                    // -->
+                </script>
+                <!--AdFox END-->
+
 
                 <div class="map-route-other" style="display: none;">
 

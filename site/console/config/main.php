@@ -3,7 +3,6 @@ date_default_timezone_set('Europe/Moscow');
 return array(
     'id' => 'happy-giraffe',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'runtimePath' => Yii::getPathOfAlias('site.frontend.runtime'),
     'name' => 'My Console Application',
     'sourceLanguage' => 'en',
     'language' => 'ru',
@@ -15,6 +14,9 @@ return array(
         ),
         'email' => array(
             'class' => 'site.frontend.modules.mail.commands.DefaultCommand',
+        ),
+        'yandex' => array(
+            'class' => '\site\frontend\modules\seo\commands\YandexCommand',
         ),
     ),
     'import' => array(
@@ -41,6 +43,12 @@ return array(
         )
     ),
     'components' => array(
+        'statePersister'=> array(
+            'stateFile' => Yii::getPathOfAlias('site.frontend.runtime') . DIRECTORY_SEPARATOR . 'state.bin',
+        ),
+        'postman' => array(
+            'class' => 'site.frontend.modules.mail.components.MailPostman',
+        ),
         'log' => array(
             'class' => 'CLogRouter',
             'routes' => array(
@@ -60,9 +68,6 @@ return array(
         ),
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
-            'servers' => array(
-                array('host' => '127.0.0.1', 'port' => 4730),
-            ),
         ),
         'request' => array(
             'hostInfo' => 'http://www.happy-giraffe.ru',

@@ -7,8 +7,26 @@
  * To change this template use File | Settings | File Templates.
  */
 
+Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+Yii::import('site.common.models.mongo.HGLike');
+Yii::import('site.common.models.mongo.Favourites');
+Yii::import('site.common.models.mongo.PageView');
+Yii::import('site.frontend.modules.favourites.components.*');
+Yii::import('site.frontend.modules.favourites.models.*');
+Yii::import('site.frontend.modules.friends.components.*');
+Yii::import('site.frontend.modules.friends.models.*');
+Yii::import('site.frontend.modules.messaging.components.*');
+Yii::import('site.frontend.modules.messaging.models.*');
+Yii::import('site.frontend.modules.cook.components.*');
+Yii::import('site.frontend.modules.cook.models.*');
+Yii::import('site.frontend.modules.notifications.components.*');
+Yii::import('site.frontend.modules.notifications.models.base.*');
+Yii::import('site.frontend.modules.notifications.models.*');
+Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
+
 class MailSenderDaily extends MailSender
 {
+    public $type = 'daily';
     protected $debugMode = self::DEBUG_TESTING;
 
     /**
@@ -50,29 +68,6 @@ class MailSenderDaily extends MailSender
     public function __construct($date = null)
     {
         $this->date = ($date === null) ? self::nextDate() : $date;
-
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.common.models.mongo.HGLike');
-        Yii::import('site.common.models.mongo.Favourites');
-        Yii::import('site.common.models.mongo.PageView');
-
-        Yii::import('site.frontend.modules.favourites.components.*');
-        Yii::import('site.frontend.modules.favourites.models.*');
-
-        Yii::import('site.frontend.modules.friends.components.*');
-        Yii::import('site.frontend.modules.friends.models.*');
-
-        Yii::import('site.frontend.modules.messaging.components.*');
-        Yii::import('site.frontend.modules.messaging.models.*');
-
-        Yii::import('site.frontend.modules.cook.components.*');
-        Yii::import('site.frontend.modules.cook.models.*');
-
-        Yii::import('site.frontend.modules.notifications.components.*');
-        Yii::import('site.frontend.modules.notifications.models.base.*');
-        Yii::import('site.frontend.modules.notifications.models.*');
-
-        Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
     }
 
     public static function nextDate()
@@ -127,7 +122,7 @@ class MailSenderDaily extends MailSender
         ));
 
         if (count($this->horoscopes) != 12) {
-            throw new CHttpException('Гороскоп на сегодня заполнен не для всех знаков зодиака');
+            throw new CException('Гороскоп на сегодня заполнен не для всех знаков зодиака');
         }
 
         if (count($this->tomorrowHoroscopes) != 12) {
@@ -142,6 +137,10 @@ class MailSenderDaily extends MailSender
 
     public function process(User $user)
     {
+        if (UserAttributes::get($user->id, 'daily', true) !== true) {
+            return;
+        }
+
         $newMessagesCount = MessagingManager::unreadMessagesCount($user->id);
         $newFriendsCount = FriendRequest::model()->getCountByUserId($user->id);
         $newLikesCount = 0;
@@ -179,7 +178,7 @@ class MailSenderDaily extends MailSender
             'posts' => $this->posts,
         )));
 
-        $this->sendMessage($message);
+        $this->send($message);
     }
 
     protected function setFavourites()

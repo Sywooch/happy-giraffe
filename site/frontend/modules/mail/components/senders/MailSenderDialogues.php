@@ -9,7 +9,8 @@
 
 class MailSenderDialogues extends MailSender
 {
-    public $debugMode = self::DEBUG_TESTING;
+    public $type = 'dialogues';
+    public $debugMode = self::DEBUG_PRODUCTION;
 
     public function __construct()
     {
@@ -19,24 +20,29 @@ class MailSenderDialogues extends MailSender
 
     protected function process(User $user)
     {
-        $lastDelivery = MailDelivery::model()->getLastDelivery($user->id, 'dialogues');
-        $after = $lastDelivery === null ? null : $lastDelivery->created;
+        if (UserAttributes::get($user->id, 'dialogues', true) !== true) {
+            return;
+        }
+
         $messagesCount = MessagingManager::unreadMessagesCount($user->id, array(
             'with' => array(
                 'message' => array(
                     'joinType' => 'INNER JOIN',
                     'scopes' => array(
-                        'newer' => $after,
+                        'newer' => $this->lastDeliveryTimestamp,
+                        'older' => $this->startTime,
                     ),
                 ),
             ),
         ));
 
+        echo $user->id . ' - ' . $messagesCount . "\n";
+
         if ($messagesCount > 0) {
-            $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $after);
-            $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $after);
+            $contacts = ContactsManager::getContactsForDelivery($user->id, 5, $this->lastDeliveryTimestamp, $this->startTime);
+            $contactsCount = ContactsManager::getContactsForDeliveryCount($user->id, $this->lastDeliveryTimestamp, $this->startTime);
             $message = new MailMessageDialogues($user, compact('contacts', 'messagesCount', 'contactsCount'));
-            $this->sendMessage($message);
+            $this->send($message);
         }
     }
 

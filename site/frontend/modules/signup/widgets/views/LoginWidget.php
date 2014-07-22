@@ -6,7 +6,7 @@
 
 <div class="popup-container display-n">
     <div id="loginWidget" class="popup popup-sign">
-        <?php $form = $this->beginWidget('CActiveForm', array(
+        <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
             'id' => 'loginForm',
             'action' => array('/signup/login/default'),
             'enableAjaxValidation' => true,
@@ -80,6 +80,12 @@
 </div>
 
 <script type="text/javascript">
-    loginVm = new LoginWidgetViewModel();
-    ko.applyBindings(loginVm, document.getElementById('loginWidget'));
+    <?php
+    $js = "ko.applyBindings(new LoginWidgetViewModel(), document.getElementById('loginWidget'));";
+    $cs = Yii::app()->clientScript;
+    if($cs->useAMD)
+        $cs->registerAMD('LoginWidgetViewModel', array('ko' => 'knockout', 'ko_registerWidget' => 'ko_registerWidget'), $js);
+    else
+        $cs->registerScript('LoginWidgetViewModel', $js, ClientScript::POS_READY);
+    ?>
 </script>

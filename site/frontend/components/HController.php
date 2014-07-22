@@ -262,7 +262,7 @@ class HController extends CController
     {
         $user = Yii::app()->user->getModel();
 
-        $newNotificationsCount = (int) \site\frontend\modules\notifications\models\Notification::getUnreadCount();
+        $newNotificationsCount = (int) \site\frontend\modules\notifications\models\Notification::getUnreadSum();
         $newMessagesCount = (int) MessagingManager::unreadMessagesCount($user->id);
         $newFriendsCount = (int) FriendRequest::model()->getUserCount($user->id);
         $newPostsCount = 0;//(int) ViewedPost::getInstance()->newPostCount($user->id, SubscribeDataProvider::TYPE_ALL);

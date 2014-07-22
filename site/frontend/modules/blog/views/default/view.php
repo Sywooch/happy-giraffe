@@ -123,7 +123,9 @@ if ($full) {
 <?php endif; ?>
 
 <?php if ($full): ?>
+    <?php $this->beginWidget('AdsWidget'); ?>
     <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
+    <?php $this->endWidget(); ?>
 <?php endif; ?>
 
 <?php if ($full): ?>

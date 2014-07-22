@@ -112,6 +112,8 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionFuckedUpHoroscope()
     {
+        Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
+
         $sql = "
             SELECT COUNT(*) AS c, zodiac, date
             FROM services__horoscope

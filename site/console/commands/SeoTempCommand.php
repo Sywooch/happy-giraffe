@@ -29,6 +29,35 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionReplaceSingleEm()
+    {
+        $result = array();
+        $dp = new CActiveDataProvider('CommunityPost', array(
+            'criteria' => array(
+                'with' => 'content',
+                'condition' => 'content.removed = 0',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $post) {
+            echo $post->id . "\n";
+            if ($dom = str_get_html($post->text)) {
+                $em = $dom->find('em');
+                if (count($em) == 1) {
+                    $el = $em[0];
+                    $el->outertext = '<i>' . $el->innertext . '</i>';
+                    CommunityPost::model()->updateByPk($post->id, array('text' => (string) $dom));
+                    $post->purified->clearCache();
+
+                    $url = $post->content->getUrl(false, true);
+                    $result[] = array($url);
+                    echo $url . "\n";
+                }
+            }
+        }
+        $this->writeCsv('emToI', $result);
+    }
+
     public function actionStrong()
     {
         $patterns = array(
@@ -104,6 +133,65 @@ class SeoTempCommand extends CConsoleCommand
         $fp = fopen($path, 'w');
 
         foreach ($_result as $fields) {
+            fputcsv($fp, $fields);
+        }
+
+        fclose($fp);
+    }
+
+    public function actionFuckedUpHoroscope()
+    {
+        Yii::import('site.frontend.modules.services.modules.horoscope.models.*');
+
+        $sql = "
+            SELECT COUNT(*) AS c, zodiac, date
+            FROM services__horoscope
+            WHERE date != '0000-00-00' AND date IS NOT NULL
+            GROUP BY date
+            HAVING c != 12
+        ";
+
+        $rows = Yii::app()->db->createCommand($sql)->queryAll();
+
+        $result = array();
+        foreach ($rows as $r) {
+            $horoscopes = Horoscope::model()->findAllByAttributes(array(
+                'date' => $r['date'],
+            ), array(
+                'index' => 'zodiac',
+            ));
+            foreach (Horoscope::model()->zodiac_list as $zodiac => $title) {
+                if (! array_key_exists($zodiac, $horoscopes)) {
+                    $result[] = array(
+                        $r['date'],
+                        $title,
+                    );
+                }
+            }
+        }
+
+        $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . 'lol.csv';
+        if (is_file($path)) {
+            unlink($path);
+        }
+        $fp = fopen($path, 'w');
+
+        foreach ($result as $fields) {
+            fputcsv($fp, $fields);
+        }
+
+        fclose($fp);
+    }
+
+    protected function writeCsv($name, $data)
+    {
+        $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . $name . '.csv';
+        if (is_file($path)) {
+            unlink($path);
+        }
+        $fp = fopen($path, 'w');
+
+        foreach ($data as $fields) {
             fputcsv($fp, $fields);
         }
 

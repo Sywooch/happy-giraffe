@@ -142,6 +142,9 @@ return array(
 	),
 	// application components
 	'components'=>array(
+        'ads' => array(
+            'class' => 'Ads',
+        ),
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
         ),

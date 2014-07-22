@@ -14,7 +14,6 @@ class CacheCommand extends CConsoleCommand
         $dp = new CActiveDataProvider('CommunityPost', array(
             'criteria' => array(
                 'condition' => 'id > :id',
-                'params' => array(':id' => 100000),
             ),
         ));
         $iterator = new CDataProviderIterator($dp);
@@ -24,7 +23,6 @@ class CacheCommand extends CConsoleCommand
         $dp = new CActiveDataProvider('Comment', array(
             'criteria' => array(
                 'condition' => 'id > :id',
-                'params' => array(':id' => 1080000),
             ),
         ));
         $iterator = new CDataProviderIterator($dp);

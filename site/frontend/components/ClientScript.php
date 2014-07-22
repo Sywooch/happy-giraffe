@@ -90,7 +90,7 @@ class ClientScript extends CClientScript
         if (!isset($this->scripts[self::POS_HEAD]))
             $this->scripts[self::POS_HEAD] = array();
         $this->scripts[self::POS_HEAD] = array(
-            'amd' => 'require.config(' . CJSON::encode($conf) . ");\n" . $eval . "console.log(" . CJSON::encode($this->amd) . ")",
+            'amd' => 'require.config(' . CJSON::encode($conf) . ");\n" . $eval . " require(['happyDebug'], function(happyDebug) {happyDebug.log('main', 'info', 'RequireJS инициализирован', " . CJSON::encode($this->amd) . ")})",
             ) + $this->scripts[self::POS_HEAD];
     }
 

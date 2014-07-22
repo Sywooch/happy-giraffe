@@ -16,6 +16,7 @@ return array(
             'ko_library' => '/javascripts/ko_library',
             'ko_blog' => '/javascripts/ko_blog',
             'ko_post' => '/javascripts/ko_post',
+            'ko_menu' => '/javascripts/ko_menu',
             'ko_favourites' => '/javascripts/ko_favourites',
             'ko_registerWidget' => '/javascripts/ko_registerWidget',
             'ko_community' => '/javascripts/ko_community',
@@ -103,6 +104,7 @@ return array(
                 'addtocopy',
                 'jquery.placeholder',
                 'jquery.fancybox',
+                'powertip',
             ),
         ),
         'addtocopy' => array(

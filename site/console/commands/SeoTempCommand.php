@@ -32,7 +32,10 @@ class SeoTempCommand extends CConsoleCommand
     public function actionReplaceSingleEm()
     {
         $result = array();
-        $dp = new CActiveDataProvider('CommunityPost');
+        $dp = new CActiveDataProvider('CommunityPost', array(
+            'with' => 'content',
+            'condition' => 'content.removed = 0',
+        ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $post) {
             if ($dom = str_get_html($post->text)) {
@@ -42,11 +45,6 @@ class SeoTempCommand extends CConsoleCommand
                     $el->outertext = '<i>' . $el->innertext . '</i>';
                     CommunityPost::model()->updateByPk($post->id, array('text' => (string) $dom));
                     $post->purified->clearCache();
-
-                    if ($post->content === null) {
-                        echo $post->id . "\n";
-                        continue;
-                    }
 
                     $url = $post->content->getUrl(false, true);
                     $result[] = array($url);

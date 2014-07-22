@@ -109,4 +109,46 @@ class SeoTempCommand extends CConsoleCommand
 
         fclose($fp);
     }
+
+    public function actionFuckedUpHoroscope()
+    {
+        $sql = "
+            SELECT COUNT(*) AS c, zodiac, date
+            FROM services__horoscope
+            WHERE date != '0000-00-00' AND date IS NOT NULL
+            GROUP BY date
+            HAVING c != 12
+        ";
+
+        $rows = Yii::app()->db->createCommand($sql)->queryAll();
+
+        $result = array();
+        foreach ($rows as $r) {
+            $horoscopes = Horoscope::model()->findAllByAttributes(array(
+                'date' => $r['date'],
+            ), array(
+                'index' => 'zodiac',
+            ));
+            foreach (Horoscope::model()->zodiac_list as $zodiac => $title) {
+                if (! array_key_exists($zodiac, $horoscopes)) {
+                    $result[] = array(
+                        $r['date'],
+                        $title,
+                    );
+                }
+            }
+        }
+
+        $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . 'lol.csv';
+        if (is_file($path)) {
+            unlink($path);
+        }
+        $fp = fopen($path, 'w');
+
+        foreach ($result as $fields) {
+            fputcsv($fp, $fields);
+        }
+
+        fclose($fp);
+    }
 } 

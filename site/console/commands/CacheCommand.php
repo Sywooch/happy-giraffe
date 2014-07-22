@@ -34,13 +34,13 @@ class CacheCommand extends CConsoleCommand
 
     public function actionFixCdnImagesTest()
     {
-        $model = CommunityPost::model()->find('content_id = :content_id', array(':content_id' => 94302));
+        $model = CommunityPost::model()->find('content_id = :content_id', array(':content_id' => 187112));
         $this->fix($model);
     }
 
     protected function fix($model)
     {
-        $text = preg_replace('/img(?:\d+).happy-giraffe.ru/', 'img.happy-giraffe.ru', $model->text);
+        $text = str_replace('img.happy-giraffe.cdnvideo.ru', 'img.happy-giraffe.ru', $model->text);
         $model->updateByPk($model->id, array('text' => $text));
     }
 }

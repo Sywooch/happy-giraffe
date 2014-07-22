@@ -35,8 +35,12 @@ class SeoTempCommand extends CConsoleCommand
         $iterator = new CDataProviderIterator($dp);
         foreach ($iterator as $post) {
             if ($dom = str_get_html($post->text)) {
-                if (count($dom->find('em')) == 1) {
-                    echo $post->content->url;
+                $em = $dom->find('em');
+                if (count($em) == 1) {
+                    $el = $em[0];
+                    $el->outertext = '<i>' . $el->innertext . '</i>';
+                    $post->purified->clearCache();
+                    echo $post->content->getUrl(true);
                     die;
                 }
             }

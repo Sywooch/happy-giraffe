@@ -29,6 +29,20 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function replaceSingleEm()
+    {
+        $dp = new CActiveDataProvider('CommunityPost');
+        $iterator = new CDataProviderIterator($dp);
+        foreach ($iterator as $post) {
+            if ($dom = str_get_html($post->text)) {
+                if (count($dom->find('em')) == 1) {
+                    echo $post->content->url;
+                    die;
+                }
+            }
+        }
+    }
+
     public function actionStrong()
     {
         $patterns = array(

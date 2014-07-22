@@ -611,13 +611,13 @@
         };
     };
     if (typeof define === 'function' && define['amd']) {
-        define('ko_library', ['knockout', 'moment'/*, 'wysiwyg'*/], f);
+        define('ko_library', ['knockout', 'moment', 'wysiwyg'], f);
         require(["knockout", "knockout-amd-helpers", "text"], function(ko) {
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
             ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
             ko.amdTemplateEngine.defaultRequireTextPluginName = "text";
         });
     } else {
-        f(window.ko, window.moment);
+        f(window.ko, window.moment, window.hgwysiwyg);
     }
 })(window);

@@ -42,7 +42,7 @@ class SeoTempCommand extends CConsoleCommand
                     $el->outertext = '<i>' . $el->innertext . '</i>';
                     CommunityPost::model()->updateByPk($post->id, array('text' => (string) $dom));
                     $post->purified->clearCache();
-                    $url = $post->content->getUrl(false, true));
+                    $url = $post->content->getUrl(false, true);
                     $result[] = array($url);
                     echo $url . "\n";
                 }

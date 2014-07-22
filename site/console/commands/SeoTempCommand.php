@@ -33,8 +33,10 @@ class SeoTempCommand extends CConsoleCommand
     {
         $result = array();
         $dp = new CActiveDataProvider('CommunityPost', array(
-            'with' => 'content',
-            'condition' => 'content.removed = 0',
+            'criteria' => array(
+                'with' => 'content',
+                'condition' => 'content.removed = 0',
+            ),
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $post) {

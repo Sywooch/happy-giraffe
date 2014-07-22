@@ -8,25 +8,51 @@ return array(
         'waitSeconds' => 0,
         'wrapShim' => false,
         'shim' => array(
+            'AdFox' => array(),
         ),
         'paths' => array(
             'knockout-amd-helpers' => 'knockout-amd-helpers.min',
             'wysiwyg' => '/new/javascript/wysiwyg',
             'ko_library' => '/javascripts/ko_library',
+            'ko_blog' => '/javascripts/ko_blog',
+            'ko_post' => '/javascripts/ko_post',
+            'ko_favourites' => '/javascripts/ko_favourites',
+            'ko_registerWidget' => '/javascripts/ko_registerWidget',
+            'ko_community' => '/javascripts/ko_community',
+            'ko_photoWidget' => '/javascripts/ko_photoWidget',
             'ko_comments' => '/javascripts/comments',
-            'ko_menu' => '/javascripts/ko_menu',
             'moment' => '/javascripts/moment.ru.min',
             'gallery' => '/javascripts/ko_gallery',
             'preload' => '/javascripts/jquery.preload.min',
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
+            'AdFox' => '/javascripts/fox',
         ),
-        /*'eval' => '
-            ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
-            ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
-            ',*/
+    /* 'eval' => '
+      ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
+      ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
+      ', */
     ),
     'packages' => array(
+        'userSettings' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_userSettings.js',
+            ),
+        ),
+        'ko_settings' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/ko_settings.js',
+            ),
+            'depends' => array('knockout', 'userSettings'),
+        ),
+        'touchPunch' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'new/javascript/jquery.ui.touch-punch.min.js',
+            ),
+        ),
         'powertip' => array(
             'baseUrl' => '/',
             'amd' => true,
@@ -41,43 +67,79 @@ return array(
                 'javascripts/base64.js',
             ),
         ),
-		'scrollTo' => array(
+        'scrollTo' => array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
                 'new/javascript/jquery.scrollTo.min.js',
             ),
-			'depends' => array('jquery'),
-		),
-		'scrollEvents' => array(
+            'depends' => array('jquery'),
+        ),
+        'scrollEvents' => array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
                 'new/javascript/scroll-events.js',
             ),
-			'depends' => array('jquery'),
-		),
-		'common' => array(
+            'depends' => array('jquery'),
+        ),
+        'common' => array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
-				'new/javascript/jquery.magnific-popup.js',
+                'new/javascript/jquery.magnific-popup.js',
                 'new/javascript/select2.js',
                 'new/javascript/select2_locale_ru.js',
                 'new/javascript/jquery.tooltipster.js',
                 'new/javascript/common.js',
             ),
-			'depends' => array(
-				'jquery',
-				'scrollTo',
-				'scrollEvents',
-				'comet',
+            'depends' => array(
+                'jquery',
+                'scrollTo',
+                'scrollEvents',
+                'comet',
                 'base64',
-                'baron'
-			),
-		),
+                'baron',
+                'addtocopy',
+                'jquery.placeholder',
+                'jquery.fancybox',
+            ),
+        ),
+        'addtocopy' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/addtocopy.js'
+            ),
+            'depends' => array('jquery'),
+        ),
+        'jquery.fancybox' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery.fancybox-1.3.4.js'
+            ),
+            'depends' => array('jquery'),
+        ),
+        'jquery.placeholder' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery.placeholder.min.js'
+            ),
+            'depends' => array('jquery'),
+        ),
+        'jquery.flydiv' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery.flydiv.js'
+            ),
+            'depends' => array('jquery'),
+        ),
         'jcrop' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/jquery.Jcrop.min.js',
             ),
@@ -94,19 +156,19 @@ return array(
                 'javascripts/comet.js',
             ),
         ),
-		'moment' => array(
-			'baseUrl' => '/',
-			'js' => array(
-				'javascripts/moment.ru.min.js',
-			),
-		),
+        'moment' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/moment.ru.min.js',
+            ),
+        ),
         'ko_library' => array(
             'baseUrl' => '/',
             //'amd' => true,
-			'js' => array(
+            'js' => array(
                 'javascripts/ko_library.js',
             ),
-            'depends' => array( 'knockout', 'moment', 'wysiwyg' ),
+            'depends' => array('knockout', 'moment', 'wysiwyg'),
         ),
         'knockout' => array(
             'baseUrl' => '/',
@@ -128,20 +190,15 @@ return array(
                 'new/javascript/wysiwyg.js',
             ),
             'depends' => array(
+                'jquery',
                 'ko_upload',
                 'redactor',
                 'imagesloaded',
             ),
         ),
-        'baron' => array(
-            'baseUrl' => '/',
-            'amd' => true,
-            'js' => array(
-                'javascripts/baron.js',
-            ),
-        ),
         'history' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/history.js',
             ),
@@ -177,7 +234,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_post.js',
-                //'javascripts/baron.js',
+            //'javascripts/baron.js',
             ),
             'depends' => array('knockout', 'baron', 'ko_favourites', 'ko_upload', 'ko_library'),
         ),
@@ -214,10 +271,10 @@ return array(
         'ko_friends' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_friends.js',
-                'javascripts/ko_friendsSearch.js',
+                'new/javascript/modules/ko_friends.js',
+                'new/javascript/modules/ko_friendsSearch.js',
             ),
-            'depends' => array('knockout', 'ko_library'),
+            'depends' => array('knockout', 'ko_library', 'history2'),
         ),
         'soundmanager' => array(
             'baseUrl' => '/',
@@ -225,7 +282,7 @@ return array(
             'js' => array(
                 'javascripts/soundmanager2.js',
             ),
-            'depends' => array('knockout', 'common', 'comet', 'jquery.ui.widget', 'wysiwyg', 'baron'),
+            'depends' => array('knockout', 'common', 'comet', 'jquery.ui', 'wysiwyg', 'baron'),
         ),
         'ko_favourites' => array(
             'baseUrl' => '/',
@@ -239,7 +296,15 @@ return array(
             'js' => array(
                 'javascripts/ko_family.js',
             ),
-            'depends' => array('knockout', 'jquery.ui.widget', 'ko_library'),
+            'depends' => array('knockout', 'jquery.ui', 'ko_library'),
+        ),
+        'jquery.ui' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery-ui.min.js',
+            ),
+            'depends' => array('jquery'),
         ),
         'jquery.ui.widget' => array(
             'baseUrl' => '/',
@@ -301,17 +366,15 @@ return array(
             'js' => array(
                 'javascripts/ko_registerWidget.js',
             ),
-            'depends' => array('knockout', 'common', 'jcrop', 'ko_upload', 'ko_library'),
+            'depends' => array('jquery', 'knockout', 'common', 'jcrop', 'ko_upload', 'ko_library'),
         ),
         'favouriteWidget' => array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/FavouriteWidget.js',
                 'javascripts/imagesloaded.pkgd.min.js',
-                'javascripts/wysiwyg.js',
-                'new/javascript/wysiwyg.js',
             ),
-            'depends' => array('knockout'),
+            'depends' => array('knockout', 'wysiwyg', 'jquery', 'jquery.flydiv'),
         ),
         'baron' => array(
             'baseUrl' => '/',
@@ -320,6 +383,13 @@ return array(
                 'javascripts/baron.js',
             ),
             'depends' => array('jquery'),
+        ),
+        'vacancy' => array(
+            'baseUrl' => '/',
+            'js' => array(
+                'javascripts/vacancy.js',
+            ),
+            'depends' => array('ko_upload'),
         ),
     )
 );

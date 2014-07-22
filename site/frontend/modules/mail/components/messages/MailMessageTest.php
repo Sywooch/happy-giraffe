@@ -1,10 +1,9 @@
 <?php
 /**
- * Created by JetBrains PhpStorm.
+ * Created by PhpStorm.
  * User: mikita
- * Date: 15/04/14
- * Time: 17:46
- * To change this template use File | Settings | File Templates.
+ * Date: 16/06/14
+ * Time: 10:43
  */
 
 class MailMessageTest extends MailMessage
@@ -13,6 +12,6 @@ class MailMessageTest extends MailMessage
 
     public function getSubject()
     {
-        return 'Тестовый заголовок';
+        return 'Тестовое сообщение';
     }
-}
+} 

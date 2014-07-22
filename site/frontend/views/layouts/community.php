@@ -1,6 +1,4 @@
 <?php
-Yii::app()->clientScript->registerPackage('ko_community');
-
 $this->beginContent('//layouts/main'); ?>
 <div class="b-section">
     <div class="b-section_hold">
@@ -43,11 +41,22 @@ $this->beginContent('//layouts/main'); ?>
 <div class="content-cols clearfix">
     <?=$content ?>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        vm = new CommunitySubscription(<?=CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id))?>, <?=$this->club->id ?>, <?=(int)UserClubSubscription::model()->getSubscribersCount($this->club->id) ?>);
+    <?php
+    $json = CJSON::encode(UserClubSubscription::subscribed(Yii::app()->user->id, $this->club->id));
+    $count = (int)UserClubSubscription::model()->getSubscribersCount($this->club->id);
+    $cs = Yii::app()->clientScript;
+    $js = <<<JS
+        vm = new CommunitySubscription($json, {$this->club->id}, $count);
         $(".js-community-subscription").each(function(index, el) {ko.applyBindings(vm, el)});
-    });
-</script>
+JS;
+    if ($cs->useAMD)
+    {
+        $cs->registerAMD('CommunitySubscription', array('ko' => 'knockout', 'CommunitySubscription' => 'ko_community'), $js);
+    }
+    else
+    {
+        $cs->registerPackage('ko_community');
+        $cs->registerScript('CommunitySubscription', $js);
+    }
+    ?>
 <?php $this->endContent(); ?>

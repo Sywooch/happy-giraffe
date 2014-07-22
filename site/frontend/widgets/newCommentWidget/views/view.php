@@ -64,7 +64,7 @@ $data = array(
                 </span>
             </div>
             <div class="comments-gray_frame">
-                <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" onfocus="$('[href=#login]').trigger('click')">
+                <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" onfocus="$('[href=#loginWidget]').trigger('click')">
             </div>
         </div>
     <?php endif ?>
@@ -241,14 +241,19 @@ $data = array(
     <!-- /ko -->
 </div>
 <!-- /ko -->
-
-    <script type="text/javascript">
-        $(function() {
-            var viewModel = new CommentViewModel(<?=CJSON::encode($data)?>);
-            $('.'+'<?=$this->objectName ?>').each(function(index, el) {
-                ko.applyBindings(viewModel, el);
-            });
-        });
-    </script>
+<?php
+$json = CJSON::encode($data);
+$js = <<<JS
+    var viewModel = new CommentViewModel($json);
+    $('.'+'{$this->objectName}').each(function(index, el) {
+        ko.applyBindings(viewModel, el);
+    });
+JS;
+$cs = Yii::app()->clientScript;
+if ($cs->useAMD)
+    $cs->registerAMD('CommentViewModel', array('$' => 'jquery', 'ko' => 'knockout', 'ko_comments' => 'ko_comments'), $js);
+else
+    $cs->registerScript('CommentViewModel', $js, ClientScript::POS_LOAD);
+?>
 
 <?php //if (Yii::app()->user->isGuest) $this->endCache();} ?>

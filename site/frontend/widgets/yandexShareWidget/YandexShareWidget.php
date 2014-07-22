@@ -10,18 +10,46 @@
 class YandexShareWidget extends CWidget
 {
     /**
-     * @var CommunityContent
+     * @var HActiveRecord|IPreview
      */
     public $model;
 
+    public $title;
+    public $description;
+    public $imageUrl;
+    public $url;
+
+    private $_id;
+
+    public function init()
+    {
+        if ($this->title === null) {
+            $this->title = $this->getTitle();
+        }
+
+        if ($this->description === null) {
+            $this->description = $this->getDescription();
+        }
+
+        if ($this->imageUrl === null) {
+            $this->imageUrl = $this->getImageUrl();
+        }
+
+        if ($this->url === null) {
+            $this->url = $this->getUrl();
+        }
+    }
+
     public function run()
     {
-        $this->registerScript();
+        $this->registerMeta();
         $json = CJSON::encode(array(
             'element' => $this->getElementId(),
             'theme' => 'counter',
             'elementStyle' => array(
+                'type' => 'small',
                 'quickServices' => array(
+                    'yaru',
                     'vkontakte',
                     'odnoklassniki',
                     'facebook',
@@ -30,43 +58,83 @@ class YandexShareWidget extends CWidget
                     'gplus',
                 ),
             ),
-            'link' => $this->model->getUrl(false, true),
-            'title' => $this->model->title,
-            'description' => $this->model->getContentText(),
-            'image' => $this->getImage(),
+            'link' => $this->url,
+            'description' => $this->description,
+            'image' => $this->imageUrl,
         ));
+        $this->registerScript($json);
         $this->render('view', compact('json'));
-    }
-
-    public function getDefaultImage()
-    {
-        return Yii::app()->request->hostInfo . '/new/images/base/logo.png';
     }
 
     public function getElementId()
     {
-        return 'ya_share' . $this->model->id;
+        if ($this->_id === null) {
+            $this->_id = 'ya_share_' . md5(get_class($this->model) . $this->model->primaryKey);
+        }
+        return $this->_id;
     }
 
-    public function registerScript()
+    protected function registerScript($json)
     {
         /** @var ClientScript $cs */
         $cs = Yii::app()->clientScript;
-        $cs->registerScriptFile('//yandex.st/share/share.js', null, array(
-            'charset' => 'utf-8',
-        ));
+        if ($cs->useAMD)
+        {
+            $cs->amd['shim']['ya.share'] = array('exports' => 'Ya');
+            $cs->amd['paths']['ya.share'] = '//yandex.st/share/share';
+            $cs->registerAMD('YandexShare#' . $this->id, array('Ya' => 'ya.share'), "new Ya.share(" . $json . ");");
+        }
+        else
+        {
+            $cs->registerScriptFile('//yandex.st/share/share.js', null, array(
+                'charset' => 'utf-8',
+            ));
+            $cs->registerScript('YandexShare#' . $this->id, "new Ya.share(" . $json . ");", ClientScript::POS_LOAD);
+        }
     }
 
-    protected function getImage()
+    protected function registerMeta()
     {
-        $photo = $this->model->getPhoto();
-        $avatar = $this->model->author->getAvatarUrl(200);
-        if ($photo !== null) {
-            return $photo->getOriginalUrl();
-        } elseif ($avatar !== false) {
-            return $avatar;
-        } else {
+        /** @var ClientScript $cs */
+        $cs = Yii::app()->clientScript;
+        $cs->registerMetaTag($this->title, null, null, array('property' => 'og:title'));
+        $cs->registerMetaTag($this->url, null, null, array('property' => 'og:url'));
+        $cs->registerMetaTag($this->imageUrl, null, null, array('property' => 'og:image'));
+        $cs->registerMetaTag($this->description, null, null, array('property' => 'og:description'));
+    }
+
+    protected function getDefaultImage()
+    {
+        return Yii::app()->request->hostInfo . '/new/images/external/vg-150-x-150.png';
+    }
+
+    protected function getTitle()
+    {
+        return Yii::app()->controller->pageTitle;
+    }
+
+    protected function getUrl()
+    {
+        return Yii::app()->createAbsoluteUrl(Yii::app()->request->url);
+    }
+
+    protected function getImageUrl()
+    {
+        $photo = $this->model->getPreviewPhoto();
+
+        if ($photo === null) {
             return $this->getDefaultImage();
+        } elseif ($photo instanceof AlbumPhoto) {
+            return $photo->getPreviewUrl(800, null, Image::WIDTH);
+        } else {
+            return $photo;
         }
+
+    }
+
+    protected function getDescription()
+    {
+        $description = $this->model->getPreviewText();
+        return (strlen($description) > 0) ? Str::getDescription($description, 128) : $this->title;
     }
 }

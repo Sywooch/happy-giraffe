@@ -31,6 +31,18 @@
                     'linkOptions' => array('class' => 'nav-hor_i'),
                     'active' => (Yii::app()->controller->action->id == 'email')
                 ),
+                array(
+                    'label' => '<span class="nav-hor_tx"><span class="ico-best ico-best__mail"></span>Посты в рассылку</span>',
+                    'url' => array('/best/default/email'),
+                    'linkOptions' => array('class' => 'nav-hor_i'),
+                    'active' => (Yii::app()->controller->action->id == 'email')
+                ),
+                array(
+                    'label' => '<span class="nav-hor_tx"><span class="ico-best ico-best__mail"></span>Посты в рассылку (new)</span>',
+                    'url' => 'http://www.happy-giraffe.ru/mail/default/daily',
+                    'linkOptions' => array('class' => 'nav-hor_i', 'target' => '_blank'),
+                    'active' => (Yii::app()->controller->action->id == 'email'),
+                ),
             ),
         ));?>
     </div>

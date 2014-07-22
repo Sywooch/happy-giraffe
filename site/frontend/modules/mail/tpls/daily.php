@@ -34,11 +34,11 @@
                                     <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="1" width="25" border="0" />
                                 </td>
                                 <td>
-                                    <!-  BEGIN TEMPLATE // -->
+                                    <!--  BEGIN TEMPLATE // -->
                                     <table border="0" cellpadding="0" cellspacing="0" width="660px" style="background: #fff;">
                                         <tr>
                                             <td align="center" valign="top">
-                                                <!-  BEGIN HEADER // -->
+                                                <!--  BEGIN HEADER // -->
                                                 <table border="0" cellpadding="0" cellspacing="0" width="100%" >
                                                     <tr>
                                                         <td  height="17">
@@ -58,7 +58,7 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <!-  // END HEADER -->
+                                                <!--  // END HEADER -->
                                             </td>
                                         </tr>
                                         
@@ -192,7 +192,7 @@
                                         </tr>
                                         <tr>
                                             <td align="center" valign="top">
-                                                <!-  BEGIN FOOTER // -->
+                                                <!--  BEGIN FOOTER // -->
                                                 <table border="0" cellpadding="0" cellspacing="0" width="100%" >
                                                     <tr>
                                                         <td style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;padding-bottom:17px;">
@@ -216,11 +216,11 @@
                                                         </td>
                                                     </tr>
                                                 </table>
-                                                <!-  // END FOOTER -->
+                                                <!--  // END FOOTER -->
                                             </td>
                                         </tr>
                                     </table>
-                                    <!-  // END TEMPLATE -->
+                                    <!--  // END TEMPLATE -->
                                 </td>
                                 <td width="25">
                                     <img src="<?php echo Yii::app()->request->hostInfo; ?>/images/mail/blank.gif" height="1" width="25" border="0" />

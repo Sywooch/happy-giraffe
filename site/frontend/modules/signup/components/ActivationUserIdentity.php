@@ -18,7 +18,7 @@ class ActivationUserIdentity extends CBaseUserIdentity
     public function authenticate()
     {
         /** @var User $model */
-        $model = User::model()->findByAttributes(array(
+        $model = User::model()->active()->findByAttributes(array(
             'activation_code' => $this->activationCode,
         ));
         if ($model === null) {

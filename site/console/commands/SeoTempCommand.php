@@ -39,6 +39,7 @@ class SeoTempCommand extends CConsoleCommand
                 if (count($em) == 1) {
                     $el = $em[0];
                     $el->outertext = '<i>' . $el->innertext . '</i>';
+                    CommunityPost::model()->updateByPk($post->id, array('text' => (string) $dom));
                     $post->purified->clearCache();
                     echo $post->content->getUrl(true);
                     die;

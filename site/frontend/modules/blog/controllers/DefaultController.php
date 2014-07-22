@@ -443,7 +443,7 @@ class DefaultController extends HController
             ->from('community__contents c')
             ->join('community__rubrics r', 'c.rubric_id = r.id')
             ->join('community__content_types ct', 'c.type_id = ct.id')
-            ->where('r.user_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
+            ->where('r.user_id IS NOT NULL AND c.type_id != :morning AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)', array(':morning' => CommunityContent::TYPE_MORNING))
             ->limit(50000)
             ->offset(($param - 1) * 50000)
             ->order('c.id ASC')

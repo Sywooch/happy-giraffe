@@ -43,13 +43,9 @@ class DecorController extends HController
 
         $data = array();
         foreach ($models as $model) {
-            $photo = AlbumPhoto::model()->findByPk($model['photo_id']);
             $data[] = array(
                 'params' => array(
                     'id' => 'photo'.$model['photo_id'],
-                ),
-                'image:image'=>array(
-                    'image:loc'=>$photo->getPreviewUrl(960, 627, Image::HEIGHT, true)
                 ),
                 'changefreq' => 'weekly'
             );

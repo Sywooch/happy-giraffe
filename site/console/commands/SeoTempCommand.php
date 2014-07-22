@@ -29,7 +29,7 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
-    public function replaceSingleEm()
+    public function actionReplaceSingleEm()
     {
         $dp = new CActiveDataProvider('CommunityPost');
         $iterator = new CDataProviderIterator($dp);

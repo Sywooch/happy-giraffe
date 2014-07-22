@@ -1,0 +1,83 @@
+
+//- Большой аватар с кнопками пользователя
+    mod
+    vars 
+        userOnline
+        userNameTx
+        userAge
+        capUserDel
+        icoFriend
+        icoFriendAdd
+        locationTx
+        family
+mixin b-ava-large(mod, vars)
+    // b-ava-large
+    .b-ava-large(class=mod)
+        .b-ava-large_ava-hold.clearfix
+            +ava("ava__large ava__male", vars.avaVars)
+            // - if (vars.userOnline)
+                span.b-ava-large_online На сайте
+            a.b-ava-large_bubble.b-ava-large_bubble__dialog(href='', title='Начать диалог')
+                span.b-ava-large_ico.b-ava-large_ico__mail
+                span.b-ava-large_bubble-tx
+            a.b-ava-large_bubble.b-ava-large_bubble__photo(href='', title='Фотографии')
+                span.b-ava-large_ico.b-ava-large_ico__photo
+                span.b-ava-large_bubble-tx 50
+            a.b-ava-large_bubble.b-ava-large_bubble__blog(href='', title='Записи в блоге')
+                span.b-ava-large_ico.b-ava-large_ico__blog
+                span.b-ava-large_bubble-tx 999
+            //- if (vars.icoFriend)
+                a.b-ava-large_bubble.b-ava-large_bubble__friend(href='', title='Друг')
+                    span.b-ava-large_ico.b-ava-large_ico__friend
+                    span.b-ava-large_bubble-tx Друг
+            // - if (vars.icoFriendAdd)
+                a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
+                    span.b-ava-large_ico.b-ava-large_ico__friend-add
+                    span.b-ava-large_bubble-tx 
+        .textalign-c
+            a.b-ava-large_a(href='') 
+                = vars.userNameTx 
+            span.b-ava-large_age
+                = vars.userAge 
+        - if (vars.locationTx)
+            .location.location__small.clearfix
+                .flag.flag-ru(title='Россия')
+                span.location_tx 
+                    = vars.locationTx
+        - if (vars.family)
+            +bFamily('', vars.family)
+            //- /b-family
+    // /b-ava-large
+
+//- Варианты переменных для b-ava-large
+- var bAvaLarge = {}
+// a
+- bAvaLarge.a = {}
+- bAvaLarge.a.avaVars = ava.a
+- bAvaLarge.a.userOnline = false
+- bAvaLarge.a.delFreind = true
+- bAvaLarge.a.icoFriend = true
+- bAvaLarge.a.userNameTx = 'Александр Богоявленский'
+- bAvaLarge.a.userAge = '42 года'
+- bAvaLarge.a.family = bFamily.f5
+- bAvaLarge.a.locationTx = 'Казахстан, Переславль-Залесский, Астраханская область'
+// b
+- bAvaLarge.b = {}
+- bAvaLarge.b.avaVars = ava.a
+- bAvaLarge.b.userOnline = false
+- bAvaLarge.b.delFreind = true
+- bAvaLarge.b.icoFriend = true
+- bAvaLarge.b.userNameTx = 'Александр Житейский'
+- bAvaLarge.b.userAge = '22 года'
+- bAvaLarge.b.family = bFamily.f3
+- bAvaLarge.b.locationTx = 'Россия, Переславль-Залесский, Астраханская область'
+// c
+- bAvaLarge.c = {}
+- bAvaLarge.c.avaVars = ava.b
+- bAvaLarge.c.userOnline = false
+- bAvaLarge.c.delFreind = true
+- bAvaLarge.c.icoFriend = true
+- bAvaLarge.c.userNameTx = 'Александрa Житейская'
+- bAvaLarge.c.userAge = ''
+- bAvaLarge.c.family = bFamily.f2
+- bAvaLarge.c.locationTx = 'Россия, Переславль-Залесский, Астраханская область'

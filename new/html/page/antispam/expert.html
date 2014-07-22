@@ -1,260 +1,262 @@
-<!DOCTYPE html>
-<html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Happy Giraffe</title>
-    <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-    <!-- including other jade works-->
-    <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
-    <!--+scripts(path)-->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script>
-      window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
-      
-    </script>
-    <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
-    <script src="/new/javascript/jquery.tooltipster.js"></script>
-    <script src="/new/javascript/jquery.magnific-popup.js"></script>
-    <script src="/new/javascript/baron.js"></script>
-    <script src="/new/javascript/select2.js"></script>
-    <script src="/new/redactor/redactor.js"></script>
-    <script src="/new/javascript/jquery.Jcrop.js"></script>
-    <script src="/new/javascript/common.js"></script>
-    <script src="/new/javascript/common-markup.js"></script>
-    <script src="//localhost:35729/livereload.js"></script>
-  </head>
-  <body class="body">
-    <div class="layout-container">
-      <div class="layout-header">
-        <!-- header-fix-->
-        <script>
-          $(document).ready(function () {
-              $(window).on('scroll',function () {
-                  var contanerScroll = $(window).scrollTop();
-                  var header = $('.layout-header');
-                  console.log(header.height());
-                  if (contanerScroll > header.height() + header.offset().top) {
-                      $('.header-fix').fadeIn(400);
-                  } else {
-                      $('.header-fix').fadeOut(400);
-                  }
-              });
-          });
-        </script>
-        <div class="header-fix">
-          <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
-            <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span><span class="header_i-arrow"></span></a>
-              <!-- header-drop-->
-              <div class="header-drop">
-                <div class="header-menu clearfix">
-                  <ul class="header-menu_ul">
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></span></span><span class="header-menu_tx">Анкета</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
-                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+<!DOCTYPE html><!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
+<!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<!-- a-->
+<!-- b-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title>
+  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
+  <!-- including other jade works-->
+  <!-- ie8 -->
+  <!--+scripts(path)-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    
+  </script>
+  <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <script src="/new/javascript/baron.js"></script>
+  <script src="/new/javascript/select2.js"></script>
+  <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <script src="/new/javascript/common.js"></script>
+  <script src="/new/javascript/common-markup.js"></script>
+  <script src="//localhost:35729/livereload.js"></script>
+</head>
+<body class="body">
+  <div class="layout-container">
+    <div class="layout-header">
+      <!-- header-fix-->
+      <script>
+        $(document).ready(function () {
+            $(window).on('scroll',function () {
+                var contanerScroll = $(window).scrollTop();
+                var header = $('.layout-header');
+                console.log(header.height());
+                if (contanerScroll > header.height() + header.offset().top) {
+                    $('.header-fix').fadeIn(400);
+                } else {
+                    $('.header-fix').fadeOut(400);
+                }
+            });
+        });
+      </script>
+      <div class="header-fix">
+        <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
+          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+            <!-- header-drop-->
+            <div class="header-drop">
+              <div class="header-menu clearfix">
+                <ul class="header-menu_ul">
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                </ul>
+              </div>
+              <!-- header-drop_b-->
+              <div class="header-drop_b">
+                <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                <div class="club-list club-list__small clearfix">
+                  <ul class="club-list_ul clearfix">
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
                   </ul>
                 </div>
-                <!-- header-drop_b-->
-                <div class="header-drop_b">
-                  <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
-                  <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
-                  <div class="club-list club-list__small clearfix">
-                    <ul class="club-list_ul clearfix">
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"/></span></a></li>
-                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"/></span></a></li>
+              </div>
+              <!-- /header-drop_b-->
+            </div>
+            <!-- /header-drop -->
+          </div>
+          <div class="header-fix-menu">
+            <ul class="header-menu_ul clearfix">
+              <!-- li.header-fix-menu_li
+              a.header-fix-menu_a(href='')
+                  span.header-fix-menu_tx прямой эфир
+              -->
+              <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /header-fix-->
+      <!-- header-->
+      <div class="header header__small">
+        <div class="header_hold clearfix">
+          <!-- logo__small-->
+          <div class="logo logo__small"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a></div>
+          <div class="header_t-big">Модератор</div>
+          <div class="header_user"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a><a class="header_user-name">Александр Богоявленский</a>
+          </div>
+        </div>
+      </div>
+      <!-- /header-->
+    </div>
+    <div class="layout-wrapper">
+      <div class="layout-wrapper_frame clearfix">
+        <!-- side-menu-->
+        <div class="side-menu side-menu__antispam">
+          <div class="side-menu_hold">
+            <div class="side-menu_t side-menu_t__moderator"></div>
+            <ul class="side-menu_ul">
+              <li class="side-menu_li"><a href="" class="side-menu_i side-menu_i__find"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__broadcast"></span><span class="side-menu_tx">Прямой эфир</span></span></a></li>
+              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__expert"></span><span class="side-menu_tx">Эксперт</span><span class="side-menu_count">15</span></span><span class="verticalalign-m-help"></span></a></li>
+              <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__deleted"></span><span class="side-menu_tx">Удалено</span><span class="side-menu_count-sub">59</span></span><span class="verticalalign-m-help"></span></a></li>
+              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__question"></span><span class="side-menu_tx">Под вопросом</span><span class="side-menu_count-sub">7895</span></span><span class="verticalalign-m-help"></span></a></li>
+              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-white"></span><span class="side-menu_tx">Белый список</span><span class="side-menu_count-sub">7895</span></span><span class="verticalalign-m-help"></span></a></li>
+              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-black"></span><span class="side-menu_tx">Черный список</span><span class="side-menu_count-sub">456</span></span><span class="verticalalign-m-help"></span></a></li>
+              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-block"></span><span class="side-menu_tx">Блок</span><span class="side-menu_count-sub">456</span></span><span class="verticalalign-m-help"></span></a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- /side-menu-->
+        <div class="page-col">
+          <div class="page-col_top">
+            <div class="page-col_t">
+              <div class="page-col_t-tx">Белый список 256</div>
+            </div>
+          </div>
+          <div class="page-col_cont page-col_cont__gray">
+            <!-- antispam-->
+            <div class="antispam">
+              <div class="antispam-user antispam-user__expert">
+                <ul class="antispam-user_ul">
+                  <!-- Количество участников на одной странице определяет программист-->
+                  <!-- antispam-user_li-->
+                  <li class="antispam-user_li">
+                    <div class="antispam-user_hold">
+                      <div class="b-user b-user__w300 b-user__va-m">
+                        <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        </div>
+                        <div class="b-user_hold">
+                          <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
+                        </div>
+                      </div>
+                      <div class="antispam-user_date">Сегодня  23:15</div>
+                      <div class="antispam-user_post-ico antispam-user_post-ico__msg"></div>
+                      <div class="antispam-user_count">
+                        <div class="antispam-user_count-big">35 за 05:32</div>
+                        <div class="antispam-user_count-s">10 за 05:00</div>
+                      </div>
+                      <div class="verticalalign-el">
+                        <div class="margin-b5"><a class="btn-green btn-m">
+                            <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- /antispam-user_li-->
+                  <!-- antispam-user_li-->
+                  <li class="antispam-user_li">
+                    <div class="antispam-user_hold">
+                      <div class="b-user b-user__w300 b-user__va-m">
+                        <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        </div>
+                        <div class="b-user_hold">
+                          <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
+                        </div>
+                      </div>
+                      <div class="antispam-user_date">Сегодня  23:15</div>
+                      <div class="antispam-user_post-ico antispam-user_post-ico__photo"></div>
+                      <div class="antispam-user_count">
+                        <div class="antispam-user_count-big">35 за 05:32</div>
+                        <div class="antispam-user_count-s">10 за 05:00</div>
+                      </div>
+                      <div class="verticalalign-el">
+                        <div class="margin-b5"><a class="btn-green btn-m">
+                            <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- /antispam-user_li-->
+                  <!-- antispam-user_li-->
+                  <li class="antispam-user_li">
+                    <div class="antispam-user_hold">
+                      <div class="b-user b-user__w300 b-user__va-m">
+                        <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        </div>
+                        <div class="b-user_hold">
+                          <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
+                        </div>
+                      </div>
+                      <div class="antispam-user_date">Сегодня  23:15</div>
+                      <div class="antispam-user_post-ico antispam-user_post-ico__blog"></div>
+                      <div class="antispam-user_count">
+                        <div class="antispam-user_count-big">35 за 05:32</div>
+                        <div class="antispam-user_count-s">10 за 05:00</div>
+                      </div>
+                      <div class="verticalalign-el">
+                        <div class="margin-b5"><a class="btn-green btn-m">
+                            <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
+                      </div>
+                    </div>
+                  </li>
+                  <!-- /antispam-user_li-->
+                  <!-- antispam-user_li-->
+                  <li class="antispam-user_li">
+                    <div class="antispam-user_hold">
+                      <div class="b-user b-user__w300 b-user__va-m">
+                        <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        </div>
+                        <div class="b-user_hold">
+                          <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
+                        </div>
+                      </div>
+                      <div class="antispam-user_date">Сегодня  23:15</div>
+                      <div class="antispam-user_post-ico antispam-user_post-ico__new"></div>
+                      <div class="antispam-user_count">
+                        <div class="antispam-user_count-big">35 за 05:32</div>
+                        <div class="antispam-user_count-s">10 за 05:00</div>
+                      </div>
+                      <div class="verticalalign-el">
+                        <div class="margin-b5"><a class="btn-green btn-m">
+                            <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+                <!-- paginator-->
+                <div class="yiipagination">
+                  <div class="pager">
+                    <ul class="yiiPager">
+                      <li class="page"><a href="">1</a></li>
+                      <li class="page"><a href="">2</a></li>
+                      <li class="page selected"><a href="">3</a></li>
+                      <li class="page"><a href="">4</a></li>
+                      <li class="page"><a href="">5</a></li>
+                      <li class="page"><a href="">6</a></li>
+                      <li class="page"><a href="">7</a></li>
+                      <li class="page"><a href="">8</a></li>
+                      <li class="page"><a href="">9</a></li>
+                      <li class="page"><a href="">10</a></li>
                     </ul>
                   </div>
                 </div>
-                <!-- /header-drop_b-->
-              </div>
-              <!-- /header-drop -->
-            </div>
-            <div class="header-fix-menu">
-              <ul class="header-menu_ul clearfix">
-                <!-- li.header-fix-menu_li
-                a.header-fix-menu_a(href='')
-                    span.header-fix-menu_tx прямой эфир
-                -->
-                <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
-                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- /header-fix-->
-        <!-- header-->
-        <div class="header header__small">
-          <div class="header_hold clearfix">
-            <!-- logo__small-->
-            <div class="logo logo__small"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a></div>
-            <div class="header_t-big">Модератор</div>
-            <div class="header_user"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a><a class="header_user-name">Александр Богоявленский</a>
-            </div>
-          </div>
-        </div>
-        <!-- /header-->
-      </div>
-      <div class="layout-wrapper">
-        <div class="layout-wrapper_frame clearfix">
-          <!-- side-menu-->
-          <div class="side-menu side-menu__antispam">
-            <div class="side-menu_hold">
-              <div class="side-menu_t side-menu_t__moderator"></div>
-              <ul class="side-menu_ul">
-                <li class="side-menu_li"><a href="" class="side-menu_i side-menu_i__find"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__broadcast"></span><span class="side-menu_tx">Прямой эфир</span></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__expert"></span><span class="side-menu_tx">Эксперт</span><span class="side-menu_count">15</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__deleted"></span><span class="side-menu_tx">Удалено</span><span class="side-menu_count-sub">59</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__question"></span><span class="side-menu_tx">Под вопросом</span><span class="side-menu_count-sub">7895</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-white"></span><span class="side-menu_tx">Белый список</span><span class="side-menu_count-sub">7895</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-black"></span><span class="side-menu_tx">Черный список</span><span class="side-menu_count-sub">456</span></span><span class="verticalalign-m-help"></span></a></li>
-                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-block"></span><span class="side-menu_tx">Блок</span><span class="side-menu_count-sub">456</span></span><span class="verticalalign-m-help"></span></a></li>
-              </ul>
-            </div>
-          </div>
-          <!-- /side-menu-->
-          <div class="page-col">
-            <div class="page-col_top">
-              <div class="page-col_t">
-                <div class="page-col_t-tx">Белый список 256</div>
+                <!-- /paginator-->
               </div>
             </div>
-            <div class="page-col_cont page-col_cont__gray">
-              <!-- antispam-->
-              <div class="antispam">
-                <div class="antispam-user antispam-user__expert">
-                  <ul class="antispam-user_ul">
-                    <!-- Количество участников на одной странице определяет программист-->
-                    <!-- antispam-user_li-->
-                    <li class="antispam-user_li">
-                      <div class="antispam-user_hold">
-                        <div class="b-user b-user__w300 b-user__va-m">
-                          <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                          </div>
-                          <div class="b-user_hold">
-                            <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
-                          </div>
-                        </div>
-                        <div class="antispam-user_date">Сегодня  23:15</div>
-                        <div class="antispam-user_post-ico antispam-user_post-ico__msg"></div>
-                        <div class="antispam-user_count">
-                          <div class="antispam-user_count-big">35 за 05:32</div>
-                          <div class="antispam-user_count-s">10 за 05:00</div>
-                        </div>
-                        <div class="verticalalign-m-el">
-                          <div class="margin-b5"><a class="btn-green btn-m">
-                              <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
-                        </div>
-                      </div>
-                    </li>
-                    <!-- /antispam-user_li-->
-                    <!-- antispam-user_li-->
-                    <li class="antispam-user_li">
-                      <div class="antispam-user_hold">
-                        <div class="b-user b-user__w300 b-user__va-m">
-                          <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                          </div>
-                          <div class="b-user_hold">
-                            <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
-                          </div>
-                        </div>
-                        <div class="antispam-user_date">Сегодня  23:15</div>
-                        <div class="antispam-user_post-ico antispam-user_post-ico__photo"></div>
-                        <div class="antispam-user_count">
-                          <div class="antispam-user_count-big">35 за 05:32</div>
-                          <div class="antispam-user_count-s">10 за 05:00</div>
-                        </div>
-                        <div class="verticalalign-m-el">
-                          <div class="margin-b5"><a class="btn-green btn-m">
-                              <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
-                        </div>
-                      </div>
-                    </li>
-                    <!-- /antispam-user_li-->
-                    <!-- antispam-user_li-->
-                    <li class="antispam-user_li">
-                      <div class="antispam-user_hold">
-                        <div class="b-user b-user__w300 b-user__va-m">
-                          <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                          </div>
-                          <div class="b-user_hold">
-                            <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
-                          </div>
-                        </div>
-                        <div class="antispam-user_date">Сегодня  23:15</div>
-                        <div class="antispam-user_post-ico antispam-user_post-ico__blog"></div>
-                        <div class="antispam-user_count">
-                          <div class="antispam-user_count-big">35 за 05:32</div>
-                          <div class="antispam-user_count-s">10 за 05:00</div>
-                        </div>
-                        <div class="verticalalign-m-el">
-                          <div class="margin-b5"><a class="btn-green btn-m">
-                              <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
-                        </div>
-                      </div>
-                    </li>
-                    <!-- /antispam-user_li-->
-                    <!-- antispam-user_li-->
-                    <li class="antispam-user_li">
-                      <div class="antispam-user_hold">
-                        <div class="b-user b-user__w300 b-user__va-m">
-                          <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"/></a>
-                          </div>
-                          <div class="b-user_hold">
-                            <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
-                          </div>
-                        </div>
-                        <div class="antispam-user_date">Сегодня  23:15</div>
-                        <div class="antispam-user_post-ico antispam-user_post-ico__new"></div>
-                        <div class="antispam-user_count">
-                          <div class="antispam-user_count-big">35 за 05:32</div>
-                          <div class="antispam-user_count-s">10 за 05:00</div>
-                        </div>
-                        <div class="verticalalign-m-el">
-                          <div class="margin-b5"><a class="btn-green btn-m">
-                              <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                  <!-- paginator-->
-                  <div class="yiipagination">
-                    <div class="pager">
-                      <ul class="yiiPager">
-                        <li class="page"><a href="">1</a></li>
-                        <li class="page"><a href="">2</a></li>
-                        <li class="page selected"><a href="">3</a></li>
-                        <li class="page"><a href="">4</a></li>
-                        <li class="page"><a href="">5</a></li>
-                        <li class="page"><a href="">6</a></li>
-                        <li class="page"><a href="">7</a></li>
-                        <li class="page"><a href="">8</a></li>
-                        <li class="page"><a href="">9</a></li>
-                        <li class="page"><a href="">10</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                  <!-- /paginator-->
-                </div>
-              </div>
-              <!-- /antispam-->
-            </div>
+            <!-- /antispam-->
           </div>
         </div>
       </div>
     </div>
-    <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
-    <div class="popup-container display-n"> 
-    </div>
-  </body>
-</html>
+  </div>
+  <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

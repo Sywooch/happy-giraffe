@@ -184,7 +184,9 @@ $(window).resize(function () {
 	</div>
 
 		<div id="photo-window_banner" class="photo-window_banner clearfix">
-			<img src="/images/example/w300-h250.jpg" alt="">
+			<div class="display-ib">
+				<img src="/images/banners/9.jpg" alt="">
+			</div>
 		</div>
 	</div>
 

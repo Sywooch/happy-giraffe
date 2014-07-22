@@ -1,4 +1,6 @@
-
+/*
+    Блок в шапке зазывающий на регистрацию. 
+    Заменен на баннер
 .b-join {
     margin: 0 0 0 20px;
 	padding: 20px 15px 20px 30px;
@@ -39,6 +41,7 @@
 		margin: 0 1px;
 	}
 }
+*/
 
 .b-join-row {
 	display: none;
@@ -89,9 +92,30 @@
 .header-banner-728-90 {
     width: 728px;
     height: 90px;
-    margin-top: 15px;
+    margin-top: 7px;
     margin-left: -4px;
 }
+
+/* 
+    Ссылки логина и регастрации в шапке у незарегестрированного пользователя
+    header-login
+        &_a
+*/
+.header-login {
+    text-align: right;
+
+    &_a {
+        .inline-block();
+        margin: 0 0 0 15px;
+        color: @color-gray;
+        text-decoration: none;
+    }
+    &_a:hover {
+        color: @color-link;
+        text-decoration: underline;
+    }
+}
+/* /header-login */
 
 .layout-header {
    position:relative;
@@ -101,13 +125,13 @@
         float: right;
         margin:20px 25px 0 0;
     }
-    &__nologin .header {margin-bottom: 0;}
+    /*&__nologin .header {margin-bottom: 0;}*/
     &__nologin .header_hold {
         width: 980px;
         padding: 20px 0 15px 20px;
     }
     &__nologin .header .logo {
-        margin: 10px 0 12px 10px;
+        margin: 0 0 12px 10px;
         float: none;
         display: block;
     }
@@ -190,7 +214,7 @@
 */
 .header {
     margin: 0 0 20px;
-    background:#fff url(/new/images/header.png) repeat-x 50% 0;
+    background:#fff url(/new/images/header.png) repeat-x 0 0;
     
     &__small &_hold {padding: 10px 0 10px;}
     // desktop размер
@@ -235,7 +259,6 @@
     &_user-name:hover {text-decoration: underline;}
     &_i-arrow {
         display: inline-block;
-        vertical-align: middle;
         width: 12px;
         height: 8px;
         margin: 0 0 0 4px;
@@ -268,7 +291,7 @@
         position: relative;
         .inline-block();
         vertical-align: top;
-        margin: 0 14px;
+        margin: 0 11px;
         text-align: center;
     }
     &_li__dropin &_a:hover &_ico,
@@ -302,6 +325,11 @@
     &_a:hover &_tx,
     &_li.active &_tx {
         color: #808080;
+		text-decoration: none;
+    }
+    &_li__dropin {
+        margin-left: 0;
+        margin-right: 0;
     }
     &_li__dropin.active .header-drop {display: block;}
     &_a {
@@ -353,7 +381,7 @@
     }
     &_tx {
         display: block;
-        font: 11px/12px Tahoma, Arial, Verdana, sans-serif;
+        font: 10px/12px Tahoma, Arial, Verdana, sans-serif;
         color: #acacac;
         text-transform: uppercase;
     }
@@ -584,7 +612,7 @@
         }
         &_a {padding: 12px 5px 12px;}
     }
-    &_dropin:hover .header_i-arrow {background-position: 0 -8px;}
+    /*&_dropin:hover .header_i-arrow {background-position: 0 -8px;}*/
     &_dropin.active .header-drop {display: block;}
 }
 /* /header-fix */

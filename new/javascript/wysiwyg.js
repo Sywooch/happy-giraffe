@@ -3,7 +3,7 @@
  * Author: alexk984
  * Date: 12.08.13
  */
-(function() {
+(function(window) {
     function f() {
         HgWysiwyg.prototype = {
             loaded : false,
@@ -96,6 +96,67 @@
                         self.tempBoxHeight = this.$box.height();
                     }
 
+            self.obj.buttonActiveObserver = function(e, btnName)
+            {
+                var parent = this.getParent();
+                if (e !== false)
+                    this.buttonInactiveAll(btnName);
+
+                if (e === false && btnName !== 'html')
+                {
+                    if ($.inArray(btnName, this.opts.activeButtons) != -1)
+                    {
+                        this.buttonActiveToggle(btnName);
+                    }
+                    return;
+                }
+
+                if (parent && parent.tagName === 'A') this.$toolbar.find('a.redactor_dropdown_link').text(this.opts.curLang.link_edit);
+                else this.$toolbar.find('a.redactor_dropdown_link').text(this.opts.curLang.link_insert);
+
+                if (this.opts.activeButtonsAdd)
+                {
+                    $.each(this.opts.activeButtonsAdd, $.proxy(function(i,s)
+                    {
+                        this.opts.activeButtons.push(s);
+
+                    }, this));
+
+                    $.extend(this.opts.activeButtonsStates, this.opts.activeButtonsAdd);
+                }
+
+                $.each(this.opts.activeButtonsStates, $.proxy(function(key, value)
+                {
+                    if ($(parent).closest(key, this.$editor.get()[0]).length != 0)
+                    {
+                        this.buttonActive(value);
+                    }
+
+                }, this));
+
+                var $parent = $(parent).closest(this.opts.alignmentTags.toString().toLowerCase(), this.$editor[0]);
+                if ($parent.length)
+                {
+                    var align = $parent.css('text-align');
+
+                    switch (align)
+                    {
+                        case 'right':
+                            this.buttonActive('alignright');
+                            break;
+                        case 'center':
+                            this.buttonActive('aligncenter');
+                            break;
+                        case 'justify':
+                            this.buttonActive('justify');
+                            break;
+                        default:
+                            this.buttonActive('alignleft');
+                            break;
+                    }
+                }
+            };
+
                     self.fireCallbacks('init', this);
                 },
                 changeCallback: function(html)
@@ -143,7 +204,6 @@
 
             self.run = function() {
                 var settings = $.extend({}, self.defaultOptions, options);
-                console.log(settings);
                 $(element).redactor(settings);
 
                 var modalInit = self.obj.modalInit;

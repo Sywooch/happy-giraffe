@@ -4,7 +4,6 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
 
         ko.mapping.fromJS(data, {}, self);
     }
-    
     MessagingUser.prototype = {
         objects: new Array(),
         binded: false,
@@ -128,11 +127,14 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
 
     function MessagingUser(viewModel, model) {
         var self = this;
+        self.FRIENDS_STATE_FRIENDS = 0;
+        self.FRIENDS_STATE_OUTGOING = 1;
+        self.FRIENDS_STATE_INCOMING = 2;
+        self.FRIENDS_STATE_NOTHING = 3;
         self.viewModel = viewModel;
         // Атрибуты модели пользователя
         self.id = model.id;
         self.profileUrl = model.profileUrl;
-        self.messagingUrl = '/messaging?interlocutorId=' + model.id;
         self.firstName = model.firstName;
         self.lastName = model.lastName;
         self.fullName = function() {
@@ -141,6 +143,9 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         self.gender = model.gender;
         self.avatar = ko.observable(model.avatar);
         self.channel = model.channel;
+        // Пустой ли диалог. Может быть пустым при загрузке отдельного пользователя.
+        // Может стать пустым при удалении диалога или всех сообщений из него.
+        self.emptyDialog = ko.observable(!model.date);
         // Состояния пользователя
 
         // Черный список
@@ -177,11 +182,33 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         self.hasOutgoingRequest = ko.observable(model.hasOutgoingRequest);
         self.hasIncomingRequest = ko.observable(model.hasIncomingRequest);
 
+        self.friendsState = ko.computed(function() {
+            if (self.isFriend())
+                return self.FRIENDS_STATE_FRIENDS;
+            if (self.hasIncomingRequest())
+                return self.FRIENDS_STATE_INCOMING;
+            if (self.hasOutgoingRequest())
+                return self.FRIENDS_STATE_OUTGOING;
+            return self.FRIENDS_STATE_NOTHING;
+        })
+
         self.blackListHandler = function() {
-            if (! self.blackListed())
-                $.post('/ajax/blackList/', { userId : self.id });
+            if (!self.blackListed())
+                $.post('/ajax/blackList/', {userId: self.id});
             else
-                $.post('/ajax/unBlackList/', { userId : self.id });
+                $.post('/ajax/unBlackList/', {userId: self.id});
+        }
+
+        self.friendsInvite = function() {
+            $.post('/friendRequests/send/', {to_id: self.id});
+        }
+
+        self.friendsAccept = function() {
+            $.post('/friends/requests/accept/', {fromId: self.id});
+        }
+
+        self.friendsDecline = function() {
+            $.post('/friends/requests/decline/', {fromId: self.id});
         }
 
         self.open = function() {
@@ -230,7 +257,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
                             var threadMessages = obj.thread.messages();
                             for (j in threadMessages) {
                                 var threadMessage = threadMessages[j];
-                                if(threadMessage.id == result.message.id)
+                                if (threadMessage.id == result.message.id)
                                     obj.thread.messages.splice(j, 1);
                             }
                         }
@@ -316,14 +343,14 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         }
 
         self.show = function() {
-            if(!self.dtimeRead() && !timer && self.to.id == Messaging.prototype.currentThread().me.id) {
+            if (!self.dtimeRead() && !timer && self.to.id == Messaging.prototype.currentThread().me.id) {
                 timer = setTimeout(function() {
                     self.markAsReaded();
                 }, 1000);
             }
         };
         self.hide = function() {
-            if(!self.dtimeRead()) {
+            if (!self.dtimeRead()) {
                 clearInterval(timer);
                 timer = false;
             }
@@ -331,7 +358,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
 
         self.reported = ko.observable(false);
         self.report = function() {
-            $.post('/ajax/report/', { entity : 'MessagingMessage', entity_id : self.id }, function() {
+            $.post('/ajax/report/', {entity: 'MessagingMessage', entity_id: self.id}, function() {
                 self.reported(true);
             }, 'json');
         }
@@ -347,7 +374,6 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         self.addObject(self);
         self.bindEvents();
     }
-
     MessagingThread.prototype = {
         objects: new Array(),
         binded: false,
@@ -364,7 +390,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
                         if (obj.id == result.dialog.id) {
                             var message = new MessagingMessage(result.message, obj);
                             // Добавим сообщение в диалог
-                            if(obj.scrollManager.scrollBot <= 40) {
+                            if (obj.scrollManager.scrollBot <= 40) {
                                 obj.scrollManager.setFix('bot');
                             } else {
                                 obj.scrollManager.setFix('top');
@@ -383,13 +409,17 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
                 Comet.prototype.messagingThreadDeleted = function(result, id) {
                     ko.utils.arrayForEach(self.objects, function(obj) {
                         if (obj.id == result.dialog.id) {
+                            // поставим отметку, что диалог теперь пуст
+                            obj.user.emptyDialog(true);
+                            obj.scrollManager.setFix('bot');
                             obj.deletedDialogs.push(result.dialog.dtimeDelete);
                             ko.utils.arrayForEach(obj.messages(), function(message) {
                                 // Скрываем сообщения, которые были написаны до момента удаления диалога
-                                if(message.created < result.dialog.dtimeDelete) {
+                                if (message.created < result.dialog.dtimeDelete) {
                                     message.hidden(true);
                                 }
                             });
+                            obj.scrollManager.setFix();
                         }
                     });
                 };
@@ -398,10 +428,14 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
                 Comet.prototype.messagingThreadRestored = function(result, id) {
                     ko.utils.arrayForEach(self.objects, function(obj) {
                         if (obj.id == result.dialog.id) {
+                            // поставим отметку, что диалог теперь не пуст
+                            obj.user.emptyDialog(false);
+                            obj.scrollManager.setFix('bot');
                             obj.deletedDialogs([]);
                             ko.utils.arrayForEach(obj.messages(), function(message) {
                                 message.hidden(false);
                             });
+                            obj.scrollManager.setFix();
                         }
                     });
                 };
@@ -418,21 +452,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
             }
         },
         open: function(user) {
-            var thread = ko.utils.arrayFirst(this.objects, function(obj) {
-                return obj.user.id == user.id;
-            });
-            if(thread != Messaging.prototype.currentThread()) {
-                if (!thread) {
-                    thread = new MessagingThread(user.viewModel.me, user);
-                } else {
-                    thread.beforeOpen();
-                }
-                window.document.title = 'Диалоги: ' + user.fullName();
-                History.pushState(null, window.document.title, '?interlocutorId=' + user.id);
-                thread.scrollManager.setFix('bot');
-                Messaging.prototype.currentThread(thread);
-                thread.scrollManager.setFix();
-            }
+            History.pushState(null, window.document.title, '?interlocutorId=' + user.id);
         }
     };
 
@@ -474,12 +494,12 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
             plugins: ['imageCustom', 'smilesModal', 'videoModal'],
             newStyle: true,
             callbacks: {
-                init : [
+                init: [
                     function() {
                         im.renew();
                     }
                 ],
-                change : [
+                change: [
                     function() {
                         setTimeout(function() {
                             im.renew();
@@ -487,7 +507,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
                         }, 0);
                     }
                 ],
-                keydown : [
+                keydown: [
                     function(e) {
                         if (e.keyCode == 13 && me.viewModel.settings.messaging__enter() != e.ctrlKey) {
                             self.sendMessage();
@@ -548,7 +568,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
             //data.images = self.uploadedImagesIds();
 
             var message = self.editingMessage();
-            if(message) {
+            if (message) {
                 data.messageId = message.id;
                 $.post('/messaging/messages/edit/', data, function(response) {
                     self.sendingMessage(false);
@@ -620,11 +640,11 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
          * Загрузка сообщений
          */
         self.loadMessages = function() {
-            if(!self.fullyLoaded() && !self.loadingMessages()) {
+            if (!self.fullyLoaded() && !self.loadingMessages()) {
                 self.loadingMessages(true);
                 var data = {userId: self.user.id};
                 var isFirst = self.messages().length == 0;
-                if(self.messages().length > 0) {
+                if (self.messages().length > 0) {
                     data.lastDate = self.messages()[0].created;
                 }
 
@@ -659,7 +679,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         self.bindEvents();
         self.loadMessages();
     }
-    
+
     function ContactsManager(viewModel, model) {
         var self = this;
         self.viewModel = viewModel;
@@ -690,20 +710,20 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         };
         // Преобразование строки поиска в регулярку
         self.search.subscribe(function(val) {
-            if(val.length > 0) {
-                if(self.savedFilter === false) {
+            if (val.length > 0) {
+                if (self.savedFilter === false) {
                     self.savedFilter = self.currentFilter();
                     self.currentFilter(4);
                 }
                 var search = val.split(' ', 2);
                 try {
-                    if(search.length == 1) {
+                    if (search.length == 1) {
                         self.searchRegExp(new RegExp("(^" + search[0] + ")|(^\\S+\\s" + search[0] + ")", 'i'));
                     } else {
                         self.searchRegExp(new RegExp("(^" + search[0] + "\\S*\\s" + search[1] + ")|(^" + search[1] + "\\S*\\s" + search[0] + ")", 'i'));
                     }
                     self.loadedAllContacts[4] = false;
-                } catch(e) {
+                } catch (e) {
                     self.searchRegExp(false);
                 }
             } else {
@@ -719,10 +739,10 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         self.sort = function() {
             self.users.sort(function(user1, user2) {
                 // Если user1 является открытым
-                if(user1 === self.openedUser())
+                if (user1 === self.openedUser())
                     return -1;
                 // Если user2 является открытым
-                if(user2 === self.openedUser())
+                if (user2 === self.openedUser())
                     return 1;
                 return user1.date() < user2.date() ? 1 : (user1.date() === user2.date() ? 0 : -1);
             });
@@ -776,7 +796,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         self.filtered = ko.computed(function() {
             // !если поиск, то могут исчезать!
             return ko.utils.arrayFilter(self.users(), function(user) {
-                if(self.currentFilter() == 4) {
+                if (self.currentFilter() == 4) {
                     // Поиск
                     self.searchRegExp(); // для зависимости от поисковой фразы
                     return self.filters[4](user);
@@ -796,13 +816,13 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
          * Функция вернёт модель пользователя с указанным id,
          * если такого пользователя нет в списке контактов,
          * то будет возвращено false
-         * 
+         *
          * @param {int} id
          * @returns {MessagingUser | false}
          */
         function getContactById(id) {
             var user = false;
-            if(self.usersMap[id] !== undefined) {
+            if (self.usersMap[id] !== undefined) {
                 user = MessagingUser.prototype.objects[self.usersMap[id]];
             }
             return user;
@@ -812,15 +832,15 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
          * Функция добавляет пользователя в списко контактов,
          * и возвращает модель пользователя, если он добавлен, и
          * false, если он был найден
-         * 
+         *
          * @param {type} data
          * @returns {undefined}
          */
         function addContact(data) {
             var user = false;
-            if(user = getContactById(data.id)) {
+            if (user = getContactById(data.id)) {
                 // Значит пользователь уже есть в контактах
-                if(user.bySearching() && !data.bySearching) {
+                if (user.bySearching() && !data.bySearching) {
                     // Если имеющийся пользователь найден через поиск,
                     // а запрашиваемый пользователь найден не через поиск,
                     // то обновим флаг.
@@ -839,11 +859,11 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
         self.loadContacts = function() {
             // Если загрузка не в процессе, и контакты загружены не полностью, то загружаем
             var type = self.currentFilter();
-            if(!self.loadindContacts() && !self.loadedAllContacts[type]) {
+            if (!self.loadindContacts() && !self.loadedAllContacts[type]) {
                 self.loadindContacts(true);
                 var url = '/messaging/default/getContacts/';
-                var data = { offset: 0 };
-                if(type == 4) {
+                var data = {offset: 0};
+                if (type == 4) {
                     url = '/messaging/default/search/';
                     data.search = self.search();
                     // Такой сдвиг покроет большинство случаев.
@@ -856,7 +876,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
                 }
                 $.get(url, data, function(response) {
                     var contacts = ko.utils.arrayMap(response.contacts, function(user) {
-                        if(type == 4) {
+                        if (type == 4) {
                             user.bySearching = true;
                         }
                         return addContact(user);
@@ -865,10 +885,11 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
                     contacts = ko.utils.arrayFilter(contacts, function(user) {
                         return !!user;
                     });
+                    self.users.push.apply(self.users, contacts);
                     self.loadindContacts(false);
 
                     //Поставим флажок о полной загрузки контактов
-                    if(response.contacts.length < 50) {
+                    if (response.contacts.length < 50) {
                         self.loadedAllContacts[type] = true;
                     }
                 }, 'json');
@@ -877,20 +898,20 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
 
         function parseUrl(open) {
             var params = /(\?|&)interlocutorId=(\d+)/.exec(window.location.search);
-            if(params && params[2]) {
+            if (params && params[2]) {
                 var id = params[2];
                 var user = getContactById(id);
-                if(!user) {
+                if (!user) {
                     // Нет загруженного пользователя, запросим с сервера
-                    $.get('/messaging/default/getUserInfo/', { id: id }, function(data) {
+                    $.get('/messaging/default/getUserInfo/', {id: id}, function(data) {
                         user = addContact(data);
                         self.open(user);
-                        if(open)
+                        if (open)
                             self.openedUser(user);
                     }, 'json');
                 } else {
                     self.open(user);
-                    if(open)
+                    if (open)
                         self.openedUser(user);
                 }
                 return true;
@@ -980,17 +1001,17 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
 
         Comet.prototype.messagingContactsManagerMessageCancelled = function(result) {
             var user = getContactById(result.dialog.id);
-            if(user && result.message.to_id == self.viewModel.me.id) {
-                user.countNew(Math.max(0, user.countNew()-1));
-                self.countTotal(Math.max(0, self.countTotal()-1));
+            if (user && result.message.to_id == self.viewModel.me.id) {
+                user.countNew(Math.max(0, user.countNew() - 1));
+                self.countTotal(Math.max(0, self.countTotal() - 1));
             }
         }
         comet.addEvent(2040, 'messagingContactsManagerMessageCancelled');
 
     }
-    
+
     Messaging.prototype = {
-        currentThread: ko.observable(false),
+        currentThread: ko.observable(false)
     }
 
     function Messaging(model) {
@@ -1004,6 +1025,8 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
 
         self.getContactList = self.contactsManager.filtered;
 
+        // Текст конструктора
+
         Comet.prototype.settingChanged = function(result, id) {
             var observable = self.settings[result.key];
             observable(result.value);
@@ -1014,7 +1037,7 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
             url: '/swf/',
             debugMode: false,
             onready: function() {
-                soundManager.createSound({ id : 's', url : '/audio/1.mp3' });
+                soundManager.createSound({id: 's', url: '/audio/1.mp3'});
             }
         });
     }
@@ -1029,15 +1052,16 @@ define('ko_messaging', ['knockout', 'ko_library', 'common', 'wysiwyg', 'comet', 
 
         self.toggle = function(key) {
             var observable = self[key];
-            self.update(key, ! observable());
+            self.update(key, !observable());
         }
 
         self.update = function(key, value) {
-            $.post('/ajax/setUserAttribute/', { key : key, value : value });
+            $.post('/ajax/setUserAttribute/', {key: key, value: value});
         }
     }
 
     window.MessagingUser = MessagingUser;
-    
+    window.MessagingSettings = MessagingSettings;
+
     return Messaging;
 });

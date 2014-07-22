@@ -33,7 +33,7 @@ class SeoTempCommand extends CConsoleCommand
     {
         $result = array();
         $dp = new CActiveDataProvider('CommunityPost');
-        $iterator = new CDataProviderIterator($dp);
+        $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $post) {
             if ($dom = str_get_html($post->text)) {
                 $em = $dom->find('em');

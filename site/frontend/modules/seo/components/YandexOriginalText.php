@@ -83,7 +83,7 @@ class YandexOriginalText
 
     public function add(SeoYandexOriginalText &$model)
     {
-        $length = mb_strlen($model->full_text);
+        $length = mb_strlen($model->full_text, 'UTF-8');
         var_dump($length);
         die;
 

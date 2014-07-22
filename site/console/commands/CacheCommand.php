@@ -34,7 +34,7 @@ class CacheCommand extends CConsoleCommand
 
     public function actionFixCdnImagesTest()
     {
-        $model = CommunityPost::model()->find('content_id = :content_id', array(':content_id' => 187112));
+        $model = CommunityPost::model()->find('content_id = :content_id', array(':content_id' => 186927));
         $this->fix($model);
     }
 
@@ -42,5 +42,6 @@ class CacheCommand extends CConsoleCommand
     {
         $text = str_replace('img.happy-giraffe.cdnvideo.ru', 'img.happy-giraffe.ru', $model->text);
         $model->updateByPk($model->id, array('text' => $text));
+        $model->purified->clearCache();
     }
 }

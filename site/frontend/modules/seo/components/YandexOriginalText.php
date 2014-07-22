@@ -101,7 +101,7 @@ class YandexOriginalText
 //        }
 
         echo $model->id . "\n";
-        var_dump($response);
+        var_dump($xml);
         die;
 
         $responseXml = new \SimpleXMLElement($response);

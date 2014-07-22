@@ -1,0 +1,168 @@
+
+//- b-control
+//- Блок иконок управления
+    mod
+    items - array иконок для вставки
+        ['delete', 'favorite', 'spam', 'edit', 'cancel', 'answer']
+mixin bControl(mod, vars)
+    // b-control
+    .b-control(class=mod)
+        for item in vars.items
+            case item
+
+                when "delete"
+                    .b-control_i.b-control_i__delete
+                        - if (vars.tx == true)
+                            span.b-control_ico
+                            span.b-control_tx Удалить
+
+                        - else 
+                            span.b-control_ico.powertip(title="Удалить")
+
+                    //- when "spam"
+                        .b-control_i.tooltip-click-b
+                            span.b-control_ico.powertip.b-control_ico__spam(title="Пожаловаться")
+                            .tooltip-drop
+                            .tooltip-popup
+                                .tooltip-popup_t Укажите вид нарушения:
+                                label.tooltip-popup_label.clearfix(for='tooltip-popup_radio')
+                                // id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                    input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    | Спам или реклама
+                                label.tooltip-popup_label.clearfix(for='')
+                                    input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    | Мошенничество
+                                label.tooltip-popup_label.clearfix(for='')
+                                    input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    | Грубость, угрозы
+                                label.tooltip-popup_label.clearfix(for='')
+                                    input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    | Интимный характер
+                                label.tooltip-popup_label.clearfix(for='')
+                                    input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    | Другое
+                                label.tooltip-popup_label.clearfix(for='')
+                                    input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    input.tooltip-popup_itx(type='text', name='', placeholder='Другое')
+                                .clearfix.textalign-c
+                                    button.btn-green.btn-inactive Пожаловаться
+                                    button.btn-gray-light Отменить
+                
+                when "edit"
+                    .b-control_i.b-control_i__edit
+                        - if (vars.tx == true)
+                            span.b-control_ico
+                            span.b-control_tx Редактировать
+
+                        - else 
+                            span.b-control_ico.powertip(title="Редактировать")
+                    //- when "cancel"
+                        .b-control_i.b-control_i__cancel
+                            - if (vars.tx == true)
+                                span.b-control_ico
+                                span.b-control_tx Отменить
+
+                            - else 
+                                span.b-control_ico.powertip(title="Отменить")
+                when "answer"
+                    .b-control_i.b-control_i__answer
+                        - if (vars.tx == true)
+                            span.b-control_ico 
+                            span.b-control_tx Ответить
+
+                        - else 
+                            span.b-control_ico.powertip(title="Ответить")
+
+    // /b-control
+
+- var bControl = {}
+- bControl.a = {}
+- bControl.a.items = ['delete', 'favorite', 'spam', 'edit', 'cancel']
+- bControl.b = {}
+- bControl.b.items = ['edit', 'delete']
+- bControl.c = {}
+- bControl.c.items = ['spam']
+- bControl.d = {}
+- bControl.d.tx = true
+- bControl.d.items = ['delete', 'edit']
+- bControl.e = {}
+- bControl.e.tx = true
+- bControl.e.items = ['answer']
+
+//- Пейджинатор
+mixin pagination(mod)
+    // paginator
+    .yiipagination(class=mod)
+        .pager
+            ul.yiiPager
+              li.previous
+                a(href='')
+              li.page
+                a(href='') 1
+              li.page
+                a(href='') 2
+              // class .page-points нужно заменить на стандартный класс yii для этого элемента
+              li.page-points
+                | ...
+              li.page
+                a(href='') 5
+              li.page
+                a(href='') 6
+              li.page.selected
+                a(href='') 7
+              li.page
+                a(href='') 8
+              li.page
+                a(href='') 9
+              // class .page-points нужно заменить на стандартный класс yii для этого элемента
+              li.page-points
+                | ...
+              li.page
+                a(href='') 15
+              li.page
+                a(href='') 16
+              li.next
+                a(href='')
+
+    // /paginator
+
+//- Пользователь имя с аватаром
+    mod
+    vars
+mixin b-user(mod,vars)
+    .b-user(class=mod)
+        .b-user_ava
+            +ava('ava__middle ava__female', avaVars)
+        .b-user_hold
+            .b-user_row
+                a.b-user_name Ангелина Богоявленская
+            if (vars.signpost)
+                a.b-user_view 123
+                a.b-user_check 123
+                a.b-user_del 123
+//- Кнопка пролистывания страницы вверх к началу
+mixin btn-scrolltop()
+    .btn-scrolltop(onclick="$('html, body').animate({scrollTop:0}, 'normal')")
+
+
+//-
+    Табы в заглавии страницы
+    mod
+    vars
+        tabActive - номер активной вкладки
+        tabTexts - Текст таба
+        sidebarSearch
+mixin page-col_top-tabs(mod, vars)
+    .page-col_top.page-col_top__gray
+        - if (vars.sidebarSearch)
+            +sidebar-search('', {placeholder: 'Введите имя и/или фамилию'})
+        ul.page-col_tabs
+            - for item, i in vars.tabsTexts
+                if (vars.tabActive == i)
+                    li.page-col_tab.active
+                        a.page-col_tab-a 
+                            != item
+                else 
+                    li.page-col_tab
+                        a.page-col_tab-a 
+                            != item

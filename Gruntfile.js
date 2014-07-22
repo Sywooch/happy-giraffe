@@ -28,8 +28,7 @@ module.exports = function(grunt){
       docs: {
         files: [{
           expand: true,
-          cwd: 'new/jade',
-          src: ['docs/**/*.jade', ],
+          src: ['new/jade/docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
           dest: 'new/html',
           ext: ".html"
         }],
@@ -38,26 +37,25 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
-          // data: grunt.file.readJSON(pathJade)
         }
       },
-      // lite версии страниц
-      // lite: {
-      //   files: [{
-      //     expand: true,
-      //     cwd: 'new/jade',
-      //     src: ['page/**/*-lite.jade', ],
-      //     dest: 'new/html',
-      //     ext: ".html"
-      //   }],
-      //   options: {
-      //     pretty: true,
-      //     client: false,
-      //     cache: true,
-      //     nospawn : true,
-      //     // data: grunt.file.readJSON(pathJade)
-      //   }
-      // }
+
+      // Пересобираем все шаблоны
+      lite_all: {
+        files: [{
+          expand: true,
+          cwd: 'lite/jade',
+          src: ['page/**/*.jade', '!block/**/*.jade', '!extend/**/*.jade'],
+          dest: 'lite/html',
+          ext: ".html"
+        }],
+        options: {
+          pretty: true,
+          client: false,
+          cache: true,
+          nospawn : true,
+        }
+      },
     },
 
     // Удаляем файлы
@@ -67,7 +65,6 @@ module.exports = function(grunt){
 
     ///////////////////////////////////////////////////
     // css
-    //чистим css от не используемых стилей
     less: {
       old: {
         files: {
@@ -92,39 +89,34 @@ module.exports = function(grunt){
           sourceMap: true,
         }
       },
+
+
       newestdev: {
         files: {
           'new/css/all1.dev.css': ['new/less/all1.less'] 
         },
         options: {
           sourceMap: true,
-          /*sourceMapFilename: 'new/css/all1.css.map',*/
-          /*sourceMapRootpath: 'new/css',
-          sourceMapURL: 'new/css/all1.css.map',*/
         },
       },
+
+
       litedev: {
-        files: {
-          'new/css/lite.dev.css': ['new/less/lite.less'] 
-        },
+        
+        files: [{
+          expand: true,
+          cwd: 'lite/less/',
+          src: ['*.less',],
+          dest: 'lite/css/dev/',
+          ext: '.css'
+        }],
         options: {
           sourceMap: true,
-          /*sourceMapFilename: 'new/css/all1.css.map',*/
-          /*sourceMapRootpath: 'new/css',
-          sourceMapURL: 'new/css/all1.css.map',*/
         }
       },
-      // newest: {
-      //   files: {
-      //     'new/css/all1.css': ['new/less/all1.less'] 
-      //   },
-      //   options: {
-      //     compress: true,
-      //     cleancss: true,
-      //   }
-      // }
     },
 
+    // неиспользуемые стили
     uncss: {
       new: {
         options: {
@@ -146,12 +138,12 @@ module.exports = function(grunt){
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
         dest: 'new/css/all1.css'
       },
-      lite: {
+      lite_blog: {
         options: {
-          stylesheets  : ['/css/lite.dev.css'],
+          stylesheets  : ['/css/dev/all.css'],
           timeout      : 1000,
 
-          htmlroot     : 'new',
+          htmlroot     : 'lite',
           ignore       : [
             // Выбираем все стили где в начале .clsss
             // /.dropdown+/,
@@ -159,8 +151,8 @@ module.exports = function(grunt){
             /.tooltip+/,
           ],
         },
-        src: ['new/html/page/**/*-lite.html', 'new/html/page/lite/**/*.html'],
-        dest: 'new/css/lite.css'
+        src: ['lite/html/page/blog/**/*.html'],
+        dest: 'lite/css/min/blog.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -173,10 +165,17 @@ module.exports = function(grunt){
           'new/css/all1.css': ['new/css/all1.css']
         }
       },
+      // lite: {
+      //   files: {
+      //     'lite/css/min/*.css': ['lite/css/min/*.css']
+      //   }
+      // },
       lite: {
-        files: {
-          'new/css/lite.css': ['new/css/lite.css']
-        }
+        expand: true,
+        cwd: 'lite/css/min/',
+        src: ['*.css',],
+        dest: 'lite/css/min/',
+        ext: '.css'
       }
     },
     // Сжимаем css
@@ -197,9 +196,13 @@ module.exports = function(grunt){
           keepSpecialComments: 0,
           report: 'max'
         },
-        files: {
-          'new/css/lite.css': 'new/css/lite.css'
-        }
+        files: [{
+          expand: true,
+          cwd: 'lite/css/min/',
+          src: ['*.css',],
+          dest: 'lite/css/min/',
+          ext: '.css'
+        }]
       }
     },
     // Умное сжате css
@@ -216,9 +219,13 @@ module.exports = function(grunt){
         options: {
           report: 'gzip'
         },
-        files: {
-          'new/css/lite.css': ['new/css/lite.css']
-        }
+        files: [{
+          expand: true,
+          cwd: 'lite/css/min/',
+          src: ['*.css',],
+          dest: 'lite/css/min/',
+          ext: '.css'
+        }]
       }
     },
     // /css
@@ -252,8 +259,8 @@ module.exports = function(grunt){
 
       // Следим за статическими страницами
       jadepage: {
-        files: ['new/jade/page/**/*.jade'],
-        tasks: ['newer:jade:all'],
+        files: ['new/jade/page/**/*.jade', 'lite/jade/page/**/*.jade'],
+        tasks: ['newer:jade'],
         options: {
           spawn: false,
           livereload: true,
@@ -261,7 +268,7 @@ module.exports = function(grunt){
       },
       // Пересобираем документацию
       jadedocs: {
-        files: ['new/jade/docs/**/*.jade'],
+        files: ['new/jade/docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade'
         tasks: ['jade:docs'],
         options: {
           spawn: false,
@@ -286,7 +293,7 @@ module.exports = function(grunt){
       },
       // следим за новым less
       liteless: {
-        files: ['new/less/**/*.less'],
+        files: ['lite/less/**/*.less'],
         tasks: ['less:litedev'/*, 'cmq', 'cssmin', 'csso'*/],
         options: {
           livereload: true,
@@ -313,28 +320,15 @@ module.exports = function(grunt){
     },
   });
 
-  // grunt.loadNpmTasks('grunt-merge-json');
-  // grunt.loadNpmTasks('grunt-contrib-jade');
-  // grunt.loadNpmTasks('grunt-newer');
-  // grunt.loadNpmTasks('grunt-contrib-less');
-  // grunt.loadNpmTasks('grunt-contrib-watch');
-  // grunt.loadNpmTasks('grunt-contrib-connect');
-  // grunt.loadNpmTasks('grunt-contrib-imagemin');
-  // grunt.loadNpmTasks('grunt-newer');
-  // grunt.loadNpmTasks('grunt-uncss');
-
-  grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
+  //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
   grunt.registerTask('css-new', ['less:newestdev','uncss:new', 'cmq:new', 'cssmin:new', 'csso:new']);
-  grunt.registerTask('css-lite', ['less:litedev','uncss:lite', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+
+  // lite tasks
+  grunt.registerTask('blog', ['jade:lite_all', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+
+  // Базовый для разработки верстки
   grunt.registerTask('default', [
     'connect',
     'watch', 
   ]);
-
-  // grunt.event.on('watch', function(action, filepath, target) {
-
-  // });
-
-
-
 };

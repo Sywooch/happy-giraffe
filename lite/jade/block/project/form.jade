@@ -1,0 +1,13 @@
+//- sidebar_search
+//- Форма поиска из сайдбара
+    mod
+    vars
+mixin sidebarSearch(mod, vars)
+    .sidebar-search.clearfix(class=mod)
+        input.sidebar-search_itx(type='text', name='', placeholder=vars.placeholder)
+        // При начале ввода добавить класс .active на кнопку
+        button.sidebar-search_btn
+
+- var sidebarSearch = {}
+- sidebarSearch.a = {}
+- sidebarSearch.a.placeholder = 'Поиск'

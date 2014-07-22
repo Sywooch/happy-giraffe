@@ -1,0 +1,158 @@
+
+//- comments
+//- Открытые комментарии в статьях
+//- mod 
+    vars
+        
+mixin comments-open (mod, vars)
+    // comments
+    .comments.comments__buble
+        .comments_t Комментарии 68 
+        .comments_hold
+            ul.comments_ul
+                // 
+                    варианты цветов комментов в такой последовательности
+                    .comments_li__lilac
+                    .comments_li__yellow
+                    .comments_li__red
+                    .comments_li__blue
+                    .comments_li__green
+                li.comments_li.comments_li__lilac.clearfix
+                    article.comments_i
+                        .comments_ava
+                            // Аватарки размером 40*40
+                            +ava("ava__middle ava__small-xs", ava.b)
+                        .comments_frame
+                            .comments_header
+                                a.a-light.comments_author(href="", rel='author') Иванна Хлебникова
+                                time.tx-date(datetime='2014-11-04T18:20:54+00:00' pubdate) 2 минуты назад
+                            .comments_cont
+                                .wysiwyg-content
+                                    p 
+                                        |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                    // одно фото в блок (ссылку)
+                                    a.comments-gray_cont-img-w(href='')
+                                        img(alt='', src='/images/example/w220-h309-1.jpg')
+                                    p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                            - if (vars.user)
+                                .comments_footer
+                                    +bControl("", bControl.e)
+                    ul.comments_ul
+                        // комментарий вложенный
+                        li.comments_li.comments_li__lilac.clearfix
+                            article.comments_i
+                                .comments_ava
+                                    +ava("ava__middle", ava.c)
+                                .comments_frame
+                                    .comments_header
+                                        a.a-light.comments_author(href="", rel='author') Иванна Хлебникова
+                                        time.tx-date(datetime='2014-11-04T18:20:54+00:00' pubdate) 2 минуты назад
+                                    .comments_cont
+                                        .wysiwyg-content
+                                            p 
+                                                a.comments_ansver-for.a-light(href="") Ольга Максимова, 
+                                                | Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                                    - if (vars.user)
+                                        .comments_footer
+                                            +bControl("", bControl.e)
+                        // /комментарий вложенный
+
+                        // комментарий вложенный
+                        // Свой комментарий
+                        li.comments_li.comments_li__self.comments_li__lilac.clearfix
+                            article.comments_i
+                                .comments_ava
+                                    +ava("ava__middle", ava.c)
+                                .comments_frame
+                                    .comments_header
+                                        a.a-light.comments_author(href="", rel='author') Ангелина Богоявленская
+                                        time.tx-date(datetime='2014-11-04T18:20:54+00:00' pubdate) 2 минуты назад
+                                    .comments_cont
+                                        .wysiwyg-content
+                                            p
+                                                // Если аккаунт удален, меняем а на span что б не было 404 ошибок.
+                                                span.comments_ansver-for.a-span Ольга Максимова, 
+                                                | Свой комментарий. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                                    - if (vars.user)
+                                        .comments_footer
+                                            +bControl("", bControl.e)
+                        // /комментарий вложенный
+                // / комментарий  
+
+                // комментарий     
+                li.comments_li.comments_li__red.clearfix
+                    article.comments_i
+                        .comments_ava
+                            +ava("ava__middle", ava.c)
+                        .comments_frame
+                            .comments_header
+                                a.a-light.comments_author(href="", rel='author') Иванна Хлебникова
+                                time.tx-date(datetime='2014-11-04T18:20:54+00:00' pubdate) 2 минуты назад
+                            .comments_cont
+                                .wysiwyg-content
+                                    p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                            - if (vars.user)
+                                .comments_footer
+                                    +bControl("", bControl.e)
+                // комментарий 
+    // /comments
+
+- var commentsOpen = {}
+- commentsOpen.a = {}
+- commentsOpen.a.user = true
+
+- commentsOpen.b = {}
+- commentsOpen.b.user = false
+
+
+mixin comments-add-active(mod, vars)
+    .comments_add
+        // скрытый инпут, который заменяется на редактор
+        input.comments_add-inp.itx-gray.display-n(type="text", placeholder="Добавить комментарий")
+        script.
+            $(document).ready(function () { 
+              $('.wysiwyg-redactor').redactor({
+                  autoresize: true,
+                  toolbarExternal: '.wysiwyg-toolbar-btn',
+                  minHeight: 45,
+                  buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
+                  buttonsCustom: {
+                      smile: {
+                          title: 'smile',
+                          callback: function(buttonName, buttonDOM, buttonObject) {
+                              // your code, for example - getting code
+                              var html = this.get();
+                          }
+                      },
+                      h2: {
+                          title: 'h2',
+                          callback: function(buttonName, buttonDOM, buttonObject) {
+                              // your code, for example - getting code
+                              var html = this.get();
+                          }
+                      },
+                      h3: {
+                          title: 'h3',
+                          callback: function(buttonName, buttonDOM, buttonObject) {
+                              // your code, for example - getting code
+                              var html = this.get();
+                          }
+                      }
+                  }
+              });
+            });
+        .wysiwyg-h
+            .wysiwyg-toolbar
+                    a.wysiwyg-toolbar_close.ico-close3(href='')
+                    .wysiwyg-toolbar-btn
+            textarea.wysiwyg-redactor(name='')
+            .redactor-control.clearfix
+                .float-r
+                    .redactor-control_key
+                        input#redactor-control_key-checkbox.redactor-control_key-checkbox(type='checkbox', name='')
+                        label.redactor-control_key-label(for='redactor-control_key-checkbox') Enter - отправить
+                    button.btn-green-simple Отправить

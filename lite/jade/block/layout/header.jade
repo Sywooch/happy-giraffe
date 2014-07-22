@@ -1,0 +1,36 @@
+
+//- Главная шапка сайта
+    mod     __simple
+    vars
+mixin header(mod, vars)
+    // header
+    header.header(class=mod)
+        .header_hold.clearfix
+            +logo()
+            .header-login
+                a(href="#loginWidget", class="header-login_a popup-a") Вход
+                a(href="#registerWidget", class="header-login_a popup-a") Регистрация
+            // header-menu
+            .header-menu
+                ul.header-menu_ul.clearfix
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__giraffe
+                            span.header-menu_tx
+                                | Мой Жираф
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__im
+                            span.header-menu_tx
+                                | вам письмо
+
+            // /header-menu
+            +sidebarSearch('sidebar-search__big', sidebarSearch.a)
+    // /header
+
+//- 
+
+- var header = {}
+
+//- +header('header__simple', header.simple)
+- header.simple = {}

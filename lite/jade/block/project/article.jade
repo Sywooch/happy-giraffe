@@ -1,0 +1,234 @@
+//- Статья взята с уже действующего www
+mixin www-article_text(mod, vars)
+    // Статья с текстом
+    // b-article
+    article.b-article.clearfix(class=mod)
+        .b-article_left
+            .b-article_left-ava
+                +ava("", ava.a)
+            .like-control.like-control__s.clearfix
+                .like-control_hold
+                    a.like-control_i.like-control_i__like.powertip(href='', title='Нравится')
+                        .like-control_ico
+                        .like-control_tx 865
+                    .favorites-add-popup.favorites-add-popup__right.display-n
+                        | Вы не можете ставить "Нравиться" к своей записи
+                .like-control_hold
+                    a.like-control_i.like-control_i__favorites.powertip(href='', title='В избранное')
+                        .like-control_ico
+                        .like-control_tx 863455
+                    .favorites-add-popup.favorites-add-popup__right.display-n
+                        .favorites-add-popup_t Добавить запись в избранное
+                            .favorites-add-popup_i.clearfix
+                                img.favorites-add-popup_i-img(src='/images/example/w60-h40.jpg', alt='')
+                                .favorites-add-popup_i-hold Неравный брак. Смертельно опасен или жизненно необходим?
+                            .favorites-add-popup_row
+                                label.favorites-add-popup_label(for='') Теги:
+                                span.favorites-add-popup_tag
+                                    a.favorites-add-popup_tag-a(href='') отношения
+                                    a.ico-close(href='')
+                                span.favorites-add-popup_tag
+                                    a.favorites-add-popup_tag-a(href='') любовь
+                                    a.ico-close(href='')
+                            .favorites-add-popup_row.margin-b10
+                                a.textdec-none(href='')
+                                    span.ico-plus2.margin-r5
+                                    span.a-pseudo-gray.color-gray Добавить тег
+                            .favorites-add-popup_row
+                                label.favorites-add-popup_label(for='') Комментарий:
+                                .float-r.color-gray 0/150
+                            .favorites-add-popup_row
+                                textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
+                            .favorites-add-popup_row.textalign-c.margin-t10
+                                a.btn-gray-light(href='') Отменить
+                                a.btn-green(href='') Добавить
+        .b-article_cont.clearfix
+            .b-article_cont-tale
+            .b-article_header.clearfix
+                .meta-gray
+                    a.meta-gray_comment(href='')
+                        span.ico-comment.ico-comment__gray
+                        span.meta-gray_tx 35
+                    .meta-gray_view
+                        span.ico-view.ico-view__gray
+                        span.meta-gray_tx 305
+                .float-l
+                    a.b-article_author(href='') Ангелина Богоявленская
+                    span.tx-date Сегодня 13:25
+            h2.b-article_t
+                a.b-article_t-a(href='') Самое лучшее утро - просыпаюсь, а ты рядом
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    p
+                        | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».
+                    .b-article_in-img
+                        a(href='')
+                            img(alt='', src='http://img.dev.happy-giraffe.ru/thumbs/580x/16534/f464362269821285b5b2aa67855267da.jpeg')
+            .textalign-r
+                a.b-article_more(href='') Смотреть далее
+            - if(vars.commetnsOpen)
+                +comments-article-list-open("", commetnsArticleList.a)
+            - else 
+                +comments-article-list("", commetnsArticleList.b)
+    // /b-article
+
+- var wwwArticleText = {}
+- wwwArticleText.a = {}
+- wwwArticleText.a.commetnsOpen = true
+
+- wwwArticleText.b = {}
+- wwwArticleText.b.commetnsOpen = false
+
+
+
+mixin www-article_photo(mod)
+    // Фотография
+    // b-article
+    article.b-article.clearfix(class=mod)
+        .float-l
+            .like-control.like-control__small-indent.clearfix
+                +ava("", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+            .like-control.clearfix
+                a.like-control_ico.like-control_ico__like.powertip(href='', title='Нравится') 865
+                .position-rel
+                    a.like-control_ico.like-control_ico__repost.powertip(href='', title='Репост') 5
+                .position-rel
+                    a.favorites-control_a.active.powertip(href='', title='В избранное') 123865
+        .b-article_cont.clearfix
+            .b-article_cont-tale
+            .b-article_header.clearfix
+                .meta-gray
+                    a.meta-gray_comment(href='')
+                        span.ico-comment.ico-comment__gray
+                        span.meta-gray_tx 35
+                    .meta-gray_view
+                        span.ico-view.ico-view__gray
+                        span.meta-gray_tx 305
+                .float-l
+                    a.b-article_author(href='') Ангелина Богоявленская
+                    span.tx-date Сегодня 13:25
+            h2.b-article_t
+                a.b-article_t-a(href='') Фото1
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    .b-article_in-img
+                        a(href='')
+                            img(alt='', src='http://img.dev.happy-giraffe.ru/thumbs/580x/16534/f464362269821285b5b2aa67855267da.jpeg')
+            .font-s.margin-l20.margin-b30
+                | к 
+                a  Второй спооб где можно поменять название трека. Меняя название трека в альбоме
+    // /b-article
+
+mixin www-article_photopost(mod)
+    // Фотопост
+    // b-article
+    article.b-article.b-article__photopost.clearfix(class=mod)
+        .float-l
+            .like-control.like-control__small-indent.clearfix
+                +ava("", {src: 'http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg'})
+            .like-control.clearfix
+                a.like-control_ico.like-control_ico__like.powertip(href='', title='Нравится') 865
+                .position-rel
+                    a.like-control_ico.like-control_ico__repost.powertip(href='', title='Репост') 5
+                .position-rel
+                    a.favorites-control_a.active.powertip(href='', title='В избранное') 123865
+        .b-article_cont.clearfix
+            .b-article_cont-tale
+            .b-article_header.clearfix
+                .meta-gray
+                    a.meta-gray_comment(href='')
+                        span.ico-comment.ico-comment__white
+                        span.meta-gray_tx.color-gray-light 35
+                    .meta-gray_view
+                        span.ico-view.ico-view__white
+                        span.meta-gray_tx.color-gray-light 305
+                .float-l
+                    a.b-article_author(href='') Ангелин Богоявленский
+                    span.b-article_date Сегодня 13:25
+            h2.b-article_t
+                a.b-article_t-a(href='') Как менялась мода на прически
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    p
+                        | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».
+                .photo-grid.clearfix
+                    .photo-grid_row.clearfix
+                      .photo-grid_i
+                        img(src='http://img.happy-giraffe.ru/thumbs/580x/220231/d2b4677dc8cdaf8012799a3f252afdc8.jpg', alt='Как поддерживают себя в форме и худеют в разных странах')
+                        .photo-grid_tip 20 фото
+                        span.ico-play-big
+            .textalign-r
+                a.b-article_more.b-article_more__white(href='') Смотреть далее
+    // /b-article
+
+
+
+
+
+mixin bArticle-single(mod, vars)
+    // Статья с текстом
+    // b-article
+    article.b-article.b-article__single.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_cont-tale
+            .b-article_header.clearfix
+                .meta-gray
+                    a.meta-gray_comment(href='')
+                        span.ico-comment.ico-comment__gray
+                        span.meta-gray_tx 35
+                    .meta-gray_view
+                        span.ico-view.ico-view__gray
+                        span.meta-gray_tx 305
+                .float-l
+                    +ava("ava__female", ava.a)
+                    a.b-article_author(href='') Ангелина Богоявленская
+                    span.b-article_date Сегодня 13:25
+            h1.b-article_t Самое лучшее утро - просыпаюсь, а ты рядом
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    p
+                        | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».
+                    .b-article_in-img
+                        a(href='')
+                            img(alt='', src='#{path}images/example/w600-h415.jpg')
+                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. 
+                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    ul 
+                        li  Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                        li A не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                        li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. 
+                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    h2 Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен 
+                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    h3 Tолько лишь на экране, все же Роберт Паттинсон и Кристен 
+                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    ol 
+                        li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                        li  Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                        li A не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    p Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен 
+                    .b-article_in-img
+                        iframe(width='600', height='330', src='http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&feature=oembed&wmode=transparent', frameborder='0', allowfullscreen='')
+                    p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                .textalign-c
+                    .like-control.like-control__line.clearfix
+                        .like-control_hold
+                            a.like-control_i.like-control_i__like.powertip(href='', title='Нравится')
+                                .like-control_ico
+                                .like-control_tx 865
+                        .like-control_hold
+                            a.like-control_i.like-control_i__favorites.powertip(href='', title='В избранное')
+                                .like-control_ico
+                                .like-control_tx 863455
+                .custom-likes
+                    .custom-likes_slogan Поделитесь с друзьями!
+                    .custom-likes_in
+                        script(type='text/javascript', src='//yandex.st/share/share.js', charset='utf-8')
+                        .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='vkontakte,facebook,twitter,odnoklassniki,moimir', data-yasharetheme='counter', data-yasharetype='small')
+                .adv-yandexs
+                    a(href="", target="_blank")
+                        img(src="#{path}images/example/yandex-w600.jpg", alt="")
+
+    // /b-article

@@ -1,0 +1,41 @@
+/* 
+    docs 
+    Правила для внешнего вида документации
+    Нужно наверно вынести в отдельный файл, что б не попадали стили на www
+*/
+.docs {
+    position: relative;
+    margin: 0px 0;
+    padding: 10px 0;
+    
+    &_h1 {
+        margin: 20px 20px;
+        text-align: center;
+
+    }
+    &_h2 {
+        margin-bottom: 10px;
+        text-align: center;
+        font-size: 24px;
+    }
+    &_desc {
+        padding: 20px 20px;
+        color: @color-base;
+        font-size: 14px;
+        background: #fafafa;
+    }
+    &_example {
+        position: relative;
+        margin: 10px 0;
+        padding: 20px 0;
+        border-bottom: 1px solid #aaa;
+        .clearfix();
+    }
+    &_example__indents {
+        padding: 20px 30px;
+    }
+    &_row {
+        margin: 5px 0;
+    }
+}
+/* /docs */

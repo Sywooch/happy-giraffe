@@ -1,0 +1,70 @@
+
+/*
+    Нумирация страниц
+
+    .section-empty
+        .section-empty_t ...
+        ul.section-empty_ul
+            li.section-empty_li
+                a.section-empty_i
+                    .section-empty_ico
+                    .section-empty_ico-tx ...
+        .section-empty_desc
+            .section-empty_desc-tx
+
+*/
+/* yiipagination */
+.yiipagination {
+    margin: 30px 0 50px;
+    font-size: 17px;
+    line-height: 30px;
+    color: #a1a1a1;
+    text-align: center;
+    
+    .yiiPager > li {
+        .inline-block();
+        margin: 0 3px;
+    }
+    .page {}
+    .page a {
+        .inline-block();
+        padding: 0 10px;
+        background: #fff;
+        color: #b5b5b5;
+        text-decoration: none;
+        .border-radius(3px);
+    }
+    .page:hover,
+    .page.selected {}
+    .page:hover a,
+    .page.selected a {
+        background-color: #6accff;
+        font-weight: bold;
+        color: #fff;
+    }
+    .next,
+    .previous {
+        .inline-block();
+        vertical-align: bottom;
+    }
+    .next > a,
+    .previous > a {
+        display: block;
+        height: 10px;
+        width: 5px;
+        padding: 10px 10px;
+        background: url('@{path-img}/yiipagination-arrow.png') no-repeat 10px 9px;
+
+        .border-radius(3px);
+    }
+    .previous > a:hover {
+        background-position: -42px 9px;
+        background-color: #6accff;
+    }
+    .next > a {background-position: 10px -92px;}
+    .next > a:hover {
+        background-color: #6accff;
+        background-position: -42px -92px;
+    }
+}
+/* /yiipagination */

@@ -1,0 +1,130 @@
+include ../../block/config
+extend ../../extend/layout_lite
+block vars
+  - var bodyClass = 'body__bg1 body__lite';
+
+block layout
+    /////////////////////////////////////////////////////////
+    /// В конечном итоге подключать css
+    /// /lite/css/min/blog.css
+    /// или grunt задачу, в коммандной строке 
+    /// grunt blog
+    /////////////////////////////////////////////////////////
+    // b-main 
+    .b-main.clearfix
+        // стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту 
+        a.post-arrow(href="")
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="") Главная
+                    li.b-crumbs_li
+                        +ava('ava__small', ava.a)
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Блог
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+                    +comments-open('', commentsOpen.b)
+
+                    //- .article-users
+                        .article-users_t Запись понравилась 
+                            .ava-list
+                                ul.ava-list_ul.clearfix
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava.ava__small(href='')
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava-list_last(href='')
+                                            span.ava-list_like-hg
+                                            | 3251
+                            .article-users_t Запись добавили в избранное 
+                            .ava-list
+                                ul.ava-list_ul.clearfix
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.c)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.b)
+                                    li.ava-list_li
+                                        +ava('ava__small', ava.a)
+                                    li.ava-list_li
+                                        a.ava-list_last(href='')
+                                            span.ava-list_favorite.active
+                                            | 3251 и вы
+
+                // /Основная колонка
+
+    +layout-footer-lite('layout-footer__in')
+

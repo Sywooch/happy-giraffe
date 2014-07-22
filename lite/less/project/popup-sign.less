@@ -1,0 +1,244 @@
+
+/* popup-sign */
+.popup-sign {
+    width: 870px;
+    color: #666;
+    font-size: 13px;
+    background: #fff;
+    .box-shadow(0 6px 16px rgba(0,0,0,0.6));
+    
+    &__reg-step3 {
+        width: 960px;
+    }
+    .ava {
+        float: none;
+        display: inline-block;
+    }
+    &_hold {
+        background: #fafafa;
+    }
+    &_top {
+        padding: 30px 45px 25px;
+        background: #fff url('@{path-img}/header.png') repeat-x;
+        text-align: center;
+    }
+    &_t {
+        font: 40px/50px Arial, Tahoma, Verdana, sans-serif;
+        color: #3e3e3f;
+    }
+    &_t .ico-lock-big {margin-right: 25px;}
+    &_slogan {font-size: 15px;}
+    &_title {
+        text-align: left;
+        font-size: 22px;
+        color: #333;
+    }
+
+    &_cont {
+        padding: 30px 60px 35px;
+        .clearfix();
+    }
+    &_cont__wide {padding: 15px 45px 20px;}
+    &_social {
+        .inline-block();
+        vertical-align: top;
+        width: 310px;
+        padding-right: 75px;
+        margin-right: 35px;
+        background: url('@{path-img}/popup/popup-sign_or.png') no-repeat 100% -6px;
+    }
+    &_col {
+        .inline-block();
+        width: 315px;
+        vertical-align: top;
+    }
+    &_col__vetical-m {vertical-align: middle;}
+    &_col-ava {
+        .inline-block();
+        vertical-align: top;
+        width: 310px;
+        border-right: 1px solid #ebebeb;
+        margin-right: 60px;
+        padding: 5px 0 20px;
+        text-align: center;
+    }
+    &_col-ava .ava {overflow: hidden;}
+    &_col-ava .ava_img {
+        display: block;
+        max-width: none;
+    }
+    &_col-ava .btn-blue-simple {margin-top: 7px;}
+    &_col-ava__think {
+        float: right;
+        margin-right: 0;
+        width: 220px;
+        border-right-width: 0;
+    }
+    &_col-wide-r {
+        .inline-block();
+        vertical-align: top;
+        width: 345px;
+        margin-left: 30px;
+        padding: 0 0 30px 30px;
+        border-left: 1px solid #ebebeb;
+    }
+    &_row {
+        margin: 0 0 10px;
+        .clearfix();
+    }
+    &_label {
+        margin: 3px 0 -2px 2px;
+        line-height: 17px;
+    }
+    &_b {
+        text-align: center;
+        font-size: 15px;
+        padding-bottom: 40px;
+        margin: 0 60px;
+    }
+    &_b-tx {
+        .inline-block();
+        margin-right: 15px;
+    }
+    &_tx-help {
+        color: @color-gray-light;
+        .font-s-mixin();
+    }
+    &_itx {
+        margin-bottom: 3px;
+    }
+    &_a-big {
+        font-size: 16px;
+        color: #3498db; 
+    }
+    &_a-m {
+        font-size: 14px;
+        color: @color-gray-dark;
+    }
+    &_tx {
+        font-size: 15px;
+        color: @color-gray-darken;
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    &_wrap {
+        width: 460px;
+        margin: 30px auto 20px;
+    }
+    &_col-label {
+        float: left;
+        width: 60px;
+    }
+    &_col-label &_label {margin-top: 7px;}
+    &_col-inp {
+        float: left;
+        width: 400px;
+    }
+    &_retrieve-send {
+        padding: 5px 0 25px 60px;
+        background: url('@{path-img}/popup/popup-sign_retrieve-send.png') no-repeat 3px 7px;
+    }
+    &_img-upload {
+        float: left;
+        width: 500px;
+    }
+    &_col-ava-t {
+        text-align: center;
+        margin: 0 0 10px;
+        font-size: 16px;
+    }
+    &_ava-row {
+        margin: 10px 0;
+        text-align: center;
+
+        .ava {
+            float: none;
+            margin: 0 10px;
+            .inline-block();
+            vertical-align: middle;
+        }
+    }
+    &_capcha-hold {
+        margin: 20px 0 30px;
+    }
+    &_capcha,
+    &_capcha-img {
+        display: block;
+        cursor: pointer;
+    }
+}
+/* /popup-sign */
+
+//////
+// Ниже код этом файле, для подключения в старые стили.
+// Нужно будет разнести по файлам после отказа старой версии
+/* social-btns */
+.social-btns {
+    margin: 15px 0 40px;
+
+    .social-btn {
+        margin: 15px 0;
+    }
+}
+/* social-btn */
+.social-btn {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    .border-radius(5px);
+    .clearfix;
+    
+    &__odnoklassniki {background: #fa8a0f;}
+    &__odnoklassniki:hover {background: #ee820b;}
+    &__odnoklassniki &_ico {background-position: 0 0;}
+    &__vkontakte {background: #6d8eb2;}
+    &__vkontakte:hover {background: #5f81a6;}
+    &__vkontakte &_ico {background-position: 0 -100px;}
+
+    &_ico {
+        float: left;
+        margin-left: 5px;
+        width: 50px;
+        height: 50px;
+        background: url('@{path-img}/social-btn.png') no-repeat;
+        .img-retina('@{path-img}/social-btn.png'; '@{path-img}/social-btn-2x.png'; 50px; 150px);
+    }
+    &_tx {
+        padding-right: 20px;
+        font-size: 16px;
+        line-height: 50px;
+        color: #fff;
+    }
+}
+/* /social-btn */
+
+/* html tag modificator */
+.html__reg-step3 {
+    height: 100%;
+
+    & .body {
+        height: 100%;
+        background:#66508c url('@{path-img}/body-circle-candy__dark.png') no-repeat 50% 0;
+    }
+    @media screen and (min-width: 1200px) {
+        & .body {background:#66508c url('@{path-img}/popup/body__reg-step3.jpg') no-repeat 50% 50%;}
+    }
+
+    .mfp-bg {background: none;}
+}
+
+.html__reg-step4 {
+    height: 100%;
+
+    & .body {
+        height: 100%;
+        background:#66508c url('@{path-img}/body-circle-candy__dark.png') no-repeat 50% 0;
+    }
+    @media screen and (min-width: 1200px) {
+        & .body {background:#66508c url('@{path-img}/popup/body__reg-step4.png') no-repeat 50% 50%;}
+    }
+
+    .mfp-bg {background: none;}
+}
+/* html tag modificator */
+

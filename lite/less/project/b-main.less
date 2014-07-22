@@ -1,0 +1,44 @@
+/* b-main */
+.b-main {
+    position: relative;
+
+    &__white {background-color: #fff;}
+
+    &_cont {
+        margin: 0 20px;
+    }
+    &_col-article {
+
+    }
+    &_col-sidebar {
+        width: 240px;
+        margin: 0 auto;
+    }
+    &_col-sidebar:first-child {margin-left: 0;}
+    
+    @media (min-width: @screen-tablet) {
+        &_cont {
+            width: 600px;
+            margin: 0 auto;
+        }
+        &_col-article {
+            float: left;
+            width: 600px;
+        }
+        &_col-sidebar {
+            float: left;
+            margin-left: 20px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        &_cont {
+            width: auto;
+            margin: 0 20px;
+        }
+        &_cont {margin: 0 60px;}
+        &_col-sidebar {
+            margin-left: 40px;
+        }
+    }
+}
+/* /b-main */

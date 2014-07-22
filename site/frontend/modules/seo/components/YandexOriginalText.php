@@ -84,8 +84,6 @@ class YandexOriginalText
     public function add(SeoYandexOriginalText &$model)
     {
         $length = mb_strlen($model->full_text, 'UTF-8');
-        var_dump($length);
-        die;
 
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
             if (! $model->isNewRecord) {

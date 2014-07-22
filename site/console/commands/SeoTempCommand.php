@@ -29,6 +29,35 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionReplaceSingleEm()
+    {
+        $result = array();
+        $dp = new CActiveDataProvider('CommunityPost', array(
+            'criteria' => array(
+                'with' => 'content',
+                'condition' => 'content.removed = 0',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $post) {
+            echo $post->id . "\n";
+            if ($dom = str_get_html($post->text)) {
+                $em = $dom->find('em');
+                if (count($em) == 1) {
+                    $el = $em[0];
+                    $el->outertext = '<i>' . $el->innertext . '</i>';
+                    CommunityPost::model()->updateByPk($post->id, array('text' => (string) $dom));
+                    $post->purified->clearCache();
+
+                    $url = $post->content->getUrl(false, true);
+                    $result[] = array($url);
+                    echo $url . "\n";
+                }
+            }
+        }
+        $this->writeCsv('emToI', $result);
+    }
+
     public function actionStrong()
     {
         $patterns = array(
@@ -148,6 +177,21 @@ class SeoTempCommand extends CConsoleCommand
         $fp = fopen($path, 'w');
 
         foreach ($result as $fields) {
+            fputcsv($fp, $fields);
+        }
+
+        fclose($fp);
+    }
+
+    protected function writeCsv($name, $data)
+    {
+        $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . $name . '.csv';
+        if (is_file($path)) {
+            unlink($path);
+        }
+        $fp = fopen($path, 'w');
+
+        foreach ($data as $fields) {
             fputcsv($fp, $fields);
         }
 

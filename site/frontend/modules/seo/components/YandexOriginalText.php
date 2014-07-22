@@ -84,6 +84,9 @@ class YandexOriginalText
     public function add(SeoYandexOriginalText &$model)
     {
         $length = strlen($model->full_text);
+        var_dump($length);
+        die;
+
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
             if (! $model->isNewRecord) {
                 return $model->delete();
@@ -95,13 +98,12 @@ class YandexOriginalText
         $xml->addChild('content', $model->full_text);
         $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, urlencode($xml->asXML()));
 
-//        if ($this->api->client->status() != 201) {
-//            return false;
-//        }
+        if ($this->api->client->status() != 201) {
+            return false;
+        }
 
         echo $model->id . "\n";
         var_dump($response);
-        die;
 
         $responseXml = new \SimpleXMLElement($response);
         $model->added = new \CDbExpression('NOW()');

@@ -53,7 +53,7 @@ class SeoTempCommand extends CConsoleCommand
                             continue;
                         }
 
-                        $result[] = array($path, $value['ga:sessions'], $post->removed);
+                        $result[] = array('http://www.happy-giraffe.ru' . $path, $value['ga:sessions'], $post->removed);
                     }
                 }
             }

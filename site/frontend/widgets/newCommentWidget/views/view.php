@@ -253,7 +253,7 @@ $cs = Yii::app()->clientScript;
 if ($cs->useAMD)
     $cs->registerAMD('CommentViewModel', array('$' => 'jquery', 'ko' => 'knockout', 'ko_comments' => 'ko_comments'), $js);
 else
-    $cs->registerScript('CommentViewModel', $js, ClientScript::POS_LOAD);
+    echo "<script type='text/javascript'>\n\t" . $js . "\n</script>";
 ?>
 
 <?php //if (Yii::app()->user->isGuest) $this->endCache();} ?>

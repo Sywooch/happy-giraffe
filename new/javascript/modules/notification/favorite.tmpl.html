@@ -19,4 +19,6 @@
     </div>
 </div>
 <a href="" data-bind="attr: {href: link, class: 'u-notice_b u-notice_post-ico u-notice_post-ico__' + entity.type}"></a>
-<div class="u-notice_b u-notice_post powertip" data-bind="attr: {title: tooltip}"><a href="" class="u-notice_post-a" data-bind="html: title, attr: {href: link}"></a></div>
+<div class="u-notice_b u-notice_post" data-bind="tooltipster: tooltip">
+    <a href="" class="u-notice_post-a" data-bind="html: title, attr: {href: link}"></a>
+</div>

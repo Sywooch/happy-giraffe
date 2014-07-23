@@ -112,7 +112,7 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyD
             return self.entity.url;
         });
         self.tooltip = ko.computed(function() {
-            if(self.entity.type !== 'comment') {
+            if(self.type == 'comment') {
                 return self.entity.title;
             }
             return self.entity.tooltip;

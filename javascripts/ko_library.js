@@ -54,6 +54,28 @@
                 return { controlsDescendantBindings: true };
             }
         };
+        
+        ko.bindingHandlers.tooltipster = {
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                $(element)
+                    .tooltipster({contentAsHTML: true, content: ko.bindingHandlers.tooltipster.getHTML(valueAccessor)});
+            },
+            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                $(element)
+                    .tooltipster({contentAsHTML: true, content: ko.bindingHandlers.tooltipster.getHTML(valueAccessor)});
+            },
+            getHTML: function(valueAccessor) {
+                var text = ko.utils.unwrapObservable(valueAccessor());
+                /** @todo придумать что-ть лучше */
+                return $('<textarea />').html(text).text();
+            }
+        };
+
+        ko.bindingHandlers.stopBinding = {
+            init: function() {
+                return { controlsDescendantBindings: true };
+            }
+        };
 
         ko.virtualElements.allowedBindings.stopBinding = true;
 

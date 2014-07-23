@@ -11,7 +11,7 @@ Yii::import('site.frontend.extensions.GoogleAnalytics');
 
 class SeoTempCommand extends CConsoleCommand
 {
-    protected function getPathes($ga, $start, $end, $searchEngine)
+    protected function getPathes($start, $end, $searchEngine)
     {
         $cacheId = 'Yii.seo.paths.' . $start . '.' . $end . '.' . $searchEngine;
         $paths = Yii::app()->cache->get($cacheId);
@@ -27,6 +27,36 @@ class SeoTempCommand extends CConsoleCommand
             Yii::app()->cache->set($cacheId, $paths);
         }
         return $paths;
+    }
+
+    public function actionRemoved()
+    {
+        $patterns = array(
+            '#\/community\/(?:\d+)\/forum\/(?:\w+)\/(\d+)\/$#',
+            '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
+        );
+
+        $result = array();
+        $paths = $this->getPathes('2014-02-04', '2014-02-04', 'google');
+        foreach ($paths as $path => $value) {
+            if ($value['ga:sessions'] > 50) {
+                foreach ($patterns as $pattern) {
+                    if (preg_match($pattern, $path, $matches)) {
+                        $id = $matches[1];
+                        $post = \CommunityContent::model()->resetScope()->findByPk($id);
+
+                        if ($post === null) {
+                            echo $path . "\n";
+                            continue;
+                        }
+
+                        $result[] = array($path, $value['ga:sessions'], $post->removed);
+                    }
+                }
+            }
+        }
+
+        $this->writeCsv('removed', $result);
     }
 
     public function actionReplaceSingleEm()

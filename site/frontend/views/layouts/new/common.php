@@ -151,10 +151,14 @@ if (! Yii::app()->user->isGuest)
 <!--/ tns-counter.ru -->
 <?php endif; ?>
 
-<script type="text/javascript">
-    var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
-    var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
-</script>
+<?php
+    $js = "var userIsGuest = " . CJavaScript::encode(Yii::app()->user->isGuest) . "; var CURRENT_USER_ID = " . CJavaScript::encode(Yii::app()->user->id);
+    $cs = Yii::app()->clientScript;
+    if($cs->useAMD)
+        $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_AMD);
+    else
+        $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_HEAD);
+?>
 
 <?php if (Yii::app()->user->isGuest): ?>
     <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>

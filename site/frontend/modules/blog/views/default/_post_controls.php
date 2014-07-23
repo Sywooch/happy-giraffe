@@ -80,4 +80,4 @@ $cs = Yii::app()->clientScript;
 if ($cs->useAMD)
     $cs->registerAMD('BlogRecordSettings#' . $data->id, array('ko' => 'knockout', 'ko_post' => 'ko_post'), $js);
 else
-    $cs->registerScript('BlogRecordSettings#' . $data->id, $js, ClientScript::POS_LOAD);
+    echo "<script type='text/javascript'>\n\t" . $js . "\n</script>";

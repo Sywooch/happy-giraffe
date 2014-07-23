@@ -13,6 +13,9 @@ class SeoTempCommand extends CConsoleCommand
 {
     protected function getPathes($start, $end, $searchEngine)
     {
+        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+        $ga->setProfile('ga:53688414');
+
         $cacheId = 'Yii.seo.paths.' . $start . '.' . $end . '.' . $searchEngine;
         $paths = Yii::app()->cache->get($cacheId);
         if ($paths === false) {
@@ -95,9 +98,6 @@ class SeoTempCommand extends CConsoleCommand
             '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
         );
         $result = array();
-
-        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
-        $ga->setProfile('ga:53688414');
 
         $paths = $this->getPathes($ga, '2014-05-19', '2014-05-19', 'google');
         foreach ($paths as $path => $value) {

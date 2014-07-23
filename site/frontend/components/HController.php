@@ -30,8 +30,9 @@ class HController extends CController
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest())
             $filterChain->run();
-        else
-            throw new CHttpException(404, Yii::t('yii', 'Your request is invalid.'));
+        else {
+            header('X-Robots-Tag: noindex');
+        }
     }
 
     public function invalidActionParams($action)

@@ -178,6 +178,7 @@ return array(
                 'new/javascript/knockout-debug.3.0.0.js',
                 'javascripts/knockout.mapping-latest.js',
             ),
+            'depends' => array('jquery'),
         ),
         'imagesLoaded' => array(
             'baseUrl' => '/',

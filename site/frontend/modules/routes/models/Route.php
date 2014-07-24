@@ -278,12 +278,14 @@ class Route extends CActiveRecord
     public function getTexts()
     {
         $city1 = array($this->cityFrom->name, $this->cityFrom->name_from, $this->cityFrom->name_between);
-        if ($this->cityFrom->show_region && !empty($this->cityFrom->region_id))
+        if ($this->cityFrom->show_region && !empty($this->cityFrom->region_id)) {
+            die(':(');
             $city1 = array(
                 $this->cityFrom->name . ' ' . $this->cityFrom->region->name,
                 $this->cityFrom->name_from . ' ' . $this->cityFrom->region->name,
                 $this->cityFrom->name_between . ' ' . $this->cityFrom->region->name,
             );
+        }
         $city2 = array($this->cityTo->name, $this->cityTo->name_from, $this->cityTo->name_between);
         if ($this->cityTo->show_region && !empty($this->cityTo->region_id))
             $city1 = array(

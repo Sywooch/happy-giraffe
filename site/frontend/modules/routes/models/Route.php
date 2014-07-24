@@ -287,6 +287,9 @@ class Route extends CActiveRecord
                 $this->cityFrom->name_from . ' ' . $this->cityFrom->region->name,
                 $this->cityFrom->name_between . ' ' . $this->cityFrom->region->name,
             );
+
+        print_r($city1);
+
         $city2 = array($this->cityTo->name, $this->cityTo->name_from, $this->cityTo->name_between);
         if ($this->cityTo->show_region && !empty($this->cityTo->region_id))
             $city1 = array(

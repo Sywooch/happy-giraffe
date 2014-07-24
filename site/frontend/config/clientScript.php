@@ -305,7 +305,7 @@ return array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
-                'javascripts/jquery-ui.min.js',
+                'new/javascript/jquery-ui.custom.min.js',
             ),
             'depends' => array('jquery'),
         ),

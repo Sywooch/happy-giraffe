@@ -85,6 +85,9 @@ class YandexOriginalText
     {
         $text = htmlspecialchars_decode(strip_tags($model->full_text));
 
+        var_dump($text);
+        die;
+
         $length = mb_strlen($text, 'UTF-8');
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
             if (! $model->isNewRecord) {

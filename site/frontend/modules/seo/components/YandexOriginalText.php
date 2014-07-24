@@ -83,7 +83,9 @@ class YandexOriginalText
 
     public function add(SeoYandexOriginalText &$model)
     {
-        $length = mb_strlen($model->full_text, 'UTF-8');
+        $text = htmlspecialchars_decode(strip_tags($model->full_text));
+
+        $length = mb_strlen($text, 'UTF-8');
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
             if (! $model->isNewRecord) {
                 return $model->delete();
@@ -92,14 +94,8 @@ class YandexOriginalText
         }
 
         $xml = new \SimpleXMLElement('<original-text/>');
-        $xml->addChild('content', $model->full_text);
+        $xml->addChild('content', $text);
         $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, urlencode($xml->asXML()));
-        echo $model->id;
-        echo "\n---\n";
-        var_dump($xml->asXML());
-        echo "---\n";
-        var_dump($response);
-        die;
 
         if ($this->api->client->status() != 201) {
             return false;

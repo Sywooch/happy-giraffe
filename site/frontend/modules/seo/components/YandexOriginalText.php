@@ -83,7 +83,7 @@ class YandexOriginalText
 
     public function add(SeoYandexOriginalText &$model)
     {
-        $text = htmlspecialchars_decode(strip_tags($model->full_text));
+        $text = html_entity_decode(strip_tags($model->full_text));
 
         var_dump($text);
         die;

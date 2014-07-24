@@ -86,7 +86,6 @@ class YandexOriginalText
         $text = htmlspecialchars_decode(strip_tags($model->full_text));
 
         var_dump($text);
-        die;
 
         $length = mb_strlen($text, 'UTF-8');
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
@@ -99,6 +98,9 @@ class YandexOriginalText
         $xml = new \SimpleXMLElement('<original-text/>');
         $xml->addChild('content', $text);
         $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, urlencode($xml->asXML()));
+
+        var_dump($response);
+        die;
 
         if ($this->api->client->status() != 201) {
             return false;

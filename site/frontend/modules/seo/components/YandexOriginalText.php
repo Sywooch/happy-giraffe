@@ -96,7 +96,7 @@ class YandexOriginalText
         $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, urlencode($xml->asXML()));
         echo $model->id;
         echo "\n---\n";
-        var_dump(urlencode($xml->asXML()));
+        var_dump($xml->asXML());
         echo "---\n";
         var_dump($response);
         die;

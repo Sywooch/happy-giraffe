@@ -98,7 +98,7 @@ class SeoTempCommand extends CConsoleCommand
         );
         $result = array();
 
-        $paths = $this->getPathes($ga, '2014-05-19', '2014-05-19', 'google');
+        $paths = $this->getPathes('2014-05-19', '2014-05-19', 'google');
         foreach ($paths as $path => $value) {
             $result[$path] = array(
                 'period1' => $value['ga:sessions'],
@@ -106,7 +106,7 @@ class SeoTempCommand extends CConsoleCommand
             );
         }
 
-        $paths = $this->getPathes($ga, '2014-06-16', '2014-06-16', 'google');
+        $paths = $this->getPathes('2014-06-16', '2014-06-16', 'google');
         foreach ($paths as $path => $value) {
             if (isset($result[$path])) {
                 $result[$path]['period2'] = $value['ga:sessions'];
@@ -155,17 +155,7 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
 
-        $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . '1807.csv';
-        if (is_file($path)) {
-            unlink($path);
-        }
-        $fp = fopen($path, 'w');
-
-        foreach ($_result as $fields) {
-            fputcsv($fp, $fields);
-        }
-
-        fclose($fp);
+        $this->writeCsv('b', $_result);
     }
 
     public function actionFuckedUpHoroscope()

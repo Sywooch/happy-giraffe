@@ -67,12 +67,7 @@
             <!-- header-menu-->
             <div class="header-menu">
               <ul class="header-menu_ul clearfix">
-                <!-- li.header-menu_li
-                a.header-menu_a(href='')
-                    span.header-menu_ico.header-menu_ico__broadcast
-                    span.header-menu_tx
-                        | Прямой эфир
-                -->
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
@@ -887,6 +882,30 @@
     </div>
     <!-- /popup-add-->
     <!--////////////////////////////////////////////////-->
+    <script>
+      // Скрипты для слайдера и скролла в попапах выбора изальбомов
+      $(function() {
+          var albumSlider =  $(".album-slider_hold").slider({
+              min: 1,
+              max: 3,
+              value: 2,
+          });
+          $( ".album-slider_tx-minus" ).click(function() {
+              albumSlider.slider( "value",  albumSlider.slider( "value" ) - 1 );
+          });
+          $( ".album-slider_tx-plus" ).click(function() {
+              albumSlider.slider( "value",  albumSlider.slider( "value" ) + 1 );
+          });
+          
+      // Попап загрузки фото. Дополнительные функции к попапу.
+          $('.popup-a__add').on('mfpOpen', function(e /*, params */) {
+              addBaron('.popup .scroll');
+              
+              addBaron('.popup .scroll');
+          });
+      });
+      
+    </script>
     <!-- .popup-add s-->
     <!-- Фотографии из альбома, список альбомов-->
     <div id="photo-albums-list" class="popup popup-add popup-add__photos">

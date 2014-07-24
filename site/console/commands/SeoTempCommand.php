@@ -68,7 +68,7 @@ class SeoTempCommand extends CConsoleCommand
         $dp = new CActiveDataProvider('CommunityPost', array(
             'criteria' => array(
                 'with' => 'content',
-                'condition' => 'content.removed = 0 AND content.id = 90331',
+                'condition' => 'content.removed = 0 AND content.id = 43301',
             ),
         ));
         $iterator = new CDataProviderIterator($dp, 1000);

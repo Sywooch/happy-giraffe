@@ -85,9 +85,6 @@ class YandexOriginalText
     {
         $text = html_entity_decode(strip_tags($model->full_text));
 
-        var_dump($text);
-        die;
-
         $length = mb_strlen($text, 'UTF-8');
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
             if (! $model->isNewRecord) {
@@ -100,15 +97,9 @@ class YandexOriginalText
         $xml->addChild('content', $text);
         $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, urlencode($xml->asXML()));
 
-        var_dump($xml->asXML());
-        die;
-
         if ($this->api->client->status() != 201) {
             return false;
         }
-
-        echo $model->id . "\n";
-        var_dump($response);
 
         $responseXml = new \SimpleXMLElement($response);
         $model->added = new \CDbExpression('NOW()');

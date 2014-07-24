@@ -44,7 +44,7 @@
     margin-bottom: 5px;
     position: absolute;
     top: 25px;
-    right: 60px;
+    right: 75px;
     
     @media (min-width: @screen-desktop) {
         display: block;
@@ -67,23 +67,13 @@
     header 
     Главная шапка сайта
 
-    header  __small     __base
-        header_hold
-            <logo>
-            header_t-big
-            header_user
-                header_user-name
-            header_i-arrow
 */
 .header {
     position: relative;
     background:#fff url('@{path-img}/header.png') repeat-x 0 0;
     
-    &__small &_hold {padding: 10px 0 10px;}
-
-    &__simple {
-        
-    }
+    &__simple {}
+    &__title &_hold {padding: 15px 20px 10px 0;}
     
     .logo {
         margin: 5px auto 15px;
@@ -91,28 +81,58 @@
     &_hold {
         padding: 25px 20px 18px;
     }
-    
-    @media (min-width: @screen-tablet) {
+
+    &_title {
+        margin: 10px 0;
+    }
+    &_title .ava {
+        vertical-align: middle;
+        margin: 0 15px;
+    }
+    &_arrow-l {
+        &:extend(.ico-arrow-l);
+        vertical-align: middle;
+    }
+    &_title-tx {
+        display: inline;
+        vertical-align: middle;
+        margin: 0;
+        font-size: 25px;
+        line-height: 28px;
+        font-weight: bold;
+        color: @color-link-title;
+        text-decoration: none;
+        letter-spacing: -0.6px;
+    }
+    &_title-a {
+        color: @color-link-title;
+        text-decoration: none;
+    }
+    &_title-a:hover {text-decoration: underline;}
+
+    @media (min-width: @screen-phone-landscape) {
         .logo {
             float: left;
             margin-right: 30px;
         }
         .sidebar-search {
             overflow: hidden;
-            margin: 35px 0 0 30px;
+            margin: 30px 0 0 30px;
         }
         &_hold {
             width: 600px;
             margin: 0 auto;
+            padding-left: 0;
+            padding-right: 0;
         }
     }
     @media (min-width: @screen-desktop) {
         .logo {
             float: left;
-            margin: 5px 30px 5px 40px;
         }
         &_hold {
             width: auto;
+            padding: 25px 60px 18px;
         }
     }
 
@@ -132,13 +152,13 @@
 */
 .header-menu {
     display: none;
-    margin: 15px 20px 0 0;
+    margin: 5px 20px 0 0;
 
     @media (min-width: @screen-desktop) {
         display: block;
         float: left;
     }
-    
+
     &_li {
         position: relative;
         .inline-block();

@@ -9,7 +9,7 @@ module.exports = function(grunt){
     jade: {
       
       // Пересобираем все шаблоны
-      all: {
+      new: {
         files: [{
           expand: true,
           cwd: 'new/jade',
@@ -41,7 +41,7 @@ module.exports = function(grunt){
       },
 
       // Пересобираем все шаблоны
-      lite_all: {
+      lite_prod: {
         files: [{
           expand: true,
           cwd: 'lite/jade',
@@ -54,6 +54,30 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
+          data: {
+            debug: false,
+            timestamp: "<%= grunt.template.today() %>"
+          }
+        }
+      },
+      // Пересобираем все шаблоны
+      lite_dev: {
+        files: [{
+          expand: true,
+          cwd: 'lite/jade',
+          src: ['page/**/*.jade', '!block/**/*.jade', '!extend/**/*.jade'],
+          dest: 'lite/html-dev',
+          ext: ".html"
+        }],
+        options: {
+          pretty: true,
+          client: false,
+          cache: true,
+          nospawn : true,
+          data: {
+            debug: true,
+            timestamp: "<%= grunt.template.today() %>"
+          }
         }
       },
     },
@@ -147,11 +171,11 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .clsss
             // /.dropdown+/,
-            /.mfp+/,
-            /.tooltip+/,
+            //.mfp+/,
+            //.tooltip+/,
           ],
         },
-        src: ['lite/html/page/blog/**/*.html'],
+        src: ['lite/html/page/blog/**/*.html', 'lite/html/page/comments/**/*.html'],
         dest: 'lite/css/min/blog.css'
       },
     },
@@ -246,21 +270,39 @@ module.exports = function(grunt){
       dist: {                     // Target
           files: [{               // Dictionary of files
               expand: true,       // Enable dynamic expansion.
-              cwd: 'new/images/svg',     // Src matches are relative to this path.
+              cwd: 'lite/images',     // Src matches are relative to this path.
               src: ['**/*.svg'],  // Actual pattern(s) to match.
-              dest: 'new/images/svg/min',       // Destination path prefix.
+              dest: 'lite/images',       // Destination path prefix.
               ext: '.min.svg'     // Dest filepaths will have this extension.
               // ie: optimise img/src/branding/logo.svg and store it in img/branding/logo.min.svg
           }]
       },
     },
+    // "svg-sprites": {
+    //     lite: {
+    //         options: {
+    //             spriteElementPath: "lite/images/",
+    //             spritePath: "img/sprites/dr-logos-tv-sprite.svg",
+    //             cssPath: "css/dr-logos-tv-sprite.css"
+    //         }
+    //     }
+    // }
 
     watch: {
 
       // Следим за статическими страницами
-      jadepage: {
-        files: ['new/jade/page/**/*.jade', 'lite/jade/page/**/*.jade'],
-        tasks: ['newer:jade'],
+      jadenew: {
+        files: [ 'new/jade/page/**/*.jade'], // 'new/jade/page/**/*.jade',
+        tasks: ['newer:jade:new'],
+        options: {
+          spawn: false,
+          livereload: true,
+        },
+      },
+      // Следим за статическими страницами
+      jadelite: {
+        files: [ 'lite/jade/page/**/*.jade'], // 'new/jade/page/**/*.jade',
+        tasks: ['newer:jade:lite_dev'],
         options: {
           spawn: false,
           livereload: true,
@@ -307,6 +349,16 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
+
+      // изобрражения
+      svg: {
+        files: ['lite/images/**/*.svg'],
+        tasks:['svgmin'],
+        options: {
+          livereload: true,
+        },
+      },
+
     },
 
     // Поднимаем сервер
@@ -324,7 +376,7 @@ module.exports = function(grunt){
   grunt.registerTask('css-new', ['less:newestdev','uncss:new', 'cmq:new', 'cssmin:new', 'csso:new']);
 
   // lite tasks
-  grunt.registerTask('blog', ['jade:lite_all', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 
   // Базовый для разработки верстки
   grunt.registerTask('default', [

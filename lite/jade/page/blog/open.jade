@@ -1,5 +1,5 @@
 include ../../block/config
-extend ../../extend/layout_lite
+extend ../../extend/layout_base
 block vars
   - var bodyClass = 'body__bg1 body__lite';
 
@@ -55,7 +55,7 @@ block layout
                             | чтобы оставить комментарий
                         .comment-add_editor.display-n
                     
-                    +comments-open-guest()
+                    +commentsOpen('', commentsOpen.a)
 
                     //- .article-users
                         .article-users_t Запись понравилась 

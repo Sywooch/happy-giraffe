@@ -1,0 +1,16 @@
+//- Баннер перед подвалом на всю ширину
+
+mixin banReadMore(mod, vars)
+    // баннер на всю ширину
+    .ban-read-more
+        .ban-read-more_hold
+            .ban-read-more_cont
+                .ban-read-more_t-sub Рекомендуем для чтения
+                .ban-read-more_author.clearfix
+                    // Аватарки размером 40*40
+                    +ava("ava__middle ava__small-xs", ava.c)
+                    a.a-light(href="") Ангелина Богоявленская
+                a.ban-read-more_t(href="") Внимание, опрос! 
+                .ban-read-more_desc Вот, девочки, напала на вот такую красоту в интернете. И вдруг вспомнила, что муж у меня уже много много лет мечтает ...
+                a.ban-read-more_arrow(href="")
+    // /баннер

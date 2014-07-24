@@ -269,6 +269,12 @@
 @screen-xs-min:              @screen-xs;
 @screen-phone:               @screen-xs-min;
 
+// Small screen / phone-landscape
+// Note: Добавленая точка. Для колонки в 600пк
+@screen-sm-mid:              640px;
+@screen-sm-mid-min:          @screen-sm-mid;
+@screen-phone-landscape:     @screen-sm-mid-min;
+
 // Small screen / tablet
 // Note: Deprecated @screen-sm and @screen-tablet as of v3.0.1
 @screen-sm:                  768px;
@@ -289,6 +295,7 @@
 
 // So media queries don't overlap when required, provide a maximum
 @screen-xs-max:              (@screen-sm-min - 1);
+@screen-sm-mid-max:          (@screen-sm-mid-min - 1);
 @screen-sm-max:              (@screen-md-min - 1);
 @screen-md-max:              (@screen-lg-min - 1);
 
@@ -426,21 +433,21 @@
 //
 //##
 
-@pagination-color:                     @link-color;
+@pagination-color:                     @color-gray;
 @pagination-bg:                        #fff;
-@pagination-border:                    #ddd;
+@pagination-border:                    #fff;
 
-@pagination-hover-color:               @link-hover-color;
-@pagination-hover-bg:                  @gray-lighter;
-@pagination-hover-border:              #ddd;
+@pagination-hover-color:               @color-gray-dark;
+@pagination-hover-bg:                  #fff;
+@pagination-hover-border:              #fff;
 
 @pagination-active-color:              #fff;
-@pagination-active-bg:                 @brand-primary;
-@pagination-active-border:             @brand-primary;
+@pagination-active-bg:                 #6accff;
+@pagination-active-border:             #6accff;
 
-@pagination-disabled-color:            @gray-light;
+@pagination-disabled-color:            @color-gray-light;
 @pagination-disabled-bg:               #fff;
-@pagination-disabled-border:           #ddd;
+@pagination-disabled-border:           #fff;
 
 
 //== Pager
@@ -449,7 +456,7 @@
 
 @pager-bg:                             @pagination-bg;
 @pager-border:                         @pagination-border;
-@pager-border-radius:                  15px;
+@pager-border-radius:                  4px;
 
 @pager-hover-bg:                       @pagination-hover-bg;
 

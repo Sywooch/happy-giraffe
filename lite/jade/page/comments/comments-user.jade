@@ -1,22 +1,19 @@
 include ../../block/config
-extend ../../extend/layout_lite
+extend ../../extend/layout_base
 block vars
-  - var bodyClass = 'body__bg1 body__lite';
+    - var bodyClass = 'body__bg1 body__lite';
+    //- Итоговый css для страницы
+    - global.cssFile = 'blog.css'; 
 
 block layout
-    /////////////////////////////////////////////////////////
-    /// В конечном итоге подключать css
-    /// /lite/css/min/blog.css
-    /// или grunt задачу, в коммандной строке 
-    /// grunt blog
-    /////////////////////////////////////////////////////////
+
     // b-main 
     .b-main.clearfix
         // стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту 
         a.post-arrow(href="")
         .b-main_cont
             .b-crumbs.b-crumbs__s
-                .b-crumbs_tx Я здесь
+                .b-crumbs_tx Я здесь:
                 ul.b-crumbs_ul
                     li.b-crumbs_li
                         a.b-crumbs_a(href="") Главная
@@ -28,9 +25,10 @@ block layout
                 ///////
                 // Основная колонка
                 .b-main_col-article
-                    +comments-open('', commentsOpen.a )
+                    +commentAdd()
+
+                    +commentsOpen('', commentsOpen.a )
                 
                 // /Основная колонка
 
     +layout-footer-lite('layout-footer__in')
-

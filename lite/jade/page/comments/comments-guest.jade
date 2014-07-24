@@ -1,22 +1,18 @@
 include ../../block/config
-extend ../../extend/layout_lite
+extend ../../extend/layout_base
 block vars
-  - var bodyClass = 'body__bg1 body__lite';
-
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'blog.css'; 
+    
 block layout
-    /////////////////////////////////////////////////////////
-    /// В конечном итоге подключать css
-    /// /lite/css/min/blog.css
-    /// или grunt задачу, в коммандной строке 
-    /// grunt blog
-    /////////////////////////////////////////////////////////
+
     // b-main 
     .b-main.clearfix
         // стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту 
         a.post-arrow(href="")
         .b-main_cont
             .b-crumbs.b-crumbs__s
-                .b-crumbs_tx Я здесь
+                .b-crumbs_tx Я здесь:
                 ul.b-crumbs_ul
                     li.b-crumbs_li
                         a.b-crumbs_a(href="") Главная
@@ -28,103 +24,16 @@ block layout
                 ///////
                 // Основная колонка
                 .b-main_col-article
-                    +comments-open('', commentsOpen.b)
-
-                    //- .article-users
-                        .article-users_t Запись понравилась 
-                            .ava-list
-                                ul.ava-list_ul.clearfix
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        a.ava.ava__small(href='')
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        a.ava.ava__small(href='')
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        a.ava.ava__small(href='')
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        a.ava.ava__small(href='')
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        a.ava-list_last(href='')
-                                            span.ava-list_like-hg
-                                            | 3251
-                            .article-users_t Запись добавили в избранное 
-                            .ava-list
-                                ul.ava-list_ul.clearfix
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        a.ava-list_last(href='')
-                                            span.ava-list_favorite.active
-                                            | 3251 и вы
-
+                    +commentsOpen('', commentsOpen.b)
+                    
                 // /Основная колонка
-
+        .b-main_row.b-main_row__gray.clearfix.hidden-lg
+            .b-main_cont
+                // Ссылка на страницу все комменты для планшетов и мобильных
+                .comments_all
+                    a.comments_all-a(href="") 
+                        | Все комментарии 
+                        | <svg class="comments_all-arrow" baseProfile="full" xmlns="http://www.w3.org/2000/svg" height="8" width="12"><path fill="rgb( 133, 131, 131 )" d="M6.004 4.308s3.801-3.8 3.801-3.8c.382-.382 1.001-.382 1.383 0 0 0 .346.345.346.345.382.383.382 1.002 0 1.384 0 0-4.474 4.472-4.474 4.472-.006.008-.009.017-.015.023 0 0-.346.346-.346.346-.192.192-.443.287-.695.286-.252.001-.504-.094-.696-.286 0 0-.345-.346-.345-.346-.008-.006-.009-.016-.016-.023 0 0-4.472-4.472-4.472-4.472-.382-.382-.382-1.001 0-1.384 0 0 .344-.345.344-.345.382-.382 1.002-.382 1.385 0 0 0 3.8 3.8 3.8 3.8z"/></svg>
+        +banReadMore()
+    
     +layout-footer-lite('layout-footer__in')
-

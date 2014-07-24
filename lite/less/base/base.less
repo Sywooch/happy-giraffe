@@ -15,11 +15,11 @@
 
     &__white {background-color: #fff;}
 
-    &_hold {
-        margin: 0 auto 30px;
-    }
     @media (min-width: @screen-desktop) {
         .layout-header {margin-top: 20px;}
+        &_hold {
+            margin: 0 auto 30px;
+        }
     }
 }
 
@@ -42,8 +42,7 @@
         cursor: pointer;
     }
     
-    &_i:hover &_tx {color: @color-link;}
-    &_i__answer:hover &_tx {color: @color-green;}
+    &_i:hover &_tx {color: @color-base;}
     &_i__favorite &_ico {background-position: 0 0;}
     &_i__favorite.active &_ico,
     &_i__favorite:hover &_ico{background-position: 0 -20px;}
@@ -268,7 +267,7 @@
 
 /* b-crumbs */
 .b-crumbs {
-    margin: 10px 20px 10px 20px;
+    margin: 10px 20px 10px 0;
     font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
     
     &__s {}
@@ -302,6 +301,8 @@
     &_last {
         color: #f17504;
     }
+    &_a {text-decoration: none;}
+    &_a:hover {text-decoration: underline;}
 }
 /* /b-crumbs */
 
@@ -345,66 +346,6 @@
 ------------------------------------------------------------------
 */
 
-/* 
-    scroll custom
-
-    scroll   __on
-        scroll_scroller
-            scroll_cont
-        scroll_bar-hold
-            scroll_bar
-                scroll_bar-in
-*/
-.scroll {
-    position: relative;
-    overflow: hidden;
-    height: 100%;
-
-    &__on &_bar-hold {display: block;}
-    // &:hover &_bar-in {background: rgba(0,0,0,.3);}
-
-    &_scroller {
-        overflow-y: auto !important;
-        height: 100%;
-        width: 100%;
-        -webkit-overflow-scrolling: touch;
-    }
-    &_scroller::-webkit-scrollbar { /* Preventing webkit bug of horizontal scrolling */
-        width: 0;
-    }
-    &_cont {overflow: hidden;}
-    &_bar-hold {
-        display: none;
-        position: absolute;    
-        z-index: 1;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        width: 15px;
-        .border-radius(4px);
-    }
-    &_bar { /* The bar. You should define width, right and background */
-        position: absolute;
-        z-index: 1;
-        right: 0;
-        width: 15px;
-        cursor: pointer;
-    }
-    &_bar:hover &_bar-in{background: rgba(0,0,0,.3);}
-    &_bar-in {
-        position: absolute;
-        top: 4px;
-        bottom: 4px;
-        right: 3px;
-        width: 3px;
-        background: #b9b9b9;
-        background: rgba(0,0,0,.15);
-        .border-radius(6px);
-        -webkit-transition: all .2s linear;
-        transition: all .2s linear;
-    }
-}
-/* /scroll custom */
 
 /* powerTip */
 #powerTip {

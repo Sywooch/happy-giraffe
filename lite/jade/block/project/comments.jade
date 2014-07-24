@@ -4,14 +4,15 @@
 //- mod 
     vars
         
-mixin comments-open (mod, vars)
+mixin commentsOpen (mod, vars)
     // comments
     .comments.comments__buble
-        .comments_t Комментарии 68 
+        - if (vars.pagination)
+            .comments_t Комментарии 68 
         .comments_hold
             ul.comments_ul
                 // 
-                    варианты цветов комментов в такой последовательности
+                    варианты цветов комментов. В такой последовательности
                     .comments_li__lilac
                     .comments_li__yellow
                     .comments_li__red
@@ -21,7 +22,7 @@ mixin comments-open (mod, vars)
                     article.comments_i
                         .comments_ava
                             // Аватарки размером 40*40
-                            +ava("ava__middle ava__small-xs", ava.b)
+                            +ava("ava__middle ava__small-sm-mid", ava.b)
                         .comments_frame
                             .comments_header
                                 a.a-light.comments_author(href="", rel='author') Иванна Хлебникова
@@ -31,7 +32,8 @@ mixin comments-open (mod, vars)
                                     p 
                                         |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
                                     // одно фото в блок (ссылку)
-                                    a.comments-gray_cont-img-w(href='')
+                                    a.comments_cont-img-w(href='')
+                                        // размеры превью максимум 400*400 пк
                                         img(alt='', src='/images/example/w220-h309-1.jpg')
                                     p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
 
@@ -43,7 +45,8 @@ mixin comments-open (mod, vars)
                         li.comments_li.comments_li__lilac.clearfix
                             article.comments_i
                                 .comments_ava
-                                    +ava("ava__middle", ava.c)
+                                    // Аватарки размером 40*40
+                                    +ava("ava__middle ava__small-sm-mid", ava.b)
                                 .comments_frame
                                     .comments_header
                                         a.a-light.comments_author(href="", rel='author') Иванна Хлебникова
@@ -56,7 +59,7 @@ mixin comments-open (mod, vars)
 
                                     - if (vars.user)
                                         .comments_footer
-                                            +bControl("", bControl.e)
+                                            +bControl("", bControl.d)
                         // /комментарий вложенный
 
                         // комментарий вложенный
@@ -64,7 +67,8 @@ mixin comments-open (mod, vars)
                         li.comments_li.comments_li__self.comments_li__lilac.clearfix
                             article.comments_i
                                 .comments_ava
-                                    +ava("ava__middle", ava.c)
+                                    // Аватарки размером 40*40
+                                    +ava("ava__middle ava__small-sm-mid", ava.a)
                                 .comments_frame
                                     .comments_header
                                         a.a-light.comments_author(href="", rel='author') Ангелина Богоявленская
@@ -86,7 +90,8 @@ mixin comments-open (mod, vars)
                 li.comments_li.comments_li__red.clearfix
                     article.comments_i
                         .comments_ava
-                            +ava("ava__middle", ava.c)
+                            // Аватарки размером 40*40
+                            +ava("ava__middle ava__small-sm-mid", ava.c)
                         .comments_frame
                             .comments_header
                                 a.a-light.comments_author(href="", rel='author') Иванна Хлебникова
@@ -99,20 +104,32 @@ mixin comments-open (mod, vars)
                                 .comments_footer
                                     +bControl("", bControl.e)
                 // комментарий 
+        - if (vars.pagination)
+            // Пагинация для декстопа 
+            +paginationRevers()
+            //- Ссылка на страницу все комменты для планшетов и мобильных
+            //-.comments_all
+                a.comments_all-a(href="") Все комментарии 
     // /comments
 
 - var commentsOpen = {}
 - commentsOpen.a = {}
 - commentsOpen.a.user = true
+- commentsOpen.a.pagination = true
 
 - commentsOpen.b = {}
 - commentsOpen.b.user = false
+- commentsOpen.b.pagination = true
+
+- commentsOpen.commentPage = {}
+- commentsOpen.commentPage.user = false
+- commentsOpen.commentPage.pagination = false
 
 
 mixin comments-add-active(mod, vars)
-    .comments_add
+    .comments-add
         // скрытый инпут, который заменяется на редактор
-        input.comments_add-inp.itx-gray.display-n(type="text", placeholder="Добавить комментарий")
+        input.comments-add_inp.itx-gray.display-n(type="text", placeholder="Добавить комментарий")
         script.
             $(document).ready(function () { 
               $('.wysiwyg-redactor').redactor({
@@ -149,10 +166,26 @@ mixin comments-add-active(mod, vars)
             .wysiwyg-toolbar
                     a.wysiwyg-toolbar_close.ico-close3(href='')
                     .wysiwyg-toolbar-btn
-            textarea.wysiwyg-redactor(name='')
+            textarea.wysiwyg-redactor(name='', placeholder="Введите комментарий")
             .redactor-control.clearfix
                 .float-r
                     .redactor-control_key
                         input#redactor-control_key-checkbox.redactor-control_key-checkbox(type='checkbox', name='')
                         label.redactor-control_key-label(for='redactor-control_key-checkbox') Enter - отправить
-                    button.btn-green-simple Отправить
+                    button.btn.btn-success.btn-m Комментировать
+
+//- comment-add
+    
+    mod
+    vars
+mixin commentAdd (mod, vars)
+    .comment-add
+        .comment-add_t Комментировать
+        .comment-add_hold 
+            |  Комментировать от
+            .ico-social-hold
+                a.ico-social.ico-social__odnoklassniki(href="")
+                a.ico-social.ico-social__vkontakte(href="")
+            |  или 
+            a.comment-add_a Войти
+        .comment-add_editor.display-n

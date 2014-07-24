@@ -68,19 +68,19 @@ class SeoTempCommand extends CConsoleCommand
         $dp = new CActiveDataProvider('CommunityPost', array(
             'criteria' => array(
                 'with' => 'content',
-                'condition' => 'content.removed = 0 AND content.id = 43301',
+                'condition' => 'content.removed = 0 AND content.id = 30503',
             ),
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $post) {
-            echo $post->id . "\n";
             if ($dom = str_get_html($post->text)) {
                 $els = $dom->find($from);
-                foreach ($els as $el) {
-                    $el->outertext = '<' . $to . '>' . $el->innertext . '</' . $to . '>';
+                if (count($els) > 0) {
+                    foreach ($els as $el) {
+                        $el->outertext = '<' . $to . '>' . $el->innertext . '</' . $to . '>';
+                    }
                     CommunityPost::model()->updateByPk($post->id, array('text' => (string) $dom));
                     $post->purified->clearCache();
-
                     $url = $post->content->getUrl(false, true);
                     $result[] = array($url);
                     echo $url . "\n";

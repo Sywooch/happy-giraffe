@@ -143,11 +143,9 @@ class SeoTempCommand extends CConsoleCommand
 
                     $text = $post->getContent()->text;
                     if ($dom = str_get_html($text)) {
-                        $value['strong'] = count($dom->find('strong'));
-                        $value['em'] = count($dom->find('em'));
+                        $value['b'] = count($dom->find('b'));
                     } else {
-                        $value['strong'] = 0;
-                        $value['em'] = 0;
+                        $value['b'] = 0;
                     }
 
                     $_result[] = $value;

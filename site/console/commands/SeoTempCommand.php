@@ -62,23 +62,22 @@ class SeoTempCommand extends CConsoleCommand
         $this->writeCsv('removed', $result);
     }
 
-    public function actionReplaceSingleEm()
+    public function actionReplaceTag($from, $to)
     {
         $result = array();
         $dp = new CActiveDataProvider('CommunityPost', array(
             'criteria' => array(
                 'with' => 'content',
-                'condition' => 'content.removed = 0',
+                'condition' => 'content.removed = 0 AND content.id = 90331',
             ),
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $post) {
             echo $post->id . "\n";
             if ($dom = str_get_html($post->text)) {
-                $em = $dom->find('em');
-                if (count($em) == 1) {
-                    $el = $em[0];
-                    $el->outertext = '<i>' . $el->innertext . '</i>';
+                $els = $dom->find($from);
+                foreach ($els as $el) {
+                    $el->outertext = '<' . $to . '>' . $el->innertext . '</' . $to . '>';
                     CommunityPost::model()->updateByPk($post->id, array('text' => (string) $dom));
                     $post->purified->clearCache();
 
@@ -88,7 +87,7 @@ class SeoTempCommand extends CConsoleCommand
                 }
             }
         }
-        $this->writeCsv('emToI', $result);
+        $this->writeCsv($from . 'to' . $to, $result);
     }
 
     public function actionStrong()

@@ -99,7 +99,7 @@ class YandexOriginalText
         $xml->addChild('content', $text);
         $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, urlencode($xml->asXML()));
 
-        var_dump($response);
+        var_dump($xml->asXML());
         die;
 
         if ($this->api->client->status() != 201) {

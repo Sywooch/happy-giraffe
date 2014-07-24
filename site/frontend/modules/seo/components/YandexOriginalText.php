@@ -83,10 +83,7 @@ class YandexOriginalText
 
     public function add(SeoYandexOriginalText &$model)
     {
-        $text = html_entity_decode(strip_tags($model->full_text));
-
-        var_dump($text);
-        die;
+        $text = html_entity_decode(strip_tags($model->full_text), ENT_COMPAT | ENT_HTML401, 'UTF-8');
 
         $length = mb_strlen($text, 'UTF-8');
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {

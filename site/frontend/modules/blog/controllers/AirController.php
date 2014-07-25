@@ -56,7 +56,7 @@ class AirController extends HController
                 return 0;
             }
 
-            return ($a->created < $b->created) ? -1 : 1;
+            return ($a->created > $b->created) ? -1 : 1;
         });
 
         return new CArrayDataProvider($data);

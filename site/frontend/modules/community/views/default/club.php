@@ -44,14 +44,6 @@ Yii::app()->clientScript->registerPackage('ko_community');
 </div>
 
 <div class="content-cols clearfix">
-
-    <div class="col-1">
-        <?php $this->renderPartial('_users'); ?>
-        <?php if (count($this->club->communities) == 1)
-            $this->renderPartial('_rubrics', array('rubrics' => $this->club->communities[0]->rootRubrics)); ?>
-
-        <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
-    </div>
     <div class="col-23-middle ">
 
         <?php if (!Yii::app()->user->isGuest && count($this->club->communities) == 1):?>
@@ -62,6 +54,14 @@ Yii::app()->clientScript->registerPackage('ko_community');
         <?php endif ?>
 
         <?php $this->renderPartial('list', array('dp' => CommunityContent::model()->getClubContents($this->club->id))); ?>
+    </div>
+
+    <div class="col-1">
+        <?php $this->renderPartial('_users'); ?>
+        <?php if (count($this->club->communities) == 1)
+            $this->renderPartial('_rubrics', array('rubrics' => $this->club->communities[0]->rootRubrics)); ?>
+
+        <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
     </div>
 
 </div>

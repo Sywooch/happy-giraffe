@@ -28,7 +28,7 @@
             <?php $this->endWidget(); ?>
         </div>
 
-        <?php $this->renderPartial('likes_simple',array('model'=>$model)) ?>
+        <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $model, 'title' => $this->social_title)); ?>
 
     </div>
 

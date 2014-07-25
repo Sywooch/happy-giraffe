@@ -1,7 +1,22 @@
 <?php $this->beginContent('//layouts/community'); ?>
 
+
+    <div class="col-23-middle ">
+
+        <?php if (!Yii::app()->user->isGuest):?>
+            <div class="clearfix margin-r20 margin-b20 js-community-subscription" data-bind="visible: active">
+                <a href="<?=$this->createUrl('/blog/default/form', array('type' => 1, 'club_id' => $this->forum->id)) ?>"
+                   class="btn-blue btn-h46 float-r fancy-top">Добавить в клуб</a>
+            </div>
+        <?php endif ?>
+
+        <?=$content ?>
+
+    </div>
+    
     <div class="col-1">
         <?php if ($this->action->id == 'view' || $this->forum->club_id == 11): ?>
+            <?php $this->beginWidget('AdsWidget'); ?>
             <div class="banner">
                 <!--AdFox START-->
                 <!--giraffe-->
@@ -33,9 +48,18 @@
                 </script>
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
             </div>
+            <?php $this->endWidget(); ?>
         <?php endif; ?>
 
         <?php $this->renderPartial('_users2'); ?>
+
+        <?php if ($this->action->id == 'view'): ?>
+            <?php $this->beginWidget('AdsWidget'); ?>
+            <div class="banner">
+                <?php $this->renderPartial('//banners/_sidebar'); ?>
+            </div>
+            <?php $this->endWidget(); ?>
+        <?php endif; ?>
 
         <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
 
@@ -75,6 +99,7 @@
             </script>
             <!--AdFox END-->
 
+            <?php if (false): ?>
             <div class="banner">
                 <!--  AdRiver code START. Type:extension Site:  PZ: 0 BN: 0 -->
                 <script type="text/javascript">
@@ -93,6 +118,7 @@
                 </script>
                 <!--  AdRiver code END  -->
             </div>
+            <?php endif; ?>
 
             <?php if (false && $this->action->id == 'view'): ?>
                 <div class="contest-tizer contest-tizer__13 clearfix">
@@ -106,19 +132,6 @@
                 </div>
             <?php endif; ?>
         <?php endif; ?>
-    </div>
-
-    <div class="col-23-middle ">
-
-        <?php if (!Yii::app()->user->isGuest):?>
-            <div class="clearfix margin-r20 margin-b20 js-community-subscription" data-bind="visible: active">
-                <a href="<?=$this->createUrl('/blog/default/form', array('type' => 1, 'club_id' => $this->forum->id)) ?>"
-                   class="btn-blue btn-h46 float-r fancy-top">Добавить в клуб</a>
-            </div>
-        <?php endif ?>
-
-        <?=$content ?>
-
     </div>
 
 <?php $this->endContent(); ?>

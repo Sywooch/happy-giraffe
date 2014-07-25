@@ -2,7 +2,7 @@
 /**
  * @var SettingsController $this
  */
-Yii::app()->clientScript->registerScriptFile('/javascripts/ko_settings.js'); ?>
+?>
 <div id="personal-settings">
 
     <div data-bind="template: { name: 'attribute-template', data: first_name }"></div>

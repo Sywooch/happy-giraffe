@@ -10,7 +10,7 @@
 
         <div class="title">
 
-            <h1><?=$test->title ?></h1>
+            <h1 class="title_tx"><?=$test->title ?></h1>
 
         </div>
 
@@ -87,7 +87,7 @@ foreach ($test->testQuestions as $question):?>
 
         <div class="title">
 
-            <h1><?=$test->title ?></h1>
+            <div class="title_tx"><?=$test->title ?></div>
 
         </div>
 
@@ -98,15 +98,6 @@ foreach ($test->testQuestions as $question):?>
             <div class="r-text">
 
                 <?php echo $result->text ?>
-
-                <div class="textalign-c margin-t20">
-                    <div class="margin-10">
-                        <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" target="_blank" onclick="_gaq.push(['_trackEvent','Outgoing Links','www.clearblue.com'])">
-                            <img src="/images/branding/clearblue/img-test.jpg" alt="">
-                        </a>
-                    </div>
-                    Подробнее на <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" target="_blank" onclick="_gaq.push(['_trackEvent','Outgoing Links','www.clearblue.com'])">www.clearblue.com</a>
-                </div>
 
 			</div>
 
@@ -128,7 +119,7 @@ foreach ($test->testQuestions as $question):?>
 
     <div class="margin-20">
         <div class="wysiwyg-content">
-            <h1><?php echo $test->title ?></h1>
+            <div class="title_tx"><?php echo $test->title ?></div>
             <?php echo $test->text ?>
         </div>
     </div>

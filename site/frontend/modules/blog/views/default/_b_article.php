@@ -18,7 +18,7 @@
             <?php endif; ?>
             <?php $this->widget('application.modules.blog.widgets.LikeWidget', array('model' => $model)); ?>
             <!-- ko stopBinding: true -->
-            <?php $this->widget('application.modules.blog.widgets.RepostWidget', array('model' => $model, 'right' => true)); ?>
+            <?php /*$this->widget('application.modules.blog.widgets.RepostWidget', array('model' => $model, 'right' => true));*/ ?>
             <!-- /ko -->
             <!-- ko stopBinding: true -->
             <?php $this->widget('FavouriteWidget', array('model' => $model, 'right' => true)); ?>

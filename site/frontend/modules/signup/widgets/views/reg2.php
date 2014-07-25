@@ -241,7 +241,7 @@
                     RegisterFormStep2 : {
                         avatar : {
                             imgSrc : registerVm.avatar.imgSrc(),
-                            coords : registerVm.avatar.coords
+                            coords : registerVm.avatar.coords()
                         }
                     }
                 });

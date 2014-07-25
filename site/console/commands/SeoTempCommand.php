@@ -77,7 +77,14 @@ class SeoTempCommand extends CConsoleCommand
                     foreach ($patterns as $pattern) {
                         if (preg_match($pattern, $path, $matches)) {
                             $id = $matches[1];
+
                             $post = CommunityContent::model()->findByPk($id);
+
+                            if ($post === null) {
+                                echo $path . "\n";
+                                continue;
+                            }
+
                             if ($post->type_id == $t) {
                                 $_result[] = array_merge(array(
                                     'http://www.happy-giraffe.ru' . $path,

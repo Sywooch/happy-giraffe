@@ -78,10 +78,10 @@ class SeoTempCommand extends CConsoleCommand
                         if (preg_match($pattern, $path, $matches)) {
                             $id = $matches[1];
 
-                            $post = CommunityContent::model()->findByPk($id);
+                            $post = CommunityContent::model()->resetScope()->findByPk($id);
 
                             if ($post === null) {
-                                echo $path . "-" . $id  . "\n";
+                                echo $path . "\n";
                                 continue;
                             }
 

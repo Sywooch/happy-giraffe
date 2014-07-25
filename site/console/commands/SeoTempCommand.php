@@ -11,8 +11,11 @@ Yii::import('site.frontend.extensions.GoogleAnalytics');
 
 class SeoTempCommand extends CConsoleCommand
 {
-    protected function getPathes($ga, $start, $end, $searchEngine)
+    protected function getPathes($start, $end, $searchEngine)
     {
+        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+        $ga->setProfile('ga:53688414');
+
         $cacheId = 'Yii.seo.paths.' . $start . '.' . $end . '.' . $searchEngine;
         $paths = Yii::app()->cache->get($cacheId);
         if ($paths === false) {
@@ -29,7 +32,51 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
-    public function actionReplaceSingleEm()
+    public function actionRoutesTest()
+    {
+        Yii::import('site.frontend.modules.routes.models.*');
+
+        $models = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from(Route::model()->tableName())
+            ->where('wordstat_value >= '.Route::WORDSTAT_LIMIT)
+            ->where(array('in', 'status', array(Route::STATUS_ROSNEFT_FOUND, Route::STATUS_GOOGLE_PARSE_SUCCESS)))
+            ->queryColumn();
+
+        echo count($models);
+    }
+
+    public function actionRemoved()
+    {
+        $patterns = array(
+            '#\/community\/(?:\d+)\/forum\/(?:\w+)\/(\d+)\/$#',
+            '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
+        );
+
+        $result = array();
+        $paths = $this->getPathes('2014-02-04', '2014-02-04', 'google');
+        foreach ($paths as $path => $value) {
+            if ($value['ga:sessions'] > 50) {
+                foreach ($patterns as $pattern) {
+                    if (preg_match($pattern, $path, $matches)) {
+                        $id = $matches[1];
+                        $post = \CommunityContent::model()->resetScope()->findByPk($id);
+
+                        if ($post === null) {
+                            echo $path . "\n";
+                            continue;
+                        }
+
+                        $result[] = array('http://www.happy-giraffe.ru' . $path, $value['ga:sessions'], $post->removed);
+                    }
+                }
+            }
+        }
+
+        $this->writeCsv('removed', $result);
+    }
+
+    public function actionReplaceTag($from, $to)
     {
         $result = array();
         $dp = new CActiveDataProvider('CommunityPost', array(
@@ -40,22 +87,21 @@ class SeoTempCommand extends CConsoleCommand
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $post) {
-            echo $post->id . "\n";
             if ($dom = str_get_html($post->text)) {
-                $em = $dom->find('em');
-                if (count($em) == 1) {
-                    $el = $em[0];
-                    $el->outertext = '<i>' . $el->innertext . '</i>';
+                $els = $dom->find($from);
+                if (count($els) > 0) {
+                    foreach ($els as $el) {
+                        $el->outertext = '<' . $to . '>' . $el->innertext . '</' . $to . '>';
+                    }
                     CommunityPost::model()->updateByPk($post->id, array('text' => (string) $dom));
                     $post->purified->clearCache();
-
                     $url = $post->content->getUrl(false, true);
                     $result[] = array($url);
                     echo $url . "\n";
                 }
             }
         }
-        $this->writeCsv('emToI', $result);
+        $this->writeCsv($from . 'to' . $to, $result);
     }
 
     public function actionStrong()
@@ -66,10 +112,7 @@ class SeoTempCommand extends CConsoleCommand
         );
         $result = array();
 
-        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
-        $ga->setProfile('ga:53688414');
-
-        $paths = $this->getPathes($ga, '2014-05-19', '2014-05-19', 'google');
+        $paths = $this->getPathes('2014-05-19', '2014-05-19', 'google');
         foreach ($paths as $path => $value) {
             $result[$path] = array(
                 'period1' => $value['ga:sessions'],
@@ -77,7 +120,7 @@ class SeoTempCommand extends CConsoleCommand
             );
         }
 
-        $paths = $this->getPathes($ga, '2014-06-16', '2014-06-16', 'google');
+        $paths = $this->getPathes('2014-06-16', '2014-06-16', 'google');
         foreach ($paths as $path => $value) {
             if (isset($result[$path])) {
                 $result[$path]['period2'] = $value['ga:sessions'];
@@ -114,11 +157,9 @@ class SeoTempCommand extends CConsoleCommand
 
                     $text = $post->getContent()->text;
                     if ($dom = str_get_html($text)) {
-                        $value['strong'] = count($dom->find('strong'));
-                        $value['em'] = count($dom->find('em'));
+                        $value['b'] = count($dom->find('b'));
                     } else {
-                        $value['strong'] = 0;
-                        $value['em'] = 0;
+                        $value['b'] = 0;
                     }
 
                     $_result[] = $value;
@@ -126,17 +167,7 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
 
-        $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . '1807.csv';
-        if (is_file($path)) {
-            unlink($path);
-        }
-        $fp = fopen($path, 'w');
-
-        foreach ($_result as $fields) {
-            fputcsv($fp, $fields);
-        }
-
-        fclose($fp);
+        $this->writeCsv('b', $_result);
     }
 
     public function actionFuckedUpHoroscope()

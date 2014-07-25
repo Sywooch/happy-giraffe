@@ -127,8 +127,8 @@ class DefaultController extends ServiceController
             ->where(array('in', 'id', array(Route::STATUS_ROSNEFT_FOUND, Route::STATUS_GOOGLE_PARSE_SUCCESS)))
             ->queryColumn();
 
-        echo count($models);
-        die;
+//        echo count($models);
+//        die;
 
         $data = array();
         if ($param == 1)

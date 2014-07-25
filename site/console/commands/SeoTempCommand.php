@@ -32,6 +32,44 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionBadContent($type)
+    {
+        $result = array();
+
+        $paths1 = $this->getPathes('2014-05-18', '2014-05-18', 'google');
+        $paths2 = $this->getPathes('2014-05-18', '2014-05-18', 'yandex');
+        $paths3 = $this->getPathes('2014-06-16', '2014-06-16', 'google');
+        $paths4 = $this->getPathes('2014-06-16', '2014-06-16', 'yandex');
+
+        $paths = array($paths1, $paths2, $paths3, $paths4);
+
+        foreach ($paths as $k => $p) {
+            foreach ($p as $path => $value) {
+                if (! isset($result[$path])) {
+                    $result[$path] = array_fill(0, 4, 0);
+                }
+                $result[$path][$k] = $value['ga:sessions'];
+            }
+        }
+
+        $_result = array();
+        foreach ($result as $path => $counts) {
+            switch ($type) {
+                case 'users':
+                        if (preg_match('#^\/user\/(\d+)\/$#', $path, $matches)) {
+                            $id = $matches[1];
+                            $contentCount = CommunityContent::model()->count('type_id IN (5,6)');
+                            $_result[] = array(
+                                'http://www.happy-giraffe.ru' . $path,
+                            ) + $counts;
+                        }
+                    break;
+            }
+        }
+
+        $this->writeCsv('users', $_result);
+    }
+
     public function actionRoutesTest()
     {
         Yii::import('site.frontend.modules.routes.models.*');

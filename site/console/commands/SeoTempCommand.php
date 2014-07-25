@@ -58,9 +58,10 @@ class SeoTempCommand extends CConsoleCommand
                 case 'users':
                         if (preg_match('#^\/user\/(\d+)\/$#', $path, $matches)) {
                             $id = $matches[1];
-                            $contentCount = CommunityContent::model()->count('type_id IN (5,6)');
+                            $contentCount = CommunityContent::model()->count('type_id IN (5,6) AND author_id = :id', array(':id' => $id));
                             $_result[] = array(
                                 'http://www.happy-giraffe.ru' . $path,
+                                $contentCount,
                             ) + $counts;
                         }
                     break;

@@ -30,7 +30,7 @@
                 'cssFile' => false,
                 'ajaxUpdate' => false,
                 'dataProvider' => $dp,
-                'itemView' => 'site.frontend.modules.blog.views.default.view',
+                'itemView' => 'view',
                 'pager' => array(
                     'class' => 'HLinkPager',
                 ),

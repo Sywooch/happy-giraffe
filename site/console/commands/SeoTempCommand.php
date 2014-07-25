@@ -81,7 +81,7 @@ class SeoTempCommand extends CConsoleCommand
                             $post = CommunityContent::model()->findByPk($id);
 
                             if ($post === null) {
-                                echo $path . "\n";
+                                echo $path . "-" . $id  . "\n";
                                 continue;
                             }
 

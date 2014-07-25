@@ -65,6 +65,27 @@ class SeoTempCommand extends CConsoleCommand
                             ), $counts);
                         }
                     break;
+                case 'reposts':
+                case 'statuses':
+                    $t = $type == 'reposts' ? CommunityContent::TYPE_REPOST : CommunityContent::TYPE_STATUS;
+
+                    $patterns = array(
+                        '#\/community\/(?:\d+)\/forum\/(?:\w+)\/(\d+)\/$#',
+                        '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
+                    );
+
+                    foreach ($patterns as $pattern) {
+                        if (preg_match($pattern, $path, $matches)) {
+                            $id = $matches[1];
+                            $post = CommunityPost::model()->findByPk($id);
+                            if ($post->type_id == $t) {
+                                $_result[] = array_merge(array(
+                                    'http://www.happy-giraffe.ru' . $path,
+                                ), $counts);
+                            }
+                        }
+                    }
+                    break;
             }
         }
 

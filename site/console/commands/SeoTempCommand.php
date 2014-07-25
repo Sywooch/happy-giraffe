@@ -89,7 +89,7 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
 
-        $this->writeCsv('users', $_result);
+        $this->writeCsv($type, $_result);
     }
 
     public function actionRoutesTest()

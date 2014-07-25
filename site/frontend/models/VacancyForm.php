@@ -10,9 +10,17 @@ class VacancyForm extends CFormModel
     public $email;
     public $phoneNumber;
     public $hhUrl;
+    public $cvUrl;
+
+    protected $type;
 
     private $debugEmails = array('pavel@happy-giraffe.ru', 'nikita@happy-giraffe.ru');
-    private $productionEmails = array('info@happy-giraffe.ru');
+    private $productionEmails = array('info@happy-giraffe.ru', 'pavel@happy-giraffe.ru');
+
+    public function __construct($type)
+    {
+        $this->type = $type;
+    }
 
     public function getEmails()
     {
@@ -26,6 +34,7 @@ class VacancyForm extends CFormModel
             array('email', 'email'),
             array('phoneNumber', 'match', 'pattern' => '/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/', 'message' => 'Введите корректный номер телефона'),
             array('hhUrl', 'validateLink'),
+            array('cvUrl', 'url'),
         );
     }
 
@@ -40,17 +49,6 @@ class VacancyForm extends CFormModel
         }
     }
 
-    public function cityRequired($attribute, $params)
-    {
-        if ($this->country_id) {
-            $country = GeoCountry::model()->findByPk($this->country_id);
-            if ($country->citiesFilled) {
-                $req = CValidator::createValidator('required', $this, array('city_id'));
-                $req->validate($this);
-            }
-        }
-    }
-
     public function attributeLabels()
     {
         return array(
@@ -58,6 +56,7 @@ class VacancyForm extends CFormModel
             'email' => 'E-mail',
             'phoneNumber' => 'Контактный <br>телефон',
             'hhUrl' => 'Ссылка на резюме <br> на HeadHunter',
+            'cvUrl' => 'Ссылка на загруженное резюме',
         );
     }
 
@@ -65,7 +64,14 @@ class VacancyForm extends CFormModel
     {
         foreach ($this->emails as $e) {
             $html = Yii::app()->controller->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancy.php', array('form' => $this), true);
-            ElasticEmail::send($e, 'Отклик на вакансию PHP-разработчика, ' . $this->fullName, $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
+            ElasticEmail::send($e, $this->getSubject(), $html, 'noreply@happy-giraffe.ru', 'Веселый Жираф');
         }
+    }
+
+    protected function getSubject()
+    {
+        $subject = ($this->type == 'backend') ? 'Отклик на вакансию PHP-разработчика' : 'Отклик на вакансию Frontend-разработчика';
+        $subject .= ', ' . $this->fullName;
+        return $subject;
     }
 }

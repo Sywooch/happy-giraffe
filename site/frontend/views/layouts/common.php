@@ -67,60 +67,7 @@
     <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
         <?=$content?>
 
-        <?php if (YII_DEBUG === false): ?>
-        <!-- Yandex.Metrika counter -->
-        <script type="text/javascript">
-            (function (d, w, c) {
-                (w[c] = w[c] || []).push(function() {
-                    try {
-                        w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true, trackHash:true, webvisor:true});
-                    } catch(e) {}
-                });
-
-                var n = d.getElementsByTagName("script")[0],
-                    s = d.createElement("script"),
-                    f = function () { n.parentNode.insertBefore(s, n); };
-                s.type = "text/javascript";
-                s.async = true;
-                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-                if (w.opera == "[object Opera]") {
-                    d.addEventListener("DOMContentLoaded", f);
-                } else { f(); }
-            })(document, window, "yandex_metrika_callbacks");
-        </script>
-        <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <!-- /Yandex.Metrika counter -->
-
-        <script type="text/javascript">
-
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', '<?=Yii::app()->params['gaCode']  ?>']);
-            _gaq.push(['_trackPageview']);
-
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-        </script>
-
-        <script type="text/javascript">
-            var _top100q = _top100q || [];
-
-            _top100q.push(["setAccount", "2900190"]);
-            _top100q.push(["trackPageviewByLogo", document.getElementById("counter-rambler")]);
-
-
-            (function(){
-                var top100 = document.createElement("script"); top100.type = "text/javascript";
-
-                top100.async = true;
-                top100.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//st.top100.ru/top100/top100.js";
-                var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
-            })();
-        </script>
-        <?php endif; ?>
+        <?php Yii::app()->ads->showCounters(); ?>
 
         <?php if (false): ?>
         <!-- tns-counter.ru -->
@@ -150,6 +97,7 @@
         <!--/ tns-counter.ru -->
         <?php endif; ?>
 
+        <?php if (false): ?>
         <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->
@@ -180,7 +128,9 @@
             // -->
         </script>
         <!--AdFox END-->
+        <?php endif; ?>
 
+        <?php if (false): ?>
         <!-- Soloway Javascript code START-->
         <script language="javascript" type="text/javascript"><!--
             var RndNum4NoCash = Math.round(Math.random() * 1000000000);
@@ -188,6 +138,7 @@
             document.write('<sc' + 'ript language="JavaScript" src="http://ad.adriver.ru/cgi-bin/erle.cgi?sid=196494&bt=16&target=blank&rnd=' + RndNum4NoCash + '&tail256=' + ar_Tail + '"></sc' + 'ript>');
             //--></script>
         <!-- Soloway Javascript code END -->
+        <?php endif; ?>
 
         <div style="display: none;">
         <a href="#popup-error" id="popup-error-link" class="fancy"></a>

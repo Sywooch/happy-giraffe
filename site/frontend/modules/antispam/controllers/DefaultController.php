@@ -24,6 +24,8 @@ class DefaultController extends AntispamController
             self::TAB_USERS_BLACK => AntispamStatus::model()->status(AntispamStatusManager::STATUS_BLACK)->count(),
             self::TAB_USERS_BLOCKED => AntispamStatus::model()->status(AntispamStatusManager::STATUS_BLOCKED)->count(),
         );
+
+        parent::init();
     }
 
     public function actionLive($entity = AntispamCheck::ENTITY_POSTS)

@@ -24,10 +24,16 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     </div>
 <?php endif ?>
 
-<div class="layout-w1">
+    <?php /* Фиксированные элементы */ ?>
     <?php if (! Yii::app()->user->isGuest): ?>
         <?php $this->renderPartial('//_menu_fix'); ?>
+    <?php else: ?>
+        <?php $this->renderPartial('//_header_guest_fix'); ?>
     <?php endif; ?>
+
+<div class="layout-w1">
+
+
     <div class="layout-container" id="layout-container">
         <?php if (Yii::app()->user->isGuest): ?>
             <?php $this->renderPartial('//_header_guest'); ?>
@@ -87,7 +93,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                     <?php if (!Yii::app()->user->isGuest && $this->showAddBlock):?>
                         <div class="content-cols clearfix">
                             <div class="col-1">
-                                <div class="sidebar-search clearfix">
+                                <div class="sidebar-search sidebar-search__big clearfix">
                                     <form action="/search/">
                                         <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(event, this)">
                                         <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
@@ -142,12 +148,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                 <?php endif; ?>
             </div>
         </div>
-
-        <?php if ($this->route == 'services/test/default/view' && $_GET['slug'] == 'pregnancy'): ?>
-            <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" class="cover cover-clearblue" target="_blank" onclick="_gaq.push(['_trackEvent','Outgoing Links','www.clearblue.com'])">
-                <div class="cover-clearblue_b"></div>
-            </a>
-        <?php endif; ?>
 
         <?php if ($this->id == 'contest'): ?>
             <div class="cover cover-contest cover-contest__<?=$this->contest->cssClass?>"></div>

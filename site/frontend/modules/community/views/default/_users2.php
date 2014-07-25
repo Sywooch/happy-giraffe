@@ -3,7 +3,12 @@
 $users = UserClubSubscription::model()->getSubscribers($this->club->id, 6);
 $user_count = UserClubSubscription::model()->getSubscribersCount($this->club->id);
 ?><div class="readers2 js-community-subscription" style="display: none" data-bind="visible: true">
-    <a class="btn-green btn-medium" href="" data-bind="click: subscribe, visible: !active()">Вступить в клуб</a>
+    <?php if (Yii::app()->user->isGuest): ?>
+    
+        <a class="btn-green btn-medium popup-a" href="#registerWidget">Вступить в клуб</a>
+    <?php else: ?>
+        <a class="btn-green btn-medium" href="" data-bind="click: subscribe, visible: !active()">Вступить в клуб</a>
+    <?php endif; ?>
     <ul class="readers2_ul clearfix">
         <?php foreach ($users as $user): ?>
             <li class="readers2_li clearfix">

@@ -11,22 +11,12 @@ class CacheCommand extends CConsoleCommand
 {
     public function actionFixCdnImages()
     {
-        $dp = new CActiveDataProvider('CommunityPost', array(
-            'criteria' => array(
-                'condition' => 'id > :id',
-                'params' => array(':id' => 100000),
-            ),
-        ));
+        $dp = new CActiveDataProvider('CommunityPost');
         $iterator = new CDataProviderIterator($dp);
         foreach ($iterator as $c)
             $this->fix($c);
 
-        $dp = new CActiveDataProvider('Comment', array(
-            'criteria' => array(
-                'condition' => 'id > :id',
-                'params' => array(':id' => 1080000),
-            ),
-        ));
+        $dp = new CActiveDataProvider('Comment');
         $iterator = new CDataProviderIterator($dp);
         foreach ($iterator as $c)
             $this->fix($c);
@@ -34,13 +24,14 @@ class CacheCommand extends CConsoleCommand
 
     public function actionFixCdnImagesTest()
     {
-        $model = CommunityPost::model()->find('content_id = :content_id', array(':content_id' => 94302));
+        $model = CommunityPost::model()->find('content_id = :content_id', array(':content_id' => 186927));
         $this->fix($model);
     }
 
     protected function fix($model)
     {
-        $text = preg_replace('/img(?:\d+).happy-giraffe.ru/', 'img.happy-giraffe.ru', $model->text);
+        $text = str_replace('img.happy-giraffe.cdnvideo.ru', 'img.happy-giraffe.ru', $model->text);
         $model->updateByPk($model->id, array('text' => $text));
+        $model->purified->clearCache();
     }
 }

@@ -34,6 +34,30 @@ switch ($data->type_id) {
 
 if (! isset($showComments))
     $showComments = true;
+
+$gplus = array(
+    'https://plus.google.com/102229503737913861260' => array(
+        172277,
+        169922,
+    ),
+);
+
+$gplus2 = array(
+    'https://plus.google.com/102115350805461891146' => array(
+        157262,
+    ),
+    'https://plus.google.com/115860092477751560643' => array(
+        166387,
+    ),
+);
+
+if ($full) {
+    foreach ($gplus as $account => $ids) {
+        if (in_array($data->id, $ids)) {
+            Yii::app()->clientScript->registerLinkTag('author', null, $account);
+        }
+    }
+}
 ?>
 <div class="b-article clearfix<?php if ($cssClass !== null): ?> <?=$cssClass?><?php endif; ?>" id="blog_settings_<?=$data->id ?>">
     <?php if ($data->source_id) $this->renderPartial('blog.views.default._repost', array('data' => $data)); ?>
@@ -57,11 +81,21 @@ if (! isset($showComments))
 
         <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false, 'show_new' => isset($show_new) ? true : false)); ?>
 
+        <?php
+            if ($full) {
+                foreach ($gplus2 as $account => $ids) {
+                    if (in_array($data->id, $ids)) {
+                        echo '<p style="margin-left: 20px;">Автор: ' . CHtml::link($data->author->fullName, $account . '?rel=author', array('target' => '_blank')) . '</p>';
+                    }
+                }
+            }
+        ?>
+
+        <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
+
         <?php if ($full): ?>
             <?php $this->renderPartial('//banners/_post_footer', compact('data')); ?>
         <?php endif; ?>
-
-        <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
 
         <?php if ($full && $data->contestWork !== null): ?>
             <?php $this->renderPartial('application.modules.blog.views.default._contest', compact('data')); ?>
@@ -89,7 +123,9 @@ if (! isset($showComments))
 <?php endif; ?>
 
 <?php if ($full): ?>
+    <?php $this->beginWidget('AdsWidget'); ?>
     <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
+    <?php $this->endWidget(); ?>
 <?php endif; ?>
 
 <?php if ($full): ?>

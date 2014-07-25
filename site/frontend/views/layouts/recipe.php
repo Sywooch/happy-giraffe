@@ -4,6 +4,7 @@
     <div class="col-1">
 
         <?php if ($this->action->id == 'view'): ?>
+            <?php $this->beginWidget('AdsWidget'); ?>
             <div class="banner">
                 <!--AdFox START-->
                 <!--giraffe-->
@@ -35,6 +36,7 @@
                 </script>
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
             </div>
+            <?php $this->endWidget(); ?>
         <?php endif; ?>
 
         <?php $this->renderPartial('application.modules.community.views.default._users2'); ?>
@@ -58,6 +60,7 @@
         </div>
 
         <?php if ($this->action->id == 'view'): ?>
+            <?php if (false): ?>
             <div class="banner">
                 <!--  AdRiver code START. Type:extension Site:  PZ: 0 BN: 0 -->
                 <script type="text/javascript">
@@ -76,6 +79,7 @@
                 </script>
                 <!--  AdRiver code END  -->
             </div>
+            <?php endif; ?>
         <?php endif; ?>
     </div>
     <div class="col-23-middle ">

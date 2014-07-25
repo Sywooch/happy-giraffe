@@ -5,6 +5,9 @@
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="x-dns-prefetch-control" content="on" />
+        <link rel="dns-prefetch" href="//plexor.www.happy-giraffe.ru" />
+        <link rel="dns-prefetch" href="//img.happy-giraffe.ru" />
         <?php if (! YII_DEBUG): ?>
         <script type='text/javascript'>
             window.Muscula = { settings:{

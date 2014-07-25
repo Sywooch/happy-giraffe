@@ -34,6 +34,8 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionRoutesTest()
     {
+        Yii::import('site.frontend.modules.routes.models.*');
+
         $models = Yii::app()->db->createCommand()
             ->select('id')
             ->from(Route::model()->tableName())

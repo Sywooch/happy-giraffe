@@ -124,6 +124,7 @@ class DefaultController extends ServiceController
             ->select('id')
             ->from(Route::model()->tableName())
             ->where('wordstat_value >= '.Route::WORDSTAT_LIMIT)
+            ->where(array('in', 'status', array(Route::STATUS_ROSNEFT_FOUND, Route::STATUS_GOOGLE_PARSE_SUCCESS)))
             ->queryColumn();
 
         $data = array();

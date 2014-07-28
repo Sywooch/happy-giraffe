@@ -100,7 +100,7 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyD
             if(self.type == 'like' && self.entity.type == 'comment') {
                 return self.entity.title;
             }
-            if ((self.entity.type == 'comment' || self.type == 'discuss' || self.type == 'comment') && self.entities() && self.entities()[0]) {
+            if ((self.entity.type == 'comment' || self.type == 'discuss' || self.type == 'comment' || self.type == 'answer') && self.entities() && self.entities()[0]) {
                 return self.entities()[0].title;
             }
             return self.entity.title;
@@ -112,7 +112,7 @@ define('ko_notifications', ['knockout', 'comet', 'ko_library', 'common', 'happyD
             return self.entity.url;
         });
         self.tooltip = ko.computed(function() {
-            if(self.type == 'comment') {
+            if(self.type == 'comment' || self.type == 'answer') {
                 return self.entity.title;
             }
             return self.entity.tooltip;

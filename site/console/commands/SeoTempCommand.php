@@ -291,6 +291,7 @@ class SeoTempCommand extends CConsoleCommand
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $post) {
+            echo $post->id . "\n";
             $comments = $post->comments;
             $count = count($comments);
             foreach ($comments as $i => $comment) {

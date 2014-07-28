@@ -286,7 +286,11 @@ class SeoTempCommand extends CConsoleCommand
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
                 'order' => 't.id ASC',
-                'with' => 'comments',
+                'with' => array(
+                    'comments' => array(
+                        'condition' => 'comments.removed = 0',
+                    ),
+                ),
             ),
         ));
         $iterator = new CDataProviderIterator($dp, 100);
@@ -297,8 +301,8 @@ class SeoTempCommand extends CConsoleCommand
             $count = count($comments);
             foreach ($comments as $i => $comment) {
                 for ($j = ($i + 1); $j < $count; $j++) {
-                    if ($comment->text == $comments[$j]->text) {
-                        $result[] = array($post->getUrl(false, true), $comment->id, $comments[$j]->id);
+                    if ($comment->text == $comments[$j]->text && $comment->author_id == $comments[$j]->author_id) {
+                        $result[] = array($post->getUrl(false, true), $post->id, $comment->id, $comments[$j]->id);
                     }
                 }
             }

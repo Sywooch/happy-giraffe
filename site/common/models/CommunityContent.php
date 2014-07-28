@@ -51,6 +51,8 @@ class CommunityContent extends HActiveRecord implements IPreview
     const TYPE_QUESTION = 7;
     // Используется в CookRecipe::getType_id
     const TYPE_RECIPE = 8;
+    // Используется в AlbumPhoto::getType_id
+    const TYPE_PHOTO = 9;
 
     const USERS_COMMUNITY = 999999;
 

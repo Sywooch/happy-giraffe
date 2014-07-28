@@ -15,6 +15,7 @@
  * @property int $hidden
  * @property string $created
  * @property string $updated
+ * @property int $type_id Для совместимости с CommunityContent. Возвращает CommunityContent::TYPE_PHOTO
  *
  * The followings are the available model relations:
  * @property Album $album
@@ -927,5 +928,10 @@ class AlbumPhoto extends HActiveRecord
         $dest = $this->getOriginalPath();
         copy($source, $dest);
         $this->save();
+    }
+    
+    public function getType_id()
+    {
+        return CommunityContent::TYPE_PHOTO;
     }
 }

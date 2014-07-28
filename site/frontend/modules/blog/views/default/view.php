@@ -91,7 +91,7 @@ if ($full) {
             }
         ?>
 
-        <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
+        <?php if ($full && $data->contestWork === null && $data->type_id != CommunityContentType::TYPE_STATUS) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
 
         <?php if ($full): ?>
             <?php $this->renderPartial('//banners/_post_footer', compact('data')); ?>

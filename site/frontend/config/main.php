@@ -18,6 +18,7 @@ return array(
 	'import'=>array(
         'site.common.components.*',
 		'site.common.models.*',
+		'site.common.models.User',
         'site.common.models.mongo.*',
         'site.common.models.interest.*',
         'site.common.models.*',
@@ -121,7 +122,9 @@ return array(
         'valentinesDay',
         'routes',
         'messaging',
-        'notifications',
+        'notifications' => array(
+            'class' => 'site\frontend\modules\notifications\NotificationsModule',
+        ),
         'friends',
         'favourites',
         'scores',

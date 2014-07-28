@@ -29,7 +29,7 @@ class DefaultController extends HController
         );
 
         if (Yii::app()->user->isGuest) {
-            $filters[] = array(
+            /*$filters[] = array(
                 'CHttpCacheFilter + view',
                 'lastModified' => $this->lastModified->getDateTime(),
             );
@@ -38,7 +38,7 @@ class DefaultController extends HController
                 'COutputCache + view',
                 'duration' => 300,
                 'varyByParam' => array('content_id', 'openGallery'),
-            );
+            );*/
 
             $filters [] = array(
                 'COutputCache + index',
@@ -135,13 +135,6 @@ class DefaultController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-        if ($content->type_id == CommunityContent::TYPE_REPOST) {
-            Yii::app()->clientScript->registerLinkTag('canonical', null, $content->source->getUrl(false, true));
-        }
-
-        //сохраняем просматриваемую модель
-        NotificationRead::getInstance()->setContentModel($content);
-
         if (! Yii::app()->user->isGuest)
             $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');
         $this->breadcrumbs += array(
@@ -151,6 +144,9 @@ class DefaultController extends HController
             $content->title,
         );
 
+        if (Yii::app()->user->isGuest)
+            $this->render('view_requirejs', array('data' => $content, 'full' => true));
+        else
         $this->render('view', array('data' => $content, 'full' => true));
     }
 

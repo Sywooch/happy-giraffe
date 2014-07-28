@@ -364,8 +364,6 @@ class RecipeController extends HController
         $this->layout = '//layouts/recipe';
         $this->pageTitle = $recipe->title . ' - Кулинарные рецепты от Веселого Жирафа';
 
-        NotificationRead::getInstance()->setContentModel($recipe);
-
         $this->breadcrumbs = array(
             $this->club->section->title => $this->club->section->getUrl(),
             $this->club->title => $this->club->getUrl(),

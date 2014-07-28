@@ -35,13 +35,19 @@
 </div>
 
 <script type="text/javascript">
+    <?php
+    $cs = Yii::app()->clientScript;
+    if($cs->useAMD)
+        echo '$(document).ready(function() { require(["knockout", "ko_registerWidget"], function(ko) {';
+    ?>
     registerVm = new RegisterWidgetViewModel(<?=CJSON::encode($json)?>, $('#registerForm'));
     ko.applyBindings(registerVm, document.getElementById('registerWidget'));
-
-    $(function() {
-        if (<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?>)
+    if (<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?>)
             setTimeout(function() {
                 registerVm.open();
             }, 3000);
-    });
+    <?php
+    if($cs->useAMD)
+        echo '})});';
+    ?>
 </script>

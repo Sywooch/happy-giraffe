@@ -1,10 +1,11 @@
 ﻿<?php
-Yii::app()->clientScript
-    ->registerCoreScript('yiiactiveform')
-    ->registerPackage('ko_layout')
-    ->registerPackage('ko_post')
-    ->registerPackage('ko_menu')
-;
+if(!Yii::app()->clientScript->useAMD)
+    Yii::app()->clientScript
+        ->registerCoreScript('yiiactiveform')
+        ->registerPackage('ko_layout')
+        ->registerPackage('ko_post')
+        ->registerPackage('ko_menu')
+    ;
 
 if (! Yii::app()->user->isGuest)
     Yii::app()->clientScript
@@ -169,8 +170,14 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     ko.applyBindings(menuVm, $('.header-fix')[0]);
     ko.applyBindings(menuVm, $('.header')[0]);
     <?php endif; ?>
-    var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
-    var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
+    <?php
+        $js = "var userIsGuest = " . CJavaScript::encode(Yii::app()->user->isGuest) . "; var CURRENT_USER_ID = " . CJavaScript::encode(Yii::app()->user->id);
+        $cs = Yii::app()->clientScript;
+        if($cs->useAMD)
+            $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_AMD);
+        else
+            $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_HEAD);
+    ?>
 </script>
 
 <?php if (Yii::app()->user->isGuest): ?>

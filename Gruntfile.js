@@ -162,6 +162,7 @@ module.exports = function(grunt){
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
         dest: 'new/css/all1.css'
       },
+      // Блог
       lite_blog: {
         options: {
           stylesheets  : ['/css/dev/all.css'],
@@ -177,6 +178,23 @@ module.exports = function(grunt){
         },
         src: ['lite/html/page/blog/**/*.html', 'lite/html/page/comments/**/*.html'],
         dest: 'lite/css/min/blog.css'
+      },
+      // Традиционные рецепты
+      'traditional-recipes': {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .clsss
+            // /.dropdown+/,
+            //.mfp+/,
+            //.tooltip+/,
+          ],
+        },
+        src: ['lite/html/page/traditional-recipes/**/*.html', 'lite/html/page/comments/**/*.html'],
+        dest: 'lite/css/min/traditional-recipes.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -271,22 +289,31 @@ module.exports = function(grunt){
           files: [{               // Dictionary of files
               expand: true,       // Enable dynamic expansion.
               cwd: 'lite/images',     // Src matches are relative to this path.
-              src: ['**/*.svg'],  // Actual pattern(s) to match.
+              src: ['*.svg'],  // Actual pattern(s) to match.
               dest: 'lite/images',       // Destination path prefix.
-              ext: '.min.svg'     // Dest filepaths will have this extension.
+              ext: '.svg'     // Dest filepaths will have this extension.
               // ie: optimise img/src/branding/logo.svg and store it in img/branding/logo.min.svg
           }]
       },
     },
-    // "svg-sprites": {
-    //     lite: {
-    //         options: {
-    //             spriteElementPath: "lite/images/",
-    //             spritePath: "img/sprites/dr-logos-tv-sprite.svg",
-    //             cssPath: "css/dr-logos-tv-sprite.css"
-    //         }
-    //     }
-    // }
+
+    "svg-sprites": {
+        'icons-meta': {
+            options: {
+                spriteElementPath: "lite/images/sprite/icons-meta",
+                spritePath: "lite/images/sprite/icons-meta.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'vertical',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 5
+            }
+        }
+    },
 
     watch: {
 
@@ -350,10 +377,18 @@ module.exports = function(grunt){
         },
       },
 
-      // изобрражения
+      // изобрражения svg сжатие
       svg: {
         files: ['lite/images/**/*.svg'],
         tasks:['svgmin'],
+        options: {
+          livereload: true,
+        },
+      },
+      // изобрражения
+      svg_sprite: {
+        files: ['lite/images/sprite/**/*.svg'],
+        tasks:['svg-sprites'],
         options: {
           livereload: true,
         },
@@ -377,6 +412,7 @@ module.exports = function(grunt){
 
   // lite tasks
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('traditional-recipes', ['jade:lite_prod', 'less:litedev','uncss:traditional-recipes', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 
   // Базовый для разработки верстки
   grunt.registerTask('default', [

@@ -5,15 +5,13 @@ mixin bArticle-single(mod, vars)
         .b-article_cont.clearfix
             .b-article_cont-tale
             .b-article_header.clearfix
-                .meta-gray
-                    a.meta-gray_comment(href='')
-                        span.ico-comment.ico-comment__gray
-                        span.meta-gray_tx 35
-                    .meta-gray_view
-                        span.ico-view.ico-view__gray
-                        span.meta-gray_tx 305
+                .icons-meta
+                    a.icons-meta_comment(href='')
+                        span.icons-meta_tx 35
+                    .icons-meta_view
+                        span.icons-meta_tx 305
                 .float-l
-                    +ava("ava__female", ava.a)
+                    +ava("ava__female ava__middle-sm-mid", ava.a)
                     a.b-article_author(href='') Ангелина Богоявленская
                     span.b-article_date Сегодня 13:25
             h1.b-article_t Самое лучшее утро - просыпаюсь, а ты рядом

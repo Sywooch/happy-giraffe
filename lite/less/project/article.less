@@ -3,7 +3,8 @@
 .b-article {
     position: relative;
     margin: 0 0 40px;
-    
+
+    /*
     &__user-status &_cont {background: #cdecff;}
     &__user-status &_cont-tale {border-right-color: #cdecff;}
 
@@ -37,7 +38,7 @@
     }
     &__question &_more:hover,
     &__question &_more {color: #fff;}
-    &__question &_t-a {color: #fff;}
+    &__question &_t-a {color: #fff;}*/
     
     /* new */
     &__list &_cont {
@@ -117,18 +118,18 @@
         padding: 12px 0 0;
         border: 1px solid #f5f5f5;
     }
-    &_cont .comments_t {margin-right: 20px; margin-left: 15px;}
+    /*&_cont .comments_t {margin-right: 20px; margin-left: 15px;}
     &_cont .comments_ul {margin-right: 20px; margin-left: 15px;}
     &_cont .comments_add {margin-right: 15px; margin-left: 15px;}
-    &_cont .comments_frame {width: 425px;}
-    &_cont-tale {
+    &_cont .comments_frame {width: 425px;}*/
+    /*&_cont-tale {
         position: absolute;
         left: -10px;
         top: 25px;
         width: 11px;
         height: 23px;
         background: url('@{path-img}/b-article_cont-tale.png') no-repeat;
-    }
+    }*/
     &_header {
         margin: 0 15px 10px;
     }
@@ -346,6 +347,45 @@
 }
 /* /like-control */
 
+/*.ico-play-big {
+    .inline-block();
+    vertical-align: middle;
+    width: 151px;
+    height: 151px;
+    background: url(/images/ico/ico-play-big.png) no-repeat;
+
+    &:hover {background-position: 0 -151px;}
+}*/
+
+/* meta-gray */
+.meta-gray {
+    float: right;
+    font-size: 11px;
+    color: #737575;
+
+    &_comment {
+        float: right;
+        margin-left: 15px;
+        text-decoration: none;
+        color: #737575;
+    }
+    &_comment:hover &_tx {
+        /*color: #289fd7;*/
+        text-decoration: underline;
+    }
+    &_comment:hover .ico-comment__white,
+    &_comment:hover .ico-comment__gray {background-position: -218px -295px;}
+    &_view {
+        float: right;
+        margin-left: 15px;
+        text-decoration: none;
+    }
+    &_tx {
+        .inline-block();
+        text-decoration: none;
+    }
+}
+
 .ico-comment{
     .inline-block();
     width:16px;
@@ -370,38 +410,40 @@
     &__gray {background-position: -182px -295px;}
     &__white {background-position: -164px -295px;}
 }
-.ico-play-big {
-    .inline-block();
-    vertical-align: middle;
-    width: 151px;
-    height: 151px;
-    background: url(/images/ico/ico-play-big.png) no-repeat;
 
-    &:hover {background-position: 0 -151px;}
-}
-/* meta-gray */
-.meta-gray {
+.icons-meta {
     float: right;
     font-size: 11px;
     color: #737575;
 
     &_comment {
+        position: relative;
         float: right;
         margin-left: 15px;
+        padding-left: 22px;
         text-decoration: none;
         color: #737575;
     }
     &_comment:hover &_tx {
-        /*color: #289fd7;*/
         text-decoration: underline;
     }
-    &_comment:hover .ico-comment__white,
-    &_comment:hover .ico-comment__gray {background-position: -218px -295px;}
+    &_view:after,
+    &_comment:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        margin: -8px 0 0;
+        /// svg sprite
+    }
     &_view {
+        position: relative;
         float: right;
         margin-left: 15px;
+        padding-left: 22px;
         text-decoration: none;
     }
+    &_view:after {margin-top: -7px;}
     &_tx {
         .inline-block();
         text-decoration: none;

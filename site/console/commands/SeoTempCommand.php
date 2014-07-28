@@ -32,6 +32,73 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionBadContent($type)
+    {
+        $result = array();
+
+        $paths1 = $this->getPathes('2014-05-18', '2014-05-18', 'google');
+        $paths2 = $this->getPathes('2014-05-18', '2014-05-18', 'yandex');
+        $paths3 = $this->getPathes('2014-06-16', '2014-06-16', 'google');
+        $paths4 = $this->getPathes('2014-06-16', '2014-06-16', 'yandex');
+
+        $paths = array($paths1, $paths2, $paths3, $paths4);
+
+        foreach ($paths as $k => $p) {
+            foreach ($p as $path => $value) {
+                if (! isset($result[$path])) {
+                    $result[$path] = array_fill(0, 4, 0);
+                }
+                $result[$path][$k] = $value['ga:sessions'];
+            }
+        }
+
+        $_result = array();
+        foreach ($result as $path => $counts) {
+            switch ($type) {
+                case 'users':
+                        if (preg_match('#^\/user\/(\d+)\/$#', $path, $matches)) {
+                            $id = $matches[1];
+                            $contentCount = CommunityContent::model()->count('type_id IN (5,6) AND author_id = :id', array(':id' => $id));
+                            $_result[] = array_merge(array(
+                                'http://www.happy-giraffe.ru' . $path,
+                                $contentCount,
+                            ), $counts);
+                        }
+                    break;
+                case 'reposts':
+                case 'statuses':
+                    $t = $type == 'reposts' ? CommunityContent::TYPE_REPOST : CommunityContent::TYPE_STATUS;
+
+                    $patterns = array(
+                        '#\/community\/(?:\d+)\/forum\/(?:\w+)\/(\d+)\/$#',
+                        '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
+                    );
+
+                    foreach ($patterns as $pattern) {
+                        if (preg_match($pattern, $path, $matches)) {
+                            $id = $matches[1];
+
+                            $post = CommunityContent::model()->resetScope()->findByPk($id);
+
+                            if ($post === null) {
+                                echo $path . "\n";
+                                continue;
+                            }
+
+                            if ($post->type_id == $t) {
+                                $_result[] = array_merge(array(
+                                    'http://www.happy-giraffe.ru' . $path,
+                                ), $counts);
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+
+        $this->writeCsv($type, $_result);
+    }
+
     public function actionRoutesTest()
     {
         Yii::import('site.frontend.modules.routes.models.*');
@@ -212,6 +279,58 @@ class SeoTempCommand extends CConsoleCommand
         }
 
         fclose($fp);
+    }
+
+    public function actionDuplicateComments()
+    {
+        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
+        Yii::import('site.frontend.modules.notifications.components.*');
+        Yii::import('site.frontend.modules.notifications.models.*');
+        Yii::import('site.frontend.modules.notifications.models.base.*');
+        Yii::import('site.frontend.modules.scores.components.*');
+        Yii::import('site.frontend.modules.scores.components.awards.*');
+        Yii::import('site.frontend.modules.scores.models.*');
+        Yii::import('site.frontend.modules.scores.models.input.*');
+
+        $result = array();
+
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'order' => 't.id ASC',
+                'with' => 'comments',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 100);
+        $this->duplicateHelper($iterator, $result);
+
+        $dp = new CActiveDataProvider('BlogContent', array(
+            'criteria' => array(
+                'order' => 't.id ASC',
+                'with' => 'comments',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 100);
+        $this->duplicateHelper($iterator, $result);
+
+        $this->writeCsv('duplicates', $result);
+    }
+
+    protected function duplicateHelper($iterator, &$result)
+    {
+        foreach ($iterator as $post) {
+            echo $post->id . "\n";
+            $comments = $post->comments;
+            $count = count($comments);
+            foreach ($comments as $i => $comment) {
+                for ($j = ($i + 1); $j < $count; $j++) {
+                    if ($comment->text == $comments[$j]->text && $comment->author_id == $comments[$j]->author_id) {
+                        $result[] = array($post->getUrl(false, true), $post->id, $comment->id, $comments[$j]->id);
+                        $comment->delete();
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     protected function writeCsv($name, $data)

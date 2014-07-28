@@ -288,6 +288,9 @@ class SeoTempCommand extends CConsoleCommand
         Yii::import('site.frontend.modules.notifications.models.*');
         Yii::import('site.frontend.modules.notifications.models.base.*');
         Yii::import('site.frontend.modules.scores.components.*');
+        Yii::import('site.frontend.modules.scores.components.awards.*');
+        Yii::import('site.frontend.modules.scores.models.*');
+        Yii::import('site.frontend.modules.scores.models.inpute.*');
 
         $result = array();
 

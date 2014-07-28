@@ -287,6 +287,7 @@ class SeoTempCommand extends CConsoleCommand
 
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
+                'condition' => 't.id = 182',
                 'order' => 't.id ASC',
                 'with' => 'comments',
             ),
@@ -294,14 +295,14 @@ class SeoTempCommand extends CConsoleCommand
         $iterator = new CDataProviderIterator($dp, 100);
         $this->duplicateHelper($iterator, $result);
 
-        $dp = new CActiveDataProvider('BlogContent', array(
-            'criteria' => array(
-                'order' => 't.id ASC',
-                'with' => 'comments',
-            ),
-        ));
-        $iterator = new CDataProviderIterator($dp, 100);
-        $this->duplicateHelper($iterator, $result);
+//        $dp = new CActiveDataProvider('BlogContent', array(
+//            'criteria' => array(
+//                'order' => 't.id ASC',
+//                'with' => 'comments',
+//            ),
+//        ));
+//        $iterator = new CDataProviderIterator($dp, 100);
+//        $this->duplicateHelper($iterator, $result);
 
         $this->writeCsv('duplicates', $result);
     }
@@ -316,6 +317,8 @@ class SeoTempCommand extends CConsoleCommand
                 for ($j = ($i + 1); $j < $count; $j++) {
                     if ($comment->text == $comments[$j]->text && $comment->author_id == $comments[$j]->author_id) {
                         $result[] = array($post->getUrl(false, true), $post->id, $comment->id, $comments[$j]->id);
+                        $comment->delete();
+                        break 2;
                     }
                 }
             }

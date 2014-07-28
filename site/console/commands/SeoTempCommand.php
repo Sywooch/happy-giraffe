@@ -329,7 +329,7 @@ class SeoTempCommand extends CConsoleCommand
                     if ($comment->text == $comments[$j]->text && $comment->author_id == $comments[$j]->author_id) {
                         $result[] = array($post->getUrl(false, true), $post->id, $comment->id, $comments[$j]->id);
                         $comment->delete();
-                        break 2;
+                        break;
                     }
                 }
             }

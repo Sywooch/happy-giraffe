@@ -281,6 +281,28 @@ class SeoTempCommand extends CConsoleCommand
         fclose($fp);
     }
 
+    public function actionDuplicateComments()
+    {
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'with' => 'comments',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $post) {
+            $comments = $post->comments;
+            $count = count($comments);
+            foreach ($comments as $i => $comment) {
+                for ($j = $i; $j < $count; $j++) {
+                    if ($comment == $comments[$j]) {
+                        echo $post->getUrl(false, true);
+                        die;
+                    }
+                }
+            }
+        }
+    }
+
     protected function writeCsv($name, $data)
     {
         $path = Yii::getPathOfAlias('site.frontend.www-submodule') . DIRECTORY_SEPARATOR . $name . '.csv';

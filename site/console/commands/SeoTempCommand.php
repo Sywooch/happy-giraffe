@@ -140,6 +140,14 @@ class SeoTempCommand extends CConsoleCommand
             ->where(array('and', 'wordstat_value >= '.Route::WORDSTAT_LIMIT, array('in', 'status', array(Route::STATUS_ROSNEFT_FOUND, Route::STATUS_GOOGLE_PARSE_SUCCESS))))
             ->queryColumn();
 
+        echo count($models) . "\n";
+
+        $models = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from(Route::model()->tableName())
+            ->where('wordstat_value >= '.Route::WORDSTAT_LIMIT)
+            ->queryColumn();
+
         echo count($models);
     }
 

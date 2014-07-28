@@ -298,7 +298,6 @@ class SeoTempCommand extends CConsoleCommand
             foreach ($comments as $i => $comment) {
                 for ($j = ($i + 1); $j < $count; $j++) {
                     if ($comment->text == $comments[$j]->text) {
-                        echo $post->getUrl(false, true) . "\n" . $comment->id . " - " . $comments[$j]->id ."\n---\n";
                         $result[] = array($post->getUrl(false, true), $comment->id, $comments[$j]->id);
                     }
                 }

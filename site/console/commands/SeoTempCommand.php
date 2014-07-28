@@ -307,6 +307,8 @@ class SeoTempCommand extends CConsoleCommand
 //        $iterator = new CDataProviderIterator($dp, 100);
 //        $this->duplicateHelper($iterator, $result);
 
+        print_r($result);
+
         $this->writeCsv('duplicates', $result);
     }
 

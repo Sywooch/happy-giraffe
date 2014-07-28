@@ -283,18 +283,31 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionDuplicateComments()
     {
+        $result = array();
+
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
                 'order' => 't.id ASC',
-                'with' => array(
-                    'comments' => array(
-                        'condition' => 'comments.removed = 0',
-                    ),
-                ),
+                'with' => 'comments',
             ),
         ));
         $iterator = new CDataProviderIterator($dp, 100);
-        $result = array();
+        $this->duplicateHelper($iterator, $result);
+
+        $dp = new CActiveDataProvider('BlogContent', array(
+            'criteria' => array(
+                'order' => 't.id ASC',
+                'with' => 'comments',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 100);
+        $this->duplicateHelper($iterator, $result);
+
+        $this->writeCsv('duplicates', $result);
+    }
+
+    protected function duplicateHelper($iterator, &$result)
+    {
         foreach ($iterator as $post) {
             echo $post->id . "\n";
             $comments = $post->comments;
@@ -307,7 +320,6 @@ class SeoTempCommand extends CConsoleCommand
                 }
             }
         }
-        $this->writeCsv('duplicates', $result);
     }
 
     protected function writeCsv($name, $data)

@@ -26,7 +26,8 @@
 
         if(options.flyTo !== '') {
             var flyTo = $(options.flyTo);
-
+            if(flyTo.length == 0)
+                return;
             options.flyToX = flyTo.offset().top + flyTo.height()/2 - $this.height()/2;
             options.flyToY = flyTo.offset().left + flyTo.width()/2 - $this.width()/2;
         }

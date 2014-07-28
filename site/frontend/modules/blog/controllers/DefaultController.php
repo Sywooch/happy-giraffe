@@ -29,7 +29,7 @@ class DefaultController extends HController
         );
 
         if (Yii::app()->user->isGuest) {
-            /*$filters[] = array(
+            $filters[] = array(
                 'CHttpCacheFilter + view',
                 'lastModified' => $this->lastModified->getDateTime(),
             );
@@ -38,7 +38,7 @@ class DefaultController extends HController
                 'COutputCache + view',
                 'duration' => 300,
                 'varyByParam' => array('content_id', 'openGallery'),
-            );*/
+            );
 
             $filters [] = array(
                 'COutputCache + index',

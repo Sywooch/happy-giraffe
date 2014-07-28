@@ -289,7 +289,8 @@ class SeoTempCommand extends CConsoleCommand
                 'with' => 'comments',
             ),
         ));
-        $iterator = new CDataProviderIterator($dp, 1000);
+        $iterator = new CDataProviderIterator($dp, 100);
+        $result = array();
         foreach ($iterator as $post) {
             echo $post->id . "\n";
             $comments = $post->comments;
@@ -298,11 +299,12 @@ class SeoTempCommand extends CConsoleCommand
                 for ($j = ($i + 1); $j < $count; $j++) {
                     if ($comment->text == $comments[$j]->text) {
                         echo $post->getUrl(false, true) . "\n" . $comment->id . " - " . $comments[$j]->id ."\n---\n";
-                        die;
+                        $result[] = array($post->getUrl(false, true), $comment->id, $comments[$j]->id);
                     }
                 }
             }
         }
+        $this->writeCsv('duplicates', $result);
     }
 
     protected function writeCsv($name, $data)

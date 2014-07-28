@@ -284,6 +284,7 @@ class SeoTempCommand extends CConsoleCommand
     public function actionDuplicateComments()
     {
         Yii::import('site.frontend.modules.notifications.components.*');
+        Yii::import('site.frontend.modules.notifications.models.*');
 
         $result = array();
 

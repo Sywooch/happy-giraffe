@@ -122,7 +122,16 @@ class PhotoCollectionViewWidget extends CWidget
 
     protected function registerScripts()
     {
-        Yii::app()->clientScript->registerPackage('gallery');
+        /* @var $cs ClientScript */
+        $cs = Yii::app()->clientScript;
+        if ($cs->useAMD)
+        {
+            $cs->registerAMD('PhotoCollectionViewWidgettttttt', 'gallery');
+        }
+        else
+        {
+            $cs->registerPackage('gallery');
+        }
 
         $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('registerScripts' => true));
         $this->widget('application.modules.favourites.widgets.FavouriteWidget', array('registerScripts' => true));

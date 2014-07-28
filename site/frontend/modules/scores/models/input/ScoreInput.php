@@ -8,6 +8,11 @@
  */
 class ScoreInput extends HMongoModel
 {
+    public function attributeNames()
+    {
+        return array();
+    }
+
     /**
      * Что выводим пользователю
      */

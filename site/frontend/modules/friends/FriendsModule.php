@@ -7,6 +7,7 @@ class FriendsModule extends CWebModule
         // this method is called when the module is being created
         // you may place code here to customize the module or the application
 
+        Yii::app()->clientScript->useAMD = true;
         // import the module-level models and components
         $this->setImport(array(
             'friends.models.*',

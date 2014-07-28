@@ -22,6 +22,7 @@
  * @property string $real_time
  * @property int $source_id
  * @property int $privacy
+ * @property string $powerTipTitle Подсказка для вывода в списках
  *
  * The followings are the available model relations:
  *
@@ -48,6 +49,10 @@ class CommunityContent extends HActiveRecord implements IPreview
     const TYPE_STATUS = 5;
     const TYPE_REPOST = 6;
     const TYPE_QUESTION = 7;
+    // Используется в CookRecipe::getType_id
+    const TYPE_RECIPE = 8;
+    // Используется в AlbumPhoto::getType_id
+    const TYPE_PHOTO = 9;
 
     const USERS_COMMUNITY = 999999;
 
@@ -148,6 +153,9 @@ class CommunityContent extends HActiveRecord implements IPreview
     public function behaviors()
     {
         return array(
+            'ContentBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
+            ),
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),

@@ -11,6 +11,11 @@
  */
 class ViewedPost extends HMongoModel
 {
+    public function attributeNames()
+    {
+        return array();
+    }
+
     protected $_collection_name = 'user_subscription_views';
 
     /**

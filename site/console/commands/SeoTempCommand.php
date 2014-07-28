@@ -11,7 +11,7 @@ Yii::import('site.frontend.extensions.GoogleAnalytics');
 
 class SeoTempCommand extends CConsoleCommand
 {
-    protected function getPathes($start, $end, $searchEngine)
+    protected function getPathes($start, $end, $searchEngine = null)
     {
         $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
         $ga->setProfile('ga:53688414');
@@ -20,13 +20,16 @@ class SeoTempCommand extends CConsoleCommand
         $paths = Yii::app()->cache->get($cacheId);
         if ($paths === false) {
             $ga->setDateRange($start, $end);
-            $paths = $ga->getReport(array(
-                'metrics' => 'ga:sessions',
+            $properties = array(
+                'metrics' => 'ga:entrances',
                 'dimensions' => 'ga:pagePath',
                 'max-results' => 10000,
-                'sort' => '-ga:sessions',
-                'filters' => 'ga:source=@' . $searchEngine,
-            ));
+                'sort' => '-ga:entrances',
+            );
+            if ($searchEngine !== null) {
+                $properties['filters'] = 'ga:source=@' . $searchEngine;
+            }
+            $paths = $ga->getReport($properties);
             Yii::app()->cache->set($cacheId, $paths);
         }
         return $paths;
@@ -97,6 +100,34 @@ class SeoTempCommand extends CConsoleCommand
         }
 
         $this->writeCsv($type, $_result);
+    }
+
+    public function actionEnters()
+    {
+        $patterns = array(
+            '#\/community\/(?:\d+)\/forum\/(?:\w+)\/(\d+)\/$#',
+            '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
+        );
+
+        $result = array();
+        $paths = $this->getPathes('2014-04-27', '2014-07-28');
+        foreach ($paths as $path => $value) {
+            foreach ($patterns as $pattern) {
+                if (preg_match($pattern, $path, $matches)) {
+                    $id = $matches[1];
+                    $post = CommunityContent::model()->resetScope()->findByPk($id);
+
+                    if ($post === null) {
+                        echo $path . "\n";
+                        continue;
+                    }
+
+                    $result[] = array('http://www.happy-giraffe.ru' . $path, $post->title, $value['ga:entrances']);
+                }
+            }
+        }
+
+        $this->writeCsv('enters', $result);
     }
 
     public function actionRoutesTest()

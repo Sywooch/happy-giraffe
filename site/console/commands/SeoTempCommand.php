@@ -285,6 +285,7 @@ class SeoTempCommand extends CConsoleCommand
     {
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
+                'order' => 't.id ASC',
                 'with' => 'comments',
             ),
         ));

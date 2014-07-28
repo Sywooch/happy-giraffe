@@ -122,7 +122,7 @@ class SeoTempCommand extends CConsoleCommand
                         continue;
                     }
 
-                    $result[] = array('http://www.happy-giraffe.ru' . $path, $post->title, $value['ga:entrances']);
+                    $result[] = array('http://www.happy-giraffe.ru' . $path, $post->title, $value['ga:entrances'], $post->commentsCount);
                 }
             }
         }

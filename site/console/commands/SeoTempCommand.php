@@ -294,7 +294,7 @@ class SeoTempCommand extends CConsoleCommand
             $count = count($comments);
             foreach ($comments as $i => $comment) {
                 for ($j = ($i + 1); $j < $count; $j++) {
-                    if ($comment == $comments[$j]) {
+                    if ($comment->text == $comments[$j]->text) {
                         echo $post->getUrl(false, true);
                         die;
                     }

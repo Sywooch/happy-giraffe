@@ -296,7 +296,6 @@ class SeoTempCommand extends CConsoleCommand
 
         $dp = new CActiveDataProvider('CommunityContent', array(
             'criteria' => array(
-                'condition' => 't.id = 182',
                 'order' => 't.id ASC',
                 'with' => 'comments',
             ),
@@ -304,16 +303,14 @@ class SeoTempCommand extends CConsoleCommand
         $iterator = new CDataProviderIterator($dp, 100);
         $this->duplicateHelper($iterator, $result);
 
-//        $dp = new CActiveDataProvider('BlogContent', array(
-//            'criteria' => array(
-//                'order' => 't.id ASC',
-//                'with' => 'comments',
-//            ),
-//        ));
-//        $iterator = new CDataProviderIterator($dp, 100);
-//        $this->duplicateHelper($iterator, $result);
-
-        print_r($result);
+        $dp = new CActiveDataProvider('BlogContent', array(
+            'criteria' => array(
+                'order' => 't.id ASC',
+                'with' => 'comments',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 100);
+        $this->duplicateHelper($iterator, $result);
 
         $this->writeCsv('duplicates', $result);
     }

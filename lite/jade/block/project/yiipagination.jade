@@ -36,6 +36,33 @@ mixin pagination(mod)
 
     // /paginator
 
+//- Пейджинатор подряд
+mixin paginationAll(mod)
+    // paginator
+    .yiipagination(class=mod)
+        .pager
+            ul.yiiPager
+              li.page
+                a(href='') 1
+              li.page
+                a(href='') 2
+              li.page
+                a(href='') 5
+              li.page
+                a(href='') 6
+              li.page.selected
+                a(href='') 7
+              li.page
+                a(href='') 8
+              li.page
+                a(href='') 9
+              li.page
+                a(href='') 10
+              li.page
+                a(href='') 11
+
+    // /paginator
+
 //- Пейджинатор обратный отсчет
 mixin paginationRevers(mod)
     // paginator

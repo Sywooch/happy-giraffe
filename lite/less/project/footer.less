@@ -6,9 +6,9 @@
 .layout-footer {
     position: relative;
     z-index: 2;
-    margin: -210px 0 0;
+    margin: 0;
     background: #fff;
-    font:normal 11px/16px tahoma, arial, helvetica, sens-serif;
+    font: normal 11px/16px tahoma, arial, helvetica, sens-serif;
     color: #a2a1a1;
     .box-shadow(0 -1px 3px rgba(0,0,0,0.05));
     
@@ -20,14 +20,15 @@
         width: auto;
         background: none;
         margin: 0 auto;
-        padding: 20px 21px 40px;
+        padding: 10px 21px 30px;
     }
     &_privacy-hold {
-        margin: 10px 0;
+        margin: 15px 0;
     }
     &_privacy {
         text-decoration: none;
         color: @color-gray-light;
+        font-size: @font-xs;
     }
     &_privacy:hover {color: @color-gray;}
     @media (min-width: @screen-phone) {
@@ -35,24 +36,25 @@
     }
     @media (min-width: @screen-phone-landscape) {
         &_hold {
-            padding: 20px 10% 35px;
+            padding: 5px 10% 30px;
         }
     }
     @media (min-width: @screen-tablet) {
         &_hold {
-            width: 600px;
-            padding: 20px 0 35px;
+            width: 620px;
+            padding: 10px 0 35px 10px;
         }
     }
     @media (min-width: @screen-desktop) {
         &_hold {
             width: 780px;
+            padding-left: 0;
         }
     }
 }
 
 .footer-list {
-    padding: 23px 0;
+    padding: 20px 0;
     font-size: 13px;
 
     &_li {
@@ -62,7 +64,6 @@
     &_li.active &_a {color: #ff741b;}
     &_li__rambler {
         float: right;
-        margin-right: 10px;
     }
     &_a {
         color: @color-gray;
@@ -89,6 +90,9 @@
         &_li:last-child {
             padding-left: 0;
             background: none;
+        }
+        &_li__rambler {
+            padding-right: 0;
         }
     }
     @media (min-width: @screen-desktop) {

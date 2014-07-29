@@ -191,10 +191,12 @@
             self.value = data.value;
             self.count = data.count;
         }
+        
+        return FavouritesViewModel;
     }
     if (typeof define === 'function' && define['amd']) {
         define('ko_favourites', ['knockout', 'history', 'ko_library'], f);
     } else {
-        f(window.ko);
+        window.FavouritesViewModel = f(window.ko);
     }
 })(window);

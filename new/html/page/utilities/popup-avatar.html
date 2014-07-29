@@ -6,6 +6,7 @@
 <!-- c-->
 <!-- a-->
 <!-- b-->
+<!-- c-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +14,7 @@
   <!-- including .css-->
   <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-  <!-- ie8 -->
+  <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
   <!--+scripts(path)-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>
@@ -31,7 +32,6 @@
   <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
   <!-- custom select-->
-  <!-- script(src="#{path}javascript/selectize.js")-->
   <script src="/new/javascript/select2.js"></script>
   <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
@@ -54,7 +54,7 @@
 </head>
 <body class="body body__bg-base">
   <div class="layout-container">
-    <div class="layout-header">
+    <div class="layout-header clearfix">
       <!-- header-fix-->
       <script>
         $(document).ready(function () {
@@ -108,10 +108,7 @@
           </div>
           <div class="header-fix-menu">
             <ul class="header-menu_ul clearfix">
-              <!-- li.header-fix-menu_li
-              a.header-fix-menu_a(href='')
-                  span.header-fix-menu_tx прямой эфир
-              -->
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a></li>
               <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
               <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
               <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
@@ -131,12 +128,7 @@
           <!-- header-menu-->
           <div class="header-menu">
             <ul class="header-menu_ul clearfix">
-              <!-- li.header-menu_li
-              a.header-menu_a(href='')
-                  span.header-menu_ico.header-menu_ico__broadcast
-                  span.header-menu_tx
-                      | Прямой эфир
-              -->
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>

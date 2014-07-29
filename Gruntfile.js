@@ -204,7 +204,7 @@ module.exports = function(grunt){
       },
       new: {
         files: {
-          'new/css/all1.css': ['new/css/all1.css']
+          'new/css/all1.css': ['new/css/all1.dev.css']
         }
       },
       // lite: {
@@ -229,7 +229,7 @@ module.exports = function(grunt){
           report: 'max'
         },
         files: {
-          'new/css/all1.css': 'new/css/all1.css'
+          'new/css/all1.css': 'new/css/all1.dev.css'
         }
       },
       lite: {
@@ -408,7 +408,7 @@ module.exports = function(grunt){
   });
 
   //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
-  grunt.registerTask('css-new', ['less:newestdev','uncss:new', 'cmq:new', 'cssmin:new', 'csso:new']);
+  grunt.registerTask('css-new', ['less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
 
   // lite tasks
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);

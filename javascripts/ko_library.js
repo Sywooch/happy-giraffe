@@ -54,6 +54,28 @@
                 return { controlsDescendantBindings: true };
             }
         };
+        
+        ko.bindingHandlers.tooltipster = {
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                $(element)
+                    .tooltipster({contentAsHTML: true, content: ko.bindingHandlers.tooltipster.getHTML(valueAccessor)});
+            },
+            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                $(element)
+                    .tooltipster({contentAsHTML: true, content: ko.bindingHandlers.tooltipster.getHTML(valueAccessor)});
+            },
+            getHTML: function(valueAccessor) {
+                var text = ko.utils.unwrapObservable(valueAccessor());
+                /** @todo придумать что-ть лучше */
+                return $('<textarea />').html(text).text();
+            }
+        };
+
+        ko.bindingHandlers.stopBinding = {
+            init: function() {
+                return { controlsDescendantBindings: true };
+            }
+        };
 
         ko.virtualElements.allowedBindings.stopBinding = true;
 
@@ -611,13 +633,13 @@
         };
     };
     if (typeof define === 'function' && define['amd']) {
-        define('ko_library', ['knockout', 'moment'/*, 'wysiwyg'*/], f);
+        define('ko_library', ['knockout', 'moment', 'wysiwyg'], f);
         require(["knockout", "knockout-amd-helpers", "text"], function(ko) {
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
             ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
             ko.amdTemplateEngine.defaultRequireTextPluginName = "text";
         });
     } else {
-        f(window.ko, window.moment);
+        f(window.ko, window.moment, window.hgwysiwyg);
     }
 })(window);

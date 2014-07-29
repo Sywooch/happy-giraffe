@@ -1,5 +1,5 @@
 (function(window) {
-    function f(ko) {
+    function f($, ko) {
         function RegisterWidgetViewModel(data, form) {
             var self = this;
 
@@ -328,8 +328,8 @@
         window.PasswordRecoveryWidgetViewModel = PasswordRecoveryWidgetViewModel;
     }
     if (typeof define === 'function' && define['amd']) {
-        define('ko_registerWidget', ['knockout', 'jcrop', 'ko_library', 'common'], f);
+        define('ko_registerWidget', ['jquery', 'knockout', 'jcrop', 'ko_library', 'common'], f);
     } else {
-        f(window.ko);
+        f(window.$, window.ko);
     }
 })(window);

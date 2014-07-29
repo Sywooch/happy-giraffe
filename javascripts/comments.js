@@ -351,6 +351,6 @@
     if (typeof define === 'function' && define['amd']) {
         define('ko_comments', ['knockout', 'knockout.mapping', 'ko_library'], f);
     } else {
-        f(window.ko, window.ko.mapping);
+        f(window.ko);
     }
 })(window);

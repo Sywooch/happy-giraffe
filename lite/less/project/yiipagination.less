@@ -2,15 +2,11 @@
 /*
     Нумирация страниц
 
-    .section-empty
-        .section-empty_t ...
-        ul.section-empty_ul
-            li.section-empty_li
-                a.section-empty_i
-                    .section-empty_ico
-                    .section-empty_ico-tx ...
-        .section-empty_desc
-            .section-empty_desc-tx
+    .yiipagination __center
+        .pager   
+            .page   .selected
+                a
+
 
 */
 /* yiipagination */
@@ -19,10 +15,12 @@
     font-size: 17px;
     line-height: 30px;
     
-    &__revers .pager {
+    &__center .pager {
+        text-align: center;
+    }
+    .pager {
         text-align: left;
     }
-
     .page a {
         .inline-block();
         padding: 0 10px;

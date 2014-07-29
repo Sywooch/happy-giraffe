@@ -39,7 +39,13 @@
         <?php endif; ?>
     </div>
 </div>
-
-<script type="text/javascript">
-    ko.applyBindings(new PhotoPostWidget(), document.getElementById('photoPostWidget_<?=$this->post->id?>'));
-</script>
+<?php
+$js = <<<JS
+    ko.applyBindings(new PhotoPostWidget(), document.getElementById('photoPostWidget_{$this->post->id}'));
+JS;
+$cs = Yii::app()->clientScript;
+if ($cs->useAMD)
+    $cs->registerAMD('PhotoPostWidget#' . $this->id, array('$' => 'jquery', 'ko' => 'knockout', 'ko_post' => 'ko_post'), $js);
+else
+    echo "<script type='text/javascript'>\n\t" . $js . "\n</script>";
+?>

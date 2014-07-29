@@ -13,6 +13,7 @@
  * @property string $response_id
  * @property string $quote_id
  * @property string $quote_text
+ * @property string $root_id
  * @property string $removed
  * @property CommunityContent $commentEntity Комментируемая сущность
  *
@@ -237,6 +238,17 @@ class Comment extends HActiveRecord
             }
         }
         parent::afterSave();
+    }
+    
+    public function insert($attributes = null)
+    {
+        $result = parent::insert($attributes);
+        // обновим root_id
+        $this->root_id = is_null($this->response_id) ? $this->id : $this->response->root_id;
+        // сделаем это быстро
+        $this->updateByPk($this->id, array('root_id' => $this->root_id));
+        
+        return $result;
     }
 
     public function beforeSave()

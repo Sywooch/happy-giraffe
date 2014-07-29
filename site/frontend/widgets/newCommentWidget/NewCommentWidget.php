@@ -51,7 +51,16 @@ class NewCommentWidget extends CWidget
 
     public function run()
     {
-        Yii::app()->clientScript->registerPackage('ko_comments');
+        /* @var $cs ClientScript */
+        $cs = Yii::app()->clientScript;
+        if ($cs->useAMD)
+        {
+            $cs->registerAMD('PhotoCollectionViewWidget', 'ko_comments');
+        }
+        else
+        {
+            $cs->registerPackage('ko_comments');
+        }
 
         if ($this->registerScripts === false) {
             $this->objectName = 'new_comment_' . $this->entity . $this->entity_id . time();

@@ -55,11 +55,14 @@ class FavouritesController extends HController
         $modelName = Yii::app()->request->getPost('modelName');
         $modelId = Yii::app()->request->getPost('modelId');
 
-        $success = Favourite::model()->deleteAllByAttributes(array(
+        $success = false;
+        $favorite = Favourite::model()->findByAttributes(array(
             'model_name' => $modelName,
             'model_id' => $modelId,
             'user_id' => Yii::app()->user->id,
-        )) > 0;
+        ));
+        if($favorite)
+            $success = $favorite->delete();
 
         $response = compact('success');
         echo CJSON::encode($response);

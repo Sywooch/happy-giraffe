@@ -1,13 +1,19 @@
 <?php
 
-class DefaultController extends HController
+namespace site\frontend\modules\notifications\controllers;
+
+class DefaultController extends \HController
 {
-    public $layout = 'notifications';
+
+    public $layout = '//layouts/new/main';
+    public $notifyClass = '\site\frontend\modules\notifications\models\Notification';
+
+    const PAGE_SIZE = 20;
 
     public function filters()
     {
         return array(
-            'ajaxOnly + readOne,readAll,unread',
+            'ajaxOnly + read,readAll',
             'accessControl'
         );
     }
@@ -26,63 +32,49 @@ class DefaultController extends HController
 
     public function init()
     {
-        Yii::import('site.frontend.modules.routes.models.*');
+        \Yii::import('site.frontend.modules.routes.models.*');
         parent::init();
     }
 
-    public function actionIndex($page = 0)
+    public function actionIndex($read = 0, $lastNotificationUpdate = false)
     {
-        $this->pageTitle = 'Новые уведомления';
-        $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 0, $page);
-        NotificationRead::setReadSummaryNotifications($list);
-
-        if (Yii::app()->request->isAjaxRequest) {
-            echo CJSON::encode(array(
-                'success' => true,
-                'html' => $this->renderPartial('list', array('list' => $list, 'read' => false), true),
-                'empty' => empty($list)
-            ));
-        } else
-            $this->render('index', array('list' => $list, 'read' => false));
+        $this->pageTitle = !$read ? 'Новые сигналы' : 'Архив';
+        $list = \site\frontend\modules\notifications\models\Notification::model()
+            ->byUser(\Yii::app()->user->id)
+            ->byRead($read)
+            ->earlier($lastNotificationUpdate)
+            ->orderByDate()
+            ->limit(self::PAGE_SIZE)
+            ->findAll();
+        $unreadCount = \site\frontend\modules\notifications\models\Notification::getUnreadCount();
+        if (\Yii::app()->request->isAjaxRequest)
+        {
+            echo \HJSON::encode(array('list' => $list, 'read' => $read));
+        }
+        else
+            $this->render('index_v2', array('list' => $list, 'read' => $read, 'unreadCount' => $unreadCount));
     }
 
-    public function actionRead($page = 0)
+    public function actionRead()
     {
-        $this->pageTitle = 'Прочитанные уведомления';
+        $events = \Yii::app()->request->getPost('events', array());
+        $events = array_map(function($event)
+            {
+                return new \MongoId($event);
+            }, $events);
+        $notifications = \site\frontend\modules\notifications\models\Notification::model()->byUser(\Yii::app()->user->id)->findAllByPk($events);
+        foreach ($notifications as $notification)
+        {
+            $notification->readAll();
+            $notification->save();
+       }
 
-        $list = Notification::model()->getNotificationsList(Yii::app()->user->id, 1, $page);
-        if (Yii::app()->request->isAjaxRequest) {
-            echo CJSON::encode(array(
-                'success' => true,
-                'html' => $this->renderPartial('list', array('list' => $list, 'read' => true), true),
-                'empty' => empty($list)
-            ));
-        } else
-            $this->render('index', array('list' => $list, 'read' => true));
-    }
-
-    public function actionReadOne()
-    {
-        $id = Yii::app()->request->getPost('id');
-        $model = Notification::model()->findByPk($id);
-        if (isset($model['_id']))
-            Notification::model()->readByPk($model['_id']);
-        echo CJSON::encode(array('status' => true));
-    }
-
-    public function actionUnread()
-    {
-        $id = Yii::app()->request->getPost('id');
-        $model = Notification::model()->findByPk($id);
-        if (isset($model['_id']))
-            Notification::model()->unreadByPk($model['_id']);
-
-        echo CJSON::encode(array('status' => true));
+        echo \CJSON::encode(array('success' => true));
     }
 
     public function actionReadAll()
     {
-        Notification::model()->readAll();
-        echo CJSON::encode(array('status' => true));
+        
     }
+
 }

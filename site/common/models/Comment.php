@@ -13,7 +13,9 @@
  * @property string $response_id
  * @property string $quote_id
  * @property string $quote_text
+ * @property string $root_id
  * @property string $removed
+ * @property CommunityContent $commentEntity Комментируемая сущность
  *
  * The followings are the available model relations:
  * @property User author
@@ -24,12 +26,20 @@
  */
 class Comment extends HActiveRecord
 {
+
     public $selectable_quote = false;
+
     const CONTENT_TYPE_DEFAULT = 1;
     const CONTENT_TYPE_PHOTO = 2;
     const CONTENT_TYPE_ONLY_TEXT = 3;
 
+    /**
+     * Комментируемая сущность
+     * @var CActiveRecord 
+     */
+    protected $_entity = null;
     public $count;
+
     /**
      * Массив фото, содержащихся в тексте, заполняется поведением ProcessingImagesBehavior
      * @var array
@@ -86,7 +96,6 @@ class Comment extends HActiveRecord
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
             'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
-
             'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
             'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
         );
@@ -128,6 +137,12 @@ class Comment extends HActiveRecord
     public function behaviors()
     {
         return array(
+            'ContentBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
+            ),
+            'notificationBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\CommentBehavior',
+            ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
@@ -197,24 +212,24 @@ class Comment extends HActiveRecord
         if (get_class(Yii::app()) == 'CConsoleApplication')
             return;
 
-        if ($this->isNewRecord) {
-            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'AlbumPhoto'))) {
+        if ($this->isNewRecord)
+        {
+            if (in_array($this->entity, array('CommunityContent', 'BlogContent', 'AlbumPhoto')))
+            {
                 PostRating::reCalcFromComments($this);
             }
 
             Yii::import('site.frontend.modules.routes.models.*');
-            NotificationCreate::commentCreated($this);
             Scoring::commentCreated($this);
 
             FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
 
             //send signals to commentator panel
-            if (Yii::app()->user->checkAccess('commentator_panel')) {
-                Yii::import('site.frontend.modules.signal.components.*');
-                Yii::import('site.frontend.modules.signal.models.*');
-                Yii::import('site.frontend.modules.signal.helpers.*');
+            if (Yii::app()->user->checkAccess('commentator_panel'))
+            {
                 Yii::import('site.frontend.modules.cook.models.*');
                 Yii::import('site.frontend.modules.cook.components.*');
+                Yii::import('site.frontend.modules.signal.helpers.CommentatorHelper');
                 Yii::import('site.seo.modules.commentators.models.*');
                 Yii::import('site.seo.models.*');
 
@@ -223,6 +238,17 @@ class Comment extends HActiveRecord
             }
         }
         parent::afterSave();
+    }
+    
+    public function insert($attributes = null)
+    {
+        $result = parent::insert($attributes);
+        // обновим root_id
+        $this->root_id = is_null($this->response_id) ? $this->id : $this->response->root_id;
+        // сделаем это быстро
+        $this->updateByPk($this->id, array('root_id' => $this->root_id));
+        
+        return $result;
     }
 
     public function beforeSave()
@@ -236,7 +262,13 @@ class Comment extends HActiveRecord
     public function beforeDelete()
     {
         Comment::model()->updateByPk($this->id, array('removed' => 1));
-        NotificationDelete::commentDeleted($this);
+
+        /** @todo Переписать через save */
+        $this->removed = 1;
+        $notification = $this->asa('notificationBehavior');
+        if ($notification)
+            $notification->afterSave(new CEvent($this));
+
         Scoring::commentRemoved($this);
 
         return false;
@@ -257,14 +289,15 @@ class Comment extends HActiveRecord
     public function getUrl($absolute = false)
     {
         if (!in_array($this->entity, array('CommunityContent', 'BlogContent', 'CookRecipe', 'User',
-            'AlbumPhoto', 'Route', 'Service'))
+                'AlbumPhoto', 'Route', 'Service'))
         )
             return false;
 
         $entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
         if ($entity === null)
             return '';
-        if ($this->entity == 'Service') {
+        if ($this->entity == 'Service')
+        {
             $url = $entity->getUrl();
 //            $page = $this->calcPageNumber();
 //            if ($page > 1)
@@ -315,7 +348,8 @@ class Comment extends HActiveRecord
         $class = $this->entity;
         $pk = $this->entity_id;
         $model = $class::model()->cache(1)->findByPk($pk);
-        if ($model !== null) {
+        if ($model !== null)
+        {
             if (isset($model->author_id) && $model->author_id == $user_id)
                 return true;
             if ($this->entity == 'User' && $model->id == $user_id)
@@ -329,13 +363,19 @@ class Comment extends HActiveRecord
         if ($this->entity == 'User')
             return self::CONTENT_TYPE_ONLY_TEXT;
         elseif (empty($this->photoAttaches))
-            return self::CONTENT_TYPE_DEFAULT; else
+            return self::CONTENT_TYPE_DEFAULT;
+        else
             return self::CONTENT_TYPE_PHOTO;
     }
 
     public function getRemoveDescription()
     {
-        switch ($this->remove->type) {
+        if (!$this->remove && $this->removed)
+            return 'Комментарий удален';
+        if (!$this->remove && !$this->removed)
+            return null;
+        switch ($this->remove->type)
+        {
             case 0 :
                 $text = 'Комментарий удален автором.';
                 break;
@@ -358,8 +398,10 @@ class Comment extends HActiveRecord
         $byOwner = false;
         $byModer = false;
         $reasons = array();
-        foreach ($comments as $c) {
-            switch ($c->remove->type) {
+        foreach ($comments as $c)
+        {
+            switch ($c->remove->type)
+            {
                 case 0:
                     $byAuthor = true;
                     break;
@@ -368,9 +410,12 @@ class Comment extends HActiveRecord
                     break;
                 default:
                     $byModer = true;
-                    if ($c->remove->type == 4) {
+                    if ($c->remove->type == 4)
+                    {
                         $reasons[] = $c->remove->text;
-                    } else {
+                    }
+                    else
+                    {
                         $reasons[] = Removed::$types[$c->remove->type];
                     }
             }
@@ -383,7 +428,8 @@ class Comment extends HActiveRecord
         if ($byOwner)
             $words[] = 'владельцем страницы';
 
-        if ($byModer) {
+        if ($byModer)
+        {
             foreach ($reasons as $k => $r)
                 $reasons[$k] = '"' . $r . '"';
             $words[] = 'модератором по ' . ((count($reasons) > 1) ? 'причинам' : 'причине') . ' ' . HDate::enumeration($reasons);
@@ -420,27 +466,27 @@ class Comment extends HActiveRecord
     public static function getNewCommentsCount($entity, $entity_id, $last_comment_id)
     {
         return Yii::app()->db->createCommand()
-            ->select('count(*)')
-            ->from('comments')
-            ->where('entity=:entity AND entity_id=:entity_id AND id > :last_comment_id AND removed=0', array(
-                ':entity' => $entity,
-                ':entity_id' => $entity_id,
-                ':last_comment_id' => $last_comment_id
-            ))
-            ->queryScalar();
+                ->select('count(*)')
+                ->from('comments')
+                ->where('entity=:entity AND entity_id=:entity_id AND id > :last_comment_id AND removed=0', array(
+                    ':entity' => $entity,
+                    ':entity_id' => $entity_id,
+                    ':last_comment_id' => $last_comment_id
+                ))
+                ->queryScalar();
     }
 
     public static function getNewCommentIds($entity, $entity_id, $last_comment_id)
     {
         return Yii::app()->db->createCommand()
-            ->select('id')
-            ->from('comments')
-            ->where('entity=:entity AND entity_id=:entity_id AND id > :last_comment_id AND removed=0', array(
-                ':entity' => $entity,
-                ':entity_id' => $entity_id,
-                ':last_comment_id' => $last_comment_id
-            ))
-            ->queryColumn();
+                ->select('id')
+                ->from('comments')
+                ->where('entity=:entity AND entity_id=:entity_id AND id > :last_comment_id AND removed=0', array(
+                    ':entity' => $entity,
+                    ':entity_id' => $entity_id,
+                    ':last_comment_id' => $last_comment_id
+                ))
+                ->queryColumn();
     }
 
     public function getPowerTipTitle()
@@ -473,11 +519,14 @@ class Comment extends HActiveRecord
     }
 
     /**
-     * @return CActiveRecord
+     * @return CommunityContent
      */
     public function getCommentEntity()
     {
-        return CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+        if (is_null($this->_entity))
+            $this->_entity = CActiveRecord::model($this->entity)->findByPk($this->entity_id);
+
+        return $this->_entity;
     }
 
     /**
@@ -489,17 +538,17 @@ class Comment extends HActiveRecord
     {
         $comment->forEdit->text;
         $data = array(
-            'id' => (int)$comment->id,
+            'id' => (int) $comment->id,
             'html' => $comment->purified->text,
             'editHtml' => $comment->forEdit->text,
             'created' => strtotime($comment->created),
             'author' => array(
-                'id' => (int)$comment->author->id,
+                'id' => (int) $comment->author->id,
                 'firstName' => $comment->author->first_name,
                 'lastName' => $comment->author->last_name,
                 'gender' => $comment->author->gender,
                 'avatar' => $comment->author->getAvatarUrl(40),
-                'online' => (bool)$comment->author->online,
+                'online' => (bool) $comment->author->online,
                 'url' => $comment->author->getUrl(),
                 'deleted' => $comment->author->deleted,
             ),
@@ -513,4 +562,5 @@ class Comment extends HActiveRecord
         );
         return $data;
     }
+
 }

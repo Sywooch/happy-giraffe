@@ -797,8 +797,6 @@ class AlbumsController extends HController
         $this->pageTitle = $photo->w_title . ' - ' . strip_tags($collection['title']);
         $this->layout = '//layouts/main';
 
-        NotificationRead::getInstance()->setContentModel($photo);
-
         switch ($entity) {
             case 'CommunityContentGallery':
                 $view = 'singlePhotoBanner';

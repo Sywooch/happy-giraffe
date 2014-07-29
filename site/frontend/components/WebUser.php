@@ -11,6 +11,7 @@ class WebUser extends CWebUser
      */
     public function getModel()
     {
+        Yii::import('site.common.models.User');
         if (! $this->isGuest && $this->_model === null)
             $this->_model = User::model()->findByPk($this->id);
         return $this->_model;

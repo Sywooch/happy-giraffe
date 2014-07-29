@@ -9,7 +9,6 @@
 //))){
 
     $comments = $this->getComments();
-NotificationRead::getInstance()->SetVisited();
 $allCount = ($this->full) ? count($comments) : $this->model->getCommentsCount();
 $data = array(
     'entity' => $this->entity,
@@ -21,11 +20,6 @@ $data = array(
     'allCount' => (int)$allCount,
     'messaging__enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
 );
-
-//помечаем комментарии как прочитанные
-foreach($comments as $comment)
-    NotificationRead::getInstance()->addShownComment($comment);
-NotificationRead::getInstance()->SetVisited();
 
 ?>
 <!-- ko stopBinding: true -->
@@ -259,14 +253,19 @@ NotificationRead::getInstance()->SetVisited();
     <!-- /ko -->
 </div>
 <!-- /ko -->
-
-    <script type="text/javascript">
-        $(function() {
-            var viewModel = new CommentViewModel(<?=CJSON::encode($data)?>);
-            $('.'+'<?=$this->objectName ?>').each(function(index, el) {
-                ko.applyBindings(viewModel, el);
-            });
-        });
-    </script>
+<?php
+$json = CJSON::encode($data);
+$js = <<<JS
+    var viewModel = new CommentViewModel($json);
+    $('.'+'{$this->objectName}').each(function(index, el) {
+        ko.applyBindings(viewModel, el);
+    });
+JS;
+$cs = Yii::app()->clientScript;
+if ($cs->useAMD)
+    $cs->registerAMD('CommentViewModel', array('$' => 'jquery', 'ko' => 'knockout', 'ko_comments' => 'ko_comments'), $js);
+else
+    echo "<script type='text/javascript'>\n\t" . $js . "\n</script>";
+?>
 
 <?php //if (Yii::app()->user->isGuest) $this->endCache();} ?>

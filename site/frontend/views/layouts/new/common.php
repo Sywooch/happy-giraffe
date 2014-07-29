@@ -1,20 +1,29 @@
 <?php
+/* @var $cs ClientScript */
+$cs = Yii::app()->clientScript;
 // Эти скрипты модуль рагистрирует пакетом, подменим на новые версии для нового шаблона
-Yii::app()->clientScript->scriptMap['jquery.js'] = '/new/javascript/jquery-1.10.2.min.js';
-Yii::app()->clientScript->scriptMap['jquery.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/jquery-1.10.2.min.js';
-Yii::app()->clientScript->scriptMap['jquery.powertip.js'] = '/new/javascript/jquery.powertip.js';
-Yii::app()->clientScript->scriptMap['jquery.powertip.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/jquery.powertip.js';
-Yii::app()->clientScript->scriptMap['baron.js'] = '/new/javascript/baron.js';
-Yii::app()->clientScript->scriptMap['baron.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/baron.js';
-Yii::app()->clientScript->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knockout-3.0.0.js';
-Yii::app()->clientScript->scriptMap['knockout-2.2.1.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/knockout-3.0.0.js';
-Yii::app()->clientScript->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knockout-debug.3.0.0.js';
-Yii::app()->clientScript->scriptMap['knockout-2.2.1.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/knockout-debug.3.0.0.js';
+$cs->scriptMap['jquery.js'] = '/new/javascript/jquery-1.10.2.min.js';
+$cs->scriptMap['jquery.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/jquery-1.10.2.min.js';
+$cs->scriptMap['jquery.powertip.js'] = '/new/javascript/jquery.powertip.js';
+$cs->scriptMap['jquery.powertip.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/jquery.powertip.js';
+$cs->scriptMap['baron.js'] = '/new/javascript/baron.js';
+$cs->scriptMap['baron.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/baron.js';
+$cs->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knockout-3.0.0.js';
+$cs->scriptMap['knockout-2.2.1.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/knockout-3.0.0.js';
+$cs->scriptMap['knockout-2.2.1.js'] = '/new/javascript/knockout-debug.3.0.0.js';
+$cs->scriptMap['knockout-2.2.1.js?r=' . Yii::app()->params['releaseId']] = '/new/javascript/knockout-debug.3.0.0.js';
 if (! Yii::app()->user->isGuest)
-    Yii::app()->clientScript
-        ->registerPackage('comet')
-        ->registerPackage('common')
-        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
+{
+    if($cs->useAMD)
+        $cs
+            ->registerAMD('happyDebug', array('happyDebug'), 'happyDebug.log("main", "info", "happyDebug инициализирован");')
+            ->registerAMD('Realplexor-reg', array('common', 'comet'), 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
+    else
+        $cs
+            ->registerPackage('comet')
+            ->registerPackage('common')
+            ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
+}
 
 ?><!DOCTYPE html>
 <html class="no-js">
@@ -142,10 +151,14 @@ if (! Yii::app()->user->isGuest)
 <!--/ tns-counter.ru -->
 <?php endif; ?>
 
-<script type="text/javascript">
-    var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
-    var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
-</script>
+<?php
+    $js = "var userIsGuest = " . CJavaScript::encode(Yii::app()->user->isGuest) . "; var CURRENT_USER_ID = " . CJavaScript::encode(Yii::app()->user->id);
+    $cs = Yii::app()->clientScript;
+    if($cs->useAMD)
+        $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_AMD);
+    else
+        $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_HEAD);
+?>
 
 <?php if (Yii::app()->user->isGuest): ?>
     <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>

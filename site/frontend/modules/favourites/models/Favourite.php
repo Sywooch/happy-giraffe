@@ -139,6 +139,9 @@ class Favourite extends CActiveRecord
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
+            'notificationBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\FavoriteBehavior',
+            ),
         );
     }
 

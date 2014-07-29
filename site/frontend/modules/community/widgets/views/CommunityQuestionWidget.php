@@ -6,7 +6,7 @@
 
 <?php $this->beginWidget('SeoContentWidget'); ?>
     <?php
-    $form = $this->beginWidget('CActiveForm', array(
+    $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
         'id' => 'question-form',
         'action' => array('/community/default/createQuestion'),
         'enableAjaxValidation' => true,

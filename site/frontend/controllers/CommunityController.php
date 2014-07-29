@@ -194,7 +194,6 @@ class CommunityController extends HController
         }
 
         if (!Yii::app()->user->isGuest){
-            NotificationRead::getInstance()->setContentModel($content);
             UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
         }
 

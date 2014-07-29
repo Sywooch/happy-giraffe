@@ -8,6 +8,11 @@
  */
 class UserPostView extends HMongoModel
 {
+    public function attributeNames()
+    {
+        return array();
+    }
+
     protected $_collection_name = 'user_page_views';
 
     /**

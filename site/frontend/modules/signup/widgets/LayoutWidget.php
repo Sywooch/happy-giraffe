@@ -7,7 +7,8 @@ class LayoutWidget extends CWidget
 {
     public function run()
     {
-        Yii::app()->clientScript->registerPackage('ko_registerWidget');
+        if(!Yii::app()->clientScript->useAMD)
+            Yii::app()->clientScript->registerPackage('ko_registerWidget');
         $this->render('LayoutWidget');
     }
 }

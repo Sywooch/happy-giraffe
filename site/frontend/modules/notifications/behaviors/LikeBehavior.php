@@ -33,7 +33,7 @@ class LikeBehavior extends BaseBehavior
         
         $user = \User::model()->findByPk($model->user_id);
         
-        $notification = $this->findOrCreateNotification($model->entity_name, (int) $model->entity_id, (int) $entity->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_NEW_LIKE, array($model->user_id, $user->getAvaOrDefaultImage(\Avatar::SIZE_MICRO)));
+        $notification = $this->findOrCreateNotification($model->entity_name, (int) $model->entity_id, (int) $entity->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_NEW_LIKE, array($model->user_id, $user->getAvatarUrl(\Avatar::SIZE_MICRO)));
 
         $exists = false;
         if ($notification->unreadEntities)

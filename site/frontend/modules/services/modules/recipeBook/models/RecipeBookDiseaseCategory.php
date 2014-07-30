@@ -117,4 +117,19 @@ class RecipeBookDiseaseCategory extends HActiveRecord
             return CHtml::image($this->photo->getPreviewUrl(70, 70));
         return '';
     }
+
+    public function scopes()
+    {
+        $alias = $this->getTableAlias();
+        return array(
+            'alphabetical' => array(
+                'order' => $alias . '.title ASC',
+            ),
+        );
+    }
+
+    public function getUrl()
+    {
+        return Yii::app()->createUrl('/services/recipeBook/default/index', array('slug' => $this->slug));
+    }
 }

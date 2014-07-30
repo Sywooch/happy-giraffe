@@ -192,4 +192,25 @@ class RecipeBookRecipe extends HActiveRecord
             )
         );
     }
+
+    public function disease($diseaseId)
+    {
+        $alias = $this->getTableAlias();
+        $this->getDbCriteria()->compare($alias . '.disease_id', $diseaseId);
+        return $this;
+    }
+
+    public static function getDp($diseaseId)
+    {
+        $criteria = new CDbCriteria();
+        if ($diseaseId !== null) {
+            $criteria->scopes = array(
+                'disease' => $diseaseId,
+            );
+        }
+
+        return new CActiveDataProvider(__CLASS__, array(
+            'criteria' => $criteria,
+        ));
+    }
 }

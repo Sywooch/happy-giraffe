@@ -1,0 +1,1 @@
+<?php $this->widget('site.frontend.modules.services.modules.recipeBook.widgets.diseasesListWidget.DiseasesListWidget'); ?>

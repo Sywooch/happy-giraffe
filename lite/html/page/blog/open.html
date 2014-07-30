@@ -7,7 +7,7 @@
 </head>
 <body class="body body__bg1 body__lite">
   <!--///////////////////////////////////////-->
-  <!-- Дата последних изменений --> <!-- Wed Jul 30 2014 08:15:35 -->
+  <!-- Дата последних изменений --> <!-- Wed Jul 30 2014 11:34:59 -->
   <!--///////////////////////////////////////-->
   <div class="layout-container">
     <div class="layout-loose layout-loose__white">
@@ -148,47 +148,23 @@
                 </div>
                 <!-- comments-->
                 <div class="comments comments__buble">
-                  <div class="comments_t">Комментарии 68 </div>
-                  <div class="comments_hold">
-                    <ul class="comments_ul">
-                      <!-- 
-                      варианты цветов комментов. В такой последовательности
-                      .comments_li__lilac
-                      .comments_li__yellow
-                      .comments_li__red
-                      .comments_li__blue
-                      .comments_li__green
-                      -->
-                      <li class="comments_li comments_li__lilac clearfix">
-                        <article class="comments_i">
-                          <div class="comments_ava">
-                            <!-- Аватарки размером 40*40-->
-                            <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
-                          </div>
-                          <div class="comments_frame">
-                            <div class="comments_header"><a href="" rel="author" class="a-light comments_author">Иванна Хлебникова</a>
-                              <time datetime="2014-11-04T18:20:54+00:00" pubdate class="tx-date">2 минуты назад</time>
-                            </div>
-                            <div class="comments_cont">
-                              <div class="wysiwyg-content">
-                                <p> Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! </p>
-                                <!-- одно фото в блок (ссылку)--><a href="" class="comments_cont-img-w">
-                                  <!-- размеры превью максимум 400*400 пк--><img alt="" src="/images/example/w220-h309-1.jpg"></a>
-                                <p>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
-                              </div>
-                            </div>
-                            <div class="comments_footer">
-                              <!-- b-control-->
-                              <div class="b-control">
-                                <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
-                                </div>
-                              </div>
-                              <!-- /b-control-->
-                            </div>
-                          </div>
-                        </article>
+                  <div class="comments-menu">
+                    <ul role="tablist" class="comments-menu_ul nav tab-nav">
+                      <li class="comments-menu_li active"><a href="#comments-list" data-toogle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии 68 </a></li>
+                      <li class="comments-menu_li"><a href="#like-list" data-toogle="tab" class="comments-menu_a comments-menu_a__likes">Нравится 865</a></li>
+                      <li class="comments-menu_li"><a href="#favorites-list" role="tab" data-toogle="tab" class="comments-menu_a comments-menu_a__favorites">Закладки 865</a></li>
+                    </ul>
+                    <div class="tab-content">
+                      <div id="comments-list" class="comments_hold tab-pane fade active">
                         <ul class="comments_ul">
-                          <!-- комментарий вложенный-->
+                          <!-- 
+                          варианты цветов комментов. В такой последовательности
+                          .comments_li__lilac
+                          .comments_li__yellow
+                          .comments_li__red
+                          .comments_li__blue
+                          .comments_li__green
+                          -->
                           <li class="comments_li comments_li__lilac clearfix">
                             <article class="comments_i">
                               <div class="comments_ava">
@@ -201,40 +177,101 @@
                                 </div>
                                 <div class="comments_cont">
                                   <div class="wysiwyg-content">
-                                    <p><a href="" class="comments_ansver-for">Ольга Максимова, </a>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
+                                    <p> Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! </p>
+                                    <!-- одно фото в блок (ссылку)--><a href="" class="comments_cont-img-w">
+                                      <!-- размеры превью максимум 400*400 пк--><img alt="" src="/images/example/w220-h309-1.jpg"></a>
+                                    <p>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
                                   </div>
                                 </div>
                                 <div class="comments_footer">
                                   <!-- b-control-->
                                   <div class="b-control">
-                                    <div class="b-control_i b-control_i__delete"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
-                                    </div>
-                                    <div class="b-control_i b-control_i__edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
+                                    <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
                                     </div>
                                   </div>
                                   <!-- /b-control-->
                                 </div>
                               </div>
                             </article>
+                            <ul class="comments_ul">
+                              <!-- комментарий вложенный-->
+                              <li class="comments_li comments_li__lilac clearfix">
+                                <article class="comments_i">
+                                  <div class="comments_ava">
+                                    <!-- Аватарки размером 40*40-->
+                                    <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                                  </div>
+                                  <div class="comments_frame">
+                                    <div class="comments_header"><a href="" rel="author" class="a-light comments_author">Иванна Хлебникова</a>
+                                      <time datetime="2014-11-04T18:20:54+00:00" pubdate class="tx-date">2 минуты назад</time>
+                                    </div>
+                                    <div class="comments_cont">
+                                      <div class="wysiwyg-content">
+                                        <p><a href="" class="comments_ansver-for">Ольга Максимова, </a>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
+                                      </div>
+                                    </div>
+                                    <div class="comments_footer">
+                                      <!-- b-control-->
+                                      <div class="b-control">
+                                        <div class="b-control_i b-control_i__delete"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
+                                        </div>
+                                        <div class="b-control_i b-control_i__edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
+                                        </div>
+                                      </div>
+                                      <!-- /b-control-->
+                                    </div>
+                                  </div>
+                                </article>
+                              </li>
+                              <!-- /комментарий вложенный-->
+                              <!-- комментарий вложенный-->
+                              <!-- Свой комментарий-->
+                              <li class="comments_li comments_li__self comments_li__lilac clearfix">
+                                <article class="comments_i">
+                                  <div class="comments_ava">
+                                    <!-- Аватарки размером 40*40-->
+                                    <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                                  </div>
+                                  <div class="comments_frame">
+                                    <div class="comments_header"><a href="" rel="author" class="a-light comments_author">Ангелина Богоявленская</a>
+                                      <time datetime="2014-11-04T18:20:54+00:00" pubdate class="tx-date">2 минуты назад</time>
+                                    </div>
+                                    <div class="comments_cont">
+                                      <div class="wysiwyg-content">
+                                        <p>
+                                          <!-- Если аккаунт удален, меняем а на span что б не было 404 ошибок.--><span class="comments_ansver-for">Ольга Максимова, </span>Свой комментарий. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div class="comments_footer">
+                                      <!-- b-control-->
+                                      <div class="b-control">
+                                        <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                                        </div>
+                                      </div>
+                                      <!-- /b-control-->
+                                    </div>
+                                  </div>
+                                </article>
+                              </li>
+                              <!-- /комментарий вложенный-->
+                            </ul>
                           </li>
-                          <!-- /комментарий вложенный-->
-                          <!-- комментарий вложенный-->
-                          <!-- Свой комментарий-->
-                          <li class="comments_li comments_li__self comments_li__lilac clearfix">
+                          <!-- / комментарий  -->
+                          <!-- комментарий     -->
+                          <li class="comments_li comments_li__red clearfix">
                             <article class="comments_i">
                               <div class="comments_ava">
                                 <!-- Аватарки размером 40*40-->
-                                <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                                <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                               </div>
                               <div class="comments_frame">
-                                <div class="comments_header"><a href="" rel="author" class="a-light comments_author">Ангелина Богоявленская</a>
+                                <div class="comments_header"><a href="" rel="author" class="a-light comments_author">Иванна Хлебникова</a>
                                   <time datetime="2014-11-04T18:20:54+00:00" pubdate class="tx-date">2 минуты назад</time>
                                 </div>
                                 <div class="comments_cont">
                                   <div class="wysiwyg-content">
-                                    <p>
-                                      <!-- Если аккаунт удален, меняем а на span что б не было 404 ошибок.--><span class="comments_ansver-for">Ольга Максимова, </span>Свой комментарий. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
-                                    </p>
+                                    <p>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
                                   </div>
                                 </div>
                                 <div class="comments_footer">
@@ -248,60 +285,26 @@
                               </div>
                             </article>
                           </li>
-                          <!-- /комментарий вложенный-->
+                          <!-- комментарий -->
                         </ul>
-                      </li>
-                      <!-- / комментарий  -->
-                      <!-- комментарий     -->
-                      <li class="comments_li comments_li__red clearfix">
-                        <article class="comments_i">
-                          <div class="comments_ava">
-                            <!-- Аватарки размером 40*40-->
-                            <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-                          </div>
-                          <div class="comments_frame">
-                            <div class="comments_header"><a href="" rel="author" class="a-light comments_author">Иванна Хлебникова</a>
-                              <time datetime="2014-11-04T18:20:54+00:00" pubdate class="tx-date">2 минуты назад</time>
-                            </div>
-                            <div class="comments_cont">
-                              <div class="wysiwyg-content">
-                                <p>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
-                              </div>
-                            </div>
-                            <div class="comments_footer">
-                              <!-- b-control-->
-                              <div class="b-control">
-                                <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
-                                </div>
-                              </div>
-                              <!-- /b-control-->
-                            </div>
-                          </div>
-                        </article>
-                      </li>
-                      <!-- комментарий -->
-                    </ul>
-                  </div>
-                  <!-- Пагинация для декстопа -->
-                  <!-- paginator-->
-                  <div class="yiipagination yiipagination__revers">
-                    <div class="pager">
-                      <!-- -->
-                      <ul class="yiiPager">
-                        <li class="page"><a href="">21</a></li>
-                        <li class="page"><a href="">20</a></li>
-                        <li class="page selected"><a href="">19</a></li>
-                        <li class="page"><a href="">18</a></li>
-                        <li class="page"><a href="">17</a></li>
-                        <li class="page"><a href="">16</a></li>
-                        <li class="page"><a href="">15</a></li>
-                        <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
-                        <li class="page-points">...</li>
-                        <li class="page"><a href="">1</a></li>
-                      </ul>
+                      </div>
+                      <div id="like-list" class="comments_hold tab-pane fade">
+                        <div class="like-list">
+                          <ul class="like-list_ul">
+                            <li class="like-list_li">
+                              <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-lite">Ангелина Богоявленская</a>
+                              <time class="tx-date">5 минут назад</time><a class="btn btn-succes btn-m"><span class="ico-plus"></span>Подписаться</a>
+                            </li>
+                            <li class="like-list_li">
+                              <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-lite">Ангелина Богоявленская</a>
+                              <time class="tx-date">5 минут назад</time><a class="btn btn-secondary btn-m">Читаю</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div id="favorites-list" class="comments_hold tab-pane fade"></div>
                     </div>
                   </div>
-                  <!-- /paginator-->
                 </div>
                 <!-- /comments-->
               </div>
@@ -397,6 +400,7 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- popup-->
   <!-- livereload-->

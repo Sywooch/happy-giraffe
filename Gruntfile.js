@@ -180,7 +180,7 @@ module.exports = function(grunt){
         dest: 'lite/css/min/blog.css'
       },
       // Традиционные рецепты
-      'traditional-recipes': {
+      'services': {
         options: {
           stylesheets  : ['/css/dev/all.css'],
           timeout      : 1000,
@@ -194,7 +194,7 @@ module.exports = function(grunt){
           ],
         },
         src: ['lite/html/page/traditional-recipes/**/*.html', 'lite/html/page/comments/**/*.html'],
-        dest: 'lite/css/min/traditional-recipes.css'
+        dest: 'lite/css/min/services.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -427,7 +427,7 @@ module.exports = function(grunt){
 
   // lite tasks
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
-  grunt.registerTask('traditional-recipes', ['jade:lite_prod', 'less:litedev','uncss:traditional-recipes', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('services', ['jade:lite_prod', 'less:litedev','uncss:services', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 
   // Базовый для разработки верстки
   grunt.registerTask('default', [

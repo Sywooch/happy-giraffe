@@ -4,7 +4,7 @@ mixin scriptsLite(path)
     script.
         window.jQuery || document.write('<script src="#{path}/javascript/jquery-1.10.2.min.js"><\/script>')
 
-    script(src="#{path}javascript/modernizr.custom.js")
+    script(src="#{path}javascript/modernizr-2.7.1.min.js")
 
     // Адаптивные изображения tag picture
     script(src="#{path}javascript/picturefill.min.js")
@@ -13,7 +13,7 @@ mixin scriptsLite(path)
     <!--[if lt IE 9]> <script type="text/javascript" src="#{path}javascript/respond.min.js"></script> <![endif]-->
 
     //- script(src="#{path}javascript/bootstrap/dropdown.js")
-    //- script(src="#{path}javascript/bootstrap/tab.js")
+    script(src="#{path}javascript/bootstrap/tab.js")
 
     // tooltip
     //- script(src="#{path}javascript/jquery.tooltipster.js")

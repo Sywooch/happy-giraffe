@@ -5,11 +5,9 @@ block vars
     - global.cssFile = 'blog.css'; 
     
 block layout
-
+    
     // b-main 
     .b-main.clearfix
-        // стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту 
-        a.post-arrow(href="")
         .b-main_cont
             .b-crumbs.b-crumbs__s
                 .b-crumbs_tx Я здесь:
@@ -27,7 +25,7 @@ block layout
                     +commentsOpen('', commentsOpen.b)
                     
                 // /Основная колонка
-        .b-main_row.b-main_row__gray.clearfix.hidden-lg
+        //- .b-main_row.b-main_row__gray.clearfix.hidden-lg
             .b-main_cont
                 // Ссылка на страницу все комменты для планшетов и мобильных
                 .comments_all

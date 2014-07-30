@@ -79,5 +79,7 @@ $js = "ko.applyBindings(new BlogRecordSettings(" . CJSON::encode($ViewModelData)
 $cs = Yii::app()->clientScript;
 if ($cs->useAMD)
     $cs->registerAMD('BlogRecordSettings#' . $data->id, array('ko' => 'knockout', 'ko_post' => 'ko_post'), $js);
+elseif(!Yii::app()->request->isAjaxRequest)
+    $cs->registerScript('BlogRecordSettings#' . $data->id, $js, CClientScript::POS_READY);
 else
     echo "<script type='text/javascript'>\n\t" . $js . "\n</script>";

@@ -312,7 +312,22 @@ module.exports = function(grunt){
                 },
                 unit: 5
             }
-        }
+        },
+        'ico-arrow': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-arrow",
+                spritePath: "lite/images/sprite/ico-arrow.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'vertical',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 200
+            }
+        },
     },
 
     watch: {

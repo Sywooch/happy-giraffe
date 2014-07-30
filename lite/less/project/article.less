@@ -27,7 +27,6 @@
         min-height:159px;
         word-wrap: break-word;
     }
-    // &_in .wysiwyg-content {padding: 0 15px;}
     &_in-img {
         position: relative;
         text-align: center;
@@ -49,10 +48,12 @@
     &_header {
         margin: 0 0 10px;
     }
-    &_header .ava {margin: 0 10px 0 0;}
+    &_header .ava {
+        margin: 0 10px 0 0;
+        vertical-align: top;
+    }
     &_author {
         .inline-block();
-        vertical-align: top;
         color: @color-link-light;
         text-decoration: none;
         padding-right: 5px;
@@ -71,8 +72,6 @@
         text-decoration: none;
     }
     &_t-a:hover {text-decoration: underline;}
-
-
 }
 /* /b-article */
 
@@ -167,7 +166,7 @@
         .inline-block();
         margin: 0 15px;
     }
-    
+    /*
     &__s &_hold {margin: 7px 0;}
     &__s &_ico {
         width: 35px;
@@ -179,7 +178,7 @@
     &__s &_i__favorites &_ico{background-position: -35px 0;}
     &__s &_i__favorites.active &_ico,
     &__s &_i__favorites:hover &_ico {background-position: -35px -35px;}
-    
+    */
     /*&_title {
         margin-bottom: 5px;
         font-size: 13px;
@@ -198,11 +197,14 @@
     &_i__favorites &_ico{background-position: -45px 0;}
     &_i__favorites.active &_ico,
     &_i__favorites:hover &_ico {background-position: -45px -45px;}
+    &_i__idea &_ico{background-position: -90px 0;}
+    &_i__idea.active &_ico,
+    &_i__idea:hover &_ico {background-position: -90px -45px;}
     &_ico {
         .inline-block();
         width: 45px;
         height: 45px;
-        margin-bottom: 1px;
+        margin: 3px 0 1px;
         background: url('@{path-img}/like-control_ico.png') no-repeat  0 0;
         text-decoration: none;
 
@@ -230,15 +232,7 @@
 }
 /* /like-control */
 
-/*.ico-play-big {
-    .inline-block();
-    vertical-align: middle;
-    width: 151px;
-    height: 151px;
-    background: url(/images/ico/ico-play-big.png) no-repeat;
 
-    &:hover {background-position: 0 -151px;}
-}*/
 
 /* icons-meta */
 .icons-meta {
@@ -329,15 +323,39 @@
     width: 100%;
     margin: 20px 0;
 
-    &_r {text-align: right;}
-    &_r &_img-hold {margin: 0 0 0 10px;}
     &_hint {
         color: @color-gray-dark;
     }
     &_a {
         display: block;
+        position: relative;
+        padding-left: 25px;
     }
     &_a:hover &_tx {text-decoration: underline;}
+    &_a__r {
+        text-align: right;
+        padding: 0 25px 0 0;
+    }
+    &_a__r &_img-hold {margin: 0 0 0 10px;}
+    &_a:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -6px;
+        &:extend(.ico-arrow-l);
+    }
+    &_a:hover:after {
+        &:extend(.ico-arrow-l:hover);
+    }
+    &_a__r:after {
+        &:extend(.ico-arrow-r);
+        left: auto;
+        right: 0;
+    }
+    &_a__r:hover:after {
+        &:extend(.ico-arrow-r:hover);
+    }
     &_img-hold {
         .inline-block();
         vertical-align: middle;
@@ -361,7 +379,7 @@
     
     &_t {
         margin: 15px 0 10px;
-        font-size: 13px;
+        font-size: 15px;
         line-height: 22px;
     }
 }
@@ -469,3 +487,18 @@
 }
 /* /user-actions */
 
+/* ingredients */
+.ingredients {
+    margin: 0 0 20px;
+
+    &_t {
+        font-weight: bold;
+        font-size: 16px;
+    }
+    &_i {
+        padding-left: 0;
+        background: none;
+        padding: 2px 0;
+    }
+}
+/* /ingredients */

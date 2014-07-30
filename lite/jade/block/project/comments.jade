@@ -54,7 +54,7 @@ mixin commentsOpen (mod, vars)
                                     .comments_cont
                                         .wysiwyg-content
                                             p 
-                                                a.comments_ansver-for.a-light(href="") Ольга Максимова, 
+                                                a.comments_ansver-for(href="") Ольга Максимова, 
                                                 | Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
 
                                     - if (vars.user)
@@ -77,7 +77,7 @@ mixin commentsOpen (mod, vars)
                                         .wysiwyg-content
                                             p
                                                 // Если аккаунт удален, меняем а на span что б не было 404 ошибок.
-                                                span.comments_ansver-for.a-span Ольга Максимова, 
+                                                span.comments_ansver-for Ольга Максимова, 
                                                 | Свой комментарий. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
 
                                     - if (vars.user)

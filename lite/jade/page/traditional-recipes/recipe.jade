@@ -33,7 +33,7 @@ block layout
                     
                     // b-article
                     // Статья с микроформатами специально для народных рецептов
-                    article.b-article.clearfix.margin-t40.hrecipe
+                    article.b-article.clearfix.margin-t40
                         .b-article_cont.clearfix
                             .b-article_cont-tale
                             .b-article_header.clearfix
@@ -45,35 +45,40 @@ block layout
                                 .float-l
                                     +ava("ava__female ava__middle-sm-mid", ava.a)
 
-                                    .b-article_author.author.vcard
-                                        a.b-article_author.fn.url(href='') Ангелина Богоявленская
+                                    .b-article_author
+                                        a.b-article_author(href='') Ангелина Богоявленская
                                     span.b-article_date Сегодня 13:25
-                            h1.b-article_t.fn Самое лучшее утро - просыпаюсь, а ты рядом
+                            h1.b-article_t.fn Лечим лимфаденит соком
                             .b-article_in.clearfix
                                 .wysiwyg-content.clearfix
-                                    .instructions
-                                        p
-                                            | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».
-                                        .b-article_in-img
-                                            a(href='')
-                                                img(alt='', src='#{path}images/example/w600-h415.jpg')
-                                        p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
-                                        p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. 
-                                        p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
-                                    h3 Ингредиенты:
-                                    .ingredient
-                                        span.name Свекольный сок 
-                                        | - 
-                                        span.value 50 
-                                        span.type мл.
-                                .textalign-c
+                                    
+                                    p
+                                        | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».
+                                    .b-article_in-img
+                                        a(href='')
+                                            img(alt='', src='#{path}images/example/w600-h415.jpg')
+                                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. 
+                                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                                .ingredients
+                                    h3.ingredients_t Ингредиенты:
+                                    ul.ingredients_ul
+                                        li.ingredients_i Свекольный сок - 50 мл. 
+                                        li.ingredients_i Курица - 2 шт. 
+                                .b-tags.margin-b40
+                                    a.b-tags_tag(href="") Болезни кровообращения
+                                    a.b-tags_tag(href="") Лимфаденит
+
+                                .textalign-c.visible-md-block
                                     .like-control.like-control__line.clearfix
                                         .like-control_hold
                                             a.like-control_i.like-control_i__like.powertip(href='', title='Нравится')
+                                                .like-control_tx Мне нравится!
                                                 .like-control_ico
                                                 .like-control_tx 865
                                         .like-control_hold
-                                            a.like-control_i.like-control_i__favorites.powertip(href='', title='В избранное')
+                                            a.like-control_i.like-control_i__idea.powertip(href='', title='В избранное')
+                                                .like-control_tx В идеи
                                                 .like-control_ico
                                                 .like-control_tx 863455
                                 .custom-likes
@@ -81,27 +86,28 @@ block layout
                                     .custom-likes_in
                                         script(type='text/javascript', src='//yandex.st/share/share.js', charset='utf-8')
                                         .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='vkontakte,facebook,twitter,odnoklassniki,moimir', data-yasharetheme='counter', data-yasharetype='small')
-                                .adv-yandexs
-                                    a(href="", target="_blank")
-                                        img(src="#{path}images/example/yandex-w600.jpg", alt="")
 
                     // /b-article
                 
                     table.article-nearby.clearfix(ellpadding='0', cellspacing='0')
                         tr
                             td
-                                a.article-nearby_a.clearfix(href='')
+                                a.article-nearby_a.article-nearby_a__l(href='')
                                     span.article-nearby_tx Как приготовить Монастыпскую избу 
-                            td.article-nearby_r
-                                a.article-nearby_a.clearfix(href='')
+                            td
+                                a.article-nearby_a.article-nearby_a__r(href='')
                                     span.article-nearby_tx Готовим  Торт Сметанник в домашних условиях
-                    .adv-banner
+                    .adv-yandex
+                        a(href="", target="_blank")
+                            img(src="#{path}images/example/yandex-w600.jpg", alt="")
+
+                    //- .adv-banner
                         a(href="", target="_blank")
                             img(alt='', src='#{path}images/example/w600-h400.jpg')
                     
-                    //- +commentsOpen('', commentsOpen.a)
+                    +commentsOpen('', commentsOpen.a)
 
-                    .article-users
+                    .article-users.visible-md-block
                         .article-users_t Запись понравилась 
                         .ava-list
                             ul.ava-list_ul.clearfix
@@ -175,7 +181,7 @@ block layout
                                         a.ava-list_last(href='')
                                             span.ava-list_like-hg
                                             | 3251
-                        .article-users_t Запись добавили в избранное 
+                        .article-users_t Рецепт добавили в идеи 
                         .ava-list
                             ul.ava-list_ul.clearfix
                                 li.ava-list_li

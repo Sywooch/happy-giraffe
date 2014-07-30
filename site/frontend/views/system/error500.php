@@ -33,5 +33,6 @@
     </div>
 </div>
 <div style="display: none;"><?=$message?></div>
+<?php Yii::app()->ads->showCounters(); ?>
 </body>
 </html>

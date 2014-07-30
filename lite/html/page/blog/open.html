@@ -7,7 +7,7 @@
 </head>
 <body class="body body__bg1 body__lite">
   <!--///////////////////////////////////////-->
-  <!-- Дата последних изменений --> <!-- Wed Jul 30 2014 11:34:59 -->
+  <!-- Дата последних изменений --> <!-- Wed Jul 30 2014 12:59:21 -->
   <!--///////////////////////////////////////-->
   <div class="layout-container">
     <div class="layout-loose layout-loose__white">
@@ -71,7 +71,8 @@
                         <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
                       </div>
                       <div class="float-l">
-                        <!-- ava--><a href="" class="ava ava__female ava__middle-sm-mid"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="b-article_author">Ангелина Богоявленская</a><span class="tx-date">Сегодня 13:25</span>
+                        <!-- ava--><a href="" class="ava ava__female ava__middle-sm-mid"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="b-article_author">Ангелина Богоявленская</a>
+                        <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
                       </div>
                     </div>
                     <h1 class="b-article_t">Самое лучшее утро - просыпаюсь, а ты рядом</h1>
@@ -149,13 +150,13 @@
                 <!-- comments-->
                 <div class="comments comments__buble">
                   <div class="comments-menu">
-                    <ul role="tablist" class="comments-menu_ul nav tab-nav">
-                      <li class="comments-menu_li active"><a href="#comments-list" data-toogle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии 68 </a></li>
-                      <li class="comments-menu_li"><a href="#like-list" data-toogle="tab" class="comments-menu_a comments-menu_a__likes">Нравится 865</a></li>
-                      <li class="comments-menu_li"><a href="#favorites-list" role="tab" data-toogle="tab" class="comments-menu_a comments-menu_a__favorites">Закладки 865</a></li>
+                    <ul data-tabs="tabs" class="comments-menu_ul">
+                      <li class="comments-menu_li active"><a href="#commentsList" data-toggle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии 68 </a></li>
+                      <li class="comments-menu_li"><a href="#likesList" data-toggle="tab" class="comments-menu_a comments-menu_a__likes">Нравится 865</a></li>
+                      <li class="comments-menu_li"><a href="#favoritesList" data-toggle="tab" class="comments-menu_a comments-menu_a__favorites">Закладки 865</a></li>
                     </ul>
                     <div class="tab-content">
-                      <div id="comments-list" class="comments_hold tab-pane fade active">
+                      <div id="commentsList" class="comments_hold tab-pane active">
                         <ul class="comments_ul">
                           <!-- 
                           варианты цветов комментов. В такой последовательности
@@ -288,21 +289,34 @@
                           <!-- комментарий -->
                         </ul>
                       </div>
-                      <div id="like-list" class="comments_hold tab-pane fade">
-                        <div class="like-list">
-                          <ul class="like-list_ul">
-                            <li class="like-list_li">
+                      <div id="likesList" class="comments_hold tab-pane">
+                        <div class="list-subsribe-users">
+                          <ul class="list-subsribe-users_ul">
+                            <li class="list-subsribe-users_li">
                               <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-lite">Ангелина Богоявленская</a>
-                              <time class="tx-date">5 минут назад</time><a class="btn btn-succes btn-m"><span class="ico-plus"></span>Подписаться</a>
+                              <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-secondary btn-m">Читаю</a>
                             </li>
-                            <li class="like-list_li">
+                            <li class="list-subsribe-users_li">
                               <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-lite">Ангелина Богоявленская</a>
-                              <time class="tx-date">5 минут назад</time><a class="btn btn-secondary btn-m">Читаю</a>
+                              <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-succes btn-m"><span class="ico-plus"></span>Подписаться</a>
                             </li>
                           </ul>
                         </div>
                       </div>
-                      <div id="favorites-list" class="comments_hold tab-pane fade"></div>
+                      <div id="favoritesList" class="comments_hold tab-pane">
+                        <div class="list-subsribe-users">
+                          <ul class="list-subsribe-users_ul">
+                            <li class="list-subsribe-users_li">
+                              <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-lite">Ангелина Богоявленская</a>
+                              <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-succes btn-m"><span class="ico-plus"></span>Подписаться</a>
+                            </li>
+                            <li class="list-subsribe-users_li">
+                              <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-lite">Ангелина Богоявленская</a>
+                              <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-secondary btn-m">Читаю</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -386,14 +400,13 @@
         </div>
         <!-- /layout-footer-->
       </div>
-      <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
     </div>
   </div>
   <div class="popup-container display-n"> 
   </div>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
-    window.jQuery || document.write('<script src="/lite//javascript/jquery-1.10.2.min.js"><\/script>')
+    window.jQuery || document.write('<script src="/lite//javascript/jquery-1.11.1.min.js"><\/script>')
     
   </script>
   <script src="/lite/javascript/modernizr.custom.js"></script>

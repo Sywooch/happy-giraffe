@@ -9,15 +9,15 @@ mixin commentsOpen (mod, vars)
     .comments.comments__buble
         //- .comments_t Комментарии 68
         .comments-menu
-            ul.comments-menu_ul.nav.tab-nav(role="tablist")
+            ul.comments-menu_ul(data-tabs="tabs")
                 li.comments-menu_li.active
-                    a.comments-menu_a.comments-menu_a__comments(href="#comments-list", data-toogle='tab') Комментарии 68 
+                    a.comments-menu_a.comments-menu_a__comments(href="#commentsList", data-toggle="tab") Комментарии 68 
                 li.comments-menu_li
-                    a.comments-menu_a.comments-menu_a__likes(href="#like-list", data-toogle='tab') Нравится 865
+                    a.comments-menu_a.comments-menu_a__likes(href="#likesList", data-toggle="tab") Нравится 865
                 li.comments-menu_li
-                    a.comments-menu_a.comments-menu_a__favorites(href="#favorites-list", role='tab', data-toogle='tab') Закладки 865
+                    a.comments-menu_a.comments-menu_a__favorites(href="#favoritesList", data-toggle="tab") Закладки 865
             .tab-content
-                #comments-list.comments_hold.tab-pane.fade.active
+                #commentsList.comments_hold.tab-pane.active
                     - if (vars.user == false)
                         +commentAdd()
                     ul.comments_ul
@@ -118,25 +118,42 @@ mixin commentsOpen (mod, vars)
                     // Пагинация для декстопа 
                     +paginationRevers()
 
-                #like-list.comments_hold.tab-pane.fade
-                    .like-list
-                        ul.like-list_ul
-                            li.like-list_li
+                #likesList.comments_hold.tab-pane
+                    .list-subsribe-users
+                        ul.list-subsribe-users_ul
+                            li.list-subsribe-users_li
                                 +ava('ava__middle', ava.a)
                                 a.a-lite Ангелина Богоявленская
-                                time.tx-date 5 минут назад
+                                time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+
+                                a.btn.btn-secondary.btn-m 
+                                    | Читаю
+                            li.list-subsribe-users_li
+                                +ava('ava__middle', ava.a)
+                                a.a-lite Ангелина Богоявленская
+                                time.tx-date(pubdate='1957-10-04') Сегодня 13:25
 
                                 a.btn.btn-succes.btn-m 
                                     span.ico-plus
                                     | Подписаться
-                            li.like-list_li
+                #favoritesList.comments_hold.tab-pane
+                    .list-subsribe-users
+                        ul.list-subsribe-users_ul
+                            li.list-subsribe-users_li
                                 +ava('ava__middle', ava.a)
                                 a.a-lite Ангелина Богоявленская
-                                time.tx-date 5 минут назад
+                                time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+
+                                a.btn.btn-succes.btn-m 
+                                    span.ico-plus
+                                    | Подписаться
+                            li.list-subsribe-users_li
+                                +ava('ava__middle', ava.a)
+                                a.a-lite Ангелина Богоявленская
+                                time.tx-date(pubdate='1957-10-04') Сегодня 13:25
 
                                 a.btn.btn-secondary.btn-m 
                                     | Читаю
-                #favorites-list.comments_hold.tab-pane.fade
     // /comments
 
 - var commentsOpen = {}

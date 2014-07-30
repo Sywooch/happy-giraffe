@@ -127,15 +127,18 @@ module.exports = function(grunt){
 
       litedev: {
         
-        files: [{
-          expand: true,
-          cwd: 'lite/less/',
-          src: ['*.less',],
-          dest: 'lite/css/dev/',
-          ext: '.css'
-        }],
+        // files: [{
+        //   expand: true,
+        //   cwd: 'lite/less/',
+        //   src: ['*.less',],
+        //   dest: 'lite/css/dev/',
+        //   ext: '.css'
+        // }],
+        files: {
+          'lite/css/dev/all.css': ['lite/less/all.less'] 
+        },
         options: {
-          sourceMap: true,
+          sourceMap: false,
         }
       },
     },

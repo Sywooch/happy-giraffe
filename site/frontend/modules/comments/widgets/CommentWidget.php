@@ -9,12 +9,19 @@ namespace site\frontend\modules\comments\widgets;
  */
 class CommentWidget extends \CWidget
 {
+
     public $model;
-    
+
     public function run()
     {
-        echo 'comments';
+        $this->render('commentWidget', array('dataProvider' => $this->dataProvider));
     }
+
+    public function getDataProvider()
+    {
+        return new \CActiveDataProvider(\Comment::model()->byEntity($this->model)->specialSort());
+    }
+
 }
 
 ?>

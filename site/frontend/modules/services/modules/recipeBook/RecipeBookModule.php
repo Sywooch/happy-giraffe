@@ -12,6 +12,9 @@ class RecipeBookModule extends CWebModule
 			'recipeBook.models.*',
 			'recipeBook.components.*',
 		));
+
+        $cs = Yii::app()->clientScript;
+        $cs->registerPackage('lite_recipes');
 	}
 
 	public function beforeControllerAction($controller, $action)

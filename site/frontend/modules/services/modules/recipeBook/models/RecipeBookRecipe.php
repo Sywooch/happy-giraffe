@@ -202,7 +202,9 @@ class RecipeBookRecipe extends HActiveRecord
 
     public static function getDp($diseaseId)
     {
-        $criteria = new CDbCriteria();
+        $criteria = new CDbCriteria(array(
+            'order' => 't.created DESC',
+        ));
         if ($diseaseId !== null) {
             $criteria->scopes = array(
                 'disease' => $diseaseId,

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/traditional-recipes.css' />
+    <title><?=$this->pageTitle?></title>
 </head>
 <body class="body body__bg1 body__lite">
 <!--///////////////////////////////////////-->
@@ -68,18 +68,18 @@
                     <ul class="footer-list">
                         <li class="footer-list_li visible-md-inline-block"><a href="" class="footer-list_a">О нас</a></li>
                         <li class="footer-list_li"><a href="" class="footer-list_a">Правила сайта</a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a">Правообладателям</a></li>
-                        <li class="footer-list_li"><a href="" class="footer-list_a footer-list__reklama">Реклама </a></li>
+                        <li class="footer-list_li"><a href="<?=$this->createUrl('/site/page', array('view' => 'abuse'))?>" class="footer-list_a">Правообладателям</a></li>
+                        <li class="footer-list_li"><a href="<?=$this->createUrl('/site/page', array('view' => 'advertiser'))?>" class="footer-list_a footer-list__reklama">Реклама </a></li>
                         <li class="footer-list_li"><a href="" class="footer-list_a">Контакты </a></li>
                         <li class="footer-list_li footer-list_li__rambler visible-md-inline-block"><a href="" class="footer-list_a">Партнер "Рамблера"</a><span id="counter-rambler" class="footer-list_rambler-count"><a href="http://top100.rambler.ru/home?id=2892367" target="_blank"><img src="http://counter.rambler.ru/top100.scn?2892367&amp;rn=1382511841&amp;v=0.3&amp;bs=1680x983&amp;ce=1&amp;rf=http%3A%2F%2Fwww.happy-giraffe.ru%2Fmy%2F&amp;en=UTF-8&amp;pt=%D0%92%D0%B5%D1%81%D0%B5%D0%BB%D1%8B%D0%B9%20%D0%96%D0%B8%D1%80%D0%B0%D1%84%20-%20%D1%81%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D1%81%D0%B5%D0%B9%20%D1%81%D0%B5%D0%BC%D1%8C%D0%B8&amp;cd=32-bit&amp;sr=1680x1050&amp;la=ru&amp;ja=1&amp;acn=Mozilla&amp;an=Netscape&amp;pl=Win32&amp;tz=-120&amp;fv=12.0%20r0&amp;sv&amp;le=0" title="Rambler&quot;s Top100" alt="Rambler&quot;s Top100" border="0"></a></span></li>
                     </ul>
                     <ul class="footer-menu visible-md">
-                        <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
-                        <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
-                        <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
-                        <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__husband-and-wife">Мужчина и женщина</a></li>
-                        <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
-                        <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__family-holiday">Отдых</a></li>
+                        <li class="footer-menu_li"><a href="<?=$this->createUrl('/community/default/section', array('section_id' => 1))?>" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
+                        <li class="footer-menu_li"><a href="<?=$this->createUrl('/community/default/section', array('section_id' => 2))?>" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
+                        <li class="footer-menu_li"><a href="<?=$this->createUrl('/community/default/section', array('section_id' => 3))?>" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
+                        <li class="footer-menu_li"><a href="<?=$this->createUrl('/community/default/section', array('section_id' => 4))?>" class="footer-menu_a footer-menu_a__husband-and-wife">Мужчина и женщина</a></li>
+                        <li class="footer-menu_li"><a href="<?=$this->createUrl('/community/default/section', array('section_id' => 5))?>" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
+                        <li class="footer-menu_li"><a href="<?=$this->createUrl('/community/default/section', array('section_id' => 6))?>" class="footer-menu_a footer-menu_a__family-holiday">Отдых</a></li>
                     </ul>
                     <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
                     <div class="layout-footer_privacy-hold"><a href="" class="layout-footer_privacy">Политика конфедициальности</a></div>
@@ -92,4 +92,5 @@
 </div>
 <div class="popup-container display-n">
 </div>
+<!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
 </body></html>

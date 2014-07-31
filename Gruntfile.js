@@ -134,6 +134,9 @@ module.exports = function(grunt){
           dest: 'lite/css/dev/',
           ext: '.css'
         }],
+        // files: {
+        //   'lite/css/dev/all.css': ['lite/less/all.less'] 
+        // },
         options: {
           sourceMap: true,
         }
@@ -180,7 +183,7 @@ module.exports = function(grunt){
         dest: 'lite/css/min/blog.css'
       },
       // Традиционные рецепты
-      'traditional-recipes': {
+      'services': {
         options: {
           stylesheets  : ['/css/dev/all.css'],
           timeout      : 1000,
@@ -194,7 +197,7 @@ module.exports = function(grunt){
           ],
         },
         src: ['lite/html/page/traditional-recipes/**/*.html', 'lite/html/page/comments/**/*.html'],
-        dest: 'lite/css/min/traditional-recipes.css'
+        dest: 'lite/css/min/services.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -298,21 +301,21 @@ module.exports = function(grunt){
     },
 
     "svg-sprites": {
-        'icons-meta': {
-            options: {
-                spriteElementPath: "lite/images/sprite/icons-meta",
-                spritePath: "lite/images/sprite/icons-meta.svg",
-                cssPath: "lite/less/sprite/",
-                cssSuffix: 'less',
-                cssSvgPrefix: '',
-                cssPngPrefix: '.no-svg',
-                layout: 'vertical',
-                map: function (filename) {
-                    return filename.replace(/~/g, ":");
-                },
-                unit: 5
-            }
-        },
+        // 'icons-meta': {
+        //     options: {
+        //         spriteElementPath: "lite/images/sprite/icons-meta",
+        //         spritePath: "lite/images/sprite/icons-meta.svg",
+        //         cssPath: "lite/less/sprite/",
+        //         cssSuffix: 'less',
+        //         cssSvgPrefix: '',
+        //         cssPngPrefix: '.no-svg',
+        //         layout: 'vertical',
+        //         map: function (filename) {
+        //             return filename.replace(/~/g, ":");
+        //         },
+        //         unit: 5
+        //     }
+        // },
         'ico-arrow': {
             options: {
                 spriteElementPath: "lite/images/sprite/ico-arrow",
@@ -328,6 +331,21 @@ module.exports = function(grunt){
                 unit: 200
             }
         },
+        // 'comments-menu_a': {
+        //     options: {
+        //         spriteElementPath: "lite/images/sprite/comments-menu_a",
+        //         spritePath: "lite/images/sprite/comments-menu_a.svg",
+        //         cssPath: "lite/less/sprite/",
+        //         cssSuffix: 'less',
+        //         cssSvgPrefix: '',
+        //         cssPngPrefix: '.no-svg',
+        //         layout: 'vertical',
+        //         map: function (filename) {
+        //             return filename.replace(/~/g, ":");
+        //         },
+        //         unit: 200
+        //     }
+        // },
     },
 
     watch: {
@@ -426,8 +444,9 @@ module.exports = function(grunt){
   grunt.registerTask('css-new', ['less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
 
   // lite tasks
+  grunt.registerTask('lite-bild', ['jade:lite_prod', 'less:litedev','uncss', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
-  grunt.registerTask('traditional-recipes', ['jade:lite_prod', 'less:litedev','uncss:traditional-recipes', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('services', ['jade:lite_prod', 'less:litedev','uncss:services', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 
   // Базовый для разработки верстки
   grunt.registerTask('default', [

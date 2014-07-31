@@ -12,10 +12,10 @@ block vars
 +headLite(path, global)
 
 body.body(class='#{bodyClass}')
-    /////////////////////////////////////////
-    // Дата последних изменений 
-    |  <!-- #{timestamp} -->
-    /////////////////////////////////////////
+    //-///////////////////////////////////////
+    //- Дата последних изменений 
+    //-|  <!-- #{timestamp} -->
+    //-///////////////////////////////////////
     .layout-container
         .layout-loose.layout-loose__white
             .layout-header
@@ -24,7 +24,7 @@ body.body(class='#{bodyClass}')
             .layout-loose_hold.clearfix
                 block layout
                 
-            +btn-scrolltop()
+            //- +btn-scrolltop()
     .popup-container.display-n  
         block block-hidden
             

@@ -2,7 +2,7 @@
 /* b-article */
 .b-article {
     position: relative;
-    margin: 0 0 40px;
+    margin: 20px 0;
     
     /* new */
     &__list &_cont {
@@ -42,30 +42,21 @@
     &_cont {
         position: relative;
         min-height:321px;
-        padding: 12px 0 0;
+        padding: 0;
     }
 
-    &_header {
-        margin: 0 0 10px;
-    }
     &_header .ava {
-        margin: 0 10px 0 0;
-        vertical-align: top;
+        margin: 0 7px 0 0;
+        float: left;
     }
+    &_header .tx-date {.inline-block();}
     &_author {
         .inline-block();
-        color: @color-link-light;
-        text-decoration: none;
+        line-height: 12px;
         padding-right: 5px;
     }
-    &_author:hover {text-decoration: underline;}
-    &_date {
-        font: 9px/11px Tahoma, Arial, Verdana, sans-serif;
-        color: @color-gray;
-    }
     &_t {
-        margin: 0 0 15px;
-        &:extend(.heading-link-xl);
+        &:extend(.heading-link-xxl);
     }
     &_t-a {
         color: #196eb9;
@@ -150,22 +141,28 @@
     padding: 10px 0;
     margin: 5px auto;
     background: #fae141;
-    .border-radius(4px);
     text-align: center;
-
+    
+    .ico-action-hg {
+        margin: 6px 0;
+    }
     &__self &_i__like:hover &_ico {background-position: 0 0;}
     &__self &_i__favorites:hover &_ico {background-position: -45px 0;}
 
     &__line {
         .inline-block();
-        margin: 0 auto;
+        margin: 20px auto;
         width: auto;
-        padding: 12px 15px 10px;
+        padding: 12px 10px 10px;
     }
     &__line &_hold {
         .inline-block();
-        margin: 0 15px;
+        min-width: 100px;
+        padding: 0 15px;
+        border-left: 1px solid #e7d24f;
     }
+    &__line &_hold:first-child {border-left: none;}
+
     /*
     &__s &_hold {margin: 7px 0;}
     &__s &_ico {
@@ -192,7 +189,16 @@
         color: @color-gray-dark;
         text-decoration: none;
     }
-    &_i &_ico.active,
+    &_i:hover &_tx {color: @color-gray-dark;}
+    &_i.active .ico-action-hg__like,
+    &_i:hover .ico-action-hg__like{
+        &:extend(a.ico-action-hg__like:hover);
+    }
+    &_i.active .ico-action-hg__favorite,
+    &_i:hover .ico-action-hg__favorite{
+        &:extend(a.ico-action-hg__favorite:hover);
+    }
+    /*&_i &_ico.active,
     &_i &_ico:hover {background-position: 0 -45px;}
     &_i__favorites &_ico{background-position: -45px 0;}
     &_i__favorites.active &_ico,
@@ -207,28 +213,16 @@
         margin: 3px 0 1px;
         background: url('@{path-img}/like-control_ico.png') no-repeat  0 0;
         text-decoration: none;
-
-        /*@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-        only screen and (min-resolution: 144dpi) {
-            & {
-                background:url(/images/like-control_ico2x.png) no-repeat;
-                background-size: 445px;
-            }
-        }*/
-    }
-    
-    &_tx {
-        color: #828281;
-        text-decoration: none;
-        line-height: 11px;
-    }
-    /*&_repost-complete {
-        .inline-block();
-        margin: 6px auto 3px;
-        width: 22px;
-        height: 14px;
-        background: url(/images/like-control_repost-complete.png) no-repeat;
     }*/
+    &_t {
+        font-size: 11px;
+        color: #908850;
+    }
+    &_tx {
+        color: @color-gray;
+        text-decoration: none;
+        line-height: 12px;
+    }
 }
 /* /like-control */
 
@@ -240,6 +234,7 @@
     margin-right: 10px;
     font-size: 11px;
     color: #737575;
+    display: none;
 
     &_comment {
         position: relative;
@@ -250,7 +245,7 @@
         color: #737575;
     }
     &_comment:hover &_tx {
-        text-decoration: underline;
+        color: @color-base;
     }
     &_view:after,
     &_comment:after {
@@ -259,8 +254,11 @@
         left: 0;
         top: 50%;
         margin: -8px 0 0;
-        /// svg sprite
+        width: 15px;
+        height: 15px;
+        background: url('@{path-img}/icons-mata.png') no-repeat -18px 0;
     }
+    &_comment:hover:after {background-position: -18px -15px;}
     &_view {
         position: relative;
         float: right;
@@ -268,10 +266,18 @@
         padding-left: 22px;
         text-decoration: none;
     }
-    &_view:after {margin-top: -7px;}
+    &_view:after {
+        margin-top: -7px;
+        width: 18px;
+        background-position: 0 0;
+    }
     &_tx {
         .inline-block();
         text-decoration: none;
+    }
+
+    @media (min-width: @screen-desktop) {
+        display: block;
     }
 }
 /* /icons-meta */
@@ -366,7 +372,7 @@
         vertical-align: middle;
         max-width: 210px;
         padding: 0;
-        font: bold 11px/14px Tahoma, Arial, Verdana, sans-serif;
+        font: bold 11px/12px Tahoma, Arial, Verdana, sans-serif;
         color: #3782c1;
     }
 }
@@ -374,14 +380,45 @@
 
 /* article-users */
 .article-users {
-    margin: 20px 0;
+    margin: 20px 5px;
     padding: 5px 0 10px;
     
-    &_t {
+    /*&_t {
         margin: 15px 0 10px;
         font-size: 15px;
         line-height: 22px;
+    }*/ 
+    .ava-list {
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 10px;
     }
+    .a-light {
+        vertical-align: middle;
+    }
+    &_count {
+        .inline-block();
+        vertical-align: middle;
+        width: 110px;
+        color: @color-gray;
+        text-decoration: none;
+    }
+    &_count:hover {color: @color-gray-dark;}
+    &_count:hover .ico-action-hg__like{
+        &:extend(a.ico-action-hg__like:hover);
+    }
+    &_count:hover .ico-action-hg__favorite{
+        &:extend(a.ico-action-hg__favorite:hover);
+    }
+    &_count-tx {
+        display: inline-block;
+        line-height: 40px;
+        margin-left: 10px;
+    }
+
+
+
+
 }
 /* /article-users */
 
@@ -389,7 +426,6 @@
 /* ava-list */
 .ava-list {
     margin: 10px 0;
-    padding: 0 0 10px;
     
     .ava {display: block;}
     &_ul {}
@@ -399,7 +435,7 @@
         vertical-align: middle;
         margin: 0 3px 4px 0;
     }
-    &_last {
+/*    &_last {
         .inline-block();
         vertical-align: middle;
         padding: 3px 8px 3px;
@@ -429,7 +465,7 @@
         height: 25px;
         background: url(/images/ava-list_last.png) no-repeat 0 -25px;
     }
-    &_favorite.active {background-position: -21px -25px;}
+    &_favorite.active {background-position: -21px -25px;}*/
 }
 /* /ava-list */
 
@@ -496,9 +532,10 @@
         font-size: 16px;
     }
     &_i {
+        &:extend(.tx-content);
         padding-left: 0;
         background: none;
-        padding: 2px 0;
+        padding: 0;
     }
 }
 /* /ingredients */

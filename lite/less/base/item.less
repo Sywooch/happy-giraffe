@@ -25,13 +25,28 @@
 }
 .heading-link-xxl {
     .inline-block();
-    margin: 15px 0;
-    font-size: 45px;
-    line-height: 50px;
+    margin: 10px 0;
+    font-size: 25px;
+    line-height: 28px;
     font-weight: bold;
     color: @color-link-title;
     text-decoration: none;
     letter-spacing: -0.6px;
+    
+    @media (min-width: @screen-phone) {
+        & {
+            margin: 15px 0;
+            font-size: 35px;
+            line-height: 40px;
+        }
+    }
+
+    @media (min-width: @screen-tablet) {
+        & {
+            font-size: 45px;
+            line-height: 50px;
+        }
+    }
 }
 a.heading-link-xl:hover,
 a.heading-link-xxl:hover {text-decoration: underline;}
@@ -50,7 +65,10 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     text-decoration: none;
     color: @color-link-light;
 
-    &:hover {text-decoration: underline;}
+    &:hover {
+        text-decoration: none;
+        color: @color-orange;
+    }
 }
 .a-span {
     color: @color-link;

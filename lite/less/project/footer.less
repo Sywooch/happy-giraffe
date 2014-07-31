@@ -9,7 +9,7 @@
     margin: 0;
     font: normal 11px/16px tahoma, arial, helvetica, sens-serif;
     color: #a2a1a1;
-    .box-shadow(0 -3px 2px -2px rgba(0,0,0,0.1));
+    .box-shadow(inset 0 3px 2px -1px rgba(0,0,0,0.05));
 
     &__in {
         margin-top: 0;
@@ -29,6 +29,7 @@
         font-size: @font-xs;
     }
     &_privacy:hover {color: @color-gray;}
+
     @media (min-width: @screen-phone) {
         &_privacy-hold {text-align: right;}
     }
@@ -77,6 +78,7 @@
         float: right;
         margin: -12px 0 0 8px;
     }
+    
     @media (min-width: @screen-phone) {
         &_li {
             .inline-block();

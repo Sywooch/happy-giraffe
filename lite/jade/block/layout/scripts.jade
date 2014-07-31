@@ -1,8 +1,8 @@
 
 mixin scriptsLite(path)
-    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
     script.
-        window.jQuery || document.write('<script src="#{path}/javascript/jquery-1.10.2.min.js"><\/script>')
+        window.jQuery || document.write('<script src="#{path}/javascript/jquery-1.11.1.min.js"><\/script>')
 
     script(src="#{path}javascript/modernizr.custom.js")
 
@@ -13,7 +13,7 @@ mixin scriptsLite(path)
     <!--[if lt IE 9]> <script type="text/javascript" src="#{path}javascript/respond.min.js"></script> <![endif]-->
 
     //- script(src="#{path}javascript/bootstrap/dropdown.js")
-    //- script(src="#{path}javascript/bootstrap/tab.js")
+    script(src="#{path}javascript/bootstrap/tab.js")
 
     // tooltip
     //- script(src="#{path}javascript/jquery.tooltipster.js")
@@ -29,5 +29,4 @@ mixin scriptsLite(path)
 
     // livereload
     script(src="//localhost:35729/livereload.js")
-
     

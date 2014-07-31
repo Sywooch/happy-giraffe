@@ -2,6 +2,7 @@
 /**
  * @var RecipeBookDiseaseCategory[] $categories
  * @var CActiveDataProvider $dp
+ * @var string|null $slug
  */
 ?>
 
@@ -12,7 +13,7 @@
         </div>
         <ul class="col-link">
             <?php foreach ($categories as $category): ?>
-            <li class="col-link_li"><a href="<?=$category->getUrl()?>" class="col-link_a"><?=$category->title?></a></li>
+                <li class="col-link_li"><a href="<?=$category->getUrl()?>" class="col-link_a"><?=$category->title?></a></li>
             <?php endforeach; ?>
         </ul>
     </div>
@@ -24,6 +25,9 @@
             $this->widget('zii.widgets.CListView', array(
                 'dataProvider' => $dp,
                 'itemView' => '_recipe',
+                'viewData' => array(
+                    'showDisease' => $slug === null,
+                ),
 
                 'template' => "{items}\n{pager}",
                 'itemsTagName' => 'ul',

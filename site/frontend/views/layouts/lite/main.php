@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/traditional-recipes.css' />
+    <title><?=$this->pageTitle?></title>
 </head>
 <body class="body body__bg1 body__lite">
 <!--///////////////////////////////////////-->
@@ -92,17 +92,5 @@
 </div>
 <div class="popup-container display-n">
 </div>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script>
-    window.jQuery || document.write('<script src="/lite//javascript/jquery-1.10.2.min.js"><\/script>')
-
-</script>
-<script src="/lite/javascript/modernizr.custom.js"></script>
-<!-- Адаптивные изображения tag picture-->
-<script src="/lite/javascript/picturefill.min.js"></script>
-<!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
-<!-- tooltip-->
-<!-- popup-->
-<!-- livereload-->
-<script src="//localhost:35729/livereload.js"></script>
+<!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
 </body></html>

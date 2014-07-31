@@ -366,13 +366,17 @@
                 var settings = $.extend( {}, defaults, options );
 
                 var self = ko.bindingHandlers.moment;
+                
+                var $el = $(element);
+                var text = self.formatDate(settings);
+                $el.text(text);
                 if(settings.autoUpdate) {
                     self.addElement({
                         config: settings,
-                        element: element
+                        $: $el,
+                        text: text
                     });
                 }
-                $(element).text(self.formatDate(settings));
             },
             formatDate: function(settings) {
                 var self = ko.bindingHandlers.moment;
@@ -396,7 +400,11 @@
             tick: function() {
                 var self = ko.bindingHandlers.moment;
                 ko.utils.arrayForEach(self.elements, function(data) {
-                    $(data.element).text(self.formatDate(data.config));
+                    var time = self.formatDate(data.config);
+                    if(data.text !== time) {
+                        data.$.text(time);
+                        data.text = time;
+                    }
                 });
             }
         }

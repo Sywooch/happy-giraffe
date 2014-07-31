@@ -7,17 +7,24 @@ class DefaultController extends HController
     public function actionIndex($slug = null)
     {
         $diseaseId = null;
+        $categoryId = null;
         if ($slug !== null) {
             $disease = RecipeBookDisease::model()->findByAttributes(array('slug' => $slug));
-            if ($disease === null) {
-                throw new CHttpException(404);
+            if ($disease !== null) {
+                $diseaseId = $disease->id;
+            } else {
+                $category = RecipeBookDiseaseCategory::model()->findByAttributes(array('slug' => $slug));
+                if ($category === null) {
+                    throw new CHttpException(404);
+                }
+                $categoryId = $category->id;
             }
-            $diseaseId = $disease->id;
+
         }
 
-        $dp = RecipeBookRecipe::getDp($diseaseId);
+        $dp = RecipeBookRecipe::getDp($diseaseId, $categoryId);
         $categories = RecipeBookDiseaseCategory::model()->alphabetical()->findAll();
 
-        $this->render('index', compact('categories', 'dp', 'slug'));
+        $this->render('index', compact('categories', 'dp', 'slug', 'diseaseId'));
     }
 }

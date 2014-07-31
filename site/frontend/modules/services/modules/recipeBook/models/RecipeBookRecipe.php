@@ -200,15 +200,28 @@ class RecipeBookRecipe extends HActiveRecord
         return $this;
     }
 
-    public static function getDp($diseaseId)
+    public function category($categoryId)
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'with' => 'disease',
+        ));
+        $this->getDbCriteria()->compare('disease.category_id', $categoryId);
+        return $this;
+    }
+
+    public static function getDp($diseaseId, $categoryId)
     {
         $criteria = new CDbCriteria(array(
             'order' => 't.created DESC',
+            'with' => array('author', 'disease')
         ));
+
         if ($diseaseId !== null) {
-            $criteria->scopes = array(
-                'disease' => $diseaseId,
-            );
+            $criteria->scopes['disease'] = $diseaseId;
+        }
+
+        if ($categoryId !== null) {
+            $criteria->scopes['category'] = $categoryId;
         }
 
         return new CActiveDataProvider(__CLASS__, array(

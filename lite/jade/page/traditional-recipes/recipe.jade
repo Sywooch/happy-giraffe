@@ -5,12 +5,7 @@ block vars
     - global.cssFile = 'services.css'; 
 
 block layout
-    /////////////////////////////////////////////////////////
-    /// В конечном итоге подключать css
-    /// /lite/css/min/services.css
-    /// или grunt задачу, в коммандной строке 
-    /// grunt services
-    /////////////////////////////////////////////////////////
+
     // b-main 
     .b-main.clearfix
 
@@ -32,9 +27,8 @@ block layout
                 .b-main_col-article
                     
                     // b-article
-                    article.b-article.clearfix.margin-t40
+                    article.b-article.clearfix
                         .b-article_cont.clearfix
-                            .b-article_cont-tale
                             .b-article_header.clearfix
                                 .icons-meta
                                     a.icons-meta_comment(href='')
@@ -42,20 +36,17 @@ block layout
                                     .icons-meta_view
                                         span.icons-meta_tx 305
                                 .float-l
-                                    +ava("ava__female ava__middle-sm-mid", ava.a)
+                                    +ava("ava__female ava__middle-sm-mid ava__small-xs", ava.a)
 
                                     .b-article_author
-                                        a.b-article_author(href='') Ангелина Богоявленская
-                                    span.b-article_date Сегодня 13:25
-                            h1.b-article_t.fn Лечим лимфаденит соком
+                                        a.a-light(href='') Ангелина Богоявленская
+                                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                            h1.b-article_t Лечим лимфаденит соком
                             .b-article_in.clearfix
                                 .wysiwyg-content.clearfix
                                     
                                     p
                                         | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».
-                                    .b-article_in-img
-                                        a(href='')
-                                            img(alt='', src='#{path}images/example/w600-h415.jpg')
                                     p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
                                     p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. 
                                     p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
@@ -64,27 +55,27 @@ block layout
                                     ul.ingredients_ul
                                         li.ingredients_i Свекольный сок - 50 мл. 
                                         li.ingredients_i Курица - 2 шт. 
-                                .b-tags.margin-b40
+                                .b-tags
                                     a.b-tags_tag(href="") Болезни кровообращения
                                     a.b-tags_tag(href="") Лимфаденит
 
-                                .textalign-c.visible-md-block
-                                    .like-control.like-control__line.clearfix
-                                        .like-control_hold
-                                            a.like-control_i.like-control_i__like.powertip(href='', title='Нравится')
-                                                .like-control_tx Мне нравится!
-                                                .like-control_ico
-                                                .like-control_tx 865
-                                        .like-control_hold
-                                            a.like-control_i.like-control_i__idea.powertip(href='', title='В избранное')
-                                                .like-control_tx В идеи
-                                                .like-control_ico
-                                                .like-control_tx 863455
-                                .custom-likes
-                                    .custom-likes_slogan Поделитесь с друзьями!
-                                    .custom-likes_in
-                                        script(type='text/javascript', src='//yandex.st/share/share.js', charset='utf-8')
-                                        .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='vkontakte,facebook,twitter,odnoklassniki,moimir', data-yasharetheme='counter', data-yasharetype='small')
+                            .textalign-c.visible-md-block
+                                .like-control.like-control__line
+                                    .like-control_hold
+                                        a.like-control_i.like-control_i__like.powertip(href='', title='Нравится')
+                                            .like-control_t Мне нравится!
+                                            .ico-action-hg.ico-action-hg__like
+                                            .like-control_tx 865
+                                    .like-control_hold
+                                        a.like-control_i.like-control_i__idea.powertip(href='', title='В избранное')
+                                            .like-control_t В закладки
+                                            .ico-action-hg.ico-action-hg__favorite
+                                            .like-control_tx 863455
+                            .custom-likes
+                                .custom-likes_slogan Поделитесь с друзьями!
+                                .custom-likes_in
+                                    script(type='text/javascript', src='//yandex.st/share/share.js', charset='utf-8')
+                                    .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='vkontakte,facebook,twitter,odnoklassniki,moimir', data-yasharetheme='counter', data-yasharetype='small')
 
                     // /b-article
                 
@@ -104,103 +95,9 @@ block layout
                         a(href="", target="_blank")
                             img(alt='', src='#{path}images/example/w600-h400.jpg')
                     
-                    +commentsOpen('', commentsOpen.a)
-
-                    .article-users.visible-md-block
-                        .article-users_t Запись понравилась 
-                        .ava-list
-                            ul.ava-list_ul.clearfix
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        a.ava.ava__small(href='')
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        a.ava.ava__small(href='')
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        a.ava.ava__small(href='')
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        a.ava.ava__small(href='')
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.c)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.b)
-                                    li.ava-list_li
-                                        +ava('ava__small', ava.a)
-                                    li.ava-list_li
-                                        a.ava-list_last(href='')
-                                            span.ava-list_like-hg
-                                            | 3251
-                        .article-users_t Рецепт добавили в идеи 
-                        .ava-list
-                            ul.ava-list_ul.clearfix
-                                li.ava-list_li
-                                    +ava('ava__small', ava.a)
-                                li.ava-list_li
-                                    +ava('ava__small', ava.b)
-                                li.ava-list_li
-                                    +ava('ava__small', ava.a)
-                                li.ava-list_li
-                                    +ava('ava__small', ava.c)
-                                li.ava-list_li
-                                    +ava('ava__small', ava.b)
-                                li.ava-list_li
-                                    +ava('ava__small', ava.a)
-                                li.ava-list_li
-                                    a.ava-list_last(href='')
-                                        span.ava-list_favorite.active
-                                        | 3251 и вы
+                    +commentsOpen('', commentsOpen.b)
 
                 // /Основная колонка
-
+    
     +layout-footer-lite()
 

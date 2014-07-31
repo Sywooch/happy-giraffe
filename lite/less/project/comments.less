@@ -4,6 +4,7 @@
 */
 .comment-add {
     margin: 20px 0;
+    display: none;
 
     &_t {
         font-size: 18px;
@@ -12,7 +13,7 @@
     &_hold {
         margin: 7px 0 0;
         border: 1px solid #e4e2e7;
-        padding: 15px 10px 20px 10px;
+        padding: 13px 10px 15px 10px;
         color: @color-gray-light;
         text-align: center;
         font-size: 14px;
@@ -26,13 +27,17 @@
     &_a:hover {
         color: @color-gray-dark;
     }
+
+    @media (min-width: @screen-desktop) {
+        display: block;
+    }
 }
 
 /* 
     comments
 */
 .comments {
-    margin: 10px 0 30px;
+    margin: 10px 0 40px;
 
     .wysiwyg-content {
         font-size: 12px;
@@ -88,9 +93,6 @@
     &_t-a:hover {text-decoration: underline;}
     &_t-a__open {background: url('@{path-img}/comments/comments_t-a__open.png') no-repeat 100% 50%;}
     
-    &_hold {
-        margin-right: 20px;
-    }
     &_ul &_ul {
         margin-top: 20px;
         margin-left: 10px;
@@ -104,18 +106,20 @@
     }
     &_ava {
         float: left;
-        margin: 3px 10px 0 0;
+        margin: 3px 5px 0 0;
     }
     &_frame {}
     &_header {
         min-height: 30px;
     }
     &_header .tx-date {padding: 0 5px;}
-
+    &_author {
+        .inline-block();
+    }
     &_cont {
         position: relative;
-        margin: 5px 0;
-        padding-right: 20px;
+        margin: 10px 0;
+        padding-right: 5px;
     }
     &_cont-img {
         position: relative;
@@ -135,11 +139,11 @@
     }
     &_ansver-for {
         font-weight: bold;
-        color: @color-gray-dark;
+        color: @color-base;
         text-decoration: none;
     }
     &_ansver-for:hover {
-        color: @color-link;
+        color: @color-orange;
     }
     &_footer {}
     &_ansver {
@@ -184,6 +188,12 @@
     &_sort:hover {
         color: @color-gray-dark;
     }
+    @media (min-width: @screen-phone) {
+        &_hold {
+            margin-right: 20px;
+        }
+        &_cont {padding-right: 20px;}
+    }
     @media (min-width: @screen-phone-landscape) {
         &_frame {
             margin-left: 47px;
@@ -205,3 +215,68 @@
     }
 }
 /* /comments */
+
+/* comments-menu */
+.comments-menu {
+    margin: 0 0 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #fafafa;
+
+    &_ul {}
+    &_li {
+        .inline-block();
+    }
+    &_li.active &_a {
+        font-size: 18px;
+        color: @color-base;
+        cursor: default;
+    }
+    &_li.active &_a__comments:after,
+    &_a__comments:hover:after {background-position: 0 -20px;}
+    &_li.active &_a__likes:after,
+    &_a__likes:hover:after {background-position: -20px -20px;}
+    &_li.active &_a__favorites:after,
+    &_a__favorites:hover:after {background-position: -40px -20px;}
+    &_a {
+        display: inline-block;
+        position: relative;
+        height: 20px;
+        padding-left: 24px;
+        text-decoration: none;
+        font-size: 14px;
+        line-height: 22px;
+        color: #b6b6b6;
+    }
+    &_a:hover {
+        color: @color-base;
+        text-decoration: none;
+    }
+    &_a:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        background: url('@{path-img}/comments-menu_a.png') no-repeat;
+    }
+    &_a__comments:after   {background-position: 0 0;}
+    &_a__likes:after     {background-position: -20px 0;}
+    &_a__favorites:after {background-position: -40px 0;}
+
+    &_a__likes,
+    &_a__favorites {
+        display: none;
+    }
+
+    @media (min-width: @screen-desktop) {
+        &_li {
+            margin-right: 25px;
+        }
+        &_a__likes,
+        &_a__favorites {
+            display: inline-block;
+        }
+    }
+}
+/* /comments-menu */

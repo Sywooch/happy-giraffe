@@ -79,7 +79,7 @@
         margin: 5px auto 15px;
     }
     &_hold {
-        padding: 25px 20px 18px;
+        padding: 25px 10px 18px;
     }
 
     &_title {
@@ -109,7 +109,12 @@
         text-decoration: none;
     }
     &_title-a:hover {text-decoration: underline;}
-
+    
+    @media (min-width: @screen-xphone) {
+        &_hold {
+            padding: 25px 15px 18px;
+        }
+    }
     @media (min-width: @screen-phone-landscape) {
         .logo {
             float: left;

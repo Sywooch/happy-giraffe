@@ -127,18 +127,18 @@ module.exports = function(grunt){
 
       litedev: {
         
-        // files: [{
-        //   expand: true,
-        //   cwd: 'lite/less/',
-        //   src: ['*.less',],
-        //   dest: 'lite/css/dev/',
-        //   ext: '.css'
-        // }],
-        files: {
-          'lite/css/dev/all.css': ['lite/less/all.less'] 
-        },
+        files: [{
+          expand: true,
+          cwd: 'lite/less/',
+          src: ['*.less',],
+          dest: 'lite/css/dev/',
+          ext: '.css'
+        }],
+        // files: {
+        //   'lite/css/dev/all.css': ['lite/less/all.less'] 
+        // },
         options: {
-          sourceMap: false,
+          sourceMap: true,
         }
       },
     },
@@ -301,21 +301,21 @@ module.exports = function(grunt){
     },
 
     "svg-sprites": {
-        'icons-meta': {
-            options: {
-                spriteElementPath: "lite/images/sprite/icons-meta",
-                spritePath: "lite/images/sprite/icons-meta.svg",
-                cssPath: "lite/less/sprite/",
-                cssSuffix: 'less',
-                cssSvgPrefix: '',
-                cssPngPrefix: '.no-svg',
-                layout: 'vertical',
-                map: function (filename) {
-                    return filename.replace(/~/g, ":");
-                },
-                unit: 5
-            }
-        },
+        // 'icons-meta': {
+        //     options: {
+        //         spriteElementPath: "lite/images/sprite/icons-meta",
+        //         spritePath: "lite/images/sprite/icons-meta.svg",
+        //         cssPath: "lite/less/sprite/",
+        //         cssSuffix: 'less',
+        //         cssSvgPrefix: '',
+        //         cssPngPrefix: '.no-svg',
+        //         layout: 'vertical',
+        //         map: function (filename) {
+        //             return filename.replace(/~/g, ":");
+        //         },
+        //         unit: 5
+        //     }
+        // },
         'ico-arrow': {
             options: {
                 spriteElementPath: "lite/images/sprite/ico-arrow",
@@ -331,6 +331,21 @@ module.exports = function(grunt){
                 unit: 200
             }
         },
+        // 'comments-menu_a': {
+        //     options: {
+        //         spriteElementPath: "lite/images/sprite/comments-menu_a",
+        //         spritePath: "lite/images/sprite/comments-menu_a.svg",
+        //         cssPath: "lite/less/sprite/",
+        //         cssSuffix: 'less',
+        //         cssSvgPrefix: '',
+        //         cssPngPrefix: '.no-svg',
+        //         layout: 'vertical',
+        //         map: function (filename) {
+        //             return filename.replace(/~/g, ":");
+        //         },
+        //         unit: 200
+        //     }
+        // },
     },
 
     watch: {
@@ -429,6 +444,7 @@ module.exports = function(grunt){
   grunt.registerTask('css-new', ['less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
 
   // lite tasks
+  grunt.registerTask('lite-bild', ['jade:lite_prod', 'less:litedev','uncss', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   grunt.registerTask('services', ['jade:lite_prod', 'less:litedev','uncss:services', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 

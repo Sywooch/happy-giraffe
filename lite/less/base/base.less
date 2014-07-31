@@ -263,6 +263,12 @@
 }
 .adv-yandex {
     margin: 20px 0;
+
+    @media (min-width: @screen-desktop) {
+        & {
+            margin: 30px 0;
+        }
+    }
 }
 
 /* b-crumbs */
@@ -273,18 +279,15 @@
     &__s {}
     
     &_tx {
-        .inline-block();
-        vertical-align: middle;
+        display: inline;
         margin-right: 10px;
         color: #9c9b9b;
     }
     &_ul {
         display: inline;
-        vertical-align: middle;
     }
     &_li {
         .inline-block();
-        vertical-align: middle;
         padding: 0 2px;
 
         .ava {vertical-align: middle;}
@@ -302,22 +305,27 @@
         color: #f17504;
     }
     &_a {text-decoration: none;}
-    &_a:hover {text-decoration: underline;}
+    &_a:hover {
+        text-decoration: none;
+        color: @color-orange;
+    }
+
 }
 /* /b-crumbs */
 
 .custom-likes {
     text-align: center;
     position: relative;
+    margin: 10px 0;
 
     &_slogan {
-        margin: 15px 0 0;
+        margin: 0;
         text-align: center;
         font-size: 11px;
         color: @color-gray-dark;
     }
     &_in {
-        margin: 5px auto 20px;
+        margin: 5px auto 10px;
         text-align: center;
     }
 }

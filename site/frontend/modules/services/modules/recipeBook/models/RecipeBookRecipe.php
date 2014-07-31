@@ -226,6 +226,9 @@ class RecipeBookRecipe extends HActiveRecord
 
         return new CActiveDataProvider(__CLASS__, array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 10,
+            ),
         ));
     }
 }

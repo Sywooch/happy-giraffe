@@ -94,4 +94,7 @@
 </div>
 <!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
 <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
+<script type="text/javascript">
+    require(['lite']);
+</script>
 </body></html>

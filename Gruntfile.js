@@ -175,11 +175,16 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .clsss
             // /.dropdown+/,
-            //.mfp+/,
-            //.tooltip+/,
+            /.mfp+/,
+            /.tooltip+/,
           ],
         },
-        src: ['lite/html/page/blog/**/*.html', 'lite/html/page/comments/**/*.html'],
+        src: [
+          'lite/html/page/blog/**/*.html', 
+          'lite/html/page/comments/**/*.html', 
+
+          '!lite/html/page/comments/comments-page.html'
+        ],
         dest: 'lite/css/min/blog.css'
       },
       // Традиционные рецепты
@@ -187,16 +192,20 @@ module.exports = function(grunt){
         options: {
           stylesheets  : ['/css/dev/all.css'],
           timeout      : 1000,
-
           htmlroot     : 'lite',
           ignore       : [
             // Выбираем все стили где в начале .clsss
             // /.dropdown+/,
-            //.mfp+/,
-            //.tooltip+/,
+            /.mfp+/,
+            /.tooltip+/,
           ],
         },
-        src: ['lite/html/page/traditional-recipes/**/*.html', 'lite/html/page/comments/**/*.html'],
+        src: [
+          'lite/html/page/traditional-recipes/**/*.html', 
+          'lite/html/page/comments/**/*.html', 
+
+          '!lite/html/page/comments/comments-page.html'
+        ],
         dest: 'lite/css/min/services.css'
       },
     },
@@ -218,7 +227,7 @@ module.exports = function(grunt){
       lite: {
         expand: true,
         cwd: 'lite/css/min/',
-        src: ['*.css',],
+        src: ['min/*.css', 'dev/redactor.css'],
         dest: 'lite/css/min/',
         ext: '.css'
       }

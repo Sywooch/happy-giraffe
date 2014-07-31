@@ -2,7 +2,7 @@
 mixin scriptsLite(path)
     script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
     script.
-        window.jQuery || document.write('<script src="#{path}/javascript/jquery-1.11.1.min.js"><\/script>')
+        window.jQuery || document.write('<script src="#{path}javascript/jquery-1.11.1.min.js"><\/script>')
 
     script(src="#{path}javascript/modernizr.custom.js")
 
@@ -26,6 +26,12 @@ mixin scriptsLite(path)
 
     //- custom select
     //- script(src="#{path}javascript/select2.js")
+
+    script(src="#{path}redactor/redactor.js")
+    script(src="#{path}redactor/lang/ru.js")
+    script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")
+    script(src="#{path}redactor/plugins/btnvideo/btnvideo.js")
+    script(src="#{path}redactor/plugins/formatbtn/formatbtn.js")
 
     // livereload
     script(src="//localhost:35729/livereload.js")

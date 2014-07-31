@@ -28,10 +28,16 @@
                 'viewData' => array(
                     'showDisease' => $slug === null,
                 ),
+                'ajaxUpdate' => false,
 
-                'template' => "{items}\n{pager}",
+
+                'cssFile' => false,
+                'template' => '{items}<div class="yiipagination">{pager}</div>',
                 'itemsTagName' => 'ul',
                 'itemsCssClass' => 'traditional-recipes_ul',
+                'pager' => array(
+                    'class' => 'LitePager',
+                ),
                 'htmlOptions' => array(
                     'class' => 'traditional-recipes',
                 ),

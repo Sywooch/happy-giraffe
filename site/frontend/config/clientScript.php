@@ -395,14 +395,15 @@ return array(
             'depends' => array('ko_upload'),
         ),
         'lite' => array(
+            'amd' => true,
             'baseUrl' => '/',
             'js' => array(
                 'lite/javascript/modernizr.custom.js',
                 'lite/javascript/picturefill.min.js',
             ),
-            'depends' => array('jquery'),
         ),
         'lite_recipes' => array(
+            'amd' => true,
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/traditional-recipes.css',

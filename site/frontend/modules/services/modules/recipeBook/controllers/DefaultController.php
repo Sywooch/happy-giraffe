@@ -18,6 +18,6 @@ class DefaultController extends HController
         $dp = RecipeBookRecipe::getDp($diseaseId);
         $categories = RecipeBookDiseaseCategory::model()->alphabetical()->findAll();
 
-        $this->render('index', compact('categories', 'dp'));
+        $this->render('index', compact('categories', 'dp', 'slug'));
     }
 }

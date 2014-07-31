@@ -55,11 +55,6 @@
                             <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Народные рецепты</span></li>
                         </ul>
                     </div>
-                    <div class="b-main_col-hold clearfix">
-                        <div class="b-main_col-article">
-                            <h1 class="heading-link-xxl">Народные рецепты</h1>
-                        </div>
-                    </div>
                 </div>
                 <?=$content?>
             </div>

@@ -6,7 +6,13 @@
  * @var string|null $slug
  */
 ?>
-
+<div class="b-main_cont">
+    <div class="b-main_col-hold clearfix">
+        <div class="b-main_col-article">
+            <h1 class="heading-link-xxl">Народные рецепты</h1>
+        </div>
+    </div>
+</div>
 <div class="b-main_row b-main_row__green clearfix">
     <div class="b-main_cont">
         <div class="tx-content">

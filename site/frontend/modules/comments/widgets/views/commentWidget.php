@@ -15,7 +15,7 @@
                         </div>
                         <div class="comment-add_editor display-n"></div>
                     </div>
-                    <ul class="comments_ul">
+                    <ul class="comments_ul" id="<?=$this->id?>_comments">
 <?php
 /**
  * @var $this site\frontend\modules\comments\widgets\CommentWidget
@@ -31,7 +31,7 @@ $this->beginClip('comment');
         </div>
         <div class="comments_frame">
             <div class="comments_header"><a href="" rel="author" class="a-light comments_author">{author.name}</a>
-                <time datetime="{datetime}" pubdate class="tx-date">2 минуты назад</time>
+                <time datetime="{datetime}" pubdate class="tx-date" data-bind="moment: {unixtime}"></time>
             </div>
             <div class="comments_cont">
                 <div class="wysiwyg-content">
@@ -40,9 +40,7 @@ $this->beginClip('comment');
             </div>
         </div>
     </article>
-    <ul class="comments_ul">
-        {comments}
-    </ul>
+    {comments}
 </li>
 <?php
 $this->endClip();
@@ -56,27 +54,30 @@ $colors = array(
 
 $iterator = new CDataProviderIterator($dataProvider);
 $root = false;
-$colorI = 0;
+$colorI = -1;
 $colorC = sizeof($colors);
+$color = $colors[0];
 $comments = '';
 foreach ($iterator as $comment)
 {
     if ($comment->root_id == $comment->id)
     {
-        $color = $colors[$colorI % $colorC];
-        $colorI++;
         if($root)
         {
             $this->controller->renderClip('comment', array(
                 '{colorClass}' => $color,
                 '{ava}' => $root->author->getAvatarUrl(Avatar::SIZE_MEDIUM),
                 '{author.name}' => $root->author->fullName,
+                '{datetime}' => $root->pubDate,
+                '{unixtime}' => $root->pubUnixtime,
                 '{comment}' => $root->text,
-                '{comments}' => $comments,
+                '{comments}' => '<ul class="comments_ul">' . $comments . '</ul>',
             ));
         }
         $root = $comment;
         $comments = '';
+        $colorI++;
+        $color = $colors[$colorI % $colorC];
     }
     else
     {
@@ -84,6 +85,8 @@ foreach ($iterator as $comment)
             '{colorClass}' => $color,
             '{ava}' => $comment->author->getAvatarUrl(Avatar::SIZE_MEDIUM),
             '{author.name}' => $comment->author->fullName,
+            '{datetime}' => $comment->pubDate,
+            '{unixtime}' => $comment->pubUnixtime,
             '{comment}' => $comment->text,
             '{comments}' => '',
         ), true);
@@ -98,3 +101,6 @@ foreach ($iterator as $comment)
     </div>
     <!-- /comments-->
 </div>
+<?php
+Yii::app()->clientScript->registerAMD('Comments#' . $this->id, array('ko' => 'knockout', 'ko_library' => 'ko_library'), 'ko.applyBindings({}, document.getElementById("' . $this->id . '_comments"))');
+?>

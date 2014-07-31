@@ -10,12 +10,17 @@ class HTimestampBehavior extends CTimestampBehavior
 
     public function getUnixTimeByAttribute($attribute, $milliseconds = false)
     {
-        /** @todo Реализовать */
+        return strtotime($this->owner->$attribute) * ($milliseconds ? 1000 : 1);
+    }
+    
+    public function getPubUnixTime($milliseconds = false)
+    {
+        return $this->getUnixTimeByAttribute($this->createAttribute, $milliseconds = false);
     }
 
-    public function getPubDate()
+    public function getPubDate($format = 'Y-m-d\TH:i:sP')
     {
-        
+        return date($format, $this->pubUnixTime);
     }
 
 }

@@ -144,7 +144,7 @@ class Comment extends HActiveRecord
                 'class' => 'site\frontend\modules\notifications\behaviors\CommentBehavior',
             ),
             'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+                'class' => 'site.common.behaviors.HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),

@@ -18,7 +18,9 @@
                     <!-- logo-->
                     <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
                     <!-- /logo-->
+                    <?php $this->beginWidget('AdaptiveWidget', array('exclude' => VersionManager::VERSION_MOBILE)); ?>
                     <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+                    <?php $this->endWidget(); ?>
                     <!-- header-menu-->
                     <div class="header-menu">
                         <ul class="header-menu_ul clearfix">
@@ -96,5 +98,5 @@
 <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
 <script type="text/javascript">
     require(['lite']);
-</script>
+</script><?=time()?>
 </body></html>

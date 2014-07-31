@@ -145,6 +145,9 @@ return array(
 	),
 	// application components
 	'components'=>array(
+        'vm' => array(
+            'class' => 'VersionManager',
+        ),
         'ads' => array(
             'class' => 'Ads',
         ),

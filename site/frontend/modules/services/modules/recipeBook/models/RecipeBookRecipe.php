@@ -18,6 +18,9 @@
  */
 class RecipeBookRecipe extends HActiveRecord
 {
+    private $_next = false;
+    private $_prev = false;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -127,6 +130,10 @@ class RecipeBookRecipe extends HActiveRecord
                 'class' => 'site.common.behaviors.ProcessingImagesBehavior',
                 'attributes' => array('text'),
             ),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
+                'attributes' => array('text'),
+            ),
         );
     }
 
@@ -171,26 +178,38 @@ class RecipeBookRecipe extends HActiveRecord
         return Yii::app()->$method($route, $params);
     }
 
+    /**
+     * @return RecipeBookRecipe
+     */
     public function getNext()
     {
-        return $this->find(
-            array(
-                'condition' => 'disease_id = :disease_id AND id > :id',
-                'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
-                'order' => 't.id',
-            )
-        );
+        if ($this->_next === false) {
+            $this->_next = $this->find(
+                array(
+                    'condition' => 'disease_id = :disease_id AND id > :id',
+                    'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
+                    'order' => 't.id',
+                )
+            );
+        }
+        return $this->_next;
     }
 
+    /**
+     * @return RecipeBookRecipe
+     */
     public function getPrev()
     {
-        return $this->find(
-            array(
-                'condition' => 'disease_id = :disease_id AND id < :id',
-                'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
-                'order' => 't.id DESC',
-            )
-        );
+        if ($this->_prev === false) {
+            $this->_prev = $this->find(
+                array(
+                    'condition' => 'disease_id = :disease_id AND id < :id',
+                    'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
+                    'order' => 't.id DESC',
+                )
+            );
+        }
+        return $this->_prev;
     }
 
     public function disease($diseaseId)

@@ -13,6 +13,8 @@ class CommentsModule extends \CWebModule
     public function init()
     {
         \Yii::app()->clientScript->useAMD = true;
+        /** @todo так не делать */
+        \Yii::app()->clientScript->registerCssFile("/lite/css/dev/all.css");
     }
 
     public function beforeControllerAction($controller, $action)

@@ -41,4 +41,13 @@ class HHtml extends CHtml
 
         return self::tag('img', $htmlOptions);
     }
+    
+    public function timeTag($model, $htmlOptions, $content = false)
+    {
+        $htmlOptions['datetime'] = $model->pubDate;
+        if (!$content)
+            $content = Yii::app()->format->formatDatetime($model->pubUnixTime);
+        return $this->tag('time', $htmlOptions, $content);
+    }
+
 }

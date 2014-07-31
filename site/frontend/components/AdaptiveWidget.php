@@ -8,5 +8,8 @@
 
 class AdaptiveWidget extends CWidget
 {
+    public function run()
+    {
 
+    }
 } 

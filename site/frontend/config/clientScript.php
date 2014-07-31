@@ -408,7 +408,6 @@ return array(
             'css' => array(
                 'lite/css/min/traditional-recipes.css',
             ),
-            'depends' => array('lite'),
         ),
     )
 );

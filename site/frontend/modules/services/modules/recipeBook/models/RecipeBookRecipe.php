@@ -228,6 +228,26 @@ class RecipeBookRecipe extends HActiveRecord
         return $this;
     }
 
+    public function scopes()
+    {
+        return array(
+            'single' => array(
+                'with' => array(
+                    'disease' => array(
+                        'with' => 'category',
+                    ),
+                    'author',
+                    'ingredients' => array(
+                        'with' => array(
+                            'unit',
+                            'ingredient',
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
+
     public static function getDp($diseaseId, $categoryId)
     {
         $criteria = new CDbCriteria(array(

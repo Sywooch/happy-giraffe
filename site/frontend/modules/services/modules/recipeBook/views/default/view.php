@@ -35,7 +35,10 @@
                                 <?php endforeach; ?>
                             </ul>
                         </div>
-                        <div class="b-tags"><a href="" class="b-tags_tag">Болезни кровообращения</a><a href="" class="b-tags_tag">Лимфаденит</a></div>
+                        <div class="b-tags">
+                            <a href="<?=$recipe->disease->category->getUrl()?>" class="b-tags_tag"><?=$recipe->disease->category->title?></a>
+                            <a href="<?=$recipe->disease->getUrl()?>" class="b-tags_tag"><?=$recipe->disease->title?></a>
+                        </div>
                     </div>
                     <div class="textalign-c visible-md-block">
                         <div class="like-control like-control__line">

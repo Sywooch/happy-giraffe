@@ -47,6 +47,8 @@ class DefaultController extends HController
                 $categoryId = $category->id;
             }
 
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+            $this->meta_title = 'Народные рецепты от болезни ' . $disease->title;
         }
 
         $dp = RecipeBookRecipe::getDp($diseaseId, $categoryId);

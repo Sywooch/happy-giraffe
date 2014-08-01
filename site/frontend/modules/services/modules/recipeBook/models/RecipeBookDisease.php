@@ -183,6 +183,6 @@ class RecipeBookDisease extends HActiveRecord
 
     public function getUrl()
     {
-        return Yii::app()->createUrl('/services/recipeBook/default/index', array('slug' => $this->slug));
+        return Yii::app()->createUrl('/services/recipeBook/default/disease', array('slug' => $this->slug));
     }
 }

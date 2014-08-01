@@ -308,9 +308,9 @@ return array(
 //        'recipeBook/<_a:(diseases|ac)>' => 'services/recipeBook/default/<_a>',
 //        'recipeBook/edit/<id:\d+>' => 'services/recipeBook/default/form',
 //        'recipeBook/add' => 'services/recipeBook/default/form',
-//        'recipeBook/recipe<id:\d+>' => 'services/recipeBook/default/view',
-//        'recipeBook/<slug:\w+>' => 'services/recipeBook/default/index',
-//        'recipeBook' => 'services/recipeBook/default/index',
+        'recipeBook/recipe<id:\d+>' => 'services/recipeBook/default/view',
+        'recipeBook/<slug:\w+>' => 'services/recipeBook/default/index',
+        'recipeBook' => 'services/recipeBook/default/index',
 
         array(
             'class' => 'site.frontend.components.ConditionalUrlRule',

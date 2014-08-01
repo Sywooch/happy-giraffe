@@ -1,10 +1,9 @@
 <?php
 /**
- * @var RecipeBookDiseaseCategory[] $categories
  * @var CActiveDataProvider $dp
- * @var int|null $disease
- * @var string|null $slug
+ * @var array $links
  */
+Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 ?>
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">
@@ -18,10 +17,10 @@
         <div class="tx-content">
             <p>Эти народные рецепты по крупинкам собирались нашими пользователями с разных источников. Недееемся вы найдете в них полезную информацию для любой болезни.</p>
         </div>
-        <?php if ($slug === null): ?>
+        <?php if (! empty($links)): ?>
         <ul class="col-link">
-            <?php foreach ($categories as $category): ?>
-                <li class="col-link_li"><a href="<?=$category->getUrl()?>" class="col-link_a"><?=$category->title?></a></li>
+            <?php foreach ($links as $title => $url): ?>
+                <li class="col-link_li"><a href="<?=$url?>" class="col-link_a"><?=$title?></a></li>
             <?php endforeach; ?>
         </ul>
         <?php endif; ?>
@@ -35,7 +34,7 @@
                 'dataProvider' => $dp,
                 'itemView' => '_recipe',
                 'viewData' => array(
-                    'showDisease' => $diseaseId === null,
+                    'showDisease' => Yii::app()->controller->action->id != 'disease',
                 ),
             ));
             ?>

@@ -17,6 +17,11 @@ class CommentWidget extends \CWidget
         $this->render('commentWidget', array('dataProvider' => $this->dataProvider));
     }
 
+    public function getCount()
+    {
+        return \Comment::model()->byEntity($this->model)->count();
+    }
+
     public function getDataProvider()
     {
         return new \CActiveDataProvider(\Comment::model()->byEntity($this->model)->specialSort());

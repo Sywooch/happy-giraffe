@@ -144,7 +144,7 @@ class Comment extends HActiveRecord
                 'class' => 'site\frontend\modules\notifications\behaviors\CommentBehavior',
             ),
             'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+                'class' => 'site.common.behaviors.HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
@@ -176,14 +176,6 @@ class Comment extends HActiveRecord
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
             ),
-        );
-    }
-
-    public function defaultScope()
-    {
-        $alias = $this->getTableAlias(false, false);
-        return array(
-            'condition' => ($alias) ? $alias . '.removed = 0' : 'removed = 0',
         );
     }
 
@@ -561,6 +553,40 @@ class Comment extends HActiveRecord
             'specialistLabel' => ($comment->entity == 'CommunityContent' && $comment->getCommentEntity()->type_id == CommunityContentType::TYPE_QUESTION && ($specialist = $comment->author->getSpecialist($comment->getCommentEntity()->rubric->community_id)) !== null) ? mb_strtolower($specialist->title, 'UTF-8') : null,
         );
         return $data;
+    }
+    
+    /* scopes */
+
+    public function defaultScope()
+    {
+        $alias = $this->getTableAlias(false, false);
+        return array(
+            'condition' => ($alias) ? $alias . '.removed = 0' : 'removed = 0',
+        );
+    }
+
+    public function scopes()
+    {
+        return array( 
+            'specialSort' => array(
+                'order' => $this->tableAlias . '.`root_id` DESC, IF(' . $this->tableAlias . '.`root_id` IS NULL, 0, ' . $this->tableAlias . '.`created`) ASC'
+            ),
+        );
+    }
+    
+    public function byEntity($entity)
+    {
+        $this->dbCriteria->addColumnCondition(array(
+            'entity' => get_class($entity),
+            'entity_id' => $entity->id,
+        ));
+        /** @todo Это не должно быть тут */
+        $this->dbCriteria->with['author'] = array(
+            'select' => 'id, gender, first_name, last_name, online, avatar_id, deleted',
+            'with' => 'avatar',
+        );
+
+        return $this;
     }
 
 }

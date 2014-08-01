@@ -396,11 +396,18 @@ return array(
         ),
         'lite' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'lite/javascript/modernizr.custom.js',
                 'lite/javascript/picturefill.min.js',
             ),
             'depends' => array('jquery'),
+        ),
+        'lite-default' => array(
+            'css' => array(
+                '/lite/css/dev/all.css'
+            ),
+            'depends' => array('lite'),
         ),
         'lite_recipes' => array(
             'baseUrl' => '/',

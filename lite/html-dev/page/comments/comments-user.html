@@ -15,12 +15,18 @@
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
   <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
   <script src="/lite/redactor/redactor.js"></script>
   <script src="/lite/redactor/lang/ru.js"></script>
   <script src="/lite/redactor/plugins/fullscreen/fullscreen.js"></script>
   <script src="/lite/redactor/plugins/btnvideo/btnvideo.js"></script>
   <script src="/lite/redactor/plugins/formatbtn/formatbtn.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
   <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
@@ -83,6 +89,7 @@
                   <div class="tab-content">
                     <div id="commentsList" class="comments_hold tab-pane active">
                       <div class="comments_add">
+                        <!-- Заглушка редактора до клика по ней, затем загружается редактор-->
                         <div class="comments_add-frame">
                           <div class="comments_i clearfix">
                             <div class="comments_ava">
@@ -90,23 +97,29 @@
                               <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                             </div>
                             <div class="comments_frame">
-                              <!-- Когда уже есть комменты то текст placeholder: Введите ваш комментарий
+                              <!-- Когда еще нет комментов то текст placeholder: Введите комментарий первым
                               -->
-                              <textarea placeholder="Введите комментарий первым" row="4" col="30" class="itx-simple"></textarea>
-                              <div class="comments_add-editor"></div>
+                              <textarea placeholder=" Введите ваш комментарий " rows="3" cols="30" class="itx-simple"></textarea>
+                              <div class="comments_add-editor display-n">
+                                <!-- Скрыты элементы редактора, как в блоке ниже. 
+                                Пусто, что б не копипастить
+                                
+                                -->
+                              </div>
                             </div>
                           </div>
                         </div>
-                        <div class="comments_add-frame">
+                        <!-- Редактор раскрытый-->
+                        <div class="comments_add-frame display-n">
                           <div class="comments_i clearfix">
                             <div class="comments_ava">
                               <!-- Аватарки размером 40*40-->
                               <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                             </div>
                             <div class="comments_frame">
-                              <!-- Когда уже есть комменты то текст placeholder: Введите ваш комментарий
+                              <!-- Когда еще нет комментов то текст placeholder: Введите комментарий первым
                               -->
-                              <textarea placeholder="Введите комментарий первым" row="4" col="30" class="itx-simple display-n"></textarea>
+                              <textarea placeholder=" Введите ваш комментарий " rows="3" cols="30" class="itx-simple"></textarea>
                               <div class="comments_add-editor">
                                 <!-- Загружаем стили и скрипты редактора при необходимости-->
                                 <link href="/lite/css/dev/redactor.css" rel="stylesheet" type="text/css">
@@ -121,8 +134,8 @@
                                         cleanup: false,
                                         lang: 'ru',
                                         convertDivs: false,
-                                        plugins: [ 'formatbtn', 'btnvideo' ,'fullscreen'],
-                                        buttons: [  'image', ],
+                                        plugins: [ 'formatbtn', 'btnvideo'],
+                                        buttons: [  'image', 'link'],
                                         focusCallback: function()
                                           {
                                               addBaron('.scroll');
@@ -137,57 +150,13 @@
                                   <div class="scroll">
                                     <div class="scroll_scroller">
                                       <div class="scroll_cont">
-                                        <textarea name="9" class="wysiwyg-redactor">
+                                        <div class="wysiwyg-redactor">
                                           <p>Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))</p>
-                                          <p>Не знаю насколько это правда, <b>но я задумалась, </b>а что же на самом деле нужно <i>нашим мужчинам чтобы они чувствовали себя счастливыми.</i></p>
-                                          <p>Ведь на самом деле, <small>запросы у женщин очень большие,</small>так ли это обстоит  у наших мужчин?</p>
-                                          <h2>Что же на самом деле нужно нашим мужчинам</h2>
-                                          <p>Может конечно они не признаются в своих самых заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему 
-                                            <strike>мужчине.</strike> Как вы считаете?
-                                          </p>
-                                          <h3>Что же на самом деле нужно нашим мужчинам</h3>
+                                          <p>Не знаю насколько это правда, </p>
                                           <p>Может конечно они не признаются в своих самых </p>
-                                          <!-- Через класс linkPost__img yправляется отображением изображения и кнопок управления -->
-                                          <div class="linkPost linkPost__img">
-                                            <div class="linkPost_hold clearfix">
-                                              <div class="linkPost_close ico-close4"></div>
-                                              <div class="linkPost_img-hold">
-                                                <!-- Сделана карусель. Можно менять прозрачность у последователньости li-шек либо свдигать ul на 250пк по клику на стрелку. -->
-                                                <ul class="linkPost_img-ul clearfix">
-                                                  <li class="linkPost_img-li"><a href="">
-                                                      <!--  
-                                                      Если фото в соотношении строн по горизонтали больше стандарта, то кадрируем (обрезаем) ширину к требуемым пропорциям.
-                                                      Если фото больше по высоте чем стандарт, делаем превью высотою в 180 пк, поулчится ширина меньше 250 пк, изображение станет по центру.
-                                                      --><img src="/new/images/example/w240-h183.jpg" alt="" height="180px" class="linkPost_img"></a></li>
-                                                  <li class="linkPost_img-li"><a href="">
-                                                      <!-- 
-                                                      Если фото в соотношении строн по горизонтали больше стандарта, то кадрируем (обрезаем) ширину к требуемым пропорциям.
-                                                      Если фото больше по высоте чем стандарт, делаем превью высотою в 180 пк, поулчится ширина меньше 250 пк, изображение станет по центру.
-                                                      --><img src="/new/images/example/w250-h180.jpg" alt="" class="linkPost_img"></a></li>
-                                                </ul>
-                                              </div>
-                                              <div class="linkPost_in">
-                                                <!-- Заголовок лучше обрезать чере определенное количество символов, 3 строки приблизительно 85--><a href="" class="linkPost_t">Выделенные серверы под водой, буквально!? Перспективы разведения рыб в на серверах?! 88</a>
-                                                <!-- Блока с описанием нет в ссылке внутри статьи-->
-                                                <!-- ссылка в 1 строку, остальное обрезается автоматически--><a href="" class="linkPost_a">http://habrahabr.ru/company/ ua-hosting/blog/222669/</a>
-                                              </div>
-                                            </div>
-                                          </div>
-                                          <p>Может конечно они не признаются в своих самых </p>
-                                          <ul>
-                                            <li>Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только </li>
-                                            <li>Письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.</li>
-                                          </ul>
-                                          <h3>Плетение из бисера кактус</h3>
                                           <p>Из бисера можно творить что угодно. Кто-то делает забавнейших животных, кто-то вышивает бисером невероятные цветы, кто-то создает бижутерию, ну а мы попробуем сплести из бисера кактусы. </p>
-                                          <ol>
-                                            <li>Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только </li>
-                                            <li>Письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.</li>
-                                          </ol>
                                           <p>заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему</p>
-                                          <h4>Недавно услышала такую фразу</h4>
-                                          <pre>inp-valid.inp-valid__abs.error</pre>
-                                        </textarea>
+                                        </div>
                                       </div>
                                     </div>
                                     <div class="scroll_bar-hold">

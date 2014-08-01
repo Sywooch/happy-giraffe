@@ -8,7 +8,7 @@ block layout
 
     // b-main 
     .b-main.clearfix
-    
+
         .b-main_cont
             .b-crumbs.b-crumbs__s
                 .b-crumbs_tx Я здесь:
@@ -41,7 +41,7 @@ block layout
 
                                     .b-article_author
                                         a.a-light(href='') Ангелина Богоявленская
-                                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                                    time.tx-date(datetime='1957-10-04') Сегодня 13:25
                             h1.b-article_t Лечим лимфаденит соком
                             .b-article_in.clearfix
                                 .wysiwyg-content.clearfix
@@ -80,7 +80,7 @@ block layout
 
                     // /b-article
                 
-                    table.article-nearby.clearfix(ellpadding='0', cellspacing='0')
+                    table.article-nearby.clearfix
                         tr
                             td
                                 a.article-nearby_a.article-nearby_a__l(href='')
@@ -101,4 +101,3 @@ block layout
                 // /Основная колонка
     
     +layout-footer-lite()
-

@@ -4,10 +4,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/blog.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <script src="/lite/redactor/redactor.js"></script>
+  <script src="/lite/redactor/lang/ru.js"></script>
+  <script src="/lite/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/lite/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/lite/redactor/plugins/formatbtn/formatbtn.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__bg1 body__lite">
   <!--///////////////////////////////////////-->
-  <!-- Дата последних изменений --> <!-- Thu Jul 31 2014 15:49:36 -->
+  <!-- Дата последних изменений --> <!-- Fri Aug 01 2014 09:38:56 -->
   <!--///////////////////////////////////////-->
   <div class="layout-container">
     <div class="layout-loose layout-loose__white">
@@ -51,11 +76,10 @@
                   </div>
                   <div class="tab-content">
                     <div id="commentsList" class="comments_hold tab-pane active">
-                      <div class="comment-add">
-                        <div class="comment-add_hold"> Комментировать от
-                          <div class="ico-social-hold"><a href="" class="ico-social ico-social__odnoklassniki"></a><a href="" class="ico-social ico-social__vkontakte"></a></div> или <a class="comment-add_a">Войти</a>
+                      <div class="comments_add">
+                        <div class="comments_add-hold"> Комментировать от
+                          <div class="ico-social-hold"><a href="" class="ico-social ico-social__odnoklassniki"></a><a href="" class="ico-social ico-social__vkontakte"></a></div> или <a class="comment_add-a">Войти</a>
                         </div>
-                        <div class="comment-add_editor display-n"></div>
                       </div>
                       <ul class="comments_ul">
                         <!-- 
@@ -66,8 +90,8 @@
                         .comments_li__blue
                         .comments_li__green
                         -->
-                        <li class="comments_li comments_li__lilac clearfix">
-                          <div class="comments_i">
+                        <li class="comments_li comments_li__lilac">
+                          <div class="comments_i clearfix">
                             <div class="comments_ava">
                               <!-- Аватарки размером 40*40-->
                               <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
@@ -88,8 +112,8 @@
                           </div>
                           <ul class="comments_ul">
                             <!-- комментарий вложенный-->
-                            <li class="comments_li comments_li__lilac clearfix">
-                              <div class="comments_i">
+                            <li class="comments_li comments_li__lilac">
+                              <div class="comments_i clearfix">
                                 <div class="comments_ava">
                                   <!-- Аватарки размером 40*40-->
                                   <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
@@ -109,8 +133,8 @@
                             <!-- /комментарий вложенный-->
                             <!-- комментарий вложенный-->
                             <!-- Свой комментарий-->
-                            <li class="comments_li comments_li__self comments_li__lilac clearfix">
-                              <div class="comments_i">
+                            <li class="comments_li comments_li__self comments_li__lilac">
+                              <div class="comments_i clearfix">
                                 <div class="comments_ava">
                                   <!-- Аватарки размером 40*40-->
                                   <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
@@ -134,8 +158,8 @@
                         </li>
                         <!-- / комментарий  -->
                         <!-- комментарий     -->
-                        <li class="comments_li comments_li__red clearfix">
-                          <div class="comments_i">
+                        <li class="comments_li comments_li__red">
+                          <div class="comments_i clearfix">
                             <div class="comments_ava">
                               <!-- Аватарки размером 40*40-->
                               <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
@@ -214,7 +238,7 @@
                                 <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                               </li>
                             </ul>
-                          </div>
+                          </div><a class="a-light">Смотреть все</a>
                           <!-- a.a-light Смотреть все-->
                         </div>
                       </div>
@@ -301,7 +325,7 @@
   </div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
-    window.jQuery || document.write('<script src="/lite//javascript/jquery-1.11.1.min.js"><\/script>')
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
     
   </script>
   <script src="/lite/javascript/modernizr.custom.js"></script>
@@ -310,7 +334,18 @@
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
   <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <script src="/lite/redactor/redactor.js"></script>
+  <script src="/lite/redactor/lang/ru.js"></script>
+  <script src="/lite/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/lite/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/lite/redactor/plugins/formatbtn/formatbtn.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
   <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </body></html>

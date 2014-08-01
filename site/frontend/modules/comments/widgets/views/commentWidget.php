@@ -17,10 +17,10 @@ $this->beginClip('comment');
     <article class="comments_i">
         <div class="comments_ava">
             <!-- Аватарки размером 40*40-->
-            <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="{ava}" class="ava_img"></a>
+            <!-- ava--><a href="{link}" class="ava ava__middle ava__small-sm-mid"><img alt="" src="{ava}" class="ava_img"></a>
         </div>
         <div class="comments_frame">
-            <div class="comments_header"><a href="" rel="author" class="a-light comments_author">{author.name}</a>
+            <div class="comments_header"><a href="{link}" rel="author" class="a-light comments_author">{author.name}</a>
                 <time datetime="{datetime}" pubdate class="tx-date" data-bind="moment: {unixtime}"></time>
             </div>
             <div class="comments_cont">
@@ -56,6 +56,7 @@ foreach ($iterator as $comment)
         {
             $this->controller->renderClip('comment', array(
                 '{colorClass}' => $color,
+                '{link}' => $root->author->url,
                 '{ava}' => $root->author->getAvatarUrl(Avatar::SIZE_MEDIUM),
                 '{author.name}' => $root->author->fullName,
                 '{datetime}' => $root->pubDate,
@@ -73,6 +74,7 @@ foreach ($iterator as $comment)
     {
         $comments .= $this->controller->renderClip('comment', array(
             '{colorClass}' => $color,
+            '{link}' => $comment->author->url,
             '{ava}' => $comment->author->getAvatarUrl(Avatar::SIZE_MEDIUM),
             '{author.name}' => $comment->author->fullName,
             '{datetime}' => $comment->pubDate,

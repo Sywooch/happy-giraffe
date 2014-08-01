@@ -79,6 +79,10 @@ return array(
         'notifications' => 'notifications/default/index',
         'notifications/<_a>' => 'notifications/default/<_a>',
 
+        //comments
+        'comments' => 'comments/default/index',
+        'comments/<_a>' => 'comments/default/<_a>',
+
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',
         'rss/social/' => 'rss/social',

@@ -125,6 +125,9 @@ return array(
         'notifications' => array(
             'class' => 'site\frontend\modules\notifications\NotificationsModule',
         ),
+        'comments' => array(
+            'class' => 'site\frontend\modules\comments\CommentsModule',
+        ),
         'friends',
         'favourites',
         'scores',

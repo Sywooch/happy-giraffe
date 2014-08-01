@@ -62,6 +62,8 @@ class DefaultController extends HController
             throw new CHttpException(404);
         }
 
+        $this->meta_title = $recipe->title;
+
         $this->render('view', compact('recipe'));
     }
 }

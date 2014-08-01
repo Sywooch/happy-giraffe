@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?=$this->pageTitle?></title>
+    <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>
 <body class="body body__bg1 body__lite">
 <!--///////////////////////////////////////-->
@@ -93,5 +94,5 @@
 <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
 <script type="text/javascript">
     require(['lite']);
-</script><?=time()?>
+</script>
 </body></html>

@@ -41,6 +41,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                             <a href="<?=$recipe->disease->getUrl()?>" class="b-tags_tag"><?=$recipe->disease->title?></a>
                         </div>
                     </div>
+                    <?php if (false): ?>
                     <div class="textalign-c visible-md-block">
                         <div class="like-control like-control__line">
                             <div class="like-control_hold"><a href="" title="Нравится" class="like-control_i like-control_i__like powertip">
@@ -53,6 +54,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                                     <div class="like-control_tx">863455</div></a></div>
                         </div>
                     </div>
+                    <?php endif; ?>
                     <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $recipe, 'lite' => true)); ?>
                 </div>
             </article>
@@ -75,13 +77,14 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
             <section class="comments comments__buble">
             <div class="comments-menu">
                 <ul data-tabs="tabs" class="comments-menu_ul">
-                    <li class="comments-menu_li active"><a href="#commentsList" data-toggle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии 68 </a></li>
+                    <li class="comments-menu_li active"><a href="#commentsList" data-toggle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии <?=$commentsWidget->count?></a></li>
                     <li class="comments-menu_li"><a href="#likesList" data-toggle="tab" class="comments-menu_a comments-menu_a__likes">Нравится 865</a></li>
                     <li class="comments-menu_li"><a href="#favoritesList" data-toggle="tab" class="comments-menu_a comments-menu_a__favorites">Закладки 865</a></li>
                 </ul>
             </div>
             <div class="tab-content">
-                <?php //$commentsWidget->run(); ?>
+                <?php $commentsWidget->run(); ?>
+                <?php if (false): ?>
                 <div id="likesList" class="comments_hold tab-pane">
                     <div class="list-subsribe-users">
                         <ul class="list-subsribe-users_ul">
@@ -110,6 +113,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                         </ul>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
             </section>
             <!-- /comments-->

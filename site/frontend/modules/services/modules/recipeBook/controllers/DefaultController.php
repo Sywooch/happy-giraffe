@@ -22,7 +22,7 @@ class DefaultController extends HController
                     'COutputCache',
                     'duration' => 300,
                     'varyByParam' => array_keys($_GET),
-                    //'varyByExpression' => 'Yii::app()->vm->getVersion()',
+                    'varyByExpression' => 'Yii::app()->vm->getVersion()',
                 ),
             );
 

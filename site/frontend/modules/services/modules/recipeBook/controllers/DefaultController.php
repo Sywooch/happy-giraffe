@@ -17,21 +17,21 @@ class DefaultController extends HController
     public function filters()
     {
         if (Yii::app()->user->isGuest) {
-            return array(
-                array(
-                    'COutputCache',
-                    'duration' => 300,
-                    'varyByParam' => array_keys($_GET),
-                    'varyByExpression' => 'Yii::app()->vm->getVersion()',
-                ),
-            );
+//            return array(
+//                array(
+//                    'COutputCache',
+//                    'duration' => 300,
+//                    'varyByParam' => array_keys($_GET),
+//                    'varyByExpression' => 'Yii::app()->vm->getVersion()',
+//                ),
+//            );
 
         }
 
         return parent::filters();
     }
 
-    public function actionIndex($slug = null)
+    public function actionIndex($diseaseSlug = null, $categorySlug = null)
     {
         $diseaseId = null;
         $categoryId = null;
@@ -54,6 +54,9 @@ class DefaultController extends HController
         $dp = RecipeBookRecipe::getDp($diseaseId, $categoryId);
         $categories = RecipeBookDiseaseCategory::model()->alphabetical()->findAll();
 
+        $this->breadcrumbs = array(
+            'Народные рецепты',
+        );
         $this->render('index', compact('categories', 'dp', 'slug', 'diseaseId'));
     }
 

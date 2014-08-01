@@ -4,22 +4,32 @@ class DefaultController extends HController
 {
     public $layout = '//layouts/lite/main';
 
-//    public function filters()
-//    {
-//        if (Yii::app()->user->isGuest) {
-//            return array(
-//                array(
-//                    'COutputCache',
-//                    'duration' => 300,
-//                    'varyByParam' => array_keys($_GET),
-//                    //'varyByExpression' => 'Yii::app()->vm->getVersion()',
-//                ),
-//            );
-//
-//        }
-//
-//        return parent::filters();
-//    }
+    protected function beforeAction($action)
+    {
+        if (parent::beforeAction($action)) {
+            $cs = Yii::app()->clientScript;
+            $cs->registerPackage('lite_recipes');
+            $cs->useAMD = true;
+            return true;
+        }
+    }
+
+    public function filters()
+    {
+        if (Yii::app()->user->isGuest) {
+            return array(
+                array(
+                    'COutputCache',
+                    'duration' => 300,
+                    'varyByParam' => array_keys($_GET),
+                    //'varyByExpression' => 'Yii::app()->vm->getVersion()',
+                ),
+            );
+
+        }
+
+        return parent::filters();
+    }
 
     public function actionIndex($slug = null)
     {

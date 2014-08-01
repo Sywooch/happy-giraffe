@@ -121,8 +121,8 @@ class RecipeBookRecipe extends HActiveRecord implements IPreview
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),

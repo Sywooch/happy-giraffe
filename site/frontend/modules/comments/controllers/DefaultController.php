@@ -18,7 +18,7 @@ class DefaultController extends \HController
         if (!$model)
             throw new \CHttpException(404);
 
-        $this->renderText($this->widget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $model), true));
+        $this->render('example', array('model' => $model));
     }
 
 }

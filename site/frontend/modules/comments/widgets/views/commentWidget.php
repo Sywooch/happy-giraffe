@@ -1,21 +1,11 @@
-<div class="b-main_col-article">
-    <!-- comments-->
-    <div class="comments comments__buble">
-        <div class="comments-menu">
-            <ul data-tabs="tabs" class="comments-menu_ul">
-                <li class="comments-menu_li active"><a href="#commentsList" data-toggle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии 68 </a></li>
-                <li class="comments-menu_li"><a href="#likesList" data-toggle="tab" class="comments-menu_a comments-menu_a__likes">Нравится 865</a></li>
-                <li class="comments-menu_li"><a href="#favoritesList" data-toggle="tab" class="comments-menu_a comments-menu_a__favorites">Закладки 865</a></li>
-            </ul>
-            <div class="tab-content">
-                <div id="commentsList" class="comments_hold tab-pane active">
-                    <div class="comment-add">
-                        <div class="comment-add_hold"> Комментировать от
-                            <div class="ico-social-hold"><a href="" class="ico-social ico-social__odnoklassniki"></a><a href="" class="ico-social ico-social__vkontakte"></a></div> или <a class="comment-add_a">Войти</a>
-                        </div>
-                        <div class="comment-add_editor display-n"></div>
-                    </div>
-                    <ul class="comments_ul" id="<?=$this->id?>_comments">
+<div id="commentsList" class="comments_hold tab-pane active">
+    <div class="comment-add">
+        <div class="comment-add_hold"> Комментировать от
+            <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'simple')); ?> или <a href="?openLogin" onclick="$('[href=#loginWidget]').trigger('click')" class="comment-add_a">Войти</a>
+        </div>
+        <div class="comment-add_editor display-n"></div>
+    </div>
+    <ul class="comments_ul" id="<?=$this->id?>_comments">
 <?php
 /**
  * @var $this site\frontend\modules\comments\widgets\CommentWidget
@@ -93,13 +83,8 @@ foreach ($iterator as $comment)
     }
 }
 ?>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </ul>
     </div>
-    <!-- /comments-->
 </div>
 <?php
 Yii::app()->clientScript->registerAMD('Comments#' . $this->id, array('ko' => 'knockout', 'ko_library' => 'ko_library'), 'ko.applyBindings({}, document.getElementById("' . $this->id . '_comments"))');

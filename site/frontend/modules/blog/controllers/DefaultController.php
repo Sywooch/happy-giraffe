@@ -85,7 +85,7 @@ class DefaultController extends HController
         $contents = BlogContent::model()->getBlogContents($user_id, $rubric_id);
 
         if ($this->user->hasRssContent())
-            $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
+            $this->rssFeed = $this->createUrl('/rss/user', array('user_id' => $user_id));
 
         if (! Yii::app()->user->isGuest)
             $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');
@@ -135,13 +135,6 @@ class DefaultController extends HController
         if (!empty($content->uniqueness) && $content->uniqueness < 50)
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 
-        if ($content->type_id == CommunityContent::TYPE_REPOST) {
-            Yii::app()->clientScript->registerLinkTag('canonical', null, $content->source->getUrl(false, true));
-        }
-
-        //сохраняем просматриваемую модель
-        NotificationRead::getInstance()->setContentModel($content);
-
         if (! Yii::app()->user->isGuest)
             $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');
         $this->breadcrumbs += array(
@@ -151,6 +144,9 @@ class DefaultController extends HController
             $content->title,
         );
 
+        if (Yii::app()->user->isGuest)
+            $this->render('view_requirejs', array('data' => $content, 'full' => true));
+        else
         $this->render('view', array('data' => $content, 'full' => true));
     }
 
@@ -443,7 +439,7 @@ class DefaultController extends HController
             ->from('community__contents c')
             ->join('community__rubrics r', 'c.rubric_id = r.id')
             ->join('community__content_types ct', 'c.type_id = ct.id')
-            ->where('r.user_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
+            ->where('r.user_id IS NOT NULL AND c.type_id != :morning AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)', array(':morning' => CommunityContent::TYPE_MORNING))
             ->limit(50000)
             ->offset(($param - 1) * 50000)
             ->order('c.id ASC')

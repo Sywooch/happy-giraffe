@@ -236,14 +236,7 @@
                             <a class="ava ava__middle ava__female" data-bind="attr: { href : user.profileUrl }" target="_blank"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a>
                             <div class="im-panel_user-status" data-bind="visible: !user.isOnline()"><span data-bind="text: user.gender ? 'Был на сайте' : 'Была на сайте'"></span> <span data-bind="moment: {value: user.lastOnline(), timeAgo: true}"></span></div>
                             <a class="im-panel_user-name" data-bind="text: user.fullName(), attr: { href : user.profileUrl }" target="_blank"></a>
-                            <!-- У иконки 3 состояния.
-                            Друг - без моидфикатора
-                            Добавить в друзья - .friend__add
-                            Приглашение отправленно - .friend__added
-                            -->
-                            <span class="im-panel_friend im-panel_friend__fr" data-bind="if: user.friendsState() == user.FRIENDS_STATE_FRIENDS"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></span>
-                            <a class="im-panel_friend im-panel_friend__add" data-bind="click: user.friendsInvite, if: user.friendsState() == user.FRIENDS_STATE_NOTHING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
-                            <span class="im-panel_friend im-panel_friend__added" data-bind="if: user.friendsState() == user.FRIENDS_STATE_INCOMING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправлено</span></span>
+                            <span data-bind="module: {name: 'friend', data: user, template: 'friend/button'}"></span>
                         </div>
                     </div>
                     <!-- /im-panel-->
@@ -339,7 +332,8 @@
                                     </div>
                                     <!-- /im-message-->
                                 <!-- /ko -->
-                                <!-- ko if: user.friendsState() == user.FRIENDS_STATE_OUTGOING -->
+                                <div data-bind="module: { name: 'friend', data: user, template: 'friend/tile'}"></div>
+                                <? /* <!-- ko if: user.friendsState() == user.FRIENDS_STATE_OUTGOING -->
                                 <div class="friend-offer">
                                     <div class="friend-offer_hold">
                                         <div class="friend-offer_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online" data-bind="visible: user.isOnline()"></span><img alt="" data-bind="attr: {src: user.avatar}" class="ava_img"/></a></a>
@@ -350,7 +344,7 @@
                                         <div class="friend-offer_btns"><a class="btn-green-simple btn-s" data-bind="click: user.friendsAccept">Принять</a><a title="Отклонить" class="ico-cancel powertip" data-bind="click: user.friendsDecline">&#8211;</a></div>
                                     </div>
                                 </div>
-                                <!-- /ko -->
+                                <!-- /ko --> */ ?>
                                 <!-- im_loader есть всегда, на разные действия в нем менятеся содержимое-->
                                 <div class="im_loader">
                                     <!-- ko if: sendingMessage -->
@@ -406,9 +400,6 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-	$(function() {
-        messaging = new Messaging(<?=$data?>);
-		ko.applyBindings(messaging, document.getElementById('<?=$this->id?>_messaging_module'));
-	});
-</script>
+<?php
+Yii::app()->clientScript->registerAMD('messagingVM', array('Messaging' => 'ko_messaging', 'ko' => 'knockout'), "messaging = new Messaging(" . $data . "); ko.applyBindings(messaging, document.getElementById('" . $this->id . "_messaging_module')); return messaging;");
+?>

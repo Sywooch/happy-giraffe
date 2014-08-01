@@ -1,10 +1,11 @@
 ﻿<?php
-Yii::app()->clientScript
-    ->registerCoreScript('yiiactiveform')
-    ->registerPackage('ko_layout')
-    ->registerPackage('ko_post')
-    ->registerPackage('ko_menu')
-;
+if(!Yii::app()->clientScript->useAMD)
+    Yii::app()->clientScript
+        ->registerCoreScript('yiiactiveform')
+        ->registerPackage('ko_layout')
+        ->registerPackage('ko_post')
+        ->registerPackage('ko_menu')
+    ;
 
 if (! Yii::app()->user->isGuest)
     Yii::app()->clientScript
@@ -149,12 +150,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
             </div>
         </div>
 
-        <?php if ($this->route == 'services/test/default/view' && $_GET['slug'] == 'pregnancy'): ?>
-            <a href="http://ad.adriver.ru/cgi-bin/click.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" class="cover cover-clearblue" target="_blank" onclick="_gaq.push(['_trackEvent','Outgoing Links','www.clearblue.com'])">
-                <div class="cover-clearblue_b"></div>
-            </a>
-        <?php endif; ?>
-
         <?php if ($this->id == 'contest'): ?>
             <div class="cover cover-contest cover-contest__<?=$this->contest->cssClass?>"></div>
         <?php endif; ?>
@@ -175,8 +170,14 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     ko.applyBindings(menuVm, $('.header-fix')[0]);
     ko.applyBindings(menuVm, $('.header')[0]);
     <?php endif; ?>
-    var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
-    var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
+    <?php
+        $js = "var userIsGuest = " . CJavaScript::encode(Yii::app()->user->isGuest) . "; var CURRENT_USER_ID = " . CJavaScript::encode(Yii::app()->user->id);
+        $cs = Yii::app()->clientScript;
+        if($cs->useAMD)
+            $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_AMD);
+        else
+            $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_HEAD);
+    ?>
 </script>
 
 <?php if (Yii::app()->user->isGuest): ?>

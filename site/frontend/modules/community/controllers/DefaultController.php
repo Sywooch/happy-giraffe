@@ -176,11 +176,12 @@ class DefaultController extends HController
             );
 
         if (!Yii::app()->user->isGuest) {
-            NotificationRead::getInstance()->setContentModel($content);
             UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
         }
-
-        $this->render('view', compact('content'));
+        if (Yii::app()->user->isGuest)
+            $this->render('view_requirejs', compact('content'));
+        else
+            $this->render('view', compact('content'));
     }
 
     public function actionServices($club)
@@ -478,5 +479,13 @@ class DefaultController extends HController
         }
 
         return $data;
+    }
+
+    public function actionContacts()
+    {
+        $this->forum = Community::model()->findByPk(Community::COMMUNITY_NEWS);
+        $this->pageTitle = 'О нас';
+        $this->layout = '//layouts/news';
+        $this->render('contacts');
     }
 }

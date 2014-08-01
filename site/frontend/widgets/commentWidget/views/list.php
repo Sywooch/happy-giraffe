@@ -41,5 +41,3 @@ $this->widget('HCommentListView', array(
     ),
     'popUp' => $this->popUp,
 ));
-
-NotificationRead::getInstance()->SetVisited();

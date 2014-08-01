@@ -6,7 +6,7 @@
 
 <div class="popup-container display-n">
     <div id="passwordRecoveryWidget" class="popup popup-sign">
-        <?php $form = $this->beginWidget('CActiveForm', array(
+        <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
             'id' => 'passwordRecoveryForm',
             'action' => array('/signup/passwordRecovery/send'),
             'enableAjaxValidation' => true,
@@ -58,9 +58,6 @@
 </div>
 
 <script type="text/javascript">
-    passwordRecoveryVm = new PasswordRecoveryWidgetViewModel();
-    ko.applyBindings(passwordRecoveryVm, document.getElementById('passwordRecoveryWidget'));
-
     function afterValidate(form, data, hasError) {
         if (! hasError) {
             $.post(form.attr('action'), form.serialize(), function(response) {
@@ -70,4 +67,13 @@
         }
         return false;
     }
+    
+    <?php
+    $js = "ko.applyBindings(new PasswordRecoveryWidgetViewModel(), document.getElementById('passwordRecoveryWidget'));";
+    $cs = Yii::app()->clientScript;
+    if ($cs->useAMD)
+        $cs->registerAMD('PasswordRecoveryWidgetViewModel', array('ko' => 'knockout', 'ko_registerWidget' => 'ko_registerWidget'), $js);
+    else
+        $cs->registerScript('PasswordRecoveryWidgetViewModel', $js, ClientScript::POS_READY);
+    ?>
 </script>

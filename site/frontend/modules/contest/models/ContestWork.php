@@ -212,7 +212,6 @@ class ContestWork extends HActiveRecord
     public function beforeDelete()
     {
         self::model()->updateByPk($this->id, array('removed' => 1));
-        NotificationDelete::entityRemoved($this);
 
         return false;
     }

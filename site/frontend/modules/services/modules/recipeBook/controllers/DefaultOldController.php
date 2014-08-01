@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends HController
+class DefaultOldController extends HController
 {
     public $layout = 'rec-layout';
     public $index = false;

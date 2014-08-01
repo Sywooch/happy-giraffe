@@ -20,9 +20,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                         <div class="float-l">
                             <?php $this->widget('Avatar', array('user' => $recipe->author)); ?>
                             <div class="b-article_author"><a href="<?=$recipe->author->getUrl()?>" class="a-light"><?=$recipe->author->getFullName()?></a></div>
-                            <?=HHtml::timeTag($recipe, array(
-                                'class' => 'tx-date',
-                            ))?>
+                            <?=HHtml::timeTag($recipe, array('class' => 'tx-date'))?>
                         </div>
                     </div>
                     <h1 class="b-article_t"><?=$recipe->title?></h1>

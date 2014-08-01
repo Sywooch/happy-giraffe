@@ -130,6 +130,16 @@ class SeoTempCommand extends CConsoleCommand
         $this->writeCsv('enters', $result);
     }
 
+    public function actionSitemapCounts()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('id, section, created, updated')
+            ->from('cook__recipes')
+            ->queryAll();
+
+        echo count($models);
+    }
+
     public function actionRoutesTest()
     {
         Yii::import('site.frontend.modules.routes.models.*');

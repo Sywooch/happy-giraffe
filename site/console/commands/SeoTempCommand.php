@@ -133,8 +133,8 @@ class SeoTempCommand extends CConsoleCommand
     public function actionSitemapCounts()
     {
         $models = Yii::app()->db->createCommand()
-            ->select('id, section, created, updated')
-            ->from('cook__recipes')
+            ->select('id')
+            ->from(CookRecipeTag::model()->tableName())
             ->queryAll();
 
         echo count($models);

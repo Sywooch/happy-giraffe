@@ -47,7 +47,7 @@ class DefaultController extends HController
 
     public function actionView($id)
     {
-        $recipe = RecipeBookRecipe::model()->findByPk($id);
+        $recipe = RecipeBookRecipe::model()->single()->findByPk($id);
         if ($recipe === null) {
             throw new CHttpException(404);
         }

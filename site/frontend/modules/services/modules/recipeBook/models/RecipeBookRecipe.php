@@ -16,7 +16,7 @@
  * @property RecipeBookDiseases $disease
  * @property RecipeBookRecipesIngredients[] $recipeBookRecipesIngredients
  */
-class RecipeBookRecipe extends HActiveRecord
+class RecipeBookRecipe extends HActiveRecord implements IPreview
 {
     private $_next = false;
     private $_prev = false;
@@ -269,5 +269,15 @@ class RecipeBookRecipe extends HActiveRecord
                 'pageSize' => 10,
             ),
         ));
+    }
+
+    public function getPreviewText()
+    {
+        return $this->text;
+    }
+
+    public function getPreviewPhoto()
+    {
+        return null;
     }
 }

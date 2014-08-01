@@ -52,13 +52,7 @@
                                     <div class="like-control_tx">863455</div></a></div>
                         </div>
                     </div>
-                    <div class="custom-likes">
-                        <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
-                        <div class="custom-likes_in">
-                            <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                            <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
-                        </div>
-                    </div>
+                    <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $recipe, 'lite' => true)); ?>
                 </div>
             </article>
             <!-- /b-article-->

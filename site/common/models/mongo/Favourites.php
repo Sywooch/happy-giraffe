@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Author: alexk984
  * Date: 10.04.12
  */
 class Favourites extends EMongoDocument
 {
+
     const BLOCK_SIMPLE = 1;
     const BLOCK_INTERESTING = 2;
     const BLOCK_BLOGS = 3;
@@ -54,11 +56,6 @@ class Favourites extends EMongoDocument
         );
     }
 
-    public function beforeSave()
-    {
-        return parent::beforeSave();
-    }
-
     /**
      * Соединение с базой данных
      * @return EMongoDB
@@ -77,23 +74,27 @@ class Favourites extends EMongoDocument
      */
     public static function toggle($model, $block)
     {
-        $block = (int)$block;
+        $block = (int) $block;
         $criteria = new EMongoCriteria;
         $criteria->entity('==', get_class($model));
-        $criteria->entity_id('==', (int)$model->primaryKey);
+        $criteria->entity_id('==', (int) $model->primaryKey);
         $criteria->block('==', $block);
 
         $fav = self::model()->find($criteria);
-        if ($fav !== null) {
+        if ($fav !== null)
+        {
             return $fav->delete();
-        } else {
+        }
+        else
+        {
             $fav = new Favourites;
             $fav->entity = get_class($model);
-            $fav->entity_id = (int)$model->primaryKey;
+            $fav->entity_id = (int) $model->primaryKey;
 
-            switch ($block) {
+            switch ($block)
+            {
                 case self::WEEKLY_MAIL:
-                    $fav->date = date("Y-m-d", strtotime('next monday', time() - 3600*24));
+                    $fav->date = date("Y-m-d", strtotime('next monday', time() - 3600 * 24));
                     break;
                 case self::BLOCK_MAIL:
                     Yii::import('application.modules.mail.components.senders.*');
@@ -106,7 +107,7 @@ class Favourites extends EMongoDocument
             $criteria = new EMongoCriteria;
             $criteria->date('==', $fav->date);
             $criteria->block('==', $block);
-            $fav->index = (int)self::model()->count($criteria);
+            $fav->index = (int) self::model()->count($criteria);
             $fav->block = $block;
             $fav->created = date("Y-m-d H:i:s");
 
@@ -124,8 +125,8 @@ class Favourites extends EMongoDocument
     {
         $criteria = new EMongoCriteria;
         $criteria->entity('==', get_class($model));
-        $criteria->entity_id('==', (int)$model->primaryKey);
-        $criteria->block('==', (int)$block);
+        $criteria->entity_id('==', (int) $model->primaryKey);
+        $criteria->block('==', (int) $block);
 
         $fav = self::model()->find($criteria);
         return $fav !== null;
@@ -140,7 +141,7 @@ class Favourites extends EMongoDocument
     public static function getIdListByDate($index, $date)
     {
         $criteria = new EMongoCriteria;
-        $criteria->block('==', (int)$index);
+        $criteria->block('==', (int) $index);
         $criteria->date('==', $date);
         $criteria->sort('index', EMongoCriteria::SORT_ASC);
 
@@ -182,8 +183,10 @@ class Favourites extends EMongoDocument
         $models = CommunityContent::model()->findAll($criteria);
 
         $sorted_models = array();
-        foreach ($ids as $id) {
-            foreach ($models as $model) {
+        foreach ($ids as $id)
+        {
+            foreach ($models as $model)
+            {
                 if ($model->id == $id)
                     $sorted_models[] = $model;
             }
@@ -206,7 +209,7 @@ class Favourites extends EMongoDocument
     public static function getListByDate($index, $date)
     {
         $criteria = new EMongoCriteria;
-        $criteria->block('==', (int)$index);
+        $criteria->block('==', (int) $index);
         $criteria->date('==', $date);
         $criteria->sort('index', EMongoCriteria::SORT_ASC);
 
@@ -222,12 +225,14 @@ class Favourites extends EMongoDocument
      */
     public static function getListForCommentators($index)
     {
-        if ($index == self::WEEKLY_MAIL){
+        if ($index == self::WEEKLY_MAIL)
+        {
             return self::getIdsByDate($index, date("next monday"));
-        }else{
+        }
+        else
+        {
             return array_merge(
-                self::getIdsByDate($index, date("Y-m-d")),
-                self::getIdsByDate($index, date("Y-m-d", strtotime('+1 day')))
+                self::getIdsByDate($index, date("Y-m-d")), self::getIdsByDate($index, date("Y-m-d", strtotime('+1 day')))
             );
         }
     }
@@ -235,7 +240,7 @@ class Favourites extends EMongoDocument
     public static function getIdsByDate($index, $date)
     {
         $criteria = new EMongoCriteria;
-        $criteria->block('==', (int)$index);
+        $criteria->block('==', (int) $index);
         $criteria->date('==', $date);
 
         $models = self::model()->findAll($criteria);
@@ -255,7 +260,7 @@ class Favourites extends EMongoDocument
     public function changePosition($date, $index)
     {
         $criteria = new EMongoCriteria();
-        $criteria->addCond('block', '==', (int)$this->block);
+        $criteria->addCond('block', '==', (int) $this->block);
         $criteria->addCond('date', '==', $this->date);
         $criteria->setSort(array('index', EMongoCriteria::SORT_ASC));
         $elements = self::model()->findAll($criteria);
@@ -265,12 +270,16 @@ class Favourites extends EMongoDocument
         $elements = array_values($elements);
 
         $found = false;
-        for ($i = 0; $i < count($elements); $i++) {
-            if ($index == $i) {
+        for ($i = 0; $i < count($elements); $i++)
+        {
+            if ($index == $i)
+            {
                 $this->index = $i;
                 $found = true;
                 $elements[$i]->index = $i + 1;
-            } else {
+            }
+            else
+            {
                 if ($found)
                     $elements[$i]->index = $i + 1;
                 else
@@ -294,14 +303,16 @@ class Favourites extends EMongoDocument
         return CActiveRecord::model($this->entity)->resetScope()->findByPk($this->entity_id);
     }
 
-    public static  function getIdListByBlock($block)
+    public static function getIdListByBlock($block)
     {
         $criteria = new EMongoCriteria();
         $criteria->addCond('block', '==', $block);
         $models = self::model()->findAll($criteria);
-        $modelsIds = array_map(function($model) {
-            return $model->entity_id;
-        }, $models);
+        $modelsIds = array_map(function($model)
+            {
+                return $model->entity_id;
+            }, $models);
         return $modelsIds;
     }
+
 }

@@ -484,116 +484,137 @@ class SiteController extends HController
         }
     }
 
-    public function actionSeo()
+    protected function getPathes($ga, $start, $end, $searchEngine)
     {
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-        if ($_POST) {
-            foreach ($_POST as $k => $val)
-                Yii::app()->user->setState($k, $val);
-        }
-
-        if ($_POST || Yii::app()->request->isAjaxRequest) {
-            $result = array();
-            Yii::import('site.frontend.extensions.GoogleAnalytics');
-
-            $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
-            $ga->setProfile('ga:53688414');
-
-            $ga->setDateRange(Yii::app()->user->getState('period1Start'), Yii::app()->user->getState('period1End'));
-            $pathes1 = $ga->getReport(array(
-                'metrics' => 'ga:visits',
+        $cacheId = 'Yii.seo.paths.' . $start . '.' . $end . '.' . $searchEngine;
+        $paths = Yii::app()->cache->get($cacheId);
+        if ($paths === false) {
+            $ga->setDateRange($start, $end);
+            $paths = $ga->getReport(array(
+                'metrics' => 'ga:sessions',
                 'dimensions' => 'ga:pagePath',
                 'max-results' => 10000,
-                'sort' => '-ga:visits',
-                'filters' => 'ga:source==yandex',
+                'sort' => '-ga:sessions',
+                'filters' => 'ga:source=@' . $searchEngine,
             ));
-            foreach ($pathes1 as $path => $value) {
-                $result[$path] = array(
-                    'period1' => $value['ga:visits'],
-                    'period2' => 0,
-                    'diff' => 0,
-                    'diffC' => 0,
-                );
-            }
-
-            $ga->setDateRange(Yii::app()->user->getState('period2Start'), Yii::app()->user->getState('period2End'));
-            $pathes2 = $ga->getReport(array(
-                'metrics' => 'ga:visits',
-                'dimensions' => 'ga:pagePath',
-                'max-results' => 10000,
-                'sort' => '-ga:visits',
-                'filters' => 'ga:source==yandex',
-            ));
-            foreach ($pathes2 as $path => $value) {
-                if (isset($result[$path])) {
-                    $result[$path]['period2'] = $value['ga:visits'];
-                    $result[$path]['diff'] = ($result[$path]['period2'] - $result[$path]['period1']) * 100 / $result[$path]['period1'];
-                    $result[$path]['diffC'] = $result[$path]['period2'] - $result[$path]['period1'];
-                } else {
-                    $result[$path] = array(
-                        'period1' => 0,
-                        'period2' => $value['ga:visits'],
-                        'diff' => 0,
-                        'diffC' => 0,
-                    );
-                }
-            }
-
-            $_result = array();
-            foreach ($result as $k => $r) {
-                $r['id'] = $k;
-                if ($r['diff'] < 0)
-                    array_push($_result, $r);
-            }
-
-            $s = 0;
-            foreach ($_result as $v)
-                $s += $v['diffC'];
-
-            $dp = new CArrayDataProvider($_result, array(
-                'sort' => array(
-                    'attributes' => array('id', 'period1', 'period2', 'diffC', 'diff'),
-                    'defaultOrder' => array('diffC'=>false),
-                ),
-                'pagination' => array(
-                    'pageSize' => 5000,
-                ),
-            ));
+            Yii::app()->cache->set($cacheId, $paths);
         }
-        else
-            $dp = null;
-        $this->render('seo', compact('dp', 's'));
+        return $paths;
     }
 
-    public function actionSeo2()
-    {
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-        $dp = new EMongoDocumentDataProvider('Seo2', array(
-            'sort' => array(
-                'attributes' => array('google', 'yandex'),
-            ),
-            'pagination' => array(
-                'pageSize' => 200,
-            ),
-        ));
-        $this->render('seo2', compact('dp'));
-    }
+//    public function actionSeo()
+//    {
+//        $fromHG = false;
+//        $searchEngine = 'yandex';
+//
+//        if ($fromHG) {
+//            $fromHGMap = Yii::app()->db->createCommand('SELECT id FROM community__contents WHERE by_happy_giraffe = 1')->queryColumn();
+//        }
+//
+//        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+//        if ($_POST) {
+//            foreach ($_POST as $k => $val)
+//                Yii::app()->user->setState($k, $val);
+//        }
+//
+//        if ($_POST || Yii::app()->request->isAjaxRequest) {
+//            $result = array();
+//            Yii::import('site.frontend.extensions.GoogleAnalytics');
+//
+//            $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+//            $ga->setProfile('ga:53688414');
+//
+//            $pathes1 = $this->getPathes($ga, Yii::app()->user->getState('period1Start'), Yii::app()->user->getState('period1End'), $searchEngine);
+//            foreach ($pathes1 as $path => $value) {
+//                $result[$path] = array(
+//                    'period1' => $value['ga:sessions'],
+//                    'period2' => 0,
+//                );
+//            }
+//
+//            $pathes2 = $this->getPathes($ga, Yii::app()->user->getState('period2Start'), Yii::app()->user->getState('period2End'), $searchEngine);
+//            foreach ($pathes2 as $path => $value) {
+//                if (isset($result[$path])) {
+//                    $result[$path]['period2'] = $value['ga:sessions'];
+//                } else {
+//                    $result[$path] = array(
+//                        'period1' => 0,
+//                        'period2' => $value['ga:sessions'],
+//                    );
+//                }
+//            }
+//
+//            $_result = array();
+//            foreach ($result as $k => $r) {
+//                $r['id'] = $k;
+//                $r['diff'] = strtr($r['period1'] == 0 ? '-' : ($r['period2'] - $r['period1']) * 100 / $r['period1'], '.', ',');
+//                $r['diffC'] = $r['period2'] - $r['period1'];
+//
+//                if ($fromHG) {
+//                    $found = preg_match('#(\d+)\/$#', $k, $matches);
+//
+//                    if ($found == 0) {
+//                        continue;
+//                    }
+//
+//                    $id = $matches[1];
+//                    if (! array_search($id, $fromHGMap)) {
+//                        continue;
+//                    }
+//                }
+//
+//                if ($r['diffC'] < 0)
+//                    array_push($_result, $r);
+//            }
+//
+//            $s = 0;
+//            foreach ($_result as $v)
+//                $s += $v['diffC'];
+//
+//            $dp = new CArrayDataProvider($_result, array(
+//                'sort' => array(
+//                    'attributes' => array('id', 'period1', 'period2', 'diffC', 'diff'),
+//                    'defaultOrder' => array('diffC'=>false),
+//                ),
+//                'pagination' => array(
+//                    'pageSize' => 10000,
+//                ),
+//            ));
+//        }
+//        else
+//            $dp = null;
+//        $this->render('seo', compact('dp', 's'));
+//    }
 
-    public function actionSeo3()
-    {
-        $ageRange = AgeRange::model()->find();
-        var_dump($ageRange->test2);
-        die;
+//    public function actionSeo2()
+//    {
+//        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+//        $dp = new EMongoDocumentDataProvider('Seo2', array(
+//            'sort' => array(
+//                'attributes' => array('google', 'yandex'),
+//            ),
+//            'pagination' => array(
+//                'pageSize' => 200,
+//            ),
+//        ));
+//        $this->render('seo2', compact('dp'));
+//    }
 
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-        $dp = new EMongoDocumentDataProvider('Seo3', array(
-            'sort' => array(
-                'attributes' => array('google', 'yandex'),
-            ),
-            'pagination' => array(
-                'pageSize' => 200,
-            ),
-        ));
-        $this->render('seo2', compact('dp'));
-    }
+//    public function actionSeo3()
+//    {
+//        $ageRange = AgeRange::model()->find();
+//        var_dump($ageRange->test2);
+//        die;
+//
+//        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+//        $dp = new EMongoDocumentDataProvider('Seo3', array(
+//            'sort' => array(
+//                'attributes' => array('google', 'yandex'),
+//            ),
+//            'pagination' => array(
+//                'pageSize' => 200,
+//            ),
+//        ));
+//        $this->render('seo2', compact('dp'));
+//    }
 }

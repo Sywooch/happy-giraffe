@@ -15,6 +15,7 @@
  * @property integer $type
  * @property string $author_id
  * @property string $full
+ * @property int $type_id Для совместимости с CommunityContent. Возвращает CommunityContent::TYPE_RECIPE
  *
  * The followings are the available model relations:
  * @property CookRecipeIngredient[] $cookRecipeIngredients
@@ -221,6 +222,9 @@ class CookRecipe extends HActiveRecord implements IPreview
     public function behaviors()
     {
         return array(
+            'ContentBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
+            ),
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
@@ -243,9 +247,9 @@ class CookRecipe extends HActiveRecord implements IPreview
                 'class' => 'site.common.behaviors.DuplicateBehavior',
                 'error_text' => 'Вы только что создали рецепт с таким названием'
             ),
-            'yandexwm' => array(
-                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
-            ),
+//            'yandexwm' => array(
+//                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
+//            ),
         );
     }
 
@@ -329,7 +333,6 @@ class CookRecipe extends HActiveRecord implements IPreview
     {
         FriendEvent::postDeleted('CookRecipe', $this->id);
         Yii::app()->db->createCommand()->update($this->tableName(), array('removed' => 1), 'id=:id', array(':id' => $this->id));
-        NotificationDelete::entityRemoved($this);
 
         //удаляем из кулинарной книги автора, но у других рецепт остается
         if ($this->isBooked())
@@ -1102,5 +1105,10 @@ class CookRecipe extends HActiveRecord implements IPreview
     public function getPreviewPhoto()
     {
         return $this->getMainPhoto();
+    }
+    
+    public function getType_id()
+    {
+        return CommunityContent::TYPE_RECIPE;
     }
 }

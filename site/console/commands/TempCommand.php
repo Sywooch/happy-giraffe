@@ -595,5 +595,12 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
             }
         }
     }
+
+    public function actionRoute($id)
+    {
+        Yii::import('site.frontend.modules.routes.models.*');
+        $route = Route::model()->findByPk($id);
+        print_r($route->getTexts());
+    }
 }
 

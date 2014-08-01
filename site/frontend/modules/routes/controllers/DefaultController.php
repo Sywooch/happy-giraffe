@@ -37,7 +37,6 @@ class DefaultController extends ServiceController
             $this->meta_description = $texts['description'];
             $this->meta_keywords = $texts['keywords'];
             $points = $route->getIntermediatePoints();
-            NotificationRead::getInstance()->setContentModel($route);
             $this->render('view', compact('route', 'texts', 'points'));
         }
     }
@@ -123,7 +122,7 @@ class DefaultController extends ServiceController
         $models = Yii::app()->db->createCommand()
             ->select('id')
             ->from(Route::model()->tableName())
-            ->where('wordstat_value >= '.Route::WORDSTAT_LIMIT)
+            ->where(array('and', 'wordstat_value >= '.Route::WORDSTAT_LIMIT, array('in', 'status', array(Route::STATUS_ROSNEFT_FOUND, Route::STATUS_GOOGLE_PARSE_SUCCESS))))
             ->queryColumn();
 
         $data = array();

@@ -16,6 +16,7 @@
     
     <div class="col-1">
         <?php if ($this->action->id == 'view' || $this->forum->club_id == 11): ?>
+            <?php $this->beginWidget('AdsWidget'); ?>
             <div class="banner">
                 <!--AdFox START-->
                 <!--giraffe-->
@@ -47,14 +48,17 @@
                 </script>
                 <!-- _________________________AdFox Asynchronous code END___________________________ -->
             </div>
+            <?php $this->endWidget(); ?>
         <?php endif; ?>
 
         <?php $this->renderPartial('_users2'); ?>
 
         <?php if ($this->action->id == 'view'): ?>
+            <?php $this->beginWidget('AdsWidget'); ?>
             <div class="banner">
                 <?php $this->renderPartial('//banners/_sidebar'); ?>
             </div>
+            <?php $this->endWidget(); ?>
         <?php endif; ?>
 
         <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>

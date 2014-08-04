@@ -119,37 +119,30 @@
 .b-head__l {
     display: none;
 }
-.b-head__l, .b-head__specify {
-    padding: 0 12px 0 0;
-}
 .b-head__logo {
     margin-bottom: 8px;
 }
 .b-head__found {
     padding-left: 5px;
 }
-.b-specification-list,
-.b-head__specify {
-    //text-align: right !important;
-}
 
+.b-head__specify {
+
+    @media (min-width: @screen-phone) {
+        text-align: right;
+    }
+}
 .b-specification-list {
     font-size: 13px;
     color: #999 !important;
 
     @media (min-width: @screen-phone) {
         display: inline-block;
-    }
-}
-.b-head__specify {
-
-    @media (min-width: @screen-phone) {
         margin-left: 150px;
-        text-align: right;
     }
 }
 .b-specification-item {
-    margin: 3px 15px 0 0;
+    margin: 0 15px 2px 0;
     padding: 0;
     display: inline-block;
     text-align: left;
@@ -172,6 +165,14 @@
 .b-specification-list__reset {
     margin: 0 18px 0 0;
     padding: 0;
+    float: none;
+    display: block;
+
+    @media (min-width: @screen-phone-landscape) {
+        & {
+            float: right;
+        }
+    }
 }
 
 // Список выдачи

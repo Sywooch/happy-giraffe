@@ -399,7 +399,7 @@ class SeoTempCommand extends CConsoleCommand
     public function actionDelReposts()
     {
         $result = array();
-        $reposts = CommunityContent::model()->findAllByAttributes('type_id = :type', array(':type' => CommunityContent::TYPE_REPOST));
+        $reposts = CommunityContent::model()->findAllByAttributes(array('type_id' => CommunityContent::TYPE_REPOST));
         foreach ($reposts as $r) {
             $r->delete();
             echo $r->getUrl(false, true);

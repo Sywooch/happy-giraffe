@@ -101,9 +101,16 @@ $data = array(
             <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment(), 'comments-gray_i__recovery': removed(), 'comments-gray_i__pink' : specialistLabel() !== null}, attr: {id: 'comment_'+id()}">
 
                 <div class="comments-gray_ava">
+                    <!-- ko if: author.deleted() == 0 -->
                     <a class="ava middle" href="" data-bind="css: author.avatarClass(), attr:{href: author.url()}">
                         <img data-bind="attr : { src : author.avatar() }">
                     </a>
+                    <!-- /ko -->
+                    <!-- ko if: author.deleted() != 0 -->
+                    <span class="ava middle" data-bind="css: author.avatarClass()">
+                        <img data-bind="attr : { src : author.avatar() }">
+                    </span>
+                    <!-- /ko -->
                 </div>
 
                 <div class="comments-gray_r">
@@ -121,7 +128,12 @@ $data = array(
 
                 <div class="comments-gray_frame">
                     <div class="comments-gray_header clearfix">
+                        <!-- ko if: author.deleted() == 0 -->
                         <a href="" class="comments-gray_author" data-bind="text: author.fullName(), attr:{href: author.url()}"></a>
+                        <!-- /ko -->
+                        <!-- ko if: author.deleted() != 0 -->
+                        <span class="comments-gray_author" data-bind="text: author.fullName()"></span>
+                        <!-- /ko -->
                         <!-- ko if: specialistLabel() !== null -->
                         <span class="comments-gray_spec" data-bind="text: specialistLabel"></span>
                         <!-- /ko -->

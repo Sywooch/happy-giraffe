@@ -27,7 +27,7 @@ class DefaultController extends HController
         $filters = array();
 
         if (Yii::app()->user->isGuest) {
-            /*$filters[] = array(
+            $filters[] = array(
                 'CHttpCacheFilter + view',
                 'lastModified' => $this->lastModified->getDateTime(),
             );
@@ -54,7 +54,7 @@ class DefaultController extends HController
                 'COutputCache + section',
                 'duration' => 300,
                 'varyByParam' => array('section_id', 'CommunityContent_page'),
-            );*/
+            );
         }
 
         return $filters;
@@ -479,5 +479,13 @@ class DefaultController extends HController
         }
 
         return $data;
+    }
+
+    public function actionContacts()
+    {
+        $this->forum = Community::model()->findByPk(Community::COMMUNITY_NEWS);
+        $this->pageTitle = 'О нас';
+        $this->layout = '//layouts/news';
+        $this->render('contacts');
     }
 }

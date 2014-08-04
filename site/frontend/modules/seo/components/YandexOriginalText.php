@@ -83,24 +83,23 @@ class YandexOriginalText
 
     public function add(SeoYandexOriginalText &$model)
     {
-        $length = strlen($model->full_text);
+        $text = html_entity_decode(strip_tags($model->full_text), null, 'UTF-8');
+
+        $length = mb_strlen($text, 'UTF-8');
         if ($length < self::MIN_SYMBOLS || $length > self::MAX_SYMBOLS) {
             if (! $model->isNewRecord) {
                 return $model->delete();
             }
-            return true;
+            return false;
         }
 
         $xml = new \SimpleXMLElement('<original-text/>');
-        $xml->addChild('content', $model->full_text);
+        $xml->addChild('content', $text);
         $response = $this->api->client->post(self::ORIGINAL_TEXTS_URL, urlencode($xml->asXML()));
 
         if ($this->api->client->status() != 201) {
             return false;
         }
-
-        echo $model->id . "\n";
-        var_dump($response);
 
         $responseXml = new \SimpleXMLElement($response);
         $model->added = new \CDbExpression('NOW()');

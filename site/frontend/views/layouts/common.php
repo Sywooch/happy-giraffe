@@ -5,6 +5,9 @@
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="x-dns-prefetch-control" content="on" />
+        <link rel="dns-prefetch" href="//plexor.www.happy-giraffe.ru" />
+        <link rel="dns-prefetch" href="//img.happy-giraffe.ru" />
         <?php if (! YII_DEBUG): ?>
         <script type='text/javascript'>
             window.Muscula = { settings:{
@@ -65,58 +68,7 @@
     <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
         <?=$content?>
 
-        <?php if (YII_DEBUG === false): ?>
-        <!-- Yandex.Metrika counter -->
-        <script type="text/javascript">
-            (function (d, w, c) {
-                (w[c] = w[c] || []).push(function() {
-                    try {
-                        w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true, trackHash:true, webvisor:true});
-                    } catch(e) {}
-                });
-
-                var n = d.getElementsByTagName("script")[0],
-                    s = d.createElement("script"),
-                    f = function () { n.parentNode.insertBefore(s, n); };
-                s.type = "text/javascript";
-                s.async = true;
-                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-                if (w.opera == "[object Opera]") {
-                    d.addEventListener("DOMContentLoaded", f);
-                } else { f(); }
-            })(document, window, "yandex_metrika_callbacks");
-        </script>
-        <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <!-- /Yandex.Metrika counter -->
-
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', 'UA-27545132-1', 'happy-giraffe.ru');
-            ga('send', 'pageview');
-
-        </script>
-
-        <script type="text/javascript">
-            var _top100q = _top100q || [];
-
-            _top100q.push(["setAccount", "2900190"]);
-            _top100q.push(["trackPageviewByLogo", document.getElementById("counter-rambler")]);
-
-
-            (function(){
-                var top100 = document.createElement("script"); top100.type = "text/javascript";
-
-                top100.async = true;
-                top100.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//st.top100.ru/top100/top100.js";
-                var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
-            })();
-        </script>
-        <?php endif; ?>
+        <?php Yii::app()->ads->showCounters(); ?>
 
         <?php if (false): ?>
         <!-- tns-counter.ru -->

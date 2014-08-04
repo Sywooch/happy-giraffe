@@ -94,7 +94,9 @@ if ($full) {
         <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
 
         <?php if ($full): ?>
+            <?php $this->beginWidget('AdsWidget'); ?>
             <?php $this->renderPartial('//banners/_post_footer', compact('data')); ?>
+            <?php $this->endWidget(); ?>
         <?php endif; ?>
 
         <?php if ($full && $data->contestWork !== null): ?>
@@ -123,7 +125,9 @@ if ($full) {
 <?php endif; ?>
 
 <?php if ($full): ?>
+    <?php $this->beginWidget('AdsWidget'); ?>
     <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
+    <?php $this->endWidget(); ?>
 <?php endif; ?>
 
 <?php if ($full): ?>

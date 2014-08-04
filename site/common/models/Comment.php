@@ -13,6 +13,7 @@
  * @property string $response_id
  * @property string $quote_id
  * @property string $quote_text
+ * @property string $root_id
  * @property string $removed
  * @property CommunityContent $commentEntity Комментируемая сущность
  *
@@ -237,6 +238,17 @@ class Comment extends HActiveRecord
             }
         }
         parent::afterSave();
+    }
+    
+    public function insert($attributes = null)
+    {
+        $result = parent::insert($attributes);
+        // обновим root_id
+        $this->root_id = is_null($this->response_id) ? $this->id : $this->response->root_id;
+        // сделаем это быстро
+        $this->updateByPk($this->id, array('root_id' => $this->root_id));
+        
+        return $result;
     }
 
     public function beforeSave()
@@ -538,11 +550,12 @@ class Comment extends HActiveRecord
                 'avatar' => $comment->author->getAvatarUrl(40),
                 'online' => (bool) $comment->author->online,
                 'url' => $comment->author->getUrl(),
+                'deleted' => $comment->author->deleted,
             ),
             'likesCount' => HGLike::model()->countByEntity($comment),
             'userLikes' => HGLike::model()->hasLike($comment, Yii::app()->user->id),
-            'canRemove' => (!Yii::app()->user->isGuest && Yii::app()->user->group != UserGroup::USER && Yii::app()->user->model->checkAuthItem('removeComment') || Yii::app()->user->id == $comment->author_id || $comment->isEntityAuthor(Yii::app()->user->id)),
-            'canEdit' => (!Yii::app()->user->isGuest && Yii::app()->user->group != UserGroup::USER && Yii::app()->user->model->checkAuthItem('editComment') || Yii::app()->user->id == $comment->author_id),
+            'canRemove' => (!Yii::app()->user->isGuest && Yii::app()->user->group != UserGroup::USER && Yii::app()->user->model->checkAuthItem('removeComment') || (Yii::app()->user->id == $comment->author_id && Yii::app()->user->id != 167771) || $comment->isEntityAuthor(Yii::app()->user->id)),
+            'canEdit' => (!Yii::app()->user->isGuest && Yii::app()->user->group != UserGroup::USER && Yii::app()->user->model->checkAuthItem('editComment') || (Yii::app()->user->id == $comment->author_id && Yii::app()->user->id != 167771)),
             'photoUrl' => ($album_comments && $comment->entity == 'AlbumPhoto') ? $comment->getCommentEntity()->getPreviewUrl(170, 110, false, true) : false,
             'photoId' => ($album_comments && $comment->entity == 'AlbumPhoto') ? $comment->getCommentEntity()->id : false,
             'specialistLabel' => ($comment->entity == 'CommunityContent' && $comment->getCommentEntity()->type_id == CommunityContentType::TYPE_QUESTION && ($specialist = $comment->author->getSpecialist($comment->getCommentEntity()->rubric->community_id)) !== null) ? mb_strtolower($specialist->title, 'UTF-8') : null,

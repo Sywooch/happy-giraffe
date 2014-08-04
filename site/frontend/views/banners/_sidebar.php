@@ -34,3 +34,4 @@
         t.parentNode.insertBefore(s, t);
     })(window, document, "yandex_context_callbacks");
 </script>
+<?php $this->endWidget(); ?>

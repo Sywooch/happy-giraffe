@@ -429,7 +429,7 @@ class SeoTempCommand extends CConsoleCommand
     {
         Yii::import('site.frontend.modules.cook.models.*');
 
-        $dp = new CActiveDataProvider('CookRecipe');
+        $dp = new CActiveDataProvider('RecipeBookRecipe');
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $recipe) {
             $dom = str_get_html($recipe->text);

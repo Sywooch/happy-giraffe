@@ -58,8 +58,8 @@
                             <h1 class="heading-link-xxl">Народные рецепты</h1>
                         </div>
                     </div>
+                    <?=$content?>
                 </div>
-                <?=$content?>
             </div>
             <!-- b-main -->
             <!-- layout-footer-->

@@ -429,5 +429,11 @@ class SeoTempCommand extends CConsoleCommand
     {
         $dp = new CActiveDataProvider('CookRecipe');
         $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $recipe) {
+            $dom = str_get_html($recipe->purified->text);
+            if (count($dom->find('h1')) > 0) {
+                echo $recipe->getUrl(false, true) . "\n";
+            }
+        }
     }
 } 

@@ -1,3 +1,4 @@
+<?php $this->beginWidget('AdsWidget'); ?>
 <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
 <div id="yandex_ad_sidebar"></div>
 <script type="text/javascript">

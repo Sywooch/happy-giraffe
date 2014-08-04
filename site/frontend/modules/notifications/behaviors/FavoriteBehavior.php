@@ -30,7 +30,7 @@ class FavoriteBehavior extends BaseBehavior
     protected function addNotification($model)
     {
         $entity = \CommunityContent::model($model->model_name)->findByPk($model->model_id);
-        $notification = $this->findOrCreateNotification($model->model_name, (int) $model->model_id, $entity->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_NEW_FAVOURITE, array($model->user_id, $model->user->getAvaOrDefaultImage(\Avatar::SIZE_MICRO)));
+        $notification = $this->findOrCreateNotification($model->model_name, (int) $model->model_id, $entity->author_id, \site\frontend\modules\notifications\models\Notification::TYPE_NEW_FAVOURITE, array($model->user_id, $model->user->getAvatarUrl(\Avatar::SIZE_MICRO)));
 
         $exists = false;
         if ($notification->unreadEntities)

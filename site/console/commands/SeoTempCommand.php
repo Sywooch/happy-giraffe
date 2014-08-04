@@ -424,4 +424,10 @@ class SeoTempCommand extends CConsoleCommand
         }
         $this->writeCsv('tags', $result);
     }
+
+    public function actionFindHeaders()
+    {
+        $dp = new CActiveDataProvider('CookRecipe');
+        $iterator = new CDataProviderIterator($dp, 1000);
+    }
 } 

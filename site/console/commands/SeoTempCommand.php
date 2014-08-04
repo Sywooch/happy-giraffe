@@ -438,4 +438,28 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionTitles()
+    {
+        $result = array();
+
+        $dp = new CActiveDataProvider('CommunityContent');
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $data) {
+            if (preg_match('#[^\.][\.]$#', rtrim($data->title))) {
+                $result[] = array($data->title, $data->getUrl(false, true));
+            }
+        }
+
+        $dp = new CActiveDataProvider('CookRecipe');
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $data) {
+            if (preg_match('#[^\.][\.]$#', rtrim($data->title))) {
+                $result[] = array($data->title, $data->getUrl(false, true));
+            }
+        }
+
+        $this->writeCsv('titles', $result);
+    }
+
 } 

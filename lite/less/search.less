@@ -1,0 +1,314 @@
+
+// Стили для yandex поиска
+// Независимы от всего остального кода
+
+//== Media queries breakpoints
+//
+//## Define the breakpoints at which your layout will change, adapting to different screen sizes.
+
+// Small phone
+// Note: Добавленая точка.
+@screen-xxs:                  320px;
+@screen-xxs-min:              @screen-xxs;
+@screen-xphone:               @screen-xxs-min;
+
+// Extra small screen / phone
+// Note: Deprecated @screen-xs and @screen-phone as of v3.0.1
+// Note: Deprecated @screen-xs-min as of v3.2.0
+@screen-xs:                  480px;
+@screen-xs-min:              @screen-xs;
+@screen-phone:               @screen-xs-min;
+
+// Small screen / phone-landscape
+// Note: Добавленая точка. Для колонки в 600пк
+@screen-sm-mid:              640px;
+@screen-sm-mid-min:          @screen-sm-mid;
+@screen-phone-landscape:     @screen-sm-mid-min;
+
+// Small screen / tablet
+// Note: Deprecated @screen-sm and @screen-tablet as of v3.0.1
+@screen-sm:                  768px;
+@screen-sm-min:              @screen-sm;
+@screen-tablet:              @screen-sm-min;
+
+// Medium screen / desktop
+// Note: Deprecated @screen-md and @screen-desktop as of v3.0.1
+@screen-md:                  1025px;
+@screen-md-min:              @screen-md;
+@screen-desktop:             @screen-md-min;
+
+// Large screen / wide desktop
+// Note: Deprecated @screen-lg and @screen-lg-desktop as of v3.0.1
+@screen-lg:                  4025em;  /// Пока не испольуемая точка перестройки, так как ширина максимум 1000
+@screen-lg-min:              @screen-lg;
+@screen-lg-desktop:          @screen-lg-min;
+
+// So media queries don't overlap when required, provide a maximum
+@screen-xs-max:              (@screen-sm-min - 1);
+@screen-sm-mid-max:          (@screen-sm-mid-min - 1);
+@screen-sm-max:              (@screen-md-min - 1);
+@screen-md-max:              (@screen-lg-min - 1);
+
+
+// Поле ввода
+#ya-site-form0 .ya-site-form__search-input {
+    padding: 0;
+}
+#ya-site-form0 .ya-site-form__form .ya-site-form__input-text {
+    display: block;
+    width: 100%;
+    height: 38px;
+    border: 2px solid #a3e19c !important;
+    padding: 10px 40px 10px 15px;
+    font-size: 14px !important;
+    line-height: 16px !important;
+    background: #fff;
+    color: #333;
+    border-radius: 18px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    word-wrap: normal;
+    word-break: normal;
+}
+#ya-site-form0 .ya-site-form__form .ya-site-form__input-text:focus {
+    border-color: #afd0fb !important;
+}
+#ya-site-form0 .ya-site-form__search-input-layout-r {
+    position: relative;
+    width: 0;
+}
+#ya-site-form0 .ya-site-form__submit_type_image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 38px;
+    background: #aaa;
+    background: url('/lite/images/ya-site-form__submit_type_image.png') no-repeat;
+}
+#ya-site-form0 .ya-site-form__submit_type_image:hover {
+    background-position: -40px 0;
+}
+
+// Выдача
+// Шапка выдачи
+.b-head {
+    margin-top: 10px;
+}
+.b-head__r, 
+.b-head__l {
+    padding: 10px 0 0;
+
+    @media (min-width: @screen-phone) {
+        
+    }
+}
+.b-head__l, .b-head__specify {
+    padding: 0 12px 0 0;
+}
+.b-head__logo {
+    margin-bottom: 8px;
+}
+.b-head__found {
+    padding-left: 5px;
+}
+.b-specification-list,
+.b-head__specify {
+    //text-align: right !important;
+}
+
+.b-specification-list {
+    font-size: 13px;
+    color: #999 !important;
+
+    @media (min-width: @screen-phone) {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+.b-specification-item {
+    margin: 7px 0 0;
+    padding: 0;
+    display: block;
+    text-align: left;
+
+    @media (min-width: @screen-phone) {
+        & {
+            display: inline-block;
+            padding: 0 0 0 18px;
+        }
+    }
+}
+.b-specification-list .b-pseudo-link {
+    color: #666666 !important;
+    border-bottom: 1px dotted #666;
+}
+#ya-site-results .b-specification-list .b-pseudo-link:hover {
+    color: #333 !important;
+    border-color: #333;
+    text-decoration: none;
+}
+
+// Список выдачи
+#ya-site-results {
+    color: #333;
+}
+.b-body-items {
+    padding: 0;
+
+    @media (min-width: @screen-phone) {
+        & {
+            padding-left: 50px;
+        }
+    }
+}
+#ya-site-results .b-serp-item__number,
+.b-serp-item__number {
+    display: none;
+
+    @media (min-width: @screen-phone) {
+        & {
+            display: block;
+            color: #666 !important;
+            font-size: 14px;
+            margin-top: 0;
+        }
+    }
+}
+
+#ya-site-results .b-serp-item__title-link:link, 
+#ya-site-results .b-serp-item__title-link,
+#ya-site-results a {
+    font-size: 15px;
+    font-weight: bold;
+    color: #196eb9;
+    text-decoration: underline;
+}
+#ya-site-results .b-serp-list :link:hover, 
+#ya-site-results .b-serp-list :visited:hover, 
+#ya-site-results .b-pseudo-link:hover {
+    color: #90c3ef !important;
+    text-decoration: underline;
+}
+#ya-site-results .b-serp-list :visited,  
+#ya-site-results .b-serp-list .b-copyright__link:visited {
+    color: #8a74b0;
+}
+#ya-site-results .b-serp-item__text {
+    margin: 3px 0 5px;
+    font-size: 14px;
+    color: #666666;
+}
+#ya-site-results .b-serp-item__text b {
+    color: #333;
+}
+
+#ya-site-results .b-serp-url, 
+#ya-site-results .b-direct .url, 
+#ya-site-results .b-direct .url a:link, 
+#ya-site-results .b-direct .url a:visited {
+    color: #3498db;
+}
+#ya-site-results .b-serp-item__links-link {
+    color: #3498db !important;
+}
+
+// Подвал
+.b-pager__title,
+.b-pager__arrow {
+    display: none;
+}
+body .g-gap-horizontal {
+    margin-left: 0;
+
+    @media (min-width: @screen-phone) {
+        margin-left: 10px;
+    }
+    @media (min-width: @screen-tablet) {
+        margin-left: 50px;
+    }
+}
+
+// Пейджер
+#ya-site-results .b-pager__pages :link {
+    display: inline-block;
+    font-size: 17px;
+    line-height: 30px;
+    padding: 0 10px;
+    background: #fff;
+    color: #b5b5b5;
+    text-decoration: none;
+    font-weight: normal;
+}
+#ya-site-results .b-pager__pages :link:hover {
+    color: #333 !important;
+}
+#ya-site-results .b-pager__current {
+    display: inline-block;
+    padding: 0 10px;
+    font-size: 17px;
+    line-height: 30px;
+    background-color: #6accff;
+    font-weight: bold;
+    color: #fff !important;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.b-pager__sorted {
+    font-size: 13px;
+    color: #666;
+}
+#ya-site-results .b-pager__select {
+    display: table-cell;
+    margin: 3px 0;
+    background-color: #f7f7f7;
+
+    @media (min-width: @screen-phone) {
+        & {
+            display: inline-block;
+            margin: 0 4px;
+        }
+    }
+}
+#ya-site-results .b-pager__sorted .b-link {
+    font-weight: normal;
+    font-size: 13px;
+    color: #3498db !important;
+    display: block;
+
+    @media (min-width: @screen-phone) {
+        & {
+            display: inline-block;
+        }
+    }
+}
+#ya-site-results .b-pager__sorted .b-link:hover {
+    text-decoration: none;
+}
+
+.ya-copy {
+    display: none;
+
+    @media (min-width: @screen-phone) {
+        display: block;
+        position: absolute;
+        top: -51px;
+        right: 0;
+        color: #666;
+    }
+}
+.ya-copy a {
+    display: block;
+    text-align: right;
+
+    @media (min-width: @screen-phone-landscape) {
+        & {
+            display: inline-block;
+        }
+    }
+
+}

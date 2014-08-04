@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/blog.css' />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -30,34 +30,77 @@
   <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
-<body class="body body__bg1 body__lite">
-  <!--///////////////////////////////////////-->
-  <!-- Дата последних изменений --> <!-- Fri Aug 01 2014 09:51:44 -->
-  <!--///////////////////////////////////////-->
+<body class="body body__bg1 body__lite body__user">
   <div class="layout-container">
     <div class="layout-loose layout-loose__white">
       <div class="layout-header">
         <!-- header-->
-        <header class="header header__title">
+        <div class="header header__user">
           <div class="header_hold clearfix">
-            <div class="header_title"><a href="" class="header_arrow-l"></a>
-              <!-- ava--><a href="" class="ava ava__small ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-              <h1 class="header_title-tx"><a href="" class="header_title-a">Банановая выпечка: 5 рецептов</a></h1>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
+                <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a">
+                    <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                  <div class="header-drop">
+                    <div class="header-menu clearfix">
+                      <ul class="header-menu_ul">
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                              <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                      </ul>
+                    </div>
+                    <!-- header-drop_b-->
+                    <div class="header-drop_b">
+                      <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                      <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                      <div class="club-list club-list__small clearfix">
+                        <ul class="club-list_ul clearfix">
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /header-drop_b-->
+                  </div>
+                  <!-- /header-drop -->
+                </li>
+              </ul>
             </div>
+            <!-- /header-menu-->
           </div>
-        </header>
+        </div>
         <!-- /header-->
       </div>
       <div class="layout-loose_hold clearfix">
-        <!-- b-main-->
+        <!-- b-main -->
         <div class="b-main clearfix">
-          <div class="b-main_row b-main_row__gray clearfix">
-            <div class="b-main_cont">
-              <div class="comments comments__title">
-                <!--  Сортировка на будущееa.comments_sort(href="") Начать с первых
-                -->
-                <div class="comments_t">Комментарии 68 </div>
-              </div>
+          <div class="b-main_cont">
+            <div class="b-crumbs b-crumbs__s">
+              <div class="b-crumbs_tx">Я здесь:</div>
+              <ul class="b-crumbs_ul">
+                <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Главная </a></li>
+                <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Народные рецепты</a></li>
+                <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Лимфаденит</a></li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Лечим лимфаденит соком</span></li>
+              </ul>
             </div>
           </div>
           <div class="b-main_cont">
@@ -65,6 +108,65 @@
               <!--/////-->
               <!-- Основная колонка-->
               <div class="b-main_col-article">
+                <!-- b-article-->
+                <article class="b-article clearfix">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_header clearfix">
+                      <div class="icons-meta"><a href="" class="icons-meta_comment"><span class="icons-meta_tx">35</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
+                      </div>
+                      <div class="float-l">
+                        <!-- ava--><a href="" class="ava ava__female ava__middle-sm-mid ava__small-xs"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                        <div class="b-article_author"><a href="" class="a-light">Ангелина Богоявленская</a></div>
+                        <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                      </div>
+                    </div>
+                    <h1 class="b-article_t">Лечим лимфаденит соком</h1>
+                    <div class="b-article_in clearfix">
+                      <div class="wysiwyg-content clearfix">
+                        <p>Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».</p>
+                        <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
+                        <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. </p>
+                        <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
+                      </div>
+                      <div class="ingredients">
+                        <h3 class="ingredients_t">Ингредиенты:</h3>
+                        <ul class="ingredients_ul">
+                          <li class="ingredients_i">Свекольный сок - 50 мл. </li>
+                          <li class="ingredients_i">Курица - 2 шт. </li>
+                        </ul>
+                      </div>
+                      <div class="b-tags"><a href="" class="b-tags_tag">Болезни кровообращения</a><a href="" class="b-tags_tag">Лимфаденит</a></div>
+                    </div>
+                    <div class="textalign-c visible-md-block">
+                      <div class="like-control like-control__line">
+                        <div class="like-control_hold"><a href="" title="Нравится" class="like-control_i like-control_i__like powertip">
+                            <div class="like-control_t">Мне нравится!</div>
+                            <div class="ico-action-hg ico-action-hg__like"></div>
+                            <div class="like-control_tx">865</div></a></div>
+                        <div class="like-control_hold"><a href="" title="В избранное" class="like-control_i like-control_i__idea powertip">
+                            <div class="like-control_t">В закладки</div>
+                            <div class="ico-action-hg ico-action-hg__favorite"></div>
+                            <div class="like-control_tx">863455</div></a></div>
+                      </div>
+                    </div>
+                    <div class="custom-likes">
+                      <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
+                      <div class="custom-likes_in">
+                        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                        <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <!-- /b-article-->
+                <table class="article-nearby clearfix">
+                  <tr>
+                    <td><a href="" class="article-nearby_a article-nearby_a__l"><span class="article-nearby_tx">Как приготовить Монастыпскую избу </span></a></td>
+                    <td><a href="" class="article-nearby_a article-nearby_a__r"><span class="article-nearby_tx">Готовим  Торт Сметанник в домашних условиях</span></a></td>
+                  </tr>
+                </table>
+                <div class="adv-yandex"><a href="" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
                 <!-- comments-->
                 <section class="comments comments__buble">
                   <div class="comments-menu">
@@ -278,23 +380,9 @@
               <!-- /Основная колонка-->
             </div>
           </div>
-          <!-- баннер на всю ширину-->
-          <div class="ban-read-more">
-            <div class="ban-read-more_hold">
-              <div class="ban-read-more_cont">
-                <div class="ban-read-more_t-sub">Рекомендуем для чтения</div>
-                <div class="ban-read-more_author clearfix">
-                  <!-- Аватарки размером 40*40-->
-                  <!-- ava--><a href="" class="ava ava__middle ava__small-xs"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="a-light">Ангелина Богоявленская</a>
-                </div><a href="" class="ban-read-more_t">Внимание, опрос! </a>
-                <div class="ban-read-more_desc">Вот, девочки, напала на вот такую красоту в интернете. И вдруг вспомнила, что муж у меня уже много много лет мечтает ...</div><a href="" class="ban-read-more_arrow"></a>
-              </div>
-            </div>
-          </div>
-          <!-- /баннер-->
         </div>
         <!-- layout-footer-->
-        <div class="layout-footer clearfix layout-footer__in">
+        <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
               <li class="footer-list_li visible-md-inline-block"><a href="" class="footer-list_a">О нас</a></li>
@@ -318,34 +406,8 @@
         </div>
         <!-- /layout-footer-->
       </div>
-      <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
     </div>
   </div>
   <div class="popup-container display-n"> 
   </div>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script>
-    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
-    
-  </script>
-  <script src="/lite/javascript/modernizr.custom.js"></script>
-  <!-- Адаптивные изображения tag picture-->
-  <script src="/lite/javascript/picturefill.min.js"></script>
-  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
-  <script src="/lite/javascript/bootstrap/tab.js"></script>
-  <!-- tooltip-->
-  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
-  <!-- popup-->
-  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
-  <script src="/lite/javascript/baron.js"></script>
-  <script src="/lite/redactor/redactor.js"></script>
-  <script src="/lite/redactor/lang/ru.js"></script>
-  <script src="/lite/redactor/plugins/fullscreen/fullscreen.js"></script>
-  <script src="/lite/redactor/plugins/btnvideo/btnvideo.js"></script>
-  <script src="/lite/redactor/plugins/formatbtn/formatbtn.js"></script>
-  <!-- -->
-  <script src="/lite/javascript/common.js"></script>
-  <script src="/lite/javascript/common-markup.js"></script>
-  <!-- livereload-->
-  <script src="//localhost:35729/livereload.js"></script>
 </body></html>

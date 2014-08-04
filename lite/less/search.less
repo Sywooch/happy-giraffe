@@ -93,16 +93,27 @@
 
 // Выдача
 // Шапка выдачи
+.bhead_result {
+    margin-top: 15px;
+
+    @media (min-width: @screen-phone) {
+        & {
+            margin: 22px 0 0;
+        }
+    }
+}
 .b-head {
-    margin-top: 10px;
+    position: relative;
+
+    @media (min-width: @screen-phone) {
+        margin-top: -18px;
+        margin-bottom: 22px;
+        
+    }
 }
 .b-head__r, 
 .b-head__l {
-    padding: 10px 0 0;
-
-    @media (min-width: @screen-phone) {
-        
-    }
+    display: none;
 }
 .b-head__l, .b-head__specify {
     padding: 0 12px 0 0;
@@ -129,15 +140,14 @@
     }
 }
 .b-specification-item {
-    margin: 7px 0 0;
+    margin: 3px 15px 0 0;
     padding: 0;
-    display: block;
+    display: inline-block;
     text-align: left;
 
     @media (min-width: @screen-phone) {
         & {
-            display: inline-block;
-            padding: 0 0 0 18px;
+            margin: 0 18px 0 10px;
         }
     }
 }
@@ -160,7 +170,12 @@
 
     @media (min-width: @screen-phone) {
         & {
-            padding-left: 50px;
+            padding-right: 50px;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        & {
+            padding-right: 80px;
         }
     }
 }
@@ -168,14 +183,14 @@
 .b-serp-item__number {
     display: none;
 
-    @media (min-width: @screen-phone) {
+    /*@media (min-width: @screen-phone) {
         & {
             display: block;
             color: #666 !important;
             font-size: 14px;
             margin-top: 0;
         }
-    }
+    }*/
 }
 
 #ya-site-results .b-serp-item__title-link:link, 
@@ -186,8 +201,8 @@
     color: #196eb9;
     text-decoration: underline;
 }
-#ya-site-results .b-serp-list :link:hover, 
-#ya-site-results .b-serp-list :visited:hover, 
+#ya-site-results .b-serp-item__title-link:link:hover, 
+#ya-site-results .b-serp-item__title-link:visited:hover, 
 #ya-site-results .b-pseudo-link:hover {
     color: #90c3ef !important;
     text-decoration: underline;
@@ -214,6 +229,21 @@
 #ya-site-results .b-serp-item__links-link {
     color: #3498db !important;
 }
+.b-serp-item__links-item {
+    display: none;
+}
+#ya-site-results .tsearch_list__title-link,
+#ya-site-results .tsearch_list__title-link:visited {
+    font-size: 12px;
+    color: #3498db;
+    text-decoration: none;
+    font-weight: normal;
+}
+#ya-site-results .tsearch_list__title-link:hover,
+#ya-site-results .tsearch_list__title-link:visited:hover {
+    color: #f17504 !important;
+    text-decoration: none;
+}
 
 // Подвал
 .b-pager__title,
@@ -223,17 +253,19 @@
 body .g-gap-horizontal {
     margin-left: 0;
 
-    @media (min-width: @screen-phone) {
+    /*@media (min-width: @screen-phone) {
         margin-left: 10px;
     }
     @media (min-width: @screen-tablet) {
         margin-left: 50px;
-    }
+    }*/
 }
 
 // Пейджер
+#ya-site-results .b-pager__pages :visited,
 #ya-site-results .b-pager__pages :link {
     display: inline-block;
+    margin: 0 3px;
     font-size: 17px;
     line-height: 30px;
     padding: 0 10px;
@@ -242,8 +274,9 @@ body .g-gap-horizontal {
     text-decoration: none;
     font-weight: normal;
 }
+#ya-site-results .b-pager__pages :visited:hover,
 #ya-site-results .b-pager__pages :link:hover {
-    color: #333 !important;
+    color: #666 !important;
 }
 #ya-site-results .b-pager__current {
     display: inline-block;
@@ -296,9 +329,14 @@ body .g-gap-horizontal {
     @media (min-width: @screen-phone) {
         display: block;
         position: absolute;
-        top: -51px;
+        bottom: -19px;
         right: 0;
         color: #666;
+    }
+    @media (min-width: @screen-phone-landscape) {
+        & {
+            bottom: 0;
+        }
     }
 }
 .ya-copy a {

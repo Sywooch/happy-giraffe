@@ -5,7 +5,7 @@ block vars
     - global.cssFile = 'blog.css'; 
     
 block layout
-    
+
     // b-main 
     .b-main.clearfix
         .b-main_cont
@@ -110,6 +110,10 @@ block layout
                     #ya-site-results
                         div(style='position: relative;')
                             yass-div.b-wrapper.b-wrapper_is-bem_yes.i-bem.b-wrapper_js_inited(onclick='return { "b-wrapper" : {}}', style='display: block;')
+                                .bhead_result
+                                    | Найдено 
+                                    b 3490
+                                    | &nbsp;ответов
                                 table.b-head.b-head_type_search-simple
                                     tbody
                                         tr
@@ -219,7 +223,8 @@ block layout
                                                                     | !!!! Приветик ВСЕМ, что то я заработалась.... Захожу на сайт на минутку и почти не с кем не общаюсь....
                                                                 yass-div.b-serp-item__links
                                                                     yass-span.b-serp-url.b-serp-url_inline_yes
-                                                                        yass-span.b-serp-url__item happy-giraffe.ru/user/15501/blog/post36112/
+                                                                        yass-span.b-serp-url__item 
+                                                                            a.tsearch_list__title-link(target="_blank", href="http://www.happy-giraffe.ru/pregnancy-and-children/") happy-giraffe.ru/pregnancy-and-children/
                                                                     yass-span.b-serp-item__links-item
                                                                         a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F15501%2Fblog%2Fpost36112%2F&tld=ru&lang=ru&la=1404566528&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=75e4674cf9ec897cf7f70bb0fe0dfc52&keyno=0', target='_blank') сохранённая копия
                                                         yass-li.b-serp-item
@@ -235,7 +240,8 @@ block layout
                                                                     b Привет
                                                                 yass-div.b-serp-item__links
                                                                     yass-span.b-serp-url.b-serp-url_inline_yes
-                                                                        yass-span.b-serp-url__item happy-giraffe.ru/user/15497/blog/post29276/
+                                                                        yass-span.b-serp-url__item 
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/15497/blog/post29276/
                                                                     yass-span.b-serp-item__links-item
                                                                         a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F15497%2Fblog%2Fpost29276%2F&tld=ru&lang=ru&la=1397028096&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=2657ec9946506f1f9a897bbfc5e8dd16&keyno=0', target='_blank') cохранённая копия
                                                         yass-li.b-serp-item
@@ -251,7 +257,8 @@ block layout
                                                                     | , красотулечки!!!! Всем доброго утра, а у кого уже день - доброго дня! Заходите в гости.
                                                                 yass-div.b-serp-item__links
                                                                     yass-span.b-serp-url.b-serp-url_inline_yes
-                                                                        yass-span.b-serp-url__item happy-giraffe.ru/user/189230/blog/post187007/
+                                                                        yass-span.b-serp-url__item 
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/189230/blog/post187007/
                                                                     yass-span.b-serp-item__links-item
                                                                         a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F189230%2Fblog%2Fpost187007%2F&tld=ru&lang=ru&la=1406185600&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=1abc1dc4cd3a02074fff24a03614ca2e&keyno=0', target='_blank') сохранённая копия
                                                         yass-li.b-serp-item
@@ -269,7 +276,8 @@ block layout
                                                                     | !!! Молодая мама это наверное супер, хотя во всем есть свои плюсы и минусы.
                                                                 yass-div.b-serp-item__links
                                                                     yass-span.b-serp-url.b-serp-url_inline_yes
-                                                                        yass-span.b-serp-url__item happy-giraffe.ru/user/17149/blog/post34160/
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/17149/blog/post34160/
                                                                     yass-span.b-serp-item__links-item
                                                                         a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F17149%2Fblog%2Fpost34160%2F&tld=ru&lang=ru&la=1404893568&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=1b6c4cb81c192873aaa153cf0a455651&keyno=0', target='_blank') сохранённая копия
                                                         yass-li.b-serp-item
@@ -286,7 +294,8 @@ block layout
                                                                     | ,рада знакомству!Присоединяйся в нашу большую семью,у нас здесь весело-в нашей дружной компании.
                                                                 yass-div.b-serp-item__links
                                                                     yass-span.b-serp-url.b-serp-url_inline_yes
-                                                                        yass-span.b-serp-url__item happy-giraffe.ru/user/80295/blog/post177757/
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/80295/blog/post177757/
                                                                     yass-span.b-serp-item__links-item
                                                                         a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F80295%2Fblog%2Fpost177757%2F&tld=ru&lang=ru&la=1405917312&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=925a5e34a801576c460664f15f1dfe8e&keyno=0', target='_blank') сохранённая копия
                                                         yass-li.b-serp-item
@@ -301,7 +310,8 @@ block layout
                                                                     | Всем
                                                                 yass-div.b-serp-item__links
                                                                     yass-span.b-serp-url.b-serp-url_inline_yes
-                                                                        yass-span.b-serp-url__item happy-giraffe.ru/user/147966/blog/post80268/
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/147966/blog/post80268/
                                                                     yass-span.b-serp-item__links-item
                                                                         a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F147966%2Fblog%2Fpost80268%2F&tld=ru&lang=ru&la=1370481536&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=0e9286bcbce590b153256f7315480889&keyno=0', target='_blank') сохранённая копия
                                                         yass-li.b-serp-item
@@ -318,7 +328,8 @@ block layout
                                                                     | ,
                                                                 yass-div.b-serp-item__links
                                                                     yass-span.b-serp-url.b-serp-url_inline_yes
-                                                                        yass-span.b-serp-url__item happy-giraffe.ru/user/19077/blog/post35405/
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/19077/blog/post35405/
                                                                     yass-span.b-serp-item__links-item
                                                                         a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F19077%2Fblog%2Fpost35405%2F&tld=ru&lang=ru&la=1400300544&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=1a4e8a760bdefc61204f81329ac6433d&keyno=0', target='_blank') сохранённая копия
                                                         yass-li.b-serp-item
@@ -335,7 +346,8 @@ block layout
                                                                     | , вливайся, у нас весело, рассказывай что новенького, чем интерисуешься?
                                                                 yass-div.b-serp-item__links
                                                                     yass-span.b-serp-url.b-serp-url_inline_yes
-                                                                        yass-span.b-serp-url__item happy-giraffe.ru/user/15565/blog/post29568/
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/15565/blog/post29568/
                                                                     yass-span.b-serp-item__links-item
                                                                         a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F15565%2Fblog%2Fpost29568%2F&tld=ru&lang=ru&la=1387159040&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=e8ac615693bc10c76b3e89b0e6c34bad&keyno=0', target='_blank') сохранённая копия
                                                         yass-li.b-serp-item
@@ -349,7 +361,8 @@ block layout
                                                                     | всем, только что зарегестрировалась, хотелось бы найти новых друзей!!!
                                                                 yass-div.b-serp-item__links
                                                                     yass-span.b-serp-url.b-serp-url_inline_yes
-                                                                        yass-span.b-serp-url__item happy-giraffe.ru/user/15501/blog/post29285/
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/15501/blog/post29285/
                                                                     yass-span.b-serp-item__links-item
                                                                         a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F15501%2Fblog%2Fpost29285%2F&tld=ru&lang=ru&la=1406051072&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=3e6fb34ebbb06466fc9e239343df5144&keyno=0', target='_blank') сохранённая копия
                                                         yass-li.b-serp-item
@@ -366,7 +379,8 @@ block layout
                                                                     | всем!!! Вот зарегистрировалась на жирафе. Надеюсь будет интересно мне и всем моим новым знакомым.
                                                                 yass-div.b-serp-item__links
                                                                     yass-span.b-serp-url.b-serp-url_inline_yes
-                                                                        yass-span.b-serp-url__item happy-giraffe.ru/user/114288/blog/post67702/
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/114288/blog/post67702/
                                                                     yass-span.b-serp-item__links-item
                                                                         a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F114288%2Fblog%2Fpost67702%2F&tld=ru&lang=ru&la=1406117120&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=16191faf2a0d86fc19044c75bd2f26aa&keyno=0', target='_blank') сохранённая копия
                                 yass-div.b-bottom-wizard
@@ -408,14 +422,14 @@ block layout
                                 yass-div.b-page__js-report(data-report='{"query":"привет","reqid":"1406879567700327-1369512863409434035927573-sas1-2966-PPS","cltr":1,"reg":"213","dsuf":"ru","lsug":true,"usug":false,"iframe":false}')
                                 yass-div.b-page__user-style-css(data-user-style-css='#ya-site-results{color: #000000;background: #FFFFFF;}#ya-site-results .b-pager__current, #ya-site-results .b-serp-item__number{color: #000000 !important;}#ya-site-results{font-family: Arial !important;}#ya-site-results :visited, #ya-site-results .b-pager :visited, #ya-site-results .b-foot__link:visited, #ya-site-results .b-copyright__link:visited{color: #800080;}#ya-site-results a:link, #ya-site-results a:active, #ya-site-results .b-pseudo-link, #ya-site-results .b-head-tabs__link, #ya-site-results .b-head-tabs__link:link, #ya-site-results .b-head-tabs__link:visited, #ya-site-results .b-dropdown__list .b-pseudo-link, #ya-site-results .b-dropdowna__switcher .b-pseudo-link, .b-popupa .b-popupa__content .b-menu__item, #ya-site-results .b-foot__link:link, #ya-site-results .b-copyright__link:link, #ya-site-results .b-serp-item__mime, #ya-site-results .b-pager :link{color: #0033FF;}#ya-site-results :link:hover, #ya-site-results :visited:hover, #ya-site-results .b-pseudo-link:hover{color: #FF0000 !important;}#ya-site-results .l-page, #ya-site-results .b-bottom-wizard{font-size: 13px;}#ya-site-results .b-pager{font-size: 1.25em;;}#ya-site-results .b-serp-item__text, #ya-site-results .ad{font-style: normal;font-weight: normal;} #ya-site-results .b-serp-item__title-link, #ya-site-results .ad .ad-link{font-style: normal;font-weight: normal;}#ya-site-results .ad .ad-link a{font-weight: bold;font-size: 0.88em;}#ya-site-results .b-serp-item__title, #ya-site-results .ad .ad-link{font-size: 16px;}#ya-site-results .b-serp-item__title-link:link, #ya-site-results .b-serp-item__title-link{font-size: 1em;}#ya-site-results .b-serp-item__number{font-size: 13px;}#ya-site-results .b-serp-url, #ya-site-results .b-direct .url, #ya-site-results .b-direct .url a:link, #ya-site-results .b-direct .url a:visited{font-size: 13px;font-style: normal;font-weight: normal;color: #329932;}#ya-site-results .b-serp-item__links-link{font-size: 13px;font-style: normal;font-weight: normal;color: #000000 !important;}#ya-site-results .b-pager__inactive, #ya-site-results .b-serp-item__from, #ya-site-results .b-direct__head-link, #ya-site-results .b-image__title, #ya-site-results .b-video__title{color: #000000 !important;}#ya-site-results .b-pager__current, #ya-site-results .b-pager__select{background: #E0E0E0;}#ya-site-results .b-foot, #ya-site-results .b-line{border-top-color: #E0E0E0;}#ya-site-results .b-dropdown__popup .b-dropdown__list, .b-popupa .b-popupa__content{background-color: #FFFFFF;}.b-popupa .b-popupa__tail{border-color: #E0E0E0 transparent;}.b-popupa .b-popupa__tail-i{border-color: #FFFFFF transparent;}.b-popupa_direction_left.b-popupa_theme_ffffff .b-popupa__tail-i,.b-popupa_direction_right.b-popupa_theme_ffffff .b-popupa__tail-i{border-color: transparent #FFFFFF;}#ya-site-results .b-dropdowna__popup .b-menu_preset_vmenu .b-menu__separator{border-color: #E0E0E0;}.b-specification-list, .b-specification-list .b-pseudo-link, .b-specification-item__content label, .b-specification-item__content .b-link, .b-specification-list .b-specification-list__reset .b-link{color: #000000 !important;font-family: Arial;font-size: 13px;font-style: normal;font-weight: normal;}.b-specification-item__content .b-calendar__title{font-family: Arial;color: #000000;font-size: 13px;font-style: normal;font-weight: normal;}.b-specification-item__content .b-calendar-month__day_now_yes{color: #E0E0E0;}.b-specification-item__content .b-calendar .b-pseudo-link{color: #000000;}.b-specification-item__content{font-family:Arial!important;font-size: 13px;}.b-specification-item__content :visited{color: #800080;}.b-specification-item__content .b-pseudo-link:hover, .b-specification-item__content :visited:hover{color: #FF0000 !important;}')
                                 yass-div.b-page__opensearch(data-opensearch='{"rel":"search","type":"application/opensearchdescription+xml","action":"http://www.happy-giraffe.ru/search/","title":"search","href":"http://yandex.ru/sitesearch/opensearch.xml?ShortName=search&InputEncoding=utf-8&Image=http%3A%2F%2Fyastatic.net%2Flego%2F_%2FpDu9OWAQKB0s2J9IojKpiS_Eho.ico&Url-results=%PATH%%3Fsearchid%3D2166305%26web%3D0%26text%3D%7BsearchTerms%7D&Url-suggest=http%3A%2F%2Fsitesuggest.yandex.ru%2Fsuggest-ya.cgi%3Fv%3D2%26site%3D%25232166305%26lang%3Dru%26part%3D%7BsearchTerms%7D"}')
-                        ///////////
-                        //
-                        //  Поисковая технология
-                        //-.position-r(style="position:relative;")
-                            .ya-copy
-                                | Поисковая технология
-                                a(href='http://site.yandex.ru/?from=serp', title='Яндекс', target='_blank')
-                                    img(alt='Яндекс', src='http://yandex.st/sitesearch2/35.5//blocks/l-head/ru/yandex52x21x24-rb.png', height='14', style='vertical-align: middle; padding: 0 0 0 4px;')
+
+                                ///////////
+                                //
+                                //  Поисковая технология
+                                .ya-copy
+                                    | Поисковая технология
+                                    a(href='http://site.yandex.ru/?from=serp', title='Яндекс', target='_blank')
+                                        img(alt='Яндекс', src='http://yandex.st/sitesearch2/35.5//blocks/l-head/ru/yandex52x21x24-rb.png', height='14', style='vertical-align: middle; padding: 0 0 0 4px;')
 
                     script.
                         (function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0];s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Results.init();})})(window,document,'yandex_site_callbacks');
@@ -650,11 +664,10 @@ block layout
                     // Тема для поиска на Веселом Жирафе
                     | <link rel="stylesheet" type="text/css" href="/lite/css/dev/search.css" />
 
+                    // В верстке не работает, так как поиск уже загружен
                     script.
-                        console.log(5)
                         $(document).bind('yass.ready', function(event) {
 
-                            console.log(234234234234)
                             $('.b-pager__current').css('cssText', 'color: #fff !important');
                             $('.b-head tr:first').hide();
 

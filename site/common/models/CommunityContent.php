@@ -185,9 +185,9 @@ class CommunityContent extends HActiveRecord implements IPreview
 //            'duplicate' => array(
 //                'class' => 'site.common.behaviors.DuplicateBehavior',
 //            ),
-            'yandexwm' => array(
-                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
-            ),
+//            'yandexwm' => array(
+//                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
+//            ),
         );
     }
 
@@ -708,6 +708,9 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function canEdit()
     {
+        if ($this->author_id == 167771)
+            return false;
+
         if ($this->rubric->community_id == Community::COMMUNITY_NEWS)
             return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
 
@@ -722,6 +725,9 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function canRemove()
     {
+        if ($this->author_id == 167771)
+            return false;
+
         if ($this->rubric->community_id == Community::COMMUNITY_NEWS)
             return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
 

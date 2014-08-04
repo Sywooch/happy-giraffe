@@ -139,7 +139,7 @@ class SeoYandexOriginalText extends \CActiveRecord
             'pending' => array(
                 'condition' => 'added IS NULL',
                 'order' => 'priority DESC, id DESC',
-                'limit' => 100,
+                'limit' => 150,
             ),
         );
     }
@@ -152,7 +152,7 @@ class SeoYandexOriginalText extends \CActiveRecord
         return array(
             'entity' => $contentModel->getEntityName(),
             'entity_id' => $contentModel->primaryKey,
-            'full_text' => strip_tags($contentModel->getPreviewText()),
+            'full_text' => $contentModel->getPreviewText(),
         );
     }
 }

@@ -177,7 +177,7 @@ return array(
         '<_c:(settings|profile|rss|morning|community|happyBirthdayMira)>' => '<_c>/index',
 
         //others
-        'news/about' => 'community/contacts',
+        'news/about' => 'community/default/contacts',
         'news/about/authors' => 'community/authors',
         array('class' => 'site.frontend.extensions.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 

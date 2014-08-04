@@ -29,7 +29,7 @@ class DefaultController extends HController
         );
 
         if (Yii::app()->user->isGuest) {
-            /*$filters[] = array(
+            $filters[] = array(
                 'CHttpCacheFilter + view',
                 'lastModified' => $this->lastModified->getDateTime(),
             );
@@ -38,7 +38,7 @@ class DefaultController extends HController
                 'COutputCache + view',
                 'duration' => 300,
                 'varyByParam' => array('content_id', 'openGallery'),
-            );*/
+            );
 
             $filters [] = array(
                 'COutputCache + index',
@@ -85,7 +85,7 @@ class DefaultController extends HController
         $contents = BlogContent::model()->getBlogContents($user_id, $rubric_id);
 
         if ($this->user->hasRssContent())
-            $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
+            $this->rssFeed = $this->createUrl('/rss/user', array('user_id' => $user_id));
 
         if (! Yii::app()->user->isGuest)
             $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');
@@ -439,7 +439,7 @@ class DefaultController extends HController
             ->from('community__contents c')
             ->join('community__rubrics r', 'c.rubric_id = r.id')
             ->join('community__content_types ct', 'c.type_id = ct.id')
-            ->where('r.user_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
+            ->where('r.user_id IS NOT NULL AND c.type_id != :morning AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)', array(':morning' => CommunityContent::TYPE_MORNING))
             ->limit(50000)
             ->offset(($param - 1) * 50000)
             ->order('c.id ASC')

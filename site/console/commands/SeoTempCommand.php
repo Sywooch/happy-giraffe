@@ -427,7 +427,7 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionFindHeaders()
     {
-        Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
 
         $dp = new CActiveDataProvider('RecipeBookRecipe');
         $iterator = new CDataProviderIterator($dp, 1000);

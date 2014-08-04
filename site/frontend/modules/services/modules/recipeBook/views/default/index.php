@@ -8,7 +8,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">
         <div class="b-main_col-article">
-            <h1 class="heading-link-xxl">Народные рецепты</h1>
+            <h1 class="heading-link-xxl"><?=$title?></h1>
         </div>
     </div>
 </div>

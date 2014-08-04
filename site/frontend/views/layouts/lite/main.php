@@ -104,4 +104,5 @@
 <script type="text/javascript">
     require(['lite']);
 </script>
+<?php Yii::app()->ads->showCounters(); ?>
 </body></html>

@@ -398,12 +398,6 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionDelReposts()
     {
-        Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-        Yii::import('site.common.models.mongo.*');
-        Yii::import('site.frontend.modules.scores.components.*');
-        Yii::import('site.frontend.modules.scores.models.*');
-        Yii::import('site.frontend.modules.scores.models.input.*');
-
         $result = array();
         $reposts = CommunityContent::model()->findAllByAttributes(array('type_id' => CommunityContent::TYPE_REPOST));
         foreach ($reposts as $r) {

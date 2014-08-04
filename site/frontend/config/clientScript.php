@@ -346,7 +346,7 @@ return array(
             'js' => array(
                 'javascripts/ko_antispam.js',
             ),
-            'depends' => array('knockout', 'powertip'),
+            'depends' => array('knockout', 'powertip', 'ko_post'),
         ),
         'ko_onlineManager' => array(
             'baseUrl' => '/',

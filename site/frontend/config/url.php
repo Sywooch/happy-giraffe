@@ -333,7 +333,7 @@ return array(
             'pattern' => 'recipeBook/category/<slug:\w+>',
             'condition' => 'Yii::app()->user->isGuest',
             'trueRoute' => 'services/recipeBook/default/category',
-            'falseRoute' => 404,
+            'falseRoute' => 'services/recipeBook/default/index',
         ),
 
         array(

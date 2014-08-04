@@ -433,9 +433,9 @@ class SeoTempCommand extends CConsoleCommand
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $recipe) {
             $dom = str_get_html($recipe->text);
-            //if (count($dom->find('h1')) > 0) {
+            if (count($dom->find('h1')) > 0) {
                 echo $recipe->getUrl(false, true) . "\n";
-            //}
+            }
         }
     }
 } 

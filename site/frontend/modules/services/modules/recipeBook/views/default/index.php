@@ -15,7 +15,7 @@ Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 <div class="b-main_row b-main_row__green clearfix">
     <div class="b-main_cont">
         <div class="tx-content">
-            <p>Эти народные рецепты по крупинкам собирались нашими пользователями с разных источников. Недееемся вы найдете в них полезную информацию для любой болезни.</p>
+            <p>Эти народные рецепты по крупинкам собирались нашими пользователями с разных источников. Недеемся вы найдете в них полезную информацию для любой болезни.</p>
         </div>
         <?php if (! empty($links)): ?>
         <ul class="col-link">

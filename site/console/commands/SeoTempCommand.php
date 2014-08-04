@@ -130,6 +130,16 @@ class SeoTempCommand extends CConsoleCommand
         $this->writeCsv('enters', $result);
     }
 
+    public function actionSitemapCounts()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from(CookRecipeTag::model()->tableName())
+            ->queryAll();
+
+        echo count($models);
+    }
+
     public function actionRoutesTest()
     {
         Yii::import('site.frontend.modules.routes.models.*');
@@ -384,5 +394,48 @@ class SeoTempCommand extends CConsoleCommand
         }
 
         fclose($fp);
+    }
+
+    public function actionDelReposts()
+    {
+        $result = array();
+        $reposts = CommunityContent::model()->resetScope()->findAllByAttributes(array('type_id' => CommunityContent::TYPE_REPOST));
+        foreach ($reposts as $r) {
+            $result[] = array($r->getUrl(false, true));
+        }
+        $this->writeCsv('delReposts', $result);
+    }
+
+    public function actionSiteMap()
+    {
+        Yii::import('site.frontend.modules.cook.models.*');
+
+        $result = array();
+        $rubrics = CommunityRubric::model()->findAll('community_id IS NOT NULL');
+        foreach ($rubrics as $r) {
+            $result[] = array($r->title, 'http://www.happy-giraffe.ru' . $r->getUrl());
+        }
+        $this->writeCsv('rubrics', $result);
+
+        $result = array();
+        $rubrics = CookRecipeTag::model()->findAll();
+        foreach ($rubrics as $r) {
+            $result[] = array($r->title, 'http://www.happy-giraffe.ru' . $r->getUrl());
+        }
+        $this->writeCsv('tags', $result);
+    }
+
+    public function actionFindHeaders()
+    {
+        Yii::import('site.frontend.modules.cook.models.*');
+
+        $dp = new CActiveDataProvider('CookRecipe');
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $recipe) {
+            $dom = str_get_html($recipe->text);
+            if (count($dom->find('h1')) > 0) {
+                echo $recipe->getUrl(false, true) . "\n";
+            }
+        }
     }
 } 

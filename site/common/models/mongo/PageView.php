@@ -8,6 +8,11 @@
  */
 class PageView extends HMongoModel
 {
+    public function attributeNames()
+    {
+        return array();
+    }
+
     /**
      * @var PageView
      */

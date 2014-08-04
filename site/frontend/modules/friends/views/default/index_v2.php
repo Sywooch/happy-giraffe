@@ -1,8 +1,6 @@
-<?php Yii::app()->clientScript->registerPackage('ko_friends'); ?>
-<?php Yii::app()->clientScript->registerScriptFile('/javascripts/jquery.history.js', CClientScript::POS_HEAD); ?>
 <?php $this->pageTitle = 'Мои друзья'; ?>
 <?php $this->bodyClass = 'body__bg-base';?>
-<div class="layout-wrapper_frame clearfix">
+<div class="layout-wrapper_frame clearfix" id="friendsBindings">
     <?php $this->renderPartial('friends.views._menu'); ?>
     <div class="page-col page-col__friend">
         <div class="page-col_hold">
@@ -24,8 +22,8 @@
             <div class="page-col_cont">
                 <!-- ko if: ! (templateForeach().length == 0 && loading() === false) -->
                 <div class="friends-list">
-                    <ul class="friends-list_ul">
-                        <!-- ko template: { name : templateName, foreach : templateForeach } -->
+                    <ul class="friends-list_ul" data-bind="foreach : templateForeach">
+                        <!-- ko module: { name: 'user-tile', data: $data, template: $parent.templateName() == 'request-template' ? 'user/friends-request-tile' : 'user/friends-tile' } -->
                         <!-- /ko -->
                     </ul>
                     <div class="loader loader__b-gray" data-bind="visible: loading"><img src="/images/ico/ajax-loader.gif" class="loader_img">
@@ -37,13 +35,6 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(function() {
-        vm = new FriendsViewModel(<?= $data ?>);
-        ko.applyBindings(vm);
-    });
-</script>
-
-<?php $this->renderPartial('/_userCard'); ?>
-<?php $this->renderPartial('/_userRequestCard'); ?>
+<?php
+Yii::app()->clientScript->registerAMD('messagingVM', array('FriendsViewModel' => 'ko_friends', 'ko' => 'knockout'), "ko.applyBindings(new FriendsViewModel(" . $data . "), $('#friendsBindings')[0]);");
+?>

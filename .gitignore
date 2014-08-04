@@ -63,3 +63,14 @@ Desktop.ini
 .*.sw[a-z]
 *.un~
 Session.vim
+/site/frontend/modules/notifications/models~old/Notification.php
+/site/frontend/modules/notifications/models~old/NotificationArticle.php
+/site/frontend/modules/notifications/models~old/NotificationDiscussContinue.php
+/site/frontend/modules/notifications/models~old/NotificationDiscussSubscription.php
+/site/frontend/modules/notifications/models~old/NotificationFavourites.php
+/site/frontend/modules/notifications/models~old/NotificationGroup.php
+/site/frontend/modules/notifications/models~old/NotificationLikes.php
+/site/frontend/modules/notifications/models~old/NotificationReplyComment.php
+/site/frontend/modules/notifications/models~old/NotificationReposts.php
+/site/frontend/modules/notifications/models~old/NotificationSummary.php
+/site/frontend/modules/notifications/models~old/NotificationUserContentComment.php

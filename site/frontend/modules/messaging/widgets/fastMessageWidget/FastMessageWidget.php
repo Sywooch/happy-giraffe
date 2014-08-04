@@ -1,5 +1,5 @@
 <?php
-
+throw new Exception('Виджет устарел, необходимо использовать requireJS');
 /**
  * Виджет для написания быстрых сообщений
  *
@@ -60,10 +60,17 @@ class FastMessageWidget extends CWidget
 
 	public function registerScripts()
 	{
-		/* @var $cs CClientScript */
-		$cs = Yii::app()->clientScript;
-		$cs->registerPackage('ko_im');
-		$cs->registerScript('FastMessageWidget', $this->initScript, CClientScript::POS_LOAD);
+		/* @var $cs ClientScript */
+        $cs = Yii::app()->clientScript;
+        if($cs->useAMD)
+        {
+            $cs->registerAMD('FastMessageWidget', 'ko_im', $this->initScript);
+        }
+        else
+        {
+            $cs->registerPackage('ko_im');
+            $cs->registerScript('FastMessageWidget', $this->initScript, CClientScript::POS_LOAD);
+        }
 	}
 
 	public function getInitScript()

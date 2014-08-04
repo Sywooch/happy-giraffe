@@ -35,6 +35,7 @@
                         <a href="#loginWidget" class="header-login_a popup-a">Войти</a>
                         <a href="#registerWidget" class="header-login_a popup-a">Регистрация</a>
                     </div>
+                    <?php $this->beginWidget('AdsWidget'); ?>
                     <div class="header-banner-728-90">
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- topline-soloway -->
@@ -46,6 +47,7 @@
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
                     </div>
+                    <?php $this->endWidget(); ?>
                 </div>
             </div>
         </div>

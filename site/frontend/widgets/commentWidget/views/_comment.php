@@ -3,7 +3,6 @@
  * @var $data Comment
  */
 
-NotificationRead::getInstance()->addShownComment($data);
 ?>
 <?php if ($data->author_id == 1): ?>
     <?php if (!empty($data->photoAttaches)):?>

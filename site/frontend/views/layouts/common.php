@@ -5,6 +5,9 @@
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="x-dns-prefetch-control" content="on" />
+        <link rel="dns-prefetch" href="//plexor.www.happy-giraffe.ru" />
+        <link rel="dns-prefetch" href="//img.happy-giraffe.ru" />
         <?php if (! YII_DEBUG): ?>
         <script type='text/javascript'>
             window.Muscula = { settings:{
@@ -37,20 +40,21 @@
             ->registerCssFile('/redactor/redactor.css')
             ->registerCssFile('/stylesheets/common.css')
             ->registerCssFile('/stylesheets/global.css')
-            ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext')
-
-            ->registerCoreScript('jquery')
-            ->registerScriptFile('/javascripts/chosen.jquery.min.js')
-            ->registerScriptFile('/javascripts/jquery.powertip.js')
-            ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
-            ->registerScriptFile('/javascripts/addtocopy.js')
-            ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
-            ->registerScriptFile('/javascripts/base64.js')
-            ->registerScriptFile('/javascripts/common.js')
-            ->registerScriptFile('/javascripts/fox.js')
-            ->registerScriptFile('/javascripts/jquery.autosize.min.js')
-            ->registerScriptFile('/javascripts/jquery.preload.min.js')
-        ;
+            ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext');
+        if(!$cs->useAMD)
+            $cs
+                ->registerCoreScript('jquery')
+                ->registerScriptFile('/javascripts/chosen.jquery.min.js')
+                ->registerScriptFile('/javascripts/jquery.powertip.js')
+                ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
+                ->registerScriptFile('/javascripts/addtocopy.js')
+                ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
+                ->registerScriptFile('/javascripts/base64.js')
+                ->registerScriptFile('/javascripts/common.js')
+                ->registerScriptFile('/javascripts/fox.js')
+                ->registerScriptFile('/javascripts/jquery.autosize.min.js')
+                ->registerScriptFile('/javascripts/jquery.preload.min.js')
+            ;
         if (!empty($this->meta_description))
             $cs->registerMetaTag(trim($this->meta_description), 'description');
 

@@ -176,11 +176,16 @@ class DefaultController extends HController
             );
 
         if (!Yii::app()->user->isGuest) {
-            NotificationRead::getInstance()->setContentModel($content);
             UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
         }
-
-        $this->render('view', compact('content'));
+        
+        // Поставим флаг, что бы для найденных сущностей прочитались сигналы
+        \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
+        
+        if (Yii::app()->user->isGuest)
+            $this->render('view_requirejs', compact('content'));
+        else
+            $this->render('view', compact('content'));
     }
 
     public function actionServices($club)

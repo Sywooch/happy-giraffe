@@ -15,6 +15,7 @@
  * @property int $hidden
  * @property string $created
  * @property string $updated
+ * @property int $type_id Для совместимости с CommunityContent. Возвращает CommunityContent::TYPE_PHOTO
  *
  * The followings are the available model relations:
  * @property Album $album
@@ -154,6 +155,9 @@ class AlbumPhoto extends HActiveRecord
     public function behaviors()
     {
         return array(
+            'ContentBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
+            ),
             'CTimestampBehavior' => array(
                 'class' => 'zii.behaviors.CTimestampBehavior',
                 'createAttribute' => 'created',
@@ -226,7 +230,6 @@ class AlbumPhoto extends HActiveRecord
     {
         $this->removed = 1;
         $this->save(false);
-        NotificationDelete::entityRemoved($this);
 
         if (!empty($this->album_id) && in_array($this->album->type, array(0, 1, 3)))
             Scoring::photoRemoved($this);
@@ -925,5 +928,10 @@ class AlbumPhoto extends HActiveRecord
         $dest = $this->getOriginalPath();
         copy($source, $dest);
         $this->save();
+    }
+    
+    public function getType_id()
+    {
+        return CommunityContent::TYPE_PHOTO;
     }
 }

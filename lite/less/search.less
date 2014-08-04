@@ -52,7 +52,13 @@
 
 // Поле ввода
 #ya-site-form0 .ya-site-form__search-input {
-    padding: 0;
+    padding-bottom: 15px;
+
+    @media (min-width: @screen-phone) {
+        & {
+            padding-bottom: 22px;
+        }
+    }
 }
 #ya-site-form0 .ya-site-form__form .ya-site-form__input-text {
     display: block;
@@ -94,11 +100,11 @@
 // Выдача
 // Шапка выдачи
 .bhead_result {
-    margin-top: 15px;
+    margin-top: 0;
 
     @media (min-width: @screen-phone) {
         & {
-            margin: 22px 0 0;
+            margin: 0 0 -17px;
         }
     }
 }
@@ -106,9 +112,7 @@
     position: relative;
 
     @media (min-width: @screen-phone) {
-        margin-top: -18px;
         margin-bottom: 22px;
-        
     }
 }
 .b-head__r, 
@@ -160,6 +164,9 @@
     border-color: #333;
     text-decoration: none;
 }
+.b-specification-list__reset {
+    margin: 0 18px 0 0;
+}
 
 // Список выдачи
 #ya-site-results {
@@ -194,8 +201,7 @@
 }
 
 #ya-site-results .b-serp-item__title-link:link, 
-#ya-site-results .b-serp-item__title-link,
-#ya-site-results a {
+#ya-site-results .b-serp-item__title-link {
     font-size: 15px;
     font-weight: bold;
     color: #196eb9;

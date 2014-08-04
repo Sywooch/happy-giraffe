@@ -27,6 +27,13 @@ class CommentWidget extends \CWidget
         return new \CActiveDataProvider(\Comment::model()->byEntity($this->model)->specialSort());
     }
 
+    public function getUserLink($user)
+    {
+        return $user->deleted ?
+            \CHtml::tag('span', array('rel' => 'author', 'class' => 'a-light comments_author'), $user->fullName) :
+            \CHtml::link($user->fullName, $user->url, array('rel' => 'author', 'class' => 'a-light comments_author'));
+    }
+
 }
 
 ?>

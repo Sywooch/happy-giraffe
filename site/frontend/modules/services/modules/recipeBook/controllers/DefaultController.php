@@ -36,6 +36,7 @@ class DefaultController extends HController
         $dp = RecipeBookRecipe::getDp(null, null);
         $categories = RecipeBookDiseaseCategory::model()->alphabetical()->findAll();
 
+        $title = 'Народные рецепты';
         $links = array();
         foreach ($categories as $c) {
             $links[$c->title] = $c->getUrl();
@@ -44,7 +45,7 @@ class DefaultController extends HController
         $this->breadcrumbs = array(
             'Народные рецепты',
         );
-        $this->render('index', compact('links', 'dp'));
+        $this->render('index', compact('links', 'dp', 'title'));
     }
 
     public function actionDisease($slug)
@@ -55,6 +56,7 @@ class DefaultController extends HController
         }
         $dp = RecipeBookRecipe::getDp($disease->id, null);
 
+        $title = 'Народные рецепты. ' . $disease->title;
         $links = array();
 
         $this->meta_title = 'Народные рецепты от болезни ' . $disease->title;
@@ -62,7 +64,7 @@ class DefaultController extends HController
             'Народные рецепты' => array('/services/recipeBook/default/index'),
             $disease->title,
         );
-        $this->render('index', compact('links', 'dp'));
+        $this->render('index', compact('links', 'dp', 'title'));
     }
 
     public function actionCategory($slug)
@@ -73,6 +75,7 @@ class DefaultController extends HController
         }
         $dp = RecipeBookRecipe::getDp(null, $category->id);
 
+        $title = 'Народные рецепты. ' . $category->title;
         $links = array();
         foreach ($category->diseases as $d) {
             $links[$d->title] = $d->getUrl();
@@ -81,9 +84,12 @@ class DefaultController extends HController
         $this->breadcrumbs = array(
             'Народные рецепты',
         );
-        $this->render('index', compact('links', 'dp'));
+        $this->render('index', compact('links', 'dp', 'title'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionView($id)
     {
         $recipe = RecipeBookRecipe::model()->single()->findByPk($id);
@@ -99,5 +105,28 @@ class DefaultController extends HController
             $recipe->title,
         );
         $this->render('view', compact('recipe'));
+    }
+
+    public function sitemapView()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('id, created, updated')
+            ->from('recipe_book__recipes')
+            ->queryAll();
+
+        $data = array();
+        foreach ($models as $model)
+        {
+            $data[] = array(
+                'params' => array(
+                    'id' => $model['id'],
+                ),
+                'changefreq' => 'daily',
+                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
+            );
+        }
+
+        return $data;
+
     }
 }

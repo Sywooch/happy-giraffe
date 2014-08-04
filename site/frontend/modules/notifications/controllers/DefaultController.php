@@ -6,6 +6,7 @@ class DefaultController extends \HController
 {
 
     public $layout = '//layouts/new/main';
+    public $bodyClass = 'body__bg-base';
     public $notifyClass = '\site\frontend\modules\notifications\models\Notification';
 
     const PAGE_SIZE = 20;

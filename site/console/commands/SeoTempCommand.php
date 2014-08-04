@@ -408,6 +408,8 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionSiteMap()
     {
+        Yii::import('application.modules.cook.models.*');
+
         $result = array();
         $rubrics = CommunityRubric::model()->findAll('community_id IS NOT NULL');
         foreach ($rubrics as $r) {

@@ -411,14 +411,14 @@ class SeoTempCommand extends CConsoleCommand
         $result = array();
         $rubrics = CommunityRubric::model()->findAll('community_id IS NOT NULL');
         foreach ($rubrics as $r) {
-            $result[] = array($r->title, 'http://www.happy-giraffe.ru' . $r->getUrl);
+            $result[] = array($r->title, 'http://www.happy-giraffe.ru' . $r->getUrl());
         }
         $this->writeCsv('rubrics', $result);
 
         $result = array();
         $rubrics = CookRecipeTag::model()->findAll();
         foreach ($rubrics as $r) {
-            $result[] = array($r->title, 'http://www.happy-giraffe.ru' . $r->getUrl);
+            $result[] = array($r->title, 'http://www.happy-giraffe.ru' . $r->getUrl());
         }
         $this->writeCsv('tags', $result);
     }

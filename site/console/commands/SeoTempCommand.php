@@ -402,9 +402,7 @@ class SeoTempCommand extends CConsoleCommand
         $reposts = CommunityContent::model()->findAllByAttributes(array('type_id' => CommunityContent::TYPE_REPOST));
         foreach ($reposts as $r) {
             $r->updateByPk($r->id, array('removed' => 1));
-            echo $r->getUrl(false, true);
             $result[] = $r->getUrl(false, true);
-            die;
         }
         $this->writeCsv('delReposts', $result);
     }

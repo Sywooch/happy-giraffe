@@ -52,7 +52,7 @@
 
 // Поле ввода
 #ya-site-form0 .ya-site-form__search-input {
-    padding-bottom: 15px;
+    padding: 0 0 15px;
 
     @media (min-width: @screen-phone) {
         & {
@@ -138,9 +138,14 @@
     color: #999 !important;
 
     @media (min-width: @screen-phone) {
-        position: absolute;
-        top: 0;
-        right: 0;
+        display: inline-block;
+    }
+}
+.b-head__specify {
+
+    @media (min-width: @screen-phone) {
+        margin-left: 150px;
+        text-align: right;
     }
 }
 .b-specification-item {

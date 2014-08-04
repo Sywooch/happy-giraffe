@@ -6,9 +6,7 @@
     <title><?=$this->pageTitle?></title>
 </head>
 <body class="body body__bg1 body__lite">
-<!--///////////////////////////////////////-->
-<!-- Дата последних изменений --> <!-- Wed Jul 30 2014 08:15:35 -->
-<!--///////////////////////////////////////-->
+
 <div class="layout-container">
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
@@ -27,22 +25,21 @@
                         </ul>
                     </div>
                     <!-- /header-menu-->
-                    <div class="sidebar-search clearfix sidebar-search__big">
-                        <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx">
-                        <!-- При начале ввода добавить класс .active на кнопку-->
-                        <button class="sidebar-search_btn"></button>
-                    </div>
+
+                    <?php if ($this->module->id != 'search'): ?>
+
+                        <div class="sidebar-search clearfix sidebar-search__big">
+                            <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
+                            <!-- При начале ввода добавить класс .active на кнопку-->
+                            <!-- <button class="sidebar-search_btn"></button> -->
+                            <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </header>
             <!-- /header-->
         </div>
         <div class="layout-loose_hold clearfix">
-            <!--///////////////////////////////////////////////////////-->
-            <!--/ В конечном итоге подключать css-->
-            <!--/ /lite/css/min/traditional-recipes.css-->
-            <!--/ или grunt задачу, в коммандной строке -->
-            <!--/ grunt traditional-recipes-->
-            <!--///////////////////////////////////////////////////////-->
             <!-- b-main -->
             <div class="b-main clearfix">
                 <div class="b-main_cont">

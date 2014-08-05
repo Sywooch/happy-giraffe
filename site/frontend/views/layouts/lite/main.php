@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?=$this->pageTitle?></title>
+    <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>
 <body class="body body__bg1 body__lite">
 <!--///////////////////////////////////////-->
@@ -18,7 +19,9 @@
                     <!-- logo-->
                     <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
                     <!-- /logo-->
+                    <?php $this->beginWidget('AdaptiveWidget', array('exclude' => VersionManager::VERSION_MOBILE)); ?>
                     <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+                    <?php $this->endWidget(); ?>
                     <!-- header-menu-->
                     <div class="header-menu">
                         <ul class="header-menu_ul clearfix">
@@ -46,18 +49,22 @@
             <!-- b-main -->
             <div class="b-main clearfix">
                 <div class="b-main_cont">
+                    <?php if ($this->breadcrumbs): ?>
                     <div class="b-crumbs b-crumbs__s">
                         <div class="b-crumbs_tx">Я здесь:</div>
-                        <ul class="b-crumbs_ul">
-                            <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Главная </a></li>
-                            <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Народные рецепты</span></li>
-                        </ul>
+                        <?php
+                        $this->widget('zii.widgets.CBreadcrumbs', array(
+                            'tagName' => 'ul',
+                            'separator' => ' &nbsp; ',
+                            'htmlOptions' => array('class' => 'b-crumbs_ul'),
+                            'homeLink' => '<li class="b-crumbs_li"><a href="' . $this->createUrl('/site/index') . '" class="b-crumbs_a">Главная </a></li>',
+                            'activeLinkTemplate' => '<li class="b-crumbs_li"><a href="{url}" class="b-crumbs_a">{label}</a></li>',
+                            'inactiveLinkTemplate' => '<li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">{label}</span></li>',
+                            'links' => $this->breadcrumbs,
+                        ));
+                        ?>
                     </div>
-                    <div class="b-main_col-hold clearfix">
-                        <div class="b-main_col-article">
-                            <h1 class="heading-link-xxl">Народные рецепты</h1>
-                        </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
                 <?=$content?>
             </div>
@@ -93,4 +100,9 @@
 <div class="popup-container display-n">
 </div>
 <!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+<?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
+<script type="text/javascript">
+    require(['lite']);
+</script>
+<?php Yii::app()->ads->showCounters(); ?>
 </body></html>

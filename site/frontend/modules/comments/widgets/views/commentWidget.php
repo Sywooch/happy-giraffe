@@ -1,7 +1,7 @@
 <div id="commentsList" class="comments_hold tab-pane active">
     <div class="comments-add">
         <div class="comments_add-hold"> Комментировать от
-            <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'simple')); ?> или <a href="?openLogin" onclick="$('[href=#loginWidget]').trigger('click')" class="comment-add_a">Войти</a>
+            <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'simple')); ?> или <a href="?openLogin" onclick="$('[href=#loginWidget]').trigger('click'); return false;" class="comment-add_a">Войти</a>
         </div>
         <div class="comment-add_editor display-n"></div>
     </div>

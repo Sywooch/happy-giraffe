@@ -59,6 +59,7 @@ if ($full) {
     }
 }
 ?>
+<?php Yii::beginProfile('article'); ?>
 <div class="b-article clearfix<?php if ($cssClass !== null): ?> <?=$cssClass?><?php endif; ?>" id="blog_settings_<?=$data->id ?>">
     <?php if ($data->source_id) $this->renderPartial('blog.views.default._repost', array('data' => $data)); ?>
     <div class="float-l">
@@ -115,14 +116,19 @@ if ($full) {
         <!-- /ko -->
     </div>
 </div>
+<?php Yii::endProfile('article'); ?>
 
+<?php Yii::beginProfile('prevnext'); ?>
 <?php if ($full): ?>
     <?php $this->widget('blog.widgets.PrevNextWidget', array('post' => $data)); ?>
 <?php endif; ?>
+<?php Yii::endProfile('prevnext'); ?>
 
+<?php Yii::beginProfile('contest'); ?>
 <?php if ($full && $data->contestWork !== null): ?>
     <?php $this->renderPartial('application.modules.blog.views.default._contest_bottom', compact('data')); ?>
 <?php endif; ?>
+<?php Yii::endProfile('contest'); ?>
 
 <?php if ($full): ?>
     <?php $this->beginWidget('AdsWidget'); ?>
@@ -130,14 +136,19 @@ if ($full) {
     <?php $this->endWidget(); ?>
 <?php endif; ?>
 
+<?php Yii::beginProfile('comments'); ?>
 <?php if ($full): ?>
     <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
 <?php endif; ?>
+<?php Yii::endProfile('comments'); ?>
 
+<?php Yii::beginProfile('question'); ?>
 <?php if ($full && ! $data->getIsFromBlog()): ?>
     <?php $this->widget('CommunityQuestionWidget', array('forumId' => $this->forum->id)); ?>
 <?php endif; ?>
+<?php Yii::endProfile('question'); ?>
 
+<?php Yii::beginProfile('others'); ?>
 <?php if ($full): ?>
     <?php $this->widget('blog.widgets.PostUsersWidget', array('post' => $data)); ?>
 <?php endif; ?>
@@ -186,3 +197,4 @@ if ($full) {
         </script>
     </div>
 <?php endif; ?>
+<?php Yii::endProfile('others'); ?>

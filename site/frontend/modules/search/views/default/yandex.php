@@ -22,11 +22,10 @@ else
 ?>
     <div class="layout-search-hold">
         <div class="layout-wrapper_frame clearfix">
-            <div class="">
-                <div class="b-main b-main__white"  style="margin: 0 -20px; padding: 30px 0;">
-                    <div class="b-main_cont">
-                        <div class="b-main_col-hold" style="margin-left: 60px;">
-                            <div class="b-main_col-article">
+            <div class="b-main b-main__white"  style="margin: 0 -20px; padding: 30px 0 0;">
+                <div class="b-main_cont">
+                    <div class="b-main_col-hold" style="margin-left: 60px;">
+                        <div class="b-main_col-article">
 
 
 <?php
@@ -51,14 +50,16 @@ else
 {
     // Тут для залогиненых пользователей
 ?>
-                                      
-                            </div>
+                                    
                         </div>
                     </div>
                 </div>
+                <div class="footer-push"></div>
+                <?php $this->renderPartial('//_footer'); ?>
             </div>
         </div>
     </div>  
+
 <?php
 }
 ?>

@@ -14,7 +14,7 @@ class LiteController extends HController
 
             $cs = Yii::app()->clientScript;
             if ($this->meta_description !== null) {
-                $cs->registerMetaTag(html_entity_decode(Str::truncate(trim($this->meta_description), 250), null, 'UTF-8'), 'description');
+                $cs->registerMetaTag(Str::truncate(strip_tags(trim($this->meta_description)), 250), 'description');
             }
 
             if ($this->meta_keywords !== null) {

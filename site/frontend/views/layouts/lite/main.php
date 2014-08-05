@@ -15,7 +15,7 @@
             <header class="header header__simple">
                 <div class="header_hold clearfix">
                     <!-- logo-->
-                    <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+                    <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="/" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
                     <!-- /logo-->
                     <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
                     <!-- header-menu-->

@@ -1,4 +1,18 @@
+
+
 <?php
+    // title
+    $this->pageTitle = 'Результат поиска';
+
+    $this->breadcrumbs = array(
+        'Поиск по сайту'
+    );
+    // $this->breadcrumbs = array(
+    //     'Интересы и увлечения' => array('/interests-and-hobby'),
+    //     'Наш автомобиль' => array('/auto'),
+    //     'Маршруты'
+    // );
+
     if(Yii::app()->user->isGuest)
     {
         //Yii::app()->clientScript->registerPackage('lite-default');
@@ -25,12 +39,29 @@ else
             <div class="b-main b-main__white"  style="margin: 0 -20px; padding: 30px 0 0;">
                 <div class="b-main_cont">
                     <div class="b-main_col-hold" style="margin-left: 60px;">
+                        <?php if ($this->breadcrumbs): ?>
+                            <div class="b-crumbs b-crumbs__s" style="margin-left: 10px;">
+                                <div class="b-crumbs_tx">Я здесь:</div>
+                                <?php
+                                $this->widget('zii.widgets.CBreadcrumbs', array(
+                                    'tagName' => 'ul',
+                                    'separator' => ' &nbsp; ',
+                                    'htmlOptions' => array('class' => 'b-crumbs_ul'),
+                                    'homeLink' => '<li class="b-crumbs_li"><a href="' . $this->createUrl('/site/index') . '" class="b-crumbs_a">Главная</a> </li>',
+                                    'activeLinkTemplate' => '<li class="b-crumbs_li"><a href="{url}" class="b-crumbs_a">{label}</a></li>',
+                                    'inactiveLinkTemplate' => '<li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">{label}</span></li>',
+                                    'links' => $this->breadcrumbs,
+                                ));
+                                ?>
+                            </div>
+                        <?php endif; ?>
                         <div class="b-main_col-article">
 
 
 <?php
 }
 ?>
+                <h1 class="heading-link-xxl">Результат поиска</h1>
                 <div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'<?=Yii::app()->createAbsoluteUrl('search')?>','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'search','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':2166305,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="2166305"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Найти"/></form></div><style type="text/css">.ya-page_js_yes .ya-site-form_inited_no { display: none; }</style><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
 
                 <div id="ya-site-results" onclick="return {'tld': 'ru','language': 'ru','encoding': '','htmlcss': '1.x','updatehash': true}"></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0];s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Results.init();})})(window,document,'yandex_site_callbacks');</script>

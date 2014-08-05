@@ -87,7 +87,9 @@ class DefaultController extends LiteController
         }
 
         $this->pageTitle = $category->title;
-        $this->meta_title = $category->title;
+        $this->meta_description = $category->title . ' | ' . implode(', ', array_map(function($disease) {
+                return $disease->title;
+            }, $category->diseases));
         $this->breadcrumbs = array(
             'Народные рецепты',
         );

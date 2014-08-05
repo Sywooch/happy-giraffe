@@ -176,13 +176,14 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .clsss
             // /.dropdown+/,
-            //.mfp+/,
+            /.mfp+/,
             //.tooltip+/,
           ],
         },
         src: [
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
 
           '!lite/html/page/comments/comments-page.html'
         ],
@@ -202,10 +203,11 @@ module.exports = function(grunt){
           ],
         },
         src: [
-          'lite/html/page/traditional-recipes/**/*.html', 
           'lite/html/page/comments/**/*.html', 
+          '!lite/html/page/comments/comments-page.html',
+          'lite/html/page/sign/**/*.html', 
+          'lite/html/page/traditional-recipes/**/*.html', 
 
-          '!lite/html/page/comments/comments-page.html'
         ],
         dest: 'lite/css/min/services.css'
       },

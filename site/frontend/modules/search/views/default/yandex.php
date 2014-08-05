@@ -1,6 +1,9 @@
 <?php
-    //Yii::app()->clientScript->registerPackage('lite-default');
-    Yii::app()->clientScript->registerCssFile('/lite/css/dev/all.css');
+    if(Yii::app()->user->isGuest)
+    {
+        //Yii::app()->clientScript->registerPackage('lite-default');
+        Yii::app()->clientScript->registerCssFile('/lite/css/dev/all.css');
+    }
 ?>
 
     <div class="b-main_cont">
@@ -13,6 +16,12 @@
             </div>
         </div>
     </div>
+<?php
+//Если надо разделить скрипты/стили/html
+if(Yii::app()->user->isGuest)
+{
+    //Тут для гостей    
+?>
     <!-- Наверно, лучше включить css в текст старницы -->
     <link rel="stylesheet" type="text/css" href="/lite/css/dev/search.css" />
     <script>
@@ -47,3 +56,15 @@
           
       });
     </script>
+<?php
+}
+else
+{
+    // Тут для залогиненых пользователей
+?>
+    <script>
+        
+    </script>
+<?php
+}
+?>

@@ -9,6 +9,8 @@ class DefaultController extends HController
     public function actionIndex()
     {
         Yii::app()->clientScript->useAMD = true;
+        if(!Yii::app()->user->isGuest)
+            $this->layout = '//layouts/new/main';
         $this->render('yandex');
     }
 

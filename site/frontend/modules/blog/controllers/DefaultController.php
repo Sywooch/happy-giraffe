@@ -110,8 +110,6 @@ class DefaultController extends HController
      */
     public function actionView($content_id, $user_id)
     {
-        Yii::beginProfile('action');
-
         header('X-XSS-Protection: 0');
         if ($user_id == User::HAPPY_GIRAFFE)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
@@ -149,14 +147,10 @@ class DefaultController extends HController
         // Поставим флаг, что бы для найденных сущностей прочитались сигналы
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
 
-        Yii::endProfile('action');
-
-        Yii::beginProfile('view');
         if (Yii::app()->user->isGuest)
             $this->render('view_requirejs', array('data' => $content, 'full' => true));
         else
         $this->render('view', array('data' => $content, 'full' => true));
-        Yii::endProfile('view');
     }
 
     public function actionRemove()

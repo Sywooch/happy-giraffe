@@ -27,7 +27,7 @@
                     </div>
                     <!-- /header-menu-->
 
-                    <?php if ($this->module->id != 'search'): ?>
+                    <?php /*if ($this->module->id != 'search'): ?>
 
                         <div class="sidebar-search clearfix sidebar-search__big">
                             <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
@@ -35,7 +35,7 @@
                             <!-- <button class="sidebar-search_btn"></button> -->
                             <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
                         </div>
-                    <?php endif; ?>
+                    <?php endif;*/ ?>
                 </div>
             </header>
             <!-- /header-->
@@ -60,8 +60,8 @@
                         ?>
                     </div>
                     <?php endif; ?>
-                        </div>
-                <?=$content?>
+                    <?=$content?>
+                </div>
             </div>
             <!-- b-main -->
             <!-- layout-footer-->

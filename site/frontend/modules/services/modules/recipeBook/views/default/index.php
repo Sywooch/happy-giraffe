@@ -3,7 +3,6 @@
  * @var CActiveDataProvider $dp
  * @var array $links
  */
-Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 ?>
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">

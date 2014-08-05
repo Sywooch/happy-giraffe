@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends LiteController
 {
     public $layout = '//layouts/lite/main';
 
@@ -42,6 +42,10 @@ class DefaultController extends HController
             $links[$c->title] = $c->getUrl();
         }
 
+        $this->pageTitle = 'Народные рецепты';
+        $this->meta_description = 'Народные рецепты | ' . implode(', ', array_map(function($category) {
+            return $category->title;
+            }, $categories));
         $this->breadcrumbs = array(
             'Народные рецепты',
         );
@@ -59,7 +63,8 @@ class DefaultController extends HController
         $title = 'Народные рецепты. ' . $disease->title;
         $links = array();
 
-        $this->meta_title = 'Народные рецепты от болезни ' . $disease->title;
+        $this->pageTitle = $disease->title;
+        $this->meta_description = $disease->title . ' | ' . $disease->text;
         $this->breadcrumbs = array(
             'Народные рецепты' => array('/services/recipeBook/default/index'),
             $disease->title,
@@ -81,6 +86,7 @@ class DefaultController extends HController
             $links[$d->title] = $d->getUrl();
         }
 
+        $this->pageTitle = $category->title;
         $this->breadcrumbs = array(
             'Народные рецепты',
         );
@@ -97,8 +103,8 @@ class DefaultController extends HController
             throw new CHttpException(404);
         }
 
-        $this->meta_title = $recipe->title;
-
+        $this->pageTitle = $recipe->title . ' | ' . $recipe->disease->title;
+        $this->meta_description = $recipe->title . ' | ' . $recipe->disease->title . ' | ' . $recipe->text;
         $this->breadcrumbs = array(
             'Народные рецепты' => array('/services/recipeBook/default/index'),
             $recipe->disease->title => $recipe->disease->getUrl(),

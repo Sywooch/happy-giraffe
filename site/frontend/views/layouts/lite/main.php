@@ -4,11 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?=$this->pageTitle?></title>
+    <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>
 <body class="body body__bg1 body__lite">
-<!--///////////////////////////////////////-->
-<!-- Дата последних изменений --> <!-- Wed Jul 30 2014 08:15:35 -->
-<!--///////////////////////////////////////-->
+
 <div class="layout-container">
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
@@ -27,39 +26,42 @@
                         </ul>
                     </div>
                     <!-- /header-menu-->
-                    <div class="sidebar-search clearfix sidebar-search__big">
-                        <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx">
-                        <!-- При начале ввода добавить класс .active на кнопку-->
-                        <button class="sidebar-search_btn"></button>
-                    </div>
+
+                    <?php if ($this->module->id != 'search'): ?>
+
+                        <div class="sidebar-search clearfix sidebar-search__big">
+                            <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
+                            <!-- При начале ввода добавить класс .active на кнопку-->
+                            <!-- <button class="sidebar-search_btn"></button> -->
+                            <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </header>
             <!-- /header-->
         </div>
         <div class="layout-loose_hold clearfix">
-            <!--///////////////////////////////////////////////////////-->
-            <!--/ В конечном итоге подключать css-->
-            <!--/ /lite/css/min/traditional-recipes.css-->
-            <!--/ или grunt задачу, в коммандной строке -->
-            <!--/ grunt traditional-recipes-->
-            <!--///////////////////////////////////////////////////////-->
             <!-- b-main -->
             <div class="b-main clearfix">
                 <div class="b-main_cont">
+                    <?php if ($this->breadcrumbs): ?>
                     <div class="b-crumbs b-crumbs__s">
                         <div class="b-crumbs_tx">Я здесь:</div>
-                        <ul class="b-crumbs_ul">
-                            <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Главная </a></li>
-                            <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Народные рецепты</span></li>
-                        </ul>
+                        <?php
+                        $this->widget('zii.widgets.CBreadcrumbs', array(
+                            'tagName' => 'ul',
+                            'separator' => ' &nbsp; ',
+                            'htmlOptions' => array('class' => 'b-crumbs_ul'),
+                            'homeLink' => '<li class="b-crumbs_li"><a href="' . $this->createUrl('/site/index') . '" class="b-crumbs_a">Главная </a></li>',
+                            'activeLinkTemplate' => '<li class="b-crumbs_li"><a href="{url}" class="b-crumbs_a">{label}</a></li>',
+                            'inactiveLinkTemplate' => '<li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">{label}</span></li>',
+                            'links' => $this->breadcrumbs,
+                        ));
+                        ?>
                     </div>
-                    <div class="b-main_col-hold clearfix">
-                        <div class="b-main_col-article">
-                            <h1 class="heading-link-xxl">Народные рецепты</h1>
+                    <?php endif; ?>
                         </div>
-                    </div>
-                    <?=$content?>
-                </div>
+                <?=$content?>
             </div>
             <!-- b-main -->
             <!-- layout-footer-->
@@ -93,4 +95,9 @@
 <div class="popup-container display-n">
 </div>
 <!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+<?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
+<script type="text/javascript">
+    require(['lite']);
+</script>
+<?php Yii::app()->ads->showCounters(); ?>
 </body></html>

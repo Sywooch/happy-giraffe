@@ -151,10 +151,12 @@ class DefaultController extends HController
 
         Yii::endProfile('action');
 
+        Yii::beginProfile('view');
         if (Yii::app()->user->isGuest)
             $this->render('view_requirejs', array('data' => $content, 'full' => true));
         else
         $this->render('view', array('data' => $content, 'full' => true));
+        Yii::endProfile('view');
     }
 
     public function actionRemove()

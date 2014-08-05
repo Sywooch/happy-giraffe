@@ -110,10 +110,6 @@
 }
 .b-head {
     position: relative;
-
-    @media (min-width: @screen-phone) {
-        margin-bottom: 22px;
-    }
 }
 .b-head__r, 
 .b-head__l {
@@ -127,6 +123,7 @@
 }
 
 .b-head__specify {
+    padding: 0;
 
     @media (min-width: @screen-phone) {
         text-align: right;
@@ -137,15 +134,12 @@
     color: #999 !important;
 
     @media (min-width: @screen-phone) {
-        display: inline-block;
         margin-left: 150px;
     }
 }
 .b-specification-item {
     margin: 0 15px 2px 0;
     padding: 0;
-    display: inline-block;
-    text-align: left;
 
     @media (min-width: @screen-phone) {
         & {
@@ -233,7 +227,6 @@
     color: #333;
 }
 
-#ya-site-results .b-serp-url, 
 #ya-site-results .b-direct .url, 
 #ya-site-results .b-direct .url a:link, 
 #ya-site-results .b-direct .url a:visited {

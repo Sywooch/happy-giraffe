@@ -160,6 +160,7 @@ module.exports = function(grunt){
             /.redactor+/,
             /.select2+/,
             /.tooltip+/,
+            /.header-menu_li__dropin+/,
           ],
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
@@ -216,7 +217,7 @@ module.exports = function(grunt){
       },
       new: {
         files: {
-          'new/css/all1.css': ['new/css/all1.dev.css']
+          'new/css/all1.css': ['new/css/all1.css']
         }
       },
       redactor: {
@@ -455,7 +456,7 @@ module.exports = function(grunt){
   });
 
   //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
-  grunt.registerTask('css-new', ['less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
+  grunt.registerTask('css-new', ['less:newestdev', 'uncss:new', 'cmq:new', 'cssmin:new', 'csso:new']);
 
   // lite tasks
   // bild lite версии

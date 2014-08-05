@@ -634,7 +634,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                 )
             );
         } else {
-            $prev = self::model()->cache(300)->find(
+            $prev = self::model()->find(
                 array(
                     'select' => array('t.id', 't.title', 't.author_id', 't.rubric_id', 't.type_id', 't.source_id'),
                     'condition' => 't.id < :current_id',

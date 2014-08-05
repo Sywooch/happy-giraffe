@@ -13,75 +13,63 @@
          */
         $this->beginClip('comment');
         ?>
-        <li class="comments_li {colorClass} clearfix">
-            <article class="comments_i">
-                <div class="comments_ava">
-                    <!-- Аватарки размером 40*40-->
-                    <!-- ava--><a href="{link}" class="ava ava__middle ava__small-sm-mid"><img alt="" src="{ava}" class="ava_img"></a>
+        <article class="comments_i">
+            <div class="comments_ava">
+                <!-- Аватарки размером 40*40-->
+                <!-- ava--><a href="{link}" class="ava ava__middle ava__small-sm-mid"><img alt="" src="{ava}" class="ava_img"></a>
+            </div>
+            <div class="comments_frame">
+                <div class="comments_header">
+                    {author.link}
+                    <time datetime="{datetime}" pubdate class="tx-date" data-bind="moment: {unixtime}"></time>
                 </div>
-                <div class="comments_frame">
-                    <div class="comments_header">
-                        {author.link}
-                        <time datetime="{datetime}" pubdate class="tx-date" data-bind="moment: {unixtime}"></time>
-                    </div>
-                    <div class="comments_cont">
-                        <div class="wysiwyg-content">
-                            {comment}
-                        </div>
+                <div class="comments_cont">
+                    <div class="wysiwyg-content">
+                        {comment}
                     </div>
                 </div>
-            </article>
-            {comments}
-        </li>
+            </div>
+        </article>
         <?php
         $this->endClip();
         $colors = array(
             'comments_li__lilac',
-            'comments_li__yellow',
             'comments_li__red',
+            'comments_li__yellow',
             'comments_li__blue',
             'comments_li__green',
         );
 
         $iterator = new CDataProviderIterator($dataProvider);
-        $root = false;
         $colorI = -1;
         $colorC = sizeof($colors);
         $color = $colors[0];
-        $comments = '';
+        $ul = false;
         foreach ($iterator as $comment)
         {
-            if ($comment->root_id == $comment->id)
+            if ($ul && $comment->id == $comment->root_id)
+                echo CHtml::closeTag('ul');
+            if($comment->id == $comment->root_id)
+                $color = $colors[(++$colorI) % $colorC];
+
+            echo CHtml::openTag('li', array('class' => 'comments_li clearfix ' . $color));
+
+            $this->controller->renderClip('comment', array(
+                '{link}' => $comment->author->url,
+                '{ava}' => $comment->author->getAvatarUrl(Avatar::SIZE_MEDIUM),
+                '{author.link}' => $this->getUserLink($comment->author),
+                '{datetime}' => $comment->pubDate,
+                '{unixtime}' => $comment->pubUnixTime,
+                '{comment}' => $comment->purified->text,
+            ));
+
+            if ($comment->id == $comment->root_id)
             {
-                if ($root)
-                {
-                    $this->controller->renderClip('comment', array(
-                        '{colorClass}' => $color,
-                        '{author.link}' => $this->getUserLink($root->author),
-                        '{ava}' => $root->author->getAvatarUrl(Avatar::SIZE_MEDIUM),
-                        '{datetime}' => $root->pubDate,
-                        '{unixtime}' => $root->pubUnixtime,
-                        '{comment}' => $root->purified->text,
-                        '{comments}' => '<ul class="comments_ul">' . $comments . '</ul>',
-                    ));
-                }
-                $root = $comment;
-                $comments = '';
-                $colorI++;
-                $color = $colors[$colorI % $colorC];
+                $ul = true;
+                echo CHtml::openTag('ul', array('class' => 'comments_ul'));
             }
-            else
-            {
-                $comments .= $this->controller->renderClip('comment', array(
-                    '{colorClass}' => $color,
-                    '{author.link}' => $this->getUserLink($comment->author),
-                    '{ava}' => $comment->author->getAvatarUrl(Avatar::SIZE_MEDIUM),
-                    '{datetime}' => $comment->pubDate,
-                    '{unixtime}' => $comment->pubUnixtime,
-                    '{comment}' => $comment->purified->text,
-                    '{comments}' => '',
-                    ), true);
-            }
+
+            echo CHtml::closeTag('li');
         }
         ?>
     </ul>

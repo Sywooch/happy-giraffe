@@ -28,7 +28,7 @@
         </div>
         <div class="popup-sign_b clearfix margin-t20" data-bind="visible: currentStep() == STEP_PHOTO">
             <div class="float-r">
-                <div class="btn-gray-simple btn-l" data-bind="click: cancelAvatar">Отменить</div> <button class="btn-green-simple btn-l margin-l5" data-bind="click: saveAvatar, disable: ! avatar.isChanged()">Сохранить</button>
+                <div class="btn-gray-simple btn-l btn btn-secondary" data-bind="click: cancelAvatar">Отменить</div> <button class="btn-green-simple btn-l margin-l5 btn btn-success" data-bind="click: saveAvatar, disable: ! avatar.isChanged()">Сохранить</button>
             </div>
         </div>
     </div>

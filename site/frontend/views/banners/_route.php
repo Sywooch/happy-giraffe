@@ -1,3 +1,4 @@
+<?php $this->beginWidget('AdsWidget'); ?>
 <div style="margin: 15px;">
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad_route"></div>
@@ -29,3 +30,4 @@
         })(window, document, "yandex_context_callbacks");
     </script>
 </div>
+<?php $this->endWidget(); ?>

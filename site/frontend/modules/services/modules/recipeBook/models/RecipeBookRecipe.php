@@ -16,8 +16,11 @@
  * @property RecipeBookDiseases $disease
  * @property RecipeBookRecipesIngredients[] $recipeBookRecipesIngredients
  */
-class RecipeBookRecipe extends HActiveRecord
+class RecipeBookRecipe extends HActiveRecord implements IPreview
 {
+    private $_next = false;
+    private $_prev = false;
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -118,13 +121,17 @@ class RecipeBookRecipe extends HActiveRecord
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
             'processingImages' => array(
                 'class' => 'site.common.behaviors.ProcessingImagesBehavior',
+                'attributes' => array('text'),
+            ),
+            'purified' => array(
+                'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),
             ),
         );
@@ -171,25 +178,106 @@ class RecipeBookRecipe extends HActiveRecord
         return Yii::app()->$method($route, $params);
     }
 
+    /**
+     * @return RecipeBookRecipe
+     */
     public function getNext()
     {
-        return $this->find(
-            array(
-                'condition' => 'disease_id = :disease_id AND id > :id',
-                'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
-                'order' => 't.id',
-            )
+        if ($this->_next === false) {
+            $this->_next = $this->find(
+                array(
+                    'condition' => 'disease_id = :disease_id AND id > :id',
+                    'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
+                    'order' => 't.id',
+                )
+            );
+        }
+        return $this->_next;
+    }
+
+    /**
+     * @return RecipeBookRecipe
+     */
+    public function getPrev()
+    {
+        if ($this->_prev === false) {
+            $this->_prev = $this->find(
+                array(
+                    'condition' => 'disease_id = :disease_id AND id < :id',
+                    'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
+                    'order' => 't.id DESC',
+                )
+            );
+        }
+        return $this->_prev;
+    }
+
+    public function disease($diseaseId)
+    {
+        $alias = $this->getTableAlias();
+        $this->getDbCriteria()->compare($alias . '.disease_id', $diseaseId);
+        return $this;
+    }
+
+    public function category($categoryId)
+    {
+        $this->getDbCriteria()->mergeWith(array(
+            'with' => 'disease',
+        ));
+        $this->getDbCriteria()->compare('disease.category_id', $categoryId);
+        return $this;
+    }
+
+    public function scopes()
+    {
+        return array(
+            'single' => array(
+                'with' => array(
+                    'disease' => array(
+                        'with' => 'category',
+                    ),
+                    'author',
+                    'ingredients' => array(
+                        'with' => array(
+                            'unit',
+                            'ingredient',
+                        ),
+                    ),
+                ),
+            ),
         );
     }
 
-    public function getPrev()
+    public static function getDp($diseaseId, $categoryId)
     {
-        return $this->find(
-            array(
-                'condition' => 'disease_id = :disease_id AND id < :id',
-                'params' => array(':disease_id' => $this->disease_id, ':id' => $this->id),
-                'order' => 't.id DESC',
-            )
-        );
+        $criteria = new CDbCriteria(array(
+            'order' => 't.created DESC',
+            'with' => array('author', 'disease')
+        ));
+
+        if ($diseaseId !== null) {
+            $criteria->scopes['disease'] = $diseaseId;
+        }
+
+        if ($categoryId !== null) {
+            $criteria->scopes['category'] = $categoryId;
+        }
+
+        return new CActiveDataProvider(__CLASS__, array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 100,
+            ),
+        ));
+    }
+
+    public function getPreviewText()
+    {
+        return $this->text;
+    }
+
+    public function getPreviewPhoto()
+    {
+        return null;
     }
 }

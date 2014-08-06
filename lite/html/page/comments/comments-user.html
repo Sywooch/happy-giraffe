@@ -4,6 +4,31 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/blog.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <script src="/lite/redactor/redactor.js"></script>
+  <script src="/lite/redactor/lang/ru.js"></script>
+  <script src="/lite/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/lite/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/lite/redactor/plugins/formatbtn/formatbtn.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__bg1 body__lite">
   <div class="layout-container">
@@ -12,10 +37,10 @@
         <!-- header-->
         <header class="header header__simple">
           <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
             <!-- logo-->
             <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
             <!-- /logo-->
-            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
             <!-- header-menu-->
             <div class="header-menu">
               <ul class="header-menu_ul clearfix">
@@ -63,6 +88,89 @@
                   </div>
                   <div class="tab-content">
                     <div id="commentsList" class="comments_hold tab-pane active">
+                      <div class="comments_add">
+                        <!-- Заглушка редактора до клика по ней, затем загружается редактор-->
+                        <div class="comments_add-frame">
+                          <div class="comments_i clearfix">
+                            <div class="comments_ava">
+                              <!-- Аватарки размером 40*40-->
+                              <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                            </div>
+                            <div class="comments_frame">
+                              <!-- Когда еще нет комментов то текст placeholder: Введите комментарий первым
+                              -->
+                              <textarea placeholder=" Введите ваш комментарий " rows="3" cols="30" class="itx-simple"></textarea>
+                              <div class="comments_add-editor display-n">
+                                <!-- Скрыты элементы редактора, как в блоке ниже. 
+                                Пусто, что б не копипастить
+                                
+                                -->
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Редактор раскрытый-->
+                        <div class="comments_add-frame display-n">
+                          <div class="comments_i clearfix">
+                            <div class="comments_ava">
+                              <!-- Аватарки размером 40*40-->
+                              <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                            </div>
+                            <div class="comments_frame">
+                              <!-- Когда еще нет комментов то текст placeholder: Введите комментарий первым
+                              -->
+                              <textarea placeholder=" Введите ваш комментарий " rows="3" cols="30" class="itx-simple"></textarea>
+                              <div class="comments_add-editor">
+                                <!-- Загружаем стили и скрипты редактора при необходимости-->
+                                <link href="/lite/css/dev/redactor.css" rel="stylesheet" type="text/css">
+                                <!-- wisywig-->
+                                <script>
+                                  $(document).ready(function () { 
+                                    $('.wysiwyg-redactor').redactor({
+                                        autoresize: true,
+                                        toolbarExternal: '.wysiwyg-toolbar-btn',
+                                        minHeight: 450,
+                                        cleanFontTag: false ,
+                                        cleanup: false,
+                                        lang: 'ru',
+                                        convertDivs: false,
+                                        plugins: [ 'formatbtn', 'btnvideo'],
+                                        buttons: [  'image', 'link'],
+                                        focusCallback: function()
+                                          {
+                                              addBaron('.scroll');
+                                          }
+                                    });
+                                  });
+                                </script>
+                                <div class="wysiwyg-post redactor_box">
+                                  <div class="wysiwyg-toolbar">
+                                    <div class="wysiwyg-toolbar-btn"></div>
+                                  </div>
+                                  <div class="scroll">
+                                    <div class="scroll_scroller">
+                                      <div class="scroll_cont">
+                                        <div class="wysiwyg-redactor">
+                                          <p>Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))</p>
+                                          <p>Не знаю насколько это правда, </p>
+                                          <p>Может конечно они не признаются в своих самых </p>
+                                          <p>Из бисера можно творить что угодно. Кто-то делает забавнейших животных, кто-то вышивает бисером невероятные цветы, кто-то создает бижутерию, ну а мы попробуем сплести из бисера кактусы. </p>
+                                          <p>заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div class="scroll_bar-hold">
+                                      <div class="scroll_bar">
+                                        <div class="scroll_bar-in"></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                       <ul class="comments_ul">
                         <!-- 
                         варианты цветов комментов. В такой последовательности
@@ -72,8 +180,8 @@
                         .comments_li__blue
                         .comments_li__green
                         -->
-                        <li class="comments_li comments_li__lilac clearfix">
-                          <div class="comments_i">
+                        <li class="comments_li comments_li__lilac">
+                          <div class="comments_i clearfix">
                             <div class="comments_ava">
                               <!-- Аватарки размером 40*40-->
                               <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
@@ -102,8 +210,8 @@
                           </div>
                           <ul class="comments_ul">
                             <!-- комментарий вложенный-->
-                            <li class="comments_li comments_li__lilac clearfix">
-                              <div class="comments_i">
+                            <li class="comments_li comments_li__lilac">
+                              <div class="comments_i clearfix">
                                 <div class="comments_ava">
                                   <!-- Аватарки размером 40*40-->
                                   <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
@@ -133,8 +241,8 @@
                             <!-- /комментарий вложенный-->
                             <!-- комментарий вложенный-->
                             <!-- Свой комментарий-->
-                            <li class="comments_li comments_li__self comments_li__lilac clearfix">
-                              <div class="comments_i">
+                            <li class="comments_li comments_li__self comments_li__lilac">
+                              <div class="comments_i clearfix">
                                 <div class="comments_ava">
                                   <!-- Аватарки размером 40*40-->
                                   <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
@@ -166,8 +274,8 @@
                         </li>
                         <!-- / комментарий  -->
                         <!-- комментарий     -->
-                        <li class="comments_li comments_li__red clearfix">
-                          <div class="comments_i">
+                        <li class="comments_li comments_li__red">
+                          <div class="comments_i clearfix">
                             <div class="comments_ava">
                               <!-- Аватарки размером 40*40-->
                               <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
@@ -254,7 +362,7 @@
                                 <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                               </li>
                             </ul>
-                          </div>
+                          </div><a class="a-light">Смотреть все</a>
                           <!-- a.a-light Смотреть все-->
                         </div>
                       </div>
@@ -324,18 +432,4 @@
   </div>
   <div class="popup-container display-n"> 
   </div>
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script>
-    window.jQuery || document.write('<script src="/lite//javascript/jquery-1.11.1.min.js"><\/script>')
-    
-  </script>
-  <script src="/lite/javascript/modernizr.custom.js"></script>
-  <!-- Адаптивные изображения tag picture-->
-  <script src="/lite/javascript/picturefill.min.js"></script>
-  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
-  <script src="/lite/javascript/bootstrap/tab.js"></script>
-  <!-- tooltip-->
-  <!-- popup-->
-  <!-- livereload-->
-  <script src="//localhost:35729/livereload.js"></script>
 </body></html>

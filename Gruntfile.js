@@ -176,11 +176,20 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .clsss
             // /.dropdown+/,
-            //.mfp+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.mfp+/,
+            /.select2+/,
             //.tooltip+/,
           ],
         },
-        src: ['lite/html/page/blog/**/*.html', 'lite/html/page/comments/**/*.html'],
+        src: [
+          'lite/html/page/blog/**/*.html', 
+          'lite/html/page/comments/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
+
+          '!lite/html/page/comments/comments-page.html'
+        ],
         dest: 'lite/css/min/blog.css'
       },
       // Традиционные рецепты
@@ -188,16 +197,22 @@ module.exports = function(grunt){
         options: {
           stylesheets  : ['/css/dev/all.css'],
           timeout      : 1000,
-
           htmlroot     : 'lite',
           ignore       : [
             // Выбираем все стили где в начале .clsss
-            // /.dropdown+/,
-            //.mfp+/,
-            //.tooltip+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.mfp+/,
+            /.select2+/,
           ],
         },
-        src: ['lite/html/page/traditional-recipes/**/*.html', 'lite/html/page/comments/**/*.html'],
+        src: [
+          'lite/html/page/comments/**/*.html', 
+          '!lite/html/page/comments/comments-page.html',
+          'lite/html/page/sign/**/*.html', 
+          'lite/html/page/services/**/*.html', 
+
+        ],
         dest: 'lite/css/min/services.css'
       },
     },
@@ -208,7 +223,12 @@ module.exports = function(grunt){
       },
       new: {
         files: {
-          'new/css/all1.css': ['new/css/all1.dev.css']
+          'new/css/all1.css': ['new/css/all1.css']
+        }
+      },
+      redactor: {
+        files: {
+          'lite/css/min/redactor.css': ['lite/css/dev/redactor.css']
         }
       },
       // lite: {
@@ -218,9 +238,9 @@ module.exports = function(grunt){
       // },
       lite: {
         expand: true,
-        cwd: 'lite/css/min/',
-        src: ['*.css',],
-        dest: 'lite/css/min/',
+        cwd: 'lite/css/',
+        src: ['min/*.css'],
+        dest: 'lite/css/',
         ext: '.css'
       }
     },
@@ -442,11 +462,14 @@ module.exports = function(grunt){
   });
 
   //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
-  grunt.registerTask('css-new', ['less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
+  grunt.registerTask('css-new', ['less:newestdev', 'uncss:new', 'cmq:new', 'cssmin:new', 'csso:new']);
 
   // lite tasks
-  grunt.registerTask('lite-bild', ['jade:lite_prod', 'less:litedev','uncss', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  // bild lite версии
+  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  // Блоги
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  // сервисы
   grunt.registerTask('services', ['jade:lite_prod', 'less:litedev','uncss:services', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 
   // Базовый для разработки верстки

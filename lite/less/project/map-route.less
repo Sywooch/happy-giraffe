@@ -1,0 +1,59 @@
+
+// Стили сервиса маршрутов
+.map-route {
+
+}
+
+/* map-route-f */
+.map-route-f {
+
+    &__main {
+        padding: 95px 0 40px;
+    }
+    &__main &_hold {
+        max-width: 600px;
+        margin: 0 3.2%;
+        .border-radius(4px);
+    }
+
+    &_desc {
+        display: none;
+    }
+
+    &_hold {
+        padding: 6% 4%;
+        background-color: #a8ddff;
+    }
+    &_i {
+        margin-bottom: 10px;
+    }
+    &_inp {
+        width: 100%;
+        padding-left: 35px;
+        .border-radius(3px);
+    }
+
+    @media (min-width: @screen-phone) {
+        &_i {
+            margin-bottom: 15px;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        &_i {
+            margin-bottom: 18px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        &_desc {
+            display: block;
+            margin: 0 0 15px;
+            font-size: 14px;
+            line-height: 20px;
+            background-color: rgba(255,255,255,.8);
+        }
+        &__main &_hold {
+            max-width: 820px;
+        }
+    }
+}
+/* /map-route-f */

@@ -1,38 +1,4 @@
 
-/*
-    comment-add
-*/
-.comment-add {
-    margin: 20px 0;
-    display: none;
-
-    &_t {
-        font-size: 18px;
-        color: @color-base;
-    }
-    &_hold {
-        margin: 7px 0 0;
-        border: 1px solid #e4e2e7;
-        padding: 13px 10px 15px 10px;
-        color: @color-gray-light;
-        text-align: center;
-        font-size: 14px;
-        .border-radius(4px);
-    }
-    &_a {
-        padding: 0 4px;
-        color: @color-gray;
-        text-decoration: none;
-    }
-    &_a:hover {
-        color: @color-gray-dark;
-    }
-
-    @media (min-width: @screen-desktop) {
-        display: block;
-    }
-}
-
 /* 
     comments
 */
@@ -95,6 +61,7 @@
     
     &_ul &_ul {
         margin-top: 20px;
+        margin-bottom: 30px;
         margin-left: 10px;
 
         @media (min-width: @screen-tablet) {
@@ -118,7 +85,7 @@
     }
     &_cont {
         position: relative;
-        margin: 10px 0;
+        margin: 5px 0 0;
         padding-right: 5px;
     }
     &_cont-img {
@@ -155,9 +122,6 @@
     &_ansver:hover {
         color: #56ba3e;
         text-decoration: underline;
-    }
-    &_add {
-        margin: 5px 15px 20px 0;
     }
     &_all {
         text-align: center;
@@ -213,6 +177,41 @@
         &_all {display: none;}
         .yiipagination {display: block;}
     }
+
+
+    // Добавление коммента
+    &_add {
+        margin: 20px 0 30px;
+        display: none;
+    }
+
+    &_add-hold {
+        margin: 7px 0 0;
+        border: 1px solid #e4e2e7;
+        padding: 13px 10px 15px 10px;
+        color: @color-gray-light;
+        text-align: center;
+        font-size: 14px;
+        .border-radius(4px);
+    }
+    &_add-a {
+        padding: 0 4px;
+        color: @color-gray;
+        text-decoration: none;
+    }
+    &_add-a:hover {
+        color: @color-gray-dark;
+    }
+    &_add-frame .itx-simple {
+        resize: none;
+    }
+
+    @media (min-width: @screen-desktop) {
+        &_add {
+            display: block;
+        }
+    }
+    // /Добавление коммента
 }
 /* /comments */
 

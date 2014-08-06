@@ -37,6 +37,9 @@
         .box-sizing(border-box);
         .border-radius(18px);
         .transition(all 0.3s ease);
+        // Не переносить тест на слудеющие строки в инпутах
+        word-wrap: normal;
+        word-break: normal;
     }
     &_itx:focus {border-color: #afd0fb;}
     &_btn {
@@ -95,6 +98,9 @@
     .box-sizing(border-box);
     .border-radius(3px);
     .transition(all 0.4s ease);
+    // Не переносить тест на слудеющие строки в инпутах
+    word-wrap: normal;
+    word-break: normal;
 
     &:focus {border-color: #a0ceee;}
 }
@@ -108,6 +114,9 @@
     background: #fff;
     .box-sizing(border-box);
     .border-radius(3px);
+    // Не переносить тест на слудеющие строки в инпутах
+    word-wrap: normal;
+    word-break: normal;
 
     &:focus {border-color: #d6d8d9;}
     &.error {border-color: #f9cbcb;}

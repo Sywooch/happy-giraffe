@@ -1,0 +1,40 @@
+
+/*
+    Нумирация страниц
+
+    .yiipagination __center
+        .pager   
+            .page   .selected
+                a
+
+
+*/
+/* yiipagination */
+.yiipagination {
+    margin: 30px 0 50px;
+    font-size: 17px;
+    line-height: 30px;
+    
+    &__center .pager {
+        text-align: center;
+    }
+    .pager {
+        text-align: left;
+    }
+    .page a {
+        .inline-block();
+        padding: 0 10px;
+        background: #fff;
+        color: #b5b5b5;
+        text-decoration: none;
+        .border-radius(3px);
+    }
+    .page:hover a {color: @color-gray-dark;}
+    .page.selected a {
+        background-color: #6accff;
+        font-weight: bold;
+        color: #fff;
+    }
+
+}
+/* /yiipagination */

@@ -1,0 +1,25 @@
+
+//- subscribersWidget
+//- 
+    mod
+    vars
+        ava
+        tx
+
+
+mixin subscribersWidget(mod, vars)
+    // subscribersWidget
+    .subscribersWidget(class=mod)
+        .subscribersWidget_t Подписчики блога 68 
+        ul.subscribersWidget_ul
+            - each item in vars.avaList
+                li.subscribersWidget_li
+                    +ava('ava__middle', item)
+        .subscribersWidget_row
+            a.subscribersWidget_more(href="") Все подписчики
+    // /subscribersWidget
+    
+- var subscribersWidget = {}
+- subscribersWidget.a = {}
+- subscribersWidget.a.avaList = [ava.a, ava.c, ava.b, ava.c, ava.a, ava.b, ava.c, ava.a]
+

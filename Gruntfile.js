@@ -1,25 +1,15 @@
 module.exports = function(grunt){
-  var timer = require("grunt-timer");
+  require('time-grunt')(grunt);
 
-  timer.init(grunt);
-
-  // json for jade 
-  // var pathJade = "new/jade/array/*";
-
+  //timer.init(grunt);
+  require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    // Собираем все json в один
-    // 'merge-json': {
-    //     jadevars: {
-    //         src: [ "new/jade/json/**/*.json" ],
-    //         dest: "new/jade/vars.json"
-    //     },
-    // },
+
     jade: {
       
       // Пересобираем все шаблоны
-      all: {
+      new: {
         files: [{
           expand: true,
           cwd: 'new/jade',
@@ -32,24 +22,13 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
-          // data: grunt.file.readJSON(pathJade)
-          // data: function(dest, src) {
-          //   // Return an object of data to pass to templates
-          //   return require('./new/jade/vars.json');
-          // },
-          // filters: {
-          //   json : function (str) {
-          //     return JSON.stringify(JSON.parse(str));
-          //   }
-          // }
         }
       },
       // пересобираем документацию
       docs: {
         files: [{
           expand: true,
-          cwd: 'new/jade',
-          src: ['docs/**/*.jade', ],
+          src: ['new/jade/docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
           dest: 'new/html',
           ext: ".html"
         }],
@@ -58,12 +37,58 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
-          // data: grunt.file.readJSON(pathJade)
         }
-      }
+      },
+
+      // Пересобираем все шаблоны
+      lite_prod: {
+        files: [{
+          expand: true,
+          cwd: 'lite/jade',
+          src: ['page/**/*.jade', '!block/**/*.jade', '!extend/**/*.jade'],
+          dest: 'lite/html',
+          ext: ".html"
+        }],
+        options: {
+          pretty: true,
+          client: false,
+          cache: true,
+          nospawn : true,
+          data: {
+            debug: false,
+            timestamp: "<%= grunt.template.today() %>"
+          }
+        }
+      },
+      // Пересобираем все шаблоны
+      lite_dev: {
+        files: [{
+          expand: true,
+          cwd: 'lite/jade',
+          src: ['page/**/*.jade', '!block/**/*.jade', '!extend/**/*.jade'],
+          dest: 'lite/html-dev',
+          ext: ".html"
+        }],
+        options: {
+          pretty: true,
+          client: false,
+          cache: true,
+          nospawn : true,
+          data: {
+            debug: true,
+            timestamp: "<%= grunt.template.today() %>"
+          }
+        }
+      },
     },
 
-    
+    // Удаляем файлы
+    // clean: {
+    //   new: ['new/css/tidy.css']
+    // },
+
+    ///////////////////////////////////////////////////
+    // css
     less: {
       old: {
         files: {
@@ -72,15 +97,11 @@ module.exports = function(grunt){
           // стили страницы вакансий
           'stylesheets/vacancy.css': ['less/vacancy.less'],
           // стили html баннеров, независимы от всего 
-          // 'stylesheets/banner.css': ['less/banner.less']
+          'stylesheets/banner.css': ['less/banner.less']
         },
         options: {
           compress: true,
           cleancss: true,
-          // sourceMap: true,
-          // sourceMapFilename: 'css/all.css.map',
-          // sourceMapRootpath: '',
-          // sourceMapBasepath: ''
         }
       },
       old_dev: {
@@ -90,70 +111,258 @@ module.exports = function(grunt){
         },
         options: {
           sourceMap: true,
-          // sourceMapFilename: 'css/all.css.map',
-          // sourceMapRootpath: '',
-          // sourceMapBasepath: ''
         }
       },
+
+
       newestdev: {
         files: {
           'new/css/all1.dev.css': ['new/less/all1.less'] 
         },
         options: {
           sourceMap: true,
-          sourceMapFilename: 'new/css/all1.css.map',
-          sourceMapRootpath: '../../',
-          sourceMapURL: 'all1.css.map',
+        },
+      },
+
+
+      litedev: {
+        
+        files: [{
+          expand: true,
+          cwd: 'lite/less/',
+          src: ['*.less',],
+          dest: 'lite/css/dev/',
+          ext: '.css'
+        }],
+        // files: {
+        //   'lite/css/dev/all.css': ['lite/less/all.less'] 
+        // },
+        options: {
+          sourceMap: true,
         }
       },
-      newest: {
-        files: {
-          'new/css/all1.css': ['new/less/all1.less'] 
-        },
-        options: {
-          compress: true,
-          cleancss: true,
-        }
-      }
     },
 
-    // imagemin: {
-    //   dynamic: {
-    //     files: [{
-    //       expand: true,
-    //       cwd: 'new/images',
-    //       src: ['**/*.{png,jpg,gif}'],
-    //       dest: 'new/images1',
-    //     }],
-    //     options: {
-    //         cache: false
-    //     }
-    //   }
-    // },
+    // неиспользуемые стили
+    uncss: {
+      new: {
+        options: {
+          stylesheets  : ['/css/all1.dev.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'new',
+          ignore       : [
+            // Выбираем все стили где в начале .clsss
+            /.dropdown+/,
+            /.flag+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.redactor+/,
+            /.select2+/,
+            /.tooltip+/,
+          ],
+        },
+        src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
+        dest: 'new/css/all1.css'
+      },
+      // Блог
+      lite_blog: {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .clsss
+            // /.dropdown+/,
+            //.mfp+/,
+            //.tooltip+/,
+          ],
+        },
+        src: ['lite/html/page/blog/**/*.html', 'lite/html/page/comments/**/*.html'],
+        dest: 'lite/css/min/blog.css'
+      },
+      // Традиционные рецепты
+      'services': {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .clsss
+            // /.dropdown+/,
+            //.mfp+/,
+            //.tooltip+/,
+          ],
+        },
+        src: ['lite/html/page/traditional-recipes/**/*.html', 'lite/html/page/comments/**/*.html'],
+        dest: 'lite/css/min/services.css'
+      },
+    },
+    // Объеденяем медиа запросы в css
+    cmq: {
+      options: {
+        log: true
+      },
+      new: {
+        files: {
+          'new/css/all1.css': ['new/css/all1.dev.css']
+        }
+      },
+      // lite: {
+      //   files: {
+      //     'lite/css/min/*.css': ['lite/css/min/*.css']
+      //   }
+      // },
+      lite: {
+        expand: true,
+        cwd: 'lite/css/min/',
+        src: ['*.css',],
+        dest: 'lite/css/min/',
+        ext: '.css'
+      }
+    },
+    // Сжимаем css
+    cssmin: {
+      new: {
+        options: {
+          compatibility: 'ie8',
+          keepSpecialComments: 0,
+          report: 'max'
+        },
+        files: {
+          'new/css/all1.css': 'new/css/all1.dev.css'
+        }
+      },
+      lite: {
+        options: {
+          compatibility: 'ie8',
+          keepSpecialComments: 0,
+          report: 'max'
+        },
+        files: [{
+          expand: true,
+          cwd: 'lite/css/min/',
+          src: ['*.css',],
+          dest: 'lite/css/min/',
+          ext: '.css'
+        }]
+      }
+    },
+    // Умное сжате css
+    csso: {
+      new: {
+        options: {
+          report: 'gzip'
+        },
+        files: {
+          'new/css/all1.css': ['new/css/all1.css']
+        }
+      },
+      lite: {
+        options: {
+          report: 'gzip'
+        },
+        files: [{
+          expand: true,
+          cwd: 'lite/css/min/',
+          src: ['*.css',],
+          dest: 'lite/css/min/',
+          ext: '.css'
+        }]
+      }
+    },
+    // /css
+    ////////////////////////////// 
+
+    svgmin: {                       // Task
+      options: {                  // Configuration that will be passed directly to SVGO
+          plugins: [{
+              removeViewBox: false
+          }, {
+              removeUselessStrokeAndFill: false
+          }, {
+              convertPathData: { 
+                  straightCurves: false // advanced SVGO plugin option
+              }
+          }]
+      },
+      dist: {                     // Target
+          files: [{               // Dictionary of files
+              expand: true,       // Enable dynamic expansion.
+              cwd: 'lite/images',     // Src matches are relative to this path.
+              src: ['*.svg'],  // Actual pattern(s) to match.
+              dest: 'lite/images',       // Destination path prefix.
+              ext: '.svg'     // Dest filepaths will have this extension.
+              // ie: optimise img/src/branding/logo.svg and store it in img/branding/logo.min.svg
+          }]
+      },
+    },
+
+    "svg-sprites": {
+        // 'icons-meta': {
+        //     options: {
+        //         spriteElementPath: "lite/images/sprite/icons-meta",
+        //         spritePath: "lite/images/sprite/icons-meta.svg",
+        //         cssPath: "lite/less/sprite/",
+        //         cssSuffix: 'less',
+        //         cssSvgPrefix: '',
+        //         cssPngPrefix: '.no-svg',
+        //         layout: 'vertical',
+        //         map: function (filename) {
+        //             return filename.replace(/~/g, ":");
+        //         },
+        //         unit: 5
+        //     }
+        // },
+        'ico-arrow': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-arrow",
+                spritePath: "lite/images/sprite/ico-arrow.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'vertical',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 200
+            }
+        },
+        // 'comments-menu_a': {
+        //     options: {
+        //         spriteElementPath: "lite/images/sprite/comments-menu_a",
+        //         spritePath: "lite/images/sprite/comments-menu_a.svg",
+        //         cssPath: "lite/less/sprite/",
+        //         cssSuffix: 'less',
+        //         cssSvgPrefix: '',
+        //         cssPngPrefix: '.no-svg',
+        //         layout: 'vertical',
+        //         map: function (filename) {
+        //             return filename.replace(/~/g, ":");
+        //         },
+        //         unit: 200
+        //     }
+        // },
+    },
 
     watch: {
-      // Следим за json
-      // 'merge-json': {
-      //   files: ['new/jade/json/**/*.json'],
-      //   tasks: ['merge-json'],
-      //   options: {
-      //     spawn: false,
-      //     livereload: true,
-      //   },
-      // },
-      // Следим за изменениями миксинов и унаследованных файлов
-      // jadereload: {
-      //   files: ['new/jade/block/**/*.jade', 'new/jade/extend/**/*.jade'],
-      //   tasks: ['jade:all'],
-      //   options: {
-      //     spawn: false,
-      //     livereload: true,
-      //   },
-      // },
+
       // Следим за статическими страницами
-      jadepage: {
-        files: ['new/jade/page/**/*.jade'],
-        tasks: ['newer:jade:all'],
+      jadenew: {
+        files: [ 'new/jade/page/**/*.jade'], // 'new/jade/page/**/*.jade',
+        tasks: ['newer:jade:new'],
+        options: {
+          spawn: false,
+          livereload: true,
+        },
+      },
+      // Следим за статическими страницами
+      jadelite: {
+        files: [ 'lite/jade/page/**/*.jade'], // 'new/jade/page/**/*.jade',
+        tasks: ['newer:jade:lite_dev'],
         options: {
           spawn: false,
           livereload: true,
@@ -161,7 +370,7 @@ module.exports = function(grunt){
       },
       // Пересобираем документацию
       jadedocs: {
-        files: ['new/jade/docs/**/*.jade'],
+        files: ['new/jade/docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade'
         tasks: ['jade:docs'],
         options: {
           spawn: false,
@@ -177,9 +386,17 @@ module.exports = function(grunt){
         },
       },
       // следим за новым less
-      less: {
+      newless: {
         files: ['new/less/**/*.less'],
-        tasks: ['less:newest', 'less:newestdev'],
+        tasks: ['less:newestdev'/*, 'cmq', 'cssmin', 'csso'*/],
+        options: {
+          livereload: true,
+        },
+      },
+      // следим за новым less
+      liteless: {
+        files: ['lite/less/**/*.less'],
+        tasks: ['less:litedev'/*, 'cmq', 'cssmin', 'csso'*/],
         options: {
           livereload: true,
         },
@@ -192,11 +409,26 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
-      // imagemin: {
-      //   files: ['new/images/**/*.{png,jpg,gif}'],
-      //   tasks: ['newer:imagemin'],
-      // }
+
+      // изобрражения svg сжатие
+      svg: {
+        files: ['lite/images/**/*.svg'],
+        tasks:['svgmin'],
+        options: {
+          livereload: true,
+        },
+      },
+      // изобрражения
+      svg_sprite: {
+        files: ['lite/images/sprite/**/*.svg'],
+        tasks:['svg-sprites'],
+        options: {
+          livereload: true,
+        },
+      },
+
     },
+
     // Поднимаем сервер
     connect: {
       server: {
@@ -208,43 +440,17 @@ module.exports = function(grunt){
     },
   });
 
-  grunt.loadNpmTasks('grunt-merge-json');
-  grunt.loadNpmTasks('grunt-contrib-jade');
-  grunt.loadNpmTasks('grunt-newer');
-  grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-imagemin');
-  grunt.loadNpmTasks('grunt-newer');
+  //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
+  grunt.registerTask('css-new', ['less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
 
+  // lite tasks
+  grunt.registerTask('lite-bild', ['jade:lite_prod', 'less:litedev','uncss', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('services', ['jade:lite_prod', 'less:litedev','uncss:services', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+
+  // Базовый для разработки верстки
   grunt.registerTask('default', [
     'connect',
-    // 'less',
-    // 'merge-json',
     'watch', 
   ]);
-
-  grunt.event.on('watch', function(action, filepath, target) {
-
-    // Перешли на плагин newer //
-    // Земеняем в пути к измененному файлу jade/page на html
-    // var destFilePath = filepath.replace(/jade\\page/, 'html');
-    // Изменяем расширение файла
-    // grunt.log.write(action + ' ------- ' + target);
-
-
-    // if (target == 'jade') {
-    //   var destFilePath = filepath.replace(/jade/g, 'html');
-    //   grunt.log.write(filepath + ' ------- ' + destFilePath);
-    //   // 'page' task jade 
-    //   grunt.config(['jade', 'page', 'files'], [
-    //     {src: filepath, dest: destFilePath }
-    //   ]);
-    // }
-
-
-  });
-
-
-
 };

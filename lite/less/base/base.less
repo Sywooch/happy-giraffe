@@ -1,0 +1,393 @@
+// layout
+
+.layout-container {
+    width: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.layout-loose {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+
+
+    &__white {background-color: #fff;}
+
+    @media (min-width: @screen-desktop) {
+        .layout-header {margin-top: 20px;}
+        &_hold {
+            margin: 0 auto 30px;
+        }
+    }
+}
+
+/*
+    Кнопки управления записи
+    b-control
+        b-control_hold
+            b-control_i
+                b-control_ico
+                ...
+*/
+.b-control {
+    display: inline-block;
+    margin: 0 -4px 0;
+    .user-select(none);
+
+    &_i {
+        display: inline-block;
+        margin: 0 4px;
+        cursor: pointer;
+    }
+    
+    &_i:hover &_tx {color: @color-base;}
+    &_i__favorite &_ico {background-position: 0 0;}
+    &_i__favorite.active &_ico,
+    &_i__favorite:hover &_ico{background-position: 0 -20px;}
+    &_i__delete &_ico{background-position: -18px 0;}
+    &_i__delete.active &_ico,
+    &_i__delete:hover &_ico{background-position: -18px -20px;}
+    &_i__spam &_ico{background-position: -36px 0;}
+    &_i__spam.actvie &_ico,
+    &_i__spam:hover &_ico {background-position: -36px -20px;}
+    &_i__edit &_ico {background-position: -54px 0;}
+    &_i__edit.active &_ico,
+    &_i__edit:hover &_ico {background-position: -54px -20px;}
+    &_i__cancel &_ico {background-position: -72px 0;}
+    &_i__cancel.active &_ico,
+    &_i__cancel:hover &_ico {background-position: -72px -20px;}
+    &_i__answer &_ico {background-position: -90px 0;}
+    &_i__answer.active &_ico,
+    &_i__answer:hover &_ico {background-position: -90px -20px;}
+
+    &_ico {
+        .inline-block();
+        vertical-align: bottom;
+        .square(18px);
+        background: url('@{path-img}/base/b-control_ico.png') no-repeat;
+       
+    }
+    &_drop {display: none;}
+    &_tx {
+        .inline-block();
+        vertical-align: bottom;
+        line-height: 12px;
+        text-decoration: none;
+        color: @color-gray;
+        margin-left: 3px;
+    }
+
+}
+/* /b-control */
+
+/*  
+    Блок пользователя с автаркой и именем
+    b-user
+        b-user_ava
+            <ava>
+        b-user_hold
+            b-user_name
+            b-user_view
+            b-user_check
+            b-user_del
+*/
+.b-user {
+    .inline-block();
+
+    &__va-m {
+        .b-user_hold,
+        .b-user_ava {vertical-align: middle;}
+    }
+
+    &__w300 {width: 300px;}
+    
+    &_ava {
+        .inline-block();
+        vertical-align: top;
+        margin-right: 10px;
+    }
+    &_hold {
+        .inline-block();
+        vertical-align: top;
+    }
+    &_row {margin-bottom: 3px;}
+    &_name {
+        color: #289fd7;
+        .text-dec_onhover;
+        display: block;
+    }
+    
+    // in antispam
+    &_del,
+    &_check,
+    &_view {
+        margin-right: 17px;
+        padding-left: 20px;
+        background: url('@{path-img}/b-user_view.png') no-repeat;
+        background-position: 0 50%;
+        font-size: @font-s;
+    }
+    &_check {
+        padding-left: 17px;
+        background-image: url('@{path-img}/b-user_check.png');
+    }
+    &_del {
+        padding-left: 17px;
+        background-image: url('@{path-img}/b-user_del.png');
+    }
+    // /in antispam
+}
+
+/*
+    location __small
+        .flag
+        location_tx
+*/
+.location {
+    margin: 0 0 5px;
+    line-height: 12px;
+    .flag {
+        position: relative;
+        top: 1px;
+        margin-right: 3px;
+    }
+    &_tx {
+        display: inline;
+        font-size: 12px;
+        color: #555454;
+    }
+}
+
+/* 
+    utilites-error
+*/
+.utilites-error {
+    margin: 130px 0 70px;
+
+    &_hold {
+        text-align: center;
+        font-size: 13px;
+    }
+    &_404 {
+        display: block;
+        width: 100%;
+        height: 300px;
+        background: url('@{path-img}/utilites/utilites-error_404.png') no-repeat 50% 50%;
+        margin: 0 0 25px;
+    }
+    &_500 {
+        display: block;
+        width: 100%;
+        height: 300px;
+        background: url('@{path-img}/utilites/utilites-error_500.png') no-repeat 50% 50%;
+        margin: 0 0 25px;
+    }
+    &_title {
+        font-size: 20px;
+        margin-bottom: 5px;
+    }
+    &_sub-tx {
+        color: @color-gray-dark;
+        margin: 0 0 15px;
+    }
+}
+/* /utilites-error */
+
+/*
+    Группа фильтров 
+    filter-group
+        filter-group_i  active
+*/
+.filter-group {
+    position: relative;
+    .inline-block();
+    vertical-align: middle;
+    .clearfix;
+
+    &_i {
+        position: relative;
+        float: left;
+        margin-left: -1px;
+        border: 1px solid #99c7ff;
+        padding: 5px 15px;
+        color: #3696cf;
+        font-size: 13px;
+        line-height: 17px;
+        text-decoration: none;
+    }
+    &_i:first-child {
+        .border-left-radius(4px);
+    }
+    &_i:last-child {
+        .border-right-radius(4px);
+    }
+    &_i:hover {background-color: #dcf0ff;}
+    &_i.active {
+        z-index: 2;
+        border-color: #50aae0;
+        background: #50aae0;
+        color: #fff;
+    }
+}
+
+
+.loader {
+    min-height: 30px;
+    text-align: center;
+    color: #b6b6b6;
+    font-size: 14px;
+    padding: 7px;
+    
+    &__b-gray {
+        margin: 30px auto 40px;
+        padding: 0;
+    }
+    &_tx {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 4px 5px 0;
+    }
+    &_img {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 4px;
+    }
+}
+
+.adv-banner {
+    margin: 0 0 20px;
+
+    &__bd {border: 1px solid #eee;}
+}
+.adv-yandex {
+    margin: 20px 0;
+
+    @media (min-width: @screen-desktop) {
+        & {
+            margin: 30px 0;
+        }
+    }
+}
+
+/* b-crumbs */
+.b-crumbs {
+    margin: 10px 20px 10px 0;
+    font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
+    
+    &__s {}
+    
+    &_tx {
+        display: inline;
+        margin-right: 10px;
+        color: #9c9b9b;
+    }
+    &_ul {
+        display: inline;
+    }
+    &_li {
+        .inline-block();
+        padding: 0 2px;
+
+        .ava {vertical-align: middle;}
+    }
+    &_li:after {
+        content: '>';
+        line-height: 12px;
+        .inline-block();
+        vertical-align: middle;
+        padding: 0 0 0 5px;
+        color: #cdcdcd;
+    }
+    &_li__last:after {display: none;}
+    &_last {
+        color: #f17504;
+    }
+    &_a {text-decoration: none;}
+    &_a:hover {
+        text-decoration: none;
+        color: @color-orange;
+    }
+
+}
+/* /b-crumbs */
+
+.custom-likes {
+    text-align: center;
+    position: relative;
+    margin: 10px 0;
+
+    &_slogan {
+        margin: 0;
+        text-align: center;
+        font-size: 11px;
+        color: @color-gray-dark;
+    }
+    &_in {
+        margin: 5px auto 10px;
+        text-align: center;
+    }
+}
+
+.tabs-simple {
+    
+    &__inline { // vertical-align: middle;
+        .inline-block();
+        vertical-align: middle;
+
+        > li > a {padding: 0px 10px;}
+    }
+    a {
+        color: @color-gray;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: none;
+        color: @color-base;
+    }
+}
+
+/* 
+------------------------------------------------------------------
+    js plugin class 
+------------------------------------------------------------------
+*/
+
+
+/* powerTip */
+#powerTip {
+    display: none;
+    position: absolute;
+    cursor: default;
+    padding: 4px 8px;
+    background: #5C4B86;
+    font-size: 12px;
+    line-height: 14px;
+    color: #fff;
+    white-space: nowrap;
+    z-index: 2147483647;
+
+    &:after {
+        content:"";
+        position: absolute;
+        bottom: -7px;
+        left: 50%;
+        height: 0;
+        width: 0;
+        margin-left: -6px;
+        border: 0 solid transparent;
+        border-width: 7px 6px 0;
+        border-top-color: #5C4B86;
+    }
+    // .nw& {margin-right: -6px;}
+    .nw&:after{
+        left: auto;
+        right: 2px;
+    }
+    .ne&:after{
+        left: 1px;
+    }
+}
+/* powerTip */
+

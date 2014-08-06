@@ -1,0 +1,113 @@
+
+// дополнительные размеры из boostrap 
+// .btn-lg
+// .btn-sm
+// .btn-xs
+// размеры
+.btn-s {
+    padding: 4px 14px 5px;  //height 21
+    font-size: 12px;
+    line-height: 12px;
+    .border-radius(3px);
+}
+.btn-sl {
+    padding: 5px 14px 6px;  //height 27
+    font-size: 14px;
+    line-height: 14px;
+    .border-radius(3px);
+}
+.btn-m {
+    padding: 5px 18px 7px; //height 32
+    font-size: 14px;
+    line-height: 20px;
+    .border-radius(3px);
+}
+.btn-xm {
+    padding: 10px 22px 10px; //height 40
+    font-size: 14px;
+    line-height: 20px;
+    .border-radius(3px);
+}
+.btn-l {
+    padding: 12px 25px;  //height 46
+    font-size: 17px;
+    line-height: 22px;
+    .border-radius(5px);
+}
+.btn-xl {
+    padding: 14px 22px 15px;  //height 55
+    font-size: 20px;
+    line-height: 26px;
+    .border-radius(5px);
+}
+.btn-xxl {height:60px;line-height:60px;padding:0 20px;font-size:35px;.border-radius(5px);}
+// not use
+//.btn-xxxl {height:75px;line-height:75px;padding:0 35px;font-size:34px;.border-radius(8px);}
+
+
+// boostrap button 
+
+// button
+.btn {
+    text-decoration: none;
+
+    &:active,
+    &.active {
+        outline: 0;
+        background-image: none;
+        .box-shadow(none);
+    }
+
+    .ico-plus {
+        margin: -2px 5px 0 -1px;
+    }
+
+    ////////////////////// Цвета 
+    /*    &-primary-dark {
+        .button-variant(#fff; #3981b2; #3981b2);
+    }
+
+    &-success-dark {
+        .button-variant(#fff; #419c37; #419c37);
+    }
+
+    &-warning-dark {
+        .button-variant(#fff; #f07d02; #f07d02);
+    }*/
+    
+    // Серая кнопка
+    &-secondary {
+        display: inline-block;
+        .button-variant(@color-gray; #fff; #eaeaea);
+
+        &:hover {
+            background: none;
+            color: @color-gray-dark;
+            border-color: #ccc;
+        }
+    }
+    
+    &-secondary-light{
+        display: inline-block;
+        .button-variant(#757575; #f0f0f0; #f3f3f3);
+    }
+    
+}
+.btn-group.open .dropdown-toggle {.box-shadow(none);}
+
+.btn-link {
+    text-decoration: none;
+
+    &:hover {text-decoration: underline;}
+    &-gray {
+        &:extend(.btn-link all);
+        color: @color-gray;
+
+        &:hover {
+            color: @color-gray-dark;
+            text-decoration: none;
+        }
+    }
+}
+
+

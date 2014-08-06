@@ -105,10 +105,13 @@
     &:hover &_bubble {display: block;}
     &:hover &_photo-change {display: block;}
 
+    &__nohover:hover a.ava__large:after {display: none;}
+    &__nohover:hover &_online{display: block;}
+
     .ava__large {
         float: none;
         margin: 0 auto;
-        border: 2px solid #fff;
+        /*border: 2px solid #fff;*/
         position: relative;
         text-decoration: none;
     }
@@ -116,11 +119,10 @@
         content:'';
         display: none;
         position: absolute;
-        top: -1px;
-        right: -1px;
-        bottom: -1px;
-        left: -1px;
-        border: 2px solid #7eb7fc;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        left: 0px;
         background: #2f8fcf;
         background: rgba(47,143,207,.5);
         .border-radius(102px);

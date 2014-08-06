@@ -1,0 +1,11 @@
+mixin headLite (path, global)
+    head
+        | <meta charset="utf-8">
+        | <meta name="viewport" content="width=device-width, initial-scale=1">
+        //- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        title Happy Giraffe
+        
+        - if (debug == true)
+            | <link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
+        - else 
+            | <link rel="stylesheet" type="text/css" href='/lite/css/min/#{global.cssFile}' />

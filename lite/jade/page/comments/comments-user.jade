@@ -1,0 +1,34 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    //- Итоговый css для страницы
+    - global.cssFile = 'blog.css'; 
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+        // стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту 
+        a.post-arrow(href="")
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="") Главная
+                    li.b-crumbs_li
+                        +ava('ava__small', ava.a)
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Блог
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+                    //- +commentAdd()
+    
+                    +commentsOpen('', commentsOpen.a )
+                
+                // /Основная колонка
+
+    +layout-footer-lite('layout-footer__in')

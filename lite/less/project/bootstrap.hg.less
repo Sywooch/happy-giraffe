@@ -1,0 +1,70 @@
+/* 
+	Bootstrap стили переопределенные 
+
+*/
+
+/* .dropdown-menu */
+.dropdown-menu {
+    border: 1px solid #f5f5f5;
+    font-size: 13px;
+    .border-radius(0);
+    .box-shadow(0 0 4px rgba(0,0,0,0.15));
+    
+    &__check &_a {
+        text-decoration: none;
+        padding-right: 20px;
+    }
+    &__check &_a:hover {}
+    &__check &_li.active &_a {
+        background-color: transparent;
+        color: @color-gray-dark;
+    }
+    &__check &_in {
+        padding-right: 35px;
+    }
+    &__check &_li.active &_in {
+        background: url('@{path-img}/ico/ico-check-s.png') no-repeat 100% 50%;
+    }
+}
+/* /.dropdown-menu */
+
+/* progress-bar */
+
+@-webkit-keyframes progress-bar-stripes-invert {
+    from  { background-position: 0 0; }
+    to    { background-position: 40px 0; }
+}
+@keyframes progress-bar-stripes-invert {
+    from  { background-position: 0 0; }
+    to    { background-position: 40px 0; }
+}
+.progress {
+    
+    &.active .progress-bar {.animation(progress-bar-stripes-invert 1s linear infinite);}
+    &__cont {
+        height: 9px;
+        border: 3px solid #eee;
+        .border-radius(0);
+    }
+    &__cont .progress-bar {}
+    &__inline {
+        .inline-block();
+        vertical-align: middle;
+        width: 130px;
+        margin: 0 10px;
+    }
+}
+.progress-bar {
+
+    .progress-striped &__cont {
+        .box-shadow(none);
+        background-color: #eee;
+        background-image: -webkit-linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, transparent 75%, transparent);
+        background-image: -o-linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, transparent 75%, transparent);
+        background-image: linear-gradient(-45deg, #fefefe 25%, transparent 25%, transparent 50%, #fefefe 50%, #fefefe 75%, transparent 75%, transparent);
+    }
+}
+/* /progress-bar */
+
+
+

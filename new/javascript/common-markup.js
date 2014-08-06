@@ -23,13 +23,24 @@ $(function() {
     });*/
 
 
+    /* Инициализация скролла */
+    addBaron('.scroll');
+    
+        // Измененный tag select
+    /*$(".select-cus__search-off").select2({
+        width: '100%',
+        minimumResultsForSearch: -1,
+        dropdownCssClass: 'select2-drop__search-off',
+        escapeMarkup: function(m) { return m; }
+    });*/
+
 
     // Измененный tag select c инпутом поиска
-    $(".select-cus__search-on").select2({
+    /*$(".select-cus__search-on").select2({
         width: '100%',
         dropdownCssClass: 'select2-drop__search-on',
         escapeMarkup: function(m) { return m; }
-    });
+    });*/
 
     function selectCus__SearchOnDesc(state) {
         if (!state.id) return state.text; // optgroup
@@ -86,7 +97,7 @@ $(function() {
             onlyOne: false,
             touchDevices: true,
             interactive: true,
-            contentCloning:true;
+            contentCloning:true,
             interactiveAutoClose: false,
             theme: '.tooltipster-white',
             position: 'bottom',
@@ -95,5 +106,32 @@ $(function() {
         
         $this.tooltipster('show');
     })
+
+    var pageColHeight = $(window).height() - $('.layout-header').height() - 60;
+    $('.page-col').css({'min-height': pageColHeight});
+
+   
+    $('.popup-a__add').on('mfpOpen', function(e /*, params */) {
+        addBaron('.popup .scroll');
+        
+        var albumSlider =  $(".album-slider_hold").slider({
+            min: 1,
+            max: 3,
+            value: 2,
+            
+        });
+        $( ".album-slider_tx-minus" ).click(function() {
+            sliderValue = albumSlider.slider( "value" ) - 1;
+            albumSlider.slider( "value",  sliderValue );
+        });
+        $( ".album-slider_tx-plus" ).click(function() {
+            sliderValue = albumSlider.slider( "value" ) + 1;
+            albumSlider.slider( "value",  sliderValue );
+        });
+        addBaron('.popup .scroll');
+    });
+
 });
+
+
 

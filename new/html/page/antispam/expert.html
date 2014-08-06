@@ -3,14 +3,18 @@
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <!-- a-->
 <!-- b-->
+<!-- c-->
+<!-- a-->
+<!-- b-->
+<!-- c-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Happy Giraffe</title>
-  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <!-- including .css-->
+  <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-  <!-- including other jade works-->
-  <!-- ie8 -->
+  <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
   <!--+scripts(path)-->
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script>
@@ -18,14 +22,34 @@
     
   </script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/dropdown.js"></script>
+  <script src="/new/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
   <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <!-- popup-->
+  <!-- script(src="#{path}javascript/jquery.fancybox.js")-->
   <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
+  <!-- custom select-->
   <script src="/new/javascript/select2.js"></script>
+  <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/redactor/lang/ru.js"></script>
+  <script src="/new/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/new/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
   <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <!-- Базовый js (вызывается на всех страницах)-->
   <script src="/new/javascript/common.js"></script>
+  <!-- js для работы в верстке-->
   <script src="/new/javascript/common-markup.js"></script>
+  <!-- jquery-ui подключается для верстки, в yii есть аналог
+  компоненты 
+      slider 
+  -->
+  <script src="/new/javascript/jquery-ui-1.10.4.custom.js"></script>
+  <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body">
@@ -48,12 +72,14 @@
       </script>
       <div class="header-fix">
         <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
-          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a">
+              <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
             <!-- header-drop-->
             <div class="header-drop">
               <div class="header-menu clearfix">
                 <ul class="header-menu_ul">
-                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                        <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -82,10 +108,7 @@
           </div>
           <div class="header-fix-menu">
             <ul class="header-menu_ul clearfix">
-              <!-- li.header-fix-menu_li
-              a.header-fix-menu_a(href='')
-                  span.header-fix-menu_tx прямой эфир
-              -->
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a></li>
               <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
               <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
               <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
@@ -102,7 +125,8 @@
           <!-- logo__small-->
           <div class="logo logo__small"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a></div>
           <div class="header_t-big">Модератор</div>
-          <div class="header_user"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a><a class="header_user-name">Александр Богоявленский</a>
+          <div class="header_user">
+            <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a><a class="header_user-name">Александр Богоявленский</a>
           </div>
         </div>
       </div>
@@ -142,7 +166,8 @@
                   <li class="antispam-user_li">
                     <div class="antispam-user_hold">
                       <div class="b-user b-user__w300 b-user__va-m">
-                        <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="b-user_ava">
+                          <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="b-user_hold">
                           <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
@@ -154,7 +179,7 @@
                         <div class="antispam-user_count-big">35 за 05:32</div>
                         <div class="antispam-user_count-s">10 за 05:00</div>
                       </div>
-                      <div class="verticalalign-el">
+                      <div class="verticalalign-m-el">
                         <div class="margin-b5"><a class="btn-green btn-m">
                             <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
                       </div>
@@ -165,7 +190,8 @@
                   <li class="antispam-user_li">
                     <div class="antispam-user_hold">
                       <div class="b-user b-user__w300 b-user__va-m">
-                        <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="b-user_ava">
+                          <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="b-user_hold">
                           <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
@@ -177,7 +203,7 @@
                         <div class="antispam-user_count-big">35 за 05:32</div>
                         <div class="antispam-user_count-s">10 за 05:00</div>
                       </div>
-                      <div class="verticalalign-el">
+                      <div class="verticalalign-m-el">
                         <div class="margin-b5"><a class="btn-green btn-m">
                             <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
                       </div>
@@ -188,7 +214,8 @@
                   <li class="antispam-user_li">
                     <div class="antispam-user_hold">
                       <div class="b-user b-user__w300 b-user__va-m">
-                        <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="b-user_ava">
+                          <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="b-user_hold">
                           <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
@@ -200,7 +227,7 @@
                         <div class="antispam-user_count-big">35 за 05:32</div>
                         <div class="antispam-user_count-s">10 за 05:00</div>
                       </div>
-                      <div class="verticalalign-el">
+                      <div class="verticalalign-m-el">
                         <div class="margin-b5"><a class="btn-green btn-m">
                             <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
                       </div>
@@ -211,7 +238,8 @@
                   <li class="antispam-user_li">
                     <div class="antispam-user_hold">
                       <div class="b-user b-user__w300 b-user__va-m">
-                        <div class="b-user_ava"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                        <div class="b-user_ava">
+                          <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                         </div>
                         <div class="b-user_hold">
                           <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
@@ -223,7 +251,7 @@
                         <div class="antispam-user_count-big">35 за 05:32</div>
                         <div class="antispam-user_count-s">10 за 05:00</div>
                       </div>
-                      <div class="verticalalign-el">
+                      <div class="verticalalign-m-el">
                         <div class="margin-b5"><a class="btn-green btn-m">
                             <div class="ico-btn-check"></div>Хорошо</a></div><a class="btn-red btn-m">Анализ</a>
                       </div>
@@ -234,16 +262,21 @@
                 <div class="yiipagination">
                   <div class="pager">
                     <ul class="yiiPager">
+                      <li class="previous"><a href=""></a></li>
                       <li class="page"><a href="">1</a></li>
                       <li class="page"><a href="">2</a></li>
-                      <li class="page selected"><a href="">3</a></li>
-                      <li class="page"><a href="">4</a></li>
+                      <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
+                      <li class="page-points">...</li>
                       <li class="page"><a href="">5</a></li>
                       <li class="page"><a href="">6</a></li>
-                      <li class="page"><a href="">7</a></li>
+                      <li class="page selected"><a href="">7</a></li>
                       <li class="page"><a href="">8</a></li>
                       <li class="page"><a href="">9</a></li>
-                      <li class="page"><a href="">10</a></li>
+                      <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
+                      <li class="page-points">...</li>
+                      <li class="page"><a href="">15</a></li>
+                      <li class="page"><a href="">16</a></li>
+                      <li class="next"><a href=""></a></li>
                     </ul>
                   </div>
                 </div>

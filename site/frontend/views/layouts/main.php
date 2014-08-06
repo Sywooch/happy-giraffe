@@ -95,10 +95,7 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                         <div class="content-cols clearfix">
                             <div class="col-1">
                                 <div class="sidebar-search sidebar-search__big clearfix">
-                                    <form action="/search/">
-                                        <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(event, this)">
-                                        <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
-                                    </form>
+                                    <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
                                 </div>
                             </div>
                             <div class="col-23-middle">

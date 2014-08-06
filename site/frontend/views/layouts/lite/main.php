@@ -7,9 +7,6 @@
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>
 <body class="body body__bg1 body__lite">
-<!--///////////////////////////////////////-->
-<!-- Дата последних изменений --> <!-- Wed Jul 30 2014 08:15:35 -->
-<!--///////////////////////////////////////-->
 <div class="layout-container">
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
@@ -24,12 +21,12 @@
                         <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
                     <?php endif; ?>
                     <!-- header-menu-->
-                    <div class="header-menu">
+                    <!--<div class="header-menu">
                         <ul class="header-menu_ul clearfix">
-                            <!--<li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
-                            <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span></a></li>-->
+                            <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+                            <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span></a></li>
                         </ul>
-                    </div>
+                    </div>-->
                     <!-- /header-menu-->
                     <?php if ($this->module->id != 'search'): ?>
                         <div class="sidebar-search clearfix sidebar-search__big">
@@ -44,12 +41,6 @@
             <!-- /header-->
         </div>
         <div class="layout-loose_hold clearfix">
-            <!--///////////////////////////////////////////////////////-->
-            <!--/ В конечном итоге подключать css-->
-            <!--/ /lite/css/min/traditional-recipes.css-->
-            <!--/ или grunt задачу, в коммандной строке -->
-            <!--/ grunt traditional-recipes-->
-            <!--///////////////////////////////////////////////////////-->
             <!-- b-main -->
             <div class="b-main clearfix">
                 <div class="b-main_cont">
@@ -59,7 +50,7 @@
                             <?php
                             $this->widget('zii.widgets.CBreadcrumbs', array(
                                 'tagName' => 'ul',
-                                'separator' => ' &nbsp; ',
+                                'separator' => ' ',
                                 'htmlOptions' => array('class' => 'b-crumbs_ul'),
                                 'homeLink' => '<li class="b-crumbs_li"><a href="' . $this->createUrl('/site/index') . '" class="b-crumbs_a">Главная </a></li>',
                                 'activeLinkTemplate' => '<li class="b-crumbs_li"><a href="{url}" class="b-crumbs_a">{label}</a></li>',
@@ -82,7 +73,7 @@
                         <li class="footer-list_li"><a href="<?=$this->createUrl('/site/page', array('view' => 'abuse'))?>" class="footer-list_a">Правообладателям</a></li>
                         <li class="footer-list_li"><a href="<?=$this->createUrl('/site/page', array('view' => 'advertiser'))?>" class="footer-list_a footer-list__reklama">Реклама </a></li>
                         <li class="footer-list_li"><span class="footer-list_a">Контакты </span></li>
-                        <li class="footer-list_li footer-list_li__rambler visible-md-inline-block"><a href="" class="footer-list_a">Партнер "Рамблера"</a><span id="counter-rambler" class="footer-list_rambler-count"><a href="http://top100.rambler.ru/home?id=2892367" target="_blank"><img src="http://counter.rambler.ru/top100.scn?2892367&amp;rn=1382511841&amp;v=0.3&amp;bs=1680x983&amp;ce=1&amp;rf=http%3A%2F%2Fwww.happy-giraffe.ru%2Fmy%2F&amp;en=UTF-8&amp;pt=%D0%92%D0%B5%D1%81%D0%B5%D0%BB%D1%8B%D0%B9%20%D0%96%D0%B8%D1%80%D0%B0%D1%84%20-%20%D1%81%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D1%81%D0%B5%D0%B9%20%D1%81%D0%B5%D0%BC%D1%8C%D0%B8&amp;cd=32-bit&amp;sr=1680x1050&amp;la=ru&amp;ja=1&amp;acn=Mozilla&amp;an=Netscape&amp;pl=Win32&amp;tz=-120&amp;fv=12.0%20r0&amp;sv&amp;le=0" title="Rambler&quot;s Top100" alt="Rambler&quot;s Top100" border="0"></a></span></li>
+                        <li class="footer-list_li footer-list_li__rambler visible-md-inline-block"><a href="" class="footer-list_a">Партнер "Рамблера"</a><span id="counter-rambler" class="footer-list_rambler-count"><a href="http://top100.rambler.ru/home?id=2892367" target="_blank"><img src="http://counter.rambler.ru/top100.scn?2892367&amp;rn=1382511841&amp;v=0.3&amp;bs=1680x983&amp;ce=1&amp;rf=http%3A%2F%2Fwww.happy-giraffe.ru%2Fmy%2F&amp;en=UTF-8&amp;pt=%D0%92%D0%B5%D1%81%D0%B5%D0%BB%D1%8B%D0%B9%20%D0%96%D0%B8%D1%80%D0%B0%D1%84%20-%20%D1%81%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D1%81%D0%B5%D0%B9%20%D1%81%D0%B5%D0%BC%D1%8C%D0%B8&amp;cd=32-bit&amp;sr=1680x1050&amp;la=ru&amp;ja=1&amp;acn=Mozilla&amp;an=Netscape&amp;pl=Win32&amp;tz=-120&amp;fv=12.0%20r0&amp;sv&amp;le=0" title="Rambler&quot;s Top100" alt="Rambler&quot;s Top100" ></a></span></li>
                     </ul>
                     <ul class="footer-menu visible-md">
                         <li class="footer-menu_li"><a href="<?=$this->createUrl('/community/default/section', array('section_id' => 1))?>" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>

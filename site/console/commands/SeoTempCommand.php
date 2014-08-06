@@ -427,9 +427,9 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionFindHeaders()
     {
-        Yii::import('site.frontend.modules.cook.models.*');
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
 
-        $dp = new CActiveDataProvider('CookRecipe');
+        $dp = new CActiveDataProvider('RecipeBookRecipe');
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $recipe) {
             $dom = str_get_html($recipe->text);
@@ -438,4 +438,28 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
     }
+
+    public function actionTitles()
+    {
+        $result = array();
+
+        $dp = new CActiveDataProvider('CommunityContent');
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $data) {
+            if (preg_match('#[^\.][\.]$#', rtrim($data->title))) {
+                $result[] = array($data->title, $data->getUrl(false, true));
+            }
+        }
+
+        $dp = new CActiveDataProvider('CookRecipe');
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $data) {
+            if (preg_match('#[^\.][\.]$#', rtrim($data->title))) {
+                $result[] = array($data->title, $data->getUrl(false, true));
+            }
+        }
+
+        $this->writeCsv('titles', $result);
+    }
+
 } 

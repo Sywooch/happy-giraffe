@@ -17,7 +17,7 @@
                         <div class="img-upload_help">Поддерживаемые форматы: jpg и png</div>
                     </div>
                     <div class="file-fake">
-                        <button class="btn-green-simple btn-m file-fake_btn">Обзор</button>
+                        <button class="btn-green-simple btn-m file-fake_btn btn btn-success">Обзор</button>
                         <?=CHtml::activeFileField($model, 'image', array('class' => 'file-fake_inp'))?>
                     </div>
                 </div>

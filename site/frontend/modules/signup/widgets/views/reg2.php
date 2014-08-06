@@ -13,7 +13,7 @@
     <div class="popup-sign_col-ava"><a class="ava ava__large" data-bind="click: uploadPhoto"><span class="ico-status"></span><img alt="" class="ava_img preview-200" data-bind="attr: { src : avatar.imgSrc }"/></a>
         <div class="margin-5">
             <div class="popup-sign_tx-help">Чтобы вас узнавали на Веселом Жирафе <br> загрузите свое главное фото</div>
-        </div><a class="btn-s btn-blue-simple" data-bind="click: uploadPhoto, text: (avatar.imgSrc() === null) ? 'Загрузить' : 'Изменить'"></a>
+        </div><a class="btn-s btn-blue-simple btn btn-primary" data-bind="click: uploadPhoto, text: (avatar.imgSrc() === null) ? 'Загрузить' : 'Изменить'"></a>
     </div>
     <div class="popup-sign_col popup-sign_col__vetical-m">
         <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
@@ -220,7 +220,7 @@
             </div>
         </div>
         <div class="popup-sign_row">
-            <button class="btn-green-simple btn-l" data-bind="disable: saving">Продолжить</button>
+            <button class="btn-green-simple btn-l btn btn-success" data-bind="disable: saving">Продолжить</button>
             <div class="verticalalign-m-el margin-l20" data-bind="visible: saving"><img src="/images/ico/ajax-loader.gif"></div>
         </div>
         <?php $this->endWidget(); ?>

@@ -178,6 +178,10 @@ class DefaultController extends HController
         if (!Yii::app()->user->isGuest) {
             UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
         }
+        
+        // Поставим флаг, что бы для найденных сущностей прочитались сигналы
+        \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
+        
         if (Yii::app()->user->isGuest)
             $this->render('view_requirejs', compact('content'));
         else

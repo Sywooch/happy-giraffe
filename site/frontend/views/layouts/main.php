@@ -156,10 +156,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <?php $this->renderPartial('//_footer'); ?>
     <?php endif; ?>
 </div>
-<div class="display-n">
-    <?php $sql_stats = YII::app()->db->getStats();
-    echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>
-</div>
 
 <script type="text/javascript">
     <?php if (! Yii::app()->user->isGuest): ?>

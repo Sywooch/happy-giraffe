@@ -160,6 +160,7 @@ module.exports = function(grunt){
             /.redactor+/,
             /.select2+/,
             /.tooltip+/,
+            /.header-menu_li__dropin+/,
           ],
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],

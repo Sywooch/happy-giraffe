@@ -1,33 +1,17 @@
-<div class="entry">
+<?php
+/**
+ * @var RecipeBookRecipe $data
+ * @var bool $showDisease
+ */
+?>
 
-    <?=CHtml::link($data->title, $data->url, array('class' => 'entry-title'))?>
-
-    <div class="entry-header">
-
-        <?php $this->widget('Avatar', array('user' => $data->author)); ?>
-
-        <div class="meta">
-            <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created)?></div>
-            <div class="seen">Просмотров:&nbsp;<span><?=PageView::model()->viewsByPath($data->url)?></span></div><br>
-            <a href="<?=$data->getUrl(true)?>">Комментариев: <?php echo $data->commentsCount; ?></a>
-        </div>
-        <div class="clear"></div>
+<li class="traditional-recipes_li">
+    <div class="traditional-recipes_author">
+        <?php $this->widget('Avatar', array('user' => $data->author, 'size' => Avatar::SIZE_MICRO, 'htmlOptions' => array('class' => 'visible-md-inline-block'))); ?>
+        <a href="<?=$data->author->getUrl()?>" class="a-light"><?=$data->author->getFullName()?></a>
     </div>
-
-    <div class="entry-content">
-
-        <div class="disease-title">
-            <span>От болезни</span> <?=CHtml::link($data->disease->title, array('/services/childrenDiseases/default/view', 'id' => $data->disease->slug))?>
-        </div>
-
-        <div class="wysiwyg-content">
-
-            <h3>Приготовление</h3>
-
-            <p><?=Str::truncate(strip_tags($data->text), 500)?> <?=CHtml::link('Читать весь рецепт<i class="icon"></i>', $data->url, array('class' => 'read-more'))?></p>
-
-        </div>
-
-    </div>
-
-</div>
+    <div class="traditional-recipes_t"><a href="<?=$data->getUrl()?>" class="traditional-recipes_t-a"><?=$data->title?></a></div>
+    <?php if ($showDisease): ?>
+        <div class="b-tags"><a href="<?=$data->disease->getUrl()?>" class="b-tags_tag"><?=$data->disease->title?></a></div>
+    <?php endif; ?>
+</li>

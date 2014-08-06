@@ -346,7 +346,7 @@ return array(
             'js' => array(
                 'javascripts/ko_antispam.js',
             ),
-            'depends' => array('knockout', 'powertip'),
+            'depends' => array('knockout', 'powertip', 'ko_post'),
         ),
         'ko_onlineManager' => array(
             'baseUrl' => '/',
@@ -395,13 +395,13 @@ return array(
             'depends' => array('ko_upload'),
         ),
         'lite' => array(
+            'amd' => true,
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
                 'lite/javascript/modernizr.custom.js',
                 'lite/javascript/picturefill.min.js',
             ),
-            'depends' => array('jquery'),
         ),
         'lite-default' => array(
             'css' => array(
@@ -410,11 +410,11 @@ return array(
             'depends' => array('lite'),
         ),
         'lite_recipes' => array(
+            'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/traditional-recipes.css',
+                'lite/css/min/services.css',
             ),
-            'depends' => array('lite'),
         ),
     )
 );

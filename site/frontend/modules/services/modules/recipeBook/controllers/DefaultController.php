@@ -1,59 +1,99 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends LiteController
 {
-    public $layout = 'rec-layout';
-    public $index = false;
-    public $nav;
-    public $disease_id = null;
+    public $layout = '//layouts/lite/main';
+
+    protected function beforeAction($action)
+    {
+        if (parent::beforeAction($action)) {
+            $cs = Yii::app()->clientScript;
+            $cs->registerPackage('lite_recipes');
+            $cs->useAMD = true;
+            return true;
+        }
+    }
 
     public function filters()
     {
-        return array(
-            'accessControl',
-        );
-    }
+        if (Yii::app()->user->isGuest) {
+//            return array(
+//                array(
+//                    'COutputCache',
+//                    'duration' => 300,
+//                    'varyByParam' => array_keys($_GET),
+//                    'varyByExpression' => 'Yii::app()->vm->getVersion()',
+//                ),
+//            );
 
-    public function accessRules()
-    {
-        return array(
-            array('deny',
-                'actions' => array('form'),
-                'users' => array('?'),
-            ),
-        );
-    }
-
-    public function init()
-    {
-        $this->nav = RecipeBookDiseaseCategory::model()->findAll(array(
-            'with' => array(
-                'diseases' => array(
-                    'index' => 'id',
-                    'with' => array(
-                        'recipesCount',
-                    ),
-                ),
-            ),
-        ));
-
-        parent::init();
-    }
-
-    public function actionIndex($slug = null)
-    {
-        if ($slug !== null) {
-            $disease = RecipeBookDisease::model()->findByAttributes(array('slug' => $slug));
-            if ($disease === null)
-                throw new CHttpException(404);
-            $this->disease_id = $disease->id;
-            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-            $this->meta_title = 'Народные рецепты от болезни '.$disease->title;
         }
 
-        $dp = RecipeBookRecipe::model()->getByDisease($this->disease_id);
+        return parent::filters();
+    }
 
-        $this->render('index', compact('dp'));
+    public function actionIndex()
+    {
+        $dp = RecipeBookRecipe::getDp(null, null);
+        $categories = RecipeBookDiseaseCategory::model()->alphabetical()->findAll();
+
+        $title = 'Народные рецепты';
+        $links = array();
+        foreach ($categories as $c) {
+            $links[$c->title] = $c->getUrl();
+        }
+
+        $this->pageTitle = 'Народные рецепты';
+        $this->meta_description = 'Народные рецепты | ' . implode(', ', array_map(function($category) {
+            return $category->title;
+            }, $categories));
+        $this->breadcrumbs = array(
+            'Народные рецепты',
+        );
+        $this->render('index', compact('links', 'dp', 'title'));
+    }
+
+    public function actionDisease($slug)
+    {
+        $disease = RecipeBookDisease::model()->findByAttributes(array('slug' => $slug));
+        if ($disease === null) {
+            throw new CHttpException(404);
+        }
+        $dp = RecipeBookRecipe::getDp($disease->id, null);
+
+        $title = 'Народные рецепты. ' . $disease->title;
+        $links = array();
+
+        $this->pageTitle = $disease->title;
+        $this->meta_description = $disease->title . ' | ' . $disease->text;
+        $this->breadcrumbs = array(
+            'Народные рецепты' => array('/services/recipeBook/default/index'),
+            $disease->title,
+        );
+        $this->render('index', compact('links', 'dp', 'title'));
+    }
+
+    public function actionCategory($slug)
+    {
+        $category = RecipeBookDiseaseCategory::model()->with('diseases')->findByAttributes(array('slug' => $slug));
+        if ($category === null) {
+            throw new CHttpException(404);
+        }
+        $dp = RecipeBookRecipe::getDp(null, $category->id);
+
+        $title = 'Народные рецепты. ' . $category->title;
+        $links = array();
+        foreach ($category->diseases as $d) {
+            $links[$d->title] = $d->getUrl();
+        }
+
+        $this->pageTitle = $category->title;
+        $this->meta_description = $category->title . ' | ' . implode(', ', array_map(function($disease) {
+                return $disease->title;
+            }, $category->diseases));
+        $this->breadcrumbs = array(
+            'Народные рецепты',
+        );
+        $this->render('index', compact('links', 'dp', 'title'));
     }
 
     /**
@@ -61,82 +101,19 @@ class DefaultController extends HController
      */
     public function actionView($id)
     {
-        $data = RecipeBookRecipe::model()->with('disease', 'commentsCount', 'author', 'author.avatar', 'ingredients', 'ingredients.ingredient', 'ingredients.unit')->findByPk($id);
-        if ($data === null)
+        $recipe = RecipeBookRecipe::model()->single()->findByPk($id);
+        if ($recipe === null) {
             throw new CHttpException(404);
-
-        $this->meta_title = $data->title;
-
-        $this->disease_id = $data->disease_id;
-
-        $this->render('view', compact('data'));
-    }
-
-    public function actionForm($id = null)
-    {
-        if ($id === null) {
-            $recipe = new RecipeBookRecipe;
-            $ingredients = array();
-        } else {
-            $recipe = RecipeBookRecipe::model()->with('disease', 'disease.category', 'disease.category.diseases')->findByPk($id);
-            $ingredients = $recipe->ingredients;
         }
 
-        if (isset($_POST['RecipeBookRecipe'])) {
-            $ingredients = array();
-            $recipe->attributes = $_POST['RecipeBookRecipe'];
-            if ($recipe->isNewRecord)
-                $recipe->author_id = Yii::app()->user->id;
-            foreach ($_POST['RecipeBookRecipeIngredient'] as $i) {
-                if (! empty($i['ingredient_id']) || ! empty($i['value']) || $i['unit_id'] != RecipeBookRecipeIngredient::EMPTY_INGREDIENT_UNIT) {
-                    $ingredient = new RecipeBookRecipeIngredient;
-                    $ingredient->attributes = $i;
-                    $ingredient->setValue();
-                    $ingredient->recipe_id = $recipe->id;
-                    $ingredients[] = $ingredient;
-                }
-            }
-            $recipe->ingredients = $ingredients;
-            if ($recipe->withRelated->save(true, array('ingredients'))) {
-                $this->redirect($recipe->url);
-            }
-        }
-
-        if (empty($ingredients))
-            $ingredients = RecipeBookRecipeIngredient::model()->getEmptyModel(3);
-
-        $diseaseCategories = RecipeBookDiseaseCategory::model()->findAll();
-        $units = RecipeBookUnit::model()->findAll();
-        $this->layout = '//layouts/main';
-        $this->render('form', compact('recipe', 'ingredients', 'diseaseCategories', 'units'));
-    }
-
-    public function actionDiseases($category_id)
-    {
-        $htmlOptions = array(
-            'prompt' => 'не выбрана',
+        $this->pageTitle = $recipe->title . ' | ' . $recipe->disease->title;
+        $this->meta_description = $recipe->title . ' | ' . $recipe->disease->title . ' | ' . $recipe->text;
+        $this->breadcrumbs = array(
+            'Народные рецепты' => array('/services/recipeBook/default/index'),
+            $recipe->disease->title => $recipe->disease->getUrl(),
+            $recipe->title,
         );
-
-        $diseases = RecipeBookDisease::model()->findAllByAttributes(array('category_id' => $category_id));
-        echo CHtml::listOptions('', CHtml::listData($diseases, 'id', 'title'), $htmlOptions);
-    }
-
-    public function actionAc($term)
-    {
-        $criteria = new CDbCriteria;
-        $criteria->select = 'id, title';
-        $criteria->limit = 10;
-        $criteria->compare('title', $term . '%', true, 'AND', false);
-
-        $ingredients = RecipeBookIngredient::model()->findAll($criteria);
-        $_ingredients = array();
-        foreach ($ingredients as $i) {
-            $_ingredients[] = array(
-                'label' => $i->title,
-                'id' => $i->id,
-            );
-        }
-        echo CJSON::encode($_ingredients);
+        $this->render('view', compact('recipe'));
     }
 
     public function sitemapView()

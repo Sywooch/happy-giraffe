@@ -2,15 +2,20 @@
 .col-link {
     margin: 15px 0 5px;
     font-size: 14px;
-    -moz-column-width: 180px;
+    /*-moz-column-width: 180px;
     -moz-column-gap: 20px;
     -webkit-column-width: 180px;
     -webkit-column-gap: 20px;
     column-width: 180px;
-    column-gap: 20px;
+    column-gap: 20px;*/
     
     &_li {
         padding: 5px 0;
+
+        display: inline-block;
+        vertical-align: top;
+        width: 180px;
+        margin-right: 20px;
     }
     &_a {
         display: inline-block;
@@ -21,11 +26,11 @@
     }
 
     // fallback for ie8-9
-    .no-csscolumns &_li {
+    /*.no-csscolumns &_li {
         display: inline-block;
         vertical-align: top;
         width: 180px;
         margin-right: 20px;
-    }
+    }*/
 }
 /* /col-link */

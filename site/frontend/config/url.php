@@ -79,6 +79,10 @@ return array(
         'notifications' => 'notifications/default/index',
         'notifications/<_a>' => 'notifications/default/<_a>',
 
+        //comments
+        'comments' => 'comments/default/index',
+        'comments/<_a>' => 'comments/default/<_a>',
+
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',
         'rss/social/' => 'rss/social',
@@ -304,9 +308,41 @@ return array(
         'recipeBook/<_a:(diseases|ac)>' => 'services/recipeBook/default/<_a>',
         'recipeBook/edit/<id:\d+>' => 'services/recipeBook/default/form',
         'recipeBook/add' => 'services/recipeBook/default/form',
-        'recipeBook/recipe<id:\d+>' => 'services/recipeBook/default/view',
-        'recipeBook/<slug:\w+>' => 'services/recipeBook/default/index',
-        'recipeBook' => 'services/recipeBook/default/index',
+//        'recipeBook/recipe<id:\d+>' => 'services/recipeBook/default/view',
+//        'recipeBook/<slug:\w+>' => 'services/recipeBook/default/index',
+//        'recipeBook' => 'services/recipeBook/default/index',
+
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'pattern' => 'recipeBook/recipe<id:\d+>',
+            'condition' => 'Yii::app()->user->isGuest',
+            'trueRoute' => 'services/recipeBook/default/view',
+            'falseRoute' => 'services/recipeBook/defaultOld/view',
+        ),
+
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'pattern' => 'recipeBook/<slug:\w+>',
+            'condition' => 'Yii::app()->user->isGuest',
+            'trueRoute' => 'services/recipeBook/default/disease',
+            'falseRoute' => 'services/recipeBook/defaultOld/index',
+        ),
+
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'pattern' => 'recipeBook/category/<slug:\w+>',
+            'condition' => 'Yii::app()->user->isGuest',
+            'trueRoute' => 'services/recipeBook/default/category',
+            'falseRoute' => 'services/recipeBook/default/index',
+        ),
+
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'pattern' => 'recipeBook',
+            'condition' => 'Yii::app()->user->isGuest',
+            'trueRoute' => 'services/recipeBook/default/index',
+            'falseRoute' => 'services/recipeBook/defaultOld/index',
+        ),
 
         'services/repair/<_c>/<_a>' => 'services/repair/<_c>/<_a>',
         'repair/<_c>' => 'services/repair/<_c>/index',

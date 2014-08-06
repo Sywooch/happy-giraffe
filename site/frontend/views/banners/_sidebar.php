@@ -1,3 +1,4 @@
+<?php $this->beginWidget('AdsWidget'); ?>
 <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
 <div id="yandex_ad_sidebar"></div>
 <script type="text/javascript">
@@ -33,3 +34,4 @@
         t.parentNode.insertBefore(s, t);
     })(window, document, "yandex_context_callbacks");
 </script>
+<?php $this->endWidget(); ?>

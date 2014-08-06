@@ -75,6 +75,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
             <?php if (false): ?>
             <div class="adv-yandex"><a href="" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
             <?php endif; ?>
+            <?php if ($commentsWidget->count > 0): ?>
             <!-- comments-->
             <section class="comments comments__buble">
             <div class="comments-menu">
@@ -121,6 +122,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
             </div>
             </section>
             <!-- /comments-->
+            <?php endif; ?>
         </div>
         <!-- /Основная колонка-->
     </div>

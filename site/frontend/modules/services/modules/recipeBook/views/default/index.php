@@ -35,6 +35,7 @@
                 'viewData' => array(
                     'showDisease' => Yii::app()->controller->action->id != 'disease',
                 ),
+                'emptyText' => 'Нет ни одного рецепта по вашему запросу',
             ));
             ?>
         </div>

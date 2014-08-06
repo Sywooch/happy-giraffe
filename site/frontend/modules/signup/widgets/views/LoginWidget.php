@@ -61,13 +61,13 @@
                     <div class="popup-sign_row">
                         <div class="float-r">
                             <div class="display-ib textalign-c">
-                                <button class="btn-green-simple btn-l margin-b10">Войти на сайт</button><br><a class="popup-a" href="#passwordRecoveryWidget" data-bind="click: recover">Забыли пароль?</a>
+                                <button class="btn-green-simple btn-l margin-b10  btn btn-success">Войти на сайт</button><br><a class="popup-a" href="#passwordRecoveryWidget" data-bind="click: recover">Забыли пароль?</a>
                             </div>
                         </div>
                         <div class="float-l">
-                            <div class="checkbox-icons">
-                                <?=$form->checkBox($model, 'rememberMe', array('class' => 'checkbox-icons_radio', 'data-bind' => 'checked: rememberMe'))?>
-                                <?=$form->label($model, 'rememberMe', array('class' => 'checkbox-icons_label'))?>
+                            <div class="radio-icons radio-icons__checkbox">
+                                <?=$form->checkBox($model, 'rememberMe', array('class' => 'radio-icons_radio', 'data-bind' => 'checked: rememberMe'))?>
+                                <?=$form->label($model, 'rememberMe', array('class' => 'radio-icons_label'))?>
                             </div>
                         </div>
                     </div>

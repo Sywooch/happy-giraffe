@@ -18,11 +18,16 @@ class YandexShareWidget extends CWidget
     public $description;
     public $imageUrl;
     public $url;
+    public $lite = false;
 
     private $_id;
 
     public function init()
     {
+        if (! $this->model instanceof IPreview) {
+            throw new CException('Сущность должна реализовывать интерфейс IPreview');
+        }
+
         if ($this->title === null) {
             $this->title = $this->getTitle();
         }
@@ -62,7 +67,7 @@ class YandexShareWidget extends CWidget
             'image' => $this->imageUrl,
         ));
         $this->registerScript($json);
-        $this->render('view', compact('json'));
+        $this->render($this->getView(), compact('json'));
     }
 
     public function getElementId()
@@ -71,6 +76,11 @@ class YandexShareWidget extends CWidget
             $this->_id = 'ya_share_' . md5(get_class($this->model) . $this->model->primaryKey);
         }
         return $this->_id;
+    }
+
+    protected function getView()
+    {
+        return $this->lite === true ? 'lite' : 'view';
     }
 
     protected function registerScript($json)

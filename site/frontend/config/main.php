@@ -125,6 +125,9 @@ return array(
         'notifications' => array(
             'class' => 'site\frontend\modules\notifications\NotificationsModule',
         ),
+        'comments' => array(
+            'class' => 'site\frontend\modules\comments\CommentsModule',
+        ),
         'friends',
         'favourites',
         'scores',
@@ -145,6 +148,9 @@ return array(
 	),
 	// application components
 	'components'=>array(
+        'vm' => array(
+            'class' => 'VersionManager',
+        ),
         'ads' => array(
             'class' => 'Ads',
         ),

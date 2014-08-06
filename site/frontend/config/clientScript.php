@@ -394,5 +394,20 @@ return array(
             ),
             'depends' => array('ko_upload'),
         ),
+        'lite' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'js' => array(
+                'lite/javascript/modernizr.custom.js',
+                'lite/javascript/picturefill.min.js',
+            ),
+        ),
+        'lite_recipes' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/services.css',
+            ),
+        ),
     )
 );

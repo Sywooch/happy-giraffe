@@ -9,7 +9,8 @@
         src - путь к изобржению аватара
         avaSpan 
 mixin ava(mod, vars)
-    //!= vars.avaSpan
+    //- != vars.avaSpan
+    // ava
     - if (vars.avaSpan)
         span.ava(class=mod, href='')
             img.ava_img(alt='', src='#{vars.src}')
@@ -39,9 +40,18 @@ mixin ava(mod, vars)
 - ava.a.src = 'http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg'
 
 - ava.b = {}
-- ava.b.icoStatus = 'ico-status__online',
+- ava.b.icoStatus = '',
 - ava.b.avaSpan = false,
-- ava.b.src = 'http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg"'
+- ava.b.src = 'http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg'
+
+- ava.c = {}
+- ava.c.avaSpan = false,
+- ava.c.src = 'http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg'
+
+- ava.d = {}
+- ava.d.icoStatus = '',
+- ava.d.avaSpan = false,
+- ava.d.src = 'http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg'
 
 - var avaVarsTitle = { icoStatus: 'ico-status__online',src: 'http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg', avaNameTitle: 'Екатерина Прохожаева'}
 

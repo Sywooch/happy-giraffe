@@ -1,0 +1,114 @@
+
+/* 
+    userSection 
+        &_left
+            &_name
+            &_btn-hold
+                &_btn
+                    &_ico
+            &_panel
+                &_panel-ul
+                    &_panel-li
+                        &_panel-a
+        &_center
+            .b-ava-large
+            &_center-reg
+        &_right
+
+*/
+.userSection {
+    margin: 0 0 25px;
+    padding: 20px 30px 25px;
+    background: #af9bd2;
+    color: #fff;
+    
+    .location_tx {color: #fff;}
+    .b-ava-large {margin: 5px auto;}
+    .b-family_tx {color: #fff;}
+    &_left {
+        .inline-block();
+        vertical-align: middle;
+        width: 280px;
+        margin: 0 20px;
+    }
+    &_name {
+        font-size: 30px;
+        line-height: 28px;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 5px;
+    }
+    &_center {
+        .inline-block();
+        vertical-align: middle;
+        width: 300px;
+    }
+    &_center-reg {
+        font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
+        text-align: center;
+        color: #f3edfc;
+    }
+    &_right {
+        .inline-block();
+        vertical-align: middle;
+        margin-left: 20px;
+        width: 270px;
+    }
+    &_help {
+        color: #d9d2e9;
+    }
+    &_btn-hold {
+            margin: 14px 0 ;
+    }
+    &_btn {
+        float: left;
+        width: 80px;
+        height: 68px;
+        margin: 2px 10px 0 0;
+        padding-top: 12px;
+        text-align: center;
+        background-color: #9d8ac0;
+        .border-radius(40px);
+    }
+    &_btn:hover {background-color: #8573a7;}
+    &_btn__dialog:hover {background-color: #3998d1;}
+    &_btn__friend:hover,
+    &_btn__friend-added:hover,
+    &_btn__friend-append:hover,
+    &_btn__friend-add:hover, {background-color: #fbe170;}
+    &_btn__dialog        &_ico {background-position: -200px 0;}
+    &_btn__friend-added  &_ico {background-position: -150px 0;}
+    &_btn__friend-append &_ico {background-position: -100px 0;}
+    &_btn__friend        &_ico {background-position: -50px 0;}
+    &_btn__friend-add    &_ico {background-position: 0px 0;}
+    &_ico {
+        display: block;
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        background: url('@{path-img}/userSection_ico.png') no-repeat;
+    }
+    &_panel {
+        margin: 0;
+    }
+    &_panel-ul {}
+    &_panel-li {
+        .inline-block();
+        margin: 0 4px;
+    }
+    &_panel-li.active &_panel-a {
+        border-color: #fff;
+        background-color: #fff;
+        color: #9d8bbd;
+    }
+    &_panel-a {
+        .inline-block();
+        padding: 4px 10px;
+        color: #fff;
+        text-decoration: none;
+        border: 2px solid #d7cde9;
+    }
+    &_panel-a:hover {
+        border-color: #fff;
+    }
+}

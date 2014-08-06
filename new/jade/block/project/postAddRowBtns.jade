@@ -1,0 +1,66 @@
+//- 
+    mod
+    vars
+mixin postAddRowBtns(mod, vars)
+    // postAdd_btns
+    .postAdd_row(class=mod)
+        .postAdd_count 
+        .b-main_col-article.clearfix
+            // Блок управления приватностью записи
+            //.privacy-select.float-l
+                .privacy-select_hold.clearfix
+                    .privacy-select_tx Для кого:
+                    .privacy-select_drop-hold.dropdown.dropup
+                        a.privacy-select_a.dropdown-toggle(href='', data-toggle="dropdown", data-target="#", id="dLabel1")
+                            span.ico-users.ico-users__friend.active
+                            span.privacy-select_a-tx
+                                | только
+                                br
+                                | друзьям
+                        .privacy-select_drop.dropdown-menu.pull-right.dropdown-menu__check(role='', aria-labelledby="dLabel1")
+                            .privacy-select_i
+                                a.privacy-select_a(href='')
+                                    span.ico-users.ico-users__all
+                                    span.privacy-select_a-tx
+                                        | для
+                                        | всех
+                            .privacy-select_i
+                                a.privacy-select_a(href='')
+                                    span.ico-users.ico-users__friend
+                                    span.privacy-select_a-tx
+                                        | только
+                                        | друзьям
+            .postAdd_btns-hold
+                a.btn.btn-secondary.btn-xm.margin-r15(href="") Отменить
+                .btn-group.dropup
+                    span.btn.btn-xm.postAdd_btn-out(class='btn-'+vars.btnType) 
+                        = vars.btnTx
+                    .btn-group.dropdown
+                        span.btn.btn-xm.open.dropdown-toggle(class='btn-'+vars.btnType+'-dark', data-toggle="dropdown", data-target="#", id="dLabel")
+                            i.ico-arrow-d
+                        ul.dropdown-menu.pull-right.dropdown-menu__check(role='', aria-labelledby="dLabel")
+                            li.dropdown-menu_li.active
+                                a.dropdown-menu_a(href='#')
+                                    .dropdown-menu_in 
+                                        | Опубликовать сейчас
+                            li.dropdown-menu_li
+                                a.dropdown-menu_a(href='#') 
+                                    .dropdown-menu_in 
+                                        | Предпросмотр
+                            li.dropdown-menu_li
+                                a.dropdown-menu_a(href='#')
+                                    .dropdown-menu_in 
+                                        | Сохранить в черновик
+
+- var postAddRowBtns = {}
+- postAddRowBtns.a = {}
+- postAddRowBtns.a.btnType = "success"
+- postAddRowBtns.a.btnTx = "Опубликовать"
+
+- postAddRowBtns.b = {}
+- postAddRowBtns.b.btnType = "primary"
+- postAddRowBtns.b.btnTx = "В черновик"
+
+- postAddRowBtns.c = {}
+- postAddRowBtns.c.btnType = "warning"
+- postAddRowBtns.c.btnTx = "Предпросмотр"

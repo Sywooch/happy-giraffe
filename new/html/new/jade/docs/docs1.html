@@ -1,0 +1,1494 @@
+<!DOCTYPE html><!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
+<!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<!-- a-->
+<!-- b-->
+<!-- c-->
+<!-- a-->
+<!-- b-->
+<!-- c-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title>
+  <!-- including .css-->
+  <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
+  <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
+  <!--+scripts(path)-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    
+  </script>
+  <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/dropdown.js"></script>
+  <script src="/new/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <!-- popup-->
+  <!-- script(src="#{path}javascript/jquery.fancybox.js")-->
+  <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <!-- custom scroll-->
+  <script src="/new/javascript/baron.js"></script>
+  <!-- custom select-->
+  <script src="/new/javascript/select2.js"></script>
+  <!-- wisywig-->
+  <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/redactor/lang/ru.js"></script>
+  <script src="/new/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/new/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
+  <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <!-- Базовый js (вызывается на всех страницах)-->
+  <script src="/new/javascript/common.js"></script>
+  <!-- js для работы в верстке-->
+  <script src="/new/javascript/common-markup.js"></script>
+  <!-- jquery-ui подключается для верстки, в yii есть аналог
+  компоненты 
+      slider 
+  -->
+  <script src="/new/javascript/jquery-ui-1.10.4.custom.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
+</head>
+<body class="body body__bg-base">
+  <div class="layout-container">
+    <div class="layout-wrapper">
+      <div class="layout-wrapper_hold">
+        <div class="docs">
+          <h1 class="docs_h1">Библиотека стандартных элементов Веселый Жираф</h1>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Типографика</h2>
+            <h3 class="docs_h3">Обычный текст</h3>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <p>Самый обычный абзац.</p>
+            <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
+            <ul>
+              <li>Тектс списка </li>
+              <li>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</li>
+            </ul>
+            <ol>
+              <li>Тектс списка </li>
+              <li>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</li>
+            </ol>
+            <div class="tx-content">
+              <p>Самый обычный абзац. В статьях и т.д.</p>
+              <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
+            </div>
+            <div class="docs_row">
+              <div class="tx-hint">Текст подсказок</div>
+            </div>
+            <div class="docs_row">
+              <div class="tx-date">Текст даты</div>
+            </div>
+          </div>
+          <div class="docs_desc">
+            <h3 class="docs_h3">Заголовки</h3>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <div class="heading-xxl">.heading-xxl</div>
+            <div class="heading-xl">.heading-xl</div>
+            <div class="heading-small">.heading-small</div>
+            <div class="heading-xs">.heading-smallest</div><a class="heading-link-xxl">Заголовок большой ссылка в строку</a><br>
+            <div class="heading-link-xl">Заголовок в списке статей </div>
+          </div>
+          <div class="docs_desc">
+            <h2 class="docs_h2">Ссылки</h2>
+          </div>
+          <div class="docs_example docs_example__indents"><a>Обычная ссылка</a><br><span class="a-pseudo">Псевдоссылка. Наведение есть, но не тег а</span><br><a class="i-more">Дальше</a></div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">Выделеный текст. В поиске и т.д. </div>
+          <div class="docs_example docs_example__indents"><span class="i-highlight">Выделеный текст.</span></div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">Logo</div>
+          <div class="docs_example docs_example__indents">
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <div class="docs_row">
+              <!-- logo__small-->
+              <div class="logo logo__small"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Кнопки</h2>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <div class="padding-b10">
+              <div disabled class="btn btn-default">Кнопка</div>
+              <div disabled class="btn btn-primary">Кнопка</div>
+              <div disabled class="btn btn-success">Кнопка</div>
+              <div disabled class="btn btn-warning">Кнопка</div>
+              <div disabled class="btn btn-danger">Кнопка</div>
+              <div disabled class="btn btn-secondary">Кнопка</div>
+              <div disabled class="btn btn-secondary">Кнопка</div>
+              <div disabled class="btn btn-link">Кнопка</div>
+              <div disabled class="btn btn-link-gray">Кнопка</div><br>
+            </div>
+            <div class="padding-b10"><a href="" class="btn btn-default">Кнопка</a><a href="" class="btn btn-primary">Кнопка</a><a href="" class="btn btn-success">Кнопка</a><a href="" class="btn btn-warning">Кнопка</a><a href="" class="btn btn-danger">Кнопка</a><a href="" class="btn btn-secondary">Кнопка</a><a href="" class="btn btn-link">Кнопка</a><a href="" class="btn btn-link-gray">Кнопка</a><br>
+            </div>
+            <div class="padding-b10">
+              <div class="btn btn-default btn-s">Кнопка</div>
+              <div class="btn btn-primary btn-s">Кнопка</div>
+              <div class="btn btn-success btn-s">Кнопка</div>
+              <div class="btn btn-warning btn-s">Кнопка</div>
+              <div class="btn btn-danger btn-s">Кнопка</div>
+              <div class="btn btn-secondary btn-s">Кнопка</div>
+              <div class="btn btn-link btn-s">Кнопка</div>
+              <div class="btn btn-link-gray btn-s">Кнопка</div><br>
+            </div>
+            <div class="padding-b10">
+              <div class="btn btn-default btn-m">Кнопка</div>
+              <div class="btn btn-primary btn-m">Кнопка</div>
+              <div class="btn btn-success btn-m">Кнопка</div>
+              <div class="btn btn-warning btn-m">Кнопка</div>
+              <div class="btn btn-danger btn-m">Кнопка</div>
+              <div class="btn btn-secondary btn-m">Кнопка</div>
+              <div class="btn btn-link btn-m">Кнопка</div>
+              <div class="btn btn-link-gray btn-m">Кнопка</div><br>
+            </div>
+            <div class="padding-b10">
+              <div class="btn btn-default btn-xm">Кнопка</div>
+              <div class="btn btn-primary btn-xm">Кнопка</div>
+              <div class="btn btn-success btn-xm">Кнопка</div>
+              <div class="btn btn-warning btn-xm">Кнопка</div>
+              <div class="btn btn-danger btn-xm">Кнопка</div>
+              <div class="btn btn-secondary btn-xm">Кнопка</div>
+              <div class="btn btn-link btn-xm">Кнопка</div>
+              <div class="btn btn-link-gray btn-xm">Кнопка</div><br>
+            </div>
+            <div class="padding-b10">
+              <div class="btn btn-default btn-l">Кнопка</div>
+              <div class="btn btn-primary btn-l">Кнопка</div>
+              <div class="btn btn-success btn-l">Кнопка</div>
+              <div class="btn btn-warning btn-l">Кнопка</div>
+              <div class="btn btn-danger btn-l">Кнопка</div>
+              <div class="btn btn-secondary btn-l">Кнопка</div>
+              <div class="btn btn-link btn-l">Кнопка</div>
+              <div class="btn btn-link-gray btn-l">Кнопка</div><br>
+            </div>
+            <div class="padding-b10">
+              <div class="btn btn-default btn-xl">Кнопка</div>
+              <div class="btn btn-primary btn-xl">Кнопка</div>
+              <div class="btn btn-success btn-xl">Кнопка</div>
+              <div class="btn btn-info btn-xl">Кнопка</div>
+              <div class="btn btn-warning btn-xl">Кнопка</div>
+              <div class="btn btn-danger btn-xl">Кнопка</div>
+              <div class="btn btn-secondary btn-xl">Кнопка</div>
+              <div class="btn btn-link btn-xl">Кнопка</div>
+              <div class="btn btn-link-gray btn-xl">Кнопка</div><br>
+            </div>
+            <div class="padding-b10 clearfix">
+              <div class="w-300 float-l margin-r10">
+                <button class="btn btn-default btn-xxl btn-block">Кнопка</button>
+                <button class="btn btn-primary btn-xxl btn-block">Кнопка блок</button>
+                <button class="btn btn-success btn-xxl btn-block">Кнопка блок</button>
+                <button class="btn btn-warning btn-xxl btn-block">Кнопка</button>
+              </div>
+              <div class="w-240 float-l">
+                <button class="btn btn-danger btn-xxl btn-block">Кнопка уже</button>
+                <button class="btn btn-secondary btn-xxl btn-block">Кнопка</button>
+                <button class="btn btn-link btn-xxl btn-block">Кнопка</button>
+                <button class="btn btn-link-gray btn-xxl btn-block">Кнопка уже</button>
+              </div><br>
+            </div>
+            <div class="padding-b10">
+              <div class="btn-group"><a class="btn btn-xm btn-success">Left</a><a class="btn btn-xm btn-success">Middle</a><a class="btn btn-xm btn-info">Middle</a><a class="btn btn-xm btn-primary">Right</a></div>
+            </div>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <div class="docs_row">
+              <!-- postAdd_btns-->
+              <div class="postAdd_row">
+                <div class="postAdd_count"></div>
+                <div class="b-main_col-article clearfix">
+                  <!-- Блок управления приватностью записи-->
+                  <!--.privacy-select.float-l
+                  .privacy-select_hold.clearfix
+                      .privacy-select_tx Для кого:
+                      .privacy-select_drop-hold.dropdown.dropup
+                          a.privacy-select_a.dropdown-toggle(href='', data-toggle="dropdown", data-target="#", id="dLabel1")
+                              span.ico-users.ico-users__friend.active
+                              span.privacy-select_a-tx
+                                  | только
+                                  br
+                                  | друзьям
+                          .privacy-select_drop.dropdown-menu.pull-right.dropdown-menu__check(role='', aria-labelledby="dLabel1")
+                              .privacy-select_i
+                                  a.privacy-select_a(href='')
+                                      span.ico-users.ico-users__all
+                                      span.privacy-select_a-tx
+                                          | для
+                                          | всех
+                              .privacy-select_i
+                                  a.privacy-select_a(href='')
+                                      span.ico-users.ico-users__friend
+                                      span.privacy-select_a-tx
+                                          | только
+                                          | друзьям
+                  -->
+                  <div class="postAdd_btns-hold"><a href="" class="btn btn-secondary btn-xm margin-r15">Отменить</a>
+                    <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success">Опубликовать</span>
+                      <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark"><i class="ico-arrow-d"></i></span>
+                        <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
+                          <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">
+                              <div class="dropdown-menu_in">Опубликовать сейчас</div></a></li>
+                          <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                              <div class="dropdown-menu_in">Предпросмотр</div></a></li>
+                          <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                              <div class="dropdown-menu_in">Сохранить в черновик</div></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="docs_row">
+              <!-- postAdd_btns-->
+              <div class="postAdd_row">
+                <div class="postAdd_count"></div>
+                <div class="b-main_col-article clearfix">
+                  <!-- Блок управления приватностью записи-->
+                  <!--.privacy-select.float-l
+                  .privacy-select_hold.clearfix
+                      .privacy-select_tx Для кого:
+                      .privacy-select_drop-hold.dropdown.dropup
+                          a.privacy-select_a.dropdown-toggle(href='', data-toggle="dropdown", data-target="#", id="dLabel1")
+                              span.ico-users.ico-users__friend.active
+                              span.privacy-select_a-tx
+                                  | только
+                                  br
+                                  | друзьям
+                          .privacy-select_drop.dropdown-menu.pull-right.dropdown-menu__check(role='', aria-labelledby="dLabel1")
+                              .privacy-select_i
+                                  a.privacy-select_a(href='')
+                                      span.ico-users.ico-users__all
+                                      span.privacy-select_a-tx
+                                          | для
+                                          | всех
+                              .privacy-select_i
+                                  a.privacy-select_a(href='')
+                                      span.ico-users.ico-users__friend
+                                      span.privacy-select_a-tx
+                                          | только
+                                          | друзьям
+                  -->
+                  <div class="postAdd_btns-hold"><a href="" class="btn btn-secondary btn-xm margin-r15">Отменить</a>
+                    <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-primary">В черновик</span>
+                      <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-primary-dark"><i class="ico-arrow-d"></i></span>
+                        <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
+                          <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">
+                              <div class="dropdown-menu_in">Опубликовать сейчас</div></a></li>
+                          <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                              <div class="dropdown-menu_in">Предпросмотр</div></a></li>
+                          <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                              <div class="dropdown-menu_in">Сохранить в черновик</div></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="docs_row">
+              <!-- postAdd_btns-->
+              <div class="postAdd_row">
+                <div class="postAdd_count"></div>
+                <div class="b-main_col-article clearfix">
+                  <!-- Блок управления приватностью записи-->
+                  <!--.privacy-select.float-l
+                  .privacy-select_hold.clearfix
+                      .privacy-select_tx Для кого:
+                      .privacy-select_drop-hold.dropdown.dropup
+                          a.privacy-select_a.dropdown-toggle(href='', data-toggle="dropdown", data-target="#", id="dLabel1")
+                              span.ico-users.ico-users__friend.active
+                              span.privacy-select_a-tx
+                                  | только
+                                  br
+                                  | друзьям
+                          .privacy-select_drop.dropdown-menu.pull-right.dropdown-menu__check(role='', aria-labelledby="dLabel1")
+                              .privacy-select_i
+                                  a.privacy-select_a(href='')
+                                      span.ico-users.ico-users__all
+                                      span.privacy-select_a-tx
+                                          | для
+                                          | всех
+                              .privacy-select_i
+                                  a.privacy-select_a(href='')
+                                      span.ico-users.ico-users__friend
+                                      span.privacy-select_a-tx
+                                          | только
+                                          | друзьям
+                  -->
+                  <div class="postAdd_btns-hold"><a href="" class="btn btn-secondary btn-xm margin-r15">Отменить</a>
+                    <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-warning">Предпросмотр</span>
+                      <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-warning-dark"><i class="ico-arrow-d"></i></span>
+                        <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
+                          <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">
+                              <div class="dropdown-menu_in">Опубликовать сейчас</div></a></li>
+                          <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                              <div class="dropdown-menu_in">Предпросмотр</div></a></li>
+                          <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                              <div class="dropdown-menu_in">Сохранить в черновик</div></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">Кнопки социальных сетей. Резиновые, занимают всю ширину родителя.</div>
+          <div class="docs_example docs_example__indents">
+            <ul class="social-btns clearfix w-300">
+              <li><a class="social-btn social-btn__odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
+              <li><a class="social-btn social-btn__vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Form</h2>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <div class="w-240 margin-b10">
+              <div class="inp-valid inp-valid__abs error">
+                <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                <div class="inp-valid_error">
+                  <div class="errorMessage">E-mail не является правильным E-Mail адресом</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="w-240 margin-b10">
+              <div class="inp-valid inp-valid__abs success">
+                <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                <div class="inp-valid_error">
+                  <div class="errorMessage">E-mail не является правильным E-Mail адресом</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="w-240 margin-b10">
+              <div class="inp-valid inp-valid__abs">
+                <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                <div class="inp-valid_error">
+                  <div class="errorMessage">E-mail не является правильным E-Mail адресом</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="margin-b10">
+              <div class="inp-valid inp-valid__abs">
+                <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                <div class="inp-valid_error">
+                  <div class="errorMessage">E-mail не является правильным E-Mail адресом</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="w-240 margin-b10">
+              <div class="inp-valid inp-valid__abs">
+                <select placeholder="Выберите страну" class="select-cus select-cus__search-on select-cus__gray">
+                  <option></option>
+                  <option value="2">Россия</option>
+                  <option value="3">Беларусь</option>
+                  <option value="4">Казахстан</option>
+                  <option value="5">Молдова</option>
+                  <option value="6">Польша</option>
+                  <option value="7">Венгрия</option>
+                  <option value="8">Грузия</option>
+                  <option value="9">Албания</option>
+                  <option value="10">Лимпопо</option>
+                  <option value="11">Замбия</option>
+                </select>
+                <div class="inp-valid_error">
+                  <div class="errorMessage">Страна не вабрана</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="w-240 margin-b10">
+              <div class="inp-valid inp-valid__abs success">
+                <select placeholder="Выберите страну" class="select-cus select-cus__search-on select-cus__gray">
+                  <option></option>
+                  <option value="2">Россия</option>
+                  <option value="3">Беларусь</option>
+                  <option value="4">Казахстан</option>
+                  <option value="5">Молдова</option>
+                  <option value="6">Польша</option>
+                  <option value="7">Венгрия</option>
+                  <option value="8">Грузия</option>
+                  <option value="9">Албания</option>
+                  <option value="10">Лимпопо</option>
+                  <option value="11">Замбия</option>
+                </select>
+                <div class="inp-valid_error">
+                  <div class="errorMessage">Страна не вабрана</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="margin-b10">
+              <div class="inp-valid inp-valid__abs success">
+                <select placeholder="Выберите страну" class="select-cus select-cus__search-off select-cus__gray">
+                  <option></option>
+                  <option value="2">Россия</option>
+                  <option value="3">Беларусь</option>
+                  <option value="4">Казахстан</option>
+                  <option value="5">Молдова</option>
+                  <option value="6">Польша</option>
+                  <option value="7">Венгрия</option>
+                  <option value="8">Грузия</option>
+                  <option value="9">Албания</option>
+                  <option value="10">Лимпопо</option>
+                  <option value="11">Замбия</option>
+                </select>
+                <div class="inp-valid_error">
+                  <div class="errorMessage">Страна не вабрана</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="inp-valid inp-valid__abs error">
+              <select placeholder="Выберите страну" class="select-cus select-cus__search-on select-cus__gray">
+                <option></option>
+                <option value="2">Россия</option>
+                <option value="3">Беларусь</option>
+                <option value="4">Казахстан</option>
+                <option value="5">Молдова</option>
+                <option value="6">Польша</option>
+                <option value="7">Венгрия</option>
+                <option value="8">Грузия</option>
+                <option value="9">Албания</option>
+                <option value="10">Лимпопо</option>
+                <option value="11">Замбия</option>
+              </select>
+              <div class="inp-valid_error">
+                <div class="errorMessage">Страна не вабрана</div>
+              </div>
+              <div class="inp-valid_success inp-valid_success__ico-check"></div>
+            </div>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <div class="display-ib">
+              <div class="inp-valid inp-valid__abs error">
+                <div class="radio-icons radio-icons__inline margin-l20">
+                  <input id="radio4" type="radio" name="" class="radio-icons_radio">
+                  <label for="radio4" class="radio-icons_label">Мужской</label>
+                  <input id="radio3" type="radio" name="" class="radio-icons_radio">
+                  <label for="radio3" class="radio-icons_label">Женский</label>
+                </div>
+                <div class="inp-valid_error">
+                  <div class="errorMessage">Выберите пол</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <div class="display-ib">
+              <div class="inp-valid inp-valid__abs success">
+                <div class="radio-icons radio-icons__inline radio-icons__checkbox margin-l20">
+                  <input id="checkbox4" type="checkbox" name="" checked="checked" class="radio-icons_radio">
+                  <label for="checkbox4" class="radio-icons_label">Мужской</label>
+                  <input id="checkbox3" type="checkbox" name="" class="radio-icons_radio">
+                  <label for="checkbox3" class="radio-icons_label">Женский</label>
+                </div>
+                <div class="inp-valid_error">
+                  <div class="errorMessage">Выберите пол</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Аватары</h2>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <!-- ava--><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__middle ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="" class="ava_img"></a><br>
+            <!-- ava--><a href="" class="ava ava__small ava__female"><span class="ico-status ico-status__offline"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__offline"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava ava__female"><span class="ico-status ico-status__offline"></span><img alt="" src="" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__large ava__female"><img alt="" src="" class="ava_img"></a><br>
+            <!-- ava--><a href="" class="ava ava__small ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__middle ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava ava__male"><span class="ico-status ico-status__online"></span><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Семья</h2>
+          </div>
+          <div class="docs_desc">Иконки семьи</div>
+          <div class="docs_example docs_example__indents">
+            <div class="docs_row">
+              <div class="ico-family ico-family__baby-plan margin-r10"></div>
+              <div class="ico-family ico-family__baby margin-r10">  </div>
+              <div class="ico-family ico-family__baby-two margin-r10"></div>
+              <div class="ico-family ico-family__boy-wait margin-r10"></div>
+              <div class="ico-family ico-family__girl-wait margin-r10"></div>
+              <div class="ico-family ico-family__boy-small margin-r10"></div>
+              <div class="ico-family ico-family__girl-small margin-r10"></div>
+              <div class="ico-family ico-family__boy-3 margin-r10"></div>
+              <div class="ico-family ico-family__girl-3 margin-r10"></div>
+              <div class="ico-family ico-family__boy-5 margin-r10"></div>
+              <div class="ico-family ico-family__girl-5 margin-r10"></div>
+              <div class="ico-family ico-family__boy-8 margin-r10"></div>
+              <div class="ico-family ico-family__girl-8 margin-r10"></div>
+              <div class="ico-family ico-family__boy-14 margin-r14"></div>
+              <div class="ico-family ico-family__girl-14 margin-r14"></div>
+              <div class="ico-family ico-family__boy-19 margin-r19"></div>
+              <div class="ico-family ico-family__girl-19 margin-r19"></div>
+              <div class="ico-family ico-family__fiance margin-r19"></div>
+              <div class="ico-family ico-family__bride margin-r19"></div>
+              <div class="ico-family ico-family__husband margin-r19"></div>
+              <div class="ico-family ico-family__wife margin-r19"></div>
+              <div class="ico-family ico-family__boy margin-r19"></div>
+              <div class="ico-family ico-family__girl margin-r19"></div>
+            </div>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <div class="display-ib">
+              <!-- b-family-->
+              <div class="b-family">
+                <ul class="b-family_ul">
+                  <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span>Жена</span></span></a></li>
+                  <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-19"></span></span><span class="b-family_tx"><span>Сын</span><br><span>19 лет</span></span></a></li>
+                  <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>8 лет</span></span></a></li>
+                  <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><img alt="" src="/images/example/w41-h49-1.jpg" class="b-family_img"></span><span class="b-family_tx"><span>Сын</span><br><span>19 лет</span></span></a></li>
+                  <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Сын</span><br><span>2,5 года</span></span></a></li>
+                </ul>
+              </div>
+              <!-- /b-family-->
+            </div>
+          </div>
+          <div class="docs_example">
+            <div class="b-family-structure clearfix">
+              <div class="b-family-structure_upload">
+                <div class="b-family-structure_note">Все просто. Перетащите в пустые квадраты<br>членов вашей семьи</div>
+                <div class="b-family b-family__bg-none">
+                  <ul class="b-family_ul">
+                    <!--Объект для перетаскивания .b-family_li 
+                    -->
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__husband"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Муж</span></div>
+                    </li>
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__fiance"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Жених</span></div>
+                    </li>
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__boy-friend"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Друг</span></div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="b-family b-family__bg-none">
+                  <ul class="b-family_ul">
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__baby-plan"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Планируем ребенка</span></div>
+                    </li>
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__boy-wait"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Ждем мальчика</span></div>
+                    </li>
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__girl-wait"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Ждем девочку</span></div>
+                    </li>
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__baby"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Ждем ребенка</span></div>
+                    </li>
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__baby-two"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Ждем двойню</span></div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="clearfix">
+                  <div class="float-l margin-r20 w-130 textalign-c">
+                    <div class="b-family_sub-t">Дети от 0 до 1 года</div>
+                    <div class="b-family b-family__bg-none">
+                      <ul class="b-family_ul">
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__girl-small"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Дочь</span></div>
+                        </li>
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__boy-small"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Сын</span></div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="float-l margin-r20 w-130 textalign-c">
+                    <div class="b-family_sub-t"> Дети от 1 до 3 лет</div>
+                    <div class="b-family b-family__bg-none">
+                      <ul class="b-family_ul">
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__girl-3"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Дочь</span></div>
+                        </li>
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__boy-3"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Сын</span></div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="float-l margin-r20 w-130 textalign-c">
+                    <div class="b-family_sub-t"> Дети от 3 до 6 лет</div>
+                    <div class="b-family b-family__bg-none">
+                      <ul class="b-family_ul">
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__girl-5"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Дочь</span></div>
+                        </li>
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__boy-5"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Сын</span></div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="float-l margin-r20 w-130 textalign-c">
+                    <div class="b-family_sub-t">Дети от 6 до 12 лет</div>
+                    <div class="b-family b-family__bg-none">
+                      <ul class="b-family_ul">
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__girl-8"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Дочь</span></div>
+                        </li>
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__boy-8"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Сын</span></div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="float-l margin-r20 w-130 textalign-c">
+                    <div class="b-family_sub-t">Дети от 12 до 18 лет</div>
+                    <div class="b-family b-family__bg-none">
+                      <ul class="b-family_ul">
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__girl-14"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Дочь</span></div>
+                        </li>
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__boy-14"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Сын</span></div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="float-l margin-r20 w-130 textalign-c">
+                    <div class="b-family_sub-t">Старше 18 лет</div>
+                    <div class="b-family b-family__bg-none">
+                      <ul class="b-family_ul">
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__girl-19"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Дочь</span></div>
+                        </li>
+                        <li class="b-family_li">
+                          <div class="b-family_img-hold">
+                            <div class="ico-family ico-family__boy-19"></div>
+                          </div>
+                          <div class="b-family_tx"><span>Сын</span></div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--Правая часть
+              -->
+              <div class="b-family-structure_added">
+                <div class="b-family b-family__square">
+                  <div class="b-family_top b-family_top__white-big"></div>
+                  <!--Когда 9 ячеек не хватает для семьи, появляется еще ряд из 3 ячеек.
+                  -->
+                  <ul class="b-family_ul">
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__wife"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Я</span></div>
+                    </li>
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__husband"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Муж</span></div><a href="" class="ico-close b-family_del"></a>
+                    </li>
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__boy-wait"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Ждем мальчика</span></div><a href="" class="ico-close b-family_del"></a>
+                    </li>
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__girl-small"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Дочь</span></div><a href="" class="ico-close b-family_del"></a>
+                    </li>
+                    <li class="b-family_li">
+                      <div class="b-family_img-hold">
+                        <div class="ico-family ico-family__girl-8"></div>
+                      </div>
+                      <div class="b-family_tx"><span>Дочь</span></div><a href="" class="ico-close b-family_del"></a>
+                    </li>
+                    <!--Когда курсор мыши с зажатой иконкой над квадратом добавить класс dragover 
+                    -->
+                    <li class="b-family_li b-family_li__empty dragover"></li>
+                    <!--Когда курсор мыши с зажатой иконкой над квадратом и нельзя добавить (Например: второго мужа) довесить класс dragover-error 
+                    -->
+                    <li class="b-family_li b-family_li__empty dragover-error"></li>
+                    <li class="b-family_li b-family_li__empty"></li>
+                    <li class="b-family_li b-family_li__empty"></li>
+                  </ul>
+                </div>
+                <div class="textalign-r color-white">
+                  <!--Для удобства число можно положить в span или другой строчный тег 
+                  -->Членов семьи: <span>5</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">Иконки уарпвления
+            <p>  В кнопке spam есть выпадающий список</p>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <!-- b-control-->
+            <div class="b-control position-rel">
+              <div class="b-control_hold">
+                <div class="b-control_i"><span title="Удалить" class="b-control_ico powertip b-control_ico__delete"></span>
+                  <div class="b-control_drop"></div>
+                </div>
+                <div class="b-control_i"><span title="В избранное" class="b-control_ico powertip b-control_ico__favorite"></span>
+                  <div class="b-control_drop"></div>
+                </div>
+                <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                  <div class="tooltip-drop">
+                    <div class="tooltip-popup">
+                      <div class="tooltip-popup_t">Укажите вид нарушения:</div>
+                      <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
+                      <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                      input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                      | Спам или реклама
+                      -->
+                      <label for="" class="tooltip-popup_label clearfix">
+                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Мошенничество
+                      </label>
+                      <label for="" class="tooltip-popup_label clearfix">
+                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Грубость, угрозы
+                      </label>
+                      <label for="" class="tooltip-popup_label clearfix">
+                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Интимный характер
+                      </label>
+                      <label for="" class="tooltip-popup_label clearfix">
+                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Другое
+                      </label>
+                      <label for="" class="tooltip-popup_label clearfix">
+                        <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">
+                        <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx">
+                      </label>
+                      <div class="clearfix textalign-c">
+                        <button class="btn-green btn-inactive">Пожаловаться</button>
+                        <button class="btn-gray-light">Отменить</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="b-control_i"><span title="Редактировать" class="b-control_ico powertip b-control_ico__edit"></span>
+                  <div class="b-control_drop"></div>
+                </div>
+                <div class="b-control_i"><span title="Отменить" class="b-control_ico powertip b-control_ico__cancel"></span>
+                  <div class="b-control_drop"></div>
+                </div>
+              </div>
+            </div>
+            <!-- /b-control-->
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">Иконки </div>
+          <div class="docs_example docs_example__indents">
+            <div class="docs_row">
+              <div class="ico-status ico-status__online"></div>
+              <div class="ico-status ico-status__offline"></div>- .ico-status
+            </div>
+            <div class="docs_row">
+              <div class="ico-cancel">–</div>
+            </div>
+            <div class="docs_row"><img src="/new/images/ico/ajax-loader.gif" class="ico-loader"></div>
+            <div class="docs_row">
+              <div class="ico-close"></div>
+              <div class="ico-close2"></div>
+              <div class="ico-close3"></div>
+            </div>
+            <div class="docs_row">
+              <div class="ico-update"></div>
+            </div>
+            <div class="docs_row">
+              <div class="ico-check"></div>
+              <div class="ico-del"></div>
+              <div class="ico-question"></div>
+            </div>
+            <div class="docs_row">
+              <div class="ico-refresh"></div>
+            </div>
+            <div class="docs_row">
+              <div class="ico-lock-big"></div>
+            </div>
+            <div class="docs_row">
+              <div class="ico-male"></div>
+              <div class="ico-female"></div>
+            </div>
+            <div class="docs_row">
+              <div class="ico-error-smile"></div>
+            </div>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Блок юзера</h2>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <div class="b-user b-user__w300">
+              <div class="b-user_ava">
+                <!-- ava--><a href="" class="ava ava__middle ava__female"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+              </div>
+              <div class="b-user_hold">
+                <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div><a class="b-user_view">123</a><a class="b-user_check">123</a><a class="b-user_del">123</a>
+              </div>
+            </div>
+            <div class="docs_row">
+              <div class="b-user">
+                <div class="b-user_ava">
+                  <!-- ava--><a href="" class="ava ava__middle ava__female"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a>
+                </div>
+                <div class="b-user_hold">
+                  <div class="b-user_row"><a class="b-user_name">Ангелина Богоявленская</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">Табы управления</div>
+          <div class="docs_example">
+            <div class="page-col_top page-col_top__gray">
+              <div class="sidebar-search clearfix">
+                <input type="text" name="" placeholder="Введите имя и/или фамилию" class="sidebar-search_itx">
+                <!-- При начале ввода добавить класс .active на кнопку-->
+                <button class="sidebar-search_btn"></button>
+              </div>
+              <ul class="page-col_tabs">
+                <li class="page-col_tab active"><a class="page-col_tab-a">Все друзья 128</a></li>
+                <li class="page-col_tab"><a class="page-col_tab-a">Друзья онлайн 12</a></li>
+                <li class="page-col_tab"><a class="page-col_tab-a">Новые друзья 6</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="docs_example"><span class="margin-l20">Табы в <a href="">строку </a></span>
+            <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+              <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+              <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+              <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+            </ul>продолжение строки
+          </div>
+          <div class="docs_example">
+            <ul class="tabs-simple nav nav-tabs">
+              <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+              <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+              <li><a href="#photo-tab-link" data-toggle="tab">Из интернета </a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">Пагинация на странице</div>
+          <div class="docs_example">
+            <!-- paginator-->
+            <div class="yiipagination">
+              <div class="pager">
+                <ul class="yiiPager">
+                  <li class="previous"><a href=""></a></li>
+                  <li class="page"><a href="">1</a></li>
+                  <li class="page"><a href="">2</a></li>
+                  <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
+                  <li class="page-points">...</li>
+                  <li class="page"><a href="">5</a></li>
+                  <li class="page"><a href="">6</a></li>
+                  <li class="page selected"><a href="">7</a></li>
+                  <li class="page"><a href="">8</a></li>
+                  <li class="page"><a href="">9</a></li>
+                  <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
+                  <li class="page-points">...</li>
+                  <li class="page"><a href="">15</a></li>
+                  <li class="page"><a href="">16</a></li>
+                  <li class="next"><a href=""></a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- /paginator-->
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Меню слева</h2>
+          </div>
+          <div class="docs_example">
+            <div class="display-ib margin-l20">
+              <!-- side-menu-->
+              <div class="side-menu side-menu__friend">
+                <div class="side-menu_hold">
+                  <div class="side-menu_t side-menu_t__friends"></div>
+                  <ul class="side-menu_ul">
+                    <li class="side-menu_li side-menu_li__find"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__find"></span><span class="side-menu_tx">Найти друзей</span></span></a></li>
+                    <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online-friend"></span><span class="side-menu_tx">Мои <br> друзья </span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__friend-add"></span><span class="side-menu_tx">Давай дружить</span><span class="side-menu_count">1</span></span><span class="verticalalign-m-help"></span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /side-menu-->
+            </div>
+            <div class="display-ib margin-l20">
+              <!-- side-menu-->
+              <div class="side-menu side-menu__im">
+                <div class="side-menu_hold">
+                  <div class="side-menu_t"></div>
+                  <ul class="side-menu_ul">
+                    <li class="side-menu_li"><a href="" class="side-menu_i active"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__all"></span><span class="side-menu_tx">Все</span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__new"></span><span class="side-menu_tx">Новые</span><span class="side-menu_count">96</span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online"></span><span class="side-menu_tx">Кто онлайн</span><span class="side-menu_count-sub">5945</span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li disabled"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online-friend"></span><span class="side-menu_tx">Друзья онлайн</span><span class="side-menu_count-sub">0</span></span><span class="verticalalign-m-help"></span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /side-menu-->
+            </div>
+            <div class="display-ib margin-l20">
+              <!-- side-menu-->
+              <div class="side-menu side-menu__antispam">
+                <div class="side-menu_hold">
+                  <div class="side-menu_t side-menu_t__moderator"></div>
+                  <ul class="side-menu_ul">
+                    <li class="side-menu_li"><a href="" class="side-menu_i side-menu_i__find"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__broadcast"></span><span class="side-menu_tx">Прямой эфир</span></span></a></li>
+                    <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__expert"></span><span class="side-menu_tx">Эксперт</span><span class="side-menu_count">15</span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__deleted"></span><span class="side-menu_tx">Удалено</span><span class="side-menu_count-sub">59</span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__question"></span><span class="side-menu_tx">Под вопросом</span><span class="side-menu_count-sub">7895</span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-white"></span><span class="side-menu_tx">Белый список</span><span class="side-menu_count-sub">7895</span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-black"></span><span class="side-menu_tx">Черный список</span><span class="side-menu_count-sub">456</span></span><span class="verticalalign-m-help"></span></a></li>
+                    <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__ul-block"></span><span class="side-menu_tx">Блок</span><span class="side-menu_count-sub">456</span></span><span class="verticalalign-m-help"></span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /side-menu-->
+            </div>
+            <div class="display-ib margin-l20">
+              <!-- user-menu-->
+              <div class="user-menu">
+                <div class="user-menu_ava">
+                  <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                </div>
+                <ul class="user-menu_ul">
+                  <li class="user-menu_li"><a class="user-menu_i">
+                      <div class="user-menu_ico user-menu_ico__profile"></div>
+                      <div class="user-menu_tx">Анкета
+                      </div></a></li>
+                  <li class="user-menu_li active"><a class="user-menu_i">
+                      <div class="user-menu_ico user-menu_ico__family"></div>
+                      <div class="user-menu_tx">Семья
+                      </div></a></li>
+                  <li class="user-menu_li"><a class="user-menu_i">
+                      <div class="user-menu_ico user-menu_ico__blog"></div>
+                      <div class="user-menu_tx">Блог
+                      </div></a></li>
+                  <li class="user-menu_li"><a class="user-menu_i">
+                      <div class="user-menu_ico user-menu_ico__photo"></div>
+                      <div class="user-menu_tx">Фото
+                      </div></a></li>
+                  <li class="user-menu_li"><a class="user-menu_i">
+                      <div class="user-menu_ico user-menu_ico__interest"></div>
+                      <div class="user-menu_tx">Интересы
+                      </div></a></li>
+                </ul>
+              </div>
+              <!-- /user-menu-->
+            </div>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Список друзей</h2>
+          </div>
+          <div class="docs_example">
+            <div class="display-ib margin-l20">
+              <div class="friends-list">
+                <ul class="friends-list_ul">
+                  <!--  != vars.bAvaLarge.avaVars.avaSpan-->
+                  <!--  each item in vars.bAvaLarge.avaVars!= item
+                  -->
+                  <li class="friends-list_li">
+                    <div class="friends-list_i"><span title="Удалить из друзей" class="ico-close2 powertip"></span>
+                      <!-- b-ava-large-->
+                      <div class="b-ava-large">
+                        <div class="b-ava-large_ava-hold clearfix">
+                          <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
+                          <!-- - if (vars.icoFriendAdd)
+                          a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
+                              span.b-ava-large_ico.b-ava-large_ico__friend-add
+                              span.b-ava-large_bubble-tx 
+                          -->
+                        </div>
+                        <div class="textalign-c"><a href="" class="b-ava-large_a">Александр Богоявленский</a><span class="b-ava-large_age">42 года</span></div>
+                        <div class="location location__small clearfix">
+                          <div title="Россия" class="flag flag-ru"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
+                        </div>
+                        <!-- b-family-->
+                        <div class="b-family">
+                          <ul class="b-family_ul">
+                            <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span>Жена</span></span></a></li>
+                            <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-19"></span></span><span class="b-family_tx"><span>Сын</span><br><span>19 лет</span></span></a></li>
+                            <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>8 лет</span></span></a></li>
+                            <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><img alt="" src="/images/example/w41-h49-1.jpg" class="b-family_img"></span><span class="b-family_tx"><span>Сын</span><br><span>19 лет</span></span></a></li>
+                            <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Сын</span><br><span>2,5 года</span></span></a></li>
+                          </ul>
+                        </div>
+                        <!-- /b-family-->
+                      </div>
+                      <!-- /b-ava-large-->
+                    </div>
+                  </li>
+                  <!--  != vars.bAvaLarge.avaVars.avaSpan-->
+                  <!--  each item in vars.bAvaLarge.avaVars!= item
+                  -->
+                  <li class="friends-list_li">
+                    <div class="friends-list_i"><span title="Удалить из друзей" class="ico-close2 powertip"></span>
+                      <!-- b-ava-large-->
+                      <div class="b-ava-large">
+                        <div class="b-ava-large_ava-hold clearfix">
+                          <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
+                          <!-- - if (vars.icoFriendAdd)
+                          a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
+                              span.b-ava-large_ico.b-ava-large_ico__friend-add
+                              span.b-ava-large_bubble-tx 
+                          -->
+                        </div>
+                        <div class="textalign-c"><a href="" class="b-ava-large_a">Александр Богоявленский</a><span class="b-ava-large_age">42 года</span></div>
+                        <div class="location location__small clearfix">
+                          <div title="Россия" class="flag flag-ru"></div><span class="location_tx">Казахстан, Переславль-Залесский, Астраханская область</span>
+                        </div>
+                        <!-- b-family-->
+                        <div class="b-family">
+                          <ul class="b-family_ul">
+                            <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span>Жена</span></span></a></li>
+                            <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-19"></span></span><span class="b-family_tx"><span>Сын</span><br><span>19 лет</span></span></a></li>
+                            <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>8 лет</span></span></a></li>
+                            <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><img alt="" src="/images/example/w41-h49-1.jpg" class="b-family_img"></span><span class="b-family_tx"><span>Сын</span><br><span>19 лет</span></span></a></li>
+                            <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Сын</span><br><span>2,5 года</span></span></a></li>
+                          </ul>
+                        </div>
+                        <!-- /b-family-->
+                      </div>
+                      <!-- /b-ava-large-->
+                      <!-- cap-empty-->
+                      <div class="cap-empty cap-empty__abs cap-empty__white">
+                        <div class="cap-empty_hold">
+                          <div class="cap-empty_img"></div>
+                          <div class="cap-empty_tx-top"><a href='' class='b-ava-large_a'>Алекс Брянский</a></div>
+                          <div class="cap-empty_t">Удален из друзей</div>
+                          <div class="cap-empty_tx-sub"><a href=''>Восстановить</a></div>
+                        </div>
+                        <div class="verticalalign-m-help"></div>
+                      </div>
+                      <!-- /cap-empty-->
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Превью фото при загрузке </h2>
+          </div>
+          <div class="docs_example">
+            <div class="display-ib margin-l20">
+              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+              -->
+              <div class="i-photo i-photo__load"><a href="" class="ico-close5"></a>
+                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                <!-- Загрузка фото-->
+                <div class="i-photo_hold">
+                  <div class="i-photo_progress">
+                    <!-- boostrap progressbar-->
+                    <!-- progressbar изначально уже весь заполнен-->
+                    <div class="progress progress-striped active progress__cont">
+                      <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                    </div>
+                    <div class="tx-hint">Загрузка</div>
+                  </div>
+                </div>
+              </div>
+              <!-- /Блок фотографии-->
+            </div>
+            <div class="display-ib margin-l20">
+              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+              -->
+              <div class="i-photo i-photo__loaded"><a href="" class="ico-close5"></a>
+                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                <!-- Загруженное фото-->
+                <div class="i-photo_hold">
+                  <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                  </div>
+                  <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                </div>
+              </div>
+              <!-- /Блок фотографии-->
+            </div>
+            <div class="display-ib margin-l20">
+              <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+              -->
+              <div class="i-photo i-photo__error"><a href="" class="ico-close5"></a>
+                <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                <!-- Ошибка-->
+                <div class="i-photo_hold error">
+                  <div class="tx-hint">IMG_5295.JPG</div>
+                  <div class="tx-hint">Ошибка загрузки</div>
+                </div>
+              </div>
+              <!-- /Блок фотографии-->
+            </div>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Добавить контент  </h2>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <div class="docs_row">
+              <div class="b-main clearfix">
+                <div class="b-main_col-23">
+                  <!-- userAddRecord-->
+                  <div class="userAddRecord clearfix  userAddRecord__s">
+                    <div class="userAddRecord_ava-hold">
+                      <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                    </div>
+                    <div class="userAddRecord_hold">
+                      <div class="userAddRecord_tx">Я хочу добавить
+                      </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a><a href="#popup-user-add-link" data-theme="transparent" title="Ссылка" class="userAddRecord_ico userAddRecord_ico__link fancy powertip"></a>
+                    </div>
+                  </div>
+                  <!-- /userAddRecord-->
+                </div>
+              </div>
+            </div>
+            <div class="docs_row">
+              <!-- userAddRecord-->
+              <div class="userAddRecord clearfix userAddRecord__blog undefined">
+                <div class="userAddRecord_hold">
+                  <div class="userAddRecord_tx">Я хочу добавить
+                  </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a><a href="#popup-user-add-link" data-theme="transparent" title="Ссылка" class="userAddRecord_ico userAddRecord_ico__link fancy powertip"></a>
+                </div>
+              </div>
+              <!-- /userAddRecord-->
+            </div>
+            <div class="docs_row">
+              <!-- userAddRecord-->
+              <div class="userAddRecord clearfix userAddRecord__add undefined">
+                <div class="userAddRecord_hold">
+                  <div class="userAddRecord_draft-hold"><a href="" class="userAddRecord_draft">Черновики 2</a></div>
+                  <div class="userAddRecord_tx">Добавить видеопост
+                  </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a><a href="#popup-user-add-link" data-theme="transparent" title="Ссылка" class="userAddRecord_ico userAddRecord_ico__link fancy powertip"></a>
+                </div>
+              </div>
+              <!-- /userAddRecord-->
+            </div>
+          </div>
+        </div>
+        <div class="docs">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Поиск </h2>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <div class="docs_row">
+              <div class="sidebar-search clearfix">
+                <input type="text" name="" placeholder="Введите текст" class="sidebar-search_itx">
+                <!-- При начале ввода добавить класс .active на кнопку-->
+                <button class="sidebar-search_btn"></button>
+              </div>
+            </div>
+            <div class="docs_row">
+              <div class="b-main clearfix">
+                <div class="b-main_col-1">
+                  <div class="sidebar-search clearfix">
+                    <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx">
+                    <!-- При начале ввода добавить класс .active на кнопку-->
+                    <button class="sidebar-search_btn"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="docs_row">
+              <div class="b-main clearfix">
+                <div class="b-main_col-1">
+                  <div class="sidebar-search clearfix sidebar-search__big">
+                    <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx">
+                    <!-- При начале ввода добавить класс .active на кнопку-->
+                    <button class="sidebar-search_btn"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="docs">
+      <div class="layout-wrapper">
+        <div class="layout-wrapper_hold">
+          <div class="docs_desc">
+            <h2 class="docs_h2">Шапка </h2>
+            <p>Выпадающее окно из аватара в шапке</p>
+          </div>
+          <div class="docs_example docs_example__indents">
+            <div class="header-drop position-rel display-b">
+              <div class="header-menu clearfix">
+                <ul class="header-menu_ul">
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                        <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                </ul>
+              </div>
+              <!-- header-drop_b-->
+              <div class="header-drop_b">
+                <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                <div class="club-list club-list__small clearfix">
+                  <ul class="club-list_ul clearfix">
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /header-drop_b-->
+            </div>
+            <!-- /header-drop --><br><br><br><br><br><br><br><br><br><br><br>
+          </div>
+        </div>
+      </div>
+      <div class="docs_example">
+        <!-- header-->
+        <div class="header">
+          <div class="header_hold clearfix">
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
+                <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a">
+                    <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                  <div class="header-drop">
+                    <div class="header-menu clearfix">
+                      <ul class="header-menu_ul">
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                              <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                        <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                      </ul>
+                    </div>
+                    <!-- header-drop_b-->
+                    <div class="header-drop_b">
+                      <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                      <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                      <div class="club-list club-list__small clearfix">
+                        <ul class="club-list_ul clearfix">
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /header-drop_b-->
+                  </div>
+                  <!-- /header-drop -->
+                </li>
+              </ul>
+            </div>
+            <!-- /header-menu-->
+          </div>
+        </div>
+        <!-- /header-->
+      </div>
+      <div class="docs_example">
+        <!-- header-->
+        <div class="header header__small">
+          <div class="header_hold clearfix">
+            <!-- logo__small-->
+            <div class="logo logo__small"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a></div>
+            <div class="header_t-big">Модератор</div>
+            <div class="header_user">
+              <!-- ava--><a href="" class="ava ava__middle ava__female"><img alt="" src="/new/images/example/ava-large.jpg" class="ava_img"></a><a class="header_user-name">Александр Богоявленский</a>
+            </div>
+          </div>
+        </div>
+        <!-- /header-->
+      </div>
+      <div class="docs_example">
+        <!-- header-fix-->
+        <script>
+          $(document).ready(function () {
+              $(window).on('scroll',function () {
+                  var contanerScroll = $(window).scrollTop();
+                  var header = $('.layout-header');
+                  console.log(header.height());
+                  if (contanerScroll > header.height() + header.offset().top) {
+                      $('.header-fix').fadeIn(400);
+                  } else {
+                      $('.header-fix').fadeOut(400);
+                  }
+              });
+          });
+        </script>
+        <div class="header-fix header-fix__rel">
+          <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
+            <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a">
+                <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+              <!-- header-drop-->
+              <div class="header-drop">
+                <div class="header-menu clearfix">
+                  <ul class="header-menu_ul">
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                          <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                    <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                  </ul>
+                </div>
+                <!-- header-drop_b-->
+                <div class="header-drop_b">
+                  <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                  <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                  <div class="club-list club-list__small clearfix">
+                    <ul class="club-list_ul clearfix">
+                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                      <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- /header-drop_b-->
+              </div>
+              <!-- /header-drop -->
+            </div>
+            <div class="header-fix-menu">
+              <ul class="header-menu_ul clearfix">
+                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a></li>
+                <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
+                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
+                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
+                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
+                <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- /header-fix-->
+      </div>
+    </div>
+    <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

@@ -58,6 +58,10 @@ mixin b-control(mod, items)
 
     // /b-control
 
+- var bControl = {}
+- bControl.a = ['delete', 'favorite', 'spam', 'edit', 'cancel']
+- bControl.b = ['delete', 'edit']
+- bControl.c = ['spam']
 
 //- Пейджинатор
 mixin pagination(mod)
@@ -65,26 +69,35 @@ mixin pagination(mod)
     .yiipagination(class=mod)
         .pager
             ul.yiiPager
+              li.previous
+                a(href='')
               li.page
                 a(href='') 1
               li.page
                 a(href='') 2
-              li.page.selected
-                a(href='') 3
-              li.page
-                a(href='') 4
+              // class .page-points нужно заменить на стандартный класс yii для этого элемента
+              li.page-points
+                | ...
               li.page
                 a(href='') 5
               li.page
                 a(href='') 6
-              li.page
+              li.page.selected
                 a(href='') 7
               li.page
                 a(href='') 8
               li.page
                 a(href='') 9
+              // class .page-points нужно заменить на стандартный класс yii для этого элемента
+              li.page-points
+                | ...
               li.page
-                a(href='') 10
+                a(href='') 15
+              li.page
+                a(href='') 16
+              li.next
+                a(href='')
+
     // /paginator
 
 //- Пользователь имя с аватаром

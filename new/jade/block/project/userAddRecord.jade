@@ -1,0 +1,79 @@
+
+//- userAddRecord
+//- 
+    mod userAddRecord__s    userAddRecord__add  userAddRecord__blog
+    vars
+        ava
+        tx
+
+
+mixin userAddRecord(mod, vars)
+    // userAddRecord
+    - mod = mod + ' ' + vars.mod
+    .userAddRecord.clearfix(class=mod)
+        - if (vars.ava)
+            .userAddRecord_ava-hold
+                +ava('ava__middle', vars.ava)
+        .userAddRecord_hold
+            - if (vars.draft)
+                .userAddRecord_draft-hold
+                    a.userAddRecord_draft(href="") Черновики 2
+            - if (vars.tx)
+                .userAddRecord_tx 
+                    = vars.tx
+            - if (vars.items)
+                - each item in vars.items
+                    case item
+                        when 'article'
+                            a.userAddRecord_ico.userAddRecord_ico__article.fancy.powertip(href='#popup-user-add-article', data-theme='transparent', title='Статью')
+                        when 'photo'
+                            a.userAddRecord_ico.userAddRecord_ico__photo.fancy.powertip(href='#popup-user-add-photo', data-theme='transparent', title='Фото')
+                        when 'video'
+                            a.userAddRecord_ico.userAddRecord_ico__video.fancy.active.powertip(href='#popup-user-add-video', data-theme='transparent', title='Видео')
+                        when 'status'
+                            a.userAddRecord_ico.userAddRecord_ico__status.fancy.powertip(href='#popup-user-add-status', data-theme='transparent', title='Статус')
+                        when 'link'
+                            a.userAddRecord_ico.userAddRecord_ico__link.fancy.powertip(href='#popup-user-add-link', data-theme='transparent', title='Ссылка')
+                        when 'photo-add'
+                            a.userAddRecord_i(href='', data-theme='transparent')
+                                .userAddRecord_ico.userAddRecord_ico__photo-add.fancy
+                                .userAddRecord_desc Фотографии
+                        when 'album'
+                            a.userAddRecord_i.fancy(href='', data-theme='transparent')
+                                .userAddRecord_ico.userAddRecord_ico__album
+                                .userAddRecord_desc Фотоальбом
+
+    // /userAddRecord
+    
+- var userAddRecord = {}
+- userAddRecord.a = {}
+- userAddRecord.a.mod = 'userAddRecord__s'
+- userAddRecord.a.ava = ava.a
+- userAddRecord.a.tx = 'Я хочу добавить'
+- userAddRecord.a.draft = false
+- userAddRecord.a.items = ['article', 'photo', 'video', 'status', 'link']
+
+- userAddRecord.b = {}
+- userAddRecord.b.ava = false
+- userAddRecord.b.tx = 'Я хочу добавить'
+- userAddRecord.b.draft = false
+- userAddRecord.b.items = ['article', 'photo', 'video', 'status', 'link']
+
+- userAddRecord.c = {}
+- userAddRecord.c.ava = false
+- userAddRecord.c.tx = 'Добавить видеопост'
+- userAddRecord.c.draft = true
+- userAddRecord.c.items = ['article', 'photo', 'video', 'status', 'link']
+
+- userAddRecord.d = {}
+- userAddRecord.d.ava = false
+- userAddRecord.d.tx = 'Добавить ссылку'
+- userAddRecord.d.draft = true
+- userAddRecord.d.items = ['article', 'photo', 'video', 'status', 'link']
+
+- userAddRecord.albums = {}
+- userAddRecord.albums.mod = 'userAddRecord__blog'
+- userAddRecord.albums.ava = false
+- userAddRecord.albums.tx = 'Я хочу добавить'
+- userAddRecord.albums.draft = false
+- userAddRecord.albums.items = ['photo-add', 'album']

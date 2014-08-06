@@ -1,0 +1,180 @@
+
+//- Главная шапка сайта
+    mod     __simple
+    vars
+mixin headerGuest(mod, vars)
+    // header
+    header.header(class=mod)
+        .header_hold.clearfix
+            .header-login
+                a(href="#loginWidget", class="header-login_a popup-a") Вход
+                a(href="#registerWidget", class="header-login_a popup-a") Регистрация
+            +logo()
+            // header-menu
+            .header-menu
+                ul.header-menu_ul.clearfix
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__giraffe
+                            span.header-menu_tx
+                                | Мой Жираф
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__im
+                            span.header-menu_tx
+                                | вам письмо
+
+            // /header-menu
+            - if (vars.nosearch != true)
+                +sidebarSearch('sidebar-search__big', sidebarSearch.a)
+    // /header
+
+//- 
+
+- var header = {}
+
+//- +header('header__simple', header.simple)
+- header.simple = {}
+- header.nosearch = {}
+- header.nosearch.nosearch = true
+
+
+//- Главная шапка сайта
+    mod     
+    vars
+mixin headerTitle(mod, vars)
+    // header
+    header.header.header__title(class=mod)
+        .header_hold.clearfix
+            .header_title
+                a.header_arrow-l(href="")
+                +ava('ava__small ava__female', ava.a)
+                h1.header_title-tx 
+                    a.header_title-a(href="") Банановая выпечка: 5 рецептов
+    // /header
+
+
+
+//- header-drop
+mixin header-drop(mod, vars)
+    .header-drop(class=mod)
+        .header-menu.clearfix
+            ul.header-menu_ul
+                li.header-menu_li
+                    a.header-menu_a(href='')
+                        span.header-menu_ico.header-menu_ico__profile
+                            +ava('ava__small ava__male', avaVarsSpan)
+                        span.header-menu_tx Анкета
+                li.header-menu_li
+                    a.header-menu_a(href='')
+                        span.header-menu_ico.header-menu_ico__family
+                        span.header-menu_tx Семья
+                li.header-menu_li
+                    a.header-menu_a(href='')
+                        span.header-menu_ico.header-menu_ico__blog
+                        span.header-menu_tx Блог
+                li.header-menu_li
+                    a.header-menu_a(href='')
+                        span.header-menu_ico.header-menu_ico__photo
+                        span.header-menu_tx Фото
+                li.header-menu_li
+                    a.header-menu_a(href='')
+                        span.header-menu_ico.header-menu_ico__favorite
+                        span.header-menu_tx Избранное
+                li.header-menu_li
+                    a.header-menu_a(href='')
+                        span.header-menu_ico.header-menu_ico__settings
+                        span.header-menu_tx Настройки
+                li.header-menu_li
+                    a.header-menu_a(href='')
+                        span.header-menu_ico.header-menu_ico__logout
+                        span.header-menu_tx
+        // header-drop_b
+        .header-drop_b
+                .float-r.margin-t3
+                    a(href='') Жираф рекомендует
+                .heading-small
+                    | Мои клубы 
+                    span.color-gray  (5)
+                .club-list.club-list__small.clearfix
+                    ul.club-list_ul.clearfix
+                        li.club-list_li
+                            a.club-list_i(href='')
+                                span.club-list_img-hold
+                                    img.club-list_img(src='/images/club/2-w50.png', alt='')
+                        li.club-list_li
+                            a.club-list_i(href='')
+                                span.club-list_img-hold
+                                    img.club-list_img(src='/images/club/5-w50.png', alt='')
+                        li.club-list_li
+                            a.club-list_i(href='')
+                                span.club-list_img-hold
+                                    img.club-list_img(src='/images/club/7-w50.png', alt='')
+                        li.club-list_li
+                            a.club-list_i(href='')
+                                span.club-list_img-hold
+                                    img.club-list_img(src='/images/club/8-w50.png', alt='')
+                        li.club-list_li
+                            a.club-list_i(href='')
+                                span.club-list_img-hold
+                                    img.club-list_img(src='/images/club/9-w50.png', alt='')
+        // /header-drop_b
+    // /header-drop 
+//-
+
+//- Главная шапка сайта
+    mod     __base
+    vars
+        drop    active
+mixin header(mod, vars)
+    // header
+    .header(class=mod)
+        .header_hold.clearfix
+            +logo()
+            // header-menu
+            .header-menu
+                ul.header-menu_ul.clearfix
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__broadcast
+                            span.header-menu_tx
+                                | Прямой эфир
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__giraffe
+                            span.header-menu_tx
+                                | Мой Жираф
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__im
+                            span.header-menu_tx
+                                | Диалоги
+                            span.header-menu_count 25456
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__friend
+                            span.header-menu_tx
+                                | Друзья
+                            span.header-menu_count 2
+                    li.header-menu_li.active
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__notice
+                            span.header-menu_tx
+                                | Сигналы
+                            span.header-menu_count 2
+                    li.header-menu_li
+                        a.header-menu_a(href='')
+                            span.header-menu_ico.header-menu_ico__award
+                            span.header-menu_tx
+                                | Успехи
+                    li.header-menu_li.header-menu_li__dropin
+                        a.header-menu_a(href='')
+                            +ava("ava__middle ava__female", ava.a)
+                            span.header-menu_tx Я
+                                span.header_i-arrow
+                        +header-drop()
+            // /header-menu
+    // /header
+
+//- 
+

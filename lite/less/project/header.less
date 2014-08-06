@@ -1,0 +1,275 @@
+
+// @import "../../new/less/project/header.less";
+/* 
+    logo 
+    Главное лого сайта
+    
+    logo __small
+        logo_i
+        logo_slogan
+*/
+.logo {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    
+    &__small &_i {
+        width: 65px;
+        height: 60px;
+        .img-retina('@{path-img}/base/logo__small.png'; '@{path-img}/base/logo__small-2x.png'; 65px; 60px;);
+    }
+    &_i {
+        display:block;
+        width:230px;
+        height:65px;
+        text-indent:-9999px;
+        margin:0 auto;
+        .img-retina('@{path-img}/base/logo.png'; '@{path-img}/base/logo-2x.png'; 230px; 65px;);
+    }
+    &_slogan {
+        position: absolute;
+        left: -9000px;
+    }
+}
+/* /logo */
+
+/* 
+    Ссылки логина и регастрации в шапке у незарегестрированного пользователя
+    header-login
+        &_a
+*/
+.header-login {
+    display: none;
+    text-align: right;
+    margin-bottom: 5px;
+    position: absolute;
+    top: 25px;
+    right: 75px;
+    
+    @media (min-width: @screen-desktop) {
+        display: block;
+    }
+
+    &_a {
+        .inline-block();
+        margin: 0 0 0 15px;
+        color: @color-gray;
+        text-decoration: none;
+    }
+    &_a:hover {
+        color: @color-link;
+        text-decoration: underline;
+    }
+}
+/* /header-login */
+
+/* 
+    header 
+    Главная шапка сайта
+
+*/
+.header {
+    position: relative;
+    background:#fff url('@{path-img}/header.png') repeat-x 0 0;
+    
+    &__simple {}
+    &__title &_hold {padding: 15px 20px 10px 0;}
+    /*&__nosearch .logo {
+        float: none;
+        .inline-block();
+        vertical-align: top;
+    }
+    &__nosearch &_hold {text-align: center;}*/
+    
+    .logo {
+        margin: 5px auto 15px;
+        .inline-block();
+        vertical-align: top;
+    }
+    &_hold {
+        padding: 25px 10px 18px;
+        text-align: center;
+    }
+
+    &_title {
+        margin: 10px 0;
+    }
+    &_title .ava {
+        vertical-align: middle;
+        margin: 0 15px;
+    }
+    &_arrow-l {
+        &:extend(.ico-arrow-l);
+        vertical-align: middle;
+    }
+    &_title-tx {
+        display: inline;
+        vertical-align: middle;
+        margin: 0;
+        font-size: 25px;
+        line-height: 28px;
+        font-weight: bold;
+        color: @color-link-title;
+        text-decoration: none;
+        letter-spacing: -0.6px;
+    }
+    &_title-a {
+        color: @color-link-title;
+        text-decoration: none;
+    }
+    &_title-a:hover {text-decoration: underline;}
+    
+    @media (min-width: @screen-xphone) {
+        &_hold {
+            padding: 25px 15px 18px;
+        }
+    }
+    @media (min-width: @screen-phone-landscape) {
+        .logo {
+            margin-right: 30px;
+        }
+        .sidebar-search {
+            .inline-block();
+            vertical-align: top;
+            width: 51%;
+            margin: 30px 0 0 30px;
+        }
+        &_hold {
+            width: 600px;
+            margin: 0 auto;
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        .sidebar-search {
+            width: 41%;
+        }
+        &_hold {
+            width: auto;
+            padding: 25px 60px 18px;
+        }
+        &__title &_hold {padding-left: 60px;}
+    }
+
+}
+/* /header */
+
+/* 
+    header-menu
+    меню в шапке
+    
+    header-menu
+        header-menu_ul
+            header-menu_li  active
+                header-menu_a 
+                    header-menu_ico
+                    header-menu_tx
+*/
+.header-menu {
+    display: none;
+
+    @media (min-width: @screen-desktop) {
+        .inline-block();
+        vertical-align: top;
+        margin: 10px 20px 0 0;
+    }
+
+    &_li {
+        position: relative;
+        .inline-block();
+        vertical-align: top;
+        margin: 0 12px;
+        text-align: center;
+    }
+
+    &_li:hover &_ico,
+    &_li.active &_ico,
+    &_li:hover &_count,
+    &_li.active &_count {top: -4px;}
+
+    &_a:hover &_ico__giraffe,
+    &_li.active &_ico__giraffe   {background-position: 0px -50px;}
+    &_a:hover &_ico__im,
+    &_li.active &_ico__im        {background-position: -50px -50px;}
+    &_a:hover &_ico__friend,
+    &_li.active &_ico__friend    {background-position: -100px -50px;}
+    &_a:hover &_ico__notice,
+    &_li.active &_ico__notice    {background-position: -150px -50px;}
+    &_a:hover &_ico__award,
+    &_li.active &_ico__award     {background-position: -200px -50px;}
+    &_a:hover &_ico__club,
+    &_li.active &_ico__club      {background-position: -250px -50px;}
+    &_a:hover &_ico__broadcast,
+    &_li.active &_ico__broadcast {background-position: -300px -50px;}
+    /*&_li:hover &_ico__profile,
+    &_li.active &_ico__profile   {background-position: -350px -50px;} */
+    &_a:hover &_ico__logout      {background-position: -650px -50px;}
+    /*&_a:hover,
+    &_li.active &_a {
+        background: url('@{path-img}/header-menu_a.png') no-repeat 4px 0;
+    }*/
+    &_a:hover &_tx,
+    &_li.active &_tx {
+        color: #808080;
+        text-decoration: none;
+    }
+    &_a {
+        width: 76px;
+        .inline-block();
+        padding: 13px 0 0;
+        text-decoration: none;
+        text-align: center;
+    }
+    /*&_a:hover .header_i-arrow {background-position: 0 -8px;}*/
+    &_ico {
+        position: relative;
+        display: block;
+        width: 50px;
+        height: 45px;
+        margin: 0 auto 2px;
+        .img-retina('@{path-img}/header-menu_ico.png'; '@{path-img}/header-menu_ico-2x.png'; 700px; 95px;);
+    }
+
+    &_ico__giraffe   {background-position: 0 0;}
+    &_ico__im        {background-position: -50px 0;}
+    &_ico__friend    {background-position: -100px 0;}
+    &_ico__notice    {background-position: -150px 0;}
+    &_ico__award     {background-position: -200px 0;}
+    &_ico__club      {background-position: -250px 0;}
+    &_ico__broadcast {background-position: -300px 0;}
+    &_ico__profile   {background-position: -350px 0;}
+    &_ico__family    {background-position: -400px 0;}
+    &_ico__blog      {background-position: -450px 0;}
+    &_ico__photo     {background-position: -500px 0;}
+    &_ico__favorite  {background-position: -550px 0;}
+    &_ico__settings  {background-position: -600px 0;}
+    &_ico__logout    {background-position: -650px 0;}
+
+    &_ico__profile .ava {
+        position: absolute;
+        top: 9px;
+        left: 6px;
+    }
+
+    &_tx {
+        display: block;
+        font: 10px/12px Tahoma, Arial, Verdana, sans-serif;
+        color: #acacac;
+        text-transform: uppercase;
+    }
+    &_count {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 1px 5px;
+        border: 2px solid #fff;
+        font-size: 11px;
+        line-height: 14px;
+        color: #fff;
+        background-color: #f84219;
+        .border-radius(30px);
+    }
+}

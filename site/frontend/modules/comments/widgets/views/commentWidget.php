@@ -1,9 +1,9 @@
 <div id="commentsList" class="comments_hold tab-pane active">
-    <div class="comments-add">
+    <div class="comments_add">
         <div class="comments_add-hold"> Комментировать от
-            <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'simple')); ?> или <a href="?openLogin" onclick="$('[href=#loginWidget]').trigger('click'); return false;" class="comment-add_a">Войти</a>
+            <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'simple')); ?> или <a href="?openLogin" onclick="$('[href=#loginWidget]').trigger('click')" class="comments_add-a">Войти</a>
         </div>
-        <div class="comment-add_editor display-n"></div>
+        <div class="comments_add-editor display-n"></div>
     </div>
     <ul class="comments_ul" id="<?= $this->id ?>_comments">
         <?php
@@ -13,7 +13,7 @@
          */
         $this->beginClip('comment');
         ?>
-        <article class="comments_i">
+        <div class="comments_i">
             <div class="comments_ava">
                 <!-- Аватарки размером 40*40-->
                 <!-- ava--><a href="{link}" class="ava ava__middle ava__small-sm-mid"><img alt="" src="{ava}" class="ava_img"></a>
@@ -21,7 +21,7 @@
             <div class="comments_frame">
                 <div class="comments_header">
                     {author.link}
-                    <time datetime="{datetime}" pubdate class="tx-date" data-bind="moment: {unixtime}"></time>
+                    <time datetime="{datetime}" class="tx-date" data-bind="moment: {unixtime}"></time>
                 </div>
                 <div class="comments_cont">
                     <div class="wysiwyg-content">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-        </article>
+        </div>
         <?php
         $this->endClip();
         $colors = array(

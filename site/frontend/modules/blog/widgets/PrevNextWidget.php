@@ -13,8 +13,12 @@ class PrevNextWidget extends CWidget
 
     public function run()
     {
+        Yii::beginProfile('prev');
         $prev = $this->post->getPrevPost();
+        Yii::endProfile('prev');
+        Yii::beginProfile('next');
         $next = $this->post->getNextPost();
+        Yii::endProfile('next');
 
         if ($prev !== null || $next !== null)
             $this->render('PrevNextWidget', compact('prev', 'next'));

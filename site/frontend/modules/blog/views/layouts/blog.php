@@ -70,7 +70,9 @@ JS;
                 <div class="aside-blog-desc_tx" data-bind="html: descriptionToShow"><?=$data['description']?></div>
             </div>
 
+            <?php Yii::beginProfile('subs'); ?>
             <?php $this->renderPartial('_subscribers'); ?>
+            <?php Yii::endProfile('subs'); ?>
 
             <?php if ($this->action->id == 'view'): ?>
                 <?php $this->beginWidget('AdsWidget'); ?>
@@ -80,9 +82,11 @@ JS;
                 <?php $this->endWidget(); ?>
             <?php endif; ?>
 
+            <?php Yii::beginProfile('rubrics'); ?>
             <div class="menu-simple blogInfo" id="rubricsList" data-bind="visible: showRubrics">
                 <?php $this->renderPartial('_rubric_list', array('currentRubricId' => $this->rubric_id)); ?>
             </div>
+            <?php Yii::endProfile('rubrics'); ?>
 
             <?php if ($this->action->id == 'view'): ?>
                 <!--AdFox START-->
@@ -138,7 +142,9 @@ JS;
                 <?php endif; ?>
             <?php endif; ?>
 
+            <?php Yii::beginProfile('popular'); ?>
             <?php $this->renderPartial('_popular'); ?>
+            <?php Yii::endProfile('popular'); ?>
 
         </div>
     

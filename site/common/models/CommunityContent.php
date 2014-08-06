@@ -631,6 +631,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id DESC',
+                    'limit' => 1,
                 )
             );
         } else {
@@ -647,6 +648,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),
                     ),
+                    'limit' => 1,
                 )
             );
         }
@@ -667,6 +669,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                     'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id',
+                    'limit' => 1,
                 )
             );
         } else {
@@ -683,6 +686,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),
                     ),
+                    'limit' => 1,
                 )
             );
         }

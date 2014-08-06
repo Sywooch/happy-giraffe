@@ -1,3 +1,4 @@
+<?php $this->beginWidget('AdsWidget'); ?>
 <?php
     $cs = Yii::app()->clientScript;
     if($cs->useAMD)
@@ -79,3 +80,4 @@
     </div>
     <?php endif; ?>
 </div>
+<?php $this->endWidget(); ?>

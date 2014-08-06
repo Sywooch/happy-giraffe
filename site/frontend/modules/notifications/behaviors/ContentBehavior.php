@@ -10,9 +10,13 @@ namespace site\frontend\modules\notifications\behaviors;
 class ContentBehavior extends \CActiveRecordBehavior
 {
 
+    /** @todo Придумать другой способ */
+    public static $active = false;
+
+
     public function afterFind($event)
     {
-        if (\Yii::app() instanceof \CWebApplication && !\Yii::app()->user->isGuest)
+        if (\Yii::app() instanceof \CWebApplication && !\Yii::app()->user->isGuest && self::$active)
             $this->readNotifications(get_class($this->owner), $this->owner->id, \Yii::app()->user->id);
     }
 

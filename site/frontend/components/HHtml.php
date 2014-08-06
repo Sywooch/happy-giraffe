@@ -41,4 +41,25 @@ class HHtml extends CHtml
 
         return self::tag('img', $htmlOptions);
     }
+    
+    public static function timeTag($model, $htmlOptions, $content = false)
+    {
+        $id = get_class($model) . '_' . $model->id . '_' . 'time';
+        $htmlOptions['datetime'] = $model->pubDate;
+        $htmlOptions['data-bind'] = 'moment: ' . $model->pubUnixTime;
+        $htmlOptions['id'] = $id;
+        if (!$content)
+            $content = Yii::app()->format->formatDatetime($model->pubUnixTime);
+
+        $cs = Yii::app()->clientScript;
+        $js = 'ko.applyBindings({}, document.getElementById(\'' . $id . '\'));';
+        if ($cs->useAMD) {
+            $cs->registerAMD($id, array('ko' => 'knockout', 'ko_library' => 'ko_library'), $js);
+        } else {
+            $cs->registerScript($id, $js);
+        }
+
+        return '<!-- ko stopBinding: true -->' . self::tag('time', $htmlOptions, $content) . '<!-- /ko -->';
+    }
+
 }

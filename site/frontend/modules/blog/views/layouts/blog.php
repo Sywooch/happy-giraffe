@@ -22,7 +22,7 @@ $data['currentRubricId'] = $this->rubric_id;
         <div class="col-1">
             <?php if ($this->action->id == 'view'): ?>
                 <?php $this->beginWidget('AdsWidget'); ?>
-                <div class="banner">
+                <div class="banner" style="margin: 0 20px;">
                     <!--AdFox START-->
                     <!--giraffe-->
                     <!--Площадка: Весёлый Жираф / * / *-->

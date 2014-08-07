@@ -90,7 +90,7 @@ class MorningController extends HController
                 'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", strtotime($date))
             );
 
-        $this->render('index', compact('articles', 'empty_param'));
+        $this->render('index', compact('articles', 'empty_param', 'date'));
     }
 
     public function actionView($id)

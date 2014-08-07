@@ -17,7 +17,7 @@
     <div class="col-1">
         <?php if ($this->action->id == 'view' || $this->forum->club_id == 11): ?>
             <?php $this->beginWidget('AdsWidget'); ?>
-            <div class="banner">
+            <div class="banner" style="margin: 0 20px;">
                 <!--AdFox START-->
                 <!--giraffe-->
                 <!--Площадка: Весёлый Жираф / * / *-->

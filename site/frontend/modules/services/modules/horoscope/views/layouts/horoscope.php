@@ -82,7 +82,9 @@
             <div class="col-gray padding-20">
                 <div id="horoscope">
 
+                    <?php if (! empty($this->title)): ?>
                     <h1 class="heading-title clearfix"><?= $this->title ?></h1>
+                    <?php endif; ?>
 
                     <?=$content ?>
 

@@ -5,6 +5,7 @@
 if (!$empty_param)
     Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 ?>
+<h1>Утро <?=Yii::app()->dateFormatter->format("d MMMM yyyy", strtotime($date))?></h1>
 <?php if (!Yii::app()->user->isGuest && Yii::app()->user->checkAccess('editMorning')):?>
 <div class="club-fast-add clearfix">
     <a class="btn btn-green" href="<?=$this->createUrl('/morning/edit') ?>"><span><span>Добавить</span></span></a>
@@ -19,7 +20,7 @@ if (!$empty_param)
 
     <div class="entry-header clearfix">
 
-        <h1><a class="entry-title" href="<?=$article->url ?>"><?=$article->title ?></a></h1>
+        <h2><a class="entry-title" href="<?=$article->url ?>"><?=$article->title ?></a></h2>
 
         <?php if (!empty($article->morning->location_image)):?>
         <div class="where">

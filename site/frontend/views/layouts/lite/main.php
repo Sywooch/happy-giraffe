@@ -60,8 +60,8 @@
                             ?>
                         </div>
                     <?php endif; ?>
-                    <?=$content?>
                 </div>
+                <?=$content?>
             </div>
             <!-- b-main -->
             <!-- layout-footer-->

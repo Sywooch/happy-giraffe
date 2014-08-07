@@ -441,12 +441,14 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionTitles()
     {
+        $pattern = '#[^\.][\.]$#';
+
         $result = array();
 
         $dp = new CActiveDataProvider('CommunityContent');
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $data) {
-            if (preg_match('#[^\.][\.]$#', rtrim($data->title))) {
+            if (preg_match($pattern, rtrim($data->title))) {
                 $result[] = array($data->title, $data->getUrl(false, true));
             }
         }
@@ -454,7 +456,7 @@ class SeoTempCommand extends CConsoleCommand
         $dp = new CActiveDataProvider('CookRecipe');
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $data) {
-            if (preg_match('#[^\.][\.]$#', rtrim($data->title))) {
+            if (preg_match($pattern, rtrim($data->title))) {
                 $result[] = array($data->title, $data->getUrl(false, true));
             }
         }

@@ -441,6 +441,7 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionTitles()
     {
+        Yii::import('site.frontend.modules.cook.models.*');
         $pattern = '#[^\.][\.]$#';
 
         $result = array();

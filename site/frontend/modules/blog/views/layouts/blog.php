@@ -22,7 +22,7 @@ $data['currentRubricId'] = $this->rubric_id;
         <div class="col-1">
             <?php if ($this->action->id == 'view'): ?>
                 <?php $this->beginWidget('AdsWidget'); ?>
-                <div class="banner" style="margin: 20px 0;">
+                <div class="banner" style="margin: 0 20px;">
                     <!--AdFox START-->
                     <!--giraffe-->
                     <!--Площадка: Весёлый Жираф / * / *-->
@@ -31,8 +31,6 @@ $data['currentRubricId'] = $this->rubric_id;
                     <!-- ________________________AdFox Asynchronous code START__________________________ -->
                     <script type="text/javascript">
                         <!--
-                <?php
-                $js = <<<JS
                         if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
                         if (typeof(document.referrer) != 'undefined') {
                             if (typeof(afReferrer) == 'undefined') {
@@ -51,12 +49,6 @@ $data['currentRubricId'] = $this->rubric_id;
                         document.write('<div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_'+pr1+'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>');
 
                         AdFox_getCodeScript(1,pr1,'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;dl='+dl+'&amp;pr1='+pr1);
-JS;
-                if(Yii::app()->clientScript->useAMD)
-                    echo "require(['AdFox'], function() {\n/*" . $js . "*/\n})";
-                else
-                    echo $js;
-                ?>
                         // -->
                     </script>
                     <!-- _________________________AdFox Asynchronous code END___________________________ -->

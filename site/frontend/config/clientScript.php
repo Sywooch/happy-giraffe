@@ -28,6 +28,7 @@ return array(
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
             'AdFox' => '/javascripts/fox',
+            ''
         ),
     /* 'eval' => '
       ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";

@@ -409,12 +409,18 @@ return array(
             ),
             'depends' => array('lite'),
         ),
-        'lite_recipes' => array(
+        'lite_services' => array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/services.css',
             ),
+        ),
+        'lite_routes' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_recipes' => array(
+            'depends' => array('lite_services'),
         ),
     )
 );

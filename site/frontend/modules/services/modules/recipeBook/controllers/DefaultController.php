@@ -14,23 +14,6 @@ class DefaultController extends LiteController
         }
     }
 
-    public function filters()
-    {
-        if (Yii::app()->user->isGuest) {
-            return array(
-                array(
-                    'COutputCache',
-                    'duration' => 300,
-                    'varyByParam' => array_keys($_GET),
-                    'varyByExpression' => 'Yii::app()->vm->getVersion()',
-                ),
-            );
-
-        }
-
-        return parent::filters();
-    }
-
     public function actionIndex()
     {
         $dp = RecipeBookRecipe::getDp(null, null);

@@ -356,10 +356,15 @@ return array(
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
         'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
 
+//        'auto/routes/<id:[\d]+>' => 'routes/default/index',
+//        'auto/routes/' => 'routes/default/index',
+//        'auto/routes/<_a>' => 'routes/default/<_a>',
+//        'auto/routes/<_a>/<id:[\d]+>' => 'routes/default/<_a>',
+
         'auto/routes/<id:[\d]+>' => 'routes/default/index',
-        'auto/routes/' => 'routes/default/index',
-        'auto/routes/<_a>' => 'routes/default/<_a>',
-        'auto/routes/<_a>/<id:[\d]+>' => 'routes/default/<_a>',
+        'auto/routes' => 'routes/default/index',
+        'auto/routes/cities/<letter:[А-Я]>' => 'routes/default/cities',
+        'auto/routes/city<cityId:[\d]+>' => 'routes/default/city',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',

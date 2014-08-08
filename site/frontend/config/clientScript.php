@@ -28,7 +28,9 @@ return array(
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
             'AdFox' => '/javascripts/fox',
-            ''
+            'async' => '/new/javascript/plugins/async',
+            'goog' => '/new/javascript/plugins/goog',
+            'propertyParser' => '/new/javascript/plugins/propertyParser',
         ),
     /* 'eval' => '
       ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";

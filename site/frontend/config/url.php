@@ -362,7 +362,7 @@ return array(
 //        'auto/routes/<_a>/<id:[\d]+>' => 'routes/default/<_a>',
 
         'auto/routes/<id:[\d]+>' => 'routes/default/index',
-        'auto/routes' => 'routes/defaultOld/index',
+        'auto/routes' => 'routes/default/index',
         'auto/routes/cities/<letter:[А-Я]>' => 'routes/default/cities',
         'auto/routes/city<cityId:[\d]+>' => 'routes/default/city',
 

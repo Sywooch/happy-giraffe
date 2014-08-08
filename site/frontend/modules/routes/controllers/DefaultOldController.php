@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends ServiceController
+class DefaultOldController extends ServiceController
 {
     public $service_id = 26;
 

@@ -396,4 +396,46 @@ class Route extends CActiveRecord
             return ("Маршруты");
         return 'Маршрут <span class=\'color-gray\' > ' . $this->cityFrom->name . '-' . $this->cityTo->name . '</span>';
     }
+
+    public static function getCitiesListDp($letter)
+    {
+        $criteria = new CDbCriteria(array(
+            'select' => 't.*',
+            'condition' => "t.name LIKE :letter",
+            'params' => array(':letter' => $letter . '%'),
+            'join' => 'INNER JOIN ' . self::model()->tableName() . ' r ON r.city_from_id = t.id',
+            'group' => 't.id',
+            'order' => 't.name ASC',
+            'with' => 'region',
+        ));
+
+        return new CActiveDataProvider('GeoCity', array(
+            'criteria' => $criteria,
+        ));
+    }
+
+    public static function getCityDp($cityId)
+    {
+        $criteria = new CDbCriteria(array(
+            'with' => array(
+                'cityFrom' => array(
+                    'with' => array(
+                        'region' => array(
+                            'alias' => 'regionFrom',
+                        )
+                    ),
+                ),
+                'cityTo' => array(
+                    'with' => 'region',
+                ),
+            ),
+            'order' => 'cityTo.name ASC',
+        ));
+
+        $criteria->compare('city_from_id', $cityId);
+
+        return new CActiveDataProvider(__CLASS__, array(
+            'criteria' => $criteria,
+        ));
+    }
 }

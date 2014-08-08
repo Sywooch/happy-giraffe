@@ -14,6 +14,22 @@ class LiteController extends HController
         parent::init();
     }
 
+    public function filters()
+    {
+        $filters = parent::filters();
+
+        if (YII_DEBUG === false && Yii::app()->user->isGuest) {
+            $filters [] = array(
+                'COutputCache',
+                'duration' => 300,
+                'varyByParam' => array_keys($_GET),
+                'varyByExpression' => 'Yii::app()->vm->getVersion()',
+            );
+        }
+
+        return $filters;
+    }
+
     protected function beforeRender($view)
     {
         if (parent::beforeRender($view)) {

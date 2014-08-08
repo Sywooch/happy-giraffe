@@ -15,8 +15,10 @@ block layout
                 ul.b-crumbs_ul
                     li.b-crumbs_li
                         a.b-crumbs_a(href="") Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="") Маршруты 
                     li.b-crumbs_li.b-crumbs_li__last
-                        span.b-crumbs_last Маршруты
+                        span.b-crumbs_last Киев-Донецк
         // Маршруты
         .map-route
             // Заголовок
@@ -64,34 +66,34 @@ block layout
                             .map-route-calc_item
                                 .clearfix
                                     .map-route-calc_img
-                                        img(src='/images/services/map-route/map-route-car.png', alt='')
+                                        img(src='#{path}images/services/map-route/map-route-car.png', alt='')
                                     .map-route-calc_t Расстояние 
                                         span.hidden-xs между Киевом и Донецком
                                 .map-route-calc_value
                                     | 1 388
-                                    span.map-route-calc_units км 
+                                    span.map-route-calc_units км. 
                                 .map-route-calc_desc Столько километров от Киева до Донецка на автомобиле
                             .map-route-calc_item
                                 .clearfix
                                     .map-route-calc_img
-                                        img(src='/images/services/map-route/map-route-time.png', alt='')
+                                        img(src='#{path}images/services/map-route/map-route-time.png', alt='')
                                     .map-route-calc_t
-                                        | Время в пути
-                                        span.hidden-xs от Киева до Донецка
+                                        | Время в пути 
+                                        span.hidden-xs  от Киева до Донецка
                                 label.map-route-calc_label(for='')
                                     | Ср. скорость км / ч 
                                 .map-route-calc_row.clearfix
                                     input.itx-simple.map-route-calc_itx(type='text', name='', value='80')
                                     .map-route-calc_value
                                         | 14
-                                        span.map-route-calc_units ч 
+                                        span.map-route-calc_units ч. 
                                         |  8
-                                        span.map-route-calc_units м
+                                        span.map-route-calc_units мин.
                                 .map-route-calc_desc Столько времени ехать от Киева до Донецка
                             .map-route-calc_item
                                 .clearfix
                                     .map-route-calc_img
-                                        img(src='/images/services/map-route/map-route-time.png', alt='')
+                                        img(src='#{path}images/services/map-route/map-route-fuel.png', alt='')
                                     .map-route-calc_t
                                         | Расход  топлива
                                 label.map-route-calc_label(for='')
@@ -104,7 +106,7 @@ block layout
                             .map-route-calc_item
                                 .clearfix
                                     .map-route-calc_img
-                                        img(src='/images/services/map-route/map-route-time.png', alt='')
+                                        img(src='#{path}images/services/map-route/map-route-cost.png', alt='')
                                     .map-route-calc_t
                                         | Стоимость топлива
                                 label.map-route-calc_label(for='')
@@ -138,7 +140,7 @@ block layout
 
                 .map-route_cont
                     .heading-xl.visible-md-block Пункты следования на пути Киев - Донецк
-                    table.map-route-table.visible-md-block
+                    table.map-route-table.visible-md-table
                         colgroup
                             col.map-route-table_col1
                             col.map-route-table_col2
@@ -156,7 +158,7 @@ block layout
                             tr.map-route-table_tr
                                 td.map-route-table_td
                                     .map-route-table_hold
-                                        .map-route-start A
+                                        .map-route-start
                                 td.map-route-table_td.textalign-l
                                     .map-route-table_hold
                                         strong Киев
@@ -228,7 +230,7 @@ block layout
                             tr.map-route-table_tr
                                 td.map-route-table_td
                                     .map-route-table_hold
-                                        .map-route-start
+                                        .map-route-finish
                                 td.map-route-table_td.textalign-l
                                     .map-route-table_hold
                                         strong Киев
@@ -251,7 +253,10 @@ block layout
                                         | 1:00
 
                     // Реклама яндекса
-    
+                    .adv-yandex
+                        a(href="", target="_blank")
+                            img(src="#{path}images/example/yandex-w600.jpg", alt="")
+
                     +banReadMore('')
 
 

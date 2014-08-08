@@ -106,7 +106,7 @@
               <div class="route-canvas_ovr">
                 <div class="route-canvas_ovr-hold">
                   <div class="route-canvas_ovr-tx">Подождите. Мы формируем для вас маршрут.</div>
-                  <div class="loader"><img src="/lite/images/ico/ajax-loader.gif" class="loader_img">
+                  <div class="loader"><img src="/lite/images/ico/ajax-loader.gif" alt="Загружается" class="loader_img">
                     <div class="loader_tx">Загрузка</div>
                   </div>
                 </div>
@@ -130,9 +130,9 @@
                         <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-time.png" alt=""></div>
                         <div class="map-route-calc_t">Время в пути <span class="hidden-xs"> от Киева до Донецка</span></div>
                       </div>
-                      <label for="" class="map-route-calc_label">Ср. скорость км / ч </label>
+                      <label for="route-time" class="map-route-calc_label">Ср. скорость км / ч </label>
                       <div class="map-route-calc_row clearfix">
-                        <input type="text" name="" value="80" class="itx-simple map-route-calc_itx">
+                        <input type="text" name="" value="80" id="route-time" class="itx-simple map-route-calc_itx">
                         <div class="map-route-calc_value">14<span class="map-route-calc_units">ч. </span> 8<span class="map-route-calc_units">мин.</span></div>
                       </div>
                       <div class="map-route-calc_desc">Столько времени ехать от Киева до Донецка</div>
@@ -142,9 +142,9 @@
                         <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-fuel.png" alt=""></div>
                         <div class="map-route-calc_t">Расход  топлива</div>
                       </div>
-                      <label for="" class="map-route-calc_label">Ср. расход (л. / 100 км)</label>
+                      <label for="route-fuel" class="map-route-calc_label">Ср. расход (л. / 100 км)</label>
                       <div class="map-route-calc_row clearfix">
-                        <input type="text" name="" value="80" class="itx-simple map-route-calc_itx">
+                        <input type="text" name="" value="80" id="route-fuel" class="itx-simple map-route-calc_itx">
                         <div class="map-route-calc_value">140<span class="map-route-calc_units">л</span></div>
                       </div>
                     </div>
@@ -153,9 +153,9 @@
                         <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-cost.png" alt=""></div>
                         <div class="map-route-calc_t">Стоимость топлива</div>
                       </div>
-                      <label for="" class="map-route-calc_label">Ср. расход (л. / 100 км)</label>
+                      <label for="route-cost" class="map-route-calc_label">Ср. расход (л. / 100 км)</label>
                       <div class="map-route-calc_row clearfix">
-                        <input type="text" name="" value="80" class="itx-simple map-route-calc_itx">
+                        <input type="text" name="" value="80" id="route-cost" class="itx-simple map-route-calc_itx">
                         <script src="/lite/javascript/select2.js"></script>
                         <script src="/lite/javascript/select2_locale_ru.js"></script>
                         <script>
@@ -190,6 +190,10 @@
                     <col class="map-route-table_col1">
                     <col class="map-route-table_col2">
                     <col class="map-route-table_col3">
+                    <col>
+                    <col>
+                    <col>
+                    <col>
                   </colgroup>
                   <thead class="map-route-table_thead">
                     <tr>
@@ -309,15 +313,15 @@
                 <div class="adv-yandex"><a href="" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
                 <!-- баннер на всю ширину-->
                 <!-- Изабражение вставляется через background для поизиционирования через css-->
-                <style>
+                <style type="text/css">
                   /* Ширина изображения 600px */
                   .ban-read-more {
                       background-image: url('/lite/images/example/w600-h355-1.jpg');
                   }
                   /* Ширина изображения до 1000px*/
-                  @media (min-width: @screen-phone-landscape) {
+                  @media (min-width: 640px) {
                       .ban-read-more {
-                          background-image: url('/lite/images/example/w1000-h580-2.jpg');
+                          background-image: url('/lite/images/example/w1000-h510-2.jpg');
                       }
                   }
                 </style>

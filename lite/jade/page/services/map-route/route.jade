@@ -55,7 +55,7 @@ block layout
                             | Подождите. Мы формируем для вас маршрут.
                         .loader 
                             //- .loader__white
-                            img.loader_img(src="#{path}images/ico/ajax-loader.gif")
+                            img.loader_img(src="#{path}images/ico/ajax-loader.gif", alt='Загружается')
                             .loader_tx Загрузка
             // /Карта
 
@@ -80,10 +80,10 @@ block layout
                                     .map-route-calc_t
                                         | Время в пути 
                                         span.hidden-xs  от Киева до Донецка
-                                label.map-route-calc_label(for='')
+                                label.map-route-calc_label(for='route-time')
                                     | Ср. скорость км / ч 
                                 .map-route-calc_row.clearfix
-                                    input.itx-simple.map-route-calc_itx(type='text', name='', value='80')
+                                    input.itx-simple.map-route-calc_itx(type='text', name='', value='80', id='route-time')
                                     .map-route-calc_value
                                         | 14
                                         span.map-route-calc_units ч. 
@@ -96,10 +96,10 @@ block layout
                                         img(src='#{path}images/services/map-route/map-route-fuel.png', alt='')
                                     .map-route-calc_t
                                         | Расход  топлива
-                                label.map-route-calc_label(for='')
+                                label.map-route-calc_label(for='route-fuel')
                                     | Ср. расход (л. / 100 км)
                                 .map-route-calc_row.clearfix
-                                    input.itx-simple.map-route-calc_itx(type='text', name='', value='80')
+                                    input.itx-simple.map-route-calc_itx(type='text', name='', value='80', id='route-fuel')
                                     .map-route-calc_value
                                         | 140
                                         span.map-route-calc_units л
@@ -109,10 +109,10 @@ block layout
                                         img(src='#{path}images/services/map-route/map-route-cost.png', alt='')
                                     .map-route-calc_t
                                         | Стоимость топлива
-                                label.map-route-calc_label(for='')
+                                label.map-route-calc_label(for='route-cost')
                                     | Ср. расход (л. / 100 км)
                                 .map-route-calc_row.clearfix
-                                    input.itx-simple.map-route-calc_itx(type='text', name='', value='80')
+                                    input.itx-simple.map-route-calc_itx(type='text', name='', value='80', id='route-cost')
 
                                     script(src="#{path}javascript/select2.js")
                                     script(src="#{path}javascript/select2_locale_ru.js")
@@ -137,7 +137,7 @@ block layout
                                         span.map-route-calc_units руб.
 
                     .map-route_view
-
+                
                 .map-route_cont
                     .heading-xl.visible-md-block Пункты следования на пути Киев - Донецк
                     table.map-route-table.visible-md-table
@@ -145,6 +145,10 @@ block layout
                             col.map-route-table_col1
                             col.map-route-table_col2
                             col.map-route-table_col3
+                            col
+                            col
+                            col
+                            col
                         thead.map-route-table_thead
                             tr
                                 td.map-route-table_thead-td

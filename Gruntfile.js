@@ -202,7 +202,6 @@ module.exports = function(grunt){
             // Выбираем все стили где в начале .clsss
             /.jcrop+/,
             /.mfp+/,
-            /.mfp+/,
             /.select2+/,
           ],
         },

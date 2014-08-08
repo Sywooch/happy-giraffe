@@ -34,7 +34,6 @@
     
     @media (min-width: @screen-phone) {
         & {
-            margin: 15px 0;
             font-size: 35px;
             line-height: 40px;
         }
@@ -42,6 +41,7 @@
 
     @media (min-width: @screen-tablet) {
         & {
+            margin: 15px 0;
             font-size: 45px;
             line-height: 50px;
         }
@@ -57,6 +57,13 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     color: @color-link-title;
     text-decoration: none;
     letter-spacing: -0.6px;
+}
+
+.heading-h1-hold {
+
+    @media (min-width: @screen-desktop) {
+        & {width: 600px;}
+    }
 }
 
 .a-light {
@@ -106,6 +113,9 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     font: @fontsmall;
     color: @color-gray-light;
 }
+.tx-error {
+    color: #FF8888;
+}
 
 .btn-scrolltop {
     display: none;
@@ -131,6 +141,30 @@ a.heading-link-xxl:hover {text-decoration: underline;}
             margin-left: 500px;
         }
     }*/
+}
+.loader {
+    min-height: 30px;
+    text-align: center;
+    color: #b6b6b6;
+    font-size: 14px;
+    padding: 7px;
+    
+    &__white {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #fff;
+        .border-radius(5px);
+    }
+    &_tx {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 4px 5px 0;
+    }
+    &_img {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 4px;
+    }
 }
 
 .post-arrow {

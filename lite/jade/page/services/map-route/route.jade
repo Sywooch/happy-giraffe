@@ -1,0 +1,262 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="") Главная 
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Маршруты
+        // Маршруты
+        .map-route
+            // Заголовок
+            .b-main_cont
+                .b-main_col-hold.clearfix
+                    .heading-h1-hold
+                        h1.heading-link-xxl Маршрут Киев - Донецк
+
+            // Форма поиска маршрута
+            .map-route-f.map-route-f__row
+                .map-route-f_open-hold
+                    // Клик отвечает за  показ формы поиска
+                    span.map-route-f_open Составить другой маршрут
+                // По умолчанию форма должна быть скрыта, с помощью стля или класса displa-n
+                .map-route-f_hold
+                    .map-route-f_i
+                        input.itx-simple.map-route-f_inp.map-route-f_inp__a(type='text', name='', placeholder="Откуда")
+                    .map-route-f_revers
+                    .map-route-f_i
+                        input.itx-simple.map-route-f_inp.map-route-f_inp__b(type='text', name='', placeholder="Куда")
+                    .map-route-f_btn-hold
+                        a.btn.btn-success.btn-xm(href="") Проложить маршрут
+                .map-route-f_tx
+                    | Узнайте, как доехать на авто от Киева до Донецка. Схема трассы Киев-Донецк на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от Киева до Донецка
+            // /Форма поиска маршрута
+
+            // Карта
+            .route-canvas
+                img(src="#{path}images/services/map-route/map.jpg", alt="")
+                // Если оишбка добавить класс errorMessage и непоказывать блок loader 
+                .route-canvas_ovr 
+                    .route-canvas_ovr-hold
+                        .route-canvas_ovr-tx
+                            | Подождите. Мы формируем для вас маршрут.
+                        .loader 
+                            //- .loader__white
+                            img.loader_img(src="#{path}images/ico/ajax-loader.gif")
+                            .loader_tx Загрузка
+            // /Карта
+
+            .b-main_col-hold.clearfix
+                .map-route_aside
+                    .map-route-calc
+                        .map-route-calc_hold
+                            .map-route-calc_item
+                                .clearfix
+                                    .map-route-calc_img
+                                        img(src='/images/services/map-route/map-route-car.png', alt='')
+                                    .map-route-calc_t Расстояние 
+                                        span.hidden-xs между Киевом и Донецком
+                                .map-route-calc_value
+                                    | 1 388
+                                    span.map-route-calc_units км 
+                                .map-route-calc_desc Столько километров от Киева до Донецка на автомобиле
+                            .map-route-calc_item
+                                .clearfix
+                                    .map-route-calc_img
+                                        img(src='/images/services/map-route/map-route-time.png', alt='')
+                                    .map-route-calc_t
+                                        | Время в пути
+                                        span.hidden-xs от Киева до Донецка
+                                label.map-route-calc_label(for='')
+                                    | Ср. скорость км / ч 
+                                .map-route-calc_row.clearfix
+                                    input.itx-simple.map-route-calc_itx(type='text', name='', value='80')
+                                    .map-route-calc_value
+                                        | 14
+                                        span.map-route-calc_units ч 
+                                        |  8
+                                        span.map-route-calc_units м
+                                .map-route-calc_desc Столько времени ехать от Киева до Донецка
+                            .map-route-calc_item
+                                .clearfix
+                                    .map-route-calc_img
+                                        img(src='/images/services/map-route/map-route-time.png', alt='')
+                                    .map-route-calc_t
+                                        | Расход  топлива
+                                label.map-route-calc_label(for='')
+                                    | Ср. расход (л. / 100 км)
+                                .map-route-calc_row.clearfix
+                                    input.itx-simple.map-route-calc_itx(type='text', name='', value='80')
+                                    .map-route-calc_value
+                                        | 140
+                                        span.map-route-calc_units л
+                            .map-route-calc_item
+                                .clearfix
+                                    .map-route-calc_img
+                                        img(src='/images/services/map-route/map-route-time.png', alt='')
+                                    .map-route-calc_t
+                                        | Стоимость топлива
+                                label.map-route-calc_label(for='')
+                                    | Ср. расход (л. / 100 км)
+                                .map-route-calc_row.clearfix
+                                    input.itx-simple.map-route-calc_itx(type='text', name='', value='80')
+
+                                    script(src="#{path}javascript/select2.js")
+                                    script(src="#{path}javascript/select2_locale_ru.js")
+                                    script.
+                                        $(document).ready(function () {
+
+                                                // Измененный tag select
+                                            $(".select-cus__search-off").select2({
+                                                minimumResultsForSearch: -1,
+                                                dropdownCssClass: 'select2-drop__search-off',
+                                                escapeMarkup: function(m) { return m; }
+                                            });
+                                            $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
+
+                                        });
+                                    select.select-cus.select-cus__search-off.select-cus__gray(name='')
+                                        option(value="1") руб / л.
+                                        option(value="2") руб / гал.
+                                        option(value='3') руб / бар.
+                                    .map-route-calc_value
+                                        | 3 898  
+                                        span.map-route-calc_units руб.
+
+                    .map-route_view
+
+                .map-route_cont
+                    .heading-xl.visible-md-block Пункты следования на пути Киев - Донецк
+                    table.map-route-table.visible-md-block
+                        colgroup
+                            col.map-route-table_col1
+                            col.map-route-table_col2
+                            col.map-route-table_col3
+                        thead.map-route-table_thead
+                            tr
+                                td.map-route-table_thead-td
+                                td.map-route-table_thead-td Пункт / регион
+                                td.map-route-table_thead-td Трасса
+                                td.map-route-table_thead-td Время участка 
+                                td.map-route-table_thead-td Время в пути
+                                td.map-route-table_thead-td Участок, км     
+                                td.map-route-table_thead-td Всего, км
+                        tbody
+                            tr.map-route-table_tr
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        .map-route-start A
+                                td.map-route-table_td.textalign-l
+                                    .map-route-table_hold
+                                        strong Киев
+                                        br
+                                        | Вологодская обл. Волог
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        strong M8
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 0:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 1:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 0:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 1:00
+                            tr.map-route-table_tr
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        .map-route-point 1
+                                td.map-route-table_td.textalign-l
+                                    .map-route-table_hold
+                                        strong Киев
+                                        br
+                                        | Вологодская обл.
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        strong M8
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 0:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 1:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 0:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 1:00
+                            tr.map-route-table_tr
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        .map-route-point 99
+                                td.map-route-table_td.textalign-l
+                                    .map-route-table_hold
+                                        strong Киев
+                                        br
+                                        | Вологодская обл.
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        strong M8
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 0:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 1:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 0:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 1:00
+                            tr.map-route-table_tr
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        .map-route-start
+                                td.map-route-table_td.textalign-l
+                                    .map-route-table_hold
+                                        strong Киев
+                                        br
+                                        | Вологодская обл.
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        strong M8
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 0:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 1:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 0:00
+                                td.map-route-table_td
+                                    .map-route-table_hold
+                                        | 1:00
+
+                    // Реклама яндекса
+    
+                    +banReadMore('')
+
+
+        // /Маршруты
+
+    // b-main 
+    +layout-footer-lite()
+

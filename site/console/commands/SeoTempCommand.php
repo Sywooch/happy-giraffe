@@ -465,4 +465,18 @@ class SeoTempCommand extends CConsoleCommand
         $this->writeCsv('titles', $result);
     }
 
+    public function actionRecipeBook()
+    {
+        $result = array();
+
+        $categories = RecipeBookDiseaseCategory::model()->with('diseases')->findAll();
+        foreach ($categories as $category) {
+            $result[] = array($category->title, '');
+            foreach ($category->diseases as $disease) {
+                $result[] = array('', $disease->title);
+            }
+        }
+
+        $this->writeCsv('recipeBook', $result);
+    }
 } 

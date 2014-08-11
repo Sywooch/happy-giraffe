@@ -214,6 +214,28 @@ module.exports = function(grunt){
         ],
         dest: 'lite/css/min/services.css'
       },
+      // Традиционные рецепты у зареганого пользователя
+      'services_user': {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .clsss
+            /.jcrop+/,
+            /.mfp+/,
+            /.select2+/,
+          ],
+        },
+        src: [
+          'lite/html/page/comments/**/*.html', 
+          '!lite/html/page/comments/comments-page.html',
+          'lite/html/page/user/**/*.html', 
+          'lite/html/page/services/**/*.html', 
+
+        ],
+        dest: 'lite/css/min/services-user.css'
+      },
     },
     // Объеденяем медиа запросы в css
     cmq: {
@@ -465,7 +487,7 @@ module.exports = function(grunt){
 
   // lite tasks
   // bild lite версии
-  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services','uncss:services_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // Блоги
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // сервисы

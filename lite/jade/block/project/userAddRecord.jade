@@ -1,0 +1,862 @@
+
+//- userAddRecord
+//- 
+    mod userAddRecord__s    userAddRecord__add  userAddRecord__blog
+    vars
+        ava
+        tx
+
+
+mixin userAddRecord(mod, vars)
+    // userAddRecord
+    - mod = mod + ' ' + vars.mod
+    .userAddRecord.clearfix(class=mod)
+        - if (vars.ava)
+            .userAddRecord_ava-hold
+                +ava('ava__middle', vars.ava)
+        .userAddRecord_hold
+            - if (vars.draft)
+                .userAddRecord_draft-hold
+                    a.userAddRecord_draft(href="") Черновики 2
+            - if (vars.tx)
+                .userAddRecord_tx 
+                    = vars.tx
+            - if (vars.items)
+                - each item in vars.items
+                    case item
+                        when 'article'
+                            a.userAddRecord_ico.userAddRecord_ico__article.fancy.powertip(href='#popup-user-add-article', data-theme='transparent', title='Статью')
+                        when 'photo'
+                            a.userAddRecord_ico.userAddRecord_ico__photo.fancy.powertip(href='#popup-user-add-photo', data-theme='transparent', title='Фото')
+                        when 'video'
+                            a.userAddRecord_ico.userAddRecord_ico__video.fancy.active.powertip(href='#popup-user-add-video', data-theme='transparent', title='Видео')
+                        when 'status'
+                            a.userAddRecord_ico.userAddRecord_ico__status.fancy.powertip(href='#popup-user-add-status', data-theme='transparent', title='Статус')
+                        when 'link'
+                            a.userAddRecord_ico.userAddRecord_ico__link.fancy.powertip(href='#popup-user-add-link', data-theme='transparent', title='Ссылка')
+                        when 'photo-add'
+                            a.userAddRecord_i(href='', data-theme='transparent')
+                                .userAddRecord_ico.userAddRecord_ico__photo-add.fancy
+                                .userAddRecord_desc Фотографии
+                        when 'album'
+                            a.userAddRecord_i.fancy(href='', data-theme='transparent')
+                                .userAddRecord_ico.userAddRecord_ico__album
+                                .userAddRecord_desc Фотоальбом
+
+    // /userAddRecord
+    
+- var userAddRecord = {}
+- userAddRecord.a = {}
+- userAddRecord.a.mod = 'userAddRecord__s'
+- userAddRecord.a.ava = ava.a
+- userAddRecord.a.tx = 'Я хочу добавить'
+- userAddRecord.a.draft = false
+- userAddRecord.a.items = ['article', 'photo', 'video', 'status', 'link']
+
+- userAddRecord.b = {}
+- userAddRecord.b.ava = false
+- userAddRecord.b.tx = 'Я хочу добавить'
+- userAddRecord.b.draft = false
+- userAddRecord.b.items = ['article', 'photo', 'video', 'status', 'link']
+
+- userAddRecord.c = {}
+- userAddRecord.c.ava = false
+- userAddRecord.c.tx = 'Добавить видеопост'
+- userAddRecord.c.draft = true
+- userAddRecord.c.items = ['article', 'photo', 'video', 'status', 'link']
+
+- userAddRecord.d = {}
+- userAddRecord.d.ava = false
+- userAddRecord.d.tx = 'Добавить ссылку'
+- userAddRecord.d.draft = true
+- userAddRecord.d.items = ['article', 'photo', 'video', 'status', 'link']
+
+- userAddRecord.albums = {}
+- userAddRecord.albums.mod = 'userAddRecord__blog'
+- userAddRecord.albums.ava = false
+- userAddRecord.albums.tx = 'Я хочу добавить'
+- userAddRecord.albums.draft = false
+- userAddRecord.albums.items = ['photo-add', 'album']
+
+mixin userAddRecordPopup(mod, vars)
+    
+
+    script(src="/javascripts/jquery.fancybox-1.3.4.js")
+    script.
+        $(document).ready(function () {
+            $('body').delegate('a.fancy-top', 'click', function () {
+                var onComplete_function = function () {
+
+                    var scTop = $(document).scrollTop();
+                    var box = $('#fancybox-wrap');
+
+                    boxTop = parseInt(Math.max(scTop + 40));
+                    box
+                        .stop()
+                        .animate({
+                            'top' : boxTop
+                        }, 200);
+                    
+                };
+
+                $(this).clone().fancybox({
+                    overlayColor:'#2d1a3f',
+                    overlayOpacity:'0.6',
+                    padding:0,
+                    hideOnOverlayClick:false,
+                    showCloseButton:false,
+                    centerOnScroll:false,
+                    onComplete:onComplete_function
+                }).trigger('click');
+                return false;
+            });
+        })
+
+
+    #popup-user-add-article.popup-user-add-record
+        a.popup-transparent-close(onclick='$.fancybox.close();', href='javascript:void(0);', title='Закрыть')
+        .clearfix
+            .w-720.float-r
+                .user-add-record.user-add-record__yellow.clearfix
+                    .user-add-record_ava-hold
+                        a.ava.male(href='')
+                            span.icon-status.status-online
+                            img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
+                    .user-add-record_hold
+                        .user-add-record_tx Я хочу добавить
+                        a.user-add-record_ico.user-add-record_ico__article.active.fancy-top(href='#popup-user-add-article') Статью
+                        a.user-add-record_ico.user-add-record_ico__photo.fancy-top(href='#popup-user-add-photo') Фото
+                        a.user-add-record_ico.user-add-record_ico__video.fancy-top(href='#popup-user-add-video') Видео
+                        a.user-add-record_ico.user-add-record_ico__status.fancy-top(href='#popup-user-add-status', data-theme='transparent') Статус
+                .b-settings-blue.b-settings-blue__article
+                    .b-settings-blue_tale
+                    .b-settings-blue_head
+                        .b-settings-blue_row.clearfix
+                            .clearfix.margin-t-10
+                                .float-r.font-small.color-gray.margin-3 0/50
+                            label.b-settings-blue_label(for='') Заголовок
+                            .float-l.w-400
+                                input.itx-simple(type='text', name='', placeholder='Введите заголовок видео')
+                                .errorMessage Необходимо заполнить поле Заголовок.
+                        .b-settings-blue_row.clearfix
+                            label.b-settings-blue_label(for='') Рубрика
+                            .w-400.float-l
+                                .chzn-itx-simple
+                                    select.chzn(data-placeholder='Выберите рубрику')
+                                        option
+                                        option Россия
+                                        option 2
+                                        option 32
+                                        option 32
+                                        option 32
+                                        option 32
+                                        option 132
+                                        option 132
+                                        option 132
+                                    //
+                                        <div class='chzn-itx-simple_add clearfix'>
+                                                <button class='btn-green'>Ok</button>
+                                                <div class='chzn-itx-simple_add-hold'>
+                                                        <input type='text' name='' id='' class='chzn-itx-simple_add-itx' placeholder="Создать новую рубрику">
+                                                        <a href='' class='chzn-itx-simple_add-del'></a>
+                                                </div>
+                                        </div>
+                                                                                                            
+                                .b-settings-blue_row-desc Если вы не выберете рубрику, запись добавится в рубрику "Обо всем"
+                    .wysiwyg-v.wysiwyg-blue.clearfix
+                        script(src='/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js')
+
+
+
+    #popup-user-add-video.popup-user-add-record
+        a.popup-transparent-close(onclick='$.fancybox.close();', href='javascript:void(0);', title='Закрыть')
+        .clearfix
+            .w-720.float-r
+                .user-add-record.user-add-record__yellow.clearfix
+                    .user-add-record_ava-hold
+                        a.ava.male(href='')
+                            span.icon-status.status-online
+                            img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
+                    .user-add-record_hold
+                        .user-add-record_tx Я хочу добавить
+                        a.user-add-record_ico.user-add-record_ico__article.fancy-top(href='#popup-user-add-article') Статью
+                        a.user-add-record_ico.user-add-record_ico__photo.fancy-top(href='#popup-user-add-photo') Фото
+                        a.user-add-record_ico.user-add-record_ico__video.active.fancy-top(href='#popup-user-add-video') Видео
+                        a.user-add-record_ico.user-add-record_ico__status.fancy-top(href='#popup-user-add-status', data-theme='transparent') Статус
+                .b-settings-blue.b-settings-blue__video
+                    .b-settings-blue_tale
+                    .b-settings-blue_head
+                        .b-settings-blue_row.clearfix
+                            .clearfix.margin-t-10
+                                .float-r.font-small.color-gray.margin-3 0/50
+                            label.b-settings-blue_label(for='') Заголовок
+                            .w-400.float-l.error
+                                input.itx-simple(type='text', name='', placeholder='Введите заголовок видео')
+                                .errorMessage Введите заголовок
+                        .b-settings-blue_row.clearfix
+                            label.b-settings-blue_label(for='') Рубрика
+                            .w-400.float-l.error
+                                .chzn-itx-simple
+                                    select.chzn
+                                        option(selected='selected') 0
+                                        option Россия
+                                        option 2
+                                    //
+                                                                                                            <div class='chzn-itx-simple_add clearfix'>
+                                                                                                                    <button class='btn-green'>Ok</button>
+                                                                                                                    <div class='chzn-itx-simple_add-hold'>
+                                                                                                                            <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+                                                                                                                            <a href='' class='chzn-itx-simple_add-del'></a>
+                                                                                                                    </div>
+                                                                                                            </div>
+                                                                                                            
+                                .errorMessage Введите рубрику
+                    .b-settings-blue_add-video.clearfix
+                        // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
+                        input.itx-simple.w-400.float-l(type='text', name='', placeholder='Введите ссылку на видео')
+                        button.btn-green.btn-inactive Загрузить  видео
+                        .b-settings-blue_add-video-load
+                            img(src='/images/ico/ajax-loader.gif', alt='')
+                            br
+                            | Подждите видео загружается
+                    .b-settings-blue_add-video.clearfix
+                        // При вводе текста убрать класс .btn-inactive с кнопки для ее активирования
+                        input.itx-simple.w-400.float-l(type='text', name='', placeholder='Введите ссылку на видео')
+                        button.btn-green.btn-inactive Загрузить  видео
+                        .errorMessage
+                            | Не удалось загрузить видео.
+                            br
+                            | Возможно, URL указан неправильно либо ведет на неподдерживаемый сайт.
+                    .b-settings-blue_video.clearfix
+                        a.b-settings-blue_video-del.ico-close2.powertip(href='', title='Удалить')
+                        iframe(width='580', height='320', frameborder='0', allowfullscreen='', src='http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent')
+                    .b-settings-blue_row.clearfix
+                        textarea.b-settings-blue_textarea.itx-simple(name='', cols='80', rows='5', placeholder='Ваш комментарий')
+                    .clearfix
+                        a.btn-blue.btn-h46.float-r.btn-inactive(href='') Добавить
+                        a.btn-gray-light.btn-h46.float-r.margin-r15(href='') Отменить
+                        .float-l
+                            .privacy-select.clearfix
+                                .privacy-select_hold.clearfix
+                                    .privacy-select_tx Для кого:
+                                    .privacy-select_drop-hold
+                                        a.privacy-select_a(href='')
+                                            span.ico-users.ico-users__friend.active
+                                            span.privacy-select_a-tx
+                                                | только
+                                                br
+                                                | друзьям
+                                    .privacy-select_drop.display-b
+                                        .privacy-select_i
+                                            a.privacy-select_a(href='')
+                                                span.ico-users.ico-users__all
+                                                span.privacy-select_a-tx
+                                                    | для
+                                                    br
+                                                    | всех
+                                        .privacy-select_i
+                                            a.privacy-select_a(href='')
+                                                span.ico-users.ico-users__friend
+                                                span.privacy-select_a-tx
+                                                    | только
+                                                    br
+                                                    | друзьям
+    // /popup-user-add-video
+    // popup-user-add-photo
+    #popup-user-add-photo.popup-user-add-record
+        a.popup-transparent-close(onclick='$.fancybox.close();', href='javascript:void(0);', title='Закрыть')
+        .clearfix
+            .w-720.float-r
+                .user-add-record.user-add-record__yellow.clearfix
+                    .user-add-record_ava-hold
+                        a.ava.male(href='')
+                            span.icon-status.status-online
+                            img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
+                    .user-add-record_hold
+                        .user-add-record_tx Я хочу добавить
+                        a.user-add-record_ico.user-add-record_ico__article.fancy-top(href='#popup-user-add-article') Статью
+                        a.user-add-record_ico.user-add-record_ico__photo.active.fancy-top(href='#popup-user-add-photo') Фото
+                        a.user-add-record_ico.user-add-record_ico__video.fancy-top(href='#popup-user-add-video') Видео
+                        a.user-add-record_ico.user-add-record_ico__status.fancy-top(href='#popup-user-add-status', data-theme='transparent') Статус
+                .b-settings-blue.b-settings-blue__photo
+                    .b-settings-blue_tale
+                    .clearfix
+                        .b-settings-blue_photo-record
+                            .b-settings-blue_photo-record-t
+                                | Личные
+                                br
+                                | фотоальбомы
+                            .b-settings-blue_photo-record-img
+                                img(src='/images/b-settings-blue_photo-record-img1.png', alt='')
+                            .clearfix
+                                a.btn-blue.btn-h46(href='') Загрузить фото
+                        .b-settings-blue_photo-record
+                            .b-settings-blue_photo-record-t
+                                | Фотопост
+                                br
+                                | в блоге
+                            .b-settings-blue_photo-record-img
+                                img(src='/images/b-settings-blue_photo-record-img2.png', alt='')
+                            .clearfix
+                                a.btn-blue.btn-h46(href='') Создать фотопост
+                .b-settings-blue.b-settings-blue__photo.display-n
+                    .b-settings-blue_tale
+                    .b-settings-blue_head
+                        .b-settings-blue_row.clearfix
+                            .clearfix
+                                .float-r.font-small.color-gray.margin-3 0/50
+                            label.b-settings-blue_label(for='') Заголовок
+                            .float-l.w-400
+                                input.itx-simple.w-400(type='text', name='', placeholder='Введите заголовок фото')
+                        .b-settings-blue_row.clearfix
+                            label.b-settings-blue_label(for='') Рубрика
+                            .w-400.float-l
+                                .chzn-itx-simple
+                                    select.chzn(data-placeholder='Выберите рубрику')
+                                        option
+                                        option Россия
+                                        option 2
+                                        option 32
+                                        option 32
+                                        option 32
+                                        option 32
+                                        option 132
+                                        option 132
+                                        option 132
+                                    //
+                                                                                                            <div class='chzn-itx-simple_add clearfix'>
+                                                                                                                    <button class='btn-green'>Ok</button>
+                                                                                                                    <div class='chzn-itx-simple_add-hold'>
+                                                                                                                            <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+                                                                                                                            <a href='' class='chzn-itx-simple_add-del'></a>
+                                                                                                                    </div>
+                                                                                                            </div>
+                                                                                                            
+                    // .dragover - класс добавлять, когда курсер мыши с файлами находится над блоком
+                    .b-add-img.b-add-img__for-multi
+                        .b-add-img_hold
+                            .b-add-img_t
+                                | Загрузите фотографии с компьютера
+                                .b-add-img_t-tx Поддерживаемые форматы: jpg и png
+                            .file-fake
+                                button.btn-green.btn-medium.file-fake_btn Обзор
+                                input(type='file', name='')
+                        .b-add-img_html5-tx или перетащите фото сюда
+                    .b-settings-blue_row.clearfix
+                        textarea.b-settings-blue_textarea.itx-simple(name='', cols='80', rows='5', placeholder='Ваш текст к фотопосту ')
+                    .clearfix
+                        a.btn-blue.btn-h46.float-r.btn-inactive(href='') Добавить
+                        a.btn-gray-light.btn-h46.float-r.margin-r15(href='') Отменить
+                        .float-l
+                            .privacy-select.clearfix
+                                .privacy-select_hold.clearfix
+                                    .privacy-select_tx Для кого:
+                                    .privacy-select_drop-hold
+                                        a.privacy-select_a(href='')
+                                            span.ico-users.ico-users__friend.active
+                                            span.privacy-select_a-tx
+                                                | только
+                                                br
+                                                | друзьям
+                                    .privacy-select_drop
+                                        .privacy-select_i
+                                            a.privacy-select_a(href='')
+                                                span.ico-users.ico-users__all
+                                                span.privacy-select_a-tx
+                                                    | для
+                                                    br
+                                                    | всех
+                                        .privacy-select_i
+                                            a.privacy-select_a(href='')
+                                                span.ico-users.ico-users__friend
+                                                span.privacy-select_a-tx
+                                                    | только
+                                                    br
+                                                    | друзьям
+                .b-settings-blue.b-settings-blue__photo.display-n
+                    .b-settings-blue_tale
+                    .b-settings-blue_head
+                        .b-settings-blue_row.clearfix
+                            label.b-settings-blue_label(for='') Фотоальбом
+                            .w-400.float-l
+                                .chzn-itx-simple
+                                    select.chzn(data-placeholder='Выберите рубрику')
+                                        option
+                                        option Россия
+                                        option 2
+                                        option 32
+                                        option 32
+                                        option 32
+                                        option 32
+                                        option 132
+                                        option 132
+                                        option 132
+                                    //
+                                                                                                            <div class='chzn-itx-simple_add clearfix'>
+                                                                                                                    <button class='btn-green'>Ok</button>
+                                                                                                                    <div class='chzn-itx-simple_add-hold'>
+                                                                                                                            <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+                                                                                                                            <a href='' class='chzn-itx-simple_add-del'></a>
+                                                                                                                    </div>
+                                                                                                            </div>
+                                                                                                            
+                    .b-add-img.b-add-img__single
+                        .b-add-img_hold
+                            .b-add-img_t
+                                | Загрузите фотографии с компьютера
+                                .b-add-img_t-tx Поддерживаемые форматы: jpg и png
+                            .file-fake
+                                button.btn-green.btn-medium.file-fake_btn Обзор
+                                input(type='file', name='')
+                        .textalign-c.clearfix
+                            .b-add-img_i.b-add-img_i__single
+                                img.b-add-img_i-img(src='/images/example/w440-h340.jpg', alt='')
+                                .b-add-img_i-vert
+                                .b-add-img_i-overlay
+                                    a.b-add-img_i-del.ico-close4(href='')
+                        // Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото
+                        .b-add-img_html5-tx.display-n или перетащите фото сюда
+                    .clearfix
+                        a.btn-blue.btn-h46.float-r(href='') Добавить
+                        a.btn-gray-light.btn-h46.float-r.margin-r15(href='') Отменить
+                        .float-l
+                            .privacy-select.clearfix
+                                .privacy-select_hold.clearfix
+                                    .privacy-select_tx Для кого:
+                                    .privacy-select_drop-hold
+                                        a.privacy-select_a(href='')
+                                            span.ico-users.ico-users__friend.active
+                                            span.privacy-select_a-tx
+                                                | только
+                                                br
+                                                | друзьям
+                                    .privacy-select_drop.display-b
+                                        .privacy-select_i
+                                            a.privacy-select_a(href='')
+                                                span.ico-users.ico-users__all
+                                                span.privacy-select_a-tx
+                                                    | для
+                                                    br
+                                                    | всех
+                                        .privacy-select_i
+                                            a.privacy-select_a(href='')
+                                                span.ico-users.ico-users__friend
+                                                span.privacy-select_a-tx
+                                                    | только
+                                                    br
+                                                    | друзьям
+                .b-settings-blue.b-settings-blue__photo.display-n
+                    .b-settings-blue_tale
+                    .b-settings-blue_head
+                        .b-settings-blue_row.clearfix
+                            label.b-settings-blue_label(for='') Фотоальбом
+                            .w-400.float-l
+                                .chzn-itx-simple
+                                    select.chzn(data-placeholder='Выберите или создайте рубрику')
+                                        option
+                                        option Россия
+                                        option 2
+                                        option 32
+                                        option 32
+                                        option 32
+                                        option 32
+                                        option 132
+                                        option 132
+                                        option 132
+                                    //
+                                                                                                            <div class='chzn-itx-simple_add clearfix'>
+                                                                                                                    <button class='btn-green'>Ok</button>
+                                                                                                                    <div class='chzn-itx-simple_add-hold'>
+                                                                                                                            <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+                                                                                                                            <a href='' class='chzn-itx-simple_add-del'></a>
+                                                                                                                    </div>
+                                                                                                            </div>
+                                                                                                            
+                    .b-add-img.b-add-img__for-multi
+                        .b-add-img_hold
+                            .b-add-img_t
+                                | Загрузите фотографии с компьютера
+                                .b-add-img_t-tx Поддерживаемые форматы: jpg и png
+                            .file-fake
+                                button.btn-green.btn-medium.file-fake_btn Обзор
+                                input(type='file', name='')
+                        .textalign-c.clearfix
+                            .b-add-img_i
+                                img.b-add-img_i-img(src='/images/example/w440-h340.jpg', alt='')
+                                // b-add-img_i-vert для вертикального позиционирования маленькой каритнки
+                                .b-add-img_i-vert
+                                .b-add-img_i-overlay
+                                    a.b-add-img_i-del.ico-close4(href='')
+                            .b-add-img_i
+                                img.b-add-img_i-img(src='/images/example/w64-h61-2.jpg', alt='')
+                                .b-add-img_i-vert
+                                .b-add-img_i-overlay
+                                    a.b-add-img_i-del.ico-close4(href='')
+                            .b-add-img_i
+                                img.b-add-img_i-img(src='/images/example/11.jpg', alt='')
+                                .b-add-img_i-vert
+                                .b-add-img_i-overlay
+                                    a.b-add-img_i-del.ico-close4(href='')
+                            .b-add-img_i
+                                img.b-add-img_i-img(src='/images/example/w220-h309-1.jpg', alt='')
+                                .b-add-img_i-vert
+                                .b-add-img_i-overlay
+                                    a.b-add-img_i-del.ico-close4(href='')
+                            .b-add-img_i
+                                img.b-add-img_i-img(src='/images/example/w720-h128.jpg', alt='')
+                                .b-add-img_i-vert
+                                .b-add-img_i-overlay
+                                    a.b-add-img_i-del.ico-close4(href='')
+                            .b-add-img_i.error
+                                .b-add-img_i-error-tx файл мотик.jpg не удалось загрузить, более 10 Мб
+                                .b-add-img_i-vert
+                                .b-add-img_i-overlay
+                                    a.b-add-img_i-del.ico-close4(href='')
+                            .b-add-img_i
+                                img.b-add-img_i-img.opacity-20(src='/images/example/w720-h128.jpg', alt='')
+                                .b-add-img_i-vert
+                                .b-add-img_i-load
+                                    .b-add-img_i-load-progress(style='width:20%;')
+                                .b-add-img_i-overlay
+                                    a.b-add-img_i-del.ico-close4(href='')
+                        // Текст приглашения для перетаскивания можно скрыть или удалить при наличии фото
+                        .b-add-img_html5-tx.display-n или перетащите фото сюда
+                    .clearfix
+                        a.btn-blue.btn-h46.float-r(href='') Добавить
+                        a.btn-gray-light.btn-h46.float-r.margin-r15(href='') Отменить
+                        .float-l
+                            .privacy-select.clearfix
+                                .privacy-select_hold.clearfix
+                                    .privacy-select_tx Для кого:
+                                    .privacy-select_drop-hold
+                                        a.privacy-select_a(href='')
+                                            span.ico-users.ico-users__friend.active
+                                            span.privacy-select_a-tx
+                                                | только
+                                                br
+                                                | друзьям
+                                    .privacy-select_drop.display-b
+                                        .privacy-select_i
+                                            a.privacy-select_a(href='')
+                                                span.ico-users.ico-users__all
+                                                span.privacy-select_a-tx
+                                                    | для
+                                                    br
+                                                    | всех
+                                        .privacy-select_i
+                                            a.privacy-select_a(href='')
+                                                span.ico-users.ico-users__friend
+                                                span.privacy-select_a-tx
+                                                    | только
+                                                    br
+                                                    | друзьям
+    // /popup-user-add-photo
+    // popup-user-add-status
+    #popup-user-add-status.popup-user-add-record
+        a.popup-transparent-close(onclick='$.fancybox.close();', href='javascript:void(0);', title='Закрыть')
+        .clearfix
+            .w-720.float-r
+                .user-add-record.user-add-record__yellow.clearfix
+                    .user-add-record_ava-hold
+                        a.ava.male(href='')
+                            span.icon-status.status-online
+                            img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
+                    .user-add-record_hold
+                        .user-add-record_tx Я хочу добавить
+                        a.user-add-record_ico.user-add-record_ico__article.fancy-top(href='#popup-user-add-article') Статью
+                        a.user-add-record_ico.user-add-record_ico__photo.fancy-top(href='#popup-user-add-photo') Фото
+                        a.user-add-record_ico.user-add-record_ico__video.fancy-top(href='#popup-user-add-video') Видео
+                        a.user-add-record_ico.user-add-record_ico__status.active.fancy-top(href='#popup-user-add-status', data-theme='transparent') Статус
+                .b-settings-blue.b-settings-blue__status
+                    .b-settings-blue_tale
+                    .b-status-add.clearfix
+                        .float-l
+                            a.ava.male(href='')
+                                span.icon-status.status-online
+                                img(src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg', alt='')
+                        .b-status-add_col
+                            .b-status-add_hold
+                                .clearfix
+                                    .float-r.font-small.color-gray 50/250
+                                textarea.b-status-add_textarea(name='', cols='60', rows='3')
+                            .margin-b10.clearfix
+                                .b-user-mood
+                                    .b-user-mood_img
+                                        img(src='/images/widget/mood/0.png')
+                                    .b-user-mood_hold
+                                        a.a-pseudo(href='')
+                                            | Прикрепить
+                                            br
+                                            | мое настроение
+                            .clearfix
+                                a.btn-blue.btn-h46.float-r.btn-inactive(href='') Добавить
+                                a.btn-gray-light.btn-h46.float-r.margin-r15(href='') Отменить
+                                .float-l
+                                    .privacy-select.clearfix
+                                        .privacy-select_hold.clearfix
+                                            .privacy-select_tx Для кого:
+                                            .privacy-select_drop-hold
+                                                a.privacy-select_a(href='')
+                                                    span.ico-users.ico-users__friend.active
+                                                    span.privacy-select_a-tx
+                                                        | только
+                                                        br
+                                                        | друзьям
+                                            .privacy-select_drop
+                                                .privacy-select_i
+                                                    a.privacy-select_a(href='')
+                                                        span.ico-users.ico-users__all
+                                                        span.privacy-select_a-tx
+                                                            | для
+                                                            br
+                                                            | всех
+                                                .privacy-select_i
+                                                    a.privacy-select_a(href='')
+                                                        span.ico-users.ico-users__friend
+                                                        span.privacy-select_a-tx
+                                                            | только
+                                                            br
+                                                            | друзьям
+                .b-settings-blue.b-settings-blue__status.display-n
+                    .b-settings-blue_tale
+                    .b-status-add.clearfix
+                        .float-l
+                            a.ava.male(href='')
+                                span.icon-status.status-online
+                                img(src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg', alt='')
+                        .b-status-add_col
+                            .b-status-add_hold
+                                .clearfix
+                                    .float-r.font-small.color-gray 50/250
+                                textarea.b-status-add_textarea(name='', cols='60', rows='3')
+                            .margin-b10.clearfix
+                                .b-user-mood
+                                    .b-user-mood_img
+                                        img(src='/images/widget/mood/6.png')
+                                    .b-user-mood_hold
+                                        .b-user-mood_tx - мое настроение
+                                        a.a-pseudo.font-small.margin-l10(href='') Изменить
+                                        a.a-pseudo-gray.font-small(href='') Удалить
+                            .clearfix
+                                a.btn-blue.btn-h46.float-r.btn-inactive(href='') Добавить
+                                a.btn-gray-light.btn-h46.float-r.margin-r15(href='') Отменить
+                                .float-l
+                                    .privacy-select.clearfix
+                                        .privacy-select_hold.clearfix
+                                            .privacy-select_tx Для кого:
+                                            .privacy-select_drop-hold
+                                                a.privacy-select_a(href='')
+                                                    span.ico-users.ico-users__friend.active
+                                                    span.privacy-select_a-tx
+                                                        | только
+                                                        br
+                                                        | друзьям
+                                            .privacy-select_drop
+                                                .privacy-select_i
+                                                    a.privacy-select_a(href='')
+                                                        span.ico-users.ico-users__all
+                                                        span.privacy-select_a-tx
+                                                            | для
+                                                            br
+                                                            | всех
+                                                .privacy-select_i
+                                                    a.privacy-select_a(href='')
+                                                        span.ico-users.ico-users__friend
+                                                        span.privacy-select_a-tx
+                                                            | только
+                                                            br
+                                                            | друзьям
+                .b-settings-blue.b-settings-blue__status.display-n
+                    .b-settings-blue_tale
+                    .b-status-add.clearfix
+                        .float-l
+                            a.ava.male(href='')
+                                span.icon-status.status-online
+                                img(src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg', alt='')
+                        .b-status-add_col
+                            .b-status-add_hold
+                                .clearfix
+                                    .float-r.font-small.color-gray 50/250
+                                textarea.b-status-add_textarea(name='', cols='60', rows='3')
+                            .margin-b10.clearfix
+                                .b-user-mood
+                                    .b-user-mood_img
+                                        .position-rel
+                                            .b-moods-list(style='display: block;')
+                                                ul.b-moods-list_ul
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/1.png')
+                                                            span.b-moods-list_tx Ем
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/2.png')
+                                                            span.b-moods-list_tx Испуг
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/3.png')
+                                                            span.b-moods-list_tx Грустный
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/4.png')
+                                                            span.b-moods-list_tx Молчу
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/5.png')
+                                                            span.b-moods-list_tx Подозрительно
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/6.png')
+                                                            span.b-moods-list_tx Интересно
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/7.png')
+                                                            span.b-moods-list_tx Все ОК
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/8.png')
+                                                            span.b-moods-list_tx Голова кругом
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/9.png')
+                                                            span.b-moods-list_tx Любовь
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/10.png')
+                                                            span.b-moods-list_tx Подарок
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/11.png')
+                                                            span.b-moods-list_tx Красотка
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/12.png')
+                                                            span.b-moods-list_tx Радость
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/13.png')
+                                                            span.b-moods-list_tx Задумался
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/14.png')
+                                                            span.b-moods-list_tx Смущаюсь
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/15.png')
+                                                            span.b-moods-list_tx Праздник
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/16.png')
+                                                            span.b-moods-list_tx Стреляюсь
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/17.png')
+                                                            span.b-moods-list_tx Драка
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/18.png')
+                                                            span.b-moods-list_tx Отстой
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/19.png')
+                                                            span.b-moods-list_tx Смешно
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/20.png')
+                                                            span.b-moods-list_tx Улыбаюсь
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/21.png')
+                                                            span.b-moods-list_tx Шопинг
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/22.png')
+                                                            span.b-moods-list_tx Напеваю
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/23.png')
+                                                            span.b-moods-list_tx Болею
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/24.png')
+                                                            span.b-moods-list_tx Сплю
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/25.png')
+                                                            span.b-moods-list_tx Плачу
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/26.png')
+                                                            span.b-moods-list_tx Звезда
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/27.png')
+                                                            span.b-moods-list_tx Падаю со смеху
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/28.png')
+                                                            span.b-moods-list_tx Слушаю музыку
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/29.png')
+                                                            span.b-moods-list_tx Тихо
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/30.png')
+                                                            span.b-moods-list_tx В поиске
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/31.png')
+                                                            span.b-moods-list_tx Отлично
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/32.png')
+                                                            span.b-moods-list_tx Дразнюсь
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/33.png')
+                                                            span.b-moods-list_tx Боюсь
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/34.png')
+                                                            span.b-moods-list_tx В ярости
+                                                    li.b-moods-list_li
+                                                        a.b-moods-list_a(href='')
+                                                            img.b-moods-list_img(src='/images/widget/mood/35.png')
+                                                            span.b-moods-list_tx Есть повод
+                                        img(src='/images/widget/mood/6.png')
+                                    .b-user-mood_hold
+                                        .b-user-mood_tx - мое настроение
+                                        a.a-pseudo.font-small.margin-l10(href='') Изменить
+                                        a.a-pseudo.font-small.color-gray(href='') Удалить
+                            .clearfix
+                                a.btn-blue.btn-h46.float-r.btn-inactive(href='') Добавить
+                                a.btn-gray-light.btn-h46.float-r.margin-r15(href='') Отменить
+                                .float-l
+                                    .privacy-select.clearfix
+                                        .privacy-select_hold.clearfix
+                                            .privacy-select_tx Для кого:
+                                            .privacy-select_drop-hold
+                                                a.privacy-select_a(href='')
+                                                    span.ico-users.ico-users__friend.active
+                                                    span.privacy-select_a-tx
+                                                        | только
+                                                        br
+                                                        | друзьям
+                                            .privacy-select_drop
+                                                .privacy-select_i
+                                                    a.privacy-select_a(href='')
+                                                        span.ico-users.ico-users__all
+                                                        span.privacy-select_a-tx
+                                                            | для
+                                                            br
+                                                            | всех
+                                                .privacy-select_i
+                                                    a.privacy-select_a(href='')
+                                                        span.ico-users.ico-users__friend
+                                                        span.privacy-select_a-tx
+                                                            | только
+                                                            br
+                                                            | друзьям
+    // /popup-user-add-status
+

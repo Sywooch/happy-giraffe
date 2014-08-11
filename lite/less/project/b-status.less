@@ -1,0 +1,107 @@
+
+/* b-status-add */
+.b-status-add {
+
+    &_col {
+        float: right;
+        width: 585px;
+    }
+    &_hold {
+        position: relative;
+        margin: 0;
+        padding: 13px 12px;
+        background: #cdecff;
+    }
+    &_hold:after {
+        content:'';
+        position: absolute;
+        left: -10px;
+        top: 35px;
+        border: 10px solid transparent;
+        border-left: none;
+        border-right-color: #cdecff;
+    }
+    &_textarea {
+        display: block;
+        .box-sizing(border-box);
+        width: 100%;
+        max-width: 100%;
+        margin: 3px 0;
+        border: 1px solid #daebf5;
+        padding: 10px 12px 10px 12px;
+        font: italic 36px/43px 'Times New Roman', Georgia, Times, serif;
+        color: #186fb8;
+        background: #fff;
+        .border-radius(3px);
+        .transition(all 0.4s ease);
+    }
+}
+/* /b-status-add */
+
+/* b-user-mood */
+.b-user-mood {
+    position: relative;
+    .inline-block();
+
+    &_img {
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 3px;
+    }
+    &_hold {
+        .inline-block();
+        vertical-align: middle;
+    }
+    &_tx {
+        font-size: 17px;
+        color: #6f6e6f;
+    }
+}
+/* /b-user-mood */
+
+/* b-moods-list */
+.b-moods-list {
+    position:absolute;
+    left:100%;
+    top:0;
+    margin-top: -288px;
+    background:#fffeea;
+    z-index:4;
+    padding:5px;
+    width:470px;
+    font-size:9px;
+    border:1px solid #e7e395;
+    .border-radius(10px);
+
+    &:after {
+        content:'';
+        position: absolute;
+        top: 50%;
+        left: -5px;
+        width: 6px;
+        height: 12px;
+        margin-top: -6px;
+        background: url(/images/b-moods-list.png) no-repeat;
+    }
+    &_li {
+        width:92px;
+        float:left;
+        text-align:center;
+        border:1px solid #fffeea;
+        height:90px;
+        .border-radius(10px);
+    }
+    &_li:hover {border-color:#e7e395;}
+    &_a {
+        display:block;
+        text-decoration:none;
+        color:#918b1a;
+        line-height:1;
+        padding:3px 0;
+    }
+    &_img {
+        display:block;
+        margin:0 0 4px;
+    }
+}
+/* /b-moods-list */

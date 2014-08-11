@@ -4,7 +4,7 @@
     vars
 mixin headerGuest(mod, vars)
     // header
-    header.header(class=mod)
+    header.header.header__guest(class=mod)
         .header_hold.clearfix
             .header-login
                 a(href="#loginWidget", class="header-login_a popup-a") Вход
@@ -128,7 +128,7 @@ mixin header-drop(mod, vars)
         drop    active
 mixin header(mod, vars)
     // header
-    .header(class=mod)
+    .header.header__user(class=mod)
         .header_hold.clearfix
             +logo()
             // header-menu
@@ -169,7 +169,7 @@ mixin header(mod, vars)
                                 | Успехи
                     li.header-menu_li.header-menu_li__dropin
                         a.header-menu_a(href='')
-                            +ava("ava__middle ava__female", ava.a)
+                            +ava("ava__middle ava__female", avaVarsSpan)
                             span.header-menu_tx Я
                                 span.header_i-arrow
                         +header-drop()

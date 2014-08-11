@@ -9,7 +9,7 @@ $cs = Yii::app()->clientScript;
                 <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-car.png" alt=""></div>
                 <div class="map-route-calc_t">Расстояние <span class="hidden-xs">между Киевом и Донецком</span></div>
             </div>
-            <div class="map-route-calc_value">1 388<span class="map-route-calc_units">км. </span></div>
+            <div class="map-route-calc_value" data-bind="text: distance"><span class="map-route-calc_units">км. </span></div>
             <div class="map-route-calc_desc">Столько километров от Киева до Донецка на автомобиле</div>
         </div>
         <div class="map-route-calc_item">

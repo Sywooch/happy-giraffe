@@ -471,7 +471,7 @@ class SeoTempCommand extends CConsoleCommand
 
         $result = array();
 
-        $categories = RecipeBookDiseaseCategory::model()->with('diseases')->findAll();
+        $categories = RecipeBookDiseaseCategory::model()->with('diseases')->findAll(array('order' => 't.title ASC, diseases.title ASC'));
         foreach ($categories as $category) {
             $result[] = array($category->title, '');
             foreach ($category->diseases as $disease) {

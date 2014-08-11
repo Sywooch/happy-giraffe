@@ -481,4 +481,18 @@ class SeoTempCommand extends CConsoleCommand
 
         $this->writeCsv('recipeBook', $result);
     }
+
+    public function actionShort()
+    {
+        $result = array();
+
+        $dp = new CActiveDataProvider('CommunityContent');
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $post) {
+            $length = strlen(strip_tags($post->content->text));
+            $uniqueness = $post->uniqueness === null ? '-' : $post->uniqueness;
+            $result[] = array($post->title, $post->getUrl(false, true), $length, $uniqueness);
+        }
+        $this->writeCsv('short', $result);
+    }
 } 

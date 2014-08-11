@@ -266,7 +266,7 @@ class RecipeBookRecipe extends HActiveRecord implements IPreview
         return new CActiveDataProvider(__CLASS__, array(
             'criteria' => $criteria,
             'pagination' => array(
-                'pageSize' => 10,
+                'pageSize' => 100,
             ),
         ));
     }

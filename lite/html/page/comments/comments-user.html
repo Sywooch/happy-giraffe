@@ -108,7 +108,7 @@
                 </div>
                 <div class="userAddRecord_hold">
                   <div class="userAddRecord_tx">Я хочу добавить
-                  </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a><a href="#popup-user-add-link" data-theme="transparent" title="Ссылка" class="userAddRecord_ico userAddRecord_ico__link fancy powertip"></a>
+                  </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a>
                 </div>
               </div>
               <!-- /userAddRecord-->
@@ -484,10 +484,27 @@
     </div>
   </div>
   <div class="popup-container display-n"> 
+    <script src="/javascripts/jquery-1.8.3.min.js"></script>
     <script src="/javascripts/jquery.fancybox-1.3.4.js"></script>
+    <script src="/javascripts/chosen.jquery.min.js"></script>
     <script>
       $(document).ready(function () {
-          $('body').delegate('a.fancy-top', 'click', function () {
+      
+          if ($('.chzn').size() > 0) {
+              $('.chzn').each(function () {
+                  var $this = $(this);
+                  $this.chosen({
+                      allow_single_deselect:$this.hasClass('chzn-deselect')
+                  })
+              });
+          }
+          $(".chzn").chosen().ready(function(){
+          
+              $('.chzn-itx-simple').find('.chzn-drop').append("<div class='chzn-itx-simple_add clearfix'><button class='btn-green'>Ok</button><div class='chzn-itx-simple_add-hold'> <input type='text' name='' id='' class='chzn-itx-simple_add-itx' placeholder='Создать новую рубрику'> <a href='' class='chzn-itx-simple_add-del'></a> </div>  </div>");
+              
+          });
+          
+          $('body').delegate('a.fancy', 'click', function () {
               var onComplete_function = function () {
               
                   var scTop = $(document).scrollTop();
@@ -506,13 +523,14 @@
                   overlayColor:'#2d1a3f',
                   overlayOpacity:'0.6',
                   padding:0,
-                  hideOnOverlayClick:false,
                   showCloseButton:false,
-                  centerOnScroll:false,
+                  centerOnScroll:true,
+                  titleShow:false,
                   onComplete:onComplete_function
               }).trigger('click');
               return false;
           });
+          
       })
       
       
@@ -521,7 +539,7 @@
       <div class="clearfix">
         <div class="w-720 float-r">
           <div class="user-add-record user-add-record__yellow clearfix">
-            <div class="user-add-record_ava-hold"><a href="" class="ava male"><span class="icon-status status-online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg"></a></div>
+            <div class="user-add-record_ava-hold"><a href="" class="ava ava__male"><span class="icon-status status-online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"></a></div>
             <div class="user-add-record_hold">
               <div class="user-add-record_tx">Я хочу добавить</div><a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article active fancy-top">Статью</a><a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy-top">Фото</a><a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy-top">Видео</a><a href="#popup-user-add-status" data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy-top">Статус</a>
             </div>
@@ -581,7 +599,7 @@
       <div class="clearfix">
         <div class="w-720 float-r">
           <div class="user-add-record user-add-record__yellow clearfix">
-            <div class="user-add-record_ava-hold"><a href="" class="ava male"><span class="icon-status status-online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg"></a></div>
+            <div class="user-add-record_ava-hold"><a href="" class="ava ava__male"><span class="icon-status status-online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"></a></div>
             <div class="user-add-record_hold">
               <div class="user-add-record_tx">Я хочу добавить</div><a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy-top">Статью</a><a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy-top">Фото</a><a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video active fancy-top">Видео</a><a href="#popup-user-add-status" data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy-top">Статус</a>
             </div>
@@ -665,7 +683,7 @@
       <div class="clearfix">
         <div class="w-720 float-r">
           <div class="user-add-record user-add-record__yellow clearfix">
-            <div class="user-add-record_ava-hold"><a href="" class="ava male"><span class="icon-status status-online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg"></a></div>
+            <div class="user-add-record_ava-hold"><a href="" class="ava ava__male"><span class="icon-status status-online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"></a></div>
             <div class="user-add-record_hold">
               <div class="user-add-record_tx">Я хочу добавить</div><a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy-top">Статью</a><a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo active fancy-top">Фото</a><a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy-top">Видео</a><a href="#popup-user-add-status" data-theme="transparent" class="user-add-record_ico user-add-record_ico__status fancy-top">Статус</a>
             </div>
@@ -930,7 +948,7 @@
       <div class="clearfix">
         <div class="w-720 float-r">
           <div class="user-add-record user-add-record__yellow clearfix">
-            <div class="user-add-record_ava-hold"><a href="" class="ava male"><span class="icon-status status-online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg"></a></div>
+            <div class="user-add-record_ava-hold"><a href="" class="ava ava__male"><span class="icon-status status-online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"></a></div>
             <div class="user-add-record_hold">
               <div class="user-add-record_tx">Я хочу добавить</div><a href="#popup-user-add-article" class="user-add-record_ico user-add-record_ico__article fancy-top">Статью</a><a href="#popup-user-add-photo" class="user-add-record_ico user-add-record_ico__photo fancy-top">Фото</a><a href="#popup-user-add-video" class="user-add-record_ico user-add-record_ico__video fancy-top">Видео</a><a href="#popup-user-add-status" data-theme="transparent" class="user-add-record_ico user-add-record_ico__status active fancy-top">Статус</a>
             </div>
@@ -938,7 +956,7 @@
           <div class="b-settings-blue b-settings-blue__status">
             <div class="b-settings-blue_tale"></div>
             <div class="b-status-add clearfix">
-              <div class="float-l"><a href="" class="ava male"><span class="icon-status status-online"></span><img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt=""></a></div>
+              <div class="float-l"><a href="" class="ava ava__male"><span class="icon-status status-online"></span><img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="" class="ava_img"></a></div>
               <div class="b-status-add_col">
                 <div class="b-status-add_hold">
                   <div class="clearfix">
@@ -972,7 +990,7 @@
           <div class="b-settings-blue b-settings-blue__status display-n">
             <div class="b-settings-blue_tale"></div>
             <div class="b-status-add clearfix">
-              <div class="float-l"><a href="" class="ava male"><span class="icon-status status-online"></span><img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt=""></a></div>
+              <div class="float-l"><a href="" class="ava ava__male"><span class="icon-status status-online"></span><img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="" class="ava_img"></a></div>
               <div class="b-status-add_col">
                 <div class="b-status-add_hold">
                   <div class="clearfix">
@@ -984,7 +1002,7 @@
                   <div class="b-user-mood">
                     <div class="b-user-mood_img"><img src="/images/widget/mood/6.png"></div>
                     <div class="b-user-mood_hold">
-                      <div class="b-user-mood_tx">- мое настроение</div><a href="" class="a-pseudo font-small margin-l10">Изменить</a><a href="" class="a-pseudo-gray font-small">Удалить</a>
+                      <div class="b-user-mood_tx">- мое настроение</div><a href="" class="a-pseudo font-small margin-l10">Изменить</a>&nbsp;<a href="" class="a-pseudo-gray font-small">Удалить</a>
                     </div>
                   </div>
                 </div>
@@ -1008,7 +1026,7 @@
           <div class="b-settings-blue b-settings-blue__status display-n">
             <div class="b-settings-blue_tale"></div>
             <div class="b-status-add clearfix">
-              <div class="float-l"><a href="" class="ava male"><span class="icon-status status-online"></span><img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt=""></a></div>
+              <div class="float-l"><a href="" class="ava ava__male"><span class="icon-status status-online"></span><img src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" alt="" class="ava_img"></a></div>
               <div class="b-status-add_col">
                 <div class="b-status-add_hold">
                   <div class="clearfix">
@@ -1062,7 +1080,7 @@
                       </div><img src="/images/widget/mood/6.png">
                     </div>
                     <div class="b-user-mood_hold">
-                      <div class="b-user-mood_tx">- мое настроение</div><a href="" class="a-pseudo font-small margin-l10">Изменить</a><a href="" class="a-pseudo font-small color-gray">Удалить</a>
+                      <div class="b-user-mood_tx">- мое настроение</div><a href="" class="a-pseudo font-small margin-l10">Изменить</a>&nbsp;<a href="" class="a-pseudo font-small color-gray">Удалить</a>
                     </div>
                   </div>
                 </div>

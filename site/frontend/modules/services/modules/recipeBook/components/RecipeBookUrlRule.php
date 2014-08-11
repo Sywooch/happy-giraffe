@@ -20,6 +20,11 @@ class RecipeBookUrlRule extends \CBaseUrlRule
     {
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
 
+        if (preg_match('#^recipeBook\/category\/(\w+)$#', $pathInfo, $matches)) {
+            $slug = $matches[1];
+            Yii::app()->request->redirect(Yii::app()->createUrl('services/recipeBook/default/category', array('slug' => $slug)));
+        }
+
         if (preg_match('#^recipeBook\/(\w+)$#', $pathInfo, $matches)) {
             $slug = $matches[1];
             if (RecipeBookDisease::model()->exists('slug = :slug', array(':slug' => $slug))) {

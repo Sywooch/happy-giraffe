@@ -321,19 +321,7 @@ return array(
         ),
 
         array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'pattern' => 'recipeBook/<slug:\w+>',
-            'condition' => 'Yii::app()->user->isGuest',
-            'trueRoute' => 'services/recipeBook/default/disease',
-            'falseRoute' => 'services/recipeBook/defaultOld/index',
-        ),
-
-        array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'pattern' => 'recipeBook/category/<slug:\w+>',
-            'condition' => 'Yii::app()->user->isGuest',
-            'trueRoute' => 'services/recipeBook/default/category',
-            'falseRoute' => 'services/recipeBook/default/index',
+            'class' => 'site.frontend.modules.services.modules.recipeBook.components.RecipeBookUrlRule',
         ),
 
         array(

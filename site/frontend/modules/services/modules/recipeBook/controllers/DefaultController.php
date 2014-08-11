@@ -16,7 +16,7 @@ class DefaultController extends LiteController
 
     public function filters()
     {
-        if (Yii::app()->user->isGuest) {
+//        if (Yii::app()->user->isGuest) {
 //            return array(
 //                array(
 //                    'COutputCache',
@@ -25,8 +25,8 @@ class DefaultController extends LiteController
 //                    'varyByExpression' => 'Yii::app()->vm->getVersion()',
 //                ),
 //            );
-
-        }
+//
+//        }
 
         return parent::filters();
     }
@@ -67,6 +67,7 @@ class DefaultController extends LiteController
         $this->meta_description = $disease->title . ' | ' . $disease->text;
         $this->breadcrumbs = array(
             'Народные рецепты' => array('/services/recipeBook/default/index'),
+            $disease->category->title => $disease->category->getUrl(),
             $disease->title,
         );
         $this->render('index', compact('links', 'dp', 'title'));
@@ -91,7 +92,8 @@ class DefaultController extends LiteController
                 return $disease->title;
             }, $category->diseases));
         $this->breadcrumbs = array(
-            'Народные рецепты',
+            'Народные рецепты' => array('/services/recipeBook/default/index'),
+            $category->title,
         );
         $this->render('index', compact('links', 'dp', 'title'));
     }
@@ -110,6 +112,7 @@ class DefaultController extends LiteController
         $this->meta_description = $recipe->title . ' | ' . $recipe->disease->title . ' | ' . $recipe->text;
         $this->breadcrumbs = array(
             'Народные рецепты' => array('/services/recipeBook/default/index'),
+            $recipe->disease->category->title => $recipe->disease->category->getUrl(),
             $recipe->disease->title => $recipe->disease->getUrl(),
             $recipe->title,
         );

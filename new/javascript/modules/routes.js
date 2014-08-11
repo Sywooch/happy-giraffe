@@ -116,3 +116,46 @@ define('routes', ['async!http://maps.googleapis.com/maps/api/js?libraries=places
 
     return Routes;
 });
+
+define('routesCalc', function() {
+    function RoutesModel(distance, currencyArray) {
+        this._distance = ko.observable(distance);
+        this.speed = ko.observable(80);
+        this.currency = ko.observableArray(currencyArray);
+        this.currentCurrency = ko.observable(1);
+        this.fuelConsumption = ko.observable(8);
+
+        this.distance = ko.computed(function () {
+            return (this._distance() + '').replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+        }, this);
+
+        this.DurationHours = ko.computed(function () {
+            return Math.floor(this._distance() / this.speed());
+        }, this);
+
+        this.DurationMinutes = ko.computed(function () {
+            return Math.round((this._distance() - this.speed() * this.DurationHours()) / (this.speed()) * 60);
+        }, this);
+
+        this.fuelNeeds = ko.computed(function () {
+            return Math.round(this._distance() / 100 * this.fuelConsumption());
+        }, this);
+
+        this.fuelCost = ko.computed(function () {
+            var cur = this.currency()[this.currentCurrency() - 1];
+            return cur.value;
+        }, this);
+
+        this.summaryCost = ko.computed(function () {
+            var value = Math.round(this.fuelNeeds() * this.fuelCost());
+            return (value + '').replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+        }, this);
+
+        this.currencySign = ko.computed(function () {
+            var cur = this.currency()[this.currentCurrency() - 1];
+            return cur.name;
+        }, this);
+    }
+
+    return RoutesModel;
+});

@@ -441,12 +441,15 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionTitles()
     {
+        Yii::import('site.frontend.modules.cook.models.*');
+        $pattern = '#[^\.][\.]$#';
+
         $result = array();
 
         $dp = new CActiveDataProvider('CommunityContent');
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $data) {
-            if (preg_match('#[^\.][\.]$#', rtrim($data->title))) {
+            if (preg_match($pattern, rtrim($data->title))) {
                 $result[] = array($data->title, $data->getUrl(false, true));
             }
         }
@@ -454,7 +457,7 @@ class SeoTempCommand extends CConsoleCommand
         $dp = new CActiveDataProvider('CookRecipe');
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $data) {
-            if (preg_match('#[^\.][\.]$#', rtrim($data->title))) {
+            if (preg_match($pattern, rtrim($data->title))) {
                 $result[] = array($data->title, $data->getUrl(false, true));
             }
         }
@@ -462,4 +465,20 @@ class SeoTempCommand extends CConsoleCommand
         $this->writeCsv('titles', $result);
     }
 
+    public function actionRecipeBook()
+    {
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+
+        $result = array();
+
+        $categories = RecipeBookDiseaseCategory::model()->with('diseases')->findAll(array('order' => 't.title ASC, diseases.title ASC'));
+        foreach ($categories as $category) {
+            $result[] = array($category->title, '');
+            foreach ($category->diseases as $disease) {
+                $result[] = array('', $disease->title);
+            }
+        }
+
+        $this->writeCsv('recipeBook', $result);
+    }
 } 

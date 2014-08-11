@@ -132,8 +132,7 @@ class DefaultController extends HController
 
         $this->rubric_id = $content->rubric->id;
 
-        if (!empty($content->uniqueness) && $content->uniqueness < 50)
-            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        NoindexHelper::setNoIndex($content);
 
         if (! Yii::app()->user->isGuest)
             $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');

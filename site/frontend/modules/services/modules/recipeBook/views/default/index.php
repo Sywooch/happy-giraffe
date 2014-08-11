@@ -36,6 +36,10 @@
                     'showDisease' => Yii::app()->controller->action->id != 'disease',
                 ),
                 'emptyText' => 'Нет ни одного рецепта по вашему запросу',
+                'pager' => array(
+                    'class' => 'LitePager',
+                    'maxButtonCount' => 20,
+                ),
             ));
             ?>
         </div>

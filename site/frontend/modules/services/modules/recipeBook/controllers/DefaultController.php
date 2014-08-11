@@ -17,14 +17,14 @@ class DefaultController extends LiteController
     public function filters()
     {
         if (Yii::app()->user->isGuest) {
-//            return array(
-//                array(
-//                    'COutputCache',
-//                    'duration' => 300,
-//                    'varyByParam' => array_keys($_GET),
-//                    'varyByExpression' => 'Yii::app()->vm->getVersion()',
-//                ),
-//            );
+            return array(
+                array(
+                    'COutputCache',
+                    'duration' => 300,
+                    'varyByParam' => array_keys($_GET),
+                    'varyByExpression' => 'Yii::app()->vm->getVersion()',
+                ),
+            );
 
         }
 

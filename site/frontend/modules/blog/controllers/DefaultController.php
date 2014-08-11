@@ -146,7 +146,7 @@ class DefaultController extends HController
 
         // Поставим флаг, что бы для найденных сущностей прочитались сигналы
         \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
-        
+
         if (Yii::app()->user->isGuest)
             $this->render('view_requirejs', array('data' => $content, 'full' => true));
         else

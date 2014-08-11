@@ -41,4 +41,14 @@ class DefaultController extends LiteController
         $dp = Route::getCityDp($cityId);
         $this->render('city', compact('dp', 'city'));
     }
+
+    public function actionView($routeId)
+    {
+        $route = Route::model()->findByPk($routeId);
+        if ($route === null) {
+            throw new CHttpException(404);
+        }
+
+        $this->render('view', compact('route'));
+    }
 } 

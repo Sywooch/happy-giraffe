@@ -30,8 +30,9 @@ class HController extends CController
     {
         if (Yii::app()->getRequest()->getIsAjaxRequest())
             $filterChain->run();
-        else
-            throw new CHttpException(404, Yii::t('yii', 'Your request is invalid.'));
+        else {
+            header('X-Robots-Tag: noindex');
+        }
     }
 
     public function invalidActionParams($action)
@@ -105,9 +106,7 @@ class HController extends CController
         }
 
         // noindex для дева
-        if (strpos($_SERVER['HTTP_HOST'], 'dev.happy-giraffe.ru') !== false) {
-            Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
-        }
+        Yii::app()->ads->addNoindex();
         if (isset($_GET['CommunityContent_page']) || isset($_GET['BlogContent_page']) || isset($_GET['Comment_page']))
             Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
 

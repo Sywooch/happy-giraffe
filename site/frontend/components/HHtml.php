@@ -41,7 +41,7 @@ class HHtml extends CHtml
 
         return self::tag('img', $htmlOptions);
     }
-    
+
     public static function timeTag($model, $htmlOptions, $content = false)
     {
         $id = get_class($model) . '_' . $model->id . '_' . 'time';
@@ -61,5 +61,4 @@ class HHtml extends CHtml
 
         return '<!-- ko stopBinding: true -->' . self::tag('time', $htmlOptions, $content) . '<!-- /ko -->';
     }
-
 }

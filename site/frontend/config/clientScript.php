@@ -397,10 +397,17 @@ return array(
         'lite' => array(
             'amd' => true,
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'lite/javascript/modernizr.custom.js',
                 'lite/javascript/picturefill.min.js',
             ),
+        ),
+        'lite-default' => array(
+            'css' => array(
+                '/lite/css/dev/all.css'
+            ),
+            'depends' => array('lite'),
         ),
         'lite_recipes' => array(
             'amd' => true,

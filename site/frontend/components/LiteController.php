@@ -8,6 +8,12 @@
 
 class LiteController extends HController
 {
+    public function init()
+    {
+        header('Vary: User-Agent');
+        parent::init();
+    }
+
     protected function beforeRender($view)
     {
         if (parent::beforeRender($view)) {

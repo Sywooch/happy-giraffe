@@ -86,6 +86,7 @@ class CommunityContent extends HActiveRecord implements IPreview
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('title', 'filter', 'filter' => array('\site\frontend\components\TrimFilter', 'trimTitle')),
             array('title', 'required', 'except' => 'status'),
             array('type_id', 'required'),
             array('rubric_id', 'required', 'on' => 'default_club'),
@@ -159,8 +160,8 @@ class CommunityContent extends HActiveRecord implements IPreview
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
@@ -631,6 +632,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id DESC',
+                    'limit' => 1,
                 )
             );
         } else {
@@ -647,6 +649,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),
                     ),
+                    'limit' => 1,
                 )
             );
         }
@@ -667,6 +670,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                     'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id',
+                    'limit' => 1,
                 )
             );
         } else {
@@ -683,6 +687,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),
                     ),
+                    'limit' => 1,
                 )
             );
         }

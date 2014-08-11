@@ -11,6 +11,7 @@ class AuthWidget extends EAuthWidget
     public $cssFile = false;
     public $view = 'outside';
     public $action = '/signup/login/social';
+    public $predefinedServices = array('vkontakte', 'odnoklassniki');
 
     public function run()
     {

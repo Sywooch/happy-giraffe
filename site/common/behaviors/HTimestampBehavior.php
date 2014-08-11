@@ -1,5 +1,7 @@
 <?php
 
+Yii::import('zii.behaviors.CTimestampBehavior');
+
 /**
  * Расширенное поведение для работы с датой создания и датой обновления
  *

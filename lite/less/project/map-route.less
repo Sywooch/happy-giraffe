@@ -5,6 +5,18 @@
     &_cont .heading-xl {
         display: none;
     }
+    &_cont .adv-yandex {
+        margin: 20px auto;
+        padding: 0 4%;
+        max-width: 600px;
+        .box-sizing(content-box);
+    }
+
+    @media (min-width: @screen-phone-landscape) {
+        &_cont .adv-yandex {
+            padding: 0;
+        }
+    }
 
     @media (min-width: @screen-desktop) {
         & {
@@ -17,13 +29,16 @@
         }
         &_cont {
             float: left;
-            width: 660px;
+            width: 680px;
             margin: 20px 0;
         }
         &_cont .ban-read-more {
             display: block;
             max-height: 370px;
             min-height: 370px;
+        }
+        &_cont .adv-yandex {
+            margin-left: 0;
         }
     }
 }
@@ -39,11 +54,11 @@
         .border-radius(4px);
     }
     &__row {
-        padding: 2% 3.2%;
+        padding: 2% 4%;
         background-color: #a8ddff;
     }
     &__row &_hold {
-        padding: 15px 0;
+        padding: 15px 4% 15px 0;
     }
 
     &_desc {
@@ -53,6 +68,7 @@
         margin: 0 auto;
         text-align: right;
         max-width: 600px;
+        padding-right: 4%;
     }
     &_open {
         cursor: pointer;
@@ -112,6 +128,13 @@
         &__main &_hold {
             padding-right: 70px;
         }
+        &__row &_hold {
+            padding-right: 70px;
+        }
+
+        &_open-hold {
+            padding-right: 70px;
+        }
         &_i {
             margin-bottom: 18px;
         }
@@ -160,8 +183,10 @@
         }
         &_open-hold {
             max-width: none;
+            padding-right: 0;
         }
         &_tx {
+            .tx-content();
             display: block;
             margin-bottom: 15px;
         }
@@ -319,7 +344,7 @@
         margin: 0 auto;
         padding: 2.5%;
         width: 90%;
-        max-width: 600px;
+        max-width: 450px;
         text-align: center;
         background-color: #fff;
         .border-radius(5px);
@@ -373,7 +398,7 @@
         vertical-align: middle;
         width: 1000px;
     }*/
-    &_tr:nth-child(2n-1) &_hold{background: #fcfcfc;}
+    &_tr:nth-child(2n-1) &_td {background: #fcfcfc;}
 
     @media (min-width: @screen-desktop) {
         & {
@@ -384,16 +409,16 @@
 /* /map-route-table */
 
 /* map-route-start */
+.map-route-finish,
 .map-route-start {
     .inline-block();
+    vertical-align: middle;
     width: 19px;
-    height: 15px;
-    padding: 2px 0 13px;
-    text-align: center;
-    color: #fff;
-    font-size: 11px;
-    font-weight: bold;
-    background: url(/images/services/map-route/map-route-start.png) no-repeat;
+    height: 30px;
+    background: url('@{path-img}/services/map-route/map-route-f_inp.png') no-repeat;
+}
+.map-route-finish {
+    background-position: 0 -100px;
 }
 /* /map-route-start */
 
@@ -423,6 +448,9 @@
         width: 110px;
         margin-left: 10px;
     }
+    .select-cus__gray .select2-choice {
+        border-color: #96d1f6;
+    }
     &_hold {
         margin: 0 auto;
         max-width: 600px;
@@ -434,15 +462,14 @@
     &_item:first-child {border-top: none;}
     &_img {
         display: inline-block;
-        width: 45px;
-        text-align: center;
+        width: 40px;
         margin:0 5px 0 0;
     }
     &_t {
         display: inline-block;
         vertical-align: bottom;
-        font-size: 15px;
-        line-height: 16px;
+        font-size: 16px;
+        line-height: 17px;
     }
     &_value {
         margin: 10px 0;
@@ -461,19 +488,13 @@
         margin: 0;
     }
     &_itx {
-        /*display: inline-block;
-        vertical-align: middle;*/
         width: 65px;
         line-height: 16px;
-        /*height: 22px;
-        line-height: 22px;
-        padding: 5px 10px 5px 45px;
-        margin:0 13px 0 0;
-        border-color: #c4daf1;*/
+        border-color: #96d1f6;
     }
-    /*&_itx__speed {background:#fff url(/images/services/map-route/map-route-speed.png) no-repeat 9px 9px;text-align: center;}
-    &_itx__fuel {background:#fff url(/images/services/map-route/map-route-fuel.png) no-repeat 12px 8px;}
-    &_itx__cost {background:#fff url(/images/services/map-route/map-route-cost.png) no-repeat 9px 7px;}*/
+    &_itx:focus {
+        border-color: #4ec0f6;
+    }
     &_label {
         display: block;
         margin: 15px 0 8px;
@@ -489,6 +510,7 @@
             font-size: 35px;
             line-height: 32px;
         }
+        .select-cus,
         &_itx {
             float: left;
         }
@@ -506,16 +528,16 @@
             margin: 15px 0 0;
             font-size: 28px;
         }
+        .select-cus,
         &_itx {
             display: inline-block;
             float: none;
         }
         &_desc {
             display: block;
-            text-align: center;
             font: 11px/12px Tahoma, Arial, Verdana, sans-serif;
-            color: @color-gray;
-            padding: 15px 20px 0;
+            color: @color-gray-dark;
+            padding: 15px 0 0;
         }
     }
 }

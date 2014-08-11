@@ -72,10 +72,8 @@
     position: relative;
     background:#fff url('@{path-img}/header.png') repeat-x 0 0;
     
-    &__guest .logo {
+    .logo {
         margin: 5px auto 15px;
-        .inline-block();
-        vertical-align: top;
     }
     &__simple {}
     &__guest .header-menu {display: none;}
@@ -97,6 +95,7 @@
         padding: 25px 0 18px;
     }
 
+    
     &_t-big {
         float: left;
         margin: 15px 5px;
@@ -142,6 +141,10 @@
         }
     }
     @media (min-width: @screen-phone-landscape) {
+        .logo {
+            .inline-block();
+            vertical-align: top;
+        }
         &__guest .logo {
             margin-right: 30px;
         }

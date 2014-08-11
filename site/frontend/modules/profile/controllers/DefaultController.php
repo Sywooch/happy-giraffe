@@ -22,6 +22,8 @@ class DefaultController extends HController
         $this->pageTitle = $this->user->fullName . ' на Веселом Жирафе';
         $dataProvider = CommunityContent::model()->getUserContent($this->user);
 
+        NoindexHelper::setNoIndex($this->user);
+
         $this->render('index', array('user' => $this->user, 'dataProvider' => $dataProvider));
     }
 

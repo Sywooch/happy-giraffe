@@ -117,7 +117,7 @@ define('routes', ['async!http://maps.googleapis.com/maps/api/js?libraries=places
     return Routes;
 });
 
-define('routesCalc', function() {
+define('routesCalc', ['knockout'], function(ko) {
     function RoutesModel(distance, currencyArray) {
         this._distance = ko.observable(distance);
         this.speed = ko.observable(80);

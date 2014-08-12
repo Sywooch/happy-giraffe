@@ -73,9 +73,6 @@ class DefaultController extends HController
         }
     }
 
-    /**
-     * @sitemap dataSource=sitemapUser
-     */
     public function actionIndex($user_id, $rubric_id = null)
     {
         if ($user_id == User::HAPPY_GIRAFFE)
@@ -446,7 +443,7 @@ class DefaultController extends HController
             ->from('community__contents c')
             ->join('community__rubrics r', 'c.rubric_id = r.id')
             ->join('community__content_types ct', 'c.type_id = ct.id')
-            ->where('r.user_id IS NOT NULL AND c.type_id != :morning AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)', array(':morning' => CommunityContent::TYPE_MORNING))
+            ->where('r.user_id IS NOT NULL AND c.type_id NOT IN (:morning, :status) AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)', array(':morning' => CommunityContent::TYPE_MORNING, ':status' => CommunityContent::TYPE_STATUS))
             ->limit(50000)
             ->offset(($param - 1) * 50000)
             ->order('c.id ASC')
@@ -459,32 +456,6 @@ class DefaultController extends HController
                 'params' => array(
                     'content_id' => $model['id'],
                     'user_id' => $model['author_id'],
-                ),
-                'changefreq' => 'daily',
-                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
-            );
-        }
-
-        return $data;
-    }
-
-    public function sitemapUser()
-    {
-        $models = Yii::app()->db->createCommand()
-            ->select('u.id, c.updated, c.created')
-            ->from('users u')
-            ->join('community__contents c', 'c.author_id = u.id')
-            ->where('c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL) AND c.type_id != 5')
-            ->order('u.id ASC')
-            ->group('u.id')
-            ->queryAll();
-
-        $data = array();
-        foreach ($models as $model)
-        {
-            $data[] = array(
-                'params' => array(
-                    'user_id' => $model['id'],
                 ),
                 'changefreq' => 'daily',
                 'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],

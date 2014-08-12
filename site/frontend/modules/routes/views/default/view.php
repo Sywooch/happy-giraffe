@@ -21,7 +21,7 @@ foreach ($fuels as $fuel) {
 }
 
 $js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '");
-ko.applyBindings(new RoutesModel("' . $distance . '", ' . CJavaScript::encode($result) . '), $(".map-route-table").get(0));
+ko.applyBindings(new RoutesModel("' . $distance . '", ' . CJavaScript::encode($result) . '), $(".map-route-calc").get(0));
 ';
 
 

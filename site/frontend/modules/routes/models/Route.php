@@ -23,6 +23,9 @@
 
 class Route extends CActiveRecord
 {
+    private $_texts;
+    private $_intermediatePoints;
+
     const STATUS_NEW = 0;
     const STATUS_PARSING = 1;
     const STATUS_ROSNEFT_FOUND = 2;
@@ -228,43 +231,46 @@ class Route extends CActiveRecord
      */
     public function getIntermediatePoints()
     {
-        $result = array(array(
-            'city' => $this->cityFrom,
-            'time' => '00:00',
-            'summary_time' => '00:00',
-            'distance' => 0,
-            'summary_distance' => 0,
-            'num' => 0
-        ));
-        $points = RoutePoint::model()->findAll(array('order' => 'id', 'condition' => 'route_id=' . $this->id));
+        if ($this->_intermediatePoints === null) {
+            $result = array(array(
+                'city' => $this->cityFrom,
+                'time' => '00:00',
+                'summary_time' => '00:00',
+                'distance' => 0,
+                'summary_distance' => 0,
+                'num' => 0
+            ));
+            $points = RoutePoint::model()->findAll(array('order' => 'id', 'condition' => 'route_id=' . $this->id));
 
-        $speed = 80;
-        $next_point_distance = 0;
-        $summary_distance = 0;
-        $num = 1;
-        foreach ($points as $point) {
-            $summary_distance += $point->distance;
-            //пропускаем населенные пункты, которых нет в нашей базе
-            //это скорее всего названия трасс, которые мы не сможет отметить на карте метками
-            if (empty($point->city_id) || !$point->uniqueCityInRegion()) {
-                $next_point_distance += $point->distance;
-            } else {
-                $next_point_distance += $point->distance;
-                $result [] = array(
-                    'city' => $point->city,
-                    'time' => $this->formatTime(round($next_point_distance / $speed * 60)),
-                    'summary_time' => $this->formatTime(round($summary_distance / $speed * 60)),
-                    'distance' => $next_point_distance,
-                    'summary_distance' => $summary_distance,
-                    'num' => $num
-                );
+            $speed = 80;
+            $next_point_distance = 0;
+            $summary_distance = 0;
+            $num = 1;
+            foreach ($points as $point) {
+                $summary_distance += $point->distance;
+                //пропускаем населенные пункты, которых нет в нашей базе
+                //это скорее всего названия трасс, которые мы не сможет отметить на карте метками
+                if (empty($point->city_id) || !$point->uniqueCityInRegion()) {
+                    $next_point_distance += $point->distance;
+                } else {
+                    $next_point_distance += $point->distance;
+                    $result [] = array(
+                        'city' => $point->city,
+                        'time' => $this->formatTime(round($next_point_distance / $speed * 60)),
+                        'summary_time' => $this->formatTime(round($summary_distance / $speed * 60)),
+                        'distance' => $next_point_distance,
+                        'summary_distance' => $summary_distance,
+                        'num' => $num
+                    );
 
-                $next_point_distance = 0;
-                $num++;
+                    $next_point_distance = 0;
+                    $num++;
+                }
             }
+            $this->_intermediatePoints = $result;
         }
 
-        return $result;
+        return $this->_intermediatePoints;
     }
 
     public function formatTime($minutes)
@@ -277,51 +283,55 @@ class Route extends CActiveRecord
 
     public function getTexts()
     {
-        $city1 = array($this->cityFrom->name, $this->cityFrom->name_from, $this->cityFrom->name_between);
-        if ($this->cityFrom->show_region && !empty($this->cityFrom->region_id))
-            $city1 = array(
-                $this->cityFrom->name . ' ' . $this->cityFrom->region->name,
-                $this->cityFrom->name_from . ' ' . $this->cityFrom->region->name,
-                $this->cityFrom->name_between . ' ' . $this->cityFrom->region->name,
-            );
-        $city2 = array($this->cityTo->name, $this->cityTo->name_from, $this->cityTo->name_between);
-        if ($this->cityTo->show_region && !empty($this->cityTo->region_id))
-            $city2 = array(
-                $this->cityTo->name . ' ' . $this->cityTo->region->name,
-                $this->cityTo->name_from . ' ' . $this->cityTo->region->name,
-                $this->cityTo->name_between . ' ' . $this->cityTo->region->name,
-            );
+        if ($this->_texts === null) {
+            $city1 = array($this->cityFrom->name, $this->cityFrom->name_from, $this->cityFrom->name_between);
+            if ($this->cityFrom->show_region && !empty($this->cityFrom->region_id))
+                $city1 = array(
+                    $this->cityFrom->name . ' ' . $this->cityFrom->region->name,
+                    $this->cityFrom->name_from . ' ' . $this->cityFrom->region->name,
+                    $this->cityFrom->name_between . ' ' . $this->cityFrom->region->name,
+                );
+            $city2 = array($this->cityTo->name, $this->cityTo->name_from, $this->cityTo->name_between);
+            if ($this->cityTo->show_region && !empty($this->cityTo->region_id))
+                $city2 = array(
+                    $this->cityTo->name . ' ' . $this->cityTo->region->name,
+                    $this->cityTo->name_from . ' ' . $this->cityTo->region->name,
+                    $this->cityTo->name_between . ' ' . $this->cityTo->region->name,
+                );
 
-        if ($this->city_from_id > $this->city_to_id)
-            return array(
-                0 => 'Маршрут ' . $city1[0] . '-' . $city2[0],
-                1 => 'Узнайте, как доехать на авто от ' . $city1[1] . ' до ' . $city2[1] . '. Схема трассы ' . $city1[0] . '-' . $city2[0] . ' на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от ' . $city1[1] . ' до ' . $city2[1],
-                2 => 'Пункты следования на пути ' . $city1[0] . '-' . $city2[0],
-                3 => 'Расстояние между ' . $city1[2] . ' и ' . $city2[2],
-                4 => 'Столько километров от ' . $city1[1] . ' до ' . $city2[1] . ' на автомобиле',
-                5 => 'Время в пути от ' . $city1[1] . ' до ' . $city2[1],
-                6 => 'Столько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
-                7 => 'Отправьте маршрут поездки ' . $city1[0] . '-' . $city2[0] . ' своим друзьям',
-                8 => 'Отзывы водителей о состоянии трассы ' . $city1[0] . '-' . $city2[0],
-                'title' => 'Маршрут ' . $city1[0] . '-' . $city2[0] . '. Расстояние между ' . $city1[2] . ' и ' . $city2[2] . ' – ' . $this->distance . ' км.',
-                'description' => 'Как доехать от ' . $city1[1] . ' до ' . $city2[1] . '. Расчет расстояния и расход горючего.',
-                'keywords' => 'Маршрут между городами, расстояние, расход горючего, ' . $city1[0] . ', ' . $city2[0] . '.',
-            );
-        else
-            return array(
-                0 => 'Маршрут ' . $city1[0] . '-' . $city2[0],
-                1 => 'Изучайте карту маршрута ' . $city1[0] . '-' . $city2[0] . ' и узнавайте, как преодолеть это расстояние на машине. Смотрите лучшие автотрассы и дороги от ' . $city1[1] . ' до ' . $city2[1],
-                2 => 'Населенные пункты и другие объекты на автодороге ' . $city1[0] . '-' . $city2[0],
-                3 => 'Сколько километров от ' . $city1[1] . ' до ' . $city2[1],
-                4 => 'Количество км от ' . $city1[1] . ' до ' . $city2[1],
-                5 => 'Сколько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
-                6 => 'Время, проведенное в пути',
-                7 => 'Делитесь маршрутом поездки ' . $city1[0] . '-' . $city2[0] . ' со своими друзьям',
-                8 => 'Водители рассказывают, как доехать от ' . $city1[1] . ' до ' . $city2[1],
-                'title' => 'Маршрут ' . $city1[0] . '-' . $city2[0] . '. Расстояние между ' . $city1[2] . ' и ' . $city2[2] . ' – ' . $this->distance . ' км.',
-                'description' => 'Как доехать от ' . $city1[1] . ' до ' . $city2[1] . '. Расчет расстояния и расход горючего.',
-                'keywords' => 'Маршрут между городами, расстояние, расход горючего, ' . $city1[0] . ', ' . $city2[0] . '.',
-            );
+            if ($this->city_from_id > $this->city_to_id)
+                $this->_texts = array(
+                    0 => 'Маршрут ' . $city1[0] . '-' . $city2[0],
+                    1 => 'Узнайте, как доехать на авто от ' . $city1[1] . ' до ' . $city2[1] . '. Схема трассы ' . $city1[0] . '-' . $city2[0] . ' на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от ' . $city1[1] . ' до ' . $city2[1],
+                    2 => 'Пункты следования на пути ' . $city1[0] . '-' . $city2[0],
+                    3 => 'Расстояние между ' . $city1[2] . ' и ' . $city2[2],
+                    4 => 'Столько километров от ' . $city1[1] . ' до ' . $city2[1] . ' на автомобиле',
+                    5 => 'Время в пути от ' . $city1[1] . ' до ' . $city2[1],
+                    6 => 'Столько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
+                    7 => 'Отправьте маршрут поездки ' . $city1[0] . '-' . $city2[0] . ' своим друзьям',
+                    8 => 'Отзывы водителей о состоянии трассы ' . $city1[0] . '-' . $city2[0],
+                    'title' => 'Маршрут ' . $city1[0] . '-' . $city2[0] . '. Расстояние между ' . $city1[2] . ' и ' . $city2[2] . ' – ' . $this->distance . ' км.',
+                    'description' => 'Как доехать от ' . $city1[1] . ' до ' . $city2[1] . '. Расчет расстояния и расход горючего.',
+                    'keywords' => 'Маршрут между городами, расстояние, расход горючего, ' . $city1[0] . ', ' . $city2[0] . '.',
+                );
+            else
+                $this->_texts = array(
+                    0 => 'Маршрут ' . $city1[0] . '-' . $city2[0],
+                    1 => 'Изучайте карту маршрута ' . $city1[0] . '-' . $city2[0] . ' и узнавайте, как преодолеть это расстояние на машине. Смотрите лучшие автотрассы и дороги от ' . $city1[1] . ' до ' . $city2[1],
+                    2 => 'Населенные пункты и другие объекты на автодороге ' . $city1[0] . '-' . $city2[0],
+                    3 => 'Сколько километров от ' . $city1[1] . ' до ' . $city2[1],
+                    4 => 'Количество км от ' . $city1[1] . ' до ' . $city2[1],
+                    5 => 'Сколько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
+                    6 => 'Время, проведенное в пути',
+                    7 => 'Делитесь маршрутом поездки ' . $city1[0] . '-' . $city2[0] . ' со своими друзьям',
+                    8 => 'Водители рассказывают, как доехать от ' . $city1[1] . ' до ' . $city2[1],
+                    'title' => 'Маршрут ' . $city1[0] . '-' . $city2[0] . '. Расстояние между ' . $city1[2] . ' и ' . $city2[2] . ' – ' . $this->distance . ' км.',
+                    'description' => 'Как доехать от ' . $city1[1] . ' до ' . $city2[1] . '. Расчет расстояния и расход горючего.',
+                    'keywords' => 'Маршрут между городами, расстояние, расход горючего, ' . $city1[0] . ', ' . $city2[0] . '.',
+                );
+        }
+
+        return $this->_texts;
     }
 
     public function getUrl($absolute = false)

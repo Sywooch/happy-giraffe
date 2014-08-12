@@ -27,11 +27,17 @@
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($this->route->intermediatePoints as $point): ?>
+    <?php foreach ($this->route->intermediatePoints as $index => $point): ?>
         <tr class="map-route-table_tr">
             <td class="map-route-table_td">
                 <div class="map-route-table_hold">
+                    <?php if ($index == 0): ?>
                     <div class="map-route-start"></div>
+                    <?php elseif ($index == (count($this->route->intermediatePoints) - 1)): ?>
+                    <div class="map-route-start"></div>
+                    <?php else: ?>
+                    <div class="map-route-point"><?=$index?></div>
+                    <?php endif; ?>
                 </div>
             </td>
             <td class="map-route-table_td textalign-l">

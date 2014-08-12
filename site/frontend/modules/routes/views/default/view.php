@@ -48,7 +48,7 @@ $texts = $route->getTexts();
     <!-- /Карта-->
     <div class="b-main_col-hold clearfix">
         <div class="map-route_aside">
-            <?php $this->renderPartial('route/_calc'); ?>
+            <?php $this->renderPartial('route/_calc', compact('route')); ?>
             <div class="map-route_view"></div>
         </div>
         <div class="map-route_cont">

@@ -157,8 +157,7 @@ class DefaultController extends HController
                 ->getContent()
                 ->forEdit
                 ->text;
-        if (is_int($content->uniqueness) && $content->uniqueness < 50)
-            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        NoindexHelper::setNoIndex($content);
 
         if ($content->contestWork !== null)
             $this->bodyClass = 'theme-contest theme-contest__' . $content->contestWork->contest->cssClass;

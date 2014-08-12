@@ -31,6 +31,7 @@ return array(
             'async' => '/new/javascript/plugins/async',
             'goog' => '/new/javascript/plugins/goog',
             'propertyParser' => '/new/javascript/plugins/propertyParser',
+            'routesCalc' => 'routes',
         ),
     /* 'eval' => '
       ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";

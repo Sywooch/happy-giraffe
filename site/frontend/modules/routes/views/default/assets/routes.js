@@ -38,11 +38,6 @@ var Routes = {
                 Routes.directionsDisplay.setDirections(response);
                 var myRoute = response.routes[0].legs[0];
 
-                console.log(myRoute.steps[0].start_point, myRoute.steps[myRoute.steps.length - 1].end_point);
-//                if (myRoute.steps[0].start_point || myRoute.steps[myRoute.steps.length - 1].end_point) {
-//                    $('#badRoute').show().delay(3000).fadeOut(400);
-//                }
-
                 new google.maps.Marker({position: myRoute.steps[0].start_point,map: Routes.map,icon: '/images/services/map-route/point/point-start.png'});
                 new google.maps.Marker({position: myRoute.steps[myRoute.steps.length - 1].end_point,map: Routes.map,icon: '/images/services/map-route/point/point-finish.png'});
             }

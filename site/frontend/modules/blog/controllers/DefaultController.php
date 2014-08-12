@@ -73,6 +73,9 @@ class DefaultController extends HController
         }
     }
 
+    /**
+     * @sitemap dataSource=sitemapUser
+     */
     public function actionIndex($user_id, $rubric_id = null)
     {
         if ($user_id == User::HAPPY_GIRAFFE)
@@ -83,6 +86,8 @@ class DefaultController extends HController
         $this->rubric_id = $rubric_id;
 
         $contents = BlogContent::model()->getBlogContents($user_id, $rubric_id);
+
+        NoindexHelper::setNoIndex($this->user);
 
         if ($this->user->hasRssContent())
             $this->rssFeed = $this->createUrl('/rss/user', array('user_id' => $user_id));
@@ -126,7 +131,7 @@ class DefaultController extends HController
         }
 
         if ($content->type_id == CommunityContentType::TYPE_STATUS)
-            $this->pageTitle = Str::getDescription(strip_tags($content->status->text), 170, '');
+            $this->pageTitle = $content->author->getFullName() . ' - статус от ' . Yii::app()->dateFormatter->format('dd.MM.yy hh:mm', $content->created);
         else
             $this->pageTitle = $content->title;
 
@@ -454,6 +459,32 @@ class DefaultController extends HController
                 'params' => array(
                     'content_id' => $model['id'],
                     'user_id' => $model['author_id'],
+                ),
+                'changefreq' => 'daily',
+                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
+            );
+        }
+
+        return $data;
+    }
+
+    public function sitemapUser()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('u.id, c.updated, c.created')
+            ->from('users u')
+            ->join('community__contents c', 'c.author_id = u.id')
+            ->where('c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL) AND c.type_id != 5')
+            ->order('u.id ASC')
+            ->group('u.id')
+            ->queryAll();
+
+        $data = array();
+        foreach ($models as $model)
+        {
+            $data[] = array(
+                'params' => array(
+                    'user_id' => $model['id'],
                 ),
                 'changefreq' => 'daily',
                 'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],

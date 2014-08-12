@@ -26,9 +26,13 @@ class NoindexHelper
 
     protected  static function byUser(User $user)
     {
+        if (isset($_GET['BlogContent_page'])) {
+            return true;
+        }
+
         $criteria = new CDbCriteria(array(
-            'condition' => 't.removed = 0 AND t.author_id = :user_id AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)',
-            'params' => array(':user_id' => $user->id),
+            'condition' => 't.removed = 0 AND t.author_id = :user_id AND (t.uniqueness >= 50 OR t.uniqueness IS NULL AND t.type_id != :status)',
+            'params' => array(':user_id' => $user->id, ':status' => CommunityContent::TYPE_STATUS),
         ));
 
         $count = CommunityContent::model()->count($criteria);

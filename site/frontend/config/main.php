@@ -505,6 +505,18 @@ return array(
                         ),
                         'param'=>1
                     ),
+                    'sitemapUsers1.xml' => array(
+                        'aliases' => array(
+                            'application.modules.profile.controllers.DefaultController',
+                        ),
+                        'param' => 1,
+                    ),
+                    'sitemapUsers2.xml' => array(
+                        'aliases' => array(
+                            'application.modules.profile.controllers.DefaultController',
+                        ),
+                        'param' => 2,
+                    ),
 //                    'sitemapRoutes2.xml' => array(
 //                        'aliases' => array(
 //                            'application.modules.routes.controllers.DefaultController',

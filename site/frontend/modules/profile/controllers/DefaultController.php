@@ -14,6 +14,8 @@ class DefaultController extends HController
      * Анкета пользователя $user_id
      * @param int $user_id
      * @throws CHttpException
+     * @sitemap route=blog/default/index dataSource=sitemapView
+     * @sitemap dataSource=sitemapView
      */
     public function actionIndex($user_id)
     {
@@ -211,5 +213,31 @@ class DefaultController extends HController
         $this->user = User::model()->active()->findByPk($id);
         if ($this->user === null || $id == User::HAPPY_GIRAFFE)
             throw new CHttpException(404, 'Пользователь не найден.');
+    }
+
+    public function sitemapView()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('u.id, c.updated, c.created')
+            ->from('users u')
+            ->join('community__contents c', 'c.author_id = u.id')
+            ->where('c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL) AND c.type_id != 5')
+            ->order('u.id ASC')
+            ->group('u.id')
+            ->queryAll();
+
+        $data = array();
+        foreach ($models as $model)
+        {
+            $data[] = array(
+                'params' => array(
+                    'user_id' => $model['id'],
+                ),
+                'changefreq' => 'daily',
+                'lastmod' => ($model['updated'] === null) ? $model['created'] : $model['updated'],
+            );
+        }
+
+        return $data;
     }
 }

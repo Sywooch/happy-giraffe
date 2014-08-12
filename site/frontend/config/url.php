@@ -315,7 +315,7 @@ return array(
         array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'pattern' => 'recipeBook/recipe<id:\d+>',
-            'condition' => 'Yii::app()->user->isGuest',
+            'condition' => 'Yii::app() instanceof CConsoleApplication || Yii::app()->user->isGuest',
             'trueRoute' => 'services/recipeBook/default/view',
             'falseRoute' => 'services/recipeBook/defaultOld/view',
         ),
@@ -327,7 +327,7 @@ return array(
         array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'pattern' => 'recipeBook',
-            'condition' => 'Yii::app()->user->isGuest',
+            'condition' => 'Yii::app() instanceof CConsoleApplication ||Yii::app()->user->isGuest',
             'trueRoute' => 'services/recipeBook/default/index',
             'falseRoute' => 'services/recipeBook/defaultOld/index',
         ),

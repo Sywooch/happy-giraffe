@@ -19,6 +19,9 @@
  * @property GeoCity $cityFrom
  * @property GeoCity $cityTo
  * @property RoutePoint $points
+ *
+ * @property $texts
+ * @property $intermediatePoints
  */
 
 class Route extends CActiveRecord
@@ -337,12 +340,7 @@ class Route extends CActiveRecord
     public function getUrl($absolute = false)
     {
         $method = $absolute ? 'createAbsoluteUrl' : 'createUrl';
-        return Yii::app()->$method('/routes/default/index', array('id' => $this->id));
-    }
-
-    public function getUrlParams()
-    {
-        return array('routes/default/index', array('id' => $this->id));
+        return Yii::app()->$method('/routes/default/view', array('routeId' => $this->id));
     }
 
     /**

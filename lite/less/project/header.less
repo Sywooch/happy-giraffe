@@ -1,5 +1,4 @@
 
-// @import "../../new/less/project/header.less";
 /* 
     logo 
     Главное лого сайта
@@ -73,10 +72,8 @@
     position: relative;
     background:#fff url('@{path-img}/header.png') repeat-x 0 0;
     
-    &__guest .logo {
+    .logo {
         margin: 5px auto 15px;
-        .inline-block();
-        vertical-align: top;
     }
     &__simple {}
     &__guest .header-menu {display: none;}
@@ -98,6 +95,7 @@
         padding: 25px 0 18px;
     }
 
+    
     &_t-big {
         float: left;
         margin: 15px 5px;
@@ -143,6 +141,10 @@
         }
     }
     @media (min-width: @screen-phone-landscape) {
+        .logo {
+            .inline-block();
+            vertical-align: top;
+        }
         &__guest .logo {
             margin-right: 30px;
         }
@@ -200,11 +202,12 @@
         margin: 0 12px;
         text-align: center;
     }
+
     &_li__dropin &_a:hover &_ico,
     &_li__dropin &_li.active &_ico,
-    &_li:hover &_ico,
+    &_a:hover &_ico,
     &_li.active &_ico,
-    &_li:hover &_count,
+    &_a:hover &_count,
     &_li.active &_count {top: -4px;}
 
     &_a:hover &_ico__giraffe,

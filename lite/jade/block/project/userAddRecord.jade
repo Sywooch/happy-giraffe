@@ -51,7 +51,7 @@ mixin userAddRecord(mod, vars)
 - userAddRecord.a.ava = ava.a
 - userAddRecord.a.tx = 'Я хочу добавить'
 - userAddRecord.a.draft = false
-- userAddRecord.a.items = ['article', 'photo', 'video', 'status', 'link']
+- userAddRecord.a.items = ['article', 'photo', 'video', 'status']
 
 - userAddRecord.b = {}
 - userAddRecord.b.ava = false
@@ -78,13 +78,36 @@ mixin userAddRecord(mod, vars)
 - userAddRecord.albums.draft = false
 - userAddRecord.albums.items = ['photo-add', 'album']
 
+
+
+
+
 mixin userAddRecordPopup(mod, vars)
     
 
+    script(src="/javascripts/jquery-1.8.3.min.js")
     script(src="/javascripts/jquery.fancybox-1.3.4.js")
+    script(src="/javascripts/chosen.jquery.min.js")
+    script(src="/redactor/redactor.js")
+    //- script(src="/javascripts/common.js")
     script.
         $(document).ready(function () {
-            $('body').delegate('a.fancy-top', 'click', function () {
+
+            if ($('.chzn').size() > 0) {
+                $('.chzn').each(function () {
+                    var $this = $(this);
+                    $this.chosen({
+                        allow_single_deselect:$this.hasClass('chzn-deselect')
+                    })
+                });
+            }
+            $(".chzn").chosen().ready(function(){
+        
+                $('.chzn-itx-simple').find('.chzn-drop').append("<div class='chzn-itx-simple_add clearfix'><button class='btn-green'>Ok</button><div class='chzn-itx-simple_add-hold'> <input type='text' name='' id='' class='chzn-itx-simple_add-itx' placeholder='Создать новую рубрику'> <a href='' class='chzn-itx-simple_add-del'></a> </div>  </div>");
+
+            });
+
+            $('body').delegate('a.fancy', 'click', function () {
                 var onComplete_function = function () {
 
                     var scTop = $(document).scrollTop();
@@ -103,13 +126,14 @@ mixin userAddRecordPopup(mod, vars)
                     overlayColor:'#2d1a3f',
                     overlayOpacity:'0.6',
                     padding:0,
-                    hideOnOverlayClick:false,
                     showCloseButton:false,
-                    centerOnScroll:false,
+                    centerOnScroll:true,
+                    titleShow:false,
                     onComplete:onComplete_function
                 }).trigger('click');
                 return false;
             });
+
         })
 
 
@@ -119,9 +143,9 @@ mixin userAddRecordPopup(mod, vars)
             .w-720.float-r
                 .user-add-record.user-add-record__yellow.clearfix
                     .user-add-record_ava-hold
-                        a.ava.male(href='')
+                        a.ava.ava__male(href='')
                             span.icon-status.status-online
-                            img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
+                            img.ava_img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
                     .user-add-record_hold
                         .user-add-record_tx Я хочу добавить
                         a.user-add-record_ico.user-add-record_ico__article.active.fancy-top(href='#popup-user-add-article') Статью
@@ -165,6 +189,90 @@ mixin userAddRecordPopup(mod, vars)
                                 .b-settings-blue_row-desc Если вы не выберете рубрику, запись добавится в рубрику "Обо всем"
                     .wysiwyg-v.wysiwyg-blue.clearfix
                         script(src='/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js')
+                        script.
+                            $(document).ready(function () { 
+                              $('.wysiwyg-redactor-v').redactor({
+                                  plugins: ['toolbarVerticalFixed'],
+                                  minHeight: 410,
+                                  autoresize: true,
+                                  toolbarExternal: '.wysiwyg-toolbar-btn',
+
+                                  /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
+                                  buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
+                                  buttonsCustom: {
+                                      smile: {
+                                          title: 'smile',
+                                          callback: function(buttonName, buttonDOM, buttonObject) {
+                                              // your code, for example - getting code
+                                              var html = this.get();
+                                          }
+                                      },
+                                      link_add: {
+                                          title: 'link_add',
+                                          callback: function(buttonName, buttonDOM, buttonObject) {
+                                              // your code, for example - getting code
+                                              var html = this.get();
+                                          }
+                                      },
+                                      link_del: {
+                                          title: 'link_del',
+                                          callback: function(buttonName, buttonDOM, buttonObject) {
+                                              // your code, for example - getting code
+                                              var html = this.get();
+                                          }
+                                      },
+                                      h2: {
+                                          title: 'h2',
+                                          callback: function(buttonName, buttonDOM, buttonObject) {
+                                              // your code, for example - getting code
+                                              var html = this.get();
+                                          }
+                                      },
+                                      h3: {
+                                          title: 'h3',
+                                          callback: function(buttonName, buttonDOM, buttonObject) {
+                                              // your code, for example - getting code
+                                              var html = this.get();
+                                          }
+                                      }
+                                  }
+                              });
+                            });
+
+                        .wysiwyg-toolbar
+                            .wysiwyg-toolbar-btn
+                        textarea(name="", class="wysiwyg-redactor-v")
+                    
+                    .clearfix
+                        a.btn-blue.btn-h46.float-r.btn-inactive(href='') Добавить
+                        a.btn-gray-light.btn-h46.float-r.margin-r15(href='') Отменить
+                        .float-l
+                            .privacy-select.clearfix
+                                .privacy-select_hold.clearfix
+                                    .privacy-select_tx Для кого:
+                                    .privacy-select_drop-hold
+                                        a.privacy-select_a(href='')
+                                            span.ico-users.ico-users__friend.active
+                                            span.privacy-select_a-tx
+                                                | только
+                                                br
+                                                | друзьям
+                                    .privacy-select_drop
+                                        .privacy-select_i
+                                            a.privacy-select_a(href='')
+                                                span.ico-users.ico-users__all
+                                                span.privacy-select_a-tx
+                                                    | для
+                                                    br
+                                                    | всех
+                                        .privacy-select_i
+                                            a.privacy-select_a(href='')
+                                                span.ico-users.ico-users__friend
+                                                span.privacy-select_a-tx
+                                                    | только
+                                                    br
+                                                    | друзьям
+            
 
 
 
@@ -174,9 +282,9 @@ mixin userAddRecordPopup(mod, vars)
             .w-720.float-r
                 .user-add-record.user-add-record__yellow.clearfix
                     .user-add-record_ava-hold
-                        a.ava.male(href='')
+                        a.ava.ava__male(href='')
                             span.icon-status.status-online
-                            img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
+                            img.ava_img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
                     .user-add-record_hold
                         .user-add-record_tx Я хочу добавить
                         a.user-add-record_ico.user-add-record_ico__article.fancy-top(href='#popup-user-add-article') Статью
@@ -202,13 +310,13 @@ mixin userAddRecordPopup(mod, vars)
                                         option Россия
                                         option 2
                                     //
-                                                                                                            <div class='chzn-itx-simple_add clearfix'>
-                                                                                                                    <button class='btn-green'>Ok</button>
-                                                                                                                    <div class='chzn-itx-simple_add-hold'>
-                                                                                                                            <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
-                                                                                                                            <a href='' class='chzn-itx-simple_add-del'></a>
-                                                                                                                    </div>
-                                                                                                            </div>
+                                        <div class='chzn-itx-simple_add clearfix'>
+                                                <button class='btn-green'>Ok</button>
+                                                <div class='chzn-itx-simple_add-hold'>
+                                                        <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+                                                        <a href='' class='chzn-itx-simple_add-del'></a>
+                                                </div>
+                                        </div>
                                                                                                             
                                 .errorMessage Введите рубрику
                     .b-settings-blue_add-video.clearfix
@@ -269,9 +377,9 @@ mixin userAddRecordPopup(mod, vars)
             .w-720.float-r
                 .user-add-record.user-add-record__yellow.clearfix
                     .user-add-record_ava-hold
-                        a.ava.male(href='')
+                        a.ava.ava__male(href='')
                             span.icon-status.status-online
-                            img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
+                            img.ava_img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
                     .user-add-record_hold
                         .user-add-record_tx Я хочу добавить
                         a.user-add-record_ico.user-add-record_ico__article.fancy-top(href='#popup-user-add-article') Статью
@@ -324,13 +432,13 @@ mixin userAddRecordPopup(mod, vars)
                                         option 132
                                         option 132
                                     //
-                                                                                                            <div class='chzn-itx-simple_add clearfix'>
-                                                                                                                    <button class='btn-green'>Ok</button>
-                                                                                                                    <div class='chzn-itx-simple_add-hold'>
-                                                                                                                            <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
-                                                                                                                            <a href='' class='chzn-itx-simple_add-del'></a>
-                                                                                                                    </div>
-                                                                                                            </div>
+                                        <div class='chzn-itx-simple_add clearfix'>
+                                                <button class='btn-green'>Ok</button>
+                                                <div class='chzn-itx-simple_add-hold'>
+                                                        <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+                                                        <a href='' class='chzn-itx-simple_add-del'></a>
+                                                </div>
+                                        </div>
                                                                                                             
                     // .dragover - класс добавлять, когда курсер мыши с файлами находится над блоком
                     .b-add-img.b-add-img__for-multi
@@ -392,13 +500,13 @@ mixin userAddRecordPopup(mod, vars)
                                         option 132
                                         option 132
                                     //
-                                                                                                            <div class='chzn-itx-simple_add clearfix'>
-                                                                                                                    <button class='btn-green'>Ok</button>
-                                                                                                                    <div class='chzn-itx-simple_add-hold'>
-                                                                                                                            <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
-                                                                                                                            <a href='' class='chzn-itx-simple_add-del'></a>
-                                                                                                                    </div>
-                                                                                                            </div>
+                                        <div class='chzn-itx-simple_add clearfix'>
+                                                <button class='btn-green'>Ok</button>
+                                                <div class='chzn-itx-simple_add-hold'>
+                                                        <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+                                                        <a href='' class='chzn-itx-simple_add-del'></a>
+                                                </div>
+                                        </div>
                                                                                                             
                     .b-add-img.b-add-img__single
                         .b-add-img_hold
@@ -464,13 +572,13 @@ mixin userAddRecordPopup(mod, vars)
                                         option 132
                                         option 132
                                     //
-                                                                                                            <div class='chzn-itx-simple_add clearfix'>
-                                                                                                                    <button class='btn-green'>Ok</button>
-                                                                                                                    <div class='chzn-itx-simple_add-hold'>
-                                                                                                                            <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
-                                                                                                                            <a href='' class='chzn-itx-simple_add-del'></a>
-                                                                                                                    </div>
-                                                                                                            </div>
+                                        <div class='chzn-itx-simple_add clearfix'>
+                                                <button class='btn-green'>Ok</button>
+                                                <div class='chzn-itx-simple_add-hold'>
+                                                        <input type='text' name='' id='' class='chzn-itx-simple_add-itx'>
+                                                        <a href='' class='chzn-itx-simple_add-del'></a>
+                                                </div>
+                                        </div>
                                                                                                             
                     .b-add-img.b-add-img__for-multi
                         .b-add-img_hold
@@ -558,9 +666,9 @@ mixin userAddRecordPopup(mod, vars)
             .w-720.float-r
                 .user-add-record.user-add-record__yellow.clearfix
                     .user-add-record_ava-hold
-                        a.ava.male(href='')
+                        a.ava.ava__male(href='')
                             span.icon-status.status-online
-                            img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
+                            img.ava_img(alt='', src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg')
                     .user-add-record_hold
                         .user-add-record_tx Я хочу добавить
                         a.user-add-record_ico.user-add-record_ico__article.fancy-top(href='#popup-user-add-article') Статью
@@ -571,9 +679,9 @@ mixin userAddRecordPopup(mod, vars)
                     .b-settings-blue_tale
                     .b-status-add.clearfix
                         .float-l
-                            a.ava.male(href='')
+                            a.ava.ava__male(href='')
                                 span.icon-status.status-online
-                                img(src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg', alt='')
+                                img.ava_img(src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg', alt='')
                         .b-status-add_col
                             .b-status-add_hold
                                 .clearfix
@@ -621,9 +729,9 @@ mixin userAddRecordPopup(mod, vars)
                     .b-settings-blue_tale
                     .b-status-add.clearfix
                         .float-l
-                            a.ava.male(href='')
+                            a.ava.ava__male(href='')
                                 span.icon-status.status-online
-                                img(src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg', alt='')
+                                img.ava_img(src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg', alt='')
                         .b-status-add_col
                             .b-status-add_hold
                                 .clearfix
@@ -636,6 +744,7 @@ mixin userAddRecordPopup(mod, vars)
                                     .b-user-mood_hold
                                         .b-user-mood_tx - мое настроение
                                         a.a-pseudo.font-small.margin-l10(href='') Изменить
+                                        | &nbsp;
                                         a.a-pseudo-gray.font-small(href='') Удалить
                             .clearfix
                                 a.btn-blue.btn-h46.float-r.btn-inactive(href='') Добавить
@@ -670,9 +779,9 @@ mixin userAddRecordPopup(mod, vars)
                     .b-settings-blue_tale
                     .b-status-add.clearfix
                         .float-l
-                            a.ava.male(href='')
+                            a.ava.ava__male(href='')
                                 span.icon-status.status-online
-                                img(src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg', alt='')
+                                img.ava_img(src='http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg', alt='')
                         .b-status-add_col
                             .b-status-add_hold
                                 .clearfix
@@ -828,6 +937,7 @@ mixin userAddRecordPopup(mod, vars)
                                     .b-user-mood_hold
                                         .b-user-mood_tx - мое настроение
                                         a.a-pseudo.font-small.margin-l10(href='') Изменить
+                                        | &nbsp;
                                         a.a-pseudo.font-small.color-gray(href='') Удалить
                             .clearfix
                                 a.btn-blue.btn-h46.float-r.btn-inactive(href='') Добавить

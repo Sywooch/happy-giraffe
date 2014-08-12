@@ -487,8 +487,10 @@ class SeoTempCommand extends CConsoleCommand
         $result = array();
 
         $dp = new CActiveDataProvider('CommunityContent', array(
-            'criteria' => 'type_id = :type',
-            'params' => array(':type' => CommunityContent::TYPE_POST),
+            'criteria' => array(
+                'condition' => 'type_id = :type',
+                'params' => array(':type' => CommunityContent::TYPE_POST),
+            ),
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $post) {

@@ -13,16 +13,49 @@ mixin headerGuest(mod, vars)
             // header-menu
             .header-menu
                 ul.header-menu_ul.clearfix
-                    li.header-menu_li
+                    li.header-menu_li.active
                         a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__giraffe
                             span.header-menu_tx
                                 | Мой Жираф
+                        // Конверсионный попап
+                        .header-popup.header-popup__club
+                            .header-popup_hold
+                                .header-popup_t Вступайте в разные клубы на Веселом жирафе!
+                                .header-popup_club
+                                    .b-clubs
+
+                                .header-popup_b.clearfix
+                                    .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
+                                    .header-popup_b-l
+                                        span.header-popup_b-tx Начните прямо сейчас с помощью
+
+                                        .ico-social-hold
+                                            a.ico-social.ico-social__odnoklassniki(href='#')
+                                            a.ico-social.ico-social__vkontakte(href='#')
+                        // /Конверсионный попап
+                    // Класс active отвечает за видимость попапапа
                     li.header-menu_li
                         a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__im
                             span.header-menu_tx
                                 | вам письмо
+                        // Конверсионный попап
+                        .header-popup.header-popup__msg
+                            .header-popup_hold
+                                .header-popup_t Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!
+                                .header-popup_msg
+
+                                .header-popup_b.clearfix
+                                    .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
+                                    .header-popup_b-l
+                                        span.header-popup_b-tx Начните прямо сейчас с помощью
+
+                                        .ico-social-hold
+                                            a.ico-social.ico-social__odnoklassniki(href='#')
+                                            a.ico-social.ico-social__vkontakte(href='#')
+                        // /Конверсионный попап
+
 
             // /header-menu
             - if (vars.nosearch != true)

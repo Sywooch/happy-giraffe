@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/blog.css' />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/services-user.css' />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -19,11 +19,6 @@
   <!-- popup-->
   <script src="/lite/javascript/jquery.magnific-popup.js"></script>
   <script src="/lite/javascript/baron.js"></script>
-  <script src="/lite/redactor/redactor.js"></script>
-  <script src="/lite/redactor/lang/ru.js"></script>
-  <script src="/lite/redactor/plugins/fullscreen/fullscreen.js"></script>
-  <script src="/lite/redactor/plugins/btnvideo/btnvideo.js"></script>
-  <script src="/lite/redactor/plugins/formatbtn/formatbtn.js"></script>
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
@@ -175,7 +170,7 @@
                               <textarea placeholder=" Введите ваш комментарий " rows="3" cols="30" class="itx-simple"></textarea>
                               <div class="comments_add-editor">
                                 <!-- Загружаем стили и скрипты редактора при необходимости-->
-                                <link href="/lite/css/dev/redactor.css" rel="stylesheet" type="text/css">
+                                <!-- link(href="/lite/css/dev/redactor.css", rel="stylesheet", type="text/css")-->
                                 <!-- wisywig-->
                                 <script>
                                   $(document).ready(function () { 
@@ -487,6 +482,7 @@
     <script src="/javascripts/jquery-1.8.3.min.js"></script>
     <script src="/javascripts/jquery.fancybox-1.3.4.js"></script>
     <script src="/javascripts/chosen.jquery.min.js"></script>
+    <script src="/redactor/redactor.js"></script>
     <script>
       $(document).ready(function () {
       
@@ -590,6 +586,75 @@
             </div>
             <div class="wysiwyg-v wysiwyg-blue clearfix">
               <script src="/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js"></script>
+              <script>
+                $(document).ready(function () { 
+                  $('.wysiwyg-redactor-v').redactor({
+                      plugins: ['toolbarVerticalFixed'],
+                      minHeight: 410,
+                      autoresize: true,
+                      toolbarExternal: '.wysiwyg-toolbar-btn',
+                      
+                      /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
+                      buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
+                      buttonsCustom: {
+                          smile: {
+                              title: 'smile',
+                              callback: function(buttonName, buttonDOM, buttonObject) {
+                                  // your code, for example - getting code
+                                  var html = this.get();
+                              }
+                          },
+                          link_add: {
+                              title: 'link_add',
+                              callback: function(buttonName, buttonDOM, buttonObject) {
+                                  // your code, for example - getting code
+                                  var html = this.get();
+                              }
+                          },
+                          link_del: {
+                              title: 'link_del',
+                              callback: function(buttonName, buttonDOM, buttonObject) {
+                                  // your code, for example - getting code
+                                  var html = this.get();
+                              }
+                          },
+                          h2: {
+                              title: 'h2',
+                              callback: function(buttonName, buttonDOM, buttonObject) {
+                                  // your code, for example - getting code
+                                  var html = this.get();
+                              }
+                          },
+                          h3: {
+                              title: 'h3',
+                              callback: function(buttonName, buttonDOM, buttonObject) {
+                                  // your code, for example - getting code
+                                  var html = this.get();
+                              }
+                          }
+                      }
+                  });
+                });
+                
+              </script>
+              <div class="wysiwyg-toolbar">
+                <div class="wysiwyg-toolbar-btn"></div>
+              </div>
+              <textarea name="" class="wysiwyg-redactor-v"></textarea>
+            </div>
+            <div class="clearfix"><a href="" class="btn-blue btn-h46 float-r btn-inactive">Добавить</a><a href="" class="btn-gray-light btn-h46 float-r margin-r15">Отменить</a>
+              <div class="float-l">
+                <div class="privacy-select clearfix">
+                  <div class="privacy-select_hold clearfix">
+                    <div class="privacy-select_tx">Для кого:</div>
+                    <div class="privacy-select_drop-hold"><a href="" class="privacy-select_a"><span class="ico-users ico-users__friend active"></span><span class="privacy-select_a-tx">только<br>друзьям</span></a></div>
+                    <div class="privacy-select_drop">
+                      <div class="privacy-select_i"><a href="" class="privacy-select_a"><span class="ico-users ico-users__all"></span><span class="privacy-select_a-tx">для<br>всех</span></a></div>
+                      <div class="privacy-select_i"><a href="" class="privacy-select_a"><span class="ico-users ico-users__friend"></span><span class="privacy-select_a-tx">только<br>друзьям</span></a></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

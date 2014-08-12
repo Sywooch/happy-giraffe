@@ -49,11 +49,11 @@ block layout
             .route-canvas
                 img(src="#{path}images/services/map-route/map.jpg", alt="")
                 // Если оишбка добавить класс errorMessage и непоказывать блок loader 
-                .route-canvas_ovr 
+                .route-canvas_ovr.errorMessage
                     .route-canvas_ovr-hold
                         .route-canvas_ovr-tx
                             | Подождите. Мы формируем для вас маршрут.
-                        .loader 
+                        //-.loader 
                             //- .loader__white
                             img.loader_img(src="#{path}images/ico/ajax-loader.gif", alt='Загружается')
                             .loader_tx Загрузка

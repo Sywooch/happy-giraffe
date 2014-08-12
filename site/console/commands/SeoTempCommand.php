@@ -525,7 +525,7 @@ class SeoTempCommand extends CConsoleCommand
             $result[] = array(
                 'http://www.happy-giraffe.ru' . $disease->getUrl(),
                 $disease->title,
-                $disease->title . ' | ' . $disease->text,
+                strip_tags($disease->title . ' | ' . $disease->text),
                 'Народные рецепты. ' . $disease->title,
                 strip_tags($disease->text),
                 $disease->id,

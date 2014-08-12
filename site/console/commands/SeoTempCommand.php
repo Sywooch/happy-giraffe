@@ -495,4 +495,41 @@ class SeoTempCommand extends CConsoleCommand
         }
         $this->writeCsv('short', $result);
     }
+
+    public function actionRecipeBookData()
+    {
+        $result = array();
+
+        $categories = RecipeBookDiseaseCategory::model()->findAll();
+        foreach ($categories as $category) {
+            $result[] = array(
+                'http://www.happy-giraffe.ru' . $category->getUrl(),
+                $category->title,
+                $category->title . ' | ' . implode(', ', array_map(function($disease) {
+                    return $disease->title;
+                }, $category->diseases)),
+                'Народные рецепты. ' . $category->title,
+                strip_tags($category->description),
+                $category->id,
+            );
+        }
+
+        $this->writeCsv('category', $result);
+
+        $result = array();
+
+        $diseases = RecipeBookDisease::model()->findAll();
+        foreach ($diseases as $disease) {
+            $result[] = array(
+                'http://www.happy-giraffe.ru' . $disease->getUrl(),
+                $disease->title,
+                $disease->title . ' | ' . $disease->text,
+                'Народные рецепты. ' . $disease->title,
+                strip_tags($disease->text),
+                $disease->id,
+            );
+        }
+
+        $this->writeCsv('disease', $result);
+    }
 } 

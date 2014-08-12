@@ -42,7 +42,7 @@ var Routes = {
                 new google.maps.Marker({position: myRoute.steps[myRoute.steps.length - 1].end_point,map: Routes.map,icon: '/images/services/map-route/point/point-finish.png'});
             }
             else {
-                    $('#badRoute').show().delay(3000).fadeOut(400);
+                    $('#badRoute').show().delay(3000);
             }
         });
     },

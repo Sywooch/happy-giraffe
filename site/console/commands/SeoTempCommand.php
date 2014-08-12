@@ -498,6 +498,8 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionRecipeBookData()
     {
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+
         $result = array();
 
         $categories = RecipeBookDiseaseCategory::model()->findAll();

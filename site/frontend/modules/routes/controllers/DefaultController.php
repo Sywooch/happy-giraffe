@@ -22,6 +22,7 @@ class DefaultController extends LiteController
 
     public function actionIndex()
     {
+        $this->meta_title = 'Составь маршрут для автомобиля';
         $this->render('index');
     }
 
@@ -49,6 +50,44 @@ class DefaultController extends LiteController
             throw new CHttpException(404);
         }
 
+        if ($route->wordstat_value < Route::WORDSTAT_LIMIT)
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+
+        if ($route->status != Route::STATUS_ROSNEFT_FOUND && $route->status != Route::STATUS_GOOGLE_PARSE_SUCCESS)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+
+        PageView::model()->incViewsByPath($route->url);
+
+        $this->meta_title = $route->texts['title'];
+        $this->meta_description = $route->texts['description'];
+        $this->meta_keywords = $route->texts['keywords'];
         $this->render('view', compact('route'));
+    }
+
+    public function sitemap($param)
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('id')
+            ->from(Route::model()->tableName())
+            ->where(array('and', 'wordstat_value >= '.Route::WORDSTAT_LIMIT, array('in', 'status', array(Route::STATUS_ROSNEFT_FOUND, Route::STATUS_GOOGLE_PARSE_SUCCESS))))
+            ->queryColumn();
+
+        $data = array();
+        if ($param == 1)
+            $data [] = array(
+                'params' => array(
+                ),
+                'changefreq' => 'weekly',
+            );
+        foreach ($models as $model) {
+            $data[] = array(
+                'params' => array(
+                    'id' => $model,
+                ),
+                'changefreq' => 'weekly',
+            );
+        }
+
+        return $data;
     }
 } 

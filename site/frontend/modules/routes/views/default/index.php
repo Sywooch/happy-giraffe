@@ -2,8 +2,6 @@
 /**
  * @var LiteController $this
  */
-$cs = Yii::app()->clientScript;
-$cs->registerAMD('routes', array('Routes' => 'routes'), 'Routes.initAutoComplete();')
 ?>
 
 <div class="map-route">
@@ -16,16 +14,7 @@ $cs->registerAMD('routes', array('Routes' => 'routes'), 'Routes.initAutoComplete
     </div>
     <div class="map-route-f map-route-f__main">
         <div class="map-route-f_desc">Собираясь в поездку на автомобиле очень важно грамотно проложить маршрут следования и просчитать его мельчайшие нюансы. Прежде чем отправляться в путь узнайте, как доехать до намеченного пункта, сколько километров вам предстоит преодолеть и какое количество времени это займет. С полной информацией о дорогах, картах и пробках на пути следования ваша поездка будет безопасной и интересной. Пользуйтесь нашим сервисом “Маршруты” и путешествуйте на автомобиле с удовольствием!</div>
-        <div class="map-route-f_hold">
-            <div class="map-route-f_i">
-                <input type="text" placeholder="Откуда" class="itx-simple map-route-f_inp map-route-f_inp__a" id="city_from">
-            </div>
-            <div class="map-route-f_revers" onclick="require(['routes'], function(Routes) {Routes.reversePlaces();});"></div>
-            <div class="map-route-f_i">
-                <input type="text" placeholder="Куда" class="itx-simple map-route-f_inp map-route-f_inp__b" id="city_to">
-            </div>
-            <div class="map-route-f_btn-hold"><a href="javascript:void(0)" class="btn btn-success btn-xm" onclick="require(['routes'], function(Routes) {Routes.go();});">Проложить маршрут</a></div>
-        </div>
+        <?php $this->widget('RoutesFormWidget'); ?>
     </div>
     <div class="map-route-desc">
         <ul class="map-route-desc_ul clearfix">

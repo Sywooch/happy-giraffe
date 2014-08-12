@@ -3,6 +3,44 @@
  * @var Route $route
  */
 $texts = $route->getTexts();
+
+$js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '");';
+$middle_points = array_slice($route->intermediatePoints, 1, count($route->intermediatePoints) - 2);
+$index = 1;
+foreach ($middle_points as $point) {
+    $c = $point['city']->coordinates;
+    if ($c === null){
+        $p = new GoogleCoordinatesParser;
+        $p->city = $point['city'];
+        $p->parseCity();
+        $c = $p->coordinates;
+    }
+
+    if ($c !== null && !empty($c->location_lat) && !empty($c->location_lng))
+        $js .= "
+new google.maps.Marker({
+    position: new google.maps.LatLng(" . $c->location_lat . ", " . $c->location_lng . "),
+    map: Routes.map,
+    icon: '/images/services/map-route/point/point-".$index.".png',
+    title:'" . $point['city']->name . "',
+});";
+    $index++;
+}
+
+$way_points = Route::get8Points($middle_points);
+$waypoints_js = 'var way_points = [';
+foreach ($way_points as $point) {
+    $c = $point['city']->coordinates;
+
+    if ($c !== null && !empty($c->location_lat) && !empty($c->location_lng)){
+        $waypoints_js .= '{location:new google.maps.LatLng(' . $c->location_lat . ', ' . $c->location_lng . '),stopover:false},';
+    }
+}
+$waypoints_js .= '];';
+
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('routes_module', array('Routes' => 'routes'), $js);
+$cs->registerAMD('routes_waypoints', array('Routes' => 'routes'), $waypoints_js);
 ?>
 
 <div class="map-route">
@@ -17,28 +55,29 @@ $texts = $route->getTexts();
     <!-- Форма поиска маршрута-->
     <div class="map-route-f map-route-f__row">
         <div class="map-route-f_open-hold">
-            <!-- Клик отвечает за  показ формы поиска--><span class="map-route-f_open">Составить другой маршрут</span>
+            <!-- Клик отвечает за  показ формы поиска--><span class="map-route-f_open" onclick="$(this).parent().next().toggle();">Составить другой маршрут</span>
         </div>
         <!-- По умолчанию форма должна быть скрыта, с помощью стля или класса displa-n-->
-        <div class="map-route-f_hold">
-            <div class="map-route-f_i">
-                <input type="text" name="" placeholder="Откуда" class="itx-simple map-route-f_inp map-route-f_inp__a">
-            </div>
-            <div class="map-route-f_revers"></div>
-            <div class="map-route-f_i">
-                <input type="text" name="" placeholder="Куда" class="itx-simple map-route-f_inp map-route-f_inp__b">
-            </div>
-            <div class="map-route-f_btn-hold"><a href="#" class="btn btn-success btn-xm">Проложить маршрут</a></div>
-        </div>
+        <div style="display: none"><?php $this->widget('RoutesFormWidget'); ?></div>
         <div class="map-route-f_tx">Узнайте, как доехать на авто от Киева до Донецка. Схема трассы Киев-Донецк на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от Киева до Донецка</div>
     </div>
     <!-- /Форма поиска маршрута-->
     <!-- Карта-->
-    <div class="route-canvas"><img src="/lite/images/services/map-route/map.jpg" alt="">
-        <!-- Если оишбка добавить класс errorMessage и непоказывать блок loader -->
-        <div class="route-canvas_ovr">
+    <div class="route-canvas">
+        <div id="map_canvas" style="height:389px;"></div>
+
+        <div class="route-canvas_ovr" id="waitLoader" style="display: none;">
             <div class="route-canvas_ovr-hold">
                 <div class="route-canvas_ovr-tx">Подождите. Мы формируем для вас маршрут.</div>
+                <div class="loader"><img src="/lite/images/ico/ajax-loader.gif" alt="Загружается" class="loader_img">
+                    <div class="loader_tx">Загрузка</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="route-canvas_ovr errorMessage" id="badRoute" style="display: none;">
+            <div class="route-canvas_ovr-hold">
+                <div class="route-canvas_ovr-tx"> Извините. Этот маршрут проложить невозможно.</div>
                 <div class="loader"><img src="/lite/images/ico/ajax-loader.gif" alt="Загружается" class="loader_img">
                     <div class="loader_tx">Загрузка</div>
                 </div>
@@ -52,131 +91,7 @@ $texts = $route->getTexts();
             <div class="map-route_view"></div>
         </div>
         <div class="map-route_cont">
-            <div class="heading-xl visible-md-block">Пункты следования на пути Киев - Донецк</div>
-            <table class="map-route-table visible-md-table">
-                <colgroup>
-                    <col class="map-route-table_col1">
-                    <col class="map-route-table_col2">
-                    <col class="map-route-table_col3">
-                    <col>
-                    <col>
-                    <col>
-                    <col>
-                </colgroup>
-                <thead class="map-route-table_thead">
-                <tr>
-                    <td class="map-route-table_thead-td"></td>
-                    <td class="map-route-table_thead-td textalign-l">Пункт / регион</td>
-                    <td class="map-route-table_thead-td">Трасса</td>
-                    <td class="map-route-table_thead-td">Время участка </td>
-                    <td class="map-route-table_thead-td">Время в пути</td>
-                    <td class="map-route-table_thead-td">Участок, км     </td>
-                    <td class="map-route-table_thead-td">Всего, км</td>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="map-route-table_tr">
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">
-                            <div class="map-route-start"></div>
-                        </div>
-                    </td>
-                    <td class="map-route-table_td textalign-l">
-                        <div class="map-route-table_hold"><strong>Киев</strong><br>Вологодская обл. Волог</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold"><strong>M8</strong></div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">0:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">1:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">0:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">1:00</div>
-                    </td>
-                </tr>
-                <tr class="map-route-table_tr">
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">
-                            <div class="map-route-point">1</div>
-                        </div>
-                    </td>
-                    <td class="map-route-table_td textalign-l">
-                        <div class="map-route-table_hold"><strong>Киев</strong><br>Вологодская обл.</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold"><strong>M8</strong></div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">0:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">1:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">0:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">1:00</div>
-                    </td>
-                </tr>
-                <tr class="map-route-table_tr">
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">
-                            <div class="map-route-point">99</div>
-                        </div>
-                    </td>
-                    <td class="map-route-table_td textalign-l">
-                        <div class="map-route-table_hold"><strong>Киев</strong><br>Вологодская обл.</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold"><strong>M8</strong></div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">0:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">1:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">0:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">1:00</div>
-                    </td>
-                </tr>
-                <tr class="map-route-table_tr">
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">
-                            <div class="map-route-finish"></div>
-                        </div>
-                    </td>
-                    <td class="map-route-table_td textalign-l">
-                        <div class="map-route-table_hold"><strong>Киев</strong><br>Вологодская обл.</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold"><strong>M8</strong></div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">0:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">1:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">0:00</div>
-                    </td>
-                    <td class="map-route-table_td">
-                        <div class="map-route-table_hold">1:00</div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <?php $this->widget('WaypointsTableWidget', compact('route')); ?>
             <!-- Реклама яндекса-->
             <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
             <!-- баннер на всю ширину-->

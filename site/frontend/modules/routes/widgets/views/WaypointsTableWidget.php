@@ -34,7 +34,7 @@
                     <?php if ($index == 0): ?>
                     <div class="map-route-start"></div>
                     <?php elseif ($index == (count($this->route->intermediatePoints) - 1)): ?>
-                    <div class="map-route-start"></div>
+                    <div class="map-route-finish"></div>
                     <?php else: ?>
                     <div class="map-route-point"><?=$index?></div>
                     <?php endif; ?>

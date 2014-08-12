@@ -91,7 +91,7 @@ $cs->registerAMD('routes_waypoints', array('Routes' => 'routes'), $waypoints_js)
             <div class="map-route_view"></div>
         </div>
         <div class="map-route_cont">
-            <?php $this->widget('WaypointsTableWidget', compact('route')); ?>
+            <?php if (Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP) $this->widget('WaypointsTableWidget', compact('route')); ?>
             <!-- Реклама яндекса-->
             <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
             <!-- баннер на всю ширину-->

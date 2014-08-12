@@ -58,7 +58,7 @@ class DefaultController extends LiteController
 
         PageView::model()->incViewsByPath($route->url);
 
-        $this->meta_title = $route->texts['title'];
+        $this->pageTitle = $route->texts['title'];
         $this->meta_description = $route->texts['description'];
         $this->meta_keywords = $route->texts['keywords'];
         $this->render('view', compact('route'));

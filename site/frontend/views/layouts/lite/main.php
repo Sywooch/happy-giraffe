@@ -53,6 +53,28 @@
         <div class="layout-loose_hold clearfix">
             <!-- b-main -->
             <div class="b-main clearfix">
+                <?php if (! Yii::app()->user->isGuest): ?>
+                <div class="b-main_cols clearfix">
+                    <div class="b-main_col-1">
+                        <div class="sidebar-search clearfix sidebar-search__big">
+                            <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
+                        </div>
+                    </div>
+                    <div class="b-main_col-23">
+                        <!-- userAddRecord-->
+                        <div class="userAddRecord clearfix userAddRecord__s userAddRecord__s">
+                            <div class="userAddRecord_ava-hold">
+                                <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                            </div>
+                            <div class="userAddRecord_hold">
+                                <div class="userAddRecord_tx">Я хочу добавить
+                                </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a>
+                            </div>
+                        </div>
+                        <!-- /userAddRecord-->
+                    </div>
+                </div>
+                <?php endif; ?>
                 <div class="b-main_cont">
                     <?php if ($this->breadcrumbs): ?>
                         <div class="b-crumbs b-crumbs__s">

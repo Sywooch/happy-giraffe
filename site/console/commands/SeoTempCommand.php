@@ -79,7 +79,7 @@ class SeoTempCommand extends CConsoleCommand
         $this->ga->setDateRange('2014-06-01', '2014-07-31');
         $report = $this->ga->getReport(array(
             'metrics' => 'ga:entrances',
-            'filters' => 'ga:source=@' . $engine . ',ga:pagePath==' . urlencode($path),
+            'filters' => 'ga:source=@' . $engine . ';ga:pagePath==' . urlencode($path),
         ));
 
         return $report['']['ga:entrances'];
@@ -94,7 +94,7 @@ class SeoTempCommand extends CConsoleCommand
         $report = $this->ga->getReport(array(
             'dimensions' => 'ga:keyword',
             'metrics' => 'ga:entrances',
-            'filters' => 'ga:source=@' . $engine . ',ga:pagePath==' . urlencode($path),
+            'filters' => 'ga:source=@' . $engine . ';ga:pagePath==' . urlencode($path),
         ));
 
         foreach ($report as $keyword => $value) {

@@ -82,9 +82,7 @@ class SeoTempCommand extends CConsoleCommand
             'filters' => 'ga:source=@' . $engine . ';ga:pagePath==' . urlencode($path),
         ));
 
-        var_dump($report); die;
-
-        return $report['']['ga:entrances'];
+        return isset($report['']['ga:entrances']) ? $report['']['ga:entrances'] : 0;
     }
 
     protected function dumbTotals($path, $engine)

@@ -103,7 +103,7 @@ class SeoTempCommand extends CConsoleCommand
         $googleKeywords = $this->dumbKeywords($path, 'google');
 
         return array(
-            $post === null ? '-' : $post->created,
+            '',
             $yandexTotal,
             $googleTotal,
             $yandexSummer,
@@ -157,9 +157,6 @@ class SeoTempCommand extends CConsoleCommand
     {
         foreach ($this->patterns as $p) {
             if (preg_match($p, $path, $matches)) {
-                Yii::app()->db->setActive(false);
-                Yii::app()->db->setActive(true);
-
                 $id = $matches[1];
                 $post = CommunityContent::model()->findByPk($id);
                 return $post;

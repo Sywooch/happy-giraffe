@@ -93,7 +93,7 @@ class SeoTempCommand extends CConsoleCommand
     {
         $path = str_replace('http://www.happy-giraffe.ru', '', $url);
 
-        $post = $this->getPostByPath($path);
+        //$post = $this->getPostByPath($path);
 
         $googleSummer = $this->dumbSummer($path, 'google');
         $yandexSummer = $this->dumbSummer($path, 'yandex');

@@ -136,7 +136,6 @@ class SeoTempCommand extends CConsoleCommand
         ));
 
         foreach ($report as $keyword => $value) {
-            $n += $value['ga:entrances'];
             $keywords .= $keyword . ' - ' . $value['ga:entrances'] . "\n";
         }
 

@@ -44,6 +44,17 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionDumbTest()
+    {
+        $this->ga->setDateRange('2014-06-01', '2014-07-31');
+        $result = $this->ga->getReport(array(
+            'metrics' => 'ga:entrances',
+            'filters' => 'ga:source=@yandex;ga:pagePath==' . urlencode('/community/24/forum/post/71710/'),
+        ));
+
+        var_dump($result);
+    }
+
     public function actionDumb($file)
     {
         $result = array();
@@ -68,7 +79,7 @@ class SeoTempCommand extends CConsoleCommand
             $result[] = $data;
             $j++;
 
-            if ($j > 3) {
+            if ($j > 15) {
                 break;
             }
         }

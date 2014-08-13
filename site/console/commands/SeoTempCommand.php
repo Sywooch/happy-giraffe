@@ -63,7 +63,7 @@ class SeoTempCommand extends CConsoleCommand
             $_result[$path] = array(
                 'period1' => $counts[0],
                 'period2' => $counts[1],
-                'diff' => abs($counts[1] - $counts[0]),
+                'diff' => abs($counts[0] - $counts[1]),
             );
         }
 

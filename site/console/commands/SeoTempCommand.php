@@ -68,7 +68,7 @@ class SeoTempCommand extends CConsoleCommand
         }
 
         $diffs = array();
-        foreach ($diffs as $k => $v) {
+        foreach ($_result as $k => $v) {
             $diffs[$k] = $v['diff'];
         }
 

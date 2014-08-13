@@ -11,15 +11,24 @@ Yii::import('site.frontend.extensions.GoogleAnalytics');
 
 class SeoTempCommand extends CConsoleCommand
 {
+    protected $ga;
+    protected $patterns = array(
+        '#\/community\/(?:\d+)\/forum\/(?:\w+)\/(\d+)\/$#',
+        '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
+    );
+
+    public function init()
+    {
+        $this->ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+        $this->ga->setProfile('ga:53688414');
+    }
+
     protected function getPathes($start, $end, $searchEngine = null)
     {
-        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
-        $ga->setProfile('ga:53688414');
-
         $cacheId = 'Yii.seo.paths.' . $start . '.' . $end . '.' . $searchEngine;
         $paths = Yii::app()->cache->get($cacheId);
         if ($paths === false) {
-            $ga->setDateRange($start, $end);
+            $this->ga->setDateRange($start, $end);
             $properties = array(
                 'metrics' => 'ga:entrances',
                 'dimensions' => 'ga:pagePath',
@@ -29,10 +38,83 @@ class SeoTempCommand extends CConsoleCommand
             if ($searchEngine !== null) {
                 $properties['filters'] = 'ga:source=@' . $searchEngine;
             }
-            $paths = $ga->getReport($properties);
+            $paths = $this->ga->getReport($properties);
             Yii::app()->cache->set($cacheId, $paths);
         }
         return $paths;
+    }
+
+    public function actionDumb()
+    {
+        $result = array($this->dumbSingle('http://www.happy-giraffe.ru/community/1/forum/post/94459/'));
+
+        $this->writeCsv('test', $result);
+    }
+
+    protected function dumbSingle($url)
+    {
+        $path = str_replace('http://www.happy-giraffe.ru', '', $url);
+
+        $post = $this->getPostByPath($path);
+
+        $googleSummer = $this->dumbSummer($path, 'google');
+        $yandexSummer = $this->dumbSummer($path, 'yandex');
+
+        list($googleTotal, $googleKeywords) = $this->dumbTotals($path, 'google');
+        list($yandexTotal, $yandexKeywords) = $this->dumbTotals($path, 'yandex');
+
+        return array(
+            $post->created,
+            $yandexTotal,
+            $googleTotal,
+            $yandexSummer,
+            $googleSummer,
+            $yandexKeywords,
+            $googleKeywords,
+        );
+    }
+
+    protected function dumbSummer($path, $engine)
+    {
+        $this->ga->setDateRange('2014-06-01', '2014-07-31');
+        $report = $this->ga->getReport(array(
+            'metrics' => 'ga:entrances',
+            'filters' => 'ga:source=@' . $engine . ',ga:pagePath==' . urlencode($path),
+        ));
+
+        return $report['']['ga:entrances'];
+    }
+
+    protected function dumbTotals($path, $engine)
+    {
+        $n = 0;
+        $keywords = '';
+
+        $this->ga->setDateRange('2005-01-01', '2014-08-13');
+        $report = $this->ga->getReport(array(
+            'dimensions' => 'ga:keyword',
+            'metrics' => 'ga:entrances',
+            'filters' => 'ga:source=@' . $engine . ',ga:pagePath==' . urlencode($path),
+        ));
+
+        foreach ($report as $keyword => $value) {
+            $n += $value['ga:entrances'];
+            $keywords .= $keyword . ' - ' . $value['ga:entrances'] . "\n";
+        }
+
+        return array($n, $keywords);
+    }
+
+    protected function getPostByPath($path)
+    {
+        foreach ($this->patterns as $p) {
+            if (preg_match($p, $path, $matches)) {
+                $id = $matches[1];
+                $post = CommunityContent::model()->findByPk($id);
+                return $post;
+            }
+        }
+        return null;
     }
 
     public function actionEpicFail()

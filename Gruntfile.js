@@ -230,6 +230,7 @@ module.exports = function(grunt){
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
+            /.header-drop+/,
           ],
         },
         src: [
@@ -321,7 +322,18 @@ module.exports = function(grunt){
       }
     },
     // /css
-    ////////////////////////////// 
+    //////////////////////////////
+
+    imagemin: {
+      lite: {
+          files: [{
+              expand: true,
+              cwd: 'lite/images/',
+              src: ['**/*.{png,jpg,gif}'],
+              dest: 'lite/images/'
+          }]
+      }
+    },
 
     svgmin: {                       // Task
       options: {                  // Configuration that will be passed directly to SVGO
@@ -376,6 +388,26 @@ module.exports = function(grunt){
                     return filename.replace(/~/g, ":");
                 },
                 unit: 200
+            }
+        },
+        'ico-club': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-club",
+                spritePath: "lite/images/sprite/ico-club.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                //refSize: 75, 
+                // sizes: {
+                //     large: 130,
+                //     mid: 75
+                // },
+                unit: 100
             }
         },
         // 'comments-menu_a': {
@@ -457,6 +489,15 @@ module.exports = function(grunt){
         },
       },
 
+
+      // изобрражения сжатие
+      image_lite: {
+        files: ['lite/images/**/*.{png,jpg,gif}'],
+        tasks:['imagemin:lite'],
+        options: {
+          livereload: true,
+        },
+      },
       // изобрражения svg сжатие
       svg: {
         files: ['lite/images/**/*.svg'],

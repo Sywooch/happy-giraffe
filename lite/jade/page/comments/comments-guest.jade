@@ -5,7 +5,19 @@ block vars
     - global.cssFile = 'blog.css'; 
     
 block layout
+    script.
+                        $(document).ready(function () { 
+                            //- $('.header-menu_a').click(function(){
+                            //-     concole.log('knok')
+                            //-     $(this).parrent('.header-menu_li').toggleClass('active');
+                            //- })
+                            $('.header-menu_a').click(function () {
+                                //- $(this).slideUp();
 
+                                console.log('knok')
+                                $(this).parrent('.header-menu_li').toggleClass('active');
+                            });
+                        });
     // b-main 
     .b-main.clearfix
         .b-main_cont
@@ -19,7 +31,7 @@ block layout
                     li.b-crumbs_li.b-crumbs_li__last
                         span.b-crumbs_last Блог
             .b-main_col-hold.clearfix
-                
+
                 ///////
                 // Основная колонка
                 .b-main_col-article

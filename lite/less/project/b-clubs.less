@@ -1,0 +1,41 @@
+/* b-clubs */
+.b-clubs {
+    width: 470px;
+    margin-bottom: 20px;
+    
+    .ico-club {
+        .inline-block();
+        .scale(0.7);
+        .transition(all 0.4s ease);
+    }
+    &_ul {}
+    &_li {
+        .inline-block();
+        margin: 0 -5px -5px 0;
+    }
+    &_a {
+        display: block;
+        width: 75px;
+        color: #fff;
+        text-decoration: none;
+        text-align: center;
+    }
+    &_a:hover {
+        text-decoration: none;
+    }
+    &_a:hover .ico-club {
+        .scale(1.2);
+    }
+    &_a:hover &_tx {
+        opacity: 1;
+        visibility: visible;
+    }
+    &_tx {
+        margin: 3px -90px 0;
+        visibility: hidden;
+        opacity: 0;
+        color: #fff;
+        .transition(all 0.4s ease);
+    }
+}
+/* /b-clubs */

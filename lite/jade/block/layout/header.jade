@@ -13,6 +13,7 @@ mixin headerGuest(mod, vars)
             // header-menu
             .header-menu
                 ul.header-menu_ul.clearfix
+
                     li.header-menu_li.active
                         a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__giraffe
@@ -24,6 +25,84 @@ mixin headerGuest(mod, vars)
                                 .header-popup_t Вступайте в разные клубы на Веселом жирафе!
                                 .header-popup_club
                                     .b-clubs
+                                        // 18 клубов
+                                        ul.b-clubs_ul
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__1
+                                                    .b-clubs_tx Планирование
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__2
+                                                    .b-clubs_tx Беременность и роды
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__3
+                                                    .b-clubs_tx Дети до года
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__4
+                                                    .b-clubs_tx Дети старше года
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__5
+                                                    .b-clubs_tx Дошкольники
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__6
+                                                    .b-clubs_tx Школьники
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__7
+                                                    .b-clubs_tx Готовим на кухне
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__8
+                                                    .b-clubs_tx Ремонт в доме
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__9
+                                                    .b-clubs_tx Домашние хлопоты
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__10
+                                                    .b-clubs_tx Сад и огород
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__11
+                                                    .b-clubs_tx Наши питомцы
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__12
+                                                    .b-clubs_tx Красота и мода
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__13
+                                                    .b-clubs_tx Наше здоровье
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__14
+                                                    .b-clubs_tx Свадьба
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__15
+                                                    .b-clubs_tx Отношения в семье
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__16
+                                                    .b-clubs_tx Рукоделие
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__17
+                                                    .b-clubs_tx Цветы в доме
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__18
+                                                    .b-clubs_tx Наш автомобиль
+                                            //- li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__19
+                                                    .b-clubs_tx Мы путешествуем
 
                                 .header-popup_b.clearfix
                                     .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
@@ -211,3 +290,117 @@ mixin header(mod, vars)
 
 //- 
 
+
+
+//- Фиксировання шапка
+//- 
+    mod     __rel
+mixin header-fix(mod)
+    // header-fix
+    script.
+        $(document).ready(function () {
+            $(window).on('scroll',function () {
+                var contanerScroll = $(window).scrollTop();
+                var header = $('.layout-header');
+                console.log(header.height());
+                if (contanerScroll > header.height() + header.offset().top) {
+                    $('.header-fix').fadeIn(400);
+                } else {
+                    $('.header-fix').fadeOut(400);
+                }
+            });
+        });
+    .header-fix(class=mod)
+        .header-fix_hold.clearfix
+            a.header-fix_logo(href='')
+            .header-fix_dropin
+                a.header-fix_dropin-a(href='')
+                    +ava('ava__middle ava__female', avaVarsSpan)
+                    span.header_i-arrow
+                // header-drop
+                .header-drop
+                    .header-menu.clearfix
+                        ul.header-menu_ul
+                            li.header-menu_li
+                                a.header-menu_a(href='')
+                                    span.header-menu_ico.header-menu_ico__profile
+                                        +ava('ava__small ava__male', avaVarsSpan)
+                                    span.header-menu_tx Анкета
+                            li.header-menu_li
+                                a.header-menu_a(href='')
+                                    span.header-menu_ico.header-menu_ico__family
+                                    span.header-menu_tx Семья
+                            li.header-menu_li
+                                a.header-menu_a(href='')
+                                    span.header-menu_ico.header-menu_ico__blog
+                                    span.header-menu_tx Блог
+                            li.header-menu_li
+                                a.header-menu_a(href='')
+                                    span.header-menu_ico.header-menu_ico__photo
+                                    span.header-menu_tx Фото
+                            li.header-menu_li
+                                a.header-menu_a(href='')
+                                    span.header-menu_ico.header-menu_ico__favorite
+                                    span.header-menu_tx Избранное
+                            li.header-menu_li
+                                a.header-menu_a(href='')
+                                    span.header-menu_ico.header-menu_ico__settings
+                                    span.header-menu_tx Настройки
+                            li.header-menu_li
+                                a.header-menu_a(href='')
+                                    span.header-menu_ico.header-menu_ico__logout
+                                    span.header-menu_tx
+                    // header-drop_b
+                    .header-drop_b
+                            .float-r.margin-t3
+                                a(href='') Жираф рекомендует
+                            .heading-small
+                                | Мои клубы 
+                                span.color-gray  (5)
+                            .club-list.club-list__small.clearfix
+                                ul.club-list_ul.clearfix
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(src='/images/club/2-w50.png', alt='')
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(src='/images/club/5-w50.png', alt='')
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(src='/images/club/7-w50.png', alt='')
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(src='/images/club/8-w50.png', alt='')
+                                    li.club-list_li
+                                        a.club-list_i(href='')
+                                            span.club-list_img-hold
+                                                img.club-list_img(src='/images/club/9-w50.png', alt='')
+                    // /header-drop_b
+                // /header-drop 
+            .header-fix-menu
+                ul.header-menu_ul.clearfix
+                    li.header-fix-menu_li
+                        a.header-fix-menu_a(href='')
+                            span.header-fix-menu_tx прямой эфир
+                    li.header-fix-menu_li.active
+                        a.header-fix-menu_a(href='')
+                            span.header-fix-menu_tx мой жираф
+                            span.header-fix-menu_count 256
+                    li.header-fix-menu_li
+                        a.header-fix-menu_a(href='')
+                            span.header-fix-menu_tx диалоги
+                    li.header-fix-menu_li
+                        a.header-fix-menu_a(href='')
+                            span.header-fix-menu_tx друзья
+                            span.header-fix-menu_count 2
+                    li.header-fix-menu_li
+                        a.header-fix-menu_a(href='')
+                            span.header-fix-menu_tx сигналы
+                    li.header-fix-menu_li
+                        a.header-fix-menu_a(href='')
+                            span.header-fix-menu_tx успехи
+    // /header-fix

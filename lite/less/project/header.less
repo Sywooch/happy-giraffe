@@ -355,3 +355,147 @@
     }
 }
 /* /header-drop */
+
+
+
+/* header-fix 
+    Фиксировання шапка
+    header-fix  __rel
+        header-fix_hold
+            header-fix_logo
+            <header-fix-menu>
+            header-fix_dropin
+                ...
+                <header-drop>
+*/
+.header-fix {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: #fff;
+    .box-shadow(0 0 3px rgba(0,0,0,0.15));
+    z-index: 700;
+    height: 50px;
+    
+    &__rel {
+        position: relative;
+        display: block;
+    }
+    &_hold {
+        margin: 0 auto;
+        position: relative;
+    }
+    @media screen and (min-width: 1000px) {
+        &_hold {width: 1000px;}
+    }
+
+    &_hold:before,
+    &_hold:after {
+        content: '';
+        position: absolute;
+        top: 50px;
+        left: 20px;
+        width: 95px;
+        height: 25px;
+        background: url('@{path-img}/header-fix_hold__pseudo.png') no-repeat;
+    }
+    &_hold:after {
+        left: auto;
+        right: 20px;
+    }
+    &_logo {
+        position: relative;
+        z-index: 5;
+        float: left;
+        margin: 5px 5px 0 50px;
+        width: 45px;
+        height: 55px;
+        background: url() no-repeat;
+        .img-retina('@{path-img}/header-fix_logo.png'; '@{path-img}/header-fix_logo-2x.png'; 45px; 55px)
+    }
+    &_dropin {
+        float: right;
+        width: 90px;
+        position: relative;
+        z-index: 5;
+        margin: 10px 2% 0 0;
+        text-align: center;
+        .ava {
+            vertical-align: middle;
+        }
+        .header_i-arrow {
+            .inline-block();
+            vertical-align: middle;
+        }
+        .header-drop {
+            right: 19px;
+            top: 53px;
+        }
+        &_a {padding: 12px 5px 12px;}
+    }
+    &_dropin:hover .header_i-arrow {background-position: 0 -8px;}
+    &_dropin.active .header-drop {display: block;}
+
+}
+/* /header-fix */
+
+
+/* .header-fix-menu 
+    Меню в фиксированной шапке
+    header-fix-menu
+        header-fix-menu_ul
+            header-fix-menu_li
+                header-fix-menu_a
+                    header-fix-menu_tx
+                    header-fix-menu_count
+*/
+.header-fix-menu {
+    float: right;
+    width: 60%;
+    margin: 0 auto;
+    text-align: right;
+
+    @media screen and (min-width: 630px) {
+        & {width: 66%;}
+    }
+    @media screen and (min-width: 850px) {
+        & {width: 75%;}
+    }
+
+    &_ul {display: table;}
+    &_li {
+        display: table-cell;
+        width: 1000px;
+        position: relative;
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    &_a {
+        display: block;
+        text-decoration: none;
+        padding: 15px 0 16px;
+        color: #999;
+    }
+    &_a:hover {color: #333;}
+    &_tx {
+        .inline-block();
+        vertical-align: middle;
+        font: 10px/16px Tahoma, Arial, Verdana, sans-serif;
+        text-transform: uppercase;
+    }
+    &_count {
+        .inline-block();
+        vertical-align: middle;
+        margin: 1px 0 0 5px;
+        padding: 0 4px;
+        color: #fff;
+        font-size: 11px;
+        background: #f84219;
+        .border-radius(4px);
+        vertical-align: middle;
+    }
+}
+/* /header-fix-menu */

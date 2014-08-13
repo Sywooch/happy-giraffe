@@ -4,38 +4,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <script>
-    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
-    
-  </script>
-  <script src="/lite/javascript/modernizr.custom.js"></script>
-  <!-- Адаптивные изображения tag picture-->
-  <script src="/lite/javascript/picturefill.min.js"></script>
-  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
-  <script src="/lite/javascript/bootstrap/tab.js"></script>
-  <!-- tooltip-->
-  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
-  <!-- popup-->
-  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
-  <script src="/lite/javascript/baron.js"></script>
-  <script src="/lite/redactor/redactor.js"></script>
-  <script src="/lite/redactor/lang/ru.js"></script>
-  <script src="/lite/redactor/plugins/fullscreen/fullscreen.js"></script>
-  <script src="/lite/redactor/plugins/btnvideo/btnvideo.js"></script>
-  <script src="/lite/redactor/plugins/formatbtn/formatbtn.js"></script>
-  <!-- -->
-  <script src="/lite/javascript/common.js"></script>
-  <script src="/lite/javascript/common-markup.js"></script>
-  <!-- livereload-->
-  <script src="//localhost:35729/livereload.js"></script>
+  <!-- +scriptsLite(path)-->
 </head>
 <body class="body body__bg1 body__lite">
   <div class="layout-container">
     <div class="layout-loose layout-loose__white">
       <div class="layout-header">
         <!-- header-->
-        <header class="header header__simple">
+        <header class="header header__guest header__simple">
           <div class="header_hold clearfix">
             <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
             <!-- logo-->
@@ -44,8 +20,99 @@
             <!-- header-menu-->
             <div class="header-menu">
               <ul class="header-menu_ul clearfix">
-                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
-                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span></a></li>
+                <li class="header-menu_li active"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__club">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
+                      <div class="header-popup_club">
+                        <div class="b-clubs">
+                          <!-- 18 клубов-->
+                          <ul class="b-clubs_ul">
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__1"></div>
+                                <div class="b-clubs_tx">Планирование</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__2"></div>
+                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__3"></div>
+                                <div class="b-clubs_tx">Дети до года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__4"></div>
+                                <div class="b-clubs_tx">Дети старше года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__5"></div>
+                                <div class="b-clubs_tx">Дошкольники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__6"></div>
+                                <div class="b-clubs_tx">Школьники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__7"></div>
+                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__8"></div>
+                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__9"></div>
+                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__10"></div>
+                                <div class="b-clubs_tx">Сад и огород</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__11"></div>
+                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__12"></div>
+                                <div class="b-clubs_tx">Красота и мода</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__13"></div>
+                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__14"></div>
+                                <div class="b-clubs_tx">Свадьба</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__15"></div>
+                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__16"></div>
+                                <div class="b-clubs_tx">Рукоделие</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__17"></div>
+                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__18"></div>
+                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <!-- Класс active отвечает за видимость попапапа-->
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__msg">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                      <div class="header-popup_msg"></div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
               </ul>
             </div>
             <!-- /header-menu-->
@@ -198,9 +265,9 @@
               <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
               <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
               <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
-              <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__husband-and-wife">Мужчина и женщина</a></li>
+              <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
               <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
-              <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__family-holiday">Отдых</a></li>
+              <li class="footer-menu_li"><a href="" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
             </ul>
             <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
             <div class="layout-footer_privacy-hold"><a href="" class="layout-footer_privacy">Политика конфедициальности</a></div>
@@ -212,4 +279,24 @@
   </div>
   <div class="popup-container display-n"> 
   </div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
 </body></html>

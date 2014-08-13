@@ -63,9 +63,6 @@ class SeoTempCommand extends CConsoleCommand
 
         $j = 0;
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-            Yii::app()->db->setActive(false);
-            Yii::app()->db->setActive(true);
-
             $inserts = array();
             foreach ($data as $k => $v) {
                 if (strpos($v, 'http://') === 0) {
@@ -160,6 +157,9 @@ class SeoTempCommand extends CConsoleCommand
     {
         foreach ($this->patterns as $p) {
             if (preg_match($p, $path, $matches)) {
+                Yii::app()->db->setActive(false);
+                Yii::app()->db->setActive(true);
+
                 $id = $matches[1];
                 $post = CommunityContent::model()->findByPk($id);
                 return $post;

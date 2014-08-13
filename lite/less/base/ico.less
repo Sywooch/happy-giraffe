@@ -37,9 +37,19 @@
     width: 22px;
     height: 22px;
     background: url('@{path-img}/ico/ico-social.png') no-repeat;
-
+    
+    &:hover {
+        opacity: 0.8;
+    }
     &__odnoklassniki {background-position: 0 0;}
     &__vkontakte {background-position: -22px 0;}
+
+    &__m {
+        width: 32px;
+        height: 32px;
+        background: url('@{path-img}/ico/ico-social__m.png') no-repeat;
+    }
+    &__vkontakte.ico-social__m {background-position: -32px 0;}
 }
 
 .ico-plus {

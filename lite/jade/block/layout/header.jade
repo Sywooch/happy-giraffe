@@ -13,8 +13,14 @@ mixin headerGuest(mod, vars)
             // header-menu
             .header-menu
                 ul.header-menu_ul.clearfix
-
-                    li.header-menu_li.active
+                    // js улучшить. Закрывать попап при клике не на нем.
+                    script.
+                        $(document).ready(function () {
+                            $('.header-menu_a').click(function () {
+                                var c = $(this).parents('.header-menu_li').toggleClass('active');
+                            });
+                        });
+                    li.header-menu_li
                         a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__giraffe
                             span.header-menu_tx
@@ -110,8 +116,8 @@ mixin headerGuest(mod, vars)
                                         span.header-popup_b-tx Начните прямо сейчас с помощью
 
                                         .ico-social-hold
-                                            a.ico-social.ico-social__odnoklassniki(href='#')
-                                            a.ico-social.ico-social__vkontakte(href='#')
+                                            a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                            a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
                         // /Конверсионный попап
                     // Класс active отвечает за видимость попапапа
                     li.header-menu_li
@@ -131,8 +137,8 @@ mixin headerGuest(mod, vars)
                                         span.header-popup_b-tx Начните прямо сейчас с помощью
 
                                         .ico-social-hold
-                                            a.ico-social.ico-social__odnoklassniki(href='#')
-                                            a.ico-social.ico-social__vkontakte(href='#')
+                                            a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                            a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
                         // /Конверсионный попап
 
 

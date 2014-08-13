@@ -39,7 +39,15 @@
             <!-- header-menu-->
             <div class="header-menu">
               <ul class="header-menu_ul clearfix">
-                <li class="header-menu_li active"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a>
+                <!-- js улучшить. Закрывать попап при клике не на нем.-->
+                <script>
+                  $(document).ready(function () {
+                      $('.header-menu_a').click(function () {
+                          var c = $(this).parents('.header-menu_li').toggleClass('active');
+                      });
+                  });
+                </script>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a>
                   <!-- Конверсионный попап-->
                   <div class="header-popup header-popup__club">
                     <div class="header-popup_hold">
@@ -108,7 +116,7 @@
                       <div class="header-popup_b clearfix">
                         <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
                         <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
-                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__vkontakte"></a></div>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
                         </div>
                       </div>
                     </div>
@@ -125,7 +133,7 @@
                       <div class="header-popup_b clearfix">
                         <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
                         <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
-                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__vkontakte"></a></div>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
                         </div>
                       </div>
                     </div>
@@ -145,20 +153,6 @@
         <!-- /header-->
       </div>
       <div class="layout-loose_hold clearfix">
-        <script>
-          $(document).ready(function () { 
-              //- $('.header-menu_a').click(function(){
-              //-     concole.log('knok')
-              //-     $(this).parrent('.header-menu_li').toggleClass('active');
-              //- })
-              $('.header-menu_a').click(function () {
-                  //- $(this).slideUp();
-                  
-                  console.log('knok')
-                  $(this).parrent('.header-menu_li').toggleClass('active');
-              });
-          });
-        </script>
         <!-- b-main -->
         <div class="b-main clearfix">
           <div class="b-main_cont">

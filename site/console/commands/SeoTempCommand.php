@@ -35,6 +35,74 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
+    public function actionEpicFail()
+    {
+        $patterns = array(
+            '#\/community\/(?:\d+)\/forum\/(?:\w+)\/(\d+)\/$#',
+            '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
+        );
+
+        $result = array();
+
+        $paths1 = $this->getPathes('2014-08-05', '2014-08-05', 'google');
+        $paths2 = $this->getPathes('2014-08-12', '2014-08-12', 'google');
+
+        $paths = array($paths1, $paths2);
+
+        foreach ($paths as $k => $p) {
+            foreach ($p as $path => $value) {
+                if (! isset($result[$path])) {
+                    $result[$path] = array_fill(0, 2, 0);
+                }
+                $result[$path][$k] = $value['ga:sessions'];
+            }
+        }
+
+        $_result = array();
+        foreach ($result as $path => $counts) {
+            $_result[$path] = array(
+                'period1' => $counts[0],
+                'period2' => $counts[1],
+                'diff' => abs($counts[1] - $counts[0]),
+            );
+        }
+
+        $diffs = array();
+        foreach ($diffs as $k => $v) {
+            $diffs[$k] = $v['diff'];
+        }
+
+        array_multisort($_result, SORT_DESC, $diffs);
+
+        $__result = array();
+
+        foreach ($_result as $path => $value) {
+            foreach ($patterns as $pattern) {
+                if (preg_match($pattern, $path, $matches)) {
+                    $id = $matches[1];
+
+                    $post = CommunityContent::model()->resetScope()->with('comments')->findByPk($id);
+
+                    if ($post === null) {
+                        continue;
+                    }
+
+                    $__result[] = array(
+                        $post->title,
+                        'http://www.happy-giraffe.ru' . $path,
+                        $value['period1'],
+                        $value['period2'],
+                        $value['diff'],
+                        isset($post->comments[0]) ? strip_tags($post->comments[0]->text) : '',
+                        isset($post->comments[1]) ? strip_tags($post->comments[1]->text) : '',
+                    );
+                }
+            }
+        }
+
+        $this->writeCsv('epicFail', $__result);
+    }
+
     public function actionBadContent($type)
     {
         $result = array();

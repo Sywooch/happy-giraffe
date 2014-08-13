@@ -62,7 +62,7 @@ class SeoTempCommand extends CConsoleCommand
 
             $i = 0;
             foreach ($inserts as $k => $v) {
-                array_splice($data, $k + $i * 7, 0, $v);
+                array_splice($data, $k + 1 + $i * 7, 0, $v);
                 $i++;
             }
             $result[] = $data;

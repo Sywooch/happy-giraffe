@@ -64,11 +64,15 @@
                         <!-- userAddRecord-->
                         <div class="userAddRecord clearfix userAddRecord__s userAddRecord__s">
                             <div class="userAddRecord_ava-hold">
-                                <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                                <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => Avatar::SIZE_SMALL)); ?>
                             </div>
                             <div class="userAddRecord_hold">
                                 <div class="userAddRecord_tx">Я хочу добавить
-                                </div><a href="#popup-user-add-article" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a><a href="#popup-user-add-photo" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a><a href="#popup-user-add-video" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a><a href="#popup-user-add-status" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a>
+                                </div>
+                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_POST)) ?>" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a>
+                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_PHOTO_POST)) ?>" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a>
+                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_VIDEO)) ?>" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy active powertip"></a>
+                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_STATUS)) ?>" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a>
                             </div>
                         </div>
                         <!-- /userAddRecord-->

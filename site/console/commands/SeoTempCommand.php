@@ -481,4 +481,62 @@ class SeoTempCommand extends CConsoleCommand
 
         $this->writeCsv('recipeBook', $result);
     }
+
+    public function actionShort()
+    {
+        $result = array();
+
+        $dp = new CActiveDataProvider('CommunityContent', array(
+            'criteria' => array(
+                'condition' => 'type_id = :type',
+                'params' => array(':type' => CommunityContent::TYPE_POST),
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $post) {
+            $length = strlen(strip_tags($post->content->text));
+            $uniqueness = $post->uniqueness === null ? '-' : $post->uniqueness;
+            $result[] = array($post->title, $post->getUrl(false, true), $length, $uniqueness);
+        }
+        $this->writeCsv('short', $result);
+    }
+
+    public function actionRecipeBookData()
+    {
+        Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
+
+        $result = array();
+
+        $categories = RecipeBookDiseaseCategory::model()->findAll();
+        foreach ($categories as $category) {
+            $result[] = array(
+                'http://www.happy-giraffe.ru' . $category->getUrl(),
+                $category->title,
+                $category->title . ' | ' . implode(', ', array_map(function($disease) {
+                    return $disease->title;
+                }, $category->diseases)),
+                'Народные рецепты. ' . $category->title,
+                strip_tags($category->description),
+                $category->id,
+            );
+        }
+
+        $this->writeCsv('category', $result);
+
+        $result = array();
+
+        $diseases = RecipeBookDisease::model()->findAll();
+        foreach ($diseases as $disease) {
+            $result[] = array(
+                'http://www.happy-giraffe.ru' . $disease->getUrl(),
+                $disease->title,
+                strip_tags($disease->title . ' | ' . $disease->text),
+                'Народные рецепты. ' . $disease->title,
+                strip_tags($disease->text),
+                $disease->id,
+            );
+        }
+
+        $this->writeCsv('disease', $result);
+    }
 } 

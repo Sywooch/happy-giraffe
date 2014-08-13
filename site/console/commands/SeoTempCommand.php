@@ -50,6 +50,7 @@ class SeoTempCommand extends CConsoleCommand
 
         $handle = fopen("$file", "r");
 
+        $j = 0;
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
             $inserts = array();
             foreach ($data as $k => $v) {
@@ -65,7 +66,11 @@ class SeoTempCommand extends CConsoleCommand
                 $i++;
             }
             $result[] = $data;
-            break;
+            $j++;
+
+            if ($j > 3) {
+                break;
+            }
         }
         fclose($handle);
 

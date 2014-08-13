@@ -230,7 +230,9 @@ module.exports = function(grunt){
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
+            // Drop, active элементы
             /.header-drop+/,
+            /.header-menu_li.active+/,
           ],
         },
         src: [

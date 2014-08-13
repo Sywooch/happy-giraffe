@@ -63,6 +63,9 @@ class SeoTempCommand extends CConsoleCommand
 
         $j = 0;
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            Yii::app()->db->setActive(false);
+            Yii::app()->db->setActive(true);
+
             $inserts = array();
             foreach ($data as $k => $v) {
                 if (strpos($v, 'http://') === 0) {

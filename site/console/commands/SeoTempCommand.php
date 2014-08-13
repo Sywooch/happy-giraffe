@@ -54,7 +54,7 @@ class SeoTempCommand extends CConsoleCommand
                 if (! isset($result[$path])) {
                     $result[$path] = array_fill(0, 2, 0);
                 }
-                $result[$path][$k] = $value['ga:sessions'];
+                $result[$path][$k] = $value['ga:entrances'];
             }
         }
 
@@ -81,7 +81,7 @@ class SeoTempCommand extends CConsoleCommand
                 if (preg_match($pattern, $path, $matches)) {
                     $id = $matches[1];
 
-                    $post = CommunityContent::model()->resetScope()->with('comments')->findByPk($id);
+                    $post = CommunityContent::model()->resetScope()->findByPk($id);
 
                     if ($post === null) {
                         continue;
@@ -93,10 +93,11 @@ class SeoTempCommand extends CConsoleCommand
                         $value['period1'],
                         $value['period2'],
                         $value['diff'],
-                        isset($post->comments[0]) ? strip_tags($post->comments[0]->text) : '',
-                        isset($post->comments[1]) ? strip_tags($post->comments[1]->text) : '',
                     );
                 }
+            }
+            if (count($__result) == 100) {
+                break;
             }
         }
 

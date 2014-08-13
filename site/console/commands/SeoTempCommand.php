@@ -72,7 +72,7 @@ class SeoTempCommand extends CConsoleCommand
             $diffs[$k] = $v['diff'];
         }
 
-        array_multisort($_result, SORT_DESC, $diffs);
+        array_multisort($diffs, SORT_DESC, $_result);
 
         $__result = array();
 

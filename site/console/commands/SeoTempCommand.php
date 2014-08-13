@@ -82,6 +82,8 @@ class SeoTempCommand extends CConsoleCommand
             'filters' => 'ga:source=@' . $engine . ';ga:pagePath==' . urlencode($path),
         ));
 
+        var_dump($report); die;
+
         return $report['']['ga:entrances'];
     }
 

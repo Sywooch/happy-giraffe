@@ -63,7 +63,7 @@ class SeoTempCommand extends CConsoleCommand
             $_result[$path] = array(
                 'period1' => $counts[0],
                 'period2' => $counts[1],
-                'diff' => abs($counts[0] - $counts[1]),
+                'diff' => $counts[1] - $counts[0],
             );
         }
 
@@ -72,7 +72,7 @@ class SeoTempCommand extends CConsoleCommand
             $diffs[$k] = $v['diff'];
         }
 
-        array_multisort($diffs, SORT_DESC, $_result);
+        array_multisort($diffs, SORT_ASC, $_result);
 
         $__result = array();
 

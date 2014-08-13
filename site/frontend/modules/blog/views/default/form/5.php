@@ -5,7 +5,7 @@
  * @var $json
  */
 
-$form = $this->beginWidget('CActiveForm', array(
+$form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
     'id' => 'blog-form',
     'action' => $model->isNewRecord ? array('save') : array('save', 'id' => $model->id),
     'enableAjaxValidation' => true,
@@ -104,7 +104,13 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <?php $this->endWidget(); ?>
 
-<script>
+<?php
+/**
+ * @var ClientScript $cs
+ */
+$cs = Yii::app()->clientScript;
+
+$js = <<<JS
     var BlogFormStatusViewModel = function(data) {
         console.log(data);
 
@@ -134,7 +140,7 @@ $form = $this->beginWidget('CActiveForm', array(
         self.removeMood = function() {
             self.selectedMoodId(null);
         }
-    }
+    };
 
     var Mood = function(data, parent) {
         var self = this;
@@ -150,8 +156,14 @@ $form = $this->beginWidget('CActiveForm', array(
             return '/images/widget/mood/' + self.id  + '.png';
         });
 
-    }
+    };
+JS;
 
-    formVM = new BlogFormStatusViewModel(<?=CJSON::encode($json)?>);
-    ko.applyBindings(formVM, document.getElementById('popup-user-add-status'));
-</script>
+$js .= "ko.applyBindings(new BlogFormStatusViewModel(" . CJSON::encode($json) . "), document.getElementById('popup-user-add-status'));";
+
+if ($cs->useAMD) {
+    $cs->registerAMD('add-status', array('ko' => 'knockout', 'ko_post' => 'ko_post'), $js);
+} else {
+    $cs->registerScript('add-status', $js, ClientScript::POS_READY);
+}
+?>

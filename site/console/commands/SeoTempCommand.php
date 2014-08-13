@@ -44,9 +44,31 @@ class SeoTempCommand extends CConsoleCommand
         return $paths;
     }
 
-    public function actionDumb()
+    public function actionDumb($file)
     {
-        $result = array($this->dumbSingle('http://www.happy-giraffe.ru/community/24/forum/post/71710/'));
+        $result = array();
+
+        $handle = fopen("$file", "r");
+
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            $inserts = array();
+            foreach ($data as $k => $v) {
+                if (strpos($v, 'http://') === 0) {
+                    $dumbData = $this->dumbSingle($v);
+                    $inserts[$k] = $dumbData;
+                }
+            }
+
+            $i = 0;
+            foreach ($inserts as $k => $v) {
+                array_splice($data, $k + $i * 7, 0, $v);
+                $i++;
+            }
+            $result[] = $data;
+            break;
+        }
+        fclose($handle);
+
 
         $this->writeCsv('test', $result);
     }
@@ -59,12 +81,13 @@ class SeoTempCommand extends CConsoleCommand
 
         $googleSummer = $this->dumbSummer($path, 'google');
         $yandexSummer = $this->dumbSummer($path, 'yandex');
-
-        list($googleTotal, $googleKeywords) = $this->dumbTotals($path, 'google');
-        list($yandexTotal, $yandexKeywords) = $this->dumbTotals($path, 'yandex');
+        $googleTotal = $this->dumbTotal($path, 'google');
+        $yandexTotal = $this->dumbTotal($path, 'yandex');
+        $yandexKeywords = $this->dumbKeywords($path, 'yandex');
+        $googleKeywords = $this->dumbKeywords($path, 'google');
 
         return array(
-            $post->created,
+            $post === null ? '-' : $post->created,
             $yandexTotal,
             $googleTotal,
             $yandexSummer,
@@ -72,6 +95,17 @@ class SeoTempCommand extends CConsoleCommand
             $yandexKeywords,
             $googleKeywords,
         );
+    }
+
+    protected function dumbTotal($path, $engine)
+    {
+        $this->ga->setDateRange('2005-01-01', '2014-08-13');
+        $report = $this->ga->getReport(array(
+            'metrics' => 'ga:entrances',
+            'filters' => 'ga:source=@' . $engine . ';ga:pagePath==' . urlencode($path),
+        ));
+
+        return isset($report['']['ga:entrances']) ? $report['']['ga:entrances'] : 0;
     }
 
     protected function dumbSummer($path, $engine)
@@ -85,9 +119,8 @@ class SeoTempCommand extends CConsoleCommand
         return isset($report['']['ga:entrances']) ? $report['']['ga:entrances'] : 0;
     }
 
-    protected function dumbTotals($path, $engine)
+    protected function dumbKeywords($path, $engine)
     {
-        $n = 0;
         $keywords = '';
 
         $this->ga->setDateRange('2005-01-01', '2014-08-13');
@@ -102,7 +135,7 @@ class SeoTempCommand extends CConsoleCommand
             $keywords .= $keyword . ' - ' . $value['ga:entrances'] . "\n";
         }
 
-        return array($n, $keywords);
+        return $keywords;
     }
 
     protected function getPostByPath($path)

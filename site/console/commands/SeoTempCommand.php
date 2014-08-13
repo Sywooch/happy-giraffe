@@ -46,7 +46,7 @@ class SeoTempCommand extends CConsoleCommand
 
     public function actionDumb()
     {
-        $result = array($this->dumbSingle('http://www.happy-giraffe.ru/community/1/forum/post/94459/'));
+        $result = array($this->dumbSingle('http://www.happy-giraffe.ru/community/24/forum/post/71710/'));
 
         $this->writeCsv('test', $result);
     }

@@ -520,13 +520,6 @@ return array(
                         'aliases' => array(
                             'application.modules.profile.controllers.DefaultController',
                         ),
-                        'param' => 1,
-                    ),
-                    'sitemapUsers2.xml' => array(
-                        'aliases' => array(
-                            'application.modules.profile.controllers.DefaultController',
-                        ),
-                        'param' => 2,
                     ),
 //                    'sitemapRoutes2.xml' => array(
 //                        'aliases' => array(

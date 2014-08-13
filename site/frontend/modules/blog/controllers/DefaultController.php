@@ -84,6 +84,8 @@ class DefaultController extends HController
 
         $contents = BlogContent::model()->getBlogContents($user_id, $rubric_id);
 
+        NoindexHelper::setNoIndex($this->user);
+
         if ($this->user->hasRssContent())
             $this->rssFeed = $this->createUrl('/rss/user', array('user_id' => $user_id));
 
@@ -126,14 +128,13 @@ class DefaultController extends HController
         }
 
         if ($content->type_id == CommunityContentType::TYPE_STATUS)
-            $this->pageTitle = Str::getDescription(strip_tags($content->status->text), 170, '');
+            $this->pageTitle = $content->author->getFullName() . ' - статус от ' . Yii::app()->dateFormatter->format('dd.MM.yy hh:mm', $content->created);
         else
             $this->pageTitle = $content->title;
 
         $this->rubric_id = $content->rubric->id;
 
-        if (!empty($content->uniqueness) && $content->uniqueness < 50)
-            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        NoindexHelper::setNoIndex($content);
 
         if (! Yii::app()->user->isGuest)
             $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');
@@ -442,7 +443,7 @@ class DefaultController extends HController
             ->from('community__contents c')
             ->join('community__rubrics r', 'c.rubric_id = r.id')
             ->join('community__content_types ct', 'c.type_id = ct.id')
-            ->where('r.user_id IS NOT NULL AND c.type_id != :morning AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)', array(':morning' => CommunityContent::TYPE_MORNING))
+            ->where('r.user_id IS NOT NULL AND c.type_id NOT IN (:morning, :status) AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)', array(':morning' => CommunityContent::TYPE_MORNING, ':status' => CommunityContent::TYPE_STATUS))
             ->limit(50000)
             ->offset(($param - 1) * 50000)
             ->order('c.id ASC')

@@ -225,6 +225,11 @@ return array(
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
                     'title' => 'ВКонтакте',
                 ),
+                'google' => array(
+                    'class' => 'application.components.eauth.GoogleAuth',
+                    'client_id' => '152056798430-h2dd83jfs4q4mka119s1tftorp0171ol.apps.googleusercontent.com',
+                    'client_secret' => '-DJ8DaGP9nK7rpvo11eT38ys',
+                ),
 //                'facebook' => array(
 //                    'class' => 'CustomFacebookService',
 //                    'client_id' => '412497558776154',
@@ -510,6 +515,18 @@ return array(
                             'application.modules.routes.controllers.DefaultController',
                         ),
                         'param'=>1
+                    ),
+                    'sitemapUsers1.xml' => array(
+                        'aliases' => array(
+                            'application.modules.profile.controllers.DefaultController',
+                        ),
+                        'param' => 1,
+                    ),
+                    'sitemapUsers2.xml' => array(
+                        'aliases' => array(
+                            'application.modules.profile.controllers.DefaultController',
+                        ),
+                        'param' => 2,
                     ),
 //                    'sitemapRoutes2.xml' => array(
 //                        'aliases' => array(

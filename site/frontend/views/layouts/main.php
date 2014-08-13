@@ -28,8 +28,6 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     <?php /* Фиксированные элементы */ ?>
     <?php if (! Yii::app()->user->isGuest): ?>
         <?php $this->renderPartial('//_menu_fix'); ?>
-    <?php else: ?>
-        <?php $this->renderPartial('//_header_guest_fix'); ?>
     <?php endif; ?>
 
 <div class="layout-w1">

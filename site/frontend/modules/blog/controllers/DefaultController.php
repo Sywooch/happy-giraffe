@@ -217,7 +217,7 @@ class DefaultController extends HController
         }
     }
 
-    public function actionForm($id = null, $type = null, $club_id = false, $contest_id = null)
+    public function actionForm($id = null, $type = null, $club_id = false, $contest_id = null, $useAMD = null)
     {
         $this->user = $this->loadUser(Yii::app()->user->id);
         if ($id === null) {
@@ -235,6 +235,10 @@ class DefaultController extends HController
             else
                 $model = BlogContent::model()->findByPk($id);
             $slaveModel = $model->getContent();
+        }
+
+        if ($useAMD !== null) {
+            Yii::app()->clientScript->useAMD = true;
         }
 
         if (!$model->isNewRecord && !$model->canEdit())

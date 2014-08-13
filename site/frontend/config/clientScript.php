@@ -28,6 +28,8 @@ return array(
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
             'AdFox' => '/javascripts/fox',
+            'wysiwyg_old' => '/javascripts/wysiwyg',
+            'uploadPhotos' => '/javascripts/upload',
         ),
     /* 'eval' => '
       ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -421,6 +423,14 @@ return array(
             'css' => array(
                 'lite/css/min/services-user.css',
             ),
+        ),
+        'chosen' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/chosen.jquery.min.js',
+            ),
+            'depends' => array('jquery'),
         ),
     )
 );

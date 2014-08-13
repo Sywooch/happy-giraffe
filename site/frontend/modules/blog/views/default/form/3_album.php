@@ -2,7 +2,7 @@
 $model = new AlbumPhoto();
 ?><div class="b-settings-blue b-settings-blue__photo" id="popup-user-add-photo" style="display: none;">
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
+    <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
         'id' => 'album-form',
         'action' => '/ajaxSimple/albumValidate/',
         'enableAjaxValidation' => true,
@@ -56,7 +56,13 @@ $model = new AlbumPhoto();
     <?php $this->endWidget(); ?>
 </div>
 
-<script type="text/javascript">
+<?php
+/**
+ * @var ClientScript $cs
+ */
+$cs = Yii::app()->clientScript;
+
+$js = <<<JS
     ko.bindingHandlers.chosenAlbum =
     {
         init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
@@ -123,9 +129,14 @@ $model = new AlbumPhoto();
         var self = this;
         self.id = data.id;
         self.title = data.title;
-    }
+    };
+JS;
 
+$js .= "ko.applyBindings(new PhotoAlbumViewModel(" . CJSON::encode($json) . "), document.getElementById('popup-user-add-photo'));";
 
-    var photoFormVM = new PhotoAlbumViewModel(<?=CJSON::encode($json)?>);
-    ko.applyBindings(photoFormVM, document.getElementById('popup-user-add-photo'));
-</script>
+if ($cs->useAMD) {
+    $cs->registerAMD('add-photoAlbum', array('ko' => 'knockout', 'UploadPhotos' => 'uploadPhotos', 'ko_post' => 'ko_post'), $js);
+} else {
+    $cs->registerScript('add-photoAlbum', $js, ClientScript::POS_READY);
+}
+?>

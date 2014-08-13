@@ -305,32 +305,16 @@ return array(
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
 
-        'recipeBook/<_a:(diseases|ac)>' => 'services/recipeBook/default/<_a>',
-        'recipeBook/edit/<id:\d+>' => 'services/recipeBook/default/form',
-        'recipeBook/add' => 'services/recipeBook/default/form',
+//        'recipeBook/<_a:(diseases|ac)>' => 'services/recipeBook/default/<_a>',
+//        'recipeBook/edit/<id:\d+>' => 'services/recipeBook/default/form',
+//        'recipeBook/add' => 'services/recipeBook/default/form',
 //        'recipeBook/recipe<id:\d+>' => 'services/recipeBook/default/view',
 //        'recipeBook/<slug:\w+>' => 'services/recipeBook/default/index',
 //        'recipeBook' => 'services/recipeBook/default/index',
 
-        array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'pattern' => 'recipeBook/recipe<id:\d+>',
-            'condition' => 'Yii::app() instanceof CConsoleApplication || Yii::app()->user->isGuest',
-            'trueRoute' => 'services/recipeBook/default/view',
-            'falseRoute' => 'services/recipeBook/defaultOld/view',
-        ),
-
-        array(
-            'class' => 'site.frontend.modules.services.modules.recipeBook.components.RecipeBookUrlRule',
-        ),
-
-        array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'pattern' => 'recipeBook',
-            'condition' => 'Yii::app() instanceof CConsoleApplication ||Yii::app()->user->isGuest',
-            'trueRoute' => 'services/recipeBook/default/index',
-            'falseRoute' => 'services/recipeBook/defaultOld/index',
-        ),
+        'recipeBook/recipe<id:\d+>' => 'services/recipeBook/default/view',
+        array( 'class' => 'site.frontend.modules.services.modules.recipeBook.components.RecipeBookUrlRule'),
+        'recipeBook' => 'services/recipeBook/default/index',
 
         'services/repair/<_c>/<_a>' => 'services/repair/<_c>/<_a>',
         'repair/<_c>' => 'services/repair/<_c>/index',

@@ -8,7 +8,8 @@ class DefaultController extends LiteController
     {
         if (parent::beforeAction($action)) {
             $cs = Yii::app()->clientScript;
-            $cs->registerPackage('lite_recipes');
+            $package = Yii::app()->user->isGuest ? 'lite_recipes' : 'lite_recipes_user';
+            $cs->registerPackage($package);
             $cs->useAMD = true;
             return true;
         }

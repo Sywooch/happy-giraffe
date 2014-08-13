@@ -397,7 +397,6 @@ return array(
         'lite' => array(
             'amd' => true,
             'baseUrl' => '/',
-            'amd' => true,
             'js' => array(
                 'lite/javascript/modernizr.custom.js',
                 'lite/javascript/picturefill.min.js',
@@ -414,6 +413,13 @@ return array(
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/services.css',
+            ),
+        ),
+        'lite_recipes_user' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/services-user.css',
             ),
         ),
     )

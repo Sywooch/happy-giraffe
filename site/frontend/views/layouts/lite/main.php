@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var LiteController $this
+ */
+?>
+
 <!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <head>
@@ -10,35 +16,39 @@
 <div class="layout-container">
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
-            <!-- header-->
-            <header class="header header__simple">
-                <div class="header_hold clearfix">
-                    <!-- logo-->
-                    <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="<?=$this->createUrl('/site/index')?>" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
-                    <!-- /logo-->
-                    <?php if ($this->module !== null && $this->module->id == 'search'): ?>
-                        <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
-                        <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
-                    <?php endif; ?>
-                    <!-- header-menu-->
-                    <!--<div class="header-menu">
-                        <ul class="header-menu_ul clearfix">
-                            <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
-                            <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span></a></li>
-                        </ul>
-                    </div>-->
-                    <!-- /header-menu-->
-                    <?php if ($this->module->id != 'search'): ?>
-                        <div class="sidebar-search clearfix sidebar-search__big">
-                            <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
-                            <!-- При начале ввода добавить класс .active на кнопку-->
-                            <!-- <button class="sidebar-search_btn"></button> -->
-                            <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </header>
-            <!-- /header-->
+            <?php if (Yii::app()->user->isGuest): ?>
+                <!-- header-->
+                <header class="header header__simple">
+                    <div class="header_hold clearfix">
+                        <!-- logo-->
+                        <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="<?=$this->createUrl('/site/index')?>" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+                        <!-- /logo-->
+                        <?php if ($this->module !== null && $this->module->id == 'search'): ?>
+                            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+                            <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
+                        <?php endif; ?>
+                        <!-- header-menu-->
+                        <!--<div class="header-menu">
+                            <ul class="header-menu_ul clearfix">
+                                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+                                <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span></a></li>
+                            </ul>
+                        </div>-->
+                        <!-- /header-menu-->
+                        <?php if ($this->module->id != 'search'): ?>
+                            <div class="sidebar-search clearfix sidebar-search__big">
+                                <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
+                                <!-- При начале ввода добавить класс .active на кнопку-->
+                                <!-- <button class="sidebar-search_btn"></button> -->
+                                <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </header>
+                <!-- /header-->
+            <?php  else: ?>
+                <?php $this->renderPartial('//_menu'); ?>
+            <?php endif; ?>
         </div>
         <div class="layout-loose_hold clearfix">
             <!-- b-main -->

@@ -172,8 +172,8 @@ class SeoTempCommand extends CConsoleCommand
 
         $result = array();
 
-        $paths1 = $this->getPathes('2014-06-26', '2014-06-26', 'yandex');
-        $paths2 = $this->getPathes('2014-07-03', '2014-07-03', 'yandex');
+        $paths1 = $this->getPathes('2014-05-08', '2014-05-08', 'yandex');
+        $paths2 = $this->getPathes('2014-12-08', '2014-12-08', 'yandex');
 
         $paths = array($paths1, $paths2);
 
@@ -209,7 +209,7 @@ class SeoTempCommand extends CConsoleCommand
                 if (preg_match($pattern, $path, $matches)) {
                     $id = $matches[1];
 
-                    $post = CommunityContent::model()->resetScope()->findByPk($id);
+                    $post = CommunityContent::model()->resetScope()->with('gallery')->findByPk($id);
 
                     if ($post === null) {
                         continue;
@@ -221,6 +221,7 @@ class SeoTempCommand extends CConsoleCommand
                         $value['period1'],
                         $value['period2'],
                         $value['diff'],
+                        $post->gallery === null ? 'N' : 'Y',
                     );
                 }
             }

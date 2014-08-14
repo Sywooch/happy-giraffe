@@ -390,5 +390,6 @@ return array(
         'mail/<_c>/<_a>' => 'mail/<_c>/<_a>',
 
         'onair' => 'blog/air/index',
+        'calen' => 'blog/calendar/index',
     ),
 );

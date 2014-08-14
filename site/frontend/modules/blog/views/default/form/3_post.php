@@ -101,7 +101,6 @@
 $cs = Yii::app()->clientScript;
 
 $js = <<<JS
-    alert('123');
     var PhotoPostViewModel = function (data) {
         var self = this;
         ko.utils.extend(self, new BlogFormViewModel(data));
@@ -117,7 +116,7 @@ JS;
 $js .= "ko.applyBindings(new PhotoPostViewModel(" . CJSON::encode($json) . "), document.getElementById('popup-user-add-photo-post'));";
 
 if ($cs->useAMD) {
-    $cs->registerAMD('add-photoPost', array('ko' => 'knockout',  'ko_post' => 'ko_post'), $js);
+    $cs->registerAMD('add-photoPost', array('ko' => 'knockout',  'ko_post' => 'ko_post', 'upload' => 'upload'), $js);
 } else {
     $cs->registerScript('add-photoPost', $js, ClientScript::POS_READY);
 }

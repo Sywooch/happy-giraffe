@@ -29,7 +29,7 @@ return array(
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
             'AdFox' => '/javascripts/fox',
             'wysiwyg_old' => '/javascripts/wysiwyg',
-            'uploadPhotos' => '/javascripts/upload',
+            'upload' => '/javascripts/upload',
         ),
     /* 'eval' => '
       ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";

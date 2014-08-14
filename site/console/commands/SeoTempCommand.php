@@ -23,6 +23,19 @@ class SeoTempCommand extends CConsoleCommand
         $this->ga->setProfile('ga:53688414');
     }
 
+    protected function getReport($params)
+    {
+        $report = null;
+        while ($report === null) {
+            try {
+                $report = $this->ga->getReport($params);
+            } catch (CException $e) {
+                sleep(10);
+            }
+        }
+        return $report;
+    }
+
     protected function getPathes($start, $end, $searchEngine = null)
     {
         $cacheId = 'Yii.seo.paths.' . $start . '.' . $end . '.' . $searchEngine;
@@ -114,7 +127,7 @@ class SeoTempCommand extends CConsoleCommand
     protected function dumbTotal($path, $engine)
     {
         $this->ga->setDateRange('2005-01-01', '2014-08-13');
-        $report = $this->ga->getReport(array(
+        $report = $this->getReport(array(
             'metrics' => 'ga:entrances',
             'filters' => 'ga:source=@' . $engine . ';ga:pagePath==' . urlencode($path),
         ));
@@ -125,7 +138,7 @@ class SeoTempCommand extends CConsoleCommand
     protected function dumbSummer($path, $engine)
     {
         $this->ga->setDateRange('2014-06-01', '2014-07-31');
-        $report = $this->ga->getReport(array(
+        $report = $this->getReport(array(
             'metrics' => 'ga:entrances',
             'filters' => 'ga:source=@' . $engine . ';ga:pagePath==' . urlencode($path),
         ));
@@ -138,7 +151,7 @@ class SeoTempCommand extends CConsoleCommand
         $keywords = '';
 
         $this->ga->setDateRange('2005-01-01', '2014-08-13');
-        $report = $this->ga->getReport(array(
+        $report = $this->getReport(array(
             'dimensions' => 'ga:keyword',
             'metrics' => 'ga:entrances',
             'filters' => 'ga:source=@' . $engine . ';ga:pagePath==' . urlencode($path),

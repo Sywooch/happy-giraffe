@@ -203,6 +203,10 @@ class SeoTempCommand extends CConsoleCommand
 
         $_result = array();
         foreach ($result as $path => $counts) {
+            if (($counts[1] - $counts[0]) > 0) {
+                continue;
+            }
+
             $post = $this->getPostByPath($path, array('with' => 'gallery'));
 
             if ($post === null) {

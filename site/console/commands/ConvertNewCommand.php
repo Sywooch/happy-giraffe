@@ -71,6 +71,7 @@ class ConvertNewCommand extends CConsoleCommand
         $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";
         $criteria->order = 'id asc';
         $criteria->offset = 0;
+        $criteria->compare('t.id', 167062);
 
         $models = array(0);
         while (!empty($models)) {

@@ -323,11 +323,18 @@ return array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
-                'javascripts/upload.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',
             ),
-            'depends' => array('knockout', 'jquery.ui.widget'),
+            'depends' => array('knockout', 'jquery.ui.widget', 'upload'),
+        ),
+        'upload' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/upload.js',
+            ),
+            'depends' => array('knockout'),
         ),
         'ko_menu' => array(
             'baseUrl' => '/',

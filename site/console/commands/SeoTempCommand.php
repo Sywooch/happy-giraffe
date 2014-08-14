@@ -93,7 +93,12 @@ class SeoTempCommand extends CConsoleCommand
                 $i++;
             }
             $result[] = $data;
-            echo 'string ' . ++$j . ' - ' . (time() - $time) . "\n";
+            $j++;
+            echo 'string ' . $j . ' - ' . (time() - $time) . "\n";
+
+            if ($j == 60) {
+                break;
+            }
 
         }
         fclose($handle);

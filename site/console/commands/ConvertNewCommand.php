@@ -66,28 +66,38 @@ class ConvertNewCommand extends CConsoleCommand
      */
     public function actionConvertCommentPhotos()
     {
-        $comment = Comment::model()->findByPk(167062);
-        $comment->purified->clearCache();
-        die;
+        $criteria = new CDbCriteria(array(
+            'condition' => "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ",
+            'order' => 't.id ASC',
+        ));
+        $criteria->compare('t.id', 165538);
 
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";
-        $criteria->order = 'id asc';
-        $criteria->offset = 0;
-        $criteria->compare('t.id', 167062);
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = Comment::model()->findAll($criteria);
-            foreach ($models as $model) {
-                $model->save();
-                $max_id = $model->id;
-            }
-
-            $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' AND `t`.`id` > " . $max_id;
-            echo $max_id . "\n";
+        $dp = new CActiveDataProvider('Comment', array(
+            'criteria' => $criteria,
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
+        foreach ($iterator as $model) {
+            $model->save();
+            $model->purified->clearCache();
         }
+
+//        $criteria = new CDbCriteria;
+//        $criteria->limit = 1000;
+//        $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";
+//        $criteria->order = 'id asc';
+//        $criteria->offset = 0;
+//
+//        $models = array(0);
+//        while (!empty($models)) {
+//            $models = Comment::model()->findAll($criteria);
+//            foreach ($models as $model) {
+//                $model->save();
+//                $max_id = $model->id;
+//            }
+//
+//            $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' AND `t`.`id` > " . $max_id;
+//            echo $max_id . "\n";
+//        }
     }
 
     public function actionConvertPhotoTest($id)

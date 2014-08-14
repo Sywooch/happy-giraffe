@@ -205,13 +205,21 @@ class SeoTempCommand extends CConsoleCommand
         foreach ($result as $path => $counts) {
             $post = $this->getPostByPath($path, array('with' => 'gallery'));
 
+            if ($post === null) {
+                $g = '-';
+            } elseif ($post->gallery === null) {
+                $g = 'N';
+            } else {
+                $g = 'Y';
+            }
+
             $_result[] = array(
                 'http://www.happy-giraffe.ru' . $path,
                 $counts[0],
                 $counts[1],
                 $counts[1] - $counts[0],
                 $counts[0] == 0 ? '-' : ($counts[1] - $counts[0]) * 100 / $counts[0],
-                $post->gallery === null ? 'N' : 'Y',
+                $g,
             );
         }
 

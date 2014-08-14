@@ -172,8 +172,8 @@ class SeoTempCommand extends CConsoleCommand
 
         $result = array();
 
-        $paths1 = $this->getPathes('2014-08-05', '2014-08-05', 'google');
-        $paths2 = $this->getPathes('2014-08-12', '2014-08-12', 'google');
+        $paths1 = $this->getPathes('2014-05-15', '2014-05-15', 'google');
+        $paths2 = $this->getPathes('2014-05-22', '2014-05-22', 'google');
 
         $paths = array($paths1, $paths2);
 

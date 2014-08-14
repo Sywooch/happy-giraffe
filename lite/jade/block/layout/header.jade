@@ -25,13 +25,14 @@ mixin headerGuest(mod, vars)
                             span.header-menu_ico.header-menu_ico__giraffe
                             span.header-menu_tx
                                 | Мой Жираф
+                            span.header-menu_count 5
                         // Конверсионный попап
                         .header-popup.header-popup__club
                             .header-popup_hold
                                 .header-popup_t Вступайте в разные клубы на Веселом жирафе!
                                 .header-popup_club
+                                    // 18 клубов
                                     .b-clubs
-                                        // 18 клубов
                                         ul.b-clubs_ul
                                             li.b-clubs_li
                                                 a.b-clubs_a(href="#")
@@ -105,10 +106,10 @@ mixin headerGuest(mod, vars)
                                                 a.b-clubs_a(href="#")
                                                     .ico-club.ico-club__18
                                                     .b-clubs_tx Наш автомобиль
-                                            //- li.b-clubs_li
-                                                a.b-clubs_a(href="#")
-                                                    .ico-club.ico-club__19
-                                                    .b-clubs_tx Мы путешествуем
+                                        //- li.b-clubs_li
+                                            a.b-clubs_a(href="#")
+                                                .ico-club.ico-club__19
+                                                .b-clubs_tx Мы путешествуем
 
                                 .header-popup_b.clearfix
                                     .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
@@ -125,6 +126,7 @@ mixin headerGuest(mod, vars)
                             span.header-menu_ico.header-menu_ico__im
                             span.header-menu_tx
                                 | вам письмо
+                            span.header-menu_count 2
                         // Конверсионный попап
                         .header-popup.header-popup__msg
                             .header-popup_hold

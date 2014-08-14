@@ -62,12 +62,10 @@ class SeoTempCommand extends CConsoleCommand
         $handle = fopen("$file", "r");
 
         $time = time();
-
+        $j = 0;
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
             $inserts = array();
             foreach ($data as $k => $v) {
-                echo 'string ' . $k . ' - ' . (time() - $time) . "\n";
-
                 if (strpos($v, 'http://') === 0) {
                     $dumbData = $this->dumbSingle($v);
                     $inserts[$k] = $dumbData;
@@ -80,6 +78,8 @@ class SeoTempCommand extends CConsoleCommand
                 $i++;
             }
             $result[] = $data;
+            echo 'string ' . ++$j . ' - ' . (time() - $time) . "\n";
+
         }
         fclose($handle);
 

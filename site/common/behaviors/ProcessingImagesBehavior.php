@@ -20,6 +20,8 @@ class ProcessingImagesBehavior extends CActiveRecordBehavior
             $entity = 'CommunityContent';
         $entity_id = $this->owner->id;
 
+        echo count($this->owner->processed_photos);
+
         foreach($this->owner->processed_photos as $photo)
             AttachPhoto::add($photo, $entity, $entity_id);
 

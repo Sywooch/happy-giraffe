@@ -171,16 +171,51 @@ class SeoTempCommand extends CConsoleCommand
         return $keywords;
     }
 
-    protected function getPostByPath($path)
+    protected function getPostByPath($path, $condition = '', $params = array())
     {
         foreach ($this->patterns as $p) {
             if (preg_match($p, $path, $matches)) {
                 $id = $matches[1];
-                $post = CommunityContent::model()->findByPk($id);
+                $post = CommunityContent::model()->findByPk($id, $condition, $params);
                 return $post;
             }
         }
         return null;
+    }
+
+    public function actionEpicfail2()
+    {
+        $result = array();
+
+        $paths1 = $this->getPathes('2014-08-05', '2014-08-05', 'google');
+        $paths2 = $this->getPathes('2014-08-12', '2014-08-12', 'google');
+
+        $paths = array($paths1, $paths2);
+
+        foreach ($paths as $k => $p) {
+            foreach ($p as $path => $value) {
+                if (! isset($result[$path])) {
+                    $result[$path] = array_fill(0, 2, 0);
+                }
+                $result[$path][$k] = $value['ga:entrances'];
+            }
+        }
+
+        $_result = array();
+        foreach ($result as $path => $counts) {
+            $post = $this->getPostByPath($path, array('with' => 'gallery'));
+
+            $_result[] = array(
+                'http://www.happy-giraffe.ru' . $path,
+                $counts[0],
+                $counts[1],
+                $counts[1] - $counts[0],
+                $counts[0] == 0 ? '-' : ($counts[1] - $counts[0]) * 100 / $counts[0],
+                $post->gallery === null ? 'N' : 'Y',
+            );
+        }
+
+        $this->writeCsv('epicFail2', $_result);
     }
 
     public function actionEpicFail()

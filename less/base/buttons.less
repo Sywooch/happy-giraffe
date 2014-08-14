@@ -288,23 +288,16 @@
 /* old btn */
 // страться не использовать
 .btn {
-	cursor:pointer;
-	width:auto;
-	overflow:visible;
-	margin:0;
-	border-width:0;
-	background:none;
-	white-space:nowrap;
-	cursor:pointer;
-	display:inline-block;*zoom:1;*display:inline;
-	padding:0;
-	text-decoration:none;
-	font-family:arial,sans-serif;
+    .inline-block();
+    vertical-align: middle;
+    text-align: center;
+    text-decoration:none;
+    cursor: pointer;
 }
-.btn::-moz-focus-inner {border:0;padding:0;}
-.btn:-moz-focus-inner {padding:0; border:none;}
-.btn > span {display:-moz-inline-stack;display:inline-block;*zoom:1;*display:inline;text-decoration:none;background:url(../images/btn.png);font-weight:normal;}
-.btn > span > span {display:-moz-inline-stack;display:inline-block;*zoom:1;*display:inline;background:url(../images/btn.png);}
+/*.btn::-moz-focus-inner {border:0;padding:0;}
+.btn:-moz-focus-inner {padding:0; border:none;}*/
+/*.btn > span {display:-moz-inline-stack;display:inline-block;*zoom:1;*display:inline;text-decoration:none;background:url(../images/btn.png);font-weight:normal;}
+.btn > span > span {display:-moz-inline-stack;display:inline-block;*zoom:1;*display:inline;background:url(../images/btn.png);}*/
 
 .btn.btn-orange > span {padding-right:13px;height:32px;background-position:100% -32px;color:#fff;font-weight:bold;font-size:13px;}
 .btn.btn-orange > span > span {padding-left:13px;height:32px;line-height:32px;background-position:0 0;}

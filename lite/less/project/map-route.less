@@ -1,0 +1,543 @@
+
+// Стили сервиса маршрутов
+.map-route {
+    
+    &_cont .heading-xl {
+        display: none;
+    }
+    &_cont .adv-yandex {
+        margin: 20px auto;
+        padding: 0 4%;
+        max-width: 600px;
+        .box-sizing(content-box);
+    }
+
+    @media (min-width: @screen-phone-landscape) {
+        &_cont .adv-yandex {
+            padding: 0;
+        }
+    }
+
+    @media (min-width: @screen-desktop) {
+        & {
+            margin-bottom: 45px;
+        }
+        &_aside {
+            float: left;
+            width: 260px;
+            margin: 20px;
+        }
+        &_cont {
+            float: left;
+            width: 680px;
+            margin: 20px 0;
+        }
+        &_cont .ban-read-more {
+            display: block;
+            max-height: 370px;
+            min-height: 370px;
+        }
+        &_cont .adv-yandex {
+            margin-left: 0;
+        }
+    }
+}
+
+/* map-route-f */
+.map-route-f {
+
+    &__main {
+        padding: 18% 3.2% 12%;
+        background: url('@{path-img}/services/map-route/map-route-f__main--m.jpg') no-repeat 50% 50%;
+    }
+    &__main &_hold {
+        .border-radius(4px);
+    }
+    &__row {
+        padding: 2% 4%;
+        background-color: #a8ddff;
+    }
+    &__row &_hold {
+        padding: 15px 4% 15px 0;
+    }
+
+    &_desc {
+        display: none;
+    }
+    &_open-hold {
+        margin: 0 auto;
+        text-align: right;
+        max-width: 600px;
+        padding-right: 4%;
+    }
+    &_open {
+        cursor: pointer;
+        color: #3c8dc0;
+        border-bottom: 1px dotted #3c8dc0;
+    }
+    &_open:hover {border-bottom-color: transparent;}
+
+    &_hold {
+        margin: 0 auto;
+        max-width: 600px;
+        padding: 4% 5% 4% 3%;
+        background-color: #a8ddff;
+    }
+    &_i {
+        margin-bottom: 10px;
+    }
+    &_inp {
+        border-color: #99d5fc;
+        padding: 7px 8px 7px 35px;
+        background:#fff url('@{path-img}/services/map-route/map-route-f_inp.png') no-repeat 4px 5px;
+    }
+    &_inp__b {
+        background-position: 4px -95px;
+    }
+    &_inp:focus {
+        border-color: #4ec0f6;
+    }
+    &_btn-hold {
+        text-align: right;
+    }
+    &_revers {
+        display: none;
+        width: 27px;
+        height: 20px;
+        cursor: pointer;
+        background: url('@{path-img}/services/map-route/map-route-f_revers.png') no-repeat;
+    }
+    &_revers:hover {background-position: 0 -20px;}
+    &_tx {
+        display: none;
+        color: @color-gray-dark;
+    }
+
+    @media (min-width: @screen-phone) {
+        &__main {
+            padding: 10% 3.2% 8%;
+        }
+        &_i {
+            margin-bottom: 15px;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        &__main {
+            background: url('@{path-img}/services/map-route/map-route-f__main--d.jpg') no-repeat 50% 50%;
+        }
+        &__main &_hold {
+            padding-right: 70px;
+        }
+        &__row &_hold {
+            padding-right: 70px;
+        }
+
+        &_open-hold {
+            padding-right: 70px;
+        }
+        &_i {
+            margin-bottom: 18px;
+        }
+        &_revers {
+            display: block;
+            float: right;
+            margin: -19px -45px -19px 0;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        &__main {
+            padding: 65px 170px 55px 60px;
+        }
+        &__main &_hold {
+            max-width: none;
+            padding-right: 5%;
+        }
+        &__row {
+            padding: 2% 227px 2% 60px;
+        }
+        &__row &_hold {
+            max-width: none;
+            padding: 15px 0;
+        }
+
+        &_desc {
+            display: block;
+            margin: 0 0 15px;
+            padding: 20px 5% 20px 3%;
+            font-size: 14px;
+            line-height: 20px;
+            background-color: #fff;
+            background-color: rgba(255,255,255,.8);
+        }
+        &_i {
+            display: inline-block;
+            width: 330px;
+        }
+        &_revers {
+            float: none;
+            display: inline-block;
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+        &_open-hold {
+            max-width: none;
+            padding-right: 0;
+        }
+        &_tx {
+            .tx-content();
+            display: block;
+            margin: 15px 0;
+        }
+    }
+}
+/* /map-route-f */
+
+
+/* map-route-desc */
+.map-route-desc {
+    margin: 0 10px 20px;
+
+    &_ul {margin: 10px 0 0;}
+    &_li {
+        text-align: left;
+        margin: 5% 0;
+    }
+    &_img {
+        float: left;
+        width: 26%;
+    }
+    &_t {
+        display: block;
+        max-width: 200px;
+        margin: 0 2% 5px 32%;
+        color: @color-base;
+        font-weight: bold;
+        font-size: 15px;
+        line-height: 15px;
+    }
+    &_tx {
+        max-width: 200px;
+        margin: 0 2% 5px 32%;
+        color: @color-gray;
+        line-height: 15px;
+    }
+
+    @media (min-width: @screen-phone) {
+        &_li {
+            float: left;
+            width: 50%;
+            margin: 10px 0 20px;
+            text-align: center;
+        }
+        &_img {
+            float: none;
+            width: auto;
+            margin-bottom: 15px;
+
+        }
+        &_t,
+        &_tx {
+            margin: 0 auto 7px;
+        }
+    }
+    
+    @media (min-width: @screen-tablet) {
+        &_li {
+            width: 25%;
+        }
+        
+    }
+    @media (min-width: @screen-desktop) {
+        
+    }
+}
+/* /map-route-desc */
+
+/* map-route-abc */
+.map-route-abc {
+    display: none;
+
+    &_t {
+        margin: 5px 0 15px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    &_ul {
+
+    }
+    &_li {
+        display: inline-block;
+        margin-right: 13px;
+    }
+    &_a {
+        font-size: 15px;
+        text-transform: uppercase;
+        color: #4ab6f6;
+        text-decoration: none;
+    }
+    &_a:hover {
+        color: #f17504;
+        text-decoration: none;
+    }
+
+    @media (min-width: @screen-desktop) {
+        display: block;
+        margin: 10px 0 20px;
+    }
+}
+/* /map-route-abc */
+
+/* map-route-list */
+.map-route-list {
+    margin: 20px 0;
+    line-height: 14px;
+
+    &_ul {
+        -moz-column-width: 260px;
+        -moz-column-gap: 60px;
+        -webkit-column-width: 260px;
+        -webkit-column-gap: 60px;
+        column-width: 260px;
+        column-gap: 60px;
+    }
+    &_li {
+        padding: 10px 0;
+    }
+    &_a {
+        display: inline-block;
+        text-decoration: none;
+    }
+    &_a:hover &_city,
+    &_a:hover &_region {
+        color: @color-orange;
+    }
+    &_city {
+        color: @color-link;
+    }
+    &_region {
+        color: @color-gray;
+    }
+}
+/* /map-route-list */
+
+/* route-canvas */
+.route-canvas {
+    position: relative;
+    height: 70%;
+
+    &_ovr {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        background: #a8ddff;
+        background: rgba(168,221,255, .4);
+    }
+    &_ovr-hold {
+        position: absolute;
+        top: 38%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        padding: 2.5%;
+        width: 90%;
+        max-width: 450px;
+        text-align: center;
+        background-color: #fff;
+        .border-radius(5px);
+    }
+    &_ovr-tx {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+}
+/* /route-canvas */
+
+
+/* map-route-table */
+.map-route-table {
+    display: none;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+
+    &_thead-td {
+        padding: 0 4px;
+        height: 44px;
+        font-size: 11px;
+        color: #979695;
+        background: #e8f6ff;
+        vertical-align: middle;
+    }
+    &_thead-td:first-child {
+        -webkit-border-top-left-radius: 5px;
+        -moz-border-top-left-radius: 5px;
+        border-top-left-radius: 5px;
+    }
+    &_thead-td:last-child {
+        -webkit-border-top-right-radius: 5px;
+        -moz-border-top-right-radius: 5px;
+        border-top-right-radius: 5px;
+    }
+    &_col1 {width: 40px;}
+    &_col2 {width: 180px;}
+    &_col3 {width: 110px;}
+    &_td {
+        padding: 5px 4px;
+        height: 44px;
+        /*border: 1px solid #e8e6e6;
+        border-width: 0 0 1px;*/
+        vertical-align: middle;
+    }
+    /*&_hold {
+        display: table-cell;
+        height: 44px;
+        vertical-align: middle;
+        width: 1000px;
+    }*/
+    &_tr:nth-child(2n-1) &_td {background: #fcfcfc;}
+
+    @media (min-width: @screen-desktop) {
+        & {
+            display: table;
+        }
+    }
+}
+/* /map-route-table */
+
+/* map-route-start */
+.map-route-finish,
+.map-route-start {
+    .inline-block();
+    vertical-align: middle;
+    width: 19px;
+    height: 30px;
+    background: url('@{path-img}/services/map-route/map-route-f_inp.png') no-repeat;
+}
+.map-route-finish {
+    background-position: 0 -100px;
+}
+/* /map-route-start */
+
+/* map-route-point */
+.map-route-point {
+    .inline-block();
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 11px;
+    font-weight: bold;
+    text-align: center;
+    background: #2bab4e;
+    color: #fff;
+    .border-radius(11px);
+}
+/* /map-route-point */
+
+/* map-route-calc */
+.map-route-calc {
+    margin-bottom: 20px;
+    padding: 10px 15px;
+    background: #a8ddff;
+    .border-radius(5px);
+    
+    .select-cus {
+        width: 110px;
+        margin-left: 10px;
+    }
+    .select-cus__gray .select2-choice {
+        border-color: #96d1f6;
+    }
+    &_hold {
+        margin: 0 auto;
+        max-width: 600px;
+    }
+    &_item {
+        padding: 4% 0 3.5%;
+        border-top: 1px solid #96d1f6;
+    }
+    &_item:first-child {border-top: none;}
+    &_img {
+        display: inline-block;
+        width: 40px;
+        margin:0 5px 0 0;
+    }
+    &_t {
+        display: inline-block;
+        vertical-align: bottom;
+        font-size: 16px;
+        line-height: 17px;
+    }
+    &_value {
+        margin: 10px 0;
+        text-align: left;
+        font-weight: bold;
+        font-size: 28px;
+    }
+    &_units {
+        display: inline-block;
+        margin-left: 4px;
+    }
+    &_desc {
+        display: none;
+    }
+    &_row {
+        margin: 0;
+    }
+    &_itx {
+        width: 65px;
+        line-height: 16px;
+        border-color: #96d1f6;
+    }
+    &_itx:focus {
+        border-color: #4ec0f6;
+    }
+    &_label {
+        display: block;
+        margin: 15px 0 8px;
+        color: #868585;
+        line-height: 13px;
+        font-size: 11px;
+    }
+
+    @media (min-width: @screen-phone) {
+        &_value {
+            text-align: right;
+            margin: 0;
+            font-size: 35px;
+            line-height: 32px;
+        }
+        .select-cus,
+        &_itx {
+            float: left;
+        }
+    }
+
+    @media (min-width: @screen-desktop) {
+        &_item {
+            padding: 20px 15px;
+        }
+        &_t {
+            width: 145px;
+        }
+        &_value {
+            text-align: left;
+            margin: 15px 0 0;
+            font-size: 28px;
+        }
+        .select-cus,
+        &_itx {
+            display: inline-block;
+            float: none;
+        }
+        &_desc {
+            display: block;
+            font: 11px/12px Tahoma, Arial, Verdana, sans-serif;
+            color: @color-gray-dark;
+            padding: 15px 0 0;
+        }
+    }
+}
+/* /map-route-calc */

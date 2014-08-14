@@ -12,6 +12,7 @@ block vars
 +headLite(path, global)
 
 body.body(class='#{bodyClass}')
+    
     //-///////////////////////////////////////
     //- Дата последних изменений 
     //-|  <!-- #{timestamp} -->
@@ -20,7 +21,7 @@ body.body(class='#{bodyClass}')
         .layout-loose.layout-loose__white
             .layout-header
             
-                +header('header__simple', header.simple)
+                +headerGuest('header__simple', header.simple)
             .layout-loose_hold.clearfix
                 block layout
                 
@@ -28,5 +29,5 @@ body.body(class='#{bodyClass}')
     .popup-container.display-n  
         block block-hidden
             
-    +scriptsLite(path)
+    //- +scriptsLite(path)
 | </html>

@@ -1,0 +1,162 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Маршруты
+        // Маршруты
+        .map-route
+            // Заголовок
+            .b-main_cont
+                .b-main_col-hold.clearfix
+                    .heading-h1-hold
+                        h1.heading-link-xxl Составь маршрут для автомобиля
+
+            // Форма поиска маршрута
+            .map-route-f.map-route-f__main
+                .map-route-f_desc
+                    | Собираясь в поездку на автомобиле очень важно грамотно проложить маршрут следования и просчитать его мельчайшие нюансы. Прежде чем отправляться в путь узнайте, как доехать до намеченного пункта, сколько километров вам предстоит преодолеть и какое количество времени это займет. С полной информацией о дорогах, картах и пробках на пути следования ваша поездка будет безопасной и интересной. Пользуйтесь нашим сервисом “Маршруты” и путешествуйте на автомобиле с удовольствием!
+                .map-route-f_hold
+                    .map-route-f_i
+                        input.itx-simple.map-route-f_inp.map-route-f_inp__a(type='text', name='', placeholder="Откуда")
+                    .map-route-f_revers
+                    .map-route-f_i
+                        input.itx-simple.map-route-f_inp.map-route-f_inp__b(type='text', name='', placeholder="Куда")
+                    .map-route-f_btn-hold
+                        a.btn.btn-success.btn-xm(href='#') Проложить маршрут
+
+            // Иконки описания сервиса
+            .map-route-desc
+                ul.map-route-desc_ul.clearfix
+                    li.map-route-desc_li.clearfix
+                        .map-route-desc_img
+                            img(src='#{path}images/services/map-route/map-route-desc-1.jpg', alt='')
+                        strong.map-route-desc_t
+                            | Расчет
+                            br
+                            | расстояния
+                        .map-route-desc_tx Узнавайте, сколько километров вам предстоит преодолеть
+                    li.map-route-desc_li.clearfix
+                        .map-route-desc_img
+                            img(src='#{path}images/services/map-route/map-route-desc-2.jpg', alt='')
+                        strong.map-route-desc_t
+                            | Время
+                            br
+                            | в пути
+                        .map-route-desc_tx
+                            | Уточняйте время,
+                            br
+                            | проведенное в пути
+                    li.map-route-desc_li.clearfix
+                        .map-route-desc_img
+                            img(src='#{path}images/services/map-route/map-route-desc-3.jpg', alt='')
+                        strong.map-route-desc_t
+                            | Промежуточные
+                            br
+                            | пункты маршрута
+                        .map-route-desc_tx
+                            | Смотрите населенные пункты
+                            br
+                            | на пути следования маршрута
+                    li.map-route-desc_li.clearfix
+                        .map-route-desc_img
+                            img(src='#{path}images/services/map-route/map-route-desc-4.jpg', alt='')
+                        strong.map-route-desc_t
+                            | Расход
+                            br
+                            | бензина
+                        .map-route-desc_tx
+                            | Считайте, сколько бензина
+                            br
+                            | вам понадобится для поездки
+            // Иконки описания сервиса
+
+            .b-main_cont
+                // Алфавит
+                .map-route-abc
+                    h3.map-route-abc_t Поиск маршрутов по городу
+                    ul.map-route-abc_ul
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') А
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Б
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') В
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Г
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Д
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Е
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Ё
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Ж
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') З
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') И
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Й
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Е
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') К
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Л
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') М
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Н
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') О
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') П
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Р
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') С
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Т
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') У
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Ф
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Х
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Ц
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Ч
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Ш
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Щ
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Ы
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Э
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Ю
+                        li.map-route-abc_li 
+                            a.map-route-abc_a(href='#') Я
+
+                // /Алфавит
+        // /Маршруты
+
+    // b-main 
+    +layout-footer-lite()
+

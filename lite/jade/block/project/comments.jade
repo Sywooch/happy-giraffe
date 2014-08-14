@@ -19,7 +19,9 @@ mixin commentsOpen (mod, vars)
         .tab-content
             #commentsList.comments_hold.tab-pane.active
                 - if (vars.user == false)
-                    +commentAdd()
+                    +commentAdd('', commentAdd.guest)
+                - else 
+                    +commentAdd('', commentAdd.user)
                 ul.comments_ul
                     // 
                         варианты цветов комментов. В такой последовательности
@@ -28,8 +30,8 @@ mixin commentsOpen (mod, vars)
                         .comments_li__red
                         .comments_li__blue
                         .comments_li__green
-                    li.comments_li.comments_li__lilac.clearfix
-                        .comments_i
+                    li.comments_li.comments_li__lilac
+                        .comments_i.clearfix
                             .comments_ava
                                 // Аватарки размером 40*40
                                 +ava("ava__middle ava__small-sm-mid", ava.b)
@@ -52,8 +54,8 @@ mixin commentsOpen (mod, vars)
                                         +bControl("", bControl.e)
                         ul.comments_ul
                             // комментарий вложенный
-                            li.comments_li.comments_li__lilac.clearfix
-                                .comments_i
+                            li.comments_li.comments_li__lilac
+                                .comments_i.clearfix
                                     .comments_ava
                                         // Аватарки размером 40*40
                                         +ava("ava__middle ava__small-sm-mid", ava.b)
@@ -74,8 +76,8 @@ mixin commentsOpen (mod, vars)
 
                             // комментарий вложенный
                             // Свой комментарий
-                            li.comments_li.comments_li__self.comments_li__lilac.clearfix
-                                .comments_i
+                            li.comments_li.comments_li__self.comments_li__lilac
+                                .comments_i.clearfix
                                     .comments_ava
                                         // Аватарки размером 40*40
                                         +ava("ava__middle ava__small-sm-mid", ava.a)
@@ -97,8 +99,8 @@ mixin commentsOpen (mod, vars)
                     // / комментарий  
 
                     // комментарий     
-                    li.comments_li.comments_li__red.clearfix
-                        .comments_i
+                    li.comments_li.comments_li__red
+                        .comments_i.clearfix
                             .comments_ava
                                 // Аватарки размером 40*40
                                 +ava("ava__middle ava__small-sm-mid", ava.c)
@@ -223,13 +225,87 @@ mixin commentsOpen (mod, vars)
     mod
     vars
 mixin commentAdd (mod, vars)
-    .comment-add
+    .comments_add
         //- .comment-add_t Комментировать
-        .comment-add_hold 
-            |  Комментировать от
-            .ico-social-hold
-                a.ico-social.ico-social__odnoklassniki(href="")
-                a.ico-social.ico-social__vkontakte(href="")
-            |  или 
-            a.comment-add_a Войти
-        .comment-add_editor.display-n
+        - if (vars.state == 'guest')
+            .comments_add-hold
+                |  Комментировать от
+                .ico-social-hold
+                    a.ico-social.ico-social__odnoklassniki(href="")
+                    a.ico-social.ico-social__vkontakte(href="")
+                |  или 
+                a.comments_add-a Войти
+        - if (vars.state == 'user')
+            // Заглушка редактора до клика по ней, затем загружается редактор
+            .comments_add-frame
+                .comments_i.clearfix
+                    .comments_ava
+                        // Аватарки размером 40*40
+                        +ava("ava__middle ava__small-sm-mid", ava.c)
+                    .comments_frame
+                        // Когда еще нет комментов то текст placeholder: 
+                            Введите комментарий первым
+                        textarea.itx-simple(placeholder=" Введите ваш комментарий ", rows="3", cols='30')
+                        .comments_add-editor.display-n
+                            // Скрыты элементы редактора, как в блоке ниже. 
+                                Пусто, что б не копипастить
+
+            // Редактор раскрытый
+            .comments_add-frame.display-n
+                .comments_i.clearfix
+                    .comments_ava
+                        // Аватарки размером 40*40
+                        +ava("ava__middle ava__small-sm-mid", ava.c)
+                    .comments_frame
+                        // Когда еще нет комментов то текст placeholder: 
+                            Введите комментарий первым
+                        textarea.itx-simple(placeholder=" Введите ваш комментарий ", rows="3", cols='30')
+                        .comments_add-editor
+                            // Загружаем стили и скрипты редактора при необходимости
+                            // link(href="/lite/css/dev/redactor.css", rel="stylesheet", type="text/css")
+
+                            // wisywig
+
+                            script.
+                                $(document).ready(function () { 
+                                  $('.wysiwyg-redactor').redactor({
+                                      autoresize: true,
+                                      toolbarExternal: '.wysiwyg-toolbar-btn',
+                                      minHeight: 450,
+                                      cleanFontTag: false ,
+                                      cleanup: false,
+                                      lang: 'ru',
+                                      convertDivs: false,
+                                      plugins: [ 'formatbtn', 'btnvideo'],
+                                      buttons: [  'image', 'link'],
+                                      focusCallback: function()
+                                        {
+                                            addBaron('.scroll');
+                                        }
+                                  });
+                                });
+                            .wysiwyg-post.redactor_box
+                                .wysiwyg-toolbar
+                                    .wysiwyg-toolbar-btn
+                                .scroll
+                                    .scroll_scroller
+                                        .scroll_cont
+                                            .wysiwyg-redactor
+                                                p Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))
+                                                p Не знаю насколько это правда, 
+                                                p Может конечно они не признаются в своих самых 
+                                                p Из бисера можно творить что угодно. Кто-то делает забавнейших животных, кто-то вышивает бисером невероятные цветы, кто-то создает бижутерию, ну а мы попробуем сплести из бисера кактусы. 
+                                                p заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему
+
+                                    .scroll_bar-hold
+                                        .scroll_bar
+                                            .scroll_bar-in
+
+
+
+- var commentAdd = {}
+- commentAdd.guest = {}
+- commentAdd.guest.state = 'guest'
+
+- commentAdd.user = {}
+- commentAdd.user.state = 'user'

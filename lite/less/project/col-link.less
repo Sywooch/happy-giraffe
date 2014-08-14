@@ -2,17 +2,18 @@
 .col-link {
     margin: 15px 0 5px;
     font-size: 14px;
-    -moz-column-width: 180px;
+    -moz-column-width: 169px;
     -moz-column-gap: 20px;
-    -webkit-column-width: 180px;
+    -webkit-column-width: 169px;
     -webkit-column-gap: 20px;
-    column-width: 180px;
+    column-width: 169px;
     column-gap: 20px;
     
     &_li {
         padding: 5px 0;
     }
     &_a {
+        display: inline-block;
         text-decoration: none;
     }
     &_a:hover {
@@ -21,7 +22,8 @@
 
     // fallback for ie8-9
     .no-csscolumns &_li {
-        float: left;
+        display: inline-block;
+        vertical-align: top;
         width: 180px;
         margin-right: 20px;
     }

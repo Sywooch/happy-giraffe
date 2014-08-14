@@ -12,16 +12,16 @@ mixin ava(mod, vars)
     //- != vars.avaSpan
     // ava
     - if (vars.avaSpan)
-        span.ava(class=mod, href='')
+        span.ava(class=mod, href='#')
             img.ava_img(alt='', src='#{vars.src}')
     - else 
         - if (vars.avaNameTitle)
-            a.ava.powertip(class=mod, href='', title=vars.avaNameTitle)
+            a.ava.powertip(class=mod, href='#', title=vars.avaNameTitle)
                 - if (vars.icoStatus)
                     span.ico-status(class=vars.icoStatus)
                 img.ava_img(alt='', src='#{vars.src}')
         - else 
-            a.ava(class=mod, href='')
+            a.ava(class=mod, href='#')
                 - if (vars.icoStatus)
                     span.ico-status(class=vars.icoStatus)
                 img.ava_img(alt='', src='#{vars.src}')

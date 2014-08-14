@@ -1,14 +1,21 @@
 include ../../block/config
-extend ../../extend/layout_base
+extend ../../extend/layout_base_user
 block vars
     - var bodyClass = 'body__bg1 body__lite';
     //- Итоговый css для страницы
-    - global.cssFile = 'blog.css'; 
+    - global.cssFile = 'services-user.css'; 
 
 block layout
-
+    
     // b-main 
     .b-main.clearfix
+
+        .b-main_cols.clearfix
+            .b-main_col-1 
+                +sidebarSearch('sidebar-search__big', sidebarSearch.a )
+            .b-main_col-23
+                +userAddRecord('userAddRecord__s', userAddRecord.a)
+
         // стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту 
         a.post-arrow(href="")
         .b-main_cont
@@ -30,5 +37,9 @@ block layout
                     +commentsOpen('', commentsOpen.a )
                 
                 // /Основная колонка
-
+    
     +layout-footer-lite('layout-footer__in')
+
+
+block block-hidden 
+    +userAddRecordPopup()

@@ -79,7 +79,9 @@ class SeoTempCommand extends CConsoleCommand
         $time = time();
         $j = 0;
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-            if ($j < 60) {
+            $j++;
+
+            if ($j < 61) {
                 continue;
             }
 
@@ -97,7 +99,6 @@ class SeoTempCommand extends CConsoleCommand
                 $i++;
             }
             $result[] = $data;
-            $j++;
             echo 'string ' . $j . ' - ' . (time() - $time) . "\n";
 
             if ($j == 120) {

@@ -47,7 +47,7 @@
                 </header>
                 <!-- /header-->
             <?php  else: ?>
-                <?php $this->renderPartial('//_menu'); ?>
+                <?php $this->renderDynamic(array($this, 'renderPartial'), '//_menu', null, true); ?>
             <?php endif; ?>
         </div>
         <div class="layout-loose_hold clearfix">

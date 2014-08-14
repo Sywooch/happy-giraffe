@@ -116,7 +116,7 @@ JS;
 $js .= "ko.applyBindings(new PhotoPostViewModel(" . CJSON::encode($json) . "), document.getElementById('popup-user-add-photo-post'));";
 
 if ($cs->useAMD) {
-    $cs->registerAMD('add-photoPost', array('ko' => 'knockout',  'ko_post' => 'ko_post', 'upload' => 'upload'), $js);
+    $cs->registerAMD('add-photoPost', array('ko' => 'knockout', 'UploadPhotos' => 'upload', 'ko_post' => 'ko_post'), $js);
 } else {
     $cs->registerScript('add-photoPost', $js, ClientScript::POS_READY);
 }

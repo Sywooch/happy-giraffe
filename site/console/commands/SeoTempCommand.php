@@ -70,7 +70,7 @@ class SeoTempCommand extends CConsoleCommand
         var_dump($result);
     }
 
-    public function actionDumb($file)
+    public function actionDumb($file, $from, $to)
     {
         $result = array();
 
@@ -81,7 +81,7 @@ class SeoTempCommand extends CConsoleCommand
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
             $j++;
 
-            if ($j < 61) {
+            if ($j < $from) {
                 continue;
             }
 
@@ -101,7 +101,7 @@ class SeoTempCommand extends CConsoleCommand
             $result[] = $data;
             echo 'string ' . $j . ' - ' . (time() - $time) . "\n";
 
-            if ($j == 120) {
+            if ($j == $to) {
                 break;
             }
 

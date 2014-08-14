@@ -112,8 +112,6 @@ $cs = Yii::app()->clientScript;
 
 $js = <<<JS
     var BlogFormStatusViewModel = function(data) {
-        console.log(data);
-
         var self = this;
         ko.utils.extend(self, new BlogFormViewModel(data));
         self.text = ko.observable(data.text);

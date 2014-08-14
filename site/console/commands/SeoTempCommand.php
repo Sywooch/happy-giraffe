@@ -30,6 +30,7 @@ class SeoTempCommand extends CConsoleCommand
             try {
                 $report = $this->ga->getReport($params);
             } catch (Exception $e) {
+                echo $e->getMessage() . "\n";
                 echo "waiting...\n";
                 sleep(10);
             }

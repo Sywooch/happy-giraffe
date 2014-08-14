@@ -66,6 +66,10 @@ class ConvertNewCommand extends CConsoleCommand
      */
     public function actionConvertCommentPhotos()
     {
+        $comment = Comment::model()->findByPk(167062);
+        $comment->purified->clearCache();
+        die;
+
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
         $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";

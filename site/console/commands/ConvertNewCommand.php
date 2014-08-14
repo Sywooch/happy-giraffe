@@ -70,13 +70,13 @@ class ConvertNewCommand extends CConsoleCommand
             'condition' => "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ",
             'order' => 't.id ASC',
         ));
-        $criteria->compare('t.id', 165538);
 
         $dp = new CActiveDataProvider('Comment', array(
             'criteria' => $criteria,
         ));
         $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $model) {
+            echo $model->id . "\n";
             $model->save();
             $model->purified->clearCache();
         }

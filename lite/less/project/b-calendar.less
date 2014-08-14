@@ -1,38 +1,41 @@
 /* b-calendar */
 .b-calendar {
     margin: 20px 0 30px;
-    text-align: center;
     
     &_in {
-        margin-bottom: 15px;
+        margin-bottom: 20px;
     }
-    &_in__years &_ul {
-        display: block;
+    &_in__months {
+        max-width: 250px;
     }
-    &_in__days &_ul {
-        max-width: 305px;
+    &_in__months &_ul {
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-left: -11px;
     }
-    &_in__days &_ul {
-        border-right: none;
-        text-align: left;
+    &_in__months &_li {
+        margin: 6px 7px;
+    }
+    &_in__days {
+        max-width: 300px;
     }
     &_in__days &_a {
         width: 30px;
     }
 
     &_t {
-        margin: 0 0 10px;
+        margin: 0 5px 10px;
         font-size: 15px;
         color: @color-gray;
-        text-align: center;
     }
     &_ul {
-        .inline-block();
+        margin-left: -7px;
+        font-size: 16px;
+        line-height: 22px;
     }
     &_li {
         .inline-block();
         margin: 2px 1%;
-        font-size: 14px;
         color: @color-gray-light;
     }
     &_li.active &_a {
@@ -60,37 +63,46 @@
             vertical-align: top;
         }
         &_in__years {
-            width: 120px;
+            width: 52px;
         }
+        &_in__days &_ul,
+        &_in__years &_ul {
+            margin: 0 -7px;
+        }
+
         &_in__months {
-            width: 290px;
+            max-width: 350px;
+        }
+        &_in__months &_t {
+            margin-left: 88px;
         }
         &_in__months &_ul {
-            padding: 0 30px 20px;
-            border-left: 1px solid #ededed;
+            margin: 0 40px;
+            padding: 0 35px;
         }
-        &_in__days &_ul {
-            max-width: 360px;
+        &_in__months &_li {
+            margin: 6px 9px;
+        }
+
+        &_in__days {
+            max-width: 320px;
         }
         &_li {
-            margin: 6px 8px;
+            margin: 6px 7px;
         }
     }
     @media (min-width: @screen-desktop) {
-        & {
-            text-align: left;
+        &_t {
+            text-align: center;
         }
-        &_in__years {
-            margin-left: -8px;
-        }
+
         &_in__months &_ul {
+            min-height: 170px;
             border-right: 1px solid #ededed;
+            border-left: 1px solid #ededed;
         }
-        &_in__days {
-            width: 400px;
-        }
-        &_ul {
-            padding: 0 30px;
+        &_in__months &_t {
+            margin-left: 0;
         }
     }
 }

@@ -5,7 +5,7 @@ block vars
     - global.cssFile = 'services.css'; 
 
 block layout
-    
+
     // b-main 
     .b-main.clearfix
     
@@ -68,10 +68,6 @@ block layout
                 .b-calendar_in.b-calendar_in__days
                     .b-calendar_t День
                     ul.b-calendar_ul
-                        li.b-calendar_li
-                                span.b-calendar_a 30
-                        li.b-calendar_li
-                                span.b-calendar_a 31
                         - var liClass
                         - for (i=1; i<32; i++)
                             - if(i == 14)
@@ -87,7 +83,14 @@ block layout
                                         = i
 
             .post-list-simple
+                // Количество элементов списка 50-100 на странице
                 ul.post-list-simple_ul
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Так хорошо, когда папа выходной!  
                     li.post-list-simple_li
                         .post-list-simple_top
                             a.a-light(href='#') Ангелина Богоявленская
@@ -111,6 +114,12 @@ block layout
                             a.a-light(href='#') Ангелина Богоявленская
                             time.tx-date(datetime='2012-12-23') 11 августа
                         .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Так хорошо, когда папа выходной!  
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
                             a.post-list-simple_t-a(href='#') Про энцефалопатию. неужели эта болезнь никак не поддается лечению? или просто люди живут как овощи? 
                     li.post-list-simple_li
                         .post-list-simple_top
@@ -118,6 +127,24 @@ block layout
                             time.tx-date(datetime='2012-12-23') 11 августа
                         .post-list-simple_t 
                             a.post-list-simple_t-a(href='#') Марафон женственности, кто нибудь участвовал?
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Так хорошо, когда папа выходной!  
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Так хорошо, когда папа выходной!  
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Так хорошо, когда папа выходной!  
 
             +paginationAll()
     // b-main 

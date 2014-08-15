@@ -66,24 +66,34 @@ class ConvertNewCommand extends CConsoleCommand
      */
     public function actionConvertCommentPhotos()
     {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";
-        $criteria->order = 'id asc';
-        $criteria->offset = 0;
-
-        $models = array(0);
-        while (!empty($models)) {
-            $models = Comment::model()->findAll($criteria);
-            foreach ($models as $model) {
+        $dp = new CActiveDataProvider('Comment');
+        $iterator = new CDataProviderIterator($dp);
+        foreach ($iterator as $model) {
+            if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
+                echo $model->id . "\n";
                 $model->save();
-                $model->purified->clearCache();
-                $max_id = $model->id;
             }
-
-            $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' AND `t`.`id` > " . $max_id;
-            echo $max_id . "\n";
         }
+
+
+//        $criteria = new CDbCriteria;
+//        $criteria->limit = 1000;
+//        $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";
+//        $criteria->order = 'id asc';
+//        $criteria->offset = 0;
+//
+//        $models = array(0);
+//        while (!empty($models)) {
+//            $models = Comment::model()->findAll($criteria);
+//            foreach ($models as $model) {
+//                $model->save();
+//                $model->purified->clearCache();
+//                $max_id = $model->id;
+//            }
+//
+//            $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' AND `t`.`id` > " . $max_id;
+//            echo $max_id . "\n";
+//        }
     }
 
     public function actionConvertPhotoTest($id)

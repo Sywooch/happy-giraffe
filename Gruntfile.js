@@ -28,7 +28,9 @@ module.exports = function(grunt){
       docs: {
         files: [{
           expand: true,
-          src: ['new/jade/docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
+
+          cwd: 'new/jade',
+          src: ['docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
           dest: 'new/html',
           ext: ".html"
         }],
@@ -37,6 +39,26 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
+        }
+      },
+      // пересобираем документацию
+      docs_lite: {
+        files: [{
+          expand: true,
+          cwd: 'lite/jade',
+          src: ['docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
+          dest: 'lite/html',
+          ext: ".html"
+        }],
+        options: {
+          pretty: true,
+          client: false,
+          cache: true,
+          nospawn : true,
+          data: {
+            debug: true,
+            timestamp: "<%= grunt.template.today() %>"
+          }
         }
       },
 
@@ -455,6 +477,15 @@ module.exports = function(grunt){
       jadedocs: {
         files: ['new/jade/docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade'
         tasks: ['jade:docs'],
+        options: {
+          spawn: false,
+          livereload: true,
+        },
+      },
+      // Пересобираем документацию
+      jadedocs_lite: {
+        files: ['lite/jade/docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade'
+        tasks: ['jade:docs_lite'],
         options: {
           spawn: false,
           livereload: true,

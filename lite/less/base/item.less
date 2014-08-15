@@ -74,38 +74,21 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         text-decoration: none;
         color: @color-orange;
     }
+    &.disabled {
+        color: #9edbf8;
+    }
 }
 .a-span {
     color: @color-link;
 }
-.a-pseudo,
-a.pseudo {text-decoration:none;border-bottom:1px dotted #289FD7;}
-.a-pseudo-gray {text-decoration:none;border-bottom:1px dotted #a9a6a6;color: #a9a6a6;}
-.a-pseudo-white {text-decoration:none;border-bottom:1px dotted #fff;color: #fff;}
-.a-pseudo-white:hover,
-.a-pseudo-gray:hover,
-a.pseudo:hover,
-.a-pseudo:hover {text-decoration:none !important;border-bottom-color:transparent;}
-.a-pseudo-grayblue {text-decoration:none;border-bottom:1px dotted #a0a09f;color: #a0a09f;}
-.a-pseudo-grayblue:hover {text-decoration:none;color: #2c95d6;border-color: #2c95d6;}
-
-
-
-.i-more {
-    .inline-block();
-    margin: 0;
-    padding: 0 17px 0 0;
-    background: url('@{path-img}/ico/i-more.png') no-repeat 100% 50%;
-    color: #24aae9;
-    font: 20px/22px Tahoma, Arial, Verdana, sans-serif;
-
-    &:hover {
-        color: #24aae9;
-    }
-    &__small {
-        font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
-    }
+.a-pseudo {
+    color: #289FD7;
+    text-decoration:none;
+    border-bottom:1px dotted #289FD7;
 }
+.a-pseudo:hover {text-decoration:none !important;border-bottom-color:transparent;}
+
+
 .i-highlight {
     padding: 0 4px;
     background: #fff7af;

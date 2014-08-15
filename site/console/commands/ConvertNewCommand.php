@@ -64,11 +64,11 @@ class ConvertNewCommand extends CConsoleCommand
     /**
      * Создание фото-галерей в комментах
      */
-    public function actionConvertCommentPhotos()
+    public function actionConvertCommentPhotos($after)
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;
-        $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";
+        $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' AND `t`.`id` > " . $after;
         $criteria->order = 'id asc';
         $criteria->offset = 0;
 

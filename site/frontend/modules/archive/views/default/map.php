@@ -115,7 +115,7 @@
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/sewing/default/loopCalculator')?>" class="a-light disabled">Калькулятор петель</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/sewing/default/embroideryCost')?>" class="a-light disabled">Расчет стоимости вышивки</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/sewing/default/threadCalculation')?>" class="a-light disabled">Расчет ниток</a></li>
-                            <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/sewing/default/yarn/calculator')?>" class="a-light disabled">Расчет пряжи</a></li>
+                            <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/sewing/default/yarnCalculator')?>" class="a-light disabled">Расчет пряжи</a></li>
                         </ul>
                     </div>
                     <div class="site-map_section">

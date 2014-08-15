@@ -64,7 +64,7 @@ class ConvertNewCommand extends CConsoleCommand
     /**
      * Создание фото-галерей в комментах
      */
-    public function actionConvertCommentPhotos($after)
+    public function actionConvertCommentPhotos()
     {
         $criteria = new CDbCriteria;
         $criteria->limit = 1000;

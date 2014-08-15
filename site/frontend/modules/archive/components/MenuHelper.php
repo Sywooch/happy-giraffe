@@ -27,11 +27,11 @@ class MenuHelper
     SELECT DISTINCT * FROM (
     SELECT DISTINCT MONTH(created)
     FROM community__contents
-    WHERE YEAR(created) = :year
+    WHERE YEAR(created) = :year AND removed = 0 AND type_id != 5
     UNION
     SELECT DISTINCT MONTH(created)
     FROM cook__recipes
-    WHERE YEAR(created) = :year
+    WHERE YEAR(created) = :year AND removed = 0
     ) src;
 SQL;
             self::$_months = \Yii::app()->db->createCommand($sql)->queryColumn(array(
@@ -48,11 +48,11 @@ SQL;
 SELECT DISTINCT * FROM (
     SELECT DISTINCT DAY(created)
     FROM community__contents
-    WHERE YEAR(created) = :year AND MONTH(created) = :month
+    WHERE YEAR(created) = :year AND MONTH(created) = :month AND removed = 0 AND type_id != 5
     UNION
     SELECT DISTINCT DAY(created)
     FROM cook__recipes
-    WHERE YEAR(created) = :year AND MONTH(created) = :month
+    WHERE YEAR(created) = :year AND MONTH(created) = :month AND removed = 0
 ) src;
 SQL;
             self::$_days = \Yii::app()->db->createCommand($sql)->queryColumn(array(

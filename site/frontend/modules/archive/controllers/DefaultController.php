@@ -33,4 +33,12 @@ class DefaultController extends \LiteController
         $this->pageTitle = (date('Y-m-d') == implode('-', array($year, $month, $day))) ? 'Записи сегодня' : 'Записи от ' . implode('.', array($year, $month, $day));
         $this->render('index', compact('dp', 'year', 'month', 'day'));
     }
+
+    public function actionMap()
+    {
+        $sections = \CommunitySection::model()->with('clubs', 'clubs.communities')->findAll(array('index' => 'id'));
+
+        $this->pageTitle = 'Карта сайта';
+        $this->render('map', compact('sections'));
+    }
 }

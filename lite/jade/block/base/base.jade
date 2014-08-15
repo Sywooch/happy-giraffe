@@ -4,90 +4,90 @@
     mod
     items - array иконок для вставки
         ['delete', 'favorite', 'spam', 'edit', 'cancel', 'answer']
-//- mixin bControl(mod, vars)
-//-     // b-control
-//-     .b-control(class=mod)
-//-         for item in vars.items
-//-             case item
+mixin bControl(mod, vars)
+    // b-control
+    .b-control(class=mod)
+        for item in vars.items
+            case item
 
-//-                 when "delete"
-//-                     .b-control_i.b-control_i__delete
-//-                         - if (vars.tx == true)
-//-                             span.b-control_ico
-//-                             span.b-control_tx Удалить
+                when "delete"
+                    .b-control_i.b-control_i__delete
+                        - if (vars.tx == true)
+                            span.b-control_ico
+                            span.b-control_tx Удалить
 
-//-                         - else 
-//-                             span.b-control_ico.powertip(title="Удалить")
+                        - else 
+                            span.b-control_ico.powertip(title="Удалить")
 
-//-                     //- when "spam"
-//-                         .b-control_i.tooltip-click-b
-//-                             span.b-control_ico.powertip.b-control_ico__spam(title="Пожаловаться")
-//-                             .tooltip-drop
-//-                             .tooltip-popup
-//-                                 .tooltip-popup_t Укажите вид нарушения:
-//-                                 label.tooltip-popup_label.clearfix(for='tooltip-popup_radio')
-//-                                 // id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
-//-                                     input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
-//-                                     | Спам или реклама
-//-                                 label.tooltip-popup_label.clearfix(for='')
-//-                                     input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
-//-                                     | Мошенничество
-//-                                 label.tooltip-popup_label.clearfix(for='')
-//-                                     input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
-//-                                     | Грубость, угрозы
-//-                                 label.tooltip-popup_label.clearfix(for='')
-//-                                     input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
-//-                                     | Интимный характер
-//-                                 label.tooltip-popup_label.clearfix(for='')
-//-                                     input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
-//-                                     | Другое
-//-                                 label.tooltip-popup_label.clearfix(for='')
-//-                                     input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
-//-                                     input.tooltip-popup_itx(type='text', name='', placeholder='Другое')
-//-                                 .clearfix.textalign-c
-//-                                     button.btn-green.btn-inactive Пожаловаться
-//-                                     button.btn-gray-light Отменить
+                    //- when "spam"
+                        .b-control_i.tooltip-click-b
+                            span.b-control_ico.powertip.b-control_ico__spam(title="Пожаловаться")
+                            .tooltip-drop
+                            .tooltip-popup
+                                .tooltip-popup_t Укажите вид нарушения:
+                                label.tooltip-popup_label.clearfix(for='tooltip-popup_radio')
+                                // id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                    input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    | Спам или реклама
+                                label.tooltip-popup_label.clearfix(for='')
+                                    input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    | Мошенничество
+                                label.tooltip-popup_label.clearfix(for='')
+                                    input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    | Грубость, угрозы
+                                label.tooltip-popup_label.clearfix(for='')
+                                    input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    | Интимный характер
+                                label.tooltip-popup_label.clearfix(for='')
+                                    input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    | Другое
+                                label.tooltip-popup_label.clearfix(for='')
+                                    input.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                    input.tooltip-popup_itx(type='text', name='', placeholder='Другое')
+                                .clearfix.textalign-c
+                                    button.btn-green.btn-inactive Пожаловаться
+                                    button.btn-gray-light Отменить
                 
-//-                 when "edit"
-//-                     .b-control_i.b-control_i__edit
-//-                         - if (vars.tx == true)
-//-                             span.b-control_ico
-//-                             span.b-control_tx Редактировать
+                when "edit"
+                    .b-control_i.b-control_i__edit
+                        - if (vars.tx == true)
+                            span.b-control_ico
+                            span.b-control_tx Редактировать
 
-//-                         - else 
-//-                             span.b-control_ico.powertip(title="Редактировать")
-//-                     //- when "cancel"
-//-                         .b-control_i.b-control_i__cancel
-//-                             - if (vars.tx == true)
-//-                                 span.b-control_ico
-//-                                 span.b-control_tx Отменить
+                        - else 
+                            span.b-control_ico.powertip(title="Редактировать")
+                    //- when "cancel"
+                        .b-control_i.b-control_i__cancel
+                            - if (vars.tx == true)
+                                span.b-control_ico
+                                span.b-control_tx Отменить
 
-//-                             - else 
-//-                                 span.b-control_ico.powertip(title="Отменить")
-//-                 when "answer"
-//-                     .b-control_i.b-control_i__answer
-//-                         - if (vars.tx == true)
-//-                             span.b-control_ico 
-//-                             span.b-control_tx Ответить
+                            - else 
+                                span.b-control_ico.powertip(title="Отменить")
+                when "answer"
+                    .b-control_i.b-control_i__answer
+                        - if (vars.tx == true)
+                            span.b-control_ico 
+                            span.b-control_tx Ответить
 
-//-                         - else 
-//-                             span.b-control_ico.powertip(title="Ответить")
+                        - else 
+                            span.b-control_ico.powertip(title="Ответить")
 
-//-     // /b-control
+    // /b-control
 
-//- - var bControl = {}
-//- - bControl.a = {}
-//- - bControl.a.items = ['delete', 'favorite', 'spam', 'edit', 'cancel']
-//- - bControl.b = {}
-//- - bControl.b.items = ['edit', 'delete']
-//- - bControl.c = {}
-//- - bControl.c.items = ['spam']
-//- - bControl.d = {}
-//- - bControl.d.tx = true
-//- - bControl.d.items = ['delete', 'edit']
-//- - bControl.e = {}
-//- - bControl.e.tx = true
-//- - bControl.e.items = ['answer']
+- var bControl = {}
+- bControl.a = {}
+- bControl.a.items = ['delete', 'favorite', 'spam', 'edit', 'cancel']
+- bControl.b = {}
+- bControl.b.items = ['edit', 'delete']
+- bControl.c = {}
+- bControl.c.items = ['spam']
+- bControl.d = {}
+- bControl.d.tx = true
+- bControl.d.items = ['delete', 'edit']
+- bControl.e = {}
+- bControl.e.tx = true
+- bControl.e.items = ['answer']
 
 //- Пользователь имя с аватаром
     mod

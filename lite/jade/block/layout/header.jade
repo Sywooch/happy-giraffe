@@ -162,16 +162,16 @@ mixin headerGuest(mod, vars)
 //- Главная шапка сайта
     mod     
     vars
-//- mixin headerTitle(mod, vars)
-//-     // header
-//-     header.header.header__title(class=mod)
-//-         .header_hold.clearfix
-//-             .header_title
-//-                 a.header_arrow-l(href="")
-//-                 +ava('ava__small ava__female', ava.a)
-//-                 h1.header_title-tx 
-//-                     a.header_title-a(href="") Банановая выпечка: 5 рецептов
-//-     // /header
+mixin headerTitle(mod, vars)
+    // header
+    header.header.header__title(class=mod)
+        .header_hold.clearfix
+            .header_title
+                a.header_arrow-l(href='#')
+                +ava('ava__small ava__female', ava.a)
+                h1.header_title-tx 
+                    a.header_title-a(href='#') Банановая выпечка: 5 рецептов
+    // /header
 
 
 
@@ -320,9 +320,9 @@ mixin header-fix(mod)
         });
     .header-fix(class=mod)
         .header-fix_hold.clearfix
-            a.header-fix_logo(href='')
+            a.header-fix_logo(href='#')
             .header-fix_dropin
-                a.header-fix_dropin-a(href='')
+                a.header-fix_dropin-a(href='#')
                     +ava('ava__middle ava__female', avaVarsSpan)
                     span.header_i-arrow
                 // header-drop
@@ -330,61 +330,61 @@ mixin header-fix(mod)
                     .header-menu.clearfix
                         ul.header-menu_ul
                             li.header-menu_li
-                                a.header-menu_a(href='')
+                                a.header-menu_a(href='#')
                                     span.header-menu_ico.header-menu_ico__profile
                                         +ava('ava__small ava__male', avaVarsSpan)
                                     span.header-menu_tx Анкета
                             li.header-menu_li
-                                a.header-menu_a(href='')
+                                a.header-menu_a(href='#')
                                     span.header-menu_ico.header-menu_ico__family
                                     span.header-menu_tx Семья
                             li.header-menu_li
-                                a.header-menu_a(href='')
+                                a.header-menu_a(href='#')
                                     span.header-menu_ico.header-menu_ico__blog
                                     span.header-menu_tx Блог
                             li.header-menu_li
-                                a.header-menu_a(href='')
+                                a.header-menu_a(href='#')
                                     span.header-menu_ico.header-menu_ico__photo
                                     span.header-menu_tx Фото
                             li.header-menu_li
-                                a.header-menu_a(href='')
+                                a.header-menu_a(href='#')
                                     span.header-menu_ico.header-menu_ico__favorite
                                     span.header-menu_tx Избранное
                             li.header-menu_li
-                                a.header-menu_a(href='')
+                                a.header-menu_a(href='#')
                                     span.header-menu_ico.header-menu_ico__settings
                                     span.header-menu_tx Настройки
                             li.header-menu_li
-                                a.header-menu_a(href='')
+                                a.header-menu_a(href='#')
                                     span.header-menu_ico.header-menu_ico__logout
                                     span.header-menu_tx
                     // header-drop_b
                     .header-drop_b
                             .float-r.margin-t3
-                                a(href='') Жираф рекомендует
+                                a(href='#') Жираф рекомендует
                             .heading-small
                                 | Мои клубы 
                                 span.color-gray  (5)
                             .club-list.club-list__small.clearfix
                                 ul.club-list_ul.clearfix
                                     li.club-list_li
-                                        a.club-list_i(href='')
+                                        a.club-list_i(href='#')
                                             span.club-list_img-hold
                                                 img.club-list_img(src='/images/club/2-w50.png', alt='')
                                     li.club-list_li
-                                        a.club-list_i(href='')
+                                        a.club-list_i(href='#')
                                             span.club-list_img-hold
                                                 img.club-list_img(src='/images/club/5-w50.png', alt='')
                                     li.club-list_li
-                                        a.club-list_i(href='')
+                                        a.club-list_i(href='#')
                                             span.club-list_img-hold
                                                 img.club-list_img(src='/images/club/7-w50.png', alt='')
                                     li.club-list_li
-                                        a.club-list_i(href='')
+                                        a.club-list_i(href='#')
                                             span.club-list_img-hold
                                                 img.club-list_img(src='/images/club/8-w50.png', alt='')
                                     li.club-list_li
-                                        a.club-list_i(href='')
+                                        a.club-list_i(href='#')
                                             span.club-list_img-hold
                                                 img.club-list_img(src='/images/club/9-w50.png', alt='')
                     // /header-drop_b
@@ -392,23 +392,23 @@ mixin header-fix(mod)
             .header-fix-menu
                 ul.header-menu_ul.clearfix
                     li.header-fix-menu_li
-                        a.header-fix-menu_a(href='')
+                        a.header-fix-menu_a(href='#')
                             span.header-fix-menu_tx прямой эфир
                     li.header-fix-menu_li.active
-                        a.header-fix-menu_a(href='')
+                        a.header-fix-menu_a(href='#')
                             span.header-fix-menu_tx мой жираф
                             span.header-fix-menu_count 256
                     li.header-fix-menu_li
-                        a.header-fix-menu_a(href='')
+                        a.header-fix-menu_a(href='#')
                             span.header-fix-menu_tx диалоги
                     li.header-fix-menu_li
-                        a.header-fix-menu_a(href='')
+                        a.header-fix-menu_a(href='#')
                             span.header-fix-menu_tx друзья
                             span.header-fix-menu_count 2
                     li.header-fix-menu_li
-                        a.header-fix-menu_a(href='')
+                        a.header-fix-menu_a(href='#')
                             span.header-fix-menu_tx сигналы
                     li.header-fix-menu_li
-                        a.header-fix-menu_a(href='')
+                        a.header-fix-menu_a(href='#')
                             span.header-fix-menu_tx успехи
     // /header-fix

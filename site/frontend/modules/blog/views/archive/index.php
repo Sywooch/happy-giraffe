@@ -1,3 +1,12 @@
+<?php
+/**
+ * @var int $year
+ * @var int $month
+ * @var int $day
+ */
+Yii::app()->clientScript->registerPackage('lite_contentCalendar');
+?>
+
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">
         <div class="b-main_col-article">
@@ -7,96 +16,46 @@
     <div class="b-calendar">
         <div class="b-calendar_in b-calendar_in__years">
             <div class="b-calendar_t">Год</div>
-            <ul class="b-calendar_ul">
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">2011</a></li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">2012</a></li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">2013</a></li>
-                <li class="b-calendar_li active"><a href="#" class="b-calendar_a">2014</a></li>
-            </ul>
+            <?php $this->widget('zii.widgets.CMenu', array(
+                'items' => array_map(function($y) use ($year, $month, $day) {
+                    return array(
+                        'label' => $y,
+                        'url' => array('/blog/archive/index', 'year' => $y, 'month' => $month, 'day' => $day),
+                        'linkOptions' => array('class' => 'b-calendar_a'),
+
+                    );
+                }, range(2011, 2014)),
+                'htmlOptions' => array('class' => 'b-calendar_ul'),
+                'itemCssClass' => 'b-calendar_li',
+            )); ?>
         </div>
         <div class="b-calendar_in b-calendar_in__months">
             <div class="b-calendar_t">Месяц</div>
-            <ul class="b-calendar_ul">
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">янв</a></li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">фев</a></li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">мар</a></li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">апр</a></li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">май</a></li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">июн</a></li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">июл</a></li>
-                <li class="b-calendar_li active"><a href="#" class="b-calendar_a">авг</a></li>
-                <li class="b-calendar_li"><span class="b-calendar_a">сен</span></li>
-                <li class="b-calendar_li"><span class="b-calendar_a">окт</span></li>
-                <li class="b-calendar_li"><span class="b-calendar_a">ноя</span></li>
-                <li class="b-calendar_li"><span class="b-calendar_a">дек</span></li>
-            </ul>
+            <?php $this->widget('zii.widgets.CMenu', array(
+                'items' => array_map(function($m) use ($year, $month, $day) {
+                    return array(
+                        'label' => HDate::ruMonthShort($m),
+                        'url' => strtotime(implode('-', array($year, $m, $day))) < time() ? array('/blog/archive/index', 'year' => $year, 'month' => $m, 'day' => $day) : null,
+                        'linkOptions' => array('class' => 'b-calendar_a'),
+                    );
+                }, range(1, 12)),
+                'htmlOptions' => array('class' => 'b-calendar_ul'),
+                'itemCssClass' => 'b-calendar_li',
+            )); ?>
         </div>
         <div class="b-calendar_in b-calendar_in__days">
             <div class="b-calendar_t">День</div>
-            <ul class="b-calendar_ul">
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">1</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">2</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">3</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">4</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">5</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">6</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">7</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">8</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">9</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">10</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">11</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">12</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">13</a>
-                </li>
-                <li class="b-calendar_li active"><a href="#" class="b-calendar_a">14</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">15</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">16</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">17</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">18</a>
-                </li>
-                <li class="b-calendar_li"><a href="#" class="b-calendar_a">19</a>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">20</span>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">21</span>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">22</span>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">23</span>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">24</span>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">25</span>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">26</span>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">27</span>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">28</span>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">29</span>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">30</span>
-                </li>
-                <li class="b-calendar_li"><span class="b-calendar_a">31</span>
-                </li>
-            </ul>
+            <?php $this->widget('zii.widgets.CMenu', array(
+                'items' => array_map(function($d) use ($year, $month, $day) {
+                    return array(
+                        'label' => $d,
+                        'url' => strtotime(implode('-', array($year, $month, $d))) < time() ? array('/blog/archive/index', 'year' => $year, 'month' => $month, 'day' => $d) : null,
+                        'linkOptions' => array('class' => 'b-calendar_a'),
+                    );
+                }, range(1, cal_days_in_month(CAL_GREGORIAN, $month, $year))),
+                'htmlOptions' => array('class' => 'b-calendar_ul'),
+                'itemCssClass' => 'b-calendar_li',
+            )); ?>
         </div>
     </div>
     <div class="post-list-simple">

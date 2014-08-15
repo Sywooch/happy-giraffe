@@ -26,6 +26,10 @@ class DefaultController extends \LiteController
             ),
         ));
 
+        if ($dp->totalItemCount == 0) {
+            \Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
+        }
+
         $this->pageTitle = (date('Y-m-d') == implode('-', array($year, $month, $day))) ? 'Записи сегодня' : 'Записи от ' . implode('.', array($year, $month, $day));
         $this->render('index', compact('dp', 'year', 'month', 'day'));
     }

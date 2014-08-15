@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    'useStrictParsing' => true,
+    //'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -391,6 +391,6 @@ return array(
 
         'onair' => 'blog/air/index',
 
-        array('class' => 'site\frontend\modules\blog\components\ArchiveUrlRule'),
+        array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
     ),
 );

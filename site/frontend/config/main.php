@@ -145,6 +145,9 @@ return array(
         'seo' => array(
             'class' => '\site\frontend\modules\seo\SeoModule',
         ),
+        'archive' => array(
+           'class' => 'site\frontend\modules\archive\ArchiveModule',
+        ),
 	),
 	// application components
 	'components'=>array(

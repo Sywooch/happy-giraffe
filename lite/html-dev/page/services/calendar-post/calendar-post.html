@@ -22,7 +22,7 @@
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
-  <!-- livereload-->
+  <!-- <livereload-->                               </livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__bg1 body__lite">
@@ -41,10 +41,36 @@
               <!-- js улучшить. Закрывать попап при клике не на нем.-->
               <script>
                 $(document).ready(function () {
-                    $('.header-menu_a').click(function () {
-                        var c = $(this).parents('.header-menu_li').toggleClass('active');
-                    });
-                });
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        var $this = $(this),
+                            activeClass = 'active';
+
+                        var $currentPopup =  $this.siblings('div.header-popup');
+
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                      });
+                  });
               </script>
               <ul class="header-menu_ul clearfix">
                 <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">5</span></a>

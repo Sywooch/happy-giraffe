@@ -102,8 +102,8 @@
                             <li class="menu-simple_li"><a href="/repair/paint/" class="a-light disabled">Расчет объема краски</a></li>
                             <li class="menu-simple_li"><a href="/repair/tile/" class="a-light disabled">Расчет плитки для ванной</a></li>
                             <li class="menu-simple_li"><a href="/repair/suspendedCeiling/" class="a-light disabled">Расчет подвесного потолка</a></li>
-                            <li class="menu-simple_li"><a href="/repair/wallpapers/index/" class="a-light disabled">Расчет количества обоев</a></li>
-                            <li class="menu-simple_li"><a href="/repair/flooring/index/" class="a-light disabled">Расчет напольного покрытия</a></li>
+                            <li class="menu-simple_li"><a href="/repair/wallpapers/" class="a-light disabled">Расчет количества обоев</a></li>
+                            <li class="menu-simple_li"><a href="/repair/flooring/" class="a-light disabled">Расчет напольного покрытия</a></li>
                         </ul>
                     </div>
                     <div class="site-map_section">

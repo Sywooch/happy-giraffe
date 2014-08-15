@@ -66,7 +66,12 @@ class ConvertNewCommand extends CConsoleCommand
      */
     public function actionConvertCommentPhotos($after)
     {
-        $dp = new CActiveDataProvider('Comment');
+        $dp = new CActiveDataProvider('Comment', array(
+            'criteria' => array(
+                'condition' => 't.id > :after',
+                'params' => array(':after' => $after),
+            ),
+        ));
         $iterator = new CDataProviderIterator($dp, 100);
 
         foreach ($iterator as $i => $model) {

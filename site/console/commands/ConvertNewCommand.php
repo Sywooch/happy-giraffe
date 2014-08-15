@@ -66,23 +66,34 @@ class ConvertNewCommand extends CConsoleCommand
      */
     public function actionConvertCommentPhotos()
     {
-        $criteria = new CDbCriteria;
-        $criteria->limit = 1000;
-        $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";
-        $criteria->order = 'id asc';
-        $criteria->offset = 0;
+        $dp = new CActiveDataProvider('Comment');
+        $iterator = new CDataProviderIterator($dp, 100);
 
-        $models = array(0);
-        while (!empty($models)) {
-            $models = Comment::model()->findAll($criteria);
-            foreach ($models as $model) {
-                $model->save();
-                $max_id = $model->id;
+        foreach($iterator as $model) {
+            if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
+                $model->save(false);
             }
-
-            $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' AND `t`.`id` > " . $max_id;
-            echo $max_id . "\n";
+            echo $model->id . ' - ' . round(Yii::getLogger()->getMemoryUsage()/(1024*1024), 3). "\n";
         }
+
+
+//        $criteria = new CDbCriteria;
+//        $criteria->limit = 1000;
+//        $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";
+//        $criteria->order = 'id asc';
+//        $criteria->offset = 0;
+//
+//        $models = array(0);
+//        while (!empty($models)) {
+//            $models = Comment::model()->findAll($criteria);
+//            foreach ($models as $model) {
+//                $model->save();
+//                $max_id = $model->id;
+//            }
+//
+//            $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' AND `t`.`id` > " . $max_id;
+//            echo $max_id . "\n";
+//        }
     }
 
     public function actionConvertPhotoTest($id)

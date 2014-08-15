@@ -10,9 +10,10 @@ class ArchiveController extends LiteController
 {
     public function actionIndex($year, $month, $day)
     {
-
-
-
-        $this->render('index', compact('year', 'month', 'day'));
+        $dp = new MultiModelDataProvider(array(
+            'CommunityContent' => array(),
+            'CookRecipe' => array(),
+        ), 'created');
+        $this->render('index', compact('dp', 'year', 'month', 'day'));
     }
 } 

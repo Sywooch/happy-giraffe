@@ -48,7 +48,7 @@ class ArchiveUrlRule extends \CBaseUrlRule
                     $_GET['month'] = date('m');
                     $_GET['day'] = date('d');
                 } else {
-                    \Yii::app()->request->redirect(\Yii::app()->createUrl('archive/default/index'));
+                    return false;
                 }
             }
 

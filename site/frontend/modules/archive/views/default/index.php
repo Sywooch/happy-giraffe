@@ -24,45 +24,39 @@ function gavno($year, $m, $day)
     <div class="b-calendar">
         <div class="b-calendar_in b-calendar_in__years">
             <div class="b-calendar_t">Год</div>
-            <?php $this->widget('zii.widgets.CMenu', array(
+            <?php $this->widget('site\frontend\modules\archive\components\Menu', array(
                 'items' => array_map(function($y) use ($year, $month, $day) {
                     return array(
                         'label' => $y,
-                        'url' => array('/blog/archive/index', 'year' => $y, 'month' => $month, 'day' => $day),
+                        'url' => array('/archive/default/index', 'year' => $y, 'month' => $month, 'day' => $day),
                         'linkOptions' => array('class' => 'b-calendar_a'),
 
                     );
                 }, range(2011, 2014)),
-                'htmlOptions' => array('class' => 'b-calendar_ul'),
-                'itemCssClass' => 'b-calendar_li',
             )); ?>
         </div>
         <div class="b-calendar_in b-calendar_in__months">
             <div class="b-calendar_t">Месяц</div>
-            <?php $this->widget('zii.widgets.CMenu', array(
+            <?php $this->widget('site\frontend\modules\archive\components\Menu', array(
                 'items' => array_map(function($m) use ($year, $month, $day) {
                     return array(
                         'label' => HDate::ruMonthShort($m),
-                        'url' => gavno($year, $m, $day) ? array('/blog/archive/index', 'year' => $year, 'month' => $m, 'day' => $day) : null,
+                        'url' => site\frontend\modules\archive\components\MenuHelper::isActiveMonth($year, $m) ? array('/archive/default/index', 'year' => $year, 'month' => $m, 'day' => $day) : null,
                         'linkOptions' => array('class' => 'b-calendar_a'),
                     );
                 }, range(1, 12)),
-                'htmlOptions' => array('class' => 'b-calendar_ul'),
-                'itemCssClass' => 'b-calendar_li',
             )); ?>
         </div>
         <div class="b-calendar_in b-calendar_in__days">
             <div class="b-calendar_t">День</div>
-            <?php $this->widget('zii.widgets.CMenu', array(
+            <?php $this->widget('site\frontend\modules\archive\components\Menu', array(
                 'items' => array_map(function($d) use ($year, $month, $day) {
                     return array(
                         'label' => $d,
-                        'url' => gavno($year, $month, $d) ? array('/blog/archive/index', 'year' => $year, 'month' => $month, 'day' => $d) : null,
+                        'url' => site\frontend\modules\archive\components\MenuHelper::isActiveDay($year, $month, $d) ? array('/archive/default/index', 'year' => $year, 'month' => $month, 'day' => $d) : null,
                         'linkOptions' => array('class' => 'b-calendar_a'),
                     );
                 }, range(1, cal_days_in_month(CAL_GREGORIAN, $month, $year))),
-                'htmlOptions' => array('class' => 'b-calendar_ul'),
-                'itemCssClass' => 'b-calendar_li',
             )); ?>
         </div>
     </div>

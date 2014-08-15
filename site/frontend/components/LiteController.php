@@ -21,7 +21,7 @@ class LiteController extends HController
         if (parent::beforeRender($view)) {
 
             $cs = Yii::app()->clientScript;
-            if ($this->meta_description !== null) {
+            if (! empty($this->meta_description)) {
                 $cs->registerMetaTag(Str::truncate(strip_tags(trim($this->meta_description)), 250), 'description');
             }
 

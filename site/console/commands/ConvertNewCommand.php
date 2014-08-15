@@ -69,11 +69,11 @@ class ConvertNewCommand extends CConsoleCommand
         $dp = new CActiveDataProvider('Comment');
         $iterator = new CDataProviderIterator($dp, 100);
 
-        foreach($iterator as $model) {
+        foreach ($iterator as $i => $model) {
             if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
                 $model->save(false);
             }
-            echo $model->id . ' - ' . round(Yii::getLogger()->getMemoryUsage()/(1024*1024), 3). "\n";
+            echo $i . '. ' . $model->id . ' - ' . round(Yii::getLogger()->getMemoryUsage()/(1024*1024), 3). "\n";
         }
 
 

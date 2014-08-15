@@ -392,5 +392,6 @@ return array(
         'onair' => 'blog/air/index',
 
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
+        'map' => 'archive/default/map',
     ),
 );

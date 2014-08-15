@@ -16,7 +16,10 @@ class ArchiveModule extends \CWebModule
 			'archive.models.*',
 			'archive.components.*',
 		));
-	}
+
+        \Yii::app()->clientScript->registerPackage('lite_archive');
+
+    }
 
 	public function beforeControllerAction($controller, $action)
 	{

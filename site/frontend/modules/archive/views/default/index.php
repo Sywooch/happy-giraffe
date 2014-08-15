@@ -6,8 +6,6 @@
  * @var int $day
  * @var LiteController $this
  */
-Yii::app()->clientScript->registerPackage('lite_contentCalendar');
-
 function gavno($year, $m, $day)
 {
     $d1 = strtotime(implode('-', array($year, $m, $day)));

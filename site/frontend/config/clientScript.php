@@ -421,7 +421,7 @@ return array(
             'baseUrl' => '/',
             'depends' => array('lite_services'),
         ),
-        'lite_contentCalendar' => array(
+        'lite_archive' => array(
             'amd' => true,
             'baseUrl' => '/',
             'depends' => array('lite_services'),

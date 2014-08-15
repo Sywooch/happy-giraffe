@@ -66,11 +66,15 @@ class ConvertNewCommand extends CConsoleCommand
      */
     public function actionConvertCommentPhotos()
     {
-        $dp = new CActiveDataProvider('Comment');
-        $iterator = new CDataProviderIterator($dp);
+        $dp = new CActiveDataProvider('Comment', array(
+            'criteria' => array(
+                'order' => 't.id ASC',
+            ),
+        ));
+        $iterator = new CDataProviderIterator($dp, 1000);
         foreach ($iterator as $model) {
+            echo $model->id . "\n";
             if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
-                echo $model->id . "\n";
                 $model->save();
             }
         }

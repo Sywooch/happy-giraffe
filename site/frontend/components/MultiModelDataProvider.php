@@ -14,6 +14,11 @@ class MultiModelDataProvider extends CDataProvider
     public function __construct($models, $sortColumn, $config = array())
     {
         foreach ($models as $modelClass => $criteria) {
+            if (is_int($modelClass)) {
+                $modelClass = $criteria;
+                $criteria = array();
+            }
+
             $this->sortColumn = $sortColumn;
             $this->models[$modelClass] = $criteria instanceof \CDbCriteria ? $criteria : new \CDbCriteria($criteria);
             foreach ($config as $key => $value) {
@@ -24,6 +29,11 @@ class MultiModelDataProvider extends CDataProvider
 
     protected function fetchData()
     {
+        if(($pagination = $this->getPagination()) !== false)
+        {
+            $pagination->setItemCount($this->getTotalItemCount());
+        }
+
         $data = array();
 
         foreach ($this->models as $modelClass => $criteria) {
@@ -60,10 +70,9 @@ class MultiModelDataProvider extends CDataProvider
     {
         $total = 0;
         foreach ($this->models as $modelClass => $criteria) {
-            $total += \CActiveRecord::model($modelClass)->count($criteria);
+            $total += (int) \CActiveRecord::model($modelClass)->count($criteria);
         }
 
         return $total;
     }
-
 } 

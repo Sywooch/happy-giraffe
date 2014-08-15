@@ -390,6 +390,7 @@ return array(
         'mail/<_c>/<_a>' => 'mail/<_c>/<_a>',
 
         'onair' => 'blog/air/index',
-        'calen' => 'blog/calendar/index',
+
+        array('class' => 'site\frontend\modules\blog\components\ArchiveUrlRule'),
     ),
 );

@@ -66,9 +66,7 @@
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/calendar/default/index', array('calendar' => 0))?>" class="a-light">Календарь развития ребенка</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/test/default/view', array('slug' => 'pupok'))?>" class="a-light">В норме ли пупок у ребенка</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/vaccineCalendar/default/index')?>" class="a-light">Календарь прививок</a></li>
-                            <li class="menu-simple_li"><a href="#" class="a-light">Бюджет малыша</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/test/default/view', array('slug' => 'prikorm'))?>" class="a-light">Тест. Готов ли ребенок к первому прикорму</a></li>
-                            <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/test/default/view', array('slug' => 'hair-type'))?>" class="a-light">Тест определение типа волос</a></li>
                         </ul>
                     </div>
                     <div class="site-map_section">
@@ -134,7 +132,7 @@
                         </div>
                         <ul class="menu-simple">
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/horoscope/default/index')?>" class="a-light">Гороскопы</a></li>
-                            <li class="menu-simple_li"><a href="#" class="a-light">Тест. Определение типа волос</a></li>
+                            <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/test/default/view', array('slug' => 'hair-type'))?>" class="a-light">Тест. Определение типа волос</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/archive/default/index')?>" class="a-light">Календарь записей</a></li>
                         </ul>
                     </div>

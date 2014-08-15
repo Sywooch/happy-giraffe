@@ -8,6 +8,8 @@
 
 class LiteController extends HController
 {
+    public $layout = '//layouts/lite/main';
+
     public function init()
     {
         header('Vary: User-Agent');

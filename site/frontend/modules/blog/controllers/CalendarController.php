@@ -6,15 +6,12 @@
  * Time: 16:30
  */
 
-class CalendarController extends HController
+class CalendarController extends LiteController
 {
     public function actionIndex()
     {
-        $dp = new site\frontend\components\multiModel\DataProvider(array(
-            'CommunityContent' => array(),
-            'CookRecipe' => array(),
-        ), 'created');
 
 
+        $this->render('index');
     }
 } 

@@ -6,9 +6,7 @@
  * Time: 16:29
  */
 
-namespace site\frontend\components\multiModel;
-
-class DataProvider extends \CDataProvider
+class MultiModelDataProvider extends CDataProvider
 {
     protected $models;
     protected $sortColumn;
@@ -29,14 +27,15 @@ class DataProvider extends \CDataProvider
         $data = array();
 
         foreach ($this->models as $modelClass => $criteria) {
-            $criteria->limit = $this->pagination->pageSize * $this->pagination->currentPage;
+            $criteria->limit = $this->pagination->pageSize * ($this->pagination->currentPage + 1);
             $modelData = \CActiveRecord::model($modelClass)->findAll($criteria);
             foreach ($modelData as $model) {
                 $data[] = $model;
             }
         }
 
-        usort($data, function($a, $b) {
+        $sortColumn = $this->sortColumn;
+        usort($data, function($a, $b) use ($sortColumn) {
             if ($a->$sortColumn == $b->$sortColumn) {
                 return 0;
             }

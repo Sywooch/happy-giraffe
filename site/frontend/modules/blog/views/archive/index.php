@@ -1,5 +1,6 @@
 <?php
 /**
+ * @var CDataProvider $dp
  * @var int $year
  * @var int $month
  * @var int $day
@@ -59,6 +60,11 @@ Yii::app()->clientScript->registerPackage('lite_contentCalendar');
         </div>
     </div>
     <div class="post-list-simple">
+        <?php $this->widget('LiteListView', array(
+            'dataProvider' => $dp,
+            'itemView' => '_content',
+        )); ?>
+
         <!-- Количество элементов списка 50-100 на странице-->
         <ul class="post-list-simple_ul">
             <li class="post-list-simple_li">

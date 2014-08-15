@@ -131,7 +131,7 @@
                             <div class="site-map_i-tx">для всех</div>
                         </div>
                         <ul class="menu-simple">
-                            <li class="menu-simple_li"><a href="<?=$this->createUrl('/horoscope/default/index')?>" class="a-light">Гороскопы</a></li>
+                            <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/horoscope/default/index')?>" class="a-light">Гороскопы</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/test/default/view', array('slug' => 'hair-type'))?>" class="a-light">Тест. Определение типа волос</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/archive/default/index')?>" class="a-light">Календарь записей</a></li>
                         </ul>

@@ -66,40 +66,23 @@ class ConvertNewCommand extends CConsoleCommand
      */
     public function actionConvertCommentPhotos($after)
     {
-        $dp = new CActiveDataProvider('Comment', array(
-            'criteria' => array(
-                'order' => 't.id ASC',
-                'condition' => 't.id > :after',
-                'params' => array(':after' => $after),
-            ),
-        ));
-        $iterator = new CDataProviderIterator($dp, 100);
-        foreach ($iterator as $model) {
-            if (strpos($model->text, '<img') !== false && strpos($model->text, '<!-- widget:') === false) {
+        $criteria = new CDbCriteria;
+        $criteria->limit = 1000;
+        $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";
+        $criteria->order = 'id asc';
+        $criteria->offset = 0;
+
+        $models = array(0);
+        while (!empty($models)) {
+            $models = Comment::model()->findAll($criteria);
+            foreach ($models as $model) {
                 $model->save();
+                $max_id = $model->id;
             }
-            echo $model->id . "\n";
+
+            $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' AND `t`.`id` > " . $max_id;
+            echo $max_id . "\n";
         }
-
-
-//        $criteria = new CDbCriteria;
-//        $criteria->limit = 1000;
-//        $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' ";
-//        $criteria->order = 'id asc';
-//        $criteria->offset = 0;
-//
-//        $models = array(0);
-//        while (!empty($models)) {
-//            $models = Comment::model()->findAll($criteria);
-//            foreach ($models as $model) {
-//                $model->save();
-//                $model->purified->clearCache();
-//                $max_id = $model->id;
-//            }
-//
-//            $criteria->condition = "`t`.`text` LIKE '%<img%' AND `t`.`text` NOT LIKE '%<!--%' AND `t`.`id` > " . $max_id;
-//            echo $max_id . "\n";
-//        }
     }
 
     public function actionConvertPhotoTest($id)

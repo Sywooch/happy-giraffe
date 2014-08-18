@@ -390,5 +390,8 @@ return array(
         'mail/<_c>/<_a>' => 'mail/<_c>/<_a>',
 
         'onair' => 'blog/air/index',
+
+        array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
+        'map' => 'archive/default/map',
     ),
 );

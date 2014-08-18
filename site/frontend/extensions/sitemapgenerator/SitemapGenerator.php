@@ -214,6 +214,7 @@ XMLINDEX;
         $file = file_get_contents($fs_name);
         $tempName = uniqid('SitemapGenerator');
         $file = preg_replace('#class \w+#', 'class ' . $tempName, $file);
+        $file = preg_replace('#namespace.*#', '', $file);
         $tempAlias = 'application.runtime.' . $tempName;
         $tempFile = Yii::getPathOfAlias($tempAlias) . '.php';
         file_put_contents($tempFile, $file);

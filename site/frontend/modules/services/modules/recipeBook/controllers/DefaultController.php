@@ -2,8 +2,6 @@
 
 class DefaultController extends LiteController
 {
-    public $layout = '//layouts/lite/main';
-
     protected function beforeAction($action)
     {
         if (parent::beforeAction($action)) {

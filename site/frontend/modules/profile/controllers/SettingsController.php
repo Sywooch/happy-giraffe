@@ -44,7 +44,7 @@ class SettingsController extends HController
                     $model->name = $eauth->getAttribute('first_name') . ' ' . $eauth->getAttribute('last_name');
                     $model->save();
 
-                    $eauth->redirect(Yii::app()->request->getUrlReferrer());
+                    $eauth->redirect(Yii::app()->controller->createUrl('social'));
                 },
             ),
         );

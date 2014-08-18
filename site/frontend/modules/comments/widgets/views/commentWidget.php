@@ -76,5 +76,5 @@
 </div>
 </div>
 <?php
-Yii::app()->clientScript->registerAMD('Comments#' . $this->id, array('ko' => 'knockout', 'ko_library' => 'ko_library'), 'ko.applyBindings({}, document.getElementById("' . $this->id . '_comments"))');
+Yii::app()->clientScript->registerAMD('Comments#' . $this->id, array('ko' => 'knockout', 'ko_library' => 'ko_library', 'commentScroll' => 'commentScroll'), 'ko.applyBindings({}, document.getElementById("' . $this->id . '_comments"));');
 ?>

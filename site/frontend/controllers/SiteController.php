@@ -505,7 +505,7 @@ class SiteController extends HController
 //    public function actionSeo()
 //    {
 //        $fromHG = false;
-//        $searchEngine = 'yandex';
+//        $searchEngine = 'google';
 //
 //        if ($fromHG) {
 //            $fromHGMap = Yii::app()->db->createCommand('SELECT id FROM community__contents WHERE by_happy_giraffe = 1')->queryColumn();
@@ -563,7 +563,7 @@ class SiteController extends HController
 //                    }
 //                }
 //
-//                if ($r['diffC'] < 0)
+//                if ($r['diffC'] > 0)
 //                    array_push($_result, $r);
 //            }
 //

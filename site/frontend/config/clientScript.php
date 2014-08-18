@@ -426,5 +426,8 @@ return array(
         'lite_recipes' => array(
             'depends' => array('lite_services'),
         ),
+        'lite_archive' => array(
+            'depends' => array('lite_services'),
+        ),
     )
 );

@@ -419,6 +419,9 @@ class Route extends CActiveRecord
 
         return new CActiveDataProvider('GeoCity', array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'pageVar' => 'page',
+            ),
         ));
     }
 
@@ -444,6 +447,9 @@ class Route extends CActiveRecord
 
         return new CActiveDataProvider(__CLASS__, array(
             'criteria' => $criteria,
+            'pagination' => array(
+                'pageVar' => 'page',
+            ),
         ));
     }
 }

@@ -14,10 +14,6 @@
         </div>
     </div>
     <div class="b-main_cont">
-        <div class="map-route-abc">
-            <?php $this->widget('AlphabetWidget'); ?>
-        </div>
-
         <?php
         $this->widget('LiteListView', array(
             'dataProvider' => $dp,

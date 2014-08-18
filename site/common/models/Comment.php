@@ -201,8 +201,8 @@ class Comment extends HActiveRecord
 
     public function afterSave()
     {
-        if (get_class(Yii::app()) == 'CConsoleApplication')
-            return;
+//        if (get_class(Yii::app()) == 'CConsoleApplication')
+//            return;
 
         if ($this->isNewRecord)
         {

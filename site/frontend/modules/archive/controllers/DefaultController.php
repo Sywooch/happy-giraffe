@@ -30,7 +30,7 @@ class DefaultController extends \LiteController
             \Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }
 
-        $this->pageTitle = (date('Y-m-d') == implode('-', array($year, $month, $day))) ? 'Записи сегодня' : 'Записи от ' . implode('.', array($year, $month, $day));
+        $this->pageTitle = $this->meta_description = (date('Y-m-d') == implode('-', array($year, $month, $day))) ? 'Записи сегодня' : 'Записи от ' . implode('.', array($year, $month, $day));
         $this->render('index', compact('dp', 'year', 'month', 'day'));
     }
 

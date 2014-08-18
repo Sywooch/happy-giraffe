@@ -9,6 +9,22 @@
     font-size: 25px;
     color: @color-base;
 }
+.heading-m {
+    margin: 15px 0; // Можно изменить на необходимый
+    font-weight: bold;
+    font-size: 16px;
+
+    @media (min-width: @screen-phone) {
+        & {
+            font-size: 18px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        & {
+            font-size: 23px;
+        }
+    }
+}
 .heading-small {
     margin: 0;
     font-size: 17px;
@@ -31,10 +47,13 @@
     color: @color-link-title;
     text-decoration: none;
     letter-spacing: -0.6px;
+
+    &__center {
+        text-align: center;
+    }
     
     @media (min-width: @screen-phone) {
         & {
-            margin: 15px 0;
             font-size: 35px;
             line-height: 40px;
         }
@@ -42,6 +61,7 @@
 
     @media (min-width: @screen-tablet) {
         & {
+            margin: 15px 0;
             font-size: 45px;
             line-height: 50px;
         }
@@ -59,6 +79,13 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     letter-spacing: -0.6px;
 }
 
+.heading-h1-hold {
+
+    @media (min-width: @screen-desktop) {
+        & {width: 600px;}
+    }
+}
+
 .a-light {
     text-decoration: none;
     color: @color-link-light;
@@ -67,27 +94,21 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         text-decoration: none;
         color: @color-orange;
     }
+    &.disabled {
+        color: #9edbf8;
+    }
 }
 .a-span {
     color: @color-link;
 }
-
-
-.i-more {
-    .inline-block();
-    margin: 0;
-    padding: 0 17px 0 0;
-    background: url('@{path-img}/ico/i-more.png') no-repeat 100% 50%;
-    color: #24aae9;
-    font: 20px/22px Tahoma, Arial, Verdana, sans-serif;
-
-    &:hover {
-        color: #24aae9;
-    }
-    &__small {
-        font: 11px/16px Tahoma, Arial, Verdana, sans-serif;
-    }
+.a-pseudo {
+    color: #289FD7;
+    text-decoration:none;
+    border-bottom:1px dotted #289FD7;
 }
+.a-pseudo:hover {text-decoration:none !important;border-bottom-color:transparent;}
+
+
 .i-highlight {
     padding: 0 4px;
     background: #fff7af;
@@ -105,6 +126,9 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 .tx-hint {
     font: @fontsmall;
     color: @color-gray-light;
+}
+.tx-error {
+    color: #FF8888;
 }
 
 .btn-scrolltop {
@@ -131,6 +155,30 @@ a.heading-link-xxl:hover {text-decoration: underline;}
             margin-left: 500px;
         }
     }*/
+}
+.loader {
+    min-height: 30px;
+    text-align: center;
+    color: #b6b6b6;
+    font-size: 14px;
+    padding: 7px;
+    
+    &__white {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #fff;
+        .border-radius(5px);
+    }
+    &_tx {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 4px 5px 0;
+    }
+    &_img {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 4px;
+    }
 }
 
 .post-arrow {

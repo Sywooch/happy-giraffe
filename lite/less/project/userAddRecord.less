@@ -1,0 +1,277 @@
+/* 
+	userAddRecord __s  __blog  __add
+        ava
+        &_hold
+            &_tx
+            &_ico
+        &_draft-hold
+            a.&_draft
+
+*/
+.userAddRecord {
+	margin: 0 20px 20px;
+    padding: 7px 8px 7px 14px;
+    .border-radius(4px);
+    
+    /*&:hover {background-color: #73c76a;}*/
+    &:hover &_tx {color: @color-gray-dark;}
+    &__s { background-color: #e5e5e5;}
+    &__s:hover { background-color: #73c76a;}
+    &__s &_tx {color: @color-gray;}
+    &__s &_hold:after {
+        content:'';
+        position: absolute;
+        top: 50%;
+        left: -11px;
+        margin-top: -11px;
+        border: 11px solid transparent;
+        border-right-color: #fff;
+        border-left: 0;
+    }
+    &__s {
+        margin-bottom: 10px;
+    }
+    &__s &_ava-hold {margin-left: 5px;}
+    &__s &_ico {margin: 5px 30px;}
+    // С иконкой ссылки 
+    // &__s &_ico {margin: 5px 22px;}
+    &__s &_hold {
+        float: right;
+        width: 570px;
+    }
+
+    &__blog {
+        margin: 10px 0 20px;
+        padding: 0;
+        background-color: transparent;
+    }
+    &__blog:hover {background-color: transparent;}
+    &__blog &_hold {
+        border: 2px solid #e5e5e5;
+        float: left;
+        padding-right: 30px;
+        margin: 0 0 0 10px;
+        width: auto;
+    }
+    &__blog &_hold:hover {border-color: #73c76a;}
+    &__blog &_hold:hover:after {background-position: 0 -22px;}
+    &__blog &_hold:after {
+        content:'';
+        position: absolute;
+        width: 12px;
+        height: 22px;
+        left: -12px;
+        top: 50%;
+        margin-top: -12px;
+        background: url('@{path-img}/userAddRecord__blog-after.png') no-repeat;
+    }
+    &__blog &_ico {
+        margin: 7px 24px 5px;
+    }
+
+    &__add {
+        margin: 15px 0 20px;
+        padding: 0;
+        background-color: transparent;
+    }
+    &__add:hover {background-color: transparent;}
+    &__add &_hold {
+        margin: 0;
+    }
+    &__add &_tx {
+        margin-left: 0;
+        color: @color-base;
+    }
+
+    &_ava-hold {
+        float: left;
+        margin: 7px 0 0;
+    }
+    &_hold {
+        position: relative;
+        background: #fff;
+        .border-radius(4px);
+    }
+    &_tx {
+        .inline-block();
+        vertical-align: middle;
+        margin: 0 10px 0 20px;
+        font-size: 16px;
+        color: @color-gray-dark;
+    }
+    &_ico {
+        .inline-block();
+        vertical-align: middle;
+        margin: 5px 32px;
+        width: 40px;
+        padding-top: 42px;
+        font-size: 11px;
+        line-height: 13px;
+        font-family: Tahoma, Arial, Verdana, sans-serif;
+        color: #b8b7b8;
+        text-align: center;
+        text-decoration: none;
+        background: url('@{path-img}/userAddRecord_ico.png') no-repeat;
+    }
+    &_ico.active,
+    &_ico:hover {color: #000;}
+    &_ico__article {background-position: 0 0;}
+    &_ico__article.active,
+    &_ico__article:hover {background-position: 0 -100px;}
+    &_ico__photo {background-position: -100px 0;}
+    &_ico__photo.active,
+    &_ico__photo:hover {background-position: -100px -100px;}
+    &_ico__video {background-position: -200px 0;}
+    &_ico__video.active,
+    &_ico__video:hover {background-position: -200px -100px;}
+    &_ico__status {background-position: -300px 0;}
+    &_ico__status.active,
+    &_ico__status:hover {background-position: -300px -100px;}
+    &_ico__link {background-position: -500px 0;}
+    &_ico__link.active,
+    &_ico__link:hover {background-position: -500px -100px;}
+    &_ico__photo-add {background-position: -600px 0;}
+    &_ico__photo-add.active,
+    &_ico__photo-add:hover {background-position: -600px -100px;}
+    &_ico__album {background-position: -700px 0;}
+    &_ico__album.active,
+    &_ico__album:hover {background-position: -700px -100px;}
+    &_ico__question {
+        width: 50px;
+        margin-right: 10px;
+        background-position: -390px 0;
+    }
+    &_ico__question.active,
+    &_ico__question:hover {background-position: -390px -100px;}
+    // Иконки с описанием
+    &_i {
+        .inline-block();
+        vertical-align: middle;
+        text-decoration: none;
+        color: @color-gray-light;
+    }
+    &_i:hover {color: @color-base;}
+    &_i &_ico {margin-right: 10px;}
+    &_i.active &_ico__photo-add,
+    &_i:hover &_ico__photo-add {background-position: -600px -100px;}
+    &_i.active &_ico__album,
+    &_i:hover &_ico__album {background-position: -700px -100px;}
+    &_desc {
+        .inline-block();
+        vertical-align: middle;
+        margin: 0 10px 0 0;
+    }
+
+    &_draft-hold {
+        float: right;
+        margin-top: 18px;
+        margin-right: 30px;
+    }
+    &_draft {
+        color: @color-gray;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    &_draft:hover {text-decoration: underline;}
+}
+
+/* /userAddRecord */
+
+
+
+
+/* user-add-record */
+.user-add-record {
+    margin: 0 20px 20px;
+    padding: 8px 10px 8px 14px;
+    background: #af9bd2;
+    .border-radius(4px);
+    &__yellow {
+        background: #ffe535;
+        padding-left: 25px;
+    }
+    &__yellow &_hold {width: 585px;}
+    &__small {
+        margin-bottom: 20px;
+        padding: 6px 7px 6px 14px;
+    }
+    &__small &_ava-hold {margin-left:17px;}
+    &__small &_ico {margin: 10px 27px;}
+    /*&__small &_hold {width: 580px;}*/
+
+    &_ava-hold {
+        float: left;
+        margin: 10px 0 0;
+    }
+    &_hold {
+        position: relative;
+        float: right;
+        width: 570px;
+        background: #fff;
+        .border-radius(4px);
+    }
+    &_hold:after {
+        content:'';
+        position: absolute;
+        top: 50%;
+        left: -11px;
+        margin-top: -11px;
+        border: 11px solid transparent;
+        border-right-color: #fff;
+        border-left: 0;
+    }
+    &_tx {
+        .inline-block();
+        vertical-align: middle;
+        margin: 0 10px 0 35px;
+        font-size: 16px;
+        color: #232323;
+    }
+    &_ico {
+        .inline-block();
+        vertical-align: middle;
+        margin: 18px 28px;
+        width: 40px;
+        padding-top: 42px;
+        font-size: 11px;
+        line-height: 13px;
+        font-family: Tahoma, Arial, Verdana, sans-serif;
+        color: #b8b7b8;
+        text-align: center;
+        text-decoration: none;
+        background: url(/images/user-add-record_ico.png) no-repeat;
+    }
+    &_ico.active,
+    &_ico:hover {color: #000;}
+    &_ico__article {background-position: 0 0;}
+    &_ico__article.active,
+    &_ico__article:hover {background-position: 0 -100px;}
+    &_ico__photo {background-position: -100px 0;}
+    &_ico__photo.active,
+    &_ico__photo:hover {background-position: -100px -100px;}
+    &_ico__video {background-position: -200px 0;}
+    &_ico__video.active,
+    &_ico__video:hover {background-position: -200px -100px;}
+    &_ico__status {background-position: -300px 0;}
+    &_ico__status.active,
+    &_ico__status:hover {background-position: -300px -100px;}
+    &_ico__question {
+        width: 50px;
+        margin-right: 10px;
+        background-position: -390px 0;
+    }
+    &_ico__question.active,
+    &_ico__question:hover {background-position: -390px -100px;}
+}
+/* /user-add-record */
+
+/* popup-user-add-record */
+.popup-user-add-record {
+    /*width: 1000px;*/
+
+    .user-add-record {
+        margin: 0 0 10px;
+        .box-shadow(0 6px 16px rgba(0,0,0,0.5));
+    }
+}
+/* /popup-user-add-record */

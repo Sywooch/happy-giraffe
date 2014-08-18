@@ -11,8 +11,8 @@ block vars
 //- tag head
 +headLite(path, global)
 
-body.body(class='#{bodyClass}')
-    
+body.body.body__user(class='#{bodyClass}')
+    +header-fix()
     //-///////////////////////////////////////
     //- Дата последних изменений 
     //-|  <!-- #{timestamp} -->
@@ -21,7 +21,7 @@ body.body(class='#{bodyClass}')
         .layout-loose.layout-loose__white
             .layout-header
             
-                +header('header__user', header.simple)
+                +header('header__base', header.simple)
             .layout-loose_hold.clearfix
                 block layout
                 

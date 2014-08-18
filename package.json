@@ -17,7 +17,7 @@
     "grunt-csso": "latest",
     "grunt-svgmin": "latest",
     "grunt-dr-svg-sprites": "latest",
-    "grunt-contrib-jade": "latest"
-
+    "grunt-contrib-jade": "latest",
+    "grunt-contrib-imagemin": "~0.8.0"
   }
 }

@@ -1,7 +1,19 @@
-//- Баннер перед подвалом на всю ширину
+//- Баннер перед подвалом на всю ширину 
 
 mixin banReadMore(mod, vars)
     // баннер на всю ширину
+    // Изабражение вставляется через background для поизиционирования через css
+    style(type='text/css').
+        /* Ширина изображения 600px */
+        .ban-read-more {
+            background-image: url('#{path}images/example/w600-h355-1.jpg');
+        }
+        /* Ширина изображения до 1000px*/
+        @media (min-width: 640px) {
+            .ban-read-more {
+                background-image: url('#{path}images/example/w1000-h510-2.jpg');
+            }
+        }
     .ban-read-more
         .ban-read-more_hold
             .ban-read-more_cont
@@ -10,7 +22,7 @@ mixin banReadMore(mod, vars)
                     // Аватарки размером 40*40
                     +ava("ava__middle ava__small-xs", ava.c)
                     a.a-light(href="") Ангелина Богоявленская
-                a.ban-read-more_t(href="") Внимание, опрос! 
+                a.ban-read-more_t(href="") 20 самых опасных маршрутов в мире
                 .ban-read-more_desc Вот, девочки, напала на вот такую красоту в интернете. И вдруг вспомнила, что муж у меня уже много много лет мечтает ...
                 a.ban-read-more_arrow(href="")
     // /баннер

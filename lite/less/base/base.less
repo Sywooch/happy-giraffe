@@ -13,7 +13,11 @@
     margin: 0 auto;
 
 
-    &__white {background-color: #fff;}
+    &__white {
+        background-color: #fff;
+
+        .box-shadow( 0 2px 5px rgba(0,0,0,0.05));
+    }
 
     @media (min-width: @screen-desktop) {
         .layout-header {margin-top: 20px;}
@@ -288,7 +292,7 @@
     }
     &_li {
         .inline-block();
-        padding: 0 2px;
+        padding: 2px 2px;
 
         .ava {vertical-align: middle;}
     }
@@ -302,7 +306,7 @@
     }
     &_li__last:after {display: none;}
     &_last {
-        color: #f17504;
+        color: @color-orange;
     }
     &_a {text-decoration: none;}
     &_a:hover {
@@ -330,9 +334,19 @@
     }
 }
 
+.menu-simple {
+
+    & & {
+        margin-left: 10px;
+    }
+    &_li {
+        padding: 1px 0;
+    }
+}
+
 .tabs-simple {
     
-    &__inline { // vertical-align: middle;
+    &__inline { 
         .inline-block();
         vertical-align: middle;
 
@@ -391,3 +405,7 @@
 }
 /* powerTip */
 
+// Yandex social like icons
+.b-share_theme_counter .b-share_type_small .b-share-btn__wrap {
+    margin-left: 5px !important;
+}

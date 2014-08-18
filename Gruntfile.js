@@ -28,7 +28,9 @@ module.exports = function(grunt){
       docs: {
         files: [{
           expand: true,
-          src: ['new/jade/docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
+
+          cwd: 'new/jade',
+          src: ['docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
           dest: 'new/html',
           ext: ".html"
         }],
@@ -37,6 +39,26 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
+        }
+      },
+      // пересобираем документацию
+      docs_lite: {
+        files: [{
+          expand: true,
+          cwd: 'lite/jade',
+          src: ['docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
+          dest: 'lite/html',
+          ext: ".html"
+        }],
+        options: {
+          pretty: true,
+          client: false,
+          cache: true,
+          nospawn : true,
+          data: {
+            debug: true,
+            timestamp: "<%= grunt.template.today() %>"
+          }
         }
       },
 
@@ -180,6 +202,7 @@ module.exports = function(grunt){
             /.mfp+/,
             /.mfp+/,
             /.select2+/,
+            /.header-menu_li.active+/,
             //.tooltip+/,
           ],
         },
@@ -188,6 +211,7 @@ module.exports = function(grunt){
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/sign/**/*.html', 
 
+          '!lite/html/page/**/*-user.html', // стариницы зареганого 
           '!lite/html/page/comments/comments-page.html'
         ],
         dest: 'lite/css/min/blog.css'
@@ -202,18 +226,47 @@ module.exports = function(grunt){
             // Выбираем все стили где в начале .clsss
             /.jcrop+/,
             /.mfp+/,
+            /.select2+/,
+            /.header-menu_li.active+/,
+          ],
+        },
+        src: [
+          'lite/html/page/comments/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
+          'lite/html/page/services/**/*.html', 
+
+          '!lite/html/page/**/*-user.html', // стариницы зареганого 
+          '!lite/html/page/comments/comments-page.html',
+        ],
+        dest: 'lite/css/min/services.css'
+      },
+      // Традиционные рецепты у зареганого пользователя
+      'services_user': {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .clsss
+            /.jcrop+/,
             /.mfp+/,
             /.select2+/,
+            /.chzn+/,
+            /.redactor+/,
+            /.fancybox+/,
+            // Drop, active элементы
+            /.header-drop+/,
+            /.header-menu_li.active+/,
           ],
         },
         src: [
           'lite/html/page/comments/**/*.html', 
           '!lite/html/page/comments/comments-page.html',
-          'lite/html/page/sign/**/*.html', 
+          'lite/html/page/user/**/*.html', 
           'lite/html/page/services/**/*.html', 
 
         ],
-        dest: 'lite/css/min/services.css'
+        dest: 'lite/css/min/services-user.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -295,7 +348,18 @@ module.exports = function(grunt){
       }
     },
     // /css
-    ////////////////////////////// 
+    //////////////////////////////
+
+    imagemin: {
+      lite: {
+          files: [{
+              expand: true,
+              cwd: 'lite/images/',
+              src: ['**/*.{png,jpg,gif}'],
+              dest: 'lite/images/'
+          }]
+      }
+    },
 
     svgmin: {                       // Task
       options: {                  // Configuration that will be passed directly to SVGO
@@ -352,6 +416,26 @@ module.exports = function(grunt){
                 unit: 200
             }
         },
+        'ico-club': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-club",
+                spritePath: "lite/images/sprite/ico-club.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                //refSize: 75, 
+                // sizes: {
+                //     large: 130,
+                //     mid: 75
+                // },
+                unit: 100
+            }
+        },
         // 'comments-menu_a': {
         //     options: {
         //         spriteElementPath: "lite/images/sprite/comments-menu_a",
@@ -398,6 +482,15 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
+      // Пересобираем документацию
+      jadedocs_lite: {
+        files: ['lite/jade/docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade'
+        tasks: ['jade:docs_lite'],
+        options: {
+          spawn: false,
+          livereload: true,
+        },
+      },
       // Следим за старым less 
       lessold: {
         files: ['less/**/*.less'],
@@ -431,6 +524,15 @@ module.exports = function(grunt){
         },
       },
 
+
+      // изобрражения сжатие
+      image_lite: {
+        files: ['lite/images/**/*.{png,jpg,gif}'],
+        tasks:['imagemin:lite'],
+        options: {
+          livereload: true,
+        },
+      },
       // изобрражения svg сжатие
       svg: {
         files: ['lite/images/**/*.svg'],
@@ -466,7 +568,7 @@ module.exports = function(grunt){
 
   // lite tasks
   // bild lite версии
-  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services','uncss:services_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // Блоги
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // сервисы

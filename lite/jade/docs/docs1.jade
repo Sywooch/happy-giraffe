@@ -1,16 +1,27 @@
 include ../block/config
-extend ../extend/layout_simple
+extend ../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
 
-block layout-wrapper
-    .layout-wrapper
-        .layout-wrapper_hold
-            .docs
+block layout
+    .layout-header
+        +header()
+    .layout-header
+        +header-fix('header-fix__rel')
+    // b-main 
+    .b-main.clearfix
+    
+        .b-main_cont
+            .docs 
                 h1.docs_h1 Библиотека стандартных элементов Веселый Жираф
             .docs 
                 .docs_desc
                     h2.docs_h2 Типографика
                     h3.docs_h3 Обычный текст
                 .docs_example.docs_example__indents
+                    h1 Заголовок 1
+                    h2 Заголовок 2
+                    h3 Заголовок 3
                     p Самый обычный абзац.
                     p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
                     ul
@@ -19,6 +30,22 @@ block layout-wrapper
                     ol
                         li Тектс списка 
                         li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                .docs_desc
+                    h3.docs_h3 Текст в статье
+                .docs_example.docs_example__indents
+                    .wysiwyg-content
+
+                        h1 Заголовок 1
+                        h2 Заголовок 2
+                        h3 Заголовок 3
+                        p Самый обычный абзац.
+                        p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                        ul
+                            li Тектс списка 
+                            li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                        ol
+                            li Тектс списка 
+                            li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
                     .tx-content
                         p Самый обычный абзац. В статьях и т.д.
                         p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
@@ -26,24 +53,28 @@ block layout-wrapper
                         .tx-hint Текст подсказок
                     .docs_row
                         .tx-date Текст даты
+                    .docs_row
+                        .tx-error Текст ошибки
                 .docs_desc
                     h3.docs_h3 Заголовки
                 .docs_example.docs_example__indents
                     .heading-xxl .heading-xxl
-                    .heading-xl .heading-xl
+                    .heading-xl .heading-xl 
                     .heading-small .heading-small
-                    .heading-xs .heading-smallest
+                    .heading-xs .heading-xs
                     a.heading-link-xxl Заголовок большой ссылка в строку
                     br
                     .heading-link-xl Заголовок в списке статей 
                 .docs_desc
                     h2.docs_h2 Ссылки
                 .docs_example.docs_example__indents
-                    a Обычная ссылка
+                    a(href='#') Обычная ссылка
+                    br
+                    a.a-light(href='#') Обычная ссылка
                     br
                     span.a-pseudo Псевдоссылка. Наведение есть, но не тег а
                     br
-                    a.i-more Дальше
+                    span.a-span текст как ссылка
             .docs
                 .docs_desc Выделеный текст. В поиске и т.д. 
                 .docs_example.docs_example__indents 
@@ -155,25 +186,6 @@ block layout-wrapper
                             a.btn.btn-xm.btn-success Middle
                             a.btn.btn-xm.btn-info Middle
                             a.btn.btn-xm.btn-primary Right
-                .docs_example.docs_example__indents
-                    .docs_row
-                        +postAddRowBtns('', postAddRowBtns.a)
-                    .docs_row
-                        +postAddRowBtns('', postAddRowBtns.b)
-                    .docs_row
-                        +postAddRowBtns('', postAddRowBtns.c)
-            .docs
-                .docs_desc Кнопки социальных сетей. Резиновые, занимают всю ширину родителя.
-                .docs_example.docs_example__indents 
-                    ul.social-btns.clearfix.w-300
-                        li
-                            a.social-btn.social-btn__odnoklassniki
-                                span.social-btn_ico
-                                span.social-btn_tx Одноклассники
-                        li
-                            a.social-btn.social-btn__vkontakte
-                                span.social-btn_ico
-                                span.social-btn_tx ВКонтакте
             .docs
                 .docs_desc
                     h2.docs_h2 Form
@@ -338,237 +350,9 @@ block layout-wrapper
                     +ava("ava ava__male", avaVars)
                     - avaVars = {src: '/new/images/example/ava-large.jpg', icoStatus: ''} 
                     +ava("ava__large ava__male", avaVars)
-
             .docs
-                .docs_desc
-                    h2.docs_h2 Семья
-                .docs_desc Иконки семьи
-                .docs_example.docs_example__indents
-                    .docs_row
-                        .ico-family.ico-family__baby-plan.margin-r10
-                        .ico-family.ico-family__baby.margin-r10   
-                        .ico-family.ico-family__baby-two.margin-r10 
-                        .ico-family.ico-family__boy-wait.margin-r10 
-                        .ico-family.ico-family__girl-wait.margin-r10 
-                        .ico-family.ico-family__boy-small.margin-r10 
-                        .ico-family.ico-family__girl-small.margin-r10 
-                        .ico-family.ico-family__boy-3.margin-r10 
-                        .ico-family.ico-family__girl-3.margin-r10 
-                        .ico-family.ico-family__boy-5.margin-r10 
-                        .ico-family.ico-family__girl-5.margin-r10 
-                        .ico-family.ico-family__boy-8.margin-r10 
-                        .ico-family.ico-family__girl-8.margin-r10 
-                        .ico-family.ico-family__boy-14.margin-r14 
-                        .ico-family.ico-family__girl-14.margin-r14 
-                        .ico-family.ico-family__boy-19.margin-r19 
-                        .ico-family.ico-family__girl-19.margin-r19 
-                        .ico-family.ico-family__fiance.margin-r19 
-                        .ico-family.ico-family__bride.margin-r19 
-                        .ico-family.ico-family__husband.margin-r19 
-                        .ico-family.ico-family__wife.margin-r19 
-                        .ico-family.ico-family__boy.margin-r19 
-                        .ico-family.ico-family__girl.margin-r19
-                
-                .docs_example.docs_example__indents
-
-                    .display-ib
-                        +bFamily('', bFamily.f5)
-                .docs_example
-                    .b-family-structure.clearfix
-                        .b-family-structure_upload
-                            .b-family-structure_note
-                                | Все просто. Перетащите в пустые квадраты
-                                br
-                                | членов вашей семьи
-                            .b-family.b-family__bg-none
-                                ul.b-family_ul
-                                    //
-                                         Объект для перетаскивания .b-family_li 
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__husband
-                                        .b-family_tx
-                                            span Муж
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__fiance
-                                        .b-family_tx
-                                            span Жених
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__boy-friend
-                                        .b-family_tx
-                                            span Друг
-                            .b-family.b-family__bg-none
-                                ul.b-family_ul
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__baby-plan
-                                        .b-family_tx
-                                            span Планируем ребенка
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__boy-wait
-                                        .b-family_tx
-                                            span Ждем мальчика
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__girl-wait
-                                        .b-family_tx
-                                            span Ждем девочку
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__baby
-                                        .b-family_tx
-                                            span Ждем ребенка
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__baby-two
-                                        .b-family_tx
-                                            span Ждем двойню
-                            .clearfix
-                                .float-l.margin-r20.w-130.textalign-c
-                                    .b-family_sub-t Дети от 0 до 1 года
-                                    .b-family.b-family__bg-none
-                                        ul.b-family_ul
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__girl-small
-                                                .b-family_tx
-                                                    span Дочь
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__boy-small
-                                                .b-family_tx
-                                                    span Сын
-                                .float-l.margin-r20.w-130.textalign-c
-                                    .b-family_sub-t  Дети от 1 до 3 лет
-                                    .b-family.b-family__bg-none
-                                        ul.b-family_ul
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__girl-3
-                                                .b-family_tx
-                                                    span Дочь
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__boy-3
-                                                .b-family_tx
-                                                    span Сын
-                                .float-l.margin-r20.w-130.textalign-c
-                                    .b-family_sub-t  Дети от 3 до 6 лет
-                                    .b-family.b-family__bg-none
-                                        ul.b-family_ul
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__girl-5
-                                                .b-family_tx
-                                                    span Дочь
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__boy-5
-                                                .b-family_tx
-                                                    span Сын
-                                .float-l.margin-r20.w-130.textalign-c
-                                    .b-family_sub-t Дети от 6 до 12 лет
-                                    .b-family.b-family__bg-none
-                                        ul.b-family_ul
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__girl-8
-                                                .b-family_tx
-                                                    span Дочь
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__boy-8
-                                                .b-family_tx
-                                                    span Сын
-                                .float-l.margin-r20.w-130.textalign-c
-                                    .b-family_sub-t Дети от 12 до 18 лет
-                                    .b-family.b-family__bg-none
-                                        ul.b-family_ul
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__girl-14
-                                                .b-family_tx
-                                                    span Дочь
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__boy-14
-                                                .b-family_tx
-                                                    span Сын
-                                .float-l.margin-r20.w-130.textalign-c
-                                    .b-family_sub-t Старше 18 лет
-                                    .b-family.b-family__bg-none
-                                        ul.b-family_ul
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__girl-19
-                                                .b-family_tx
-                                                    span Дочь
-                                            li.b-family_li
-                                                .b-family_img-hold
-                                                    .ico-family.ico-family__boy-19
-                                                .b-family_tx
-                                                    span Сын
-                        //
-                            Правая часть
-                        .b-family-structure_added
-                            .b-family.b-family__square
-                                .b-family_top.b-family_top__white-big
-                                //
-                                    Когда 9 ячеек не хватает для семьи, появляется еще ряд из 3 ячеек.
-                                ul.b-family_ul
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__wife
-                                        .b-family_tx
-                                            span Я
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__husband
-                                        .b-family_tx
-                                            span Муж
-                                        a.ico-close.b-family_del(href='')
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__boy-wait
-                                        .b-family_tx
-                                            span Ждем мальчика
-                                        a.ico-close.b-family_del(href='')
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__girl-small
-                                        .b-family_tx
-                                            span Дочь
-                                        a.ico-close.b-family_del(href='')
-                                    li.b-family_li
-                                        .b-family_img-hold
-                                            .ico-family.ico-family__girl-8
-                                        .b-family_tx
-                                            span Дочь
-                                        a.ico-close.b-family_del(href='')
-                                    //
-                                         Когда курсор мыши с зажатой иконкой над квадратом добавить класс dragover 
-                                    li.b-family_li.b-family_li__empty.dragover
-                                    //
-                                         Когда курсор мыши с зажатой иконкой над квадратом и нельзя добавить (Например: второго мужа) довесить класс dragover-error 
-                                    li.b-family_li.b-family_li__empty.dragover-error
-                                    li.b-family_li.b-family_li__empty
-                                    li.b-family_li.b-family_li__empty
-                            .textalign-r.color-white
-                                //
-                                     Для удобства число можно положить в span или другой строчный тег 
-                                | Членов семьи: 
-                                span 5
-            .docs
-                .docs_desc Иконки уарпвления
-                    p   В кнопке spam есть выпадающий список
-                .docs_example.docs_example__indents
-                    
-                    +b-control("position-rel", bControl.a)
-            .docs
-                .docs_desc Иконки 
+                .docs_desc 
+                    h2.docs_h2 Иконки 
                 .docs_example.docs_example__indents
                     .docs_row
                         .ico-status.ico-status__online
@@ -580,142 +364,39 @@ block layout-wrapper
                         img(src='/new/images/ico/ajax-loader.gif', class='ico-loader')
                     .docs_row
                         .ico-close
-                        .ico-close2
-                        .ico-close3
-                    .docs_row
-                        .ico-update
-                    .docs_row
-                        .ico-check
-                        .ico-del
-                        .ico-question
-                    .docs_row
-                        .ico-refresh
+                        .ico-close4
                     .docs_row
                         .ico-lock-big
-                    .docs_row
-                        .ico-male
-                        .ico-female
-                    .docs_row
-                        .ico-error-smile
-            .docs
-                .docs_desc
-                    h2.docs_h2 Блок юзера
-                .docs_example.docs_example__indents
-                    +b-user('b-user__w300',{signpost: true})
-                    .docs_row
-                        +b-user('',{signpost: false})
-            .docs
-                .docs_desc Табы управления
-                .docs_example
-                    +page-col_top-tabs('', {tabActive: 0, tabsTexts:['Все друзья 128', 'Друзья онлайн 12', 'Новые друзья 6'], sidebarSearch: true})
-                .docs_example
-                    span.margin-l20 Табы в 
-                        a(href="") строку 
-                    ul.tabs-simple.tabs-simple__inline.nav.nav-tabs
-                        li.active
-                            a(href="#photo-tab-computer", data-toggle="tab") С компьютера
-                        li
-                            a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
-                        li
-                            a(href="#photo-tab-link", data-toggle="tab") Из интернета
-                    | продолжение строки
-                .docs_example
-                    ul.tabs-simple.nav.nav-tabs
-                        li.active
-                            a(href="#photo-tab-computer", data-toggle="tab") С компьютера
-                        li
-                            a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
-                        li
-                            a(href="#photo-tab-link", data-toggle="tab") Из интернета 
-            .docs
-                .docs_desc Пагинация на странице
-                .docs_example
-                    +pagination()
-            .docs
-                .docs_desc
-                    h2.docs_h2 Меню слева
-                .docs_example
-                    .display-ib.margin-l20
-                        +side-menu__friend("side-menu__friend")
-                    .display-ib.margin-l20
-                        +side-menu__im("side-menu__im")
-                    .display-ib.margin-l20
-                        +side-menu__antispam("side-menu__antispam")
-                    .display-ib.margin-l20
-                        +user-menu('', userMenu.a)
-            .docs
-                .docs_desc
-                    h2.docs_h2 Список друзей
-                .docs_example
-                    .display-ib.margin-l20
-                        .friends-list
-                            ul.friends-list_ul
-                                +friendsListItem('',friendsListItem.a)
-                                +friendsListItem('',friendsListItem.b)
-            .docs
-                .docs_desc
-                    h2.docs_h2 Превью фото при загрузке 
-                .docs_example
-                    .display-ib.margin-l20
-                        +iPhoto("i-photo__load", iPhoto.load)
-                    .display-ib.margin-l20
-                        +iPhoto("i-photo__loaded", iPhoto.loaded)
-                    .display-ib.margin-l20
-                        +iPhoto("i-photo__error", iPhoto.error)
-            .docs
-                .docs_desc
-                    h2.docs_h2 Добавить контент  
-                .docs_example.docs_example__indents
-                    .docs_row
-                        .b-main.clearfix
-                            .b-main_col-23
-                                +userAddRecord('', userAddRecord.a)
-                    .docs_row
-                        +userAddRecord('userAddRecord__blog', userAddRecord.b)
-                    .docs_row
-                        +userAddRecord('userAddRecord__add', userAddRecord.c)
             .docs
                 .docs_desc
                     h2.docs_h2 Поиск 
                 .docs_example.docs_example__indents
                     .docs_row
-                        +sidebar-search('', {placeholder: 'Введите текст'})
-                    .docs_row
-                        .b-main.clearfix
-                            .b-main_col-1
-                                +sidebar-search('', {placeholder: 'Поиск'})
-                    .docs_row
-                        .b-main.clearfix
-                            .b-main_col-1
-                                +sidebar-search('sidebar-search__big', {placeholder: 'Поиск'})
-
-    .docs
-        .layout-wrapper
-            .layout-wrapper_hold
+                        +sidebarSearch('sidebar-search__big', sidebarSearch.a)
+            .docs
                 .docs_desc
-                    h2.docs_h2 Шапка 
-                    p Выпадающее окно из аватара в шапке
+                    h2.docs_h2 Добавление записи
                 .docs_example.docs_example__indents
-                    +header-drop('position-rel display-b')
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-                    br
-        .docs_example
-            +header()
-        .docs_example
-            +header__small('', {emplty: ''})
-        .docs_example
-            +header-fix('header-fix__rel')
-
-    //- .layout-wrapper
-    //-     .layout-wrapper_hold
-            
- 
+                    .docs_row 
+                        +userAddRecord('', userAddRecord.a) 
+            .docs
+                .docs_desc
+                    h2.docs_h2 Список лайков статьи 
+                .docs_example.docs_example__indents
+                    .docs_row
+                        +articleUsers()
+            .docs
+                .docs_desc
+                    h2.docs_h2 Пагинация
+                .docs_example.docs_example__indents
+                    .docs_row
+                        +pagination()
+                    .docs_row
+                        +paginationAll()
+            .docs
+                .docs_desc
+                    h2.docs_h2 Баннеры
+                .docs_example.docs_example__indents
+                    .docs_row
+                        +banReadMore()
+    +layout-footer-lite()

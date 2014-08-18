@@ -4,7 +4,7 @@
     vars
 mixin headerGuest(mod, vars)
     // header
-    header.header(class=mod)
+    header.header.header__guest(class=mod)
         .header_hold.clearfix
             .header-login
                 a(href="#loginWidget", class="header-login_a popup-a") Вход
@@ -12,17 +12,163 @@ mixin headerGuest(mod, vars)
             +logo()
             // header-menu
             .header-menu
+                // js улучшить. Закрывать попап при клике не на нем.
+                script.
+                    $(document).ready(function () {
+                      $('a.header-menu_a').on('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            var $this = $(this),
+                                activeClass = 'active';
+
+                            var $currentPopup =  $this.siblings('div.header-popup');
+
+                            $this
+                              .parent()
+                                .toggleClass(activeClass)
+                                .siblings()
+                                  .removeClass(activeClass);
+
+                            $this
+                              .children('span.header-menu_count:visible')
+                              .hide();
+
+                            $(document).on('click', function() {
+                                $('li.header-menu_li').removeClass(activeClass);
+                                $(this).unbind();
+                                $currentPopup.unbind();
+                            });
+
+                            $currentPopup.on('click', function (e) {
+                              e.stopPropagation();
+                            });
+                          });
+                      });
                 ul.header-menu_ul.clearfix
                     li.header-menu_li
-                        a.header-menu_a(href='')
+                        a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__giraffe
                             span.header-menu_tx
                                 | Мой Жираф
+                            span.header-menu_count 1
+                        // Конверсионный попап
+                        .header-popup.header-popup__club
+                            .header-popup_hold
+                                .header-popup_t Вступайте в разные клубы на Веселом жирафе!
+                                .header-popup_club
+                                    // 18 клубов
+                                    .b-clubs
+                                        ul.b-clubs_ul
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__1
+                                                    .b-clubs_tx Планирование
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__2
+                                                    .b-clubs_tx Беременность и роды
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__3
+                                                    .b-clubs_tx Дети до года
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__4
+                                                    .b-clubs_tx Дети старше года
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__5
+                                                    .b-clubs_tx Дошкольники
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__6
+                                                    .b-clubs_tx Школьники
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__7
+                                                    .b-clubs_tx Готовим на кухне
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__8
+                                                    .b-clubs_tx Ремонт в доме
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__9
+                                                    .b-clubs_tx Домашние хлопоты
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__10
+                                                    .b-clubs_tx Сад и огород
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__11
+                                                    .b-clubs_tx Наши питомцы
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__12
+                                                    .b-clubs_tx Красота и мода
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__13
+                                                    .b-clubs_tx Наше здоровье
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__14
+                                                    .b-clubs_tx Свадьба
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__15
+                                                    .b-clubs_tx Отношения в семье
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__16
+                                                    .b-clubs_tx Рукоделие
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__17
+                                                    .b-clubs_tx Цветы в доме
+                                            li.b-clubs_li
+                                                a.b-clubs_a(href="#")
+                                                    .ico-club.ico-club__18
+                                                    .b-clubs_tx Наш автомобиль
+                                        //- li.b-clubs_li
+                                            a.b-clubs_a(href="#")
+                                                .ico-club.ico-club__19
+                                                .b-clubs_tx Мы путешествуем
+
+                                .header-popup_b.clearfix
+                                    .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
+                                    .header-popup_b-l
+                                        span.header-popup_b-tx Начните прямо сейчас с помощью
+
+                                        .ico-social-hold
+                                            a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                            a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
+                        // /Конверсионный попап
+                    // Класс active отвечает за видимость попапапа
                     li.header-menu_li
-                        a.header-menu_a(href='')
+                        a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__im
                             span.header-menu_tx
                                 | вам письмо
+                            span.header-menu_count 1
+                        // Конверсионный попап
+                        .header-popup.header-popup__msg
+                            .header-popup_hold
+                                .header-popup_t Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!
+                                .header-popup_msg
+
+                                .header-popup_b.clearfix
+                                    .header-popup_btn.btn.btn-success.btn-xl Присоединяйтесь!
+                                    .header-popup_b-l
+                                        span.header-popup_b-tx Начните прямо сейчас с помощью
+
+                                        .ico-social-hold
+                                            a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                            a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
+                        // /Конверсионный попап
+
 
             // /header-menu
             - if (vars.nosearch != true)
@@ -47,10 +193,10 @@ mixin headerTitle(mod, vars)
     header.header.header__title(class=mod)
         .header_hold.clearfix
             .header_title
-                a.header_arrow-l(href="")
+                a.header_arrow-l(href='#')
                 +ava('ava__small ava__female', ava.a)
                 h1.header_title-tx 
-                    a.header_title-a(href="") Банановая выпечка: 5 рецептов
+                    a.header_title-a(href='#') Банановая выпечка: 5 рецептов
     // /header
 
 
@@ -61,61 +207,61 @@ mixin header-drop(mod, vars)
         .header-menu.clearfix
             ul.header-menu_ul
                 li.header-menu_li
-                    a.header-menu_a(href='')
+                    a.header-menu_a(href='#')
                         span.header-menu_ico.header-menu_ico__profile
                             +ava('ava__small ava__male', avaVarsSpan)
                         span.header-menu_tx Анкета
                 li.header-menu_li
-                    a.header-menu_a(href='')
+                    a.header-menu_a(href='#')
                         span.header-menu_ico.header-menu_ico__family
                         span.header-menu_tx Семья
                 li.header-menu_li
-                    a.header-menu_a(href='')
+                    a.header-menu_a(href='#')
                         span.header-menu_ico.header-menu_ico__blog
                         span.header-menu_tx Блог
                 li.header-menu_li
-                    a.header-menu_a(href='')
+                    a.header-menu_a(href='#')
                         span.header-menu_ico.header-menu_ico__photo
                         span.header-menu_tx Фото
                 li.header-menu_li
-                    a.header-menu_a(href='')
+                    a.header-menu_a(href='#')
                         span.header-menu_ico.header-menu_ico__favorite
                         span.header-menu_tx Избранное
                 li.header-menu_li
-                    a.header-menu_a(href='')
+                    a.header-menu_a(href='#')
                         span.header-menu_ico.header-menu_ico__settings
                         span.header-menu_tx Настройки
                 li.header-menu_li
-                    a.header-menu_a(href='')
+                    a.header-menu_a(href='#')
                         span.header-menu_ico.header-menu_ico__logout
                         span.header-menu_tx
         // header-drop_b
         .header-drop_b
                 .float-r.margin-t3
-                    a(href='') Жираф рекомендует
+                    a(href='#') Жираф рекомендует
                 .heading-small
                     | Мои клубы 
                     span.color-gray  (5)
                 .club-list.club-list__small.clearfix
                     ul.club-list_ul.clearfix
                         li.club-list_li
-                            a.club-list_i(href='')
+                            a.club-list_i(href='#')
                                 span.club-list_img-hold
                                     img.club-list_img(src='/images/club/2-w50.png', alt='')
                         li.club-list_li
-                            a.club-list_i(href='')
+                            a.club-list_i(href='#')
                                 span.club-list_img-hold
                                     img.club-list_img(src='/images/club/5-w50.png', alt='')
                         li.club-list_li
-                            a.club-list_i(href='')
+                            a.club-list_i(href='#')
                                 span.club-list_img-hold
                                     img.club-list_img(src='/images/club/7-w50.png', alt='')
                         li.club-list_li
-                            a.club-list_i(href='')
+                            a.club-list_i(href='#')
                                 span.club-list_img-hold
                                     img.club-list_img(src='/images/club/8-w50.png', alt='')
                         li.club-list_li
-                            a.club-list_i(href='')
+                            a.club-list_i(href='#')
                                 span.club-list_img-hold
                                     img.club-list_img(src='/images/club/9-w50.png', alt='')
         // /header-drop_b
@@ -128,48 +274,48 @@ mixin header-drop(mod, vars)
         drop    active
 mixin header(mod, vars)
     // header
-    .header(class=mod)
+    .header.header__user(class=mod)
         .header_hold.clearfix
             +logo()
             // header-menu
             .header-menu
                 ul.header-menu_ul.clearfix
                     li.header-menu_li
-                        a.header-menu_a(href='')
+                        a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__broadcast
                             span.header-menu_tx
                                 | Прямой эфир
                     li.header-menu_li
-                        a.header-menu_a(href='')
+                        a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__giraffe
                             span.header-menu_tx
                                 | Мой Жираф
                     li.header-menu_li
-                        a.header-menu_a(href='')
+                        a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__im
                             span.header-menu_tx
                                 | Диалоги
                             span.header-menu_count 25456
                     li.header-menu_li
-                        a.header-menu_a(href='')
+                        a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__friend
                             span.header-menu_tx
                                 | Друзья
                             span.header-menu_count 2
                     li.header-menu_li.active
-                        a.header-menu_a(href='')
+                        a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__notice
                             span.header-menu_tx
                                 | Сигналы
                             span.header-menu_count 2
                     li.header-menu_li
-                        a.header-menu_a(href='')
+                        a.header-menu_a(href='#')
                             span.header-menu_ico.header-menu_ico__award
                             span.header-menu_tx
                                 | Успехи
                     li.header-menu_li.header-menu_li__dropin
-                        a.header-menu_a(href='')
-                            +ava("ava__middle ava__female", ava.a)
+                        a.header-menu_a(href='#')
+                            +ava("ava__middle ava__female", avaVarsSpan)
                             span.header-menu_tx Я
                                 span.header_i-arrow
                         +header-drop()
@@ -178,3 +324,117 @@ mixin header(mod, vars)
 
 //- 
 
+
+
+//- Фиксировання шапка
+//- 
+    mod     __rel
+mixin header-fix(mod)
+    // header-fix
+    script.
+        $(document).ready(function () {
+            $(window).on('scroll',function () {
+                var contanerScroll = $(window).scrollTop();
+                var header = $('.layout-header');
+                console.log(header.height());
+                if (contanerScroll > header.height() + header.offset().top) {
+                    $('.header-fix').fadeIn(400);
+                } else {
+                    $('.header-fix').fadeOut(400);
+                }
+            });
+        });
+    .header-fix(class=mod)
+        .header-fix_hold.clearfix
+            a.header-fix_logo(href='#')
+            .header-fix_dropin
+                a.header-fix_dropin-a(href='#')
+                    +ava('ava__middle ava__female', avaVarsSpan)
+                    span.header_i-arrow
+                // header-drop
+                .header-drop
+                    .header-menu.clearfix
+                        ul.header-menu_ul
+                            li.header-menu_li
+                                a.header-menu_a(href='#')
+                                    span.header-menu_ico.header-menu_ico__profile
+                                        +ava('ava__small ava__male', avaVarsSpan)
+                                    span.header-menu_tx Анкета
+                            li.header-menu_li
+                                a.header-menu_a(href='#')
+                                    span.header-menu_ico.header-menu_ico__family
+                                    span.header-menu_tx Семья
+                            li.header-menu_li
+                                a.header-menu_a(href='#')
+                                    span.header-menu_ico.header-menu_ico__blog
+                                    span.header-menu_tx Блог
+                            li.header-menu_li
+                                a.header-menu_a(href='#')
+                                    span.header-menu_ico.header-menu_ico__photo
+                                    span.header-menu_tx Фото
+                            li.header-menu_li
+                                a.header-menu_a(href='#')
+                                    span.header-menu_ico.header-menu_ico__favorite
+                                    span.header-menu_tx Избранное
+                            li.header-menu_li
+                                a.header-menu_a(href='#')
+                                    span.header-menu_ico.header-menu_ico__settings
+                                    span.header-menu_tx Настройки
+                            li.header-menu_li
+                                a.header-menu_a(href='#')
+                                    span.header-menu_ico.header-menu_ico__logout
+                                    span.header-menu_tx
+                    // header-drop_b
+                    .header-drop_b
+                            .float-r.margin-t3
+                                a(href='#') Жираф рекомендует
+                            .heading-small
+                                | Мои клубы 
+                                span.color-gray  (5)
+                            .club-list.club-list__small.clearfix
+                                ul.club-list_ul.clearfix
+                                    li.club-list_li
+                                        a.club-list_i(href='#')
+                                            span.club-list_img-hold
+                                                img.club-list_img(src='/images/club/2-w50.png', alt='')
+                                    li.club-list_li
+                                        a.club-list_i(href='#')
+                                            span.club-list_img-hold
+                                                img.club-list_img(src='/images/club/5-w50.png', alt='')
+                                    li.club-list_li
+                                        a.club-list_i(href='#')
+                                            span.club-list_img-hold
+                                                img.club-list_img(src='/images/club/7-w50.png', alt='')
+                                    li.club-list_li
+                                        a.club-list_i(href='#')
+                                            span.club-list_img-hold
+                                                img.club-list_img(src='/images/club/8-w50.png', alt='')
+                                    li.club-list_li
+                                        a.club-list_i(href='#')
+                                            span.club-list_img-hold
+                                                img.club-list_img(src='/images/club/9-w50.png', alt='')
+                    // /header-drop_b
+                // /header-drop 
+            .header-fix-menu
+                ul.header-menu_ul.clearfix
+                    li.header-fix-menu_li
+                        a.header-fix-menu_a(href='#')
+                            span.header-fix-menu_tx прямой эфир
+                    li.header-fix-menu_li.active
+                        a.header-fix-menu_a(href='#')
+                            span.header-fix-menu_tx мой жираф
+                            span.header-fix-menu_count 256
+                    li.header-fix-menu_li
+                        a.header-fix-menu_a(href='#')
+                            span.header-fix-menu_tx диалоги
+                    li.header-fix-menu_li
+                        a.header-fix-menu_a(href='#')
+                            span.header-fix-menu_tx друзья
+                            span.header-fix-menu_count 2
+                    li.header-fix-menu_li
+                        a.header-fix-menu_a(href='#')
+                            span.header-fix-menu_tx сигналы
+                    li.header-fix-menu_li
+                        a.header-fix-menu_a(href='#')
+                            span.header-fix-menu_tx успехи
+    // /header-fix

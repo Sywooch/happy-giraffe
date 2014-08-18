@@ -1,0 +1,49 @@
+
+/* privacy-select */
+.privacy-select {
+    position: relative;
+
+    &_tx {
+        .inline-block();
+        vertical-align: middle;
+        padding: 3px 0 0 0;
+        font-size: 13px;
+        color: #418ac1;
+    }
+    &_drop-hold {
+        .inline-block();
+        position: relative;
+        padding: 0 5px 0 0;
+        background: url(/images/privacy-select_drop-hold.png) no-repeat 100% 50%;
+    }
+
+    &_drop {
+        position: absolute;
+        left: 56px;
+        bottom: 100%;
+        width: 118px;
+        border: 1px solid #dcecf6;
+        background: #fff;
+        text-align: left;
+        z-index: 500;
+        display: none;
+        .border-radius(3px);
+    }
+    &_drop &_a:hover {background: #eff8ff;}
+    &_a {
+        display: block;
+        padding: 5px 10px 5px 5px;
+        font: 10px/10px Tahoma, Arial, Verdana, sans-serif;
+        color: #6b6b6b;
+        text-decoration: none;
+    }
+    &_a:hover { color: #3d3d3d; }
+    &_a:hover .ico-users__all {background-position: 0 -30px;}
+    &_a:hover .ico-users__friend {background-position: -40px -30px;}
+    &_a-tx {
+        .inline-block();
+        vertical-align: middle;
+        margin-top: -3px;
+    }
+}
+/* /privacy-select */

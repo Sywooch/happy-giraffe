@@ -25,7 +25,7 @@ class DefaultController extends \LiteController
         ), 'created', array(
             'pagination' => array(
                 'pageVar' => 'page',
-                'pageSize' => 10,
+                'pageSize' => YII_DEBUG ? 10 : 100,
             ),
         ));
 

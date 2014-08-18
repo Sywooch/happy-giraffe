@@ -14,8 +14,7 @@ class LitePager extends CLinkPager
 
     public function init()
     {
-        $this->appendTitle();
-        $this->appendDescription();
+        $this->appendSeo();
         $this->setLinks();
 
         parent::init();
@@ -47,17 +46,14 @@ class LitePager extends CLinkPager
     }
 
 
-    protected function appendTitle()
+    protected function appendSeo()
     {
         if ($this->currentPage != 0) {
-            Yii::app()->controller->pageTitle .= ', страница ' . ($this->currentPage + 1);
-        }
-    }
-
-    protected function appendDescription()
-    {
-        if (! empty(Yii::app()->controller->meta_description)) {
-            Yii::app()->controller->meta_description .= ', страница ' . ($this->currentPage + 1);
+            $appendix = ', страница ' . ($this->currentPage + 1);
+            Yii::app()->controller->pageTitle .= $appendix;
+            if (! empty(Yii::app()->controller->meta_description)) {
+                Yii::app()->controller->meta_description .= $appendix;
+            }
         }
     }
 

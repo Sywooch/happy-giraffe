@@ -84,7 +84,7 @@
                         <li class="footer-menu_li"><a href="<?=$this->createUrl('/community/default/section', array('section_id' => 6))?>" class="footer-menu_a footer-menu_a__family-holiday">Отдых</a></li>
                     </ul>
                     <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
-                    <div class="layout-footer_privacy-hold"><span class="layout-footer_privacy">Политика конфедициальности</span></div>
+                    <div class="layout-footer_privacy-hold"><span class="layout-footer_privacy">Политика конфедициальности</span><?php if ($this->route != 'archive/default/map'): ?><br><a href="<?=$this->createUrl('/archive/default/map')?>" class="layout-footer_privacy">Карта сайта</a><?php endif; ?></div>
                 </div>
             </div>
             <!-- /layout-footer-->

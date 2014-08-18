@@ -13,6 +13,7 @@ class LiteController extends HController
     public function init()
     {
         header('Vary: User-Agent');
+        $this->dnsPrefetch();
         parent::init();
     }
 
@@ -35,5 +36,16 @@ class LiteController extends HController
 
             return true;
         }
+    }
+
+    protected function dnsPrefetch()
+    {
+        /**
+         * @var ClientScript $cs
+         */
+        $cs = Yii::app()->clientScript;
+        $cs->registerMetaTag('on', null, 'x-dns-prefetch-control');
+        $cs->registerLinkTag('dns-prefetch', null, '//plexor.www.happy-giraffe.ru');
+        $cs->registerLinkTag('dns-prefetch', null, '//img.happy-giraffe.ru');
     }
 } 

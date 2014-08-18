@@ -23,8 +23,10 @@ class ArchiveUrlRule extends \CBaseUrlRule
             unset($params['month']);
             unset($params['day']);
 
+            $url .= $manager->urlSuffix;
+
             if (! empty($params)) {
-                $url .= $manager->urlSuffix . '?' . $manager->createPathInfo($params, '=', $ampersand);
+                $url .= '?' . $manager->createPathInfo($params, '=', $ampersand);
             }
             return $url;
         }

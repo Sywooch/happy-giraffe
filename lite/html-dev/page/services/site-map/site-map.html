@@ -41,10 +41,36 @@
               <!-- js улучшить. Закрывать попап при клике не на нем.-->
               <script>
                 $(document).ready(function () {
-                    $('.header-menu_a').click(function () {
-                        var c = $(this).parents('.header-menu_li').toggleClass('active');
-                    });
-                });
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        var $this = $(this),
+                            activeClass = 'active';
+                            
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                        
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                              
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                          
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                        
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                  });
+                  });
               </script>
               <ul class="header-menu_ul clearfix">
                 <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
@@ -176,7 +202,7 @@
                 <div class="clearfix">
                   <div class="site-map_col-sub">
                     <div class="site-map_section">
-                      <div class="site-map_i"><a href="#" class="site-map_a site-map_a__pregnancy">Беременность и дети</a></div>
+                      <h3 class="site-map_i"><a href="#" class="site-map_a site-map_a__pregnancy">Беременность и дети</a></h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light fontweight-b">Планирование</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light">Планируем ребенка</a></li>
@@ -205,7 +231,7 @@
                       </ul>
                     </div>
                     <div class="site-map_section">
-                      <div class="site-map_i"><a href="#" class="site-map_a site-map_a__beauty">Красота и здоровье</a></div>
+                      <h3 class="site-map_i"><a href="#" class="site-map_a site-map_a__beauty">Красота и здоровье</a></h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light fontweight-b">Красота и мода</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light">Красота</a></li>
@@ -217,7 +243,7 @@
                   </div>
                   <div class="site-map_col-sub">
                     <div class="site-map_section">
-                      <div class="site-map_i"><a href="#" class="site-map_a site-map_a__home">Наш дом</a></div>
+                      <h3 class="site-map_i"><a href="#" class="site-map_a site-map_a__home">Наш дом</a></h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light fontweight-b">Готовим на кухне</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light">Рецепты для взрослых</a></li>
@@ -231,7 +257,7 @@
                       </ul>
                     </div>
                     <div class="site-map_section">
-                      <div class="site-map_i"><a href="#" class="site-map_a site-map_a__husband-and-wife">Муж и жена</a></div>
+                      <h3 class="site-map_i"><a href="#" class="site-map_a site-map_a__husband-and-wife">Муж и жена</a></h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light fontweight-b">Свадьба</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light">Планируем свадьбу</a></li>
@@ -240,7 +266,7 @@
                       </ul>
                     </div>
                     <div class="site-map_section">
-                      <div class="site-map_i"><a href="#" class="site-map_a site-map_a__hobby">Интересы и увлечения</a></div>
+                      <h3 class="site-map_i"><a href="#" class="site-map_a site-map_a__hobby">Интересы и увлечения</a></h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light fontweight-b">Рукоделие</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light">Своими руками</a></li>
@@ -252,7 +278,7 @@
                       </ul>
                     </div>
                     <div class="site-map_section">
-                      <div class="site-map_i"><a href="#" class="site-map_a site-map_a__family-holiday">Семейный отдых</a></div>
+                      <h3 class="site-map_i"><a href="#" class="site-map_a site-map_a__family-holiday">Семейный отдых</a></h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light fontweight-b">Мы путешествуем</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light">Путешествия семьей</a></li>
@@ -266,9 +292,9 @@
                 <div class="clearfix">
                   <div class="site-map_col-sub">
                     <div class="site-map_section">
-                      <div class="site-map_i">
+                      <h3 class="site-map_i">
                         <div class="site-map_i-tx">для беременных</div>
-                      </div>
+                      </h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light">Календарь беременности</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light">Выбор имени ребенка</a></li>
@@ -293,9 +319,9 @@
                       </ul>
                     </div>
                     <div class="site-map_section">
-                      <div class="site-map_i">
+                      <h3 class="site-map_i">
                         <div class="site-map_i-tx">для мам</div>
-                      </div>
+                      </h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light">Календарь развития ребенка</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light">В норме ли пупок у ребенка</a></li>
@@ -306,9 +332,9 @@
                       </ul>
                     </div>
                     <div class="site-map_section">
-                      <div class="site-map_i">
+                      <h3 class="site-map_i">
                         <div class="site-map_i-tx">по здоровью</div>
-                      </div>
+                      </h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light">Народные рецепты</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light">Справочник детских болезней</a></li>
@@ -317,9 +343,9 @@
                   </div>
                   <div class="site-map_col-sub">
                     <div class="site-map_section">
-                      <div class="site-map_i">
+                      <h3 class="site-map_i">
                         <div class="site-map_i-tx">для кулинаров</div>
-                      </div>
+                      </h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light">Кулинарные рецепты</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light">Рецепты для мультиварки</a></li>
@@ -331,9 +357,9 @@
                       </ul>
                     </div>
                     <div class="site-map_section">
-                      <div class="site-map_i">
+                      <h3 class="site-map_i">
                         <div class="site-map_i-tx">для ремонта</div>
-                      </div>
+                      </h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light disabled">Расчет объема краски</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light disabled">Расчет плитки для ванной</a></li>
@@ -343,9 +369,9 @@
                       </ul>
                     </div>
                     <div class="site-map_section">
-                      <div class="site-map_i">
+                      <h3 class="site-map_i">
                         <div class="site-map_i-tx">для рукодельниц</div>
-                      </div>
+                      </h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light disabled">Калькулятор ткани</a></li>
                         <li class="menu-simple_li"><a href="#" class="a-light disabled">Калькулятор петель</a></li>
@@ -355,9 +381,9 @@
                       </ul>
                     </div>
                     <div class="site-map_section">
-                      <div class="site-map_i">
+                      <h3 class="site-map_i">
                         <div class="site-map_i-tx">для автолюбителей</div>
-                      </div>
+                      </h3>
                       <ul class="menu-simple">
                         <li class="menu-simple_li"><a href="#" class="a-light">Маршруты</a></li>
                       </ul>

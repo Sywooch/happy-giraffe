@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/services.css' />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -22,6 +22,8 @@
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__bg1 body__lite">
   <div class="layout-container">
@@ -184,99 +186,58 @@
               <div class="b-crumbs_tx">Я здесь:</div>
               <ul class="b-crumbs_ul">
                 <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная </a></li>
-                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Маршруты</span></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Календарь беременности </a></li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">3 неделя беременности </span></li>
               </ul>
             </div>
           </div>
-          <!-- Маршруты-->
-          <div class="map-route">
-            <!-- Заголовок-->
+          <div class="b-main_cont">
+            <div class="b-main_col-wide">   
+              <h1 class="heading-link-xxl heading-link-xxl__center">3 неделя беременности</h1>
+            </div>
+          </div>
+          <div class="b-main_row b-main_row__blue-light">
             <div class="b-main_cont">
-              <div class="b-main_col-hold clearfix">
-                <div class="heading-h1-hold">
-                  <h1 class="heading-link-xxl">Составь маршрут для автомобиля</h1>
-                </div>
+              <div class="b-main_col-article b-main_col-article__center">
+                <p class="a-span">Третья неделя беременности, это, по своей сути – первая неделя беременности, как таковой. Однако, чтобы не путаться, будем придерживаться общепринятой системы.</p>
               </div>
             </div>
-            <!-- Форма поиска маршрута-->
-            <div class="map-route-f map-route-f__main">
-              <div class="map-route-f_desc">Собираясь в поездку на автомобиле очень важно грамотно проложить маршрут следования и просчитать его мельчайшие нюансы. Прежде чем отправляться в путь узнайте, как доехать до намеченного пункта, сколько километров вам предстоит преодолеть и какое количество времени это займет. С полной информацией о дорогах, картах и пробках на пути следования ваша поездка будет безопасной и интересной. Пользуйтесь нашим сервисом “Маршруты” и путешествуйте на автомобиле с удовольствием!</div>
-              <div class="map-route-f_hold">
-                <div class="map-route-f_i">
-                  <input type="text" name="" placeholder="Откуда" class="itx-simple map-route-f_inp map-route-f_inp__a">
-                </div>
-                <div class="map-route-f_revers"></div>
-                <div class="map-route-f_i">
-                  <input type="text" name="" placeholder="Куда" class="itx-simple map-route-f_inp map-route-f_inp__b">
-                </div>
-                <div class="map-route-f_btn-hold"><a href="#" class="btn btn-success btn-xm">Проложить маршрут</a></div>
+          </div>
+          <div class="b-main_cont">
+            <div class="b-main_col-article b-main_col-article__center">
+              <div class="wysiwig-content">
+                <h2 class="heading-m">Зигота</h2>
+                <p>После слияния со сперматозоидом, яйцеклетка, ещё в маточной трубе, по пути в матку начинает делиться. Теперь это зигота – скопление клеток, именно она попадает обычно в полость матки. Зигота как бы приклеивается к эндометрию. Начинается процесс имплантации – оплодотворенная яйцеклетка внедряется в маточную стенку. При этом её наружная оболочка как бы прорастает в стенку матки, начинают формироваться сосуды, которые будут питать развивающийся организм. Теперь он, кстати, называется эмбрионом и его вес к концу третьей недели составляет менее трети грамма.</p>
               </div>
             </div>
-            <!-- Иконки описания сервиса-->
-            <div class="map-route-desc">
-              <ul class="map-route-desc_ul clearfix">
-                <li class="map-route-desc_li clearfix">
-                  <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-1.jpg" alt=""></div><strong class="map-route-desc_t">Расчет<br>расстояния</strong>
-                  <div class="map-route-desc_tx">Узнавайте, сколько километров вам предстоит преодолеть</div>
-                </li>
-                <li class="map-route-desc_li clearfix">
-                  <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-2.jpg" alt=""></div><strong class="map-route-desc_t">Время<br>в пути</strong>
-                  <div class="map-route-desc_tx">Уточняйте время,<br>проведенное в пути</div>
-                </li>
-                <li class="map-route-desc_li clearfix">
-                  <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-3.jpg" alt=""></div><strong class="map-route-desc_t">Промежуточные<br>пункты маршрута</strong>
-                  <div class="map-route-desc_tx">Смотрите населенные пункты<br>на пути следования маршрута</div>
-                </li>
-                <li class="map-route-desc_li clearfix">
-                  <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-4.jpg" alt=""></div><strong class="map-route-desc_t">Расход<br>бензина</strong>
-                  <div class="map-route-desc_tx">Считайте, сколько бензина<br>вам понадобится для поездки</div>
-                </li>
-              </ul>
-            </div>
-            <!-- Иконки описания сервиса-->
+          </div>
+          <div class="b-main_row b-main_row__pink-lite">
             <div class="b-main_cont">
-              <!-- Алфавит-->
-              <div class="map-route-abc">
-                <h3 class="map-route-abc_t">Поиск маршрутов по городу</h3>
-                <ul class="map-route-abc_ul">
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">А</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Б</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">В</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Г</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Д</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Е</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ё</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ж</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">З</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">И</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Й</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Е</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">К</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Л</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">М</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Н</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">О</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">П</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Р</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">С</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Т</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">У</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ф</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Х</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ц</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ч</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ш</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Щ</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ы</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Э</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ю</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Я</a></li>
+              <div class="b-main_col-article b-main_col-article__center">
+                <h2>На 3 неделе беременности</h2>
+                <ul>
+                  <li>Начинается первая неделя фактической</li>
+                  <li>
+                    беременности
+                    Оплодотворенная яйцеклетка внедряется в стенку матки
+                    Формируется эмбрион, который к концу недели весит
+                    меньше трети грамма
+                    Базальная температура стойко держится
+                    выше 37 градусов по Цельсию
+                    <40>% беременностей самопроизвольно прерываются</40>именно на этом сроке
+                    Аптечный тест на беременность - отрицательный
+                  </li>
                 </ul>
               </div>
-              <!-- /Алфавит-->
             </div>
           </div>
-          <!-- /Маршруты-->
+          <div class="b-main_cont">
+            <div class="conv-pregnancy visible-md-block">
+              <div class="conv-pregnancy_hold">
+                <div class="conv-pregnancy_tx">Здесь вы можете узнать тысячи советов по беременности, и услышать реальные истории других будущих мам. Вы не одиноки. </div><a href="#" class="btn btn-success btn-xl">Присоединяйтесь!</a>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- b-main -->
         <!-- layout-footer-->

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/services.css' />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -22,6 +22,8 @@
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__bg1 body__lite">
   <div class="layout-container">
@@ -184,99 +186,104 @@
               <div class="b-crumbs_tx">Я здесь:</div>
               <ul class="b-crumbs_ul">
                 <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная </a></li>
-                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Маршруты</span></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Календарь беременности </a></li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Вашему ребенку 5 месяцев </span></li>
               </ul>
             </div>
           </div>
-          <!-- Маршруты-->
-          <div class="map-route">
-            <!-- Заголовок-->
-            <div class="b-main_cont">
-              <div class="b-main_col-hold clearfix">
-                <div class="heading-h1-hold">
-                  <h1 class="heading-link-xxl">Составь маршрут для автомобиля</h1>
-                </div>
-              </div>
-            </div>
-            <!-- Форма поиска маршрута-->
-            <div class="map-route-f map-route-f__main">
-              <div class="map-route-f_desc">Собираясь в поездку на автомобиле очень важно грамотно проложить маршрут следования и просчитать его мельчайшие нюансы. Прежде чем отправляться в путь узнайте, как доехать до намеченного пункта, сколько километров вам предстоит преодолеть и какое количество времени это займет. С полной информацией о дорогах, картах и пробках на пути следования ваша поездка будет безопасной и интересной. Пользуйтесь нашим сервисом “Маршруты” и путешествуйте на автомобиле с удовольствием!</div>
-              <div class="map-route-f_hold">
-                <div class="map-route-f_i">
-                  <input type="text" name="" placeholder="Откуда" class="itx-simple map-route-f_inp map-route-f_inp__a">
-                </div>
-                <div class="map-route-f_revers"></div>
-                <div class="map-route-f_i">
-                  <input type="text" name="" placeholder="Куда" class="itx-simple map-route-f_inp map-route-f_inp__b">
-                </div>
-                <div class="map-route-f_btn-hold"><a href="#" class="btn btn-success btn-xm">Проложить маршрут</a></div>
-              </div>
-            </div>
-            <!-- Иконки описания сервиса-->
-            <div class="map-route-desc">
-              <ul class="map-route-desc_ul clearfix">
-                <li class="map-route-desc_li clearfix">
-                  <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-1.jpg" alt=""></div><strong class="map-route-desc_t">Расчет<br>расстояния</strong>
-                  <div class="map-route-desc_tx">Узнавайте, сколько километров вам предстоит преодолеть</div>
-                </li>
-                <li class="map-route-desc_li clearfix">
-                  <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-2.jpg" alt=""></div><strong class="map-route-desc_t">Время<br>в пути</strong>
-                  <div class="map-route-desc_tx">Уточняйте время,<br>проведенное в пути</div>
-                </li>
-                <li class="map-route-desc_li clearfix">
-                  <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-3.jpg" alt=""></div><strong class="map-route-desc_t">Промежуточные<br>пункты маршрута</strong>
-                  <div class="map-route-desc_tx">Смотрите населенные пункты<br>на пути следования маршрута</div>
-                </li>
-                <li class="map-route-desc_li clearfix">
-                  <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-4.jpg" alt=""></div><strong class="map-route-desc_t">Расход<br>бензина</strong>
-                  <div class="map-route-desc_tx">Считайте, сколько бензина<br>вам понадобится для поездки</div>
-                </li>
-              </ul>
-            </div>
-            <!-- Иконки описания сервиса-->
-            <div class="b-main_cont">
-              <!-- Алфавит-->
-              <div class="map-route-abc">
-                <h3 class="map-route-abc_t">Поиск маршрутов по городу</h3>
-                <ul class="map-route-abc_ul">
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">А</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Б</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">В</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Г</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Д</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Е</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ё</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ж</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">З</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">И</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Й</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Е</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">К</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Л</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">М</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Н</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">О</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">П</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Р</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">С</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Т</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">У</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ф</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Х</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ц</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ч</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ш</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Щ</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ы</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Э</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ю</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Я</a></li>
-                </ul>
-              </div>
-              <!-- /Алфавит-->
+          <div class="b-main_cont">
+            <div class="b-main_col-wide">   
+              <h1 class="heading-link-xxl heading-link-xxl__center">Календарь беременности</h1>
             </div>
           </div>
-          <!-- /Маршруты-->
+          <div class="b-main_row b-main_row__blue-light">
+            <div class="b-main_cont">
+              <div class="b-main_col-wide">
+                <p class="a-span">Наш календарь является отличным инструментом, который позволяет отслеживать вашу беременность шаг за шагом, неделя за неделей. С помощью его вы узнаете, когда сможете почувствовать первый удар вашего малыша, а когда увидеть его на первом снимке в кабинете УЗИ. Вы будете поражены, узнав насколько удивительно это путешествие в 40 недель – от нескольких клеток до полностью сформированного маленького человечка.</p>
+              </div>
+            </div>
+          </div>
+          <div class="b-main_row b-main_row__pink">
+            <div class="b-main_cont">
+              <div class="b-main_col-wide">
+                <h2 class="heading-m textalign-c margin-0">Выберите период вашей беременности</h2>
+              </div>
+            </div>
+          </div>
+          <div class="b-main_row b-main_row__pink-light">
+            <div class="b-main_cont">
+              <!-- Календарь -->
+              <div class="calendar-serv calendar-serv__pink">
+                <div class="calendar-serv_row textalign-c"><a href="#" class="calendar-serv_i w-160">Планирование</a></div>
+                <div class="calendar-serv_row">
+                  <div class="calendar-serv_col-trimester">
+                    <div class="calendar-serv_t">1 триместр </div>
+                    <ul class="calendar-serv_ul clearfix">
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">1 <span class="calendar-serv_desc-hide">неделя  </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">8 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">2 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">9  <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">3 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">10  <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">4 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">11  <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">5 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">12  <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">6 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">13  <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">7 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                    </ul>
+                  </div>
+                  <div class="calendar-serv_col-trimester">
+                    <div class="calendar-serv_t">2 триместр </div>
+                    <ul class="calendar-serv_ul clearfix">
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">14 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">21 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">15 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">22 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">16 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">23 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">17 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">24  <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">18 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">25   <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">19 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">26  <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">20 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                    </ul>
+                  </div>
+                  <div class="calendar-serv_col-trimester">
+                    <div class="calendar-serv_t">3 триместр </div>
+                    <ul class="calendar-serv_ul clearfix">
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">27 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">34 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">28 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">35 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">29 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">36 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">30 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">37 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">31 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">38 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">32 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">39 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">33 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                      <li class="calendar-serv_li calendar-serv_li__50p"><a href="#" class="calendar-serv_i">40 <span class="calendar-serv_desc-hide">неделя </span></a></li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="calendar-serv_row textalign-c"><a href="#" class="calendar-serv_i w-135">Роды</a></div>
+              </div>
+              <!-- Календарь -->
+            </div>
+          </div>
+          <div class="b-main_cont">
+            <div class="conv-pregnancy visible-md-block">
+              <div class="conv-pregnancy_hold">
+                <div class="conv-pregnancy_tx">Здесь вы можете узнать тысячи советов по беременности, и услышать реальные истории других будущих мам. Вы не одиноки. </div><a href="#" class="btn btn-success btn-xl">Присоединяйтесь!</a>
+              </div>
+            </div>
+          </div>
         </div>
         <!-- b-main -->
         <!-- layout-footer-->

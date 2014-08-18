@@ -10,6 +10,7 @@ class LitePager extends CLinkPager
 {
     public $cssFile = false;
     public $header = '';
+    public $maxButtonCount;
 
     public function init()
     {
@@ -35,6 +36,16 @@ class LitePager extends CLinkPager
 
         return $buttons;
     }
+
+    protected function getPageRange()
+    {
+        if ($this->maxButtonCount === null) {
+            return array(0, $this->getPageCount() - 1);
+        } else {
+            return parent::getPageRange();
+        }
+    }
+
 
     protected function appendTitle()
     {

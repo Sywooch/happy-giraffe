@@ -4,6 +4,9 @@ namespace site\frontend\modules\archive\controllers;
 
 class DefaultController extends \LiteController
 {
+    /**
+     * @sitemap
+     */
     public function actionIndex($year, $month, $day)
     {
         $criteria = new \CDbCriteria(array(
@@ -22,7 +25,7 @@ class DefaultController extends \LiteController
         ), 'created', array(
             'pagination' => array(
                 'pageVar' => 'page',
-                'pageSize' => 100,
+                'pageSize' => 10,
             ),
         ));
 
@@ -34,11 +37,14 @@ class DefaultController extends \LiteController
         $this->render('index', compact('dp', 'year', 'month', 'day'));
     }
 
+    /**
+     * @sitemap
+     */
     public function actionMap()
     {
         $sections = \CommunitySection::model()->with('clubs', 'clubs.communities')->findAll(array('index' => 'id'));
 
-        $this->pageTitle = 'Карта сайта';
+        $this->pageTitle = $this->meta_description = 'Карта сайта';
         $this->render('map', compact('sections'));
     }
 }

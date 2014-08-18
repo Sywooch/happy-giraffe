@@ -145,6 +145,9 @@ return array(
         'seo' => array(
             'class' => '\site\frontend\modules\seo\SeoModule',
         ),
+        'archive' => array(
+           'class' => 'site\frontend\modules\archive\ArchiveModule',
+        ),
 	),
 	// application components
 	'components'=>array(
@@ -541,6 +544,7 @@ return array(
 //                    ),
                     'sitemapAll.xml' => array(
                         'aliases' => array(
+                            'application.modules.archive.controllers.DefaultController',
                             'application.controllers.SiteController',
                             'application.modules.services.modules.recipeBook.controllers.DefaultController',
                             'application.modules.services.modules.names.controllers.DefaultController',

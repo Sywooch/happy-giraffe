@@ -44,5 +44,6 @@
 #ya-site-form0 .ya-site-form__submit_type_image:hover {
     background-position: -40px 0;
 }
+#ya-site-form0 .ya-site-suggest-list {text-align: left; background-color: #fff;}
 
 </style>

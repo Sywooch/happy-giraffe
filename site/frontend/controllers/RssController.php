@@ -159,7 +159,7 @@ class RssController extends HController
             if (in_array($user->id, array(10264, 10127, 10378, 23, 12678))) {
                 $sql = "(SELECT community__contents.id, created, 'CommunityContent' AS entity FROM community__contents JOIN community__rubrics ON community__contents.rubric_id = community__rubrics.id WHERE author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0 AND community__rubrics.user_id IS NOT NULL)
                         UNION
-                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id WHERE removed = 0)
+                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id AND removed = 0)
                         UNION
                         (SELECT id, created, 'ContestWork' AS entity FROM contest__works WHERE user_id = :author_id)
                         UNION
@@ -170,7 +170,7 @@ class RssController extends HController
             } else {
                 $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents WHERE author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0)
                         UNION
-                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id WHERE removed = 0)
+                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id AND removed = 0)
                         UNION
                         (SELECT id, created, 'ContestWork' AS entity FROM contest__works WHERE user_id = :author_id)
                         UNION

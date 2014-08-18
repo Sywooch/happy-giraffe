@@ -492,12 +492,12 @@ return array(
                         ),
                         'param' => 1,
                     ),
-                    'sitemapBlog2.xml' => array(
-                        'aliases' => array(
-                            'application.modules.blog.controllers.DefaultController'
-                        ),
-                        'param' => 2,
-                    ),
+//                    'sitemapBlog2.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.blog.controllers.DefaultController'
+//                        ),
+//                        'param' => 2,
+//                    ),
                     'sitemapCook.xml' => array(
                         'aliases' => array(
                             'application.modules.cook.controllers.SpicesController',
@@ -520,13 +520,6 @@ return array(
                         'aliases' => array(
                             'application.modules.profile.controllers.DefaultController',
                         ),
-                        'param' => 1,
-                    ),
-                    'sitemapUsers2.xml' => array(
-                        'aliases' => array(
-                            'application.modules.profile.controllers.DefaultController',
-                        ),
-                        'param' => 2,
                     ),
 //                    'sitemapRoutes2.xml' => array(
 //                        'aliases' => array(

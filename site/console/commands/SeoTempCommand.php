@@ -11,15 +11,39 @@ Yii::import('site.frontend.extensions.GoogleAnalytics');
 
 class SeoTempCommand extends CConsoleCommand
 {
+    protected $ga;
+    protected $patterns = array(
+        '#\/community\/(?:\d+)\/forum\/(?:\w+)\/(\d+)\/$#',
+        '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
+    );
+
+    public function init()
+    {
+        $this->ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
+        $this->ga->setProfile('ga:53688414');
+    }
+
+    protected function getReport($params)
+    {
+        $report = null;
+        while ($report === null) {
+            try {
+                $report = $this->ga->getReport($params);
+            } catch (Exception $e) {
+                echo $e->getMessage() . "\n";
+                echo "waiting...\n";
+                sleep(10);
+            }
+        }
+        return $report;
+    }
+
     protected function getPathes($start, $end, $searchEngine = null)
     {
-        $ga = new GoogleAnalytics('nikita@happy-giraffe.ru', 'ummvxhwmqzkrpgzj');
-        $ga->setProfile('ga:53688414');
-
         $cacheId = 'Yii.seo.paths.' . $start . '.' . $end . '.' . $searchEngine;
         $paths = Yii::app()->cache->get($cacheId);
         if ($paths === false) {
-            $ga->setDateRange($start, $end);
+            $this->ga->setDateRange($start, $end);
             $properties = array(
                 'metrics' => 'ga:entrances',
                 'dimensions' => 'ga:pagePath',
@@ -29,10 +53,256 @@ class SeoTempCommand extends CConsoleCommand
             if ($searchEngine !== null) {
                 $properties['filters'] = 'ga:source=@' . $searchEngine;
             }
-            $paths = $ga->getReport($properties);
+            $paths = $this->ga->getReport($properties);
             Yii::app()->cache->set($cacheId, $paths);
         }
         return $paths;
+    }
+
+    public function actionDumbTest()
+    {
+        $this->ga->setDateRange('2014-06-01', '2014-07-31');
+        $result = $this->ga->getReport(array(
+            'metrics' => 'ga:entrances',
+            'filters' => 'ga:source=@yandex;ga:pagePath==' . urlencode('/community/24/forum/post/71710/'),
+        ));
+
+        var_dump($result);
+    }
+
+    public function actionDumb($file, $from, $to)
+    {
+        $result = array();
+
+        $handle = fopen("$file", "r");
+
+        $time = time();
+        $j = 0;
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            $j++;
+
+            if ($j < $from) {
+                continue;
+            }
+
+            $inserts = array();
+            foreach ($data as $k => $v) {
+                if (strpos($v, 'http://') === 0) {
+                    $dumbData = $this->dumbSingle($v);
+                    $inserts[$k] = $dumbData;
+                }
+            }
+
+            $i = 0;
+            foreach ($inserts as $k => $v) {
+                array_splice($data, $k + 1 + $i * 7, 0, $v);
+                $i++;
+            }
+            $result[] = $data;
+            echo 'string ' . $j . ' - ' . (time() - $time) . "\n";
+
+            if ($j == $to) {
+                break;
+            }
+
+        }
+        fclose($handle);
+
+
+        $this->writeCsv('test', $result);
+    }
+
+    protected function dumbSingle($url)
+    {
+        $path = str_replace('http://www.happy-giraffe.ru', '', $url);
+
+        //$post = $this->getPostByPath($path);
+
+        $googleSummer = $this->dumbSummer($path, 'google');
+        $yandexSummer = $this->dumbSummer($path, 'yandex');
+        $googleTotal = $this->dumbTotal($path, 'google');
+        $yandexTotal = $this->dumbTotal($path, 'yandex');
+        $yandexKeywords = $this->dumbKeywords($path, 'yandex');
+        $googleKeywords = $this->dumbKeywords($path, 'google');
+
+        return array(
+            '',
+            $yandexTotal,
+            $googleTotal,
+            $yandexSummer,
+            $googleSummer,
+            $yandexKeywords,
+            $googleKeywords,
+        );
+    }
+
+    protected function dumbTotal($path, $engine)
+    {
+        $this->ga->setDateRange('2005-01-01', '2014-08-13');
+        $report = $this->getReport(array(
+            'metrics' => 'ga:entrances',
+            'filters' => 'ga:source=@' . $engine . ';ga:pagePath==' . urlencode($path),
+        ));
+
+        return isset($report['']['ga:entrances']) ? $report['']['ga:entrances'] : 0;
+    }
+
+    protected function dumbSummer($path, $engine)
+    {
+        $this->ga->setDateRange('2014-06-01', '2014-07-31');
+        $report = $this->getReport(array(
+            'metrics' => 'ga:entrances',
+            'filters' => 'ga:source=@' . $engine . ';ga:pagePath==' . urlencode($path),
+        ));
+
+        return isset($report['']['ga:entrances']) ? $report['']['ga:entrances'] : 0;
+    }
+
+    protected function dumbKeywords($path, $engine)
+    {
+        $keywords = '';
+
+        $this->ga->setDateRange('2005-01-01', '2014-08-13');
+        $report = $this->getReport(array(
+            'dimensions' => 'ga:keyword',
+            'metrics' => 'ga:entrances',
+            'filters' => 'ga:source=@' . $engine . ';ga:pagePath==' . urlencode($path),
+        ));
+
+        foreach ($report as $keyword => $value) {
+            $keywords .= $keyword . ' - ' . $value['ga:entrances'] . "\n";
+        }
+
+        return $keywords;
+    }
+
+    protected function getPostByPath($path, $condition = '', $params = array())
+    {
+        foreach ($this->patterns as $p) {
+            if (preg_match($p, $path, $matches)) {
+                $id = $matches[1];
+                $post = CommunityContent::model()->findByPk($id, $condition, $params);
+                return $post;
+            }
+        }
+        return null;
+    }
+
+    public function actionEpicfail2()
+    {
+        $result = array();
+
+        $paths1 = $this->getPathes('2014-08-05', '2014-08-05', 'google');
+        $paths2 = $this->getPathes('2014-08-12', '2014-08-12', 'google');
+
+        $paths = array($paths1, $paths2);
+
+        foreach ($paths as $k => $p) {
+            foreach ($p as $path => $value) {
+                if (! isset($result[$path])) {
+                    $result[$path] = array_fill(0, 2, 0);
+                }
+                $result[$path][$k] = $value['ga:entrances'];
+            }
+        }
+
+        $_result = array();
+        foreach ($result as $path => $counts) {
+            if (($counts[1] - $counts[0]) < 0) {
+                continue;
+            }
+
+            $post = $this->getPostByPath($path, array('with' => 'gallery'));
+
+            if ($post === null) {
+                $g = '-';
+            } elseif ($post->gallery === null) {
+                $g = 'N';
+            } else {
+                $g = 'Y';
+            }
+
+            $_result[] = array(
+                'http://www.happy-giraffe.ru' . $path,
+                $counts[0],
+                $counts[1],
+                $counts[1] - $counts[0],
+                strtr($counts[0] == 0 ? '-' : ($counts[1] - $counts[0]) * 100 / $counts[0], '.', ','),
+                $g,
+            );
+        }
+
+        $this->writeCsv('epicFail2', $_result);
+    }
+
+    public function actionEpicFail()
+    {
+        $patterns = array(
+            '#\/community\/(?:\d+)\/forum\/(?:\w+)\/(\d+)\/$#',
+            '#\/user\/(?:\d+)\/blog\/post(\d+)\/$#',
+        );
+
+        $result = array();
+
+        $paths1 = $this->getPathes('2014-06-26', '2014-06-26', 'yandex');
+        $paths2 = $this->getPathes('2014-07-03', '2014-07-03', 'yandex');
+
+        $paths = array($paths1, $paths2);
+
+        foreach ($paths as $k => $p) {
+            foreach ($p as $path => $value) {
+                if (! isset($result[$path])) {
+                    $result[$path] = array_fill(0, 2, 0);
+                }
+                $result[$path][$k] = $value['ga:entrances'];
+            }
+        }
+
+        $_result = array();
+        foreach ($result as $path => $counts) {
+            $_result[$path] = array(
+                'period1' => $counts[0],
+                'period2' => $counts[1],
+                'diff' => $counts[1] - $counts[0],
+            );
+        }
+
+        $diffs = array();
+        foreach ($_result as $k => $v) {
+            $diffs[$k] = $v['diff'];
+        }
+
+        array_multisort($diffs, SORT_ASC, $_result);
+
+        $__result = array();
+
+        foreach ($_result as $path => $value) {
+            foreach ($patterns as $pattern) {
+                if (preg_match($pattern, $path, $matches)) {
+                    $id = $matches[1];
+
+                    $post = CommunityContent::model()->resetScope()->with('gallery')->findByPk($id);
+
+                    if ($post === null) {
+                        continue;
+                    }
+
+                    $__result[] = array(
+                        $post->title,
+                        'http://www.happy-giraffe.ru' . $path,
+                        $value['period1'],
+                        $value['period2'],
+                        $value['diff'],
+                        $post->gallery === null ? 'N' : 'Y',
+                    );
+                }
+            }
+            if (count($__result) == 100) {
+                break;
+            }
+        }
+
+        $this->writeCsv('epicFail', $__result);
     }
 
     public function actionBadContent($type)

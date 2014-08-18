@@ -122,6 +122,7 @@ class CookRecipe extends HActiveRecord implements IPreview
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('title', 'filter', 'filter' => array('\site\frontend\components\TrimFilter', 'trimTitle')),
             array('title, text, type, author_id', 'required'),
             array('title', 'length', 'max' => 255),
             array('photo_id', 'exist', 'attributeName' => 'id', 'className' => 'AlbumPhoto'),
@@ -228,8 +229,8 @@ class CookRecipe extends HActiveRecord implements IPreview
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),

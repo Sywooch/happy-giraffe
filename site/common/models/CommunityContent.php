@@ -86,6 +86,7 @@ class CommunityContent extends HActiveRecord implements IPreview
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('title', 'filter', 'filter' => array('\site\frontend\components\TrimFilter', 'trimTitle')),
             array('title', 'required', 'except' => 'status'),
             array('type_id', 'required'),
             array('rubric_id', 'required', 'on' => 'default_club'),

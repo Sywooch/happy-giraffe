@@ -145,6 +145,9 @@ return array(
         'seo' => array(
             'class' => '\site\frontend\modules\seo\SeoModule',
         ),
+        'archive' => array(
+           'class' => 'site\frontend\modules\archive\ArchiveModule',
+        ),
 	),
 	// application components
 	'components'=>array(
@@ -224,6 +227,11 @@ return array(
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
                     'title' => 'ВКонтакте',
+                ),
+                'google' => array(
+                    'class' => 'application.components.eauth.GoogleAuth',
+                    'client_id' => '152056798430-h2dd83jfs4q4mka119s1tftorp0171ol.apps.googleusercontent.com',
+                    'client_secret' => '-DJ8DaGP9nK7rpvo11eT38ys',
                 ),
 //                'facebook' => array(
 //                    'class' => 'CustomFacebookService',
@@ -487,12 +495,12 @@ return array(
                         ),
                         'param' => 1,
                     ),
-                    'sitemapBlog2.xml' => array(
-                        'aliases' => array(
-                            'application.modules.blog.controllers.DefaultController'
-                        ),
-                        'param' => 2,
-                    ),
+//                    'sitemapBlog2.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.blog.controllers.DefaultController'
+//                        ),
+//                        'param' => 2,
+//                    ),
                     'sitemapCook.xml' => array(
                         'aliases' => array(
                             'application.modules.cook.controllers.SpicesController',
@@ -510,6 +518,11 @@ return array(
                             'application.modules.routes.controllers.DefaultController',
                         ),
                         'param'=>1
+                    ),
+                    'sitemapUsers1.xml' => array(
+                        'aliases' => array(
+                            'application.modules.profile.controllers.DefaultController',
+                        ),
                     ),
 //                    'sitemapRoutes2.xml' => array(
 //                        'aliases' => array(
@@ -531,6 +544,7 @@ return array(
 //                    ),
                     'sitemapAll.xml' => array(
                         'aliases' => array(
+                            'application.modules.archive.controllers.DefaultController',
                             'application.controllers.SiteController',
                             'application.modules.services.modules.recipeBook.controllers.DefaultController',
                             'application.modules.services.modules.names.controllers.DefaultController',

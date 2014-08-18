@@ -315,31 +315,19 @@ return array(
         array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'pattern' => 'recipeBook/recipe<id:\d+>',
-            'condition' => 'Yii::app()->user->isGuest',
+            'condition' => 'Yii::app() instanceof CConsoleApplication || Yii::app()->user->isGuest',
             'trueRoute' => 'services/recipeBook/default/view',
             'falseRoute' => 'services/recipeBook/defaultOld/view',
         ),
 
         array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'pattern' => 'recipeBook/<slug:\w+>',
-            'condition' => 'Yii::app()->user->isGuest',
-            'trueRoute' => 'services/recipeBook/default/disease',
-            'falseRoute' => 'services/recipeBook/defaultOld/index',
-        ),
-
-        array(
-            'class' => 'site.frontend.components.ConditionalUrlRule',
-            'pattern' => 'recipeBook/category/<slug:\w+>',
-            'condition' => 'Yii::app()->user->isGuest',
-            'trueRoute' => 'services/recipeBook/default/category',
-            'falseRoute' => 'services/recipeBook/default/index',
+            'class' => 'site.frontend.modules.services.modules.recipeBook.components.RecipeBookUrlRule',
         ),
 
         array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'pattern' => 'recipeBook',
-            'condition' => 'Yii::app()->user->isGuest',
+            'condition' => 'Yii::app() instanceof CConsoleApplication ||Yii::app()->user->isGuest',
             'trueRoute' => 'services/recipeBook/default/index',
             'falseRoute' => 'services/recipeBook/defaultOld/index',
         ),
@@ -410,5 +398,8 @@ return array(
         'mail/<_c>/<_a>' => 'mail/<_c>/<_a>',
 
         'onair' => 'blog/air/index',
+
+        array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
+        'map' => 'archive/default/map',
     ),
 );

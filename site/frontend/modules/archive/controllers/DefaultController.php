@@ -33,8 +33,16 @@ class DefaultController extends \LiteController
             \Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
         }
 
-        $this->pageTitle = $this->meta_description = (date('Y-m-d') == implode('-', array($year, $month, $day))) ? 'Записи сегодня' : 'Записи от ' . implode('.', array($year, $month, $day));
-        $this->render('index', compact('dp', 'year', 'month', 'day'));
+        if (date('Y') == $year && date('m') == $month && date('d') == $day) {
+            $this->pageTitle = $this->meta_description = 'Календарь записей на сегодня';
+            $h1 = 'Записи на сегодня';
+        } else {
+            $date = implode('.', array($day, $month, $year)) . ' г.';
+            $this->pageTitle = $this->meta_description = 'Календарь записей от ' . $date;
+            $h1 = 'Записи от ' . $date;
+        }
+
+        $this->render('index', compact('dp', 'year', 'month', 'day', 'h1'));
     }
 
     /**

@@ -5,18 +5,14 @@
  * @var int $month
  * @var int $day
  * @var LiteController $this
+ * @var string $h1
  */
-function gavno($year, $m, $day)
-{
-    $d1 = strtotime(implode('-', array($year, $m, $day)));
-    return $d1 < time() && $d1 > strtotime('2011-11-04');
-}
 ?>
 
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">
         <div class="b-main_col-article">
-            <h1 class="heading-link-xxl"><?=$this->pageTitle?></h1>
+            <h1 class="heading-link-xxl"><?=$h1?></h1>
         </div>
     </div>
     <div class="b-calendar">

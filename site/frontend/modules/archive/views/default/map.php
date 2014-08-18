@@ -32,9 +32,9 @@
             <div class="clearfix">
                 <div class="site-map_col-sub">
                     <div class="site-map_section">
-                        <div class="site-map_i">
+                        <h3 class="site-map_i">
                             <div class="site-map_i-tx">для беременных</div>
-                        </div>
+                        </h3>
                         <ul class="menu-simple">
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/calendar/default/index', array('calendar' => 1))?>" class="a-light">Календарь беременности</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/names/default/index')?>" class="a-light">Выбор имени ребенка</a></li>
@@ -59,9 +59,9 @@
                         </ul>
                     </div>
                     <div class="site-map_section">
-                        <div class="site-map_i">
+                        <h3 class="site-map_i">
                             <div class="site-map_i-tx">для мам</div>
-                        </div>
+                        </h3>
                         <ul class="menu-simple">
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/calendar/default/index', array('calendar' => 0))?>" class="a-light">Календарь развития ребенка</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/test/default/view', array('slug' => 'pupok'))?>" class="a-light">В норме ли пупок у ребенка</a></li>
@@ -70,9 +70,9 @@
                         </ul>
                     </div>
                     <div class="site-map_section">
-                        <div class="site-map_i">
+                        <h3 class="site-map_i">
                             <div class="site-map_i-tx">по здоровью</div>
-                        </div>
+                        </h3>
                         <ul class="menu-simple">
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/recipeBook/default/index')?>" class="a-light">Народные рецепты</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/childrenDiseases/default/index')?>" class="a-light">Справочник детских болезней</a></li>
@@ -81,9 +81,9 @@
                 </div>
                 <div class="site-map_col-sub">
                     <div class="site-map_section">
-                        <div class="site-map_i">
+                        <h3 class="site-map_i">
                             <div class="site-map_i-tx">для кулинаров</div>
-                        </div>
+                        </h3>
                         <ul class="menu-simple">
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/cook/recipe/index')?>" class="a-light">Кулинарные рецепты</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/cook/recipe/index', array('section' => 1))?>" class="a-light">Рецепты для мультиварки</a></li>
@@ -95,9 +95,9 @@
                         </ul>
                     </div>
                     <div class="site-map_section">
-                        <div class="site-map_i">
+                        <h3 class="site-map_i">
                             <div class="site-map_i-tx">для ремонта</div>
-                        </div>
+                        </h3>
                         <ul class="menu-simple">
                             <li class="menu-simple_li"><a href="/repair/paint/" class="a-light disabled">Расчет объема краски</a></li>
                             <li class="menu-simple_li"><a href="/repair/tile/" class="a-light disabled">Расчет плитки для ванной</a></li>
@@ -107,9 +107,9 @@
                         </ul>
                     </div>
                     <div class="site-map_section">
-                        <div class="site-map_i">
+                        <h3 class="site-map_i">
                             <div class="site-map_i-tx">для рукодельниц</div>
-                        </div>
+                        </h3>
                         <ul class="menu-simple">
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/sewing/default/fabricCalculator')?>" class="a-light disabled">Калькулятор ткани</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/sewing/default/loopCalculator')?>" class="a-light disabled">Калькулятор петель</a></li>
@@ -119,17 +119,17 @@
                         </ul>
                     </div>
                     <div class="site-map_section">
-                        <div class="site-map_i">
+                        <h3 class="site-map_i">
                             <div class="site-map_i-tx">для автолюбителей</div>
-                        </div>
+                        </h3>
                         <ul class="menu-simple">
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/routes/default/index')?>" class="a-light">Маршруты</a></li>
                         </ul>
                     </div>
                     <div class="site-map_section">
-                        <div class="site-map_i">
+                        <h3 class="site-map_i">
                             <div class="site-map_i-tx">для всех</div>
-                        </div>
+                        </h3>
                         <ul class="menu-simple">
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/horoscope/default/index')?>" class="a-light">Гороскопы</a></li>
                             <li class="menu-simple_li"><a href="<?=$this->createUrl('/services/test/default/view', array('slug' => 'hair-type'))?>" class="a-light">Тест. Определение типа волос</a></li>

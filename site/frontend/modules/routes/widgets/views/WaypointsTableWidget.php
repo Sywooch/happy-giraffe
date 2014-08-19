@@ -19,7 +19,7 @@
     <tr>
         <td class="map-route-table_thead-td"></td>
         <td class="map-route-table_thead-td textalign-l">Пункт / регион</td>
-        <td class="map-route-table_thead-td">Трасса</td>
+        <!--<td class="map-route-table_thead-td">Трасса</td>-->
         <td class="map-route-table_thead-td">Время участка </td>
         <td class="map-route-table_thead-td">Время в пути</td>
         <td class="map-route-table_thead-td">Участок, км     </td>
@@ -43,9 +43,9 @@
             <td class="map-route-table_td textalign-l">
                 <div class="map-route-table_hold"><strong><?=$point['city']->name?></strong><br><?=$point['city']->region->name?></div>
             </td>
-            <td class="map-route-table_td">
+            <!--<td class="map-route-table_td">
                 <div class="map-route-table_hold"><strong>M8</strong></div>
-            </td>
+            </td>-->
             <td class="map-route-table_td">
                 <div class="map-route-table_hold"><?=$point['time']?></div>
             </td>

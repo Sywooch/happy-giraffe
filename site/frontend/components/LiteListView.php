@@ -14,12 +14,8 @@ class LiteListView extends CListView
     public $cssFile = false;
     public $template = '{items}<div class="yiipagination">{pager}</div>';
     public $itemsTagName = 'ul';
-    public $itemsCssClass = 'traditional-recipes_ul';
     public $pager = array(
         'class' => 'LitePager',
-    );
-    public $htmlOptions = array(
-        'class' => 'traditional-recipes',
     );
 
     public function registerClientScript()

@@ -56,6 +56,7 @@
                                 'activeLinkTemplate' => '<li class="b-crumbs_li"><a href="{url}" class="b-crumbs_a">{label}</a></li>',
                                 'inactiveLinkTemplate' => '<li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">{label}</span></li>',
                                 'links' => $this->breadcrumbs,
+                                'encodeLabel' => false,
                             ));
                             ?>
                         </div>

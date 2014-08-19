@@ -11,18 +11,26 @@ mixin banReadMore(mod, vars)
         /* Ширина изображения до 1000px*/
         @media (min-width: 640px) {
             .ban-read-more {
-                background-image: url('#{path}images/example/w1000-h510-2.jpg');
+                background-image: url('#{path}images/example/w1000-h580-2.jpg');
             }
         }
-    .ban-read-more
+    .ban-read-more(class=mod)
         .ban-read-more_hold
             .ban-read-more_cont
                 .ban-read-more_t-sub Рекомендуем для чтения
                 .ban-read-more_author.clearfix
                     // Аватарки размером 40*40
-                    +ava("ava__middle ava__small-xs", ava.c)
+                    +ava("ava__middle ava__small-sm-mid hidden-xxs", ava.c)
                     a.a-light(href="") Ангелина Богоявленская
                 a.ban-read-more_t(href="") 20 самых опасных маршрутов в мире
                 .ban-read-more_desc Вот, девочки, напала на вот такую красоту в интернете. И вдруг вспомнила, что муж у меня уже много много лет мечтает ...
                 a.ban-read-more_arrow(href="")
     // /баннер
+
+
+
+mixin adv-yandex(mod, vars)
+    // Реклама яндекса
+    .adv-yandex(class=mod)
+        a(href='#', target="_blank")
+            img(src="#{path}images/example/yandex-w600.jpg", alt="")

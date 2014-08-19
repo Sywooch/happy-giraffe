@@ -9,7 +9,7 @@
                 'left': left + 35
             });
         }
-//        window.setPopupPosition = setPopupPosition;
+        window.setPopupPosition = setPopupPosition;
 
         var WysiwygPhotoUpload = function (comments) {
             var self = this;

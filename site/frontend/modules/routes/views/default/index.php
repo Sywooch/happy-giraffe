@@ -38,7 +38,7 @@
     </div>
     <div class="b-main_cont">
         <div class="map-route-abc">
-            <h3 class="map-route-abc_t">Поиск маршрутов по городу</h3>
+            <h3 class="map-route-abc_t">Поиск маршрутов по названию города</h3>
             <?php $this->widget('AlphabetWidget'); ?>
         </div>
     </div>

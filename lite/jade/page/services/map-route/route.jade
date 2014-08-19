@@ -5,7 +5,7 @@ block vars
     - global.cssFile = 'services.css'; 
 
 block layout
-
+    
     // b-main 
     .b-main.clearfix
 
@@ -16,6 +16,9 @@ block layout
                     li.b-crumbs_li
                         a.b-crumbs_a(href='#') Главная 
                     li.b-crumbs_li
+                        a.b-crumbs_a(href='#') 
+                            .ico-club.ico-club__s.ico-club__18 
+                    li.b-crumbs_li
                         a.b-crumbs_a(href='#') Маршруты 
                     li.b-crumbs_li.b-crumbs_li__last
                         span.b-crumbs_last Киев-Донецк
@@ -25,7 +28,7 @@ block layout
             .b-main_cont
                 .b-main_col-hold.clearfix
                     .heading-h1-hold
-                        h1.heading-link-xxl Маршрут Киев - Донецк
+                        h1.heading-link-xxl Маршрут Киев &mdash; Донецк
 
             // Форма поиска маршрута
             .map-route-f.map-route-f__row
@@ -136,10 +139,13 @@ block layout
                                         | 3 898  
                                         span.map-route-calc_units руб.
 
-                    .map-route_view
+                    .map-route_view 
+                        | Маршрут просмотрели 
+                        span.display-ib 6 895 
+                        |  водителей 
                 
                 .map-route_cont
-                    .heading-xl.visible-md-block Пункты следования на пути Киев - Донецк
+                    h2.heading-xl.visible-md-block Пункты следования на пути Киев &mdash; Донецк
                     table.map-route-table.visible-md-table
                         colgroup
                             col.map-route-table_col1
@@ -256,12 +262,9 @@ block layout
                                     .map-route-table_hold
                                         | 1:00
 
-                    // Реклама яндекса
-                    .adv-yandex
-                        a(href='#', target="_blank")
-                            img(src="#{path}images/example/yandex-w600.jpg", alt="")
+                    +adv-yandex()
 
-                    +banReadMore('')
+                    +banReadMore()
 
 
         // /Маршруты

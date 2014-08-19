@@ -2,7 +2,7 @@
 /**
  * @var Route $route
  */
-$js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '"); setInterval(function(){';
+$js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '"); setTimer(function(){';
 $middle_points = array_slice($route->intermediatePoints, 1, count($route->intermediatePoints) - 2);
 $index = 1;
 foreach ($middle_points as $point) {
@@ -26,7 +26,7 @@ new google.maps.Marker({
     $index++;
 }
 
-$js .= '}, 1);';
+$js .= '}, 0);';
 
 $way_points = Route::get8Points($middle_points);
 $waypoints_js = 'var way_points = [';

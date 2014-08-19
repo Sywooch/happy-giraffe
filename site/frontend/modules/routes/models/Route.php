@@ -307,9 +307,9 @@ class Route extends CActiveRecord
                     0 => 'Маршрут ' . $city1[0] . '-' . $city2[0],
                     1 => 'Узнайте, как доехать на авто от ' . $city1[1] . ' до ' . $city2[1] . '. Схема трассы ' . $city1[0] . '-' . $city2[0] . ' на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от ' . $city1[1] . ' до ' . $city2[1],
                     2 => 'Пункты следования на пути ' . $city1[0] . '-' . $city2[0],
-                    3 => 'Расстояние между ' . $city1[2] . ' и ' . $city2[2],
+                    3 => 'между ' . $city1[2] . ' и ' . $city2[2],
                     4 => 'Столько километров от ' . $city1[1] . ' до ' . $city2[1] . ' на автомобиле',
-                    5 => 'Время в пути от ' . $city1[1] . ' до ' . $city2[1],
+                    5 => 'от ' . $city1[1] . ' до ' . $city2[1],
                     6 => 'Столько времени ехать от ' . $city1[1] . ' до ' . $city2[1],
                     7 => 'Отправьте маршрут поездки ' . $city1[0] . '-' . $city2[0] . ' своим друзьям',
                     8 => 'Отзывы водителей о состоянии трассы ' . $city1[0] . '-' . $city2[0],
@@ -443,7 +443,8 @@ class Route extends CActiveRecord
             'order' => 'cityTo.name ASC',
         ));
 
-        $criteria->compare('city_from_id', $cityId);
+        $criteria->compare('t.city_from_id', $cityId);
+        $criteria->compare('t.status', array(Route::STATUS_ROSNEFT_FOUND, Route::STATUS_GOOGLE_PARSE_SUCCESS));
 
         return new CActiveDataProvider(__CLASS__, array(
             'criteria' => $criteria,
@@ -451,5 +452,16 @@ class Route extends CActiveRecord
                 'pageVar' => 'page',
             ),
         ));
+    }
+
+    public static function getRoutesLetters()
+    {
+        $sql = <<<SQL
+SELECT DISTINCT LEFT(c.name, 1) AS letter
+FROM `geo__city` c
+INNER JOIN routes__routes r ON c.id = r.city_from_id
+ORDER BY letter ASC;
+SQL;
+        return Yii::app()->db->cache(3600)->createCommand($sql)->queryColumn();
     }
 }

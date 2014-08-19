@@ -114,6 +114,7 @@ class DefaultController extends LiteController
         $data = array();
         if ($param == 1)
             $data [] = array(
+                'route' => '/routes/default/index',
                 'params' => array(
                 ),
                 'changefreq' => 'weekly',

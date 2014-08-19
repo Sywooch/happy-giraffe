@@ -144,7 +144,7 @@ class DefaultController extends LiteController
         return array_map(function($model) {
             return array(
                 'params' => array(
-                    'cityId' => $model['from_city_id'],
+                    'cityId' => $model,
                 ),
             );
         }, $models);

@@ -443,7 +443,8 @@ class Route extends CActiveRecord
             'order' => 'cityTo.name ASC',
         ));
 
-        $criteria->compare('city_from_id', $cityId);
+        $criteria->compare('t.city_from_id', $cityId);
+        $criteria->compare('t.status', array(Route::STATUS_ROSNEFT_FOUND, Route::STATUS_GOOGLE_PARSE_SUCCESS));
 
         return new CActiveDataProvider(__CLASS__, array(
             'criteria' => $criteria,

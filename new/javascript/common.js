@@ -735,12 +735,16 @@ var SiteSearch = {
 }
 
 var AddMenu = {
-    select: function (el, type, club) {
+    select: function (el, type, club, useAMD) {
         if (club == '')
             var url = '/blog/form/type' + type + '/';
         else
             var url = '/blog/form/type' + type + '/?club_id='+club;
-        $.post(url, {'short': 1}, function (response) {
+        var data = {'short': 1};
+        if (useAMD) {
+            data.useAMD = 1;
+        }
+        $.get(url, data, function (response) {
             $('#add_form_container').html(response);
             $('.js_add_menu a').removeClass('active');
             $(el).addClass('active');

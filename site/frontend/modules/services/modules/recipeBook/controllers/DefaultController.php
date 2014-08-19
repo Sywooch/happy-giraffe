@@ -15,6 +15,11 @@ class DefaultController extends LiteController
 
     public function actionIndex()
     {
+        /** @todo Убрать этот блок через месяц после его появления */
+        if ($page = Yii::app()->request->getQuery('RecipeBookRecipe_page')) {
+            $this->redirect(array('/' . $this->route, 'page' => $page));
+        }
+
         $dp = RecipeBookRecipe::getDp(null, null);
         $categories = RecipeBookDiseaseCategory::model()->alphabetical()->findAll();
 

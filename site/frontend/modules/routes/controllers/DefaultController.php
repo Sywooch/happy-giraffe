@@ -46,6 +46,9 @@ class DefaultController extends LiteController
         $this->render('cities', compact('dp', 'letter'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapCity
+     */
     public function actionCity($cityId)
     {
         $city = GeoCity::model()->with('region')->findByPk($cityId);
@@ -64,9 +67,6 @@ class DefaultController extends LiteController
         $this->render('city', compact('dp', 'city'));
     }
 
-    /**
-     * @sitemap dataSource=sitemap
-     */
     public function actionView($routeId)
     {
         $route = Route::model()->findByPk($routeId);
@@ -98,10 +98,6 @@ class DefaultController extends LiteController
 
     public function sitemap($param)
     {
-        if ($param == 0) {
-            return array();
-        }
-
         $models = Yii::app()->db->createCommand()
             ->select('id')
             ->from(Route::model()->tableName())
@@ -127,9 +123,31 @@ class DefaultController extends LiteController
         return $data;
     }
 
+    public function sitemapCity($param)
+    {
+        if ($param != -1) {
+            return array();
+        }
+
+        $models = Yii::app()->db->createCommand()
+            ->selectDistinct('city_from_id')
+            ->from(Route::model()->tableName())
+            ->queryColumn();
+
+        echo count($models); die;
+
+        return array_map(function($model) {
+            return array(
+                'params' => array(
+                    'cityId' => $model['from_city_id'],
+                ),
+            );
+        }, $models);
+    }
+
     public function sitemapCities($param)
     {
-        if ($param != 0) {
+        if ($param != -1) {
             return array();
         }
 
@@ -139,6 +157,6 @@ class DefaultController extends LiteController
                     'letter' => $letter,
                 ),
             );
-        }, AlphabetWidget::getRoutesLetters());
+        }, Route::getRoutesLetters());
     }
 } 

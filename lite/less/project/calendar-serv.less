@@ -1,0 +1,85 @@
+/* calendar-serv */
+.calendar-serv {
+    margin: 20px 0 30px;
+    
+    &__pink &_t {color: #e5b0d7;}
+    &__pink &_i:hover {background-color: #d384be;}
+
+    &_row {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    &_t {
+        margin: 5px 0;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    &_ul {
+        margin-bottom: 20px;
+    }
+    &_li {
+        .inline-block();
+    }
+    &_li__50p {
+        float: left;
+        width: 50%;
+        padding: 4px;
+    }
+    &_i {
+        display: inline-block;
+        padding: 6px;
+        width: 100%;
+        background-color: #fff;
+        font-size: 14px;
+        text-align: center;
+        text-decoration: none;
+        .border-radius(10px);
+    }
+    &_i:hover {
+        color: @color-white;
+        background-color: #d384be;
+    }
+    &_col-trimester {
+        .inline-block();
+        width: 48%;
+    }
+    
+    &_desc-hide {display: none;}
+    
+    @media (min-width: @screen-xphone) {
+        
+        &_col-trimester {
+            width: 30%;
+        }
+        
+    }
+    @media (min-width: @screen-phone) {
+
+        &_col-trimester {
+            width: 30%;
+            margin: 0 1.4%;
+        }
+        &_t {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        &_i {
+            font-size: 16px;
+            padding: 10px;
+        }
+    }
+    /*@media (min-width: @screen-tablet) {
+      
+    }*/
+    @media (min-width: @screen-desktop) {
+        
+        &_desc-hide {display: inline;}
+        &_col-trimester {
+            width: 28%;
+            margin: 0 2.4%;
+        }
+    }
+}
+/* /calendar-serv */

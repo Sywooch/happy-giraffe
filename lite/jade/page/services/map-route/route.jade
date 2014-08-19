@@ -5,7 +5,7 @@ block vars
     - global.cssFile = 'services.css'; 
 
 block layout
-
+    
     // b-main 
     .b-main.clearfix
 
@@ -15,6 +15,9 @@ block layout
                 ul.b-crumbs_ul
                     li.b-crumbs_li
                         a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') 
+                            .ico-club.ico-club__s.ico-club__18 
                     li.b-crumbs_li
                         a.b-crumbs_a(href='#') Маршруты 
                     li.b-crumbs_li.b-crumbs_li__last
@@ -256,12 +259,9 @@ block layout
                                     .map-route-table_hold
                                         | 1:00
 
-                    // Реклама яндекса
-                    .adv-yandex
-                        a(href='#', target="_blank")
-                            img(src="#{path}images/example/yandex-w600.jpg", alt="")
+                    +adv-yandex()
 
-                    +banReadMore('')
+                    +banReadMore()
 
 
         // /Маршруты

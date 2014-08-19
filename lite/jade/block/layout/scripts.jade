@@ -37,6 +37,8 @@ mixin scriptsLite(path)
     script(src="#{path}javascript/common.js")
     script(src="#{path}javascript/common-markup.js")
 
-    // livereload
-    script(src="//localhost:35729/livereload.js")
+    
+    - if (debug == true)
+        // livereload
+        script(src="//localhost:35729/livereload.js")
     

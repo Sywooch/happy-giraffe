@@ -28,7 +28,9 @@ module.exports = function(grunt){
       docs: {
         files: [{
           expand: true,
-          src: ['new/jade/docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
+
+          cwd: 'new/jade',
+          src: ['docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
           dest: 'new/html',
           ext: ".html"
         }],
@@ -37,6 +39,26 @@ module.exports = function(grunt){
           client: false,
           cache: true,
           nospawn : true,
+        }
+      },
+      // пересобираем документацию
+      docs_lite: {
+        files: [{
+          expand: true,
+          cwd: 'lite/jade',
+          src: ['docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade', 
+          dest: 'lite/html',
+          ext: ".html"
+        }],
+        options: {
+          pretty: true,
+          client: false,
+          cache: true,
+          nospawn : true,
+          data: {
+            debug: true,
+            timestamp: "<%= grunt.template.today() %>"
+          }
         }
       },
 
@@ -180,6 +202,7 @@ module.exports = function(grunt){
             /.mfp+/,
             /.mfp+/,
             /.select2+/,
+            /.header-menu_li.active+/,
             //.tooltip+/,
           ],
         },
@@ -204,6 +227,7 @@ module.exports = function(grunt){
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
+            /.header-menu_li.active+/,
           ],
         },
         src: [
@@ -230,6 +254,9 @@ module.exports = function(grunt){
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
+            // Drop, active элементы
+            /.header-drop+/,
+            /.header-menu_li.active+/,
           ],
         },
         src: [
@@ -321,7 +348,18 @@ module.exports = function(grunt){
       }
     },
     // /css
-    ////////////////////////////// 
+    //////////////////////////////
+
+    imagemin: {
+      lite: {
+          files: [{
+              expand: true,
+              cwd: 'lite/images/',
+              src: ['**/*.{png,jpg,gif}'],
+              dest: 'lite/images/'
+          }]
+      }
+    },
 
     svgmin: {                       // Task
       options: {                  // Configuration that will be passed directly to SVGO
@@ -378,6 +416,26 @@ module.exports = function(grunt){
                 unit: 200
             }
         },
+        'ico-club': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-club",
+                spritePath: "lite/images/sprite/ico-club.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                //refSize: 75, 
+                // sizes: {
+                //     large: 130,
+                //     mid: 75
+                // },
+                unit: 100
+            }
+        },
         // 'comments-menu_a': {
         //     options: {
         //         spriteElementPath: "lite/images/sprite/comments-menu_a",
@@ -424,6 +482,15 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
+      // Пересобираем документацию
+      jadedocs_lite: {
+        files: ['lite/jade/docs/**/*.jade', ], // 'lite/jade/docs/**/*.jade'
+        tasks: ['jade:docs_lite'],
+        options: {
+          spawn: false,
+          livereload: true,
+        },
+      },
       // Следим за старым less 
       lessold: {
         files: ['less/**/*.less'],
@@ -457,6 +524,15 @@ module.exports = function(grunt){
         },
       },
 
+
+      // изобрражения сжатие
+      image_lite: {
+        files: ['lite/images/**/*.{png,jpg,gif}'],
+        tasks:['imagemin:lite'],
+        options: {
+          livereload: true,
+        },
+      },
       // изобрражения svg сжатие
       svg: {
         files: ['lite/images/**/*.svg'],

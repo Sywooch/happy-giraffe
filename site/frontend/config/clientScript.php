@@ -28,6 +28,10 @@ return array(
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
             'AdFox' => '/javascripts/fox',
+            'async' => '/new/javascript/plugins/async',
+            'goog' => '/new/javascript/plugins/goog',
+            'propertyParser' => '/new/javascript/plugins/propertyParser',
+            'routesCalc' => 'routes',
         ),
     /* 'eval' => '
       ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -416,14 +420,13 @@ return array(
                 'lite/css/min/services.css',
             ),
         ),
+        'lite_routes' => array(
+            'depends' => array('lite_services'),
+        ),
         'lite_recipes' => array(
-            'amd' => true,
-            'baseUrl' => '/',
             'depends' => array('lite_services'),
         ),
         'lite_archive' => array(
-            'amd' => true,
-            'baseUrl' => '/',
             'depends' => array('lite_services'),
         ),
     )

@@ -36,6 +36,10 @@
                     'showDisease' => Yii::app()->controller->action->id != 'disease',
                 ),
                 'emptyText' => 'Нет ни одного рецепта по вашему запросу',
+                'itemsCssClass' => 'traditional-recipes_ul',
+                'htmlOptions' => array(
+                    'class' => 'traditional-recipes',
+                ),
             ));
             ?>
         </div>

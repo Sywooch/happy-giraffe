@@ -10,11 +10,11 @@ class AlphabetWidget extends CWidget
 {
     public function run()
     {
-        $letters = $this->getRoutesLetters();
+        $letters = self::getRoutesLetters();
         $this->render('AlphabetWidget', compact('letters'));
     }
 
-    protected function getRoutesLetters()
+    public static function getRoutesLetters()
     {
         $sql = <<<SQL
 SELECT DISTINCT LEFT(c.name, 1) AS letter

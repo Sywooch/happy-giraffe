@@ -30,6 +30,9 @@ class DefaultController extends LiteController
         $this->render('index');
     }
 
+    /**
+     * @sitemap dataSource=sitemapCities
+     */
     public function actionCities($letter)
     {
         $dp = Route::getCitiesListDp($letter);
@@ -61,6 +64,9 @@ class DefaultController extends LiteController
         $this->render('city', compact('dp', 'city'));
     }
 
+    /**
+     * @sitemap dataSource=sitemap
+     */
     public function actionView($routeId)
     {
         $route = Route::model()->findByPk($routeId);
@@ -92,6 +98,10 @@ class DefaultController extends LiteController
 
     public function sitemap($param)
     {
+        if ($param == 0) {
+            return array();
+        }
+
         $models = Yii::app()->db->createCommand()
             ->select('id')
             ->from(Route::model()->tableName())
@@ -115,5 +125,20 @@ class DefaultController extends LiteController
         }
 
         return $data;
+    }
+
+    public function sitemapCities($param)
+    {
+        if ($param != 0) {
+            return array();
+        }
+
+        return array_map(function($letter) {
+            return array(
+                'params' => array(
+                    'letter' => $letter,
+                ),
+            );
+        }, AlphabetWidget::getRoutesLetters());
     }
 } 

@@ -121,7 +121,7 @@ class DefaultController extends LiteController
         foreach ($models as $model) {
             $data[] = array(
                 'params' => array(
-                    'id' => $model,
+                    'routeId' => $model,
                 ),
                 'changefreq' => 'weekly',
             );

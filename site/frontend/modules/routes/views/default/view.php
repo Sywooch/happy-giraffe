@@ -2,7 +2,7 @@
 /**
  * @var Route $route
  */
-$js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '"); setTimeout(function(){';
+$js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '", function() {';
 $middle_points = array_slice($route->intermediatePoints, 1, count($route->intermediatePoints) - 2);
 $index = 1;
 foreach ($middle_points as $point) {
@@ -16,7 +16,6 @@ foreach ($middle_points as $point) {
 
     if ($c !== null && !empty($c->location_lat) && !empty($c->location_lng))
         $js .= "
-        console.log('123');
 new google.maps.Marker({
     position: new google.maps.LatLng(" . $c->location_lat . ", " . $c->location_lng . "),
     map: Routes.map,
@@ -25,8 +24,7 @@ new google.maps.Marker({
 });";
     $index++;
 }
-
-$js .= '}, 0);';
+$js .= '});';
 
 $way_points = Route::get8Points($middle_points);
 $waypoints_js = 'var way_points = [';

@@ -137,6 +137,6 @@
     if (typeof define === 'function' && define['amd']) {
         define('uploadPhotos', ['knockout'], f);
     } else {
-        window.UploadPhotos = f();
+        window.UploadPhotos = f(window.ko);
     }
 })(window);

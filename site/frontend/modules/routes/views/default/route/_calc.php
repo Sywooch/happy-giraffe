@@ -21,22 +21,22 @@ $cs->registerAMD('routes-calc', array('RoutesModel' => 'routesCalc', 'ko' => 'kn
         <div class="map-route-calc_item">
             <div class="clearfix">
                 <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-car.png" alt=""></div>
-                <div class="map-route-calc_t">Расстояние <span class="hidden-xs">между Киевом и Донецком</span></div>
+                <div class="map-route-calc_t">Расстояние <span class="hidden-xs"><?=$route->texts[3]?></span></div>
             </div>
             <div class="map-route-calc_value"><span data-bind="text: distance"></span><span class="map-route-calc_units">км. </span></div>
-            <div class="map-route-calc_desc">Столько километров от Киева до Донецка на автомобиле</div>
+            <div class="map-route-calc_desc"><?=$route->texts[4]?></div>
         </div>
         <div class="map-route-calc_item">
             <div class="clearfix">
                 <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-time.png" alt=""></div>
-                <div class="map-route-calc_t">Время в пути <span class="hidden-xs"> от Киева до Донецка</span></div>
+                <div class="map-route-calc_t">Время в пути <span class="hidden-xs"> <?=$route->texts[5]?></span></div>
             </div>
             <label for="route-time" class="map-route-calc_label">Ср. скорость км / ч </label>
             <div class="map-route-calc_row clearfix">
                 <input type="text" name="" value="80" id="route-time" class="itx-simple map-route-calc_itx" data-bind="value: speed, valueUpdate: 'afterkeydown'">
                 <div class="map-route-calc_value"><span data-bind="text: DurationHours"></span><span class="map-route-calc_units">ч. </span> <span data-bind="text: DurationMinutes"></span><span class="map-route-calc_units">мин.</span></div>
             </div>
-            <div class="map-route-calc_desc">Столько времени ехать от Киева до Донецка</div>
+            <div class="map-route-calc_desc"><?=$route->texts[6]?></div>
         </div>
         <div class="map-route-calc_item">
             <div class="clearfix">

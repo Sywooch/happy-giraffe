@@ -30,6 +30,10 @@ return array(
             'AdFox' => '/javascripts/fox',
             'wysiwyg_old' => '/javascripts/wysiwyg',
             'upload' => '/javascripts/upload',
+            'async' => '/new/javascript/plugins/async',
+            'goog' => '/new/javascript/plugins/goog',
+            'propertyParser' => '/new/javascript/plugins/propertyParser',
+            'routesCalc' => 'routes',
         ),
     /* 'eval' => '
       ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
@@ -417,19 +421,31 @@ return array(
             ),
             'depends' => array('lite'),
         ),
-        'lite_recipes' => array(
+        'lite_services' => array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
                 'lite/css/min/services.css',
             ),
         ),
-        'lite_recipes_user' => array(
+        'lite_services_user' => array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/services-user.css',
+                'lite/css/min/services.css',
             ),
+        ),
+        'lite_routes' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_recipes' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_recipes_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
+        'lite_archive' => array(
+            'depends' => array('lite_services'),
         ),
         'chosen' => array(
             'baseUrl' => '/',

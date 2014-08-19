@@ -145,6 +145,9 @@ return array(
         'seo' => array(
             'class' => '\site\frontend\modules\seo\SeoModule',
         ),
+        'archive' => array(
+           'class' => 'site\frontend\modules\archive\ArchiveModule',
+        ),
 	),
 	// application components
 	'components'=>array(
@@ -492,12 +495,12 @@ return array(
                         ),
                         'param' => 1,
                     ),
-                    'sitemapBlog2.xml' => array(
-                        'aliases' => array(
-                            'application.modules.blog.controllers.DefaultController'
-                        ),
-                        'param' => 2,
-                    ),
+//                    'sitemapBlog2.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.blog.controllers.DefaultController'
+//                        ),
+//                        'param' => 2,
+//                    ),
                     'sitemapCook.xml' => array(
                         'aliases' => array(
                             'application.modules.cook.controllers.SpicesController',
@@ -514,19 +517,18 @@ return array(
                         'aliases' => array(
                             'application.modules.routes.controllers.DefaultController',
                         ),
-                        'param'=>1
+                        'param'=>1,
+                    ),
+                    'sitemapRoutesAll.xml' => array(
+                        'aliases' => array(
+                            'application.modules.routes.controllers.DefaultController',
+                        ),
+                        'param'=>-1,
                     ),
                     'sitemapUsers1.xml' => array(
                         'aliases' => array(
                             'application.modules.profile.controllers.DefaultController',
                         ),
-                        'param' => 1,
-                    ),
-                    'sitemapUsers2.xml' => array(
-                        'aliases' => array(
-                            'application.modules.profile.controllers.DefaultController',
-                        ),
-                        'param' => 2,
                     ),
 //                    'sitemapRoutes2.xml' => array(
 //                        'aliases' => array(
@@ -548,6 +550,7 @@ return array(
 //                    ),
                     'sitemapAll.xml' => array(
                         'aliases' => array(
+                            'application.modules.archive.controllers.DefaultController',
                             'application.controllers.SiteController',
                             'application.modules.services.modules.recipeBook.controllers.DefaultController',
                             'application.modules.services.modules.names.controllers.DefaultController',

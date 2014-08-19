@@ -2,8 +2,6 @@
 
 class DefaultController extends LiteController
 {
-    public $layout = '//layouts/lite/main';
-
     protected function beforeAction($action)
     {
         if (parent::beforeAction($action)) {
@@ -13,18 +11,6 @@ class DefaultController extends LiteController
             $cs->useAMD = true;
             return true;
         }
-    }
-
-    public function filters()
-    {
-            return array(
-                array(
-                    'COutputCache',
-                    'duration' => 300,
-                    'varyByParam' => array_keys($_GET),
-                    'varyByExpression' => 'Yii::app()->vm->getVersion()',
-                ),
-            );
     }
 
     public function actionIndex()

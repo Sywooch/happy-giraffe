@@ -115,6 +115,8 @@ XMLINDEX;
 	public function getAsXml()
 	{
 		$this->scanControllersAliases();
+        echo $this->_url_counter;
+        die;
 		return $this->_xml->asXML();
 	}
 	

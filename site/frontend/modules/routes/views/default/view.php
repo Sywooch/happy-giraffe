@@ -2,7 +2,7 @@
 /**
  * @var Route $route
  */
-$js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '"); setTimer(function(){';
+$js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '"); setTimeout(function(){';
 $middle_points = array_slice($route->intermediatePoints, 1, count($route->intermediatePoints) - 2);
 $index = 1;
 foreach ($middle_points as $point) {

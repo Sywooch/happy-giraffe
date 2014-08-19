@@ -432,11 +432,14 @@ return array(
             'amd' => true,
             'baseUrl' => '/',
             'css' => array(
-                'lite/css/min/services.css',
+                'lite/css/min/services-user.css',
             ),
         ),
         'lite_routes' => array(
             'depends' => array('lite_services'),
+        ),
+        'lite_routes_user' => array(
+            'depends' => array('lite_services_user'),
         ),
         'lite_recipes' => array(
             'depends' => array('lite_services'),
@@ -446,6 +449,9 @@ return array(
         ),
         'lite_archive' => array(
             'depends' => array('lite_services'),
+        ),
+        'lite_archive_user' => array(
+            'depends' => array('lite_services_user'),
         ),
         'chosen' => array(
             'baseUrl' => '/',

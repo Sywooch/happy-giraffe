@@ -421,6 +421,7 @@ class Route extends CActiveRecord
             'criteria' => $criteria,
             'pagination' => array(
                 'pageVar' => 'page',
+                'pageSize' => 30,
             ),
         ));
     }

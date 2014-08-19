@@ -67,6 +67,9 @@ class DefaultController extends LiteController
         $this->render('city', compact('dp', 'city'));
     }
 
+    /**
+     * @sitemap dataSource=sitemap
+     */
     public function actionView($routeId)
     {
         $route = Route::model()->findByPk($routeId);
@@ -98,6 +101,10 @@ class DefaultController extends LiteController
 
     public function sitemap($param)
     {
+        if ($param == -1) {
+            return array();
+        }
+
         $models = Yii::app()->db->createCommand()
             ->select('id')
             ->from(Route::model()->tableName())

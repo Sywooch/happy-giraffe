@@ -18,6 +18,7 @@ foreach ($middle_points as $point) {
 
     if ($c !== null && !empty($c->location_lat) && !empty($c->location_lng))
         $js .= "
+        console.log('123');
 new google.maps.Marker({
     position: new google.maps.LatLng(" . $c->location_lat . ", " . $c->location_lng . "),
     map: Routes.map,

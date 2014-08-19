@@ -18,7 +18,7 @@ define('routes', ['async!http://maps.googleapis.com/maps/api/js?libraries=places
             Routes.PlacesService = new google.maps.places.PlacesService(Routes.map);
             Routes.initializeAutoComplete();
         },
-        init:function (start, end) {
+        init:function (start, end, callback) {
             Routes.directionsService = new google.maps.DirectionsService();
             Routes.initAutoComplete();
 
@@ -36,6 +36,7 @@ define('routes', ['async!http://maps.googleapis.com/maps/api/js?libraries=places
 
                     new google.maps.Marker({position: myRoute.steps[0].start_point,map: Routes.map,icon: '/images/services/map-route/point/point-start.png'});
                     new google.maps.Marker({position: myRoute.steps[myRoute.steps.length - 1].end_point,map: Routes.map,icon: '/images/services/map-route/point/point-finish.png'});
+                    callback();
                 }
             });
         },

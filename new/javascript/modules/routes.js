@@ -18,7 +18,7 @@ define('routes', ['async!http://maps.googleapis.com/maps/api/js?libraries=places
             Routes.PlacesService = new google.maps.places.PlacesService(Routes.map);
             Routes.initializeAutoComplete();
         },
-        init:function (start, end) {
+        init:function (start, end, callback) {
             Routes.directionsService = new google.maps.DirectionsService();
             Routes.initAutoComplete();
 
@@ -36,6 +36,7 @@ define('routes', ['async!http://maps.googleapis.com/maps/api/js?libraries=places
 
                     new google.maps.Marker({position: myRoute.steps[0].start_point,map: Routes.map,icon: '/images/services/map-route/point/point-start.png'});
                     new google.maps.Marker({position: myRoute.steps[myRoute.steps.length - 1].end_point,map: Routes.map,icon: '/images/services/map-route/point/point-finish.png'});
+                    callback();
                 }
             });
         },
@@ -115,4 +116,47 @@ define('routes', ['async!http://maps.googleapis.com/maps/api/js?libraries=places
     }
 
     return Routes;
+});
+
+define('routesCalc', ['knockout'], function(ko) {
+    function RoutesModel(distance, currencyArray) {
+        this._distance = ko.observable(distance);
+        this.speed = ko.observable(80);
+        this.currency = ko.observableArray(currencyArray);
+        this.currentCurrency = ko.observable(1);
+        this.fuelConsumption = ko.observable(8);
+
+        this.distance = ko.computed(function () {
+            return (this._distance() + '').replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+        }, this);
+
+        this.DurationHours = ko.computed(function () {
+            return Math.floor(this._distance() / this.speed());
+        }, this);
+
+        this.DurationMinutes = ko.computed(function () {
+            return Math.round((this._distance() - this.speed() * this.DurationHours()) / (this.speed()) * 60);
+        }, this);
+
+        this.fuelNeeds = ko.computed(function () {
+            return Math.round(this._distance() / 100 * this.fuelConsumption());
+        }, this);
+
+        this.fuelCost = ko.computed(function () {
+            var cur = this.currency()[this.currentCurrency() - 1];
+            return cur.value;
+        }, this);
+
+        this.summaryCost = ko.computed(function () {
+            var value = Math.round(this.fuelNeeds() * this.fuelCost());
+            return (value + '').replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+        }, this);
+
+        this.currencySign = ko.computed(function () {
+            var cur = this.currency()[this.currentCurrency() - 1];
+            return cur.name;
+        }, this);
+    }
+
+    return RoutesModel;
 });

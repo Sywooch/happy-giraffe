@@ -29,6 +29,7 @@ define('routes', ['async!http://maps.googleapis.com/maps/api/js?libraries=places
                 provideRouteAlternatives:false,
                 waypoints:window.way_points
             };
+            console.log('222');
             Routes.directionsService.route(request, function (response, status) {
                 if (status == google.maps.DirectionsStatus.OK) {
                     Routes.directionsDisplay.setDirections(response);

@@ -89,7 +89,7 @@ $cs->registerAMD('routes_waypoints', array('Routes' => 'routes'), $waypoints_js)
         <div class="map-route_aside">
             <?php $this->renderPartial('route/_calc', compact('route')); ?>
             <div class="map-route_view">
-                Маршрут просмотрели <span class="display-ib">6 895</span> водителей
+                Маршрут просмотрели <span class="display-ib"><?=PageView::model()->viewsByPath($route->url)?></span> водителей
             </div>
         </div>
         <div class="map-route_cont">

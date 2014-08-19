@@ -22,13 +22,24 @@ class DefaultController extends LiteController
 
     public function actionIndex()
     {
-        $this->meta_title = 'Составь маршрут для автомобиля';
+        $this->pageTitle = $this->meta_description = 'Составь маршрут для автомобиля';
+        $this->breadcrumbs = array(
+            'Авто' => array('/community/default/club', 'club' => 'auto'),
+            'Маршруты',
+        );
         $this->render('index');
     }
 
     public function actionCities($letter)
     {
         $dp = Route::getCitiesListDp($letter);
+
+        $this->pageTitle = $this->meta_description = 'Маршруты из городов на букву «' . $letter . '»';
+        $this->breadcrumbs = array(
+            'Авто' => array('/community/default/club', 'club' => 'auto'),
+            'Маршруты' => array('/routes/default/index'),
+            $letter,
+        );
         $this->render('cities', compact('dp', 'letter'));
     }
 
@@ -40,6 +51,13 @@ class DefaultController extends LiteController
         }
 
         $dp = Route::getCityDp($cityId);
+
+        $this->pageTitle = $this->meta_description = 'Маршруты из города ' . $city->name . ' ' . $city->region->name;
+        $this->breadcrumbs = array(
+            'Авто' => array('/community/default/club', 'club' => 'auto'),
+            'Маршруты' => array('/routes/default/index'),
+            'Маршруты города ' . $city->name . ' ' . $city->region->name,
+        );
         $this->render('city', compact('dp', 'city'));
     }
 
@@ -50,17 +68,25 @@ class DefaultController extends LiteController
             throw new CHttpException(404);
         }
 
-        if ($route->wordstat_value < Route::WORDSTAT_LIMIT)
-            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-
-        if ($route->status != Route::STATUS_ROSNEFT_FOUND && $route->status != Route::STATUS_GOOGLE_PARSE_SUCCESS)
+        if ($route->status != Route::STATUS_ROSNEFT_FOUND && $route->status != Route::STATUS_GOOGLE_PARSE_SUCCESS) {
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        }
+
+        if ($route->wordstat_value < Route::WORDSTAT_LIMIT) {
+            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        }
 
         PageView::model()->incViewsByPath($route->url);
 
         $this->pageTitle = $route->texts['title'];
         $this->meta_description = $route->texts['description'];
         $this->meta_keywords = $route->texts['keywords'];
+        $this->breadcrumbs = array(
+            'Авто' => array('/community/default/club', 'club' => 'auto'),
+            'Маршруты' => array('/routes/default/index'),
+            $route->cityFrom->name . ' — ' . $route->cityTo->name,
+
+        );
         $this->render('view', compact('route'));
     }
 

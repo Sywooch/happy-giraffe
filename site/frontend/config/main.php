@@ -523,7 +523,7 @@ return array(
                         'aliases' => array(
                             'application.modules.routes.controllers.DefaultController',
                         ),
-                        'param'=>0,
+                        'param'=>-1,
                     ),
                     'sitemapUsers1.xml' => array(
                         'aliases' => array(

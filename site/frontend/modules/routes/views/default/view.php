@@ -2,8 +2,6 @@
 /**
  * @var Route $route
  */
-$texts = $route->getTexts();
-
 $js = 'Routes.init("' . $route->cityFrom->getFullName() . '", "' . $route->cityTo->getFullName() . '");';
 $middle_points = array_slice($route->intermediatePoints, 1, count($route->intermediatePoints) - 2);
 $index = 1;
@@ -49,7 +47,7 @@ $cs->registerAMD('routes_waypoints', array('Routes' => 'routes'), $waypoints_js)
     <div class="b-main_cont">
         <div class="b-main_col-hold clearfix">
             <div class="heading-h1-hold">
-                <h1 class="heading-link-xxl"><?=$texts[0]?></h1>
+                <h1 class="heading-link-xxl"><?=$route->texts[0]?></h1>
             </div>
         </div>
     </div>
@@ -90,7 +88,7 @@ $cs->registerAMD('routes_waypoints', array('Routes' => 'routes'), $waypoints_js)
         <div class="map-route_aside">
             <?php $this->renderPartial('route/_calc', compact('route')); ?>
             <div class="map-route_view">
-                Маршрут просмотрели <span class="display-ib"><?=PageView::model()->viewsByPath($route->url)?></span> водителей
+                Маршрут просмотрели <span class="display-ib"><?=PageView::model()->viewsByPath($route->url)?></span> <?=Str::GenerateNoun(array('водитель', 'водителя', 'водителей'), PageView::model()->viewsByPath($route->url))?>
             </div>
         </div>
         <div class="map-route_cont">

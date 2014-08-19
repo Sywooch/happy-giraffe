@@ -1,7 +1,11 @@
 <?php
 
-class RoutesModule extends CWebModule
+namespace site\frontend\modules\archive;
+
+class ArchiveModule extends \CWebModule
 {
+    public $controllerNamespace = 'site\frontend\modules\archive\controllers';
+
 	public function init()
 	{
 		// this method is called when the module is being created
@@ -9,13 +13,13 @@ class RoutesModule extends CWebModule
 
 		// import the module-level models and components
 		$this->setImport(array(
-			'routes.models.*',
-			'routes.components.*',
-            'routes.widgets.*',
-            'geo.models.*',
-			'geo.components.*',
+			'archive.models.*',
+			'archive.components.*',
 		));
-	}
+
+        \Yii::app()->clientScript->registerPackage('lite_archive');
+
+    }
 
 	public function beforeControllerAction($controller, $action)
 	{

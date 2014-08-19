@@ -36,9 +36,9 @@
                     'showDisease' => Yii::app()->controller->action->id != 'disease',
                 ),
                 'emptyText' => 'Нет ни одного рецепта по вашему запросу',
-                'pager' => array(
-                    'class' => 'LitePager',
-                    'maxButtonCount' => 20,
+                'itemsCssClass' => 'traditional-recipes_ul',
+                'htmlOptions' => array(
+                    'class' => 'traditional-recipes',
                 ),
             ));
             ?>

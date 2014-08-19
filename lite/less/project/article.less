@@ -85,8 +85,8 @@
     
     h2 {
         margin: 30px 0 15px;
-        font-size: 20px;
-        line-height: 24px;
+        font-size: 23px;
+        line-height: 25px;
         font-weight: bold;
         color: @color-base;
     }
@@ -334,12 +334,12 @@
     &_a {
         display: block;
         position: relative;
-        padding-left: 25px;
+        padding: 0 0 3px 25px;
     }
-    &_a:hover &_tx {text-decoration: underline;}
+    &_a:hover &_tx {color: @color-orange;}
     &_a__r {
         text-align: right;
-        padding: 0 25px 0 0;
+        padding: 0 25px 3px 0;
     }
     &_a__r &_img-hold {margin: 0 0 0 10px;}
     &_a:after {
@@ -371,8 +371,8 @@
         vertical-align: middle;
         max-width: 210px;
         padding: 0;
-        font: bold 11px/12px Tahoma, Arial, Verdana, sans-serif;
-        color: #3782c1;
+        font: 13px/14px Tahoma, Arial, Verdana, sans-serif;
+        color: @color-link-light;
     }
 }
 /* /article-nearby */

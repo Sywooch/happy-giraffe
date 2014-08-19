@@ -245,6 +245,7 @@
 
         function IncomingFriendRequest(data, parent) {
             var self = this;
+            self.type = 'incoming';
             ko.utils.extend(self, new FriendRequest(data, parent));
 
             self.fromId = ko.observable(data.fromId);
@@ -305,6 +306,7 @@
 
         function OutgoingFriendRequest(data, parent) {
             var self = this;
+            self.type = 'outgoing';
             ko.utils.extend(self, new FriendRequest(data, parent));
 
             self.invited = ko.observable(data.invited);

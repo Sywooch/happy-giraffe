@@ -1,0 +1,58 @@
+/* calendar-serv-note */
+.calendar-serv-note {
+    position: relative;
+    margin: 20px 0;
+    font-size: 14px;
+
+    &__pink {
+        background-color: #fff4fc;
+    }
+    
+    &_count {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100px;
+        height: 95px;
+        padding: 0 5px 0 25px;
+        background: url('@{path-img}/calendar-serv-note_count.png') no-repeat;
+        background-size: cover;
+        text-align: center;
+        color: @color-white;
+        font: bold 60px/50px Georgia, 'Times New Roman', Times, serif;
+    }
+    &_t {
+        margin: 20px 120px 30px 0;
+        font-size: 23px;
+        line-height: 30px;
+        font-weight: bold;
+    }
+    &_ul {
+        margin: 10px 0;
+    }
+    &_li {
+        padding: 10px 20px 10px 45px;
+        background: url('@{path-img}/calendar-serv-note_li.png') no-repeat 0 45%;
+        color: @color-gray;
+    }
+    
+    @media (min-width: @screen-phone) {
+        &_t {
+            font-size: 25px;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        & {
+            font-size: 16px;
+        }
+        &_count {
+            width: 129px;
+            height: 121px;
+            padding: 6px 5px 15px 25px;
+        }
+        &_t {
+            font-size: 35px;
+        }
+    }
+}
+/* /calendar-serv-note */

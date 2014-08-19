@@ -103,6 +103,8 @@ mixin b-user(mod,vars)
                 a.b-user_view 123
                 a.b-user_check 123
                 a.b-user_del 123
+
+                
 //- Кнопка пролистывания страницы вверх к началу
 mixin btn-scrolltop()
     .btn-scrolltop(onclick="$('html, body').animate({scrollTop:0}, 'normal')")
@@ -115,17 +117,17 @@ mixin btn-scrolltop()
         tabActive - номер активной вкладки
         tabTexts - Текст таба
         sidebarSearch
-mixin page-col_top-tabs(mod, vars)
-    .page-col_top.page-col_top__gray
-        - if (vars.sidebarSearch)
-            +sidebar-search('', {placeholder: 'Введите имя и/или фамилию'})
-        ul.page-col_tabs
-            - for item, i in vars.tabsTexts
-                if (vars.tabActive == i)
-                    li.page-col_tab.active
-                        a.page-col_tab-a 
-                            != item
-                else 
-                    li.page-col_tab
-                        a.page-col_tab-a 
-                            != item
+//- mixin page-col_top-tabs(mod, vars)
+//-     .page-col_top.page-col_top__gray
+//-         - if (vars.sidebarSearch)
+//-             +sidebar-search('', {placeholder: 'Введите имя и/или фамилию'})
+//-         ul.page-col_tabs
+//-             - for item, i in vars.tabsTexts
+//-                 if (vars.tabActive == i)
+//-                     li.page-col_tab.active
+//-                         a.page-col_tab-a 
+//-                             != item
+//-                 else 
+//-                     li.page-col_tab
+//-                         a.page-col_tab-a 
+//-                             != item

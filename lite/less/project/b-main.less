@@ -19,12 +19,11 @@
     &_row {
         padding: 20px 0;
     }
-    &_row__gray {
-        background-color: #fafafa;
-    }
-    &_row__green {
-        background-color: #e5f6e3;
-    }
+    &_row__gray       {background-color: #fafafa;}
+    &_row__green      {background-color: #e5f6e3;}
+    &_row__blue-light {background-color: #eaf9ff;}
+    &_row__pink       {background-color: #e4a1d2; color: #fff;}
+    &_row__pink-light {background-color: #fcdff4;}
 
 
     // from new folder
@@ -45,9 +44,6 @@
         width:700px;
         float:left;
         position: relative;
-    }
-    &_cont {
-        margin: 0 20px;
     }
     &_col-hold {
         &:extend(.clearfix all);
@@ -73,9 +69,20 @@
             float: left;
             width: 600px;
         }
+        &_col-article__center {
+            float: none;
+            margin: 0 auto;
+        }
         &_col-sidebar {
             float: left;
             margin-left: 20px;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        
+        &_col-wide {
+            margin: 0 auto;
+            max-width: 700px;
         }
     }
     @media (min-width: @screen-desktop) {

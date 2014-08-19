@@ -202,9 +202,9 @@
     &_li__dropin &_a:hover &_ico,
     &_li__dropin &_li.active &_ico,
     &_a:hover &_ico,
-    &_li.active &_ico,
+    &_li.active &_ico {top: -4px;}
     &_a:hover &_count,
-    &_li.active &_count {top: -4px;}
+    &_li.active &_count {top: 1px;}
 
     &_a:hover &_ico__giraffe,
     &_li.active &_ico__giraffe   {background-position: 0 -50px;}
@@ -283,7 +283,7 @@
     }
     &_count {
         position: absolute;
-        top: 0;
+        top: 5px;
         right: 0;
         margin: 0;
         padding: 1px 5px;
@@ -291,7 +291,7 @@
         font-size: 11px;
         line-height: 14px;
         color: #fff;
-        background-color: #f84219;
+        background-color: #ff6900;
         .border-radius(30px);
     }
 }
@@ -430,7 +430,7 @@
         }
         &_a {padding: 12px 5px 12px;}
     }
-    &_dropin:hover .header_i-arrow {background-position: 0 -8px;}
+    /*&_dropin:hover .header_i-arrow {background-position: 0 -8px;}*/
     &_dropin.active .header-drop {display: block;}
 
 }

@@ -88,7 +88,7 @@ $cs->registerAMD('routes_waypoints', array('Routes' => 'routes'), $waypoints_js)
         <div class="map-route_aside">
             <?php $this->renderPartial('route/_calc', compact('route')); ?>
             <div class="map-route_view">
-                Маршрут просмотрели <span class="display-ib"><?=PageView::model()->viewsByPath($route->url)?></span> <?=Str::GenerateNoun(array('водитель', 'водителя', 'водителей'), PageView::model()->viewsByPath($route->url))?>
+                Маршрут <?=Str::GenerateNoun(array('посмотрел', 'посмотрели', 'посмотрели'), PageView::model()->viewsByPath($route->url))?> <span class="display-ib"><?=PageView::model()->viewsByPath($route->url)?></span> <?=Str::GenerateNoun(array('водитель', 'водителя', 'водителей'), PageView::model()->viewsByPath($route->url))?>
             </div>
         </div>
         <div class="map-route_cont">

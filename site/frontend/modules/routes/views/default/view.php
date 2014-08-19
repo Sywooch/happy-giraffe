@@ -59,7 +59,7 @@ $cs->registerAMD('routes_waypoints', array('Routes' => 'routes'), $waypoints_js)
         </div>
         <!-- По умолчанию форма должна быть скрыта, с помощью стля или класса displa-n-->
         <div style="display: none"><?php $this->widget('RoutesFormWidget'); ?></div>
-        <div class="map-route-f_tx">Узнайте, как доехать на авто от Киева до Донецка. Схема трассы Киев-Донецк на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от Киева до Донецка</div>
+        <div class="map-route-f_tx"><?=$route->texts[1]?></div>
     </div>
     <!-- /Форма поиска маршрута-->
     <!-- Карта-->

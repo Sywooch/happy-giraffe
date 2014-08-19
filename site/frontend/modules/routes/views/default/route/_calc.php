@@ -21,7 +21,7 @@ $cs->registerAMD('routes-calc', array('RoutesModel' => 'routesCalc', 'ko' => 'kn
         <div class="map-route-calc_item">
             <div class="clearfix">
                 <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-car.png" alt=""></div>
-                <div class="map-route-calc_t">Расстояние <span class="hidden-xs"><?=$route->texts[3]?></span></div>
+                <div class="map-route-calc_t"><?=$route->texts[3]?></div>
             </div>
             <div class="map-route-calc_value"><span data-bind="text: distance"></span><span class="map-route-calc_units">км. </span></div>
             <div class="map-route-calc_desc"><?=$route->texts[4]?></div>

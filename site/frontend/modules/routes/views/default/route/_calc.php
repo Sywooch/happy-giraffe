@@ -29,7 +29,7 @@ $cs->registerAMD('routes-calc', array('RoutesModel' => 'routesCalc', 'ko' => 'kn
         <div class="map-route-calc_item">
             <div class="clearfix">
                 <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-time.png" alt=""></div>
-                <div class="map-route-calc_t">Время в пути <span class="hidden-xs"> <?=$route->texts[5]?></span></div>
+                <div class="map-route-calc_t"><?=$route->texts[5]?></div>
             </div>
             <label for="route-time" class="map-route-calc_label">Ср. скорость км / ч </label>
             <div class="map-route-calc_row clearfix">

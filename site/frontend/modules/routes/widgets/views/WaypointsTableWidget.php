@@ -4,7 +4,7 @@
  */
 ?>
 
-<div class="heading-xl visible-md-block"><?=$this->route->texts[2]?></div>
+<h2 class="heading-xl visible-md-block"><?=$this->route->texts[2]?></h2>
 <table class="map-route-table visible-md-table">
     <colgroup>
         <col class="map-route-table_col1">

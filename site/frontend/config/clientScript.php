@@ -28,6 +28,8 @@ return array(
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
             'AdFox' => '/javascripts/fox',
+            'wysiwyg_old' => '/javascripts/wysiwyg',
+            'upload' => '/javascripts/upload',
             'async' => '/new/javascript/plugins/async',
             'goog' => '/new/javascript/plugins/goog',
             'propertyParser' => '/new/javascript/plugins/propertyParser',
@@ -325,11 +327,18 @@ return array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
-                'javascripts/upload.js',
                 'jQuery-File-Upload/js/jquery.iframe-transport.js',
                 'jQuery-File-Upload/js/jquery.fileupload.js',
             ),
-            'depends' => array('knockout', 'jquery.ui.widget'),
+            'depends' => array('knockout', 'jquery.ui.widget', 'upload'),
+        ),
+        'upload' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/upload.js',
+            ),
+            'depends' => array('knockout'),
         ),
         'ko_menu' => array(
             'baseUrl' => '/',
@@ -401,7 +410,6 @@ return array(
         'lite' => array(
             'amd' => true,
             'baseUrl' => '/',
-            'amd' => true,
             'js' => array(
                 'lite/javascript/modernizr.custom.js',
                 'lite/javascript/picturefill.min.js',
@@ -420,14 +428,38 @@ return array(
                 'lite/css/min/services.css',
             ),
         ),
+        'lite_services_user' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/services-user.css',
+            ),
+        ),
         'lite_routes' => array(
             'depends' => array('lite_services'),
+        ),
+        'lite_routes_user' => array(
+            'depends' => array('lite_services_user'),
         ),
         'lite_recipes' => array(
             'depends' => array('lite_services'),
         ),
+        'lite_recipes_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
         'lite_archive' => array(
             'depends' => array('lite_services'),
+        ),
+        'lite_archive_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
+        'chosen' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/chosen.jquery.min.js',
+            ),
+            'depends' => array('jquery'),
         ),
     )
 );

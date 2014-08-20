@@ -217,7 +217,7 @@ class DefaultController extends HController
         }
     }
 
-    public function actionForm($id = null, $type = null, $club_id = false, $contest_id = null)
+    public function actionForm($id = null, $type = null, $club_id = false, $contest_id = null, $useAMD = null, $short = null)
     {
         $this->user = $this->loadUser(Yii::app()->user->id);
         if ($id === null) {
@@ -235,6 +235,10 @@ class DefaultController extends HController
             else
                 $model = BlogContent::model()->findByPk($id);
             $slaveModel = $model->getContent();
+        }
+
+        if ($useAMD !== null) {
+            Yii::app()->clientScript->useAMD = true;
         }
 
         if (!$model->isNewRecord && !$model->canEdit())
@@ -300,7 +304,7 @@ class DefaultController extends HController
             $model->rubric_id = $contest->rubric_id;
             $this->renderPartial('form/contest/' . $contest->id, compact('model', 'slaveModel', 'json', 'club_id', 'contest_id', 'contest'), false, true);
         }
-        elseif (Yii::app()->request->getPost('short'))
+        elseif ($short)
             $this->renderPartial('form/' . $model->type_id, compact('model', 'slaveModel', 'json', 'club_id'), false, true);
         else
             $this->renderPartial('form', compact('model', 'slaveModel', 'json', 'club_id'), false, true);

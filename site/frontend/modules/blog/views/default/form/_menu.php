@@ -5,11 +5,11 @@
         </div>
         <div class="user-add-record_hold js_add_menu">
             <div class="user-add-record_tx">Я хочу добавить</div>
-            <a href="<?=$this->createUrl('form', array('type' => 1, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__article <?php if ($type == 1) echo 'active' ?>" onclick="return AddMenu.select(this, 1, '<?=$club_id ?>');">Статью</a>
-            <a href="<?=$this->createUrl('form', array('type' => 3, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__photo <?php if ($type == 3) echo 'active' ?>" onclick="return AddMenu.select(this, 3, '<?=$club_id ?>');">Фото</a>
-            <a href="<?=$this->createUrl('form', array('type' => 2, 'club_id' => $club_id))?>" class="user-add-record_ico user-add-record_ico__video <?php if ($type == 2) echo 'active' ?>" onclick="return AddMenu.select(this, 2, '<?=$club_id ?>');">Видео</a>
+            <a href="javascript:void(0)" class="user-add-record_ico user-add-record_ico__article <?php if ($type == 1) echo 'active' ?>" onclick="return AddMenu.select(this, 1, '<?=$club_id ?>', <?=CJavaScript::encode(Yii::app()->clientScript->useAMD)?>);">Статью</a>
+            <a href="javascript:void(0)" class="user-add-record_ico user-add-record_ico__photo <?php if ($type == 3) echo 'active' ?>" onclick="return AddMenu.select(this, 3, '<?=$club_id ?>', <?=CJavaScript::encode(Yii::app()->clientScript->useAMD)?>);">Фото</a>
+            <a href="javascript:void(0)" class="user-add-record_ico user-add-record_ico__video <?php if ($type == 2) echo 'active' ?>" onclick="return AddMenu.select(this, 2, '<?=$club_id ?>', <?=CJavaScript::encode(Yii::app()->clientScript->useAMD)?>);">Видео</a>
             <?php if (empty($club_id)):?>
-                <a href="<?=$this->createUrl('form', array('type' => 5))?>" class="user-add-record_ico user-add-record_ico__status <?php if ($type == 5) echo 'active' ?>" onclick="return AddMenu.select(this, 5, '<?=$club_id ?>');">Статус</a>
+                <a href="javascript:void(0)" class="user-add-record_ico user-add-record_ico__status <?php if ($type == 5) echo 'active' ?>" onclick="return AddMenu.select(this, 5, '<?=$club_id ?>', <?=CJavaScript::encode(Yii::app()->clientScript->useAMD)?>);">Статус</a>
             <?php endif ?>
         </div>
     </div>

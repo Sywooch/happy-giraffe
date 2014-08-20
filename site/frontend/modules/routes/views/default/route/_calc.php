@@ -13,10 +13,10 @@ foreach ($fuels as $fuel) {
 }
 
 $cs = Yii::app()->clientScript;
-$cs->registerAMD('routes-calc', array('RoutesModel' => 'routesCalc', 'ko' => 'knockout', 'ko_library' => 'ko_library'), 'ko.applyBindings(new RoutesModel("' . $route->distance . '", ' . CJavaScript::encode($result) . '));');
+$cs->registerAMD('routes-calc', array('RoutesModel' => 'routesCalc', 'ko' => 'knockout', 'ko_library' => 'ko_library'), 'ko.applyBindings(new RoutesModel("' . $route->distance . '", ' . CJavaScript::encode($result) . '), document.getElementById(\'map-route-calc\'));');
 ?>
 
-<div class="map-route-calc">
+<div class="map-route-calc" id="map-route-calc">
     <div class="map-route-calc_hold">
         <div class="map-route-calc_item">
             <div class="clearfix">

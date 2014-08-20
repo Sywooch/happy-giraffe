@@ -264,9 +264,70 @@ block layout
 
                     +adv-yandex()
 
-                    +banReadMore()
+                    //- +banReadMore()
 
+                    // баннер на всю ширину
+                    // href статьи http://www.happy-giraffe.ru/community/21/forum/photoPost/176862/
+                    // Изабражение вставляется через background для поизиционирования через css
+                    style(type='text/css').
+                        /* Ширина изображения 600px */
+                        .ban-read-more {
+                            background-image: url('#{path}images/banner/ban-route-danger.jpg');
+                        }
+                        /* Ширина изображения до 1000px*/
+                        @media (min-width: 640px) {
+                            .ban-read-more {
+                                background-image: url('#{path}images/banner/ban-route-danger-w1000.jpg');
+                            }
+                        }
 
+                    .ban-read-more
+                        .ban-read-more_hold
+                            .ban-read-more_cont
+                                .ban-read-more_t-sub Рекомендуем для чтения
+                                .ban-read-more_author.clearfix
+                                    // Аватарки размером 40*40
+                                    //-+ava("ava__middle ava__small-sm-mid hidden-xxs", avaSpan)
+                                    span.ava.ava__middle.ava__small-sm-mid.hidden-xxs
+                                        img.ava_img(src="http://img.happy-giraffe.ru/thumbs/40x40/220231/avabdc8f4a293ba7a8614e61a14082f0993.jpg", alt="")
+                                    span.a-light Марина Шевкопляс
+                                .ban-read-more_t 20 самых опасных маршрутов в мире
+                                .ban-read-more_desc Для автомобилиста-новичка любая дорога с большим количеством перекрестков, поворотов, дорожных знаков, гаишников и медленных бабушек может быть...
+                                .ban-read-more_arrow
+
+                    // баннер 2
+                    // баннер на всю ширину
+                    // Изабражение вставляется через background для поизиционирования через css
+                    style(type='text/css').
+                        /* Ширина изображения 600px */
+                        .ban-read-more {
+                            background-image: url('#{path}images/banner/ban-route__nice.jpg');
+                        }
+
+                        /* Изображения для других баннеров 
+                            .ban-read-more {
+                                background-image: url('#{path}images/banner/ban-route__nice2.jpg');
+                            }
+
+                            .ban-read-more {
+                                background-image: url('#{path}images/banner/ban-route__nice3.jpg');
+                            }
+                        */
+
+                    .ban-read-more
+                        .ban-read-more_hold
+                            .ban-read-more_cont
+                                .ban-read-more_t-sub Рекомендуем для чтения
+                                .ban-read-more_author.clearfix
+                                    // Аватарки размером 40*40
+                                    //-+ava("ava__middle ava__small-sm-mid hidden-xxs", avaSpan)
+                                    span.ava.ava__middle.ava__small-sm-mid.hidden-xxs
+                                        img.ava_img(src="http://img.happy-giraffe.ru/thumbs/40x40/220231/avabdc8f4a293ba7a8614e61a14082f0993.jpg", alt="")
+                                    span.a-light Марина Шевкопляс
+                                .ban-read-more_t 20 самых опасных маршрутов в мире
+                                .ban-read-more_desc Для автомобилиста-новичка любая дорога с большим количеством перекрестков, поворотов, дорожных знаков, гаишников и медленных бабушек может быть...
+                                .ban-read-more_arrow
+                    // /баннер
         // /Маршруты
 
     // b-main 

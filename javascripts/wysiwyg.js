@@ -199,6 +199,7 @@
                             ko.cleanNode(document.getElementById('redactor-popup_b-link'));
                             this.linkVM = new WysiwygLink({ url : turl, text : text });
                             ko.applyBindings(this.linkVM, document.getElementById('redactor-popup_b-link'))
+                            setPopupPosition($(buttonDOM), $('.redactor-popup_b-link'));
                             $('#redactor-popup_b-link').toggleClass('display-n');
                         }
                     },

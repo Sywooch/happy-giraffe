@@ -98,6 +98,7 @@
         <!--/ tns-counter.ru -->
         <?php endif; ?>
 
+        <?php if (false): ?>
         <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->
@@ -128,6 +129,7 @@
             // -->
         </script>
         <!--AdFox END-->
+        <?php endif; ?>
 
         <?php if (false): ?>
         <!-- Soloway Javascript code START-->

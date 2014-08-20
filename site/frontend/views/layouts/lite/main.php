@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var LiteController $this
+ */
+?>
+
 <!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <head>
@@ -10,39 +16,60 @@
 <div class="layout-container">
     <div class="layout-loose layout-loose__white">
         <div class="layout-header">
-            <!-- header-->
-            <header class="header header__simple header__guest">
-                <div class="header_hold clearfix">
-                    <!-- logo-->
-                    <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="<?=$this->createUrl('/site/index')?>" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
-                    <!-- /logo-->
-                    <?php if ($this->module !== null && $this->module->id == 'search'): ?>
+            <?php if (Yii::app()->user->isGuest): ?>
+                <!-- header-->
+                <header class="header header__simple">
+                    <div class="header_hold clearfix">
+                        <!-- logo-->
+                        <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="<?=$this->createUrl('/site/index')?>" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+                        <!-- /logo-->
                         <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
                         <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
-                    <?php endif; ?>
-                    <!-- header-menu-->
-                    <!--<div class="header-menu">
-                        <ul class="header-menu_ul clearfix">
-                            <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
-                            <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span></a></li>
-                        </ul>
-                    </div>-->
-                    <!-- /header-menu-->
-                    <?php if ($this->module->id != 'search'): ?>
-                        <div class="sidebar-search clearfix sidebar-search__big">
-                            <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
-                            <!-- При начале ввода добавить класс .active на кнопку-->
-                            <!-- <button class="sidebar-search_btn"></button> -->
-                            <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            </header>
-            <!-- /header-->
+                        <?php $this->widget('site.frontend.widgets.headerGuestWidget.HeaderGuestWidget'); ?>
+                        <?php if ($this->module->id != 'search'): ?>
+                            <div class="sidebar-search clearfix sidebar-search__big">
+                                <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
+                                <!-- При начале ввода добавить класс .active на кнопку-->
+                                <!-- <button class="sidebar-search_btn"></button> -->
+                                <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </header>
+                <!-- /header-->
+            <?php  else: ?>
+                <?php $this->renderDynamic(array($this, 'renderPartial'), '//_menu', null, true); ?>
+            <?php endif; ?>
         </div>
         <div class="layout-loose_hold clearfix">
             <!-- b-main -->
             <div class="b-main clearfix">
+                <?php if (! Yii::app()->user->isGuest): ?>
+                <div class="b-main_cols clearfix">
+                    <div class="b-main_col-1">
+                        <div class="sidebar-search clearfix sidebar-search__big">
+                            <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
+                        </div>
+                    </div>
+                    <div class="b-main_col-23">
+                        <!-- userAddRecord-->
+                        <div class="userAddRecord clearfix userAddRecord__s userAddRecord__s">
+                            <div class="userAddRecord_ava-hold">
+                                <?php $this->widget('Avatar', array('user' => Yii::app()->user->getModel(), 'size' => Avatar::SIZE_SMALL)); ?>
+                            </div>
+                            <div class="userAddRecord_hold">
+                                <div class="userAddRecord_tx">Я хочу добавить
+                                </div>
+                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_POST, 'useAMD' => true)) ?>" data-theme="transparent" title="Статью" class="userAddRecord_ico userAddRecord_ico__article fancy powertip"></a>
+                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_PHOTO_POST, 'useAMD' => true)) ?>" data-theme="transparent" title="Фото" class="userAddRecord_ico userAddRecord_ico__photo fancy powertip"></a>
+                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_VIDEO, 'useAMD' => true)) ?>" data-theme="transparent" title="Видео" class="userAddRecord_ico userAddRecord_ico__video fancy powertip"></a>
+                                <a href="<?=$this->createUrl('/blog/default/form', array('type' => CommunityContent::TYPE_STATUS, 'useAMD' => true)) ?>" data-theme="transparent" title="Статус" class="userAddRecord_ico userAddRecord_ico__status fancy powertip"></a>
+                            </div>
+                        </div>
+                        <!-- /userAddRecord-->
+                    </div>
+                </div>
+                <?php endif; ?>
                 <div class="b-main_cont">
                     <?php if ($this->breadcrumbs): ?>
                         <div class="b-crumbs b-crumbs__s">

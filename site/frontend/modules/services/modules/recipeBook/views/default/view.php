@@ -1,6 +1,7 @@
 <?php
 /**
  * @var RecipeBookRecipe $recipe
+ * @var LiteController $this
  */
 $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $recipe));
 ?>
@@ -15,7 +16,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                 <div class="b-article_cont clearfix">
                     <div class="b-article_header clearfix">
                         <div class="icons-meta"><a href="#commentsList" class="icons-meta_comment"><span class="icons-meta_tx"><?=$commentsWidget->count?></span></a>
-                            <div class="icons-meta_view"><span class="icons-meta_tx"><?=PageView::model()->viewsByPath($recipe->getUrl())?></span></div>
+                            <div class="icons-meta_view"><span class="icons-meta_tx"><?=$this->getViews()?></span></div>
                         </div>
                         <div class="float-l">
                             <?php $this->widget('Avatar', array('user' => $recipe->author)); ?>

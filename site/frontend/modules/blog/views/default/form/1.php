@@ -9,7 +9,7 @@ if (empty($club_id)){
 }else
     $action = $model->isNewRecord ? array('/community/default/save') : array('/community/default/save', 'id' => $model->id);
 
-$form = $this->beginWidget('CActiveForm', array(
+$form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
     'id' => 'blog-form',
     'action' => $action,
     'enableAjaxValidation' => true,
@@ -91,19 +91,34 @@ $form = $this->beginWidget('CActiveForm', array(
 
 <?php $this->endWidget(); ?>
 
-<script type="text/javascript">
+<?php
+/**
+ * @var ClientScript $cs
+ */
+$cs = Yii::app()->clientScript;
+
+$wysiwyg_js = <<<JS
     $('.wysiwyg-redactor-v').redactorHG({
         plugins: ['toolbarVerticalFixed'],
         minHeight: 410,
         autoresize: true,
         buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile']
     });
+JS;
 
+$js = <<<JS
     var BlogFormPostViewModel = function(data) {
         var self = this;
         ko.utils.extend(self, new BlogFormViewModel(data));
-    }
+    };
+JS;
+$js .= "ko.applyBindings(new BlogFormPostViewModel(" . CJSON::encode($json) . "), document.getElementById('popup-user-add-article'));";
 
-    formVM = new BlogFormPostViewModel(<?=CJSON::encode($json)?>);
-    ko.applyBindings(formVM, document.getElementById('popup-user-add-article'));
-</script>
+if ($cs->useAMD) {
+    $cs->registerAMD('wysiwyg-old', array('wysiwyg_old' => 'wysiwyg_old'), $wysiwyg_js);
+    $cs->registerAMD('add-post', array('ko' => 'knockout', 'ko_post' => 'ko_post'), $js);
+} else {
+    $cs->registerScript('wysiwyg-old', $wysiwyg_js, ClientScript::POS_READY);
+    $cs->registerScript('add-post', $js, ClientScript::POS_READY);
+}
+?>

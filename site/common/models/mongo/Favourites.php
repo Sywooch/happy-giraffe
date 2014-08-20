@@ -197,7 +197,7 @@ class Favourites extends EMongoDocument
 
     public function getWeekPosts()
     {
-        return $this->getArticlesByDate(self::WEEKLY_MAIL, date("Y-m-d"));
+        return $this->getArticlesByDate(self::WEEKLY_MAIL, date("2014-08-18"));
     }
 
     /**

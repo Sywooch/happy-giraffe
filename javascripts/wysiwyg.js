@@ -132,7 +132,10 @@
                             if ($('.redactor-popup_b-video').is(':visible'))
                                 $('.redactor-popup_b-video').addClass('display-n');
                             else {
-                                $('.redactor-popup_b-video').removeClass('display-n');
+                                $('.redactor-popup_b-video')
+                                    .removeClass('display-n')
+                                    .siblings('.redactor-popup')
+                                    .addClass('display-n');
                                 setPopupPosition($(buttonDOM), $('.redactor-popup_b-video'));
                             }
                         }
@@ -151,7 +154,10 @@
                             if ($('.redactor-popup_b-photo').is(':visible'))
                                 $('.redactor-popup_b-photo').addClass('display-n');
                             else {
-                                $('.redactor-popup_b-photo').removeClass('display-n');
+                                $('.redactor-popup_b-photo')
+                                    .removeClass('display-n')
+                                    .siblings('.redactor-popup')
+                                    .addClass('display-n');
                                 setPopupPosition($(buttonDOM), $('.redactor-popup_b-photo'));
                             }
                         }
@@ -162,7 +168,10 @@
                             if ($('.redactor-popup_b-smile').is(':visible'))
                                 $('.redactor-popup_b-smile').addClass('display-n');
                             else {
-                                $('.redactor-popup_b-smile').removeClass('display-n');
+                                $('.redactor-popup_b-smile')
+                                    .removeClass('display-n')
+                                    .siblings('.redactor-popup')
+                                    .addClass('display-n');
                                 setPopupPosition($(buttonDOM), $('.redactor-popup_b-smile'));
                             }
                         }
@@ -199,9 +208,12 @@
                             ko.cleanNode(document.getElementById('redactor-popup_b-link'));
                             this.linkVM = new WysiwygLink({ url : turl, text : text });
                             ko.applyBindings(this.linkVM, document.getElementById('redactor-popup_b-link'))
-                            $('#redactor-popup_b-link').toggleClass('display-n');
+                            $('#redactor-popup_b-link')
+                                .toggleClass('display-n')
+                                .siblings('.redactor-popup')
+                                .addClass('display-n');
                             setPopupPosition($(buttonDOM), $('.redactor-popup_b-link'));
-                        }
+                        },
                     },
                     link_del: {
                         title: 'Удалить ссылку',

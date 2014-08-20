@@ -20,6 +20,7 @@ class Avatar extends CWidget
     public $message_link = true;
     public $blog_link = true;
     public $htmlOptions = array();
+    public $tag = null;
 
     public function run()
     {
@@ -39,7 +40,11 @@ class Avatar extends CWidget
 
 
                 $class .= ' ava__' . (($this->user->gender == 0) ? 'female' : 'male');
-                $tag = $this->user->deleted == 1 ? 'span' : 'a';
+                if ($this->tag === null) {
+                    $tag = $this->user->deleted == 1 ? 'span' : 'a';
+                } else {
+                    $tag = $this->tag;
+                }
                 if (isset($this->htmlOptions['class'])) {
                     $class .= ' ' . $this->htmlOptions['class'];
                     unset($this->htmlOptions['class']);
@@ -47,7 +52,7 @@ class Avatar extends CWidget
                 $options = CMap::mergeArray(array(
                     'class' => $class,
                 ), $this->htmlOptions);
-                if ($this->user->deleted == 0) {
+                if ($tag == 'a') {
                     $options['href'] = $this->user->getUrl();
                 }
                 $this->render('simple', compact('tag', 'options'));

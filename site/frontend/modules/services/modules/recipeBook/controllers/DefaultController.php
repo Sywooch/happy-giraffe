@@ -39,6 +39,9 @@ class DefaultController extends LiteController
         $this->render('index', compact('links', 'dp', 'title'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapDisease
+     */
     public function actionDisease($slug)
     {
         $disease = RecipeBookDisease::model()->findByAttributes(array('slug' => $slug));
@@ -60,6 +63,9 @@ class DefaultController extends LiteController
         $this->render('index', compact('links', 'dp', 'title'));
     }
 
+    /**
+     * @sitemap dataSource=sitemapCategory
+     */
     public function actionCategory($slug)
     {
         $category = RecipeBookDiseaseCategory::model()->with('diseases')->findByAttributes(array('slug' => $slug));
@@ -126,6 +132,37 @@ class DefaultController extends LiteController
         }
 
         return $data;
+    }
 
+    public function sitemapCategory()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('slug')
+            ->from('recipe_book__disease_categories')
+            ->queryAll();
+
+        return array_map(function($model) {
+            return array(
+                'params' => array(
+                    'slug' => $model['slug'],
+                ),
+            );
+        }, $models);
+    }
+
+    public function sitemapDisease()
+    {
+        $models = Yii::app()->db->createCommand()
+            ->select('slug')
+            ->from('recipe_book__diseases')
+            ->queryAll();
+
+        return array_map(function($model) {
+            return array(
+                'params' => array(
+                    'slug' => $model['slug'],
+                ),
+            );
+        }, $models);
     }
 }

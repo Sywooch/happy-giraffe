@@ -4,7 +4,7 @@
     }else
         $action = $model->isNewRecord ? array('/community/default/save') : array('/community/default/save', 'id' => $model->id);
 
-    $form = $this->beginWidget('CActiveForm', array(
+    $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
         'id' => 'blog-form',
         'action' => $action,
         'enableAjaxValidation' => true,
@@ -93,7 +93,14 @@
     <?php $this->endWidget(); ?>
 
 </div>
-<script type="text/javascript">
+
+<?php
+/**
+ * @var ClientScript $cs
+ */
+$cs = Yii::app()->clientScript;
+
+$js = <<<JS
     var PhotoPostViewModel = function (data) {
         var self = this;
         ko.utils.extend(self, new BlogFormViewModel(data));
@@ -104,6 +111,13 @@
             $('#blog-form').submit();
         }
     };
-    var formVM1 = new PhotoPostViewModel(<?=CJSON::encode($json)?>);
-    ko.applyBindings(formVM1, document.getElementById('popup-user-add-photo-post'));
-</script>
+JS;
+
+$js .= "ko.applyBindings(new PhotoPostViewModel(" . CJSON::encode($json) . "), document.getElementById('popup-user-add-photo-post'));";
+
+if ($cs->useAMD) {
+    $cs->registerAMD('add-photoPost', array('ko' => 'knockout', 'UploadPhotos' => 'upload', 'ko_post' => 'ko_post'), $js);
+} else {
+    $cs->registerScript('add-photoPost', $js, ClientScript::POS_READY);
+}
+?>

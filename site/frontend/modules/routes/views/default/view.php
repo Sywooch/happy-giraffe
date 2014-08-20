@@ -95,33 +95,37 @@ $cs->registerAMD('routes_waypoints', array('Routes' => 'routes'), $waypoints_js)
             <?php if (Yii::app()->vm->getVersion() == VersionManager::VERSION_DESKTOP) $this->widget('WaypointsTableWidget', compact('route')); ?>
             <!-- Реклама яндекса-->
             <?php $this->renderPartial('//banners/_route'); ?>
-            <!-- баннер на всю ширину-->
-            <!-- Изабражение вставляется через background для поизиционирования через css-->
-            <style type="text/css">
-                /* Ширина изображения 600px */
-                .ban-read-more {
-                    background-image: url('/lite/images/example/w600-h355-1.jpg');
-                }
-                /* Ширина изображения до 1000px*/
-                @media (min-width: 640px) {
-                    .ban-read-more {
-                        background-image: url('/lite/images/example/w1000-h510-2.jpg');
+
+            <!--AdFox START-->
+            <!--giraffe-->
+            <!--Площадка: Весёлый Жираф / * / *-->
+            <!--Тип баннера: Безразмерный 680х470-->
+            <!--Расположение: <низ страницы>-->
+            <script type="text/javascript">
+                <!--
+                if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+                if (typeof(document.referrer) != 'undefined') {
+                    if (typeof(afReferrer) == 'undefined') {
+                        afReferrer = escape(document.referrer);
                     }
+                } else {
+                    afReferrer = '';
                 }
-            </style>
-            <div class="ban-read-more">
-                <div class="ban-read-more_hold">
-                    <div class="ban-read-more_cont">
-                        <div class="ban-read-more_t-sub">Рекомендуем для чтения</div>
-                        <div class="ban-read-more_author clearfix">
-                            <!-- Аватарки размером 40*40-->
-                            <!-- ava--><a href="" class="ava ava__middle ava__small-xs"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="a-light">Ангелина Богоявленская</a>
-                        </div><a href="" class="ban-read-more_t">20 самых опасных маршрутов в мире</a>
-                        <div class="ban-read-more_desc">Вот, девочки, напала на вот такую красоту в интернете. И вдруг вспомнила, что муж у меня уже много много лет мечтает ...</div><a href="" class="ban-read-more_arrow"></a>
-                    </div>
-                </div>
-            </div>
-            <!-- /баннер-->
+                var addate = new Date();
+                var scrheight = '', scrwidth = '';
+                if (self.screen) {
+                    scrwidth = screen.width;
+                    scrheight = screen.height;
+                } else if (self.java) {
+                    var jkit = java.awt.Toolkit.getDefaultToolkit();
+                    var scrsize = jkit.getScreenSize();
+                    scrwidth = scrsize.width;
+                    scrheight = scrsize.height;
+                }
+                document.write('<scr' + 'ipt type="text/javascript" src="//ads.adfox.ru/211012/prepareCode?pp=i&amp;ps=bkqy&amp;p2=evor&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '"><\/scr' + 'ipt>');
+                // -->
+            </script>
+            <!--AdFox END-->
         </div>
     </div>
 </div>

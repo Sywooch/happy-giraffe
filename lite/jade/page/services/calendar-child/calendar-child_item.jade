@@ -1,0 +1,136 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+    
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Календарь беременности 
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last 3 неделя беременности 
+
+        .b-main_cont 
+            .b-main_col-wide    
+                h1.heading-link-xxl.heading-link-xxl__center 3 неделя беременности
+            table.article-nearby.clearfix
+                tr
+                    td
+                        a.article-nearby_a.article-nearby_a__l(href='#')
+                            span.article-nearby_tx 2-я неделя 
+                    td
+                        a.article-nearby_a.article-nearby_a__r(href='#')
+                            span.article-nearby_tx 4-я неделя
+        .b-main_row.b-main_row__blue-light
+            .b-main_cont
+                .b-main_col-article.b-main_col-article__center
+                    p.tx-content.a-span Третья неделя беременности, это, по своей сути – первая неделя беременности, как таковой. Однако, чтобы не путаться, будем придерживаться общепринятой системы.
+
+        .b-main_cont 
+            .b-main_col-article.b-main_col-article__center
+                .wysiwyg-content.tx-content
+                    .b-border-img
+                        // изображения можно взять из старой версии сервиса
+                        img(src="#{path}images/services/calendar-pregnancy/img-5.jpg", alt="")
+                    h2.heading-m Зигота
+                    p После слияния со сперматозоидом, яйцеклетка, ещё в маточной трубе, по пути в матку начинает делиться. Теперь это зигота – скопление клеток, именно она попадает обычно в полость матки. Зигота как бы приклеивается к эндометрию. Начинается процесс имплантации – оплодотворенная яйцеклетка внедряется в маточную стенку. При этом её наружная оболочка как бы прорастает в стенку матки, начинают формироваться сосуды, которые будут питать развивающийся организм. Теперь он, кстати, называется эмбрионом и его вес к концу третьей недели составляет менее трети грамма.
+        //- .b-main_row__pink-lite
+        .b-main_row.calendar-serv-note.calendar-serv-note__pink
+            .calendar-serv-note_count 3
+            .b-main_cont
+                .b-main_col-article.b-main_col-article__center
+                    h2.calendar-serv-note_t На 3 неделе беременности
+                    ul.calendar-serv-note_ul
+                        li.calendar-serv-note_li Начинается первая неделя фактической
+                        li.calendar-serv-note_li Оплодотворенная яйцеклетка внедряется в стенку матки
+                        li.calendar-serv-note_li Формируется эмбрион, который к концу недели весит меньше трети грамма
+                        li.calendar-serv-note_li Базальная температура стойко держится выше 37 градусов по Цельсию
+                        li.calendar-serv-note_li 40% беременностей самопроизвольно прерываются именно на этом сроке
+                        li.calendar-serv-note_li Аптечный тест на беременность - отрицательный
+                            
+        .b-main_cont 
+            .b-main_col-article.b-main_col-article__center
+                .wysiwyg-content
+                    h2.heading-m Что со мной?
+                    p В организме будущей мамы произошли большие изменения, но этого ещё никому не заметно, да и редко какие женщины сами могут с уверенностью сказать, что зачатие произошло.
+                    p Однако бывает и такое, что практически с первого дня беременности начинается токсикоз, который часто принимают за отравление или симптом другой интоксикации.
+                    p Внимательная женщина отметит у себя умеренное набухание грудей, внезапную раздражительность или плаксивость, быструю утомляемость, изменение вкусовых пристрастий, усиление ощущения запахов, некоторые из которых становятся особо неприятными. Так и тянет съесть что-нибудь, но выбрать это «что-то» оказывается не так просто – то запах не тот, то тошнота подкатит. Если измерять базальную температуру, то она окажется постоянно-повышенной – чуть более 37 градусов.
+                    h2.heading-m Визит к врачу? Зачем?
+                    p Учёные подсчитали, что около 40% беременностей заканчивается именно на этом сроке, они проходят совершенно незаметно, в худшем случае женщина отметит у себя небольшую задержку менструации. Но до задержки – ещё целая неделя. Поэтому к врачу на этом сроке, будущие мамы обычно не приходят.
+                    p Некоторые, почувствовав у себя подозрительные симптомы, покупают такой доступный и простой тест на беременность. Конечно, на этом сроке, вероятность увидеть положительный результат является очень низкой – уровень ХГЧ недостаточен для проявления второй полоски.
+                    p Если вам за 35, то помните о том, что возрастает риск хромосомных аномалий у плода, особенно в том случае, если оплодотворена «стареющая» яйцеклетка – та, которая уже была не в трубе, а в матке и, практически, готовилась покинуть женский организм. Поэтому не допускайте незащищенных половых актов в день после овуляции.
+
+                +adv-yandex()
+        .b-main_row.b-main_row__blue-light.services-fast.margin-b0
+            .b-main_cont
+                .services-fast_hold
+                    .b-main_col-article.b-main_col-article__center
+                        .services-fast_t Полезные сервисы. Попробуйте!
+                        ul.services-fast_ul
+                            li.services-fast_li
+                                a.services-fast_a(href='#') 
+                                    .services-fast_ico
+                                        img(src="#{path}images/services/service_img_1.png", alt="")
+                                    .services-fast_tx 
+                                        | Выбор имени 
+                                        br
+                                        | для ребенка
+                            li.services-fast_li
+                                a.services-fast_a(href='#') 
+                                    .services-fast_ico
+                                        img(src="#{path}images/services/service_img_9.png", alt="")
+                                    .services-fast_tx 
+                                        | Тест на 
+                                        br
+                                        | беременность
+                            li.services-fast_li
+                                a.services-fast_a(href='#') 
+                                    .services-fast_ico
+                                        img(src="#{path}images/services/service_img_8.png", alt="")
+                                    .services-fast_tx 
+                                        | Определение
+                                        br
+                                        | пола ребенка
+                            li.services-fast_li
+                                a.services-fast_a(href='#') 
+                                    .services-fast_ico
+                                        img(src="#{path}images/services/service_img_5.png", alt="")
+                                    .services-fast_tx 
+                                        | Вес при
+                                        br
+                                        | беремеенности
+
+        // баннер на всю ширину
+        // Изабражение вставляется через background для поизиционирования через css
+        style(type='text/css').
+            /* Ширина изображения 600px */
+            .ban-read-more {
+                background-image: url('#{path}images/banner/calendar-pregnancy-w600-1.jpg');
+            }
+            /* Ширина изображения до 1000px*/
+            @media (min-width: 640px) {
+                .ban-read-more {
+                    background-image: url('#{path}images/banner/calendar-pregnancy-w1000-1.jpg');
+                }
+            }
+        .ban-read-more.hidden-md
+            .ban-read-more_hold
+                .ban-read-more_cont
+                    .ban-read-more_t-sub следующая неделя
+                    .ban-read-more_t 4 неделя беременности
+                    .ban-read-more_desc На четвертой неделе беременности ваш малыш напоминает крохотный диск ... 
+                    span.ban-read-more_arrow
+        // /баннер
+    // b-main 
+    +layout-footer-lite()
+

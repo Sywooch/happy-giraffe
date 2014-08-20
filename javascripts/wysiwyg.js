@@ -124,6 +124,7 @@
                     video : {
                         title: 'Вставить видео',
                         callback: function(buttonNamem, buttonDOM, buttonObject) {
+                            ko.cleanNode(document.getElementById('redactor-popup_b-video'));
                             this.selectionSave();
                             video = new Video({ link : '', embed : null });
                             ko.applyBindings(video, document.getElementById('redactor-popup_b-video'));

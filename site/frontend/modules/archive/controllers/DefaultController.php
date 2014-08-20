@@ -45,11 +45,14 @@ class DefaultController extends \LiteController
         }
 
         if (date('Y') == $year && date('m') == $month && date('d') == $day) {
-            $this->pageTitle = $this->meta_description = 'Календарь записей на сегодня';
+            $this->pageTitle = $this->meta_description = 'Записи на сегодня на Веселом Жирафе';
             $h1 = 'Записи на сегодня';
+            if ($this->createUrl('/' . $this->route, $this->actionParams) != \Yii::app()->request->requestUri) {
+                \Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createAbsoluteUrl('/' . $this->route, $this->actionParams));
+            }
         } else {
             $date = implode('.', array($day, $month, $year)) . ' г.';
-            $this->pageTitle = $this->meta_description = 'Календарь записей от ' . $date;
+            $this->pageTitle = $this->meta_description = 'Записи от ' . $date . ' на Веселом Жирафе';
             $h1 = 'Записи от ' . $date;
         }
 

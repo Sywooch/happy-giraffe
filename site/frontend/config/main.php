@@ -552,7 +552,6 @@ return array(
                         'aliases' => array(
                             'application.modules.archive.controllers.DefaultController',
                             'application.controllers.SiteController',
-                            'application.modules.services.modules.recipeBook.controllers.DefaultController',
                             'application.modules.services.modules.names.controllers.DefaultController',
                             'application.modules.services.modules.childrenDiseases.controllers.DefaultController',
                             'application.modules.calendar.controllers.DefaultController',
@@ -564,6 +563,11 @@ return array(
                             'application.modules.services.modules.babyBloodGroup.controllers.DefaultController',
                             'application.modules.services.modules.horoscope.controllers.DefaultController',
                             'application.modules.services.modules.horoscope.controllers.CompatibilityController',
+                        ),
+                    ),
+                    'sitemapRecipeBook.xml' => array(
+                        'aliases' => array(
+                            'application.modules.services.modules.recipeBook.controllers.DefaultController',
                         ),
                     ),
                 ),

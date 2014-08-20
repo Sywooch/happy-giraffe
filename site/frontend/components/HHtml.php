@@ -7,7 +7,7 @@ class HHtml extends CHtml
 {
     public static function link($text, $url='#', $htmlOptions=array(), $seoHide = false)
     {
-        return ($seoHide && ! Yii::app()->request->isAjaxRequest && $url != '#') ?
+        return ($seoHide && Yii::app()->user->isGuest && ! Yii::app()->request->isAjaxRequest && $url != '#') ?
             Yii::app()->controller->renderDynamic(array('HHtml', 'renderLink'), $text, $url, $htmlOptions, $seoHide)
             :
             HHtml::renderLink($text, $url, $htmlOptions, $seoHide);

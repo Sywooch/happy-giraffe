@@ -14,7 +14,8 @@ class DefaultController extends LiteController
     {
         if (parent::beforeAction($action)) {
             $cs = Yii::app()->clientScript;
-            $cs->registerPackage('lite_routes');
+            $package = Yii::app()->user->isGuest ? 'lite_routes' : 'lite_routes_user';
+            $cs->registerPackage($package);
             $cs->useAMD = true;
             return true;
         }

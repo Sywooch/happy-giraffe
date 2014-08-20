@@ -4,6 +4,17 @@ namespace site\frontend\modules\archive\controllers;
 
 class DefaultController extends \LiteController
 {
+    protected function beforeAction($action)
+    {
+        if (parent::beforeAction($action)) {
+            $cs = \Yii::app()->clientScript;
+            $package = \Yii::app()->user->isGuest ? 'lite_archive' : 'lite_archive_user';
+            $cs->registerPackage($package);
+            $cs->useAMD = true;
+            return true;
+        }
+    }
+
     /**
      * @sitemap
      */

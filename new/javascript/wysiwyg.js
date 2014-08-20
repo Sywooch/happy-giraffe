@@ -350,7 +350,7 @@
         return HgWysiwyg;
     };
     if (typeof define === 'function' && define['amd']) {
-        define('wysiwyg', ['imagesLoaded', 'ko_upload'], f);
+        define('wysiwyg', ['imagesLoaded', 'ko_upload', 'chosen'], f);
     } else {
         window.HgWysiwyg = f();
     }

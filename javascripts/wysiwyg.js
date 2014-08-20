@@ -1,5 +1,5 @@
 (function(window, $) {
-    function f(ko) {
+    function f(ko, UploadPhotos) {
         function setPopupPosition(a, popup) {
             var top = a.offset().top;
             var left = a.offset().left;
@@ -249,9 +249,9 @@
     }
 
     if (typeof define === 'function' && define['amd']) {
-        define('wysiwyg_old', ['knockout'], f);
+        define('wysiwyg_old', ['knockout', 'upload'], f);
     } else {
-        f(window.ko);
+        f(window.ko, window.UploadPhotos);
     }
 })(window, jQuery);
 

@@ -8,7 +8,8 @@ block layout
 
     // b-main 
     .b-main.clearfix
-    
+        
+        // Хлебные крошки
         .b-main_cont
             .b-crumbs.b-crumbs__s
                 .b-crumbs_tx Я здесь:
@@ -20,6 +21,7 @@ block layout
                     li.b-crumbs_li.b-crumbs_li__last
                         span.b-crumbs_last 3 неделя беременности 
 
+        // Заголовок страницы
         .b-main_cont 
             .b-main_col-wide    
                 h1.heading-link-xxl.heading-link-xxl__center 3 неделя беременности
@@ -31,11 +33,13 @@ block layout
                     td
                         a.article-nearby_a.article-nearby_a__r(href='#')
                             span.article-nearby_tx 4-я неделя
+        // Описание страницы   
         .b-main_row.b-main_row__blue-light
             .b-main_cont
-                .b-main_col-article.b-main_col-article__center
-                    p.tx-content.a-span Третья неделя беременности, это, по своей сути – первая неделя беременности, как таковой. Однако, чтобы не путаться, будем придерживаться общепринятой системы.
+                .b-main_col-article.b-main_col-article__center.tx-content
+                    p.a-span Третья неделя беременности, это, по своей сути – первая неделя беременности, как таковой. Однако, чтобы не путаться, будем придерживаться общепринятой системы.
 
+        // Контент
         .b-main_cont 
             .b-main_col-article.b-main_col-article__center
                 .wysiwyg-content.tx-content
@@ -45,6 +49,7 @@ block layout
                     h2.heading-m Зигота
                     p После слияния со сперматозоидом, яйцеклетка, ещё в маточной трубе, по пути в матку начинает делиться. Теперь это зигота – скопление клеток, именно она попадает обычно в полость матки. Зигота как бы приклеивается к эндометрию. Начинается процесс имплантации – оплодотворенная яйцеклетка внедряется в маточную стенку. При этом её наружная оболочка как бы прорастает в стенку матки, начинают формироваться сосуды, которые будут питать развивающийся организм. Теперь он, кстати, называется эмбрионом и его вес к концу третьей недели составляет менее трети грамма.
         //- .b-main_row__pink-lite
+        // Список
         .b-main_row.calendar-serv-note.calendar-serv-note__pink
             .calendar-serv-note_count 3
             .b-main_cont
@@ -57,7 +62,8 @@ block layout
                         li.calendar-serv-note_li Базальная температура стойко держится выше 37 градусов по Цельсию
                         li.calendar-serv-note_li 40% беременностей самопроизвольно прерываются именно на этом сроке
                         li.calendar-serv-note_li Аптечный тест на беременность - отрицательный
-                            
+                                 
+        // Контент   
         .b-main_cont 
             .b-main_col-article.b-main_col-article__center
                 .wysiwyg-content
@@ -71,6 +77,7 @@ block layout
                     p Если вам за 35, то помните о том, что возрастает риск хромосомных аномалий у плода, особенно в том случае, если оплодотворена «стареющая» яйцеклетка – та, которая уже была не в трубе, а в матке и, практически, готовилась покинуть женский организм. Поэтому не допускайте незащищенных половых актов в день после овуляции.
 
                 +adv-yandex()
+        // Сервисы
         .b-main_row.b-main_row__blue-light.services-fast.margin-b0
             .b-main_cont
                 .services-fast_hold

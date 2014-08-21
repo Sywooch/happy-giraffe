@@ -47,6 +47,11 @@
         width: 48%;
         vertical-align: top;
     }
+    &_col-year {
+        .inline-block();
+        width: 100%;
+        vertical-align: top;
+    }
     
     &_desc-hide {display: none;}
     
@@ -55,13 +60,19 @@
         &_col-trimester {
             width: 30%;
         }
-        
+        &_col-year {
+            width: 80%;
+        }
     }
     @media (min-width: @screen-phone) {
 
         &_col-trimester {
             width: 30%;
             margin: 0 1.4%;
+        }
+        &_col-year {
+            width: 49%;
+            margin: 0 0.2%;
         }
         &_t {
             font-size: 16px;
@@ -72,15 +83,26 @@
             padding: 10px;
         }
     }
-    /*@media (min-width: @screen-tablet) {
-      
-    }*/
+    @media (min-width: @screen-phone-landscape) {
+        &_col-year {
+            width: 44%;
+            margin: 0 2.3%;
+        }
+    }
     @media (min-width: @screen-desktop) {
         
         &_desc-hide {display: inline;}
         &_col-trimester {
-            width: 28%;
+            width: 26%;
+            margin: 0 1.8%;
+        }
+        &_col-year {
+            width: 30%;
             margin: 0 2.4%;
+        }
+        &_i {
+            font-size: 14px;
+            padding: 7px;
         }
     }
 }

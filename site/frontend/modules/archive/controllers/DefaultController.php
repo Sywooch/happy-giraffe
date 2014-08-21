@@ -28,6 +28,7 @@ class DefaultController extends \LiteController
         $postCriteria = clone $criteria;
         $cookCriteria = clone $criteria;
         $cookCriteria->with = array('tags', 'author');
+        $cookCriteria->scopes[] = 'active';
         $postCriteria->scopes[] = 'full';
 
         $dp = new \MultiModelDataProvider(array(

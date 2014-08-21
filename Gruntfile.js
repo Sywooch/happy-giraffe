@@ -358,8 +358,25 @@ module.exports = function(grunt){
               src: ['**/*.{png,jpg,gif}'],
               dest: 'lite/images/'
           }]
+      },
+      new: {
+          files: [{
+              expand: true,
+              cwd: 'new/images/',
+              src: ['**/*.{png,jpg,gif}'],
+              dest: 'new/images/'
+          }]
+      },
+      old: {
+          files: [{
+              expand: true,
+              cwd: 'images/',
+              src: ['**/*.{png,jpg,gif}'],
+              dest: 'images/'
+          }]
       }
     },
+
 
     svgmin: {                       // Task
       options: {                  // Configuration that will be passed directly to SVGO
@@ -528,7 +545,7 @@ module.exports = function(grunt){
       // изобрражения сжатие
       image_lite: {
         files: ['lite/images/**/*.{png,jpg,gif}'],
-        tasks:['imagemin:lite'],
+        tasks:['newer:imagemin:lite'],
         options: {
           livereload: true,
         },

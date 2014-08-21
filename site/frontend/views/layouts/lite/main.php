@@ -3,7 +3,6 @@
  * @var LiteController $this
  */
 ?>
-
 <!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <head>
@@ -21,7 +20,7 @@
         <div class="layout-header">
             <?php if (Yii::app()->user->isGuest): ?>
                 <!-- header-->
-                <header class="header header__simple">
+                <header class="header header__simple header__guest">
                     <div class="header_hold clearfix">
                         <!-- logo-->
                         <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="<?=$this->createUrl('/site/index')?>" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>

@@ -221,7 +221,7 @@ class DefaultController extends HController
             ->select('u.id, c.updated, c.created')
             ->from('users u')
             ->join('community__contents c', 'c.author_id = u.id')
-            ->where('c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL) AND c.type_id != 5')
+            ->where('u.deleted = 0 AND u.id != ' . User::HAPPY_GIRAFFE . ' AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL) AND c.type_id != 5')
             ->order('u.id ASC')
             ->group('u.id')
             ->queryAll();

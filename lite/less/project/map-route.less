@@ -334,7 +334,7 @@
 /* route-canvas */
 .route-canvas {
     position: relative;
-    height: 70%;
+    min-height: 240px;
 
     &_ovr {
         position: absolute;
@@ -362,6 +362,12 @@
     &_ovr-tx {
         font-size: 14px;
         margin-bottom: 5px;
+    }
+
+    @media (min-width: @screen-phone) {
+        & {
+            min-height: 389px;
+        }
     }
 }
 /* /route-canvas */

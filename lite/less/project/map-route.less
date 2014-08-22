@@ -19,6 +19,9 @@
         &_cont .adv-yandex {
             padding: 0;
         }
+        &_cont {
+            margin: 20px auto;
+        }
     }
 
     @media (min-width: @screen-desktop) {
@@ -34,11 +37,6 @@
             float: left;
             width: 680px;
             margin: 20px 0;
-        }
-        &_cont .ban-read-more {
-            display: block;
-            max-height: 370px;
-            min-height: 370px;
         }
         &_cont .adv-yandex {
             margin-left: 0;
@@ -157,7 +155,7 @@
     }
     @media (min-width: @screen-desktop) {
         &__main {
-            padding: 65px 170px 55px 60px;
+            padding: 65px 165px 55px 60px;
         }
         &__main &_hold {
             max-width: none;
@@ -182,7 +180,7 @@
         }
         &_i {
             display: inline-block;
-            width: 332px;
+            width: 330px;
         }
         &_revers {
             float: none;
@@ -465,20 +463,22 @@
         max-width: 600px;
     }
     &_item {
-        padding: 4% 0 3.5%;
+        padding: 3.5% 0;
         border-top: 1px solid #96d1f6;
     }
     &_item:first-child {border-top: none;}
     &_img {
         display: inline-block;
+        vertical-align: middle;
         width: 40px;
         margin:0 5px 0 0;
     }
     &_t {
         display: inline-block;
-        vertical-align: bottom;
+        vertical-align: middle;
         font-size: 16px;
         line-height: 17px;
+        margin-top: 5px;
     }
     &_value {
         margin: 10px 0;

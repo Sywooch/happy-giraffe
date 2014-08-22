@@ -46,7 +46,8 @@
             display: block;
             margin: 20px;
             padding-left: 70px;
-            background: url('@{path-img}/services/map-route/map-route_view.png') no-repeat 0 50%;
+            /*background: url('@{path-img}/services/map-route/map-route_view.png') no-repeat 0 50%;*/
+            background: url('@{path-img}/services/map-route/map-route-calc_img.png') no-repeat 0 -157px;
             color: @color-gray;
         }
     }
@@ -114,9 +115,9 @@
         width: 27px;
         height: 20px;
         cursor: pointer;
-        background: url('@{path-img}/services/map-route/map-route-f_revers.png') no-repeat;
+        background:#fff url('@{path-img}/services/map-route/map-route-f_inp.png') no-repeat 0 -200px;
     }
-    &_revers:hover {background-position: 0 -20px;}
+    &_revers:hover {background-position: 0 -220px;}
     &_tx {
         display: none;
         color: @color-gray-dark;
@@ -215,6 +216,7 @@
         float: left;
         width: 26%;
     }
+    &_img img {height: auto;}
     &_t {
         display: block;
         max-width: 200px;
@@ -240,9 +242,9 @@
         }
         &_img {
             float: none;
-            width: auto;
-            margin-bottom: 15px;
-
+            width: 125px;
+            height: 115px;
+            margin: 0 auto 15px;
         }
         &_t,
         &_tx {
@@ -470,9 +472,15 @@
     &_img {
         display: inline-block;
         vertical-align: middle;
-        width: 40px;
-        margin:0 5px 0 0;
+        width: 36px;
+        height: 36px;
+        margin: 0 5px 0 0;
+        background: url('@{path-img}/services/map-route/map-route-calc_img.png') no-repeat;
     }
+    &_img__car  {background-position: 0 0;}
+    &_img__time {background-position: 0 -40px;}
+    &_img__fuel {background-position: 0 -80px;}
+    &_img__cost {background-position: 0 -120px;}
     &_t {
         display: inline-block;
         vertical-align: middle;

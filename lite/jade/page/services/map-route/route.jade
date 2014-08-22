@@ -68,8 +68,8 @@ block layout
                         .map-route-calc_hold
                             .map-route-calc_item
                                 .clearfix
-                                    .map-route-calc_img
-                                        img(src='#{path}images/services/map-route/map-route-car.png', alt='')
+                                    .map-route-calc_img.map-route-calc_img__car
+                                        //-img(src='#{path}images/services/map-route/map-route-car.png', alt='')
                                     .map-route-calc_t Расстояние 
                                         span.hidden-xs между Киевом и Донецком
                                 .map-route-calc_value
@@ -78,8 +78,8 @@ block layout
                                 .map-route-calc_desc Столько километров от Киева до Донецка на автомобиле
                             .map-route-calc_item
                                 .clearfix
-                                    .map-route-calc_img
-                                        img(src='#{path}images/services/map-route/map-route-time.png', alt='')
+                                    .map-route-calc_img.map-route-calc_img__time
+                                        //-img(src='#{path}images/services/map-route/map-route-time.png', alt='')
                                     .map-route-calc_t
                                         | Время в пути 
                                         span.hidden-xs  от Киева до Донецка
@@ -88,15 +88,15 @@ block layout
                                 .map-route-calc_row.clearfix
                                     input.itx-simple.map-route-calc_itx(type='text', name='', value='80', id='route-time')
                                     .map-route-calc_value
-                                        | 14
+                                        | 14 
                                         span.map-route-calc_units ч. 
                                         |  8
                                         span.map-route-calc_units мин.
                                 .map-route-calc_desc Столько времени ехать от Киева до Донецка
                             .map-route-calc_item
                                 .clearfix
-                                    .map-route-calc_img
-                                        img(src='#{path}images/services/map-route/map-route-fuel.png', alt='')
+                                    .map-route-calc_img.map-route-calc_img__fuel
+                                        //-img(src='#{path}images/services/map-route/map-route-fuel.png', alt='')
                                     .map-route-calc_t
                                         | Расход  топлива
                                 label.map-route-calc_label(for='route-fuel')
@@ -108,8 +108,8 @@ block layout
                                         span.map-route-calc_units л
                             .map-route-calc_item
                                 .clearfix
-                                    .map-route-calc_img
-                                        img(src='#{path}images/services/map-route/map-route-cost.png', alt='')
+                                    .map-route-calc_img.map-route-calc_img__cost
+                                        //-img(src='#{path}images/services/map-route/map-route-cost.png', alt='')
                                     .map-route-calc_t
                                         | Стоимость топлива
                                 label.map-route-calc_label(for='route-cost')

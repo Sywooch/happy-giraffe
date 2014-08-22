@@ -254,8 +254,8 @@ module.exports = function(grunt){
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
-            // Drop, active элементы
-            /.header-drop+/,
+            
+            /.header-drop+/, // Drop, active элементы
             /.header-menu_li.active+/,
           ],
         },
@@ -355,7 +355,7 @@ module.exports = function(grunt){
           files: [{
               expand: true,
               cwd: 'lite/images/',
-              src: ['**/*.{png,jpg,gif}'],
+              src: ['**/*.{gif,GIF,jpg,JPG,png,PNG}'],
               dest: 'lite/images/'
           }]
       },
@@ -363,7 +363,7 @@ module.exports = function(grunt){
           files: [{
               expand: true,
               cwd: 'new/images/',
-              src: ['**/*.{png,jpg,gif}'],
+              src: ['**/*.{gif,GIF,jpg,JPG,png,PNG}'],
               dest: 'new/images/'
           }]
       },
@@ -371,7 +371,7 @@ module.exports = function(grunt){
           files: [{
               expand: true,
               cwd: 'images/',
-              src: ['**/*.{png,jpg,gif}'],
+              src: ['**/*.{gif,GIF,jpg,JPG,png,PNG}'],
               dest: 'images/'
           }]
       }
@@ -544,7 +544,7 @@ module.exports = function(grunt){
 
       // изобрражения сжатие
       image_lite: {
-        files: ['lite/images/**/*.{png,jpg,gif}'],
+        files: ['lite/images/**/*.{gif,GIF,jpg,JPG,png,PNG}'],
         tasks:['newer:imagemin:lite'],
         options: {
           livereload: true,

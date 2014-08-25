@@ -20,7 +20,7 @@ $cs->registerAMD('routes-calc', array('RoutesModel' => 'routesCalc', 'ko' => 'kn
     <div class="map-route-calc_hold">
         <div class="map-route-calc_item">
             <div class="clearfix">
-                <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-car.png" alt=""></div>
+                <div class="map-route-calc_img map-route-calc_img__car"></div>
                 <div class="map-route-calc_t"><?=$route->texts[3]?></div>
             </div>
             <div class="map-route-calc_value"><span data-bind="text: distance"></span><span class="map-route-calc_units">км. </span></div>
@@ -28,7 +28,7 @@ $cs->registerAMD('routes-calc', array('RoutesModel' => 'routesCalc', 'ko' => 'kn
         </div>
         <div class="map-route-calc_item">
             <div class="clearfix">
-                <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-time.png" alt=""></div>
+                <div class="map-route-calc_img map-route-calc_img__time"></div>
                 <div class="map-route-calc_t"><?=$route->texts[5]?></div>
             </div>
             <label for="route-time" class="map-route-calc_label">Ср. скорость км / ч </label>
@@ -40,7 +40,7 @@ $cs->registerAMD('routes-calc', array('RoutesModel' => 'routesCalc', 'ko' => 'kn
         </div>
         <div class="map-route-calc_item">
             <div class="clearfix">
-                <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-fuel.png" alt=""></div>
+                <div class="map-route-calc_img map-route-calc_img__fuel"></div>
                 <div class="map-route-calc_t">Расход  топлива</div>
             </div>
             <label for="route-fuel" class="map-route-calc_label">Ср. расход (л. / 100 км)</label>
@@ -51,7 +51,7 @@ $cs->registerAMD('routes-calc', array('RoutesModel' => 'routesCalc', 'ko' => 'kn
         </div>
         <div class="map-route-calc_item">
             <div class="clearfix">
-                <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-cost.png" alt=""></div>
+                <div class="map-route-calc_img map-route-calc_img__cost"></div>
                 <div class="map-route-calc_t">Стоимость топлива</div>
             </div>
             <label for="route-cost" class="map-route-calc_label">Ср. расход (л. / 100 км)</label>

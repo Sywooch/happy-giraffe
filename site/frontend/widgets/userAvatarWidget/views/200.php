@@ -13,10 +13,20 @@
             <span class="b-ava-large_online">На сайте</span>
         <?php endif ?>
 
-        <?php if ($this->message_link && Yii::app()->user->id != $this->user->id):?>
-            <a href="<?=$this->user->getDialogUrl()?>" class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" title="Начать диалог">
-                <span class="b-ava-large_ico b-ava-large_ico__mail"></span>
-            </a>
+        <?php if (Yii::app()->user->isGuest): ?>
+        
+                <a href="#loginWidget" class="b-ava-large_bubble b-ava-large_bubble__dialog powertip popup-a" title="Начать диалог">
+                    <span class="b-ava-large_ico b-ava-large_ico__mail"></span>
+                </a>
+    
+        <?php else: ?>
+
+            <?php if ($this->message_link && Yii::app()->user->id != $this->user->id):?>
+                <a href="<?=$this->user->getDialogUrl()?>" class="b-ava-large_bubble b-ava-large_bubble__dialog powertip" title="Начать диалог">
+                    <span class="b-ava-large_ico b-ava-large_ico__mail"></span>
+                </a>
+            <?php endif ?>
+
         <?php endif ?>
 
         <?php if ($this->user->getPhotosCount() > 1):?>

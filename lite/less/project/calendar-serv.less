@@ -21,12 +21,22 @@
     &_ul {
         margin-bottom: 5px;
     }
+    &_ul__column {
+        -moz-column-gap: 0;
+        -webkit-column-gap: 0;
+        column-gap: 0;
+        -webkit-columns: 2;
+        columns: 2;
+
+    }
+    // fallback for ie8-9
+    .no-csscolumns &_ul__column &_li {
+        display: inline-block;
+        vertical-align: top;
+        width: 48%;
+    }
     &_li {
         padding: 5px;
-    }
-    &_li__50p {
-        float: left;
-        width: 50%;
     }
     &_i {
         display: inline-block;

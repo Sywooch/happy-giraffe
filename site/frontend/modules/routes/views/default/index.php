@@ -19,19 +19,19 @@
     <div class="map-route-desc">
         <ul class="map-route-desc_ul clearfix">
             <li class="map-route-desc_li clearfix">
-                <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-1.jpg" alt=""></div><strong class="map-route-desc_t">Расчет<br>расстояния</strong>
+                <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-1.jpg" alt="Расчет расстояния" width="125" height="115"></div><strong class="map-route-desc_t">Расчет<br>расстояния</strong>
                 <div class="map-route-desc_tx">Узнавайте, сколько километров вам предстоит преодолеть</div>
             </li>
             <li class="map-route-desc_li clearfix">
-                <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-2.jpg" alt=""></div><strong class="map-route-desc_t">Время<br>в пути</strong>
+                <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-2.jpg" alt="Время в пути" width="125" height="115"></div><strong class="map-route-desc_t">Время<br>в пути</strong>
                 <div class="map-route-desc_tx">Уточняйте время,<br>проведенное в пути</div>
             </li>
             <li class="map-route-desc_li clearfix">
-                <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-3.jpg" alt=""></div><strong class="map-route-desc_t">Промежуточные<br>пункты маршрута</strong>
+                <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-3.jpg" alt="Промежуточные пункты маршрута" width="125" height="115"></div><strong class="map-route-desc_t">Промежуточные<br>пункты маршрута</strong>
                 <div class="map-route-desc_tx">Смотрите населенные пункты<br>на пути следования маршрута</div>
             </li>
             <li class="map-route-desc_li clearfix">
-                <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-4.jpg" alt=""></div><strong class="map-route-desc_t">Расход<br>бензина</strong>
+                <div class="map-route-desc_img"><img src="/lite/images/services/map-route/map-route-desc-4.jpg" alt="Расход бензина" width="125" height="115"></div><strong class="map-route-desc_t">Расход<br>бензина</strong>
                 <div class="map-route-desc_tx">Считайте, сколько бензина<br>вам понадобится для поездки</div>
             </li>
         </ul>

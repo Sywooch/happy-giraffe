@@ -51,9 +51,13 @@ if ($period->features && $period->features_heading)
         </tr>
     </table>
 </div>
+<div class="b-main_cont">
+    <div class="b-main_col-article b-main_col-article__center">
 <?php
 echo $period->text;
 ?>
+    </div>
+</div>
 <?php if ($period->communities): ?>
     <div class="baby-clubs">
 

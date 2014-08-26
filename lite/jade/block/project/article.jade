@@ -53,13 +53,8 @@ mixin bArticle-single(mod, vars)
                             a.like-control_i.like-control_i__favorites.powertip(href='', title='В избранное')
                                 .like-control_ico
                                 .like-control_tx 863455
-                .custom-likes
-                    .custom-likes_slogan Поделитесь с друзьями!
-                    .custom-likes_in
-                        script(type='text/javascript', src='//yandex.st/share/share.js', charset='utf-8')
-                        .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='vkontakte,facebook,twitter,odnoklassniki,moimir', data-yasharetheme='counter', data-yasharetype='small')
-                .adv-yandexs
-                    a(href="", target="_blank")
-                        img(src="#{path}images/example/yandex-w600.jpg", alt="")
+                +customLikes()
+                
+                +adv-yandex()
 
     // /b-article

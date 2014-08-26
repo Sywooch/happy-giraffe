@@ -1,0 +1,21 @@
+//- 
+
+mixin articleNearby(mod, vars)
+    // Перелинковка
+    table.article-nearby.clearfix
+        tr
+            td
+                a.article-nearby_a.article-nearby_a__l(href='#')
+                    span.article-nearby_tx 
+                        = vars.txPrev  
+            td
+                a.article-nearby_a.article-nearby_a__r(href='#')
+                    span.article-nearby_tx 
+                        = vars.txNext 
+
+
+- var articleNearby = {}
+- articleNearby.horoscope1 = {}
+- articleNearby.horoscope1.txPrev = 'на 10 августа 2014  '
+- articleNearby.horoscope1.txNext = 'на 12 августа 2014  '
+

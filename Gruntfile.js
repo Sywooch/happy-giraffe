@@ -358,6 +358,14 @@ module.exports = function(grunt){
               src: ['**/*.{png,jpg,gif}'],
               dest: 'lite/images/'
           }]
+      },
+      bannerold: {
+          files: [{
+              expand: true,
+              cwd: 'images/branding/',
+              src: ['**/*.{png,jpg,gif}'],
+              dest: 'images/branding/'
+          }]
       }
     },
 

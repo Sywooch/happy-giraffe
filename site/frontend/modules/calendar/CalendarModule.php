@@ -12,6 +12,10 @@ class CalendarModule extends CWebModule
 			'calendar.models.*',
 			'calendar.components.*',
 		));
+        
+        $package = Yii::app()->user->isGuest ? 'lite_calendar' : 'lite_calendar_user';
+        Yii::app()->clientScript->registerPackage($package);
+        Yii::app()->clientScript->useAMD = true;
 	}
 
 	public function beforeControllerAction($controller, $action)

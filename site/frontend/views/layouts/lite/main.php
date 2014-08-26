@@ -6,6 +6,22 @@
 <!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <head>
+    <?php if (! YII_DEBUG): ?>
+        <script type='text/javascript'>
+            window.Muscula = { settings:{
+                logId:"ff8cf948-b188-4eb0-b8b9-bd8f006d5e51", suppressErrors: false
+            }};
+            (function () {
+                var m = document.createElement('script'); m.type = 'text/javascript'; m.async = true;
+                m.src = (window.location.protocol == 'https:' ? 'https:' : 'http:') +
+                    '//musculahq.appspot.com/Muscula7.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(m, s);
+                window.Muscula.run=function(){var a;eval(arguments[0]);window.Muscula.run=function(){};};
+                window.Muscula.errors=[];window.onerror=function(){window.Muscula.errors.push(arguments);
+                return window.Muscula.settings.suppressErrors===undefined;}
+            })();
+        </script>
+    <?php endif; ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?=$this->pageTitle?></title>

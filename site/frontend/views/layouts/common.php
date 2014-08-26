@@ -101,7 +101,7 @@
         <!--/ tns-counter.ru -->
         <?php endif; ?>
 
-        <?php if (false): ?>
+        <?php if (true): ?>
         <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->

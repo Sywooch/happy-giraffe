@@ -53,6 +53,8 @@ class LiteController extends HController
 
     protected function dnsPrefetch()
     {
+        if (YII_DEBUG)
+            return;
         /**
          * @var ClientScript $cs
          */

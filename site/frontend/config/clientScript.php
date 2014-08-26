@@ -441,6 +441,12 @@ return array(
         'lite_routes_user' => array(
             'depends' => array('lite_services_user'),
         ),
+        'lite_calendar' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_calendar_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
         'lite_recipes' => array(
             'depends' => array('lite_services'),
         ),

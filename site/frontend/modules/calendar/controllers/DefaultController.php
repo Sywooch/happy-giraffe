@@ -1,33 +1,37 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends LiteController
 {
+
+    const CHILD = 0;
+    const PREGNACY = 1;
+
+    public $calendar = false;
+
     /**
      * @sitemap dataSource=sitemapIndex
      */
-	public function actionIndex($calendar, $slug = null)
-	{
-        $criteria = new CDbCriteria;
-        $criteria->with = array('contents', 'contents.commentsCount', 'services');
-        if ($slug === null) {
-            $criteria->order = 't.id';
-            $criteria->compare('calendar', $calendar);
-        } else {
+    public function actionIndex($calendar, $slug = null)
+    {
+        $this->calendar = $calendar;
+        $periods = CalendarPeriod::model()->findAllByAttributes(array('calendar' => $calendar));
+        if ($slug === null)
+        {
+            $this->render('index_v2', compact('periods'));
+        }
+        else
+        {
+            $criteria = new CDbCriteria;
+            $criteria->with = array('contents', 'contents.commentsCount', 'services');
             $criteria->compare('calendar', $calendar);
             $criteria->compare('t.slug', $slug);
+            $period = CalendarPeriod::model()->find($criteria);
+            if ($period === null)
+                throw new CHttpException(404);
+
+            $this->render('view_v2', compact('period', 'periods'));
         }
-        $period = CalendarPeriod::model()->find($criteria);
-        if ($period === null)
-            throw new CHttpException(404);
-
-        if ($slug === null)
-            Yii::app()->clientScript->registerLinkTag('canonical', null, $period->getUrl(true));
-
-        $periods = CalendarPeriod::model()->findAllByAttributes(array('calendar' => $calendar));
-        $calendarTitle = ($calendar == 0) ? 'Календарь развития ребёнка' : 'Календарь беременности';
-        $this->pageTitle = $calendarTitle . ' - ' . $period->title;
-        $this->render('index', compact('period', 'periods'));
-	}
+    }
 
     public function sitemapIndex()
     {
@@ -57,4 +61,18 @@ class DefaultController extends HController
             $this->redirect('/');
         $this->render('join');
     }
+
+    public function getTexts()
+    {
+        return array(
+            'menu' => array('_menu_child', '_menu_pregnacy'),
+            'title' => array('Календарь развития ребёнка', 'Календарь беременности'),
+        );
+    }
+
+    public function getText($type, $default = false)
+    {
+        return isset($this->texts[$type][$this->calendar]) ? $this->texts[$type][$this->calendar] : $default;
+    }
+
 }

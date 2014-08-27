@@ -1,5 +1,5 @@
 (function(window, $) {
-    function f(ko) {
+    function f(ko, UploadPhotos) {
         function setPopupPosition(a, popup) {
             var top = a.offset().top;
             var left = a.offset().left;
@@ -9,7 +9,7 @@
                 'left': left + 35
             });
         }
-//        window.setPopupPosition = setPopupPosition;
+        window.setPopupPosition = setPopupPosition;
 
         var WysiwygPhotoUpload = function (comments) {
             var self = this;
@@ -124,6 +124,7 @@
                     video : {
                         title: 'Вставить видео',
                         callback: function(buttonNamem, buttonDOM, buttonObject) {
+                            ko.cleanNode(document.getElementById('redactor-popup_b-video'));
                             this.selectionSave();
                             video = new Video({ link : '', embed : null });
                             ko.applyBindings(video, document.getElementById('redactor-popup_b-video'));
@@ -131,7 +132,10 @@
                             if ($('.redactor-popup_b-video').is(':visible'))
                                 $('.redactor-popup_b-video').addClass('display-n');
                             else {
-                                $('.redactor-popup_b-video').removeClass('display-n');
+                                $('.redactor-popup_b-video')
+                                    .removeClass('display-n')
+                                    .siblings('.redactor-popup')
+                                    .addClass('display-n');
                                 setPopupPosition($(buttonDOM), $('.redactor-popup_b-video'));
                             }
                         }
@@ -150,7 +154,10 @@
                             if ($('.redactor-popup_b-photo').is(':visible'))
                                 $('.redactor-popup_b-photo').addClass('display-n');
                             else {
-                                $('.redactor-popup_b-photo').removeClass('display-n');
+                                $('.redactor-popup_b-photo')
+                                    .removeClass('display-n')
+                                    .siblings('.redactor-popup')
+                                    .addClass('display-n');
                                 setPopupPosition($(buttonDOM), $('.redactor-popup_b-photo'));
                             }
                         }
@@ -161,7 +168,10 @@
                             if ($('.redactor-popup_b-smile').is(':visible'))
                                 $('.redactor-popup_b-smile').addClass('display-n');
                             else {
-                                $('.redactor-popup_b-smile').removeClass('display-n');
+                                $('.redactor-popup_b-smile')
+                                    .removeClass('display-n')
+                                    .siblings('.redactor-popup')
+                                    .addClass('display-n');
                                 setPopupPosition($(buttonDOM), $('.redactor-popup_b-smile'));
                             }
                         }
@@ -198,8 +208,12 @@
                             ko.cleanNode(document.getElementById('redactor-popup_b-link'));
                             this.linkVM = new WysiwygLink({ url : turl, text : text });
                             ko.applyBindings(this.linkVM, document.getElementById('redactor-popup_b-link'))
-                            $('#redactor-popup_b-link').toggleClass('display-n');
-                        }
+                            $('#redactor-popup_b-link')
+                                .toggleClass('display-n')
+                                .siblings('.redactor-popup')
+                                .addClass('display-n');
+                            setPopupPosition($(buttonDOM), $('.redactor-popup_b-link'));
+                        },
                     },
                     link_del: {
                         title: 'Удалить ссылку',
@@ -249,9 +263,9 @@
     }
 
     if (typeof define === 'function' && define['amd']) {
-        define('wysiwyg_old', ['knockout'], f);
+        define('wysiwyg_old', ['knockout', 'upload'], f);
     } else {
-        f(window.ko);
+        f(window.ko, window.UploadPhotos);
     }
 })(window, jQuery);
 

@@ -59,28 +59,29 @@ echo $period->text;
     </div>
 </div>
 <?php if ($period->communities): ?>
-    <div class="baby-clubs">
+    <div class="b-main_row b-main_row__blue-light services-fast margin-b0">
+        <div class="b-main_cont">
+            <div class="services-fast_hold">
+                <div class="b-main_col-article b-main_col-article__center">
+                    <div class="services-fast_t">Полезные сервисы. Попробуйте!</div>
+                    <ul class="services-fast_ul">
+                        <?php foreach ($period->communities as $c): ?>
+                            <li class="services-fast_li">
+                                <a class="services-fast_a" href="<?= $c->url ?>">
+                                    <div class="services-fast_ico">
+                                        <?= CHtml::image('/images/club_img_' . $c->id . '.png') ?>
+                                    </div>
+                                    <div class="services-fast_tx">
+                                        <?= $c->title ?>
+                                    </div>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
 
-        <div class="block-title">
-            <span>Общайтесь!</span>
-            Клубы для общения
+                    </ul>
+
+                </div>
+            </div>
         </div>
-
-        <ul>
-            <?php foreach ($period->communities as $c): ?>
-                <li>
-                    <div class="img club-img <?= $c->css_class ?>">
-                        <?= CHtml::link(CHtml::image('/images/club_img_' . $c->id . '.png'), $c->url) ?>
-                    </div>
-                    <div class="text">
-                        <div class="item-title"><?= CHtml::link($c->title, $c->url) ?></div>
-                        <div class="topics">Тем: <?= CHtml::link($c->contentsCount, $c->url) ?></div>
-                        <?= CHtml::link('<i class="icon"></i>' . $c->commentsCount, $c->url, array('class' => 'comments')) ?>
-                    </div>
-                </li>
-            <?php endforeach; ?>
-
-        </ul>
-
     </div>
 <?php endif; ?>

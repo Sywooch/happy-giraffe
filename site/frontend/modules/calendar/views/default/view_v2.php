@@ -46,16 +46,21 @@ if ($period->features && $period->features_heading)
     </div>
     <table class="article-nearby clearfix">
         <tr>
-            <td><a href="#" class="article-nearby_a article-nearby_a__l"><span class="article-nearby_tx">4-й месяц </span></a></td>
-            <td><a href="#" class="article-nearby_a article-nearby_a__r"><span class="article-nearby_tx">6-й месяц</span></a></td>
+            <?php
+            $i = 0;
+            while ($periods[$i]->id !== $period->id)
+                $i++;
+            ?>
+            <td><?php if(isset($periods[$i-1])) echo CHtml::link (CHtml::tag ('span', array('class' => 'article-nearby_tx'), $periods[$i-1]->title), $periods[$i-1]->url, array('class' => 'article-nearby_a article-nearby_a__l')); ?></td>
+            <td><?php if(isset($periods[$i+1])) echo CHtml::link (CHtml::tag ('span', array('class' => 'article-nearby_tx'), $periods[$i+1]->title), $periods[$i+1]->url, array('class' => 'article-nearby_a article-nearby_a__r')); ?></td>
         </tr>
     </table>
 </div>
 <div class="b-main_cont">
     <div class="b-main_col-article b-main_col-article__center">
-<?php
-echo $period->text;
-?>
+        <?php
+        echo $period->text;
+        ?>
     </div>
 </div>
 <?php if ($period->communities): ?>

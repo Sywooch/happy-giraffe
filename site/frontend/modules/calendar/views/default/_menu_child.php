@@ -18,6 +18,10 @@
                         case 0:
                             echo CHtml::tag('div', array('class' => 'calendar-serv_col-year'), '', false);
                             echo CHtml::tag('div', array('class' => 'calendar-serv_t'), 'Дети до года');
+                            echo CHtml::tag('ul', array('class' => 'calendar-serv_ul clearfix'), '', false);
+                            break;
+                        case 1:
+                            echo CHtml::closeTag('ul');
                             echo CHtml::tag('ul', array('class' => 'calendar-serv_ul calendar-serv_ul__column clearfix'), '', false);
                             break;
                         case 16:

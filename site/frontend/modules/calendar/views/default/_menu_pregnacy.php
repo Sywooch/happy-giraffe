@@ -54,10 +54,12 @@
                         break;
                 }
                 
+                $linkText = $p->title;
+                
                 if ($i > 0 && $i < 41)
-                    $p->title = str_replace(' неделя', ' <span class="calendar-serv_desc-hide">неделя</span>', $p->title);
+                    $linkText = str_replace(' неделя', ' <span class="calendar-serv_desc-hide">неделя</span>', $p->title);
 
-                $link = CHtml::link($p->title, $p->url, array('title' => $p->title, 'class' => $linkClass));
+                $link = CHtml::link($linkText, $p->url, array('title' => $p->title, 'class' => $linkClass));
                 if ($li)
                     echo CHtml::tag('li', array('class' => $liClass), $link);
                 else

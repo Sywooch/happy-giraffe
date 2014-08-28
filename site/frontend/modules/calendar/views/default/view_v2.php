@@ -38,8 +38,7 @@ if ($period->features && $period->features_heading)
     $doc->unloadDocument();
 }
 ?>
-<!-- В зависимости от сервиса есть класс services-calendars__pregnancy или services-calendars__child -->
-<div class="services-calendars services-calendars__child">
+<div class="services-calendars services-calendars__<?= $this->getText('class') ?>">
     <div class="b-main_cont">
         <div class="b-main_col-wide">   
             <h1 class="heading-link-xxl heading-link-xxl__center"><?= $period->heading ?></h1>

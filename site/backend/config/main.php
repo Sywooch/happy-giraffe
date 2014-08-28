@@ -7,6 +7,7 @@ return array(
     'preload'=>array('log'),
 	'import'=>array(
         'site.common.components.*',
+        'site.common.behaviors.*',
         'site.common.models.*',
         'site.common.models.mongo.*',
         'application.models.*',

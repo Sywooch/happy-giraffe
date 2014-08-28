@@ -1,6 +1,5 @@
 /* calendar-serv-note */
 .calendar-serv-note {
-    position: relative;
     margin: 20px 0;
     font-size: 14px;
 
@@ -19,32 +18,35 @@
         top: 0;
         right: 0;
         width: 100px;
-        height: 95px;
-        padding: 0 5px 0 25px;
+        height: 125px;
+        padding: 0 5px 0 35px;
         background: url('@{path-img}/calendar-serv-note_count.png') no-repeat;
         background-size: cover;
         text-align: center;
         color: @color-white;
-        font: bold 60px/50px Georgia, 'Times New Roman', Times, serif;
+        font: bold 40px/56px Georgia, 'Times New Roman', Times, serif;
     }
-    &_t {
-        margin: 20px 120px 30px 0;
-        font-size: 23px;
+    h2&_t {
+        margin: 0 120px 20px 0;
+        font-size: 20px;
         line-height: 30px;
         font-weight: bold;
     }
-    &_ul {
+    & ul {
         margin: 10px 0;
     }
-    &_li {
-        padding: 10px 20px 10px 45px;
+    & ul li {
+        padding: 5px 20px 5px 37px;
         background: url('@{path-img}/calendar-serv-note_li.png') no-repeat 0 45%;
-        color: @color-gray;
+        color: @color-gray-dark;
     }
     
     @media (min-width: @screen-phone) {
-        &_t {
+        h2&_t {
             font-size: 25px;
+        }
+        & ul {
+            padding-right: 30px;
         }
     }
     @media (min-width: @screen-tablet) {
@@ -55,9 +57,14 @@
             width: 129px;
             height: 121px;
             padding: 6px 5px 15px 25px;
+            font-size: 60px;
         }
-        &_t {
+        h2&_t {
+            margin-top: 5px;
             font-size: 35px;
+        }
+        & ul li {
+            padding-left: 45px;
         }
     }
 }

@@ -11,6 +11,7 @@
     background-color: #4d445c;
     background-position: 50% 50%;
     background-size: cover;
+    background-repeat: no-repeat;
     cursor: pointer;
     text-decoration: none;
     
@@ -128,7 +129,11 @@
 /* conv-pregnancy */
 .conv-pregnancy {
     margin: 20px 0;
-    background: url('@{path-img}/conv-pregnancy.png') no-repeat 75px 57%;
+    background: url('@{path-img}/banner/conv-pregnancy.png') no-repeat 75px 57%;
+
+    &__baby {
+        background: url('@{path-img}/banner/conv-pregnancy__baby.png') no-repeat 75px 57%;
+    }
 
     &_hold {
         padding: 40px 80px 40px 425px;

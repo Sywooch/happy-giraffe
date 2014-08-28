@@ -68,8 +68,8 @@ block layout
                         .map-route-calc_hold
                             .map-route-calc_item
                                 .clearfix
-                                    .map-route-calc_img
-                                        img(src='#{path}images/services/map-route/map-route-car.png', alt='')
+                                    .map-route-calc_img.map-route-calc_img__car
+                                        //-img(src='#{path}images/services/map-route/map-route-car.png', alt='')
                                     .map-route-calc_t Расстояние 
                                         span.hidden-xs между Киевом и Донецком
                                 .map-route-calc_value
@@ -78,8 +78,8 @@ block layout
                                 .map-route-calc_desc Столько километров от Киева до Донецка на автомобиле
                             .map-route-calc_item
                                 .clearfix
-                                    .map-route-calc_img
-                                        img(src='#{path}images/services/map-route/map-route-time.png', alt='')
+                                    .map-route-calc_img.map-route-calc_img__time
+                                        //-img(src='#{path}images/services/map-route/map-route-time.png', alt='')
                                     .map-route-calc_t
                                         | Время в пути 
                                         span.hidden-xs  от Киева до Донецка
@@ -88,15 +88,15 @@ block layout
                                 .map-route-calc_row.clearfix
                                     input.itx-simple.map-route-calc_itx(type='text', name='', value='80', id='route-time')
                                     .map-route-calc_value
-                                        | 14
+                                        | 14 
                                         span.map-route-calc_units ч. 
                                         |  8
                                         span.map-route-calc_units мин.
                                 .map-route-calc_desc Столько времени ехать от Киева до Донецка
                             .map-route-calc_item
                                 .clearfix
-                                    .map-route-calc_img
-                                        img(src='#{path}images/services/map-route/map-route-fuel.png', alt='')
+                                    .map-route-calc_img.map-route-calc_img__fuel
+                                        //-img(src='#{path}images/services/map-route/map-route-fuel.png', alt='')
                                     .map-route-calc_t
                                         | Расход  топлива
                                 label.map-route-calc_label(for='route-fuel')
@@ -108,8 +108,8 @@ block layout
                                         span.map-route-calc_units л
                             .map-route-calc_item
                                 .clearfix
-                                    .map-route-calc_img
-                                        img(src='#{path}images/services/map-route/map-route-cost.png', alt='')
+                                    .map-route-calc_img.map-route-calc_img__cost
+                                        //-img(src='#{path}images/services/map-route/map-route-cost.png', alt='')
                                     .map-route-calc_t
                                         | Стоимость топлива
                                 label.map-route-calc_label(for='route-cost')
@@ -266,7 +266,6 @@ block layout
 
                     //- +banReadMore()
 
-<<<<<<< HEAD
                     // баннер на всю ширину
                     // href статьи http://www.happy-giraffe.ru/community/21/forum/photoPost/176862/
                     // Изабражение вставляется через background для поизиционирования через css
@@ -282,30 +281,12 @@ block layout
                             }
                         }
 
-                    .ban-read-more
-                        .ban-read-more_hold
-                            .ban-read-more_cont
-                                .ban-read-more_t-sub Рекомендуем для чтения
-                                .ban-read-more_author.clearfix
-                                    // Аватарки размером 40*40
-                                    //-+ava("ava__middle ava__small-sm-mid hidden-xxs", avaSpan)
-                                    span.ava.ava__middle.ava__small-sm-mid.hidden-xxs
-                                        img.ava_img(src="http://img.happy-giraffe.ru/thumbs/40x40/220231/avabdc8f4a293ba7a8614e61a14082f0993.jpg", alt="")
-                                    span.a-light Марина Шевкопляс
-                                .ban-read-more_t 20 самых опасных маршрутов в мире
-                                .ban-read-more_desc Для автомобилиста-новичка любая дорога с большим количеством перекрестков, поворотов, дорожных знаков, гаишников и медленных бабушек может быть...
-                                .ban-read-more_arrow
+                        /* 
+                            .ban-read-more {
+                                background-image: url('#{path}images/banner/ban-route__nice.jpg');
+                            }
 
-                    // баннер 2
-                    // баннер на всю ширину
-                    // Изабражение вставляется через background для поизиционирования через css
-                    style(type='text/css').
-                        /* Ширина изображения 600px */
-                        .ban-read-more {
-                            background-image: url('#{path}images/banner/ban-route__nice.jpg');
-                        }
-
-                        /* Изображения для других баннеров 
+                            Изображения для других баннеров 
                             .ban-read-more {
                                 background-image: url('#{path}images/banner/ban-route__nice2.jpg');
                             }
@@ -328,9 +309,6 @@ block layout
                                 .ban-read-more_t 20 самых опасных маршрутов в мире
                                 .ban-read-more_desc Для автомобилиста-новичка любая дорога с большим количеством перекрестков, поворотов, дорожных знаков, гаишников и медленных бабушек может быть...
                                 .ban-read-more_arrow
-                    // /баннер
-=======
->>>>>>> develop
         // /Маршруты
 
     // b-main 

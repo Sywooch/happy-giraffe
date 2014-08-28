@@ -8,7 +8,7 @@
             <li class="footer-list_li"><a href="<?=$this->createUrl('/site/page', array('view' => 'advertiser'))?>" class="footer-list_a">Реклама </a></li>
             <li class="footer-list_li"><a href="<?=$this->createUrl('/site/page', array('view' => 'abuse'))?>" class="footer-list_a">Правообладателям </a></li>
             <li class="footer-list_li"><span>Контакты </span></li>
-            <li class="footer-list_li"><a href="http://www.rambler.ru/" class="footer-list_a" target="_blank">Партнер "Рамблера"</a><span id="counter-rambler" class="footer-list_rambler-count"></span></li>
+            <!-- <li class="footer-list_li"><a href="http://www.rambler.ru/" class="footer-list_a" target="_blank">Партнер "Рамблера"</a><span id="counter-rambler" class="footer-list_rambler-count"></span></li> -->
         </ul>
         <?php if ($this->route != 'site/index' && $this->route != 'site/vacancy'): ?>
             <ul class="footer-ul-bold">
@@ -24,6 +24,6 @@
         <div class="layout-footer_tx"> &copy; 2012-2013 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только <br> с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам.
             Сайт предназначен для лиц старше 16 лет.</div>
 
-        <div class="layout-footer_tx"><a href="<?=$this->createUrl('/archive/default/map')?>" class="layout-footer_privacy">Карта сайта</a></div>
+        <div class="layout-footer_tx"><a href="<?=$this->createUrl('/archive/default/map')?>" class="layout-footer_privacy color-gray">Карта сайта</a></div>
     </div>
 </div>

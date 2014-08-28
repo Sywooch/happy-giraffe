@@ -254,8 +254,8 @@ module.exports = function(grunt){
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
-            // Drop, active элементы
-            /.header-drop+/,
+            
+            /.header-drop+/, // Drop, active элементы
             /.header-menu_li.active+/,
           ],
         },
@@ -355,7 +355,7 @@ module.exports = function(grunt){
           files: [{
               expand: true,
               cwd: 'lite/images/',
-              src: ['**/*.{png,jpg,gif}'],
+              src: ['**/*.{gif,GIF,jpg,JPG,png,PNG}'],
               dest: 'lite/images/'
           }]
       },
@@ -366,8 +366,25 @@ module.exports = function(grunt){
               src: ['**/*.{png,jpg,gif}'],
               dest: 'images/branding/'
           }]
+      },
+      new: {
+          files: [{
+              expand: true,
+              cwd: 'new/images/',
+              src: ['**/*.{gif,GIF,jpg,JPG,png,PNG}'],
+              dest: 'new/images/'
+          }]
+      },
+      old: {
+          files: [{
+              expand: true,
+              cwd: 'images/',
+              src: ['**/*.{gif,GIF,jpg,JPG,png,PNG}'],
+              dest: 'images/'
+          }]
       }
     },
+
 
     svgmin: {                       // Task
       options: {                  // Configuration that will be passed directly to SVGO
@@ -535,8 +552,8 @@ module.exports = function(grunt){
 
       // изобрражения сжатие
       image_lite: {
-        files: ['lite/images/**/*.{png,jpg,gif}'],
-        tasks:['imagemin:lite'],
+        files: ['lite/images/**/*.{gif,GIF,jpg,JPG,png,PNG}'],
+        tasks:['newer:imagemin:lite'],
         options: {
           livereload: true,
         },

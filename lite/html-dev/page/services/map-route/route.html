@@ -238,7 +238,8 @@
                   <div class="map-route-calc_hold">
                     <div class="map-route-calc_item">
                       <div class="clearfix">
-                        <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-car.png" alt=""></div>
+                        <div class="map-route-calc_img map-route-calc_img__car">
+                        </div>
                         <div class="map-route-calc_t">Расстояние <span class="hidden-xs">между Киевом и Донецком</span></div>
                       </div>
                       <div class="map-route-calc_value">1 388<span class="map-route-calc_units">км. </span></div>
@@ -246,19 +247,21 @@
                     </div>
                     <div class="map-route-calc_item">
                       <div class="clearfix">
-                        <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-time.png" alt=""></div>
+                        <div class="map-route-calc_img map-route-calc_img__time">
+                        </div>
                         <div class="map-route-calc_t">Время в пути <span class="hidden-xs"> от Киева до Донецка</span></div>
                       </div>
                       <label for="route-time" class="map-route-calc_label">Ср. скорость км / ч </label>
                       <div class="map-route-calc_row clearfix">
                         <input type="text" name="" value="80" id="route-time" class="itx-simple map-route-calc_itx">
-                        <div class="map-route-calc_value">14<span class="map-route-calc_units">ч. </span> 8<span class="map-route-calc_units">мин.</span></div>
+                        <div class="map-route-calc_value">14 <span class="map-route-calc_units">ч. </span> 8<span class="map-route-calc_units">мин.</span></div>
                       </div>
                       <div class="map-route-calc_desc">Столько времени ехать от Киева до Донецка</div>
                     </div>
                     <div class="map-route-calc_item">
                       <div class="clearfix">
-                        <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-fuel.png" alt=""></div>
+                        <div class="map-route-calc_img map-route-calc_img__fuel">
+                        </div>
                         <div class="map-route-calc_t">Расход  топлива</div>
                       </div>
                       <label for="route-fuel" class="map-route-calc_label">Ср. расход (л. / 100 км)</label>
@@ -269,7 +272,8 @@
                     </div>
                     <div class="map-route-calc_item">
                       <div class="clearfix">
-                        <div class="map-route-calc_img"><img src="/lite/images/services/map-route/map-route-cost.png" alt=""></div>
+                        <div class="map-route-calc_img map-route-calc_img__cost">
+                        </div>
                         <div class="map-route-calc_t">Стоимость топлива</div>
                       </div>
                       <label for="route-cost" class="map-route-calc_label">Ср. расход (л. / 100 км)</label>
@@ -431,32 +435,49 @@
                 <!-- Реклама яндекса-->
                 <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
                 <!-- баннер на всю ширину-->
+                <!-- href статьи http://www.happy-giraffe.ru/community/21/forum/photoPost/176862/-->
                 <!-- Изабражение вставляется через background для поизиционирования через css-->
                 <style type="text/css">
                   /* Ширина изображения 600px */
                   .ban-read-more {
-                      background-image: url('/lite/images/example/w600-h355-1.jpg');
+                      background-image: url('/lite/images/banner/ban-route-danger.jpg');
                   }
                   /* Ширина изображения до 1000px*/
                   @media (min-width: 640px) {
                       .ban-read-more {
-                          background-image: url('/lite/images/example/w1000-h580-2.jpg');
+                          background-image: url('/lite/images/banner/ban-route-danger-w1000.jpg');
                       }
                   }
-                </style><a href="#" class="ban-read-more">
+                  
+                  /* 
+                      .ban-read-more {
+                          background-image: url('/lite/images/banner/ban-route__nice.jpg');
+                      }
+                      
+                      Изображения для других баннеров 
+                      .ban-read-more {
+                          background-image: url('/lite/images/banner/ban-route__nice2.jpg');
+                      }
+                      
+                      .ban-read-more {
+                          background-image: url('/lite/images/banner/ban-route__nice3.jpg');
+                      }
+                  */
+                  
+                </style>
+                <div class="ban-read-more">
                   <div class="ban-read-more_hold">
                     <div class="ban-read-more_cont">
                       <div class="ban-read-more_t-sub">Рекомендуем для чтения</div>
                       <div class="ban-read-more_author clearfix">
-                        <!-- Аватарки размером 40*40-->
-                        <!-- ava--><span href="#" class="ava ava__middle ava__small-sm-mid hidden-xxs"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="a-light">Ангелина Богоявленская</span>
+                        <!-- Аватарки размером 40*40--><span class="ava ava__middle ava__small-sm-mid hidden-xxs"><img src="http://img.happy-giraffe.ru/thumbs/40x40/220231/avabdc8f4a293ba7a8614e61a14082f0993.jpg" alt="" class="ava_img"></span><span class="a-light">Марина Шевкопляс</span>
                       </div>
                       <div class="ban-read-more_t">20 самых опасных маршрутов в мире</div>
-                      <div class="ban-read-more_desc">Вот, девочки, напала на вот такую красоту в интернете. И вдруг вспомнила, что муж у меня уже много много лет мечтает ...</div>
+                      <div class="ban-read-more_desc">Для автомобилиста-новичка любая дорога с большим количеством перекрестков, поворотов, дорожных знаков, гаишников и медленных бабушек может быть...</div>
                       <div class="ban-read-more_arrow"></div>
                     </div>
-                  </div></a>
-                <!-- /баннер-->
+                  </div>
+                </div>
               </div>
             </div>
           </div>

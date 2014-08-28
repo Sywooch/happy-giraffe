@@ -9,7 +9,7 @@ $this->breadcrumbs = array(
 if ($period->features && $period->features_heading)
 {
     // Странный костыль для вставки особенностей периода
-    $features = explode("\n", $period->features);
+    $features = explode("\n", trim($period->features));
     ob_start();
     ?>
     <div class="age-features<?php if ($period->calendar == 1): ?> age-features-pregnancy<?php endif; ?>">

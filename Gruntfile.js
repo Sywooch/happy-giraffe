@@ -589,7 +589,7 @@ module.exports = function(grunt){
   });
 
   //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
-  grunt.registerTask('css-new', ['less:newestdev', 'uncss:new', 'cmq:new', 'cssmin:new', 'csso:new']);
+  grunt.registerTask('css-new', ['less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
 
   // lite tasks
   // bild lite версии

@@ -3,6 +3,7 @@
 return array(
     'class' => 'application.components.ClientScript',
     'amdFile' => '/new/javascript/modules/require2.1.11-jquery1.10.2.js',
+    'amdFilePos' => CClientScript::POS_HEAD,
     'amd' => array(
         'baseUrl' => '/new/javascript/modules',
         'waitSeconds' => 0,
@@ -39,6 +40,51 @@ return array(
       ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
       ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
       ', */
+    ),
+    'litePackages' => array(
+        'default' => array(
+            'baseUrl' => '/lite/css/dev/',
+            'guest' => array(
+                'all.css' => array(
+                    'pos' => CClientScript::POS_HEAD,
+                    'inline' => false,
+                ),
+            ),
+            'user' => array(
+                'all.css' => array(
+                    'pos' => CClientScript::POS_HEAD,
+                    'inline' => false,
+                ),
+            ),
+        ),
+        'services' => array(
+            'baseUrl' => '/lite/css/min/',
+            'guest' => array(
+                'services.css' => array(
+                    'pos' => CClientScript::POS_END,
+                    'inline' => false,
+                ),
+            ),
+            'user' => array(
+                'services-user.css' => array(
+                    'pos' => CClientScript::POS_END,
+                    'inline' => false,
+                ),
+            ),
+            'depends' => array('default'),
+        ),
+        'routes' => array(
+            'depends' => array('services'),
+        ),
+        'calendar' => array(
+            'depends' => array('services'),
+        ),
+        'recipes' => array(
+            'depends' => array('services'),
+        ),
+        'archive' => array(
+            'depends' => array('services'),
+        ),
     ),
     'packages' => array(
         'userSettings' => array(

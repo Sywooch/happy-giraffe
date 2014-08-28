@@ -67,6 +67,7 @@ class DefaultController extends LiteController
         return array(
             'menu' => array('_menu_child', '_menu_pregnacy'),
             'title' => array('Календарь развития ребёнка', 'Календарь беременности'),
+            'class' => array('child', 'pregnancy'),
         );
     }
 

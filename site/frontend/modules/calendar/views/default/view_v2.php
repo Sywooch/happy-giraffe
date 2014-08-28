@@ -70,14 +70,14 @@ if ($period->features && $period->features_heading)
                     <div class="b-main_col-article b-main_col-article__center">
                         <div class="services-fast_t heading-m">Полезные сервисы. Попробуйте!</div>
                         <ul class="services-fast_ul">
-                            <?php foreach ($period->communities as $c): ?>
+                            <?php foreach ($period->services as $s): ?>
                                 <li class="services-fast_li">
-                                    <a class="services-fast_a" href="<?= $c->url ?>">
+                                    <a class="services-fast_a" href="<?= $s->url ?>">
                                         <div class="services-fast_ico">
-                                            <?= CHtml::image('/images/club_img_' . $c->id . '.png') ?>
+                                            <?=CHtml::link(CHtml::image('/images/services/service_img_' . $s->id . '.png'), $s->url)?>
                                         </div>
                                         <div class="services-fast_tx">
-                                            <?= $c->title ?>
+                                            <?=$s->title?>
                                         </div>
                                     </a>
                                 </li>

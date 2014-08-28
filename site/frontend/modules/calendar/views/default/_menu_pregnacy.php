@@ -12,7 +12,7 @@
             <?php
             foreach ($periods as $i => $p)
             {
-                $liClass = 'calendar-serv_li calendar-serv_li__50p';
+                $liClass = 'calendar-serv_li';
                 $linkClass = 'calendar-serv_i';
                 $li = true;
                 switch ($i)
@@ -27,21 +27,21 @@
                         echo CHtml::tag('div', array('class' => 'calendar-serv_row'), '', false);
                         echo CHtml::tag('div', array('class' => 'calendar-serv_col-trimester'), '', false);
                         echo CHtml::tag('div', array('class' => 'calendar-serv_t'), '1 триместр');
-                        echo CHtml::tag('ul', array('class' => 'calendar-serv_ul clearfix'), '', false);
+                        echo CHtml::tag('ul', array('class' => 'calendar-serv_ul calendar-serv_ul__column clearfix'), '', false);
                         break;
                     case 14:
                         echo CHtml::closeTag('ul');
                         echo CHtml::closeTag('div');
                         echo CHtml::tag('div', array('class' => 'calendar-serv_col-trimester'), '', false);
                         echo CHtml::tag('div', array('class' => 'calendar-serv_t'), '2 триместр');
-                        echo CHtml::tag('ul', array('class' => 'calendar-serv_ul clearfix'), '', false);
+                        echo CHtml::tag('ul', array('class' => 'calendar-serv_ul calendar-serv_ul__column clearfix'), '', false);
                         break;
                     case 27:
                         echo CHtml::closeTag('ul');
                         echo CHtml::closeTag('div');
                         echo CHtml::tag('div', array('class' => 'calendar-serv_col-trimester'), '', false);
                         echo CHtml::tag('div', array('class' => 'calendar-serv_t'), '3 триместр');
-                        echo CHtml::tag('ul', array('class' => 'calendar-serv_ul clearfix'), '', false);
+                        echo CHtml::tag('ul', array('class' => 'calendar-serv_ul calendar-serv_ul__column clearfix'), '', false);
                         break;
                     case 41:
                         echo CHtml::closeTag('ul');

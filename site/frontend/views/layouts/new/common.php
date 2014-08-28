@@ -107,7 +107,7 @@ if (! Yii::app()->user->isGuest)
 </script>
 
 <script type="text/javascript">
-    var _top100q = _top100q || [];
+    /*var _top100q = _top100q || [];
 
     _top100q.push(["setAccount", "2900190"]);
     _top100q.push(["trackPageviewByLogo", document.getElementById("counter-rambler")]);
@@ -119,7 +119,7 @@ if (! Yii::app()->user->isGuest)
         top100.async = true;
         top100.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//st.top100.ru/top100/top100.js";
         var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
-    })();
+    })();*/
 </script>
 <?php endif; ?>
 

@@ -56,6 +56,13 @@ block layout
 
                     // Список
                     .calendar-serv-note
+                        script.
+                            $(window).ready(function () {
+                                var docWidth = $(document).width();
+                                if (docWidth > 640 && docWidth < 1000) {
+                                    $('.calendar-serv-note_count').css({'right': (1000 - docWidth)/2})
+                                }
+                            });
                         .calendar-serv-note_count 40
                         .b-main_col-article.b-main_col-article__center
                             h2.calendar-serv-note_t На 3 неделе беременности

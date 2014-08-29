@@ -4,6 +4,11 @@ $this->breadcrumbs = array(
     $this->getText('title') => array('/calendar/default/index', 'calendar' => $this->calendar),
     $period->title,
 );
+$i = 0;
+while ($periods[$i]->id !== $period->id)
+    $i++;
+$prevPeriod = isset($periods[$i - 1]) ? $periods[$i - 1] : null;
+$nextPeriod = isset($periods[$i + 1]) ? $periods[$i + 1] : null;
 ?>
 <?php
 if ($period->features && $period->features_heading)
@@ -49,13 +54,8 @@ if ($period->features && $period->features_heading)
         </div>
         <table class="article-nearby clearfix">
             <tr>
-                <?php
-                $i = 0;
-                while ($periods[$i]->id !== $period->id)
-                    $i++;
-                ?>
-                <td><?php if(isset($periods[$i-1])) echo CHtml::link (CHtml::tag ('span', array('class' => 'article-nearby_tx'), $periods[$i-1]->title), $periods[$i-1]->url, array('class' => 'article-nearby_a article-nearby_a__l')); ?></td>
-                <td><?php if(isset($periods[$i+1])) echo CHtml::link (CHtml::tag ('span', array('class' => 'article-nearby_tx'), $periods[$i+1]->title), $periods[$i+1]->url, array('class' => 'article-nearby_a article-nearby_a__r')); ?></td>
+                <td><?php if ($prevPeriod) echo CHtml::link(CHtml::tag('span', array('class' => 'article-nearby_tx'), $prevPeriod->title), $prevPeriod->url, array('class' => 'article-nearby_a article-nearby_a__l')); ?></td>
+                <td><?php if ($nextPeriod) echo CHtml::link(CHtml::tag('span', array('class' => 'article-nearby_tx'), $nextPeriod->title), $nextPeriod->url, array('class' => 'article-nearby_a article-nearby_a__r')); ?></td>
             </tr>
         </table>
     </div>
@@ -74,22 +74,23 @@ if ($period->features && $period->features_heading)
             ?>
         </div>
     </div>
+    <!-- Реклама яндекса-->
+    <?php $this->renderPartial('//banners/_calendar'); ?>
     <?php if ($period->communities): ?>
-        <!-- /Яндрекс реклама/ -->
         <div class="b-main_row services-fast margin-b0">
             <div class="b-main_cont">
                 <div class="services-fast_hold">
                     <div class="b-main_col-article b-main_col-article__center">
                         <div class="services-fast_t heading-m">Полезные сервисы. Попробуйте!</div>
                         <ul class="services-fast_ul">
-                            <?php foreach ($period->communities as $c): ?>
+                            <?php foreach ($period->services as $s): ?>
                                 <li class="services-fast_li">
-                                    <a class="services-fast_a" href="<?= $c->url ?>">
+                                    <a class="services-fast_a" href="<?= $s->url ?>">
                                         <span class="services-fast_ico">
-                                            <?= CHtml::image('/images/club_img_' . $c->id . '.png') ?>
+                                            <?= CHtml::link(CHtml::image('/images/services/service_img_' . $s->id . '.png'), $s->url) ?>
                                         </span>
                                         <div class="services-fast_tx">
-                                            <?= $c->title ?>
+                                            <?= $s->title ?>
                                         </div>
                                     </a>
                                 </li>
@@ -102,5 +103,16 @@ if ($period->features && $period->features_heading)
             </div>
         </div>
     <?php endif; ?>
-    <!-- /Баннер о следующей статье, появляется у планшета и меньших экранов/ -->
+    <?php if (false && $period->calendar == 1 && $nextPeriod): ?>
+        <div class="ban-read-more hidden-md">
+            <div class="ban-read-more_hold">
+                <div class="ban-read-more_cont">
+                    <div class="ban-read-more_t-sub">следующая неделя</div>
+                    <div class="ban-read-more_t"><?= $nextPeriod->heading ?></div>
+                    <div class="ban-read-more_desc"><?= $nextPeriod ?></div>
+                    <span class="ban-read-more_arrow"></span>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
 </div>

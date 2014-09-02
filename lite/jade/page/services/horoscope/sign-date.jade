@@ -16,9 +16,11 @@ block layout
                     li.b-crumbs_li
                         a.b-crumbs_a(href='#') Главная 
                     li.b-crumbs_li
-                        a.b-crumbs_a(href='#') Гороскопы  
+                        a.b-crumbs_a(href='#') Гороскопы 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Овен  
                     li.b-crumbs_li.b-crumbs_li__last
-                        span.b-crumbs_last Гороскоп Овна на 11 августа 2014 
+                        span.b-crumbs_last 11 августа 2014 
         .b-main_cont
             .b-main_col-hold.clearfix
                 ///////
@@ -30,29 +32,29 @@ block layout
                     +articleNearby('', articleNearby.horoscope1)
 
                     .horoscope-day
-                        .ico-zodiac.ico-zodiac__1
+                        .ico-zodiac.ico-zodiac__l.ico-zodiac__xl-sm
+                            .ico-zodiac_in.ico-zodiac__3
                         .horoscope-day_tx Овен
 
                     .wysiwyg-content.clearfix
                         p Возможно, сегодня вашей помощи попросят родственники – постарайтесь поддержать их. Приложите усилия, чтобы наладить отношения в семье, сгладить ссоры и разногласия. В этот день невозможно оставаться пассивными. Направьте свою энергию на созидательную практическую деятельность в семейных вопросах. Возможны неполадки с техникой. Вечером побудьте дома, посмотрите хороший фильм, послушайте любимую музыку.
 
-                    +customLikes('', customLikes.horoscope)
+                    +customLikes('', customLikes.horoscope) 
 
-                    .list-simple.list-simple__center
-                        .list-simple_t Еще Овен
-                        ul.list-simple_ul
-                            li.list-simple_li
-                                a.list-simple_a(href='#') На сегодня
-                            li.list-simple_li
-                                a.list-simple_a(href='#') На завтра
-                            li.list-simple_li
-                                a.list-simple_a(href='#') На месяц
-                            li.list-simple_li
-                                a.list-simple_a(href='#') На 2014
+                    .menu-link-simple.menu-link-simple__center
+                        .menu-link-simple_t Еще Овен
+                        ul.menu-link-simple_ul
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') На сегодня
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') На завтра
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') На месяц
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') На 2014
 
                     +adv-yandex()
                 // /Основная колонка
 
     // b-main 
     +layout-footer-lite()
-

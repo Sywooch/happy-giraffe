@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/services.css' />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -22,8 +22,6 @@
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
-  <!-- livereload-->
-  <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__bg1 body__lite">
   <div class="layout-container">
@@ -186,9 +184,8 @@
               <div class="b-crumbs_tx">Я здесь:</div>
               <ul class="b-crumbs_ul">
                 <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная </a></li>
-                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Гороскопы </a></li>
-                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Овен  </a></li>
-                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">11 августа 2014 </span></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Гороскопы  </a></li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">На год</span></li>
               </ul>
             </div>
           </div>
@@ -197,44 +194,98 @@
               <!--/////-->
               <!-- Основная колонка-->
               <div class="b-main_col-article">
-                <h1 class="heading-link-xxl">Гороскоп Овна на 11 августа 2014</h1>
-                <!-- Перелинковка-->
-                <table class="article-nearby clearfix">
-                  <tr>
-                    <td><a href="#" class="article-nearby_a article-nearby_a__l"><span class="article-nearby_tx">10 августа 2014  </span></a></td>
-                    <td><a href="#" class="article-nearby_a article-nearby_a__r"><span class="article-nearby_tx">12 августа 2014  </span></a></td>
-                  </tr>
-                </table>
-                <div class="horoscope-day">
-                  <div class="ico-zodiac ico-zodiac__l ico-zodiac__xl-sm">
-                    <div class="ico-zodiac_in ico-zodiac__3"></div>
-                  </div>
-                  <div class="horoscope-day_tx">Овен</div>
+                <h1 class="heading-link-xxl">Гороскоп на год по знакам Зодиака</h1>
+                <div class="wysiwyg-content visible-md-block">
+                  <p>Чтение своего гороскопа на год – весьма приятное занятие. Особенно если этот гороскоп составлен таким опытным астрологом, как наш. Посоветовавшись со звёздами, то есть прочитав гороскоп на год, можно смело браться за одни дела, обещающие быть успешными именно сейчас, и отложить другие на более подходящее время.</p>
+                  <p>Гороскоп на год может как посоветовать вступить в брак, так и рекомендовать быть осторожнее в этом важном вопросе, так как впереди – встреча с более подходящим человеком. В деловых отношениях можно выбрать тактику ожидания, можно начать активно двигаться по служебной лестнице, а можно и вовсе оставить место службы в пользу индивидуального предпринимательства или другой альтернативной деятельности. Гороскоп на год подскажет, в какое время кто из вашей семьи будет более всего нуждаться в вашем внимании, предупредит о возможности заболеваний и ненужных поездок. В общем, читайте годовой гороскоп и выстраивайте свою жизнь наиболее оптимальным образом.</p>
                 </div>
-                <div class="wysiwyg-content clearfix">
-                  <p>Возможно, сегодня вашей помощи попросят родственники – постарайтесь поддержать их. Приложите усилия, чтобы наладить отношения в семье, сгладить ссоры и разногласия. В этот день невозможно оставаться пассивными. Направьте свою энергию на созидательную практическую деятельность в семейных вопросах. Возможны неполадки с техникой. Вечером побудьте дома, посмотрите хороший фильм, послушайте любимую музыку.</p>
+                <!-- Зодиаки-->
+                <div class="zodiac-list">
+                  <ul class="zodiac-list_ul">
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__1"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Овен
+                        </div></a></li>
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__2"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Телец
+                        </div></a></li>
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__3"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Близнецы
+                        </div></a></li>
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__4"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Рак
+                        </div></a></li>
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__5"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Лев
+                        </div></a></li>
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__6"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Дева
+                        </div></a></li>
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__7"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Весы
+                        </div></a></li>
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__8"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Скорпион
+                        </div></a></li>
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__9"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Стрелец
+                        </div></a></li>
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__10"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Козерог
+                        </div></a></li>
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__11"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Водолей
+                        </div></a></li>
+                    <li class="zodiac-list_li"><a class="zodiac-list_a">
+                        <div class="ico-zodiac ico-zodiac__s ico-zodiac__m-xs">
+                          <div class="ico-zodiac_in ico-zodiac__12"></div>
+                        </div>
+                        <div class="zodiac-list_tx">Рыбы
+                        </div></a></li>
+                  </ul>
                 </div>
-                <!-- Лайки от янжекса-->
-                <div class="custom-likes">
-                  <div class="custom-likes_slogan">Вам понравился гороскоп?
-                  </div>
-                  <div class="custom-likes_in">
-                    <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                    <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
-                  </div>
-                </div>
-                <!-- Лайки от янжекса-->
-                <div class="menu-link-simple menu-link-simple__center">
-                  <div class="menu-link-simple_t">Еще Овен</div>
+                <!-- Зодиаки-->
+                <div class="menu-link-simple menu-link-simple__center margin-t40">
+                  <div class="menu-link-simple_t">Узнайте гороскоп</div>
                   <ul class="menu-link-simple_ul">
                     <li class="menu-link-simple_li"><a href="#" class="menu-link-simple_a">На сегодня</a></li>
                     <li class="menu-link-simple_li"><a href="#" class="menu-link-simple_a">На завтра</a></li>
                     <li class="menu-link-simple_li"><a href="#" class="menu-link-simple_a">На месяц</a></li>
-                    <li class="menu-link-simple_li"><a href="#" class="menu-link-simple_a">На 2014</a></li>
+                    <li class="menu-link-simple_li"><a href="#" class="menu-link-simple_a"><span class="color-gray">+ &nbsp;</span>Гороскоп совместимости</a></li>
                   </ul>
                 </div>
-                <!-- Реклама яндекса-->
-                <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
               </div>
               <!-- /Основная колонка-->
             </div>

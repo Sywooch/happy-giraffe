@@ -1,0 +1,90 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+       
+    // b-main 
+    .b-main.clearfix
+    
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Гороскопы 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Совместимость  
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last  Овен - Близнецы 
+        .b-main_cont
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+                    
+                    h1.heading-link-xxl Гороскоп совместимости - Овен и Близнецы
+
+                    .horoscope-compatibility
+                        .ico-zodiac.ico-zodiac__m.ico-zodiac__l-xs.ico-zodiac__xl-sm
+                                .ico-zodiac_in.ico-zodiac__3
+                        span.horoscope-compatibility_plus
+                        .ico-zodiac.ico-zodiac__m.ico-zodiac__l-xs.ico-zodiac__xl-sm
+                                .ico-zodiac_in.ico-zodiac__2
+                    
+                    .wysiwyg-content.clearfix
+                        p Дружеские и деловые отношения между этими знаками с необыкновенной легкостью могут перетечь в любовные. Оставшись после работы, чтобы доработать проект, следующее утро Близнецы и Овен могут встретить в одной постели. Гороскоп совместимости этих знаков обещает, что их отношения будут приятными, но кратковременными.
+                        p Отношения между Овнами и Близнецами завязываются быстро, у них много схожих черт в характере, а различия между ними делают их союз еще более интересным. Овну приятно ощущать, что он нашел партнера, который поспевает за его стремительным бегом по жизни. Близнецы же стараются не отстать от Овна ни в чем, одновременно внося во взаимоотношения характерные для них интеллектуальные нюансы. Эти знаки выплескивают себя вне дома, а у домашнего очага желают насладиться общением с партнером в атмосфере гармонии и уюта.
+                        p Близнецы питают искренние дружеские чувства к Овну, а тот видит в Близнецах человека, разделяющего его мировоззрение. Благодаря Близнецам Овну легче ориентироваться в том, куда следует направлять свою кипучую энергию. Но и Близнецам интересно с Овном, который дает ему пищу для его интеллектуальных изысканий. Чтобы отношения складывались удачнее, Овну следует больше идти на уступки и немного снизить степень кипучести своей натуры. Близнецам можно посоветовать, чтобы они привыкали к энергичному Овну, которому нет хуже наказания, чем сидеть, ничего не делая.
+                        p Гороскоп совместимости Овна и Близнецов вовсе не исключает возможности ссор между ними. Наоборот, они могут спорить и ссориться даже по малозначительным поводам.
+
+                    +customLikes('', customLikes.horoscope) 
+
+                    .horoscope-compatibility-list.horoscope-compatibility-list__center.visible-md-block.textalign-c
+                        .horoscope-compatibility-list_t Другие совместимости
+                        ul.horoscope-compatibility-list_ul
+                            - each item, i in ['Овен', 'Телец']
+                                - ii = i + 1
+
+                                li.horoscope-compatibility-list_li
+                                    .horoscope-compatibility-list_top
+                                        .ico-zodiac.ico-zodiac__s
+                                            .ico-zodiac_in(class='ico-zodiac__#{ii}')
+                                    ul.menu-link-simple.menu-link-simple__col
+                                        ul.menu-link-simple_ul
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Овен
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Телец
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Близнецы
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Рак
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Лев
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Дева
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Весы
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Скорпион
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Стрелец
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Козерог
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Водолей
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Рыбы
+
+
+                    +adv-yandex()
+                // /Основная колонка
+
+    // b-main 
+    +layout-footer-lite()
+

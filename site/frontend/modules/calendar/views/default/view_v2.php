@@ -87,7 +87,8 @@ if ($period->features && $period->features_heading)
                                 <li class="services-fast_li">
                                     <a class="services-fast_a" href="<?= $s->url ?>">
                                         <span class="services-fast_ico">
-                                            <?= CHtml::link(CHtml::image('/images/services/service_img_' . $s->id . '.png'), $s->url) ?>
+                                            <?= CHtml::image('/images/services/service_img_' . $s->id . '.png') ?>
+                                            <span class="verticalalign-m-help"></span>
                                         </span>
                                         <div class="services-fast_tx">
                                             <?= $s->title ?>

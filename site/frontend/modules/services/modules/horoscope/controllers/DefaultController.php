@@ -7,6 +7,7 @@ class DefaultController extends LiteController
     public $zodiac = false;
     public $date = false;
     public $period = false;
+    public $alias = false;
 
     public function getUrl($params)
     {
@@ -14,8 +15,9 @@ class DefaultController extends LiteController
                 'zodiac' => $this->zodiac,
                 'date' => $this->date,
                 'period' => $this->period,
+                'alias' => $this->alias,
                 ), $params);
-        return $this->createUrl($this->route, $params);
+        return Yii::app()->createUrl($this->route, $params);
     }
 
     public function beforeAction($action)
@@ -23,16 +25,17 @@ class DefaultController extends LiteController
         $this->zodiac = Yii::app()->request->getQuery('zodiac', false);
         $this->period = Yii::app()->request->getQuery('period', false);
         $this->date = Yii::app()->request->getQuery('date', false);
+        $this->alias = Yii::app()->request->getQuery('alias', false);
 
         return parent::beforeAction($action);
     }
 
-    public function actionList($zodiac, $period, $date)
+    public function actionList($zodiac, $period, $date, $alias)
     {
         $this->render('list');
     }
 
-    public function actionView($zodiac, $period, $date)
+    public function actionView($zodiac, $period, $date, $alias)
     {
         $zodiac = Horoscope::model()->getZodiacId($this->zodiac);
         $model = null;

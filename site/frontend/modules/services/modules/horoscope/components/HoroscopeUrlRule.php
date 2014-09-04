@@ -15,17 +15,18 @@ class HoroscopeUrlRule extends \CBaseUrlRule
 
     public function createUrl($manager, $route, $params, $ampersand)
     {
-        if ($route == '')
+        if (strpos($route, 'services/horoscope/default') === 0)
         {
-            $url = 'horoscope/' . $params['slug'];
-            unset($params['slug']);
-
-            $url .= $manager->urlSuffix;
-
-            if (!empty($params))
-            {
-                $url .= '?' . $manager->createPathInfo($params, '=', $ampersand);
-            }
+            $url = 'horoscope/{alias}/{period}/{zodiac}/{date}';
+            if($params['alias'] && $params['alias']!= 'today')
+                $url.=$params['alias'];
+            if($params['period'] && $params['period']!= 'day')
+                $url.=$params['alias'];
+            if($params['alias'] && $params['alias']!= 'today')
+                $url.=$params['alias'];
+            if($params['alias'] && $params['alias']!= 'today')
+                $url.=$params['alias'];
+            
             return $url;
         }
         return false;
@@ -33,7 +34,7 @@ class HoroscopeUrlRule extends \CBaseUrlRule
 
     public function parseUrl($manager, $request, $path, $rawPathInfo)
     {
-        if (strpos($path, 'horoscope/') === 0)
+        if (strpos($path, 'horoscope/') === 0 || $path == 'horoscope')
         {
             $path = explode('/', $path);
 
@@ -45,6 +46,7 @@ class HoroscopeUrlRule extends \CBaseUrlRule
                     'zodiac' => false,
                     'period' => 'day',
                     'date' => time(),
+                    'alias' => 'today',
                 );
                 return 'services/horoscope/default/list';
             }
@@ -55,6 +57,7 @@ class HoroscopeUrlRule extends \CBaseUrlRule
                     'zodiac' => false,
                     'period' => $path[1],
                     'date' => time(),
+                    'alias' => false,
                 );
                 return 'services/horoscope/default/list';
             }
@@ -65,6 +68,7 @@ class HoroscopeUrlRule extends \CBaseUrlRule
                     'zodiac' => $path[1],
                     'period' => 'day',
                     'date' => time(),
+                    'alias' => 'today',
                 );
                 return 'services/horoscope/default/view';
             }
@@ -75,6 +79,7 @@ class HoroscopeUrlRule extends \CBaseUrlRule
                     'zodiac' => $path[2],
                     'period' => $path[1],
                     'date' => time(),
+                    'alias' => false,
                 );
                 return 'services/horoscope/default/view';
             }
@@ -85,6 +90,7 @@ class HoroscopeUrlRule extends \CBaseUrlRule
                     'zodiac' => $path[2],
                     'period' => 'day',
                     'date' => strtotime(($path[1] == 'tomorrow' ? '+1' : '-1') . ' day'),
+                    'alias' => $path[1],
                 );
                 return 'services/horoscope/default/view';
             }
@@ -95,6 +101,7 @@ class HoroscopeUrlRule extends \CBaseUrlRule
                     'zodiac' => $path[1],
                     'period' => 'day',
                     'date' => mktime(0, 0, 0, $m[2], $m[3], $m[1]),
+                    'alias' => false,
                 );
                 return 'services/horoscope/default/view';
             }
@@ -118,6 +125,7 @@ class HoroscopeUrlRule extends \CBaseUrlRule
                     'zodiac' => $path[2],
                     'period' => $path[1],
                     'date' => $date,
+                    'alias' => false,
                 );
                 return 'services/horoscope/default/view';
             }

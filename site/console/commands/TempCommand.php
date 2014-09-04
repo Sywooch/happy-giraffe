@@ -607,12 +607,15 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
     {
         Yii::import('site.frontend.modules.calendar.models.*');
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
-        $period = CalendarPeriod::model()->findByAttributes(array('calendar' => 'planning'));
+        $periods = CalendarPeriod::model()->findAllByAttributes(array('calendar' => 'planning'));
 
-        $doc = str_get_html($period->text);
-        foreach ($doc->find('img') as $img) {
-            preg_match('#http://img\.happy-giraffe\.ru/thumbs/(\d+)x(\d+)/10385/([a-z0-9]+)\.jpg#', $img->src, $matches);
-            print_r($matches);
+        foreach ($periods as $period) {
+            $doc = str_get_html($period->text);
+            foreach ($doc->find('img') as $img) {
+                preg_match('#http://img\.happy-giraffe\.ru/thumbs/(\d+)x(\d+)/10385/([a-z0-9]+)\.jpg#', $img->src, $matches);
+                $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $matches[3]));
+                $photo->getPreviewUrl($matches[1], $matches[2]);
+            }
         }
     }
 }

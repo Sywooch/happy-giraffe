@@ -607,7 +607,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
     {
         Yii::import('site.frontend.modules.calendar.models.*');
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
-        $periods = CalendarPeriod::model()->findAllByAttributes(array('slug' => 'planning'));
+        $periods = CalendarPeriod::model()->findAll();
 
         foreach ($periods as $period) {
             $doc = str_get_html($period->text);

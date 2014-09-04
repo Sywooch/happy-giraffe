@@ -363,6 +363,14 @@ module.exports = function(grunt){
               dest: 'lite/images/'
           }]
       },
+      bannerold: {
+          files: [{
+              expand: true,
+              cwd: 'images/branding/',
+              src: ['**/*.{png,jpg,gif}'],
+              dest: 'images/branding/'
+          }]
+      },
       new: {
           files: [{
               expand: true,
@@ -585,7 +593,7 @@ module.exports = function(grunt){
   });
 
   //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
-  grunt.registerTask('css-new', ['less:newestdev', 'uncss:new', 'cmq:new', 'cssmin:new', 'csso:new']);
+  grunt.registerTask('css-new', ['less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
 
   // lite tasks
   // bild lite версии

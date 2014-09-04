@@ -140,7 +140,7 @@ class RssController extends HController
         $feed = new EFeed();
 
         $feed->title = 'Блог пользователя ' . $user->fullName;
-        $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
+        $feed->link = $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $user->id));
         $feed->description = ($user->blog_title === null) ? 'Блог - ' . $user->fullName : $user->blog_title;
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
         $feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id)));

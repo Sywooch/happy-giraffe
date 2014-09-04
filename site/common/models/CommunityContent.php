@@ -712,7 +712,7 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function canEdit()
     {
-        if ($this->author_id == 167771)
+        if (in_array($this->author_id, array(167771, 189230, 220231)) && time() < strtotime('2014-09-04'))
             return false;
 
         if ($this->rubric->community_id == Community::COMMUNITY_NEWS)
@@ -729,7 +729,7 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function canRemove()
     {
-        if ($this->author_id == 167771)
+        if (in_array($this->author_id, array(167771, 189230, 220231)) && time() < strtotime('2014-09-04'))
             return false;
 
         if ($this->rubric->community_id == Community::COMMUNITY_NEWS)

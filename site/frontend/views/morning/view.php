@@ -62,7 +62,7 @@
 
                 Yii::app()->clientScript->registerScript('register_after_removeContent', '
                 function NewsRemove() {
-                    window.location = "' . $delete_redirect_url . '";}', CClientScript::POS_HEAD);
+                    window.location = "' . $delete_redirect_url . '";}', Yii::app()->clientScript->useAMD ? ClientScript::POS_AMD : ClientScript::POS_HEAD);
                 ?>
                 <?php endif; ?>
 
@@ -77,21 +77,10 @@
 <div class="main">
     <div class="main-in">
         <div class="clearfix">
-            <noindex>
-                <?php $this->widget('site.frontend.widgets.socialLike.SocialLikeWidget', array(
-                'title' => $article->title,
-                'model' => $article,
-                'type' => 'simple',
-                'options' => array(
-                    'title' => CHtml::encode($article->title),
-                    'image' => $article->morning->getPhoto(),
-                    'description' => $article->preview,
-                ),
-            )); ?>
-            </noindex>
+            <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $article)); ?>
         </div>
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $article, 'full' => true)); ?>
 
     </div>
 </div>
-<?php Yii::app()->clientScript->registerScript('scrolled_content', 'initScrolledContent();'); ?>
+<?php //Yii::app()->clientScript->registerScript('scrolled_content', 'initScrolledContent();'); ?>

@@ -28,22 +28,6 @@ if (! Yii::app()->user->isGuest)
 ?><!DOCTYPE html>
 <html class="no-js">
 <head><meta charset="utf-8">
-    <?php if (! YII_DEBUG): ?>
-    <script type='text/javascript'>
-        window.Muscula = { settings:{
-            logId:"VwXATrD-QRwMP", suppressErrors: false
-        }};
-        (function () {
-            var m = document.createElement('script'); m.type = 'text/javascript'; m.async = true;
-            m.src = (window.location.protocol == 'https:' ? 'https:' : 'http:') +
-                '//musculahq.appspot.com/Muscula6.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(m, s);
-            window.Muscula.run=function(){var a;eval(arguments[0]);window.Muscula.run=function(){};};
-            window.Muscula.errors=[];window.onerror=function(){window.Muscula.errors.push(arguments);
-                return window.Muscula.settings.suppressErrors===undefined;}
-        })();
-    </script>
-    <?php endif; ?>
     <title><?php
     if (!empty($this->meta_title))
         echo CHtml::encode(trim($this->meta_title));

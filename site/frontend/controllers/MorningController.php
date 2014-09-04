@@ -44,7 +44,8 @@ class MorningController extends HController
     public function actionIndex($date = null)
     {
         if ($date === null || empty($date)) {
-            $date = date("Y-m-d");
+            $date = '2012-06-21';
+            Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createAbsoluteUrl($this->route, array('date' => $date)));
             $empty_param = true;
         } else
             $empty_param = false;
@@ -85,18 +86,13 @@ class MorningController extends HController
         }
         $articles = CommunityContent::model()->with('morning', 'morning.photos')->findAll($criteria);
 
-//        if (empty($articles) && !Yii::app()->user->checkAccess('editMorning'))
-//            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        if (empty($articles) && !Yii::app()->user->checkAccess('editMorning'))
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        if ($date == date("Y-m-d"))
-            $this->breadcrumbs = array(
-                'Утро с Весёлым жирафом',
-            );
-        else
-            $this->breadcrumbs = array(
-                'Утро с Весёлым жирафом' => array('morning/'),
-                'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", strtotime($date))
-            );
+        $this->breadcrumbs = array(
+            'Утро с Весёлым жирафом' => array('morning/'),
+            'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", strtotime($date))
+        );
 
         $this->render('index', compact('articles', 'empty_param', 'date'));
     }
@@ -121,7 +117,7 @@ class MorningController extends HController
             $this->breadcrumbs = array(
                 'Утро с Весёлым жирафом' => array('morning/'),
                 'Утро ' . Yii::app()->dateFormatter->format("d MMMM yyyy", $this->time) => $this->createUrl('morning/index', array('date' => date("Y-m-d", $this->time))),
-                $article->title
+                $article->title,
             );
 
         $this->render('view', compact('article'));

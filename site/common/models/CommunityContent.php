@@ -703,7 +703,7 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function getIsFromBlog()
     {
-        return $this->getRelated('rubric')->user_id !== null || in_array($this->type_id, array(self::TYPE_STATUS, self::TYPE_REPOST));
+        return ($this->getRelated('rubric')->user_id !== null && $this->type_id != self::TYPE_MORNING) || in_array($this->type_id, array(self::TYPE_STATUS, self::TYPE_REPOST));
     }
 
     /**

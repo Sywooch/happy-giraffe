@@ -175,6 +175,7 @@ module.exports = function(grunt){
           htmlroot     : 'new',
           ignore       : [
             // Выбираем все стили где в начале .clsss
+            /#ctrlcopy+/,
             /.dropdown+/,
             /.flag+/,
             /.jcrop+/,
@@ -198,6 +199,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .clsss
             // /.dropdown+/,
+            /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
             /.mfp+/,
@@ -224,6 +226,7 @@ module.exports = function(grunt){
           htmlroot     : 'lite',
           ignore       : [
             // Выбираем все стили где в начале .clsss
+            /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
@@ -248,6 +251,7 @@ module.exports = function(grunt){
           htmlroot     : 'lite',
           ignore       : [
             // Выбираем все стили где в начале .clsss
+            /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,

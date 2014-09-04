@@ -1,5 +1,5 @@
 (function() {
-    function f($, ko) {
+    function f($, ko, comet) {
         var MenuViewModel = function(data) {
             var self = this;
             self.newNotificationsCount = ko.observable(data.newNotificationsCount);

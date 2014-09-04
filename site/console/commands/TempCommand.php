@@ -611,7 +611,8 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
         $doc = str_get_html($period->text);
         foreach ($doc->find('img') as $img) {
-            echo $img->src;
+            preg_match($img->src, '#http:\/\/img.happy-giraffe.ru\/thumbs\/(\d+)x(\d+)\/10385\/[a-z0-9]+.jpg#', $matches);
+            print_r($matches);
         }
     }
 }

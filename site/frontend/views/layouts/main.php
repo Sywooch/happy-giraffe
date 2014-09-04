@@ -1,17 +1,41 @@
 ﻿<?php
-if(!Yii::app()->clientScript->useAMD)
+/** @var ClientScript $cs */
+$cs = Yii::app()->clientScript;
+
+if(! $cs->useAMD) {
     Yii::app()->clientScript
         ->registerCoreScript('yiiactiveform')
         ->registerPackage('ko_layout')
         ->registerPackage('ko_post')
         ->registerPackage('ko_menu')
     ;
+}
 
-if (! Yii::app()->user->isGuest)
-    Yii::app()->clientScript
-        ->registerPackage('comet')
-        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
-    ;
+if (! Yii::app()->user->isGuest) {
+    $cometJs = 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');';
+    $menuJs = "var menuVm = new MenuViewModel( " . CJSON::encode($this->menuData) . ");ko.applyBindings(menuVm, $('.header-fix')[0]);ko.applyBindings(menuVm, $('.header')[0]);";
+
+    if (! $cs->useAMD) {
+        $cs
+            ->registerPackage('comet')
+            ->registerScript('Realplexor-reg', $cometJs)
+            ->registerScript('menuVM', $menuJs)
+        ;
+    } else {
+        $cs
+            ->registerAMD('Realplexor-reg', array('comet' => 'comet'), $cometJs)
+            ->registerAMD('menuVM', array('ko' => 'knockout', 'MenuViewModel' => 'ko_menu'), $menuJs)
+        ;
+    }
+}
+
+$js = "var userIsGuest = " . CJavaScript::encode(Yii::app()->user->isGuest) . "; var CURRENT_USER_ID = " . CJavaScript::encode(Yii::app()->user->id);
+if($cs->useAMD) {
+    $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_AMD);
+}
+else {
+    $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_HEAD);
+}
 
 $user = Yii::app()->user->getModel();
 
@@ -155,23 +179,4 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     <?php endif; ?>
 </div>
 
-<script type="text/javascript">
-    <?php if (! Yii::app()->user->isGuest): ?>
-    menuVm = new MenuViewModel(<?=CJSON::encode($this->menuData)?>);
-    ko.applyBindings(menuVm, $('.header-fix')[0]);
-    ko.applyBindings(menuVm, $('.header')[0]);
-    <?php endif; ?>
-    <?php
-        $js = "var userIsGuest = " . CJavaScript::encode(Yii::app()->user->isGuest) . "; var CURRENT_USER_ID = " . CJavaScript::encode(Yii::app()->user->id);
-        $cs = Yii::app()->clientScript;
-        if($cs->useAMD)
-            $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_AMD);
-        else
-            $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_HEAD);
-    ?>
-</script>
-
-<?php if (Yii::app()->user->isGuest): ?>
-
-<?php endif; ?>
 <?php $this->endContent(); ?>

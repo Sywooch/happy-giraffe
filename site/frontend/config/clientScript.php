@@ -156,13 +156,20 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
-        'comet' => array(
+        'realplexor' => array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
                 'javascripts/dklab_realplexor.js',
+            ),
+        ),
+        'comet' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
                 'javascripts/comet.js',
             ),
+            'depends' => array('realplexor'),
         ),
         'moment' => array(
             'baseUrl' => '/',

@@ -17,6 +17,14 @@ class MorningController extends HController
         );
     }
 
+    protected function beforeAction($action)
+    {
+        /** @var ClientScript $cs */
+        $cs = Yii::app()->clientScript;
+        $cs->useAMD = true;
+        return parent::beforeAction($action);
+    }
+
     public function accessRules()
     {
         return array(

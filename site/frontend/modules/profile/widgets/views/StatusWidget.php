@@ -48,10 +48,10 @@ $text = strip_tags($status->text);
                 </div>
                 <div class="article-settings_hold" style="display: none;">
                     <div class="article-settings_i">
-                        <a href="<?=Yii::app()->createUrl('/blog/default/form', array('type' => 5, 'redirect'=>'/user/'.Yii::app()->user->id))?>" class="article-settings_a article-settings_a__add powertip fancy-top" title="Новый статус"></a>
+                        <a href="<?=Yii::app()->createUrl('/blog/default/form', array('type' => 5))?>" class="article-settings_a article-settings_a__add powertip fancy-top" title="Новый статус"></a>
                     </div>
                     <div class="article-settings_i">
-                        <a href="<?=Yii::app()->createUrl('/blog/default/form', array('id' => $data->id, 'redirect'=>'/user/'.Yii::app()->user->id))?>" class="article-settings_a article-settings_a__edit powertip fancy-top" title="Редактировать"></a>
+                        <a href="<?=Yii::app()->createUrl('/blog/default/form', array('id' => $data->id))?>" class="article-settings_a article-settings_a__edit powertip fancy-top" title="Редактировать"></a>
                     </div>
                 </div>
             </div>

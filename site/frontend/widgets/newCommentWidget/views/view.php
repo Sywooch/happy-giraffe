@@ -64,7 +64,7 @@ $data = array(
                 </span>
             </div>
             <div class="comments-gray_frame">
-                <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" onfocus="$('[href=#loginWidget]').trigger('click')">
+                <input readonly="readonly" type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click: openLoginPopup">
             </div>
         </div>
     <?php endif ?>

@@ -453,6 +453,12 @@ return array(
         'lite_archive_user' => array(
             'depends' => array('lite_services_user'),
         ),
+        'lite_horoscope' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_horoscope_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
         'chosen' => array(
             'baseUrl' => '/',
             'amd' => true,

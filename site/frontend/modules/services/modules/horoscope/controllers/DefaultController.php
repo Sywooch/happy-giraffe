@@ -1,18 +1,59 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends LiteController
 {
-    public $layout = 'horoscope';
-    public $title;
+
     public $social_title;
+    public $zodiac = false;
+    public $date = false;
+    public $period = false;
+
+    public function getUrl($params)
+    {
+        $params = CMap::mergeArray(array(
+                'zodiac' => $this->zodiac,
+                'date' => $this->date,
+                'period' => $this->period,
+                ), $params);
+        return $this->createUrl($this->route, $params);
+    }
 
     public function beforeAction($action)
     {
-        $this->breadcrumbs = array(
-            'Гороскопы'
-        );
+        $this->zodiac = Yii::app()->request->getQuery('zodiac', false);
+        $this->period = Yii::app()->request->getQuery('period', false);
+        $this->date = Yii::app()->request->getQuery('date', false);
 
         return parent::beforeAction($action);
+    }
+
+    public function actionList($zodiac, $period, $date)
+    {
+        $this->render('list');
+    }
+
+    public function actionView($zodiac, $period, $date)
+    {
+        $zodiac = Horoscope::model()->getZodiacId($this->zodiac);
+        $model = null;
+        switch ($this->period)
+        {
+            case 'day':
+                $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => date("Y-m-d", $date)));
+                break;
+            case 'month':
+                $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => date('Y', $date), 'month' => date('n', $date)));
+                break;
+            case 'year':
+                $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => $year, 'month' => null));
+                break;
+        }
+        if (!$model)
+            throw new CHttpException(404);
+
+        var_dump($this->zodiac);
+        var_dump($this->date);
+        var_dump($this->period);
     }
 
     /**
@@ -20,11 +61,12 @@ class DefaultController extends HController
      */
     public function actionIndex()
     {
-        $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => date("Y-m-d")));
-        $this->title = 'Гороскоп на сегодня по знакам Зодиака';
-        $this->meta_title = $this->title;
+        /* $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => date("Y-m-d")));
+          $this->title = 'Гороскоп на сегодня по знакам Зодиака';
+          $this->meta_title = $this->title;
 
-        $this->render('list', array('models' => $models));
+          $this->render('list', array('models' => $models)); */
+        var_dump(Yii::app()->request->getQueryString());
     }
 
     /**
@@ -38,7 +80,7 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->title = 'Гороскоп '.$model->zodiacText2().' на сегодня ';
+        $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на сегодня ';
         $this->social_title = 'Гороскоп на сегодня ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
         $this->meta_title = 'Гороскоп на сегодня ' . $model->zodiacText() . ' для женщин и мужчин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на сегодня для женщин и мужчин. Обновляется ежедневно!';
@@ -78,7 +120,7 @@ class DefaultController extends HController
         if ($model === null)
             throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-        $this->title = 'Гороскоп '.$model->zodiacText2().' на вчера ';
+        $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на вчера ';
         $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
         $this->meta_title = 'Гороскоп на вчера ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
         $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на вчера для женщин и мужчин. Познай судьбу!';
@@ -94,7 +136,8 @@ class DefaultController extends HController
     {
         $date = date("Y-m-d", strtotime('+1 day'));
 
-        if (empty($zodiac)) {
+        if (empty($zodiac))
+        {
             $this->title = 'Гороскоп на завтра';
             $this->social_title = 'Гороскоп на завтра по знакам Зодиака';
             $this->meta_title = 'Гороскоп на завтра по знакам Зодиака';
@@ -103,13 +146,15 @@ class DefaultController extends HController
 
             $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => $date));
             $this->render('list', array('models' => $models));
-        } else {
+        }
+        else
+        {
             $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
             $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
             if ($model === null)
                 throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            $this->title = 'Гороскоп '.$model->zodiacText2().' на завтра ';
+            $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на завтра ';
             $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
             $this->meta_title = 'Гороскоп на завтра ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
             $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на завтра для женщин и мужчин. Обновляется ежедневно!';
@@ -124,7 +169,8 @@ class DefaultController extends HController
      */
     public function actionMonth($zodiac = '', $month = '')
     {
-        if (empty($zodiac)) {
+        if (empty($zodiac))
+        {
             $this->title = 'Гороскоп на месяц';
             $this->social_title = $this->title;
             $this->meta_title = 'Гороскоп на каждый месяц';
@@ -133,8 +179,11 @@ class DefaultController extends HController
 
             $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('year' => date('Y'), 'month' => date('n')));
             $this->render('list', array('models' => $models));
-        } else {
-            if (empty($month)) {
+        }
+        else
+        {
+            if (empty($month))
+            {
                 $zodiac = Horoscope::model()->getZodiacId($zodiac);
                 $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => date('Y'), 'month' => date('n')));
                 if ($model === null)
@@ -148,7 +197,8 @@ class DefaultController extends HController
                 $model->calculateMonthDays();
 
                 $this->render('month_one', compact('model'));
-            } else {
+            } else
+            {
                 preg_match('/(\d\d\d\d)-(\d\d)/', $month, $matches);
                 if (!isset($matches[1]) || !isset($matches[2]))
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
@@ -164,10 +214,10 @@ class DefaultController extends HController
                 if ($model === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-                $this->title = 'Гороскоп '.$model->zodiacText2().' на ' . HDate::ruMonth($month) . ' ' . $year . ' года';
+                $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на ' . HDate::ruMonth($month) . ' ' . $year . ' года';
                 $this->social_title = $this->title;
-                $this->meta_title = $model->zodiacText(). '. Гороскоп ' . $model->zodiacText2() . ' на ' . HDate::ruMonth($month) . ' ' . $year . ' года';
-                $this->meta_description = 'Гороскоп для ' . $model->zodiacText2().' на '.HDate::ruMonth($month) . ' ' . $year . ' года';
+                $this->meta_title = $model->zodiacText() . '. Гороскоп ' . $model->zodiacText2() . ' на ' . HDate::ruMonth($month) . ' ' . $year . ' года';
+                $this->meta_description = 'Гороскоп для ' . $model->zodiacText2() . ' на ' . HDate::ruMonth($month) . ' ' . $year . ' года';
                 $this->meta_keywords = 'Гороскоп ' . $model->zodiacText() . ', ' . HDate::ruMonth($month) . ' ' . $year;
                 $model->calculateMonthDays();
 
@@ -184,16 +234,19 @@ class DefaultController extends HController
         if (empty($year))
             $year = 2012;
 
-        if (empty($zodiac)) {
+        if (empty($zodiac))
+        {
             $this->title = 'Гороскоп на ' . $year . ' год';
             $this->social_title = $this->title;
             $this->meta_title = 'Гороскоп на ' . $year . ' год. Гороскоп на 2013 год для всех знаков Зодиака';
             $this->meta_description = 'Гороскоп на ' . $year . ' для всех знаков Зодиака: здоровье, карьера, финансы и личная жизнь';
-            $this->meta_keywords = 'Гороскоп на ' . $year . ' год, гороскоп ' . $year ;
+            $this->meta_keywords = 'Гороскоп на ' . $year . ' год, гороскоп ' . $year;
 
             $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('year' => $year, 'month' => null));
             $this->render('list', array('models' => $models));
-        } else {
+        }
+        else
+        {
             $zodiac = Horoscope::model()->getZodiacId($zodiac);
 
             $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => $year, 'month' => null));
@@ -210,16 +263,16 @@ class DefaultController extends HController
         }
     }
 
-    public function sitemapView()
-    {
-        Yii::import('application.modules.services.modules.horoscope.models.Horoscope');
+    /* public function sitemapView()
+      {
+      Yii::import('application.modules.services.modules.horoscope.models.Horoscope');
 
-        $data = array();
-        foreach (Horoscope::model()->zodiac_list_eng as $z)
-            $data[] = array('params' => array('zodiac' => $z));
+      $data = array();
+      foreach (Horoscope::model()->zodiac_list_eng as $z)
+      $data[] = array('params' => array('zodiac' => $z));
 
-        return $data;
-    }
+      return $data;
+      } */
 
     public function sitemapDateView()
     {
@@ -229,8 +282,10 @@ class DefaultController extends HController
             ->from(Horoscope::model()->tableName())
             ->queryColumn();
         foreach ($dates as $date)
-            if ($date !== '0000-00-00' && !empty($date)) {
-                foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            if ($date !== '0000-00-00' && !empty($date))
+            {
+                foreach (Horoscope::model()->zodiac_list_eng as $z)
+                {
                     $data[] = array(
                         'params' => array(
                             'zodiac' => $z,
@@ -255,8 +310,10 @@ class DefaultController extends HController
             ->from(Horoscope::model()->tableName())
             ->queryAll();
         foreach ($rows as $row)
-            if (!empty($row['month']) && !empty($row['year'])) {
-                foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            if (!empty($row['month']) && !empty($row['year']))
+            {
+                foreach (Horoscope::model()->zodiac_list_eng as $z)
+                {
                     $data[] = array(
                         'params' => array(
                             'zodiac' => $z,
@@ -283,7 +340,8 @@ class DefaultController extends HController
             ->queryColumn();
         foreach ($years as $year)
             if (!empty($year))
-                foreach (Horoscope::model()->zodiac_list_eng as $z) {
+                foreach (Horoscope::model()->zodiac_list_eng as $z)
+                {
                     $data[] = array(
                         'params' => array(
                             'zodiac' => $z,
@@ -294,4 +352,10 @@ class DefaultController extends HController
 
         return $data;
     }
+
+    public function getZodiacList()
+    {
+        
+    }
+
 }

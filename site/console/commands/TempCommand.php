@@ -605,6 +605,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
     public function actionCalendarImages()
     {
+        Yii::import('site.frontend.modules.calendar.models.*');
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
         $period = CalendarPeriod::model()->findAllByAttributes(array('calendar' => 'planning'));
 

@@ -620,7 +620,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         }
     }
 
-    public function actionBrokenImages($file, $_owner)
+    public function actionBrokenImages($file, $own)
     {
         $i = 0;
 
@@ -628,7 +628,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                 $owner = posix_getpwuid(fileowner(($file)));
 
-                if ($owner == $_owner && preg_match('#http://img\.happy-giraffe\.ru/thumbs/(\d+)x(\d+)/(?:\d+)/(.*)#', $data[0], $matches)) {
+                if ($owner == $own && preg_match('#http://img\.happy-giraffe\.ru/thumbs/(\d+)x(\d+)/(?:\d+)/(.*)#', $data[0], $matches)) {
                     if ($matches[1] == $matches[2]) {
                         $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $matches[3]));
                         $photo->getPreviewUrl($matches[1], $matches[2]);

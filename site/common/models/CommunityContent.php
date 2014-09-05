@@ -1179,7 +1179,7 @@ HTML;
         if ($this->id == 199812) {
             return array(
                 'text' => 'Ремо-Вакс',
-                'img' => '/images/banners/ava-remowax.jpg',
+                'img' => '/images/banners/ava-remowax.jpg?1',
                 'pix' => $remo,
             );
         }

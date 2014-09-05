@@ -15,6 +15,7 @@
             'validateOnSubmit' => true,
             'validateOnType' => true,
             'validationDelay' => 400,
+            'lazyLoad' => true
         ),
     ));
     ?>
@@ -53,15 +54,4 @@
 
 <?php $this->endWidget(); ?>
 
-    <script type="text/javascript">
-        var CommunityQuestion = function() {
-            var self = this;
-            self.title = ko.observable('');
-        }
-
-        $(function() {
-            var model = new CommunityQuestion();
-            ko.applyBindings(model, document.getElementById('question-form'));
-        });
-    </script>
 <?php $this->endWidget(); ?>

@@ -4,7 +4,8 @@
  * Date: 12.08.13
  */
 (function(window) {
-    function f() {
+    function f(ko) {
+
         HgWysiwyg.prototype = {
             loaded : false,
             load : function() {
@@ -286,7 +287,7 @@
                 var obj = this;
 
                 var callback = function(buttonDOM) {
-                    obj.selectionSave();
+                    // obj.selectionSave();
                     HgWysiwyg.prototype.fixPosition(buttonDOM);
                     $('#redactor_modal').resize(function() {
                         HgWysiwyg.prototype.fixPosition(buttonDOM);
@@ -337,7 +338,7 @@
             }
 
             self.add = function() {
-                redactor.selectionRestore();
+                redactor.selectionSave();
                 HgWysiwyg.prototype.insertBlock(redactor, self.embed());
                 redactor.modalClose();
             }
@@ -350,8 +351,8 @@
         return HgWysiwyg;
     };
     if (typeof define === 'function' && define['amd']) {
-        define('wysiwyg', ['imagesLoaded', 'ko_upload', 'chosen'], f);
+        define('wysiwyg', ['knockout', 'imagesLoaded', 'ko_upload', 'chosen'], f);
     } else {
-        window.HgWysiwyg = f();
+        window.HgWysiwyg = f(ko);
     }
 })(window);

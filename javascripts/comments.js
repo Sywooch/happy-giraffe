@@ -56,6 +56,7 @@
                 if (self.enterSetting())
                     self.addComment();
             };
+
             self.addComment = function () {
                 if (!self.sending()) {
                     self.sending(true);
@@ -191,6 +192,26 @@
                 self.response(false);
             }
         }
+        //open popup on trying to type, when not authorized
+
+        CommentViewModel.prototype.openLoginPopup = function (){ 
+                $.magnificPopup.open({ 
+                    type: 'inline', 
+                    overflowY: 'auto', 
+                    tClose: 'Закрыть', 
+                    fixedBgPos: true, 
+                    items: { src: '#loginWidget' }, 
+                    callbacks: { 
+                        open: function() { 
+                            $('html').addClass('mfp-html'); 
+                        },
+                        close: function() { 
+                            $('html').removeClass('mfp-html'); 
+                        }
+                    } 
+                }); 
+            };
+
         window.CommentViewModel = CommentViewModel;
 
         function NewComment(data, parent) {

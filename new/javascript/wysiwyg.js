@@ -4,7 +4,7 @@
  * Date: 12.08.13
  */
 (function(window) {
-    function f() {
+    function f(ko) {
         HgWysiwyg.prototype = {
             loaded : false,
             load : function() {
@@ -350,7 +350,7 @@
         return HgWysiwyg;
     };
     if (typeof define === 'function' && define['amd']) {
-        define('wysiwyg', ['imagesLoaded', 'ko_upload', 'chosen', 'redactor'], f);
+        define('wysiwyg', ['knockout', 'imagesLoaded', 'ko_upload', 'chosen', 'redactor'], f);
     } else {
         window.HgWysiwyg = f();
     }

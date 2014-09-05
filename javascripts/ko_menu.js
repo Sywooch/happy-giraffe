@@ -56,6 +56,6 @@
     if (typeof define === 'function' && define['amd']) {
         define('ko_menu', ['jquery', 'knockout', 'comet'], f);
     } else {
-        window.MenuViewModel = f(window.$, window.ko);
+        window.MenuViewModel = f(window.$, window.ko, window.comet);
     }
 })(window);

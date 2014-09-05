@@ -396,7 +396,7 @@ var Register = {
         if (typeof attributes != 'undefined')
             for (i in attributes)
                 Register.attributes[i] = attributes[i];
-        $.post('/signup/showForm/', Register.attributes, function (response) {
+        $.post('/signup/register/step2/', Register.attributes, function (response) {
             var link = $('#hidden_register_link');
             link.attr('href', '#register');
             link.trigger('click');

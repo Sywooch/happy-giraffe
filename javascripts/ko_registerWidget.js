@@ -82,7 +82,7 @@
             // для регистрации через вопрос специалисту
             if (data.newUser !== null) {
                 self.setAttributes(data.newUser);
-                self.currentStep(self.STEP_REG2);
+                self.currentStep(self.STEP_REG1);
                 $(function() {
                     self.open();
                 });

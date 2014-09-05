@@ -215,6 +215,14 @@
                 <p>После слияния со сперматозоидом, яйцеклетка, ещё в маточной трубе, по пути в матку начинает делиться. Теперь это зигота – скопление клеток, именно она попадает обычно в полость матки. Зигота как бы приклеивается к эндометрию. Начинается процесс имплантации – оплодотворенная яйцеклетка внедряется в маточную стенку. При этом её наружная оболочка как бы прорастает в стенку матки, начинают формироваться сосуды, которые будут питать развивающийся организм. Теперь он, кстати, называется эмбрионом и его вес к концу третьей недели составляет менее трети грамма.</p>
                 <!-- Список-->
                 <div class="calendar-serv-note">
+                  <script>
+                    $(window).ready(function () {
+                        var docWidth = $(document).width();
+                        if (docWidth > 640 && docWidth < 1000) {
+                            $('.calendar-serv-note_count').css({'right': (1000 - docWidth)/2})
+                        }
+                    });
+                  </script>
                   <div class="calendar-serv-note_count">40</div>
                   <div class="b-main_col-article b-main_col-article__center">
                     <h2 class="calendar-serv-note_t">На 3 неделе беременности</h2>
@@ -248,13 +256,19 @@
                     <div class="services-fast_t heading-m">Полезные сервисы. Попробуйте!</div>
                     <ul class="services-fast_ul">
                       <li class="services-fast_li"><a href="#" class="services-fast_a">
-                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_1.png" alt=""></div>
+                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_1.png" alt="">
+                            <div class="verticalalign-m-help"></div>
+                          </div>
                           <div class="services-fast_tx">Выбор имени <br>для ребенка</div></a></li>
                       <li class="services-fast_li"><a href="#" class="services-fast_a">
-                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_9.png" alt=""></div>
+                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_9.png" alt="">
+                            <div class="verticalalign-m-help"></div>
+                          </div>
                           <div class="services-fast_tx">Тест на <br>беременность</div></a></li>
                       <li class="services-fast_li"><a href="#" class="services-fast_a">
-                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_8.png" alt=""></div>
+                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_8.png" alt="">
+                            <div class="verticalalign-m-help"></div>
+                          </div>
                           <div class="services-fast_tx">Определение<br>пола ребенка</div></a></li>
                       <li class="services-fast_li"><a href="#" class="services-fast_a">
                           <div class="services-fast_ico"><img src="/lite/images/services/service_img_5.png" alt=""></div>

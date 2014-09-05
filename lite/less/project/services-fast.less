@@ -2,14 +2,8 @@
 .services-fast {
     margin: 20px 0;
     
-    /*&_t {
-        margin: 20px 0;
-        font-size: 16px;
-        font-weight: bold;
-    }*/
     &_ul {
         margin: 20px 0;
-        text-align: center;
     }
     &_li {
         .inline-block();
@@ -30,20 +24,19 @@
         color: @color-orange;
     }
     &_ico {
+        display: block;
         margin-bottom: 8px;
-        min-height: 75px;
+        height: 105px;
+        vertical-align: middle;
     }
 
     @media (min-width: @screen-phone) {
-        /*&_t {
-            font-size: 18px;
-        }*/
         &_ul {
             text-align: left;
         }
 
         &_li {
-            margin: 0 16% 25px 4%;
+            margin: 0 6% 25px 2%;
         }
     }
 
@@ -52,13 +45,6 @@
             margin: 0 6% 25px 0;
         }
     }
-
-    @media (min-width: @screen-tablet) {
-        /*&_t {
-            font-size: 23px;
-        }*/
-    }
-    
 
 }
 /* /services-fast*/

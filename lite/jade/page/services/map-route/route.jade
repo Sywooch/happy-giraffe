@@ -50,16 +50,28 @@ block layout
 
             // Карта
             .route-canvas
-                img(src="#{path}images/services/map-route/map.jpg", alt="")
+                img(src="#{path}images/services/map-route/map.jpg", alt="", style="max-height: 100%;")
                 // Если оишбка добавить класс errorMessage и непоказывать блок loader 
                 .route-canvas_ovr.errorMessage
                     .route-canvas_ovr-hold
                         .route-canvas_ovr-tx
                             | Подождите. Мы формируем для вас маршрут.
-                        //-.loader 
-                            //- .loader__white
-                            img.loader_img(src="#{path}images/ico/ajax-loader.gif", alt='Загружается')
-                            .loader_tx Загрузка
+            // Карта
+            .route-canvas
+                .widget-load
+                    .widget-load_hold
+                        .widget-load_loader 
+                            #circular3dG
+                                #circular3d_1G.circular3dG
+                                #circular3d_2G.circular3dG
+                                #circular3d_3G.circular3dG
+                                #circular3d_4G.circular3dG
+                                #circular3d_5G.circular3dG
+                                #circular3d_6G.circular3dG
+                                #circular3d_7G.circular3dG
+                                #circular3d_8G.circular3dG
+                        .widget-load_tx Идет загрузка
+
             // /Карта
 
             .b-main_col-hold.clearfix

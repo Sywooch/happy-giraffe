@@ -11,12 +11,24 @@ class DefaultController extends LiteController
 
     public function getUrl($params)
     {
-        $params = CMap::mergeArray(array(
-                'zodiac' => $this->zodiac,
-                'date' => $this->date,
-                'period' => $this->period,
-                'alias' => $this->alias,
-                ), $params);
+        $defaultParams = array(
+            'zodiac' => $this->zodiac,
+            'date' => $this->date,
+            'period' => $this->period,
+            'alias' => $this->alias,
+        );
+        // Если перебивается дата, то сбрасываем алиас
+        if (isset($params['date']))
+        {
+            $params['alias'] = false;
+        }
+        // Если перебивается алиас, то скидываем дату и период
+        if (isset($params['alias']))
+        {
+            $params['date'] = false;
+            $params['period'] = 'day';
+        }
+        $params = CMap::mergeArray($defaultParams, $params);
         return Yii::app()->createUrl($this->route, $params);
     }
 
@@ -54,9 +66,7 @@ class DefaultController extends LiteController
         if (!$model)
             throw new CHttpException(404);
 
-        var_dump($this->zodiac);
-        var_dump($this->date);
-        var_dump($this->period);
+        $this->render('view', array('model' => $model));
     }
 
     /**

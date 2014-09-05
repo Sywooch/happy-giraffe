@@ -26,19 +26,7 @@
             </div>
             <div class="menu-link-simple menu-link-simple__center margin-t40">
                 <div class="menu-link-simple_t">Узнайте гороскоп</div>
-                <?php
-                $this->widget('HMenu', array(
-                    'itemCssClass' => 'menu-link-simple_li',
-                    'htmlOptions' => array('class' => 'menu-link-simple_ul'),
-                    'items' => array(
-                        array('label' => 'На сегодня', 'url' => array('index'), 'linkOptions' => array('class' => 'menu-link-simple_a'), 'visible' => Yii::app()->controller->action->id !== 'index'),
-                        array('label' => 'На завтра', 'url' => array('tomorrow'), 'linkOptions' => array('class' => 'menu-link-simple_a'), 'visible' => Yii::app()->controller->action->id !== 'tomorrow'),
-                        array('label' => 'На месяц', 'url' => array('month'), 'linkOptions' => array('class' => 'menu-link-simple_a'), 'visible' => Yii::app()->controller->action->id !== 'month'),
-                        array('label' => 'На год', 'url' => array('year'), 'linkOptions' => array('class' => 'menu-link-simple_a'), 'visible' => Yii::app()->controller->action->id !== 'year'),
-                        array('label' => 'Гороскоп совместимости', 'template' => '<span class="color-gray">+ &nbsp;</span>{menu}', 'url' => array('/services/horoscope/compatibility/index'), 'linkOptions' => array('class' => 'menu-link-simple_a')),
-                    ),
-                ));
-                ?>
+                <?php $this->renderPartial('_menu'); ?>
             </div>
         </div>
     </div>

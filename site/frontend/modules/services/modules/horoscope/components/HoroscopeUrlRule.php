@@ -17,16 +17,26 @@ class HoroscopeUrlRule extends \CBaseUrlRule
     {
         if (strpos($route, 'services/horoscope/default') === 0)
         {
-            $url = 'horoscope/{alias}/{period}/{zodiac}/{date}';
-            if($params['alias'] && $params['alias']!= 'today')
-                $url.=$params['alias'];
-            if($params['period'] && $params['period']!= 'day')
-                $url.=$params['alias'];
-            if($params['alias'] && $params['alias']!= 'today')
-                $url.=$params['alias'];
-            if($params['alias'] && $params['alias']!= 'today')
-                $url.=$params['alias'];
-            
+            $url = 'horoscope/';
+            if ($params['alias'] && $params['alias'] != 'today')
+                $url.=$params['alias'] . '/';
+            if ($params['period'] && $params['period'] != 'day')
+                $url.=$params['period'] . '/';
+            if ($params['zodiac'])
+                $url.=$params['zodiac'] . '/';
+            if ($params['date'] && !$params['alias'])
+                switch ($params['period'])
+                {
+                    case 'day':
+                        $url.=date('Y-m-d', $params['date']) . '/';
+                        break;
+                    case 'month':
+                        $url.=date('Y-m', $params['date']) . '/';
+                        break;
+                    case 'year':
+                        $url.=date('Y', $params['date']) . '/';
+                        break;
+                }
             return $url;
         }
         return false;
@@ -112,7 +122,7 @@ class HoroscopeUrlRule extends \CBaseUrlRule
                 {
                     $date = mktime(0, 0, 0, $date[1], 1, $date[0]);
                 }
-                elseif($path[1] == 'year' && count($date) == 1 && checkdate(1, 1, $date[0]))
+                elseif ($path[1] == 'year' && count($date) == 1 && checkdate(1, 1, $date[0]))
                 {
                     $date = mktime(0, 0, 0, 1, 1, $date[0]);
                 }

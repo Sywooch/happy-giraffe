@@ -352,7 +352,7 @@ return array(
             'js' => array(
                 'javascripts/ko_menu.js',
             ),
-            'depends' => array('knockout', 'ko_library'),
+            'depends' => array('knockout', 'ko_library', 'comet'),
         ),
         'ko_recipes_search' => array(
             'baseUrl' => '/',

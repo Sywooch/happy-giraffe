@@ -1,5 +1,5 @@
 (function(window) {
-    function f(ko) {
+    function f(ko, HgWysiwyg) {
         var ENTER_KEY_SEND = 1;
         function CommentViewModel(data) {
             var self = this;
@@ -349,7 +349,7 @@
         };
     }
     if (typeof define === 'function' && define['amd']) {
-        define('ko_comments', ['knockout', 'knockout.mapping', 'ko_library'], f);
+        define('ko_comments', ['knockout', 'wysiwyg', 'knockout.mapping', 'ko_library'], f);
     } else {
         f(window.ko);
     }

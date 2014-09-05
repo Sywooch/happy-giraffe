@@ -629,7 +629,9 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
                 if (preg_match('#http://img\.happy-giraffe\.ru/thumbs/(\d+)x(\d+)/(?:\d+)/(.*)#', $data[0], $matches)) {
                     if ($matches[1] == $matches[2]) {
                         $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $matches[3]));
+                        try {
                         $photo->getPreviewUrl($matches[1], $matches[2]);
+                        } catch (Exception $e) {}
                         $i++;
                     }
                 }

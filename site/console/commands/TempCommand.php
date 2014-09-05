@@ -626,6 +626,9 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
         if (($handle = fopen($file, "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                echo posix_getpwuid(fileowner(($file)));
+                die;
+
                 if (preg_match('#http://img\.happy-giraffe\.ru/thumbs/(\d+)x(\d+)/(?:\d+)/(.*)#', $data[0], $matches)) {
                     if ($matches[1] == $matches[2]) {
                         $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $matches[3]));

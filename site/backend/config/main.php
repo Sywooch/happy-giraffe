@@ -9,6 +9,7 @@ return array(
         'site.common.components.*',
         'site.common.behaviors.*',
         'site.common.models.*',
+        'site.common.behaviors.*',
         'site.common.models.mongo.*',
         'application.models.*',
         'application.components.*',

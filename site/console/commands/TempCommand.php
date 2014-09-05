@@ -619,5 +619,22 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
             }
         }
     }
+
+    public function actionBrokenImages($file)
+    {
+
+        if (($handle = fopen($file, "r")) !== FALSE) {
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                echo $data[0] . "\n";
+//                if (preg_match('#http://img\.happy-giraffe\.ru/thumbs/(\d+)x(\d+)/(?:\d+)/(.*)#', $data[0], $matches)) {
+//                    if ($matches[1] == $matches[2]) {
+//                        $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $matches[3]));
+//                        $photo->getPreviewUrl($matches[1], $matches[2]);
+//                    }
+//                }
+            }
+            fclose($handle);
+        }
+    }
 }
 

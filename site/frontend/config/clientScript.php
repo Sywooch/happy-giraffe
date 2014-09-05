@@ -376,11 +376,12 @@ return array(
             'depends' => array('knockout', 'ko_library'),
         ),
         'redactor' => array(
+            'amd' => true,
             'baseUrl' => '/new/',
             'js' => array(
                 'redactor/redactor.js',
                 'redactor/lang/ru.js',
-                '/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js',
+                'redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js',
             ),
             'depends' => array('jquery', 'ko_upload'),
         ),

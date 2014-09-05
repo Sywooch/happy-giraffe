@@ -1165,6 +1165,25 @@ class CommunityContent extends HActiveRecord implements IPreview
             );
         }
 
+        $remo = <<<HTML
+<!-- AdRiver code START:  ÍÓ‰ ‰Îˇ ÒˆÂÌ‡Ëˇ ; AD: 422855 "Remo-wax";   ÒˆÂÌ‡ËÈ   ID 1740991 "Happy-giraffe_2014" ; counter(zeropixel) -->
+<script type="text/javascript">
+var RndNum4NoCash = Math.round(Math.random() * 1000000000);
+var ar_Tail='unknown'; if (document.referrer) ar_Tail = escape(document.referrer);
+document.write('<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?' + 'sid=1&ad=422855&bt=21&pid=1740991&bn=1740991&rnd=' + RndNum4NoCash + '&tail256=' + ar_Tail + '" border=0 width=1 height=1>')
+</script>
+<noscript><img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&ad=422855&bt=21&pid=1740991&bn=1740991&rnd=1146898268" border=0 width=1 height=1></noscript>
+<!-- AdRiver code END -->
+HTML;
+
+        if ($this->id == 199812) {
+            return array(
+                'text' => 'Ремо-Вакс',
+                'img' => '/images/banners/ava-remowax.jpg',
+                'pix' => $remo,
+            );
+        }
+
         return null;
     }
 

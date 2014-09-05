@@ -1,13 +1,6 @@
 <?php $this->beginContent('//layouts/main'); ?>
 
 <div class="content-cols clearfix">
-    <div class="col-23-middle ">
-        <!-- <div class="main-in"> -->
-
-            <?=$content?>
-
-        <!-- </div> -->
-    </div>
 
     <div class="col-1">
 
@@ -80,6 +73,13 @@
 
         </div>
 
+    </div>
+    <div class="col-23-middle ">
+        <!-- <div class="main-in"> -->
+
+            <?=$content?>
+
+        <!-- </div> -->
     </div>
 </div>
 

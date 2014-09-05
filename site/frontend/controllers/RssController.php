@@ -132,7 +132,7 @@ class RssController extends HController
 
     public function actionUser($user_id, $page = 1)
     {
-        $user = User::model()->active()->findByPk($user_id);
+        $user = User::model()->findByPk($user_id);
         if ($user === null || $user_id == 1)
             throw new CHttpException(404, 'Пользователь не найден');
 
@@ -140,7 +140,7 @@ class RssController extends HController
         $feed = new EFeed();
 
         $feed->title = 'Блог пользователя ' . $user->fullName;
-        $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
+        $feed->link = $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $user->id));
         $feed->description = ($user->blog_title === null) ? 'Блог - ' . $user->fullName : $user->blog_title;
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
         $feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id)));

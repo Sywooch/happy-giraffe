@@ -19,8 +19,7 @@
 
         <div class="meta">
 
-            <div
-                class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $article->created); ?></div>
+            <div class="time"><?php echo Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $article->created); ?></div>
             <div class="seen">Просмотров:&nbsp;<span id="page_views"><?= $views = $this->getViews(); ?></span>
                 <?php Rating::model()->saveByEntity($article, 'vw', floor($views / 100)); ?>
             </div>
@@ -71,16 +70,16 @@
         </div>
 
     </div>
-
 </div>
 
-<div class="main">
-    <div class="main-in">
+<!-- <div class="main">
+    <div class="main-in"> -->
+
         <div class="clearfix">
             <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $article)); ?>
         </div>
         <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $article, 'full' => true)); ?>
 
-    </div>
-</div>
+<!--     </div>
+</div> -->
 <?php //Yii::app()->clientScript->registerScript('scrolled_content', 'initScrolledContent();'); ?>

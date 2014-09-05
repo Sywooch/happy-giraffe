@@ -66,17 +66,42 @@ class ActiveForm extends \CActiveForm
 
         $options = \CJavaScript::encode($options);
         $id = $this->id;
-        if ($cs->useAMD)
-        {
-            $cs
-                ->registerAMDCoreScript('yiiactiveform')
-                ->registerAMD(__CLASS__ . '#' . $id, array('jQuery' => 'jquery', 'yiiactiveform'), "jQuery('#$id').yiiactiveform($options);");
+
+        if ($id == 'question-form') {
+            if ($cs->useAMD)
+            {
+                $cs
+                    ->registerAMDCoreScript('yiiactiveform')
+                    ->registerAMD(__CLASS__ . '#' . $id, array('$' => 'jquery', 'waitUntilExists', 'yiiactiveform'), "
+
+                        $('#$id').waitUntilExists(function () {
+                            $('#$id').yiiactiveform($options);
+                        });
+                    ");
+            }
+            else
+            {
+                $cs->registerCoreScript('yiiactiveform');
+                $cs->registerScript(__CLASS__ . '#' . $id, "jQuery('#$id').yiiactiveform($options);");
+            }
         }
-        else
-        {
-            $cs->registerCoreScript('yiiactiveform');
-            $cs->registerScript(__CLASS__ . '#' . $id, "jQuery('#$id').yiiactiveform($options);");
+        else {
+            if ($cs->useAMD)
+            {
+                $cs
+                    ->registerAMDCoreScript('yiiactiveform')
+                    ->registerAMD(__CLASS__ . '#' . $id, array('$' => 'jquery', 'yiiactiveform'), "
+                            $('#$id').yiiactiveform($options);
+                    ");
+            }
+            else
+            {
+                $cs->registerCoreScript('yiiactiveform');
+                $cs->registerScript(__CLASS__ . '#' . $id, "jQuery('#$id').yiiactiveform($options);");
+            }
         }
+
+
     }
 
     /**

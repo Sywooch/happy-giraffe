@@ -20,6 +20,10 @@ if ($period->features && $period->features_heading)
     <div class="age-features<?php if ($period->calendar == 1): ?> age-features-pregnancy<?php endif; ?>">
     </div>
     <div class="b-main_row calendar-serv-note">
+        <?php  preg_match('#(\d+)#',$period->features_heading, $calendar_count); ?>
+        <?php if(isset($calendar_count[0])) { ?>
+            <div class="calendar-serv-note_count"><?= $calendar_count[0] ?></div>
+        <?php } ?>
         <div class="b-main_col-article b-main_col-article__center">
             <h2 class="calendar-serv-note_t"><?= preg_replace('#(\d+)#', '<span>$1</span>', $period->features_heading) ?></h2>
             <ul class="calendar-serv-note_ul">
@@ -57,6 +61,14 @@ if ($period->features && $period->features_heading)
     </div>
     <div class="b-main_cont">
         <div class="b-main_col-article b-main_col-article__center wysiwyg-content">
+            <script>
+                $(window).ready(function () {
+                    var docWidth = $(document).width();
+                    if (docWidth > 640 && docWidth < 1000) {
+                        $('.calendar-serv-note_count').css({'right': (1000 - docWidth)/2})
+                    }
+                });
+            </script>
             <?php
             echo $period->text;
             ?>
@@ -74,9 +86,10 @@ if ($period->features && $period->features_heading)
                             <?php foreach ($period->services as $s): ?>
                                 <li class="services-fast_li">
                                     <a class="services-fast_a" href="<?= $s->url ?>">
-                                        <div class="services-fast_ico">
-                                            <?= CHtml::link(CHtml::image('/images/services/service_img_' . $s->id . '.png'), $s->url) ?>
-                                        </div>
+                                        <span class="services-fast_ico">
+                                            <?= CHtml::image('/images/services/service_img_' . $s->id . '.png') ?>
+                                            <span class="verticalalign-m-help"></span>
+                                        </span>
                                         <div class="services-fast_tx">
                                             <?= $s->title ?>
                                         </div>

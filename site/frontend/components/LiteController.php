@@ -21,7 +21,7 @@ class LiteController extends HController
     {
         $filters = parent::filters();
 
-        if (YII_DEBUG === false && Yii::app()->user->isGuest) {
+        if (Yii::app()->user->isGuest) {
             $filters [] = array(
                 'COutputCache',
                 'duration' => 300,
@@ -53,6 +53,8 @@ class LiteController extends HController
 
     protected function dnsPrefetch()
     {
+        if (YII_DEBUG)
+            return;
         /**
          * @var ClientScript $cs
          */

@@ -48,14 +48,14 @@ class RssController extends HController
             $item = $feed->createNewItem();
             if (get_class($c) == 'Horoscope') {
                 $item->addTag('guid', $c->getUrl(true), array('isPermaLink' => 'true'));
-                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => User::HAPPY_GIRAFFE)));
+                $item->addTag('author', $this->createAbsoluteUrl('/blog/default/index', array('user_id' => User::HAPPY_GIRAFFE)));
                 $item->date = $c->created;
                 $item->link = $c->getUrl(true);
                 $item->description = $c->rssContent;
                 $item->title = $c->getTitle();
             } else {
                 $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink' => 'true'));
-                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
+                $item->addTag('author', $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $c->author->id)));
                 $item->date = $c->created;
                 $item->link = $c->getUrl(false, true);
                 $item->description = $c->rssContent;
@@ -183,21 +183,21 @@ class RssController extends HController
             $contents = $this->getContents($sql, $page, array(':author_id' => $user->id));
         }
 
-//        if (empty($contents))
-//            throw new CHttpException(404, 'Страница не найдена');
+        if (empty($contents))
+            throw new CHttpException(404, 'Страница не найдена');
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             if (get_class($c) == 'Horoscope') {
                 $item->addTag('guid', $c->getUrl(true), array('isPermaLink' => 'true'));
-                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => User::HAPPY_GIRAFFE)));
+                $item->addTag('author', $this->createAbsoluteUrl('/blog/default/index', array('user_id' => User::HAPPY_GIRAFFE)));
                 $item->date = $c->created;
                 $item->link = $c->getUrl(true);
                 $item->description = $c->rssContent;
                 $item->title = $c->getTitle();
             } else {
                 $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink' => 'true'));
-                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
+                $item->addTag('author', $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $c->author->id)));
                 $item->date = $c->created;
                 $item->link = $c->getUrl(false, true);
                 $item->description = $c->rssContent;
@@ -229,8 +229,8 @@ class RssController extends HController
             'with' => 'response',
         ));
 
-//        if (!$comments)
-//            throw new CHttpException(404, 'Такой записи не существует');
+        if (!$comments)
+            throw new CHttpException(404, 'Такой записи не существует');
 
         $feed = new EFeed();
         $feed->link = $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $user->id));
@@ -317,7 +317,7 @@ class RssController extends HController
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink' => 'true'));
-            $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
+            $item->addTag('author', $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $c->author->id)));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);
             $item->description = $c->rssContent;

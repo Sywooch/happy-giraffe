@@ -12,10 +12,6 @@ class HoroscopeModule extends CWebModule
             'horoscope.models.*',
             'horoscope.components.*',
         ));
-        
-        $package = Yii::app()->user->isGuest ? 'lite_horoscope' : 'lite_horoscope_user';
-        Yii::app()->clientScript->registerPackage($package);
-        Yii::app()->clientScript->useAMD = true;
     }
 
     public function beforeControllerAction($controller, $action)

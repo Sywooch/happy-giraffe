@@ -37,7 +37,8 @@ class LiteController extends HController
 
     public function getPageTitle()
     {
-        return is_null($this->meta_title) ? parent::getPageTitle() : Str::truncate(trim($this->meta_title), 70);
+        //return is_null($this->meta_title) ? parent::getPageTitle() : Str::truncate(trim($this->meta_title), 70);
+        return is_null($this->meta_title) ? parent::getPageTitle() : $this->meta_title;
     }
 
     public function setPageTitle($value)

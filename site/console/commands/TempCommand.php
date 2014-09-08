@@ -641,6 +641,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
                             if ($photo === null) {
                                 echo $data[0] . "\n";
+                                continue;
                             }
 
                             $photo->getPreviewUrl($matches[1], $matches[2]);

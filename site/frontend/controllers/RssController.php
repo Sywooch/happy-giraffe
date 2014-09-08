@@ -183,8 +183,8 @@ class RssController extends HController
             $contents = $this->getContents($sql, $page, array(':author_id' => $user->id));
         }
 
-        if (empty($contents))
-            throw new CHttpException(404, 'Страница не найдена');
+//        if (empty($contents))
+//            throw new CHttpException(404, 'Страница не найдена');
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
@@ -229,8 +229,8 @@ class RssController extends HController
             'with' => 'response',
         ));
 
-        if (!$comments)
-            throw new CHttpException(404, 'Такой записи не существует');
+//        if (!$comments)
+//            throw new CHttpException(404, 'Такой записи не существует');
 
         $feed = new EFeed();
         $feed->link = $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $user->id));

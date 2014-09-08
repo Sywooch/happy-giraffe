@@ -214,9 +214,6 @@ class HController extends CController
         if (!Yii::app()->request->isAjaxRequest) {
             $this->page_meta_model = PageMetaTag::getModel(Yii::app()->controller->route, Yii::app()->controller->actionParams);
 
-            var_dump($this->page_meta_model);
-            die;
-
             if ($this->page_meta_model !== null) {
                 if (!empty($this->page_meta_model->description))
                     $this->meta_description = $this->page_meta_model->description;

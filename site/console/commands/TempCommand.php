@@ -627,16 +627,15 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         if (($handle = fopen($file, "r")) !== FALSE) {
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                 if (preg_match('#http://img\.happy-giraffe\.ru/thumbs/(\d+)x(\d+)/(\d+)/(.*)#', $data[0], $matches)) {
-                    $path = '/var/www/happy-giraffe.ru/deploy/test/site/common/uploads/photos/thumbs/' . $matches[1] . 'x' . $matches[2] . '/' . $matches[3];
-                    $owner = posix_getpwuid(fileowner(($path)));
-                    echo $path . "\n";
-                    echo $owner['name'];
-                    die;
-
                     if ($matches[1] == $matches[2]) {
-                        $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $matches[4]));
-                        $photo->getPreviewUrl($matches[1], $matches[2]);
-                        $i++;
+                        $path = '/var/www/happy-giraffe.ru/deploy/test/site/common/uploads/photos/thumbs/' . $matches[1] . 'x' . $matches[2] . '/' . $matches[3];
+                        $owner = posix_getpwuid(fileowner(($path)));
+
+                        if ($owner['name'] == $_owner) {
+                            $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $matches[4]));
+                            $photo->getPreviewUrl($matches[1], $matches[2]);
+                            $i++;
+                        }
                     }
                 }
             }

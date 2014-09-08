@@ -12,6 +12,7 @@
         background-color: #def5ff;
     }
     &__child .calendar-serv-note_count {
+        width: 125px;
         background: url('@{path-img}/calendar-serv-note_count-blue.png') no-repeat;
     }
     &__child .services-fast {
@@ -39,7 +40,6 @@
         font-style: normal;
     }.wysiwyg-content img {
         display: block;
-        text-align: center;
         margin: 0 auto;
     }
     .calendar-serv-note {
@@ -52,13 +52,22 @@
     }
     
     @media (min-width: @screen-phone-landscape) {
-        /*.calendar-serv-note {
-            margin: 40px -10% 20px;
-            padding: 20px 10%;
-        }*/
         .calendar-serv-note {
             margin: 40px -200px 20px;
             padding: 20px 200px;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        
+        &__child .calendar-serv-note_count {
+            width: 152px;
+            height: 121px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        
+        &__child .calendar-serv-note {
+            padding-left: 30px;
         }
     }
 }

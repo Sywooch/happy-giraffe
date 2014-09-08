@@ -10,6 +10,8 @@
         background-color: #def5ff;
     }
     &__blue-light &_count {
+        width: 152px;
+        height: 121px;
         background: url('@{path-img}/calendar-serv-note_count-blue.png') no-repeat;
     }
     
@@ -20,7 +22,7 @@
         right: 0;
         width: 100px;
         height: 125px;
-        padding: 0 5px 0 35px;
+        padding: 5px 5px 0 35px;
         background: url('@{path-img}/calendar-serv-note_count.png') no-repeat;
         background-size: cover;
         text-align: center;
@@ -61,7 +63,7 @@
             width: 129px;
             height: 121px;
             padding: 6px 5px 15px 25px;
-            font-size: 60px;
+            font-size: 45px;
         }
         h2&_t {
             margin-top: 5px;
@@ -73,6 +75,11 @@
         }
     }
     @media (min-width: @screen-desktop) {
+
+        &__1y  {background: url('@{path-img}/services/calendar-child/calendar-serv-note__1y.png') no-repeat 680px 50%;}
+        &__3y  {background: url('@{path-img}/services/calendar-child/calendar-serv-note__3y.png') no-repeat 680px 50%;}
+        &__7y  {background: url('@{path-img}/services/calendar-child/calendar-serv-note__7y.png') no-repeat 680px 50%;}
+        &__18y {background: url('@{path-img}/services/calendar-child/calendar-serv-note__18y.png') no-repeat 680px 50%;}
         
         h2&_t {
             margin-top: 5px;

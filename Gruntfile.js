@@ -465,21 +465,22 @@ module.exports = function(grunt){
                 unit: 100
             }
         },
-        // 'comments-menu_a': {
-        //     options: {
-        //         spriteElementPath: "lite/images/sprite/comments-menu_a",
-        //         spritePath: "lite/images/sprite/comments-menu_a.svg",
-        //         cssPath: "lite/less/sprite/",
-        //         cssSuffix: 'less',
-        //         cssSvgPrefix: '',
-        //         cssPngPrefix: '.no-svg',
-        //         layout: 'vertical',
-        //         map: function (filename) {
-        //             return filename.replace(/~/g, ":");
-        //         },
-        //         unit: 200
-        //     }
-        // },
+        'ico-product': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-product",
+                spritePath: "lite/images/sprite/ico-product.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                // refSize: 100,
+                unit: 100
+            }
+        },
     },
 
     watch: {

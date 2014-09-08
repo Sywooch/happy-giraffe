@@ -37,7 +37,7 @@ class LiteController extends HController
 
     public function getPageTitle()
     {
-        return is_null($this->meta_title) ? parent::getPageTitle() : $this->meta_title;
+        return is_null($this->meta_title) ? parent::getPageTitle() : Str::truncate(trim($this->meta_title), 70);
     }
 
     public function setPageTitle($value)
@@ -59,10 +59,10 @@ class LiteController extends HController
             $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
         }
 
-        if ($this->meta_title !== null)
+        /*if ($this->meta_title !== null)
         {
             $this->pageTitle = Str::truncate(trim($this->meta_title), 70);
-        }
+        }*/
 
         parent::afterRender($view, $output);
     }

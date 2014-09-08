@@ -136,6 +136,12 @@ class RssController extends HController
         if ($user === null || $user_id == 1)
             throw new CHttpException(404, 'Пользователь не найден');
 
+        $commentsCount = Comment::model()->count(array(
+            'join' => 'LEFT OUTER JOIN community__contents ON community__contents.id = t.entity_id AND (t.entity = \'CommunityContent\' OR t.entity = \'BlogContent\')',
+            'condition' => 'community__contents.author_id = :user_id AND community__contents.removed = 0',
+            'params' => array(':user_id' => $user->id),
+        ));
+
         Yii::import('ext.EFeed.*');
         $feed = new EFeed();
 
@@ -143,7 +149,9 @@ class RssController extends HController
         $feed->link = $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $user->id));
         $feed->description = ($user->blog_title === null) ? 'Блог - ' . $user->fullName : $user->blog_title;
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
-        $feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id)));
+        if ($commentsCount > 0) {
+            $feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id)));
+        }
         $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/user', array('user_id' => $user->id, 'page' => $page + 1)));
         $feed->addChannelTag('image', array('url' => $user->getAvatarUrl(), 'width' => 72, 'height' => 72));
 

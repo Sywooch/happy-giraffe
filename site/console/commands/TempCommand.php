@@ -630,7 +630,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
                     $path = '/var/www/happy-giraffe.ru/deploy/test/site/common/uploads/photos/thumbs/' . $matches[1] . 'x' . $matches[2] . '/' . $matches[3];
                     $owner = posix_getpwuid(fileowner(($path)));
                     echo $path . "\n";
-                    echo $owner;
+                    echo $owner['name'];
                     die;
 
                     if ($matches[1] == $matches[2]) {

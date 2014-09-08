@@ -4,12 +4,12 @@
 
     <div class="main-right morning-main"> -->
 <div id="morning" class="content-cols clearfix">
+    <?php if ($this->time !== null) $this->renderPartial('_sidebar'); ?>
+    
     <div class="col-23-middle morning-main">
         <?=$content ?>
 
     </div>
-
-    <?php if ($this->time !== null) $this->renderPartial('_sidebar'); ?>
 
 </div>
 

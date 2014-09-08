@@ -229,8 +229,8 @@ class RssController extends HController
             'with' => 'response',
         ));
 
-        if (!$comments)
-            throw new CHttpException(404, 'Такой записи не существует');
+//        if (!$comments)
+//            throw new CHttpException(404, 'Такой записи не существует');
 
         $feed = new EFeed();
         $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));

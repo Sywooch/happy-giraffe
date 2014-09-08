@@ -55,12 +55,14 @@ class RecipeBookUrlRule extends \CBaseUrlRule
             }
         }
 
+        /** @todo Убрать этот блок через месяц после его появления */
         if ($route && ($page = $request->getQuery('RecipeBookRecipe_page')))
         {
             unset($_GET['RecipeBookRecipe_page']);
             $_GET['page'] = $page;
             Yii::app()->request->redirect(Yii::app()->createUrl('/' . $route, $_GET));
         }
+
         return $route;
     }
 

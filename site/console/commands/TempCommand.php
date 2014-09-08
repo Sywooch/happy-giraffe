@@ -638,6 +638,11 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
                         if ($owner['name'] == $_owner) {
                             $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $matches[4]));
+
+                            if ($photo === null) {
+                                echo $data[0] . "\n";
+                            }
+
                             $photo->getPreviewUrl($matches[1], $matches[2]);
                             $i++;
                         }

@@ -183,8 +183,8 @@ class RssController extends HController
             $contents = $this->getContents($sql, $page, array(':author_id' => $user->id));
         }
 
-        if (empty($contents))
-            throw new CHttpException(404, 'Страница не найдена');
+//        if (empty($contents))
+//            throw new CHttpException(404, 'Страница не найдена');
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
@@ -233,7 +233,7 @@ class RssController extends HController
 //            throw new CHttpException(404, 'Такой записи не существует');
 
         $feed = new EFeed();
-        $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
+        $feed->link = $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $user->id));
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1:comments');
         if ($commentsCount > $this->limit * $page)
             $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id, 'page' => $page + 1)));

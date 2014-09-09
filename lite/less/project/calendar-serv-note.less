@@ -14,6 +14,7 @@
     }
     
     &_count {
+        display: none;
         position: absolute;
         top: 0;
         right: 0;
@@ -36,7 +37,7 @@
         margin: 10px 0;
     }
     & ul li {
-        padding: 7px 20px 7px 37px;
+        padding: 10px 20px 10px 37px;
         background: url('@{path-img}/calendar-serv-note_li.png') no-repeat 0 45%;
         color: @color-gray-dark;
     }
@@ -47,6 +48,9 @@
         }
         & ul {
             padding-right: 30px;
+        }
+        &_count {
+            display: block;
         }
     }
     @media (min-width: @screen-tablet) {

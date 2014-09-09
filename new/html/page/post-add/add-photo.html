@@ -6,6 +6,8 @@
 <!-- c-->
 <!-- a-->
 <!-- b-->
+<!-- c-->
+<!-- /b-album-->
 <!-- tag head-->
 <head>
   <meta charset="utf-8">
@@ -16,12 +18,13 @@
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
   <!-- ie8 -->
   <!--+scripts(path)-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <!-- script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")-->
   <script>
-    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    window.jQuery || document.write('<script src="/new/javascript/jquery-1.10.2.min.js"><\/script>')
     
   </script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/affix.js"></script>
   <script src="/new/javascript/bootstrap/dropdown.js"></script>
   <script src="/new/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
@@ -140,13 +143,12 @@
               <script src="/jQuery-File-Upload/js/jquery.fileupload-video.js"></script><!-- The File Upload validation plugin -->
               <script src="/jQuery-File-Upload/js/jquery.fileupload-validate.js"></script>
               <script>
-                /*jslint unparam: true, regexp: true */
                 /*global window, $ */
                 $(function () {
                     'use strict';
                     // Change this to the location of your server-side upload handler:
                     var url = window.location.hostname === 'blueimp.github.io' ?
-                                '//jquery-file-upload.appspot.com/' : '/jQuery-File-Upload/server/php/',
+                                '//jquery-file-upload.appspot.com/' : 'server/php/',
                     uploadButton = $('<button/>')
                             .addClass('btn btn-primary')
                             .prop('disabled', true)
@@ -168,7 +170,7 @@
                     $('#fileupload').fileupload({
                         url: url,
                         dataType: 'json',
-                        //autoUpload: false,
+                        autoUpload: false,
                         acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
                         maxFileSize: 5000000, // 5 MB
                         // Enable image resizing, except for Android and Opera,
@@ -176,21 +178,19 @@
                         // send Blob objects via XHR requests:
                         disableImageResize: /Android(?!.*Chrome)|Opera/
                             .test(window.navigator.userAgent),
-                        previewMaxWidth: 155,
-                        previewMaxHeight: 110,
+                        previewMaxWidth: 150,
+                        previewMaxHeight: 150,
                         previewCrop: true
                     }).on('fileuploadadd', function (e, data) {
-                        // Файл подготовлен к загрузке
-                        data.context = $('<div class="i-photo"><div class="i-photo_hold"></div></div>').appendTo('#files');
+                        data.context = $('<div/>').appendTo('#files');
                         $.each(data.files, function (index, file) {
-                            var node = $(data.context.children()[index])
-                                    //.append($('<span/>').text(file.name));
-                                    .append('<input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray" value=' + file.name + '>');
-                            //- if (!index) {
-                            //-     node
-                            //-         .append('<br>')
-                            //-         .append(uploadButton.clone(true).data(data));
-                            //- }
+                            var node = $('<p/>')
+                                    .append($('<span/>').text(file.name));
+                            if (!index) {
+                                node
+                                    .append('<br>')
+                                    .append(uploadButton.clone(true).data(data));
+                            }
                             node.appendTo(data.context);
                         });
                     }).on('fileuploadprocessalways', function (e, data) {
@@ -199,18 +199,13 @@
                             node = $(data.context.children()[index]);
                         if (file.preview) {
                             node
+                                .prepend('<br>')
                                 .prepend(file.preview);
                         }
                         if (file.error) {
-                            data.context
-                                .replaceWith(' <div class="i-photo i-photo__error">' +
-                                                ' <a href="" class="ico-close5"></a> ' +
-                                                ' <div class="i-photo_hold"> ' +
-                                                ' <div class="i-photo_error-tx">' + file.name + '</div> ' +
-                                                ' <div class="i-photo_error-tx">Ошибка загрузки</div> ' +
-                                                ' </div> ' +
-                                                '</div>'
-                                );
+                            node
+                                .append('<br>')
+                                .append($('<span class="text-danger"/>').text(file.error));
                         }
                         if (index + 1 === data.files.length) {
                             data.context.find('button')
@@ -226,41 +221,29 @@
                     }).on('fileuploaddone', function (e, data) {
                         $.each(data.result.files, function (index, file) {
                             if (file.url) {
-                                data.context = $('<div class="i-photo"><div class="i-photo_hold"></div></div>').appendTo('#files');
                                 var link = $('<a>')
                                     .attr('target', '_blank')
                                     .prop('href', file.url);
                                 $(data.context.children()[index])
-                                    .wrap(link); 
+                                    .wrap(link);
                             } else if (file.error) {
-                                var error = $(' <div class="i-photo i-photo__error">' +
-                                                ' <a href="" class="ico-close5"></a> ' +
-                                                ' <div class="i-photo_hold"> ' +
-                                                ' <div class="i-photo_error-tx">' + file.name + '</div> ' +
-                                                ' <div class="i-photo_error-tx">Ошибка загрузки</div> ' +
-                                                ' </div> ' +
-                                                '</div>'
-                                ).text(file.error);
-                                $(data.context)
-                                    .replaceWith(error);
+                                var error = $('<span class="text-danger"/>').text(file.error);
+                                $(data.context.children()[index])
+                                    .append('<br>')
+                                    .append(error);
                             }
                         });
                     }).on('fileuploadfail', function (e, data) {
                         $.each(data.files, function (index, file) {
-                            var error = $(' <div class="i-photo i-photo__error">' +
-                                                ' <a href="" class="ico-close5"></a> ' +
-                                                ' <div class="i-photo_hold"> ' +
-                                                ' <div class="i-photo_error-tx">' + file.name + '</div> ' +
-                                                ' <div class="i-photo_error-tx">Ошибка загрузки</div> ' +
-                                                ' </div> ' +
-                                                '</div>'
-                            ).text(file.error);
-                            $(data.context)
-                                .replaceWith(error);
+                            var error = $('<span class="text-danger"/>').text('File upload failed.');
+                            $(data.context.children()[index])
+                                .append('<br>')
+                                .append(error);
                         });
                     }).prop('disabled', !$.support.fileInput)
                         .parent().addClass($.support.fileInput ? undefined : 'disabled');
                 });
+                
                 
               </script>
             </div>

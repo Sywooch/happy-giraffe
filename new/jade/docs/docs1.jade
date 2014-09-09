@@ -19,16 +19,23 @@ block layout-wrapper
                     ol
                         li Тектс списка 
                         li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
-                    .tx-hint Текст подсказок
+                    .tx-content
+                        p Самый обычный абзац. В статьях и т.д.
+                        p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    .docs_row
+                        .tx-hint Текст подсказок
+                    .docs_row
+                        .tx-date Текст даты
                 .docs_desc
                     h3.docs_h3 Заголовки
                 .docs_example.docs_example__indents
-                    .heading-xxl .heading-h1
+                    .heading-xxl .heading-xxl
+                    .heading-xl .heading-xl
                     .heading-small .heading-small
-                    .heading-smallest .heading-smallest
-                    a.heading-link-xxl .heading-link-xxl
+                    .heading-xs .heading-smallest
+                    a.heading-link-xxl Заголовок большой ссылка в строку
                     br
-                    a.heading-link-xl .heading-link-xl
+                    .heading-link-xl Заголовок в списке статей 
                 .docs_desc
                     h2.docs_h2 Ссылки
                 .docs_example.docs_example__indents
@@ -148,6 +155,13 @@ block layout-wrapper
                             a.btn.btn-xm.btn-success Middle
                             a.btn.btn-xm.btn-info Middle
                             a.btn.btn-xm.btn-primary Right
+                .docs_example.docs_example__indents
+                    .docs_row
+                        +postAddRowBtns('', postAddRowBtns.a)
+                    .docs_row
+                        +postAddRowBtns('', postAddRowBtns.b)
+                    .docs_row
+                        +postAddRowBtns('', postAddRowBtns.c)
             .docs
                 .docs_desc Кнопки социальных сетей. Резиновые, занимают всю ширину родителя.
                 .docs_example.docs_example__indents 
@@ -274,13 +288,15 @@ block layout-wrapper
                 .docs_example.docs_example__indents
                     .display-ib
                         .inp-valid.inp-valid__abs.error
-                            .radio-icons.radio-icons__inline.margin-l20
-                                input#radio4.radio-icons_radio(type='radio', name='')
-                                label.radio-icons_label(for='radio4')
-                                    | Мужской
-                                input#radio3.radio-icons_radio(type='radio', name='')
-                                label.radio-icons_label(for='radio3')
-                                    | Женский
+                            +radioIcons('radio-icons__inline', radioIcons.man)
+                            +radioIcons('radio-icons__inline', radioIcons.women)
+                            //- .radio-icons.radio-icons__inline.margin-l20
+                            //-     input#radio4.radio-icons_radio(type='radio', name='')
+                            //-     label.radio-icons_label(for='radio4')
+                            //-         | Мужской
+                            //-     input#radio3.radio-icons_radio(type='radio', name='')
+                            //-     label.radio-icons_label(for='radio3')
+                            //-         | Женский
                             .inp-valid_error
                                 .errorMessage 
                                     | Выберите пол
@@ -288,13 +304,10 @@ block layout-wrapper
                 .docs_example.docs_example__indents
                     .display-ib
                         .inp-valid.inp-valid__abs.success
-                            .radio-icons.radio-icons__inline.radio-icons__checkbox.margin-l20
-                                input#checkbox4.radio-icons_radio(type='checkbox', name='',checked="checked")
-                                label.radio-icons_label(for='checkbox4')
-                                    | Мужской
-                                input#checkbox3.radio-icons_radio(type='checkbox', name='')
-                                label.radio-icons_label(for='checkbox3')
-                                    | Женский
+
+                            +radioIcons('radio-icons__inline radio-icons__checkbox', radioIcons.man)
+                            +radioIcons('radio-icons__inline radio-icons__checkbox', radioIcons.women)
+                            
                             .inp-valid_error
                                 .errorMessage 
                                     | Выберите пол
@@ -327,10 +340,39 @@ block layout-wrapper
 
             .docs
                 .docs_desc
-                    h2.docs_h2 Семья 
+                    h2.docs_h2 Семья
+                .docs_desc Иконки семьи
+                .docs_example.docs_example__indents
+                    .docs_row
+                        .ico-family.ico-family__baby-plan.margin-r10
+                        .ico-family.ico-family__baby.margin-r10   
+                        .ico-family.ico-family__baby-two.margin-r10 
+                        .ico-family.ico-family__boy-wait.margin-r10 
+                        .ico-family.ico-family__girl-wait.margin-r10 
+                        .ico-family.ico-family__boy-small.margin-r10 
+                        .ico-family.ico-family__girl-small.margin-r10 
+                        .ico-family.ico-family__boy-3.margin-r10 
+                        .ico-family.ico-family__girl-3.margin-r10 
+                        .ico-family.ico-family__boy-5.margin-r10 
+                        .ico-family.ico-family__girl-5.margin-r10 
+                        .ico-family.ico-family__boy-8.margin-r10 
+                        .ico-family.ico-family__girl-8.margin-r10 
+                        .ico-family.ico-family__boy-14.margin-r14 
+                        .ico-family.ico-family__girl-14.margin-r14 
+                        .ico-family.ico-family__boy-19.margin-r19 
+                        .ico-family.ico-family__girl-19.margin-r19 
+                        .ico-family.ico-family__fiance.margin-r19 
+                        .ico-family.ico-family__bride.margin-r19 
+                        .ico-family.ico-family__husband.margin-r19 
+                        .ico-family.ico-family__wife.margin-r19 
+                        .ico-family.ico-family__boy.margin-r19 
+                        .ico-family.ico-family__girl.margin-r19
+                
+                .docs_example.docs_example__indents
+
+                    .display-ib
+                        +bFamily('', bFamily.f5)
                 .docs_example
-                    +bFamily('', bFamily.f2)
-                    // +bFamily('', bFamily.f5)  
                     .b-family-structure.clearfix
                         .b-family-structure_upload
                             .b-family-structure_note
@@ -555,33 +597,6 @@ block layout-wrapper
                     .docs_row
                         .ico-error-smile
             .docs
-                .docs_desc Иконки семьи
-                .docs_example.docs_example__indents
-                    .docs_row
-                        .ico-family.ico-family__baby-plan.margin-r10
-                        .ico-family.ico-family__baby.margin-r10   
-                        .ico-family.ico-family__baby-two.margin-r10 
-                        .ico-family.ico-family__boy-wait.margin-r10 
-                        .ico-family.ico-family__girl-wait.margin-r10 
-                        .ico-family.ico-family__boy-small.margin-r10 
-                        .ico-family.ico-family__girl-small.margin-r10 
-                        .ico-family.ico-family__boy-3.margin-r10 
-                        .ico-family.ico-family__girl-3.margin-r10 
-                        .ico-family.ico-family__boy-5.margin-r10 
-                        .ico-family.ico-family__girl-5.margin-r10 
-                        .ico-family.ico-family__boy-8.margin-r10 
-                        .ico-family.ico-family__girl-8.margin-r10 
-                        .ico-family.ico-family__boy-14.margin-r14 
-                        .ico-family.ico-family__girl-14.margin-r14 
-                        .ico-family.ico-family__boy-19.margin-r19 
-                        .ico-family.ico-family__girl-19.margin-r19 
-                        .ico-family.ico-family__fiance.margin-r19 
-                        .ico-family.ico-family__bride.margin-r19 
-                        .ico-family.ico-family__husband.margin-r19 
-                        .ico-family.ico-family__wife.margin-r19 
-                        .ico-family.ico-family__boy.margin-r19 
-                        .ico-family.ico-family__girl.margin-r19
-            .docs
                 .docs_desc
                     h2.docs_h2 Блок юзера
                 .docs_example.docs_example__indents
@@ -589,16 +604,28 @@ block layout-wrapper
                     .docs_row
                         +b-user('',{signpost: false})
             .docs
-                .docs_desc Тянущийся поиск. Преняется в сайдбарах
-                .docs_example.docs_example__indents
-                    +sidebar-search('', {placeholder: 'Введите текст'})
-                    .docs_row
-                        .w-240
-                            +sidebar-search('', {placeholder: 'Введите текст'})
-            .docs
-                .docs_desc Табы управления страницы
+                .docs_desc Табы управления
                 .docs_example
                     +page-col_top-tabs('', {tabActive: 0, tabsTexts:['Все друзья 128', 'Друзья онлайн 12', 'Новые друзья 6'], sidebarSearch: true})
+                .docs_example
+                    span.margin-l20 Табы в 
+                        a(href="") строку 
+                    ul.tabs-simple.tabs-simple__inline.nav.nav-tabs
+                        li.active
+                            a(href="#photo-tab-computer", data-toggle="tab") С компьютера
+                        li
+                            a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
+                        li
+                            a(href="#photo-tab-link", data-toggle="tab") Из интернета
+                    | продолжение строки
+                .docs_example
+                    ul.tabs-simple.nav.nav-tabs
+                        li.active
+                            a(href="#photo-tab-computer", data-toggle="tab") С компьютера
+                        li
+                            a(href="#photo-tab-album", data-toggle="tab") Из моих альбомов
+                        li
+                            a(href="#photo-tab-link", data-toggle="tab") Из интернета 
             .docs
                 .docs_desc Пагинация на странице
                 .docs_example
@@ -620,10 +647,46 @@ block layout-wrapper
                     h2.docs_h2 Список друзей
                 .docs_example
                     .display-ib.margin-l20
-                        .friend-list
-                            ul.friend-list_ul
+                        .friends-list
+                            ul.friends-list_ul
                                 +friendsListItem('',friendsListItem.a)
-
+                                +friendsListItem('',friendsListItem.b)
+            .docs
+                .docs_desc
+                    h2.docs_h2 Превью фото при загрузке 
+                .docs_example
+                    .display-ib.margin-l20
+                        +iPhoto("i-photo__load", iPhoto.load)
+                    .display-ib.margin-l20
+                        +iPhoto("i-photo__loaded", iPhoto.loaded)
+                    .display-ib.margin-l20
+                        +iPhoto("i-photo__error", iPhoto.error)
+            .docs
+                .docs_desc
+                    h2.docs_h2 Добавить контент  
+                .docs_example.docs_example__indents
+                    .docs_row
+                        .b-main.clearfix
+                            .b-main_col-23
+                                +userAddRecord('', userAddRecord.a)
+                    .docs_row
+                        +userAddRecord('userAddRecord__blog', userAddRecord.b)
+                    .docs_row
+                        +userAddRecord('userAddRecord__add', userAddRecord.c)
+            .docs
+                .docs_desc
+                    h2.docs_h2 Поиск 
+                .docs_example.docs_example__indents
+                    .docs_row
+                        +sidebar-search('', {placeholder: 'Введите текст'})
+                    .docs_row
+                        .b-main.clearfix
+                            .b-main_col-1
+                                +sidebar-search('', {placeholder: 'Поиск'})
+                    .docs_row
+                        .b-main.clearfix
+                            .b-main_col-1
+                                +sidebar-search('sidebar-search__big', {placeholder: 'Поиск'})
 
     .docs
         .layout-wrapper

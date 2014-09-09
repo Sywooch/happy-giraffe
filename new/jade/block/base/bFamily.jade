@@ -63,6 +63,11 @@ mixin bFamily(mod, vars)
 - bFamily.boy19.kinship = 'Сын'
 - bFamily.boy19.age = '19 лет'
 
+- bFamily.photo = {}
+- bFamily.photo.photo = true
+- bFamily.photo.kinship = 'Сын'
+- bFamily.photo.age = '19 лет'
+
 //- Сборки по количеству членов семьи
 - bFamily.f2 =  {}
 - bFamily.f3 =  {}
@@ -75,7 +80,7 @@ mixin bFamily(mod, vars)
 - bFamily.f2.items = [bFamily.wife, bFamily.boySmall]
 - bFamily.f3.items = [bFamily.wife, bFamily.girl5, bFamily.boySmall]
 - bFamily.f4.items = [bFamily.wife, bFamily.girl8, bFamily.girl5, bFamily.boySmall]
-- bFamily.f5.items = [bFamily.wife, bFamily.boy19, bFamily.girl8, bFamily.girl5, bFamily.boySmall]
+- bFamily.f5.items = [bFamily.wife, bFamily.boy19, bFamily.girl8, bFamily.photo, bFamily.boySmall]
 
 - bFamily.a = {}
 - bFamily.a.title = 'b-family_top__white'

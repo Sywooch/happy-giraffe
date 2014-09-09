@@ -1,0 +1,59 @@
+include ../../../block/config
+extend ../../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg2';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in
+
+            //- +userAddRecord('userAddRecord__blog', userAddRecord.albums)
+            
+            .user-album
+                .b-crumbs.b-crumbs__m
+                    ul.b-crumbs_ul
+                        li.b-crumbs_li
+                            a.b-crumbs_a(href="") Мои фото
+                        li.b-crumbs_li.b-crumbs_li__last
+                            span.b-crumbs_last  Харьковский уикенд
+
+                .user-album_top.clearfix
+                    // Счетчик серого цвета из-за .user-album_count-hold__gray
+                    .user-album_count-hold.user-album_count-hold__gray
+                        .user-album_count 0
+                        .user-album_count-tx фото
+                    
+                    // Заголовок
+                    .user-album_switch.display-n
+                        h1.user-album_t
+                            | Харьковский уикенд
+                            a.ico-edit.ico-edit__s
+                    // Редактирование заголовка
+                    .user-album_switch
+                        .user-album_t
+                            .display-ib.w-400
+                                .inp-valid.inp-valid__abs
+                                    input.itx-gray(type="text", value="Виктория")
+                                    .inp-valid_count 150
+                    .user-album_desc 
+                        .user-album_switch
+                            | В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер.
+                            a.ico-edit.ico-edit__s
+                        // Блок редактирвоания описания
+                        .user-album_switch.display-n
+                            // Отправка значения происходит по enter
+                            textarea.itx-gray(rows='8', cols="40") 
+                                | В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. 
+                .user-album_control.clearfix
+                    a.user-album_del(href="") Удалить альбом
+
+                .album-photo-add.album-photo-add__big
+                    .album-photo-add_hold 
+                        | Загрузить 
+                        br  
+                        | фото в альбом
+    
+        +layout-footer('layout-footer__in')

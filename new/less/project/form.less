@@ -6,13 +6,13 @@
 :-moz-placeholder           { color: #ccc;font-weight: normal;opacity: 1;}
 :placeholder                { color: #ccc;font-weight: normal;opacity: 1;}
 
+
 /* 
     sidebar-search
 
 */
 .sidebar-search {
     position: relative;
-    /*padding: 0 0 15px;*/
 
     &__big &_itx {
         border-color: #e5e5e5;
@@ -184,10 +184,9 @@ textarea.error {
     &__inline {
         .inline-block();
     }
+    &__inline &_label {margin-right: 5px;}
     &__checkbox {}
     &__checkbox &_label {
-        min-height: 19px;
-        line-height: 19px;
         .img-retina('@{path-img}/input-checkbox.png'; '@{path-img}/input-checkbox-2x.png'; 18px; 219px);
     }
 
@@ -208,11 +207,10 @@ textarea.error {
     &_label {
         .inline-block();
         vertical-align: top;
-        margin: 0 15px 0 0;
-        color: @color-gray-light;
-        padding-left: 24px;
-        min-height: 18px;
-        line-height: 18px;
+        color: @color-gray;
+        padding-left: 19px;
+        min-height: 19px;
+        line-height: 19px;
         cursor: pointer;
         .img-retina('@{path-img}/input-radio.png'; '@{path-img}/input-radio-2x.png'; 18px; 218px);
         background-repeat: no-repeat;
@@ -221,8 +219,12 @@ textarea.error {
     .ie8 &_label {padding-left: 0;background: none;}
     &_label:focus,
     &_label:hover {
-        color: #333;
+        color: @color-base;
         background-position: 0 -200px;
+    }
+    &_label-tx {
+        .inline-block();
+        margin-left: 6px;
     }
 }
 /* /radio-icons */
@@ -278,6 +280,7 @@ textarea.error {
     position: relative;
     &:extend(.clearfix all);
     
+    .itx-gray {display: block;}
     .itx-gray:focus + &_count {color: #27ae60;}
     &.error &_error {display: inline-block;}
     &.error &_count {color: @color-carrot !important;}
@@ -341,7 +344,7 @@ textarea.error {
         float: right;
         margin: 2px 4px;
         font: @fontsmallest;
-        color: @color-gray;
+        color: @color-gray-light;
     }
     &_count__green {color: #27ae60;}
 

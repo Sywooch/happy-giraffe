@@ -8,7 +8,7 @@ block layout
     .b-main.b-main__white
         .b-main_cols.clearfix
             .b-main_col-1
-                +sidebar-search('sidebar-search__big padding-0', {placeholder: 'Поиск'})
+                +sidebar-search('sidebar-search__big', {placeholder: 'Поиск'})
             .b-main_col-23
                 +userAddRecord('userAddRecord__s', userAddRecord.a)
         .b-crumbs.b-crumbs__s
@@ -20,46 +20,7 @@ block layout
                     +ava('ava__small', ava.a)
                 li.b-crumbs_li.b-crumbs_li__last
                     span.b-crumbs_last Блог
-        section.userSection
-            .userSection_hold
-                .userSection_left
-                    h1.userSection_name Ангелина Богоявленская
-                    .margin-b5.clearfix
-                        | 33 года (28 января)
-                    .location.locationsmall.clearfix
-                        span.flag.flag-ua
-                        span.location_tx
-                            | Ярославская обл.
-                            | Переславль-Залесский
-                    .userSection_btn-hold.clearfix
-                        //
-                            виды кнопок друзья 
-                            userSection_btn__friend
-                            userSection_btn__friend-add
-                            userSection_btn__friend-added
-                            userSection_btn__friend-append
-                        a.userSection_btn.userSection_btn__friend-add.powertip(href='')
-                            span.userSection_ico
-                        a.userSection_btn.userSection_btn__dialog.powertip(href='')
-                            span.userSection_ico
-                    .userSection_panel
-                        ul.userSection_panel-ul
-                            li.userSection_panel-li
-                                a.userSection_panel-a(href="") Анкета
-                            li.userSection_panel-li
-                                a.userSection_panel-a(href="") Семья 
-                            li.userSection_panel-li.active
-                                a.userSection_panel-a(href="") Блог 
-                            li.userSection_panel-li
-                                a.userSection_panel-a(href="") Фото
-                .userSection_center
-                    .b-ava-large.b-ava-large__nohover
-                        .b-ava-large_ava-hold
-                            +ava("ava__large ava__male", ava.c)
-                        span.b-ava-large_online На сайте
-                    .userSection_center-reg с Веселым Жирафом 2 года 5 месяцев 203 дня
-                .userSection_right
-                    +bFamily('', bFamily.a)
+        +userSection('')
         .b-main_cont
             .userSubscribers
                 span.userSubscribers_tx У моего блога 468 подписчиков

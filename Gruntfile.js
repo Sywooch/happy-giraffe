@@ -1,21 +1,11 @@
 module.exports = function(grunt){
-  var timer = require("grunt-timer");
+  require('time-grunt')(grunt);
 
-  timer.init(grunt);
-
-  // json for jade 
-  // var pathJade = "new/jade/array/*";
-
+  //timer.init(grunt);
+  require('load-grunt-tasks')(grunt, {scope: 'devDependencies'});
 
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    // Собираем все json в один
-    // 'merge-json': {
-    //     jadevars: {
-    //         src: [ "new/jade/json/**/*.json" ],
-    //         dest: "new/jade/vars.json"
-    //     },
-    // },
+
     jade: {
       
       // Пересобираем все шаблоны
@@ -72,7 +62,7 @@ module.exports = function(grunt){
           // стили страницы вакансий
           'stylesheets/vacancy.css': ['less/vacancy.less'],
           // стили html баннеров, независимы от всего 
-          'stylesheets/banner.css': ['less/banner.less']
+          // 'stylesheets/banner.css': ['less/banner.less']
         },
         options: {
           compress: true,
@@ -101,9 +91,9 @@ module.exports = function(grunt){
         },
         options: {
           sourceMap: true,
-          sourceMapFilename: 'new/css/all1.css.map',
-          sourceMapRootpath: '../../',
-          //sourceMapURL: 'all1.css.map',
+          /*sourceMapFilename: 'new/css/all1.css.map',*/
+          /*sourceMapRootpath: 'new/css',
+          sourceMapURL: 'new/css/all1.css.map',*/
         }
       },
       newest: {
@@ -114,42 +104,21 @@ module.exports = function(grunt){
           compress: true,
           cleancss: true,
         }
+      },
+      aviary: {
+        files: {
+          'new/css/plugins/aviary.hg.css': ['new/less/plugins/aviary.hg.less'] 
+        },
+        options: {
+          compress: true,
+          cleancss: true,
+        }
       }
     },
 
-    // imagemin: {
-    //   dynamic: {
-    //     files: [{
-    //       expand: true,
-    //       cwd: 'new/images',
-    //       src: ['**/*.{png,jpg,gif}'],
-    //       dest: 'new/images1',
-    //     }],
-    //     options: {
-    //         cache: false
-    //     }
-    //   }
-    // },
 
     watch: {
-      // Следим за json
-      // 'merge-json': {
-      //   files: ['new/jade/json/**/*.json'],
-      //   tasks: ['merge-json'],
-      //   options: {
-      //     spawn: false,
-      //     livereload: true,
-      //   },
-      // },
-      // Следим за изменениями миксинов и унаследованных файлов
-      // jadereload: {
-      //   files: ['new/jade/block/**/*.jade', 'new/jade/extend/**/*.jade'],
-      //   tasks: ['jade:all'],
-      //   options: {
-      //     spawn: false,
-      //     livereload: true,
-      //   },
-      // },
+
       // Следим за статическими страницами
       jadepage: {
         files: ['new/jade/page/**/*.jade'],
@@ -177,9 +146,17 @@ module.exports = function(grunt){
         },
       },
       // следим за новым less
-      less: {
+      newless: {
         files: ['new/less/**/*.less'],
-        tasks: ['less:newest', 'less:newestdev'],
+        tasks: ['less:newest', 'less:newestdev', /*'cmq','cssmin', 'csso'*/ ],
+        options: {
+          livereload: true,
+        },
+      },
+      // следим за новым less
+      aviary: {
+        files: ['new/less/**/aviary.hg.less'],
+        tasks: ['less:aviary'],
         options: {
           livereload: true,
         },
@@ -197,6 +174,83 @@ module.exports = function(grunt){
       //   tasks: ['newer:imagemin'],
       // }
     },
+
+    // Удаляем файлы
+    // clean: {
+    //   new: ['new/css/tidy.css']
+    // },
+
+    //чистим css от не используемых стилей
+    uncss: {
+      new: {
+        options: {
+          stylesheets  : ['/css/all1.dev.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'new',
+          ignore       : [
+            // Выбираем все стили где в начале .select2
+            /.dropdown+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.redactor+/,
+            /.select2+/,
+            /.tooltip+/,
+          ],
+        },
+        src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
+        dest: 'new/css/all1.dev.css'
+      },
+    },
+
+    // Объеденяем медиа запросы в css
+    cmq: {
+      options: {
+        log: true
+      },
+      new: {
+        files: {
+          'new/css': ['new/css/all1.dev.css']
+        }
+      }
+    },
+
+    // Сжимаем css
+    cssmin: {
+      dist: {
+        options: {
+          compatibility: 'ie8',
+          keepSpecialComments: 0,
+          report: 'max'
+        },
+        files: {
+          'new/css/all1.dev.css': 'new/css/all1.dev.css'
+        }
+      }
+    },
+    csso: {
+      compress: {
+        options: {
+          report: 'gzip'
+        },
+        files: {
+          'new/css/all1.css': ['new/css/all1.dev.css']
+        }
+      }
+    },
+
+    csscomb: {
+      options: {
+          config: 'new/less/bootstrap/.csscomb.json'
+      },
+      aviary: {
+          files: {
+              'new/less/plugins/aviary.hg.less': ['new/less/plugins/aviary.hg.less'],
+          },
+      },
+        
+    },
+
     // Поднимаем сервер
     connect: {
       server: {
@@ -208,42 +262,28 @@ module.exports = function(grunt){
     },
   });
 
-  grunt.loadNpmTasks('grunt-merge-json');
-  grunt.loadNpmTasks('grunt-contrib-jade');
-  grunt.loadNpmTasks('grunt-newer');
-  grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-imagemin');
-  grunt.loadNpmTasks('grunt-newer');
+  // grunt.loadNpmTasks('grunt-merge-json');
+  // grunt.loadNpmTasks('grunt-contrib-jade');
+  // grunt.loadNpmTasks('grunt-newer');
+  // grunt.loadNpmTasks('grunt-contrib-less');
+  // grunt.loadNpmTasks('grunt-contrib-watch');
+  // grunt.loadNpmTasks('grunt-contrib-connect');
+  // grunt.loadNpmTasks('grunt-contrib-imagemin');
+  // grunt.loadNpmTasks('grunt-newer');
+  // grunt.loadNpmTasks('grunt-uncss');
 
+  grunt.registerTask('bild', ['css', 'jade']);
+  grunt.registerTask('css', ['less:newestdev','uncss', 'cmq', 'cssmin', 'csso']);
   grunt.registerTask('default', [
     'connect',
-    // 'less',
+    // 'uncss',
     // 'merge-json',
     'watch', 
   ]);
 
-  grunt.event.on('watch', function(action, filepath, target) {
+  // grunt.event.on('watch', function(action, filepath, target) {
 
-    // Перешли на плагин newer //
-    // Земеняем в пути к измененному файлу jade/page на html
-    // var destFilePath = filepath.replace(/jade\\page/, 'html');
-    // Изменяем расширение файла
-    // grunt.log.write(action + ' ------- ' + target);
-
-
-    // if (target == 'jade') {
-    //   var destFilePath = filepath.replace(/jade/g, 'html');
-    //   grunt.log.write(filepath + ' ------- ' + destFilePath);
-    //   // 'page' task jade 
-    //   grunt.config(['jade', 'page', 'files'], [
-    //     {src: filepath, dest: destFilePath }
-    //   ]);
-    // }
-
-
-  });
+  // });
 
 
 

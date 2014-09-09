@@ -4119,6 +4119,8 @@ table.fr_recipe_tb td { width: 50%;}
     margin: 20px auto;
     background: #f6f6f6;
     background: rgba(255,255,255,0.4);
+
+    .i-highlight {padding: 0;}
     
     a {text-decoration: none;}
     &_hold {
@@ -4129,19 +4131,21 @@ table.fr_recipe_tb td { width: 50%;}
         float: left;
         margin: 1px 15px 0 0;
     }
+    &_img-h img {
+        display: block;
+    }
     &_cont {
         display: block;
         overflow: hidden;
     }
     &_t {
-        display: block;
         font-weight: bold;
         line-height: 16px;
-        margin-bottom: 3px;
         text-decoration: underline;
     }
     &_t:hover {text-decoration: none;}
     &_tx {
+        display: block;
         line-height: 16px;
         text-decoration: none;
         color: #555;

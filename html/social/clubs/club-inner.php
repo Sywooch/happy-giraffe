@@ -452,9 +452,10 @@ $(document).ready(function () {
 								<span class="adfox-banner-html_img-h adfox-banner-html_img-h__nutella">
 									<!--  -->
 									<img src="/images/banners/post-199812.jpg" alt="" class="adfox-banner-html_img">
+									<img src="http://content.adfox.ru/transparent.gif" border="0" width="1" height="1">
 								</span>
 								<span class="adfox-banner-html_cont">
-									<span class="adfox-banner-html_t">Чистим уши ребенку: без хлопот и боли. Узнать здесь!</span>
+									<span class="adfox-banner-html_t"><span class="i-highlight">Чистим уши ребенку: без хлопот и боли. </span> Узнать здесь!</span>
 								</span>
 							</span>
 							<!-- /%user1%  -->

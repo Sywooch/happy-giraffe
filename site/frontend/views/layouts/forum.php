@@ -51,22 +51,6 @@
             <?php $this->endWidget(); ?>
         <?php endif; ?>
 
-        <?php $this->renderPartial('_users2'); ?>
-
-        <?php if ($this->action->id == 'view'): ?>
-            <?php $this->beginWidget('AdsWidget'); ?>
-            <div class="banner">
-                <?php $this->renderPartial('//banners/_sidebar'); ?>
-            </div>
-            <?php $this->endWidget(); ?>
-        <?php endif; ?>
-
-        <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
-
-        <?php if (false): ?>
-            <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
-        <?php endif; ?>
-
         <?php if ($this->action->id == 'view'): ?>
             <!--AdFox START-->
             <!--giraffe-->
@@ -98,39 +82,24 @@
                 // -->
             </script>
             <!--AdFox END-->
+        <?php endif; ?>
 
-            <?php if (false): ?>
+        <?php $this->renderPartial('_users2'); ?>
+
+        <?php if ($this->action->id == 'view'): ?>
+            <?php $this->beginWidget('AdsWidget'); ?>
             <div class="banner">
-                <!--  AdRiver code START. Type:extension Site:  PZ: 0 BN: 0 -->
-                <script type="text/javascript">
-                    (function(L){if(typeof(ar_cn)=="undefined")ar_cn=1;
-                        var S='setTimeout(function(e){if(!self.CgiHref){document.close();e=parent.document.getElementById("ar_container_"+ar_bnum);e.parentNode.removeChild(e);}},3000);',
-                            j=' type="text/javascript"',t=0,D=document,n=ar_cn;L='' + ('https:' == document.location.protocol ? 'https:' : 'http:') + ''+L+escape(D.referrer||'unknown')+'&rnd='+Math.round(Math.random()*999999999);
-                        function _(){if(t++<100){var F=D.getElementById('ar_container_'+n);
-                            if(F){try{var d=F.contentDocument||(window.ActiveXObject&&window.frames['ar_container_'+n].document);
-                                if(d){d.write('<sc'+'ript'+j+'>var ar_bnum='+n+';'+S+'<\/sc'+'ript><sc'+'ript'+j+' src="'+L+'"><\/sc'+'ript>');t=0}
-                                else setTimeout(_,100);}catch(e){try{F.src="javascript:{document.write('<sc'+'ript"+j+">var ar_bnum="+n+"; document.domain=\""
-                                +D.domain+"\";"+S+"<\/sc'+'ript>');document.write('<sc'+'ript"+j+" src=\""+L+"\"><\/sc'+'ript>');}";return}catch(E){}}}else setTimeout(_,100);}}
-                        D.write('<div style="visibility:hidden;height:0px;left:-1000px;position:absolute;"><iframe id="ar_container_'+ar_cn
-                            +'" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div><div id="ad_ph_'+ar_cn
-                            +'" style="display:none;"><\/div>');_();ar_cn++;
-                    })('//ad.adriver.ru/cgi-bin/erle.cgi?sid=196494&bt=49&target=blank&tail256=');
-                </script>
-                <!--  AdRiver code END  -->
+                <?php $this->renderPartial('//banners/_sidebar'); ?>
             </div>
-            <?php endif; ?>
+            <?php $this->endWidget(); ?>
+        <?php endif; ?>
 
-            <?php if (false && $this->action->id == 'view'): ?>
-                <div class="contest-tizer contest-tizer__13 clearfix">
-                    <div class="contest-tizer_img">
-                        <img alt="" src="/images/contest/contest-tizer_img__13.jpg">
-                    </div>
-                    <div class="contest-tizer_hold">
-                        <div class="contest-tizer_tx">Внимание! с 4 декабря стартовал фотоконкурс</div>
-                        <a class="contest-tizer_a" href="http://www.happy-giraffe.ru/contest/13/">Моя любимая игрушка</a>
-                    </div>
-                </div>
-            <?php endif; ?>
+        <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
+
+        <?php $this->renderPartial('//banners/popular'); ?>
+
+        <?php if (false): ?>
+            <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
         <?php endif; ?>
     </div>
 

@@ -24,7 +24,7 @@ class DefaultCommand extends \CConsoleCommand
             echo "deferredWrite:\n$key\n\n";
         });
 
-        // Эта функция спакетно создает миниатюры для загруженных/обновленных изображений
+        // Эта функция пакетно создает миниатюры для загруженных/обновленных изображений
         \Yii::app()->gearman->worker()->addFunction('createThumbs', function($job) {
             $photoId = $job->workload();
             $photo = Photo::model()->findByPk($photoId);

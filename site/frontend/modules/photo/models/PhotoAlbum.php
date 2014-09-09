@@ -34,16 +34,10 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
-			array('description, author_id', 'required'),
-			array('title', 'length', 'max'=>255),
-			array('author_id', 'length', 'max'=>11),
-			array('created, updated', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, created, updated, author_id', 'safe', 'on'=>'search'),
+			array('title', 'required'),
+			array('title', 'length', 'max' => 150),
+			array('description', 'length', 'max' => 450),
 		);
 	}
 
@@ -52,8 +46,6 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
 	 */
 	public function relations()
 	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
 		return array(
 			'author' => array(self::BELONGS_TO, 'Users', 'author_id'),
 		);
@@ -72,36 +64,6 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
 			'updated' => 'Updated',
 			'author_id' => 'Author',
 		);
-	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return \CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
-		$criteria=new \CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
-		$criteria->compare('author_id',$this->author_id,true);
-
-		return new \CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
 	}
 
 	/**

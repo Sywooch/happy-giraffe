@@ -113,9 +113,13 @@ $data['currentRubricId'] = $this->rubric_id;
             </div>
             <?php Yii::endProfile('rubrics'); ?>
 
+            <?php if (false): ?>
             <?php Yii::beginProfile('popular'); ?>
             <?php $this->renderPartial('_popular'); ?>
             <?php Yii::endProfile('popular'); ?>
+            <?php endif; ?>
+
+            <?php $this->renderPartial('//banners/popular'); ?>
 
         </div>
     

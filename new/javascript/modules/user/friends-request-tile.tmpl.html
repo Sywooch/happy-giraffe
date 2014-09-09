@@ -1,6 +1,6 @@
 <li class="friends-list_li" data-bind="fadeVisible: userIsVisible">
     <div class="friends-list_i">
-        <!-- ko if: $data.constructor.name == 'OutgoingFriendRequest' -->
+        <!-- ko if: type == 'outgoing' -->
         <span title="Отменить приглашение" data-bind="click: clickHandler" class="ico-close2 powertip"></span>
         <!-- /ko -->
         <div class="b-ava-large">
@@ -15,7 +15,7 @@
             <div class="location location__small clearfix" data-bind="visible: user.location !== null, html: user.location"></div>
             <div class="b-family" data-bind="visible: user.family !== null, html: user.family"></div>
         </div>
-        <!-- ko if: $data.constructor.name == 'IncomingFriendRequest' -->
+        <!-- ko if: type == 'incoming' -->
         <div class="friend-offer">
             <div class="friend-offer_hold">
                 <div class="friend-offer_btns"><a class="btn-green-simple btn-s" data-bind="click: accept">Принять</a><a href="" title="Отклонить" data-bind="click: decline" class="ico-cancel powertip">&#8211;</a></div>

@@ -1,0 +1,35 @@
+/* post-list-simple */
+.post-list-simple {
+    margin: 20px 0;
+    
+    // .b-tags {margin-top: 0;}
+    .tx-date {
+        padding: 0 5px;
+    }
+    &_li {
+        margin: 10px 0;
+        max-width: 450px;
+    }
+    &_t {
+        display: block;
+        margin: 2px 0;
+        font-size: 18px;
+        font-weight: bold;
+        color: @color-link-title;
+    }
+    &_t-a {
+        color: @color-link-title;
+        text-decoration: none;
+    }
+    &_t-a:hover {text-decoration: underline;}
+
+    @media (min-width: @screen-desktop) {
+        &_li {
+            display: inline-block;
+            vertical-align: top;
+            width: 400px;
+            margin-right: 35px;
+        }
+    }
+}
+/* /post-list-simple */

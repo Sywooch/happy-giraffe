@@ -429,7 +429,7 @@ function openPopup(el) {
 function FriendButtonViewModel(data) {
     var self = this;
 
-    console.log(data);
+    //console.log(data);
 
     self.id = data.id;
     self.status = ko.observable(data.status);

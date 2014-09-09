@@ -54,6 +54,28 @@
                 return { controlsDescendantBindings: true };
             }
         };
+        
+        ko.bindingHandlers.tooltipster = {
+            init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                $(element)
+                    .tooltipster({contentAsHTML: true, content: ko.bindingHandlers.tooltipster.getHTML(valueAccessor)});
+            },
+            update: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+                $(element)
+                    .tooltipster({contentAsHTML: true, content: ko.bindingHandlers.tooltipster.getHTML(valueAccessor)});
+            },
+            getHTML: function(valueAccessor) {
+                var text = ko.utils.unwrapObservable(valueAccessor());
+                /** @todo придумать что-ть лучше */
+                return $('<textarea />').html(text).text();
+            }
+        };
+
+        ko.bindingHandlers.stopBinding = {
+            init: function() {
+                return { controlsDescendantBindings: true };
+            }
+        };
 
         ko.virtualElements.allowedBindings.stopBinding = true;
 
@@ -344,13 +366,17 @@
                 var settings = $.extend( {}, defaults, options );
 
                 var self = ko.bindingHandlers.moment;
+                
+                var $el = $(element);
+                var text = self.formatDate(settings);
+                $el.text(text);
                 if(settings.autoUpdate) {
                     self.addElement({
                         config: settings,
-                        element: element
+                        $: $el,
+                        text: text
                     });
                 }
-                $(element).text(self.formatDate(settings));
             },
             formatDate: function(settings) {
                 var self = ko.bindingHandlers.moment;
@@ -374,7 +400,11 @@
             tick: function() {
                 var self = ko.bindingHandlers.moment;
                 ko.utils.arrayForEach(self.elements, function(data) {
-                    $(data.element).text(self.formatDate(data.config));
+                    var time = self.formatDate(data.config);
+                    if(data.text !== time) {
+                        data.$.text(time);
+                        data.text = time;
+                    }
                 });
             }
         }
@@ -611,13 +641,13 @@
         };
     };
     if (typeof define === 'function' && define['amd']) {
-        define('ko_library', ['knockout', 'moment', 'wysiwyg'], f);
+        define('ko_library', ['knockout', 'moment', 'wysiwyg', 'common'], f);
         require(["knockout", "knockout-amd-helpers", "text"], function(ko) {
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
             ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
             ko.amdTemplateEngine.defaultRequireTextPluginName = "text";
         });
     } else {
-        f(window.ko, window.moment);
+        f(window.ko, window.moment, window.hgwysiwyg);
     }
 })(window);

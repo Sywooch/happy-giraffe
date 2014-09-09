@@ -1,0 +1,334 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/services.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__bg1 body__lite">
+  <div class="layout-container">
+    <div class="layout-loose layout-loose__white">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest header__simple">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        var $this = $(this),
+                            activeClass = 'active';
+                            
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                        
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                              
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                          
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                        
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                  });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__club">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
+                      <div class="header-popup_club">
+                        <!-- 18 клубов-->
+                        <div class="b-clubs">
+                          <ul class="b-clubs_ul">
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__1"></div>
+                                <div class="b-clubs_tx">Планирование</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__2"></div>
+                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__3"></div>
+                                <div class="b-clubs_tx">Дети до года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__4"></div>
+                                <div class="b-clubs_tx">Дети старше года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__5"></div>
+                                <div class="b-clubs_tx">Дошкольники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__6"></div>
+                                <div class="b-clubs_tx">Школьники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__7"></div>
+                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__8"></div>
+                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__9"></div>
+                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__10"></div>
+                                <div class="b-clubs_tx">Сад и огород</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__11"></div>
+                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__12"></div>
+                                <div class="b-clubs_tx">Красота и мода</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__13"></div>
+                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__14"></div>
+                                <div class="b-clubs_tx">Свадьба</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__15"></div>
+                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__16"></div>
+                                <div class="b-clubs_tx">Рукоделие</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__17"></div>
+                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__18"></div>
+                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <!-- Класс active отвечает за видимость попапапа-->
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__msg">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                      <div class="header-popup_msg"></div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+              </ul>
+            </div>
+            <!-- /header-menu-->
+            <div class="sidebar-search clearfix sidebar-search__big">
+              <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+            </div>
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <!-- b-main -->
+        <div class="b-main clearfix">
+          <!-- Хлебные крошки-->
+          <div class="b-main_cont">
+            <div class="b-crumbs b-crumbs__s">
+              <div class="b-crumbs_tx">Я здесь:</div>
+              <ul class="b-crumbs_ul">
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная </a></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Календарь беременности </a></li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">3 неделя беременности </span></li>
+              </ul>
+            </div>
+          </div>
+          <!-- Заголовок страницы-->
+          <div class="b-main_cont">
+            <div class="b-main_col-wide">   
+              <h1 class="heading-link-xxl heading-link-xxl__center">3 неделя беременности</h1>
+            </div>
+            <table class="article-nearby clearfix">
+              <tr>
+                <td><a href="#" class="article-nearby_a article-nearby_a__l"><span class="article-nearby_tx">2-я неделя </span></a></td>
+                <td><a href="#" class="article-nearby_a article-nearby_a__r"><span class="article-nearby_tx">4-я неделя</span></a></td>
+              </tr>
+            </table>
+          </div>
+          <!-- Контент -->
+          <div class="services-calendars services-calendars__pregnancy">
+            <div class="b-main_cont">
+              <div class="b-main_col-article b-main_col-article__center wysiwyg-content">
+                <p><em>На седьмом месяце жизни ребёнок уже знает своё имя и интересуется отражением в зеркале.</em></p>
+                <p></p>
+                <div class="b-border-img">
+                  <!-- изображения можно взять из старой версии сервиса--><img src="/lite/images/services/calendar-pregnancy/week-5.jpg" alt="5 неделя беременности" width="270" height="270">
+                </div>
+                <h2 class="heading-m">Зигота</h2>
+                <p>После слияния со сперматозоидом, яйцеклетка, ещё в маточной трубе, по пути в матку начинает делиться. Теперь это зигота – скопление клеток, именно она попадает обычно в полость матки. Зигота как бы приклеивается к эндометрию. Начинается процесс имплантации – оплодотворенная яйцеклетка внедряется в маточную стенку. При этом её наружная оболочка как бы прорастает в стенку матки, начинают формироваться сосуды, которые будут питать развивающийся организм. Теперь он, кстати, называется эмбрионом и его вес к концу третьей недели составляет менее трети грамма.</p>
+                <!-- Список-->
+                <div class="calendar-serv-note">
+                  <script>
+                    $(window).ready(function () {
+                        var docWidth = $(document).width();
+                        if (docWidth > 640 && docWidth < 1000) {
+                            $('.calendar-serv-note_count').css({'right': (1000 - docWidth)/2})
+                        }
+                    });
+                  </script>
+                  <div class="calendar-serv-note_count">40</div>
+                  <div class="b-main_col-article b-main_col-article__center">
+                    <h2 class="calendar-serv-note_t">На 3 неделе беременности</h2>
+                    <ul class="calendar-serv-note_ul">
+                      <li class="calendar-serv-note_li">Начинается первая неделя фактической</li>
+                      <li class="calendar-serv-note_li">Оплодотворенная яйцеклетка внедряется в стенку матки</li>
+                      <li class="calendar-serv-note_li">Формируется эмбрион, который к концу недели весит меньше трети грамма</li>
+                      <li class="calendar-serv-note_li">Базальная температура стойко держится выше 37 градусов по Цельсию</li>
+                      <li class="calendar-serv-note_li">40% беременностей самопроизвольно прерываются именно на этом сроке</li>
+                      <li class="calendar-serv-note_li">Аптечный тест на беременность - отрицательный</li>
+                    </ul>
+                  </div>
+                </div>
+                <h2 class="heading-m">Что со мной?</h2>
+                <p>В организме будущей мамы произошли большие изменения, но этого ещё никому не заметно, да и редко какие женщины сами могут с уверенностью сказать, что зачатие произошло.</p>
+                <p>Однако бывает и такое, что практически с первого дня беременности начинается токсикоз, который часто принимают за отравление или симптом другой интоксикации.</p>
+                <p>Внимательная женщина отметит у себя умеренное набухание грудей, внезапную раздражительность или плаксивость, быструю утомляемость, изменение вкусовых пристрастий, усиление ощущения запахов, некоторые из которых становятся особо неприятными. Так и тянет съесть что-нибудь, но выбрать это «что-то» оказывается не так просто – то запах не тот, то тошнота подкатит. Если измерять базальную температуру, то она окажется постоянно-повышенной – чуть более 37 градусов.</p>
+                <h2 class="heading-m">Визит к врачу? Зачем?</h2>
+                <p>Учёные подсчитали, что около 40% беременностей заканчивается именно на этом сроке, они проходят совершенно незаметно, в худшем случае женщина отметит у себя небольшую задержку менструации. Но до задержки – ещё целая неделя. Поэтому к врачу на этом сроке, будущие мамы обычно не приходят.</p>
+                <p>Некоторые, почувствовав у себя подозрительные симптомы, покупают такой доступный и простой тест на беременность. Конечно, на этом сроке, вероятность увидеть положительный результат является очень низкой – уровень ХГЧ недостаточен для проявления второй полоски.</p>
+                <p>Если вам за 35, то помните о том, что возрастает риск хромосомных аномалий у плода, особенно в том случае, если оплодотворена «стареющая» яйцеклетка – та, которая уже была не в трубе, а в матке и, практически, готовилась покинуть женский организм. Поэтому не допускайте незащищенных половых актов в день после овуляции.</p>
+                <!-- Реклама яндекса-->
+                <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
+              </div>
+            </div>
+            <!-- Сервисы-->
+            <div class="b-main_row services-fast margin-b0">
+              <div class="b-main_cont">
+                <div class="services-fast_hold">
+                  <div class="b-main_col-article b-main_col-article__center">
+                    <div class="services-fast_t heading-m">Полезные сервисы. Попробуйте!</div>
+                    <ul class="services-fast_ul">
+                      <li class="services-fast_li"><a href="#" class="services-fast_a">
+                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_1.png" alt="">
+                            <div class="verticalalign-m-help"></div>
+                          </div>
+                          <div class="services-fast_tx">Выбор имени <br>для ребенка</div></a></li>
+                      <li class="services-fast_li"><a href="#" class="services-fast_a">
+                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_9.png" alt="">
+                            <div class="verticalalign-m-help"></div>
+                          </div>
+                          <div class="services-fast_tx">Тест на <br>беременность</div></a></li>
+                      <li class="services-fast_li"><a href="#" class="services-fast_a">
+                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_8.png" alt="">
+                            <div class="verticalalign-m-help"></div>
+                          </div>
+                          <div class="services-fast_tx">Определение<br>пола ребенка</div></a></li>
+                      <li class="services-fast_li"><a href="#" class="services-fast_a">
+                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_5.png" alt=""></div>
+                          <div class="services-fast_tx">Вес при<br>беремеенности</div></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- баннер на всю ширину-->
+            <!-- Изабражение вставляется через background для поизиционирования через css-->
+            <style type="text/css">
+              /* Ширина изображения 600px */
+              .ban-read-more {
+                  background-image: url('/lite/images/banner/calendar-pregnancy-w600-1.jpg');
+              }
+              /* Ширина изображения до 1000px*/
+              @media (min-width: 640px) {
+                  .ban-read-more {
+                      background-image: url('/lite/images/banner/calendar-pregnancy-w1000-1.jpg');
+                  }
+              }
+            </style>
+            <div class="ban-read-more hidden-md">
+              <div class="ban-read-more_hold">
+                <div class="ban-read-more_cont">
+                  <div class="ban-read-more_t-sub">следующая неделя</div>
+                  <div class="ban-read-more_t">4 неделя беременности</div>
+                  <div class="ban-read-more_desc">На четвертой неделе беременности ваш малыш напоминает крохотный диск ... </div><span class="ban-read-more_arrow"></span>
+                </div>
+              </div>
+            </div>
+            <!-- /баннер-->
+          </div>
+        </div>
+        <!-- b-main -->
+        <!-- layout-footer-->
+        <div class="layout-footer clearfix">
+          <div class="layout-footer_hold">
+            <ul class="footer-list">
+              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+            </ul>
+            <ul class="footer-menu visible-md">
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
+            </ul>
+            <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+            <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+          </div>
+        </div>
+        <!-- /layout-footer-->
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

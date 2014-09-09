@@ -66,13 +66,44 @@ mixin side-menu__friend(mod)
                             span.side-menu_tx Давай дружить
                             span.side-menu_count 1
                         span.verticalalign-m-help
+                //- li.side-menu_li
+                //-     a.side-menu_i(href="")
+                //-         span.side-menu_i-hold
+                //-             span.side-menu_ico.side-menu_ico__advice
+                //-             span.side-menu_tx Жираф советует!
+                //-             span.side-menu_count-sub 59
+                        span.verticalalign-m-help
+    // /side-menu
+
+
+//- Друзья
+//- .side-menu
+//- Фильтр пользователей
+    mod
+mixin side-menu__notice(mod)
+    // side-menu
+    .side-menu(class=mod)
+        .side-menu_hold
+            .side-menu_t.side-menu_t__notice
+            ul.side-menu_ul
                 li.side-menu_li
                     a.side-menu_i(href="")
                         span.side-menu_i-hold
-                            span.side-menu_ico.side-menu_ico__advice
-                            span.side-menu_tx Жираф советует!
-                            span.side-menu_count-sub 59
+                            span.side-menu_ico.side-menu_ico__notice
+                            span.side-menu_tx Новые 
+                            span.side-menu_count 154
                         span.verticalalign-m-help
+                li.side-menu_li.active
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__notice-arhive
+                            span.side-menu_tx Архив
+                        span.verticalalign-m-help
+                li.side-menu_li
+                    a.side-menu_i(href="")
+                        span.side-menu_i-hold
+                            span.side-menu_ico.side-menu_ico__hg
+                            span.side-menu_tx Веселый </br> Жираф!
     // /side-menu
 
 

@@ -1,0 +1,691 @@
+include ../../block/config
+extend ../../extend/layout_header_nosearch
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'blog.css'; 
+    
+block layout
+
+    // b-main 
+    .b-main.clearfix
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="") Главная
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Поиск по сайту
+        .b-main_cont
+            .b-main_col-hold.clearfix
+                .b-main_col-article
+                    
+                    h1.heading-link-xxl Результат поиска
+            .b-main_col-hold.clearfix
+
+                ///////
+                // Основная колонка
+                .b-main_col-article
+
+                    style.
+                        #ya-site-form0,#ya-site-form0 .ya-site-form__form,#ya-site-form0 .ya-site-form__input,#ya-site-form0 .ya-site-form__input-text,#ya-site-form0 .ya-site-form__submit,#ya-site-form0 .ya-site-form__search-precise{font-size:12px!important;color:#000!important}#ya-site-form0 .ya-site-form__form-form{display:block}#ya-site-form0 .ya-site-form__form-form,#ya-site-form0 .ya-site-form__input,#ya-site-form0 .ya-site-form__search-precise,#ya-site-form0 .ya-site-form__search-precise__radio,#ya-site-form0 .ya-site-form__gap,#ya-site-form0 .ya-site-form__gap-i,#ya-site-form0 .ya-site-form__logo-img{margin:0;padding:0}#ya-site-form0{margin:0!important;padding:0!important}#ya-site-form0 .ya-site-form__logo-wrap{width:65px;vertical-align:top;border-collapse:collapse}#ya-site-form0 .ya-site-form__logo{display:block;width:52px;margin:0;padding:0 6px 0 0;text-decoration:none}#ya-site-form0 .ya-site-form__logo-img{width:52px;height:21px;border:0!important}#ya-site-form0 .ya-site-form__search-wrap{border-collapse:collapse}#ya-site-form0 .ya-site-form__search{font-size:12px!important;width:100%}#ya-site-form0 .ya-site-form__search-input,#ya-site-form0 .ya-site-form__search-precise,{border:0}#ya-site-form0 .ya-site-form__search-input{padding:6px}#ya-site-form0 .ya-site-form__search-input-layout,#ya-site-form0 .ya-site-form__search-input-layout-l,#ya-site-form0 .ya-site-form__search-input-layout-r{font-size:12px!important;padding:0;vertical-align:middle;border:0;border-collapse:collapse}#ya-site-form0 .ya-site-form__search-input-layout,#ya-site-form0 .ya-site-form__search-input-layout-l{width:100%}#ya-site-form0 .ya-site-form__search-precise{padding:0 18px 5px 6px;text-align:left;vertical-align:top}#ya-site-form0 .ya-site-form__search-precise-i{white-space:nowrap}#ya-site-form0 .ya-site-form__search-precise__radio{width:auto;margin:0 .3em 0 0;vertical-align:middle;background:none}#ya-site-form0 .ya-site-form__search-precise__label{margin:0 .4em 0 0;padding:0;vertical-align:middle}#ya-site-form0 .ya-site-form__input-text{width:100%;margin:0!important;cursor:text;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;background-color:#fff;border:1px solid #7f9db9;outline-style:none}#ya-site-form0 .ya-site-form__input-text_type_hint{background-repeat:no-repeat;background-position:.2em 50%}#ya-site-form0 .ya-site-form__submit{display:block;width:auto;margin:0 0 0 5px}#ya-site-form0 .ya-site-form__arrow-wrap{overflow:hidden;width:30px;padding:0;vertical-align:middle}#ya-site-form0 .ya-site-form__arrow{position:relative}#ya-site-form0 .ya-site-form__arrow-a{position:absolute;top:50%;right:0;width:0;height:0;margin-top:-59px;border:solid transparent;border-width:59px 0 59px 30px;-moz-border-end-style:dotted}#ya-site-form0 .ya-site-form__wrap{width:100%;table-layout:fixed;border-collapse:collapse}#ya-site-form0 .ya-site-form__gap{border:0}#ya-site-form0 .ya-site-form__gap-i{width:9em}#ya-site-form0.ya-site-form_arrow_yes .ya-site-form__search-input{padding-right:0}#ya-site-form0.ya-site-form_logo_left .ya-site-form__logo{margin-top:4px;margin-left:5px}#ya-site-form0.ya-site-form_logo_top .ya-site-form__logo{display:block;margin:6px 0 0 6px}#ya-site-form0 .ya-site-form__submit_type_image{width:19px;height:15px;outline:none;cursor:pointer;border:0}#ya-site-form0 .ya-site-form__submit_type_image { background: url(http://site.yandex.net/v2.0/i/search.png) no-repeat }#ya-site-form0 .ya-site-form__form .ya-site-form__input-text::-webkit-input-placeholder{color:#000000;}#ya-site-form0 .ya-site-form__form .ya-site-form__input-text:-moz-placeholder{color:#000000;}#ya-site-form0 .ya-site-form__form .ya-site-form__input-text::-moz-placeholder{color:#000000;}#ya-site-form0 .ya-site-form__form .ya-site-form__input-text:-ms-input-placeholder{color:#000000;}#ya-site-form0 .ya-site-form__form * { font-size: 12px !important }#ya-site-form0 .ya-site-form__form .ya-site-form__input-text { font-style: normal!important }#ya-site-form0 .ya-site-form__form .ya-site-form__input-text { font-weight: normal!important }#ya-site-form0 .ya-site-form__form .ya-site-form__input-text { color: #000000!important }#ya-site-form0 .ya-site-form__form .ya-site-form__input-text { border-color: #7f9db9!important }#ya-site-form0 .ya-site-form__form .ya-site-form__input-text:focus { border-color: #7f9db9!important }#ya-site-form0 .ya-site-form__form .ya-site-form__input-text { background-color: #ffffff!important }#ya-site-form0 .ya-site-form__search, #ya-site-form0 .ya-site-form__search td, #ya-site-form0 .yaform__precise-i { background-color: transparent !important }#ya-site-form0 .ya-site-form__search-precise__label { color:#000000 !important }#ya-site-form0 .ya-site-form__arrow-a { border-left-color: transparent }
+                    style.
+                      .b-loader__paranja{position:absolute;top:0;left:0;width:100%;height:100%;background-color:#fff;opacity:.8;filter:alpha(opacity=80);z-index:998}.b-loader__paranja-iframe{position:absolute;top:0;left:0;width:100%;height:100%;opacity:0;filter:alpha(opacity=0);border:0}.b-loader__ext-wrapper{position:absolute;top:0;left:0;width:97%;background-color:#fff;z-index:999;padding:20px 0 20px 3%}#ya-site-results .results__loading{min-height:80px}.b-loader__wrapper{color:inherit!important;width:auto;height:3em;padding:.5em 0 0}.b-loader__progress{width:100%;height:1em;background:url(http://site.yandex.net/v2.0/i/loader__progress.gif) repeat-x}
+                    script(type='text/javascript', src='./hg-search_files/_wrapper.js')
+                    link(rel='stylesheet', href='http://yastatic.net/sitesearch2/0xcd62cb1/pages/search-htmlcss/_search-htmlcss.css')
+                    script(type='text/javascript', charset='utf-8', async='', data-requirecontext='_', data-requiremodule='package-lite(1)', src='./hg-search_files/picturefill.min.js')
+                    script(type='text/javascript', charset='utf-8', async='', data-requirecontext='_', data-requiremodule='package-comet(1)', src='./hg-search_files/comet.js')
+                    style.
+                      #ya-site-form0 .ya-site-suggest{position:relative;margin:0 4.85em 0 0}#ya-site-form0 .ya-site-suggest-popup{position:absolute;width:100%}#ya-site-form0 .ya-site-suggest__opera-gap{position:absolute;height:25em;border:1px solid transparent}#ya-site-form0 .ya-site-suggest-list{position:absolute;z-index:9999;overflow:hidden;min-width:25em;max-width:100%;margin-top:-1px;border-collapse:separate;-webkit-box-shadow:0 1px 7px #9a9a9a;-moz-box-shadow:0 1px 7px #9a9a9a;box-shadow:0 1px 7px #9a9a9a;border:1px solid #dedede;border-color:rgba(154,154,154,0.5);border-top-color:rgba(154,154,154,0.4);border-bottom-color:rgba(154,154,154,0.6)}#ya-site-form0 .ya-site-suggest-list{box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box}#ya-site-form0 .ya-site-suggest__iframe{position:absolute;z-index:-1;min-width:25em;width:100%;height:100%;background:#fff}#ya-site-form0 .ya-site-suggest-items{font-size:16px;min-width:25em;width:100%;margin:0;padding:0 1px 0 0;list-style:none}#ya-site-form0 .ya-site-suggest-items li{margin:0;padding:0;line-height:normal}#ya-site-form0 .ya-site-suggest-elem{display:block;padding:.25em .3em;cursor:pointer;background:url()}#ya-site-form0 a.ya-site-suggest-elem:link,#ya-site-form0 a.ya-site-suggest-elem:visited{text-decoration:none}html body #ya-site-form0 .ya-site-suggest-elem:link,html body #ya-site-form0 .ya-site-suggest-elem-link{color:#000!important}#ya-site-form0 .ya-site-suggest-elem:hover,html body #ya-site-form0 .ya-site-suggest-elem_state_hover{background:#fef6d7}#ya-site-form0 .ya-site-suggest-elem_nav:hover,#ya-site-form0 .ya-site-suggest-elem_translate:hover{text-decoration:none;color:#000!important}#ya-site-form0 .ya-site-suggest-elem_nav .ya-site-suggest__link{text-decoration:underline;color:#1a3dc1}#ya-site-form0 .ya-site-suggest-elem_translate .ya-site-suggest__link{text-decoration:underline;color:#000}#ya-site-form0 .ya-site-suggest-elem .ya-site-suggest__info{white-space:nowrap;color:#666}#ya-site-form0 .ya-site-suggest-elem_selected{background:#fdedaf}#ya-site-form0 .ya-site-suggest__fact{color:#555}#ya-site-form0 .ya-site-suggest__highlight{font-weight:bold}
+                    script(type='text/javascript', charset='utf-8', async='', data-requirecontext='_', data-requiremodule='package-common(0)', src='./hg-search_files/jquery.magnific-popup.js')
+                    script(type='text/javascript', charset='utf-8', async='', data-requirecontext='_', data-requiremodule='package-common(1)', src='./hg-search_files/select2.js')
+                    link(rel='search', type='application/opensearchdescription+xml', title='search', href='http://yandex.ru/sitesearch/opensearch.xml?ShortName=search&InputEncoding=utf-8&Image=&Url-results=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26web%3D0%26text%3D%7BsearchTerms%7D&Url-suggest=http%3A%2F%2Fsitesuggest.yandex.ru%2Fsuggest-ya.cgi%3Fv%3D2%26site%3D%25232166305%26lang%3Dru%26part%3D%7BsearchTerms%7D&Url-opensearchdescr=%2F%2Fyandex.ru%2Fsitesearch%2Fopensearch.xml%3FShortName%3Dsearch%26InputEncoding%3Dutf-8%26Image%3D%26Url-results%3Dhttp%253A%252F%252Fyellow.dev.happy-giraffe.ru%252Fsearch%252F%253Fsearchid%253D2166305%2526web%253D0%2526text%253D%257BsearchTerms%257D%26Url-suggest%3Dhttp%253A%252F%252Fsitesuggest.yandex.ru%252Fsuggest-ya.cgi%253Fv%253D2%2526site%253D%2525232166305%2526lang%253Dru%2526part%253D%257BsearchTerms%257D')
+                    style.
+                      #ya-site-results{color: #000000;background: #FFFFFF;}#ya-site-results .b-pager__current, #ya-site-results .b-serp-item__number{color: #000000 !important;}#ya-site-results{font-family: Arial !important;}#ya-site-results :visited, #ya-site-results .b-pager :visited, #ya-site-results .b-foot__link:visited, #ya-site-results .b-copyright__link:visited{color: #800080;}#ya-site-results a:link, #ya-site-results a:active, #ya-site-results .b-pseudo-link, #ya-site-results .b-head-tabs__link, #ya-site-results .b-head-tabs__link:link, #ya-site-results .b-head-tabs__link:visited, #ya-site-results .b-dropdown__list .b-pseudo-link, #ya-site-results .b-dropdowna__switcher .b-pseudo-link, .b-popupa .b-popupa__content .b-menu__item, #ya-site-results .b-foot__link:link, #ya-site-results .b-copyright__link:link, #ya-site-results .b-serp-item__mime, #ya-site-results .b-pager :link{color: #0033FF;}#ya-site-results :link:hover, #ya-site-results :visited:hover, #ya-site-results .b-pseudo-link:hover{color: #FF0000 !important;}#ya-site-results .l-page, #ya-site-results .b-bottom-wizard{font-size: 13px;}#ya-site-results .b-pager{font-size: 1.25em;;}#ya-site-results .b-serp-item__text, #ya-site-results .ad{font-style: normal;font-weight: normal;} #ya-site-results .b-serp-item__title-link, #ya-site-results .ad .ad-link{font-style: normal;font-weight: normal;}#ya-site-results .ad .ad-link a{font-weight: bold;font-size: 0.88em;}#ya-site-results .b-serp-item__title, #ya-site-results .ad .ad-link{font-size: 16px;}#ya-site-results .b-serp-item__title-link:link, #ya-site-results .b-serp-item__title-link{font-size: 1em;}#ya-site-results .b-serp-item__number{font-size: 13px;}#ya-site-results .b-serp-url, #ya-site-results .b-direct .url, #ya-site-results .b-direct .url a:link, #ya-site-results .b-direct .url a:visited{font-size: 13px;font-style: normal;font-weight: normal;color: #329932;}#ya-site-results .b-serp-item__links-link{font-size: 13px;font-style: normal;font-weight: normal;color: #000000 !important;}#ya-site-results .b-pager__inactive, #ya-site-results .b-serp-item__from, #ya-site-results .b-direct__head-link, #ya-site-results .b-image__title, #ya-site-results .b-video__title{color: #000000 !important;}#ya-site-results .b-pager__current, #ya-site-results .b-pager__select{background: #E0E0E0;}#ya-site-results .b-foot, #ya-site-results .b-line{border-top-color: #E0E0E0;}#ya-site-results .b-dropdown__popup .b-dropdown__list, .b-popupa .b-popupa__content{background-color: #FFFFFF;}.b-popupa .b-popupa__tail{border-color: #E0E0E0 transparent;}.b-popupa .b-popupa__tail-i{border-color: #FFFFFF transparent;}.b-popupa_direction_left.b-popupa_theme_ffffff .b-popupa__tail-i,.b-popupa_direction_right.b-popupa_theme_ffffff .b-popupa__tail-i{border-color: transparent #FFFFFF;}#ya-site-results .b-dropdowna__popup .b-menu_preset_vmenu .b-menu__separator{border-color: #E0E0E0;}.b-specification-list, .b-specification-list .b-pseudo-link, .b-specification-item__content label, .b-specification-item__content .b-link, .b-specification-list .b-specification-list__reset .b-link{color: #000000 !important;font-family: Arial;font-size: 13px;font-style: normal;font-weight: normal;}.b-specification-item__content .b-calendar__title{font-family: Arial;color: #000000;font-size: 13px;font-style: normal;font-weight: normal;}.b-specification-item__content .b-calendar-month__day_now_yes{color: #E0E0E0;}.b-specification-item__content .b-calendar .b-pseudo-link{color: #000000;}.b-specification-item__content{font-family:Arial!important;font-size: 13px;}.b-specification-item__content :visited{color: #800080;}.b-specification-item__content .b-pseudo-link:hover, .b-specification-item__content :visited:hover{color: #FF0000 !important;}
+
+
+                    #ya-site-form0.ya-site-form.ya-site-form_bg_transparent.ya-site-form_inited_yes
+                        .ya-site-form__form
+                            table.ya-site-form__wrap(cellpadding='0', cellspacing='0')
+                                tbody
+                                    tr
+                                        td.ya-site-form__search-wrap
+                                            table.ya-site-form__search(cellpadding='0', cellspacing='0')
+                                                tbody
+                                                    tr
+                                                        td.ya-site-form__search-input
+                                                            table.ya-site-form__search-input-layout
+                                                                tbody
+                                                                    tr
+                                                                        td.ya-site-form__search-input-layout-l
+                                                                            .ya-site-form__input
+                                                                                input.ya-site-form__input-text(name='text', type='text', value='', placeholder='', autocomplete='off')
+                                                                                .ya-site-suggest
+                                                                                    .ya-site-suggest-popup(style='display: none;')
+                                                                                        i.ya-site-suggest__opera-gap
+                                                                                        .ya-site-suggest-list
+                                                                                            iframe.ya-site-suggest__iframe
+                                                                                            ul.ya-site-suggest-items
+                                                                                                li
+                                                                                                    span.ya-site-suggest-elem.ya-site-suggest-elem-link
+                                                                                                        span.ya-site-suggest__content привет сочи
+                                                                                                li
+                                                                                                    span.ya-site-suggest-elem.ya-site-suggest-elem-link
+                                                                                                        span.ya-site-suggest__content привет как дела
+                                                                                                li
+                                                                                                    span.ya-site-suggest-elem.ya-site-suggest-elem-link
+                                                                                                        span.ya-site-suggest__content привет билайн
+                                                                                                li
+                                                                                                    span.ya-site-suggest-elem.ya-site-suggest-elem-link
+                                                                                                        span.ya-site-suggest__content привет ру
+                                                                                                li
+                                                                                                    span.ya-site-suggest-elem.ya-site-suggest-elem-link
+                                                                                                        span.ya-site-suggest__content привет джули
+                                                                                                li
+                                                                                                    span.ya-site-suggest-elem.ya-site-suggest-elem-link
+                                                                                                        span.ya-site-suggest__content приветствие
+                                                                                                li
+                                                                                                    span.ya-site-suggest-elem.ya-site-suggest-elem-link
+                                                                                                        span.ya-site-suggest__content приветик
+                                                                                                li
+                                                                                                    span.ya-site-suggest-elem.ya-site-suggest-elem-link
+                                                                                                        span.ya-site-suggest__content привет картинки
+                                                                                                li
+                                                                                                    span.ya-site-suggest-elem.ya-site-suggest-elem-link
+                                                                                                        span.ya-site-suggest__content привет по испански
+                                                                                                li
+                                                                                                    span.ya-site-suggest-elem.ya-site-suggest-elem-link
+                                                                                                        span.ya-site-suggest__content приветствие в стихах
+                                                                        td.ya-site-form__search-input-layout-r
+                                                                            input.ya-site-form__submit.ya-site-form__submit_type_image(type='button', value='')
+                                                    tr
+                                                        td.ya-site-form__gap
+                                                            .ya-site-form__gap-i
+                    style.
+                        .ya-page_js_yes .ya-site-form_inited_no{display: none;}
+                    script(type='text/javascript', async='', charset='utf-8', src='http://site.yandex.net/v2.0/js/all.js')
+                    script(type='text/javascript', async='', charset='utf-8', src='http://site.yandex.net/v2.0/js/all.js')
+                    script.
+                        (function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');
+                    #ya-site-results
+                        div(style='position: relative;')
+                            yass-div.b-wrapper.b-wrapper_is-bem_yes.i-bem.b-wrapper_js_inited(onclick='return { "b-wrapper" : {}}', style='display: block;')
+                                .bhead_result
+                                    | Найдено 
+                                    b 3490
+                                    | &nbsp;ответов
+                                table.b-head.b-head_type_search-simple
+                                    tbody
+                                        tr
+                                            td.b-head__l
+                                                a.b-head__link.g-png(href='http://www.yandex.ru/?clid=123468', onmousedown='w(this, "202.175.179");', target='_top')
+                                                    img.b-head__logo(src='http://yandex.st/sitesearch2/35.5//blocks/l-head/ru/yandex52x21x24-rb.png', alt='Яндекс')
+                                            td.b-head__r
+                                                yass-div.b-head__found нашёл 3521 ответ 
+                                        tr
+                                            td.b-head__specify(colspan='2')
+                                                yass-div.b-specification-list
+                                                    yass-div.b-specification-item.b-specification-item_type_tree.b-specification-item_htmlcss_yes.i-bem(onclick='return {"b-specification-item":{"baseURL":"/sitesearch?html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&tld=ru&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}')
+                                                        | раздел
+                                                        yass-div.b-dropdowna.b-dropdowna_color_black.b-dropdowna_is-bem_yes.i-bem(onclick='return {"b-dropdowna":{}}')
+                                                            yass-span.b-dropdowna__switcher
+                                                                yass-span.b-pseudo-link.b-pseudo-link_is-bem_yes.i-bem(onclick='return {"b-pseudo-link":{}}') любой
+                                                            yass-div.b-popupa.b-popupa_type_htmlcss.b-popupa_theme_ffffff.b-popupa_direction_down.b-dropdowna__popup.b-dropdowna__popup_color_black.i-bem(onclick='return {"b-popupa":{}}')
+                                                                yass-i.b-popupa__tail
+                                                                    yass-i.b-popupa__tail-i
+                                                                yass-i.b-popupa__close
+                                                                yass-i.b-popupa__shadow
+                                                                table.b-popupa__wrap(cellpadding='0', cellspacing='0')
+                                                                    tbody
+                                                                        tr
+                                                                            td.b-popupa__wrap-cell
+                                                                                yass-div.b-popupa__content.b-specification-item__content
+                                                                                    yass-div.b-menu.b-menu_layout_vert.b-menu_preset_vmenu-theme.b-menu_theme_plain
+                                                                                        yass-ul.b-menu__layout-vert
+                                                                                            yass-li.b-menu__layout-vert-cell.b-menu__layout-vert-cell_position_first
+                                                                                                yass-div.b-menu__item
+                                                                                                    yass-span.b-form-checkbox.b-form-checkbox_size_13.b-form-checkbox.i-bem.b-form-checkbox_js_inited(onclick='return {"b-form-checkbox":{}}')
+                                                                                                        input#constraintid_0.b-form-checkbox__checkbox(value='0', name='constraintid', type='checkbox')
+                                                                                                        yass-i.b-form-checkbox__bg
+                                                                                                            yass-i.b-form-checkbox__tick
+                                                                                                    label(for='constraintid_0')  Клубы
+                                                                                            yass-li.b-menu__layout-vert-cell.b-menu__layout-vert-cell_position_last
+                                                                                                yass-div.b-menu__item
+                                                                                                    yass-span.b-form-checkbox.b-form-checkbox_size_13.b-form-checkbox.i-bem.b-form-checkbox_js_inited(onclick='return {"b-form-checkbox":{}}')
+                                                                                                        input#constraintid_1.b-form-checkbox__checkbox(value='1', name='constraintid', type='checkbox')
+                                                                                                        yass-i.b-form-checkbox__bg
+                                                                                                            yass-i.b-form-checkbox__tick
+                                                                                                    label(for='constraintid_1')  Блоги
+                                                                                    yass-div.b-specification-item__button-wrap
+                                                                                        yass-span.b-form-button.b-form-button_theme_grey-19.b-form-button_height_19.b-specification-item__button.i-bem(onclick='return {"b-form-button":{}}', role='button')
+                                                                                            yass-i.b-form-button__left
+                                                                                            yass-span.b-form-button__content
+                                                                                                yass-span.b-form-button__text OK
+                                                                                            input.b-form-button__input(type='button', value='')
+                                                    yass-div.b-specification-item.b-specification-item_type_date.b-specification-item_htmlcss_yes.i-bem(onclick='return {"b-specification-item":{"baseURL":"/sitesearch?html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&tld=ru&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}')
+                                                        | за
+                                                        yass-div.b-dropdowna.b-dropdowna_color_black.b-dropdowna_is-bem_yes.i-bem(onclick='return {"b-dropdowna":{}}')
+                                                            yass-span.b-dropdowna__switcher
+                                                                yass-span.b-pseudo-link.b-pseudo-link_is-bem_yes.i-bem(onclick='return {"b-pseudo-link":{}}') любое число
+                                                            yass-div.b-popupa.b-popupa_type_htmlcss.b-popupa_theme_ffffff.b-popupa_direction_down.b-dropdowna__popup.b-dropdowna__popup_color_black.i-bem(onclick='return {"b-popupa":{}}')
+                                                                yass-i.b-popupa__tail
+                                                                    yass-i.b-popupa__tail-i
+                                                                yass-i.b-popupa__close
+                                                                yass-i.b-popupa__shadow
+                                                                table.b-popupa__wrap(cellpadding='0', cellspacing='0')
+                                                                    tbody
+                                                                        tr
+                                                                            td.b-popupa__wrap-cell
+                                                                                yass-div.b-popupa__content.b-specification-item__content
+                                                                                    yass-div.b-calendar.i-bem(onclick='return {"b-calendar":{"constraintid":"2"}}')
+                                                                                        yass-div.b-calendar__title Дата
+                                                                                        yass-div.b-calendar__form
+                                                                                            yass-div.b-calendar__input
+                                                                                                yass-span.b-form-input.b-form-input_size_13.i-bem.b-form-input_js_inited(onclick='return {"b-form-input":{}}')
+                                                                                                    yass-span.b-form-input__box
+                                                                                                        input#id-0.8387767791282386.b-form-input__input(name='', value='')
+                                                                                            yass-span.b-calendar__dash —
+                                                                                            yass-div.b-calendar__input
+                                                                                                yass-span.b-form-input.b-form-input_size_13.i-bem.b-form-input_js_inited(onclick='return {"b-form-input":{}}')
+                                                                                                    yass-span.b-form-input__box
+                                                                                                        input#id-0.0988122837152332.b-form-input__input(name='', value='')
+                                                                                        yass-div.b-calendar__hint Пример: 23.12.2011
+                                                                                        yass-div.b-calendar__choose-pseudo-link
+                                                                                            yass-span.b-pseudo-link.i-bem(onclick='return {"b-pseudo-link":{}}') любая
+                                                                                            yass-span.b-pseudo-link.i-bem(onclick='return {"b-pseudo-link":{"within":"777","to":"01.08.2014","from":"01.08.2014"}}') сегодня
+                                                                                            yass-span.b-pseudo-link.i-bem(onclick='return {"b-pseudo-link":{"within":"777","to":"31.07.2014","from":"31.07.2014"}}') вчера
+                                                                                            yass-span.b-pseudo-link.i-bem(onclick='return {"b-pseudo-link":{"within":"777","to":"01.08.2014","from":"25.07.2014"}}') неделю
+                                                                                            yass-span.b-pseudo-link.i-bem(onclick='return {"b-pseudo-link":{"within":"777","to":"01.08.2014","from":"01.07.2014"}}') месяц
+                                                                                            yass-span.b-pseudo-link.i-bem(onclick='return {"b-pseudo-link":{"within":"777","to":"01.08.2014","from":"01.08.2013"}}') год
+                                                                                    yass-div.b-specification-item__button-wrap
+                                                                                        yass-span.b-form-button.b-form-button_theme_grey-19.b-form-button_height_19.b-specification-item__button.i-bem(onclick='return {"b-form-button":{}}', role='button')
+                                                                                            yass-i.b-form-button__left
+                                                                                            yass-span.b-form-button__content
+                                                                                                yass-span.b-form-button__text OK
+                                                                                            input.b-form-button__input(type='button', value='')
+                                table.l-page.l-page_layout_70-30.l-page_type_search
+                                    tbody
+                                        tr
+                                            td.l-page__col.l-page__left
+                                                yass-div.b-top-wizard
+                                                yass-div.b-body-items
+                                                    yass-ol.b-serp-list
+                                                        yass-li.b-serp-item
+                                                            yass-div.b-serp-item__content
+                                                                b.b-serp-item__number 1.
+                                                                yass-h3.b-serp-item__title
+                                                                    a.b-serp-item__title-link(href='http://www.happy-giraffe.ru/user/15501/blog/post36112/', target='_blank', onmousedown='rc(this, "//yandex.ru/clck/jsredir?from=yandex.ru%3Bsitesearch%3Bweb%3B%3B%2Fsite%2Fweb%2Fitem%2Ftitle%2Cpos%2Cp0%2Csource%2Cweb&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&uuid=&state=AiuY0DBWFJ4ePaEse6rgeM53itaDGmm1oo5mz7V--nem4AYus33ugZVGnNDhU31J42DFiAhZssQTOKNKsc_UEMFru5kQb4JOyBWPzCEb7wxuDVce2ee7RNiMlYNSRw3z06RAjk7ayMMW4CE7VbVFGa1ywro32LhipoSHUwpqgea1DtPfex6OXwq0QaFzFE9TqvRfaReQVX4brrwwGLVdW2YY9Z-8o-L_8JNEHHeF39clMYUMzVov-w&data=UlNrNmk5WktYejR0eWJFYk1LdmtxcllNTnVLd1hmODZGYTBIZTFETVVUYXhnZEJ4Zk44TnYzM0RoR01wLUpEWmNxSHNzUmUxMTA2Z3FVMEItTFpwZGUwVnpjaHZfVk9aa29FQWNWVm5QREVrRVd1dmVBYlVjdE9aMXRZeGpmUGMzcDVWZTFCTlliZnlheTkxZE5vSm1B&b64e=2&sign=8301615d2f896ba74645054a2457e537&keyno=0&l10n=ru")', tabindex='4')
+                                                                        yass-span
+                                                                            b Привет
+                                                                            | !!!!
+                                                                yass-div.b-serp-item__text
+                                                                    b Привет
+                                                                    | !!!! Приветик ВСЕМ, что то я заработалась.... Захожу на сайт на минутку и почти не с кем не общаюсь....
+                                                                yass-div.b-serp-item__links
+                                                                    yass-span.b-serp-url.b-serp-url_inline_yes
+                                                                        yass-span.b-serp-url__item 
+                                                                            a.tsearch_list__title-link(target="_blank", href="http://www.happy-giraffe.ru/pregnancy-and-children/") happy-giraffe.ru/pregnancy-and-children/
+                                                                    yass-span.b-serp-item__links-item
+                                                                        a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F15501%2Fblog%2Fpost36112%2F&tld=ru&lang=ru&la=1404566528&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=75e4674cf9ec897cf7f70bb0fe0dfc52&keyno=0', target='_blank') сохранённая копия
+                                                        yass-li.b-serp-item
+                                                            yass-div.b-serp-item__content
+                                                                b.b-serp-item__number 2.
+                                                                yass-h3.b-serp-item__title
+                                                                    a.b-serp-item__title-link(href='http://www.happy-giraffe.ru/user/15497/blog/post29276/', target='_blank', onmousedown='rc(this, "//yandex.ru/clck/jsredir?from=yandex.ru%3Bsitesearch%3Bweb%3B%3B%2Fsite%2Fweb%2Fitem%2Ftitle%2Cpos%2Cp1%2Csource%2Cweb&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&uuid=&state=AiuY0DBWFJ4ePaEse6rgeM53itaDGmm1oo5mz7V--nfmTgdlj4BfBr_2ZW-XDhVs6e3ZfNYlVWfw17IBUQBV92xj_xgv6ngtwSrZXBD2XGr-jy6HlJ5aOMEpV6PS5CzU448axpcl6TQ7jh0JxRA1WcEAOLDYzJCac_40vx6vkWiBXLxwthKjZpuPaI6NzNVJhYTAtSFZhFiOogk2XgDCQ0i0mGHwHFDQIhR1wYXhkHSLz9S6VgFkLQ&data=UlNrNmk5WktYejR0eWJFYk1LdmtxcllNTnVLd1hmODZGYTBIZTFETVVUYXhnZEJ4Zk44TnYzM0RoR01wLUpEWnJVLXNjeFFiNnF4bFIzNFQtdjNGc1VYd3Z2WXZXMGlSc3BfUHI0ODY5QzJaeE4teHFvU1RRNlgxNU52MGlDYVFfX3dzdXh1S1labUNzYWR1OGVrRDFB&b64e=2&sign=6d089f9ad7194d349450f3e97b263603&keyno=0&l10n=ru")', tabindex='4')
+                                                                        yass-span
+                                                                            | всем
+                                                                            b привет
+                                                                            | !
+                                                                yass-div.b-serp-item__text
+                                                                    b Привет
+                                                                yass-div.b-serp-item__links
+                                                                    yass-span.b-serp-url.b-serp-url_inline_yes
+                                                                        yass-span.b-serp-url__item 
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/15497/blog/post29276/
+                                                                    yass-span.b-serp-item__links-item
+                                                                        a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F15497%2Fblog%2Fpost29276%2F&tld=ru&lang=ru&la=1397028096&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=2657ec9946506f1f9a897bbfc5e8dd16&keyno=0', target='_blank') cохранённая копия
+                                                        yass-li.b-serp-item
+                                                            yass-div.b-serp-item__content
+                                                                b.b-serp-item__number 3.
+                                                                yass-h3.b-serp-item__title
+                                                                    a.b-serp-item__title-link(href='http://www.happy-giraffe.ru/user/189230/blog/post187007/', target='_blank', onmousedown='rc(this, "//yandex.ru/clck/jsredir?from=yandex.ru%3Bsitesearch%3Bweb%3B%3B%2Fsite%2Fweb%2Fitem%2Ftitle%2Cpos%2Cp2%2Csource%2Cweb&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&uuid=&state=AiuY0DBWFJ4ePaEse6rgeM53itaDGmm1oo5mz7V--ndVWvPE221OMs83SJFKgV3zehmtm44nJO7-RXrTT_bM8dd3ID70-a8Jg1cNRyCUSB9jh78Wzeuq-axALqt-57EMDhZJWBLRIfFtYMcrrMv8IR_VNqKBjCwdAJeTHFEW48riLpd4bwsiLRkVDl9mZ1nKiJaV-LwOi3DLA0uoigaT3r6MxVEWT9-nfI73uK_Cv9b1XDt6alw48w&data=UlNrNmk5WktYejR0eWJFYk1LdmtxcllNTnVLd1hmODZGYTBIZTFETVVUYXhnZEJ4Zk44TnYzM0RoR01wLUpEWmJZTU9lNUI5aE1YLVpQODgyemdpdHNLY2JicjgxWWdUUkM0NlU4ZS1HTFFQUWI5bGwxc05GSmswdndnWE9aSk1CazM4djBqTlQyQ3U4WllyWkNOSTEwenI1N1U4VUxTMA&b64e=2&sign=5aef8d1b954c3b5009709ee06a930ffd&keyno=0&l10n=ru")', tabindex='4')
+                                                                        yass-span
+                                                                            b Привет
+                                                                            | , красотулечки!!!!
+                                                                yass-div.b-serp-item__text
+                                                                    b Привет
+                                                                    | , красотулечки!!!! Всем доброго утра, а у кого уже день - доброго дня! Заходите в гости.
+                                                                yass-div.b-serp-item__links
+                                                                    yass-span.b-serp-url.b-serp-url_inline_yes
+                                                                        yass-span.b-serp-url__item 
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/189230/blog/post187007/
+                                                                    yass-span.b-serp-item__links-item
+                                                                        a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F189230%2Fblog%2Fpost187007%2F&tld=ru&lang=ru&la=1406185600&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=1abc1dc4cd3a02074fff24a03614ca2e&keyno=0', target='_blank') сохранённая копия
+                                                        yass-li.b-serp-item
+                                                            yass-div.b-serp-item__content
+                                                                b.b-serp-item__number 4.
+                                                                yass-h3.b-serp-item__title
+                                                                    a.b-serp-item__title-link(href='http://www.happy-giraffe.ru/user/17149/blog/post34160/', target='_blank', onmousedown='rc(this, "//yandex.ru/clck/jsredir?from=yandex.ru%3Bsitesearch%3Bweb%3B%3B%2Fsite%2Fweb%2Fitem%2Ftitle%2Cpos%2Cp3%2Csource%2Cweb&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&uuid=&state=AiuY0DBWFJ4ePaEse6rgeM53itaDGmm1oo5mz7V--nclmenrU0-ZYwO-msucwtc13rRiAYMgyTf0DsOMsx6LThwrVZVdcLVCpWDukWo2qixw17xPttrRdkVXXKLt_O8XVJX_ph11UKQkiDAGvBGPux2VWOpTUfS0XY_kYwahoqzA0j7Y7ZEIwfgthxzkCjshurH4elleL-AWnhdPJokzyLD_GCEC39DnlZaM7qEWGv07QVwyqV2r5Q&data=UlNrNmk5WktYejR0eWJFYk1LdmtxcllNTnVLd1hmODZGYTBIZTFETVVUYXhnZEJ4Zk44TnYzM0RoR01wLUpEWlMwOGdfeUpSVThMU2ZqVVhMRzEwZFZRWFMzRXJYZTBOMzlpY3BBakJFZ1RQVmkwVFhkcUZTMS1PZEwyNFNQdEtVbGVJaWg5dTJOUy00SEtRVjdKSThn&b64e=2&sign=c6d6f63a61c394ab65d8fa9b6e20ca35&keyno=0&l10n=ru")', tabindex='4')
+                                                                        yass-span
+                                                                            | Всем
+                                                                yass-div.b-serp-item__text
+                                                                    b Привет
+                                                                    | Настя, очень рада, тебе понраится в нашей компании.
+                                                                    br
+                                                                    b Привет
+                                                                    | !!! Молодая мама это наверное супер, хотя во всем есть свои плюсы и минусы.
+                                                                yass-div.b-serp-item__links
+                                                                    yass-span.b-serp-url.b-serp-url_inline_yes
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/17149/blog/post34160/
+                                                                    yass-span.b-serp-item__links-item
+                                                                        a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F17149%2Fblog%2Fpost34160%2F&tld=ru&lang=ru&la=1404893568&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=1b6c4cb81c192873aaa153cf0a455651&keyno=0', target='_blank') сохранённая копия
+                                                        yass-li.b-serp-item
+                                                            yass-div.b-serp-item__content
+                                                                b.b-serp-item__number 5.
+                                                                yass-h3.b-serp-item__title
+                                                                    a.b-serp-item__title-link(href='http://www.happy-giraffe.ru/user/80295/blog/post177757/', target='_blank', onmousedown='rc(this, "//yandex.ru/clck/jsredir?from=yandex.ru%3Bsitesearch%3Bweb%3B%3B%2Fsite%2Fweb%2Fitem%2Ftitle%2Cpos%2Cp4%2Csource%2Cweb&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&uuid=&state=AiuY0DBWFJ4ePaEse6rgeM53itaDGmm1oo5mz7V--neJBPZKah7epHocNf-KppJZyXJrNpKsXb5bhpRY10Ctc3utJN-F1CqgizN4cYTTKgypTDDPGspVC-bm1iInTEsnQWey_DMpdOSCXa7Aa-nj461O4bf6hy0SbRW5TbivTQrRO1UAsKJY4JvF455XkrmBd5Zyndb8qQXciMZTDNqB0nHAlndEr_hbS_ACsk38_xAz4G-6guwssA&data=UlNrNmk5WktYejR0eWJFYk1LdmtxcllNTnVLd1hmODZGYTBIZTFETVVUYXhnZEJ4Zk44TnYya1A0c19kNWVGRmdnY1lORWY2a3RyOFJvMlgxOEt6d0tnUHRkUW1SYnlrWVFpY3A1WGtHdGNRbmxUR0FkTHdMdnZlbUF3OTZsY1F1eDNhSEM1WTJNQWMzRkoxR2RreWhMZExzQ0Vpd3BTZQ&b64e=2&sign=9b5eb2904c1c902348b565e7c87c1d6a&keyno=0&l10n=ru")', tabindex='4')
+                                                                        yass-span Давайте знакомиться
+                                                                yass-div.b-serp-item__text
+                                                                    b Привет
+                                                                    | ! Рада познакомится!
+                                                                    br
+                                                                    b Привет
+                                                                    | ,рада знакомству!Присоединяйся в нашу большую семью,у нас здесь весело-в нашей дружной компании.
+                                                                yass-div.b-serp-item__links
+                                                                    yass-span.b-serp-url.b-serp-url_inline_yes
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/80295/blog/post177757/
+                                                                    yass-span.b-serp-item__links-item
+                                                                        a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F80295%2Fblog%2Fpost177757%2F&tld=ru&lang=ru&la=1405917312&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=925a5e34a801576c460664f15f1dfe8e&keyno=0', target='_blank') сохранённая копия
+                                                        yass-li.b-serp-item
+                                                            yass-div.b-serp-item__content
+                                                                b.b-serp-item__number 6.
+                                                                yass-h3.b-serp-item__title
+                                                                    a.b-serp-item__title-link(href='http://www.happy-giraffe.ru/user/147966/blog/post80268/', target='_blank', onmousedown='rc(this, "//yandex.ru/clck/jsredir?from=yandex.ru%3Bsitesearch%3Bweb%3B%3B%2Fsite%2Fweb%2Fitem%2Ftitle%2Cpos%2Cp5%2Csource%2Cweb&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&uuid=&state=AiuY0DBWFJ4ePaEse6rgeM53itaDGmm1oo5mz7V--ne6LW3rFrB6hYEvIGxOPF4F0pcaTrqEzlIhjlbmuhSQ381-LEHK4m_WSsJzvbJIhfbVYybiohNNvlIyl4KpYNEb28QIClJjgih0QDJQQe9wddX8M7UdujgDdVMorQ8b0UxqgPp1qBXpaQfo5cJhNhv_hbOX_NbMnJj62eOLChGPsPrCvZbNp4qEOFOAmqbvI3_hDUslwBo1yQ&data=UlNrNmk5WktYejR0eWJFYk1LdmtxcllNTnVLd1hmODZGYTBIZTFETVVUYXhnZEJ4Zk44TnYzM0RoR01wLUpEWlhmUHo3Wm4yYjJOU0xBV2xrZUhhRHRMWEo5M1Rzcm1xdG1HRVlYQnM2Z1RyX01wZ2JSdno1ZDdheWFkWGpTcGNrNVZ0SmVkcnIzNVFxcTZVZXpaaWVDb1ZEd0FDeTkxbg&b64e=2&sign=1266eb7b41f0b31a73f1aabc5a65b9d5&keyno=0&l10n=ru")', tabindex='4')
+                                                                        yass-span
+                                                                            | Всем
+                                                                            b привет
+                                                                yass-div.b-serp-item__text
+                                                                    | Всем
+                                                                yass-div.b-serp-item__links
+                                                                    yass-span.b-serp-url.b-serp-url_inline_yes
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/147966/blog/post80268/
+                                                                    yass-span.b-serp-item__links-item
+                                                                        a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F147966%2Fblog%2Fpost80268%2F&tld=ru&lang=ru&la=1370481536&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=0e9286bcbce590b153256f7315480889&keyno=0', target='_blank') сохранённая копия
+                                                        yass-li.b-serp-item
+                                                            yass-div.b-serp-item__content
+                                                                b.b-serp-item__number 7.
+                                                                yass-h3.b-serp-item__title
+                                                                    a.b-serp-item__title-link(href='http://www.happy-giraffe.ru/user/19077/blog/post35405/', target='_blank', onmousedown='rc(this, "//yandex.ru/clck/jsredir?from=yandex.ru%3Bsitesearch%3Bweb%3B%3B%2Fsite%2Fweb%2Fitem%2Ftitle%2Cpos%2Cp6%2Csource%2Cweb&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&uuid=&state=AiuY0DBWFJ4ePaEse6rgeM53itaDGmm1oo5mz7V--ndkpvzly0T6HZHl2ICHFgUjD0jO1zeYrisiuhwLPJrMURNnMP42JLqtfIJQ6EXrIAQzzPJYomMc0IsRu9Ny0S8tmSMs6D1ZZ-xhv8IieeCX-N4rxqlfCt8PWmp7qTE-H5QG6_1PEc4NQBR5cqTBlBcQrnU__KUY-lRdqxNdwkEDC_F2ksGiKUu62qULws03pn6cz2VQtXJzQQ&data=UlNrNmk5WktYejR0eWJFYk1LdmtxcllNTnVLd1hmODZGYTBIZTFETVVUYXhnZEJ4Zk44TnYzM0RoR01wLUpEWkU4dllVUWl0bWZGb1ZkOFp2TmJfVVV1TjBHTTJ5d2FkeXBCS0pMQkxHTlgxOVJaSFJQWGdvYnlvamNfNk1TbE16ajhGeGlnbGwzaE80N2JmNVAycTh3&b64e=2&sign=311fdfbb319b857f18e8a0d3d4ff3d3a&keyno=0&l10n=ru")', tabindex='4')
+                                                                        yass-span
+                                                                            | Всем
+                                                                            b привет
+                                                                            | !
+                                                                yass-div.b-serp-item__text
+                                                                    b Привет
+                                                                    | ,
+                                                                yass-div.b-serp-item__links
+                                                                    yass-span.b-serp-url.b-serp-url_inline_yes
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/19077/blog/post35405/
+                                                                    yass-span.b-serp-item__links-item
+                                                                        a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F19077%2Fblog%2Fpost35405%2F&tld=ru&lang=ru&la=1400300544&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=1a4e8a760bdefc61204f81329ac6433d&keyno=0', target='_blank') сохранённая копия
+                                                        yass-li.b-serp-item
+                                                            yass-div.b-serp-item__content
+                                                                b.b-serp-item__number 8.
+                                                                yass-h3.b-serp-item__title
+                                                                    a.b-serp-item__title-link(href='http://www.happy-giraffe.ru/user/15565/blog/post29568/', target='_blank', onmousedown='rc(this, "//yandex.ru/clck/jsredir?from=yandex.ru%3Bsitesearch%3Bweb%3B%3B%2Fsite%2Fweb%2Fitem%2Ftitle%2Cpos%2Cp7%2Csource%2Cweb&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&uuid=&state=AiuY0DBWFJ4ePaEse6rgeM53itaDGmm1oo5mz7V--nfJwECUvTnuW2K0ObI6_VqQ7NN8LAXIdGa2LwRJpnheJXjpyf0mhZqxUaJwhhEMwXArQ3c_6Wu4gb2UK-LCyaA_KToEgNKXfOOL9aJv_SlS8f2NqojcLdJoFgGnixYoCn_e-ZyKgOjibiK95UJkOQUZEfExFXvXg4nZNYEM63vx7hihi0ogWZtgIbPFdaSyJ-synUmNDuoI4g&data=UlNrNmk5WktYejR0eWJFYk1LdmtxcllNTnVLd1hmODZGYTBIZTFETVVUYXhnZEJ4Zk44TnYzM0RoR01wLUpEWndKTlNENjhZV0dSTUdoUjNNbkQ3QW1xOFVZSTc0WTZMYXhqN0cxUXdXcTZWZS05SHBLM1AtaVRmckFOSUpvakFlZElPa0N2RlFoMElMcGcxRW8zdHNR&b64e=2&sign=a249e170528956c933249d850d99e853&keyno=0&l10n=ru")', tabindex='4')
+                                                                        yass-span
+                                                                            | Всем
+                                                                            b привет
+                                                                            | !
+                                                                yass-div.b-serp-item__text
+                                                                    b Привет
+                                                                    | , вливайся, у нас весело, рассказывай что новенького, чем интерисуешься?
+                                                                yass-div.b-serp-item__links
+                                                                    yass-span.b-serp-url.b-serp-url_inline_yes
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/15565/blog/post29568/
+                                                                    yass-span.b-serp-item__links-item
+                                                                        a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F15565%2Fblog%2Fpost29568%2F&tld=ru&lang=ru&la=1387159040&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=e8ac615693bc10c76b3e89b0e6c34bad&keyno=0', target='_blank') сохранённая копия
+                                                        yass-li.b-serp-item
+                                                            yass-div.b-serp-item__content
+                                                                b.b-serp-item__number 9.
+                                                                yass-h3.b-serp-item__title
+                                                                    a.b-serp-item__title-link(href='http://www.happy-giraffe.ru/user/15501/blog/post29285/', target='_blank', onmousedown='rc(this, "//yandex.ru/clck/jsredir?from=yandex.ru%3Bsitesearch%3Bweb%3B%3B%2Fsite%2Fweb%2Fitem%2Ftitle%2Cpos%2Cp8%2Csource%2Cweb&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&uuid=&state=AiuY0DBWFJ4ePaEse6rgeM53itaDGmm1oo5mz7V--ndwaXZk4x_7cVL8celq-nftNBfO7ovFtEpLkxlX5wzPwV70I7EzklK9Ppcg-Yt0Xq11TBHzzHgF50w9u586x5OQxNt3AncVrX5S809Vc0egW6CVHtWf3yu0-NOHcJd89T_wM57Nhbsk6C4sVZlw5xfPF_3VqUOAKXk65hk94r9ss97vEZ7s-JcR3050AIQMmJYYQgJm8_Q-1Q&data=UlNrNmk5WktYejR0eWJFYk1LdmtxcllNTnVLd1hmODZGYTBIZTFETVVUYXhnZEJ4Zk44TnYzM0RoR01wLUpEWmNxSHNzUmUxMTA2Z3FVMEItTFpwZFpnQzktYkhFUGxaYVQ3Y1IyTjFuaF9ubDZ5MXlpZUlzVUlOT05wVDl2aWFlbHIycEtWTXpqY29GQ0lQaGJVSHdn&b64e=2&sign=9c82d80d13c94a7022b822ba85cec7b4&keyno=0&l10n=ru")', tabindex='4')
+                                                                        yass-span Давайте знакомиться!!!
+                                                                yass-div.b-serp-item__text
+                                                                    b Привет
+                                                                    | всем, только что зарегестрировалась, хотелось бы найти новых друзей!!!
+                                                                yass-div.b-serp-item__links
+                                                                    yass-span.b-serp-url.b-serp-url_inline_yes
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/15501/blog/post29285/
+                                                                    yass-span.b-serp-item__links-item
+                                                                        a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F15501%2Fblog%2Fpost29285%2F&tld=ru&lang=ru&la=1406051072&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=3e6fb34ebbb06466fc9e239343df5144&keyno=0', target='_blank') сохранённая копия
+                                                        yass-li.b-serp-item
+                                                            yass-div.b-serp-item__content
+                                                                b.b-serp-item__number 10.
+                                                                yass-h3.b-serp-item__title
+                                                                    a.b-serp-item__title-link(href='http://www.happy-giraffe.ru/user/114288/blog/post67702/', target='_blank', onmousedown='rc(this, "//yandex.ru/clck/jsredir?from=yandex.ru%3Bsitesearch%3Bweb%3B%3B%2Fsite%2Fweb%2Fitem%2Ftitle%2Cpos%2Cp9%2Csource%2Cweb&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&uuid=&state=AiuY0DBWFJ4ePaEse6rgeM53itaDGmm1oo5mz7V--nfYJOZkMxKfXXB21Z_GwYC8zNcOjF3TBaKbLlEXYGKwsBbRtRJBzOQBnnO2yjtoIYhzKUO-Ew0Icn7zrBPh9LIzn6w95Z6E67zZc9sZgN9A7AR8vMUApVlBFOVxSi91shDnH78IB5k8j5UnoNNFUcvTNPZTnAalECAnBZ0RBCCMv1c1_H27oo75QFplgMVGgoqLU_-lgvbrsg&data=UlNrNmk5WktYejR0eWJFYk1LdmtxcllNTnVLd1hmODZGYTBIZTFETVVUYXhnZEJ4Zk44TnYzM0RoR01wLUpEWnozOUxaMGktZUVEeE5SaTNtZHVjSEw5dWpmMXZOUG93UmxhSFM1ZFQ1cWxIczNHanZLb2ZYWmNCZlZJZlg5bzlGdzNCNU1MVk1vRVNfLXEydjExYTJ2WWk1ckY5VUNjbQ&b64e=2&sign=3c76b30a847aa383f3d87d187a65e3bd&keyno=0&l10n=ru")', tabindex='4')
+                                                                        yass-span
+                                                                            | Всем
+                                                                            b привет
+                                                                            | !!!
+                                                                yass-div.b-serp-item__text
+                                                                    b Привет
+                                                                    | всем!!! Вот зарегистрировалась на жирафе. Надеюсь будет интересно мне и всем моим новым знакомым.
+                                                                yass-div.b-serp-item__links
+                                                                    yass-span.b-serp-url.b-serp-url_inline_yes
+                                                                        yass-span.b-serp-url__item
+                                                                            a.tsearch_list__title-link(target="_blank", href="") happy-giraffe.ru/user/114288/blog/post67702/
+                                                                    yass-span.b-serp-item__links-item
+                                                                        a.b-serp-item__links-link(href='http://hghltd.yandex.net/yandbtm?fmode=inject&url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F114288%2Fblog%2Fpost67702%2F&tld=ru&lang=ru&la=1406117120&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&l10n=ru&mime=html&sign=16191faf2a0d86fc19044c75bd2f26aa&keyno=0', target='_blank') сохранённая копия
+                                yass-div.b-bottom-wizard
+                                    yass-div.b-pager.g-gap-vertical.g-gap-horizontal.g-js.b-pager_js_inited(onclick='return {name: "b-pager", keydownReaction: "true", typeHtmlcss: "true"}')
+                                        b.b-pager__title Страницы
+                                        yass-span.b-pager__arrow.b-pager__inactive
+                                            yass-i.b-pager__key
+                                                yass-i.b-pager__arr ←
+                                                | Ctrl
+                                            | предыдущая
+                                        yass-span.b-pager__arrow.b-pager__active
+                                            a.b-pager__next.b-link.b-link_is-bem_yes.b-link_type_htmlcss.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#p=1&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how=', onmousedown='w(this, "405.407");', onclick='return {"b-link":{"url":"/sitesearch?p=1&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}') следующая
+                                            yass-i.b-pager__key
+                                                | Ctrl
+                                                yass-i.b-pager__arr →
+                                        yass-div.b-pager__pages
+                                            b.b-pager__current 1
+                                            a.b-pager__page.b-link.b-link_is-bem_yes.b-link_type_htmlcss.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#p=1&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how=', onmousedown='w(this, "405.86");', onclick='return {"b-link":{"url":"/sitesearch?p=1&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}') 2
+                                            a.b-pager__page.b-link.b-link_is-bem_yes.b-link_type_htmlcss.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#p=2&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how=', onmousedown='w(this, "405.87");', onclick='return {"b-link":{"url":"/sitesearch?p=2&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}') 3
+                                            a.b-pager__page.b-link.b-link_is-bem_yes.b-link_type_htmlcss.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#p=3&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how=', onmousedown='w(this, "405.88");', onclick='return {"b-link":{"url":"/sitesearch?p=3&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}') 4
+                                            a.b-pager__page.b-link.b-link_is-bem_yes.b-link_type_htmlcss.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#p=4&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how=', onmousedown='w(this, "405.89");', onclick='return {"b-link":{"url":"/sitesearch?p=4&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}') 5
+                                            a.b-pager__page.b-link.b-link_is-bem_yes.b-link_type_htmlcss.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#p=5&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how=', onmousedown='w(this, "405.90");', onclick='return {"b-link":{"url":"/sitesearch?p=5&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}') 6
+                                            a.b-pager__page.b-link.b-link_is-bem_yes.b-link_type_htmlcss.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#p=6&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how=', onmousedown='w(this, "405.91");', onclick='return {"b-link":{"url":"/sitesearch?p=6&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}') 7
+                                            a.b-pager__page.b-link.b-link_is-bem_yes.b-link_type_htmlcss.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#p=7&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how=', onmousedown='w(this, "405.92");', onclick='return {"b-link":{"url":"/sitesearch?p=7&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}') 8
+                                            a.b-pager__page.b-link.b-link_is-bem_yes.b-link_type_htmlcss.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#p=8&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how=', onmousedown='w(this, "405.93");', onclick='return {"b-link":{"url":"/sitesearch?p=8&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}') 9
+                                            a.b-pager__page.b-link.b-link_is-bem_yes.b-link_type_htmlcss.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#p=9&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how=', onmousedown='w(this, "405.94");', onclick='return {"b-link":{"url":"/sitesearch?p=9&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}') 10
+                                            a.b-pager__page.b-link.b-link_is-bem_yes.b-link_type_htmlcss.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#p=10&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how=', onclick='return {"b-link":{"url":"/sitesearch?p=10&html=1&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&searchid=2166305&clid=&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0&surl=&constraintid=&date=&within=&from_day=&from_month=&from_year=&to_day=&to_month=&to_year=&refer_site=yellow.dev.happy-giraffe.ru&lr=213&how="}}') …
+                                        yass-div.b-pager__sorted
+                                            | Отсортировано
+                                            b.b-pager__select по релевантности
+                                            a.b-link.b-link_type_htmlcss.b-pager__link.b-link_is-bem_yes.i-bem.b-link_js_inited(href='http://yellow.dev.happy-giraffe.ru/search/?searchid=2166305&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&web=0#to_day=&date=&from_month=&web=0&tld=ru&surl=&html=1&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&refer_site=yellow.dev.happy-giraffe.ru&how=tm&from_year=&searchid=2166305&within=&constraintid=&to_year=&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&clid=&to_month=&from_day=&lr=213', onmousedown='w(this, "353.355");', onclick='return {"b-link":{"url":"/sitesearch?to_day=&date=&from_month=&web=0&tld=ru&surl=&html=1&text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&refer_site=yellow.dev.happy-giraffe.ru&how=tm&from_year=&searchid=2166305&within=&constraintid=&to_year=&topdoc=http%3A%2F%2Fyellow.dev.happy-giraffe.ru%2Fsearch%2F%3Fsearchid%3D2166305%26text%3D%25D0%25BF%25D1%2580%25D0%25B8%25D0%25B2%25D0%25B5%25D1%2582%26web%3D0&clid=&to_month=&from_day=&lr=213"}}') по дате
+                                yass-div.i-counters.i-bem.i-counters_js_inited(onclick='return {"i-counters":{"reqid":"1406879567700327-1369512863409434035927573-sas1-2966-PPS"}}')
+                                    yass-i(style='background:url(//www.tns-counter.ru/V13a****yandex_ru/ru/CP1251/tmsec=yandex_sitesearch/0)')
+                                    yass-i.b-statcounter__pps-metrika(onclick='return "731962"')
+                                    yass-i.b-statcounter__pps-metrika(onclick='return "21832942"')
+                                    yass-i.b-statcounter__statface.b-statcounter__statface_type_rstat
+                                yass-div.b-wrapper__js
+                                yass-div.b-page__js-lego(data-lego='{"login":"","locale":"ru","id":"sitesearch","lego-static-host":"//yastatic.net/lego/2.8-49/","passport-host":"http://passport.yandex.ru","index":true}')
+                                yass-div.b-page__js-report(data-report='{"query":"привет","reqid":"1406879567700327-1369512863409434035927573-sas1-2966-PPS","cltr":1,"reg":"213","dsuf":"ru","lsug":true,"usug":false,"iframe":false}')
+                                yass-div.b-page__user-style-css(data-user-style-css='#ya-site-results{color: #000000;background: #FFFFFF;}#ya-site-results .b-pager__current, #ya-site-results .b-serp-item__number{color: #000000 !important;}#ya-site-results{font-family: Arial !important;}#ya-site-results :visited, #ya-site-results .b-pager :visited, #ya-site-results .b-foot__link:visited, #ya-site-results .b-copyright__link:visited{color: #800080;}#ya-site-results a:link, #ya-site-results a:active, #ya-site-results .b-pseudo-link, #ya-site-results .b-head-tabs__link, #ya-site-results .b-head-tabs__link:link, #ya-site-results .b-head-tabs__link:visited, #ya-site-results .b-dropdown__list .b-pseudo-link, #ya-site-results .b-dropdowna__switcher .b-pseudo-link, .b-popupa .b-popupa__content .b-menu__item, #ya-site-results .b-foot__link:link, #ya-site-results .b-copyright__link:link, #ya-site-results .b-serp-item__mime, #ya-site-results .b-pager :link{color: #0033FF;}#ya-site-results :link:hover, #ya-site-results :visited:hover, #ya-site-results .b-pseudo-link:hover{color: #FF0000 !important;}#ya-site-results .l-page, #ya-site-results .b-bottom-wizard{font-size: 13px;}#ya-site-results .b-pager{font-size: 1.25em;;}#ya-site-results .b-serp-item__text, #ya-site-results .ad{font-style: normal;font-weight: normal;} #ya-site-results .b-serp-item__title-link, #ya-site-results .ad .ad-link{font-style: normal;font-weight: normal;}#ya-site-results .ad .ad-link a{font-weight: bold;font-size: 0.88em;}#ya-site-results .b-serp-item__title, #ya-site-results .ad .ad-link{font-size: 16px;}#ya-site-results .b-serp-item__title-link:link, #ya-site-results .b-serp-item__title-link{font-size: 1em;}#ya-site-results .b-serp-item__number{font-size: 13px;}#ya-site-results .b-serp-url, #ya-site-results .b-direct .url, #ya-site-results .b-direct .url a:link, #ya-site-results .b-direct .url a:visited{font-size: 13px;font-style: normal;font-weight: normal;color: #329932;}#ya-site-results .b-serp-item__links-link{font-size: 13px;font-style: normal;font-weight: normal;color: #000000 !important;}#ya-site-results .b-pager__inactive, #ya-site-results .b-serp-item__from, #ya-site-results .b-direct__head-link, #ya-site-results .b-image__title, #ya-site-results .b-video__title{color: #000000 !important;}#ya-site-results .b-pager__current, #ya-site-results .b-pager__select{background: #E0E0E0;}#ya-site-results .b-foot, #ya-site-results .b-line{border-top-color: #E0E0E0;}#ya-site-results .b-dropdown__popup .b-dropdown__list, .b-popupa .b-popupa__content{background-color: #FFFFFF;}.b-popupa .b-popupa__tail{border-color: #E0E0E0 transparent;}.b-popupa .b-popupa__tail-i{border-color: #FFFFFF transparent;}.b-popupa_direction_left.b-popupa_theme_ffffff .b-popupa__tail-i,.b-popupa_direction_right.b-popupa_theme_ffffff .b-popupa__tail-i{border-color: transparent #FFFFFF;}#ya-site-results .b-dropdowna__popup .b-menu_preset_vmenu .b-menu__separator{border-color: #E0E0E0;}.b-specification-list, .b-specification-list .b-pseudo-link, .b-specification-item__content label, .b-specification-item__content .b-link, .b-specification-list .b-specification-list__reset .b-link{color: #000000 !important;font-family: Arial;font-size: 13px;font-style: normal;font-weight: normal;}.b-specification-item__content .b-calendar__title{font-family: Arial;color: #000000;font-size: 13px;font-style: normal;font-weight: normal;}.b-specification-item__content .b-calendar-month__day_now_yes{color: #E0E0E0;}.b-specification-item__content .b-calendar .b-pseudo-link{color: #000000;}.b-specification-item__content{font-family:Arial!important;font-size: 13px;}.b-specification-item__content :visited{color: #800080;}.b-specification-item__content .b-pseudo-link:hover, .b-specification-item__content :visited:hover{color: #FF0000 !important;}')
+                                yass-div.b-page__opensearch(data-opensearch='{"rel":"search","type":"application/opensearchdescription+xml","action":"http://www.happy-giraffe.ru/search/","title":"search","href":"http://yandex.ru/sitesearch/opensearch.xml?ShortName=search&InputEncoding=utf-8&Image=http%3A%2F%2Fyastatic.net%2Flego%2F_%2FpDu9OWAQKB0s2J9IojKpiS_Eho.ico&Url-results=%PATH%%3Fsearchid%3D2166305%26web%3D0%26text%3D%7BsearchTerms%7D&Url-suggest=http%3A%2F%2Fsitesuggest.yandex.ru%2Fsuggest-ya.cgi%3Fv%3D2%26site%3D%25232166305%26lang%3Dru%26part%3D%7BsearchTerms%7D"}')
+
+                                ///////////
+                                //
+                                //  Поисковая технология
+                                .ya-copy
+                                    | Поисковая технология
+                                    a(href='http://site.yandex.ru/?from=serp', title='Яндекс', target='_blank')
+                                        img(alt='Яндекс', src='http://yandex.st/sitesearch2/35.5//blocks/l-head/ru/yandex52x21x24-rb.png', height='14', style='vertical-align: middle; padding: 0 0 0 4px;')
+
+                    script.
+                        (function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0];s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Results.init();})})(window,document,'yandex_site_callbacks');
+
+                                        
+                    style.
+                        #ya-site-results
+                        {
+                            color: #000000;
+                            background: #FFFFFF;
+                        }
+
+                        #ya-site-results .b-pager__current,
+                        #ya-site-results .b-serp-item__number
+                        {
+                            color: #000000 !important;
+                        }
+
+                        #ya-site-results
+                        {
+                            font-family: Arial !important;
+                        }
+
+                        #ya-site-results :visited,
+                        #ya-site-results .b-pager :visited,
+                        #ya-site-results .b-foot__link:visited,
+                        #ya-site-results .b-copyright__link:visited
+                        {
+                            color: #800080;
+                        }
+
+                        #ya-site-results a:link,
+                        #ya-site-results a:active,
+                        #ya-site-results .b-pseudo-link,
+                        #ya-site-results .b-head-tabs__link,
+                        #ya-site-results .b-head-tabs__link:link,
+                        #ya-site-results .b-head-tabs__link:visited,
+                        #ya-site-results .b-dropdown__list .b-pseudo-link,
+                        #ya-site-results .b-dropdowna__switcher .b-pseudo-link,
+                        .b-popupa .b-popupa__content .b-menu__item,
+                        #ya-site-results .b-foot__link:link,
+                        #ya-site-results .b-copyright__link:link,
+                        #ya-site-results .b-serp-item__mime,
+                        #ya-site-results .b-pager :link
+                        {
+                            color: #0033FF;
+                        }
+
+                        #ya-site-results :link:hover,
+                        #ya-site-results :visited:hover,
+                        #ya-site-results .b-pseudo-link:hover
+                        {
+                            color: #FF0000 !important;
+                        }
+
+                        #ya-site-results .l-page,
+                        #ya-site-results .b-bottom-wizard
+                        {
+                            font-size: 13px;
+                        }
+
+                        #ya-site-results .b-pager
+                        {
+                            font-size: 1.25em;
+                        }
+
+                        #ya-site-results .b-serp-item__text,
+                        #ya-site-results .ad
+                        {
+                            font-style: normal;
+                            font-weight: normal;
+                        }
+
+                        #ya-site-results .b-serp-item__title-link,
+                        #ya-site-results .ad .ad-link
+                        {
+                            font-style: normal;
+                            font-weight: normal;
+                        }
+
+                        #ya-site-results .ad .ad-link a
+                        {
+                            font-weight: bold;
+                        }
+
+                        #ya-site-results .b-serp-item__title,
+                        #ya-site-results .ad .ad-link
+                        {
+                            font-size: 16px;
+                        }
+
+                        #ya-site-results .b-serp-item__title-link:link,
+                        #ya-site-results .b-serp-item__title-link
+                        {
+                            font-size: 1em;
+                        }
+
+                        #ya-site-results .b-serp-item__number
+                        {
+                            font-size: 13px;
+                        }
+
+                        #ya-site-results .ad .ad-link a
+                        {
+                            font-size: 0.88em;
+                        }
+
+                        #ya-site-results .b-serp-url,
+                        #ya-site-results .b-direct .url,
+                        #ya-site-results .b-direct .url a:link,
+                        #ya-site-results .b-direct .url a:visited
+                        {
+                            font-size: 13px;
+                            font-style: normal;
+                            font-weight: normal;
+                            color: #329932;
+                        }
+
+                        #ya-site-results .b-serp-item__links-link
+                        {
+                            font-size: 13px;
+                            font-style: normal;
+                            font-weight: normal;
+                            color: #000000 !important;
+                        }
+
+                        #ya-site-results .b-pager__inactive,
+                        #ya-site-results .b-serp-item__from,
+                        #ya-site-results .b-direct__head-link,
+                        #ya-site-results .b-image__title,
+                        #ya-site-results .b-video__title
+                        {
+                            color: #000000 !important;
+                        }
+
+                        #ya-site-results .b-pager__current,
+                        #ya-site-results .b-pager__select
+                        {
+                            background: #E0E0E0;
+                        }
+
+                        #ya-site-results .b-foot,
+                        #ya-site-results .b-line
+                        {
+                            border-top-color: #E0E0E0;
+                        }
+
+                        #ya-site-results .b-dropdown__popup .b-dropdown__list,
+                        .b-popupa .b-popupa__content
+                        {
+                            background-color: #FFFFFF;
+                        }
+
+                        .b-popupa .b-popupa__tail
+                        {
+                            border-color: #E0E0E0 transparent;
+                        }
+
+                        .b-popupa .b-popupa__tail-i
+                        {
+                            border-color: #FFFFFF transparent;
+                        }
+
+                        .b-popupa_direction_left.b-popupa_theme_ffffff .b-popupa__tail-i,
+                        .b-popupa_direction_right.b-popupa_theme_ffffff .b-popupa__tail-i
+                        {
+                            border-color: transparent #FFFFFF;
+                        }
+
+                        #ya-site-results .b-dropdowna__popup .b-menu_preset_vmenu .b-menu__separator
+                        {
+                            border-color: #E0E0E0;
+                        }
+
+                        .b-specification-list,
+                        .b-specification-list .b-pseudo-link,
+                        .b-specification-item__content label,
+                        .b-specification-item__content .b-link,
+                        .b-specification-list .b-specification-list__reset .b-link
+                        {
+                            color: #000000 !important;
+                            font-family: Arial;
+                            font-size: 13px;
+                            font-style: normal;
+                            font-weight: normal;
+                        }
+
+                        .b-specification-item__content .b-calendar__title
+                        {
+                            font-family: Arial;
+                            color: #000000;
+                            font-size: 13px;
+                            font-style: normal;
+                            font-weight: normal;
+                        }
+
+                        .b-specification-item__content .b-calendar-month__day_now_yes
+                        {
+                            color: #E0E0E0;
+                        }
+
+                        .b-specification-item__content .b-calendar .b-pseudo-link
+                        {
+                            color: #000000;
+                        }
+
+                        .b-specification-item__content
+                        {
+                            font-family: Arial !important;
+                            font-size: 13px;
+                        }
+
+                        .b-specification-item__content :visited
+                        {
+                            color: #800080;
+                        }
+
+                        .b-specification-item__content .b-pseudo-link:hover,
+                        .b-specification-item__content :visited:hover
+                        {
+                            color: #FF0000 !important;
+                        }
+
+                        #ya-site-results .b-popupa .b-popupa__tail-i
+                        {
+                            background: #FFFFFF;
+                            border-color: #E0E0E0 !important;
+                        }
+
+
+
+                    // Тема для поиска на Веселом Жирафе
+                    | <link rel="stylesheet" type="text/css" href="/lite/css/dev/search.css" />
+
+                    // В верстке не работает, так как поиск уже загружен
+                    script.
+                        $(document).bind('yass.ready', function(event) {
+
+                            $('.b-pager__current').css('cssText', 'color: #fff !important');
+                            $('.b-head tr:first').hide();
+
+                            var bhead_result = $('.b-head__found').text();
+                            var bhead_result_nstr = bhead_result.substring(6); //без "нашел"
+                            var bhead_result_n = parseInt(bhead_result_nstr); // число
+                            var bhead_result_nl = (bhead_result_n+'').length; // длина строки числа
+                            var bhead_result_text = bhead_result.substring(bhead_result_nl+6); //без "нашел число"
+                            $('.bhead_result').remove();
+                            if ( bhead_result_n > 0 ){
+                                $('#ya-site-results > div > yass-div').prepend('<div class="bhead_result">Яндекс нашёл <b>'+bhead_result_n+'</b>'+bhead_result_text+'</div>');
+                                }
+                            
+                            /*$('.b-bottom-wizard').prepend('<div class="ya-copy">Поисковая технология <a href="http://site.yandex.ru/?from=serp" title="Яндекс" onclick="this.blur();" target="_blank"><img alt="Яндекс" src="http://yandex.st/sitesearch2/35.5//blocks/l-head/ru/yandex52x21x24-rb.png" height="14" style="vertical-align: top; padding: 0 0 0 4px;"></a></div>'); */
+                            
+                            $('.b-wrapper_is-bem_yes').append('<div class="ya-copy">Поисковая технология <a href="http://site.yandex.ru/?from=serp" title="Яндекс" onclick="this.blur();" target="_blank"><img alt="Яндекс" src="http://yandex.st/sitesearch2/35.5//blocks/l-head/ru/yandex52x21x24-rb.png" height="14" style="vertical-align: top; padding: 0 0 0 4px;"></a></div>');  
+                        
+                        });
+                // /Основная колонка
+    
+    +layout-footer-lite('layout-footer__in')

@@ -5,7 +5,6 @@
  */
 (function(window) {
     function f(ko) {
-
         HgWysiwyg.prototype = {
             loaded : false,
             load : function() {
@@ -351,7 +350,7 @@
         return HgWysiwyg;
     };
     if (typeof define === 'function' && define['amd']) {
-        define('wysiwyg', ['knockout', 'imagesLoaded', 'ko_upload', 'chosen'], f);
+        define('wysiwyg', ['knockout', 'imagesLoaded', 'ko_upload', 'chosen', 'redactor'], f);
     } else {
         window.HgWysiwyg = f(ko);
     }

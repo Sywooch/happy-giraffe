@@ -1,11 +1,7 @@
 <?php
 
-class CompatibilityController extends HController
+class CompatibilityController extends LiteController
 {
-
-    public $layout = 'horoscope';
-    public $title;
-    public $social_title;
 
     public function filters()
     {

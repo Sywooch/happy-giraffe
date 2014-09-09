@@ -1,7 +1,7 @@
 
 /*
     Заглушка 
-    cap-empty __abs     __rel   __im-b
+    cap-empty __abs  __rel __im-b  __im-ava  __profile-family  __addPhoto  __addPhotoLink  __gray  __white  __blue
         cap-empty_hold
             cap-empty_img
             cap-empty_t
@@ -30,8 +30,13 @@
         padding: 0;
     }
     &__rel {}
-    &__gray {background: #e6e6e6;}
-    &__white {background: #fff;}
+    &__gray {
+        background: #e6e6e6;
+    }
+    &__white {
+        background: #fff;
+        background: rgba(255,255,255,.95);
+    }
     &__blue {
         background: #4772a7;
         background: rgba(71,114,167,.75);
@@ -55,6 +60,12 @@
     }
     &__im-ava .btn-green {margin-top: 8px;}
     &__im-ava &_tx-sub {color: #a0a09f;}
+
+    &__profile-family {
+        margin-top: 150px;
+        height: 500px;
+    }
+    &__profile-family &_t {margin: 20px;}
 
     &__addPhoto {}
     &__addPhoto &_img {
@@ -94,6 +105,11 @@
     }
     &_img__white {background-position: -60px 0;}
     &_img__smile-gray {background-position: -120px 0;}
+    &_img__family-big {
+        height: 180px;
+        width: 455px;
+        background: url('@{path-img}/base/cap-empty_img__family-big.png') no-repeat 50% 0;
+    }
     &_t {
         margin: 5px 0;
         color: #2d2d2d;
@@ -101,6 +117,9 @@
     }
     &_tx {
         margin: 0 0 5px;
+
+        > a {text-decoration: none;}
+        > a:hover {text-decoration: underline;}
     }
     &_tx-sub {
         margin: 5px 0;

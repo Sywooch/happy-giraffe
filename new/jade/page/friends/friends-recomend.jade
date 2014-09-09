@@ -6,7 +6,7 @@ block layout-wrapper
     .page-col.page-col__friend
         +page-col_top-tabs('', {tabActive: 4, tabsTexts:['Хотят дружить 54', 'Я хочу дружить 16', 'Мои подписчики 16', 'Я подписан 16', 'Рекомендуемые 128']})
         .page-col_cont
-            //- friend-list 
+            // friend-list 
             .friends-list
                 .textalign-c
                     .filter-group
@@ -14,51 +14,27 @@ block layout-wrapper
                         a.filter-group_i Из вашего города 
                         a.filter-group_i По семье 
                         a.filter-group_i По интересам 
-                .heading-smallest
+                .heading-s
                     | Люди вашего города 128
                     a.display-ib.margin-l10.font-n Показать всех 
                 .friends-list_ul
-                    .friends-list_li
-                        .friends-list_i
-                            span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александр Богоявленский', userAge: '42 года', family: true })
-                    .friends-list_li
-                        .friends-list_i
-                            span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', family: true})
-                    .friends-list_li
-                        .friends-list_i
-                            span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', })
+                    +friendsListItem('', friendsListItem.a)
+                    +friendsListItem('', friendsListItem.c)
+                    +friendsListItem('', friendsListItem.a)
                 //// секция с заголовком
-                .heading-smallest
+                .heading-xs
                     | Люди с похожей семьей 2 
                 .friends-list_ul
-                    .friends-list_li
-                        .friends-list_i
-                            span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александр Богоявленский', userAge: '42 года'})
-                    .friends-list_li
-                        .friends-list_i
-                            span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет'})
+                    +friendsListItem('', friendsListItem.c)
+                    +friendsListItem('', friendsListItem.a)
                 //// секция с заголовком      
-                .heading-smallest
+                .heading-xs
                     | Люди с похожими интересами 135
                     a.display-ib.margin-l10.font-n Показать всех 
                 .friends-list_ul
-                    .friends-list_li
-                        .friends-list_i
-                            span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александр Богоявленский', userAge: '42 года'})
-                    .friends-list_li
-                        .friends-list_i
-                            span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет'})
-                    .friends-list_li
-                        .friends-list_i
-                            span.ico-close2.powertip(title="Удалить из друзей")
-                            +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет', })
-            //- /friend-list
+                    +friendsListItem('', friendsListItem.c)
+                    +friendsListItem('', friendsListItem.a)
+                    +friendsListItem('', friendsListItem.c)
+            // /friend-list
 
             

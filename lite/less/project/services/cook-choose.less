@@ -1,0 +1,65 @@
+/* cook-choose */
+.cook-choose {
+    margin: 20px 0;
+    
+
+}
+/* /cook-choose */
+
+
+/* .cook-choose-quality */
+.cook-choose-quality {
+    position: relative;
+
+    &__good {
+        background-color: #effdeb;
+    }
+    &__bad {
+        background-color: #fdf1d7;
+    }
+
+
+    @media (min-width: @screen-phone) {
+        & {
+            padding: 25px 0;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        & {
+            padding: 30px 0;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 0;
+            width: 200px;
+            height: 250px;
+            background: url('@{path-img}/services/cook-choose/cook-choose.png') no-repeat;
+        }
+        &__bad:after {
+            left: auto;
+            right: 0;
+            width: 205px;
+            background-position: -200px 0;
+        }
+        &__good .b-main_cont{
+            min-height: 260px;
+            margin: 0;
+            padding: 0 15% 0 26%;
+        }
+        &__bad .b-main_cont {
+            min-height: 260px;
+            margin: 0;
+            padding: 0 26% 0 15%;
+        }
+    }
+}
+/* /cook-choose-quality */
+
+/* cook-choose-verif */
+.cook-choose-verif {
+
+}
+/* /cook-choose-verif */

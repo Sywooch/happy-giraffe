@@ -1,0 +1,33 @@
+doctype html
+| <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+| <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+include ../block/config
+//- vars from template file
+- var bodyClass = ''; 
+- var global = {}; 
+
+block vars
+    
+//- tag head
++headLite(path, global)
+
+body.body(class='#{bodyClass}')
+    
+    //-///////////////////////////////////////
+    //- Дата последних изменений 
+    //-|  <!-- #{timestamp} -->
+    //-///////////////////////////////////////
+    .layout-container
+        .layout-loose.layout-loose__white
+            .layout-header
+            
+                +headerGuest('header__simple', header.simple)
+            .layout-loose_hold.clearfix
+                block layout
+                
+            //- +btn-scrolltop()
+    .popup-container.display-n  
+        block block-hidden
+            
+    //-+scriptsLite(path)
+| </html>

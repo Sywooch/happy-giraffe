@@ -16,7 +16,9 @@
     "grunt-contrib-cssmin": "~0.9.0",
     "grunt-csso": "latest",
     "grunt-csscomb": "latest",
-    "grunt-contrib-jade": "latest"
-
+    "grunt-svgmin": "latest",
+    "grunt-dr-svg-sprites": "latest",
+    "grunt-contrib-jade": "latest",
+    "grunt-contrib-imagemin": "~0.8.0"
   }
 }

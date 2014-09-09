@@ -1,0 +1,83 @@
+///// Управдение объеденения файлов с помощью less 
+///// Конечный файл не должен превышать 4096 селекторов. Браузеры IE не поддерживают большее количество в одном файле
+
+///// Bootstrap
+@import "bootstrap/bootstrap.less";
+@import "project/bootstrap.hg.less";
+
+///// Переменные и примешивания
+@import "include/variables.less";
+@import "include/mixins.less";
+
+///// Обнуление и приведение свойств элементов к кроссбарузерности
+@import "base/main.less";
+
+///// Базовые Слой
+@import "base/base.less";
+@import "base/body.less";
+@import "base/buttons.less";
+@import "base/ico.less";
+@import "base/item.less";
+@import "base/flag.less";
+
+// Спрайты
+@import "sprite/ico-arrow-sprite.less";
+@import "sprite/ico-club-sprite.less";
+
+///// Plugin
+// old 
+@import "../../less/plugins/jquery.fancybox-1.3.4.less";
+@import "../../less/project/chzn.less";
+@import "../../redactor/redactor.less";
+@import "/plugins/redactor.hg.less";
+
+@import "plugins/magnific-popup.less";
+@import "plugins/baron.less";
+@import "plugins/select2.less";
+@import "plugins/select2.hg.less";
+@import "plugins/tooltipster.less";
+
+
+///// Проектные стили
+@import "project/article.less";
+@import "project/ava.less";
+@import "project/b-add-img.less";
+@import "project/b-calendar.less";
+@import "project/b-clubs.less";
+@import "project/b-main.less";
+@import "project/b-settings-blue.less";
+@import "project/b-tags.less";
+@import "project/b-status.less";
+@import "project/banner.less";
+@import "project/bootstrap.hg.less";
+@import "project/calendar-serv-note.less";
+@import "project/club-list.less";
+@import "project/col-link.less";
+@import "project/calendar-serv.less";
+@import "project/comments.less";
+@import "project/footer.less";
+@import "project/form.less";
+@import "project/header.less";
+@import "project/header-popup.less";
+@import "project/list-subsribe-users.less";
+@import "project/map-route.less";
+@import "project/popup.less";
+@import "project/popup-sign.less";
+@import "project/postAdd.less";
+@import "project/post-list-simple.less";
+@import "project/privacy-select.less";
+@import "project/site-map.less";
+@import "project/services-fast.less";
+@import "project/services-calendars.less";
+@import "project/traditional-recipes.less";
+@import "project/yiipagination.less";
+@import "project/userAddRecord.less";
+@import "project/yandex-search-form.less";
+
+
+/////// Стили для документации
+@import "project/docs.less";
+
+
+///// Косметические стили
+@import "cosmetic/cosmetic.less";

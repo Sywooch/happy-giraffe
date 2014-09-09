@@ -1,10 +1,6 @@
 ///// Управдение объеденения файлов с помощью less 
 ///// Конечный файл не должен превышать 4096 селекторов. Браузеры IE не поддерживают большее количество в одном файле
 
-///// Обнуление и приведение свойств элементов к кроссбарузерности
-@import "base/normalize.less";
-@import "base/main.less";
-
 ///// Bootstrap
 @import "bootstrap/bootstrap.less";
 @import "project/bootstrap.hg.less";
@@ -12,6 +8,9 @@
 ///// Переменные и примешивания
 @import "include/variables.less";
 @import "include/mixins.less";
+
+///// Обнуление и приведение свойств элементов к кроссбарузерности
+@import "base/main.less";
 
 ///// Базовые Слой
 @import "base/base.less";
@@ -47,6 +46,7 @@
 @import "project/im.less";
 @import "project/img-grid.less";
 @import "project/msg-fast.less";
+@import "project/notice.less";
 @import "project/family.less";
 @import "project/friends-list.less";
 @import "project/footer.less";
@@ -66,6 +66,7 @@
 @import "project/section-empty.less";
 @import "project/side-menu.less";
 
+@import "../../lite/less/project/yandex-search-form.less";
 
 /// test 
 /*@import "../redactor/redactor.less";*/

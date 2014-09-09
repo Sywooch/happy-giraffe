@@ -14,7 +14,7 @@
   <!-- including .css-->
   <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-  <!-- ie8 -->
+  <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
   <!--+scripts(path)-->
   <!-- script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")-->
   <script>
@@ -32,7 +32,6 @@
   <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
   <!-- custom select-->
-  <!-- script(src="#{path}javascript/selectize.js")-->
   <script src="/new/javascript/select2.js"></script>
   <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
@@ -55,7 +54,7 @@
 </head>
 <body class="body body__bg-base">
   <div class="layout-container">
-    <div class="layout-header">
+    <div class="layout-header clearfix">
       <!-- header-fix-->
       <script>
         $(document).ready(function () {

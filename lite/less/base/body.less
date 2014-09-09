@@ -1,0 +1,26 @@
+html {
+    height: 100%;
+}
+.body {
+    word-wrap: break-word;
+    height: 100%;
+    
+    &__white {background: #fff;}
+    &__bg1 {
+        background:#9b8ec9 url('@{path-img}/body__bg/img1.jpg') no-repeat 50% 0;
+        background-attachment: fixed;
+    }
+    &__lite {
+        min-width: 240px;
+    }
+    @media (min-width: @screen-tablet) {
+        &__lite {
+            background:#66508c url('@{path-img}/body__bg/body-circle-candy__dark.png') no-repeat 50% 0;
+            background-attachment: fixed;
+        }
+    }
+    
+    &__user {
+        min-width: 1000px;
+    }
+}

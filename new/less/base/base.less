@@ -1,5 +1,9 @@
 // layout
+html {
+    height: 100%;
+}
 .body {
+    height: 100%;
     min-width: 1000px;
     background:#af9bd2;
     word-wrap: break-word;
@@ -15,6 +19,9 @@
     &__bg2 {
         background:#2a477f url('@{path-img}/body__bg/img2.jpg') no-repeat 50% 0;
         background-attachment: fixed;
+    }
+    &__lite {
+        min-width: 240px;
     }
 }
 
@@ -41,7 +48,7 @@
 }
 .layout-loose {
     position: relative;
-    width: 1000px;
+    max-width: 1000px;
     margin: 0 auto;
 
     .layout-header {margin-top: 20px;}
@@ -333,8 +340,8 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         .border-radius(0);
 
         .layout-footer_hold {
-            padding: 0 20px 20px 145px;
-            background-position: 40px 10px;
+            padding: 20px 20px 60px 135px;
+            background-position: 40px 30px;
         }
     }
     &_top {

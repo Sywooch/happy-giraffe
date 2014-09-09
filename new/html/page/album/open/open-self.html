@@ -1,5 +1,4 @@
-<!DOCTYPE html><!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
-<!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <!-- a-->
 <!-- b-->
@@ -8,7 +7,6 @@
 <!-- b-->
 <!-- c-->
 <!-- /b-album-->
-<!-- tag head-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +14,7 @@
   <!-- including .css-->
   <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-  <!-- ie8 -->
+  <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
   <!--+scripts(path)-->
   <!-- script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")-->
   <script>
@@ -35,7 +33,6 @@
   <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
   <!-- custom select-->
-  <!-- script(src="#{path}javascript/selectize.js")-->
   <script src="/new/javascript/select2.js"></script>
   <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
@@ -56,8 +53,25 @@
   <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
-<!-- vars from template file-->
 <body class="body body__bg2">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    
+  </script>
+  <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/new/javascript/picturefill.min.js"></script>
+  <!-- tooltip-->
+  <!-- popup-->
+  <!-- custom scroll-->
+  <!-- custom select-->
+  <!-- wisywig-->
+  <!-- Базовый js (вызывается на всех страницах)-->
+  <!-- js для работы в верстке-->
+  <script src="/new/javascript/common-markup-lite.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
   <div class="layout-container">
     <div class="layout-loose">
       <div class="layout-header">
@@ -120,7 +134,7 @@
         <!-- user-menu-->
         <div class="user-menu">
           <div class="user-menu_ava">
-            <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+            <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
           </div>
           <ul class="user-menu_ul">
             <li class="user-menu_li"><a class="user-menu_i">
@@ -396,8 +410,7 @@
               </div>
             </div>
           </div>
-          <!-- /layout-footer
-          -->
+          <!-- /layout-footer-->
         </div>
       </div>
       <div onclick="$('html, body').animate({scrollTop:0}, 'normal')" class="btn-scrolltop"></div>

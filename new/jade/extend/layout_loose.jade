@@ -1,14 +1,14 @@
 doctype html
-| <!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
 | <!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
 | <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 include ../block/config
-// tag head
+//- tag head
 +head(path)
-// vars from template file
+//- vars from template file
 - var bodyClass = ''; 
 block vars
 body.body(class='#{bodyClass}')
+    +scriptsLite(path)
     .layout-container
         .layout-loose
             .layout-header
@@ -20,4 +20,5 @@ body.body(class='#{bodyClass}')
             +btn-scrolltop()
     .popup-container.display-n  
         block block-hidden
+        
 | </html>

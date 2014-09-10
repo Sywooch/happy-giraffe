@@ -23,10 +23,10 @@ class DefaultController extends LiteController
             $params['alias'] = false;
         }
         // Если перебивается алиас, то скидываем дату и период
-        if (isset($params['alias']))
+        if (isset($params['alias']) && $params['alias'])
         {
             $params['date'] = false;
-            $params['period'] = 'day';
+            $params['period'] = isset($params['period']) ? $params['period'] : 'day';
         }
         $params = CMap::mergeArray($defaultParams, $params);
         return Yii::app()->createUrl($this->route, $params);
@@ -64,7 +64,7 @@ class DefaultController extends LiteController
                 $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => date('Y', $date), 'month' => date('n', $date)));
                 break;
             case 'year':
-                $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => $year, 'month' => null));
+                $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => date('Y', $date), 'month' => null));
                 break;
         }
         if (!$model)

@@ -8,7 +8,7 @@ $this->widget('HMenu', array(
             'label' => 'На сегодня',
             'url' => $this->getUrl(array('alias' => 'today')),
             'linkOptions' => array('class' => 'menu-link-simple_a'),
-            'visible' => $this->alias !== 'today',
+            'visible' => $this->alias !== 'today' || $this->period !== 'day',
         ),
         array(
             'label' => 'На завтра',
@@ -18,7 +18,7 @@ $this->widget('HMenu', array(
         ),
         array(
             'label' => 'На месяц',
-            'url' => $this->getUrl(array('period' => 'month')),
+            'url' => $this->getUrl(array('period' => 'month', 'alias' => 'today')),
             'linkOptions' => array('class' => 'menu-link-simple_a'),
             'visible' => $this->period !== 'month',
         ),

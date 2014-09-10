@@ -5,9 +5,16 @@
  * User: mikita
  * Date: 05/08/14
  * Time: 17:03
+ * 
+ * @property string $pageTitle Тег title, переопределяется через PageMetaTag
+ * @property string $metaDescription Мета-тег description, переопределяется через PageMetaTag
+ * @property string $metaKeywords Мета-тег keywoeds, переопределяется через PageMetaTag
+ * @property string|array $metaCanonical Мета-тег canonical
  */
 class LiteController extends HController
 {
+    
+    protected $_metaCanonical = null;
 
     public $layout = '//layouts/lite/main';
 
@@ -22,7 +29,7 @@ class LiteController extends HController
     {
         $filters = parent::filters();
 
-        if (Yii::app()->user->isGuest)
+        /*if (Yii::app()->user->isGuest)
         {
             $filters [] = array(
                 'COutputCache',
@@ -30,7 +37,7 @@ class LiteController extends HController
                 'varyByParam' => array_keys($_GET),
                 'varyByExpression' => 'Yii::app()->vm->getVersion()',
             );
-        }
+        }*/
 
         return $filters;
     }
@@ -47,6 +54,39 @@ class LiteController extends HController
             parent::setPageTitle($value);
     }
 
+    public function getMetaDescription()
+    {
+        return $this->meta_description;
+    }
+
+    public function setMetaDescription($var)
+    {
+        $this->meta_description = is_null($this->page_meta_model) ? $var : $this->meta_description;
+        ;
+    }
+
+    public function getMetaKeywords()
+    {
+        return $this->meta_keywords;
+    }
+
+    public function setMetaKeywords($var)
+    {
+        $this->meta_keywords = is_null($this->page_meta_model) ? $var : $this->meta_keywords;
+        ;
+    }
+    
+    public function getMetaCanonical()
+    {
+        return $this->_metaCanonical;
+    }
+
+    public function setMetaCanonical($var)
+    {
+        $this->_metaCanonical = $var;
+        ;
+    }
+
     protected function afterRender($view, &$output)
     {
         $cs = Yii::app()->clientScript;
@@ -59,11 +99,22 @@ class LiteController extends HController
         {
             $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
         }
-
-        /*if ($this->meta_title !== null)
+        
+        if(!empty($this->metaCanonical))
         {
-            $this->pageTitle = Str::truncate(trim($this->meta_title), 70);
-        }*/
+            $canonical = $this->metaCanonical;
+            if(is_array($canonical))
+            {
+                $route = array_shift($canonical);
+                $canonical = $this->createAbsoluteUrl('/' . $route, $canonical);
+            }
+            $cs->registerLinkTag('canonical', null, $canonical);
+        }
+
+        /* if ($this->meta_title !== null)
+          {
+          $this->pageTitle = Str::truncate(trim($this->meta_title), 70);
+          } */
 
         parent::afterRender($view, $output);
     }

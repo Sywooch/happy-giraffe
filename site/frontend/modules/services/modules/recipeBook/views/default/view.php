@@ -1,99 +1,130 @@
 <?php
-    if (Yii::app()->request->getParam('Comment_page', 1) != 1) {
-        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-    }
+/**
+ * @var RecipeBookRecipe $recipe
+ * @var LiteController $this
+ */
+$commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $recipe));
 ?>
 
-<div class="entry entry-full">
+<div class="b-main_cont">
+    <div class="b-main_col-hold clearfix">
+        <!--/////-->
+        <!-- Основная колонка-->
+        <div class="b-main_col-article">
+            <!-- b-article-->
+            <article class="b-article clearfix">
+                <div class="b-article_cont clearfix">
+                    <div class="b-article_header clearfix">
+                        <div class="icons-meta"><a href="#commentsList" class="icons-meta_comment"><span class="icons-meta_tx"><?=$commentsWidget->count?></span></a>
+                            <div class="icons-meta_view"><span class="icons-meta_tx"><?=$this->getViews()?></span></div>
+                        </div>
+                        <div class="float-l">
+                            <?php $this->widget('Avatar', array('user' => $recipe->author)); ?>
+                            <div class="b-article_author"><a href="<?=$recipe->author->getUrl()?>" class="a-light"><?=$recipe->author->getFullName()?></a></div>
+                            <?=HHtml::timeTag($recipe, array('class' => 'tx-date'))?>
+                        </div>
+                    </div>
+                    <h1 class="b-article_t"><?=$recipe->title?></h1>
+                    <div class="b-article_in clearfix">
+                        <div class="wysiwyg-content clearfix">
+                            <?=$recipe->purified->text?>
+                        </div>
+                        <div class="ingredients">
+                            <h3 class="ingredients_t">Ингредиенты:</h3>
+                            <ul class="ingredients_ul">
+                                <?php foreach ($recipe->ingredients as $i): ?>
+                                    <li class="ingredients_i"><?=$i->ingredient->title?> - <?=$i->display_value?> <?=$i->noun?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                        <div class="b-tags">
+                            <a href="<?=$recipe->disease->category->getUrl()?>" class="b-tags_tag"><?=$recipe->disease->category->title?></a>
+                            <a href="<?=$recipe->disease->getUrl()?>" class="b-tags_tag"><?=$recipe->disease->title?></a>
+                        </div>
+                    </div>
+                    <?php if (false): ?>
+                    <div class="textalign-c visible-md-block">
+                        <div class="like-control like-control__line">
+                            <div class="like-control_hold"><a href="" title="Нравится" class="like-control_i like-control_i__like powertip">
+                                    <div class="like-control_t">Мне нравится!</div>
+                                    <div class="ico-action-hg ico-action-hg__like"></div>
+                                    <div class="like-control_tx">865</div></a></div>
+                            <div class="like-control_hold"><a href="" title="В избранное" class="like-control_i like-control_i__idea powertip">
+                                    <div class="like-control_t">В закладки</div>
+                                    <div class="ico-action-hg ico-action-hg__favorite"></div>
+                                    <div class="like-control_tx">863455</div></a></div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                    <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $recipe, 'lite' => true)); ?>
+                </div>
+            </article>
+            <!-- /b-article-->
 
-    <h1><?=$data->title?></h1>
-
-    <div class="entry-header">
-
-        <?php
-        $this->widget('Avatar', array('user' => $data->author));
-
-            if (Yii::app()->request->getParam('Comment_page', null) !== null) {
-                Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-            }
-        ?>
-
-        <div class="meta">
-            <div class="time"><?=Yii::app()->dateFormatter->format("d MMMM yyyy, H:mm", $data->created)?></div>
-            <div class="seen">Просмотров:&nbsp;<span><?=PageView::model()->viewsByPath($data->url)?></span></div><br>
-            <a href="<?=$data->getUrl(true)?>">Комментариев: <?php echo $data->commentsCount; ?></a>
-        </div>
-        <div class="clear"></div>
-    </div>
-
-    <div class="entry-content">
-
-        <div class="disease-title">
-            <span>От болезни</span> <?=CHtml::link($data->disease->title, array('/services/childrenDiseases/default/view', 'id' => $data->disease->slug))?>
-        </div>
-
-        <div class="clearfix">
-
-            <div class="traditional-recipes-ingredients">
-
-                <div class="block-title"><i class="icon"></i>Ингредиенты</div>
-
-                <ul>
-                    <?php foreach ($data->ingredients as $i): ?>
-                    <li><?=$i->ingredient->title?> - <?=$i->display_value?> <?=$i->noun?></li>
-                    <?php endforeach; ?>
+            <?php if ($recipe->getPrev() !== null || $recipe->getNext() !== null): ?>
+                <table ellpadding="0" cellspacing="0" class="article-nearby clearfix">
+                    <tr>
+                        <?php if ($recipe->getPrev() !== null): ?>
+                            <td><a href="<?=$recipe->getPrev()->getUrl()?>" class="article-nearby_a article-nearby_a__l"><span class="article-nearby_tx"><?=$recipe->getPrev()->title?></span></a></td>
+                        <?php endif; ?>
+                        <?php if ($recipe->getNext() !== null): ?>
+                            <td><a href="<?=$recipe->getNext()->getUrl()?>" class="article-nearby_a article-nearby_a__r"><span class="article-nearby_tx"><?=$recipe->getNext()->title?></span></a></td>
+                        <?php endif; ?>
+                    </tr>
+                </table>
+            <?php endif; ?>
+            <?php if (false): ?>
+            <div class="adv-yandex"><a href="" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
+            <?php endif; ?>
+            <?php if ($commentsWidget->count > 0): ?>
+            <!-- comments-->
+            <section class="comments comments__buble">
+            <div class="comments-menu">
+                <ul data-tabs="tabs" class="comments-menu_ul">
+                    <li class="comments-menu_li active"><a href="#commentsList" data-toggle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии <?=$commentsWidget->count?></a></li>
+                    <?php if (false): ?>
+                    <li class="comments-menu_li"><a href="#likesList" data-toggle="tab" class="comments-menu_a comments-menu_a__likes">Нравится 865</a></li>
+                    <li class="comments-menu_li"><a href="#favoritesList" data-toggle="tab" class="comments-menu_a comments-menu_a__favorites">Закладки 865</a></li>
+                    <?php endif; ?>
                 </ul>
-
             </div>
-
-            <div class="wysiwyg-content side">
-
-                <h3>Приготовление</h3>
-
-                <?=$data->text?>
-
+            <div class="tab-content">
+                <?php $commentsWidget->run(); ?>
+                <?php if (false): ?>
+                <div id="likesList" class="comments_hold tab-pane">
+                    <div class="list-subsribe-users">
+                        <ul class="list-subsribe-users_ul">
+                            <li class="list-subsribe-users_li">
+                                <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
+                                <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-secondary btn-sl">Читаю</a>
+                            </li>
+                            <li class="list-subsribe-users_li">
+                                <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
+                                <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-success btn-sl"><span class="ico-plus"></span>Подписаться</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="favoritesList" class="comments_hold tab-pane">
+                    <div class="list-subsribe-users">
+                        <ul class="list-subsribe-users_ul">
+                            <li class="list-subsribe-users_li">
+                                <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
+                                <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-success btn-sl"><span class="ico-plus"></span>Подписаться</a>
+                            </li>
+                            <li class="list-subsribe-users_li">
+                                <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
+                                <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-secondary btn-sl">Читаю</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <?php endif; ?>
             </div>
-
+            </section>
+            <!-- /comments-->
+            <?php endif; ?>
         </div>
-
+        <!-- /Основная колонка-->
     </div>
-
-    <?php if (Yii::app()->authManager->checkAccess('editRecipeBookRecipe', Yii::app()->user->id) || Yii::app()->user->id == $data->author_id): ?>
-        <div class="entry-footer">
-            <div class="admin-actions">
-                <?=CHtml::link('<i class="icon"></i>', array('/services/recipeBook/default/form', 'id' => $data->id), array('class' => 'edit'))?>
-            </div>
-        </div>
-    <?php endif; ?>
-
 </div>
-
-<div class="like-block fast-like-block">
-
-    <div class="box-1">
-        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-        <div class="yashare-auto-init" data-yashareL10n="ru" data-yashareType="none" data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus"></div>
-    </div>
-
-</div>
-
-<div class="entry-nav clearfix">
-    <?php if ($prev = $data->prev): ?>
-    <div class="prev">
-        <span>Предыдущий рецепт</span>
-        <?=CHtml::link($prev->title, $prev->url)?>
-    </div>
-    <?php endif; ?>
-    <?php if ($next = $data->next): ?>
-    <div class="next">
-        <span>Следующий рецепт</span>
-        <?=CHtml::link($next->title, $next->url)?>
-    </div>
-    <?php endif; ?>
-
-</div>
-
-<?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => true)); ?>
-
-
-<?php $this->widget('application.widgets.seo.SeoLinksWidget'); ?>

@@ -15,6 +15,7 @@
  * @property integer $type
  * @property string $author_id
  * @property string $full
+ * @property int $type_id Для совместимости с CommunityContent. Возвращает CommunityContent::TYPE_RECIPE
  *
  * The followings are the available model relations:
  * @property CookRecipeIngredient[] $cookRecipeIngredients
@@ -121,6 +122,7 @@ class CookRecipe extends CActiveRecord implements IPreview
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('title', 'filter', 'filter' => array('\site\frontend\components\TrimFilter', 'trimTitle')),
             array('title, text, type, author_id', 'required'),
             array('title', 'length', 'max' => 255),
             array('photo_id', 'exist', 'attributeName' => 'id', 'className' => 'AlbumPhoto'),
@@ -221,11 +223,14 @@ class CookRecipe extends CActiveRecord implements IPreview
     public function behaviors()
     {
         return array(
+            'ContentBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
+            ),
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
@@ -242,7 +247,10 @@ class CookRecipe extends CActiveRecord implements IPreview
             'duplicate'=>array(
                 'class' => 'site.common.behaviors.DuplicateBehavior',
                 'error_text' => 'Вы только что создали рецепт с таким названием'
-            )
+            ),
+//            'yandexwm' => array(
+//                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
+//            ),
         );
     }
 
@@ -326,7 +334,6 @@ class CookRecipe extends CActiveRecord implements IPreview
     {
         FriendEvent::postDeleted('CookRecipe', $this->id);
         Yii::app()->db->createCommand()->update($this->tableName(), array('removed' => 1), 'id=:id', array(':id' => $this->id));
-        NotificationDelete::entityRemoved($this);
 
         //удаляем из кулинарной книги автора, но у других рецепт остается
         if ($this->isBooked())
@@ -1099,5 +1106,10 @@ class CookRecipe extends CActiveRecord implements IPreview
     public function getPreviewPhoto()
     {
         return $this->getMainPhoto();
+    }
+    
+    public function getType_id()
+    {
+        return CommunityContent::TYPE_RECIPE;
     }
 }

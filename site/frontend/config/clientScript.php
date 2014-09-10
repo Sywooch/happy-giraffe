@@ -3,16 +3,25 @@
 return array(
     'class' => 'application.components.ClientScript',
     'amdFile' => '/new/javascript/modules/require2.1.11-jquery1.10.2.js',
+    'amdFilePos' => CClientScript::POS_HEAD,
     'amd' => array(
         'baseUrl' => '/new/javascript/modules',
         'waitSeconds' => 0,
         'wrapShim' => false,
         'shim' => array(
+            'AdFox' => array(),
         ),
         'paths' => array(
             'knockout-amd-helpers' => 'knockout-amd-helpers.min',
             'wysiwyg' => '/new/javascript/wysiwyg',
             'ko_library' => '/javascripts/ko_library',
+            'ko_blog' => '/javascripts/ko_blog',
+            'ko_post' => '/javascripts/ko_post',
+            'ko_menu' => '/javascripts/ko_menu',
+            'ko_favourites' => '/javascripts/ko_favourites',
+            'ko_registerWidget' => '/javascripts/ko_registerWidget',
+            'ko_community' => '/javascripts/ko_community',
+            'ko_photoWidget' => '/javascripts/ko_photoWidget',
             'ko_comments' => '/javascripts/comments',
             'moment' => '/javascripts/moment.ru.min',
             'gallery' => '/javascripts/ko_gallery',
@@ -20,11 +29,63 @@ return array(
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
             'ko_photoUpload' => 'ko_photo',
+            'AdFox' => '/javascripts/fox',
+            'wysiwyg_old' => '/javascripts/wysiwyg',
+            'upload' => '/javascripts/upload',
+            'async' => '/new/javascript/plugins/async',
+            'goog' => '/new/javascript/plugins/goog',
+            'propertyParser' => '/new/javascript/plugins/propertyParser',
+            'routesCalc' => 'routes',
         ),
         /* 'eval' => '
           ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
           ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
           ', */
+    ),
+    'litePackages' => array(
+        'default' => array(
+            'baseUrl' => '/lite/css/dev/',
+            'guest' => array(
+                'all.css' => array(
+                    'pos' => CClientScript::POS_HEAD,
+                    'inline' => false,
+                ),
+            ),
+            'user' => array(
+                'all.css' => array(
+                    'pos' => CClientScript::POS_HEAD,
+                    'inline' => false,
+                ),
+            ),
+        ),
+        'services' => array(
+            'baseUrl' => '/lite/css/min/',
+            'guest' => array(
+                'services.css' => array(
+                    'pos' => CClientScript::POS_END,
+                    'inline' => false,
+                ),
+            ),
+            'user' => array(
+                'services-user.css' => array(
+                    'pos' => CClientScript::POS_END,
+                    'inline' => false,
+                ),
+            ),
+            'depends' => array('default'),
+        ),
+        'routes' => array(
+            'depends' => array('services'),
+        ),
+        'calendar' => array(
+            'depends' => array('services'),
+        ),
+        'recipes' => array(
+            'depends' => array('services'),
+        ),
+        'archive' => array(
+            'depends' => array('services'),
+        ),
     ),
     'packages' => array(
         'bootstrap' => array(
@@ -100,11 +161,48 @@ return array(
                 'scrollEvents',
                 'comet',
                 'base64',
-                'baron'
+                'baron',
+                'addtocopy',
+                'jquery.placeholder',
+                'jquery.fancybox',
+                'powertip',
             ),
+        ),
+        'addtocopy' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/addtocopy.js'
+            ),
+            'depends' => array('jquery'),
+        ),
+        'jquery.fancybox' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery.fancybox-1.3.4.js'
+            ),
+            'depends' => array('jquery'),
+        ),
+        'jquery.placeholder' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery.placeholder.min.js'
+            ),
+            'depends' => array('jquery'),
+        ),
+        'jquery.flydiv' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/jquery.flydiv.js'
+            ),
+            'depends' => array('jquery'),
         ),
         'jcrop' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/jquery.Jcrop.min.js',
             ),
@@ -113,13 +211,20 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
-        'comet' => array(
+        'realplexor' => array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
                 'javascripts/dklab_realplexor.js',
+            ),
+        ),
+        'comet' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
                 'javascripts/comet.js',
             ),
+            'depends' => array('realplexor'),
         ),
         'moment' => array(
             'baseUrl' => '/',
@@ -141,6 +246,7 @@ return array(
                 'new/javascript/knockout-debug.3.0.0.js',
                 'javascripts/knockout.mapping-latest.js',
             ),
+            'depends' => array('jquery'),
         ),
         'imagesLoaded' => array(
             'baseUrl' => '/',
@@ -155,6 +261,7 @@ return array(
                 'new/javascript/wysiwyg.js',
             ),
             'depends' => array(
+                'jquery',
                 'ko_upload',
                 'redactor',
                 'imagesloaded',
@@ -162,6 +269,7 @@ return array(
         ),
         'history' => array(
             'baseUrl' => '/',
+            'amd' => true,
             'js' => array(
                 'javascripts/history.js',
             ),
@@ -234,10 +342,10 @@ return array(
         'ko_friends' => array(
             'baseUrl' => '/',
             'js' => array(
-                'javascripts/ko_friends.js',
-                'javascripts/ko_friendsSearch.js',
+                'new/javascript/modules/ko_friends.js',
+                'new/javascript/modules/ko_friendsSearch.js',
             ),
-            'depends' => array('knockout', 'ko_library'),
+            'depends' => array('knockout', 'ko_library', 'history2'),
         ),
         'soundmanager' => array(
             'baseUrl' => '/',
@@ -300,7 +408,7 @@ return array(
             'js' => array(
                 'javascripts/ko_menu.js',
             ),
-            'depends' => array('knockout', 'ko_library'),
+            'depends' => array('knockout', 'ko_library', 'comet'),
         ),
         'ko_recipes_search' => array(
             'baseUrl' => '/',
@@ -314,7 +422,7 @@ return array(
             'js' => array(
                 'javascripts/ko_antispam.js',
             ),
-            'depends' => array('knockout', 'powertip'),
+            'depends' => array('knockout', 'powertip', 'ko_post'),
         ),
         'ko_onlineManager' => array(
             'baseUrl' => '/',
@@ -324,11 +432,12 @@ return array(
             'depends' => array('knockout', 'ko_library'),
         ),
         'redactor' => array(
+            'amd' => true,
             'baseUrl' => '/new/',
             'js' => array(
                 'redactor/redactor.js',
                 'redactor/lang/ru.js',
-                '/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js',
+                'redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js',
             ),
             'depends' => array('jquery', 'ko_upload'),
         ),
@@ -337,17 +446,15 @@ return array(
             'js' => array(
                 'javascripts/ko_registerWidget.js',
             ),
-            'depends' => array('knockout', 'common', 'jcrop', 'ko_upload', 'ko_library'),
+            'depends' => array('jquery', 'knockout', 'common', 'jcrop', 'ko_upload', 'ko_library'),
         ),
         'favouriteWidget' => array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/FavouriteWidget.js',
                 'javascripts/imagesloaded.pkgd.min.js',
-                'javascripts/wysiwyg.js',
-                'new/javascript/wysiwyg.js',
             ),
-            'depends' => array('knockout'),
+            'depends' => array('knockout', 'wysiwyg', 'jquery', 'jquery.flydiv'),
         ),
         'baron' => array(
             'baseUrl' => '/',
@@ -369,6 +476,66 @@ return array(
             'amd' => true,
             'js' => array(
                 'new/javascript/jquery.row-grid.min.js',
+            ),
+            'depends' => array('jquery'),
+        ),
+        'lite' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'js' => array(
+                'lite/javascript/modernizr.custom.js',
+                'lite/javascript/picturefill.min.js',
+            ),
+        ),
+        'lite-default' => array(
+            'css' => array(
+                '/lite/css/dev/all.css'
+            ),
+            'depends' => array('lite'),
+        ),
+        'lite_services' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/services.css',
+            ),
+        ),
+        'lite_services_user' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/services-user.css',
+            ),
+        ),
+        'lite_routes' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_routes_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
+        'lite_calendar' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_calendar_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
+        'lite_recipes' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_recipes_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
+        'lite_archive' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_archive_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
+        'chosen' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'javascripts/chosen.jquery.min.js',
             ),
             'depends' => array('jquery'),
         ),

@@ -7,11 +7,8 @@
                         <a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
                         <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
                     </div>
-                    <div class="sidebar-search clearfix">
-                        <form action="/search/">
-                            <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(this)">
-                            <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
-                        </form>
+                    <div class="sidebar-search sidebar-search__big clearfix">
+                        <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
                     </div>
                 </div>
                 <div class="col-23">
@@ -31,6 +28,7 @@
                         </div>
                     </div>
                     <?php endif; ?>
+                    <?php $this->beginWidget('AdsWidget'); ?>
                     <div class="header-banner-728-90">
                         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
                         <!-- topline-soloway -->
@@ -42,6 +40,7 @@
                             (adsbygoogle = window.adsbygoogle || []).push({});
                         </script>
                     </div>
+                    <?php $this->endWidget(); ?>
                 </div>
             </div>
         </div>

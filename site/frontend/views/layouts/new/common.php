@@ -16,6 +16,7 @@ if (! Yii::app()->user->isGuest)
 {
     if($cs->useAMD)
         $cs
+            ->registerAMD('happyDebug', array('happyDebug'), 'happyDebug.log("main", "info", "happyDebug инициализирован");')
             ->registerAMD('Realplexor-reg', array('common', 'comet'), 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');');
     else
         $cs
@@ -27,22 +28,6 @@ if (! Yii::app()->user->isGuest)
 ?><!DOCTYPE html>
 <html class="no-js">
 <head><meta charset="utf-8">
-    <?php if (! YII_DEBUG): ?>
-    <script type='text/javascript'>
-        window.Muscula = { settings:{
-            logId:"VwXATrD-QRwMP", suppressErrors: false
-        }};
-        (function () {
-            var m = document.createElement('script'); m.type = 'text/javascript'; m.async = true;
-            m.src = (window.location.protocol == 'https:' ? 'https:' : 'http:') +
-                '//musculahq.appspot.com/Muscula6.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(m, s);
-            window.Muscula.run=function(){var a;eval(arguments[0]);window.Muscula.run=function(){};};
-            window.Muscula.errors=[];window.onerror=function(){window.Muscula.errors.push(arguments);
-                return window.Muscula.settings.suppressErrors===undefined;}
-        })();
-    </script>
-    <?php endif; ?>
     <title><?php
     if (!empty($this->meta_title))
         echo CHtml::encode(trim($this->meta_title));
@@ -106,7 +91,7 @@ if (! Yii::app()->user->isGuest)
 </script>
 
 <script type="text/javascript">
-    var _top100q = _top100q || [];
+    /*var _top100q = _top100q || [];
 
     _top100q.push(["setAccount", "2900190"]);
     _top100q.push(["trackPageviewByLogo", document.getElementById("counter-rambler")]);
@@ -118,7 +103,7 @@ if (! Yii::app()->user->isGuest)
         top100.async = true;
         top100.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//st.top100.ru/top100/top100.js";
         var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
-    })();
+    })();*/
 </script>
 <?php endif; ?>
 
@@ -150,10 +135,14 @@ if (! Yii::app()->user->isGuest)
 <!--/ tns-counter.ru -->
 <?php endif; ?>
 
-<script type="text/javascript">
-    var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
-    var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
-</script>
+<?php
+    $js = "var userIsGuest = " . CJavaScript::encode(Yii::app()->user->isGuest) . "; var CURRENT_USER_ID = " . CJavaScript::encode(Yii::app()->user->id);
+    $cs = Yii::app()->clientScript;
+    if($cs->useAMD)
+        $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_AMD);
+    else
+        $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_HEAD);
+?>
 
 <?php if (Yii::app()->user->isGuest): ?>
     <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>

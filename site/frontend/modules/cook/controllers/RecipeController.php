@@ -348,8 +348,6 @@ class RecipeController extends HController
         $this->layout = '//layouts/recipe';
         $this->pageTitle = $recipe->title . ' - Кулинарные рецепты от Веселого Жирафа';
 
-        NotificationRead::getInstance()->setContentModel($recipe);
-
         $this->breadcrumbs = array(
             $this->club->section->title => $this->club->section->getUrl(),
             $this->club->title => $this->club->getUrl(),
@@ -514,6 +512,7 @@ class RecipeController extends HController
         $models = Yii::app()->db->createCommand()
             ->select('id, section, created, updated')
             ->from('cook__recipes')
+            ->where('removed = 0')
             ->queryAll();
 
         $data = array();

@@ -29,7 +29,7 @@ class RssController extends HController
 
         $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents)
                 UNION
-                (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes)
+                (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE removed = 0)
                 UNION
                 (SELECT id, created, 'ContestWork' AS entity FROM contest__works)
                 UNION
@@ -48,14 +48,14 @@ class RssController extends HController
             $item = $feed->createNewItem();
             if (get_class($c) == 'Horoscope') {
                 $item->addTag('guid', $c->getUrl(true), array('isPermaLink' => 'true'));
-                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => User::HAPPY_GIRAFFE)));
+                $item->addTag('author', $this->createAbsoluteUrl('/blog/default/index', array('user_id' => User::HAPPY_GIRAFFE)));
                 $item->date = $c->created;
                 $item->link = $c->getUrl(true);
                 $item->description = $c->rssContent;
                 $item->title = $c->getTitle();
             } else {
                 $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink' => 'true'));
-                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
+                $item->addTag('author', $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $c->author->id)));
                 $item->date = $c->created;
                 $item->link = $c->getUrl(false, true);
                 $item->description = $c->rssContent;
@@ -132,18 +132,26 @@ class RssController extends HController
 
     public function actionUser($user_id, $page = 1)
     {
-        $user = User::model()->active()->findByPk($user_id);
+        $user = User::model()->findByPk($user_id);
         if ($user === null || $user_id == 1)
             throw new CHttpException(404, 'Пользователь не найден');
+
+        $commentsCount = Comment::model()->count(array(
+            'join' => 'LEFT OUTER JOIN community__contents ON community__contents.id = t.entity_id AND (t.entity = \'CommunityContent\' OR t.entity = \'BlogContent\')',
+            'condition' => 'community__contents.author_id = :user_id AND community__contents.removed = 0',
+            'params' => array(':user_id' => $user->id),
+        ));
 
         Yii::import('ext.EFeed.*');
         $feed = new EFeed();
 
         $feed->title = 'Блог пользователя ' . $user->fullName;
-        $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
+        $feed->link = $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $user->id));
         $feed->description = ($user->blog_title === null) ? 'Блог - ' . $user->fullName : $user->blog_title;
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1');
-        $feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id)));
+        if ($commentsCount > 0) {
+            $feed->addChannelTag('wfw:commentRss', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id)));
+        }
         $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/user', array('user_id' => $user->id, 'page' => $page + 1)));
         $feed->addChannelTag('image', array('url' => $user->getAvatarUrl(), 'width' => 72, 'height' => 72));
 
@@ -159,7 +167,7 @@ class RssController extends HController
             if (in_array($user->id, array(10264, 10127, 10378, 23, 12678))) {
                 $sql = "(SELECT community__contents.id, created, 'CommunityContent' AS entity FROM community__contents JOIN community__rubrics ON community__contents.rubric_id = community__rubrics.id WHERE author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0 AND community__rubrics.user_id IS NOT NULL)
                         UNION
-                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
+                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id AND removed = 0)
                         UNION
                         (SELECT id, created, 'ContestWork' AS entity FROM contest__works WHERE user_id = :author_id)
                         UNION
@@ -170,7 +178,7 @@ class RssController extends HController
             } else {
                 $sql = "(SELECT id, created, 'CommunityContent' AS entity FROM community__contents WHERE author_id = :author_id AND type_id != 4 AND by_happy_giraffe = 0)
                         UNION
-                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id)
+                        (SELECT id, created, 'CookRecipe' AS entity FROM cook__recipes WHERE author_id = :author_id AND removed = 0)
                         UNION
                         (SELECT id, created, 'ContestWork' AS entity FROM contest__works WHERE user_id = :author_id)
                         UNION
@@ -183,21 +191,21 @@ class RssController extends HController
             $contents = $this->getContents($sql, $page, array(':author_id' => $user->id));
         }
 
-        if (empty($contents))
-            throw new CHttpException(404, 'Страница не найдена');
+//        if (empty($contents))
+//            throw new CHttpException(404, 'Страница не найдена');
 
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             if (get_class($c) == 'Horoscope') {
                 $item->addTag('guid', $c->getUrl(true), array('isPermaLink' => 'true'));
-                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => User::HAPPY_GIRAFFE)));
+                $item->addTag('author', $this->createAbsoluteUrl('/blog/default/index', array('user_id' => User::HAPPY_GIRAFFE)));
                 $item->date = $c->created;
                 $item->link = $c->getUrl(true);
                 $item->description = $c->rssContent;
                 $item->title = $c->getTitle();
             } else {
                 $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink' => 'true'));
-                $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
+                $item->addTag('author', $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $c->author->id)));
                 $item->date = $c->created;
                 $item->link = $c->getUrl(false, true);
                 $item->description = $c->rssContent;
@@ -229,11 +237,11 @@ class RssController extends HController
             'with' => 'response',
         ));
 
-        if (!$comments)
-            throw new CHttpException(404, 'Такой записи не существует');
+//        if (!$comments)
+//            throw new CHttpException(404, 'Такой записи не существует');
 
         $feed = new EFeed();
-        $feed->link = $this->createAbsoluteUrl('blog/list', array('user_id' => $user->id));
+        $feed->link = $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $user->id));
         $feed->addChannelTag('generator', 'MyBlogEngine 1.1:comments');
         if ($commentsCount > $this->limit * $page)
             $feed->addChannelTag('ya:more', $this->createAbsoluteUrl('rss/comments', array('user_id' => $user->id, 'page' => $page + 1)));
@@ -317,7 +325,7 @@ class RssController extends HController
         foreach ($contents as $c) {
             $item = $feed->createNewItem();
             $item->addTag('guid', $c->getUrl(false, true), array('isPermaLink' => 'true'));
-            $item->addTag('author', $this->createAbsoluteUrl('blog/list', array('user_id' => $c->author->id)));
+            $item->addTag('author', $this->createAbsoluteUrl('/blog/default/index', array('user_id' => $c->author->id)));
             $item->date = $c->created;
             $item->link = $c->getUrl(false, true);
             $item->description = $c->rssContent;

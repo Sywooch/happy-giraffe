@@ -18,6 +18,7 @@ return array(
 	'import'=>array(
         'site.common.components.*',
 		'site.common.models.*',
+		'site.common.models.User',
         'site.common.models.mongo.*',
         'site.common.models.interest.*',
         'site.common.models.*',
@@ -121,7 +122,12 @@ return array(
         'valentinesDay',
         'routes',
         'messaging',
-        'notifications',
+        'notifications' => array(
+            'class' => 'site\frontend\modules\notifications\NotificationsModule',
+        ),
+        'comments' => array(
+            'class' => 'site\frontend\modules\comments\CommentsModule',
+        ),
         'friends',
         'favourites',
         'scores',
@@ -139,9 +145,18 @@ return array(
         'photo' => array(
             'class' => '\site\frontend\modules\photo\PhotoModule',
         ),
+        'archive' => array(
+           'class' => 'site\frontend\modules\archive\ArchiveModule',
+        ),
 	),
 	// application components
 	'components'=>array(
+        'vm' => array(
+            'class' => 'VersionManager',
+        ),
+        'ads' => array(
+            'class' => 'Ads',
+        ),
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
         ),
@@ -212,6 +227,11 @@ return array(
                     'client_id' => '2855330',
                     'client_secret' => 'T9pHwkodkssoEjswy2fw',
                     'title' => 'ВКонтакте',
+                ),
+                'google' => array(
+                    'class' => 'application.components.eauth.GoogleAuth',
+                    'client_id' => '152056798430-h2dd83jfs4q4mka119s1tftorp0171ol.apps.googleusercontent.com',
+                    'client_secret' => '-DJ8DaGP9nK7rpvo11eT38ys',
                 ),
 //                'facebook' => array(
 //                    'class' => 'CustomFacebookService',
@@ -475,12 +495,12 @@ return array(
                         ),
                         'param' => 1,
                     ),
-                    'sitemapBlog2.xml' => array(
-                        'aliases' => array(
-                            'application.modules.blog.controllers.DefaultController'
-                        ),
-                        'param' => 2,
-                    ),
+//                    'sitemapBlog2.xml' => array(
+//                        'aliases' => array(
+//                            'application.modules.blog.controllers.DefaultController'
+//                        ),
+//                        'param' => 2,
+//                    ),
                     'sitemapCook.xml' => array(
                         'aliases' => array(
                             'application.modules.cook.controllers.SpicesController',
@@ -497,7 +517,18 @@ return array(
                         'aliases' => array(
                             'application.modules.routes.controllers.DefaultController',
                         ),
-                        'param'=>1
+                        'param'=>1,
+                    ),
+                    'sitemapRoutesAll.xml' => array(
+                        'aliases' => array(
+                            'application.modules.routes.controllers.DefaultController',
+                        ),
+                        'param'=>-1,
+                    ),
+                    'sitemapUsers1.xml' => array(
+                        'aliases' => array(
+                            'application.modules.profile.controllers.DefaultController',
+                        ),
                     ),
 //                    'sitemapRoutes2.xml' => array(
 //                        'aliases' => array(
@@ -519,8 +550,8 @@ return array(
 //                    ),
                     'sitemapAll.xml' => array(
                         'aliases' => array(
+                            'application.modules.archive.controllers.DefaultController',
                             'application.controllers.SiteController',
-                            'application.modules.services.modules.recipeBook.controllers.DefaultController',
                             'application.modules.services.modules.names.controllers.DefaultController',
                             'application.modules.services.modules.childrenDiseases.controllers.DefaultController',
                             'application.modules.calendar.controllers.DefaultController',
@@ -532,6 +563,11 @@ return array(
                             'application.modules.services.modules.babyBloodGroup.controllers.DefaultController',
                             'application.modules.services.modules.horoscope.controllers.DefaultController',
                             'application.modules.services.modules.horoscope.controllers.CompatibilityController',
+                        ),
+                    ),
+                    'sitemapRecipeBook.xml' => array(
+                        'aliases' => array(
+                            'application.modules.services.modules.recipeBook.controllers.DefaultController',
                         ),
                     ),
                 ),

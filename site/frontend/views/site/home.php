@@ -3,8 +3,7 @@
  * @var $openLogin
  */
 
-Yii::app()->clientScript->registerMetaTag('NWGWm2TqrA1HkWzR8YBwRT08wX-3SRzeQIBLi1PMK9M', 'google-site-verification');
-Yii::app()->clientScript->registerMetaTag('41ad6fe875ade857', 'yandex-verification');
+Yii::app()->ads->addVerificationTags();
 Yii::app()->clientScript
     ->registerScriptFile('/javascripts/jquery.fitvids.js')
 ;

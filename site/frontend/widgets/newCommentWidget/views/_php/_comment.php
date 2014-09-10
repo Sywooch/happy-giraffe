@@ -2,7 +2,6 @@
 /* @var $this NewCommentWidget
  * @var $data Comment
  */
-NotificationRead::getInstance()->addShownComment($data);
 ?>
 <div class="comments-gray_i<?php if ($data->author_id == Yii::app()->user->id) echo ' comments-gray_i__self' ?>">
 

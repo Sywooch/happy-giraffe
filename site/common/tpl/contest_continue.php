@@ -127,20 +127,40 @@
                             Желаем вам победы!</p></td>
                 </tr>
                 <tr>
-                    <td>
-                        <div style="font:13px arial,helvetica,sans-serif;color:#232323;line-height:16px;margin:30px 0">С
-                            наилучшими пожеланиями,<br/><span style="color:#3587ec"><a
-                                    href="http://www.happy-giraffe.ru?utm_source=email" style="color:#3587ec"
-                                    target="_blank">Веселый Жираф</a></span></div>
+                    <td  height="60" style="">
+                        <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="60" width="100%" border="0" />
                     </td>
                 </tr>
                 <tr>
-                    <td style="border-top:1px solid #e6e5e5;padding:6px 0"><p
-                            style="font:10px tahoma,arial,sans-serif;color:#979696">Это письмо было сгенерировано
-                            автоматически. Пожалуйста не отвечайте на него. Если вы хотите обратиться в службу поддержки
-                            сайта «Веселый Жираф», напишите нам по адресу
-                            <a href="mailto:support@happy-giraffe.ru" style="color:#3587ec" target="_blank">support@happy-giraffe.ru</a><br/><br/>
-                            Вы получили это письмо, так как являетесь пользователем сайта "Веселый Жираф".</p></td>
+                    <td>
+                        <div style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;">
+                            С наилучшими пожеланиями,<br/>
+                            <span style="color: #3587ec;"><a href="http://www.happy-giraffe.ru/" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td  height="40" style="">
+                        <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="40" width="100%" border="0" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="border-top:1px solid #e6e5e5;padding:6px 0;">
+
+                        <p style="font:10px tahoma, arial, sans-serif; color: #979696;">Это письмо было сгенерированно автоматически. Пожалуйста не отвечайте на него. Если вы хотите обратиться в службу поддержки сайта «Веселый Жираф», напишите нам по адресу <span style=" color: #3587ec;"><a href="mailto:support@happy-giraffe.ru" target="_blank" style="color: #3587ec;">support@happy-giraffe.ru</a></span><br/>
+                            <br/>
+                            Вы получили это письмо, так как являетесь пользователем сайта "Веселый Жираф". <span style=" color: #3587ec;"><a href="<?php echo $message->createUrl(array('/profile/settings/subscribes')); ?>" target="_blank" style="color: #3587ec;">Отписаться от рассылки</a></span>
+                        </p>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td  height="10" style="">
+                        <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="10" width="100%" border="0" />
+                    </td>
                 </tr>
                 </tbody>
             </table>

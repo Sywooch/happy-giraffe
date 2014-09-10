@@ -6,7 +6,7 @@
 
 <div class="popup-container display-n">
     <div id="loginWidget" class="popup popup-sign">
-        <?php $form = $this->beginWidget('CActiveForm', array(
+        <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
             'id' => 'loginForm',
             'action' => array('/signup/login/default'),
             'enableAjaxValidation' => true,
@@ -61,13 +61,13 @@
                     <div class="popup-sign_row">
                         <div class="float-r">
                             <div class="display-ib textalign-c">
-                                <button class="btn-green-simple btn-l margin-b10">Войти на сайт</button><br><a class="popup-a" href="#passwordRecoveryWidget" data-bind="click: recover">Забыли пароль?</a>
+                                <button class="btn-green-simple btn-l margin-b10  btn btn-success">Войти на сайт</button><br><a class="popup-a" href="#passwordRecoveryWidget" data-bind="click: recover">Забыли пароль?</a>
                             </div>
                         </div>
                         <div class="float-l">
-                            <div class="checkbox-icons">
-                                <?=$form->checkBox($model, 'rememberMe', array('class' => 'checkbox-icons_radio', 'data-bind' => 'checked: rememberMe'))?>
-                                <?=$form->label($model, 'rememberMe', array('class' => 'checkbox-icons_label'))?>
+                            <div class="radio-icons radio-icons__checkbox">
+                                <?=$form->checkBox($model, 'rememberMe', array('class' => 'radio-icons_radio', 'data-bind' => 'checked: rememberMe'))?>
+                                <?=$form->label($model, 'rememberMe', array('class' => 'radio-icons_label'))?>
                             </div>
                         </div>
                     </div>
@@ -80,6 +80,12 @@
 </div>
 
 <script type="text/javascript">
-    loginVm = new LoginWidgetViewModel();
-    ko.applyBindings(loginVm, document.getElementById('loginWidget'));
+    <?php
+    $js = "ko.applyBindings(new LoginWidgetViewModel(), document.getElementById('loginWidget'));";
+    $cs = Yii::app()->clientScript;
+    if($cs->useAMD)
+        $cs->registerAMD('LoginWidgetViewModel', array('ko' => 'knockout', 'ko_registerWidget' => 'ko_registerWidget'), $js);
+    else
+        $cs->registerScript('LoginWidgetViewModel', $js, ClientScript::POS_READY);
+    ?>
 </script>

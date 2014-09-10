@@ -5,22 +5,9 @@
 <!--[if gt IE 9]><!--> <html class=""> <!--<![endif]-->
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <?php if (! YII_DEBUG): ?>
-        <script type='text/javascript'>
-            window.Muscula = { settings:{
-                logId:"VwXATrD-QRwMP", suppressErrors: false
-            }};
-            (function () {
-                var m = document.createElement('script'); m.type = 'text/javascript'; m.async = true;
-                m.src = (window.location.protocol == 'https:' ? 'https:' : 'http:') +
-                    '//musculahq.appspot.com/Muscula6.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(m, s);
-                window.Muscula.run=function(){var a;eval(arguments[0]);window.Muscula.run=function(){};};
-                window.Muscula.errors=[];window.onerror=function(){window.Muscula.errors.push(arguments);
-                    return window.Muscula.settings.suppressErrors===undefined;}
-            })();
-        </script>
-        <?php endif; ?>
+        <meta http-equiv="x-dns-prefetch-control" content="on" />
+        <link rel="dns-prefetch" href="//plexor.www.happy-giraffe.ru" />
+        <link rel="dns-prefetch" href="//img.happy-giraffe.ru" />
             <title><?php
                 if (!empty($this->meta_title))
                     echo CHtml::encode(trim($this->meta_title));
@@ -37,20 +24,21 @@
             ->registerCssFile('/redactor/redactor.css')
             ->registerCssFile('/stylesheets/common.css')
             ->registerCssFile('/stylesheets/global.css')
-            ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext')
-
-            ->registerCoreScript('jquery')
-            ->registerScriptFile('/javascripts/chosen.jquery.min.js')
-            ->registerScriptFile('/javascripts/jquery.powertip.js')
-            ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
-            ->registerScriptFile('/javascripts/addtocopy.js')
-            ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
-            ->registerScriptFile('/javascripts/base64.js')
-            ->registerScriptFile('/javascripts/common.js')
-            ->registerScriptFile('/javascripts/fox.js')
-            ->registerScriptFile('/javascripts/jquery.autosize.min.js')
-            ->registerScriptFile('/javascripts/jquery.preload.min.js')
-        ;
+            ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext');
+        if(!$cs->useAMD)
+            $cs
+                ->registerCoreScript('jquery')
+                ->registerScriptFile('/javascripts/chosen.jquery.min.js')
+                ->registerScriptFile('/javascripts/jquery.powertip.js')
+                ->registerScriptFile('/javascripts/jquery.placeholder.min.js')
+                ->registerScriptFile('/javascripts/addtocopy.js')
+                ->registerScriptFile('/javascripts/jquery.fancybox-1.3.4.js')
+                ->registerScriptFile('/javascripts/base64.js')
+                ->registerScriptFile('/javascripts/common.js')
+                ->registerScriptFile('/javascripts/fox.js')
+                ->registerScriptFile('/javascripts/jquery.autosize.min.js')
+                ->registerScriptFile('/javascripts/jquery.preload.min.js')
+            ;
         if (!empty($this->meta_description))
             $cs->registerMetaTag(trim($this->meta_description), 'description');
 
@@ -62,62 +50,12 @@
         <![endif]-->
     </head>
     <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
+    <?php if (Yii::app()->user->checkAccess('editMeta')):?>
+        <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
+    <?php endif ?>
         <?=$content?>
 
-        <?php if (YII_DEBUG === false): ?>
-        <!-- Yandex.Metrika counter -->
-        <script type="text/javascript">
-            (function (d, w, c) {
-                (w[c] = w[c] || []).push(function() {
-                    try {
-                        w.yaCounter11221648 = new Ya.Metrika({id:11221648, enableAll: true, trackHash:true, webvisor:true});
-                    } catch(e) {}
-                });
-
-                var n = d.getElementsByTagName("script")[0],
-                    s = d.createElement("script"),
-                    f = function () { n.parentNode.insertBefore(s, n); };
-                s.type = "text/javascript";
-                s.async = true;
-                s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-                if (w.opera == "[object Opera]") {
-                    d.addEventListener("DOMContentLoaded", f);
-                } else { f(); }
-            })(document, window, "yandex_metrika_callbacks");
-        </script>
-        <noscript><div><img src="//mc.yandex.ru/watch/11221648" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-        <!-- /Yandex.Metrika counter -->
-
-        <script type="text/javascript">
-
-            var _gaq = _gaq || [];
-            _gaq.push(['_setAccount', '<?=Yii::app()->params['gaCode']  ?>']);
-            _gaq.push(['_trackPageview']);
-
-            (function() {
-                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
-        </script>
-
-        <script type="text/javascript">
-            var _top100q = _top100q || [];
-
-            _top100q.push(["setAccount", "2900190"]);
-            _top100q.push(["trackPageviewByLogo", document.getElementById("counter-rambler")]);
-
-
-            (function(){
-                var top100 = document.createElement("script"); top100.type = "text/javascript";
-
-                top100.async = true;
-                top100.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//st.top100.ru/top100/top100.js";
-                var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
-            })();
-        </script>
-        <?php endif; ?>
+        <?php Yii::app()->ads->showCounters(); ?>
 
         <?php if (false): ?>
         <!-- tns-counter.ru -->
@@ -147,6 +85,7 @@
         <!--/ tns-counter.ru -->
         <?php endif; ?>
 
+        <?php if (true): ?>
         <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->
@@ -177,6 +116,7 @@
             // -->
         </script>
         <!--AdFox END-->
+        <?php endif; ?>
 
         <?php if (false): ?>
         <!-- Soloway Javascript code START-->

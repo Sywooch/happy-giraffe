@@ -120,6 +120,10 @@ class DefaultController extends HController
                 );
             } else
                 $this->breadcrumbs[] = $forumTitle;
+        } else {
+            $this->breadcrumbs = array(
+                'Новости',
+            );
         }
 
         Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
@@ -141,8 +145,7 @@ class DefaultController extends HController
                 ->getContent()
                 ->forEdit
                 ->text;
-        if (is_int($content->uniqueness) && $content->uniqueness < 50)
-            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
+        NoindexHelper::setNoIndex($content);
 
         if ($content->contestWork !== null)
             $this->bodyClass = 'theme-contest theme-contest__' . $content->contestWork->contest->cssClass;
@@ -150,7 +153,7 @@ class DefaultController extends HController
         $this->pageTitle = $content->title;
         $this->rubric_id = $content->rubric_id;
 
-        if ($forum_id != Community::COMMUNITY_NEWS)
+        if ($forum_id != Community::COMMUNITY_NEWS) {
             $this->breadcrumbs = array(
                 $this->club->section->title => $this->club->section->getUrl(),
                 $this->club->title => $this->club->getUrl(),
@@ -158,13 +161,24 @@ class DefaultController extends HController
                 $content->rubric->title => $content->rubric->getUrl(),
                 $content->title,
             );
-
-        if (!Yii::app()->user->isGuest) {
-            NotificationRead::getInstance()->setContentModel($content);
-            UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
+        } else {
+            $this->breadcrumbs = array(
+                'Новости'  => $this->forum->getUrl(),
+                $content->title,
+            );
         }
 
-        $this->render('view', compact('content'));
+        if (!Yii::app()->user->isGuest) {
+            UserPostView::getInstance()->checkView(Yii::app()->user->id, $content->id);
+        }
+        
+        // Поставим флаг, что бы для найденных сущностей прочитались сигналы
+        \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
+        
+        if (Yii::app()->user->isGuest)
+            $this->render('view_requirejs', compact('content'));
+        else
+            $this->render('view', compact('content'));
     }
 
     public function actionServices($club)
@@ -462,5 +476,13 @@ class DefaultController extends HController
         }
 
         return $data;
+    }
+
+    public function actionContacts()
+    {
+        $this->forum = Community::model()->findByPk(Community::COMMUNITY_NEWS);
+        $this->pageTitle = 'О нас';
+        $this->layout = '//layouts/news';
+        $this->render('contacts');
     }
 }

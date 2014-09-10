@@ -77,6 +77,10 @@ return array(
         'notifications' => 'notifications/default/index',
         'notifications/<_a>' => 'notifications/default/<_a>',
 
+        //comments
+        'comments' => 'comments/default/index',
+        'comments/<_a>' => 'comments/default/<_a>',
+
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',
         'rss/social/' => 'rss/social',
@@ -106,8 +110,6 @@ return array(
         'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/default/view',
         'user/<user_id:\d+>/blog' => 'blog/default/index',
         'newblog/<_a:>' => 'blog/default/<_a>',
-        'antispam' => 'blog/antispam/index',
-        'antispam/<_a>' => 'blog/antispam/index',
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
@@ -175,7 +177,7 @@ return array(
         '<_c:(settings|profile|rss|morning|community|happyBirthdayMira)>' => '<_c>/index',
 
         //others
-        'news/about' => 'community/contacts',
+        'news/about' => 'community/default/contacts',
         'news/about/authors' => 'community/authors',
         array('class' => 'site.frontend.extensions.sitemapgenerator.SGUrlRule', 'route' => '/sitemap'),
 
@@ -299,11 +301,15 @@ return array(
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
         'names/<name:[\w]+>' => 'services/names/default/name/',
 
-        'recipeBook/<_a:(diseases|ac)>' => 'services/recipeBook/default/<_a>',
-        'recipeBook/edit/<id:\d+>' => 'services/recipeBook/default/form',
-        'recipeBook/add' => 'services/recipeBook/default/form',
+//        'recipeBook/<_a:(diseases|ac)>' => 'services/recipeBook/default/<_a>',
+//        'recipeBook/edit/<id:\d+>' => 'services/recipeBook/default/form',
+//        'recipeBook/add' => 'services/recipeBook/default/form',
+//        'recipeBook/recipe<id:\d+>' => 'services/recipeBook/default/view',
+//        'recipeBook/<slug:\w+>' => 'services/recipeBook/default/index',
+//        'recipeBook' => 'services/recipeBook/default/index',
+
         'recipeBook/recipe<id:\d+>' => 'services/recipeBook/default/view',
-        'recipeBook/<slug:\w+>' => 'services/recipeBook/default/index',
+        array( 'class' => 'site.frontend.modules.services.modules.recipeBook.components.RecipeBookUrlRule'),
         'recipeBook' => 'services/recipeBook/default/index',
 
         'services/repair/<_c>/<_a>' => 'services/repair/<_c>/<_a>',
@@ -318,10 +324,18 @@ return array(
         'services/<_m:(dailyCalories|weightLoss|idealWeight|bodyFat)>/default/<_c>' => 'services/<_m>/default/<_c>',
         'services/lines/<id:[\d]+>.jpeg' => 'services/lines/default/index',
 
-        'auto/routes/<id:[\d]+>' => 'routes/default/index',
-        'auto/routes/' => 'routes/default/index',
-        'auto/routes/<_a>' => 'routes/default/<_a>',
-        'auto/routes/<_a>/<id:[\d]+>' => 'routes/default/<_a>',
+//        'auto/routes/<id:[\d]+>' => 'routes/default/index',
+//        'auto/routes/' => 'routes/default/index',
+//        'auto/routes/<_a>' => 'routes/default/<_a>',
+//        'auto/routes/<_a>/<id:[\d]+>' => 'routes/default/<_a>',
+
+        'auto/routes/<routeId:[\d]+>' => 'routes/default/view',
+        'auto/routes' => 'routes/default/index',
+        'auto/routes/cities/<letter:[А-Я]>' => 'routes/default/cities',
+        'auto/routes/city<cityId:[\d]+>' => 'routes/default/city',
+
+        'auto/routes/<_a>' => 'routes/defaultOld/<_a>',
+        'auto/routes/<_a>/<id:[\d]+>' => 'routes/defaultOld/<_a>',
 
         'ValentinesDay' => 'valentinesDay/default/index',
         'ValentinesDay/<_a>' => 'valentinesDay/default/<_a>',
@@ -363,5 +377,9 @@ return array(
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
 
         'photo/<_c>/<_a>' => 'photo/<_c>/<_a>',
+        'onair' => 'blog/air/index',
+
+        array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
+        'map' => 'archive/default/map',
     ),
 );

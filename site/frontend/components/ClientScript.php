@@ -29,11 +29,28 @@ class ClientScript extends CClientScript
      * @var string URL до файла, загружаемого первым, должен содержать requireJS
      */
     public $amdFile = false;
+    
+    /**
+     * @var int Позиция для подключения скрипта из ClientScript::amdFile
+     */
+    public $amdFilePos = false;
 
     /**
      * @var bool Если true, то используется AMD, обычное использование методов registerScript и подобных приведёт к генерации исключения 
      */
     public $useAMD = false;
+    
+    /**
+     * @var array Конфигурация стилей для lite-версии 
+     */
+    public $litePackages = array();
+    
+    /**
+     * @var array Подключенные пакеты lite версии
+     */
+    protected $liteScripts = array();
+
+
     // настройки оптимизации отдачи статики
     public $jsCombineEnabled;
     public $cssDomain;
@@ -43,6 +60,8 @@ class ClientScript extends CClientScript
 
     public function render(&$output)
     {
+        $this->renderLite();
+        
         if ($this->amdFile && $this->useAMD)
             $this->renderAMDConfig();
 
@@ -74,7 +93,8 @@ class ClientScript extends CClientScript
     protected function renderAMDConfig()
     {
         // Соберём конфиги
-        $this->amd['urlArgs'] = 'r=' . rand(0, 1000); //$this->releaseId;
+        $this->amd['urlArgs'] = 'r=' . rand(0, 1000); 
+        $this->releaseId;
         $this->addPackagesToAMDConfig();
         $conf = $this->amd;
         $eval = $conf['eval'];
@@ -90,7 +110,7 @@ class ClientScript extends CClientScript
         if (!isset($this->scripts[self::POS_HEAD]))
             $this->scripts[self::POS_HEAD] = array();
         $this->scripts[self::POS_HEAD] = array(
-            'amd' => 'require.config(' . CJSON::encode($conf) . ");\n" . $eval . "console.log(" . CJSON::encode($this->amd) . ")",
+            'amd' => 'require.config(' . CJSON::encode($conf) . ");\n" . $eval . " require(['happyDebug'], function(happyDebug) {happyDebug.log('main', 'info', 'RequireJS инициализирован', " . CJSON::encode($this->amd) . ")})",
             ) + $this->scripts[self::POS_HEAD];
     }
 
@@ -338,7 +358,7 @@ class ClientScript extends CClientScript
         else
             return parent::registerPackage($name);
     }
-
+    
     /**
      * Смотри CClientScript::registerScriptFile.
      * 
@@ -350,10 +370,10 @@ class ClientScript extends CClientScript
      */
     public function registerScriptFile($url, $position = null, array $htmlOptions = array())
     {
-        if ($this->useAMD)
+        if ($this->useAMD && $position != self::POS_AMD)
             $this->exception();
         else
-            return parent::registerScriptFile($url, $position, $htmlOptions);
+            return parent::registerScriptFile($url, $position == self::POS_AMD ? self::POS_HEAD : $position, $htmlOptions);
     }
 
     /**
@@ -481,11 +501,15 @@ class ClientScript extends CClientScript
         {
             foreach ($scriptFiles as $scriptFile => $scriptFileValue)
             {
-                unset($this->scriptFiles[$position][$scriptFile]);
-                if ($this->getJsStaticDomain() !== null && strpos($scriptFile, '/') === 0)
-                    $scriptFile = $this->getJsStaticDomain() . $scriptFile;
-                $scriptFile = $this->addReleaseId($scriptFile);
-                $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
+                if (strpos($scriptFile, '/') === 0 && strpos($scriptFile, '/', 1) !== 0)
+                {
+                    unset($this->scriptFiles[$position][$scriptFile]);
+                    if ($this->getJsStaticDomain() !== null) {
+                        $scriptFile = $this->getJsStaticDomain() . $scriptFile;
+                    }
+                    $scriptFile = $this->addReleaseId($scriptFile);
+                    $this->scriptFiles[$position][$scriptFile] = $scriptFileValue;
+                }
             }
         }
     }
@@ -544,6 +568,56 @@ class ClientScript extends CClientScript
     protected function getImagesStaticDomain()
     {
         return $this->imagesDomain;
+    }
+
+    /**
+     * Метод для подключения стилей из litePackages
+     * 
+     * @param string $name Имя пакета
+     * @return ClientScript
+     */
+    public function registerLitePackage($name)
+    {
+        if (isset($this->litePackages[$name]))
+        {
+            $package = $this->litePackages[$name];
+            if(isset($package['depends']))
+                foreach ($package['depends'] as $depend)
+                    if (!isset($this->liteScripts[$depend]))
+                        $this->registerLitePackage($depend);
+            $this->liteScripts[$name] = $this->litePackages[$name];
+        }
+
+        return $this;
+    }
+
+    /**
+     * Метод, выполняющий подключение необходимых стилей из пакетов, зарегистрированных через ClientScript::registerLitePackage
+     */
+    protected function renderLite()
+    {
+        $v = Yii::app()->user->isGuest ? 'guest' : 'user';
+        foreach ($this->liteScripts as $config)
+        {
+            foreach ($config[$v] as $css => $attrs)
+            {
+                $baseUrl = isset($config['baseUrl']) ? $config['baseUrl'] : '/';
+                if (!is_array($attrs))
+                {
+                    $css = $attrs;
+                    $attrs = array();
+                }
+                if (isset($attrs['inline']) && $attrs['inline'])
+                {
+                    /** @todo Реализовать */
+                    throw new Exception('Вставка стилей в inline-блоке пока не реализована.');
+                }
+                else
+                {
+                    //$this->registerCss
+                }
+            }
+        }
     }
 
 }

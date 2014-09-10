@@ -58,8 +58,8 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
 	{
 		return array(
 			'id' => 'ID',
-			'title' => 'Title',
-			'description' => 'Description',
+			'title' => 'Заголовок альбома',
+			'description' => 'Описание альбома',
 			'created' => 'Created',
 			'updated' => 'Updated',
 			'author_id' => 'Author',
@@ -103,6 +103,9 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
             ),
             'PhotoCollectionBehavior' => array(
                 'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+            ),
+            'AuthorBehavior' => array(
+                'class' => 'site\common\behaviors\AuthorBehavior',
             ),
         );
     }

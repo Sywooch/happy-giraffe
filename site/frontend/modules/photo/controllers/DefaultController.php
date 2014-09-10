@@ -9,12 +9,11 @@
 namespace site\frontend\modules\photo\controllers;
 
 
+use site\frontend\modules\photo\components\PhotoController;
 use site\frontend\modules\photo\models\PhotoAlbum;
 
-class DefaultController extends \HController
+class DefaultController extends PhotoController
 {
-    public $layout = '//layouts/new/mainNew';
-
     public function actionPresets()
     {
         echo \CJSON::encode(\Yii::app()->thumbs->presets);

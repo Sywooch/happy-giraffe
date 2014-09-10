@@ -2,6 +2,11 @@
 /* @var $model HoroscopeCompatibility
  * @var $form CActiveForm
  */
+$this->breadcrumbs = array(
+    'Гороскопы' => array('/services/horoscope/default/index'),
+    'Совместимость' => '/horoscope/compatibility/',
+    Horoscope::model()->zodiac_list[$model->zodiac1] . ' - ' . Horoscope::model()->zodiac_list[$model->zodiac2],
+);
 ?>
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">

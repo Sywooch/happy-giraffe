@@ -3,19 +3,8 @@
 class CompatibilityController extends LiteController
 {
 
-    public function filters()
-    {
-        return array(
-            'ajaxOnly + Validate',
-        );
-    }
-
     public function beforeAction($action)
     {
-        $this->breadcrumbs = array(
-            'Гороскопы'
-        );
-
         $package = Yii::app()->user->isGuest ? 'lite_horoscope' : 'lite_horoscope_user';
         Yii::app()->clientScript->registerPackage($package);
         Yii::app()->clientScript->useAMD = true;
@@ -64,16 +53,6 @@ class CompatibilityController extends LiteController
             }
 
             $this->render('compatibility_one', compact('model'));
-        }
-    }
-
-    public function actionValidate()
-    {
-        if (isset($_POST['ajax']))
-        {
-            $model = new HoroscopeCompatibility;
-            $model->attributes = $_POST['HoroscopeCompatibility'];
-            echo CActiveForm::validate($model);
         }
     }
 

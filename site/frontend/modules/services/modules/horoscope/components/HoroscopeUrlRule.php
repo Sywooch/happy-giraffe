@@ -15,7 +15,11 @@ class HoroscopeUrlRule extends \CBaseUrlRule
 
     public function createUrl($manager, $route, $params, $ampersand)
     {
-        if (strpos($route, 'services/horoscope/default') === 0)
+        if(strpos($route, 'services/horoscope/default') === 0 && empty($params))
+        {
+            return 'horoscope/';
+        }
+        elseif (strpos($route, 'services/horoscope/default') === 0)
         {
             $url = 'horoscope/';
             if ($params['alias'] && $params['alias'] != 'today')
@@ -89,7 +93,7 @@ class HoroscopeUrlRule extends \CBaseUrlRule
                     'zodiac' => $path[2],
                     'period' => $path[1],
                     'date' => time(),
-                    'alias' => false,
+                    'alias' => 'today',
                 );
                 return 'services/horoscope/default/view';
             }

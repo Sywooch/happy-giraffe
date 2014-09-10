@@ -35,18 +35,28 @@ class AlbumsController extends PhotoController
 
         $this->performAjaxValidation($model);
 
-        if (isset($_POST['PhotoAlbum'])) {
-            $model->attributes = $_POST['PhotoAlbum'];
-            $model->save();
+        if (isset($_POST[\CHtml::modelName($model)])) {
+            $model->attributes = $_POST[\CHtml::modelName($model)];
+            if ($model->save()) {
+                echo $model->getUrl();
+                die;
+                $this->redirect($model->getUrl());
+            } else {
+                print_r($model->getErrors());
+            }
         }
 
         $this->pageTitle = 'Создание альбома';
         $this->render('create', compact('model'));
     }
 
-    public function actionView($albumId)
+    public function actionView($authorId, $id)
     {
-
+        $album = PhotoAlbum::model()->find($id);
+        if ($album === null) {
+            throw new \CHttpException(404);
+        }
+        echo $album->getUrl();
     }
 
     protected function performAjaxValidation($model)

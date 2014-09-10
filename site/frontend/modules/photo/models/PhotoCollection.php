@@ -30,23 +30,6 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 	}
 
 	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('entity, key', 'length', 'max'=>255),
-			array('entity_id, cover_id', 'length', 'max'=>11),
-			array('created, updated', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, entity, entity_id, key, cover_id, created, updated', 'safe', 'on'=>'search'),
-		);
-	}
-
-	/**
 	 * @return array relational rules.
 	 */
 	public function relations()
@@ -77,37 +60,6 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 	}
 
 	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return \CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
-		$criteria=new \CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('entity',$this->entity,true);
-		$criteria->compare('entity_id',$this->entity_id,true);
-		$criteria->compare('key',$this->key,true);
-		$criteria->compare('cover_id',$this->cover_id,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
-
-		return new \CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-
-	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
@@ -117,6 +69,18 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 	{
 		return parent::model($className);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
+        );
+    }
 
     public function getCover()
     {

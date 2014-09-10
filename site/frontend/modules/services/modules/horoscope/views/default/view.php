@@ -110,6 +110,7 @@
         ?>
         <!-- Реклама яндекса-->
         <?php $this->renderPartial('//banners/_horoscope'); ?>
+        <div class='margin-b40'></div>
     </div>
     <!-- /Основная колонка-->
     <div class="b-main_col-sidebar">

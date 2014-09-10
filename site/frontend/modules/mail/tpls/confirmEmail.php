@@ -144,9 +144,15 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;padding-bottom:17px;">
+                                                <td style="font:13px arial, helvetica, sans-serif;color:#232323;line-height:16px;">
                                                     С наилучшими пожеланиями,<br/>
                                                     <span style="color: #3587ec;"><a href="<?php echo $message->getActivationUrl(); ?>" target="_blank" style="color: #3587ec;">Веселый Жираф</a></span>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td  height="40" style="">
+                                                    <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="40" width="100%" border="0" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -169,7 +175,7 @@
                             </table>
                             <!-- // END TEMPLATE -->
                         </td>
-                        <td width="20px">
+                        <td width="20">
                             <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="1" width="100%" border="0" />
                         </td>
                     </tr>
@@ -177,8 +183,8 @@
             </td>
         </tr>
         <tr>
-            <td  height="30">
-                <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="30" width="100%" border="0" />
+            <td  height="20">
+                <img src="http://www.happy-giraffe.ru/images/mail/blank.gif" height="20" width="100%" border="0" />
             </td>
         </tr>
     </table>

@@ -11,7 +11,7 @@
 </div>
 <div class="popup-sign_cont">
     <div class="popup-sign_col">
-        <?php $form = $this->beginWidget('CActiveForm', array(
+        <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
             'id' => 'resendConfirmForm',
             'action' => array('/signup/register/resend'),
             'enableAjaxValidation' => true,
@@ -61,7 +61,7 @@
         </div>
         <div class="popup-sign_row">
             <div class="display-ib textalign-c">
-                <button class="btn-green-simple btn-l margin-b5">Отправить письмо еще раз</button>
+                <button class="btn-green-simple btn-l margin-b5 btn btn-success">Отправить письмо еще раз</button>
                 <div class="popup-sign_tx-help">Письмо должно прийти в течении 10 мин.</div>
             </div>
         </div>

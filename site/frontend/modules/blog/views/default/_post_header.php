@@ -23,8 +23,12 @@ if ($model->by_happy_giraffe)
         <?php if ($ad = $model->isAd()): ?>
             <span class="b-article_author" style="text-decoration: none;"><?=$ad['text']?></span>
         <?php else: ?>
-            <a href="<?=$author->getUrl() ?>" class="b-article_author"><?=$author->getFullName() ?></a>
+            <?php if ($author->deleted == 1): ?>
+                <span class="b-article_author"><?=$author->getFullName() ?></span>
+            <?php else: ?>
+                <a href="<?=$author->getUrl() ?>" class="b-article_author"><?=$author->getFullName() ?></a>
+            <?php endif; ?>
         <?php endif; ?>
-        <span class="b-article_date" data-bind="moment: created"></span>
+        <?=HHtml::timeTag($model, array('class' => 'b-article_date'))?>
     </div>
 </div>

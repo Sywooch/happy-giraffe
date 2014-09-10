@@ -70,18 +70,18 @@
         'photoContainer'=>true
     )); ?>
 
-    <div class="textalign-c margin-20">
-        <div class="counter-rambler">
+    <!-- <div class="textalign-c margin-20">
+        <div class="counter-rambler">  
             <noindex>
                 <div class="counter-rambler_i" id="counter-rambler-popup"></div>
                 <a class="counter-rambler_a" href="http://www.rambler.ru/" target="_blank" rel="nofollow">Партнер «Рамблера»</a>
             </noindex>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <script type="text/javascript">
-    var _top100q = _top100q || [];
+    /*var _top100q = _top100q || [];
 
     _top100q.push(["setAccount", "2900190"]);
     _top100q.push(["trackPageviewByLogo", document.getElementById("counter-rambler-popup")]);
@@ -93,7 +93,7 @@
         top100.async = true;
         top100.src = ("https:" == document.location.protocol ? "https:" : "http:") + "//st.top100.ru/top100/top100.js";
         var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(top100, s);
-    })();
+    })();*/
 </script>
 
 <!-- tns-counter.ru -->

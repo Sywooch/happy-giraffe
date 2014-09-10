@@ -28,20 +28,26 @@
         </div>
         <div class="popup-sign_b clearfix margin-t20" data-bind="visible: currentStep() == STEP_PHOTO">
             <div class="float-r">
-                <div class="btn-gray-simple btn-l" data-bind="click: cancelAvatar">Отменить</div> <button class="btn-green-simple btn-l margin-l5" data-bind="click: saveAvatar, disable: ! avatar.isChanged()">Сохранить</button>
+                <div class="btn-gray-simple btn-l btn btn-secondary" data-bind="click: cancelAvatar">Отменить</div> <button class="btn-green-simple btn-l margin-l5 btn btn-success" data-bind="click: saveAvatar, disable: ! avatar.isChanged()">Сохранить</button>
             </div>
         </div>
     </div>
 </div>
 
 <script type="text/javascript">
+    <?php
+    $cs = Yii::app()->clientScript;
+    if($cs->useAMD)
+        echo '$(document).ready(function() { require(["knockout", "ko_registerWidget"], function(ko) {';
+    ?>
     registerVm = new RegisterWidgetViewModel(<?=CJSON::encode($json)?>, $('#registerForm'));
     ko.applyBindings(registerVm, document.getElementById('registerWidget'));
-
-    $(function() {
-        if (<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?>)
+    if (<?php Yii::app()->controller->renderDynamic(array($this, 'autoOpen')); ?>)
             setTimeout(function() {
                 registerVm.open();
             }, 3000);
-    });
+    <?php
+    if($cs->useAMD)
+        echo '})});';
+    ?>
 </script>

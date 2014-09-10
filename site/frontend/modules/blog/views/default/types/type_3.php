@@ -32,13 +32,18 @@ $collection = new PhotoPostPhotoCollection(array('contentId' => $data->id));
         <?php endif; ?>
     </div>
 
-    <?php if (Yii::app()->request->getQuery('openGallery') !== null || ($post->autoOpen == 1)): ?>
-        <script type="text/javascript">
-            $(function() {
-                PhotoCollectionViewWidget.open(<?=CJavaScript::encode(get_class($collection))?>, <?=CJavaScript::encode($collection->options)?>, <?=CJavaScript::encode($collection->photoIds[0])?>);
-            });
-        </script>
-    <?php endif; ?>
+    <?php
+    if (Yii::app()->request->getQuery('openGallery') !== null || ($post->autoOpen == 1))
+    {
+        $js = 'PhotoCollectionViewWidget.open(' . CJavaScript::encode(get_class($collection)) . ', ' . CJavaScript::encode($collection->options) . ', ' . CJavaScript::encode($collection->photoIds[0]) . ')';
+        $cs = Yii::app()->clientScript;
+        if ($cs->useAMD)
+            $cs->registerAMD('galleryAutoOpen', array('gallery'), $js);
+        else
+            $cs->registerScript('galleryAutoOpen', $js, ClientScript::POS_LOAD);
+    }
+    ?>
+
 <?php else: ?>
     <?php if ($showTitle):?>
         <div class="b-article_t">

@@ -84,11 +84,11 @@ class HJSON extends CJSON
             $vars = get_object_vars($var);
 
         return '{' .
-        join(',', array_map(function($name, $value) use ($config)
-        {
-            return HJSON::nameValue($name, $value, $config);
-        }, array_keys($vars), array_values($vars)))
-        . '}';
+            join(',', array_map(function($name, $value) use ($config)
+                    {
+                        return HJSON::nameValue($name, $value, $config);
+                    }, array_keys($vars), array_values($vars)))
+            . '}';
     }
 
     protected static function encodeArray($var, $config, $subConfig)
@@ -113,19 +113,19 @@ class HJSON extends CJSON
         elseif (is_array($var) && count($var) && (array_keys($var) !== range(0, sizeof($var) - 1)))
         {
             return '{' .
-            join(',', array_map(function($name, $value) use ($config)
-            {
-                return HJSON::nameValue($name, $value, $config);
-            }, array_keys($var), array_values($var)))
-            . '}';
+                join(',', array_map(function($name, $value) use ($config)
+                        {
+                            return HJSON::nameValue($name, $value, $config);
+                        }, array_keys($var), array_values($var)))
+                . '}';
         }
         else
         {
             // treat it like a regular array
             return '[' . join(',', array_map(function($value) use ($config, $subConfig)
-            {
-                return HJSON::encode($value, $config, $subConfig);
-            }, $var)) . ']';
+                        {
+                            return HJSON::encode($value, $config, $subConfig);
+                        }, $var)) . ']';
         }
     }
 

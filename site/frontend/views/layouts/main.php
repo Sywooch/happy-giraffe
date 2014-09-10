@@ -1,16 +1,41 @@
 ﻿<?php
-Yii::app()->clientScript
-    ->registerCoreScript('yiiactiveform')
-    ->registerPackage('ko_layout')
-    ->registerPackage('ko_post')
-    ->registerPackage('ko_menu')
-;
+/** @var ClientScript $cs */
+$cs = Yii::app()->clientScript;
 
-if (! Yii::app()->user->isGuest)
+if(! $cs->useAMD) {
     Yii::app()->clientScript
-        ->registerPackage('comet')
-        ->registerScript('Realplexor-reg', 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');')
+        ->registerCoreScript('yiiactiveform')
+        ->registerPackage('ko_layout')
+        ->registerPackage('ko_post')
+        ->registerPackage('ko_menu')
     ;
+}
+
+if (! Yii::app()->user->isGuest) {
+    $cometJs = 'comet.connect(\'http://' . Yii::app()->comet->host . '\', \'' . Yii::app()->comet->namespace . '\', \'' . UserCache::GetCurrentUserCache() . '\');';
+    $menuJs = "var menuVm = new MenuViewModel( " . CJSON::encode($this->menuData) . ");ko.applyBindings(menuVm, $('.header-fix')[0]);ko.applyBindings(menuVm, $('.header')[0]);";
+
+    if (! $cs->useAMD) {
+        $cs
+            ->registerPackage('comet')
+            ->registerScript('Realplexor-reg', $cometJs)
+            ->registerScript('menuVM', $menuJs)
+        ;
+    } else {
+        $cs
+            ->registerAMD('Realplexor-reg', array('comet' => 'comet'), $cometJs)
+            ->registerAMD('menuVM', array('ko' => 'knockout', 'MenuViewModel' => 'ko_menu'), $menuJs)
+        ;
+    }
+}
+
+$js = "var userIsGuest = " . CJavaScript::encode(Yii::app()->user->isGuest) . "; var CURRENT_USER_ID = " . CJavaScript::encode(Yii::app()->user->id);
+if($cs->useAMD) {
+    $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_AMD);
+}
+else {
+    $cs->registerScript('isGuest&&userId', $js, ClientScript::POS_HEAD);
+}
 
 $user = Yii::app()->user->getModel();
 
@@ -87,11 +112,8 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
                     <?php if (!Yii::app()->user->isGuest && $this->showAddBlock):?>
                         <div class="content-cols clearfix">
                             <div class="col-1">
-                                <div class="sidebar-search clearfix">
-                                    <form action="/search/">
-                                        <input type="text" placeholder="Поиск по сайту" class="sidebar-search_itx" name="query" id="site-search" onkeyup="SiteSearch.keyUp(event, this)">
-                                        <input type="button" class="sidebar-search_btn" id="site-search-btn" onclick="return SiteSearch.click()"/>
-                                    </form>
+                                <div class="sidebar-search sidebar-search__big clearfix">
+                                    <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
                                 </div>
                             </div>
                             <div class="col-23-middle">
@@ -152,22 +174,5 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
         <?php $this->renderPartial('//_footer'); ?>
     <?php endif; ?>
 </div>
-<div class="display-n">
-    <?php $sql_stats = YII::app()->db->getStats();
-    echo $sql_stats[0] . ' запросов к БД, время выполнения запросов - ' . sprintf('%0.5f', $sql_stats[1]) . ' c.'; ?>
-</div>
 
-<script type="text/javascript">
-    <?php if (! Yii::app()->user->isGuest): ?>
-    menuVm = new MenuViewModel(<?=CJSON::encode($this->menuData)?>);
-    ko.applyBindings(menuVm, $('.header-fix')[0]);
-    ko.applyBindings(menuVm, $('.header')[0]);
-    <?php endif; ?>
-    var userIsGuest = <?=CJavaScript::encode(Yii::app()->user->isGuest)?>;
-    var CURRENT_USER_ID = <?=CJavaScript::encode(Yii::app()->user->id)?>;
-</script>
-
-<?php if (Yii::app()->user->isGuest): ?>
-
-<?php endif; ?>
 <?php $this->endContent(); ?>

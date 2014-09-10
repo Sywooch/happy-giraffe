@@ -1,5 +1,6 @@
 <div style="margin: 15px;">
-    <?php if ($data instanceof CommunityContent && ! $data->getIsFromBlog()): ?>
+    <?php if (false && $data instanceof CommunityContent && ! $data->getIsFromBlog()): ?>
+    <?php $this->beginWidget('AdsWidget'); ?>
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad_post_footer"></div>
     <script type="text/javascript">
@@ -29,6 +30,7 @@
             t.insertBefore(s, t.firstChild);
         })(window, document, "yandex_context_callbacks");
     </script>
+    <?php $this->endWidget(); ?>
     <?php else: ?>
         <?php Yii::app()->controller->renderPartial('//banners/_route'); ?>
     <?php endif; ?>

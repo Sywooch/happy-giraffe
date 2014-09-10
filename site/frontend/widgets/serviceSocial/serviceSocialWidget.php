@@ -12,8 +12,6 @@ class serviceSocialWidget extends CWidget
 
     public function run()
     {
-        NotificationRead::getInstance()->setContentModel($this->service);
-
         $this->render('index', array(
             'service' => $this->service,
             'image' => $this->image,

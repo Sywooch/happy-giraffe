@@ -22,6 +22,7 @@
  * @property string $real_time
  * @property int $source_id
  * @property int $privacy
+ * @property string $powerTipTitle Подсказка для вывода в списках
  *
  * The followings are the available model relations:
  *
@@ -48,6 +49,10 @@ class CommunityContent extends HActiveRecord implements IPreview
     const TYPE_STATUS = 5;
     const TYPE_REPOST = 6;
     const TYPE_QUESTION = 7;
+    // Используется в CookRecipe::getType_id
+    const TYPE_RECIPE = 8;
+    // Используется в AlbumPhoto::getType_id
+    const TYPE_PHOTO = 9;
 
     const USERS_COMMUNITY = 999999;
 
@@ -81,6 +86,7 @@ class CommunityContent extends HActiveRecord implements IPreview
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('title', 'filter', 'filter' => array('\site\frontend\components\TrimFilter', 'trimTitle')),
             array('title', 'required', 'except' => 'status'),
             array('type_id', 'required'),
             array('rubric_id', 'required', 'on' => 'default_club'),
@@ -148,11 +154,14 @@ class CommunityContent extends HActiveRecord implements IPreview
     public function behaviors()
     {
         return array(
+            'ContentBehavior' => array(
+                'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
+            ),
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
             ),
@@ -176,6 +185,9 @@ class CommunityContent extends HActiveRecord implements IPreview
             ),
 //            'duplicate' => array(
 //                'class' => 'site.common.behaviors.DuplicateBehavior',
+//            ),
+//            'yandexwm' => array(
+//                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
 //            ),
         );
     }
@@ -249,7 +261,6 @@ class CommunityContent extends HActiveRecord implements IPreview
     {
         FriendEvent::postDeleted(($this->isFromBlog ? 'BlogContent' : 'CommunityContent'), $this->id);
         self::model()->deleteAll('source_id=:removed_id', array(':removed_id' => $this->id));
-        NotificationDelete::entityRemoved($this);
         Scoring::contentRemoved($this);
 
         return parent::beforeDelete();
@@ -621,6 +632,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                     'condition' => 'rubric_id = :rubric_id AND t.id < :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id DESC',
+                    'limit' => 1,
                 )
             );
         } else {
@@ -637,6 +649,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),
                     ),
+                    'limit' => 1,
                 )
             );
         }
@@ -657,6 +670,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                     'condition' => 'rubric_id = :rubric_id AND t.id > :current_id',
                     'params' => array(':rubric_id' => $this->rubric_id, ':current_id' => $this->id),
                     'order' => 't.id',
+                    'limit' => 1,
                 )
             );
         } else {
@@ -673,6 +687,7 @@ class CommunityContent extends HActiveRecord implements IPreview
                             'params' => array(':user_id' => $this->rubric->user_id),
                         ),
                     ),
+                    'limit' => 1,
                 )
             );
         }
@@ -688,7 +703,7 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function getIsFromBlog()
     {
-        return $this->getRelated('rubric')->user_id !== null || in_array($this->type_id, array(self::TYPE_STATUS, self::TYPE_REPOST));
+        return ($this->getRelated('rubric')->user_id !== null && $this->type_id != self::TYPE_MORNING) || in_array($this->type_id, array(self::TYPE_STATUS, self::TYPE_REPOST));
     }
 
     /**
@@ -697,6 +712,9 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function canEdit()
     {
+        if (in_array($this->author_id, array(167771, 189230, 220231)) && time() < strtotime('2014-09-04'))
+            return false;
+
         if ($this->rubric->community_id == Community::COMMUNITY_NEWS)
             return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
 
@@ -711,6 +729,9 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function canRemove()
     {
+        if (in_array($this->author_id, array(167771, 189230, 220231)) && time() < strtotime('2014-09-04'))
+            return false;
+
         if ($this->rubric->community_id == Community::COMMUNITY_NEWS)
             return Yii::app()->authManager->checkAccess('news', Yii::app()->user->id);
 
@@ -957,8 +978,11 @@ class CommunityContent extends HActiveRecord implements IPreview
                 $t = "Мой блог";
             else
                 $t = htmlentities("Блог пользователя \"" . $this->author->getFullName() . "\"", ENT_QUOTES, "UTF-8");
-        } else
+        } elseif ($this->type_id == self::TYPE_MORNING) {
+            $t = 'Утро с Веселым жирафом';
+        } else {
             $t = htmlentities(("Клуб <span class='color-category " . $this->rubric->community->css_class . "'>" . $this->rubric->community->title . "</span>"), ENT_QUOTES, "UTF-8");
+        }
         if (!$full)
             return $t;
 
@@ -1144,6 +1168,25 @@ class CommunityContent extends HActiveRecord implements IPreview
             );
         }
 
+        $remo = <<<HTML
+<!-- AdRiver code START:  ÍÓ‰ ‰Îˇ ÒˆÂÌ‡Ëˇ ; AD: 422855 "Remo-wax";   ÒˆÂÌ‡ËÈ   ID 1740991 "Happy-giraffe_2014" ; counter(zeropixel) -->
+<script type="text/javascript">
+var RndNum4NoCash = Math.round(Math.random() * 1000000000);
+var ar_Tail='unknown'; if (document.referrer) ar_Tail = escape(document.referrer);
+document.write('<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?' + 'sid=1&ad=422855&bt=21&pid=1740991&bn=1740991&rnd=' + RndNum4NoCash + '&tail256=' + ar_Tail + '" border=0 width=1 height=1>')
+</script>
+<noscript><img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&ad=422855&bt=21&pid=1740991&bn=1740991&rnd=1146898268" border=0 width=1 height=1></noscript>
+<!-- AdRiver code END -->
+HTML;
+
+        if ($this->id == 199812) {
+            return array(
+                'text' => 'Ремо-Вакс',
+                'img' => '/images/banners/ava-remowax.jpg?1',
+                'pix' => $remo,
+            );
+        }
+
         return null;
     }
 
@@ -1152,7 +1195,7 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function getPreviewText()
     {
-        return $this->getContent()->text;
+        return isset($this->getContent()->text) ? $this->getContent()->text : $this->title;
     }
 
     /**

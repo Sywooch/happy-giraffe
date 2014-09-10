@@ -9,7 +9,6 @@
 //))){
 
     $comments = $this->getComments();
-NotificationRead::getInstance()->SetVisited();
 $allCount = ($this->full) ? count($comments) : $this->model->getCommentsCount();
 $data = array(
     'entity' => $this->entity,
@@ -21,11 +20,6 @@ $data = array(
     'allCount' => (int)$allCount,
     'messaging__enter' => (bool) UserAttributes::get(Yii::app()->user->id, 'messaging__enter', false),
 );
-
-//помечаем комментарии как прочитанные
-foreach($comments as $comment)
-    NotificationRead::getInstance()->addShownComment($comment);
-NotificationRead::getInstance()->SetVisited();
 
 ?>
 <!-- ko stopBinding: true -->
@@ -70,7 +64,7 @@ NotificationRead::getInstance()->SetVisited();
                 </span>
             </div>
             <div class="comments-gray_frame">
-                <input type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" onfocus="$('[href=#login]').trigger('click')">
+                <input readonly="readonly" type="text" class="comments-gray_add-itx itx-gray" placeholder="Ваш комментарий" data-bind="click: openLoginPopup">
             </div>
         </div>
     <?php endif ?>
@@ -107,9 +101,16 @@ NotificationRead::getInstance()->SetVisited();
             <div class="comments-gray_i" data-bind="css: {'comments-gray_i__self': ownComment(), 'comments-gray_i__recovery': removed(), 'comments-gray_i__pink' : specialistLabel() !== null}, attr: {id: 'comment_'+id()}">
 
                 <div class="comments-gray_ava">
+                    <!-- ko if: author.deleted() == 0 -->
                     <a class="ava middle" href="" data-bind="css: author.avatarClass(), attr:{href: author.url()}">
                         <img data-bind="attr : { src : author.avatar() }">
                     </a>
+                    <!-- /ko -->
+                    <!-- ko if: author.deleted() != 0 -->
+                    <span class="ava middle" data-bind="css: author.avatarClass()">
+                        <img data-bind="attr : { src : author.avatar() }">
+                    </span>
+                    <!-- /ko -->
                 </div>
 
                 <div class="comments-gray_r">
@@ -127,7 +128,12 @@ NotificationRead::getInstance()->SetVisited();
 
                 <div class="comments-gray_frame">
                     <div class="comments-gray_header clearfix">
+                        <!-- ko if: author.deleted() == 0 -->
                         <a href="" class="comments-gray_author" data-bind="text: author.fullName(), attr:{href: author.url()}"></a>
+                        <!-- /ko -->
+                        <!-- ko if: author.deleted() != 0 -->
+                        <span class="comments-gray_author" data-bind="text: author.fullName()"></span>
+                        <!-- /ko -->
                         <!-- ko if: specialistLabel() !== null -->
                         <span class="comments-gray_spec" data-bind="text: specialistLabel"></span>
                         <!-- /ko -->
@@ -247,14 +253,19 @@ NotificationRead::getInstance()->SetVisited();
     <!-- /ko -->
 </div>
 <!-- /ko -->
-
-    <script type="text/javascript">
-        $(function() {
-            var viewModel = new CommentViewModel(<?=CJSON::encode($data)?>);
-            $('.'+'<?=$this->objectName ?>').each(function(index, el) {
-                ko.applyBindings(viewModel, el);
-            });
-        });
-    </script>
+<?php
+$json = CJSON::encode($data);
+$js = <<<JS
+    var viewModel = new CommentViewModel($json);
+    $('.'+'{$this->objectName}').each(function(index, el) {
+        ko.applyBindings(viewModel, el);
+    });
+JS;
+$cs = Yii::app()->clientScript;
+if ($cs->useAMD)
+    $cs->registerAMD('CommentViewModel', array('$' => 'jquery', 'ko' => 'knockout', 'ko_comments' => 'ko_comments'), $js);
+else
+    echo "<script type='text/javascript'>\n\t" . $js . "\n</script>";
+?>
 
 <?php //if (Yii::app()->user->isGuest) $this->endCache();} ?>

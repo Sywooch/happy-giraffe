@@ -6,7 +6,7 @@ class CalorisatorController extends HController
     {
         return array(
             'accessControl',
-            'ac + ajaxOnly'
+            'ajaxOnly + ac'
         );
     }
 

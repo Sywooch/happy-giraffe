@@ -68,8 +68,10 @@ class DefaultController extends HController
 
         $contents = BlogContent::model()->getBlogContents($user_id, $rubric_id);
 
+        NoindexHelper::setNoIndex($this->user);
+
         if ($this->user->hasRssContent())
-            $this->rssFeed = $this->createUrl('rss/user', array('user_id' => $user_id));
+            $this->rssFeed = $this->createUrl('/rss/user', array('user_id' => $user_id));
 
         if (! Yii::app()->user->isGuest)
             $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');
@@ -110,21 +112,13 @@ class DefaultController extends HController
         }
 
         if ($content->type_id == CommunityContentType::TYPE_STATUS)
-            $this->pageTitle = Str::getDescription(strip_tags($content->status->text), 170, '');
+            $this->pageTitle = $content->author->getFullName() . ' - статус от ' . Yii::app()->dateFormatter->format('dd.MM.yy hh:mm', $content->created);
         else
             $this->pageTitle = $content->title;
 
         $this->rubric_id = $content->rubric->id;
 
-        if (!empty($content->uniqueness) && $content->uniqueness < 50)
-            Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
-
-        if ($content->type_id == CommunityContent::TYPE_REPOST) {
-            Yii::app()->clientScript->registerLinkTag('canonical', null, $content->source->getUrl(false, true));
-        }
-
-        //сохраняем просматриваемую модель
-        NotificationRead::getInstance()->setContentModel($content);
+        NoindexHelper::setNoIndex($content);
 
         if (! Yii::app()->user->isGuest)
             $this->breadcrumbs['Люди на сайте'] = $this->createUrl('/friends/search/index');
@@ -135,6 +129,12 @@ class DefaultController extends HController
             $content->title,
         );
 
+        // Поставим флаг, что бы для найденных сущностей прочитались сигналы
+        \site\frontend\modules\notifications\behaviors\ContentBehavior::$active = true;
+
+        if (Yii::app()->user->isGuest)
+            $this->render('view_requirejs', array('data' => $content, 'full' => true));
+        else
         $this->render('view', array('data' => $content, 'full' => true));
     }
 
@@ -201,7 +201,7 @@ class DefaultController extends HController
         }
     }
 
-    public function actionForm($id = null, $type = null, $club_id = false, $contest_id = null)
+    public function actionForm($id = null, $type = null, $club_id = false, $contest_id = null, $useAMD = null, $short = null)
     {
         $this->user = $this->loadUser(Yii::app()->user->id);
         if ($id === null) {
@@ -219,6 +219,10 @@ class DefaultController extends HController
             else
                 $model = BlogContent::model()->findByPk($id);
             $slaveModel = $model->getContent();
+        }
+
+        if ($useAMD !== null) {
+            Yii::app()->clientScript->useAMD = true;
         }
 
         if (!$model->isNewRecord && !$model->canEdit())
@@ -284,7 +288,7 @@ class DefaultController extends HController
             $model->rubric_id = $contest->rubric_id;
             $this->renderPartial('form/contest/' . $contest->id, compact('model', 'slaveModel', 'json', 'club_id', 'contest_id', 'contest'), false, true);
         }
-        elseif (Yii::app()->request->getPost('short'))
+        elseif ($short)
             $this->renderPartial('form/' . $model->type_id, compact('model', 'slaveModel', 'json', 'club_id'), false, true);
         else
             $this->renderPartial('form', compact('model', 'slaveModel', 'json', 'club_id'), false, true);
@@ -427,7 +431,7 @@ class DefaultController extends HController
             ->from('community__contents c')
             ->join('community__rubrics r', 'c.rubric_id = r.id')
             ->join('community__content_types ct', 'c.type_id = ct.id')
-            ->where('r.user_id IS NOT NULL AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)')
+            ->where('r.user_id IS NOT NULL AND c.type_id NOT IN (:morning, :status) AND c.removed = 0 AND (c.uniqueness >= 50 OR c.uniqueness IS NULL)', array(':morning' => CommunityContent::TYPE_MORNING, ':status' => CommunityContent::TYPE_STATUS))
             ->limit(50000)
             ->offset(($param - 1) * 50000)
             ->order('c.id ASC')

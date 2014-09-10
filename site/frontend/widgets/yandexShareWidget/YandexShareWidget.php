@@ -18,11 +18,16 @@ class YandexShareWidget extends CWidget
     public $description;
     public $imageUrl;
     public $url;
+    public $lite = false;
 
     private $_id;
 
     public function init()
     {
+        if (! $this->model instanceof IPreview) {
+            throw new CException('Сущность должна реализовывать интерфейс IPreview');
+        }
+
         if ($this->title === null) {
             $this->title = $this->getTitle();
         }
@@ -43,7 +48,6 @@ class YandexShareWidget extends CWidget
     public function run()
     {
         $this->registerMeta();
-        $this->registerScript();
         $json = CJSON::encode(array(
             'element' => $this->getElementId(),
             'theme' => 'counter',
@@ -62,7 +66,8 @@ class YandexShareWidget extends CWidget
             'description' => $this->description,
             'image' => $this->imageUrl,
         ));
-        $this->render('view', compact('json'));
+        $this->registerScript($json);
+        $this->render($this->getView(), compact('json'));
     }
 
     public function getElementId()
@@ -73,13 +78,28 @@ class YandexShareWidget extends CWidget
         return $this->_id;
     }
 
-    protected function registerScript()
+    protected function getView()
+    {
+        return $this->lite === true ? 'lite' : 'view';
+    }
+
+    protected function registerScript($json)
     {
         /** @var ClientScript $cs */
         $cs = Yii::app()->clientScript;
-        $cs->registerScriptFile('//yandex.st/share/share.js', null, array(
-            'charset' => 'utf-8',
-        ));
+        if ($cs->useAMD)
+        {
+            $cs->amd['shim']['ya.share'] = array('exports' => 'Ya');
+            $cs->amd['paths']['ya.share'] = '//yandex.st/share/share';
+            $cs->registerAMD('YandexShare#' . $this->id, array('Ya' => 'ya.share'), "new Ya.share(" . $json . ");");
+        }
+        else
+        {
+            $cs->registerScriptFile('//yandex.st/share/share.js', null, array(
+                'charset' => 'utf-8',
+            ));
+            $cs->registerScript('YandexShare#' . $this->id, "new Ya.share(" . $json . ");", ClientScript::POS_LOAD);
+        }
     }
 
     protected function registerMeta()

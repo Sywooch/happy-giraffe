@@ -4,7 +4,7 @@ $user = Yii::app()->user->model;
 
 <!-- header-->
 <!-- ko stopBinding: true -->
-<div class="header header__base">
+<div class="header header__user header__base">
     <div class="header_hold clearfix">
         <!-- logo-->
         <div class="logo"><?=HHtml::link('Веселый жираф - сайт для всей семьи', '/', array('class' => 'logo_i', 'title' => 'Веселый жираф - сайт для всей семьи'), true)?><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>

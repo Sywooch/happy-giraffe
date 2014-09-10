@@ -17,7 +17,7 @@
         <?php $this->widget('AuthWidget', array('action' => '/signup/register/social', 'view' => 'inside')); ?>
     </div>
     <div class="popup-sign_col">
-        <?php $form = $this->beginWidget('CActiveForm', array(
+        <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
             'id' => 'registerFormStep1',
             'action' => array('/signup/register/step1'),
             'enableAjaxValidation' => true,
@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="popup-sign_row">
-            <button class="btn-green-simple btn-l">Зарегистрироваться</button>
+            <button class="btn-green-simple btn-l btn btn-success">Зарегистрироваться</button>
         </div>
         <!--<div class="popup-sign_row">
             <div class="popup-sign_tx-help">Продолжая, вы соглашаетесь с нашими  <a class="a-color-gray-light">Условиями использования</a>,<a class="a-color-gray-light">Политикой конфиденциальности </a>и <a class="a-color-gray-light">Положениями о Cookie</a></div>

@@ -9,6 +9,11 @@
  */
 class WordstatSeason extends HMongoModel
 {
+    public function attributeNames()
+    {
+        return array();
+    }
+
     protected $_collection_name = 'keywords_season';
 
     public $keyword_id;

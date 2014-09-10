@@ -103,7 +103,8 @@ class EAuthWidget extends CWidget {
 	 */
 	protected function registerAssets() {
 		$cs = Yii::app()->clientScript;
-		$cs->registerCoreScript('jquery');
+        if(!$cs->useAMD)
+        	$cs->registerCoreScript('jquery');
 
 		$assets_path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
 		$url = Yii::app()->assetManager->publish($assets_path, false, -1, YII_DEBUG);
@@ -111,14 +112,20 @@ class EAuthWidget extends CWidget {
 
 		// Open the authorization dilalog in popup window.
 		if ($this->popup) {
-			$cs->registerScriptFile($url . '/js/auth.js', CClientScript::POS_END);
+            if($cs->useAMD)
+    			$cs->registerAMDFile(array('jquery'), $url . '/js/auth.js');
+            else
+                $cs->registerScriptFile($url . '/js/auth.js', CClientScript::POS_END);
 			$js = '';
 			foreach ($this->services as $name => $service) {
 				$args = $service->jsArguments;
 				$args['id'] = $service->id;
 				$js .= '$(".auth-service.' . $service->id . ' a").eauth(' . json_encode($args) . ');' . "\n";
 			}
-			$cs->registerScript('eauth-services', $js, CClientScript::POS_READY);
+            if($cs->useAMD)
+    			$cs->registerAMD('eauth-services', array('$' => 'jquery', 'eauth' => $url . '/js/auth.js'), $js);
+            else
+                $cs->registerScript('eauth-services', $js, CClientScript::POS_READY);
 		}
 	}
 }

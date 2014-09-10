@@ -21,11 +21,22 @@
     </div>
 </div>
 <script type="text/javascript">
-    var subscriptionData = <?=CJSON::encode(array(
-            'subscribed'=>UserBlogSubscription::isSubscribed(Yii::app()->user->id, $this->user->id),
-            'count'=>(int)UserBlogSubscription::model()->subscribersCount($this->user->id),
-            'user_id'=>$this->user->id
-        ))?>;
-    var subscription = new BlogSubscription(subscriptionData);
-    ko.applyBindings(subscription, document.getElementById('subscription-info'));
+    <?php
+    $json = CJSON::encode(array(
+            'subscribed' => UserBlogSubscription::isSubscribed(Yii::app()->user->id, $this->user->id),
+            'count' => (int) UserBlogSubscription::model()->subscribersCount($this->user->id),
+            'user_id' => $this->user->id
+    ));
+    $js = <<<JS
+        var subscriptionData = $json;
+        var subscription = new BlogSubscription(subscriptionData);
+        ko.applyBindings(subscription, document.getElementById('subscription-info'));
+JS;
+    $cs = Yii::app()->clientScript;
+    if($cs->useAMD)
+        $cs->registerAMD('BlogSubscription', array('ko' => 'knockout' , 'ko_blog' => 'ko_blog'), $js);
+    else
+        $cs->registerScript('BlogSubscription', $js, ClientScript::POS_LOAD);
+    ?>
+    
 </script>

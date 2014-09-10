@@ -613,6 +613,48 @@
             }
         };
 
+        /**
+         * Кастомный биндинг на изображения, без путей. Удаляем совсем.
+        */
+
+        ko.bindingHandlers.src = {
+            update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+                var val = valueAccessor();
+                var $el = $(element);
+                if ( (typeof val === 'string' || val instanceof String) && val.length > 0) {
+                  $el
+                    .show()
+                    .attr('src', val);
+                } else {
+                  $el
+                    .remove();
+                }
+            }
+        };
+
+        /**
+         * Кастомный биндинг на ссылки, без путей. Заменяем на span
+         */
+
+        ko.bindingHandlers.href = {
+            update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+                var val = valueAccessor(),
+                    $el = $(element),
+                    attrs = $el.prop("attributes");
+
+                if ( (typeof val !== 'string' || !val instanceof String) || val.length === 0) {
+
+                    var $span = $('<span>' + $el.text() + '</span>');
+
+                    $.each(attrs, function() {
+                        $span.attr(this.name, this.value);
+                    });
+
+                    $el.replaceWith($span);
+                }
+            }
+        };
+
         ko.bindingHandlers.jcrop = {
             init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
                 var options = valueAccessor().options;

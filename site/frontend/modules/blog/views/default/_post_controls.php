@@ -7,7 +7,7 @@ $ViewModelData = $model->getSettingsViewModel();
 $ownArticle = $model->author_id == Yii::app()->user->id;
 
 ?><div class="like-control like-control__small-indent clearfix">
-    <?php if ($ad = $model->isAd()): ?>
+    <?php if (($ad = $model->isAd()) && ! empty($ad['img'])): ?>
         <span class="ava">
             <?=CHtml::image($ad['img'], $ad['text'])?>
         </span>

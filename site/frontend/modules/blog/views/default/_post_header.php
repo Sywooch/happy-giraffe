@@ -20,7 +20,7 @@ if ($model->by_happy_giraffe)
         </div>
     </div>
     <div class="float-l">
-        <?php if ($ad = $model->isAd()): ?>
+        <?php if (($ad = $model->isAd()) && ! empty($ad['text'])): ?>
             <span class="b-article_author" style="text-decoration: none;"><?=$ad['text']?></span>
         <?php else: ?>
             <?php if ($author->deleted == 1): ?>

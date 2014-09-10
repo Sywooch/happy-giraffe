@@ -112,18 +112,11 @@
         <?php $this->renderPartial('//banners/_horoscope'); ?>
     </div>
     <!-- /Основная колонка-->
-    <?php
-    if ($this->period == 'day')
-    {
-        ?>
-        <div class="b-main_col-sidebar">
-            <!-- Зодиаки-->
-            <div class="zodiac-list zodiac-list__sidebar">
-                <?php $this->renderPartial('_zodiac_list', array('sidebar' => true)); ?>
-            </div>
-            <!-- Зодиаки-->
+    <div class="b-main_col-sidebar">
+        <!-- Зодиаки-->
+        <div class="zodiac-list zodiac-list__sidebar">
+            <?php $this->renderPartial('_zodiac_list', array('sidebar' => true)); ?>
         </div>
-        <?
-    }
-    ?>
+        <!-- Зодиаки-->
+    </div>
 </div>

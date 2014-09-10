@@ -32,21 +32,16 @@ class CompatibilityController extends LiteController
         }
         else
         {
-            $str = Horoscope::model()->zodiac_list[$zodiac1] . ' и ' . Horoscope::model()->zodiac_list[$zodiac2];
-            $this->meta_title = 'Гороскоп совместимости ' . $str;
-            $this->meta_description = 'Гороскоп совместимости знаков Зодиака ' . $str . '.  Узнайте вашу совместимость.';
-            $this->meta_keywords = 'Совместимость ' . $str . ', мужчина и женщина ' . $str;
-
             $model = HoroscopeCompatibility::model()->findByAttributes(array('zodiac1' => $zodiac1, 'zodiac2' => $zodiac2));
             if ($model === null)
             {
                 $model = HoroscopeCompatibility::model()->findByAttributes(array('zodiac1' => $zodiac2, 'zodiac2' => $zodiac1));
                 if ($model === null)
                     throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-                Yii::app()->clientScript->registerLinkTag('canonical', null, $this->createAbsoluteUrl('/services/horoscope/compatibility/index', array(
+                $this->metaCanonical = $this->createAbsoluteUrl('/services/horoscope/compatibility/index', array(
                         'zodiac1' => Horoscope::model()->zodiac_list_eng[$zodiac2],
                         'zodiac2' => Horoscope::model()->zodiac_list_eng[$zodiac1],
-                )));
+                ));
                 $i = $model->zodiac1;
                 $model->zodiac1 = $model->zodiac2;
                 $model->zodiac2 = $i;

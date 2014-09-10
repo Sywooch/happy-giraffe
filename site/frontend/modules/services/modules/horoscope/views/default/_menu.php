@@ -23,7 +23,7 @@ $this->widget('HMenu', array(
             'visible' => $this->period !== 'month',
         ),
         array('label' => 'На год',
-            'url' => $this->getUrl(array('period' => 'year')),
+            'url' => $this->getUrl(array('period' => 'year', 'alias' => 'today')),
             'linkOptions' => array('class' => 'menu-link-simple_a'),
             'visible' => $this->period !== 'year',
         ),

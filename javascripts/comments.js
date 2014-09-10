@@ -1,11 +1,11 @@
 (function(window) {
-    function f(ko) {
+    function f(ko, mapping) {
         var ENTER_KEY_SEND = 1;
         function CommentViewModel(data) {
             var self = this;
             self.OPENED_BOT = 0;
             self.OPENED_TOP = 1;
-            ko.mapping.fromJS(data, {}, self);
+            mapping.fromJS(data, {}, self);
             self.extended = ko.observable(false);
             self.opened = ko.observable(false);
             self.gallery = ko.observable(data.gallery);
@@ -219,7 +219,7 @@
             self.parent = parent;
             self.removed = ko.observable(false);
             self.editMode = ko.observable(false);
-            ko.mapping.fromJS(data, {}, self);
+            mapping.fromJS(data, {}, self);
 
             self.author = new User(data['author']);
             self.ownComment = ko.computed(function () {
@@ -341,7 +341,7 @@
 
         function User(data) {
             var self = this;
-            ko.mapping.fromJS(data, {}, self);
+            mapping.fromJS(data, {}, self);
 
             self.fullName = ko.computed(function () {
                 var fullName = self.firstName();
@@ -372,6 +372,6 @@
     if (typeof define === 'function' && define['amd']) {
         define('ko_comments', ['knockout', 'knockout.mapping', 'ko_library'], f);
     } else {
-        f(window.ko);
+        f(window.ko, window.ko.mapping);
     }
 })(window);

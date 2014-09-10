@@ -2,6 +2,7 @@
 /* @var $model HoroscopeCompatibility
  * @var $form CActiveForm
  */
+$this->pageTitle = 'Гороскоп совместимости знаков';
 $this->breadcrumbs = array(
     'Гороскопы' => array('/services/horoscope/default/index'),
     'Совместимость' => '/horoscope/compatibility/',

@@ -2,6 +2,11 @@
 /* @var $model HoroscopeCompatibility
  * @var $form CActiveForm
  */
+$this->pageTitle = 'Гороскоп на сегодня по знакам зодиака';
+$this->breadcrumbs = array(
+    'Гороскопы' => $this->getUrl(array('alias' => 'today')),
+    'Гороскоп совместимости',
+);
 ?>
 <div class="b-main_cont">
     <div class="b-main_col-hold clearfix">

@@ -75,6 +75,17 @@ class HoroscopeUrlRule extends \CBaseUrlRule
                 );
                 return 'services/horoscope/default/list';
             }
+            elseif (count($path) == 2 && in_array($path[1], array('tomorrow', 'yesterday')))
+            {
+                // это просмотр списка на завтра
+                $_GET = array(
+                    'zodiac' => false,
+                    'period' => 'day',
+                    'date' => strtotime('+1 day'),
+                    'alias' => $path[1],
+                );
+                return 'services/horoscope/default/list';
+            }
             elseif (count($path) == 2)
             {
                 // это просмотр гороскопа на сегодня

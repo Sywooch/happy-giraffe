@@ -8,7 +8,49 @@
         <!--/////-->
         <!-- Основная колонка-->
         <div class="b-main_col-article">
-            <h1 class="heading-link-xxl"><?= '' ?></h1>
+            <h1 class="heading-link-xxl">
+                <?php
+                if ($this->alias == 'today' && $this->period == 'day')
+                {
+                    $this->pageTitle = 'Гороскоп на сегодня по знакам зодиака';
+                    $this->metaDescription = 'Ежедневный гороскоп по знакам Зодиака. Гороскопы на сегодня, завтра, месяц, год.';
+                    echo 'Гороскоп на сегодня по знакам Зодиака';
+                    $this->breadcrumbs = array(
+                        'Гороскопы',
+                    );
+                }
+                elseif ($this->alias == 'tomorrow' && $this->period == 'day')
+                {
+                    $this->pageTitle = 'Гороскоп на завтра по знакам зодиака';
+                    $this->metaDescription = 'Гороскопы для всех знаков Зодиака на завтра бесплатно';
+                    echo 'Гороскоп на завтра';
+                    $this->breadcrumbs = array(
+                        'Гороскопы' => $this->getUrl(array('alias' => 'today')),
+                        'На завтра',
+                    );
+                }
+                elseif ($this->period == 'month')
+                {
+                    $this->pageTitle = 'Гороскоп на каждый месяц';
+                    $this->metaDescription = 'Ежемесячный гороскоп для всех знаков зодиака';
+                    echo 'Гороскоп на месяц';
+                    $this->breadcrumbs = array(
+                        'Гороскопы' => $this->getUrl(array('alias' => 'today')),
+                        'На месяц',
+                    );
+                }
+                elseif ($this->period == 'year')
+                {
+                    $this->pageTitle = 'Гороскоп на 2013 год для всех знаков зодиака';
+                    $this->metaDescription = 'Гороскоп на 2013 для всех знаков Зодиака: здоровье, карьера, финансы и личная жизнь';
+                    echo 'Гороскоп на 2013 год';
+                    $this->breadcrumbs = array(
+                        'Гороскопы' => $this->getUrl(array('alias' => 'today')),
+                        'На год',
+                    );
+                }
+                ?>
+            </h1>
             <div class="wysiwyg-content visible-md-block">
                 <?php if ($this->alias == 'today'): ?>
                     <p>Нравится ли вам возможность ежедневно советоваться со звёздами? Наверняка вы не раз читали гороскоп для
@@ -22,7 +64,7 @@
                 <?= ServiceText::getText('horoscope', $this->period == 'day' ? $this->alias : $this->period) ?>
             </div>
             <div class="zodiac-list">
-            <?php $this->renderPartial('_zodiac_list'); ?>
+                <?php $this->renderPartial('_zodiac_list'); ?>
             </div>
             <div class="menu-link-simple menu-link-simple__center margin-t40">
                 <div class="menu-link-simple_t">Узнайте гороскоп</div>

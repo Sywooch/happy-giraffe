@@ -79,17 +79,6 @@ class PhotoCreate extends Photo
         return false;
     }
 
-    protected function beforeValidate()
-    {
-        if (parent::beforeValidate()) {
-            if ($this->author_id === null && ! \Yii::app()->user->isGuest) {
-                $this->author_id = \Yii::app()->user->id;
-            }
-            return true;
-        }
-        return false;
-    }
-
     protected function afterSave()
     {
         \Yii::app()->gearman->client()->doBackground('createThumbs', $this->id);

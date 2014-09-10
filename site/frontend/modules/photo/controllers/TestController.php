@@ -15,10 +15,11 @@ use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
 use Imagine\Imagick\Imagine;
 use League\Flysystem\Filesystem;
+use site\frontend\modules\photo\components\PhotoController;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 
-class TestController extends \HController
+class TestController extends PhotoController
 {
     public function filters()
     {
@@ -35,8 +36,6 @@ class TestController extends \HController
             ),
         );
     }
-
-    public $layout = '//layouts/new/main';
 
     public function actionPresets()
     {

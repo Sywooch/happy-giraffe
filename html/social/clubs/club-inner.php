@@ -462,6 +462,20 @@ $(document).ready(function () {
 						</a>
 					</div>
 				</div>
+
+
+				<div class="fast-articles3">
+					<div class="fast-articles3_i">
+						<a href="#" class="fast-articles3_a">
+							<span class="fast-articles3_img-hold">
+								<img src="/images/banners/post-199812-2.jpg" class="fast-articles3_img" alt="">
+								<!-- Примерочный пиксель -->
+								<img src="http://content.adfox.ru/transparent.gif" border="0" width="1" height="1" style="position:absolute;">
+							</span>
+							<span class="fast-articles3_tx">Чистим уши ребенку: без хлопот и боли. Узнать здесь!</span>
+						</a>
+					</div>
+				</div>
 				
 			</div>
 			<div class="col-23-middle ">

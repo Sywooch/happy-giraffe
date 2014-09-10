@@ -45,6 +45,7 @@
             </div>
         </div>
     </div>
+    <?php if (false): ?>
     <script>
         $(window).load(function() {
             /*
@@ -83,5 +84,6 @@
             <a href="#registerWidget" class="btn-green btn-h46 popup-a">Присоединяйтесь!</a>
         </div>
     </div>
+    <?php endif; ?>
 
 </div>

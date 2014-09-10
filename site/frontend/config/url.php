@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    //'useStrictParsing' => true,
+    'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -376,7 +376,10 @@ return array(
 
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
 
+        'photo/user/<authorId:\d+>/albums/<id:\d+>' => 'photo/albums/view',
         'photo/<_c>/<_a>' => 'photo/<_c>/<_a>',
+
+
         'onair' => 'blog/air/index',
 
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),

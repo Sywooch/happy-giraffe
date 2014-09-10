@@ -77,21 +77,6 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
 		return parent::model($className);
 	}
 
-    public function getCollectionLabel()
-    {
-        return 'Фотоальбом';
-    }
-
-    public function getCollectionTitle()
-    {
-        return $this->title;
-    }
-
-    public function getCollectionDescription()
-    {
-        return $this->description;
-    }
-
     public function behaviors()
     {
         return array(
@@ -107,7 +92,30 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
             'AuthorBehavior' => array(
                 'class' => 'site\common\behaviors\AuthorBehavior',
             ),
+            'UrlBehavior' => array(
+                'class' => 'site\common\behaviors\UrlBehavior',
+                'route' => '/photo/albums/view',
+                'params' => array(
+                    'id' => 'id',
+                    'authorId' => 'author_id',
+                ),
+            ),
         );
+    }
+
+    public function getCollectionLabel()
+    {
+        return 'Фотоальбом';
+    }
+
+    public function getCollectionTitle()
+    {
+        return $this->title;
+    }
+
+    public function getCollectionDescription()
+    {
+        return $this->description;
     }
 
     public function user($userId)

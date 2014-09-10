@@ -18,6 +18,9 @@
             'id' => 'createAlbumForm',
             'enableAjaxValidation' => true,
             'enableClientValidation' => true,
+            'clientOptions' => array(
+                'validateOnSubmit' => true,
+            ),
         )); ?>
         <div class="postAdd_hold margin-t40">
             <div class="postAdd_row">
@@ -25,6 +28,9 @@
                 <div class="postAdd_cont">
                     <div class="inp-valid inp-valid__abs">
                         <?=$form->textField($model, 'title', array('class' => 'itx-gray', 'placeholder' => $model->getAttributeLabel('title')))?>
+                        <div class="inp-valid_error">
+                            <?=$form->error($model, 'title')?>
+                        </div>
                         <div class="inp-valid_count">150</div>
                     </div>
                 </div>
@@ -34,6 +40,9 @@
                 <div class="postAdd_cont">
                     <div class="inp-valid inp-valid__abs">
                         <?=$form->textArea($model, 'description', array('class' => 'itx-gray', 'placeholder' => $model->getAttributeLabel('description')))?>
+                        <div class="inp-valid_error">
+                            <?=$form->error($model, 'description')?>
+                        </div>
                         <div class="inp-valid_count">450</div>
                     </div>
                 </div>
@@ -43,7 +52,7 @@
                 <div class="postAdd_cont">
                     <div class="postAdd_btns-hold">
                         <a href="<?=Yii::app()->request->urlReferrer?>" class="btn btn-link-gray margin-r15">Отменить</a>
-                        <button class="btn btn-success btn-xm disabled">Создать альбом</button>
+                        <button class="btn btn-success btn-xm">Создать альбом</button>
                     </div>
                 </div>
             </div>
@@ -52,11 +61,3 @@
     </div>
     <!-- /Добавление -->
 </div>
-
-<script type="text/javascript">
-    function CreateAlbumForm() {
-        var self = this;
-    }
-
-    ko.applyBindings(new CreateAlbumForm(), $('.postAdd').get(0));
-</script>

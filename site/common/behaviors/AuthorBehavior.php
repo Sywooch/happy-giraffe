@@ -6,20 +6,18 @@ class AuthorBehavior extends \CActiveRecordBehavior
 {
     public $attr = 'author_id';
 
-    protected function beforeValidate($event)
+    public function beforeValidate($event)
     {
-        if (parent::beforeValidate($event)) {
-            if ($this->author_id === null) {
-                if (! $this->owner->hasProperty($this->attr)) {
-                    throw new \CException('Attribute is invalid');
-                }
-                if (! \Yii::app()->user->isGuest) {
-                    throw new \CException('User must be authenticated');
-                }
-                $this->author_id = \Yii::app()->user->id;
-            }
-            return true;
+
+        if (! $this->owner->hasAttribute($this->attr)) {
+            throw new \CException('Attribute is invalid');
         }
-        return false;
+
+        if ($this->owner->{$this->attr} === null) {
+            if (\Yii::app()->user->isGuest) {
+                throw new \CException('User must be authenticated');
+            }
+            $this->owner->{$this->attr} = \Yii::app()->user->id;
+        }
     }
 } 

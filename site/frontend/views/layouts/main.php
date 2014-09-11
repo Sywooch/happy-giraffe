@@ -23,7 +23,7 @@ if (! Yii::app()->user->isGuest) {
         ;
     } else {
         $cs
-            ->registerAMD('Realplexor-reg', array('comet' => 'comet'), $cometJs)
+            ->registerAMD('Realplexor-reg', array('common', 'comet'), $cometJs)
             ->registerAMD('menuVM', array('ko' => 'knockout', 'MenuViewModel' => 'ko_menu'), $menuJs)
         ;
     }

@@ -1187,6 +1187,14 @@ HTML;
             );
         }
 
+        if (in_array($this->id, array(33252, 4165, 34585))) {
+            return array(
+                'text' => '',
+                'img' => '',
+                'pix' => $remo,
+            );
+        }
+
         return null;
     }
 

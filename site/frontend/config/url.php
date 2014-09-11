@@ -377,6 +377,7 @@ return array(
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
 
         'photo/user/<authorId:\d+>/albums/<id:\d+>' => 'photo/albums/view',
+        'photo/user/<userId:\d+>/albums' => 'photo/default/index',
         'photo/<_c>/<_a>' => 'photo/<_c>/<_a>',
 
 

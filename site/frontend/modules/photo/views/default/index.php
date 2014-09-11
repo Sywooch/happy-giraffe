@@ -1,4 +1,14 @@
-<div class="page-col page-col__user">
+<?php
+/**
+ * @var PhotoController $this
+ * @var $json
+ * @var ClientScript $cs
+ */
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('myPhotos', array('ko' => 'knockout', 'MyPhotos' => 'photo/myPhotos'), "vvm = new MyPhotos($json); ko.applyBindings(vvm, document.getElementById('myPhotos'))");
+?>
+
+<div class="page-col page-col__user" id="myPhotos">
     <div class="page-col_cont page-col_cont__in">
         <!-- userAddRecord-->
         <div class="userAddRecord clearfix userAddRecord__blog userAddRecord__blog">
@@ -12,80 +22,8 @@
             </div>
         </div>
         <!-- /userAddRecord-->
-        <!-- b-album-->
-        <section class="b-album"><a href="" class="b-album_img-hold">
-                <!-- Высота изображений 580 пк-->
-                <!-- Если изображения маленькие, они становятся по центру--><img src="/new/images/example/w880-h580-1.jpg" alt="" class="b-album_img-big">
-                <div class="b-album_img-hold-ovr">
-                    <div class="ico-zoom ico-zoom__abs"></div>
-                </div></a>
-            <div class="b-album_top">
-                <div class="tx-date">Обновлен  Вчера 13:45</div>
-                <h2 class="b-album_title"><a href="" class="b-album_title-a">Ялта ♥♥♥</a></h2>
-                <!-- 2 строки описания, предположительно 140 символов--><a href="" class="b-album_desc">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие </a>
-                <div class="b-album_count-hold">
-                    <div class="b-album_count">240</div>
-                    <div class="b-album_count-tx">фото</div>
-                </div>
-            </div>
-            <div class="b-album_overlay"><a class="b-album_r">
-                    <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
-                    </div>
-                    <div class="b-album_ico-album"></div>
-                    <div class="b-album_arrow"></div></a>
-                <ul class="b-album_prev clearfix">
-                    <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="album-photo-add"></a></li>
-                </ul>
-            </div>
-        </section>
-        <!-- b-album-->
-        <section class="b-album"><a href="" class="b-album_img-hold">
-                <!-- Высота изображений 580 пк-->
-                <!-- Если изображения маленькие, они становятся по центру--><img src="/new/images/example/w305-h360-1.jpg" alt="" class="b-album_img-big">
-                <div class="b-album_img-hold-ovr">
-                    <div class="ico-zoom ico-zoom__abs"></div>
-                </div></a>
-            <div class="b-album_top">
-                <div class="tx-date">Обновлен  Вчера 13:45</div>
-                <h2 class="b-album_title"><a href="" class="b-album_title-a">Ялта ♥♥♥</a></h2>
-                <!-- 2 строки описания, предположительно 140 символов--><a href="" class="b-album_desc">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие </a>
-                <div class="b-album_count-hold">
-                    <div class="b-album_count">240</div>
-                    <div class="b-album_count-tx">фото</div>
-                </div>
-            </div>
-            <div class="b-album_overlay"><a class="b-album_r">
-                    <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
-                    </div>
-                    <div class="b-album_ico-album"></div>
-                    <div class="b-album_arrow"></div></a>
-                <ul class="b-album_prev clearfix">
-                    <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="album-photo-add"></a></li>
-                </ul>
-            </div>
-        </section>
+        <!-- ko module: { name : 'myPhotosAlbum', data : albums, template : 'photo/album' } -->
+        <!-- /ko -->
         <div class="heading-small margin-t40">Альбомы без фотографий</div>
         <!-- album-empty-->
         <div class="album-empty">

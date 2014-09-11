@@ -1,5 +1,5 @@
 (function() {
-    function f($, ko, comet) {
+    function f($, ko) {
         var MenuViewModel = function(data) {
             var self = this;
             self.newNotificationsCount = ko.observable(data.newNotificationsCount);
@@ -56,6 +56,6 @@
     if (typeof define === 'function' && define['amd']) {
         define('ko_menu', ['jquery', 'knockout', 'comet'], f);
     } else {
-        window.MenuViewModel = f(window.$, window.ko, window.comet);
+        window.MenuViewModel = f(window.$, window.ko);
     }
 })(window);

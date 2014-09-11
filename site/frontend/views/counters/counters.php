@@ -1,3 +1,4 @@
+<?php Yii::app()->controller->renderPartial('//counters/_google_tag'); ?>
 <?php Yii::app()->controller->renderPartial('//counters/_metrika'); ?>
-<?php Yii::app()->controller->renderPartial('//counters/_ga'); ?>
-<?php /*Yii::app()->controller->renderPartial('//counters/_top100');*/ ?>
+<?php //Yii::app()->controller->renderPartial('//counters/_ga'); ?>
+<?php //Yii::app()->controller->renderPartial('//counters/_top100'); ?>

@@ -5,26 +5,28 @@
     (function(w, d, n, s, t) {
         w[n] = w[n] || [];
         w[n].push(function() {
-            Ya.Direct.insertInto(87026, "yandex_ad_sidebar", {
-                stat_id: 19,
+            Ya.Direct.insertInto(127976, "yandex_ad_sidebar", {
+                stat_id: 1,
                 ad_format: "direct",
-                font_size: 1.1,
+                font_size: 1,
                 type: "vertical",
                 border_type: "block",
-                limit: 2,
+                limit: 3,
                 title_font_size: 3,
                 links_underline: true,
                 site_bg_color: "FFFFFF",
                 header_bg_color: "FEEAC7",
+                bg_color: "FFFFFF",
                 border_color: "CCCCCC",
-                title_color: "02B4F2",
-                url_color: "000000",
-                text_color: "000000",
-                hover_color: "63CDFF",
+                title_color: "996EC2",
+                url_color: "006600",
+                text_color: "333333",
+                hover_color: "AC89CE",
+                favicon: true,
                 no_sitelinks: true
             });
         });
-        t = d.getElementsByTagName("head")[0];
+        t = d.getElementsByTagName('head')[0];
         s = d.createElement("script");
         s.src = "//an.yandex.ru/system/context.js";
         s.type = "text/javascript";
@@ -33,4 +35,3 @@
     })(window, document, "yandex_context_callbacks");
 </script>
 <?php $this->endWidget(); ?>
-

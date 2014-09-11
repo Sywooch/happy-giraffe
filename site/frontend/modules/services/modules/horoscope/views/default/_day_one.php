@@ -6,8 +6,6 @@
 </div>
 <div class="wysiwyg-content clearfix">
     <?php
-    $this->beginWidget('SeoContentWidget');
     echo Str::strToParagraph($model->text);
-    $this->endWidget();
     ?>
 </div>

@@ -231,6 +231,7 @@ module.exports = function(grunt){
             /.mfp+/,
             /.select2+/,
             /.header-menu_li.active+/,
+            /.calendar-serv-note__+/,
           ],
         },
         src: [
@@ -255,12 +256,13 @@ module.exports = function(grunt){
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
+            /.header-menu_li.active+/,
+            /.calendar-serv-note__+/,
+
+            /.header-drop+/, // Drop, active элементы
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
-            
-            /.header-drop+/, // Drop, active элементы
-            /.header-menu_li.active+/,
           ],
         },
         src: [

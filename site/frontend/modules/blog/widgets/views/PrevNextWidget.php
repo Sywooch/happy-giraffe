@@ -1,21 +1,22 @@
 <?php
 /**
+ * @var PrevNextWidget $this
  * @var CommunityContent $prev
  * @var CommunityContent $next
  */
 ?>
 
-<table class="article-nearby clearfix" ellpadding="0" cellspacing="0">
+<table class="article-nearby clearfix" сellpadding="0" cellspacing="0">
     <tbody>
     <tr>
         <?php if ($prev !== null): ?>
             <td>
-                <div class="article-nearby_hint">Предыдущая запись</div>
+                <div class="article-nearby_hint">Предыдущая <?=$this->getNoun()?></div>
             </td>
         <?php endif; ?>
         <?php if ($next !== null): ?>
             <td class="article-nearby_r">
-                <div class="article-nearby_hint">Следующая запись</div>
+                <div class="article-nearby_hint">Следующая <?=$this->getNoun()?></div>
             </td>
         <?php endif; ?>
     </tr>

@@ -1,5 +1,9 @@
 (function(window) {
+<<<<<<< HEAD
     function f(ko, mapping) {
+=======
+    function f(ko, HgWysiwyg) {
+>>>>>>> develop
         var ENTER_KEY_SEND = 1;
         function CommentViewModel(data) {
             var self = this;
@@ -370,8 +374,12 @@
         };
     }
     if (typeof define === 'function' && define['amd']) {
-        define('ko_comments', ['knockout', 'knockout.mapping', 'ko_library'], f);
+        define('ko_comments', ['knockout', 'wysiwyg', 'knockout.mapping', 'ko_library'], f);
     } else {
+<<<<<<< HEAD
         f(window.ko, window.ko.mapping);
+=======
+        f(window.ko, window.HgWysiwyg);
+>>>>>>> develop
     }
 })(window);

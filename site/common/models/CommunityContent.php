@@ -703,7 +703,7 @@ class CommunityContent extends HActiveRecord implements IPreview
      */
     public function getIsFromBlog()
     {
-        return $this->getRelated('rubric')->user_id !== null || in_array($this->type_id, array(self::TYPE_STATUS, self::TYPE_REPOST));
+        return ($this->getRelated('rubric')->user_id !== null && $this->type_id != self::TYPE_MORNING) || in_array($this->type_id, array(self::TYPE_STATUS, self::TYPE_REPOST));
     }
 
     /**
@@ -978,8 +978,11 @@ class CommunityContent extends HActiveRecord implements IPreview
                 $t = "Мой блог";
             else
                 $t = htmlentities("Блог пользователя \"" . $this->author->getFullName() . "\"", ENT_QUOTES, "UTF-8");
-        } else
+        } elseif ($this->type_id == self::TYPE_MORNING) {
+            $t = 'Утро с Веселым жирафом';
+        } else {
             $t = htmlentities(("Клуб <span class='color-category " . $this->rubric->community->css_class . "'>" . $this->rubric->community->title . "</span>"), ENT_QUOTES, "UTF-8");
+        }
         if (!$full)
             return $t;
 
@@ -1192,7 +1195,7 @@ HTML;
      */
     public function getPreviewText()
     {
-        return $this->getContent()->text;
+        return isset($this->getContent()->text) ? $this->getContent()->text : $this->title;
     }
 
     /**

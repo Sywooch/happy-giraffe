@@ -116,6 +116,18 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
 		return parent::model($className);
 	}
 
+    public function behaviors()
+    {
+        return array(
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+                'setUpdateOnCreate' => true,
+            )
+        );
+    }
+
     public function toJSON()
     {
         return array(

@@ -19,9 +19,10 @@ class DefaultController extends PhotoController
         echo \CJSON::encode(\Yii::app()->thumbs->presets);
     }
 
-    public function actionUser($userId = null)
+    public function actionIndex($userId)
     {
         $albums = PhotoAlbum::model()->user($userId)->findAll();
-        $this->render('user');
+        $json = \HJSON::encode(array('albums' => $albums));
+        $this->render('index', compact('json'));
     }
 } 

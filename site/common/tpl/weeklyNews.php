@@ -2,11 +2,8 @@
 /* @var $this Controller
  * @var $models CommunityContent[]
  */
-$remowax = date("Y-m-d") == '2014-09-12';
+$remowax = date("Y-m-d") == '2014-09-12' || date("Y-m-d") == '2014-09-15' | date("Y-m-d") == '2014-09-16';
 $i = 0;
-if ($remowax) {
-    $models = array_slice($models, 4, 2);
-}
 ?>
 
 <?php if ($remowax): ?>

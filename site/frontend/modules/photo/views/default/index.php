@@ -31,7 +31,7 @@ $cs->registerAMD('myPhotos', array('ko' => 'knockout', 'MyPhotos' => 'photo/myPh
                     </div></a>
                 <div class="b-album_top">
                     <div class="tx-date">Обновлен  Вчера 13:45</div>
-                    <h2 class="b-album_title"><a href="" class="b-album_title-a" data-bind="">Ялта ♥♥♥</a></h2>
+                    <h2 class="b-album_title"><a href="" class="b-album_title-a" data-bind="text: title"></a></h2>
                     <!-- 2 строки описания, предположительно 140 символов--><a href="" class="b-album_desc">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие </a>
                     <div class="b-album_count-hold">
                         <div class="b-album_count">240</div>

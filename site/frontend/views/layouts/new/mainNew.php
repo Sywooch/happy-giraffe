@@ -33,9 +33,7 @@
                 </div>
                 <!-- /user-menu-->
                 <div class="page-col page-col__user">
-                    <div class="page-col_cont page-col_cont__in">
-                        <?=$content?>
-                    </div>
+                    <?=$content?>
                     <?php $this->renderPartial('//_footer'); ?>
                 </div>
             </div>

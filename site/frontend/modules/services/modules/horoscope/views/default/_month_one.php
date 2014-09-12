@@ -13,27 +13,38 @@ $model->calculateMonthDays();
             <div class="b-calendar_in b-calendar_in__years">
                 <div class="b-calendar_t">Год</div>
                 <ul class="b-calendar_ul">
-                    <li class="b-calendar_li"><a href="#" class="b-calendar_a">2011</a></li>
-                    <li class="b-calendar_li"><a href="#" class="b-calendar_a">2012</a></li>
-                    <li class="b-calendar_li"><a href="#" class="b-calendar_a">2013</a></li>
-                    <li class="b-calendar_li active"><a href="#" class="b-calendar_a">2014</a></li>
+                    <?php
+                    $models = Horoscope::model()->findAll(array(
+                        'condition' => '`year` IS NOT NULL AND `month` IS NULL AND `zodiac` = :z',
+                        'order' => '`year`',
+                        'params' => array(
+                            ':z' => $model->zodiac,
+                        )
+                    ));
+                    $models = CHtml::listData($models, 'year', 'year');
+                    foreach ($models as $year)
+                        echo CHtml::tag('li', array('class' => 'b-calendar_li' . ($year == $model->year ? ' active' : '')), CHtml::link($year, $this->getUrl(array('period' => 'year', 'date' => mktime(0, 0, 0, 1, 1, (int) $year))), array('class' => 'b-calendar_a')));
+                    ?>
                 </ul>
             </div>
             <div class="b-calendar_in b-calendar_in__months">
                 <div class="b-calendar_t">Месяц</div>
                 <ul class="b-calendar_ul">
-                    <li class="b-calendar_li"><a href="#" class="b-calendar_a">янв</a></li>
-                    <li class="b-calendar_li"><a href="#" class="b-calendar_a">фев</a></li>
-                    <li class="b-calendar_li"><a href="#" class="b-calendar_a">мар</a></li>
-                    <li class="b-calendar_li"><a href="#" class="b-calendar_a">апр</a></li>
-                    <li class="b-calendar_li"><a href="#" class="b-calendar_a">май</a></li>
-                    <li class="b-calendar_li"><a href="#" class="b-calendar_a">июн</a></li>
-                    <li class="b-calendar_li"><a href="#" class="b-calendar_a">июл</a></li>
-                    <li class="b-calendar_li active"><a href="#" class="b-calendar_a">авг</a></li>
-                    <li class="b-calendar_li"><span class="b-calendar_a">сен</span></li>
-                    <li class="b-calendar_li"><span class="b-calendar_a">окт</span></li>
-                    <li class="b-calendar_li"><span class="b-calendar_a">ноя</span></li>
-                    <li class="b-calendar_li"><span class="b-calendar_a">дек</span></li>
+                    <?php
+                    $models = Horoscope::model()->findAll(array(
+                        'condition' => '`year` = :y AND `month` IS NOT NULL AND `zodiac` = :z',
+                        'params' => array(
+                            ':y' => $model->year,
+                            ':z' => $model->zodiac,
+                        )
+                    ));
+                    $models = CHtml::listData($models, 'month', 'month');
+                    for ($i = 1; $i < 13; $i++)
+                        if (isset($models[$i]))
+                            echo CHtml::tag('li', array('class' => 'b-calendar_li' . ($i == $model->month ? ' active' : '')), CHtml::link(HDate::ruMonthShort($i), $this->getUrl(array('period' => 'month', 'date' => mktime(0, 0, 0, $i, 1, (int) $model->year))), array('class' => 'b-calendar_a')));
+                        else
+                            echo CHtml::tag('li', array('class' => 'b-calendar_li'), CHtml::tag('span', HDate::ruMonthShort($i)));
+                    ?>
                 </ul>
             </div>
         </div>
@@ -43,7 +54,6 @@ $model->calculateMonthDays();
     </div>
     <div class="b-calendar">
         <div class="b-calendar_in b-calendar_in__days-type">
-            <?php $this->beginWidget('SeoContentWidget'); ?>
             <ul class="b-calendar_ul">
                 <?php
                 $daysInMonth = date("t", mktime(0, 0, 0, (int) $model->month, 1, (int) $model->year)); // узнаем число дней в месяце
@@ -56,11 +66,10 @@ $model->calculateMonthDays();
                     if ($day < 0)
                         echo CHtml::tag('li', array('class' => 'b-calendar_li'), CHtml::tag('span', array('class' => 'b-calendar_a'), '&nbsp;'));
                     else
-                        echo CHtml::tag('li', array('class' => 'b-calendar_li' . ($model->GetDayData($day) ? ' b-calendar_li__' . $model->GetDayData($day) : '')), CHtml::link($day + 1, '#', array('class' => 'b-calendar_a')));
+                        echo CHtml::tag('li', array('class' => 'b-calendar_li' . ($model->GetDayData($day) ? ' b-calendar_li__' . $model->GetDayData($day) : '')), CHtml::link($day + 1, $this->getUrl(array('period' => 'day', 'date' => mktime(0, 0, 0, (int) $model->month, $day + 1, (int) $model->year))), array('class' => 'b-calendar_a')));
                 }
                 ?>
             </ul>
-            <?php $this->endWidget(); ?>
         </div>
         <div class="b-calendar_day-type">
             <div class="b-calendar_day-type-row">

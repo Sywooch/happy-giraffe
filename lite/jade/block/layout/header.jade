@@ -168,12 +168,24 @@ mixin headerGuest(mod, vars)
                                             a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
                                             a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
                         // /Конверсионный попап
+                    if (vars.li)
+                        li.header-menu_li(class=vars.li)
+                            a.header-menu_a(href='#')
+                                div(class=vars.liItem)
 
 
             // /header-menu
             - if (vars.nosearch != true)
                 +sidebarSearch('sidebar-search__big', sidebarSearch.a)
     // /header
+
+- var headerGuest = {}
+- headerGuest.kinderGold = {}
+- headerGuest.kinderGold.li = 'header-menu_li__kindergold'
+- headerGuest.kinderGold.liItem = 'header-menu_kindergold'
+- headerGuest.kinderino = {}
+- headerGuest.kinderino.li = 'header-menu_li__kinderino'
+- headerGuest.kinderino.liItem = 'header-menu_kinderino'
 
 //- 
 

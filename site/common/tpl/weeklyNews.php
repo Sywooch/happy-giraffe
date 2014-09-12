@@ -3,7 +3,10 @@
  * @var $models CommunityContent[]
  */
 $remowax = date("Y-m-d") == '2014-09-12';
-$i = $remowax ? 4 : 0;
+
+if ($remowax) {
+    $models = array_slice($models, 4, 2);
+}
 ?>
 
 <?php if ($remowax): ?>

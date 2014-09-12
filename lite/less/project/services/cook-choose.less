@@ -58,13 +58,13 @@
 }
 /* /cook-choose-quality */
 
-/* cook-choose-verif */
-.cook-choose-verif {
+/* product-verif */
+.product-verif {
     
     &_hold {
         position: relative;
     }
-    h2:after {
+    &_hold__cook:before {
         content: ' ';
         display: block;
         margin: 10px auto;
@@ -93,7 +93,7 @@
         .b-main_cont {
             padding-left: 70px;
         }
-        h2:after {
+        &_hold__cook:before {
             position: absolute;
             top: 0;
             left: -80px;
@@ -115,7 +115,10 @@
         .b-main_cont {
             padding-left: 110px;
         }
-        h2:after {
+        &_hold {
+            margin-bottom: 20px;
+        }
+        &_hold__cook:before {
             left: -125px;
             width: 90px;
             height: 110px;
@@ -140,19 +143,23 @@
         }
         &_hold {
             min-height: 160px;
+            margin-bottom: 40px;
         }
-        h2:after {
+        &_hold__cook:before {
             left: -150px;
             width: 110px;
             height: 150px;
-            background: url('@{path-img}/services/cook-choose/cook-choose.png') no-repeat -490px 0;
-            background-size: 600px auto;
+            background: url('@{path-img}/services/cook-choose/cook-choose.png') no-repeat -460px 0;
+            background-size: 570px auto;
+        }
+        ol li {
+            min-height: 130px;
         }
         ol li:before {
             margin-left: -140px;
             font-size: 130px;
-            line-height: 120px;
+            line-height: 110px;
         }
     }
 }
-/* /cook-choose-verif */
+/* /product-verif */

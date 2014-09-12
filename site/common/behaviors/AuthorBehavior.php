@@ -20,4 +20,11 @@ class AuthorBehavior extends \CActiveRecordBehavior
             $this->owner->{$this->attr} = \Yii::app()->user->id;
         }
     }
+
+    public function beforeDelete($event)
+    {
+        if (\Yii::app()->user->id != $this->owner->{$this->attr}) {
+            $event->isValid = false;
+        }
+    }
 } 

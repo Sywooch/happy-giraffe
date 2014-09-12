@@ -38,8 +38,6 @@ class AlbumsController extends PhotoController
         if (isset($_POST[\CHtml::modelName($model)])) {
             $model->attributes = $_POST[\CHtml::modelName($model)];
             if ($model->save()) {
-                echo $model->getUrl();
-                die;
                 $this->redirect($model->getUrl());
             } else {
                 print_r($model->getErrors());
@@ -50,13 +48,22 @@ class AlbumsController extends PhotoController
         $this->render('create', compact('model'));
     }
 
+    public function actionRemove()
+    {
+        $albumId = \Yii::app()->request->getPost('albumId');
+        $album = PhotoAlbum::model()->findByPk($albumId);
+        $success = $album->delete();
+        echo \CJSON::encode(compact('success'));
+    }
+
     public function actionView($authorId, $id)
     {
         $album = PhotoAlbum::model()->find($id);
         if ($album === null) {
             throw new \CHttpException(404);
         }
-        echo $album->getUrl();
+        $json = \HJSON::encode(array('album' => $album));
+        $this->render('view', compact('json'));
     }
 
     protected function performAjaxValidation($model)

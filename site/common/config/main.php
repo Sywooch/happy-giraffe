@@ -46,6 +46,11 @@ return array(
                     'method' => 'heighten',
                     'parameter' => 200,
                 ),
+                'myPhotosAlbumCover' => array(
+                    'filter' => 'lepilla',
+                    'width' => 880,
+                    'height' => 580,
+                ),
             ),
             'quality' => array(
                 72 => 100,

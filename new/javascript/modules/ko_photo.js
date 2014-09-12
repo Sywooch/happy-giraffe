@@ -1,4 +1,63 @@
 define('ko_photo', ['knockout'], function(ko) {
+    // Биндинг для отображения миниатюр
+    ko.bindingHandlers.thumb = {
+        update: function (element, valueAccessor) {
+            var value = valueAccessor();
+            var photo = value.photo;
+            var preset = value.preset;
+
+            function update() {
+                var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
+                //src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
+                src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
+                $(element).attr('src', src);
+                console.log(presetManager.getWidth(photo.width(), photo.height(), preset));
+                $(element).css('width', presetManager.getWidth(photo.width(), photo.height(), preset));
+                $(element).css('height', presetManager.getHeight(photo.width(), photo.height(), preset));
+            }
+
+            update();
+
+            photo.fs_name.subscribe(function(fs_name) {
+                update();
+            });
+        }
+    };
+
+    function PresetManager() {
+        var self = this;
+
+        self.presets = {"uploadPreview":{"filter":"lepilla","width":155,"height":140},"uploadPreviewBig":{"filter":"lepilla","width":325,"height":295},"uploadAlbumCover":{"filter":"lepilla","width":205,"height":140},"rowGrid":{"filter":"relativeResize","method":"heighten","parameter":200},"myPhotosAlbumCover":{"filter":"lepilla","width":880,"height":580}};
+
+        self.filters = {
+            lepilla: {
+                getWidth: function(imageWidth, imageHeight, presetConfig) {
+                    var imageRatio = imageWidth / imageHeight;
+                    var presetRatio = presetConfig.width / presetConfig.height;
+                    if (imageRatio >= presetRatio) {
+                        return presetConfig.width;
+                    } else {
+                        return imageRatio * presetConfig.height;
+                    }
+                },
+                getHeight: function(imageWidth, imageHeight, presetConfig) {
+                    return presetConfig.height;
+                }
+            }
+        }
+
+        self.getWidth = function(imageWidth, imageHeight, preset) {
+            var config = self.presets[preset];
+            return self.filters[config.filter].getWidth(imageWidth, imageHeight, config);
+        }
+
+        self.getHeight = function(imageWidth, imageHeight, preset) {
+            var config = self.presets[preset];
+            return self.filters[config.filter].getHeight(imageWidth, imageHeight, config);
+        }
+    }
+    presetManager = new PresetManager();
+
     // Основная модель коллекции
     function PhotoCollection(data) {
         var self = this;
@@ -25,6 +84,14 @@ define('ko_photo', ['knockout'], function(ko) {
         self.title = ko.observable(data.title);
         self.description = ko.observable(data.description);
         self.photoCollection = ko.observable(new PhotoCollection(data.photoCollection));
+
+        self.remove = function(album, callback) {
+            $.post('/photo/albums/remove/', { albumId : album.id() }, function(response) {
+                if (response.success) {
+                    callback();
+                }
+            }, 'json');
+        }
     }
 
     // Основная модель фотографии
@@ -48,61 +115,6 @@ define('ko_photo', ['knockout'], function(ko) {
 });
 
 define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap', 'jquery_file_upload', 'jquery.ui'], function(ko, mapping, ko_photo) {
-    function PresetManager() {
-        var self = this;
-
-        self.presets = null;
-
-        self.init = function(callback) {
-            if (self.initialized === null) {
-                self.initializing = false;
-                $.get('/photo/default/presets', function(response) {
-                    self.presets = response;
-                    console.log(self.presets);
-                    callback();
-                }, 'json');
-            } else {
-                callback();
-            }
-        };
-
-        self.inited = function() {
-            return self.presets.length > 0;
-        }
-
-        self.filters = {
-            lepilla: {
-                getWidth: function(imageWidth, imageHeight, presetConfig) {
-                    var imageRatio = imageWidth / imageHeight;
-                    var presetRatio = presetConfig.width / presetConfig.height;
-                    if (imageRatio >= presetRatio) {
-                        return presetConfig.width;
-                    } else {
-                        return imageRatio * presetConfig.height;
-                    }
-                },
-                getHeight: function(imageWidth, imageHeight, presetConfig) {
-                    return presetConfig.height;
-                }
-            }
-        }
-
-        self.getWidth = function(imageWidth, imageHeight, preset) {
-            self.init(function() {
-                var config = self.presets[preset];
-                return self.filters[config.filter].getWidth(imageWidth, imageHeight, config);
-            });
-        }
-
-        self.getHeight = function(imageWidth, imageHeight, preset) {
-            self.init(function() {
-                var config = self.presets[preset];
-                return self.filters[config.filter].getHeight(imageWidth, imageHeight, config);
-            });
-        }
-    }
-    presetManager = new PresetManager();
-
     // Биндинг для загрузки фото
     ko.bindingHandlers.photoUpload = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -153,30 +165,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
                     dropZone.removeClass('dragover');
                 });
             }
-        }
-    };
-
-    // Биндинг для отображения миниатюр
-    ko.bindingHandlers.thumb = {
-        update: function (element, valueAccessor) {
-            var value = valueAccessor();
-            var photo = value.photo;
-            var preset = value.preset;
-
-            function update() {
-                var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
-                //src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
-                //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
-                $(element).attr('src', src);
-//                $(element).css('width', '10px', preset);
-//                $(element).css('height', presetManager.getHeight(photo.width(), photo.height(), preset));
-            }
-
-            update();
-
-            photo.fs_name.subscribe(function(fs_name) {
-                update();
-            });
         }
     };
 

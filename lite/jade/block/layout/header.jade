@@ -168,10 +168,14 @@ mixin headerGuest(mod, vars)
                                             a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
                                             a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
                         // /Конверсионный попап
-                    if (vars.li)
-                        li.header-menu_li(class=vars.li)
-                            a.header-menu_a(href='#')
-                                div(class=vars.liItem)
+            if (vars.itemAd)
+                // 
+                    header_kindergold
+                    header_kinderino
+                a.visible-md-inline-block(href='#', style="vertical-align: top; margin: -13px 15px 0 25px;")
+                    // header_kindergold.jpg
+                        header_kinderino.jpg
+                    img(src="#{path}images/banner/header_kinderino.jpg", alt="Kinder")
 
 
             // /header-menu
@@ -181,11 +185,11 @@ mixin headerGuest(mod, vars)
 
 - var headerGuest = {}
 - headerGuest.kinderGold = {}
-- headerGuest.kinderGold.li = 'header-menu_li__kindergold'
-- headerGuest.kinderGold.liItem = 'header-menu_kindergold'
+- headerGuest.kinderGold.itemAd = 'header_kindergold'
+- headerGuest.kinderGold.itemAdImg = 'header_kindergold.jpg'
 - headerGuest.kinderino = {}
-- headerGuest.kinderino.li = 'header-menu_li__kinderino'
-- headerGuest.kinderino.liItem = 'header-menu_kinderino'
+- headerGuest.kinderino.itemAd = 'header_kinderino'
+- headerGuest.kinderino.itemAdImg = 'header_kinderino.jpg'
 
 //- 
 

@@ -184,6 +184,7 @@ module.exports = function(grunt){
             /.select2+/,
             /.tooltip+/,
             /.header-menu_li+/,
+            /.header_+/,
           ],
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
@@ -205,6 +206,7 @@ module.exports = function(grunt){
             /.mfp+/,
             /.select2+/,
             /.header-menu_li+/,
+            /.header_+/,
             //.tooltip+/,
           ],
         },
@@ -231,6 +233,7 @@ module.exports = function(grunt){
             /.mfp+/,
             /.select2+/,
             /.header-menu_li+/,
+            /.header_+/,
           ],
         },
         src: [
@@ -261,6 +264,7 @@ module.exports = function(grunt){
             
             /.header-drop+/, // Drop, active элементы
             /.header-menu_li+/,
+            /.header_+/,
           ],
         },
         src: [

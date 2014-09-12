@@ -4,7 +4,7 @@
  */
 $this->pageTitle = 'Гороскоп на сегодня по знакам зодиака';
 $this->breadcrumbs = array(
-    'Гороскопы' => $this->getUrl(array('alias' => 'today')),
+    'Гороскопы' => array('/services/horoscope/default/index'),
     'Гороскоп совместимости',
 );
 ?>

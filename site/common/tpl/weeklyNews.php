@@ -47,7 +47,7 @@ if ($remowax) {
                                 </div>
                             </td>
                             <td>
-                                <img src="/images/mail/post-199812.jpg" alt="" />
+                                <img src="http://www.happy-giraffe.ru/images/mail/post-199812.jpg" alt="" />
                             </td>
                         </tr>
                     </table>

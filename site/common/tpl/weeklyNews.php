@@ -30,7 +30,7 @@ if ($remowax) {
                                 </table>
 
                                 <div style="margin-bottom:10px;">
-                                    <span style="color:#0d81d5;font:bold 18px/20 arial, helvetica, sans-serif;"><a href="http://ads.adfox.ru/211012/goLink?p2=exim&p1=bndzr&p5=cklrq&pr=evnyzjo" target="_blank" style="color:#0d81d5;font:bold 22px/24px arial, helvetica, sans-serif;">Чистим уши ребенку без хлопот и боли!</a></span>
+                                    <span style="color:#0d81d5;font:bold 18px/20px arial, helvetica, sans-serif;"><a href="http://ads.adfox.ru/211012/goLink?p2=exim&p1=bndzr&p5=cklrq&pr=evnyzjo" target="_blank" style="color:#0d81d5;font:bold 22px/24px arial, helvetica, sans-serif;">Чистим уши ребенку без хлопот и боли!</a></span>
                                 </div>
                                 <!--
                                 <div style="margin-bottom:5px;">

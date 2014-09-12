@@ -165,6 +165,7 @@
             };
 
             self.commentsToShow = ko.computed(function() {
+
                 if (self.full() || self.extended())
                     return self.comments();
 
@@ -234,7 +235,7 @@
 
             self.Like = function () {
                 if (userIsGuest)
-                    $('a[href=#loginWidget]').trigger('click');
+                    CommentViewModel.prototype.openLoginPopup.call();
                 else if (CURRENT_USER_ID != self.author.id()) {
                     $.post('/ajaxSimple/commentLike/', {id: self.id}, function (response) {
                         if (response.status) {
@@ -297,7 +298,7 @@
 
             self.Reply = function () {
                 if (userIsGuest)
-                    $('a[href=#loginWidget]').trigger('click');
+                    CommentViewModel.prototype.openLoginPopup.call();
                 else
                     self.parent.Reply(self);
             };
@@ -372,6 +373,6 @@
     if (typeof define === 'function' && define['amd']) {
         define('ko_comments', ['knockout', 'wysiwyg', 'knockout.mapping', 'ko_library'], f);
     } else {
-        f(window.ko, window.HgWysiwyg);
+        f(window.ko);
     }
 })(window);

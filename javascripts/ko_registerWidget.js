@@ -290,7 +290,6 @@
 
         function LoginWidgetViewModel() {
             var self = this;
-
             self.email = ko.observable();
             self.password = ko.observable();
             self.rememberMe = ko.observable();
@@ -307,17 +306,26 @@
         }
 
         function PasswordRecoveryWidgetViewModel() {
+
             var self = this;
 
             self.email = ko.observable();
             self.isSent = ko.observable(false);
+
+            self.validateRequestPassed = function (value) {
+                self.isSent(value);
+            }
 
             self.login = function() {
                 loginVm.email(self.email());
                 return false;
             }
         }
-        
+
+        PasswordRecoveryWidgetViewModel.prototype.validateRequestPassedOut = function () {
+            this.validateRequestPassed(true);
+        };
+
         window.RegisterWidgetViewModel = RegisterWidgetViewModel;
         window.UserLocation = UserLocation;
         window.UserAvatar = UserAvatar;

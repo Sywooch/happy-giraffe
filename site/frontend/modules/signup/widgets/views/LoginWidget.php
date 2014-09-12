@@ -61,7 +61,7 @@
                     <div class="popup-sign_row">
                         <div class="float-r">
                             <div class="display-ib textalign-c">
-                                <button class="btn-green-simple btn-l margin-b10  btn btn-success">Войти на сайт</button><br><a class="popup-a" href="#passwordRecoveryWidget" data-bind="click: recover">Забыли пароль?</a>
+                                <button class="btn-green-simple btn-l margin-b10  btn btn-success">Войти на сайт</button><br><a class="popup popup-a" href="#passwordRecoveryWidget">Забыли пароль?</a>
                             </div>
                         </div>
                         <div class="float-l">

@@ -175,6 +175,7 @@ module.exports = function(grunt){
           htmlroot     : 'new',
           ignore       : [
             // Выбираем все стили где в начале .clsss
+            /#ctrlcopy+/,
             /.dropdown+/,
             /.flag+/,
             /.jcrop+/,
@@ -198,6 +199,7 @@ module.exports = function(grunt){
           ignore       : [
             // Выбираем все стили где в начале .clsss
             // /.dropdown+/,
+            /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
             /.mfp+/,
@@ -224,10 +226,12 @@ module.exports = function(grunt){
           htmlroot     : 'lite',
           ignore       : [
             // Выбираем все стили где в начале .clsss
+            /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
             /.header-menu_li.active+/,
+            /.calendar-serv-note__+/,
           ],
         },
         src: [
@@ -248,15 +252,17 @@ module.exports = function(grunt){
           htmlroot     : 'lite',
           ignore       : [
             // Выбираем все стили где в начале .clsss
+            /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
+            /.header-menu_li.active+/,
+            /.calendar-serv-note__+/,
+
+            /.header-drop+/, // Drop, active элементы
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
-            
-            /.header-drop+/, // Drop, active элементы
-            /.header-menu_li.active+/,
           ],
         },
         src: [
@@ -357,6 +363,14 @@ module.exports = function(grunt){
               cwd: 'lite/images/',
               src: ['**/*.{gif,GIF,jpg,JPG,png,PNG}'],
               dest: 'lite/images/'
+          }]
+      },
+      bannerold: {
+          files: [{
+              expand: true,
+              cwd: 'images/branding/',
+              src: ['**/*.{png,jpg,gif}'],
+              dest: 'images/branding/'
           }]
       },
       new: {
@@ -621,7 +635,7 @@ module.exports = function(grunt){
   });
 
   //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
-  grunt.registerTask('css-new', ['less:newestdev', 'uncss:new', 'cmq:new', 'cssmin:new', 'csso:new']);
+  grunt.registerTask('css-new', ['less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
 
   // lite tasks
   // bild lite версии

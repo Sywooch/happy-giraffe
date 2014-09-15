@@ -4114,6 +4114,41 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /b-club-back */
 
+/* adfox-banner-html */
+.adfox-banner-html {
+    margin: 20px auto;
+    background: #f6f6f6;
+    background: rgba(255,255,255,0.4);
+    
+    a {text-decoration: none;}
+    &_hold {
+        display: block;
+        padding: 15px 10px 15px 15px;
+    }
+    &_img-h {
+        float: left;
+        margin: 1px 15px 0 0;
+    }
+    &_cont {
+        display: block;
+        overflow: hidden;
+    }
+    &_t {
+        display: block;
+        font-weight: bold;
+        line-height: 16px;
+        margin-bottom: 3px;
+        text-decoration: underline;
+    }
+    &_t:hover {text-decoration: none;}
+    &_tx {
+        line-height: 16px;
+        text-decoration: none;
+        color: #555;
+    }
+}
+/* /adfox-banner-html */
+
 /* branding pages */
 .theme {
 
@@ -4137,9 +4172,53 @@ table.fr_recipe_tb td { width: 50%;}
         margin-left: -500px;
     }
 
+    &__kinder-umbrella {
+        padding-bottom: 0;
+        background-color: #fff;
+        background: url('/images/branding/kinder-umbrella/theme-1100.jpg') no-repeat 50% 0;
+    }
+    @media screen and (min-width: 1100px) {
+        &__kinder-umbrella {
+            background: url('/images/branding/kinder-umbrella/theme-1200.jpg') no-repeat 50% 0;
+        }  
+    }
+    @media screen and (min-width: 1200px) {
+        &__kinder-umbrella {
+            background: url('/images/branding/kinder-umbrella/theme-1400.jpg') no-repeat 50% 0;
+        }  
+    }
+    @media screen and (min-width: 1400px) {
+        &__kinder-umbrella {
+            background: url('/images/branding/kinder-umbrella/theme-1680.jpg') no-repeat 50% 0;
+        }  
+    }
+    @media screen and (min-width: 1680px) {
+        &__kinder-umbrella {
+            background: url('/images/branding/kinder-umbrella/theme-1920.jpg') no-repeat 50% 0;
+        }  
+    } 
+
+    &__kinder-umbrella {
+        position: relative;
+        padding: 250px 0 130px;
+    }
+    &__kinder-umbrella .layout-container,
+    &__kinder-umbrella .start-page {
+        position: relative;
+        z-index: 5;
+        width: 1000px;
+        margin: 0 auto;
+        overflow: hidden;
+        background-color: #f0f0f0;
+        .box-shadow(1px 1px 7px rgba(8,94,150,0.30));
+    }
+    &__kinder-umbrella .layout-wrapper_hold {
+        min-height: 1700px;
+    }
+
     /*&__kinder-spring .layout-container {margin-bottom: 150px;}*/
 
-/*    &__adfox .start-page_container {
+    /*    &__adfox .start-page_container {
         width: 1000px;
         margin: 257px auto 150px;
         position: relative;
@@ -4200,7 +4279,7 @@ table.fr_recipe_tb td { width: 50%;}
     top: 0;
     right: 0;
     left: 0;
-    height: 100%;
+    bottom: 0;
 
     &__adkinder &_b {
         height: 672px;
@@ -4210,13 +4289,18 @@ table.fr_recipe_tb td { width: 50%;}
         height: 401px;
         background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1180.jpg) no-repeat 50% 100%;
     }
+    &__kinder-umbrella &_b {
+        bottom: 0;
+        height: 125px;
+        background:#fff url(/images/branding/kinder-umbrella/cover_b.jpg) repeat-x 0 100%;
+    }
     @media screen and (min-width: 1180px) {
-        &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1400.jpg) no-repeat 50% 0px;}
-        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1400.jpg) no-repeat 50% 0px;}
+        &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1400.jpg) no-repeat 50% 0;}
+        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1400.jpg) no-repeat 50% 0;}
     }
     @media screen and (min-width: 1400px) {
-        &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1920.jpg) no-repeat 50% 0px;}
-        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1920.jpg) no-repeat 50% 0px;}
+        &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1920.jpg) no-repeat 50% 0;}
+        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1920.jpg) no-repeat 50% 0;}
     }
     &_b {
         position: absolute;
@@ -4928,41 +5012,6 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /tabs-simple */
 
-/* adfox-banner-html */
-.adfox-banner-html {
-    margin: 20px auto;
-    background: #f6f6f6;
-    background: rgba(255,255,255,0.4);
-    
-    a {text-decoration: none;}
-    &_hold {
-        display: block;
-        padding: 15px 10px 15px 15px;
-    }
-    &_img-h {
-        float: left;
-        margin-right: 15px;
-    }
-    &_cont {
-        display: block;
-        overflow: hidden;
-    }
-    &_t {
-        display: block;
-        font-weight: bold;
-        line-height: 16px;
-        margin-bottom: 3px;
-        text-decoration: underline;
-    }
-    &_t:hover {text-decoration: none;}
-    &_tx {
-        line-height: 16px;
-        text-decoration: none;
-        color: #555;
-    }
-}
-/* /adfox-banner-html */
-
 /* user-actions */
 .user-actions {
     .inline-block();
@@ -5038,6 +5087,7 @@ table.fr_recipe_tb td { width: 50%;}
 @import "../new/less/project/msg-fast.less";
 @import "../new/less/project/photo-window.less";
 
+@import "../lite/less/project/yandex-search-form.less";
 
 
 .popup {

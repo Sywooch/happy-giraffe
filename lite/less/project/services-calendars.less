@@ -1,0 +1,74 @@
+
+/* services-calendars */
+.services-calendars {
+    overflow: hidden;
+
+    &__child .wysiwyg-content i,
+    &__child .wysiwyg-content em {
+        color: #d1a770;
+        background-color: #fff7e7;
+    }
+    &__child .calendar-serv-note {
+        background-color: #def5ff;
+    }
+    &__child .calendar-serv-note_count {
+        width: 125px;
+        background: url('@{path-img}/calendar-serv-note_count-blue.png') no-repeat;
+    }
+    &__child .services-fast {
+        background-color: #fff7e7;
+    }
+
+    &__pregnancy .wysiwyg-content em {
+        color: #289fd7;
+        background-color: #eaf9ff;
+    }
+    &__pregnancy .calendar-serv-note {
+        background-color: #fff4fc;
+    }
+    &__pregnancy .calendar-serv-note_count {
+        background: url('@{path-img}/calendar-serv-note_count.png') no-repeat;
+    }
+    &__pregnancy .services-fast {
+        background-color: #eaf9ff;
+    }
+
+    .wysiwyg-content em {
+        display: block;
+        margin: 0 -900px 20px;
+        padding: 20px 900px;
+        font-style: normal;
+    }.wysiwyg-content img {
+        display: block;
+        margin: 0 auto;
+    }
+    .calendar-serv-note {
+        position: relative;
+        margin: 30px -15px 20px;
+        padding: 20px 15px;
+    }
+    .services-fast {
+        margin-top: 35px;
+    }
+    
+    @media (min-width: @screen-phone-landscape) {
+        .calendar-serv-note {
+            margin: 40px -200px 20px;
+            padding: 20px 200px;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        
+        &__child .calendar-serv-note_count {
+            width: 152px;
+            height: 121px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        
+        &__child .calendar-serv-note {
+            padding-left: 30px;
+        }
+    }
+}
+/* /services-calendars */

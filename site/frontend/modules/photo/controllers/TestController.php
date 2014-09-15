@@ -15,9 +15,11 @@ use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
 use Imagine\Imagick\Imagine;
 use League\Flysystem\Filesystem;
+use site\frontend\modules\photo\components\PhotoCollectionObserver;
 use site\frontend\modules\photo\components\PhotoController;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\PhotoCollection;
 
 class TestController extends PhotoController
 {
@@ -35,6 +37,15 @@ class TestController extends PhotoController
                 'users' => array('?'),
             ),
         );
+    }
+
+    public function actionObserver()
+    {
+        $collection = PhotoCollection::model()->find();
+        $obs = new PhotoCollectionObserver($collection);
+        $b = new \ArrayObject()
+        $b->get
+        $a = array_slice($obs->model->attaches, 0, 2);
     }
 
     public function actionPresets()

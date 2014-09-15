@@ -9,11 +9,13 @@ define('ko_photo', ['knockout'], function(ko) {
             function update() {
                 var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
                 //src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
-                src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
+                //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
                 $(element).attr('src', src);
-                console.log(presetManager.getWidth(photo.width(), photo.height(), preset));
-                $(element).css('width', presetManager.getWidth(photo.width(), photo.height(), preset));
-                $(element).css('height', presetManager.getHeight(photo.width(), photo.height(), preset));
+//                console.log(preset);
+//                if (presetManager.filters.hasOwnProperty(preset.filter)) {
+//                    $(element).css('width', presetManager.getWidth(photo.width(), photo.height(), preset));
+//                    $(element).css('height', presetManager.getHeight(photo.width(), photo.height(), preset));
+//                }
             }
 
             update();
@@ -27,7 +29,7 @@ define('ko_photo', ['knockout'], function(ko) {
     function PresetManager() {
         var self = this;
 
-        self.presets = {"uploadPreview":{"filter":"lepilla","width":155,"height":140},"uploadPreviewBig":{"filter":"lepilla","width":325,"height":295},"uploadAlbumCover":{"filter":"lepilla","width":205,"height":140},"rowGrid":{"filter":"relativeResize","method":"heighten","parameter":200},"myPhotosAlbumCover":{"filter":"lepilla","width":880,"height":580}};
+        self.presets = {"uploadPreview":{"filter":"lepilla","width":155,"height":140},"uploadPreviewBig":{"filter":"lepilla","width":325,"height":295},"uploadAlbumCover":{"filter":"lepilla","width":205,"height":140},"rowGrid":{"filter":"relativeResize","method":"heighten","parameter":200},"myPhotosAlbumCover":{"filter":"lepilla","width":880,"height":580},"myPhotosPreview":{"filter":"relativeResize","method":"heighten","parameter":70}};
 
         self.filters = {
             lepilla: {

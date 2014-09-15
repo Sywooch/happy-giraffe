@@ -15,10 +15,12 @@ use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
 use Imagine\Imagick\Imagine;
 use League\Flysystem\Filesystem;
+use site\frontend\modules\photo\components\observers\PhotoCollectionGreedyObserver;
 use site\frontend\modules\photo\components\PhotoCollectionObserver;
 use site\frontend\modules\photo\components\PhotoController;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\PhotoAttach;
 use site\frontend\modules\photo\models\PhotoCollection;
 
 class TestController extends PhotoController
@@ -41,9 +43,26 @@ class TestController extends PhotoController
 
     public function actionObserver()
     {
+        \Yii::beginProfile('slice');
+        for ($i = 0; $i < 100; $i++) {
+            $collection = PhotoCollection::model()->find();
+            $obs = new PhotoCollectionGreedyObserver($collection);
+            $photos = $obs->getSlice(5, 5);
+        }
+        foreach ($photos as $v) {
+            echo "{$v->id}<br>";
+        }
+        \Yii::endProfile('slice');
+
+
+        \Yii::beginProfile('single');
         $collection = PhotoCollection::model()->find();
-        $obs = new PhotoCollectionObserver($collection);
-        $photos = $obs->slice(-5, 5);
+        $obs = new PhotoCollectionGreedyObserver($collection);
+        $photo = $obs->getSingle(0);
+        foreach ($photo->getAttributes() as $k => $v) {
+            echo "$k: $v<br>";
+        }
+        \Yii::endProfile('single');
     }
 
     public function actionPresets()

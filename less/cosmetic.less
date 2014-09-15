@@ -17,7 +17,10 @@
 .display-b,
 .visible {display:block !important;}
 .display-ib {display: inline-block !important;*zoom:1;*display:inline;}
-.visible-md-inline-block {.inline-block();}
+.visible-md-inline-block {
+    .inline-block();
+    vertical-align: top; // для шапки с kinder
+}
 
 .position-abs {position: absolute;}
 .position-rel {position: relative;}

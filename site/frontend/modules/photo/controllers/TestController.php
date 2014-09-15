@@ -43,9 +43,7 @@ class TestController extends PhotoController
     {
         $collection = PhotoCollection::model()->find();
         $obs = new PhotoCollectionObserver($collection);
-        $b = new \ArrayObject()
-        $b->get
-        $a = array_slice($obs->model->attaches, 0, 2);
+        $photos = $obs->slice(-5, 5);
     }
 
     public function actionPresets()

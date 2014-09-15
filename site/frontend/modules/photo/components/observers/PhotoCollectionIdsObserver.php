@@ -24,7 +24,8 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
     public function getSlice($length, $offset)
     {
         $ids = array_slice($this->ids, $offset, $length);
-        $criteria = new \CDbCriteria();
+        $criteria = $this->getDefaultCriteria();
+        $criteria->order = '';
         $criteria->addInCondition('t.id', $ids);
         $attaches = PhotoAttach::model()->findAll($criteria);
 

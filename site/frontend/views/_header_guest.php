@@ -6,7 +6,7 @@
         <!-- /logo-->
         <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
         <?php $this->widget('site.frontend.widgets.headerGuestWidget.HeaderGuestWidget'); ?>
-        <?php if ($this->module->id != 'search'): ?>
+        <?php if ($this->module === null || $this->module->id != 'search'): ?>
             <div class="sidebar-search clearfix sidebar-search__big">
                 <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
                 <!-- При начале ввода добавить класс .active на кнопку-->

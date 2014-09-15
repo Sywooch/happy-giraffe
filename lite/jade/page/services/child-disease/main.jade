@@ -1,0 +1,442 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+    
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li
+                        a.ico-club.ico-club__s.ico-club__13(href='#') 
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Справочник детских болезней     
+        .child-disease
+            .b-main_cont 
+                .b-main_col-wide    
+                    h1.heading-link-xxl.heading-link-xxl__center Справочник детских болезней
+            .child-disease-head
+                .child-disease-head_in 
+                        .wysiwyg-content
+                            p Вовремя «ловить» начальные симптомы болезней, быстро реагировать и тем самым сводить к минимуму опасность осложнений и значительно сокращать время лечения.
+                            .child-disease-head_slogan Об этом наш сервис!
+            .b-main_row
+                .b-main_cont 
+                    .serv-category.serv-category__child-disease.clearfix
+                            //- .serv-category_col.col-md-4.col-sm-6
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__1
+                                        .serv-category_t Болезни кровообращения
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Врождённый порок сердца
+                                        li.serv-category_in-li
+                                            a.a-light Ревматическая хорея  
+                                        li.serv-category_in-li
+                                            a.a-light Лимфаденит 
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__2
+                                        .serv-category_t Гастроэнтерология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Гастрит
+                                        li.serv-category_in-li
+                                            a.a-light Дуоденит 
+                                        li.serv-category_in-li
+                                            a.a-light Географический язык 
+                                        li.serv-category_in-li
+                                            a.a-light Дискинезия желчевыводящих путей 
+                                        li.serv-category_in-li
+                                            a.a-light Лактазная недостаточность 
+                                        li.serv-category_in-li
+                                            a.a-light Непереносимость глютена 
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__3
+                                        .serv-category_t Гематология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Анемия
+                                        li.serv-category_in-li
+                                            a.a-light Гемофилия  
+                                        li.serv-category_in-li
+                                            a.a-light Лейкоз  
+                                        li.serv-category_in-li
+                                            a.a-light Тромбоцитопения 
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__4
+                                        .serv-category_t Гиповитаминозы
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Рахит 
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__5
+                                        .serv-category_t Дерматология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Атопический дерматит
+                                        li.serv-category_in-li
+                                            a.a-light Витилиго
+                                        li.serv-category_in-li
+                                            a.a-light Себорея
+                                        li.serv-category_in-li
+                                            a.a-light Угри
+                                        li.serv-category_in-li
+                                            a.a-light Экзема
+                                        li.serv-category_in-li
+                                            a.a-light Крапивница
+                                        li.serv-category_in-li
+                                            a.a-light Потница
+                                        li.serv-category_in-li
+                                            a.a-light Везикулопустулёз
+                                        li.serv-category_in-li
+                                            a.a-light Фурункул и карбункул
+                                        li.serv-category_in-li
+                                            a.a-light Абсцесс
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__6
+                                        .serv-category_t Детские инфекции
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Коклюш
+                                        li.serv-category_in-li
+                                            a.a-light Ветряная оспа
+                                        li.serv-category_in-li
+                                            a.a-light Корь
+                                        li.serv-category_in-li
+                                            a.a-light Краснуха
+                                        li.serv-category_in-li
+                                            a.a-light Эпидемический паротит
+                                        li.serv-category_in-li
+                                            a.a-light Скарлатина
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__7
+                                        .serv-category_t Инфекции
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Дизентерия
+                                        li.serv-category_in-li
+                                            a.a-light Амёбиаз
+                                        li.serv-category_in-li
+                                            a.a-light Холера
+                                        li.serv-category_in-li
+                                            a.a-light Кишечные инфекции, вызванные условно-патогенной флорой
+                                        li.serv-category_in-li
+                                            a.a-light Сальмонеллёз
+                                        li.serv-category_in-li
+                                            a.a-light Пищевая токсикоинфекция
+                                        li.serv-category_in-li
+                                            a.a-light Туберкулёз
+                                        li.serv-category_in-li
+                                            a.a-light Дифтерия
+                                        li.serv-category_in-li
+                                            a.a-light Гонококковая инфекция
+                                        li.serv-category_in-li
+                                            a.a-light Лептоспироз
+                                        li.serv-category_in-li
+                                            a.a-light Сифилис
+                                        li.serv-category_in-li
+                                            a.a-light Бешенство
+                                        li.serv-category_in-li
+                                            a.a-light Рожа
+                                        li.serv-category_in-li
+                                            a.a-light Острый полиомиелит
+                                        li.serv-category_in-li
+                                            a.a-light ВИЧ-инфекция
+                                        li.serv-category_in-li
+                                            a.a-light Инфекционный мононуклеоз
+                                        li.serv-category_in-li
+                                            a.a-light Трихомониаз
+                                        li.serv-category_in-li
+                                            a.a-light Хламидиоз
+                                        li.serv-category_in-li
+                                            a.a-light Простой герпес
+                                        li.serv-category_in-li
+                                            a.a-light Клещевой энцефалит
+                                        li.serv-category_in-li
+                                            a.a-light Цитомегаловирусная инфекция
+                                        li.serv-category_in-li
+                                            a.a-light Вирусные бородавки
+                                        li.serv-category_in-li
+                                            a.a-light Туляремия
+                                        li.serv-category_in-li
+                                            a.a-light Лейшманиоз
+                                        li.serv-category_in-li
+                                            a.a-light Бруцеллёз
+                                        li.serv-category_in-li
+                                            a.a-light Вирусный гепатит
+                                        li.serv-category_in-li
+                                            a.a-light Грипп
+                                        li.serv-category_in-li
+                                            a.a-light Аденовирусная инфекция
+                                        li.serv-category_in-li
+                                            a.a-light Ротавирусная инфекция
+                                        li.serv-category_in-li
+                                            a.a-light Евстахиит
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__8
+                                        .serv-category_t Неврология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Менингит
+                                        li.serv-category_in-li
+                                            a.a-light Нервный тик
+                                        li.serv-category_in-li
+                                            a.a-light Энцефалит
+                                        li.serv-category_in-li
+                                            a.a-light Гидроцефалия
+                                        li.serv-category_in-li
+                                            a.a-light Вегето-сосудистая дистония
+                                        li.serv-category_in-li
+                                            a.a-light Энцефалопатия
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__9
+                                        .serv-category_t Онкология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Гемангиома
+                                        li.serv-category_in-li
+                                            a.a-light Мастоцитома
+
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__10
+                                        .serv-category_t Оториноларингология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Трахеит
+                                        li.serv-category_in-li
+                                            a.a-light Ларингит
+                                        li.serv-category_in-li
+                                            a.a-light Острый ринит
+                                        li.serv-category_in-li
+                                            a.a-light Тонзиллит
+                                        li.serv-category_in-li
+                                            a.a-light Синусит
+                                        li.serv-category_in-li
+                                            a.a-light Острый фарингит
+                                        li.serv-category_in-li
+                                            a.a-light Вазомоторный ринит
+                                        li.serv-category_in-li
+                                            a.a-light Аллергический ринит
+                                        li.serv-category_in-li
+                                            a.a-light Травма барабанной перепонки
+                                        li.serv-category_in-li
+                                            a.a-light Гипертрофия аденоидов
+                                        li.serv-category_in-li
+                                            a.a-light Инородное тело бронха
+                                        li.serv-category_in-li
+                                            a.a-light Тугоухость
+                                        li.serv-category_in-li
+                                            a.a-light Инородное тело носа
+                                        li.serv-category_in-li
+                                            a.a-light Мастоидит
+                                        li.serv-category_in-li
+                                            a.a-light Наружный отит
+                                        li.serv-category_in-li
+                                            a.a-light Средний отит
+                                        li.serv-category_in-li
+                                            a.a-light Серная пробка
+
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__11
+                                        .serv-category_t Офтальмология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Коньюнктивит
+                                        li.serv-category_in-li
+                                            a.a-light Ячмень
+                                        li.serv-category_in-li
+                                            a.a-light Близорукость
+                                        li.serv-category_in-li
+                                            a.a-light Дакриоаденит
+                                        li.serv-category_in-li
+                                            a.a-light Дальнозоркость
+                                        li.serv-category_in-li
+                                            a.a-light Астигматизм
+                                        li.serv-category_in-li
+                                            a.a-light Нистагм
+                                        li.serv-category_in-li
+                                            a.a-light Дальтонизм
+                                        li.serv-category_in-li
+                                            a.a-light Склерит
+                                        li.serv-category_in-li
+                                            a.a-light Иридоциклит
+                                        li.serv-category_in-li
+                                            a.a-light Травма глаза
+                                        li.serv-category_in-li
+                                            a.a-light Косоглазие
+
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__12
+                                        .serv-category_t Паразитология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Лямблиоз
+                                        li.serv-category_in-li
+                                            a.a-light Грибковые заболевания
+                                        li.serv-category_in-li
+                                            a.a-light Гельминтозы
+                                        li.serv-category_in-li
+                                            a.a-light Педикулёз
+                                        li.serv-category_in-li
+                                            a.a-light Чесотка
+
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__13
+                                        .serv-category_t Психиатрия
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Компьютерная зависимость
+                                        li.serv-category_in-li
+                                            a.a-light Нервный стресс
+                                        li.serv-category_in-li
+                                            a.a-light Умственная отсталость
+                                        li.serv-category_in-li
+                                            a.a-light Шизофрения
+                                        li.serv-category_in-li
+                                            a.a-light Эпилепсия
+                                        li.serv-category_in-li
+                                            a.a-light Анорексия
+                                        li.serv-category_in-li
+                                            a.a-light Булимия
+                                        li.serv-category_in-li
+                                            a.a-light Токсикомания
+                                        li.serv-category_in-li
+                                            a.a-light Наркомания
+                                        li.serv-category_in-li
+                                            a.a-light Алкоголизм
+                                        li.serv-category_in-li
+                                            a.a-light Никотиновая зависимость
+
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__14
+                                        .serv-category_t Пульмонология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Бронхит
+                                        li.serv-category_in-li
+                                            a.a-light Пневмония
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__15
+                                        .serv-category_t Стоматология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Стоматит
+                                        li.serv-category_in-li
+                                            a.a-light Нарушение прорезывания зубов
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__16
+                                        .serv-category_t Урология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Нефрит
+                                        li.serv-category_in-li
+                                            a.a-light Цистит
+                                        li.serv-category_in-li
+                                            a.a-light Почечная колика
+                                        li.serv-category_in-li
+                                            a.a-light Вульвит
+                                        li.serv-category_in-li
+                                            a.a-light Баланопостит
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__17
+                                        .serv-category_t Хирургия
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Пупочная грыжа
+                                        li.serv-category_in-li
+                                            a.a-light Аппендицит
+                                        li.serv-category_in-li
+                                            a.a-light Мозоль
+                                        li.serv-category_in-li
+                                            a.a-light Острый панкреатит
+                            ul.serv-category_ul
+                                li.serv-category_li
+                                    .serv-category_top
+                                        .serv-category_ico.ico-child-disease.ico-child-disease__18
+                                        .serv-category_t Эндокринология
+                                    ul.serv-category_in-ul
+                                        li.serv-category_in-li
+                                            a.a-light Гипотиреоз
+                                        li.serv-category_in-li
+                                            a.a-light Тиреотоксикоз
+                                        li.serv-category_in-li
+                                            a.a-light Сахарный диабет
+                                        li.serv-category_in-li
+                                            a.a-light Тиреоидит
+                                        li.serv-category_in-li
+                                            a.a-light Ожирение
+                                        li.serv-category_in-li
+                                            a.a-light Синдром Жильбера
+                                        li.serv-category_in-li
+                                            a.a-light Болезнь кленового сиропа
+                                        li.serv-category_in-li
+                                            a.a-light Альбинизм
+                                        li.serv-category_in-li
+                                            a.a-light Паратрофия
+                                        li.serv-category_in-li
+                                            a.a-light Синдром Криглера-Найяра
+                                        li.serv-category_in-li
+                                            a.a-light Фенилкетонурия
+
+
+                            //- .serv-category_col.col-md-4.col-sm-6
+
+            .b-main_row.child-disease-desc.visible-md-block
+                .b-main_cont
+                    .wysiwyg-content
+                        p Детский организм работает совсем иначе, нежели взрослый. Посмотрите хотя бы на то, как много детки двигаются – и не устают. Взрослый бы при таких обстоятельствах не выдержал. Как много дети успевают за день – и запоминают все, а взрослый бы забыл. Как быстро дети растут, наконец! Все это – благодаря способностям, которыми их организм наделила природа. У нас, у взрослых, этого уже нет. А потому думать, что дети – это маленькие взрослые, ошибочно. Например, есть некоторые болезни, которыми не заболеют взрослые, но дети могут быть им подвержены.
+            .b-main_row.visible-md-block
+                .b-main_cont.margin-b40
+                    .b-main_col-article.b-main_col-article__center
+                        .wysiwyg-content
+                            p Существует такой термин – «детские болезни». Раз он есть, значит, заболевания, которые выпадают на долю наших деток, особенные.
+                            p Какие это болезни? Про некоторые мы знаем: скарлатина, ветрянка, коклюш, краснуха. Но и ангина, и бронхит, игастрит тоже бывают детскими, т.е. отличными от взрослых. И лечат их не взрослыми средствами, а методами илекарствами, предназначенными для детей.
+                            p Диагностика детских болезней сложна. Детки реагируют на болячки по-разному, поэтому описать яркие симптомы какприсущие только одной болезни, невозможно. Например, обычная простуда может у одного ребенка вызвать только больв горле, а у другого – еще и аллергию, понос и сыпь. И определить, что есть что, очень сложно.
+                            p Конечно, если ребенок заболел, надо звать врача. Но бывают разные ситуации, поэтому родителям стоит владетьинформацией о детских болезнях. Именно с этой целью мы создали сервис – Справочник детских болезней. Пусть онбудет в ваших закладках, чтобы при необходимости оказаться вам полезным. Информация о заболевании, его причинах,симптомах дается в удобной и понятной форме, также есть рекомендации по лечению и профилактике.
+                            p Мы не призываем самостоятельно диагностировать и лечить болезни ваших детей. В любом случае старайтесь обращатьсяк врачу. Но знание симптомов болезней своего ребенка поможет вам составить его анамнез, т.е. историю здоровья, аэто очень пригодится в будущем.
+        
+    // b-main 
+    +layout-footer-lite()
+

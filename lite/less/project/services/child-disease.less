@@ -1,0 +1,66 @@
+/* child-disease */
+.child-disease {
+    margin: 20px 0;
+}
+/* /child-disease */
+
+/* .child-disease-head */
+.child-disease-head {
+    position: relative;
+    margin: 20px auto 30px;
+    
+    &_in {
+        position: relative;
+        padding: 75% 15px 20px;
+        background: url('@{path-img}/services/child-disease/child-disease-head__s.jpg') no-repeat 0 0;
+        background-size: contain;
+    }
+    &_slogan {
+        font-size: 20px;
+        font-weight: bold;
+        color: @color-orange;
+        text-align: center;
+    }
+
+    @media (min-width: @screen-phone) {
+        &_in {
+            padding-left: 20%;
+            padding-right: 20%;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        & {
+            height: 356px;
+            padding: 0;
+            background-color: #9dd3fb;
+        }
+        &_in {
+            height: 400px;
+            width: 768px;
+            top: -10px;
+            margin: 0 auto;
+            padding: 90px 476px 0 50px;
+
+            background: url('@{path-img}/services/child-disease/child-disease-head__m.jpg') no-repeat 100% 0;
+        }
+        &_slogan {
+            text-align: left;
+        }
+    }
+}
+/* /child-disease-head */
+
+/* .child-disease-desc */
+.child-disease-desc {
+    margin: 20px auto;
+    padding: 30px 0 20px;
+    background: #d0f1c4 url('@{path-img}/services/child-disease/child-disease-desc.jpg') no-repeat 90px 50%;
+
+    .b-main_cont {
+        margin: 0 120px 0 375px;
+    }
+    .wysiwyg-content {
+        line-height: 20px;
+    }
+}
+/* /child-disease-desc */

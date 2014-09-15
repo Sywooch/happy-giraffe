@@ -38,7 +38,11 @@ $js = '$(document).ready(function () {
             });
         });
 ';
-$cs->registerAMD('headerGuestWidget', array(), $js);
+if ($cs->useAMD) {
+    $cs->registerAMD('headerGuestWidget', array('common'), $js);
+} else {
+    $cs->registerScript('headerGuestWidget', $js);
+}
 ?>
 
 <div class="header-menu">

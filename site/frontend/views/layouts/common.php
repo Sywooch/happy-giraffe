@@ -138,9 +138,5 @@
                 </div>
             </div>
         </div>
-
-        <?php if (Yii::app()->user->isGuest): ?>
-            <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
-        <?php endif; ?>
     </body>
 </html>

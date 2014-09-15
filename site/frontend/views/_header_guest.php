@@ -5,7 +5,6 @@
         <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="<?=$this->createUrl('/site/index')?>" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
         <!-- /logo-->
         <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
-        <?php $this->widget('site.frontend.modules.signup.widgets.LayoutWidget'); ?>
         <?php $this->widget('site.frontend.widgets.headerGuestWidget.HeaderGuestWidget'); ?>
         <?php if ($this->module->id != 'search'): ?>
             <div class="sidebar-search clearfix sidebar-search__big">

@@ -43,17 +43,14 @@ $cs->registerAMD('myPhotos', array('ko' => 'knockout', 'MyPhotos' => 'photo/myPh
                     <div class="b-album_ico-album"></div>
                     <div class="b-album_arrow"></div></a>
                 <ul class="b-album_prev clearfix">
-                    <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
-                    <li class="b-album_prev-li"><a href="" class="b-album_prev-a"><img src="/new/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                            <div class="b-album_prev-hold"></div></a></li>
+                    <!-- ko foreach: photoCollection().attaches() -->
+                    <li class="b-album_prev-li">
+                        <a href="" class="b-album_prev-a">
+                            <img src="" alt="" class="b-album_prev-img" data-bind="thumb: { photo : $data.photo(), preset : 'myPhotosPreview' }">
+                            <div class="b-album_prev-hold"></div>
+                        </a>
+                    </li>
+                    <!-- /ko -->
                     <li class="b-album_prev-li"><a href="" class="album-photo-add"></a></li>
                 </ul>
             </div>

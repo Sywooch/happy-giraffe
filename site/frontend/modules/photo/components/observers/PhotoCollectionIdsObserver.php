@@ -23,7 +23,7 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
 
     public function getSlice($length, $offset)
     {
-        $ids = array_slice($this->ids[], $length, $offset);
+        $ids = array_slice($this->ids, $offset, $length);
         $criteria = new \CDbCriteria();
         $criteria->addInCondition('t.id', $ids);
         $attaches = PhotoAttach::model()->findAll($criteria);
@@ -41,8 +41,9 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
     protected function getIds()
     {
         if ($this->_ids === null) {
-            $sql = 'SELECT id FROM ' . PhotoAttach::model()->tableName() . ' ORDER BY ' . self::ORDER;
-            $this->_ids = \Yii::app()->db->createCommand($sql)->queryColumn();
+            $alias = PhotoAttach::model()->getTableAlias();
+            $sql = 'SELECT id FROM ' . PhotoAttach::model()->tableName() . ' ' . $alias . ' WHERE ' . $alias . '.collection_id = :collection_id ORDER BY ' . self::ORDER;
+            $this->_ids = \Yii::app()->db->createCommand($sql)->queryColumn(array(':collection_id' => $this->model->id));
         }
         return $this->_ids;
     }

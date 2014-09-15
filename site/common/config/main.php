@@ -51,6 +51,11 @@ return array(
                     'width' => 880,
                     'height' => 580,
                 ),
+                'myPhotosPreview' => array(
+                    'filter' => 'relativeResize',
+                    'method' => 'heighten',
+                    'parameter' => 70,
+                ),
             ),
             'quality' => array(
                 72 => 100,

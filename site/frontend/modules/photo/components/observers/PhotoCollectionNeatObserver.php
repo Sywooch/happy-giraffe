@@ -18,6 +18,7 @@ class PhotoCollectionNeatObserver extends PhotoCollectionObserver
     {
         $criteria = $this->getDefaultCriteria();
         $criteria->offset = $offset;
+        $criteria->limit = 1;
         return PhotoAttach::model()->find($criteria);
     }
 

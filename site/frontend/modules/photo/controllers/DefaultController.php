@@ -9,6 +9,7 @@
 namespace site\frontend\modules\photo\controllers;
 
 
+use site\frontend\modules\photo\components\observers\PhotoCollectionIdsObserver;
 use site\frontend\modules\photo\components\PhotoController;
 use site\frontend\modules\photo\models\PhotoAlbum;
 
@@ -22,6 +23,10 @@ class DefaultController extends PhotoController
     public function actionIndex($userId)
     {
         $albums = PhotoAlbum::model()->user($userId)->findAll();
+        foreach ($albums as $album) {
+            $obs = new PhotoCollectionIdsObserver($album->photoCollection);
+            $album->photoCollection->attaches = $obs->getSlice(5, -5);
+        }
         $json = \HJSON::encode(array('albums' => $albums));
         $this->render('index', compact('json'));
     }

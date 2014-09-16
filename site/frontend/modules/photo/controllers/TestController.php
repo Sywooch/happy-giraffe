@@ -47,8 +47,8 @@ class TestController extends PhotoController
     {
         \Yii::beginProfile('slice');
         for ($i = 0; $i < 100; $i++) {
-            $collection = PhotoCollection::model()->find();
-            $obs = new PhotoCollectionNeatObserver($collection);
+            $collection = PhotoCollection::model()->findByPk(9);
+            $obs = new PhotoCollectionIdsObserver($collection);
             $photos = $obs->getSlice(5, mt_rand(0, $obs->getCount() - 1));
         }
         foreach ($photos as $v) {
@@ -59,16 +59,14 @@ class TestController extends PhotoController
 
         \Yii::beginProfile('single');
         for ($i = 0; $i < 100; $i++) {
-            $collection = PhotoCollection::model()->find();
-            $obs = new PhotoCollectionNeatObserver($collection);
+            $collection = PhotoCollection::model()->findByPk(9);
+            $obs = new PhotoCollectionIdsObserver($collection);
             $photo = $obs->getSingle(mt_rand(0, $obs->getCount() - 1));
         }
         foreach ($photo->getAttributes() as $k => $v) {
             echo "$k: $v<br>";
         }
         \Yii::endProfile('single');
-
-        $this->render('');
     }
 
     public function actionScript()

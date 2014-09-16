@@ -67,6 +67,19 @@ class TestController extends PhotoController
             echo "$k: $v<br>";
         }
         \Yii::endProfile('single');
+
+        $this->render('');
+    }
+
+    public function actionScript()
+    {
+        $this->render('script');
+    }
+
+    public function actionSleep()
+    {
+        sleep(5);
+        echo "alert('спящая реклама');";
     }
 
     public function actionPresets()

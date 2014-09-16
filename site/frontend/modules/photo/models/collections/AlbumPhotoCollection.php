@@ -29,4 +29,11 @@ class AlbumPhotoCollection extends PhotoCollection
     {
         return $this->relatedModel->description;
     }
+
+    public function getRelatedCollections()
+    {
+        return array(
+            $this->owner->author->PhotoCollectionBehavior->getRelatedCollection('all'),
+        );
+    }
 } 

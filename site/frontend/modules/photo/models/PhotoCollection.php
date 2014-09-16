@@ -19,8 +19,20 @@
 
 namespace site\frontend\modules\photo\models;
 
+use Aws\CloudFront\Exception\Exception;
+
 class PhotoCollection extends \HActiveRecord implements \IHToJSON
 {
+    public static $config = array(
+        'Album' => array(
+            'all' => 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection',
+        ),
+        'User' => array(
+            'all' => 'site\frontend\modules\photo\models\collections\UserAllPhotoCollection',
+            'unsorted' => 'site\frontend\modules\photo\models\collections\UserUnsortedPhotoCollection',
+        ),
+    );
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -72,20 +84,11 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 
     protected function instantiate($attributes)
     {
-        switch ($attributes['entity']) {
-            case 'PhotoAlbum':
-                $class = 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection';
-                break;
-            case 'User':
-                if ($attributes['key'] == 'all') {
-                    $class = 'site\frontend\modules\photo\models\collections\UserAllPhotoCollection';
-                } else {
-                    $class = 'site\frontend\modules\photo\models\collections\UserUnsortedPhotoCollection';
-                }
-                break;
-            default:
-                throw new \CException('Invalid collection');
+        if (! isset(self::$config[$attributes['entity']][$attributes['key']])) {
+            throw new Exception('Invalid collection');
         }
+
+        $class = self::$config[$attributes['entity']][$attributes['key']];
         $model = new $class(null);
         return $model;
     }

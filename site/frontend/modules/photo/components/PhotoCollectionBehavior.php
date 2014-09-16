@@ -6,6 +6,7 @@
  */
 
 namespace site\frontend\modules\photo\components;
+use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoCollection;
 
 class PhotoCollectionBehavior extends \CActiveRecordBehavior
@@ -31,7 +32,7 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
     public function afterSave($event)
     {
         if ($this->owner->isNewRecord) {
-            foreach ($this->getKeys() as $key) {
+            foreach (PhotoCollection::$config as $key => $class) {
                 $this->createCollection($key);
             }
         }
@@ -54,10 +55,5 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
         $collection->key = $key;
         $collection->save();
         return $collection;
-    }
-
-    protected function getKeys()
-    {
-        return array('all');
     }
 } 

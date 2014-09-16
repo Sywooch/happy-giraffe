@@ -21,4 +21,9 @@ class AlbumPhotoCollectionBehavior extends PhotoCollectionBehavior
             self::KEY_ALL_PHOTOS,
         );
     }
+
+    public function getRelatedCollections()
+    {
+
+    }
 } 

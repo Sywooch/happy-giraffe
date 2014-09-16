@@ -9,6 +9,8 @@
 namespace site\frontend\modules\photo\components\attaches;
 
 
+use site\frontend\modules\photo\components\AlbumPhotoCollectionBehavior;
+use site\frontend\modules\photo\components\UserPhotoCollectionBehavior;
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoCollection;
 
@@ -25,10 +27,12 @@ class AlbumUploadAttachManager extends AttachManager
         $collections[] = PhotoCollection::model()->findByAttributes(array(
             'entity_id' => $this->albumId,
             'entity' => 'PhotoAlbum',
+            'key' => AlbumPhotoCollectionBehavior::KEY_ALL_PHOTOS,
         ));
         $collections[] = PhotoCollection::model()->findByAttributes(array(
             'entity_id' => $album->author_id,
             'entity' => 'User',
+            'key' => UserPhotoCollectionBehavior::KEY_ALL_PHOTOS,
         ));
     }
 } 

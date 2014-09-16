@@ -62,6 +62,7 @@ class Comment extends HActiveRecord
         return array(
             array('author_id, entity, entity_id', 'required'),
             array('text', 'CommentRequiredValidator', 'on' => 'default'),
+            array('text', 'safe'),
             array('author_id, entity_id, response_id', 'numerical', 'allowEmpty' => true, 'integerOnly' => true),
             array('entity', 'length', 'max' => 255),
             array('removed', 'boolean'),

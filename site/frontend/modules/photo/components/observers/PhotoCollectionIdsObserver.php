@@ -21,6 +21,10 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
 
     public function getSlice($length, $offset)
     {
+        if ($this->getCount() == 0) {
+            return array();
+        }
+
         $ids = $this->roundSlice($this->ids, $offset, $length);
         $criteria = $this->getDefaultCriteria();
         $criteria->order = '';

@@ -21,6 +21,8 @@ use site\frontend\modules\photo\components\IPhotoCollection;
 
 class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
 {
+    public $photoCollection;
+
 	/**
 	 * @return string the associated database table name
 	 */

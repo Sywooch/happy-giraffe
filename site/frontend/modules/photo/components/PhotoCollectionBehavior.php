@@ -6,11 +6,12 @@
  */
 
 namespace site\frontend\modules\photo\components;
-
 use site\frontend\modules\photo\models\PhotoCollection;
 
-abstract class PhotoCollectionBehavior extends \CActiveRecordBehavior
+class PhotoCollectionBehavior extends \CActiveRecordBehavior
 {
+    public $photoCollection;
+
     /**
      * @param \HActiveRecord $owner
      */
@@ -36,7 +37,7 @@ abstract class PhotoCollectionBehavior extends \CActiveRecordBehavior
         }
     }
 
-    public function getRelatedCollection($key)
+    public function getCollection($key)
     {
         if (isset($this->owner->photoCollections[$key])) {
             return $this->owner->photoCollections[$key];
@@ -55,5 +56,8 @@ abstract class PhotoCollectionBehavior extends \CActiveRecordBehavior
         return $collection;
     }
 
-    abstract public function getKeys();
+    protected function getKeys()
+    {
+        return array('all');
+    }
 } 

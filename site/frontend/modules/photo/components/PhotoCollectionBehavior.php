@@ -40,5 +40,10 @@ abstract class PhotoCollectionBehavior extends \CActiveRecordBehavior
         }
     }
 
+    public function getRelatedCollections()
+    {
+        return array();
+    }
+
     abstract public function getKeys();
 } 

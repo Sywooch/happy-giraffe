@@ -96,8 +96,6 @@
 
         <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
 
-        <?php $this->renderPartial('//banners/popular'); ?>
-
         <?php if (false): ?>
             <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
         <?php endif; ?>

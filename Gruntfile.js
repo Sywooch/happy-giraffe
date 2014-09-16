@@ -183,7 +183,8 @@ module.exports = function(grunt){
             /.redactor+/,
             /.select2+/,
             /.tooltip+/,
-            /.header-menu_li__dropin+/,
+            /.header-menu_li+/,
+            /.header_+/,
           ],
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
@@ -204,7 +205,8 @@ module.exports = function(grunt){
             /.mfp+/,
             /.mfp+/,
             /.select2+/,
-            /.header-menu_li.active+/,
+            /.header-menu_li+/,
+            /.header_+/,
             //.tooltip+/,
           ],
         },
@@ -230,7 +232,8 @@ module.exports = function(grunt){
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
-            /.header-menu_li.active+/,
+            /.header-menu_li+/,
+            /.header_+/,
           ],
         },
         src: [
@@ -260,7 +263,8 @@ module.exports = function(grunt){
             /.fancybox+/,
             
             /.header-drop+/, // Drop, active элементы
-            /.header-menu_li.active+/,
+            /.header-menu_li+/,
+            /.header_+/,
           ],
         },
         src: [

@@ -72,6 +72,8 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
+
+<div  class="layout-w1">
 <div id="layout-container" class="layout-container">
 
 	<div class="layout-wrapper">
@@ -249,15 +251,10 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 	<script>
 	$(window).load(function () {
 		$(".theme__adfox").append("<div id='cover' class='cover cover__kinder-umbrella'><div class='cover_b'></div></div>");
-
-		var container = $('.layout-container');
-
-		if(container.length > 0 && container.height() < 2110) {
-			$('.cover').css({'display':'none'});
-		}
 	});
 	</script> 
 	
+</div>
 </div>
 
 </body>

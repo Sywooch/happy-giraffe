@@ -87,7 +87,7 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
                 'setUpdateOnCreate' => true,
             ),
             'PhotoCollectionBehavior' => array(
-                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                'class' => 'site\frontend\modules\photo\components\AlbumPhotoCollectionBehavior',
             ),
             'AuthorBehavior' => array(
                 'class' => 'site\common\behaviors\AuthorBehavior',

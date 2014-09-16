@@ -9,20 +9,20 @@ namespace site\frontend\modules\photo\components;
 
 use site\frontend\modules\photo\models\PhotoCollection;
 
-class PhotoCollectionBehavior extends \CActiveRecordBehavior
+abstract class PhotoCollectionBehavior extends \CActiveRecordBehavior
 {
     /**
      * @param \HActiveRecord $owner
      */
     public function attach($owner)
     {
-        $class = \CActiveRecord::HAS_ONE;
-        $relationName = 'photoCollection';
+        $class = \CActiveRecord::HAS_MANY;
+        $relationName = 'photoCollections';
         $owner->getMetaData()->relations[$relationName] =
             new $class($relationName,
                 'site\frontend\modules\photo\models\PhotoCollection',
                 'entity_id',
-                array('condition' => 'entity = :entity', 'params' => array(':entity' => $owner->getEntityName()))
+                array('condition' => 'entity = :entity', 'params' => array(':entity' => $owner->getEntityName()), 'index' => 'key')
             );
         parent::attach($owner);
     }
@@ -30,10 +30,15 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
     public function afterSave($event)
     {
         if ($this->owner->isNewRecord) {
-            $collection = new PhotoCollection();
-            $collection->entity_id = $this->owner->id;
-            $collection->entity = $this->owner->getEntityName();
-            $collection->save();
+            foreach ($this->getKeys() as $key) {
+                $collection = new PhotoCollection();
+                $collection->entity_id = $this->owner->id;
+                $collection->entity = $this->owner->getEntityName();
+                $collection->key = $key;
+                $collection->save();
+            }
         }
     }
+
+    abstract public function getKeys();
 } 

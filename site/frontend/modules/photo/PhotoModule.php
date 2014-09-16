@@ -4,6 +4,8 @@ namespace site\frontend\modules\photo;
 
 class PhotoModule extends \CWebModule
 {
+    public $test;
+
     public $controllerNamespace = '\site\frontend\modules\photo\controllers';
 
 	public function init()

@@ -31,18 +31,28 @@ abstract class PhotoCollectionBehavior extends \CActiveRecordBehavior
     {
         if ($this->owner->isNewRecord) {
             foreach ($this->getKeys() as $key) {
-                $collection = new PhotoCollection();
-                $collection->entity_id = $this->owner->id;
-                $collection->entity = $this->owner->getEntityName();
-                $collection->key = $key;
-                $collection->save();
+                $this->createCollection($key);
             }
         }
     }
 
-    public function getRelatedCollections()
+    public function getRelatedCollection($key)
     {
-        return array();
+        if (isset($this->owner->photoCollections[$key])) {
+            return $this->owner->photoCollections[$key];
+        } else {
+            return $this->createCollection($key);
+        }
+    }
+
+    protected function createCollection($key)
+    {
+        $collection = new PhotoCollection();
+        $collection->entity_id = $this->owner->id;
+        $collection->entity = $this->owner->getEntityName();
+        $collection->key = $key;
+        $collection->save();
+        return $collection;
     }
 
     abstract public function getKeys();

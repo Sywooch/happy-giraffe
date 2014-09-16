@@ -19,7 +19,7 @@
 
 namespace site\frontend\modules\photo\models;
 
-abstract class PhotoCollection extends \HActiveRecord implements \IHToJSON
+class PhotoCollection extends \HActiveRecord implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name
@@ -137,7 +137,7 @@ abstract class PhotoCollection extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    abstract public function getCollectionLabel();
-    abstract public function getCollectionTitle();
-    abstract public function getCollectionDescription();
+//    abstract public function getCollectionLabel();
+//    abstract public function getCollectionTitle();
+//    abstract public function getCollectionDescription();
 }

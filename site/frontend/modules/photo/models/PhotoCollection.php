@@ -19,7 +19,7 @@
 
 namespace site\frontend\modules\photo\models;
 
-class PhotoCollection extends \HActiveRecord implements \IHToJSON
+abstract class PhotoCollection extends \HActiveRecord implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name
@@ -70,6 +70,26 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 		return parent::model($className);
 	}
 
+    protected function instantiate($attributes)
+    {
+        switch ($attributes['entity']) {
+            case 'PhotoAlbum':
+                $class = 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection';
+                break;
+            case 'User':
+                if ($attributes['key'] == 'all') {
+                    $class = 'site\frontend\modules\photo\models\collections\UserAllPhotoCollection';
+                } else {
+                    $class = 'site\frontend\modules\photo\models\collections\UserUnsortedPhotoCollection';
+                }
+                break;
+            default:
+                throw new \CException('Invalid collection');
+        }
+        $model = new $class(null);
+        return $model;
+    }
+
     public function behaviors()
     {
         return array(
@@ -78,6 +98,10 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
+            ),
+            'RelatedModelBehavior' => array(
+                'class' => 'site.common.behaviors.RelatedEntityBehavior',
+                'possibleRelations' => array('PhotoAlbum'),
             ),
         );
     }
@@ -112,4 +136,8 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             'cover' => $this->cover,
         );
     }
+
+    abstract public function getCollectionLabel();
+    abstract public function getCollectionTitle();
+    abstract public function getCollectionDescription();
 }

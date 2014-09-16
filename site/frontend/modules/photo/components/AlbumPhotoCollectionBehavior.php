@@ -13,6 +13,8 @@ use site\frontend\modules\photo\models\PhotoCollection;
 
 class AlbumPhotoCollectionBehavior extends PhotoCollectionBehavior
 {
+
+
     const KEY_ALL_PHOTOS = 'all';
 
     public function getKeys()
@@ -24,6 +26,12 @@ class AlbumPhotoCollectionBehavior extends PhotoCollectionBehavior
 
     public function getRelatedCollections()
     {
-
+        return array(
+            PhotoCollection::model()->findByAttributes(array(
+                'entity' => 'User',
+                'entity_id' => $this->owner->author_id,
+                'key' => UserPhotoCollectionBehavior::KEY_ALL_PHOTOS,
+            )),
+        );
     }
 } 

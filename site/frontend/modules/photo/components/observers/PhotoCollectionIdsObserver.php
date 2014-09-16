@@ -7,8 +7,6 @@
  */
 
 namespace site\frontend\modules\photo\components\observers;
-
-
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAttach;
 
@@ -23,19 +21,11 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
 
     public function getSlice($length, $offset)
     {
-        $ids = array_slice($this->ids, $offset, $length);
+        $ids = $this->roundSlice($this->ids, $offset, $length);
         $criteria = $this->getDefaultCriteria();
         $criteria->order = '';
         $criteria->addInCondition('t.id', $ids);
         $attaches = PhotoAttach::model()->findAll($criteria);
-
-        usort($attaches, function($a, $b) {
-            if ($a->position == $b->position) {
-                return $a->id < $b->id ? -1 : 1;
-            }
-            return $a->position < $b->position ? -1 : 1;
-        });
-
         return $attaches;
     }
 

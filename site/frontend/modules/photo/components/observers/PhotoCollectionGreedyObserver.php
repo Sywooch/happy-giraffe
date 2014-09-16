@@ -20,6 +20,6 @@ class PhotoCollectionGreedyObserver extends PhotoCollectionObserver
 
     public function getSlice($length, $offset)
     {
-        return array_slice($this->model->attaches, $offset, $length);
+        return $this->roundSlice($this->model->attaches, $offset, $length);
     }
 } 

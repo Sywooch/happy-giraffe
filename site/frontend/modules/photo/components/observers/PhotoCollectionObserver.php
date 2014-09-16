@@ -35,6 +35,16 @@ abstract class PhotoCollectionObserver extends \CComponent
         return $criteria;
     }
 
+    protected function roundSlice($array, $offset, $length)
+    {
+        $result = array();
+        for ($i = 0; $i < $length; $i++) {
+            $idx = ($offset + $i) % $this->getCount();
+            $result[] = $array[$idx];
+        }
+        return $result;
+    }
+
     abstract public function getSingle($offset);
     abstract public function getSlice($length, $offset);
 } 

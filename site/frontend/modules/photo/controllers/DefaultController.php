@@ -22,8 +22,6 @@ class DefaultController extends PhotoController
 
     public function actionIndex($userId)
     {
-        die('123');
-
         $albums = PhotoAlbum::model()->user($userId)->findAll(array('with' => 'photoCollection'));
         foreach ($albums as $album) {
             $obs = new PhotoCollectionIdsObserver($album->photoCollection);

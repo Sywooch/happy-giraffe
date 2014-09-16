@@ -29,23 +29,6 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
 	}
 
 	/**
-	 * @return array validation rules for model attributes.
-	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('photo_id, collection_id', 'required'),
-			array('photo_id, collection_id, position', 'length', 'max'=>11),
-			array('created, updated', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, photo_id, collection_id, position, data, created, updated', 'safe', 'on'=>'search'),
-		);
-	}
-
-	/**
 	 * @return array relational rules.
 	 */
 	public function relations()

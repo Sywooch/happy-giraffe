@@ -6,7 +6,7 @@
  * Time: 10:20
  */
 
-namespace site\frontend\modules\photo\components;
+namespace site\frontend\modules\photo\components\attaches;
 
 
 class AttachManager extends \CComponent

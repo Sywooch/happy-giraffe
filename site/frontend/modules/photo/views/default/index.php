@@ -16,11 +16,15 @@ $cs->registerAMD('myPhotos', array('ko' => 'knockout', 'MyPhotos' => 'photo/myPh
     <div class="userAddRecord clearfix userAddRecord__blog userAddRecord__blog">
         <div class="userAddRecord_hold">
             <div class="userAddRecord_tx">Я хочу добавить
-            </div><a href="" data-theme="transparent" class="userAddRecord_i">
+            </div>
+            <a href="" data-theme="transparent" class="userAddRecord_i">
                 <div class="userAddRecord_ico userAddRecord_ico__photo-add fancy"></div>
-                <div class="userAddRecord_desc">Фотографии <br> без альбома</div></a><a href="" data-theme="transparent" class="userAddRecord_i fancy">
+                <div class="userAddRecord_desc">Фотографии <br> без альбома</div>
+            </a>
+            <a href="<?=$this->createUrl('/photo/albums/create')?>" data-theme="transparent" class="userAddRecord_i">
                 <div class="userAddRecord_ico userAddRecord_ico__album"></div>
-                <div class="userAddRecord_desc">Новый <br> фотоальбом</div></a>
+                <div class="userAddRecord_desc">Новый <br> фотоальбом</div>
+            </a>
         </div>
     </div>
     <!-- /userAddRecord-->

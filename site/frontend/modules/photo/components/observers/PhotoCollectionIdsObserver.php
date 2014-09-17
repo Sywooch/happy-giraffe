@@ -25,6 +25,8 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
             return array();
         }
 
+
+
         $ids = $this->roundSlice($this->ids, $offset, $length);
         $criteria = $this->getDefaultCriteria();
         $criteria->order = '';

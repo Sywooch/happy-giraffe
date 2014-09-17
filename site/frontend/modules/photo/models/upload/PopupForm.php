@@ -70,7 +70,7 @@ class PopupForm extends \CFormModel implements \IHToJSON
                 'id',
                 'title',
                 'description',
-                'photoCollections' => array(
+                'photoCollection' => array(
                     'site\frontend\modules\photo\models\PhotoCollection' => array(
                         'id',
                         '(int)attachesCount',

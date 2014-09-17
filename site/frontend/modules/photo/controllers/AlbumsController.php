@@ -29,6 +29,20 @@ class AlbumsController extends PhotoController
         );
     }
 
+    public function actions()
+    {
+        return array(
+            'delete' => array(
+                'class' => 'site\frontend\components\actions\DeleteAction',
+                'modelClass' => 'site\frontend\modules\photo\models\PhotoAlbum',
+            ),
+            'edit' => array(
+                'class' => 'site\frontend\components\actions\EditAction',
+                'modelClass' => 'site\frontend\modules\photo\models\PhotoAlbum',
+            ),
+        );
+    }
+
     public function actionCreate()
     {
         $model = new PhotoAlbum();
@@ -46,14 +60,6 @@ class AlbumsController extends PhotoController
 
         $this->pageTitle = 'Создание альбома';
         $this->render('create', compact('model'));
-    }
-
-    public function actionRemove()
-    {
-        $albumId = \Yii::app()->request->getPost('albumId');
-        $album = PhotoAlbum::model()->findByPk($albumId);
-        $success = $album->delete();
-        echo \CJSON::encode(compact('success'));
     }
 
     public function actionView($authorId, $id)

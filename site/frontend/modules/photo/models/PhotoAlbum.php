@@ -21,8 +21,6 @@ use site\frontend\modules\photo\components\IPhotoCollection;
 
 class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
 {
-    public $photoCollection;
-
 	/**
 	 * @return string the associated database table name
 	 */
@@ -49,7 +47,7 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
 	public function relations()
 	{
 		return array(
-			'author' => array(self::BELONGS_TO, 'Users', 'author_id'),
+
 		);
 	}
 
@@ -124,6 +122,11 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
     {
         $this->getDbCriteria()->compare($this->getTableAlias() . '.author_id', $userId);
         return $this;
+    }
+
+    public function getPhotoCollection()
+    {
+        return $this->getCollection('all');
     }
 
     public function toJSON()

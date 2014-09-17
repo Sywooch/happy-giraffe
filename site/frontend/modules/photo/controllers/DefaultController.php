@@ -24,9 +24,8 @@ class DefaultController extends PhotoController
     {
         $albums = PhotoAlbum::model()->user($userId)->findAll();
         foreach ($albums as $album) {
-            $album->photoCollection = $album->getCollection('all');
             $obs = new PhotoCollectionIdsObserver($album->photoCollection);
-            $album->photoCollection->attaches = $obs->getSlice(5, -5);
+            $album->photoCollection->attaches = $obs->getSlice(2, -2);
         }
         $json = \HJSON::encode(array('albums' => $albums));
         $this->render('index', compact('json'));

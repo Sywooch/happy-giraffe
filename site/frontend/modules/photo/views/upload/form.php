@@ -27,8 +27,10 @@
 <?php $this->renderPartial('_photo'); ?>
 
 <script type="text/javascript">
-    $('a[data-toggle="tab"]').on('shown.bs.tab', function() {
-        $(document).trigger('koUpdate');
+    require(['jquery', 'bootstrap'], function($) {
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function() {
+            $(document).trigger('koUpdate');
+        });
+        $('a[href="#photo-tab-computer"]').tab('show');
     });
-    $('a[href="#photo-tab-computer"]').tab('show');
 </script>

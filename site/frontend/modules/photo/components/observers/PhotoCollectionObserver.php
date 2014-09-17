@@ -39,7 +39,7 @@ abstract class PhotoCollectionObserver extends \CComponent
     {
         $result = array();
         for ($i = 0; $i < $length; $i++) {
-            $idx = ($offset + $i) % $this->getCount();
+            $idx = (abs($offset + $i)) % $this->getCount();
             $result[] = $array[$idx];
         }
         return $result;

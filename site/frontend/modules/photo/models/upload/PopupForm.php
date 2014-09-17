@@ -52,7 +52,7 @@ class PopupForm extends \CFormModel implements \IHToJSON
     {
         return PhotoAlbum::model()->user($this->userId)->findAll(array(
             'with' => array(
-                'photoCollection' => array(
+                'photoCollections' => array(
                     'scopes' => 'notEmpty',
                     'with' => 'attachesCount',
                 ),
@@ -70,7 +70,7 @@ class PopupForm extends \CFormModel implements \IHToJSON
                 'id',
                 'title',
                 'description',
-                'photoCollection' => array(
+                'photoCollections' => array(
                     'site\frontend\modules\photo\models\PhotoCollection' => array(
                         'id',
                         '(int)attachesCount',

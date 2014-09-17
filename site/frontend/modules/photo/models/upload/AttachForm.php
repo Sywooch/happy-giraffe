@@ -27,7 +27,7 @@ class AttachForm extends \CFormModel
     public function save()
     {
         $collection = PhotoCollection::model()->findByPk($this->collectionId);
-        $collection->attach($this->ids);
+        $collection->attachPhotos($this->ids);
         echo \CJSON::encode(array('success' => true));
     }
 } 

@@ -1,4 +1,14 @@
-<div class="page-col_cont page-col_cont__in">
+<?php
+/**
+ * @var PhotoController $this
+ * @var $json
+ * @var ClientScript $cs
+ */
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('photoAlbumsView', array('ko' => 'knockout', 'MyPhotosAlbumViewModel' => 'photo/MyPhotosAlbumViewModel'), "ko.applyBindings(new MyPhotosAlbumViewModel($json), document.getElementById('photoAlbumsView'));");
+?>
+
+<div class="page-col_cont page-col_cont__in" id="photoAlbumsView" data-bind="visible: true" style="display: none;">
     <div class="user-album">
         <div class="b-crumbs b-crumbs__m">
             <ul class="b-crumbs_ul">
@@ -9,19 +19,19 @@
         <div class="user-album_top clearfix">
             <!-- Счетчик серого цвета из-за .user-album_count-hold__gray-->
             <div class="user-album_count-hold user-album_count-hold__gray">
-                <div class="user-album_count">0</div>
+                <div class="user-album_count" data-bind="text: album.photoCollection().attachesCount()"></div>
                 <div class="user-album_count-tx">фото</div>
             </div>
             <!-- Заголовок-->
-            <div class="user-album_switch display-n">
-                <h1 class="user-album_t">Харьковский уикенд<a class="ico-edit ico-edit__s"></a></h1>
+            <div class="user-album_switch" data-bind="visible: editingHeader() === false">
+                <h1 class="user-album_t"><span data-bind="text: album.title()"></span><a class="ico-edit ico-edit__s" data-bind="click: editHeader"></a></h1>
             </div>
             <!-- Редактирование заголовка-->
-            <div class="user-album_switch">
+            <div class="user-album_switch" data-bind="visible: editingHeader() !== false">
                 <div class="user-album_t">
                     <div class="display-ib w-400">
                         <div class="inp-valid inp-valid__abs">
-                            <input type="text" value="Виктория" class="itx-gray">
+                            <input type="text" value="Виктория" class="itx-gray" data-bind="value: editingHeader">
                             <div class="inp-valid_count">150</div>
                         </div>
                     </div>

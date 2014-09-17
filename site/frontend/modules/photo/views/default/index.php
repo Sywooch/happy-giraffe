@@ -54,7 +54,7 @@ $cs->registerAMD('myPhotos', array('ko' => 'knockout', 'MyPhotos' => 'photo/myPh
                         </a>
                     </li>
                     <!-- /ko -->
-                    <li class="b-album_prev-li"><a href="" class="album-photo-add"></a></li>
+                    <li class="b-album_prev-li"><a href="" class="album-photo-add" data-bind="photoUpload: { data: { multiple: true, collectionId: $data.photoCollection().id() } }"></a></li>
                 </ul>
             </div>
         </section>

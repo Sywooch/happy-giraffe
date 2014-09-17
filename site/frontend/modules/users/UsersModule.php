@@ -9,5 +9,5 @@ class UsersModule extends \CWebModule
 {
 
     public $controllerNamespace = 'site\frontend\modules\users\controllers';
-
+    
 }

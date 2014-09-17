@@ -8,6 +8,7 @@ namespace site\frontend\components\api;
  * @author Кирилл
  * 
  * @property-read \CometModel $comet Экземпляр CometModel для работы с comet-сервером
+ * @property-read array $result Данные, возвращаемые в ответе на запрос
  */
 class ApiController extends \CController
 {
@@ -15,8 +16,45 @@ class ApiController extends \CController
     /**
      * @var array Объект, который будет возвращаться в ответ на запрос 
      */
-    public $result = false;
+    public $data = null;
+
+    /**
+     * @var bool true - запрос обработан успешно, false - возникла ошибка
+     */
+    public $success = false;
+
+    /**
+     * @var int Код ошибки
+     */
+    public $errorCode = null;
+
+    /**
+     * @var string Текст ошибки
+     */
+    public $errorMessage = null;
+    
+    /**
+     *
+     * @var bool true - используется пакетная обработка, иначе - false 
+     */
+    public $isPack = false;
+
+    /**
+     * @var CometModel 
+     */
     protected $_cometModel = null;
+
+    /**
+     * Метод, устанавливающий стандартные значения ответа, перед использованием пакетной обработки
+     */
+    public function clearPack()
+    {
+        $this->data = null;
+        $this->success = false;
+        $this->errorCode = null;
+        $this->errorMessage = null;
+        $this->isPack = false;
+    }
 
     public function filters()
     {
@@ -37,11 +75,33 @@ class ApiController extends \CController
         return $this->_cometModel;
     }
 
+    public function getResult()
+    {
+        $result = array('success' => (bool) $this->success);
+        if (!is_null($this->errorCode))
+            $result['errorCode'] = $this->errorCode;
+        if (!is_null($this->errorMessage))
+            $result['errorMessage'] = $this->errorMessage;
+        if ($this->isPack)
+            $result['isPack'] = true;
+        if (!is_null($this->data))
+            $result['data'] = $this->data;
+
+        return $result;
+    }
+
+    // Вывод результата в конце действия
     public function afterAction($action)
     {
-        if ($this->result)
-            echo \CJSON::encode($this->result);
+        $this->printResult();
+
         return parent::afterAction($action);
+    }
+
+    // Метод, отвечающий за вывод результата
+    public function printResult()
+    {
+        echo \CJSON::encode($this->result);
     }
 
     /**
@@ -54,6 +114,37 @@ class ApiController extends \CController
     public function send($channel, $data, $type)
     {
         $comet->send($channel, $data, $type);
+    }
+
+    // Переписываем ошибку для отсутствующего метода
+    public function missingAction($actionID)
+    {
+        throw new \CHttpException(404, 'Отсутствует метод ' . $actionID);
+    }
+
+    // Вешаем обработку ошибок
+    public function run($action)
+    {
+        \Yii::app()->attachEventHandler('onError', array($this, 'onError'));
+        \Yii::app()->attachEventHandler('onException', array($this, 'onError'));
+        parent::run($action);
+    }
+
+    // Обработчик ошибок
+    public function onError(\CEvent $event)
+    {
+        $event->handled = true;
+        if ($event instanceof \CExceptionEvent)
+            $exception = $event->exception;
+        else // CErrorEvent
+            $exception = $event;
+
+        $this->success = false;
+        $this->errorCode = $exception->getCode();
+        $this->errorMessage = $exception->getMessage();
+        $this->data = null;
+
+        $this->printResult();
     }
 
 }

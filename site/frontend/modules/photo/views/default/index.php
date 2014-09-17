@@ -5,7 +5,7 @@
  * @var ClientScript $cs
  */
 $cs = Yii::app()->clientScript;
-$cs->registerAMD('myPhotos', array('ko' => 'knockout', 'MyPhotos' => 'photo/myPhotos', 'photoUpload' => 'photo/photoUploadBinding'),
+$cs->registerAMD('myPhotos', array('ko' => 'knockout', 'MyPhotos' => 'photo/myPhotos'),
     "
        vvm = new MyPhotos($json);
        ko.applyBindings(vvm, document.getElementById('myPhotos'));");

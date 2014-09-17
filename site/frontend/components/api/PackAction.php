@@ -22,8 +22,8 @@ class PackAction extends \CAction
 
     public function run()
     {
-        $methodName = $this->function ? $this->function : str_replace('action', 'pack', $this->id);
-        $method = new ReflectionMethod($this->controller, $methodName);
+        $methodName = $this->function ? $this->function : 'pack' . $this->id;
+        $method = new \ReflectionMethod($this->controller, $methodName);
         $numberOfParameters = $method->getNumberOfParameters();
         if ($this->isPack)
         {
@@ -33,7 +33,7 @@ class PackAction extends \CAction
                 {
                     $this->process($methodName, $method, $numberOfParameters, $this->getParams($i));
                     $this->result[$i] = $this->controller->result;
-                    $this->controller->result = array();
+                    $this->controller->clearPack();
                 }
                 catch (\Exception $e)
                 {
@@ -44,7 +44,9 @@ class PackAction extends \CAction
                     );
                 }
             }
-            $this->controller->result = $this->result;
+            $this->controller->success = true;
+            $this->controller->isPack = true;
+            $this->controller->data = $this->result;
         }
         else
         {

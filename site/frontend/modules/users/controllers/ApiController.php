@@ -25,7 +25,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success = true;
         $this->data = $user->toJSON();
         if ($avatarSize)
-            $this->result['avatarUrl'] = $user->getAvatarUrl($avatarSize);
+            $this->data['avatarUrl'] = $user->getAvatarUrl($avatarSize);
     }
 
 }

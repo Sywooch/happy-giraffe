@@ -117,40 +117,6 @@ define('ko_photo', ['knockout'], function(ko) {
 });
 
 define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap', 'jquery_file_upload', 'jquery.ui'], function(ko, mapping, ko_photo) {
-    // Биндинг для загрузки фото
-    ko.bindingHandlers.photoUpload = {
-        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var value = valueAccessor();
-            var data = value.data;
-            var observable = value.observable;
-
-            var defaultCallback = function(photo) {
-                if (observable() instanceof Array) {
-                    observable.push(photo);
-                } else {
-                    observable(photo);
-                }
-            }
-
-            var callback = value.callback || defaultCallback;
-
-            ko.bindingHandlers.photoUpload.callback = function(photo) {
-                callback(photo);
-                $.magnificPopup.close();
-            };
-
-            $(element).magnificPopup({
-                type: 'ajax',
-                ajax: {
-                    settings: {
-                        url: '/photo/upload/form/',
-                        data : data
-                    }
-                }
-            });
-        }
-    };
-
     // Биндинг для плагина jQuery File Upload
     ko.bindingHandlers.fileUpload = {
         update: function (element, valueAccessor) {

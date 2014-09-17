@@ -15,7 +15,14 @@ namespace site\frontend\components\api;
 class PackAction extends \CAction
 {
 
+    /**
+     * @var string Название метода, для обработки данных, по умолчанию pack<actionId>
+     */
     public $function = false;
+
+    /**
+     * @var array Набор данных, полученный при пакетной обработке
+     */
     public $result = array();
     protected $_post = null;
     protected $_commonParams = null;

@@ -11,10 +11,8 @@ namespace site\frontend\modules\photo\models\collections;
 
 use site\frontend\modules\photo\models\PhotoCollection;
 
-class AlbumPhotoCollection extends PhotoCollection
+class AlbumPhotoCollection extends PhotoCollectionAbstract
 {
-    const KEY = 'all';
-
     public function getCollectionLabel()
     {
         return 'Фотоальбом';

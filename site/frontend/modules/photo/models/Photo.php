@@ -53,9 +53,6 @@ class Photo extends \HActiveRecord implements \IHToJSON
 			array('original_name, fs_name', 'length', 'max'=>100),
 			array('author_id', 'length', 'max'=>11),
 			array('created, updated', 'safe'),
-			// The following rule is used by search().
-			// @todo Please remove those attributes that should not be searched.
-			array('id, title, description, width, height, original_name, fs_name, created, updated, author_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -93,40 +90,6 @@ class Photo extends \HActiveRecord implements \IHToJSON
 	}
 
 	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return \CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
-		$criteria=new \CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('title',$this->title,true);
-		$criteria->compare('description',$this->description,true);
-		$criteria->compare('width',$this->width,true);
-		$criteria->compare('height',$this->height,true);
-		$criteria->compare('original_name',$this->original_name,true);
-		$criteria->compare('fs_name',$this->fs_name,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
-		$criteria->compare('author_id',$this->author_id,true);
-
-		return new \CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
-
-	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
@@ -145,7 +108,10 @@ class Photo extends \HActiveRecord implements \IHToJSON
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
-            )
+            ),
+            'AuthorBehavior' => array(
+                'class' => 'site\common\behaviors\AuthorBehavior',
+            ),
         );
     }
 

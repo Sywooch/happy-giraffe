@@ -10,6 +10,7 @@ namespace site\frontend\modules\photo\models\upload;
 
 
 use site\frontend\modules\photo\models\PhotoAttach;
+use site\frontend\modules\photo\models\PhotoCollection;
 
 class AttachForm extends \CFormModel
 {
@@ -25,12 +26,8 @@ class AttachForm extends \CFormModel
 
     public function save()
     {
-        foreach ($this->ids as $id) {
-            $attach = new PhotoAttach();
-            $attach->photo_id = $id;
-            $attach->collection_id = $this->collectionId;
-            $attach->save();
-        }
+        $collection = PhotoCollection::model()->findByPk($this->collectionId);
+        $collection->attach($this->ids);
         echo \CJSON::encode(array('success' => true));
     }
 } 

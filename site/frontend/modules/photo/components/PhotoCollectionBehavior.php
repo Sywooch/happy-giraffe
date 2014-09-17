@@ -18,14 +18,14 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
      */
     public function attach($owner)
     {
-        $class = \CActiveRecord::HAS_MANY;
-        $relationName = 'photoCollections';
-        $owner->getMetaData()->relations[$relationName] =
-            new $class($relationName,
-                'site\frontend\modules\photo\models\PhotoCollection',
-                'entity_id',
-                array('condition' => 'entity = :entity', 'params' => array(':entity' => $owner->getEntityName()), 'index' => 'key')
-            );
+        $owner->getMetaData()->addRelation('photoCollections', array(
+            \CActiveRecord::HAS_MANY,
+            'site\frontend\modules\photo\models\PhotoCollection',
+            'entity_id',
+            'condition' => 'entity = :entity',
+            'params' => array(':entity' => $owner->getEntityName()),
+            'index' => 'key',
+        ));
         parent::attach($owner);
     }
 

@@ -24,7 +24,7 @@ use Aws\CloudFront\Exception\Exception;
 class PhotoCollection extends \HActiveRecord implements \IHToJSON
 {
     public static $config = array(
-        'Album' => array(
+        'PhotoAlbum' => array(
             'all' => 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection',
         ),
         'User' => array(
@@ -40,6 +40,16 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 	{
 		return 'photo__collections';
 	}
+
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        return array(
+
+        );
+    }
 
 	/**
 	 * @return array relational rules.
@@ -139,8 +149,4 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             'cover' => $this->cover,
         );
     }
-
-//    abstract public function getCollectionLabel();
-//    abstract public function getCollectionTitle();
-//    abstract public function getCollectionDescription();
 }

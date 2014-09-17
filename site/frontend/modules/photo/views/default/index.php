@@ -5,7 +5,10 @@
  * @var ClientScript $cs
  */
 $cs = Yii::app()->clientScript;
-$cs->registerAMD('myPhotos', array('ko' => 'knockout', 'MyPhotos' => 'photo/myPhotos', 'lalala' => 'photo/photoUpload'), "console.log(ko.bindingHandlers.photoUpload); vvm = new MyPhotos($json); ko.applyBindings(vvm, document.getElementById('myPhotos'))");
+$cs->registerAMD('myPhotos', array('ko' => 'knockout', 'MyPhotos' => 'photo/myPhotos', 'photoUpload' => 'photo/photoUploadBinding'),
+    "
+       vvm = new MyPhotos($json);
+       ko.applyBindings(vvm, document.getElementById('myPhotos'));");
 ?>
 
 <div class="page-col_cont page-col_cont__in" id="myPhotos">
@@ -65,7 +68,7 @@ $cs->registerAMD('myPhotos', array('ko' => 'knockout', 'MyPhotos' => 'photo/myPh
                     <a href="" class="album-empty_t" data-bind="text: title"></a>
                     <a href="" class="album-empty_desc" data-bind="text: description"></a>
                 </div>
-                <a href="" class="album-photo-add" data-bind="photoUpload: { data: { multiple: true, collectionId: $data.photoCollection().id() }"></a>
+                <a href="" class="album-photo-add" data-bind="photoUpload: {}"></a>
                 <a href="" class="album-empty_del" data-bind="click: $root.removeAlbum"></a>
                 <div class="album-empty_count" data-bind="text: photoCollection().attachesCount()"></div>
             </div>

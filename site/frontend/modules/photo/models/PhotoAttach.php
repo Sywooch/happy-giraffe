@@ -28,6 +28,16 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
 		return 'photo__attaches';
 	}
 
+    /**
+     * @return array validation rules for model attributes.
+     */
+    public function rules()
+    {
+        return array(
+
+        );
+    }
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -55,37 +65,6 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
 			'created' => 'Created',
 			'updated' => 'Updated',
 		);
-	}
-
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 *
-	 * Typical usecase:
-	 * - Initialize the model fields with values from filter form.
-	 * - Execute this method to get CActiveDataProvider instance which will filter
-	 * models according to data in model fields.
-	 * - Pass data provider to CGridView, CListView or any similar widget.
-	 *
-	 * @return \CActiveDataProvider the data provider that can return the models
-	 * based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// @todo Please modify the following code to remove attributes that should not be searched.
-
-		$criteria=new \CDbCriteria;
-
-		$criteria->compare('id',$this->id,true);
-		$criteria->compare('photo_id',$this->photo_id,true);
-		$criteria->compare('collection_id',$this->collection_id,true);
-		$criteria->compare('position',$this->position,true);
-		$criteria->compare('data',$this->data,true);
-		$criteria->compare('created',$this->created,true);
-		$criteria->compare('updated',$this->updated,true);
-
-		return new \CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
 	}
 
 	/**

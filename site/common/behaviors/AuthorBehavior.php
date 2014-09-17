@@ -6,6 +6,12 @@ class AuthorBehavior extends \CActiveRecordBehavior
 {
     public $attr = 'author_id';
 
+    public function attach($owner)
+    {
+        $this->addAuthorRelation($owner);
+        parent::attach($owner);
+    }
+
     public function beforeValidate($event)
     {
 
@@ -25,6 +31,20 @@ class AuthorBehavior extends \CActiveRecordBehavior
     {
         if (\Yii::app()->user->id != $this->owner->{$this->attr}) {
             $event->isValid = false;
+        }
+    }
+
+    /**
+     * @param $owner \HActiveRecord
+     */
+    protected function addAuthorRelation($owner)
+    {
+        if ($owner->getMetaData()->hasRelation('author')) {
+            $owner->getMetaData()->addRelation('author', array(
+                \CActiveRecord::BELONGS_TO,
+                'User',
+                $this->attr,
+            ));
         }
     }
 } 

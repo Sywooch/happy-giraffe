@@ -1,0 +1,145 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+        
+        // Хлебные крошки
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#')
+                            .ico-club.ico-club__s.ico-club__7
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Приправы и специи 
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Хлебо-булочные изделия
+
+        // Заголовок страницы
+        .cook-spices
+            .b-main_cont 
+                .b-main_col-wide 
+                    h1.heading-link-xxl.heading-link-xxl__center Приправы и специи к хлебо-булочным изделиям
+            .b-main_row.cook-spices-category
+                .b-main_cont 
+                    .b-main_col-wide
+                        .cook-spices-category_head
+                            .wysiwyg-content.visible-md-inline-block.verticalalign-m
+                                p Горчица черная пользуется особенной популярностью в индийской кухне. Из ее семян изготавливаются всевозможные острые приправы. Индийские повара зачастую предварительно прожаривают в топленом масле семена горчицы черной. После этого у семян появляется интересный запах и ореховый вкус. Поджаривание семян горчицы является одним из главных условий, необходимых для приготовления масалы. В Индии горчицу черную называют "раи бенаресски".
+                            .ico-spices-cat.ico-spices-cat__l.ico-spices-cat__1
+
+                        // Думаю логично будет если список будет упорядочен по алфавиту
+                        ul.col-link.col-link__2-tablet
+                            li.col-link_li
+                                a.col-link_a(href='#') Ангелика китайская (Archangelica), Дягиль,
+                            li.col-link_li
+                                a.col-link_a(href='#') Дудник лекарственный
+                            li.col-link_li
+                                a.col-link_a(href='#') Анис (Pimpinélla anísum), Берденец анисовый
+                            li.col-link_li
+                                a.col-link_a(href='#') Бадьян (Illicium), Иллициум
+                            li.col-link_li
+                                a.col-link_a(href='#') Барбарис (Berberis)
+                            li.col-link_li
+                                a.col-link_a(href='#') Бедренец (Pimpinélla), Камнеломка
+                            li.col-link_li
+                                a.col-link_a(href='#') Ванилин (Vanilin), Ванилаль
+                            li.col-link_li
+                                a.col-link_a(href='#') Душица (Oríganum), Орегано
+                            li.col-link_li
+                                a.col-link_a(href='#') Зира (Cuminum cyminum, Кумин, Каммун
+                            li.col-link_li
+                                a.col-link_a(href='#') Кардамон (Ellettaria cardamomum)
+                            li.col-link_li
+                                a.col-link_a(href='#') Карри Мадрас (Carry madras)
+                            li.col-link_li
+                                a.col-link_a(href='#') Кервель (Anthriscus cerefolium), Купырь бутенелистный, Кервель ажурный
+                            li.col-link_li
+                                a.col-link_a(href='#') Кориандр (Coriandrum sativum), Кинза
+                            li.col-link_li
+                                a.col-link_a(href='#') Кипрей (Epilobium), Иван-чай
+                            li.col-link_li
+                                a.col-link_a(href='#') Корица (Cinnamomum verum), Коричник цейлонский
+                            li.col-link_li
+                                a.col-link_a(href='#') Лимонная кислота (C6H8O7)
+                            li.col-link_li
+                                a.col-link_a(href='#') Лук-батун (Allium fistulosum), Дудчатый лук, Татарка
+                            li.col-link_li
+                                a.col-link_a(href='#') Лук-резанец (Аllium schoenoprаsum), Лук скорода, Шниитт-лук
+                            li.col-link_li
+                                a.col-link_a(href='#') Лук китайский (Allium ramjsum), Лук ветвистый, Джусай
+                            li.col-link_li
+                                a.col-link_a(href='#') Лук порей (Allium porrum) 
+                            li.col-link_li
+                                a.col-link_a(href='#') Перец душистый (Allspice), Ямайский (гвоздичный) перец, Пимент
+                            li.col-link_li
+                                a.col-link_a(href='#') Полынь (Artemísia), Резуха
+                            li.col-link_li
+                                a.col-link_a(href='#') Лук репчатый (Allium сера)
+                            li.col-link_li
+                                a.col-link_a(href='#') Томатная паста (Solánum lycopérsicum), Томат
+                            li.col-link_li
+                                a.col-link_a(href='#') Уксус (Acetum)
+                            li.col-link_li
+                                a.col-link_a(href='#') Чабер (Satureja)
+                            li.col-link_li
+                                a.col-link_a(href='#') Перец черный (Píper nígrum)
+                            li.col-link_li
+                                a.col-link_a(href='#') Чеснок (Allium)
+                            li.col-link_li
+                                a.col-link_a(href='#') Мускатный орех (Myristica), Мускатник
+                            li.col-link_li
+                                a.col-link_a(href='#') Розмарин (Rosmarinus)
+                            li.col-link_li
+                                a.col-link_a(href='#') Фенхель (Foeniculum), Аптечный укроп
+                            li.col-link_li
+                                a.col-link_a(href='#') Хмели-сунели (Hmeli Suneli)
+                            li.col-link_li
+                                a.col-link_a(href='#') Шафран (Crocus)
+                            li.col-link_li
+                                a.col-link_a(href='#') Гравилат городской (Géum urbánum), Гвоздичный корень
+                            li.col-link_li
+                                a.col-link_a(href='#') Чернушка (Nigélla), Калинджи, Нигелла
+                            li.col-link_li
+                                a.col-link_a(href='#') Маслины (Olea)
+                            li.col-link_li
+                                a.col-link_a(href='#') Оливки (Oliva)
+                            li.col-link_li
+                                a.col-link_a(href='#') Поваренная соль (NaCl)
+                            li.col-link_li
+                                a.col-link_a(href='#') Прованские травы (Herbes de Provence)
+                            li.col-link_li
+                                a.col-link_a(href='#') Сельдерей (Apium)
+                            li.col-link_li
+                                a.col-link_a(href='#') Тмин (Cárum)
+                            li.col-link_li
+                                a.col-link_a(href='#') Черная соль (Nigrum sal), Кала намак
+                            li.col-link_li
+                                a.col-link_a(href='#') Мак (Papaver) 
+                            li.col-link_li
+                                a.col-link_a(href='#') Укропа семена (Fennel seeds)
+                            li.col-link_li
+                                a.col-link_a(href='#') Укроп (Anethum)
+                            li.col-link_li
+                                a.col-link_a(href='#') Ажгон (Trachyspérmum ámmi)
+                            li.col-link_li
+                                a.col-link_a(href='#') Мелисса лимонная (Melissa citric)
+                            li.col-link_li
+                                a.col-link_a(href='#') Рута (Ruta)
+                            li.col-link_li
+                                a.col-link_a(href='#') Пажитник (Trigonella), Фенугрек, Шамбала
+
+      
+        // Контент
+    // b-main 
+    +layout-footer-lite()
+

@@ -1,0 +1,423 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/services.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__bg1 body__lite">
+  <div class="layout-container">
+    <div class="layout-loose layout-loose__white">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest header__simple">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        var $this = $(this),
+                            activeClass = 'active';
+                            
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                        
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                              
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                          
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                        
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                  });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__club">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
+                      <div class="header-popup_club">
+                        <!-- 18 клубов-->
+                        <div class="b-clubs">
+                          <ul class="b-clubs_ul">
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__1"></div>
+                                <div class="b-clubs_tx">Планирование</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__2"></div>
+                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__3"></div>
+                                <div class="b-clubs_tx">Дети до года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__4"></div>
+                                <div class="b-clubs_tx">Дети старше года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__5"></div>
+                                <div class="b-clubs_tx">Дошкольники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__6"></div>
+                                <div class="b-clubs_tx">Школьники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__7"></div>
+                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__8"></div>
+                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__9"></div>
+                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__10"></div>
+                                <div class="b-clubs_tx">Сад и огород</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__11"></div>
+                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__12"></div>
+                                <div class="b-clubs_tx">Красота и мода</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__13"></div>
+                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__14"></div>
+                                <div class="b-clubs_tx">Свадьба</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__15"></div>
+                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__16"></div>
+                                <div class="b-clubs_tx">Рукоделие</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__17"></div>
+                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__18"></div>
+                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <!-- Класс active отвечает за видимость попапапа-->
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__msg">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                      <div class="header-popup_msg"></div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+              </ul>
+            </div>
+            <!-- /header-menu-->
+            <div class="sidebar-search clearfix sidebar-search__big">
+              <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+            </div>
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <!-- b-main -->
+        <div class="b-main clearfix">
+          <!-- Хлебные крошки-->
+          <div class="b-main_cont">
+            <div class="b-crumbs b-crumbs__s">
+              <div class="b-crumbs_tx">Я здесь:</div>
+              <ul class="b-crumbs_ul">
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная </a></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">
+                    <div class="ico-club ico-club__s ico-club__7"></div></a></li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Приправы и специи </span></li>
+              </ul>
+            </div>
+          </div>
+          <!-- Заголовок страницы-->
+          <div class="cook-spices">
+            <div class="b-main_cont">
+              <div class="b-main_col-wide">
+                <h1 class="heading-link-xxl heading-link-xxl__center">Приправы и специи</h1>
+              </div>
+            </div>
+            <div class="cook-spices-head">
+              <div class="cook-spices-head_in">
+                <div class="wysiwyg-content">
+                  <p>С какими блюдами лучше всего сочетаются приправы и специи, на каком этапе приготовления и в каком количестве их добавлять</p>
+                  <div class="cook-spices-head_slogan">Об этом наш сервис!</div>
+                </div>
+              </div>
+            </div>
+            <!-- Категории специй-->
+            <div class="b-main_row">
+              <div class="b-main_cont">
+                <div class="b-main_col-wide">
+                  <div class="cook-spices-cat">
+                    <ul class="cook-spices-cat_ul">
+                      <li class="cook-spices-cat_li"><a class="cook-spices-cat_a">
+                          <div class="ico-spices ico-spices__1"></div>
+                          <div class="cook-spices-cat_tx">К мясу</div></a></li>
+                      <li class="cook-spices-cat_li"><a class="cook-spices-cat_a">
+                          <div class="ico-spices ico-spices__2"></div>
+                          <div class="cook-spices-cat_tx">к овощам и грибам</div></a></li>
+                      <li class="cook-spices-cat_li"><a class="cook-spices-cat_a">
+                          <div class="ico-spices ico-spices__3"></div>
+                          <div class="cook-spices-cat_tx">к бобовым</div></a></li>
+                      <li class="cook-spices-cat_li"><a class="cook-spices-cat_a">
+                          <div class="ico-spices ico-spices__4"></div>
+                          <div class="cook-spices-cat_tx">к крупам</div></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Категории специй-->
+            <!-- Алфавит                          -->
+            <div class="cook-spices-abc visible-md-block">
+              <h2 class="heading-m cook-spices-abc_t">По алфавиту</h2>
+              <ul class="col-link col-link__2-tablet">
+                <li class="cook-spices-abc_li">
+                  <div class="cook-spices-abc_letter">A</div>
+                  <ul class="cook-spices-abc_list">
+                    <li class="col-link_li"><a href="#" class="col-link_a">Ажгон (Trachyspérmum ámmi)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Аир (Ácorus)  </a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Ангелика китайская (Archangelica) Дягиль, Дудник лекарственный</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Анис (Pimpinélla anísum),Берденец анисовый</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Апельсиновая корка сушеная (апельсиновая цедра)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Асафетида (Ferula assa-foetida)</a></li>
+                  </ul>
+                </li>
+                <li class="cook-spices-abc_li">
+                  <div class="cook-spices-abc_letter">Б</div>
+                  <ul class="cook-spices-abc_list">
+                    <li class="col-link_li"><a href="#" class="col-link_a">Бадьян (Illicium), Иллициум</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Базилик (Ócimum), Реган</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Барбарис (Berberis)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Бедренец (Pimpinélla), Камнеломка</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Бораго (Borago), Огуречная трава, Огуречник</a></li>
+                  </ul>
+                </li>
+                <li class="cook-spices-abc_li">
+                  <div class="cook-spices-abc_letter">В</div>
+                  <ul class="cook-spices-abc_list">
+                    <li class="col-link_li"><a href="#" class="col-link_a">Ванилин (Vanilin), Ванилаль</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Ваниль (Vanílla)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Васаби (Wasabia japonica)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Василёк (Centauréa)</a></li>
+                  </ul>
+                </li>
+                <li class="cook-spices-abc_li">
+                  <div class="cook-spices-abc_letter">Г</div>
+                  <ul class="cook-spices-abc_list">
+                    <li class="col-link_li"><a href="#" class="col-link_a">Гарам масала (Garam Masala)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Гвоздика (Diánthus)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Гибискус (Hibiscus)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Горчица белая (Sinápis álba), Горчица английская</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Горчица сарептская (Brássica júncea), Горчица русская, Горчица сизая</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Горчица чёрная (Brássica nígra), Горчица французская, Горчица настоящая</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Гравилат городской (Géum urbánum), Гвоздичный корень</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Грибной экстракт (Trigonella caerulea)</a></li>
+                  </ul>
+                </li>
+                <li class="cook-spices-abc_li">
+                  <div class="cook-spices-abc_letter">Д</div>
+                  <ul class="cook-spices-abc_list">
+                    <li class="col-link_li"><a href="#" class="col-link_a">Дандур (Portuláca), Портулак</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Девясил высокий (Lnula helenium)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Донник лекарственный (Melilótus officinális), Донная трава, Буркун</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Душица (Oríganum), Орегано</a></li>
+                  </ul>
+                </li>
+                <li class="cook-spices-abc_li">
+                  <div class="cook-spices-abc_letter">З</div>
+                  <ul class="cook-spices-abc_list">
+                    <li class="col-link_li"><a href="#" class="col-link_a">Зверобой (Hypericum)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Зира (Cuminum cyminum, Кумин, Каммун</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Змееголовник молдавский (Dracocéphalum moldavica)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Зубровка (Hieróchloë), Лядник</a></li>
+                  </ul>
+                </li>
+                <li class="cook-spices-abc_li">
+                  <div class="cook-spices-abc_letter">И</div>
+                  <ul class="cook-spices-abc_list">
+                    <li class="col-link_li"><a href="#" class="col-link_a">Имбирь (Zingiber)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Имеретинский шафран (Tagetes), Бархатцы</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Иссоп (Hyssópus), Синий зверобой</a></li>
+                  </ul>
+                </li>
+                <li class="cook-spices-abc_li">
+                  <div class="cook-spices-abc_letter">К</div>
+                  <ul class="cook-spices-abc_list">
+                    <li class="col-link_li"><a href="#" class="col-link_a">Калган (Alpinia), Галгант, Альпиния, Аптечный корень</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Каменный сахар (Lapideus saccharum)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Кантонская соль (Cantonese salt)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Каперсы (Capparis)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Кардамон (Ellettaria cardamomum)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Карри (Кari) </a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Карри Бирьяни масала (Biryani masala)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Карри Мадрас (Carry madras)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Каффир-лайм (Citrus hystrix), Лайм кафрский, Лаймкват</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Кервель (Anthriscus cerefolium), Купырь бутенелистный, Кервель ажурный</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Кипрей (Epilobium), Иван-чай</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Колюрия гравилатовидная (Coluria geoides)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Комбу (Laminaria japonica)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Кориандр (Coriandrum sativum), Кинза</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Корица (Cinnamomum verum), Коричник цейлонский</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Кресс-салат (Lepidium sativum), Клоповник посевной</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Кунжут (Sesamum indicum), Сезам</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Куркума (Curcuma), Турмерик, Желтый корень</a></li>
+                  </ul>
+                </li>
+                <li class="cook-spices-abc_li">
+                  <div class="cook-spices-abc_letter">Л</div>
+                  <ul class="cook-spices-abc_list">
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лавровый лист (Laurus nobilis)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лакрица (Glycyrrhíza), Солодка, Лакричник</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лимон (Citrus × limon)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лимонная кислота (C6H8O7)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лимонная трава (Cymbopogon), Цимбопогон, Цитронелла, Лемонграсс</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лимонная цедра (Citrum cortices)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Листья карри (quaerentium foliis)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лук китайский (Allium ramjsum), Лук ветвистый, Джусай</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лук порей (Allium porrum)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лук репчатый (Allium сера)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лук-батун (Allium fistulosum), Дудчатый лук, Татарка</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лук-резанец (Аllium schoenoprаsum), Лук скорода, Шниитт-лук</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Лук-шалот (Allium ascalonicum)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Любисток (Levisticum), Дудчатая трава, Дудочник</a></li>
+                  </ul>
+                </li>
+                <li class="cook-spices-abc_li">
+                  <div class="cook-spices-abc_letter">М</div>
+                  <ul class="cook-spices-abc_list">
+                    <li class="col-link_li"><a href="#" class="col-link_a">Майоран (Origanum majorana)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Мак (Papaver)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Маслины (Olea)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Мелисса лимонная (Melissa citric)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Можжевельник (Juníperus), Можжевеловые ягоды</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Мускатный орех (Myristica), Мускатник</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Мускатный цвет (Myristica moschata), Мацис, Мэс</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Мята (Méntha)</a></li>
+                    <li class="col-link_li"><a href="#" class="col-link_a">Мята блошница (Mentha pulegium), Омбало</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <!-- /Алфавит -->
+            <!-- Полоса-->
+            <div class="b-main_row cook-spices-desc visible-md-block">
+              <div class="b-main_cont">
+                <div class="wysiwyg-content">
+                  <p>Знаете ли вы, чем приправы отличаются от специй и пряностей? Заглянем в словарь.</p>
+                  <ul>
+                    <li>Специи – вещества, которые в небольшом количестве добавляются в блюдо для улучшения его вкуса.</li>
+                    <li>Пряность – часть растения, которая придаёт блюду аромат.</li>
+                    <li>Приправа – то, что добавляется в готовое блюдо при его употреблении, так же, как сметана в борщ, например.</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!-- Описание-->
+            <div class="b-main_row visible-md-block">
+              <div class="b-main_cont">
+                <div class="b-main_col-article b-main_col-article__center">
+                  <div class="wysiwyg-content">
+                    <p>Известно, что пряности использовались человеком для улучшения вкуса пищи очень давно, гораздо раньше, чем соль. Современные ученые выяснили, что приправы не только улучшают вкус блюда, но и добавляют в него полезные вещества. Особенно ярко это проявляется в Японии, где основной пищей является рис, а вот приправы к нему отличаются большим разнообразием. </p>
+                    <p>В России исстари в качестве пряностей использовались полынь, укроп, петрушка, богородская трава. В XV веке знаменитый Васко да Гама из своего длительного путешествия по востоку привез в Европу корицу, имбирь, гвоздику и чёрный перец. Открытие новых стран знакомило европейцев с другими пряностями: душистым перцем, ванилью и прочими.</p>
+                    <p>Спустя столетие эти пряности и специи обрели популярность в России. Смеси пряностей называли даже сухими духами и чаще всего использовали при выпечке пряников. Известно, что русские купцы торговали песцами и соболями в обмен на восточные пряности. Дом, в котором было много специй, считался зажиточным, так как они были достаточно дорогими.</p>
+                    <p>Сейчас же специи и приправы продаются в любом продуктовом магазине и стоят совсем недорого. Поэтому каждая хозяйка может их приобрести и поэкспериментировать с добавлением в разные блюда. При этом не нужно забывать, что в холодные блюда (майонезы, соусы, салаты) пряности кладутся не менее чем за час до употребления, иначе они не успеют раскрыть свой аромат. А вот горячие блюда приправляются в конце варки или непосредственно перед подачей на стол, иначе аромат выдохнется, а вкус испортится. И ни в коем случае не добавляйте специи и приправы в кипящий жир: они просто сгорят и ничего полезного и ароматного блюду не дадут.</p>
+                    <p>С какими блюдами лучше всего сочетаются приправы и специи, на каком этапе приготовления и в каком количестве их добавлять – расскажет вам наш новый сервис. Вы можете посмотреть как полные описания самих пряностей, так и подобрать их непосредственно к приготавливаемому вами блюду.</p>
+                  </div>
+                  <div class="margin-b40"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Контент-->
+        </div>
+        <!-- b-main -->
+        <!-- layout-footer-->
+        <div class="layout-footer clearfix">
+          <div class="layout-footer_hold">
+            <ul class="footer-list">
+              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+            </ul>
+            <ul class="footer-menu visible-md">
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
+            </ul>
+            <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+            <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+          </div>
+        </div>
+        <!-- /layout-footer-->
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

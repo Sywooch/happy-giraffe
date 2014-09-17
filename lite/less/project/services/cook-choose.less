@@ -7,7 +7,11 @@
 /* /cook-choose */
 
 
-/* .cook-choose-quality */
+/* 
+    .cook-choose-quality 
+        __goob
+        __bad
+*/
 .cook-choose-quality {
     position: relative;
 
@@ -60,11 +64,15 @@
 }
 /* /cook-choose-quality */
 
-/* product-verif */
+/* 
+    product-verif 
+        __spices
+*/
 .product-verif {
-    
+
     &_hold {
         position: relative;
+        margin-bottom: 20px;
     }
     &_hold__cook:before {
         content: ' ';
@@ -77,10 +85,10 @@
     }
     
     ol li {
-        padding: 5px 0;
+        padding: 10px 0;
     }
     ol li:before {
-        margin-bottom: 10px;
+        margin: 0 0 10px;
         float: none;
         font-size: 77px;
         line-height: 65px;
@@ -90,6 +98,23 @@
         content: counters(item, '') '';
         counter-increment: item;
     }
+
+    &__spices {
+        background-color: #ffeed2;
+    }
+    &__spices ol li:before {color: #c39958;}
+    &__spices h2 { 
+        text-align: center;
+    }
+    &__spices h2:before {
+        content: '';
+        display: block;
+        width: 50px;
+        height: 85px;
+        margin: 0 auto 10px;
+        background: url('@{path-img}/services/cook-spices/product-verif__spices-h2.png') no-repeat;
+    }
+
 
     @media (min-width: @screen-phone) {
         .b-main_cont {
@@ -106,6 +131,14 @@
         ol li:before {
             float: left;
             margin-left: -70px;
+        }
+        &__spices h2 {
+            text-align: left;
+        }
+        &__spices h2:before {
+            display: inline-block;
+            margin: 0 25px 10px 0;
+            vertical-align: middle;
         }
     }
 
@@ -132,6 +165,8 @@
             font-size: 110px;
             line-height: 90px;
         }
+
+
     }
     @media (min-width: @screen-desktop) {
         .b-main_cont {

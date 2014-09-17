@@ -33,7 +33,7 @@ block layout
 
             .b-main_row
                 .b-main_cont
-                    .textalign-c
+                    .b-main_wide-phone.textalign-c
                         // При возможности используем адаптивные изображения
                             В srcset указываем изображения и размеры
                         img(srcset="#{path}images/services/cook-choose/product-1-w460.jpg 460w, #{path}images/services/cook-choose/product-1.jpg 640w", alt="Продукт")
@@ -59,7 +59,13 @@ block layout
                         ol
                             li Не позволяйте продавцу сразу упаковать рыбу в пакет – сначала понюхайте её. Если запах «свежей рыбы» – берите. Если сомневаетесь – отложите покупку.
                             li Дома проткните рыбу горячей спицей: если приятно пахнет – готовьте. Почувствовали неприятный запах – лучше выбросьте. Некачественная рыба очень опасна для здоровья.
-
+                
+            .b-main_row
+                .b-main_cont
+                    .b-main_col-article.b-main_col-article__center
+                        +customLikes()
+                        +adv-yandex()
+                        .margin-b40
     // b-main 
     +layout-footer-lite()
 

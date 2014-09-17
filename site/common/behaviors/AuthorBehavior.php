@@ -39,7 +39,7 @@ class AuthorBehavior extends \CActiveRecordBehavior
      */
     protected function addAuthorRelation($owner)
     {
-        if ($owner->getMetaData()->hasRelation('author')) {
+        if (! $owner->getMetaData()->hasRelation('author')) {
             $owner->getMetaData()->addRelation('author', array(
                 \CActiveRecord::BELONGS_TO,
                 'User',

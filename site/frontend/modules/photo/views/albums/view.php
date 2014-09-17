@@ -46,7 +46,7 @@ $cs->registerAMD('photoAlbumsView', array('ko' => 'knockout', 'MyPhotosAlbumView
                 </div>
             </div>
         </div>
-        <div class="user-album_control clearfix"><a href="" class="user-album_del">Удалить альбом</a></div>
+        <div class="user-album_control clearfix"><a href="" class="user-album_del" data-bind="click: removeAlbum">Удалить альбом</a></div>
         <div class="album-photo-add album-photo-add__big">
             <div class="album-photo-add_hold">Загрузить <br>фото в альбом</div>
         </div>

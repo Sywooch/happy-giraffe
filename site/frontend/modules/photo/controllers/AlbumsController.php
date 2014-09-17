@@ -68,7 +68,10 @@ class AlbumsController extends PhotoController
         if ($album === null) {
             throw new \CHttpException(404);
         }
-        $json = \HJSON::encode(array('album' => $album));
+        $json = \HJSON::encode(array(
+            'album' => $album,
+            'returnUrl' => $this->createUrl('/photo/default/index', array('userId' => $authorId)),
+        ));
         $this->render('view', compact('json'));
     }
 

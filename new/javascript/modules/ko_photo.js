@@ -1,30 +1,5 @@
 define('ko_photo', ['knockout'], function(ko) {
-    // Биндинг для отображения миниатюр
-    ko.bindingHandlers.thumb = {
-        update: function (element, valueAccessor) {
-            var value = valueAccessor();
-            var photo = value.photo;
-            var preset = value.preset;
 
-            function update() {
-                var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
-                //src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
-                //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
-                $(element).attr('src', src);
-//                console.log(preset);
-//                if (presetManager.filters.hasOwnProperty(preset.filter)) {
-//                    $(element).css('width', presetManager.getWidth(photo.width(), photo.height(), preset));
-//                    $(element).css('height', presetManager.getHeight(photo.width(), photo.height(), preset));
-//                }
-            }
-
-            update();
-
-            photo.fs_name.subscribe(function(fs_name) {
-                update();
-            });
-        }
-    };
 
     function PresetManager() {
         var self = this;
@@ -60,96 +35,18 @@ define('ko_photo', ['knockout'], function(ko) {
     }
     presetManager = new PresetManager();
 
-    // Основная модель коллекции
-    function PhotoCollection(data) {
-        var self = this;
-        self.id = ko.observable(data.id);
-        self.attachesCount = ko.observable(data.attachesCount);
-        self.attaches = ko.observableArray(ko.utils.arrayMap(data.attaches, function(attach) {
-            return new PhotoAttach(attach);
-        }));
-        self.cover = ko.observable(data.cover === null ? null : new Photo(data.cover));
-    }
 
-    // Основная модель аттача
-    function PhotoAttach(data) {
-        var self = this;
-        self.id = ko.observable(data.id);
-        self.position = ko.observable(data.position);
-        self.photo = ko.observable(new Photo(data.photo));
-    }
 
-    // Основная модель фотоальбома
-    function PhotoAlbum(data) {
-        var self = this;
-        self.id = ko.observable(data.id);
-        self.title = ko.observable(data.title);
-        self.description = ko.observable(data.description);
-        self.photoCollection = ko.observable(new PhotoCollection(data.photoCollection));
 
-        self.remove = function(callback) {
-            $.post('/photo/albums/delete/', { id : self.id() }, function(response) {
-                if (response.success) {
-                    callback();
-                }
-            }, 'json');
-        }
-    }
 
-    // Основная модель фотографии
-    function Photo(data) {
-        var self = this;
-        self.id = ko.observable(data.id);
-        self.title = ko.observable(data.title);
-        self.original_name = ko.observable(data.original_name);
-        self.width = ko.observable(data.width);
-        self.height = ko.observable(data.height);
-        self.fs_name = ko.observable(data.fs_name);
-        self.originalUrl = ko.observable(data.originalUrl);
-    }
 
-    return {
-        Photo: Photo,
-        PhotoAttach: PhotoAttach,
-        PhotoAlbum: PhotoAlbum,
-        PhotoCollection: PhotoCollection
-    }
+
+
+
 });
 
-define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap', 'jquery_file_upload', 'jquery.ui'], function(ko, mapping, ko_photo) {
-    // Биндинг для загрузки фото
-    ko.bindingHandlers.photoUpload = {
-        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var value = valueAccessor();
-            var data = value.data;
-            var observable = value.observable;
+define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/PhotoAttach', 'photo/PhotoAlbum', 'bootstrap', 'jquery_file_upload', 'jquery.ui', 'photo/thumb', 'photo/photoUploadBinding'], function(ko, mapping, Photo, PhotoAttach, PhotoAlbum) {
 
-            var defaultCallback = function(photo) {
-                if (observable() instanceof Array) {
-                    observable.push(photo);
-                } else {
-                    observable(photo);
-                }
-            }
-
-            var callback = value.callback || defaultCallback;
-
-            ko.bindingHandlers.photoUpload.callback = function(photo) {
-                callback(photo);
-                $.magnificPopup.close();
-            };
-
-            $(element).magnificPopup({
-                type: 'ajax',
-                ajax: {
-                    settings: {
-                        url: '/photo/upload/form/',
-                        data : data
-                    }
-                }
-            });
-        }
-    };
 
     // Биндинг для плагина jQuery File Upload
     ko.bindingHandlers.fileUpload = {
@@ -420,7 +317,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
     // Модель фотографии в рамках функционала загрузки фото
     function PhotoUpload(data, jqXHR, parent) {
         var self = this;
-        ko_photo.Photo.apply(self, arguments);
+        Photo.apply(self, arguments);
 
         self.jqXHR = jqXHR;
         self.status = ko.observable(PhotoUpload.prototype.STATUS_LOADING);
@@ -457,7 +354,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
 
     function FromAlbumsPhotoAttach(data, parent) {
         var self = this;
-        ko_photo.PhotoAttach.apply(self, arguments);
+        PhotoAttach.apply(self, arguments);
 
         self.isActive = ko.computed(function() {
             return parent.photos().indexOf(self.photo()) != -1;
@@ -498,7 +395,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'ko_photo', 'bootstrap
         });
 
         self.albums = ko.observableArray(ko.utils.arrayMap(data.albums, function(album) {
-            return new ko_photo.PhotoAlbum(album);
+            return new PhotoAlbum(album);
         }));
 
         self.unselectAlbum = function() {

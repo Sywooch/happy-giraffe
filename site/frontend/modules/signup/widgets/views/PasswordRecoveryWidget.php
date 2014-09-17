@@ -47,7 +47,7 @@
                     <div data-bind="visible: isSent">
                         <div class="popup-sign_retrieve-send"><span class="i-highlight">На ваш e-mail адрес было выслано письмо с вашим паролем.</span><br><span class="i-highlight">Также проверьте, пожалуйста, папку «Спам».</span></div>
                         <div class="textalign-r">
-                            <a class="btn-green-simple btn-l margin-b10 popup-a btn btn-success" href="#loginWidget" data-bind="click: login">Войти на сайт</a>
+                            <a class="btn-green-simple btn-l margin-b10 popup-a btn btn-success" href="#loginWidget">Войти на сайт</a>
                         </div>
                     </div>
                 </div>
@@ -56,24 +56,3 @@
         <?php $this->endWidget(); ?>
     </div>
 </div>
-
-<script type="text/javascript">
-    function afterValidate(form, data, hasError) {
-        if (! hasError) {
-            $.post(form.attr('action'), form.serialize(), function(response) {
-                if (response.success)
-                    passwordRecoveryVm.isSent(true);
-            }, 'json');
-        }
-        return false;
-    }
-    
-    <?php
-    $js = "ko.applyBindings(new PasswordRecoveryWidgetViewModel(), document.getElementById('passwordRecoveryWidget'));";
-    $cs = Yii::app()->clientScript;
-    if ($cs->useAMD)
-        $cs->registerAMD('PasswordRecoveryWidgetViewModel', array('ko' => 'knockout', 'ko_registerWidget' => 'ko_registerWidget'), $js);
-    else
-        $cs->registerScript('PasswordRecoveryWidgetViewModel', $js, ClientScript::POS_READY);
-    ?>
-</script>

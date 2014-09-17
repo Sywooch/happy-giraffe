@@ -114,7 +114,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             ),
             'RelatedModelBehavior' => array(
                 'class' => 'site.common.behaviors.RelatedEntityBehavior',
-                'possibleRelations' => array('PhotoAlbum'),
+                'possibleRelations' => array('PhotoAlbum' => '\site\frontend\modules\photo\models\PhotoAlbum'),
             ),
         );
     }

@@ -202,13 +202,20 @@ return array(
             ),
             'depends' => array('jquery'),
         ),
-        'comet' => array(
+        'realplexor' => array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
                 'javascripts/dklab_realplexor.js',
+            ),
+        ),
+        'comet' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
                 'javascripts/comet.js',
             ),
+            'depends' => array('realplexor'),
         ),
         'moment' => array(
             'baseUrl' => '/',
@@ -391,7 +398,7 @@ return array(
             'js' => array(
                 'javascripts/ko_menu.js',
             ),
-            'depends' => array('knockout', 'ko_library'),
+            'depends' => array('knockout', 'ko_library', 'comet'),
         ),
         'ko_recipes_search' => array(
             'baseUrl' => '/',
@@ -415,11 +422,12 @@ return array(
             'depends' => array('knockout', 'ko_library'),
         ),
         'redactor' => array(
+            'amd' => true,
             'baseUrl' => '/new/',
             'js' => array(
                 'redactor/redactor.js',
                 'redactor/lang/ru.js',
-                '/redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js',
+                'redactor/plugins/toolbarVerticalFixed/toolbarVerticalFixed.js',
             ),
             'depends' => array('jquery', 'ko_upload'),
         ),

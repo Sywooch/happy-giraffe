@@ -67,38 +67,87 @@ class ActiveForm extends \CActiveForm
         $options = \CJavaScript::encode($options);
         $id = $this->id;
 
-        if ($id == 'question-form') {
-            if ($cs->useAMD)
-            {
-                $cs
-                    ->registerAMDCoreScript('yiiactiveform')
-                    ->registerAMD(__CLASS__ . '#' . $id, array('$' => 'jquery', 'waitUntilExists', 'yiiactiveform'), "
 
-                        $('#$id').waitUntilExists(function () {
-                            $('#$id').yiiactiveform($options);
-                        });
+        /**
+         * Здесь привязываю к id формы. В случае если таких форм будет много, switch явно не подходит.
+         */
+        switch ($id) {
+            case 'question-form':
+                if ($cs->useAMD)
+                {
+                    $cs
+                        ->registerAMDCoreScript('yiiactiveform')
+                        ->registerAMD(__CLASS__ . '#' . $id, array('$' => 'jquery', 'waitUntilExists', 'yiiactiveform'), "
+
+                            $('#$id').waitUntilExists(function () {
+                                $('#$id').yiiactiveform($options);
+                            });
+                        ");
+                }
+                else
+                {
+                    $cs->registerCoreScript('yiiactiveform');
+                    $cs->registerScript(__CLASS__ . '#' . $id, "jQuery('#$id').yiiactiveform($options);");
+                }
+                break;
+            case 'passwordRecoveryForm':
+                if ($cs->useAMD)
+                {
+                    $cs
+                        ->registerAMDCoreScript('yiiactiveform')
+                        ->registerAMD(__CLASS__ . '#' . $id, array('$' => 'jquery', 'ko' => 'knockout', 'ko_registerWidget' => 'ko_registerWidget', 'yiiactiveform' => 'jquery.yiiactiveform.steady'), "
+                                $.fn.yiiactiveform = yiiactiveform;
+                                $('#$id').yiiactiveform($options);
+                                var recoveryModel = new PasswordRecoveryWidgetViewModel;
+                                ko.applyBindings(recoveryModel, document.getElementById('passwordRecoveryWidget'));
+                                function afterValidate(form, data, hasError) {
+                                    if (! hasError) {
+                                        $.post(form.attr('action'), form.serialize(), function(response) {
+                                            if (response.success) {
+                                                PasswordRecoveryWidgetViewModel.prototype.validateRequestPassedOut.call(recoveryModel);
+                                            }
+                                        }, 'json');
+                                    }
+                                    return false;
+                                }
+
+                        ");
+                }
+                else
+                {
+                    $cs->registerCoreScript('yiiactiveform');
+                    $cs->registerScript(__CLASS__ . '#' . $id,"
+                        jQuery('#$id').yiiactiveform($options);
+                        var recoveryModel = new PasswordRecoveryWidgetViewModel;
+                        ko.applyBindings(recoveryModel, document.getElementById('passwordRecoveryWidget'));
+                        function afterValidate(form, data, hasError) {
+                            if (! hasError) {
+                                $.post(form.attr('action'), form.serialize(), function(response) {
+                                    if (response.success) {
+                                        PasswordRecoveryWidgetViewModel.prototype.validateRequestPassedOut.call(recoveryModel);
+                                    }
+                                }, 'json');
+                            }
+                            return false;
+                        }
                     ");
-            }
-            else
-            {
-                $cs->registerCoreScript('yiiactiveform');
-                $cs->registerScript(__CLASS__ . '#' . $id, "jQuery('#$id').yiiactiveform($options);");
-            }
-        }
-        else {
-            if ($cs->useAMD)
-            {
-                $cs
-                    ->registerAMDCoreScript('yiiactiveform')
-                    ->registerAMD(__CLASS__ . '#' . $id, array('$' => 'jquery', 'yiiactiveform'), "
-                            $('#$id').yiiactiveform($options);
-                    ");
-            }
-            else
-            {
-                $cs->registerCoreScript('yiiactiveform');
-                $cs->registerScript(__CLASS__ . '#' . $id, "jQuery('#$id').yiiactiveform($options);");
-            }
+                }
+                break;
+            default:
+                if ($cs->useAMD)
+                {
+                    $cs
+                        ->registerAMDCoreScript('yiiactiveform')
+                        ->registerAMD(__CLASS__ . '#' . $id, array('$' => 'jquery', 'yiiactiveform'), "
+                                $('#$id').yiiactiveform($options);
+                        ");
+                }
+                else
+                {
+                    $cs->registerCoreScript('yiiactiveform');
+                    $cs->registerScript(__CLASS__ . '#' . $id, "jQuery('#$id').yiiactiveform($options);");
+                }
+                break;
         }
 
 

@@ -87,8 +87,8 @@ define('ko_photo', ['knockout'], function(ko) {
         self.description = ko.observable(data.description);
         self.photoCollection = ko.observable(new PhotoCollection(data.photoCollection));
 
-        self.remove = function(album, callback) {
-            $.post('/photo/albums/remove/', { albumId : album.id() }, function(response) {
+        self.remove = function(callback) {
+            $.post('/photo/albums/delete/', { id : self.id() }, function(response) {
                 if (response.success) {
                     callback();
                 }

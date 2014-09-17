@@ -45,7 +45,7 @@ define('ko_photo', ['knockout'], function(ko) {
 
 });
 
-define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/PhotoAttach', 'photo/PhotoAlbum', 'bootstrap', 'jquery_file_upload', 'jquery.ui', 'photo/thumb', 'photo/photoUploadBinding'], function(ko, mapping, Photo, PhotoAttach, PhotoAlbum) {
+define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/PhotoAttach', 'photo/PhotoAlbum', 'bootstrap', 'jquery_file_upload', 'jquery.ui', 'photo/bindings/thumb', 'photo/bindings/photoUpload'], function(ko, mapping, Photo, PhotoAttach, PhotoAlbum) {
 
 
     // Биндинг для плагина jQuery File Upload

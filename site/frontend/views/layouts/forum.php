@@ -86,6 +86,8 @@
 
         <?php $this->renderPartial('_users2'); ?>
 
+        <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
+
         <?php if ($this->action->id == 'view'): ?>
             <?php $this->beginWidget('AdsWidget'); ?>
             <div class="banner">
@@ -97,8 +99,6 @@
         <?php if (false): ?>
             <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
         <?php endif; ?>
-
-        <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
     </div>
 
 <?php $this->endContent(); ?>

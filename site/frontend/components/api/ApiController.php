@@ -32,7 +32,7 @@ class ApiController extends \CController
      * @var string Текст ошибки
      */
     public $errorMessage = null;
-    
+
     /**
      *
      * @var bool true - используется пакетная обработка, иначе - false 
@@ -145,6 +145,11 @@ class ApiController extends \CController
         $this->data = null;
 
         $this->printResult();
+    }
+
+    public function getActionParams()
+    {
+        return $_POST;
     }
 
 }

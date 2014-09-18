@@ -6,15 +6,14 @@
  * Time: 12:32
  */
 
-namespace site\frontend\modules\photo\controllers\api;
+namespace site\frontend\modules\photo\controllers;
+use site\frontend\components\api\ApiController;
 use site\frontend\modules\photo\models\PhotoAlbum;
 
-class AlbumsController extends \site\frontend\components\api\ApiController
+class AlbumsApiController extends ApiController
 {
     public function actionUserAlbums()
     {
-        echo 123;
-        die;
         $userId = \Yii::app()->request->getPost('userId');
         $albums = PhotoAlbum::model()->user($userId)->findAll();
         $this->success = true;

@@ -385,5 +385,8 @@ return array(
 
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
         'map' => 'archive/default/map',
+        
+        /* API */
+        'api/<_m>/<_a>' => '<_m>/api/<_a>',
     ),
 );

@@ -82,6 +82,7 @@ return array(
         //comments
         'comments' => 'comments/default/index',
         'comments/<_a>' => 'comments/default/<_a>',
+        'api/comments/<_a>' => 'comments/api/<_a>',
 
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',

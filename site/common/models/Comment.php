@@ -560,5 +560,5 @@ class Comment extends HActiveRecord
 
         return $this;
     }
-
+    
 }

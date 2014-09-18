@@ -67,7 +67,7 @@ $cs->registerAMD('photoAlbumsView', array('ko' => 'knockout', 'MyPhotosAlbumView
             <!-- инициализация i-affix в common-markup.js-->
             <div class="i-affix clearfix">
                 <div class="float-r">
-                    <div class="btn btn-green btn-ms">Готово</div>
+                    <div class="btn btn-green btn-ms" data-bind="click: saveSort">Готово</div>
                     <div class="btn btn-link btn-link-gray btn-ms">Отмена</div>
                 </div>
             </div>
@@ -78,177 +78,14 @@ $cs->registerAMD('photoAlbumsView', array('ko' => 'knockout', 'MyPhotosAlbumView
         .album-preview__xl
         -->
         <div class="album-preview album-preview__m album-preview__drag">
-            <ul class="album-preview_ul">
-                <li class="album-preview_li"><a href="" class="album-preview_in">
+            <ul class="album-preview_ul" data-bind="foreach: album.photoCollection().attaches, sortable: {}">
+                <li class="album-preview_li">
+                    <a href="" class="album-preview_in">
                         <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <!-- .album-preview_li__drag и .display-n классы на элемент что тащаят-->
-                <li class="album-preview_li album-preview_li__drag">
-                    <div class="album-preview_in display-n">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            <img src="" alt="" class="album-preview_img" data-bind="thumb: { photo: $data.photo(), preset: 'uploadPreview' }">
                         </div>
                         <div class="album-preview_overlay"></div>
-                    </div>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
-                </li>
-                <li class="album-preview_li"><a href="" class="album-preview_in">
-                        <div class="album-preview_img-hold">
-                            <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
-                        </div>
-                        <div class="album-preview_overlay"></div></a>
+                    </a>
                 </li>
             </ul>
         </div>

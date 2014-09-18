@@ -269,3 +269,82 @@
   
 </body>
 </html>
+
+<script type='text/javascript'>
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function() {
+        var gads = document.createElement('script');
+        gads.async = true;
+        gads.type = 'text/javascript';
+        var useSSL = 'https:' == document.location.protocol;
+        gads.src = (useSSL ? 'https:' : 'http:') +
+            '//www.googletagservices.com/tag/js/gpt.js';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
+
+    var ads = [
+        { id: '/51841849/sidebar_recomendation', width: 240, height: 400, element: 'div-gpt-ad-1411036203125-0' },
+        { id: '/51841849/sidebar_recomendation2', width: 240, height: 400, element: 'div-gpt-ad-1411036203125-1' },
+        { id: '/51841849/sidebar_recomendation3', width: 240, height: 400, element: 'div-gpt-ad-1411036203125-2' },
+        { id: '/51841849/sidebar_recomendation4', width: 240, height: 400, element: 'div-gpt-ad-1411036203125-3' },
+        { id: '/51841849/sidebar_recomendation5', width: 240, height: 400, element: 'div-gpt-ad-1411036203125-4' }
+    ];
+
+    googletag.cmd.push(function() {
+        for (var i = 0; i < ads.length; i++) {
+            var obj = ads[i];
+            googletag.defineSlot(obj.id, [obj.width, obj.height], obj.element).addService(googletag.pubads());
+        }
+        googletag.enableServices();
+    });
+
+    $(function() {
+        for (var i = 0; i < ads.length; i++) {
+            var obj = ads[i];
+            $('.menu-simple').before("<div id='" + obj.element + "' style='width: 240px; height: 240px; overflow: hidden;'>");
+            googletag.cmd.push(function() { googletag.display(obj.element); });
+        }
+
+    });
+</script>
+
+
+<script type='text/javascript'>
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function() {
+        var gads = document.createElement('script');
+        gads.async = true;
+        gads.type = 'text/javascript';
+        var useSSL = 'https:' == document.location.protocol;
+        gads.src = (useSSL ? 'https:' : 'http:') +
+            '//www.googletagservices.com/tag/js/gpt.js';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
+</script>
+
+<script type='text/javascript'>
+    var ads = [
+        { id: '/51841849/sidebar_recomendation', elementId: 'div-gpt-ad-1411042061334-0' },
+        { id: '/51841849/sidebar_recomendation2', elementId: 'div-gpt-ad-1411042061334-1' }
+    ];
+
+    googletag.cmd.push(function() {
+        for (var i in ads) {
+            console.log(ads[i]);
+            googletag.defineSlot(ads[i].id, [240, 400], ads[i].elementId).addService(googletag.pubads());
+        }
+        googletag.enableServices();
+    });
+
+    $(function() {
+        for (var i in ads) {
+            console.log(ads[i]);
+            $('.menu-simple').before("<div id='" + ads[i].elementId + "' style='width: 240px; height: 240px;'>");
+            googletag.cmd.push(function() { googletag.display(ads[i].elementId); });
+        }
+    });
+</script>

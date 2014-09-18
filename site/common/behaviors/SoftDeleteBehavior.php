@@ -27,7 +27,8 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
     {
         if ($this->owner->hasAttribute('removed')) {
             $this->owner->removed = 0;
-            $this->owner->update(array('removed'));
+            return $this->owner->update(array('removed'));
         }
+        return false;
     }
 }

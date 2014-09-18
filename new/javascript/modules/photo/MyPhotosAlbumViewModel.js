@@ -1,4 +1,10 @@
-define('photo/MyPhotosAlbumViewModel', ['knockout', 'photo/PhotoAlbum', 'ko_photoUpload'], function(ko, PhotoAlbum) {
+define('photo/MyPhotosAlbumViewModel', ['knockout', 'photo/PhotoAlbum', 'ko_photoUpload', 'jquery.ui'], function(ko, PhotoAlbum) {
+    ko.bindingHandlers.sortable = {
+        init: function (element, valueAccessor) {
+            $(element).sortable();
+        }
+    };
+
     function MyPhotosAlbumViewModel(data) {
         var self = this;
         self.MODE_SIMPLE = 0;
@@ -9,6 +15,12 @@ define('photo/MyPhotosAlbumViewModel', ['knockout', 'photo/PhotoAlbum', 'ko_phot
 
         self.sort = function() {
             self.mode(self.MODE_SORT);
+        }
+
+        self.saveSort = function() {
+            $.post('/photo/albums/saveSort/', $('.album-preview_ul').sortable('serialize'), function() {
+                self.mode(self.MODE_SIMPLE);
+            });
         }
 
         self.album = new Album(data.album);

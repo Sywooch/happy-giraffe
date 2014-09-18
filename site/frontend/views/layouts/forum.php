@@ -94,11 +94,11 @@
             <?php $this->endWidget(); ?>
         <?php endif; ?>
 
-        <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
-
         <?php if (false): ?>
             <?php $this->widget('CommunityPopularWidget', array('club' => $this->club)); ?>
         <?php endif; ?>
+
+        <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
     </div>
 
 <?php $this->endContent(); ?>

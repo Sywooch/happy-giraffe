@@ -1,93 +1,19 @@
-<div class="layout-header layout-header__nologin clearfix">
-    <div class="header">
-        <div class="header_hold">
-            <div class="content-cols clearfix">
-                <div class="col-1">
-                    <div class="logo">
-                        <a href="/" class="logo_i" title="Веселый жираф - сайт для все семьи">Веселый жираф - сайт для все семьи</a>
-                        <strong class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</strong>
-                    </div>
-                    <div class="sidebar-search sidebar-search__big clearfix">
-                        <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
-                    </div>
-                </div>
-                <div class="col-23">
-                    <?php if (false): ?>
-                    <div class="b-join clearfix">
-                        <div class="b-join_left">
-                            <div class="b-join_tx"> Более <span class="b-join_tx-big"> 30 000 000</span> мам и пап</div>
-                            <div class="b-join_slogan">уже посетили Веселый Жираф!</div>
-                        </div>
-                        <div class="b-join_right">
-                            <a href="#registerWidget" class="btn-green btn-big popup-a">Присоединяйтесь!</a>
-                            <div class="clearfix">
-                                <a href="#loginWidget" class="display-ib verticalalign-m popup-a">Войти</a>
-                                <span class="i-or">или</span>
-                                <?php $this->widget('AuthWidget', array('action' => '/signup/login/social')); ?>
-                            </div>
-                        </div>
-                    </div>
-                    <?php endif; ?>
-                    <div class="header-login">
-                        <a href="#loginWidget" class="header-login_a popup-a">Войти</a>
-                        <a href="#registerWidget" class="header-login_a popup-a">Регистрация</a>
-                    </div>
-                    <?php $this->beginWidget('AdsWidget'); ?>
-                    <div class="header-banner-728-90">
-                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                        <!-- topline-soloway -->
-                        <ins class="adsbygoogle"
-                             style="display:inline-block;width:728px;height:90px"
-                             data-ad-client="ca-pub-3807022659655617"
-                             data-ad-slot="2287975288"></ins>
-                        <script>
-                            (adsbygoogle = window.adsbygoogle || []).push({});
-                        </script>
-                    </div>
-                    <?php $this->endWidget(); ?>
-                </div>
+<!-- header-->
+<header class="header header__simple header__guest">
+    <div class="header_hold clearfix">
+        <!-- logo-->
+        <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="<?=$this->createUrl('/site/index')?>" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+        <!-- /logo-->
+        <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+        <?php $this->widget('site.frontend.widgets.headerGuestWidget.HeaderGuestWidget'); ?>
+        <?php if ($this->module === null || $this->module->id != 'search'): ?>
+            <div class="sidebar-search clearfix sidebar-search__big">
+                <!-- <input type="text" name="" placeholder="Поиск" class="sidebar-search_itx"> -->
+                <!-- При начале ввода добавить класс .active на кнопку-->
+                <!-- <button class="sidebar-search_btn"></button> -->
+                <?php $this->widget('site.frontend.modules.search.widgets.YaSearchWidget'); ?>
             </div>
-        </div>
+        <?php endif; ?>
     </div>
-    <?php if (false): ?>
-    <script>
-        $(window).load(function() {
-            /*
-             block - элемент, что фиксируется
-             elementStop - до какого элемента фиксируется
-             blockIndent - отступ
-             */
-            function bJoinRowFixed() {
-
-                var block = $('.js-b-join-row');
-                var blockTop = block.offset().top;
-
-                var startTop = $('.layout-header').height();
-
-
-                $(window).scroll(function() {
-                    var windowScrollTop = $(window).scrollTop();
-                    if (windowScrollTop > startTop) {
-                        block.fadeIn();
-                    } else {
-
-                        block.fadeOut();
-
-                    }
-                });
-            }
-
-            bJoinRowFixed('.js-b-join-row');
-        })
-    </script>
-    <div class="b-join-row js-b-join-row">
-        <div class="b-join-row_hold">
-            <div class="b-join-row_logo"></div>
-            <div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 30 000 000</span> мам и пап</div>
-            <div class="b-join-row_slogan">уже посетили Веселый Жираф!</div>
-            <a href="#registerWidget" class="btn-green btn-h46 popup-a">Присоединяйтесь!</a>
-        </div>
-    </div>
-    <?php endif; ?>
-
-</div>
+</header>
+<!-- /header-->

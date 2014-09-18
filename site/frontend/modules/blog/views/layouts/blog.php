@@ -99,6 +99,12 @@ $data['currentRubricId'] = $this->rubric_id;
             <?php $this->renderPartial('_subscribers'); ?>
             <?php Yii::endProfile('subs'); ?>
 
+            <?php Yii::beginProfile('rubrics'); ?>
+            <div class="menu-simple blogInfo" id="rubricsList" data-bind="visible: showRubrics">
+                <?php $this->renderPartial('_rubric_list', array('currentRubricId' => $this->rubric_id)); ?>
+            </div>
+            <?php Yii::endProfile('rubrics'); ?>
+
             <?php if ($this->action->id == 'view'): ?>
                 <?php $this->beginWidget('AdsWidget'); ?>
                 <div class="banner">
@@ -106,12 +112,6 @@ $data['currentRubricId'] = $this->rubric_id;
                 </div>
                 <?php $this->endWidget(); ?>
             <?php endif; ?>
-
-            <?php Yii::beginProfile('rubrics'); ?>
-            <div class="menu-simple blogInfo" id="rubricsList" data-bind="visible: showRubrics">
-                <?php $this->renderPartial('_rubric_list', array('currentRubricId' => $this->rubric_id)); ?>
-            </div>
-            <?php Yii::endProfile('rubrics'); ?>
 
             <?php if (false): ?>
             <?php Yii::beginProfile('popular'); ?>

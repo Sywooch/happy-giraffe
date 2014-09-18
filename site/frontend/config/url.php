@@ -387,7 +387,7 @@ return array(
         'map' => 'archive/default/map',
         
         /* API */
-        'api/photo/albums/userAlbums' => 'photo/api/albums/userAlbums',
+        'api/photo/albums/userAlbums' => 'photo/albumsApi/userAlbums',
         'api/<_m>/<_a>' => '<_m>/api/<_a>',
     ),
 );

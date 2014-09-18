@@ -12,9 +12,8 @@ use site\frontend\modules\photo\models\PhotoAlbum;
 
 class AlbumsApiController extends ApiController
 {
-    public function actionUserAlbums()
+    public function actionUserAlbums($userId)
     {
-        $userId = \Yii::app()->request->getPost('userId');
         $albums = PhotoAlbum::model()->user($userId)->findAll();
         $this->success = true;
         $this->data = \HJSON::encode($albums);

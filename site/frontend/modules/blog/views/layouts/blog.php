@@ -146,3 +146,101 @@ $cs = Yii::app()->clientScript;
 
 
 <?php $this->endContent(); ?>
+
+
+<script type='text/javascript'>
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function() {
+        var gads = document.createElement('script');
+        gads.async = true;
+        gads.type = 'text/javascript';
+        var useSSL = 'https:' == document.location.protocol;
+        gads.src = (useSSL ? 'https:' : 'http:') +
+            '//www.googletagservices.com/tag/js/gpt.js';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
+
+
+
+
+    googletag.cmd.push(function() {
+        googletag.defineSlot('/51841849/sidebar_recomendation3', [240, 400], 'div-gpt-ad-1410855462418-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+    });
+
+    $(function(){
+        $('.menu-simple').before("<div id='div-gpt-ad-1410855462418-0' style='width: 240px; height: 240px; overflow: hidden;'></div>");
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1410504364306-0'); });
+
+// Второй баннер
+        googletag.cmd.push(function() {
+            googletag.defineSlot('/51841849/sidebar_recomendation', [[240, 400],[1,1]], 'div-gpt-ad-1410533198283-0').addService(googletag.pubads());
+            googletag.enableServices();
+        });
+
+        $('.menu-simple').before("<div id='div-gpt-ad-1410533198283-0' style='width: 240px; height: 240px; overflow: hidden;'>");
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1410533198283-0'); });
+
+        // третий баннер
+        googletag.cmd.push(function() {
+            googletag.defineSlot('/51841849/sidebar_recomendation2', [240, 400], 'div-gpt-ad-1410851294380-1').addService(googletag.pubads());
+            googletag.enableServices();
+        });
+
+        $('.menu-simple').before("<div id='div-gpt-ad-1410851294380-1' style='width: 240px; height: 240px; overflow: hidden;'>");
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1410851294380-1'); });
+    });
+
+    googletag.cmd.push(function() {
+        googletag.defineSlot('/51841849/sidebar_recomendation4', [240, 400], 'div-gpt-ad-1411033539814-0').addService(googletag.pubads());
+        googletag.enableServices();
+    });
+
+    $('.menu-simple').before('<!-- sidebar_recomendation4 -->
+        <div id='div-gpt-ad-1411033539814-0' style='width: 240px; height: 400px;'>
+        <script type='text/javascript'>
+        googletag.cmd.push(function() { googletag.display('div-gpt-ad-1411033539814-0'); });
+</script>
+
+<script type='text/javascript'>
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function() {
+        var gads = document.createElement('script');
+        gads.async = true;
+        gads.type = 'text/javascript';
+        var useSSL = 'https:' == document.location.protocol;
+        gads.src = (useSSL ? 'https:' : 'http:') +
+            '//www.googletagservices.com/tag/js/gpt.js';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
+
+    var ads = [
+        { id: '/51841849/sidebar_recomendation', width: 240, height: 400, element: 'div-gpt-ad-1411036203125-0' },
+        { id: '/51841849/sidebar_recomendation2', width: 240, height: 400, element: 'div-gpt-ad-1411036203125-1' },
+        { id: '/51841849/sidebar_recomendation3', width: 240, height: 400, element: 'div-gpt-ad-1411036203125-2' },
+        { id: '/51841849/sidebar_recomendation3', width: 240, height: 400, element: 'div-gpt-ad-1411036203125-3' },
+        { id: '/51841849/sidebar_recomendation3', width: 240, height: 400, element: 'div-gpt-ad-1411036203125-4' }
+    ];
+
+    googletag.cmd.push(function() {
+        for (var i = 0; i < ads.length; i++) {
+            var obj = ads[i];
+            googletag.defineSlot(obj.id, [obj.width, obj.height], obj.element).addService(googletag.pubads());
+        }
+        googletag.enableServices();
+    });
+
+    $(function() {
+        for (var i = 0; i < ads.length; i++) {
+            var obj = ads[i];
+            $('.menu-simple').before("<div id='" + obj.element + "' style='width: 240px; height: 240px; overflow: hidden;'>");
+            googletag.cmd.push(function() { googletag.display(obj.element); });
+        }
+
+    });
+</script>

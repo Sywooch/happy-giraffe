@@ -93,6 +93,7 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
     public function toJSON()
     {
         return array(
+            'id' => $this->id,
             'position' => (int) $this->position,
             'photo' => $this->photo,
         );

@@ -75,6 +75,11 @@ class AlbumsController extends PhotoController
         $this->render('view', compact('json'));
     }
 
+    public function actionSaveSort()
+    {
+        print_r($_POST);
+    }
+
     protected function performAjaxValidation($model)
     {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'createAlbumForm')

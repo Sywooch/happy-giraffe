@@ -373,7 +373,7 @@ return array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
-                'new/javascript/jquery-ui-1.10.4.custom.js',
+                'new/javascript/jquery-ui-1.10.4.min.js',
             ),
             'depends' => array('jquery'),
         ),

@@ -1,8 +1,5 @@
 define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection'], function(ko, PhotoCollection) {
     // Основная модель фотоальбома
-
-    console.log(PhotoCollection);
-
     function PhotoAlbum(data) {
         var self = this;
         self.id = ko.observable(data.id);

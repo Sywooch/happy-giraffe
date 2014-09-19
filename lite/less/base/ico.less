@@ -144,3 +144,31 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
         -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.43, M12=0, M21=0, M22=0.43, SizingMethod='auto expand')";
     }*/
 }
+.ico-spices {
+    position: relative;
+    .inline-block();
+    width: 90px;
+    height: 70px;
+
+    &:after {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &__l {
+        width: 180px;
+        height: 140px;
+        vertical-align: middle;
+
+        &:after {
+            .scale(2);
+            margin: 35px 0 0 45px;
+        }
+    }
+
+    .no-svg &__l:after {
+        -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=2, M12=0, M21=0, M22=2, SizingMethod='auto expand')";
+    }
+}

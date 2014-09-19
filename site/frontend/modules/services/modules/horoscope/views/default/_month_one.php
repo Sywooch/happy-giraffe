@@ -45,7 +45,7 @@ $model->calculateMonthDays();
                         if (isset($models[$i]))
                             echo CHtml::tag('li', array('class' => 'b-calendar_li' . ($i == $model->month ? ' active' : '')), CHtml::link(HDate::ruMonthShort($i), $this->getUrl(array('period' => 'month', 'date' => mktime(0, 0, 0, $i, 1, (int) $model->year))), array('class' => 'b-calendar_a')));
                         else
-                            echo CHtml::tag('li', array('class' => 'b-calendar_li'), CHtml::tag('span', HDate::ruMonthShort($i)));
+                            echo CHtml::tag('li', array('class' => 'b-calendar_li'), CHtml::tag('span', array('class' => 'b-calendar_a'), HDate::ruMonthShort($i)));
                     ?>
                 </ul>
             </div>

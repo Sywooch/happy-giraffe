@@ -37,8 +37,13 @@ class Comment extends \Comment
             'rootId' => (int) $this->root_id,
             'dtimeCreate' => (int) strtotime($this->created),
         );
+
         if (!is_null($this->answers))
-            $json['answers'] = $this->answers;
+        {
+            $json['answers'] = array();
+            foreach ($this->answers as $answer)
+                $json['answers'][] = $answer->toJSON();
+        }
 
         return $json;
     }
@@ -120,23 +125,26 @@ class Comment extends \Comment
             $this->_rootType = false;
             $ids = \CHtml::listData($models, 'id', 'id');
             $subComments = $this->rootLimitSupporting(array_values($ids))->findAll();
-            $map = array_combine(array_keys($ids), range(0, count($ids) - 1));
-            if ($type == 'list')
+            if (count($ids) !== 0 && count($subComments) !== 0)
             {
-                $offset = 0;
-                // Добавим вложенные комментарии в ответ
-                foreach ($subComments as $comment)
+                $map = array_combine(array_keys($ids), range(0, count($ids) - 1));
+                if ($type == 'list')
                 {
-                    $offset++;
-                    array_splice($models, $map[$comment->root_id] + $offset, 0, array($comment));
+                    $offset = 0;
+                    // Добавим вложенные комментарии в ответ
+                    foreach ($subComments as $comment)
+                    {
+                        $offset++;
+                        array_splice($models, $map[$comment->root_id] + $offset, 0, array($comment));
+                    }
                 }
-            }
-            elseif ($type == 'tree')
-            {
-                foreach ($models as $i => $model)
-                    $models[$i]->_subComments = array();
-                foreach ($subComments as $comment)
-                    $models[$map[$comment->root_id]]->_subComments[] = $comment;
+                elseif ($type == 'tree')
+                {
+                    foreach ($models as $i => $model)
+                        $models[$i]->_subComments = array();
+                    foreach ($subComments as $comment)
+                        $models[$map[$comment->root_id]]->_subComments[] = $comment;
+                }
             }
         }
 

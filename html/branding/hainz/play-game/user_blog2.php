@@ -334,3 +334,40 @@
 	</div>
 </body>
 </html>
+
+
+<script>
+    $(function () {
+        (function(bannerPlaceId, requestSrc, defaultLoad){
+                var
+                    tgNS = window.ADFOX.RELOAD_CODE,
+                    initData = tgNS.initBanner(bannerPlaceId,requestSrc);
+
+                $('.result:last').after(initData.html);
+
+                if(defaultLoad) {
+                    tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
+                }
+            })('bn-3', 'http://ads.adfox.ru/211012/prepareCode?pp=ffy&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
+
+            $(this).clone().fancybox({
+                overlayColor:'#2d1a3f',
+                overlayOpacity:'0.6',
+                padding:0,
+                enableKeyboardNav: false,
+                showCloseButton:false,
+                hideOnOverlayClick:false,
+                centerOnScroll:true
+            }).trigger('click');
+            e.preventDefault();
+        });
+    })
+</script>
+<div style="display:none">
+    <div id="bann-heinz" class="popup">
+        <a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
+        <div class="clearfix bann-heinz_in">
+
+        </div>
+    </div>
+</div>

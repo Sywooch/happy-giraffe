@@ -48,7 +48,7 @@ var Test = {
                         tgNS = window.ADFOX.RELOAD_CODE,
                         initData = tgNS.initBanner(bannerPlaceId,requestSrc);
 
-                    $('.result:last').after(initData.html);
+                    $('.result:visible').after('<div style="margin-bottom: 20px;">' + initData.html + '</div>');
 
                     if(defaultLoad) {
                         tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);

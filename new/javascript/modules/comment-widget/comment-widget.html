@@ -1,0 +1,48 @@
+<!-- comment-widget -->
+<div id="commentsList" class="comments_hold tab-pane active" data-bind="visible: parsedData().length > 0">
+   <ul class="comments_ul" data-bind="foreach: parsedData()">
+      <li class="comments_li comments_li__lilac">
+         <div class="comments_i clearfix">
+             <div class="comments_ava">
+                 <!-- Аватарки размером 40*40-->
+                 <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="" class="ava_img"></a>
+             </div>
+             <div class="comments_frame">
+                 <div class="comments_header">
+                     <a href="" rel="author" class="a-light comments_author" data-bind="text: authorId"></a>
+                     <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(1375275577).format('YYYY-MM-DD') }, moment: dtimeCreate"></time>
+                 </div>
+                 <div class="comments_cont">
+                     <div class="wysiwyg-content" data-bind="html: purifiedHtml">
+                         <!-- {comment} -->
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <!-- ko if: answers().length > 0 -->
+            <ul class="comments_ul" data-bind="foreach: answers">
+               <li class="comments_li comments_li__lilac">
+                  <div class="comments_i clearfix">
+                      <div class="comments_ava">
+                          <!-- Аватарки размером 40*40-->
+                          <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid"><img alt="" src="" class="ava_img"></a>
+                      </div>
+                      <div class="comments_frame">
+                          <div class="comments_header">
+                              <a href="" rel="author" class="a-light comments_author" data-bind="text: authorId"></a>
+                              <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(1375275577).format('YYYY-MM-DD') }, moment: dtimeCreate"></time>
+                          </div>
+                          <div class="comments_cont">
+                              <div class="wysiwyg-content" data-bind="html: purifiedHtml">
+                                  <!-- {comment} -->
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+               </li>
+            </ul>
+         <!-- /ko -->
+      </li>
+   </ul>
+</div>
+<!-- /comment-widget -->

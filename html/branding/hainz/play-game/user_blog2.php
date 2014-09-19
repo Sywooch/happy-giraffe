@@ -323,7 +323,7 @@
 	})
 	</script>
 	<div style="display:none">
-		<div id="bann-heinz" class="popup">
+		<div id="bann-heinz" class="popup" style="width: auto;">
 			<a class="popup-transparent-close powertip" onclick="$.fancybox.close();" href="javascript:void(0);" title="Закрыть"></a>
 			<div class="clearfix bann-heinz_in">
 				<a href="">

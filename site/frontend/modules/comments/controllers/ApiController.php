@@ -63,6 +63,8 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionCreate($entity, $entityId, $text, $responseId = false)
     {
+        if (!\Yii::app()->user->checkAccess('createComment'))
+            throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
         $comment = new \site\frontend\modules\comments\models\Comment('default');
         $comment->attributes = array(
             'author_id' => \Yii::app()->user->id,
@@ -91,9 +93,20 @@ class ApiController extends \site\frontend\components\api\ApiController
         $comment = \site\frontend\modules\comments\models\Comment::model()->findByPk($id);
         if (is_null($comment))
             throw new \CHttpException('Комментарий не найден', 404);
-        if (!\Yii::app()->user->checkAccess('manageOwnContent', array('entity' => $comment)))
+        if (!\Yii::app()->user->checkAccess('updateComment', array('entity' => $comment)))
             throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
-        var_dump($comment->attributes);die;
+        $comment->text = $text;
+        if ($comment->save())
+        {
+            $comment->refresh();
+            $this->success = true;
+            $this->data = $comment->toJSON();
+        }
+        else
+        {
+            $this->errorCode = 1;
+            $this->errorMessage = $comment->getErrorsText();
+        }
     }
 
     public function actionList($entity, $entityId, $listType = 'list', $rootCount = false, $dtimeFrom = 0)

@@ -16,11 +16,11 @@ class SoftRestoreAction extends \CAction
      */
     public $modelName = null;
 
-    public function run()
+    public function run($id)
     {
         /** @todo Проверить доступ */
         $class = $this->modelName;
-        $model = $class::model()->findByPk();
+        $model = $class::model()->resetScope(true)->findByPk($id);
         $this->controller->success = $model->restore();
     }
 

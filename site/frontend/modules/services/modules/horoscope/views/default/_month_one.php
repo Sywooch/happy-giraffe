@@ -23,7 +23,9 @@ $model->calculateMonthDays();
                     ));
                     $models = CHtml::listData($models, 'year', 'year');
                     foreach ($models as $year)
-                        echo CHtml::tag('li', array('class' => 'b-calendar_li' . ($year == $model->year ? ' active' : '')), CHtml::link($year, $this->getUrl(array('period' => 'year', 'date' => mktime(0, 0, 0, 1, 1, (int) $year))), array('class' => 'b-calendar_a')));
+                        // Экономим один запрос к бд, за счёт хардкода мая 2012 года. Это самый первый гороскоп.
+                        // Для остальных годов отправляем на январь выбранного года
+                        echo CHtml::tag('li', array('class' => 'b-calendar_li' . ($year == $model->year ? ' active' : '')), CHtml::link($year, $this->getUrl(array('period' => 'month', 'date' => mktime(0, 0, 0, $year == 2012 ? 5 : 1, 1, (int) $year))), array('class' => 'b-calendar_a')));
                     ?>
                 </ul>
             </div>

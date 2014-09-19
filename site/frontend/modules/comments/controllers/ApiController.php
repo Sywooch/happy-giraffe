@@ -14,6 +14,14 @@ class ApiController extends \site\frontend\components\api\ApiController
     {
         return \CMap::mergeArray(parent::actions(), array(
                 'get' => 'site\frontend\components\api\PackAction',
+                'remove' => array(
+                    'class' => 'site\frontend\components\api\SoftDeleteAction',
+                    'modelName' => '\site\frontend\modules\comments\models\Comment',
+                ),
+                'restore' => array(
+                    'class' => 'site\frontend\components\api\SoftRestoreAction',
+                    'modelName' => '\site\frontend\modules\comments\models\Comment',
+                ),
         ));
     }
 
@@ -32,16 +40,6 @@ class ApiController extends \site\frontend\components\api\ApiController
     }
 
     public function actionUpdate()
-    {
-        
-    }
-
-    public function actionRemove()
-    {
-        
-    }
-
-    public function actionRestore()
     {
         
     }

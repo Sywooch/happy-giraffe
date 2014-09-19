@@ -14,6 +14,7 @@ class AlbumsApiController extends ApiController
 {
     public function actionUserAlbums($userId)
     {
+        header('Content-Type: application/json');
         $albums = PhotoAlbum::model()->user($userId)->findAll();
         $this->success = true;
         $this->data = \HJSON::encode($albums);

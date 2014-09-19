@@ -140,8 +140,8 @@ class ApiController extends \CController
             $exception = $event;
 
         $this->success = false;
-        $this->errorCode = $exception->code;
-        $this->errorMessage = $exception->message;
+        $this->errorCode = method_exists($exception, 'getCode') ? $exception->getCode() : $exception->code;
+        $this->errorMessage = method_exists($exception, 'getMessage') ? $exception->getMessage() : $exception->message;
         $this->data = null;
 
         $this->printResult();

@@ -35,6 +35,7 @@ class Comment extends \Comment
             'entityUrl' => $this->getUrl(true),
             'responseId' => (int) $this->response_id,
             'rootId' => (int) $this->root_id,
+            'dtimeCreate' => (int) strtotime($this->created),
         );
         if (!is_null($this->answers))
             $json['answers'] = $this->answers;
@@ -198,4 +199,5 @@ class Comment extends \Comment
     }
 
 }
+
 ?>

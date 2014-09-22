@@ -101,7 +101,7 @@ class ApiController extends \CController
     // Метод, отвечающий за вывод результата
     public function printResult()
     {
-        echo \CJSON::encode($this->result);
+        echo \HJSON::encode($this->result);
     }
 
     /**
@@ -140,8 +140,8 @@ class ApiController extends \CController
             $exception = $event;
 
         $this->success = false;
-        $this->errorCode = $exception->getCode();
-        $this->errorMessage = $exception->getMessage();
+        $this->errorCode = method_exists($exception, 'getCode') ? $exception->getCode() : $exception->code;
+        $this->errorMessage = method_exists($exception, 'getMessage') ? $exception->getMessage() : $exception->message;
         $this->data = null;
 
         $this->printResult();

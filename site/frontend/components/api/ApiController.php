@@ -125,6 +125,7 @@ class ApiController extends \CController
     // Вешаем обработку ошибок
     public function run($action)
     {
+        header('Content-Type: application/json');
         \Yii::app()->attachEventHandler('onError', array($this, 'onError'));
         \Yii::app()->attachEventHandler('onException', array($this, 'onError'));
         parent::run($action);

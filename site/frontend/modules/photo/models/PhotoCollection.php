@@ -25,10 +25,10 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 {
     public static $config = array(
         'PhotoAlbum' => array(
-            'all' => 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection',
+            'default' => 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection',
         ),
         'User' => array(
-            'all' => 'site\frontend\modules\photo\models\collections\UserAllPhotoCollection',
+            'default' => 'site\frontend\modules\photo\models\collections\UserAllPhotoCollection',
             'unsorted' => 'site\frontend\modules\photo\models\collections\UserUnsortedPhotoCollection',
         ),
     );
@@ -145,7 +145,6 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         return array(
             'id' => $this->id,
             'attachesCount' => (int) $this->attachesCount,
-            'attaches' => $this->attaches,
             'cover' => $this->cover,
         );
     }

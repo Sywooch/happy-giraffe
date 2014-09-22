@@ -17,6 +17,11 @@ abstract class PhotoCollectionObserver extends \CComponent
 
     protected $model;
 
+    public static function getObserver(PhotoCollection $model)
+    {
+        return new PhotoCollectionIdsObserver($model);
+    }
+
     public function __construct(PhotoCollection $model)
     {
         $this->model = $model;
@@ -37,9 +42,13 @@ abstract class PhotoCollectionObserver extends \CComponent
 
     protected function roundSlice($array, $offset, $length)
     {
+        if ($offset < 0) {
+            $offset = $this->getCount() + $offset;
+        }
+
         $result = array();
         for ($i = 0; $i < $length; $i++) {
-            $idx = (abs($offset + $i)) % $this->getCount();
+            $idx = ($offset + $i) % $this->getCount();
             $result[] = $array[$idx];
         }
         return $result;

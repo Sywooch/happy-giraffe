@@ -11,6 +11,7 @@ class AuthManager extends \CPhpAuthManager
 {
 
     public $authFile = false;
+    public $defaultRoles = array('guest');
 
     public function __construct()
     {

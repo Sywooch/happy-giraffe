@@ -460,14 +460,6 @@ class Comment extends HActiveRecord
             return '';
     }
 
-    public function restore()
-    {
-        throw new Exception('deprecated');
-/*
-        Comment::model()->updateByPk($this->id, array('removed' => 0));
-        Removed::model()->restoreByEntity($this);*/
-    }
-
     /**
      * @param Comment[] $comments
      * @param bool $album_comments Комментарии к альбому?

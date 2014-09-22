@@ -1,0 +1,109 @@
+/* b-calendar */
+.b-calendar {
+    margin: 20px 0 30px;
+    
+    &_in {
+        margin-bottom: 20px;
+    }
+    &_in__months {
+        max-width: 250px;
+    }
+    &_in__months &_ul {
+        font-size: 14px;
+        text-transform: uppercase;
+        margin-left: -11px;
+    }
+    &_in__months &_li {
+        margin: 6px 7px;
+    }
+    &_in__days {
+        max-width: 300px;
+    }
+    &_in__days &_a {
+        width: 30px;
+    }
+
+    &_t {
+        margin: 0 5px 10px;
+        font-size: 15px;
+        color: @color-gray;
+    }
+    &_ul {
+        margin-left: -7px;
+        font-size: 16px;
+        line-height: 22px;
+    }
+    &_li {
+        .inline-block();
+        margin: 2px 1%;
+        color: @color-gray-light;
+    }
+    &_li.active &_a {
+        background-color: #42b1f3;
+        color: #fff;
+        .border-radius(5px);
+    }
+    &_a {
+        .inline-block();
+        width: 45px;
+        text-align: center;
+        color: @color-link-light;
+        text-decoration: none;
+    }
+    a&_a:hover {
+        color: @color-orange;
+    }
+    span&_a {
+        color: @color-gray-light;
+    }
+
+    @media (min-width: @screen-phone) {
+        &_in {
+            .inline-block();
+            vertical-align: top;
+        }
+        &_in__years {
+            width: 52px;
+        }
+        &_in__days &_ul,
+        &_in__years &_ul {
+            margin: 0 -7px;
+        }
+
+        &_in__months {
+            max-width: 350px;
+        }
+        &_in__months &_t {
+            margin-left: 88px;
+        }
+        &_in__months &_ul {
+            margin: 0 40px;
+            padding: 0 35px;
+        }
+        &_in__months &_li {
+            margin: 6px 9px;
+        }
+
+        &_in__days {
+            max-width: 320px;
+        }
+        &_li {
+            margin: 6px 7px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        &_t {
+            text-align: center;
+        }
+
+        &_in__months &_ul {
+            min-height: 170px;
+            border-right: 1px solid #ededed;
+            border-left: 1px solid #ededed;
+        }
+        &_in__months &_t {
+            margin-left: 0;
+        }
+    }
+}
+/* /b-calendar */

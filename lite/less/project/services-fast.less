@@ -1,0 +1,50 @@
+/* services-fast */
+.services-fast {
+    margin: 20px 0;
+    
+    &_ul {
+        margin: 20px 0;
+    }
+    &_li {
+        .inline-block();
+        vertical-align: top;
+        margin: 0 3.8% 25px;
+        width: 110px;
+        text-align: center;
+    }
+    &_a {
+        display: block;
+        font-size: 13px;
+        line-height: 16px;
+        text-decoration: none;
+        text-align: center;
+        color: @color-link-light;
+    }
+    &_a:hover {
+        color: @color-orange;
+    }
+    &_ico {
+        display: block;
+        margin-bottom: 8px;
+        height: 105px;
+        vertical-align: middle;
+    }
+
+    @media (min-width: @screen-phone) {
+        &_ul {
+            text-align: left;
+        }
+
+        &_li {
+            margin: 0 6% 25px 2%;
+        }
+    }
+
+    @media (min-width: @screen-phone-landscape) {
+        &_li {
+            margin: 0 6% 25px 0;
+        }
+    }
+
+}
+/* /services-fast*/

@@ -1,0 +1,293 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+ 
+block layout
+
+    // b-main 
+    .b-main.clearfix
+    
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last  Карта сайта
+        .b-main_cont
+            .b-main_col-hold.clearfix
+                .b-main_col-article
+                    
+                    h1.heading-link-xxl Карта сайта
+
+            .site-map.clearfix
+                .site-map_col
+                    h2.site-map_top.site-map_top__club Клубы
+                    .clearfix
+                        .site-map_col-sub
+                            .site-map_section
+                                h3.site-map_i
+                                    a.site-map_a.site-map_a__pregnancy(href='#') Беременность и дети
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Планирование
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Планируем ребенка
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Беременность и роды
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Беременность 
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Роды
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Дети до года
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Здоровье
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Питание
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Развитие
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Режим и уход 
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Дети старше года
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Здоровье и питание
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Ясли и няни
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Ранее развитие и обучение
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Психология и воспитание 
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Дошкольники
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Детский сад
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Готовимся к школе
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Игры и развлечения 
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Школьники
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Здоровье и питание
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Школа
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Спорт и досуг
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Подростковая психология и воспитание
+                            .site-map_section
+                                h3.site-map_i
+                                    a.site-map_a.site-map_a__beauty(href='#') Красота и здоровье
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Красота и мода
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Красота
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Мода и шоппинг для детей и врослых
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Наше здоровье
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Здоровье семьи
+
+                        .site-map_col-sub
+                            .site-map_section
+                                h3.site-map_i
+                                    a.site-map_a.site-map_a__home(href='#') Наш дом
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Готовим на кухне
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Рецепты для взрослых
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Рецепты для детей
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Ремонт в доме
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Украшаем дом
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Сад и огород
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Наша дача
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Наши питомцы
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Домашние животные
+                            .site-map_section
+                                h3.site-map_i
+                                    a.site-map_a.site-map_a__husband-and-wife(href='#') Муж и жена
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Свадьба
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Планируем свадьбу
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Отношение в семье
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Семейная психология
+                            .site-map_section
+                                h3.site-map_i
+                                    a.site-map_a.site-map_a__hobby(href='#') Интересы и увлечения
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Рукоделие
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Своими руками
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Мастерим детям
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Цветы в доме
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Комнатные цветы
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Наш автомобиль
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Семейное авто
+                            .site-map_section
+                                h3.site-map_i
+                                    a.site-map_a.site-map_a__family-holiday(href='#') Семейный отдых
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light.fontweight-b(href='#') Мы путешествуем
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Путешествия семьей
+                .site-map_col
+                    h2.site-map_top.site-map_top__services Сервисы
+                    .clearfix
+                        .site-map_col-sub
+                            .site-map_section
+                                h3.site-map_i
+                                    .site-map_i-tx для беременных
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Календарь беременности
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Выбор имени ребенка
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Определение пола ребенка 
+                                        ul.menu-simple
+                                            li.menu-simple_li
+                                                a.a-light(href='#') китайский метод
+                                            li.menu-simple_li
+                                                a.a-light(href='#') японский метод
+                                            li.menu-simple_li
+                                                a.a-light(href='#') по датам рождения
+                                            li.menu-simple_li
+                                                a.a-light(href='#') по овуляции
+                                            li.menu-simple_li
+                                                a.a-light(href='#') по группе крови
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Вес при беременности
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Тест на беременность
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Толщины плаценты
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Группа крови ребенка
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Считаем схватки
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Когда уходить в декрет
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Сумка в роддом
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Определение даты родов
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Женский календарь
+                            .site-map_section
+                                h3.site-map_i
+                                    .site-map_i-tx для мам
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Календарь развития ребенка
+                                    li.menu-simple_li
+                                        a.a-light(href='#') В норме ли пупок у ребенка
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Календарь прививок
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Бюджет малыша
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Тест. Готов ли ребенок к первому прикорму
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Тест определение типа волос
+                            .site-map_section
+                                h3.site-map_i
+                                    .site-map_i-tx по здоровью
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Народные рецепты
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Справочник детских болезней
+                        
+                        .site-map_col-sub
+                            .site-map_section
+                                h3.site-map_i
+                                    .site-map_i-tx для кулинаров
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Кулинарные рецепты
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Рецепты для мультиварки
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Счетчик калорий
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Калькулятор мер и весов
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Приправы и специи
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Как выбрать продукты
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Оформление блюд
+                            .site-map_section
+                                h3.site-map_i
+                                    .site-map_i-tx для ремонта
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Расчет объема краски
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Расчет плитки для ванной
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Расчет подвесного потолка
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Расчет количества обоев
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Расчет напольного покрытия
+                            .site-map_section
+                                h3.site-map_i
+                                    .site-map_i-tx для рукодельниц
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Калькулятор ткани
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Калькулятор петель
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Расчет стоимости вышивки
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Расчет ниток
+                                    li.menu-simple_li
+                                        a.a-light.disabled(href='#') Расчет пряжи
+                            .site-map_section
+                                h3.site-map_i
+                                    .site-map_i-tx для автолюбителей
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Маршруты
+                            .site-map_section
+                                .site-map_i
+                                    .site-map_i-tx для всех
+                                ul.menu-simple
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Гороскопы
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Тест. Определение типа волос
+                                    li.menu-simple_li
+                                        a.a-light(href='#') Календарь записей
+
+    // b-main
+    +layout-footer-lite()
+ 

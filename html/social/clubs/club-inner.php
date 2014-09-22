@@ -443,6 +443,39 @@ $(document).ready(function () {
 						</a>
 					</div>
 				</div>
+
+				<div class="adfox-banner-html">
+					<div id="ADFOXHTMLTemplateBody" style="width: %width%; height: %height%; background: %backgroundColor%">
+						<a href=%reference% target=%target%>
+							<!-- %user1%  -->
+							<span class="adfox-banner-html_hold clearfix">
+								<span class="adfox-banner-html_img-h adfox-banner-html_img-h__nutella">
+									<!--  -->
+									<img src="/images/banners/post-199812.jpg" alt="" class="adfox-banner-html_img">
+									<img src="http://content.adfox.ru/transparent.gif" border="0" width="1" height="1">
+								</span>
+								<span class="adfox-banner-html_cont">
+									<span class="adfox-banner-html_t"><span class="i-highlight">Чистим уши ребенку: без хлопот и боли. </span> Узнать здесь!</span>
+								</span>
+							</span>
+							<!-- /%user1%  -->
+						</a>
+					</div>
+				</div>
+
+
+				<div class="fast-articles3">
+					<div class="fast-articles3_i">
+						<a href="#" class="fast-articles3_a">
+							<span class="fast-articles3_img-hold">
+								<img src="/images/banners/post-199812-2.jpg" class="fast-articles3_img" alt="">
+								<!-- Примерочный пиксель -->
+								<img src="http://content.adfox.ru/transparent.gif" border="0" width="1" height="1" style="position:absolute;">
+							</span>
+							<span class="fast-articles3_tx">Чистим уши ребенку: без хлопот и боли. Узнать здесь!</span>
+						</a>
+					</div>
+				</div>
 				
 			</div>
 			<div class="col-23-middle ">

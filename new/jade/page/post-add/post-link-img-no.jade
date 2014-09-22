@@ -1,0 +1,105 @@
+include ../../block/config
+extend ../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in.b-main
+            
+            .b-main_col-hold.clearfix
+                // Добавление статьи
+                .postAdd
+                    +userAddRecord('userAddRecord__add', userAddRecord.d)
+                    .postAdd_hold
+                        .postAdd_row
+                            .postAdd_count 1
+                            .b-main_col-article
+                                .inp-valid.inp-valid__abs
+                                    input.itx-gray(type='text', placeholder="Введите заголовок ")
+                                    .inp-valid_count 150
+
+                        .postAdd_row
+                            .postAdd_count 2
+                            .b-main_col-article
+                                .postAdd_video-serv.display-n
+                                    // Отображается только до ввода ссылки
+                                    .postAdd_video-serv-t URL страницы:
+                                .inp-valid.display-n
+                                    input.itx-gray(type='text', placeholder="Вставьте ссылку страницы")
+                                // Блок загрузки статьи
+                                .b-insert.b-insert__center.b-insert__load.margin-t5.display-n
+                                    .b-insert_hold
+                                        .b-insert_close.ico-close4
+                                        .b-insert_inner
+                                            .b-insert_cap-img.b-insert_cap-img__link
+                                            .b-insert_progress
+                                                // boostrap progressbar
+                                                // progressbar изначально уже весь заполнен
+                                                .progress.progress-striped.active.progress__cont
+                                                    .progress-bar.progress-bar__cont(role='progressbar', aria-valuenow='100', aria-valuemin='0', aria-valuemax='100', style='width: 100%')
+                                            .b-insert_tx Подождите формируется анонс 
+                                // Через класс linkPost__img yправляется отображением изображения и кнопок управления
+                                .linkPost
+                                    .linkPost_hold.clearfix
+                                        .linkPost_close.ico-close4
+                                        .linkPost_img-hold
+                                            // Сделана карусель. Можно менять прозрачность у последователньости li-шек либо свдигать ul на 250пк по клику на стрелку. 
+                                            ul.linkPost_img-ul.clearfix
+                                                li.linkPost_img-li
+                                                    a.verticalalign-m-el(href="")
+                                                        //  
+                                                            Если фото в соотношении строн по горизонтали больше стандарта, то кадрируем (обрезаем) ширину к требуемым пропорциям.
+                                                            Если фото больше по высоте чем стандарт, делаем превью высотою в 180 пк, поулчится ширина меньше 250 пк, изображение станет по центру.
+                                                        img.linkPost_img(src="/new/images/example/w240-h183.jpg", alt="", height='180px')
+                                                    .verticalalign-m-help
+                                                li.linkPost_img-li
+                                                    a.verticalalign-m-el(href="")
+                                                        //  
+                                                            Если фото в соотношении строн по горизонтали больше стандарта, то кадрируем (обрезаем) ширину к требуемым пропорциям.
+                                                            Если фото больше по высоте чем стандарт, делаем превью высотою в 180 пк, поулчится ширина меньше 250 пк, изображение станет по центру.
+                                                        img.linkPost_img(src="/new/images/example/w250-h180.jpg", alt="")
+                                                    .verticalalign-m-help
+                                        .linkPost_in
+                                            // Заголовок лучше обрезать чере определенное количество символов, 3 строки приблизительно 85
+                                            a.linkPost_t(href="") Выделенные серверы под водой, буквально!? Перспективы разведения рыб в на серверах?! 88
+                                            // Блок в высоту максимально 4 строки, остальное обрежется. Лучше отсчитать определенное количество знаков и поставить 3 точки. Прибилизтельно 170 знаков.
+                                            .linkPost_desc Все мы знаем, что вода и электроника — опасное сочетание, но так ли всегда? Способны ли современные технологии изменить это представление?  Способны опасное сочетание, 172
+                                            // ссылка 1 строку, остальное обрезается автоматически
+                                            a.linkPost_a(href="") http://habrahabr.ru/company/ ua-hosting/blog/222669/
+                                    .linkPost_control
+                                        .radio-icons.radio-icons__checkbox.radio-icons__inline
+                                            input#checkbox4.radio-icons_radio(type='checkbox', name='')
+                                            label.radio-icons_label(for='checkbox4')
+                                                | с картинкой
+                                        .linkPost_control-hold
+                                            a.linkPost_arrow(href="")
+                                            span.linkPost_control-this 1 
+                                            span.linkPost_control-tx из 
+                                                span.linkPost_control-tx 8 
+                                            a.linkPost_arrow.linkPost_arrow__r(href="")
+
+
+
+
+
+                        .postAdd_row
+                            .postAdd_count 3
+                            .b-main_col-article
+                                .inp-valid.inp-valid__abs
+                                    textarea.itx-gray(rows='5', cols='40', placeholder="Ваш комментарий")
+                                    .inp-valid_count 450
+                        +postAddRowBtns('', postAddRowBtns.a)
+
+                    // /Добавление статьи  
+                // /postAdd    
+
+        //- Футер не нужен 
+            +layout-footer('layout-footer__in')
+
+
+
+

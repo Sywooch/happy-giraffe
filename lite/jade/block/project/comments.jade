@@ -1,0 +1,311 @@
+
+//- comments
+//- Открытые комментарии в статьях
+//- mod 
+    vars
+        
+mixin commentsOpen (mod, vars)
+    // comments
+    section.comments.comments__buble
+        //- .comments_t Комментарии 68
+        .comments-menu
+            ul.comments-menu_ul(data-tabs="tabs")
+                li.comments-menu_li.active
+                    a.comments-menu_a.comments-menu_a__comments(href="#commentsList", data-toggle="tab") Комментарии 68 
+                li.comments-menu_li
+                    a.comments-menu_a.comments-menu_a__likes(href="#likesList", data-toggle="tab") Нравится 865
+                li.comments-menu_li
+                    a.comments-menu_a.comments-menu_a__favorites(href="#favoritesList", data-toggle="tab") Закладки 865
+        .tab-content
+            #commentsList.comments_hold.tab-pane.active
+                - if (vars.user == false)
+                    +commentAdd('', commentAdd.guest)
+                - else 
+                    +commentAdd('', commentAdd.user)
+                ul.comments_ul
+                    // 
+                        варианты цветов комментов. В такой последовательности
+                        .comments_li__lilac
+                        .comments_li__yellow
+                        .comments_li__red
+                        .comments_li__blue
+                        .comments_li__green
+                    li.comments_li.comments_li__lilac
+                        .comments_i.clearfix
+                            .comments_ava
+                                // Аватарки размером 40*40
+                                +ava("ava__middle ava__small-sm-mid", ava.b)
+                            .comments_frame
+                                .comments_header
+                                    a.a-light.comments_author(href="", rel='author')  Иванна Хлебникова
+                                    time.tx-date(datetime='2012-12-23') 2 минуты назад
+                                .comments_cont
+                                    .wysiwyg-content
+                                        p 
+                                            |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                        // одно фото в блок (ссылку)
+                                        a.comments_cont-img-w(href='')
+                                            // размеры превью максимум 400*400 пк
+                                            img(alt='', src='/images/example/w220-h309-1.jpg')
+                                        p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                                - if (vars.user)
+                                    .comments_footer
+                                        +bControl("", bControl.e)
+                        ul.comments_ul
+                            // комментарий вложенный
+                            li.comments_li.comments_li__lilac
+                                .comments_i.clearfix
+                                    .comments_ava
+                                        // Аватарки размером 40*40
+                                        +ava("ava__middle ava__small-sm-mid", ava.b)
+                                    .comments_frame
+                                        .comments_header
+                                            a.a-light.comments_author(href="", rel='author')  Иванна Хлебникова
+                                            time.tx-date(datetime='2012-12-23') 2 минуты назад
+                                        .comments_cont
+                                            .wysiwyg-content
+                                                p 
+                                                    a.comments_ansver-for(href="") Ольга Максимова &nbsp; 
+                                                    | Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                                        - if (vars.user)
+                                            .comments_footer
+                                                +bControl("", bControl.d)
+                            // /комментарий вложенный
+
+                            // комментарий вложенный
+                            // Свой комментарий
+                            li.comments_li.comments_li__self.comments_li__lilac
+                                .comments_i.clearfix
+                                    .comments_ava
+                                        // Аватарки размером 40*40
+                                        +ava("ava__middle ava__small-sm-mid", ava.a)
+                                    .comments_frame
+                                        header.comments_header
+                                            a.a-light.comments_author(href="", rel='author') Ангелина Богоявленская
+                                            time.tx-date(datetime='2012-12-23') 23 декабря
+                                        .comments_cont
+                                            .wysiwyg-content
+                                                p
+                                                    // Если аккаунт удален, меняем а на span что б не было 404 ошибок.
+                                                    span.comments_ansver-for Ольга Максимова &nbsp; 
+                                                    | Свой комментарий. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                                        - if (vars.user)
+                                            .comments_footer
+                                                +bControl("", bControl.e)
+                            // /комментарий вложенный
+                    // / комментарий  
+
+                    // комментарий     
+                    li.comments_li.comments_li__red
+                        .comments_i.clearfix
+                            .comments_ava
+                                // Аватарки размером 40*40
+                                +ava("ava__middle ava__small-sm-mid", ava.c)
+                            .comments_frame
+                                .comments_header
+                                    a.a-light.comments_author(href="", rel='author')  Иванна Хлебникова
+                                    time.tx-date(datetime='2014-11-04T18:20:54+00:00') 2 минуты назад
+                                .comments_cont
+                                    .wysiwyg-content
+                                        p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                                - if (vars.user)
+                                    .comments_footer
+                                        +bControl("", bControl.e)
+                    // комментарий 
+                +articleUsers()
+            //-
+                // Пагинация для декстопа 
+                +paginationRevers()
+
+            #likesList.comments_hold.tab-pane
+                .list-subsribe-users
+                    ul.list-subsribe-users_ul
+                        li.list-subsribe-users_li
+                            +ava('ava__middle', ava.a)
+                            a.a-light Ангелина Богоявленская
+                            time.tx-date(datetime='1957-10-04') Сегодня 13:25
+
+                            a.btn.btn-secondary.btn-sl
+                                | Читаю
+                        li.list-subsribe-users_li
+                            +ava('ava__middle', ava.a)
+                            a.a-light Ангелина Богоявленская
+                            time.tx-date(datetime='1957-10-04') Сегодня 13:25
+
+                            a.btn.btn-success.btn-sl
+                                span.ico-plus
+                                | Подписаться
+            #favoritesList.comments_hold.tab-pane
+                .list-subsribe-users
+                        ul.list-subsribe-users_ul
+                            li.list-subsribe-users_li
+                                +ava('ava__middle', ava.a)
+                                a.a-light Ангелина Богоявленская
+                                time.tx-date(datetime='1957-10-04') Сегодня 13:25
+
+                                a.btn.btn-success.btn-sl 
+                                    span.ico-plus
+                                    | Подписаться
+                            li.list-subsribe-users_li
+                                +ava('ava__middle', ava.a)
+                                a.a-light Ангелина Богоявленская
+                                time.tx-date(datetime='1957-10-04') Сегодня 13:25
+
+                                a.btn.btn-secondary.btn-sl 
+                                    | Читаю
+    // /comments
+
+- var commentsOpen = {}
+- commentsOpen.a = {}
+- commentsOpen.a.user = true
+
+- commentsOpen.b = {}
+- commentsOpen.b.user = false
+
+- commentsOpen.commentPage = {}
+- commentsOpen.commentPage.user = false
+
+
+//-mixin comments-add-active(mod, vars)
+    .comments-add
+        // скрытый инпут, который заменяется на редактор
+        input.comments-add_inp.itx-gray.display-n(type="text", placeholder="Добавить комментарий")
+        script.
+            $(document).ready(function () { 
+              $('.wysiwyg-redactor').redactor({
+                  autoresize: true,
+                  toolbarExternal: '.wysiwyg-toolbar-btn',
+                  minHeight: 45,
+                  buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
+                  buttonsCustom: {
+                      smile: {
+                          title: 'smile',
+                          callback: function(buttonName, buttonDOM, buttonObject) {
+                              // your code, for example - getting code
+                              var html = this.get();
+                          }
+                      },
+                      h2: {
+                          title: 'h2',
+                          callback: function(buttonName, buttonDOM, buttonObject) {
+                              // your code, for example - getting code
+                              var html = this.get();
+                          }
+                      },
+                      h3: {
+                          title: 'h3',
+                          callback: function(buttonName, buttonDOM, buttonObject) {
+                              // your code, for example - getting code
+                              var html = this.get();
+                          }
+                      }
+                  }
+              });
+            });
+        .wysiwyg-h
+            .wysiwyg-toolbar
+                    a.wysiwyg-toolbar_close.ico-close3(href='')
+                    .wysiwyg-toolbar-btn
+            textarea.wysiwyg-redactor(name='', placeholder="Введите комментарий")
+            .redactor-control.clearfix
+                .float-r
+                    .redactor-control_key
+                        input#redactor-control_key-checkbox.redactor-control_key-checkbox(type='checkbox', name='')
+                        label.redactor-control_key-label(for='redactor-control_key-checkbox') Enter - отправить
+                    button.btn.btn-success.btn-m Комментировать
+
+
+
+//- comment-add
+    
+    mod
+    vars
+mixin commentAdd (mod, vars)
+    .comments_add
+        //- .comment-add_t Комментировать
+        - if (vars.state == 'guest')
+            .comments_add-hold
+                |  Комментировать от
+                .ico-social-hold
+                    a.ico-social.ico-social__odnoklassniki(href="")
+                    a.ico-social.ico-social__vkontakte(href="")
+                |  или 
+                a.comments_add-a Войти
+        - if (vars.state == 'user')
+            // Заглушка редактора до клика по ней, затем загружается редактор
+            .comments_add-frame
+                .comments_i.clearfix
+                    .comments_ava
+                        // Аватарки размером 40*40
+                        +ava("ava__middle ava__small-sm-mid", ava.c)
+                    .comments_frame
+                        // Когда еще нет комментов то текст placeholder: 
+                            Введите комментарий первым
+                        textarea.itx-simple(placeholder=" Введите ваш комментарий ", rows="3", cols='30')
+                        .comments_add-editor.display-n
+                            // Скрыты элементы редактора, как в блоке ниже. 
+                                Пусто, что б не копипастить
+
+            // Редактор раскрытый
+            .comments_add-frame.display-n
+                .comments_i.clearfix
+                    .comments_ava
+                        // Аватарки размером 40*40
+                        +ava("ava__middle ava__small-sm-mid", ava.c)
+                    .comments_frame
+                        // Когда еще нет комментов то текст placeholder: 
+                            Введите комментарий первым
+                        textarea.itx-simple(placeholder=" Введите ваш комментарий ", rows="3", cols='30')
+                        .comments_add-editor
+                            // Загружаем стили и скрипты редактора при необходимости
+                            // link(href="/lite/css/dev/redactor.css", rel="stylesheet", type="text/css")
+
+                            // wisywig
+
+                            script.
+                                $(document).ready(function () { 
+                                  $('.wysiwyg-redactor').redactor({
+                                      autoresize: true,
+                                      toolbarExternal: '.wysiwyg-toolbar-btn',
+                                      minHeight: 450,
+                                      cleanFontTag: false ,
+                                      cleanup: false,
+                                      lang: 'ru',
+                                      convertDivs: false,
+                                      plugins: [ 'formatbtn', 'btnvideo'],
+                                      buttons: [  'image', 'link'],
+                                      focusCallback: function()
+                                        {
+                                            addBaron('.scroll');
+                                        }
+                                  });
+                                });
+                            .wysiwyg-post.redactor_box
+                                .wysiwyg-toolbar
+                                    .wysiwyg-toolbar-btn
+                                .scroll
+                                    .scroll_scroller
+                                        .scroll_cont
+                                            .wysiwyg-redactor
+                                                p Недавно услышала такую фразу, что для счастья мужчине нужна женщина, а женщине нужно ВСЕ!!!!)))
+                                                p Не знаю насколько это правда, 
+                                                p Может конечно они не признаются в своих самых 
+                                                p Из бисера можно творить что угодно. Кто-то делает забавнейших животных, кто-то вышивает бисером невероятные цветы, кто-то создает бижутерию, ну а мы попробуем сплести из бисера кактусы. 
+                                                p заветных мечтах, но думаю вы догадывается, что для полного счастья не хватает вашему
+
+                                    .scroll_bar-hold
+                                        .scroll_bar
+                                            .scroll_bar-in
+
+
+
+- var commentAdd = {}
+- commentAdd.guest = {}
+- commentAdd.guest.state = 'guest'
+
+- commentAdd.user = {}
+- commentAdd.user.state = 'user'

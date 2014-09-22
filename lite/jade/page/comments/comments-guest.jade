@@ -1,0 +1,38 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'blog.css'; 
+    
+block layout
+    
+    // b-main 
+    .b-main.clearfix
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="") Главная
+                    li.b-crumbs_li
+                        +ava('ava__small', ava.a)
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Блог
+            .b-main_col-hold.clearfix
+
+                ///////
+                // Основная колонка
+                .b-main_col-article
+                    +commentsOpen('', commentsOpen.b)
+                
+                // /Основная колонка
+        //- .b-main_row.b-main_row__gray.clearfix.hidden-lg
+            .b-main_cont 
+                // Ссылка на страницу все комменты для планшетов и мобильных
+                .comments_all
+                    a.comments_all-a(href="") 
+                        | Все комментарии 
+                        | <svg class="comments_all-arrow" baseProfile="full" xmlns="http://www.w3.org/2000/svg" height="8" width="12"><path fill="rgb( 133, 131, 131 )" d="M6.004 4.308s3.801-3.8 3.801-3.8c.382-.382 1.001-.382 1.383 0 0 0 .346.345.346.345.382.383.382 1.002 0 1.384 0 0-4.474 4.472-4.474 4.472-.006.008-.009.017-.015.023 0 0-.346.346-.346.346-.192.192-.443.287-.695.286-.252.001-.504-.094-.696-.286 0 0-.345-.346-.345-.346-.008-.006-.009-.016-.016-.023 0 0-4.472-4.472-4.472-4.472-.382-.382-.382-1.001 0-1.384 0 0 .344-.345.344-.345.382-.382 1.002-.382 1.385 0 0 0 3.8 3.8 3.8 3.8z"/></svg>
+        +banReadMore()
+    
+    +layout-footer-lite('layout-footer__in')

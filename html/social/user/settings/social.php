@@ -135,6 +135,21 @@
 											</a>
 										</td>
 									</tr>
+									<tr>
+										<td class="form-settings_td textalign-l">
+											<span class="custom-like">
+												<span class="custom-like_icon google"></span>
+											</span>
+											<span>Google</span>
+										</td>
+										<td class="form-settings_td"><a href="" title="">Александр Кувыркин</a></td>
+										<td class="form-settings_td">
+											<a href="" class="a-pseudo-icon">
+												<span class="ico-close2"></span>
+												<span class="a-pseudo-icon_tx">Удалить</span>
+											</a>
+										</td>
+									</tr>
 								</tbody>
 							</table>
 							
@@ -152,6 +167,9 @@
 								</li>
 								<li class="b-social-big">
 									<a href=""  class="b-social-big_ico twitter"></a>
+								</li>
+								<li class="b-social-big">
+									<a href=""  class="b-social-big_ico google"></a>
 								</li>
 							</ul>
 							

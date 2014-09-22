@@ -1,0 +1,338 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/services.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__bg1 body__lite">
+  <div class="layout-container">
+    <div class="layout-loose layout-loose__white">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest header__kinder-gold">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        var $this = $(this),
+                            activeClass = 'active';
+                            
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                        
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                              
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                          
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                        
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                  });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__club">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
+                      <div class="header-popup_club">
+                        <!-- 18 клубов-->
+                        <div class="b-clubs">
+                          <ul class="b-clubs_ul">
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__1"></div>
+                                <div class="b-clubs_tx">Планирование</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__2"></div>
+                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__3"></div>
+                                <div class="b-clubs_tx">Дети до года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__4"></div>
+                                <div class="b-clubs_tx">Дети старше года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__5"></div>
+                                <div class="b-clubs_tx">Дошкольники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__6"></div>
+                                <div class="b-clubs_tx">Школьники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__7"></div>
+                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__8"></div>
+                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__9"></div>
+                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__10"></div>
+                                <div class="b-clubs_tx">Сад и огород</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__11"></div>
+                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__12"></div>
+                                <div class="b-clubs_tx">Красота и мода</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__13"></div>
+                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__14"></div>
+                                <div class="b-clubs_tx">Свадьба</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__15"></div>
+                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__16"></div>
+                                <div class="b-clubs_tx">Рукоделие</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__17"></div>
+                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__18"></div>
+                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <!-- Класс active отвечает за видимость попапапа-->
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__msg">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                      <div class="header-popup_msg"></div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+              </ul>
+            </div>
+            <!-- 
+            header_kindergold
+            header_kinderino
+            --><a href="#" class="header_kindergold">
+              <!-- header_kindergold.jpgheader_kinderino.jpg
+              --><img src="/lite/images/banner/header_kindergold.jpg" alt="Kinder"></a>
+            <!-- /header-menu-->
+            <div class="sidebar-search clearfix sidebar-search__big">
+              <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+            </div>
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <!-- b-main -->
+        <div class="b-main clearfix">
+          <!-- Хлебные крошки-->
+          <div class="b-main_cont">
+            <div class="b-crumbs b-crumbs__s">
+              <div class="b-crumbs_tx">Я здесь:</div>
+              <ul class="b-crumbs_ul">
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная </a></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Календарь развития ребенка </a></li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Вашему ребенку 5 месяцев </span></li>
+              </ul>
+            </div>
+          </div>
+          <!-- Заголовок страницы-->
+          <div class="b-main_cont">
+            <div class="b-main_col-wide">   
+              <h1 class="heading-link-xxl heading-link-xxl__center">Вашему ребенку 5 месяцев </h1>
+            </div>
+            <table class="article-nearby clearfix">
+              <tr>
+                <td><a href="#" class="article-nearby_a article-nearby_a__l"><span class="article-nearby_tx">4-й месяц </span></a></td>
+                <td><a href="#" class="article-nearby_a article-nearby_a__r"><span class="article-nearby_tx">6-й месяц</span></a></td>
+              </tr>
+            </table>
+          </div>
+          <!-- Описание страницы                  -->
+          <div class="services-calendars services-calendars__child">
+            <!-- Контент-->
+            <div class="b-main_cont">
+              <div class="b-main_col-article b-main_col-article__center wysiwyg-content">
+                <p><em>На седьмом месяце жизни ребёнок уже знает своё имя и интересуется отражением в зеркале.</em></p>
+                <p><img src="http://img.happy-giraffe.ru/thumbs/650x650/10385/dfa412c84d6b70c6f3e87a024ac95343.jpg"></p>
+                <p>К семи месяцам девочки весят 5,3 – 11,1 килограммов, рост имеют 60,3 – 74,2 сантиметров, окружность головы 38,9 – 46,8 сантиметров, окружность груди 41,8 – 48,5 сантиметров.</p>
+                <p>Мальчики к семи месяцам имеют вес 5,9 -11,4 килограммов, рост 62,7 – 75,7 сантиметров, окружность головы 40,3 – 47,7 сантиметров, окружность груди 41,7 – 50,1 сантиметров.</p>
+                <div class="age-features"></div>
+                <div class="calendar-serv-note">
+                  <div class="calendar-serv-note_count">7</div>
+                  <div class="b-main_col-article b-main_col-article__center">
+                    <h2 class="calendar-serv-note_t">В <span> 7 </span> месяцев ваш ребенок</h2>
+                    <ul class="calendar-serv-note_ul">
+                      <li class="calendar-serv-note_li">Весит от 5,3 до 11,4 килограммов</li>
+                      <li class="calendar-serv-note_li">Имеет рост от 60,3 до 75,7 сантиметров</li>
+                      <li class="calendar-serv-note_li">Имеет окружность головы от 38,9 до 47,7 сантиметров</li>
+                      <li class="calendar-serv-note_li">На естественном вскармливании пробует педагогический прикорм</li>
+                      <li class="calendar-serv-note_li">Любит сидеть за столом со взрослыми</li>
+                      <li class="calendar-serv-note_li">Долго рассматривает себя в зеркале</li>
+                      <li class="calendar-serv-note_li">Смеётся при ласковом обращении к нему</li>
+                      <li class="calendar-serv-note_li">Реагирует плачем на сердитый голос взрослого</li>
+                    </ul>
+                  </div>
+                </div>
+                <h2>Стандарты? Индивидуальность!</h2>
+                <p>Ребёнок растёт и крепнет. Он уже может хорошо ползать. Некоторые дети не ползают, предпочитая перемещаться перекатыванием или с помощью взрослых. Уже хорошо прослеживается характер малыша и именно в этом периоде его можно слегка подкорректировать собственным поведением, проявляя безмерное терпение в сочетании с твёрдостью и лаской.</p>
+                <p>На 7 месяце дети, находящиеся на естественном вскармливании, начинают проявлять интерес к «взрослой» пище, пытаясь рукой взять с тарелки у мамы или папы то, что понравилось внешне. Это не нужно пресекать. Так выглядит «педагогический» прикорм. С молоком матери ребёнок получает все необходимые ему вещества, а пища из тарелки мамы учит его жевать и знакомит с разными вкусами продуктов. Конечно, вся еда должна быть полезной для ребёнка – отварные кусочки овощей, пюре.</p>
+                <p>Дети на искусственном вскармливании уже едят каши и овощные пюре. Настало время вводить в рацион мясо. Лучше начинать с курицы, индейки или кролика – они лучше усваиваются и реже вызывают аллергии. Нужно приготовить нежное мясное пюре и добавить четверть чайной ложки в небольшую порцию овощного пюре.</p>
+                <div>
+                  <h2>Запасаемся ложками</h2>
+                  <p>Малыш любит сидеть за столом со взрослыми, его уже можно сажать в специальный высокий стульчик с регулируемым наклоном спинки. Часто во время еды младенец отбирает у кормящего ложку, поэтому опытные мамы имеют под рукой несколько подходящих ложечек.</p>
+                  <p>Во время игр на развивающем коврике больше всего ребёнка привлекает зеркало и своё отображение в нём, которое он может рассматривать довольно долго и сопровождать довольным лепетом.</p>
+                  <h2>Время поднять бортики кроватки</h2>
+                  <p>На седьмом месяце многие дети начинают сидеть, но есть те, которые предпочитают ползать и лежать на животе. Заставлять не нужно – всему своё время. Лучше регулярно делать массаж, гимнастику, записаться в бассейн.</p>Некоторые дети пытаются вставать, держась за окружающие предметы, поэтому пришло время поднять бортики у кроватки так, чтобы он не мог из неё выпасть.
+                </div>
+                <p>Ребёнок живо реагирует на разговоры. При ласковом обращении к нему – смеётся, при сердитом хмурит лобик, может заплакать.</p>
+              </div>
+              <div class="b-main_col-article b-main_col-article__center">
+                <div class="wysiwyg-content tx-content">
+                  <div class="b-border-img">
+                    <!-- изображение--><img src="/lite/images/example/w600-h370-1.jpg" alt="Ребенку 5 месяцев">
+                  </div>
+                  <h2 class="heading-m">Первые параметры новорожденного</h2>
+                  <p>Новорожденная девочка весит от 2 до 4,8 килограммов, длину тела имеет от 43,6 до 54,7 сантиметров, окружность головы 30,3 – 37,4 сантиметров, окружность груди  31 – 37 сантиметров.</p>
+                  <p>Новорожденный мальчик весит от 2,1 до 5 килограммов, имеет длину тела от 44,2 до 55,6 сантиметров, окружность головы 30,7 – 38,3 сантиметров, окружность груди 31,7 –37,8 сантиметров.</p>
+                  <p>Шкала Апгар позволяет быстро оценить состояние малыша. Новорожденный ребенок оценивается по нескольким признакам в первую минуту после рождения и через 5 минут. Оцениваются цвет кожи, рефлексы, тонус мышц, сердцебиение и дыхание. За каждый признак даётся от 0 до 2 баллов. На первой минуте в норме малыш набирает 7 – 8 баллов, а на пятой 8 – 10 баллов.</p>
+                </div>
+              </div>
+            </div>
+            <!-- Сервисы-->
+            <div class="b-main_row services-fast margin-b0">
+              <div class="b-main_cont">
+                <div class="services-fast_hold">
+                  <div class="b-main_col-article b-main_col-article__center">
+                    <div class="services-fast_t heading-m">Полезные сервисы. Попробуйте!</div>
+                    <ul class="services-fast_ul">
+                      <li class="services-fast_li"><a href="#" class="services-fast_a">
+                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_1.png" alt=""></div>
+                          <div class="services-fast_tx">Выбор имени <br>для ребенка</div></a></li>
+                      <li class="services-fast_li"><a href="#" class="services-fast_a">
+                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_2.png" alt=""></div>
+                          <div class="services-fast_tx">Справочник <br>детских болезней</div></a></li>
+                      <li class="services-fast_li"><a href="#" class="services-fast_a">
+                          <div class="services-fast_ico"><img src="/lite/images/services/service_img_3.png" alt=""></div>
+                          <div class="services-fast_tx">Календарь<br>прививок</div></a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Список-->
+          <!-- Контент-->
+          <!-- баннер на всю ширину-->
+          <!-- Изабражение вставляется через background для поизиционирования через css-->
+          <style type="text/css">
+            /* Ширина изображения 600px */
+            .ban-read-more {
+                background-image: url('/lite/images/banner/calendar-pregnancy-w600-1.jpg');
+            }
+            /* Ширина изображения до 1000px*/
+            @media (min-width: 640px) {
+                .ban-read-more {
+                    background-image: url('/lite/images/banner/calendar-pregnancy-w1000-1.jpg');
+                }
+            }
+          </style>
+          <div class="ban-read-more hidden-md">
+            <div class="ban-read-more_hold">
+              <div class="ban-read-more_cont">
+                <div class="ban-read-more_t-sub">следующая неделя</div>
+                <div class="ban-read-more_t">4 неделя беременности</div>
+                <div class="ban-read-more_desc">На четвертой неделе беременности ваш малыш напоминает крохотный диск ... </div><span class="ban-read-more_arrow"></span>
+              </div>
+            </div>
+          </div>
+          <!-- /баннер-->
+        </div>
+        <!-- b-main -->
+        <!-- layout-footer-->
+        <div class="layout-footer clearfix">
+          <div class="layout-footer_hold">
+            <ul class="footer-list">
+              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+            </ul>
+            <ul class="footer-menu visible-md">
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
+            </ul>
+            <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+            <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+          </div>
+        </div>
+        <!-- /layout-footer-->
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

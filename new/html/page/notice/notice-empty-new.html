@@ -1,0 +1,260 @@
+<!DOCTYPE html><!--[if lt IE 9]>      <html class="no-js ie8 lt-ie9"> <![endif]-->
+<!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<!-- a-->
+<!-- b-->
+<!-- c-->
+<!-- a-->
+<!-- b-->
+<!-- c-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title>
+  <!-- including .css-->
+  <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
+  <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
+  <!--+scripts(path)-->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    
+  </script>
+  <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/dropdown.js"></script>
+  <script src="/new/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <!-- popup-->
+  <!-- script(src="#{path}javascript/jquery.fancybox.js")-->
+  <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <!-- custom scroll-->
+  <script src="/new/javascript/baron.js"></script>
+  <!-- custom select-->
+  <script src="/new/javascript/select2.js"></script>
+  <!-- wisywig-->
+  <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/redactor/lang/ru.js"></script>
+  <script src="/new/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/new/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
+  <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <!-- Базовый js (вызывается на всех страницах)-->
+  <script src="/new/javascript/common.js"></script>
+  <!-- js для работы в верстке-->
+  <script src="/new/javascript/common-markup.js"></script>
+  <!-- jquery-ui подключается для верстки, в yii есть аналог
+  компоненты 
+      slider 
+  -->
+  <script src="/new/javascript/jquery-ui-1.10.4.custom.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
+</head>
+<body class="body body__bg-base body__notice">
+  <div class="layout-container">
+    <div class="layout-header clearfix">
+      <!-- header-fix-->
+      <script>
+        $(document).ready(function () {
+            $(window).on('scroll',function () {
+                var contanerScroll = $(window).scrollTop();
+                var header = $('.layout-header');
+                console.log(header.height());
+                if (contanerScroll > header.height() + header.offset().top) {
+                    $('.header-fix').fadeIn(400);
+                } else {
+                    $('.header-fix').fadeOut(400);
+                }
+            });
+        });
+      </script>
+      <div class="header-fix">
+        <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
+          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a">
+              <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+            <!-- header-drop-->
+            <div class="header-drop">
+              <div class="header-menu clearfix">
+                <ul class="header-menu_ul">
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                        <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                </ul>
+              </div>
+              <!-- header-drop_b-->
+              <div class="header-drop_b">
+                <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                <div class="club-list club-list__small clearfix">
+                  <ul class="club-list_ul clearfix">
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                    <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- /header-drop_b-->
+            </div>
+            <!-- /header-drop -->
+          </div>
+          <div class="header-fix-menu">
+            <ul class="header-menu_ul clearfix">
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a></li>
+              <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /header-fix-->
+      <!-- header-->
+      <div class="header header__base">
+        <div class="header_hold clearfix">
+          <!-- logo-->
+          <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+          <!-- /logo-->
+          <!-- header-menu-->
+          <div class="header-menu">
+            <ul class="header-menu_ul clearfix">
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
+              <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
+              <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
+              <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a">
+                  <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                <div class="header-drop">
+                  <div class="header-menu clearfix">
+                    <ul class="header-menu_ul">
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                            <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                      <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                    </ul>
+                  </div>
+                  <!-- header-drop_b-->
+                  <div class="header-drop_b">
+                    <div class="float-r margin-t3"><a href="">Жираф рекомендует</a></div>
+                    <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                    <div class="club-list club-list__small clearfix">
+                      <ul class="club-list_ul clearfix">
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                        <li class="club-list_li"><a href="" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <!-- /header-drop_b-->
+                </div>
+                <!-- /header-drop -->
+              </li>
+            </ul>
+          </div>
+          <!-- /header-menu-->
+        </div>
+      </div>
+      <!-- /header-->
+    </div>
+    <div class="layout-wrapper">
+      <div class="layout-wrapper_frame clearfix">
+        <script>
+          var notice = new function() {
+                  var self = this;
+                  function noticeHeight() {
+                      // 58 - шапка, что не скролится
+                      // 40 - отступы снизу + сверху
+                      var h = self.windowHeight - self.headerHeight - 58 - 40;
+                      if (h < 350) {
+                              h = 350;
+                              
+                      }
+                      self.contentBlock.height(h);
+                  }
+                  self.renew = function() {
+                      self.windowHeight = $(window).height();
+                      self.headerHeight = $('.layout-header').height();
+                      noticeHeight();
+                      addBaron('.scroll');
+                  }
+                  
+                  $(window).resize(function() {
+                      self.renew();
+                  });
+                  
+                  
+                  $(document).ready(function () {
+                      var contentBlock = ".u-notice_hold";
+                      self.contentBlock = $(contentBlock);
+                      self.renew();
+                  });
+                  
+          }();
+          
+        </script>
+        <div class="u-notice">
+          <!-- side-menu-->
+          <div class="side-menu side-menu__notice">
+            <div class="side-menu_hold">
+              <div class="side-menu_t side-menu_t__notice"></div>
+              <ul class="side-menu_ul">
+                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice"></span><span class="side-menu_tx">Новые </span><span class="side-menu_count">154</span></span><span class="verticalalign-m-help"></span></a></li>
+                <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__notice-arhive"></span><span class="side-menu_tx">Архив</span></span><span class="verticalalign-m-help"></span></a></li>
+                <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__hg"></span><span class="side-menu_tx">Веселый </br> Жираф!</span></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- /side-menu-->
+          <div class="page-col page-col__notice">
+            <div class="page-col_top">
+              <div class="page-col_t-tx">Новые сигналы</div><a href="" class="u-notice_a-settings">Настройте сигналы</a>
+            </div>
+            <div class="page-col_cont">
+              <div class="u-notice_hold scroll">
+                <div class="scroll_scroller">
+                  <div class="scroll_cont">
+                    <!-- cap-empty-->
+                    <div class="cap-empty cap-empty__abs cap-empty__notice-new">
+                      <div class="cap-empty_hold">
+                        <div class="cap-empty_img"></div>
+                        <div class="cap-empty_t">У вас пока нет сигналов. </div>
+                      </div>
+                      <div class="verticalalign-m-help"></div>
+                    </div>
+                    <!-- /cap-empty-->
+                  </div>
+                </div>
+                <!-- scroll-bar-->
+                <div class="scroll_bar-hold">
+                  <div class="scroll_bar">
+                    <div class="scroll_bar-in"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

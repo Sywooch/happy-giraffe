@@ -1,0 +1,698 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/blog.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__bg1 body__lite">
+  <div class="layout-container">
+    <div class="layout-loose layout-loose__white">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest header__kinder-gold">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        var $this = $(this),
+                            activeClass = 'active';
+                            
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                        
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                              
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                          
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                        
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                  });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__club">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
+                      <div class="header-popup_club">
+                        <!-- 18 клубов-->
+                        <div class="b-clubs">
+                          <ul class="b-clubs_ul">
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__1"></div>
+                                <div class="b-clubs_tx">Планирование</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__2"></div>
+                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__3"></div>
+                                <div class="b-clubs_tx">Дети до года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__4"></div>
+                                <div class="b-clubs_tx">Дети старше года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__5"></div>
+                                <div class="b-clubs_tx">Дошкольники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__6"></div>
+                                <div class="b-clubs_tx">Школьники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__7"></div>
+                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__8"></div>
+                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__9"></div>
+                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__10"></div>
+                                <div class="b-clubs_tx">Сад и огород</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__11"></div>
+                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__12"></div>
+                                <div class="b-clubs_tx">Красота и мода</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__13"></div>
+                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__14"></div>
+                                <div class="b-clubs_tx">Свадьба</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__15"></div>
+                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__16"></div>
+                                <div class="b-clubs_tx">Рукоделие</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__17"></div>
+                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__18"></div>
+                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <!-- Класс active отвечает за видимость попапапа-->
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__msg">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                      <div class="header-popup_msg"></div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+              </ul>
+            </div>
+            <!-- 
+            header_kindergold
+            header_kinderino
+            --><a href="#" class="header_kindergold">
+              <!-- header_kindergold.jpgheader_kinderino.jpg
+              --><img src="/lite/images/banner/header_kindergold.jpg" alt="Kinder"></a>
+            <!-- /header-menu-->
+            <div class="sidebar-search clearfix sidebar-search__big">
+              <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+            </div>
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <script src="/lite/javascript/select2.js"></script>
+        <script src="/lite/javascript/select2_locale_ru.js"></script>
+        <script>
+          $(document).ready(function () {
+              //- function selectCus__SearchOnDesc(state) {
+              //-     if (!state.id) return state.text; // optgroup
+              //-     return "<div class='select2-result_i'>" + state.text + "</div><div class='select2-result_desc'>Текст описание</div>";
+              //- }
+              //- // Измененный tag select c инпутом поиска
+              //- $(".select-cus__search-on-desc").select2({
+              //-     width: '100%',
+              //-     dropdownCssClass: 'select2-drop__search-on',
+              //-     formatResult: selectCus__SearchOnDesc,
+              //-     formatSelection: selectCus__SearchOnDesc,
+              //-     escapeMarkup: function(m) { return m; }
+              //- });
+              
+                  // Измененный tag select
+              $(".select-cus__search-off").select2({
+                  width: '100%',
+                  minimumResultsForSearch: -1,
+                  dropdownCssClass: 'select2-drop__search-off',
+                  escapeMarkup: function(m) { return m; }
+              });
+              $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
+              
+              // Измененный tag select c инпутом поиска
+              $(".select-cus__search-on").select2({
+                  width: '100%',
+                  dropdownCssClass: 'select2-drop__search-on',
+                  searchInputPlaceholder: "Начните вводить",
+                  escapeMarkup: function(m) { return m; }
+              });
+              
+          });
+        </script>
+        <!-- b-main -->
+        <div class="b-main clearfix">
+          <div class="b-main_cont">
+            <div class="margin-20">
+              <h2>Регистрация</h2><a href="#reg-step1" class="popup-a">Регистрация шаг 1</a><br><br><a href="#reg-step2" class="popup-a">Регистрация шаг 2</a><br><br><a href="#reg-step2-soc" class="popup-a">Регистрация шаг 2 через социальные сети</a><br><br><a href="#reg-email" class="popup-a">Подтверждение email</a><br><br><a href="#reg-email2" class="popup-a">Отправка email повторно</a><br><br><a href="#login-step1" class="popup-a">Логин</a><br><br><a href="#login-retrieve" class="popup-a">Восстановление пароля</a><br><br><a href="#login-retrieve2" class="popup-a">Восстановление пароля, письмо отправлено </a><br><br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+    <!-- .popup-sign-->
+    <div id="reg-step1" class="popup popup-sign">
+      <div class="popup-sign_hold">
+        <div class="popup-sign_top">
+          <div class="popup-sign_t">Регистрация на Веселом Жирафе</div>
+          <div class="popup-sign_slogan">Стань полноправным участником сайта за 1 минуту!</div>
+        </div>
+        <div class="popup-sign_cont">
+          <div class="popup-sign_social">
+            <div class="popup-sign_row">
+              <div class="popup-sign_label">С помощью социальных сетей</div>
+            </div>
+            <ul class="social-btns clearfix">
+              <li><a class="social-btn social-btn__odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
+              <li><a class="social-btn social-btn__vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
+            </ul>
+          </div>
+          <div class="popup-sign_col">
+            <div class="popup-sign_row">
+              <div class="popup-sign_label">Адрес активной электронной почты</div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="inp-valid inp-valid__abs">
+                <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                <div class="inp-valid_error">
+                  <div class="errorMessage">E-mail не является правильным E-Mail адресом</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="popup-sign_label">Полное имя</div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="inp-valid inp-valid__abs">
+                <input type="text" placeholder="Имя" class="itx-gray popup-sign_itx">
+                <div class="inp-valid_error">
+                  <div class="errorMessage">Не заполнено поле "Имя"</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="inp-valid inp-valid__abs">
+                <input type="text" placeholder="Фамилия" class="itx-gray popup-sign_itx">
+                <div class="inp-valid_error">
+                  <div class="errorMessage">Не заполнено поле "Фамилия"</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="btn-green-simple btn-l btn btn-success">Зарегистрироваться</div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="popup-sign_tx-help">Продолжая, вы соглашаетесь с нашими  <a class="a-color-gray-light">Условиями использования</a>, <a class="a-color-gray-light">Политикой конфиденциальности</a> и  <a class="a-color-gray-light">Положениями о Cookie</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="popup-sign_b"><span class="popup-sign_b-tx">Вы уже зарегистрированы?</span><a class="popup-sign_b-a">Войти</a></div>
+      </div>
+    </div>
+    <!-- /popup-sign-->
+    <!-- .popup-sign-->
+    <div id="reg-step2" class="popup popup-sign">
+      <div class="popup-sign_hold">
+        <div class="popup-sign_top">
+          <div class="popup-sign_t">Добро пожаловать Александр!</div>
+          <div class="popup-sign_slogan">Осталось ввести еще немного данных</div>
+        </div>
+        <div class="popup-sign_cont">
+          <div class="popup-sign_col-ava">
+            <!-- ava--><a href="#" class="ava ava__large"><img alt="" src="" class="ava_img"></a>
+            <div class="margin-5">
+              <div class="popup-sign_tx-help">Чтобы вас узнавали на Веселом Жирафе <br> загрузите свое главное фото</div>
+            </div><a class="btn-s btn-blue-simple btn btn-primary">Загрузить</a>
+          </div>
+          <div class="popup-sign_col popup-sign_col__vetical-m">
+            <div class="popup-sign_row">
+              <div class="popup-sign_label">Местоположение</div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="inp-valid inp-valid__abs error">
+                <!-- select-cus__js-country только для подключения js-->
+                <script>
+                  $(function() {
+                      // Измененный tag select
+                      $(".select-cus__js-country").select2({
+                          width: '100%',
+                          minimumResultsForSearch: -1,
+                          dropdownCssClass: 'select2-drop__search-off select2-drop__separated-first-items',
+                          // escapeMarkup: function(m) { return m; }
+                      });
+                  });
+                </script>
+                <select placeholder="Выберите страну" class="select-cus select-cus__js-country select-cus__gray">
+                  <option></option>
+                  <option value="1">Россия</option>
+                  <option value="2">Украина</option>
+                  <option value="3">Белоруссия</option>
+                  <option value="4">Казахстан</option>
+                  <option value="5">Австралия</option>
+                  <option value="6">Азербайджан</option>
+                  <option value="7">Венгрия</option>
+                  <option value="8">Грузия</option>
+                  <option value="9">Албания</option>
+                  <option value="10">Лимпопо</option>
+                  <option value="11">Замбия</option>
+                </select>
+                <div class="inp-valid_error">
+                  <div class="errorMessage">Страна не вабрана</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+              <!-- .popup-sign_tx-help Начинайте вводить название страны...-->
+            </div>
+            <div class="popup-sign_row">
+              <div class="inp-valid inp-valid__abs">
+                <select placeholder="Выберите город" class="select-cus select-cus__search-on select-cus__gray">
+                  <option></option>
+                  <option value="1">Россия</option>
+                  <option value="2">Украина</option>
+                  <option value="3">Белоруссия</option>
+                  <option value="4">Казахстан</option>
+                  <option value="5">Австралия</option>
+                  <option value="6">Азербайджан</option>
+                  <option value="8">Грузия</option>
+                  <option value="9">Албания</option>
+                  <option value="10">Лимпопо</option>
+                  <option value="11">Замбия</option>
+                </select>
+                <div class="inp-valid_error">
+                  <div class="errorMessage">Не заполнено поле "Фамилия"</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="popup-sign_label">Дата рождения</div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="inp-valid inp-valid__abs success">
+                <div class="float-l w-80 margin-r10">
+                  <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
+                    <option></option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="8">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+                <div class="float-l w-135 margin-r10">
+                  <select placeholder="День" class="select-cus select-cus__search-off select-cus__gray">
+                    <option></option>
+                    <option value="1">Января</option>
+                    <option value="2">Февраля</option>
+                    <option value="3">Марта</option>
+                    <option value="4">Апреля</option>
+                    <option value="5">Майя</option>
+                    <option value="6">Июня</option>
+                    <option value="7">Июля</option>
+                    <option value="8">Августа</option>
+                    <option value="9">Сентября</option>
+                    <option value="10">Октября</option>
+                    <option value="11">Ноября</option>
+                    <option value="12">Декабря</option>
+                  </select>
+                </div>
+                <div class="float-l w-80">
+                  <select placeholder="Год" class="select-cus select-cus__search-off select-cus__gray">
+                    <option></option>
+                    <option value="1">1912</option>
+                    <option value="2">1913</option>
+                    <option value="3">1914</option>
+                    <option value="4">1915</option>
+                    <option value="5">1916</option>
+                    <option value="6">1917</option>
+                    <option value="7">1918</option>
+                    <option value="8">1919</option>
+                    <option value="8">1920</option>
+                    <option value="10">1921</option>
+                    <option value="11">1922</option>
+                    <option value="12">1923</option>
+                  </select>
+                </div>
+                <div class="inp-valid_error">
+                  <div class="errorMessage">Не выбрана дата</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="popup-sign_row margin-b30">
+              <div class="popup-sign_label">
+                <div class="display-ib padding-t10">
+                  <div class="inp-valid inp-valid__abs error">Пол
+                    <div class="radio-icons radio-icons__inline margin-l20">
+                      <input id="radio4" type="radio" name="b-radio2" class="radio-icons_radio">
+                      <label for="radio4" class="radio-icons_label">Мужской</label>
+                      <input id="radio3" type="radio" name="b-radio2" class="radio-icons_radio">
+                      <label for="radio3" class="radio-icons_label">Женский</label>
+                    </div>
+                    <div class="inp-valid_error">
+                      <div class="errorMessage">Выберите пол</div>
+                    </div>
+                    <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="popup-sign_capcha-hold">
+              <div class="popup-sign_row"><img src="/images/captcha.png" width="300px" height="50px" class="popup-sign_capcha"><a class="popup-sign_tx-help">
+                  <div class="ico-refresh"></div>Обновить</a>
+              </div>
+              <div class="popup-sign_row">
+                <!--.popup-sign_capcha-inp-->
+                <div class="inp-valid inp-valid__abs">
+                  <input type="text" class="itx-gray popup-sign_itx">
+                  <div class="inp-valid_error">
+                    <div class="errorMessage">Неправильный код проверки</div>
+                  </div>
+                  <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                </div>
+                <div class="popup-sign_tx-help">Введите код с картинки</div>
+              </div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="btn-green-simple btn-l btn btn-success">Продолжить</div>
+              <div class="verticalalign-m-el margin-l20"><img src="/images/ico/ajax-loader.gif"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-sign-->
+    <!-- .popup-sign-->
+    <div id="reg-step2-soc" class="popup popup-sign">
+      <div class="popup-sign_hold">
+        <div class="popup-sign_top">
+          <div class="popup-sign_t">Добро пожаловать Александр!</div>
+          <div class="popup-sign_slogan">Осталось ввести еще немного данных</div>
+        </div>
+        <div class="popup-sign_cont">
+          <div class="popup-sign_col-ava">
+            <!-- ava--><a href="#" class="ava ava__large ava__female"><img alt="" src="/new/images/example/ava-large2.jpg" class="ava_img"></a>
+            <div class="margin-5">
+              <div class="popup-sign_tx-help">Это фото будет главным на Веселом Жирафе</div>
+            </div><a class="btn-s btn-blue-simple btn btn-primary"> Изменить</a>
+          </div>
+          <div class="popup-sign_col popup-sign_col__vetical-m">
+            <div class="popup-sign_row">
+              <div class="popup-sign_label">Адрес активной электронной почты</div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="inp-valid inp-valid__abs">
+                <input type="text" placeholder="E-mail" value="weriwpoer" class="itx-gray popup-sign_itx">
+                <div class="inp-valid_error">
+                  <div class="errorMessage">E-mail не является правильным E-Mail адресом</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="btn-green-simple btn-l btn btn-success">Продолжить</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-sign-->
+    <!-- .popup-sign-->
+    <div id="reg-email" class="popup popup-sign">
+      <div class="popup-sign_hold">
+        <div class="popup-sign_top">
+          <div class="popup-sign_t">Добро пожаловать Александр! <br> Теперь вы с Веселым Жирафом!</div>
+        </div>
+        <div class="popup-sign_cont">
+          <div class="popup-sign_tx margin-t20 margin-b70">Для входа на сайт, <span class="i-highlight">нажмите на ссылку в письме,</span><br><span class="i-highlight">которое мы отправили вам на указанный вами e-mail  <span class="color-gray-dark-light">lepilla@mail.ru</span></span></div>
+          <div class="popup-sign_col textalign-c margin-b70">
+            <div class="display-ib textalign-l"><a class="popup-sign_a-m">Не получили письмо?</a>
+              <div class="popup-sign_tx-help">Письмо должно прийти в течении 10 мин.</div>
+            </div>
+          </div>
+          <div class="popup-sign_col-wide-r textalign-c"><a href="" target="_blank" class="popup-sign_a-big">Открыть почту Mail.ru</a></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-sign-->
+    <!-- .popup-sign-->
+    <div id="reg-email2" class="popup popup-sign">
+      <div class="popup-sign_hold">
+        <div class="popup-sign_top">
+          <div class="popup-sign_t">Добро пожаловать Александр! <br> Теперь вы с Веселым Жирафом!</div>
+        </div>
+        <div class="popup-sign_cont">
+          <div class="popup-sign_col">
+            <div class="popup-sign_row margin-t5">
+              <div class="inp-valid inp-valid__abs success">
+                <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                <div class="inp-valid_error">
+                  <div class="errorMessage">Не заполнено поле</div>
+                </div>
+                <div class="inp-valid_success inp-valid_success__ico-check"></div>
+              </div>
+              <div class="popup-sign_tx-help">Пожалуйста проверьте правильность указанного адреса электронной почты или введите другой</div>
+            </div>
+            <div class="popup-sign_capcha-hold">
+              <div class="popup-sign_row"><img src="/images/captcha.png" width="300px" height="50px" class="popup-sign_capcha"><a class="popup-sign_tx-help">
+                  <div class="ico-refresh"></div>Обновить</a>
+              </div>
+              <div class="popup-sign_row">
+                <!--.popup-sign_capcha-inp-->
+                <div class="inp-valid inp-valid__abs">
+                  <input type="text" class="itx-gray popup-sign_itx">
+                  <div class="inp-valid_error">
+                    <div class="errorMessage">Неправильный код проверки</div>
+                  </div>
+                  <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                </div>
+                <div class="popup-sign_tx-help">Введите код с картинки</div>
+              </div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="display-ib textalign-c">
+                <div class="btn-green-simple btn-l margin-b5 btn btn-success">Отправить письмо еще раз</div>
+                <div class="popup-sign_tx-help">Письмо должно прийти в течении 10 мин.</div>
+              </div>
+            </div>
+          </div>
+          <div class="popup-sign_col-wide-r">
+            <div class="margin-b15">Письмо может попасть в папку "Спам" вашего почтового ящика. Если это так, пожалуйста, отметьте его как <strong class="color-gray-darken">"Не спам"</strong>.</div><a href="" target="_blank" class="popup-sign_a-big">Открыть почту Mail.ru</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-sign-->
+    <!-- .popup-sign-->
+    <div id="login-step1" class="popup popup-sign">
+      <div class="popup-sign_hold">
+        <div class="popup-sign_top">
+          <div class="popup-sign_t"><span class="ico-lock-big"></span>Вход на сайт</div>
+        </div>
+        <div class="popup-sign_cont">
+          <div class="popup-sign_social">
+            <div class="popup-sign_row">
+              <div class="popup-sign_label">Быстрый вход</div>
+            </div>
+            <ul class="social-btns clearfix">
+              <li><a class="social-btn social-btn__odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
+              <li><a class="social-btn social-btn__vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
+            </ul>
+          </div>
+          <div class="popup-sign_col">
+            <div class="popup-sign_row">
+              <div class="popup-sign_label">E-mail</div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="inp-valid inp-valid__abs inp-valid__error">
+                <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                <div class="inp-valid_error">
+                  <div class="inp-valid_error-tx">E-mail не является правильным E-Mail адресом</div>
+                </div>
+              </div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="popup-sign_label">Пароль</div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="inp-valid inp-valid__abs inp-valid__success">
+                <input type="password" placeholder="Пароль" class="itx-gray popup-sign_itx">
+                <div class="inp-valid_error">
+                  <div class="inp-valid_error-tx">Заполните поле "Пароль"</div>
+                </div>
+              </div>
+            </div>
+            <div class="popup-sign_row">
+              <div class="float-r">
+                <div class="display-ib textalign-c">
+                  <div class="btn-green-simple btn-l margin-b10 btn btn-success">Войти на сайт</div><br><a>Забыли пароль?</a>
+                </div>
+              </div>
+              <div class="float-l">
+                <div class="radio-icons radio-icons__checkbox">
+                  <input id="checkboxid" type="checkbox" name="checkbox" class="radio-icons_radio">
+                  <label for="checkboxid" class="radio-icons_label">Запомнить меня</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="popup-sign_b"><span class="popup-sign_b-tx">Вы еще не зарегистрированы?</span><a class="popup-sign_b-a">Регистрация</a></div>
+      </div>
+    </div>
+    <!-- /popup-sign-->
+    <!-- .popup-sign-->
+    <div id="login-retrieve" class="popup popup-sign">
+      <div class="popup-sign_hold">
+        <div class="popup-sign_top">
+          <div class="popup-sign_t"><span class="ico-lock-big"></span>Вход на сайт</div>
+        </div>
+        <div class="popup-sign_cont">
+          <div class="popup-sign_tx margin-t20">Пожалуйста введите ваш e-mail адрес. <br><span class="i-highlight">Вам будет выслано письмо с вашим паролем.</span></div>
+          <div class="popup-sign_wrap">
+            <div class="popup-sign_row clearfix">
+              <div class="popup-sign_col-label">
+                <div class="popup-sign_label">E-mail</div>
+              </div>
+              <div class="popup-sign_col-inp">
+                <div class="inp-valid inp-valid__abs inp-valid__success">
+                  <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                  <div class="inp-valid_error">
+                    <div class="inp-valid_error-tx">E-mail не является правильным E-Mail адресом</div>
+                  </div>
+                  <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                </div>
+              </div>
+            </div>
+            <div class="textalign-r">
+              <div class="btn-green-simple btn-l margin-b10 btn btn-success">Отправить пароль</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-sign-->
+    <!-- .popup-sign-->
+    <div id="login-retrieve2" class="popup popup-sign">
+      <div class="popup-sign_hold">
+        <div class="popup-sign_top">
+          <div class="popup-sign_t"><span class="ico-lock-big"></span>Вход на сайт</div>
+        </div>
+        <div class="popup-sign_cont">
+          <div class="popup-sign_tx margin-t20">Пожалуйста введите ваш e-mail адрес. <br><span class="i-highlight">Вам будет выслано письмо с вашим паролем.</span></div>
+          <div class="popup-sign_wrap">
+            <div class="popup-sign_row clearfix">
+              <div class="popup-sign_col-label">
+                <div class="popup-sign_label">E-mail</div>
+              </div>
+              <div class="popup-sign_col-inp">
+                <div class="inp-valid inp-valid__abs inp-valid__success">
+                  <input type="text" placeholder="E-mail" class="itx-gray popup-sign_itx">
+                  <div class="inp-valid_error">
+                    <div class="inp-valid_error-tx">E-mail не является правильным E-Mail адресом</div>
+                  </div>
+                  <div class="inp-valid_success inp-valid_success__ico-check"></div>
+                </div>
+              </div>
+            </div>
+            <div class="popup-sign_retrieve-send"><span class="i-highlight">На ваш e-mail адрес было выслано письмо с вашим паролем.</span><br><span class="i-highlight">Также проверьте, пожалуйста, папку «Спам».</span></div>
+            <div class="textalign-r">
+              <div class="btn-green-simple btn-l margin-b10 btn btn-success">Войти на сайт</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-sign-->
+    <!--  .btn-green-simple.btn-l.margin-b10 Войти на сайт-->
+  </div>
+</body></html>

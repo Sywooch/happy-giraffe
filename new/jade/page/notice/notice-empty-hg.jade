@@ -1,0 +1,57 @@
+//- include ../../block/config
+extend ../../extend/layout_notice
+
+block layout-wrapper
+    //- u-notice - user-notice
+    
+    script.
+        var notice = new function() {
+                var self = this;
+                function noticeHeight() {
+                    // 58 - шапка, что не скролится
+                    // 40 - отступы снизу + сверху
+                    var h = self.windowHeight - self.headerHeight - 58 - 40;
+                    if (h < 350) {
+                            h = 350;
+
+                    }
+                    self.contentBlock.height(h);
+                }
+                self.renew = function() {
+                    self.windowHeight = $(window).height();
+                    self.headerHeight = $('.layout-header').height();
+                    noticeHeight();
+                    addBaron('.scroll');
+                }
+               
+                $(window).resize(function() {
+                    self.renew();
+                });
+
+                
+                $(document).ready(function () {
+                    var contentBlock = ".u-notice_hold";
+                    self.contentBlock = $(contentBlock);
+                    self.renew();
+                });
+
+        }();
+
+    .u-notice
+        +side-menu__notice("side-menu__notice")
+        .page-col.page-col__notice
+            .page-col_top
+                .page-col_t-tx Сигналы от Веселого Жирафа
+     
+            .page-col_cont
+                // на страницах заглушек скролл не нужен соотвественно и div .scroll, .scroll_scroller, .scroll_cont, .scroll_bar-hold не нужны. Их можно оставить, зависит как удобнее программировать.
+                .u-notice_hold.scroll
+                    .scroll_scroller
+                        .scroll_cont
+                            +cap-empty('cap-empty__abs cap-empty__notice-hg', {t: "Веселый Жираф пока ничего не сообщил."})
+
+                    // scroll-bar
+                    .scroll_bar-hold
+                        .scroll_bar
+                            .scroll_bar-in
+

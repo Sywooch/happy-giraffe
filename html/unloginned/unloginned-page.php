@@ -11,11 +11,14 @@
 	
 <div class="layout-container">
 	<div class="layout-header clearfix">
+        <!-- Родитель layout-header -->
 		    <div class="header-banner">
           <div class="header-banner_hold">
+            <!-- Сам баннер -->
             <embed width="660" height="82" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" src="http://www.seotm.com/images/flash/acd-big.swf" play="true" loop="true" menu="true">
           </div>
         </div>
+        <!-- Следующий эемент <header class="header"> -->
         <!-- header-->
         <header class="header header__guest header__kinder-gold">
           <div class="header_hold clearfix">

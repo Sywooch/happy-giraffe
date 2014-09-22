@@ -101,11 +101,12 @@
             <?php $this->renderPartial('_menu'); ?>
         </div>
         <?php
-        if ($this->period == 'day')
+        $text = $model->getText();
+        if ($this->period == 'day' && !empty($text))
         {
             ?>
             <div class="seo-desc wysiwyg-content visible-md-block">
-                <?= $model->getText(); ?>
+                <?= $text ?>
             </div>
             <?php
         }

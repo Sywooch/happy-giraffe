@@ -1,18 +1,30 @@
-define(['jquery', 'knockout', 'comments-model', 'text!comment-widget.html', 'moment', 'knockout.mapping'], function($, ko, Comments, template, moment) {
+define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'knockout.mapping', 'ko_library'], function($, ko, CommentsController, UserData, template, moment) {
 
    var CommentWidgetViewModel = function (params) {
 
-      this.commentsData = Object.create( Comments );
+      this.commentsData = Object.create( CommentsController );
+
+      this.userData = Object.create( UserData );
+
+      this.commentsDataQueue = [];
 
       this.parsedData = ko.mapping.fromJS([]);
 
+      this.allSucceed = function usersSucceed(userData) {
+
+         var readyComments = this.commentsData.allDataReceived(userData.data, this.commentsDataQueue.commentsData);
+
+         ko.mapping.fromJS(readyComments, this.parsedData);
+
+      }
+
       this.dataGetSucceed = function (data) {
 
-         var dataQ = this.commentsData.parseData(data);
+         this.commentsDataQueue = this.commentsData.parseData(data);
 
-         ko.mapping.fromJS(dataQ, this.parsedData);
-
-         console.log(this.parsedData());
+         this.userData
+            .get( this.userData.getUserUrl, this.commentsDataQueue.userPack)
+            .done( this.allSucceed.bind( this ) );
       };
 
       this.commentDataParams = this

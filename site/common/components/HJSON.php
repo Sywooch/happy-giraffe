@@ -21,6 +21,8 @@ class HJSON extends CJSON
     {
         /* $config = func_num_args() > 1 ? func_get_arg(1) : array();
           $subConfig = func_num_args() > 2 ? func_get_arg(2) : array(); */
+        if ($var instanceof CJavaScriptExpression)
+            return (string) $var;
         switch (gettype($var))
         {
             case 'array':

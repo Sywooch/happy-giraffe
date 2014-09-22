@@ -39,6 +39,9 @@ class DefaultController extends LiteController
         $this->date = Yii::app()->request->getQuery('date', false);
         $this->alias = Yii::app()->request->getQuery('alias', false);
 
+        if ($this->alias === 'yesterday')
+            throw new CHttpException(404);
+
         $package = Yii::app()->user->isGuest ? 'lite_horoscope' : 'lite_horoscope_user';
         Yii::app()->clientScript->registerPackage($package);
         Yii::app()->clientScript->useAMD = true;

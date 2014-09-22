@@ -15,7 +15,6 @@ class CommentsModule extends \CWebModule
         
         \Yii::app()->setComponent('authManager', array(
             'class' => '\site\frontend\components\AuthManager',
-            'defaultRoles' => array('guest'),
         ));
         
         \Yii::app()->clientScript->useAMD = true;

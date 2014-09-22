@@ -101,7 +101,7 @@ class ApiController extends \CController
     // Метод, отвечающий за вывод результата
     public function printResult()
     {
-        echo \CJSON::encode($this->result);
+        echo \HJSON::encode($this->result);
     }
 
     /**
@@ -149,7 +149,7 @@ class ApiController extends \CController
 
     public function getActionParams()
     {
-        return $_POST;
+        return \CJSON::decode(@\file_get_contents('php://input'));
     }
 
 }

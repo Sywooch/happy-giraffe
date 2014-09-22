@@ -27,7 +27,7 @@ class ApiController extends \site\frontend\components\api\ApiController
         if ($avatarSize)
             $this->data['avatarUrl'] = $user->getAvatarUrl($avatarSize);
     }
-
+    
 }
 
 ?>

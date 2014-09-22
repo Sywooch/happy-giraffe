@@ -70,6 +70,8 @@
             {
                 $this->pageTitle = 'Гороскоп  ' . $model->zodiacText() . '  на ' . date('Y', $this->date) . ' год для женщин и мужчин - Веселый Жираф';
                 $this->metaDescription = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . date('Y', $this->date) . ' год для женщин и мужчин. Познай свою судьбу!';
+                if($this->alias)
+                    $this->metaCanonical = $this->getUrl(array('alias' => false));
                 echo 'Гороскоп ' . $model->zodiacText2() . ' на ' . date('Y', $this->date) . ' год';
                 $this->breadcrumbs = array(
                     'Гороскопы' => array('/services/horoscope/default/index'),

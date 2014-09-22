@@ -33,9 +33,9 @@
             }
             elseif ($this->period == 'day')
             {
-                $this->pageTitle = 'Гороскоп ' . $model->zodiacText() . ' на ' . Yii::app()->format->date($this->date) . ' для женщин и мужчин - Веселый Жираф';
-                $this->metaDescription = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . Yii::app()->format->date($this->date) . ' для женщин и мужчин. Обновляется ежедневно!';
-                echo 'Гороскоп ' . $model->zodiacText() . ' на ' . Yii::app()->format->date($this->date);
+                $this->pageTitle = 'Гороскоп ' . $model->zodiacText() . ' на ' . HDate::date('j F Y', $this->date) . ' для женщин и мужчин - Веселый Жираф';
+                $this->metaDescription = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . HDate::date('j F Y', $this->date) . ' для женщин и мужчин. Обновляется ежедневно!';
+                echo 'Гороскоп ' . $model->zodiacText() . ' на ' . HDate::date('j F Y', $this->date);
                 $this->breadcrumbs = array(
                     'Гороскопы' => array('/services/horoscope/default/index'),
                     $model->zodiacText() => $this->getUrl(array('alias' => 'today')),

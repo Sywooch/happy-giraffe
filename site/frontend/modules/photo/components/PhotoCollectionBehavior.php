@@ -38,7 +38,7 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
         }
     }
 
-    public function getCollection($key)
+    public function getCollection($key = 'default')
     {
         if (isset($this->owner->photoCollections[$key])) {
             return $this->owner->photoCollections[$key];

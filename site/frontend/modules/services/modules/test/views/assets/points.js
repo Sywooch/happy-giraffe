@@ -42,19 +42,6 @@ var Test = {
             if (points >= result_points) {
                 $(el).fadeIn(300);
                 finished = true;
-
-                (function(bannerPlaceId, requestSrc, defaultLoad){
-                    var
-                        tgNS = window.ADFOX.RELOAD_CODE,
-                        initData = tgNS.initBanner(bannerPlaceId,requestSrc);
-
-                    $('.result:visible').after('<div style="margin-bottom: 20px; margin-left: 70px;">' + initData.html + '</div>');
-                    $('.step.result-div').css('height', '700px');
-
-                    if(defaultLoad) {
-                        tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
-                    }
-                })('bn-2', 'http://ads.adfox.ru/211012/prepareCode?pp=ffz&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
             }
         });
 
@@ -72,6 +59,5 @@ var Test = {
             yaCounter11221648.hit(Test.path + '?step=' + Test.step);
         }
         $('#pix').attr('src', 'http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=' + Math.floor((Math.random()*9999999999)+1000000000));
-        adfox_reloadBanner('bn-1');
     }
 }

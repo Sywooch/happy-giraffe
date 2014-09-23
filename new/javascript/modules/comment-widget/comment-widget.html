@@ -1,7 +1,20 @@
 <!-- comment-widget -->
 <div id="commentsList" class="comments_hold tab-pane active" data-bind="visible: parsedData().length > 0">
+  <div class="comments_add" data-bind="if: parsedData().length">
+    <div class="comments_add-frame">
+      <div class="comments_i clearfix">
+        <div class="comments_ava">
+          <!-- Аватарки размером 40*40-->
+          <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: authUser.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: authUser.avatarUrl()"></a>
+        </div>
+        <div class="comments_frame">
+          <textarea placeholder=" Введите ваш комментарий " rows="3" cols="30" class="itx-simple"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
    <ul class="comments_ul" data-bind="foreach: { data: parsedData(), as: 'comment' }">
-      <lcomments_ii class="comments_li comments_li__lilac" data-bind="attr{ class: 'comments_li comments_li__lilac' }">
+      <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + color() }">
          <div class="comments_i clearfix">
              <div class="comments_ava">
                  <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: comment.user.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: comment.user.avatarUrl()"></a>
@@ -9,17 +22,31 @@
              <div class="comments_frame">
                  <div class="comments_header">
                      <a href="" rel="author" class="a-light comments_author" data-bind="text: comment.user.fullName(), href: comment.user.profileUrl()"></a>
-                     <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(comment.dtimeCreate).format('YYYY-MM-DD') }, moment: comment.dtimeCreate"></time>
+                     <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(comment.dtimeCreate()).format('YYYY-MM-DD') }, moment: comment.dtimeCreate"></time>
                  </div>
                  <div class="comments_cont">
                      <div class="wysiwyg-content" data-bind="html: comment.purifiedHtml">
                      </div>
                  </div>
+                <div class="comments_footer">
+                  <!-- b-control-->
+                  <div class="b-control">
+                    <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                    <!-- ko if: $parent.authUser.id() === comment.user.id() -->
+                    <div class="b-control_i b-control_i__delete"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
+                    </div>
+                    <div class="b-control_i b-control_i__edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
+                    </div>
+                    <!-- /ko -->
+                    </div>
+                  </div>
+                  <!-- /b-control-->
+                </div>
              </div>
         </div>
         <!-- ko if comment.answers.length > 0 -->
           <ul class="comments_ul" data-bind="foreach: { data: comment.answers(), as: 'commentInner' }">
-            <li class="comments_li comments_li__lilac">
+            <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + $parent.color() }">
                <div class="comments_i clearfix">
                    <div class="comments_ava">
                        <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: commentInner.user.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: commentInner.user.avatarUrl()"></a>
@@ -27,12 +54,26 @@
                    <div class="comments_frame">
                        <div class="comments_header">
                            <a href="" rel="author" class="a-light comments_author" data-bind="text: commentInner.user.fullName(), href: commentInner.user.profileUrl()"></a>
-                           <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(commentInner.dtimeCreate).format('YYYY-MM-DD') }, moment: commentInner.dtimeCreate"></time>
+                           <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(commentInner.dtimeCreate()).format('YYYY-MM-DD') }, moment: commentInner.dtimeCreate"></time>
                        </div>
                        <div class="comments_cont">
                            <div class="wysiwyg-content" data-bind="html: commentInner.purifiedHtml">
                            </div>
                        </div>
+                      <div class="comments_footer">
+                        <!-- b-control-->
+                        <div class="b-control">
+                          <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                          </div>
+                          <!-- ko if: $parents[1].authUser.id() === comment.user.id() -->
+                          <div class="b-control_i b-control_i__delete"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
+                          </div>
+                          <div class="b-control_i b-control_i__edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
+                          </div>
+                          <!-- /ko -->
+                        </div>
+                        <!-- /b-control-->
+                      </div>
                    </div>
               </div>
             </li>

@@ -10,31 +10,20 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
       this.parsedData = ko.mapping.fromJS([]);
 
-      this.allSucceed = function usersSucceed(userData) {
+      this.authUser = ko.mapping.fromJS({});
 
-         var readyComments = this.commentsData.allDataReceived(userData.data, this.commentsDataQueue.commentsData);
-
-         ko.mapping.fromJS(readyComments, this.parsedData);
-
+      this.allEventsSucceed = function usersSucceed(userData) {
+         ko.mapping.fromJS(this.userData.getCurrentUserFromList(userData.data, userData.success), this.authUser);
+         ko.mapping.fromJS(this.commentsData.allDataReceived(userData.data, this.commentsDataQueue.commentsData), this.parsedData);
       }
 
       this.dataGetSucceed = function (data) {
-
          this.commentsDataQueue = this.commentsData.parseData(data);
-
-         this.userData
-            .get( this.userData.getUserUrl, this.commentsDataQueue.userPack)
-            .done( this.allSucceed.bind( this ) );
+         this.userData.get( this.userData.getUserUrl, this.commentsDataQueue.userPack).done( this.allEventsSucceed.bind( this ) );
       };
 
-      this.commentDataParams = this
-                                 .commentsData
-                                    .getListData( params.entity, params.entityId, params.listType );
-
-      this
-         .commentsData
-            .get( this.commentsData.getListUrl, this.commentDataParams )
-               .done( this.dataGetSucceed.bind( this ) );
+      this.commentDataParams = this.commentsData.getListData( params.entity, params.entityId, params.listType );
+      this.commentsData.get( this.commentsData.getListUrl, this.commentDataParams ).done( this.dataGetSucceed.bind( this ) );
    }
 
    return {

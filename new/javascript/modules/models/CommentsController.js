@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'user-control', 'user-model'], function($, ko, UserData, User) {
+define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model'], function($, ko, UserControl, User, Comment) {
 
    var CommentsController = {
 
@@ -37,22 +37,40 @@ define(['jquery', 'knockout', 'user-control', 'user-model'], function($, ko, Use
         };
       },
 
-      createPackList: function (array) {
+      /**
+       * создания пака из массива с id пользователей
+       * @param  {array} array Массив с id пользователей
+       * @return {array}       Массив с объектами типа { id: number }
+       */
+      createPackList: function createPackList(array) {
         if (array.length > 0) {
+          /**
+           * Добавляем автора к пользователям
+           */
+          array = UserControl.checkForMe(array);
+
           for (var i=0; i < array.length; i++) {
             array[i] = { id: array[i] };
           }
+          
           return array;
         }
         return false
       },
 
+      /**
+       * Цвета для ленты комментариев
+       * @type {Array}
+       */
       commentsColors: ['lilac', 'yellow', 'red', 'blue', 'green'],
 
+
+      /**
+       * Получить следующий цвет для комментариев
+       * @param  {string} color текущий цвет
+       * @return {string}       следующий цвет
+       */
       nextColor: function nextColor(color) {
-        if (color === undefined) {
-          return this.commentsColors[0];
-        }
         return this.commentsColors[($.inArray(color, this.commentsColors) + 1) % this.commentsColors.length];
       },
 
@@ -68,13 +86,21 @@ define(['jquery', 'knockout', 'user-control', 'user-model'], function($, ko, Use
         return false;
       },
 
+
+      /**
+       * Мердж данных юзеров и комментариев, все ответы в отдельное свойство и массив рутового комментария, цвет рутового комментария
+       * @param  {array} dataUser     Данные о юзерах
+       * @param  {array} dataComments Данные о комментариях
+       * @return {array}              Смердженный массив комментариев
+       */
       allDataReceived: function allDataReceived(dataUser, dataComments) {
         var dataCounterSafe,
-            commentsArray = [];
+            commentsArray = [],
+            color;
 
         for ( var dataCounter = 0; dataCounter < dataComments.length; dataCounter++ ) {
 
-          var userKey = UserData.isUserInPack(dataComments[dataCounter].authorId, dataUser);
+          var userKey = UserControl.isUserInPack(dataComments[dataCounter].authorId, dataUser);
 
           if (userKey !== false) {
             dataComments[dataCounter].user = {};
@@ -85,7 +111,13 @@ define(['jquery', 'knockout', 'user-control', 'user-model'], function($, ko, Use
           if ( dataComments[dataCounter].responseId === 0 ) {
             dataComments[dataCounter].answers = [];
             var newArrayCounter = commentsArray.push(dataComments[dataCounter]);
-            commentsArray[newArrayCounter - 1].color = this.nextColor(commentsArray[newArrayCounter - 2].color);
+            if (newArrayCounter === 1) {
+              color = this.commentsColors[0];
+            }
+            else {
+              color = this.nextColor(color);
+            }
+            commentsArray[newArrayCounter - 1].color = color;
           }
           else {
             commentsArray[newArrayCounter - 1].answers.push(dataComments[dataCounter]);
@@ -107,6 +139,10 @@ define(['jquery', 'knockout', 'user-control', 'user-model'], function($, ko, Use
 
           for ( var rootCount = 0; rootCount < notReadyData.length; rootCount++ ) {
 
+            var comment = Object.create( Comment );
+
+            notReadyData[rootCount] = comment.init( notReadyData[rootCount] );
+
             if ( $.inArray( notReadyData[rootCount].authorId, userPack.pack ) === -1 ) {
               userPack.pack.push(notReadyData[rootCount].authorId);
             }
@@ -117,22 +153,6 @@ define(['jquery', 'knockout', 'user-control', 'user-model'], function($, ko, Use
           return { commentsData: notReadyData, userPack: userPack};
         }
         return false;
-      },
-
-      prepareDataWithUser: function prepareDataWithUser(dataUser) {
-        if (dataUser.success === true) {
-            this.parse;
-        }
-        return false;
-      },
-
-      getSuccess: function getSuccess( data ) {
-         console.log(data);
-      },
-
-
-      errorGetting: function errorGetting( jqXHR, textStatus, errorThrown ) {
-        console.log( errorThrown );
       },
 
       /**

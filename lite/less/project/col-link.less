@@ -1,7 +1,9 @@
 /* col-link */
 .col-link {
     margin: 15px 0 5px;
+    padding: 0 10%;
     font-size: 14px;
+    line-height: 16px;
     -moz-column-width: 169px;
     -moz-column-gap: 20px;
     -webkit-column-width: 169px;
@@ -11,20 +13,18 @@
     
     &__2-tablet {
         -moz-column-width: auto;
-        -moz-column-gap: 20px;
         -webkit-column-width: auto;
-        -webkit-column-gap: 20px;
         column-width: auto;
-        column-gap: 20px;
     }
 
     &_a {
         display: inline-block;
-        margin: 5px 0;
+        margin: 8px 0;
         text-decoration: none;
     }
     &_a:hover {
-        text-decoration: underline;
+        text-decoration: none;
+        color: @color-orange;
     }
 
     // fallback for ie8-9
@@ -37,15 +37,20 @@
 
     @media (min-width: @screen-phone-landscape) {
         &__2-tablet {
-            -moz-column-width: auto;
+            .content-columns(2, 80px);
+            padding: 0;
+            /*-moz-column-width: auto;
             -moz-column-count: 2;
-            -moz-column-gap: 20px;
+            -moz-column-gap: 80px;
             -webkit-column-width: auto;
             -webkit-column-count: 2;
-            -webkit-column-gap: 20px;
+            -webkit-column-gap: 80px;
             column-width: auto;
             column-count: 2;
-            column-gap: 20px;
+            column-gap: 80px;*/
+        }
+        &_a {
+            margin: 7px 0;
         }
     }
 }

@@ -138,4 +138,11 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
             'photoCollections' => $this->photoCollections,
         );
     }
+
+    public static function movePhotos(PhotoCollection $sourceCollection, PhotoCollection $destinationCollection, $photosIds)
+    {
+        foreach ($photosIds as $photoId) {
+
+        }
+    }
 }

@@ -148,4 +148,18 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             'cover' => $this->cover,
         );
     }
+
+    public function attachPhoto($photoId)
+    {
+        $attach = new PhotoAttach();
+        $attach->photo_id = $photoId;
+        $attach->collection_id = $this->id;
+        $attach->save();
+        return $attach;
+    }
+
+    public static function moveAttaches($sourceCollectionId, $destinationCollectionId)
+    {
+
+    }
 }

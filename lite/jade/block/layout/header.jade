@@ -168,12 +168,28 @@ mixin headerGuest(mod, vars)
                                             a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
                                             a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
                         // /Конверсионный попап
+            if (vars.itemAd)
+                // 
+                    header_kindergold
+                    header_kinderino
+                a.visible-md-inline-block(href='#', style="vertical-align: top; margin: -13px 15px 0 25px;")
+                    // header_kindergold.jpg
+                        header_kinderino.jpg
+                    img(src="#{path}images/banner/header_kinderino.jpg", alt="Kinder")
 
 
             // /header-menu
             - if (vars.nosearch != true)
                 +sidebarSearch('sidebar-search__big', sidebarSearch.a)
     // /header
+
+- var headerGuest = {}
+- headerGuest.kinderGold = {}
+- headerGuest.kinderGold.itemAd = 'header_kindergold'
+- headerGuest.kinderGold.itemAdImg = 'header_kindergold.jpg'
+- headerGuest.kinderino = {}
+- headerGuest.kinderino.itemAd = 'header_kinderino'
+- headerGuest.kinderino.itemAdImg = 'header_kinderino.jpg'
 
 //- 
 

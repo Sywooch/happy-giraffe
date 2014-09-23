@@ -1,5 +1,5 @@
 (function(window) {
-    function f(ko) {
+    function f(ko, HgWysiwyg) {
         var ENTER_KEY_SEND = 1;
         function CommentViewModel(data) {
             var self = this;
@@ -56,6 +56,7 @@
                 if (self.enterSetting())
                     self.addComment();
             };
+
             self.addComment = function () {
                 if (!self.sending()) {
                     self.sending(true);
@@ -164,6 +165,7 @@
             };
 
             self.commentsToShow = ko.computed(function() {
+
                 if (self.full() || self.extended())
                     return self.comments();
 
@@ -191,6 +193,26 @@
                 self.response(false);
             }
         }
+        //open popup on trying to type, when not authorized
+
+        CommentViewModel.prototype.openLoginPopup = function (){ 
+                $.magnificPopup.open({ 
+                    type: 'inline', 
+                    overflowY: 'auto', 
+                    tClose: 'Закрыть', 
+                    fixedBgPos: true, 
+                    items: { src: '#loginWidget' }, 
+                    callbacks: { 
+                        open: function() { 
+                            $('html').addClass('mfp-html'); 
+                        },
+                        close: function() { 
+                            $('html').removeClass('mfp-html'); 
+                        }
+                    } 
+                }); 
+            };
+
         window.CommentViewModel = CommentViewModel;
 
         function NewComment(data, parent) {
@@ -213,7 +235,7 @@
 
             self.Like = function () {
                 if (userIsGuest)
-                    $('a[href=#loginWidget]').trigger('click');
+                    CommentViewModel.prototype.openLoginPopup.call();
                 else if (CURRENT_USER_ID != self.author.id()) {
                     $.post('/ajaxSimple/commentLike/', {id: self.id}, function (response) {
                         if (response.status) {
@@ -276,7 +298,7 @@
 
             self.Reply = function () {
                 if (userIsGuest)
-                    $('a[href=#loginWidget]').trigger('click');
+                    CommentViewModel.prototype.openLoginPopup.call();
                 else
                     self.parent.Reply(self);
             };
@@ -349,8 +371,8 @@
         };
     }
     if (typeof define === 'function' && define['amd']) {
-        define('ko_comments', ['knockout', 'knockout.mapping', 'ko_library'], f);
+        define('ko_comments', ['knockout', 'wysiwyg', 'knockout.mapping', 'ko_library'], f);
     } else {
-        f(window.ko);
+        f(window.ko, window.HgWysiwyg);
     }
 })(window);

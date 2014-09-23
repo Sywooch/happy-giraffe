@@ -130,6 +130,11 @@
         text-align: center;
     }
 
+    /*&_kindergold,
+    &_kinderino {
+        display: none;
+    }*/
+
     @media (min-width: @screen-xphone) {
         &_hold {
             padding: 25px 15px 18px;
@@ -162,9 +167,23 @@
         }
         &_hold {
             width: auto;
-            padding: 25px 60px 18px;
+            padding: 30px 60px 18px;
         }
         /*&__title &_hold {padding-left: 60px;}*/
+        &__kinder-gold .sidebar-search {
+            width: 255px;
+        }
+        /*&_kindergold {
+            display: inline-block;
+            vertical-align: top;
+            margin: 0 7px 0 15px;
+            width: ;
+        }
+        &_kinderino {
+            display: inline-block;
+            vertical-align: top;
+            margin: -13px 15px 0 25px;
+        }*/
     }
 
 }
@@ -237,6 +256,31 @@
         margin-right: 0;
     }
     &_li__dropin.active .header-drop {display: block;}
+
+    // kinder реклама
+/*    &_li__kinderino,
+    &_li__kindergold {
+        margin: 0 0 0 20px;
+    }
+    &_li__kinderino {margin-top: -35px;}
+    &_li__kinderino &_a:hover,
+    &_li__kinderino.active &_a,
+    &_li__kindergold &_a:hover,
+    &_li__kindergold.active &_a {
+        background: none;
+    }
+    &_kindergold {
+        width: 78px;
+        height: 74px; 
+        background: url('@{path-img}/header-menu_kindergold.jpg') no-repeat 0 0;
+    }
+    &_kinderino {
+        width: 78px;
+        height: 97px; 
+        background: url('@{path-img}/header-menu_kinderino.jpg') no-repeat 50% 50%;
+    }*/
+    // kinder реклама
+
     &_a {
         width: 76px;
         .inline-block();

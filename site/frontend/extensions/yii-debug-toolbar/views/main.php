@@ -1,7 +1,7 @@
 <div id="ydtb-toolbar" data-ydtb-toolbar class="ydtb-collapse">
     <a href="javascript:;//" data-ydtb-toggle="[data-ydtb-toolbar]"><?php echo YiiDebug::t('TOOLBAR') ?></a>
 	<div data-ydtb-sidebar>
-		<h1>Yii <?php echo Yii::getVersion() ?></h1>
+		<div class="h1">Yii <?php echo Yii::getVersion() ?></div>
 		<?php $this->widget('YiiDebugToolbarResourceUsage'); ?>
 		<ul data-ydtb-menu>
 			<?php foreach ($panels as $panel): ?>

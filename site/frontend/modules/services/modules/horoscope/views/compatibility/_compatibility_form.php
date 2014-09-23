@@ -15,7 +15,7 @@ if (empty($model->zodiac1) && !Yii::app()->user->isGuest){
         <div class="margin-t20 margin-b20 color-gray font-big">Посмотрите совместимость других знаков</div>
     <?php endif ?>
 
-    <?php $form = $this->beginWidget('CActiveForm', array(
+    <?php $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
     'id' => 'placenta-thickness-form',
     'enableAjaxValidation' => true,
     'enableClientValidation' => true,

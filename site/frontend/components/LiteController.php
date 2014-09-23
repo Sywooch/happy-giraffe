@@ -22,7 +22,7 @@ class LiteController extends HController
     {
         $filters = parent::filters();
 
-        if (Yii::app()->user->isGuest)
+        /*if (Yii::app()->user->isGuest)
         {
             $filters [] = array(
                 'COutputCache',
@@ -30,7 +30,7 @@ class LiteController extends HController
                 'varyByParam' => array_keys($_GET),
                 'varyByExpression' => 'Yii::app()->vm->getVersion()',
             );
-        }
+        }*/
 
         return $filters;
     }

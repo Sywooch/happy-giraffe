@@ -22,12 +22,7 @@ class DefaultController extends PhotoController
 
     public function actionIndex($userId)
     {
-        $albums = PhotoAlbum::model()->user($userId)->findAll();
-        foreach ($albums as $album) {
-            $obs = new PhotoCollectionIdsObserver($album->photoCollection);
-            $album->photoCollection->attaches = $obs->getSlice(2, -2);
-        }
-        $json = \HJSON::encode(array('albums' => $albums));
+        $json = compact('userId');
         $this->render('index', compact('json'));
     }
 } 

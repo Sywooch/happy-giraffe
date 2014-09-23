@@ -17,10 +17,7 @@ abstract class PhotoCollectionAbstract extends PhotoCollection
         $collections = array_merge(array($this), $this->getRelatedCollections());
         foreach ($ids as $photoId) {
             foreach ($collections as $collection) {
-                $attach = new PhotoAttach();
-                $attach->photo_id = $photoId;
-                $attach->collection_id = $collection->id;
-                $attach->save();
+                $collection->attachPhoto($photoId);
             }
         }
     }

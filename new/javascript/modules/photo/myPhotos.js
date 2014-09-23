@@ -3,6 +3,8 @@
         return function(data) {
             var self = this;
 
+            self.userId = data.userId;
+
             self.albums = ko.observableArray(ko.utils.arrayMap(data.albums, function(album) {
                 return new PhotoAlbum(album);
             }));
@@ -23,7 +25,13 @@
                 album.remove(function() {
                     self.albums.remove(album);
                 });
-            }
+            };
+
+            self.init = function() {
+                $.post('/api/albums/')
+            };
+
+            self.init();
         }
     });
 })(window);

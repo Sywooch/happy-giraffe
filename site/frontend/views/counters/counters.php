@@ -6,7 +6,7 @@
 <div id="epom" style="display: none;">
     <script type="text/javascript">
         //<![CDATA[
-        epom_key = "72a16c9d2eac9948f9ad1dcb3fbea949";
+        epom_key = "ed55253112f99fad8018aca2037d4c17";
         epom_channel = "";
         epom_code_format = "ads-sync.js";
         epom_ads_host = "//smgadserver.com";

@@ -3,32 +3,47 @@
  * @var $model RecipeBookDisease
  */
 ?>
-<h1><?php echo $model->title ?></h1>
-<div class="disease-img">
-    <img src="<?=isset($model->photo) ? $model->photo->getPreviewUrl(250, 350, Image::WIDTH) : '' ?>"/>
+<div class="child-disease">
+    <div class="b-main_cont">
+        <div class="b-main_col-wide">
+            <h1 class="heading-link-xxl heading-link-xxl__center"><?php echo $model->title ?></h1>
+        </div>
+    </div>
 </div>
-
-<div class="wysiwyg-content clearfix">
-    <em><?php echo $model->text ?></em>
+<div class="b-main_row b-main_row__blue">
+    <div class="b-main_cont">
+        <div class="b-main_col-article b-main_col-article__center">
+            <div class="wysiwyg-content">
+                <?php echo $model->text ?>
+            </div>
+        </div>
+    </div>
 </div>
-
-<div class="fast-nav">
-    <a class="active" href="#reasons"><span>Причины</span></a>  &nbsp; | &nbsp;
-    <a href="#symptoms"><span>Симптомы</span></a>     &nbsp; | &nbsp;
-    <a href="#diagnosis"><span>Диагностика</span></a>     &nbsp; | &nbsp;
-    <a href="#treatment"><span>Лечение</span></a>        &nbsp; | &nbsp;
-    <a href="#prophylaxis"><span>Профилактика</span></a>
-</div>
-
-<div class="wysiwyg-content">
-    <h2 id="reasons"><?php echo empty($model->reasons_name) ? 'Причины' : $model->reasons_name ?></h2>
-    <?php echo $model->reasons_text ?>
-    <h2 id="symptoms"><?php echo empty($model->symptoms_name) ? 'Симптомы' : $model->symptoms_name ?></h2>
-    <?php echo $model->symptoms_text ?>
-    <h2 id="diagnosis"><?php echo empty($model->diagnosis_name) ? 'Диагностика' : $model->diagnosis_name ?></h2>
-    <?php echo $model->diagnosis_text ?>
-    <h2 id="treatment"><?php echo empty($model->treatment_name) ? 'Лечение' : $model->treatment_name ?></h2>
-    <?php echo $model->treatment_text ?>
-    <h2 id="prophylaxis"><?php echo empty($model->prophylaxis_name) ? 'Профилактика' : $model->prophylaxis_name ?></h2>
-    <?php echo $model->prophylaxis_text ?>
+<div class="b-main_row">
+    <div class="b-main_cont">
+        <div class="b-main_col-article b-main_col-article__center">
+            <div class="wysiwyg-content">
+                <div class="b-main_wide-phone textalign-c"><img src="<?= isset($model->photo) ? $model->photo->getPreviewUrl(600, 450, Image::WIDTH) : '' ?>" alt=""></div>
+                <h2><?php echo empty($model->reasons_name) ? 'Причины' : $model->reasons_name ?></h2>
+                <?php echo $model->reasons_text ?>
+                <h2><?php echo empty($model->symptoms_name) ? 'Симптомы' : $model->symptoms_name ?></h2>
+                <?php echo $model->symptoms_text ?>
+                <h2><?php echo empty($model->diagnosis_name) ? 'Диагностика' : $model->diagnosis_name ?></h2>
+                <?php echo $model->diagnosis_text ?>
+                <h2><?php echo empty($model->treatment_name) ? 'Лечение' : $model->treatment_name ?></h2>
+                <?php echo $model->treatment_text ?>
+                <h2><?php echo empty($model->prophylaxis_name) ? 'Профилактика' : $model->prophylaxis_name ?></h2>
+                <?php echo $model->prophylaxis_text ?>
+            </div>
+            <div class="custom-likes">
+                <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
+                <div class="custom-likes_in">
+                    <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                    <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
+                </div>
+            </div>
+            <?php $this->renderPartial('//banners/_disease'); ?>
+            <div class="margin-b40"></div>
+        </div>
+    </div>
 </div>

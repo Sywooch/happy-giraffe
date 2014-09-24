@@ -206,6 +206,26 @@ class Comment extends \Comment
         return $this;
     }
 
+    public static function getChannel($model)
+    {
+        if ($model instanceof Comment)
+        {
+            $model = array(
+                'entity' => $model->entity,
+                'entityId' => $model->entity_id,
+            );
+        }
+        elseif (is_object($model))
+        {
+            $model = array(
+                'entity' => get_class($model),
+                'entityId' => $model->id,
+            );
+        }
+
+        return $model['entity'] . '_' . $model['entityId'];
+    }
+
 }
 
 ?>

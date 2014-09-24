@@ -128,6 +128,22 @@ class ApiController extends \site\frontend\components\api\ApiController
         $this->success = true;
     }
 
+    public function afterAction($action)
+    {
+        if ($this->success == true && in_array($action, array('create', 'update', 'delete', 'restore')))
+        {
+            $types = array(
+                'create' => \CometModel::COMMENTS_NEW,
+                'update' => \CometModel::COMMENTS_UPDATE,
+                'delete' => \CometModel::COMMENTS_DELETE,
+                'restore' => \CometModel::COMMENTS_RESTORE,
+            );
+            $this->send($comment->channel, $this->data, \site\frontend\modules\comments\models\Comment::getChannel($this->data));
+        }
+
+        return parent::afterAction($action);
+    }
+
 }
 
 ?>

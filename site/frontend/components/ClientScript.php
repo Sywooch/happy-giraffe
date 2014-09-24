@@ -97,7 +97,20 @@ class ClientScript extends CClientScript
         $this->releaseId;
         $this->addPackagesToAMDConfig();
         $conf = $this->amd;
-        $eval = $conf['eval'];
+        $id = Yii::app()->user->id;
+        $isGuest = CJSON::encode(Yii::app()->user->isGuest);
+        $mod = <<<JS
+define("userConfig", function () {
+    var userConfig = {
+        userId: {$id},
+        isGuest: {$isGuest},
+        isModer: false
+    };
+
+    return userConfig;
+});
+JS;
+        $eval = $conf['eval'] . $mod;
         unset($conf['eval']);
 
         // Добавим наши скрипты в самое начало

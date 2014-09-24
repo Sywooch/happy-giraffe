@@ -2,6 +2,11 @@
 /* @var $this Controller
  * @var $model RecipeBookDisease
  */
+$this->breadcrumbs = array(
+    '<span class="ico-club ico-club__s ico-club__13"></span>' => Yii::app()->createUrl('community/default/section', array('section_id' => 3)),
+    'Справочник детских болезней' => Yii::app()->createUrl('services/childrenDiseases/default/index'),
+    $model->title,
+);
 ?>
 <div class="child-disease">
     <div class="b-main_cont">

@@ -1,5 +1,9 @@
 <div class="serv-category serv-category__child-disease clearfix">
     <?php
+    // Для формирования ровных столбцов, переставляем некоторые элементы
+    $neurologyAndOncology = array_splice($categories, 7, 2);
+    array_splice($categories, 6, 0, $neurologyAndOncology);
+    
     foreach ($categories as $category)
     {
         ?>

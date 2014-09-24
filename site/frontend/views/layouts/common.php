@@ -23,8 +23,8 @@
         $cs
             ->registerCssFile('/redactor/redactor.css')
             ->registerCssFile('/stylesheets/common.css')
-            ->registerCssFile('/stylesheets/global.css')
-            ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext');
+            ->registerCssFile('/stylesheets/global.css');
+            // ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext');
         if(!$cs->useAMD)
             $cs
                 ->registerCoreScript('jquery')

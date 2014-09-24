@@ -95,6 +95,7 @@ return array(
         'children' => array(
             'addPhotos',
             'sortPhotoCollection',
+            'transferAttachesToOwnPhotoCollection',
         ),
         'bizRule' => 'return $params["collection"]->getOwner()->id == \Yii::app()->user->id;',
         'data' => null,
@@ -111,10 +112,19 @@ return array(
         'bizRule' => null,
         'data' => null,
     ),
-    'transferToOwnPhotoCollection' => array(
+    'transferAttachesToOwnPhotoCollection' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Перемещение аттачей',
+        'children' => array(
+            'transferAttaches',
+        ),
+        'bizRule' => 'return $params["collection"]->canMoveTo($params["destinationCollection"]);',
+        'data' => null,
+    ),
+    'transferAttaches' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Перемещение аттачей',
-        'bizRule' => 'return $params["collection"]->canMoveTo($params["destinationCollection"]);',
+        'bizRule' => null,
         'data' => null,
     ),
 );

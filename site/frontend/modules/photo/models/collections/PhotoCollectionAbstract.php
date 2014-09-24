@@ -15,11 +15,22 @@ abstract class PhotoCollectionAbstract extends PhotoCollection
     public function attachPhotos($ids)
     {
         $collections = array_merge(array($this), $this->getRelatedCollections());
+        $success = true;
         foreach ($ids as $photoId) {
             foreach ($collections as $collection) {
-                $collection->attachPhoto($photoId);
+                $success = $success && $collection->attachPhoto($photoId);
             }
         }
+        return $success;
+    }
+
+    public static function sort($attachesIds)
+    {
+        $success = true;
+        foreach ($attachesIds as $i => $attachId) {
+            $success = $success && PhotoAttach::model()->updateByPk($attachId, array('position' => $i));
+        }
+        return $success;
     }
 
     public function getRelatedCollections()

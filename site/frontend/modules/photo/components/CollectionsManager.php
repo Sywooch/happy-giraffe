@@ -24,13 +24,7 @@ class CollectionsManager
 
         $success = true;
 
-        foreach ($photos as $photoId) {
-            $attach = new PhotoAttach();
-            $attach->photo_id = $photoId;
-            $attach->collection_id = $collection->id;
-            $success = $success && $attach->save();
-        }
-        return $success;
+        $collection->attachPhotos($photos);
     }
 
     public static function moveAttaches($sourceCollection, $destinationCollection, $attaches)
@@ -53,6 +47,12 @@ class CollectionsManager
 
     public static function sort($collection, $attaches)
     {
+        $collection = self::loadCollection($collection);
+
+        if (! \Yii::app()->user->checkAccess('sortPhotoCollection', compact('collection'))) {
+            throw new \CException('Недостаточно прав');
+        }
+
         $success = true;
         foreach ($attaches as $i => $attachId) {
             $success = $success && PhotoAttach::model()->updateByPk($attachId, array('position' => $i));

@@ -13,18 +13,14 @@ class EditAction extends \CAction
 {
     public $modelName;
 
-    public function run($id)
+    public function run(array $attributes, $id)
     {
         /** @var \HActiveRecord $model */
         $model = \CActiveRecord::model($this->modelName)->findByPk($id);
-        if (isset($_POST['attributes'])) {
-            $model->attributes = $_POST['attributes'];
-            $this->controller->success = $model->save();
-            $this->controller->data = $model->hasErrors() ? array(
-                'errors' => $model->getErrors(),
-            ) : array(
-                'attributes' => new \CJavaScriptExpression(\HJSON::encode($model)),
-            );
-        }
+        $model->attributes = $attributes;
+        $this->controller->success = $model->save();
+        $this->controller->data = $model->hasErrors() ? array(
+            'errors' => $model->getErrors(),
+        ) : $model;
     }
 } 

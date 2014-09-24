@@ -113,7 +113,7 @@ class ApiController extends \CController
      */
     public function send($channel, $data, $type)
     {
-        $comet->send($channel, $data, $type);
+        $this->comet->send($channel, $data, $type);
     }
 
     // Переписываем ошибку для отсутствующего метода

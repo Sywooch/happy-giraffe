@@ -154,8 +154,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         $attach = new PhotoAttach();
         $attach->photo_id = $photoId;
         $attach->collection_id = $this->id;
-        $attach->save();
-        return $attach;
+        return $attach->save();
     }
 
     public static function moveAttaches($sourceCollectionId, $destinationCollectionId)

@@ -17,16 +17,20 @@ class AlbumsApiController extends \site\frontend\components\api\ApiController
     public function actions()
     {
         return \CMap::mergeArray(parent::actions(), array(
-            'remove' => array(
-                'class' => 'site\frontend\components\api\SoftDeleteAction',
-                'modelName' => '\site\frontend\modules\photo\models\PhotoAlbum',
-            ),
             'create' => array(
                 'class' => 'site\frontend\components\api\CreateAction',
                 'modelName' => '\site\frontend\modules\photo\models\PhotoAlbum',
             ),
             'edit' => array(
                 'class' => 'site\frontend\components\api\EditAction',
+                'modelName' => '\site\frontend\modules\photo\models\PhotoAlbum',
+            ),
+            'remove' => array(
+                'class' => 'site\frontend\components\api\SoftDeleteAction',
+                'modelName' => '\site\frontend\modules\photo\models\PhotoAlbum',
+            ),
+            'restore' => array(
+                'class' => 'site\frontend\components\api\SoftRestoreAction',
                 'modelName' => '\site\frontend\modules\photo\models\PhotoAlbum',
             ),
         ));

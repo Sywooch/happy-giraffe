@@ -10,6 +10,7 @@
  * @property string $created
  * @property string $updated
  * @property string $author_id
+ * @property string $removed
  *
  * The followings are the available model relations:
  * @property \User $author
@@ -63,6 +64,7 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
 			'created' => 'Created',
 			'updated' => 'Updated',
 			'author_id' => 'Author',
+            'removed' => 'Removed',
 		);
 	}
 
@@ -99,6 +101,9 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
                     'id' => 'id',
                     'authorId' => 'author_id',
                 ),
+            ),
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
             ),
         );
     }

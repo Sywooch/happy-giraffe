@@ -9,6 +9,7 @@
 namespace site\frontend\modules\photo\controllers;
 use site\frontend\modules\photo\components\CollectionsManager;
 use site\frontend\modules\photo\components\observers\PhotoCollectionObserver;
+use site\frontend\modules\photo\models\collections\PhotoCollectionAbstract;
 use site\frontend\modules\photo\models\PhotoCollection;
 use site\frontend\modules\users\models\User;
 use site\frontend\components\api\ApiController;
@@ -35,12 +36,20 @@ class CollectionsApiController extends ApiController
 
     public function actionAddPhotos($collectionId, array $photosIds)
     {
-        $this->success = CollectionsManager::addPhotos($collectionId, $photosIds);
+        $collection = $this->getCollection($collectionId);
+        if (! \Yii::app()->user->checkAccess('addPhotos', compact('collection'))) {
+            throw new \CException('Недостаточно прав');
+        }
+        $this->success = $collection->attachPhotos($photosIds);
     }
 
     public function actionSort($collectionId, $attachesIds)
     {
-        $this->success = CollectionsManager::sort($collectionId, $attachesIds);
+        $collection = $this->getCollection($collectionId);
+        if (! \Yii::app()->user->checkAccess('sortPhotoCollection', compact('collection'))) {
+            throw new \CException('Недостаточно прав');
+        }
+        $this->success = $collection->sort($attachesIds);
     }
 
     public function actionMove($sourceCollectionId, $destinationCollectionId, $attachesIds)
@@ -50,12 +59,12 @@ class CollectionsApiController extends ApiController
 
     /**
      * @param $collectionId
-     * @return PhotoCollection
+     * @return PhotoCollectionAbstract
      * @throws \CHttpException
      */
     protected function getCollection($collectionId)
     {
-        /** @var PhotoCollection $collection */
+        /** @var PhotoCollectionAbstract $collection */
         $collection = PhotoCollection::model()->findByPk($collectionId);
         if ($collection === null) {
             throw new \CHttpException(404, 'Коллекция не найдена');

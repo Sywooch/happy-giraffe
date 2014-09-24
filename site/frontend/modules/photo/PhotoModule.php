@@ -22,6 +22,10 @@ class PhotoModule extends \CWebModule
         /** @var \ClientScript $cs */
         $cs = \Yii::app()->clientScript;
         $cs->useAMD = true;
+
+        \Yii::app()->setComponent('authManager', array(
+            'class' => '\site\frontend\components\AuthManager',
+        ));
 	}
 
 	public function beforeControllerAction($controller, $action)

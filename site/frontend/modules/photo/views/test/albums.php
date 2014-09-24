@@ -40,16 +40,16 @@
 </div>
 
 <script type="text/javascript">
-    require(['knockout', 'ko_photo', 'ko_photoUpload', 'rowGrid'], function(ko, ko_photo) {
+    require(['knockout', 'photo/PhotoAlbum', 'photo/PhotoAttach', 'ko_photoUpload'], function(ko, PhotoAlbum, PhotoAttach, ko_photo) {
         function AlbumsViewModel(data) {
             var self = this;
 
             self.albums = ko.observableArray(ko.utils.arrayMap(data, function(item) {
-                return new ko_photo.PhotoAlbum(item);
+                return new PhotoAlbum(item);
             }));
 
             self.add = function(photo, event) {
-                var attach = new ko_photo.PhotoAttach({ photo : photo });
+                var attach = new PhotoAttach({ photo : photo });
                 attach.photo(photo);
                 event.photoCollection().attaches.push(attach);
             }

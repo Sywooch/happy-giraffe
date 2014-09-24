@@ -14,6 +14,25 @@ use site\frontend\modules\photo\models\PhotoCollection;
 
 class CollectionsManager
 {
+    public static function addPhotos($collection, $photos)
+    {
+        $collection = self::loadCollection($collection);
+
+        if (! \Yii::app()->user->checkAccess('addPhotos', compact('collection'))) {
+            throw new \CException('Недостаточно прав');
+        }
+
+        $success = true;
+
+        foreach ($photos as $photoId) {
+            $attach = new PhotoAttach();
+            $attach->photo_id = $photoId;
+            $attach->collection_id = $collection->id;
+            $success = $success && $attach->save();
+        }
+        return $success;
+    }
+
     public static function moveAttaches($sourceCollection, $destinationCollection, $attaches)
     {
         $sourceCollection = self::loadCollection($sourceCollection);

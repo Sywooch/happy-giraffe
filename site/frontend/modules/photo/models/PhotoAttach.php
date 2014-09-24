@@ -10,6 +10,7 @@
  * @property string $data
  * @property string $created
  * @property string $updated
+ * @property string $removed
  *
  * The followings are the available model relations:
  * @property Photo $photo
@@ -64,6 +65,7 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
 			'data' => 'Data',
 			'created' => 'Created',
 			'updated' => 'Updated',
+            'removed' => 'Removed',
 		);
 	}
 
@@ -86,7 +88,10 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
-            )
+            ),
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+            ),
         );
     }
 

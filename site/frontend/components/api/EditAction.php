@@ -16,7 +16,10 @@ class EditAction extends \CAction
     public function run(array $attributes, $id)
     {
         /** @var \HActiveRecord $model */
-        $model = \CActiveRecord::model($this->modelName)->findByPk($id);
+        $model = \HActiveRecord::model($this->modelName)->findByPk($id);
+        if ($model === null) {
+            throw new \CHttpException(404, 'Модель не найдена');
+        }
         $model->attributes = $attributes;
         $this->controller->success = $model->save();
         $this->controller->data = $model->hasErrors() ? array(

@@ -31,12 +31,17 @@ class AlbumPhotoCollection extends PhotoCollectionAbstract
     public function getRelatedCollections()
     {
         return array(
-            $this->relatedModel->author->getCollection('all'),
+            $this->relatedModel->author->getPhotoCollection('default'),
         );
     }
 
     public function canMoveTo(PhotoCollection $collection)
     {
         return $collection instanceof AlbumPhotoCollection && $collection->relatedModel->author_id == $this->relateModel->author_id;
+    }
+
+    public function getOwner()
+    {
+        return $this->relatedModel->author;
     }
 } 

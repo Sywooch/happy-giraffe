@@ -12,6 +12,7 @@ return array(
         'children' => array(
             'guest',
             'manageOwnContent',
+            'manageOwnPhotoCollection',
         ),
         'bizRule' => null,
         'data' => null
@@ -88,10 +89,32 @@ return array(
         'data' => null,
     ),
 
-    'moveAttaches' => array(
+    'manageOwnPhotoCollection' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление своей фотоколлекцией',
+        'children' => array(
+            'addPhotos',
+            'sortPhotoCollection',
+        ),
+        'bizRule' => 'return $params["collection"]->getOwner()->id == \Yii::app()->user->id;',
+        'data' => null,
+    ),
+    'sortPhotoCollection' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Сортировка коллекции',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'addPhotos' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Перемещение аттачей',
-        'bizRule' => 'return $params["sourceCollection"]->canMoveTo($params["destinationCollection"]);',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'transferToOwnPhotoCollection' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Перемещение аттачей',
+        'bizRule' => 'return $params["collection"]->canMoveTo($params["destinationCollection"]);',
         'data' => null,
     ),
 );

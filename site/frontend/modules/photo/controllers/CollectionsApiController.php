@@ -8,24 +8,22 @@
 
 namespace site\frontend\modules\photo\controllers;
 use site\frontend\modules\photo\components\CollectionsManager;
-use site\frontend\modules\photo\components\helpers\MoveHelper;
 use site\frontend\modules\photo\components\observers\PhotoCollectionObserver;
-use site\frontend\modules\photo\components\UtilityHelper;
 use site\frontend\modules\photo\models\PhotoCollection;
 use site\frontend\modules\users\models\User;
 use site\frontend\components\api\ApiController;
 
 class CollectionsApiController extends ApiController
 {
-    public function actionAttaches($collectionId, $length, $offset)
+    public function actionGetAttaches($collectionId, $length, $offset)
     {
         $collection = $this->getCollection($collectionId);
         $observer = PhotoCollectionObserver::getObserver($collection);
         $this->success = true;
-        $this->data = array('attaches' => $observer->getSlice($length, $offset));
+        $this->data = $observer->getSlice($length, $offset);
     }
 
-    public function actionCollections()
+    public function actionMy()
     {
         $user = User::model()->findByPk(\Yii::app()->user->id);
         if ($user === null) {
@@ -33,6 +31,11 @@ class CollectionsApiController extends ApiController
         }
         $this->success = true;
         $this->data = $user->photoCollections;
+    }
+
+    public function actionAddPhotos($collectionId, array $photosIds)
+    {
+        $this->success = CollectionsManager::addPhotos($collectionId, $photosIds);
     }
 
     public function actionSort($collectionId, $attachesIds)

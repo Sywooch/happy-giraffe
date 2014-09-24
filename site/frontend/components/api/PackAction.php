@@ -99,7 +99,7 @@ class PackAction extends \CAction
     public function getPost()
     {
         if (is_null($this->_post))
-            $this->_post = $_POST;
+            $this->_post = $this->controller->actionParams;
 
         return $this->_post;
     }

@@ -7,7 +7,9 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
+use site\frontend\modules\photo\components\helpers\MoveHelper;
 use site\frontend\modules\photo\components\observers\PhotoCollectionObserver;
+use site\frontend\modules\photo\components\UtilityHelper;
 use site\frontend\modules\photo\models\PhotoCollection;
 use site\frontend\modules\users\models\User;
 use site\frontend\components\api\ApiController;
@@ -35,6 +37,11 @@ class CollectionsApiController extends ApiController
     public function actionSort($collectionId, $attachesIds)
     {
 
+    }
+
+    public function actionMove($sourceCollectionId, $destinationCollectionId, $attachesIds)
+    {
+        $this->success = UtilityHelper::moveBetweenCollections($sourceCollectionId, $destinationCollectionId, $attachesIds);
     }
 
     /**

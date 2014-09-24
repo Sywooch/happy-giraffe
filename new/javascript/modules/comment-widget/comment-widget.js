@@ -1,6 +1,10 @@
-define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'knockout.mapping', 'ko_library'], function($, ko, CommentsController, UserData, template, moment) {
+define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'wysiwyg', 'knockout.mapping', 'ko_library', 'comet'], function($, ko, CommentsController, UserData, template, moment) {
 
    var CommentWidgetViewModel = function (params) {
+
+      comet.addChannel(params.channelId);
+
+      console.log(comet);
 
       this.commentsData = Object.create( CommentsController );
 
@@ -11,6 +15,57 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       this.parsedData = ko.mapping.fromJS([]);
 
       this.authUser = ko.mapping.fromJS({});
+
+      this.editing = ko.observable(false);
+
+      this.editor = ko.observable('');
+
+      this.setEditing = function() {
+         this.editing(true);
+      };
+
+      this.isRedactorStringEmpty = function isRedactorStringEmpty(string) {
+         if (string !== '') {
+            string = string
+                     .replace(/(?!<\/?[imgiframe].*?>)<.*?>/g,"")
+                     .replace(/(&nbsp;)/ig, "")
+                     .trim();
+
+            if (string !== '') {
+               return false;
+            }
+         }
+         return true;
+      };
+
+      this.addComment = function addComment () {
+         var commentText = this.editor();
+         if ( !this.isRedactorStringEmpty( commentText ) ) {
+            this.commentsData.get( this.commentsData.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() )).done(function (data) { console.log(data) });
+         }
+         else {
+            console.log('will not add')
+         }
+      };
+
+      this.editorConfig = {
+          minHeight: 88,
+          buttons: ['bold', 'italic', 'underline'],
+          plugins: ['imageCustom', 'smilesModal', 'videoModal'],
+          callbacks: {
+              init: []
+         }
+      };
+
+      this.beginEditing = function(message) {
+          this.editor(message.text());
+          this.setEditing();
+      };
+
+      this.cancelEditing = function() {
+          this.editor('');
+          this.editing(false);
+      }
 
       this.allEventsSucceed = function usersSucceed(userData) {
          ko.mapping.fromJS(this.userData.getCurrentUserFromList(userData.data, userData.success), this.authUser);

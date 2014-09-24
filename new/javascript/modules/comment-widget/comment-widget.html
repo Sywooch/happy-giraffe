@@ -5,10 +5,26 @@
       <div class="comments_i clearfix">
         <div class="comments_ava">
           <!-- Аватарки размером 40*40-->
-          <!-- ava--><a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: authUser.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: authUser.avatarUrl()"></a>
+          <!-- ava-->
+          <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: authUser.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: authUser.avatarUrl()"></a>
         </div>
         <div class="comments_frame">
-          <textarea placeholder=" Введите ваш комментарий " rows="3" cols="30" class="itx-simple"></textarea>
+          <!-- ko ifnot: editing -->
+          <textarea placeholder=" Введите ваш комментарий " rows="3" cols="30" class="itx-simple" data-bind="click: setEditing"></textarea>
+          <!-- /ko -->
+          <!-- ko if: editing -->
+          <div class="redactor-control">
+            <div class="redactor-control_toolbar"></div>
+            <div class="redactor-control_hold">
+              <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="redactorHG: { config : editorConfig, attr : editor }"></textarea>
+            </div>
+            <div class="redactor-control_control clearfix">
+              <div class="float-r">
+                <button class="btn-green" data-bind="click: addComment">Отправить</button>
+              </div>
+            </div>
+          </div>
+          <!-- /ko -->
         </div>
       </div>
     </div>
@@ -31,14 +47,13 @@
                 <div class="comments_footer">
                   <!-- b-control-->
                   <div class="b-control">
-                    <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                    <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span></div>
                     <!-- ko if: $parent.authUser.id() === comment.user.id() -->
                     <div class="b-control_i b-control_i__delete"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
                     </div>
                     <div class="b-control_i b-control_i__edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
                     </div>
                     <!-- /ko -->
-                    </div>
                   </div>
                   <!-- /b-control-->
                 </div>
@@ -82,4 +97,4 @@
       </li>
    </ul>
 </div>
-<!-- /comment-widget -->
+<!-- /comment-widget

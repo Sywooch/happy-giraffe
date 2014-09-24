@@ -15,6 +15,12 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model'], fu
       getComment: '/api/comments/get/',
 
       /**
+       * Url страницы для создания комментария
+       * @type {String}
+       */
+      createCommentUrl: '/api/comments/create/',
+
+      /**
        * Размер аватары пользователей для комментариев
        * @type {Number}
        */
@@ -52,7 +58,7 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model'], fu
           for (var i=0; i < array.length; i++) {
             array[i] = { id: array[i] };
           }
-          
+
           return array;
         }
         return false
@@ -155,6 +161,25 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model'], fu
         return false;
       },
 
+      createComment: function createComment(entity, entityId, text, responseId) {
+
+        if (responseId === undefined) {
+          
+          return {
+            entity: entity,
+            entityId: entityId,
+            text: text
+          }
+        }
+
+        return {
+          entity: entity,
+          entityId: entityId,
+          text: text,
+          responseId: responseId
+        }
+      },
+
       /**
        * [get асинхронный запрос к api]
        * @param  {string} url        url к которому обращаемся
@@ -171,6 +196,7 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model'], fu
             }
           );
       }
+
    }
 
    return CommentsController;

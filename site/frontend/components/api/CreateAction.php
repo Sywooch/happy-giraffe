@@ -21,8 +21,6 @@ class CreateAction extends \CAction
         $this->controller->success = $model->save();
         $this->controller->data = $model->hasErrors() ? array(
             'errors' => $model->getErrors(),
-        ) : array(
-            'attributes' => new \CJavaScriptExpression(\HJSON::encode($model)),
-        );
+        ) : $model;
     }
 } 

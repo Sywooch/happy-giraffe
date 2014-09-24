@@ -12,6 +12,7 @@ return array(
         'children' => array(
             'guest',
             'manageOwnContent',
+            'createComment',
         ),
         'bizRule' => null,
         'data' => null

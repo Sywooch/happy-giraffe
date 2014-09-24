@@ -1,22 +1,24 @@
 <?php
 
-class ChooseController extends HController
+class ChooseController extends LiteController
 {
+
     /**
      * @sitemap
      */
     public function actionIndex()
     {
-        $this->pageTitle = 'Как выбрать продукты?';
-
-        $this->breadcrumbs = array(
-            'Кулинария' => array('/cook/default/index'),
-            'Как выбрать продукты?',
-        );
-
         $this->render('index', array(
-            'categories' => CookChooseCategory::model()->with('chooses')->findAll()
+            'categories' => CookChooseCategory::model()->cache(3600)->with('chooses')->findAll()
         ));
+    }
+
+    public function beforeAction($action)
+    {
+        $package = Yii::app()->user->isGuest ? 'lite_cook_choose' : 'lite_cook_choose_user';
+        Yii::app()->clientScript->registerPackage($package);
+        Yii::app()->clientScript->useAMD = true;
+        return parent::beforeAction($action);
     }
 
     /**
@@ -24,33 +26,11 @@ class ChooseController extends HController
      */
     public function actionView($id)
     {
-        $model = CookChooseCategory::model()->with('photo', 'chooses')->findByAttributes(array('slug' => $id));
-        if ($model === null) {
-            $model = CookChoose::model()->with('photo', 'category')->findByAttributes(array('slug' => $id));
-            if ($model === null)
-                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        $model = CookChoose::model()->with('photo', 'category')->findByAttributes(array('slug' => $id));
+        if ($model === null)
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            $this->pageTitle = 'Как выбрать ' . $model->title_accusative;
-
-            $this->breadcrumbs = array(
-                'Кулинария' => array('/cook/default/index'),
-                'Как выбрать продукты?' => array('/cook/choose/index'),
-                $model->category->title => $model->category->url,
-                $model->title,
-            );
-
-            $this->render('view', compact('model'));
-        } else {
-            $this->pageTitle = 'Как выбрать  ' . $model->title_accusative;
-
-            $this->breadcrumbs = array(
-                'Кулинария' => array('/cook/default/index'),
-                'Как выбрать продукты?' => array('/cook/choose/index'),
-                $model->title,
-            );
-
-            $this->render('category', compact('model'));
-        }
+        $this->render('view', compact('model'));
     }
 
     public function sitemapView()
@@ -60,7 +40,8 @@ class ChooseController extends HController
         $models = $command->queryAll();
 
         $data = array();
-        foreach ($models as $model) {
+        foreach ($models as $model)
+        {
             $data[] = array(
                 'params' => array(
                     'id' => $model['slug'],
@@ -70,4 +51,5 @@ class ChooseController extends HController
 
         return $data;
     }
+
 }

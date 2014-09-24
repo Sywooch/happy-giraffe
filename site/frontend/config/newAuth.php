@@ -112,16 +112,16 @@ return array(
         'bizRule' => null,
         'data' => null,
     ),
-    'transferAttachesToOwnPhotoCollection' => array(
+    'moveAttachesBetweenOwnCollections' => array(
         'type' => CAuthItem::TYPE_TASK,
         'description' => 'Перемещение аттачей',
         'children' => array(
             'transferAttaches',
         ),
-        'bizRule' => 'return $params["collection"]->canMoveTo($params["destinationCollection"]);',
+        'bizRule' => 'return $params["collection"]->getOwner()->id == \Yii::app()->user->id && $params["destinationCollection"]->getOwner()->id == \Yii::app()->user->id;',
         'data' => null,
     ),
-    'transferAttaches' => array(
+    'moveAttaches' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Перемещение аттачей',
         'bizRule' => null,

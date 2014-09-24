@@ -122,7 +122,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
         self.photoIds = function() {
             return ko.utils.arrayMap(self.photos(), function(photo) {
-                return photo.id;
+                return photo.id();
             });
         }
 
@@ -179,7 +179,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     PhotoUploadViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
     PhotoUploadViewModel.prototype.add = function() {
         var self = this;
-        $.post('/photo/upload/attach/', { collectionId : self.collectionId, ids : self.photoIds() }, function(response) {
+        $.post('/api/photo/collections/addPhotos/', JSON.stringify({ collectionId : self.collectionId, photosIds : self.photoIds() }), function(response) {
             if (response.success) {
                 PhotoAddViewModel.prototype.add.call(self);
             }

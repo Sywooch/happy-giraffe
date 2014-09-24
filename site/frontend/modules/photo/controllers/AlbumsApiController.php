@@ -34,16 +34,16 @@ class AlbumsApiController extends \site\frontend\components\api\ApiController
 
     /**
      * @param $userId
-     * @param bool $includingEmpty
-     * @todo возможно параметр includingEmpty нужно дополнительно корректировать сервером в случае, если клиент пытается
+     * @param bool $notEmpty
+     * @todo возможно параметр notEmpty нужно дополнительно корректировать сервером в случае, если клиент пытается
      * получить список альбомов другого пользователя, включающий пустые альбомы - зависит от требований
      */
-    public function actionUserAlbums($userId, $includingEmpty = false)
+    public function actionGetByUser($userId, $notEmpty = true)
     {
         $criteria = new \CDbCriteria();
         $criteria->with = array(
             'photoCollections' => array(
-                'scopes' => $includingEmpty ? array() : array('notEmpty'),
+                'scopes' => $notEmpty ? array('notEmpty') : array(),
             ),
         );
         $albums = PhotoAlbum::model()->user($userId)->findAll($criteria);

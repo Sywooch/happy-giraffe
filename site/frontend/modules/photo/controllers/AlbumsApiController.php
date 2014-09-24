@@ -51,13 +51,4 @@ class AlbumsApiController extends \site\frontend\components\api\ApiController
         $this->success = true;
         $this->data = array('albums' => new \CJavaScriptExpression(\HJSON::encode($albums)));
     }
-
-    public function actionMovePhotos($sourceAlbumId, $destinationAlbumId, $photosIds)
-    {
-        $criteria = new \CDbCriteria();
-        $criteria->addInCondition('t.id', array($sourceAlbumId, $destinationAlbumId));
-        $criteria->index = 't.id';
-
-        $sourceAlbum = PhotoAlbum::model()->with('photoCollections')->findAll($criteria);
-    }
 } 

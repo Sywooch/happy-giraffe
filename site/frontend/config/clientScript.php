@@ -35,6 +35,9 @@ return array(
             'async' => '/new/javascript/plugins/async',
             'goog' => '/new/javascript/plugins/goog',
             'propertyParser' => '/new/javascript/plugins/propertyParser',
+            'kow' => '/new/javascript/modules/kow',
+            'comments-model' => '/new/javascript/modules/models/Comments',
+            'comment-widget' => '/new/javascript/modules/comment-widget/comment-widget',
             'routesCalc' => 'routes',
         ),
         /* 'eval' => '

@@ -150,7 +150,7 @@ class ApiController extends \CController
 
     public function getActionParams()
     {
-        return $_POST;
+        return \CJSON::decode(@\file_get_contents('php://input'));
     }
 
 }

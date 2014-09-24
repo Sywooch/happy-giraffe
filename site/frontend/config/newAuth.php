@@ -21,10 +21,12 @@ return array(
         'description' => 'Управление своим контентом (где автор)',
         'children' => array(
             'manageComment',
+            'manageAlbum',
         ),
         'bizRule' => 'return $params["entity"]->author_id == \Yii::app()->user->id;',
         'data' => null
     ),
+
     'manageComment' => array(
         'type' => CAuthItem::TYPE_TASK,
         'description' => 'Управление комментариями',
@@ -55,5 +57,41 @@ return array(
         ),
         'bizRule' => null,
         'data' => null
+    ),
+
+    'createPhotoAlbum' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Создание альбома',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'managePhotoAlbum' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление альбомами',
+        'children' => array(
+            'updatePhotoAlbum',
+            'removePhotoAlbum',
+        ),
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'updatePhotoAlbum' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Редактирование комментария',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'removePhotoAlbum' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Удаление комментария',
+        'bizRule' => null,
+        'data' => null,
+    ),
+
+    'moveAttaches' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Перемещение аттачей',
+        'bizRule' => 'return $params["sourceCollection"]->canMoveTo($params["destinationCollection"]);',
+        'data' => null,
     ),
 );

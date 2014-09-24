@@ -34,4 +34,9 @@ class AlbumPhotoCollection extends PhotoCollectionAbstract
             $this->relatedModel->author->getCollection('all'),
         );
     }
+
+    public function canMoveTo(PhotoCollection $collection)
+    {
+        return $collection instanceof AlbumPhotoCollection && $collection->relatedModel->author_id == $this->relateModel->author_id;
+    }
 } 

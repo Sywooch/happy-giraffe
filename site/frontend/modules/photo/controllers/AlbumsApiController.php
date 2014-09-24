@@ -40,7 +40,6 @@ class AlbumsApiController extends \site\frontend\components\api\ApiController
      */
     public function actionUserAlbums($userId, $includingEmpty = false)
     {
-        header('Content-Type: application/json');
         $criteria = new \CDbCriteria();
         $criteria->with = array(
             'photoCollections' => array(

@@ -24,13 +24,11 @@ abstract class PhotoCollectionAbstract extends PhotoCollection
         return $success;
     }
 
-    public static function sort($attachesIds)
+    public static function sortAttaches($attachesIds)
     {
-        $success = true;
         foreach ($attachesIds as $i => $attachId) {
-            $success = $success && PhotoAttach::model()->updateByPk($attachId, array('position' => $i));
+            PhotoAttach::model()->updateByPk($attachId, array('position' => $i));
         }
-        return $success;
     }
 
     public function getRelatedCollections()

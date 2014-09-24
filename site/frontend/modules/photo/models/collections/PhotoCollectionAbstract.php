@@ -24,11 +24,22 @@ abstract class PhotoCollectionAbstract extends PhotoCollection
         return $success;
     }
 
-    public static function sortAttaches($attachesIds)
+    public function sortAttaches($attachesIds)
     {
         foreach ($attachesIds as $i => $attachId) {
             PhotoAttach::model()->updateByPk($attachId, array('position' => $i));
         }
+    }
+
+    public function moveAttaches($destinationCollection, $attaches)
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->compare('t.collection_id', $this);
+        $criteria->addInCondition('t.id', $attaches);
+
+        return PhotoAttach::model()->updateAll(array(
+            'collection_id' => $destinationCollection,
+        )) == count($attaches);
     }
 
     public function getRelatedCollections()

@@ -55,7 +55,12 @@ class CollectionsApiController extends ApiController
 
     public function actionMove($sourceCollectionId, $destinationCollectionId, $attachesIds)
     {
-        $this->success = CollectionsManager::moveAttaches($sourceCollectionId, $destinationCollectionId, $attachesIds);
+        $collection = $this->getCollection($sourceCollectionId);
+        $destinationCollection = $this->getCollection($destinationCollectionId);
+        if (! \Yii::app()->user->checkAccess('moveAttaches', compact('collection', 'destinationCollection'))) {
+            throw new \CException('Недостаточно прав');
+        }
+        $this->success = $collection->moveAttaches($destinationCollection, $attachesIds);
     }
 
     /**

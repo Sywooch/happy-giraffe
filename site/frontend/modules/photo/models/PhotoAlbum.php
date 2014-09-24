@@ -103,30 +103,10 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
         );
     }
 
-    public function getCollectionLabel()
-    {
-        return 'Фотоальбом';
-    }
-
-    public function getCollectionTitle()
-    {
-        return $this->title;
-    }
-
-    public function getCollectionDescription()
-    {
-        return $this->description;
-    }
-
     public function user($userId)
     {
         $this->getDbCriteria()->compare($this->getTableAlias() . '.author_id', $userId);
         return $this;
-    }
-
-    public function getPhotoCollection()
-    {
-        return $this->getCollection('all');
     }
 
     public function toJSON()
@@ -139,10 +119,5 @@ class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
         );
     }
 
-    public static function movePhotos(PhotoCollection $sourceCollection, PhotoCollection $destinationCollection, $photosIds)
-    {
-        foreach ($photosIds as $photoId) {
 
-        }
-    }
 }

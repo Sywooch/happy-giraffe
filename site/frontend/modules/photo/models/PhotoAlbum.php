@@ -19,7 +19,7 @@ namespace site\frontend\modules\photo\models;
 
 use site\frontend\modules\photo\components\IPhotoCollection;
 
-class PhotoAlbum extends \HActiveRecord  implements IPhotoCollection, \IHToJSON
+class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name

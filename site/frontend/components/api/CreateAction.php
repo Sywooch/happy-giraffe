@@ -13,18 +13,16 @@ class CreateAction extends \CAction
 {
     public $modelName;
 
-    public function run()
+    public function run(array $attributes)
     {
         /** @var \HActiveRecord $model */
         $model = new $this->modelName();
-        if (isset($_POST['attributes'])) {
-            $model->attributes = $_POST['attributes'];
-            $this->controller->success = $model->save();
-            $this->controller->data = $model->hasErrors() ? array(
-                'errors' => $model->getErrors(),
-            ) : array(
-                'attributes' => new \CJavaScriptExpression(\HJSON::encode($model)),
-            );
-        }
+        $model->attributes = $attributes;
+        $this->controller->success = $model->save();
+        $this->controller->data = $model->hasErrors() ? array(
+            'errors' => $model->getErrors(),
+        ) : array(
+            'attributes' => new \CJavaScriptExpression(\HJSON::encode($model)),
+        );
     }
 } 

@@ -38,18 +38,19 @@ class CollectionsApiController extends ApiController
     {
         $collection = $this->getCollection($collectionId);
         if (! \Yii::app()->user->checkAccess('addPhotos', compact('collection'))) {
-            throw new \CException('Недостаточно прав');
+            throw new \CHttpException(403, 'Недостаточно прав');
         }
         $this->success = $collection->attachPhotos($photosIds);
     }
 
-    public function actionSort($collectionId, $attachesIds)
+    public function actionSortAttaches($collectionId, array $attachesIds)
     {
         $collection = $this->getCollection($collectionId);
         if (! \Yii::app()->user->checkAccess('sortPhotoCollection', compact('collection'))) {
-            throw new \CException('Недостаточно прав');
+            throw new \CHttpException(403, 'Недостаточно прав');
         }
-        $this->success = $collection->sort($attachesIds);
+        $collection->sortAttaches($attachesIds);
+        $this->success = true;
     }
 
     public function actionMove($sourceCollectionId, $destinationCollectionId, $attachesIds)

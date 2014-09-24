@@ -1,8 +1,12 @@
 <?php
-/* @var $this Controller
+/* @var $this LiteController
  * @var $categories RecipeBookDiseaseCategory[]
  */
 $this->metaDescription = 'Здесь собраны самые распространённые детские болезни, от которых, к сожалению, не застрахован ни один ребенок. Выберите название и узнайте о симптомах, лечении и профилактике заболевания';
+$this->breadcrumbs = array(
+    '<span class="ico-club ico-club__s ico-club__13"></span>' => array('/community/default/section', 'section_id' => 3),
+    'Справочник детских болезней ',
+);
 ?>
 <div class="child-disease">
     <div class="b-main_cont">

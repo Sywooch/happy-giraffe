@@ -17,10 +17,16 @@ class ApiTest extends \PHPUnit_Framework_TestCase
     {
         $client = new Client('http://www.virtual-giraffe.ru');
         $request = $client->post('/api/photo/albums/create/', null, json_encode(array(
-            'title' => 'Тестовый альбом',
-            'description' => 'Тестовое описание',
+            'attributes' => array(
+                'title' => 'Тестовый альбом',
+                'description' => 'Тестовое описание',
+            ),
         )));
-        $response = json_decode($request->send());
-        $this->assertEquals($response['status'], true);
+
+        $response = $request->send()->getBody(true);
+
+        $response = json_decode($response);
+
+        var_dump($response);
     }
-} 
+}

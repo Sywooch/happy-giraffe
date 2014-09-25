@@ -6,6 +6,8 @@ define(function() {
 
       color: '',
 
+      answers: [],
+
       init: function init (object) {
 
          if (object !== undefined) {

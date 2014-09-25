@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'userConfig', 'user-model'], function($, ko, userConfig, User) {
+define(['jquery', 'knockout', 'user-config', 'user-model'], function($, ko, userConfig, User) {
 
    var UserController = {
 

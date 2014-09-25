@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model'], function($, ko, UserControl, User, Comment) {
+define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'knockout.mapping'], function($, ko, UserControl, User, Comment) {
 
    var CommentsController = {
 
@@ -70,7 +70,6 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model'], fu
        */
       commentsColors: ['lilac', 'yellow', 'red', 'blue', 'green'],
 
-
       /**
        * Получить следующий цвет для комментариев
        * @param  {string} color текущий цвет
@@ -78,6 +77,24 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model'], fu
        */
       nextColor: function nextColor(color) {
         return this.commentsColors[($.inArray(color, this.commentsColors) + 1) % this.commentsColors.length];
+      },
+
+      /**
+       * Получить предыдущий цвет для комментариев
+       * @param  {string} color текущий цвет
+       * @return {string}       следующий цвет
+       */
+      prevColor: function prevColor(color) {
+        return this.commentsColors[($.inArray(color, this.commentsColors) - 1 + this.commentsColors.length) % this.commentsColors.length];
+      },
+
+      /**
+       * Получить первый цвет для комментариев
+       * @param  {[type]} commentsData [description]
+       * @return {[type]}              [description]
+       */
+      getFirstColor: function getFirstColor(commentsData) {
+          return commentsData[0].color();
       },
 
       /**
@@ -91,7 +108,6 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model'], fu
         }
         return false;
       },
-
 
       /**
        * Мердж данных юзеров и комментариев, все ответы в отдельное свойство и массив рутового комментария, цвет рутового комментария
@@ -161,10 +177,18 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model'], fu
         return false;
       },
 
+      /**
+       * Создание отдельного комментария
+       * @param  {[type]} entity     [description]
+       * @param  {[type]} entityId   [description]
+       * @param  {[type]} text       [description]
+       * @param  {[type]} responseId [description]
+       * @return {[type]}            [description]
+       */
       createComment: function createComment(entity, entityId, text, responseId) {
 
         if (responseId === undefined) {
-          
+
           return {
             entity: entity,
             entityId: entityId,
@@ -178,6 +202,25 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model'], fu
           text: text,
           responseId: responseId
         }
+      },
+
+      newCommentAddedUser: function (comment, user, parsedData) {
+
+        if ( user.success ) {
+          var commentInstance = Object.create( Comment ),
+              userInstance = Object.create( User ),
+              commentObj = ko.mapping.fromJS({}),
+              userObj = ko.mapping.fromJS({});
+
+          ko.mapping.fromJS( userInstance.init( user.data ), userObj );
+          ko.mapping.fromJS( commentInstance.init( comment ), commentObj );
+
+          commentObj.color( this.prevColor( this.getFirstColor(parsedData) ) );
+          commentObj.user = userObj;
+
+          return commentObj;
+        }
+        return false;
       },
 
       /**

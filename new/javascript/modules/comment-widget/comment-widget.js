@@ -1,10 +1,8 @@
-define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'wysiwyg', 'knockout.mapping', 'ko_library', 'comet'], function($, ko, CommentsController, UserData, template, moment) {
+define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'wysiwyg', 'knockout.mapping', 'ko_library', 'comet-connect'], function($, ko, CommentsController, UserData, template, moment) {
 
    var CommentWidgetViewModel = function (params) {
 
       comet.addChannel(params.channelId);
-
-      console.log(comet);
 
       this.commentsData = Object.create( CommentsController );
 
@@ -19,6 +17,30 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       this.editing = ko.observable(false);
 
       this.editor = ko.observable('');
+
+      this.cacheData = {};
+
+      this.getNewUser = function (userData) {
+
+        this.parsedData.unshift( this.commentsData.newCommentAddedUser( this.cacheData, userData, this.parsedData()) );
+      };
+
+      this.newCommentAddedEvent = function (result, id) {
+
+        this.cacheData = result;
+        this.userData
+          .get(
+            this.userData.getUserUrl,
+            {
+              id: result.authorId,
+              avatarSize: this.commentsData.commentAvatarSize
+            })
+          .done( this.getNewUser.bind( this ) );
+      };
+
+      Comet.prototype.newCommentAdded = this.newCommentAddedEvent.bind(this);
+
+      comet.addEvent(2510, 'newCommentAdded');
 
       this.setEditing = function() {
          this.editing(true);
@@ -41,10 +63,14 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       this.addComment = function addComment () {
          var commentText = this.editor();
          if ( !this.isRedactorStringEmpty( commentText ) ) {
-            this.commentsData.get( this.commentsData.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() )).done(function (data) { console.log(data) });
+            this.commentsData.get( this.commentsData.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ));
          }
-         else {
-            console.log('will not add')
+      };
+
+      this.deleteComment = function deleteComment () {
+         var commentText = this.editor();
+         if ( !this.isRedactorStringEmpty( commentText ) ) {
+            this.commentsData.get( this.commentsData.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ));
          }
       };
 

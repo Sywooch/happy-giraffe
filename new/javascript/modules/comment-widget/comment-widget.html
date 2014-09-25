@@ -59,8 +59,7 @@
                 </div>
              </div>
         </div>
-        <!-- ko if comment.answers.length > 0 -->
-          <ul class="comments_ul" data-bind="foreach: { data: comment.answers(), as: 'commentInner' }">
+          <ul class="comments_ul" data-bind="if comment.answers.length > 0, foreach: { data: comment.answers(), as: 'commentInner' }">
             <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + $parent.color() }">
                <div class="comments_i clearfix">
                    <div class="comments_ava">
@@ -78,7 +77,7 @@
                       <div class="comments_footer">
                         <!-- b-control-->
                         <div class="b-control">
-                          <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                          <div class="b-control_i b-control_i__answer" data-bind="click: deleteComment"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
                           </div>
                           <!-- ko if: $parents[1].authUser.id() === comment.user.id() -->
                           <div class="b-control_i b-control_i__delete"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
@@ -93,7 +92,6 @@
               </div>
             </li>
          </ul>
-        <!-- /ko -->
       </li>
    </ul>
 </div>

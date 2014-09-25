@@ -17,6 +17,15 @@ return array(
         'bizRule' => null,
         'data' => null
     ),
+    'moderator' => array(
+        'type' => CAuthItem::TYPE_ROLE,
+        'description' => 'Модератор',
+        'children' => array(
+            'user',
+        ),
+        'bizRule' => null,
+        'data' => null
+    ),
     'manageOwnContent' => array(
         'type' => CAuthItem::TYPE_TASK,
         'description' => 'Управление своим контентом (где автор)',

@@ -71,7 +71,13 @@ class TestController extends PhotoController
 
     public function actionScript()
     {
-        $this->render('script');
+        $criteria = new \CDbCriteria(array(
+            'scopes' => array(
+                'collection' => 36,
+            ),
+        ));
+
+        echo count(PhotoAttach::model()->findAll($criteria));
     }
 
     public function actionSleep()

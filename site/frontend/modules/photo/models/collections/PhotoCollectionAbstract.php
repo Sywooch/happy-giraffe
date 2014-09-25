@@ -33,13 +33,16 @@ abstract class PhotoCollectionAbstract extends PhotoCollection
 
     public function moveAttaches($destinationCollection, $attaches)
     {
-        $criteria = new \CDbCriteria();
-        $criteria->compare('t.collection_id', $this);
-        $criteria->addInCondition('t.id', $attaches);
+        $criteria = new \CDbCriteria(array(
+            'scopes' => array(
+                'collection' => $this->id,
+            ),
+        ));
+        $criteria->addInCondition('id', $attaches);
 
         return PhotoAttach::model()->updateAll(array(
-            'collection_id' => $destinationCollection,
-        )) == count($attaches);
+            'collection_id' => $destinationCollection->id,
+        ), $criteria) == count($attaches);
     }
 
     public function getRelatedCollections()

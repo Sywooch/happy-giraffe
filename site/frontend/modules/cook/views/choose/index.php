@@ -2,7 +2,7 @@
 $this->pageTitle = 'Как выбрать продукты?';
 
 $this->breadcrumbs = array(
-    'Кулинария' => array('/cook/default/index'),
+    'Готовим дома' => array('/cook/default/index'),
     'Как выбрать продукты?',
 );
 ?>

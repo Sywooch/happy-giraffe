@@ -34,6 +34,15 @@ class CollectionsApiController extends ApiController
         $this->data = $user->photoCollections;
     }
 
+    public function actionSetCover($collectionId, $attachId)
+    {
+        $collection = $this->getCollection($collectionId);
+        if (! \Yii::app()->user->checkAccess('setCover', compact('collection'))) {
+            throw new \CHttpException(403, 'Недостаточно прав');
+        }
+        $this->success = $collection->setCover($attachId);
+    }
+
     public function actionAddPhotos($collectionId, array $photosIds)
     {
         $collection = $this->getCollection($collectionId);

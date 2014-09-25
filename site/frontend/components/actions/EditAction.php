@@ -17,6 +17,9 @@ class EditAction extends \CAction
     {
         $id = \Yii::app()->request->getPost('id');
         $model = \CActiveRecord::model($this->modelClass)->findByPk($id);
+        if ($model === null) {
+            throw new \CHttpException(404, 'Модель не найдена');
+        }
         $model->attributes = $_POST[\CHtml::modelName($model)];
         $success = $model->save();
         echo \CJSON::encode(compact('success'));

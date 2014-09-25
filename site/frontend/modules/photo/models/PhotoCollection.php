@@ -118,6 +118,16 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         );
     }
 
+    public function setCover($attachId)
+    {
+        if (! PhotoAttach::model()->notRemoved()->collection($this->id)->exists()) {
+            return false;
+        }
+
+        $this->cover_id = $attachId;
+        return $this->save();
+    }
+
     public function getCover()
     {
         if (empty($this->attaches)) {
@@ -154,5 +164,16 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         $attach->photo_id = $photoId;
         $attach->collection_id = $this->id;
         return $attach->save();
+    }
+
+    protected function getMaxPosition()
+    {
+        $criteria = new \CDbCriteria(array(
+            'select' => 'MAX(position)',
+            'scopes' => array(
+                'collection' => $this->id,
+            ),
+        ));
+        return \Yii::app()->db->commandBuilder->createFindCommand(PhotoAttach::model()->tableName(), $criteria)->queryScalar();
     }
 }

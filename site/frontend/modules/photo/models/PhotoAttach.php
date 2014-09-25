@@ -109,4 +109,11 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
         $this->getDbCriteria()->compare($this->getTableAlias() . '.collection_id', $collectionId);
         return $this;
     }
+
+    protected function beforeDelete()
+    {
+        if ($this->collection->cover_id == $this->id) {
+            throw new \Exception('Нельзя удалить обложку');
+        }
+    }
 }

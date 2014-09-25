@@ -161,14 +161,13 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
 
       /**
        * Создание отдельного комментария
-       * @param  {[type]} entity     [description]
-       * @param  {[type]} entityId   [description]
-       * @param  {[type]} text       [description]
-       * @param  {[type]} responseId [description]
-       * @return {[type]}            [description]
+       * @param  {string} entity
+       * @param  {int} entityId
+       * @param  {sting} text
+       * @param  {id} responseId
+       * @return {object}
        */
       createComment: function createComment(entity, entityId, text, responseId) {
-
         if (responseId === undefined) {
 
           return {
@@ -186,8 +185,23 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
         }
       },
 
-      newCommentAddedUser: function (comment, user, parsedData) {
+      removedStatus: function (comment, parsedData) {
 
+        var commentObj;
+
+        if (parsedData.length > 0) {
+          for (var i=0; i < parsedData.length; i++) {
+            if(comment.id === parsedData[i].id()) {
+              commentObj = i;
+            }
+          }
+
+        }
+
+        return commentObj;
+      },
+
+      newCommentAddedUser: function (comment, user, parsedData) {
         if ( user.success ) {
           var commentInstance = Object.create( Comment ),
               userInstance = Object.create( User ),

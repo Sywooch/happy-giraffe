@@ -20,11 +20,14 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
       this.cacheData = {};
 
-      this.getNewUser = function (userData) {
-        this.parsedData.unshift( this.commentsData.newCommentAddedUser( this.cacheData, userData, this.parsedData()) );
-      };
+      this.editorHidden = ko.observable(false);
+
+      /**
+       * Comet Создания комментария
+       */
 
       this.newCommentAddedEvent = function (result, id) {
+
         this.cacheData = result;
 
         Model.get(
@@ -39,6 +42,66 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       Comet.prototype.newCommentAdded = this.newCommentAddedEvent.bind(this);
 
       comet.addEvent(2510, 'newCommentAdded');
+
+      this.getNewUser = function (userData) {
+        this.parsedData.unshift( this.commentsData.newCommentAddedUser( this.cacheData, userData, this.parsedData()) );
+      };
+
+      /**
+       * Comet Обновление комментария
+       */
+
+      this.renewCommentAddedEvent = function (result, id) {
+
+        var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
+
+        if (commentObj !== undefined) {
+            this.parsedData()[commentObj].purifiedHtml( result.purifiedHtml );
+        }
+
+      };
+
+      Comet.prototype.renewCommentAdded = this.renewCommentAddedEvent.bind(this);
+
+      comet.addEvent(2520, 'renewCommentAdded');
+
+
+      /**
+       * Comet Удаление комментария
+       */
+
+      this.commentRemovedEvent = function (result, id) {
+
+        var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
+
+        if (commentObj !== undefined) {
+            this.parsedData()[commentObj].removed( true );
+        }
+
+      };
+
+      Comet.prototype.commentRemoved = this.commentRemovedEvent.bind(this);
+
+      comet.addEvent(2530, 'commentRemoved');
+
+      /**
+       * Comet Восстановление комментария
+       */
+
+      this.commentRestoredEvent = function (result, id) {
+
+        var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
+
+        if (commentObj !== undefined) {
+            this.parsedData()[commentObj].removed( false );
+        }
+
+      };
+
+      Comet.prototype.commentRestored = this.commentRestoredEvent.bind(this);
+
+      comet.addEvent(2540, 'commentRestored');
+
 
       this.setEditing = function() {
          this.editing(true);
@@ -58,14 +121,25 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
          return true;
       };
 
+      this.cancelEditor = function cancelEditor(data) {
+
+          if (this.editorHidden() === false ) {
+
+          };
+
+      };
+
       this.addComment = function addComment () {
          var commentText = this.editor();
          if ( !this.isRedactorStringEmpty( commentText ) ) {
-            Model.get( Comment.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ));
+            Model
+              .get( Comment.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ))
+              .done( this.cancelEditor.bind(this) )
          }
       };
 
       this.deleteComment = function deleteComment () {
+
          var commentText = this.editor();
          if ( !this.isRedactorStringEmpty( commentText ) ) {
             Model.get( Comment.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ));
@@ -94,6 +168,8 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       this.allEventsSucceed = function usersSucceed(userData) {
          ko.mapping.fromJS(this.userData.getCurrentUserFromList(userData.data, userData.success), this.authUser);
          ko.mapping.fromJS(this.commentsData.allDataReceived(userData.data, this.commentsDataQueue.commentsData), this.parsedData);
+
+         console.log(this.parsedData());
       }
 
       this.dataGetSucceed = function (data) {

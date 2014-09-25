@@ -12,26 +12,29 @@
           <!-- ko ifnot: editing -->
           <textarea placeholder=" Введите ваш комментарий " rows="3" cols="30" class="itx-simple" data-bind="click: setEditing"></textarea>
           <!-- /ko -->
-          <!-- ko if: editing -->
-          <div class="redactor-control">
-            <div class="redactor-control_toolbar"></div>
-            <div class="redactor-control_hold">
-              <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="redactorHG: { config : editorConfig, attr : editor }"></textarea>
-            </div>
-            <div class="redactor-control_control clearfix">
-              <div class="float-r">
-                <button class="btn-green" data-bind="click: addComment">Отправить</button>
+            <!-- ko if: editing -->
+            <div class="redactor-control">
+              <div class="redactor-control_toolbar"></div>
+              <div class="redactor-control_hold">
+                <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="redactorHG: { config : editorConfig, attr : editor }"></textarea>
+              </div>
+              <div class="redactor-control_control clearfix">
+                <div class="float-r">
+                  <button class="btn-green" data-bind="click: addComment">Отправить</button>
+                </div>
               </div>
             </div>
-          </div>
-          <!-- /ko -->
+            <!-- /ko -->
+
         </div>
       </div>
     </div>
   </div>
    <ul class="comments_ul" data-bind="foreach: { data: parsedData(), as: 'comment' }">
       <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + color() }">
-         <div class="comments_i clearfix">
+
+        <!-- ko ifnot: comment.removed -->
+         <div class="comments_i clearfix" >
              <div class="comments_ava">
                  <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: comment.user.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: comment.user.avatarUrl()"></a>
              </div>
@@ -41,24 +44,78 @@
                      <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(comment.dtimeCreate()).format('YYYY-MM-DD') }, moment: comment.dtimeCreate"></time>
                  </div>
                  <div class="comments_cont">
-                     <div class="wysiwyg-content" data-bind="html: comment.purifiedHtml">
-                     </div>
+
+                    <!-- ko if: $parent.authUser.id() === comment.user.id() -->
+
+                      <!-- ko if: comment.editingCurrent -->
+
+                          <div class="redactor-control">
+                            <div class="redactor-control_toolbar"></div>
+                            <div class="redactor-control_hold">
+                              <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="redactorHG: { config : $parent.editorConfig, attr : comment.editor }"></textarea>
+                            </div>
+                            <div class="redactor-control_control clearfix">
+                              <div class="float-r">
+                                <button class="btn-green" data-bind="click: renewComment">Отправить</button>
+                              </div>
+                            </div>
+                          </div>
+
+                        <!-- /ko -->
+
+                        <!-- ko ifnot: comment.editingCurrent -->
+
+                        <div class="wysiwyg-content" data-bind="html: comment.purifiedHtml">
+                        </div>
+
+                       <!-- /ko -->
+
+                    <!-- /ko -->
+
+                    <!-- ko if: $parent.authUser.id() !== comment.user.id() -->
+
+                       <div class="wysiwyg-content" data-bind="html: comment.purifiedHtml">
+                        </div>
+
+                    <!-- /ko -->
+
                  </div>
                 <div class="comments_footer">
+
                   <!-- b-control-->
+
                   <div class="b-control">
                     <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span></div>
+
                     <!-- ko if: $parent.authUser.id() === comment.user.id() -->
-                    <div class="b-control_i b-control_i__delete" data-bind="click: remove"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
-                    </div>
-                    <div class="b-control_i b-control_i__edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
-                    </div>
+
+                      <div class="b-control_i b-control_i__delete" data-bind="click: remove"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
+                      </div>
+
+                        <!-- ko ifnot: comment.editingCurrent -->
+
+                          <div class="b-control_i b-control_i__edit" data-bind="click: edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span></div>
+
+                        <!-- /ko -->
+
                     <!-- /ko -->
+
                   </div>
+
+
                   <!-- /b-control-->
+
                 </div>
              </div>
-        </div>
+          </div>
+        <!-- /ko -->
+
+        <!-- ko if: comment.removed -->
+          <!-- ko if: $parent.authUser.id() === comment.user.id() -->
+          <div class="im-message_tx color-gray" data-bind="click: restore">Сообщение удалено. <a href="#" class="font-s">Восстановить</a></div>
+          <!-- /ko -->
+        <!-- /ko -->
+
           <ul class="comments_ul" data-bind="if comment.answers.length > 0, foreach: { data: comment.answers(), as: 'commentInner' }">
             <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + $parent.color() }">
                <div class="comments_i clearfix">
@@ -95,4 +152,4 @@
       </li>
    </ul>
 </div>
-<!-- /comment-widget
+<!-- /comment-widget -->

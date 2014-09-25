@@ -5,41 +5,117 @@
  * User: mikita
  * Date: 15/01/14
  * Time: 14:49
- * To change this template use File | Settings | File Templates.
  */
 class SoftDeleteBehavior extends CActiveRecordBehavior
 {
 
+    public function attach($owner)
+    {
+        if (!$owner->hasAttribute('removed'))
+            throw new Exception('На данную модель нельзя добавить поведение ' . __CLASS__);
+
+        return parent::attach($owner);
+    }
+
     public function beforeDelete($event)
     {
-        if ($this->owner->hasAttribute('removed'))
-        {
-            $this->softDelete();
-            $event->isValid = false;
-        }
+        $this->softDelete();
+        $event->isValid = false;
+    }
+
+    public function restore()
+    {
+        return $this->softRestore();
     }
 
     public function softDelete()
     {
         $result = false;
-        $model = new SoftDelete();
-        $model->entity = get_class($this->owner);
-        $model->entity_id = $this->owner->id;
-        $model->user_id = Yii::app()->user->id;
-        $result = $model->save();
-        $this->owner->removed = 1;
-        $result = $result && $this->owner->update(array('removed'));
+        if ($this->beforeSoftDelete())
+        {
+            $model = new SoftDelete();
+            $model->entity = get_class($this->owner);
+            $model->entity_id = $this->owner->id;
+            $model->user_id = Yii::app()->user->id;
+            $result = $model->save();
+            $this->owner->removed = 1;
+            $result = $result && $this->owner->update(array('removed'));
+            if ($result)
+                $this->afterSoftDelete();
+        }
         return $result;
     }
 
-    public function restore()
+    public function softRestore()
     {
-        if ($this->owner->hasAttribute('removed'))
+        $result = false;
+        if ($this->beforeSoftRestore())
         {
             $this->owner->removed = 0;
-            return $this->owner->update(array('removed'));
+            $result = $this->owner->update(array('removed'));
+            if ($result)
+                $this->afterSoftRestore();
         }
-        return false;
+
+        return $result;
+    }
+
+    /* events */
+
+    public function beforeSoftDelete()
+    {
+        if ($this->owner->hasEventHandler('onBeforeSoftDelete'))
+        {
+            $event = new CModelEvent($this->owner);
+            $this->onBeforeSoftDelete($event);
+            return $event->isValid;
+        }
+
+        return true;
+    }
+
+    public function onBeforeSoftDelete($event)
+    {
+        $this->owner->raiseEvent('onBeforeSoftDelete', $event);
+    }
+
+    public function afterSoftDelete()
+    {
+        if ($this->owner->hasEventHandler('onAfterSoftDelete'))
+            $this->onAfterSoftDelete(new CEvent($this->owner));
+    }
+
+    public function onAfterSoftDelete($event)
+    {
+        $this->owner->raiseEvent('onAfterSoftDelete', $event);
+    }
+
+    public function beforeSoftRestore()
+    {
+        if ($this->owner->hasEventHandler('onBeforeSoftRestore'))
+        {
+            $event = new CModelEvent($this->owner);
+            $this->onBeforeSoftRestore($event);
+            return $event->isValid;
+        }
+
+        return true;
+    }
+
+    public function onBeforeSoftRestore($event)
+    {
+        $this->owner->raiseEvent('onBeforeSoftRestore', $event);
+    }
+
+    public function afterSoftRestore()
+    {
+        if ($this->owner->hasEventHandler('onAfterSoftRestore'))
+            $this->onAfterSoftRestore(new CEvent($this->owner));
+    }
+
+    public function onAfterSoftRestore($event)
+    {
+        $this->owner->raiseEvent('onAfterSoftRestore', $event);
     }
 
 }

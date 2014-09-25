@@ -33,6 +33,8 @@ abstract class PhotoCollectionAbstract extends PhotoCollection
 
     public function moveAttaches($destinationCollection, $attaches)
     {
+        $newPosition = $this->getMaxPosition() + 1;
+
         $criteria = new \CDbCriteria(array(
             'scopes' => array(
                 'collection' => $this->id,
@@ -42,6 +44,7 @@ abstract class PhotoCollectionAbstract extends PhotoCollection
 
         return PhotoAttach::model()->updateAll(array(
             'collection_id' => $destinationCollection->id,
+            'position' => $newPosition,
         ), $criteria) == count($attaches);
     }
 

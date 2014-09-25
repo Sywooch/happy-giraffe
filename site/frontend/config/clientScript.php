@@ -39,6 +39,7 @@ return array(
             'user-model' => '/new/javascript/modules/models/User',
             'user-control' => '/new/javascript/modules/models/UserController',
             'user-model' => '/new/javascript/modules/models/User',
+            'model' => '/new/javascript/modules/models/Model',
             'comment-model' => '/new/javascript/modules/models/Comment',
             'comment-widget' => '/new/javascript/modules/comment-widget/comment-widget',
             'routesCalc' => 'routes',

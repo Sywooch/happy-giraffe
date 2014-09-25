@@ -21,7 +21,12 @@ class SoftDeleteAction extends \CAction
         /** @todo Проверить доступ */
         $class = $this->modelName;
         $model = $class::model()->findByPk($id);
-        $this->controller->success = $model->delete();
+        if (is_null($model))
+            throw new \CHttpException(404);
+
+        if ($model instanceof \IHToJSON)
+            $this->controller->data = $model->toJSON();
+        $this->controller->success = $model->softDelete();
     }
 
 }

@@ -8,7 +8,7 @@ namespace site\frontend\modules\comments\models;
  * @author Кирилл
  * @property array $answers Обсуждение под данным комментарием
  */
-class Comment extends \Comment
+class Comment extends \Comment implements \IHToJSON
 {
 
     protected static $_commentEntityList = array();

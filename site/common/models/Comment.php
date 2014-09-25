@@ -334,6 +334,7 @@ class Comment extends HActiveRecord
 
     public function getRemoveDescription()
     {
+        return 'Комментарий удалён';
         throw new Exception('deprecated');
 /*
         if (!$this->remove && $this->removed)

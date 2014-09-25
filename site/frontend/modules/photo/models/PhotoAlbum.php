@@ -18,8 +18,6 @@
 
 namespace site\frontend\modules\photo\models;
 
-use site\frontend\modules\photo\components\IPhotoCollection;
-
 class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
 {
 	/**
@@ -123,6 +121,4 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
             'photoCollections' => $this->photoCollections,
         );
     }
-
-
 }

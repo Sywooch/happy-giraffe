@@ -16,15 +16,11 @@
  * @property string $author_id
  *
  * The followings are the available model relations:
- * @property PhotoAttach[] $photoAttaches
- * @property PhotoCollection[] $photoCollections
+ * @property site\frontend\modules\photo\models\PhotoAttach[] $photoAttaches
  * @property \User $author
  */
 
 namespace site\frontend\modules\photo\models;
-
-use site\frontend\modules\photo\components\FileHelper;
-use site\frontend\modules\photo\components\PathManager;
 
 class Photo extends \HActiveRecord implements \IHToJSON
 {
@@ -64,9 +60,8 @@ class Photo extends \HActiveRecord implements \IHToJSON
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'photoAttaches' => array(self::HAS_MANY, 'PhotoAttaches', 'photo_id'),
-			'photoCollections' => array(self::HAS_MANY, 'PhotoCollections', 'cover_id'),
-			'author' => array(self::BELONGS_TO, 'Users', 'author_id'),
+			'photoAttaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\PhotoAttach', 'photo_id'),
+			'author' => array(self::BELONGS_TO, '\User', 'author_id'),
 		);
 	}
 

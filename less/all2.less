@@ -641,7 +641,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* b-article */
 .b-article {
     position: relative;
-    margin:20px 20px 30px;
+    margin: 20px 20px 30px;
 
     &__user-status &_cont {background: #cdecff;}
     &__user-status &_cont-tale {border-right-color: #cdecff;}
@@ -736,18 +736,20 @@ table.fr_recipe_tb td { width: 50%;}
     &_cont {
         position: relative;
         float: left;
-        width: 580px;
+        width: 578px;
         min-height:304px;
         padding: 12px 0 0;
         background: #fff;
         .border-radius(3px);
+        border: 1px solid #eaeaea;
     }
     &_cont-tale {
-        position: absolute;
+        display: none;
+        /*position: absolute;
         left: -20px;
         top: 35px;
         border: 10px solid transparent;
-        border-right-color: #fff;
+        border-right-color: #fff;*/
     }
     &_header {
         margin: 0 20px 10px;
@@ -827,12 +829,13 @@ table.fr_recipe_tb td { width: 50%;}
         z-index: 5;
     }
     &_removed:after {
-        content: '';
+        display: none;
+        /*content: '';
         position: absolute;
         left: -20px;
         top: 35px;
         border: 10px solid transparent;
-        border-right-color: #fff;
+        border-right-color: #fff;*/
     }
     &_removed-hold {
         position: absolute;
@@ -4163,10 +4166,10 @@ table.fr_recipe_tb td { width: 50%;}
     &__adfox .layout-w1 {
         position: relative;
         overflow: hidden;
-        background: #f0f0f0;
+        background: #fff;
         width: 1000px;
         margin: 0 auto; 
-        .box-shadow(0 0 6px rgba(0,0,0,0.3));
+        .box-shadow(0 0 6px rgba(0,0,0,0.15));
         z-index: 1;
     }
     &__adfox .header-fix {
@@ -5072,6 +5075,24 @@ table.fr_recipe_tb td { width: 50%;}
     }
 }
 /* /user-actions */
+
+/* header-banner */
+.header-banner {
+    /*background-color: #fafafa;*/
+}
+.header-banner_hold {
+    margin: 0 auto;
+    padding: 10px 0;
+    width: 1000px;
+    text-align: center;
+}
+.header-banner_hold div,
+.header-banner_hold img,
+.header-banner_hold embed {
+    display: block;
+    margin: 0 auto;
+}
+/* /header-banner */
 
 
 

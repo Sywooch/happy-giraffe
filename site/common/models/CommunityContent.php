@@ -1152,6 +1152,14 @@ class CommunityContent extends HActiveRecord implements IPreview
             );
         }
 
+        if ($this->id == 204717) {
+            return array(
+                'text' => 'Ушастый нянь',
+                'img' => '/images/banners/ava-nyan.jpg',
+                'pix' => '',
+            );
+        }
+
         if (in_array($this->id, array(106365, 114024, 114026, 117229, 147851, 147856, 154876))) {
             return array(
                 'text' => 'Heinz',

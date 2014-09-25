@@ -138,7 +138,7 @@ class ApiController extends \site\frontend\components\api\ApiController
                 'delete' => \CometModel::COMMENTS_DELETE,
                 'restore' => \CometModel::COMMENTS_RESTORE,
             );
-            $this->send(\site\frontend\modules\comments\models\Comment::getChannel($this->data), $this->data, \site\frontend\modules\comments\models\Comment::getChannel($this->data));
+            $this->send(\site\frontend\modules\comments\models\Comment::getChannel($this->data), $this->data, $types[$action->id]);
         }
 
         return parent::afterAction($action);

@@ -13,8 +13,8 @@
  * @property string $removed
  *
  * The followings are the available model relations:
- * @property Photo $photo
- * @property PhotoCollection $collection
+ * @property site\frontend\modules\photo\models\Photo $photo
+ * @property site\frontend\modules\photo\models\PhotoCollection $collection
  */
 
 namespace site\frontend\modules\photo\models;

@@ -7,10 +7,6 @@
 
 namespace site\frontend\modules\photo\models;
 
-
-use site\frontend\modules\photo\components\FileHelper;
-use site\frontend\modules\photo\components\PathManager;
-
 class PhotoCreate extends Photo
 {
     const FS_NAME_LEVELS = 2;

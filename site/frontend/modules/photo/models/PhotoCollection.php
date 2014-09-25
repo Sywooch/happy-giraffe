@@ -13,13 +13,12 @@
  * @property string $updated
  *
  * The followings are the available model relations:
- * @property PhotoAttaches[] $photoAttaches
- * @property PhotoPhotos $cover
+ * @property site\frontend\modules\photo\models\PhotoAttach[] $attaches
+ * @property int $attachesCount $attachesCount
+ * @property site\frontend\modules\photo\models\PhotoAttach $userDefinedCover
  */
 
 namespace site\frontend\modules\photo\models;
-
-use Aws\CloudFront\Exception\Exception;
 
 class PhotoCollection extends \HActiveRecord implements \IHToJSON
 {
@@ -61,7 +60,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 		return array(
             'attaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\Photoattach', 'collection_id'),
             'attachesCount' => array(self::STAT, 'site\frontend\modules\photo\models\PhotoAttach', 'collection_id'),
-            'userDefinedCover' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\Photo', 'cover_id'),
+            'userDefinedCover' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\PhotoAttach', 'cover_id'),
 		);
 	}
 
@@ -95,7 +94,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     protected function instantiate($attributes)
     {
         if (! isset(self::$config[$attributes['entity']][$attributes['key']])) {
-            throw new Exception('Invalid collection');
+            throw new \Exception('Invalid collection');
         }
 
         $class = self::$config[$attributes['entity']][$attributes['key']];

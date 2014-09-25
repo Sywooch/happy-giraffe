@@ -46,8 +46,23 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     public function rules()
     {
         return array(
-
+            array('cover_id', 'validateCover'),
         );
+    }
+
+    protected function validateCover($attribute, $params)
+    {
+        $attach = $this->$attribute;
+        if ($attach instanceof PhotoAttach) {
+            if ($attach->removed == 1 || $attach->collection_id != $this->id) {
+                $this->addError($attribute, '');
+            }
+            $this->$attribute = $attach->id;
+        } else {
+            if (! PhotoAttach::model()->notRemoved()->collection($this->id)->exists()) {
+                $this->addError($attribute, '');
+            }
+        }
     }
 
 	/**
@@ -60,7 +75,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 		return array(
             'attaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\Photoattach', 'collection_id'),
             'attachesCount' => array(self::STAT, 'site\frontend\modules\photo\models\PhotoAttach', 'collection_id'),
-            'userDefinedCover' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\PhotoAttach', 'cover_id'),
+            'cover' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\PhotoAttach', 'cover_id'),
 		);
 	}
 
@@ -118,26 +133,10 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function setCover($attachId)
+    public function setCover($attach, $runValidation = true)
     {
-        if (! PhotoAttach::model()->notRemoved()->collection($this->id)->exists()) {
-            return false;
-        }
-
-        $this->cover_id = $attachId;
-        return $this->save();
-    }
-
-    public function getCover()
-    {
-        if (empty($this->attaches)) {
-            return null;
-        }
-
-        $related = $this->userDefinedCover;
-        if ($related === null) {
-            return $this->attaches[0]->photo;
-        }
+        $this->cover_id = $attach;
+        return $this->save($runValidation);
     }
 
     public function scopes()
@@ -163,7 +162,10 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         $attach = new PhotoAttach();
         $attach->photo_id = $photoId;
         $attach->collection_id = $this->id;
-        return $attach->save();
+        $success = $attach->save();
+        if ($success && $this->cover_id === null) {
+            $this->setCover($attach, false);
+        }
     }
 
     protected function getMaxPosition()

@@ -50,7 +50,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    protected function validateCover($attribute, $params)
+    public function validateCover($attribute, $params)
     {
         $attach = $this->$attribute;
         if ($attach instanceof PhotoAttach) {

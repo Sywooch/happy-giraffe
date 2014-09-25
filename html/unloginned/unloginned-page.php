@@ -11,7 +11,14 @@
 	
 <div class="layout-container">
 	<div class="layout-header clearfix">
-		
+        <!-- Родитель layout-header -->
+		    <div class="header-banner">
+          <div class="header-banner_hold">
+            <!-- Сам баннер -->
+            <embed width="660" height="82" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" src="http://www.seotm.com/images/flash/acd-big.swf" play="true" loop="true" menu="true">
+          </div>
+        </div>
+        <!-- Следующий эемент <header class="header"> -->
         <!-- header-->
         <header class="header header__guest header__kinder-gold">
           <div class="header_hold clearfix">
@@ -190,14 +197,14 @@
 			bJoinRowFixed('.js-b-join-row');
 		})
 		</script>
-		<div class="b-join-row js-b-join-row">
+		<!-- <div class="b-join-row js-b-join-row">
 			<div class="b-join-row_hold">
 				<div class="b-join-row_logo"></div>
 				<div class="b-join-row_tx">Более <span class="b-join-row_tx-big"> 30 000 000</span> мам и пап</div>
 				<div class="b-join-row_slogan">уже посетили Веселый Жираф!</div>
 				<a href="" class="btn-green btn-h46">Присоединяйтесь!</a>
 			</div>
-		</div>
+		</div> -->
 
 
 	</div>

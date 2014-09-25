@@ -130,12 +130,12 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function afterAction($action)
     {
-        if ($this->success == true && in_array($action->id, array('create', 'update', 'delete', 'restore')))
+        if ($this->success == true && in_array($action->id, array('create', 'update', 'remove', 'restore')))
         {
             $types = array(
                 'create' => \CometModel::COMMENTS_NEW,
                 'update' => \CometModel::COMMENTS_UPDATE,
-                'delete' => \CometModel::COMMENTS_DELETE,
+                'remove' => \CometModel::COMMENTS_DELETE,
                 'restore' => \CometModel::COMMENTS_RESTORE,
             );
             $this->send(\site\frontend\modules\comments\models\Comment::getChannel($this->data), $this->data, $types[$action->id]);

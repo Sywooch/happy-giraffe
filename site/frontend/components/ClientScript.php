@@ -97,7 +97,7 @@ class ClientScript extends CClientScript
         $conf = $this->amd;
 
         $eval = $conf['eval'] . $this->getUserModule();
-        $eval = $conf['eval'] . $this->getCometConfigModule();
+        $eval = $eval . $this->getCometConfigModule();
         unset($conf['eval']);
 
         // Добавим наши скрипты в самое начало
@@ -642,7 +642,7 @@ JS;
 
     protected function getCometConfigModule()
     {
-        return 'define("comet-connect",["comet"], function(comet) { comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . \UserCache::GetCurrentUserCache() . '\'); return comet; });';
+        return 'define("comet-connect",["comet"], function() { comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . \UserCache::GetCurrentUserCache() . '\'); return comet; });';
     }
 
 }

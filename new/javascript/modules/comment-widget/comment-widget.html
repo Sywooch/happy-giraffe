@@ -49,7 +49,7 @@
                   <div class="b-control">
                     <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span></div>
                     <!-- ko if: $parent.authUser.id() === comment.user.id() -->
-                    <div class="b-control_i b-control_i__delete"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
+                    <div class="b-control_i b-control_i__delete" data-bind="click: remove"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
                     </div>
                     <div class="b-control_i b-control_i__edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
                     </div>
@@ -77,10 +77,10 @@
                       <div class="comments_footer">
                         <!-- b-control-->
                         <div class="b-control">
-                          <div class="b-control_i b-control_i__answer" data-bind="click: deleteComment"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                          <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
                           </div>
                           <!-- ko if: $parents[1].authUser.id() === comment.user.id() -->
-                          <div class="b-control_i b-control_i__delete"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
+                          <div class="b-control_i b-control_i__delete" data-bind="click: remove"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
                           </div>
                           <div class="b-control_i b-control_i__edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
                           </div>

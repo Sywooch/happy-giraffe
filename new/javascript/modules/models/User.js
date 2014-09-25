@@ -2,6 +2,8 @@ define(function() {
 
    var User = {
 
+      getUserUrl: '/api/users/get/',
+
       fullName: function fullName() {
          return this.firstName + ' ' + this.lastName;
       },

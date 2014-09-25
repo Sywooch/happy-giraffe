@@ -2,8 +2,6 @@ define(['jquery', 'knockout', 'user-config', 'user-model'], function($, ko, user
 
    var UserController = {
 
-      getUserUrl: '/api/users/get/',
-
       userConfig: userConfig,
 
       checkForMe: function checkForMe(array) {
@@ -33,18 +31,7 @@ define(['jquery', 'knockout', 'user-config', 'user-model'], function($, ko, user
             }
          }
          return false
-      },
-
-      get: function get ( url, paramsData ) {
-         return $.ajax(
-           {
-               type: "POST",
-               url: url,
-               data:  JSON.stringify(paramsData),
-               dataType: 'json'
-            }
-          );
-      },
+      }
 
    }
 

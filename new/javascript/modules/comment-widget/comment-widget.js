@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'wysiwyg', 'knockout.mapping', 'ko_library', 'comet-connect'], function($, ko, CommentsController, UserData, template, moment) {
+define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'model', 'comment-model', 'user-model', 'wysiwyg', 'knockout.mapping', 'ko_library', 'comet-connect'], function($, ko, CommentsController, UserData, template, moment, Model, Comment, User) {
 
    var CommentWidgetViewModel = function (params) {
 
@@ -21,16 +21,14 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       this.cacheData = {};
 
       this.getNewUser = function (userData) {
-
         this.parsedData.unshift( this.commentsData.newCommentAddedUser( this.cacheData, userData, this.parsedData()) );
       };
 
       this.newCommentAddedEvent = function (result, id) {
-
         this.cacheData = result;
-        this.userData
-          .get(
-            this.userData.getUserUrl,
+
+        Model.get(
+            User.getUserUrl,
             {
               id: result.authorId,
               avatarSize: this.commentsData.commentAvatarSize
@@ -63,14 +61,14 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       this.addComment = function addComment () {
          var commentText = this.editor();
          if ( !this.isRedactorStringEmpty( commentText ) ) {
-            this.commentsData.get( this.commentsData.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ));
+            Model.get( Comment.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ));
          }
       };
 
       this.deleteComment = function deleteComment () {
          var commentText = this.editor();
          if ( !this.isRedactorStringEmpty( commentText ) ) {
-            this.commentsData.get( this.commentsData.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ));
+            Model.get( Comment.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ));
          }
       };
 
@@ -100,11 +98,11 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
       this.dataGetSucceed = function (data) {
          this.commentsDataQueue = this.commentsData.parseData(data);
-         this.userData.get( this.userData.getUserUrl, this.commentsDataQueue.userPack).done( this.allEventsSucceed.bind( this ) );
+         Model.get( User.getUserUrl, this.commentsDataQueue.userPack).done( this.allEventsSucceed.bind( this ) );
       };
 
       this.commentDataParams = this.commentsData.getListData( params.entity, params.entityId, params.listType );
-      this.commentsData.get( this.commentsData.getListUrl, this.commentDataParams ).done( this.dataGetSucceed.bind( this ) );
+      Model.get( Comment.getListUrl, this.commentDataParams ).done( this.dataGetSucceed.bind( this ) );
    }
 
    return {

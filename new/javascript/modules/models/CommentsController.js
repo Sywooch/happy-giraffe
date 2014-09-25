@@ -3,24 +3,6 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
    var CommentsController = {
 
       /**
-       * Url для получения списка комментариев
-       * @type {String}
-       */
-      getListUrl: '/api/comments/list/',
-
-      /**
-       * Url для получения одного комментария
-       * @type {String}
-       */
-      getComment: '/api/comments/get/',
-
-      /**
-       * Url страницы для создания комментария
-       * @type {String}
-       */
-      createCommentUrl: '/api/comments/create/',
-
-      /**
        * Размер аватары пользователей для комментариев
        * @type {Number}
        */
@@ -221,23 +203,6 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
           return commentObj;
         }
         return false;
-      },
-
-      /**
-       * [get асинхронный запрос к api]
-       * @param  {string} url        url к которому обращаемся
-       * @param  {object} paramsData объект с данными для запроса к API
-       * @return {$.ajax}            Возвращает объект $.ajax
-       */
-      get: function get( url, paramsData ) {
-         return $.ajax(
-           {
-               type: "POST",
-               url: url,
-               data:  JSON.stringify(paramsData),
-               dataType: 'json'
-            }
-          );
       }
 
    }

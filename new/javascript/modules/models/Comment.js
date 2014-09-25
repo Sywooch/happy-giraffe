@@ -1,4 +1,4 @@
-define(function() {
+define(["jquery", "knockout", "model"], function($, ko, Model) {
 
    var Comment = {
 
@@ -6,7 +6,43 @@ define(function() {
 
       color: '',
 
+      /**
+       * Url для получения списка комментариев
+       * @type {String}
+       */
+      getListUrl: '/api/comments/list/',
+
+      /**
+       * Url для получения одного комментария
+       * @type {String}
+       */
+      getComment: '/api/comments/get/',
+
+      /**
+       * Url страницы для создания комментария
+       * @type {String}
+       */
+      createCommentUrl: '/api/comments/create/',
+
+      /**
+       * Url страницы для создания комментария
+       * @type {String}
+       */
+      removeCommentUrl: '/api/comments/remove/',
+
       answers: [],
+
+      removed: false,
+
+      removeSucess: function removeSucess(successData) {
+         console.log(successData);
+      },
+
+      remove: function remove() {
+         Model
+            .get( this.removeCommentUrl(), { id: this.id() } )
+            .done( this.removeSucess.bind(this) );
+      },
 
       init: function init (object) {
 

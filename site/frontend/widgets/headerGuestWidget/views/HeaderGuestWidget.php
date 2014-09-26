@@ -79,7 +79,7 @@ if ($cs->useAMD) {
             <!-- Конверсионный попап-->
             <div class="header-popup header-popup__msg">
                 <div class="header-popup_hold">
-                    <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                    <div class="header-popup_t">Общайтесь с миллионами мам и пап на любые темы на Веселом жирафе!</div>
                     <div class="header-popup_msg"></div>
                     <div class="header-popup_b clearfix">
                         <a href="#registerWidget" class="header-popup_btn btn btn-success btn-xl popup-a">Присоединяйтесь!</a>

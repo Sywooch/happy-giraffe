@@ -58,6 +58,5 @@ var Test = {
             ga('send', 'pageview', Test.path + '?step=' + Test.step);
             yaCounter11221648.hit(Test.path + '?step=' + Test.step);
         }
-        $('#pix').attr('src', 'http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=' + Math.floor((Math.random()*9999999999)+1000000000));
     }
 }

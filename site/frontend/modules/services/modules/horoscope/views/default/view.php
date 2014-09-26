@@ -12,7 +12,7 @@
             {
                 $this->pageTitle = 'Гороскоп на сегодня ' . $model->zodiacText() . ' для женщин и мужчин - Веселый Жираф';
                 $this->metaDescription = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на сегодня для женщин и мужчин. Обновляется ежедневно!';
-                $this->metaCanonical = $this->getUrl(array('alias' => false));
+                //$this->metaCanonical = $this->getUrl(array('alias' => false));
                 echo 'Гороскоп ' . $model->zodiacText2() . ' на сегодня';
                 $this->breadcrumbs = array(
                     'Гороскопы' => array('/services/horoscope/default/index'),
@@ -23,7 +23,7 @@
             {
                 $this->pageTitle = 'Гороскоп на завтра ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
                 $this->metaDescription = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на завтра для женщин и мужчин. Обновляется ежедневно!';
-                $this->metaCanonical = $this->getUrl(array('alias' => false));
+                //$this->metaCanonical = $this->getUrl(array('alias' => false));
                 echo 'Гороскоп ' . $model->zodiacText2() . ' на завтра';
                 $this->breadcrumbs = array(
                     'Гороскопы' => array('/services/horoscope/default/index'),
@@ -46,7 +46,7 @@
             {
                 $this->pageTitle = 'Гороскоп на каждый месяц ' . $model->zodiacText() . ' - Веселый Жираф';
                 $this->metaDescription = 'Бесплатный гороскоп на месяц ' . $model->zodiacText() . ' для женщин и мужчин. Обновляется ежемесячно!';
-                $this->metaCanonical = $this->getUrl(array('alias' => false));
+                //$this->metaCanonical = $this->getUrl(array('alias' => false));
                 echo 'Гороскоп ' . $model->zodiacText2() . ' на месяц';
                 $this->breadcrumbs = array(
                     'Гороскопы' => array('/services/horoscope/default/index'),
@@ -70,8 +70,8 @@
             {
                 $this->pageTitle = 'Гороскоп  ' . $model->zodiacText() . '  на ' . date('Y', $this->date) . ' год для женщин и мужчин - Веселый Жираф';
                 $this->metaDescription = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . date('Y', $this->date) . ' год для женщин и мужчин. Познай свою судьбу!';
-                if($this->alias)
-                    $this->metaCanonical = $this->getUrl(array('alias' => false));
+                //if($this->alias)
+                //    $this->metaCanonical = $this->getUrl(array('alias' => false));
                 echo 'Гороскоп ' . $model->zodiacText2() . ' на ' . date('Y', $this->date) . ' год';
                 $this->breadcrumbs = array(
                     'Гороскопы' => array('/services/horoscope/default/index'),
@@ -102,7 +102,7 @@
         </div>
         <?php
         $text = $model->getText();
-        if ($this->period == 'day' && !empty($text))
+        if ($this->alias && !empty($text))
         {
             ?>
             <div class="seo-desc wysiwyg-content visible-md-block">

@@ -39,24 +39,22 @@ class ApiController extends \site\frontend\components\api\ApiController
         return \CMap::mergeArray(parent::actions(), array(
                 'get' => 'site\frontend\components\api\PackAction',
                 /** @todo добавить проверку на удаление корневого комментария */
-                /** @todo добавить проверку прав */
                 'remove' => array(
                     'class' => 'site\frontend\components\api\SoftDeleteAction',
                     'modelName' => '\site\frontend\modules\comments\models\Comment',
+                    'checkAccess' => 'removeComment',
                 ),
-                /** @todo добавить проверку прав */
                 'restore' => array(
                     'class' => 'site\frontend\components\api\SoftRestoreAction',
                     'modelName' => '\site\frontend\modules\comments\models\Comment',
+                    'checkAccess' => 'removeComment',
                 ),
         ));
     }
 
     public function packGet($id)
     {
-        $comment = \site\frontend\modules\comments\models\Comment::model()->findByPk($id);
-        if (!$comment)
-            throw new \CHttpException(404, 'Комментарий ' . $id . ' не найден');
+        $comment = $this->getModel('\site\frontend\modules\comments\models\Comment', $id, true);
         $this->success = true;
         $this->data = $comment->toJSON();
     }
@@ -90,11 +88,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionUpdate($id, $text)
     {
-        $comment = \site\frontend\modules\comments\models\Comment::model()->findByPk($id);
-        if (is_null($comment))
-            throw new \CHttpException('Комментарий не найден', 404);
-        if (!\Yii::app()->user->checkAccess('updateComment', array('entity' => $comment)))
-            throw new \CHttpException('Недостаточно прав для выполнения операции', 403);
+        $comment = $this->getModel('\site\frontend\modules\comments\models\Comment', $id, 'updateComment');
         $comment->text = $text;
         if ($comment->save())
         {
@@ -126,6 +120,22 @@ class ApiController extends \site\frontend\components\api\ApiController
             }, $models);
         $this->data['isLast'] = false;
         $this->success = true;
+    }
+
+    public function afterAction($action)
+    {
+        if ($this->success == true && in_array($action->id, array('create', 'update', 'remove', 'restore')))
+        {
+            $types = array(
+                'create' => \CometModel::COMMENTS_NEW,
+                'update' => \CometModel::COMMENTS_UPDATE,
+                'remove' => \CometModel::COMMENTS_DELETE,
+                'restore' => \CometModel::COMMENTS_RESTORE,
+            );
+            $this->send(\site\frontend\modules\comments\models\Comment::getChannel($this->data), $this->data, $types[$action->id]);
+        }
+
+        return parent::afterAction($action);
     }
 
 }

@@ -8,19 +8,15 @@ namespace site\frontend\components\api;
  * @author Кирилл
  * @property \site\frontend\components\api\ApiController $controller
  */
-class SoftRestoreAction extends \CAction
+class SoftRestoreAction extends ApiAction
 {
-
-    /**
-     * @var string Класс модели для удаления
-     */
-    public $modelName = null;
 
     public function run($id)
     {
-        /** @todo Проверить доступ */
-        $class = $this->modelName;
-        $model = $class::model()->resetScope(true)->findByPk($id);
+        $model = $this->controller->getModel($this->modelName, $id, $this->checkAccess, true);
+
+        if ($model instanceof \IHToJSON)
+            $this->controller->data = $model->toJSON();
         $this->controller->success = $model->restore();
     }
 

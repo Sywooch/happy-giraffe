@@ -8,7 +8,7 @@ namespace site\frontend\components\api;
  * @author Кирилл
  * @property \site\frontend\components\api\ApiController $controller
  */
-class SoftDeleteAction extends \CAction
+class SoftDeleteAction extends ApiAction
 {
 
     /**
@@ -18,10 +18,11 @@ class SoftDeleteAction extends \CAction
 
     public function run($id)
     {
-        /** @todo Проверить доступ */
-        $class = $this->modelName;
-        $model = $class::model()->findByPk($id);
-        $this->controller->success = $model->delete();
+        $model = $this->controller->getModel($this->modelName, $id, $this->checkAccess);
+
+        if ($model instanceof \IHToJSON)
+            $this->controller->data = $model->toJSON();
+        $this->controller->success = $model->softDelete();
     }
 
 }

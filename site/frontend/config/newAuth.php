@@ -12,7 +12,17 @@ return array(
         'children' => array(
             'guest',
             'manageOwnContent',
+            'createComment',
             'manageOwnPhotoCollection',
+        ),
+        'bizRule' => null,
+        'data' => null
+    ),
+    'moderator' => array(
+        'type' => CAuthItem::TYPE_ROLE,
+        'description' => 'Модератор',
+        'children' => array(
+            'user',
         ),
         'bizRule' => null,
         'data' => null
@@ -22,12 +32,10 @@ return array(
         'description' => 'Управление своим контентом (где автор)',
         'children' => array(
             'manageComment',
-            'manageAlbum',
         ),
         'bizRule' => 'return $params["entity"]->author_id == \Yii::app()->user->id;',
         'data' => null
     ),
-
     'manageComment' => array(
         'type' => CAuthItem::TYPE_TASK,
         'description' => 'Управление комментариями',
@@ -59,7 +67,6 @@ return array(
         'bizRule' => null,
         'data' => null
     ),
-
     'createPhotoAlbum' => array(
         'type' => CAuthItem::TYPE_TASK,
         'description' => 'Создание альбома',
@@ -88,7 +95,6 @@ return array(
         'bizRule' => null,
         'data' => null,
     ),
-
     'manageOwnPhotoCollection' => array(
         'type' => CAuthItem::TYPE_TASK,
         'description' => 'Управление своей фотоколлекцией',

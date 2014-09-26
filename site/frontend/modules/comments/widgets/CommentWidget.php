@@ -27,11 +27,33 @@ class CommentWidget extends \CWidget
         return new \CActiveDataProvider(\Comment::model()->byEntity($this->model)->specialSort());
     }
 
-    public function getUserLink($user)
+    public function getUserLink($user, $response = false)
     {
-        return $user->deleted ?
-            \CHtml::tag('span', array('rel' => 'author', 'class' => 'a-light comments_author'), $user->fullName) :
-            \CHtml::link($user->fullName, $user->url, array('rel' => 'author', 'class' => 'a-light comments_author'));
+        if (!$response)
+        {
+            return $user->deleted ?
+                \CHtml::tag('span', array('rel' => 'author', 'class' => 'a-light comments_author'), $user->fullName) :
+                \CHtml::link($user->fullName, $user->url, array('rel' => 'author', 'class' => 'a-light comments_author'));
+        }
+        else
+        {
+            return $user->deleted ?
+                \CHtml::tag('span', array('rel' => 'author', 'class' => 'a-light comments_ansver-for'), $user->fullName) :
+                \CHtml::link($user->fullName, $user->url, array('rel' => 'author', 'class' => 'comments_ansver-for'));
+        }
+    }
+
+    public function normalizeText($text)
+    {
+        $matches = array();
+        // вырежем обращение из текста
+        if (preg_match('~^<p>(<a href="(/user/\d+/)">([^<]+)</a>, )~', $text, $matches))
+        {
+            //$text = substr_replace($text, '<p><span class="display-n">' . $matches[1] . '</span>', 0, strlen($matches[0]));
+            $text = substr_replace($text, '<p>', 0, strlen($matches[0]));
+        }
+
+        return $text;
     }
 
 }

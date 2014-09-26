@@ -140,7 +140,9 @@ if ($full) {
 <?php
 if ($full)
 {
+    echo CHtml::openTag('div', array('class' => 'section comments comments__buble'));
     $this->widget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $data));
+    echo CHtml::closeTag('div');
     //$this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full));
 }
 ?>

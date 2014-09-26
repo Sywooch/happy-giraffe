@@ -45,6 +45,12 @@ class ApiController extends \CController
     protected $_cometModel = null;
 
     /**
+     *
+     * @var array Массив запомненных моделей
+     */
+    protected $_models = array();
+
+    /**
      * Метод, устанавливающий стандартные значения ответа, перед использованием пакетной обработки
      */
     public function clearPack()
@@ -113,7 +119,7 @@ class ApiController extends \CController
      */
     public function send($channel, $data, $type)
     {
-        $comet->send($channel, $data, $type);
+        $this->comet->send($channel, $data, $type);
     }
 
     // Переписываем ошибку для отсутствующего метода
@@ -151,6 +157,25 @@ class ApiController extends \CController
     public function getActionParams()
     {
         return \CJSON::decode(@\file_get_contents('php://input'));
+    }
+
+    public function getModel($class, $id, $checkAccess = false, $resetScope = false)
+    {
+        if (!isset($this->_models[$class][$id][(int) $resetScope]))
+        {
+            if ($resetScope)
+                $this->_models[$class][$id][(int) $resetScope] = $class::model()->resetScope(true)->findByPk($id);
+            else
+                $this->_models[$class][$id][(int) $resetScope] = $class::model()->findByPk($id);
+        }
+
+        if ($checkAccess && !$this->_models[$class][$id][(int) $resetScope])
+            throw new \CHttpException(404);
+        if ($checkAccess && !\Yii::app()->user->checkAccess($checkAccess, array('entity' => $this->_models[$class][$id][(int) $resetScope])))
+            throw new \CHttpException(403);
+
+
+        return $this->_models[$class][$id][(int) $resetScope];
     }
 
 }

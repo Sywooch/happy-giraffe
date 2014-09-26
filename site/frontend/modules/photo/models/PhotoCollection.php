@@ -46,22 +46,14 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     public function rules()
     {
         return array(
-            //array('cover_id', 'validateCover'),
+            array('cover_id', 'validateCover', 'on' => 'setCover'),
         );
     }
 
     public function validateCover($attribute, $params)
     {
-        $attach = $this->$attribute;
-        if ($attach instanceof PhotoAttach) {
-            if ($attach->removed == 1 || $attach->collection_id != $this->id) {
-                $this->addError($attribute, '');
-            }
-            $this->$attribute = $attach->id;
-        } else {
-            if (! PhotoAttach::model()->collection($this->id)->exists()) {
-                $this->addError($attribute, '');
-            }
+        if (! PhotoAttach::model()->collection($this->id)->exists('id = :id', array(':id' => $this->$attribute))) {
+            $this->addError($attribute, '');
         }
     }
 
@@ -133,10 +125,10 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function setCover($attach, $runValidation = true)
+    public function setCover($attach)
     {
         $this->cover_id = $attach;
-        return $this->save($runValidation);
+        return $this->save();
     }
 
     public function scopes()
@@ -164,8 +156,9 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         $attach->collection_id = $this->id;
         $success = $attach->save();
         if ($success && $this->cover_id === null) {
-            $this->setCover($attach, false);
+            $this->setCover($attach->id);
         }
+        return $success;
     }
 
     protected function getMaxPosition()

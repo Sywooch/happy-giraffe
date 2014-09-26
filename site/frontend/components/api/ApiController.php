@@ -132,8 +132,8 @@ class ApiController extends \CController
     public function run($action)
     {
         header('Content-Type: application/json');
-        \Yii::app()->attachEventHandler('onError', array($this, 'onError'));
-        \Yii::app()->attachEventHandler('onException', array($this, 'onError'));
+//        \Yii::app()->attachEventHandler('onError', array($this, 'onError'));
+//        \Yii::app()->attachEventHandler('onException', array($this, 'onError'));
         parent::run($action);
     }
 
@@ -170,9 +170,9 @@ class ApiController extends \CController
         }
 
         if ($checkAccess && !$this->_models[$class][$id][(int) $resetScope])
-            throw new \CHttpException(404);
+            throw new \CHttpException(404, 'Модель не найдена');
         if ($checkAccess && !\Yii::app()->user->checkAccess($checkAccess, array('entity' => $this->_models[$class][$id][(int) $resetScope])))
-            throw new \CHttpException(403);
+            throw new \CHttpException(403, 'Недостаточно прав');
 
 
         return $this->_models[$class][$id][(int) $resetScope];

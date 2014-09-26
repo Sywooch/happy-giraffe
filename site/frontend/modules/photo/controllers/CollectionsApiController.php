@@ -18,7 +18,7 @@ class CollectionsApiController extends ApiController
 {
     public function actionGetAttaches($collectionId, $length, $offset)
     {
-        $collection = $this->getCollection($collectionId);
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId);
         $observer = PhotoCollectionObserver::getObserver($collection);
         $this->success = true;
         $this->data = $observer->getSlice($length, $offset);
@@ -26,65 +26,35 @@ class CollectionsApiController extends ApiController
 
     public function actionMy()
     {
-        $user = User::model()->findByPk(\Yii::app()->user->id);
-        if ($user === null) {
-            throw new \CHttpException(404, 'Пользователь не найден');
-        }
+        $user = $this->getModel('\User', \Yii::app()->user->id);
         $this->success = true;
         $this->data = $user->photoCollections;
     }
 
     public function actionSetCover($collectionId, $attachId)
     {
-        $collection = $this->getCollection($collectionId);
-        if (! \Yii::app()->user->checkAccess('setCover', compact('collection'))) {
-            throw new \CHttpException(403, 'Недостаточно прав');
-        }
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'setCover');
+        $collection->setScenario('setCover');
         $this->success = $collection->setCover($attachId);
     }
 
     public function actionAddPhotos($collectionId, array $photosIds)
     {
-        $collection = $this->getCollection($collectionId);
-        if (! \Yii::app()->user->checkAccess('addPhotos', compact('collection'))) {
-            throw new \CHttpException(403, 'Недостаточно прав');
-        }
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'addPhotos');
         $this->success = $collection->attachPhotos($photosIds);
     }
 
     public function actionSortAttaches($collectionId, array $attachesIds)
     {
-        $collection = $this->getCollection($collectionId);
-        if (! \Yii::app()->user->checkAccess('sortPhotoCollection', compact('collection'))) {
-            throw new \CHttpException(403, 'Недостаточно прав');
-        }
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'sortPhotoCollection');
         $collection->sortAttaches($attachesIds);
         $this->success = true;
     }
 
     public function actionMoveAttaches($sourceCollectionId, $destinationCollectionId, array $attachesIds)
     {
-        $collection = $this->getCollection($sourceCollectionId);
-        $destinationCollection = $this->getCollection($destinationCollectionId);
-        if (! \Yii::app()->user->checkAccess('moveAttaches', compact('collection', 'destinationCollection'))) {
-            throw new \CException('Недостаточно прав');
-        }
-
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $sourceCollectionId, 'moveAttaches');
+        $destinationCollection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $destinationCollectionId, 'moveAttaches');
         $this->success = $collection->moveAttaches($destinationCollection, $attachesIds);
-    }
-
-    /**
-     * @param $collectionId
-     * @return PhotoCollectionAbstract
-     * @throws \CHttpException
-     */
-    protected function getCollection($collectionId)
-    {
-        /** @var PhotoCollectionAbstract $collection */
-        $collection = PhotoCollection::model()->findByPk($collectionId);
-        if ($collection === null) {
-            throw new \CHttpException(404, 'Коллекция не найдена');
-        }
-        return $collection;
     }
 } 

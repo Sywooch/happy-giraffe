@@ -6,8 +6,7 @@
         display: none;
     }*/
     &_cont {
-        margin: 20px auto;
-        padding: 0 4%;
+        margin: 20px 15px;
         max-width: 680px;
         .box-sizing(content-box);
     }
@@ -24,6 +23,12 @@
         }
     }*/
 
+    @media (min-width: @screen-tablet) {
+        &_cont {
+            margin: 20px auto;
+        }
+    }
+
     @media (min-width: @screen-desktop) {
         & {
             margin-bottom: 45px;
@@ -39,9 +44,9 @@
             padding: 0;
             margin: 20px 0;
         }
-        &_cont .adv-yandex {
+        /*&_cont .adv-yandex {
             margin-left: 0;
-        }
+        }*/
 
         &_view {
             display: block;

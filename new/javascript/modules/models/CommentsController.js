@@ -185,6 +185,13 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
         }
       },
 
+
+      /**
+       * Проверка массива на присутстивие элемента с определенным свойством
+       * @param  {object Comment}   comment    Объект комментария
+       * @param  {Observable array} parsedData Массив с комментариями
+       * @return {Object}                      Объект комментария
+       */
       removedStatus: function (comment, parsedData) {
 
         var commentObj;
@@ -201,6 +208,14 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
         return commentObj;
       },
 
+
+      /**
+       * Добавление юзера к новому комментарию
+       * @param  {Comment object} comment      Объект комментария
+       * @param  {User object} user            Объект пользователя
+       * @param  {Observable array} parsedData Массив комментариев
+       * @return {Comment Object}              Объект готового комментария
+       */
       newCommentAddedUser: function (comment, user, parsedData) {
         if ( user.success ) {
           var commentInstance = Object.create( Comment ),

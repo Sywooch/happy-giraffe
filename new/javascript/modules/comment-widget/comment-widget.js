@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'model', 'comment-model', 'user-model', 'wysiwyg', 'knockout.mapping', 'ko_library', 'comet-connect'], function($, ko, CommentsController, UserData, template, moment, Model, Comment, User) {
+define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'model', 'comment-model', 'user-model', 'wswg', 'knockout.mapping', 'ko_library', 'comet-connect'], function($, ko, CommentsController, UserData, template, moment, Model, Comment, User) {
 
    var CommentWidgetViewModel = function (params) {
 
@@ -168,8 +168,6 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       this.allEventsSucceed = function usersSucceed(userData) {
          ko.mapping.fromJS(this.userData.getCurrentUserFromList(userData.data, userData.success), this.authUser);
          ko.mapping.fromJS(this.commentsData.allDataReceived(userData.data, this.commentsDataQueue.commentsData), this.parsedData);
-
-         console.log(this.parsedData());
       }
 
       this.dataGetSucceed = function (data) {

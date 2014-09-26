@@ -33,6 +33,8 @@ return array(
         'description' => 'Управление своим контентом (где автор)',
         'children' => array(
             'manageComment',
+            'managePhotoAlbum',
+            'managePhotoAttach',
         ),
         'bizRule' => 'return $params["entity"]->author_id == \Yii::app()->user->id;',
         'data' => null
@@ -103,6 +105,28 @@ return array(
         'bizRule' => null,
         'data' => null,
     ),
+    'managePhotoAttach' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление альбомами',
+        'children' => array(
+            'removePhotoAttach',
+            'restorePhotoAttach',
+        ),
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'removePhotoAttach' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Удаление комментария',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'restorePhotoAttach' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Удаление комментария',
+        'bizRule' => null,
+        'data' => null,
+    ),
     'manageOwnPhotoCollection' => array(
         'type' => CAuthItem::TYPE_TASK,
         'description' => 'Управление своей фотоколлекцией',
@@ -110,9 +134,9 @@ return array(
             'addPhotos',
             'sortPhotoCollection',
             'setCover',
-            'communicateBetweenOwnCollections',
+            'moveAttaches',
         ),
-        'bizRule' => 'return $params["collection"]->getOwner()->id == \Yii::app()->user->id;',
+        'bizRule' => 'return $params["entity"]->getOwner()->id == \Yii::app()->user->id;',
         'data' => null,
     ),
     'sortPhotoCollection' => array(
@@ -131,15 +155,6 @@ return array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Изменение обложки',
         'bizRule' => null,
-        'data' => null,
-    ),
-    'communicateBetweenOwnCollections' => array(
-        'type' => CAuthItem::TYPE_TASK,
-        'description' => 'Перемещение аттачей',
-        'children' => array(
-            'moveAttaches',
-        ),
-        'bizRule' => 'return $params["collection"]->getOwner()->id == \Yii::app()->user->id && $params["destinationCollection"]->getOwner()->id == \Yii::app()->user->id;',
         'data' => null,
     ),
     'moveAttaches' => array(

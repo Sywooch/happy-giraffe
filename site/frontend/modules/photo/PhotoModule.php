@@ -25,6 +25,7 @@ class PhotoModule extends \CWebModule
 
         \Yii::app()->setComponent('authManager', array(
             'class' => '\site\frontend\components\AuthManager',
+            'showErrors' => YII_DEBUG,
         ));
 	}
 

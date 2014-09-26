@@ -7,11 +7,7 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
-use site\frontend\modules\photo\components\CollectionsManager;
 use site\frontend\modules\photo\components\observers\PhotoCollectionObserver;
-use site\frontend\modules\photo\models\collections\PhotoCollectionAbstract;
-use site\frontend\modules\photo\models\PhotoCollection;
-use site\frontend\modules\users\models\User;
 use site\frontend\components\api\ApiController;
 
 class CollectionsApiController extends ApiController
@@ -56,5 +52,17 @@ class CollectionsApiController extends ApiController
         $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $sourceCollectionId, 'moveAttaches');
         $destinationCollection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $destinationCollectionId, 'moveAttaches');
         $this->success = $collection->moveAttaches($destinationCollection, $attachesIds);
+    }
+
+    /**
+     * @param $class
+     * @param $id
+     * @param bool $checkAccess
+     * @param bool $resetScope
+     * @return \site\frontend\modules\photo\models\collections\PhotoCollectionAbstract
+     */
+    public function getModel($class, $id, $checkAccess = false, $resetScope = false)
+    {
+        return parent::getModel($class, $id, $checkAccess, $resetScope);
     }
 } 

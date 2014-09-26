@@ -49,7 +49,7 @@
             <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
         <![endif]-->
     </head>
-    <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
+    <body class="body-gray theme theme__adfox <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
         <?php Yii::app()->ads->showCounters(); ?>
 
         <?php if (Yii::app()->user->checkAccess('editMeta')):?>

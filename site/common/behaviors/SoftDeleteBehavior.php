@@ -35,5 +35,6 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
     public function notRemoved()
     {
         $this->owner->getDbCriteria()->compare($this->owner->getTableAlias(), 0);
+        return $this;
     }
 }

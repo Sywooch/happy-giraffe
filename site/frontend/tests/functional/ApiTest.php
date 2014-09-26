@@ -17,6 +17,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 {
     public function testAlbums()
     {
+        date_default_timezone_set('Europe/Moscow');
         $cookiePlugin = new CookiePlugin(new FileCookieJar(\Yii::getPathOfAlias('site.common.data.test')));
 
 
@@ -32,6 +33,7 @@ class ApiTest extends \PHPUnit_Framework_TestCase
 
 
 
+
         $request = $client->post('/api/photo/albums/create/', null, json_encode(array(
             'attributes' => array(
                 'title' => 'Тестовый альбом',
@@ -40,6 +42,8 @@ class ApiTest extends \PHPUnit_Framework_TestCase
         )));
 
         $response = $request->send()->getBody(true);
+
+        var_dump($response);
 
         $response = json_decode($response);
 

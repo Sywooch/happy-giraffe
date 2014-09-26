@@ -9,17 +9,14 @@
 namespace site\frontend\components\api;
 
 
-class EditAction extends \CAction
+class EditAction extends ApiAction
 {
     public $modelName;
 
     public function run(array $attributes, $id)
     {
         /** @var \HActiveRecord $model */
-        $model = \HActiveRecord::model($this->modelName)->findByPk($id);
-        if ($model === null) {
-            throw new \CHttpException(404, 'Модель не найдена');
-        }
+        $model = $this->controller->getModel($this->modelName, $id, $this->checkAccess);
         $model->attributes = $attributes;
         $this->controller->success = $model->save();
         $this->controller->data = $model->hasErrors() ? array(

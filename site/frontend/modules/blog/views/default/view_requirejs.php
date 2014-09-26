@@ -112,9 +112,13 @@ if ($full) {
             <?php $this->endWidget(); ?>
         <?php endif; ?>
 
-        <?php if (! $full && $showComments): ?>
-            <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
-        <?php endif; ?>
+        <?php
+        /*if (!$full && $showComments)
+        {
+            $this->widget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $data));
+            //$this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full));
+        }*/
+        ?>
         <!-- /ko -->
     </div>
 </div>
@@ -133,9 +137,13 @@ if ($full) {
     <?php $this->endWidget(); ?>
 <?php endif; ?>
 
-<?php if ($full): ?>
-    <?php $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full)); ?>
-<?php endif; ?>
+<?php
+if ($full)
+{
+    $this->widget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $data));
+    //$this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full));
+}
+?>
 
 <?php if ($full && ! $data->getIsFromBlog()): ?>
     <?php $this->widget('CommunityQuestionWidget', array('forumId' => $this->forum->id)); ?>

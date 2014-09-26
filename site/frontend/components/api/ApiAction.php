@@ -6,6 +6,7 @@ namespace site\frontend\components\api;
  * Description of ApiAction
  *
  * @author Кирилл
+ * @property ApiController $controller The controller who owns this action.
  */
 class ApiAction extends \CAction
 {

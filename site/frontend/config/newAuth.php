@@ -14,6 +14,7 @@ return array(
             'manageOwnContent',
             'createComment',
             'manageOwnPhotoCollection',
+            'createPhotoAlbum',
         ),
         'bizRule' => null,
         'data' => null
@@ -77,19 +78,26 @@ return array(
         'type' => CAuthItem::TYPE_TASK,
         'description' => 'Управление альбомами',
         'children' => array(
-            'updatePhotoAlbum',
+            'editPhotoAlbum',
             'removePhotoAlbum',
+            'restorePhotoAlbum',
         ),
         'bizRule' => null,
         'data' => null,
     ),
-    'updatePhotoAlbum' => array(
+    'editPhotoAlbum' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Редактирование комментария',
         'bizRule' => null,
         'data' => null,
     ),
     'removePhotoAlbum' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Удаление комментария',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'restorePhotoAlbum' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Удаление комментария',
         'bizRule' => null,

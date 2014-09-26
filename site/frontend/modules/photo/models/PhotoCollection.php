@@ -46,7 +46,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     public function rules()
     {
         return array(
-            array('cover_id', 'validateCover'),
+            //array('cover_id', 'validateCover'),
         );
     }
 
@@ -59,7 +59,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             }
             $this->$attribute = $attach->id;
         } else {
-            if (! PhotoAttach::model()->notRemoved()->collection($this->id)->exists()) {
+            if (! PhotoAttach::model()->collection($this->id)->exists()) {
                 $this->addError($attribute, '');
             }
         }

@@ -20,18 +20,22 @@ class AlbumsApiController extends \site\frontend\components\api\ApiController
             'create' => array(
                 'class' => 'site\frontend\components\api\CreateAction',
                 'modelName' => '\site\frontend\modules\photo\models\PhotoAlbum',
+                'checkAccess' => 'createPhotoAlbum',
             ),
             'edit' => array(
                 'class' => 'site\frontend\components\api\EditAction',
                 'modelName' => '\site\frontend\modules\photo\models\PhotoAlbum',
+                'checkAccess' => 'editPhotoAlbum',
             ),
             'remove' => array(
                 'class' => 'site\frontend\components\api\SoftDeleteAction',
                 'modelName' => '\site\frontend\modules\photo\models\PhotoAlbum',
+                'checkAccess' => 'removePhotoAlbum',
             ),
             'restore' => array(
                 'class' => 'site\frontend\components\api\SoftRestoreAction',
                 'modelName' => '\site\frontend\modules\photo\models\PhotoAlbum',
+                'checkAccess' => 'restorePhotoAlbum',
             ),
         ));
     }

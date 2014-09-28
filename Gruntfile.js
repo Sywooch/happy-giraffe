@@ -185,6 +185,7 @@ module.exports = function(grunt){
             /.tooltip+/,
             /.header-menu_li+/,
             /.header_+/,
+            /'.header-banner'/,
           ],
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
@@ -206,8 +207,8 @@ module.exports = function(grunt){
             /.mfp+/,
             /.select2+/,
             /.header-menu_li+/,
-            /.header_+/,
-            '.header-banner+',
+            /.header+/,
+            /'.header-banner'/,
             //.tooltip+/,
           ],
         },
@@ -235,7 +236,7 @@ module.exports = function(grunt){
             /.select2+/,
             /.header-menu_li+/,
             /.header_+/,
-            '.header-banner+',
+            /'.header-banner'/,
           ],
         },
         src: [
@@ -263,7 +264,7 @@ module.exports = function(grunt){
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
-            '.header-banner+',
+            /'.header-banner'/,
             
             /.header-drop+/, // Drop, active элементы
             /.header-menu_li+/,
@@ -605,6 +606,8 @@ module.exports = function(grunt){
   // lite tasks
   // bild lite версии
   grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services','uncss:services_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+
+  grunt.registerTask('lite-css', [/*'jade:lite_prod',*/ 'less:litedev','uncss:lite_blog','uncss:services','uncss:services_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // Блоги
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // сервисы

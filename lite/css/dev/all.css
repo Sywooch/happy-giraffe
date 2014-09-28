@@ -14430,9 +14430,9 @@ span.b-calendar_a {
   width: 1000px;
   text-align: center;
 }
+.header-banner_hold embed,
 .header-banner_hold div,
-.header-banner_hold img,
-.header-banner_hold embed {
+.header-banner_hold img {
   display: block;
   margin: 0 auto;
 }

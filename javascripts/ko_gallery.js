@@ -80,7 +80,7 @@
                 dataLayer.push({'event': 'virtualView'});
                 yaCounter11221648.hit(self.currentPhoto().url());
                 self.setLikesPosition();
-                $('#photo-window_banner iframe').attr('src', '/direct4.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
+                //$('#photo-window_banner iframe').attr('src', '/direct4.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
                 if (self.collectionClass == 'ContestPhotoCollection')
                     self.loadContestData();
 

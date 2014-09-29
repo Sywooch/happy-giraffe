@@ -118,6 +118,20 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
                }
            },
 
+       isRedactorStringEmpty: function isRedactorStringEmpty(string) {
+           if (string !== '') {
+               string = string
+                   .replace(/(?!<\/?[imgiframe].*?>)<.*?>/g,"")
+                   .replace(/(&nbsp;)/ig, "")
+                   .trim();
+
+               if (string !== '') {
+                   return false;
+               }
+           }
+           return true;
+        },
+
        create: function create(params) {
            var commentText = this.editor();
            if ( !this.isRedactorStringEmpty( commentText ) ) {
@@ -130,7 +144,7 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
       renewComment: function renewComment() {
          Model
             .get( this.renewCommentUrl(), { id: this.id(), text: this.editor() } )
-            .done( this.cancelEditor.bind(this) );
+            .done( this.cancelEditor.bind(this) )Сщь
       },
 
        response: function response () {

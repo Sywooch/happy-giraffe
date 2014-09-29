@@ -144,7 +144,7 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
       renewComment: function renewComment() {
          Model
             .get( this.renewCommentUrl(), { id: this.id(), text: this.editor() } )
-            .done( this.cancelEditor.bind(this) )Сщь
+            .done( this.cancelEditor.bind(this) );
       },
 
        response: function response () {

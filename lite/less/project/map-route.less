@@ -2,23 +2,28 @@
 // Стили сервиса маршрутов
 .map-route {
     
-    &_cont .heading-xl {
+    /*&_cont .heading-xl {
         display: none;
-    }
-    &_cont .adv-yandex {
-        margin: 20px auto;
-        padding: 0 4%;
-        max-width: 600px;
+    }*/
+    &_cont {
+        margin: 20px 15px;
+        max-width: 680px;
         .box-sizing(content-box);
     }
     &_view {
         display: none;
     }
 
-    @media (min-width: @screen-phone-landscape) {
+    /*@media (min-width: @screen-phone-landscape) {
         &_cont .adv-yandex {
             padding: 0;
         }
+        &_cont {
+            margin: 20px auto;
+        }
+    }*/
+
+    @media (min-width: @screen-tablet) {
         &_cont {
             margin: 20px auto;
         }
@@ -36,11 +41,12 @@
         &_cont {
             float: left;
             width: 680px;
+            padding: 0;
             margin: 20px 0;
         }
-        &_cont .adv-yandex {
+        /*&_cont .adv-yandex {
             margin-left: 0;
-        }
+        }*/
 
         &_view {
             display: block;

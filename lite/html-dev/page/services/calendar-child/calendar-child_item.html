@@ -212,8 +212,22 @@
                 <p>К семи месяцам девочки весят 5,3 – 11,1 килограммов, рост имеют 60,3 – 74,2 сантиметров, окружность головы 38,9 – 46,8 сантиметров, окружность груди 41,8 – 48,5 сантиметров.</p>
                 <p>Мальчики к семи месяцам имеют вес 5,9 -11,4 килограммов, рост 62,7 – 75,7 сантиметров, окружность головы 40,3 – 47,7 сантиметров, окружность груди 41,7 – 50,1 сантиметров.</p>
                 <div class="age-features"></div>
-                <div class="calendar-serv-note">
-                  <div class="calendar-serv-note_count">7</div>
+                <!-- Варианты модификаторов
+                .calendar-serv-note__1y
+                .calendar-serv-note__3y
+                .calendar-serv-note__7y
+                .calendar-serv-note__18y
+                -->
+                <div class="calendar-serv-note calendar-serv-note__3y">
+                  <script>
+                    $(window).ready(function () {
+                        var docWidth = $(document).width();
+                        if (docWidth > 640 && docWidth < 1000) {
+                            $('.calendar-serv-note_count').css({'right': (1000 - docWidth)/2})
+                        }
+                    });
+                  </script>
+                  <div class="calendar-serv-note_count">7-18</div>
                   <div class="b-main_col-article b-main_col-article__center">
                     <h2 class="calendar-serv-note_t">В <span> 7 </span> месяцев ваш ребенок</h2>
                     <ul class="calendar-serv-note_ul">
@@ -312,7 +326,6 @@
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
-              <li class="footer-list_li footer-list_li__rambler visible-md-inline-block"><a href="#" class="footer-list_a">Партнер "Рамблера"</a><span id="counter-rambler" class="footer-list_rambler-count"><a href="http://top100.rambler.ru/home?id=2892367" target="_blank"><img src="http://counter.rambler.ru/top100.scn?2892367&amp;rn=1382511841&amp;v=0.3&amp;bs=1680x983&amp;ce=1&amp;rf=http%3A%2F%2Fwww.happy-giraffe.ru%2Fmy%2F&amp;en=UTF-8&amp;pt=%D0%92%D0%B5%D1%81%D0%B5%D0%BB%D1%8B%D0%B9%20%D0%96%D0%B8%D1%80%D0%B0%D1%84%20-%20%D1%81%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D1%81%D0%B5%D0%B9%20%D1%81%D0%B5%D0%BC%D1%8C%D0%B8&amp;cd=32-bit&amp;sr=1680x1050&amp;la=ru&amp;ja=1&amp;acn=Mozilla&amp;an=Netscape&amp;pl=Win32&amp;tz=-120&amp;fv=12.0%20r0&amp;sv&amp;le=0" title="Rambler&quot;s Top100" alt="Rambler&quot;s Top100" width="88" height="31"></a></span></li>
             </ul>
             <ul class="footer-menu visible-md">
               <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>

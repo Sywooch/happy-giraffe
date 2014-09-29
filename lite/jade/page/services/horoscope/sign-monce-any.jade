@@ -1,0 +1,134 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+       
+    // b-main 
+    .b-main.clearfix
+    
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Гороскопы 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Овен  
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last август 2014 
+        .b-main_cont
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+                    
+                    h1.heading-link-xxl Гороскоп Овна на август 2014
+
+                    .horoscope-monce
+                        .horoscope-monce_hold
+                            .ico-zodiac.ico-zodiac__l
+                                .ico-zodiac_in.ico-zodiac__3
+
+                            .b-calendar
+                                .b-calendar_in.b-calendar_in__years
+                                    .b-calendar_t Год
+                                    ul.b-calendar_ul
+                                        li.b-calendar_li
+                                            a.b-calendar_a(href='#') 2011
+                                        li.b-calendar_li
+                                            a.b-calendar_a(href='#') 2012
+                                        li.b-calendar_li
+                                            a.b-calendar_a(href='#') 2013
+                                        li.b-calendar_li.active
+                                            a.b-calendar_a(href='#') 2014
+                                .b-calendar_in.b-calendar_in__months
+                                    .b-calendar_t Месяц
+                                    ul.b-calendar_ul
+                                        li.b-calendar_li
+                                            a.b-calendar_a(href='#') янв
+                                        li.b-calendar_li
+                                            a.b-calendar_a(href='#') фев
+                                        li.b-calendar_li
+                                            a.b-calendar_a(href='#') мар
+                                        li.b-calendar_li
+                                            a.b-calendar_a(href='#') апр
+                                        li.b-calendar_li
+                                            a.b-calendar_a(href='#') май
+                                        li.b-calendar_li
+                                            a.b-calendar_a(href='#') июн
+                                        li.b-calendar_li
+                                            a.b-calendar_a(href='#') июл
+                                        li.b-calendar_li.active
+                                            a.b-calendar_a(href='#') авг
+                                        li.b-calendar_li
+                                            span.b-calendar_a сен
+                                        li.b-calendar_li
+                                            span.b-calendar_a окт
+                                        li.b-calendar_li
+                                            span.b-calendar_a ноя
+                                        li.b-calendar_li
+                                            span.b-calendar_a дек
+
+                        .wysiwyg-content.clearfix
+                            p Возможно, сегодня вашей помощи попросят родственники – постарайтесь поддержать их. Приложите усилия, чтобы наладить отношения в семье, сгладить ссоры и разногласия. В этот день невозможно оставаться пассивными. Направьте свою энергию на созидательную практическую деятельность в семейных вопросах. Возможны неполадки с техникой. Вечером побудьте дома, посмотрите хороший фильм, послушайте любимую музыку.
+
+                        .b-calendar
+                            .b-calendar_in.b-calendar_in__days-type
+                                //- .b-calendar_t День
+                                ul.b-calendar_ul
+                                    // Пустая лишка для ровнения по дням недели
+                                    li.b-calendar_li
+                                        span.b-calendar_a &nbsp;
+                                    - var liClass
+                                    - for (i=1; i<32; i++)
+                                        - if(i == 1 || i == 9 || i == 15 || i == 21 || i == 26)
+                                            - liClass = ' b-calendar_li__good'
+                                        - else if (i == 6 || i == 13 || i == 19 || i == 22 || i == 30)
+                                            - liClass = ' b-calendar_li__bad' 
+                                        - else
+                                            - liClass = '' 
+                                        li.b-calendar_li(class=liClass)
+                                            a.b-calendar_a(href='#')
+                                                = i 
+                                            //-
+                                                - if(i < 20)
+                                                    a.b-calendar_a(href='#') 
+                                                        = i
+                                                - else 
+                                                    span.b-calendar_a
+                                                        = i
+                            .b-calendar_day-type
+                                .b-calendar_day-type-row
+                                    .b-calendar_day-good 
+                                    span.color-gray 
+                                        | &nbsp; - &nbsp; благоприятные дни
+                                .b-calendar_day-type-row
+                                    .b-calendar_day-bad 
+                                    span.color-gray 
+                                        | &nbsp; - &nbsp; неблагоприятные дни
+
+                    +customLikes('', customLikes.horoscope) 
+
+                    .menu-link-simple.menu-link-simple__center
+                        .menu-link-simple_t Еще Овен
+                        ul.menu-link-simple_ul
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') На сегодня
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') На завтра
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') На месяц
+                            li.menu-link-simple_li
+                                a.menu-link-simple_a(href='#') На 2014
+                    .padding-b40
+                        +adv-yandex('')
+
+                // /Основная колонка
+
+    // b-main 
+    +layout-footer-lite()

@@ -652,6 +652,10 @@
 
                     $el.replaceWith($span);
                 }
+                else {
+                    $el
+                        .attr('href', val);
+                }
             }
         };
 

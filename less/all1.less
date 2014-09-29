@@ -1252,51 +1252,7 @@
 #calories-calculator-daily .result ul li .gray {font-size:11px;color:#9e9d9d;font-family:tahoma, arial, helvetica, sans-serif;}*/
 /* /calculator calories daily */
 
-// Из Lite версии
-@path-img : '/lite/images';
 
-.ico-social-hold {
-    .inline-block();
-    vertical-align: middle;
-    margin: 4px;
-}
-.ico-social {
-    .inline-block();
-    margin: 0 4px;
-    width: 22px;
-    height: 22px;
-    background: url('@{path-img}/ico/ico-social.png') no-repeat;
-    
-    &:hover {
-        opacity: 0.8;
-    }
-    &__odnoklassniki {background-position: 0 0;}
-    &__vkontakte {background-position: -22px 0;}
-
-    &__m {
-        width: 32px;
-        height: 32px;
-        background: url('@{path-img}/ico/ico-social__m.png') no-repeat;
-    }
-    &__vkontakte.ico-social__m {background-position: -32px 0;}
-}
-
-.ico-club {
-    .inline-block();
-    width: 75px;
-    height: 75px;
-
-    &__s {
-        .scale(.45);
-        width: 25px;
-        height: 25px;
-        vertical-align: middle;
-    }
-
-    .no-svg &__s {
-        -ms-filter: "progid:DXImageTransform.Microsoft.Matrix(M11=0.43, M12=0, M21=0, M22=0.43, SizingMethod='auto expand')";
-    }
-}
 
 @import "../lite/less/sprite/ico-club-sprite.less";
 
@@ -1308,4 +1264,8 @@
 	background-image: url("/lite/images/sprite/ico-club.svg");
 }
 @import "../lite/less/project/b-clubs.less";
+@import "../lite/less/project/comments.less";
 @import "../lite/less/project/header-popup.less";
+
+@import "/project/comments-lite.less";
+@import "/project/from-lite.less";

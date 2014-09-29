@@ -13,6 +13,7 @@ namespace site\frontend\modules\photo\controllers;
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
+use Imagine\Imagick\Image;
 use Imagine\Imagick\Imagine;
 use League\Flysystem\Filesystem;
 use site\frontend\modules\photo\components\observers\PhotoCollectionGreedyObserver;
@@ -41,6 +42,22 @@ class TestController extends PhotoController
                 'users' => array('?'),
             ),
         );
+    }
+
+    public function actionCrop()
+    {
+        $photo = Photo::model()->findByPk(112);
+        \Yii::app()->thumbs->getThumb($photo, 'uploadPreviewBig')->getUrl();
+
+//        $x = 0;
+//        $y = 0;
+//        $w = 580;
+//        $h = 580;
+//
+//        $photo = Photo::model()->findByPk(106);
+//
+//        $thumb = \Yii::app()->thumbs->getCrop($photo, 'avatarBig', $x, $y, $w, $h);
+//        $thumb->show();
     }
 
     public function actionObserver()

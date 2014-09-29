@@ -20,7 +20,7 @@ class SimpleThumbsManager extends ThumbsManager
      * @param bool $create
      * @return Thumb
      */
-    public function getThumb(Photo $photo, $presetName, $replace)
+    public function getThumb(Photo $photo, $presetName, $replace = false)
     {
         $filter = $this->createFilter($presetName);
         $path = $this->getFsPath($photo, $presetName);

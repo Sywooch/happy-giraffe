@@ -24,7 +24,7 @@ class Processor
     public function process(Image $image)
     {
         $this->processInternal($image);
-        return $image->get('jpg', $this->getOptions($image));
+        return $image;
     }
 
     protected function getOptions(Image $image)

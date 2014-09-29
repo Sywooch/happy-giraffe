@@ -113,11 +113,11 @@ if ($full) {
         <?php endif; ?>
 
         <?php
-        /*if (!$full && $showComments)
+        if (!$full && $showComments)
         {
             $this->widget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $data));
             //$this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full));
-        }*/
+        }
         ?>
         <!-- /ko -->
     </div>
@@ -140,22 +140,28 @@ if ($full) {
 <?php
 if ($full)
 {
-    $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $data))
-    ?>
-    <section class="comments comments__buble">
-        <div class="comments-menu">
-            <ul class="comments-menu_ul" data-tabs="tabs">
-                <li class="comments-menu_li active"><a class="comments-menu_a comments-menu_a__comments" data-toggle="tab" href="#commentsList">Комментарии <?= $commentsWidget->count ?></a></li>
-                <!--<li class="comments-menu_li"><a class="comments-menu_a comments-menu_a__likes" data-toggle="tab" href="#likesList">Нравится 865</a></li>
-                <li class="comments-menu_li"><a class="comments-menu_a comments-menu_a__favorites" data-toggle="tab" href="#favoritesList">Закладки 865</a></li>-->
-            </ul>
-        </div>
-        <?php
-        $commentsWidget->run();
-        //$this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full));
+    if ($this->module->id == 'blog')
+    {
+        $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $data))
         ?>
-    </section>
-    <?php
+        <section class="comments comments__buble">
+            <div class="comments-menu">
+                <ul class="comments-menu_ul" data-tabs="tabs">
+                    <li class="comments-menu_li active"><a class="comments-menu_a comments-menu_a__comments" data-toggle="tab" href="#commentsList">Комментарии <?= $commentsWidget->count ?></a></li>
+                    <!--<li class="comments-menu_li"><a class="comments-menu_a comments-menu_a__likes" data-toggle="tab" href="#likesList">Нравится 865</a></li>
+                    <li class="comments-menu_li"><a class="comments-menu_a comments-menu_a__favorites" data-toggle="tab" href="#favoritesList">Закладки 865</a></li>-->
+                </ul>
+            </div>
+            <?php
+            $commentsWidget->run();
+            ?>
+        </section>
+        <?php
+    }
+    else
+    {
+        $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full));
+    }
 }
 ?>
 

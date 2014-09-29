@@ -1,0 +1,55 @@
+/* zodiac-list */
+.zodiac-list {
+    margin: 20px 0;
+    text-align: center;
+
+    .ico-zodiac {
+        margin-bottom: 5px;
+    }
+    &__sidebar {}
+
+    &_ul {}
+    &_li {
+        display: inline-block;
+        margin: 6px 7%;
+        text-align: center;
+    }
+    &_a {
+        display: inline-block;
+        text-decoration: none;
+        font-size: 14px;
+    }
+    &_a:hover {
+        color: @color-orange;
+    }
+    &_tx {
+        
+    }
+    
+    @media (min-width: @screen-xphone) {
+        &_li {
+            margin: 8px 3%;
+        }
+    }
+    @media (min-width: @screen-phone) {
+        .ico-zodiac {
+            margin-bottom: 0;
+        }
+        &_a {
+            font-size: 18px;
+        }
+    }
+
+    @media (min-width: @screen-desktop) {
+        &__sidebar & {margin-top: 70px;}
+        &__sidebar &_li {
+            display: inline-block;
+            margin: 6px 17px;
+            text-align: center;
+        }
+        &__sidebar &_a {
+            font-size: 14px;
+        }
+    }
+}
+/* /zodiac-list */

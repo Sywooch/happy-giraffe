@@ -237,6 +237,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.header-banner+/,
+            /.calendar-serv-note__+/,
           ],
         },
         src: [
@@ -261,11 +262,14 @@ module.exports = function(grunt){
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
+            /.header-menu_li.active+/,
+            /.calendar-serv-note__+/,
+
+            /.header-drop+/, // Drop, active элементы
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
             /.header-banner+/,
-            
             /.header-drop+/, // Drop, active элементы
             /.header-menu_li+/,
             /.header_+/,
@@ -471,6 +475,46 @@ module.exports = function(grunt){
                 //     mid: 75
                 // },
                 unit: 100
+            }
+        },
+        'ico-zodiac': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-zodiac",
+                spritePath: "lite/images/sprite/ico-zodiac.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                //refSize: 75, 
+                // sizes: {
+                //     large: 130,
+                //     mid: 75
+                // },
+                unit: 100
+            }
+        },
+        'horoscope-year-t': {
+            options: {
+                spriteElementPath: "lite/images/sprite/horoscope-year-t",
+                spritePath: "lite/images/sprite/horoscope-year-t.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                //refSize: 75, 
+                // sizes: {
+                //     large: 130,
+                //     mid: 75
+                // },
+                unit: 10
             }
         },
         // 'comments-menu_a': {

@@ -39,7 +39,7 @@ $this->widget('HMenu', array(
             'template' => '<span class="color-gray">+ &nbsp;</span>{menu}',
             'url' => $this->getUrl(array('period' => 'month', 'alias' => false)),
             'linkOptions' => array('class' => 'menu-link-simple_a'),
-            'visible' => $this->zodiac && $this->period == 'day' && ($this->alias == 'today' || $this->alias == 'tomorrow') || $this->period == 'year',
+            'visible' => $this->zodiac && $this->period == 'day' && ($this->alias == 'today' || $this->alias == 'tomorrow') || ($this->zodiac && $this->period == 'year'),
         ),
         array(
             'label' => 'Гороскоп ' . $zodiacText . ' по месяцам',

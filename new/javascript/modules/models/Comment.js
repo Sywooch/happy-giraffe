@@ -133,10 +133,11 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
         },
 
        create: function create(params) {
+           console.log(params);
            var commentText = this.editor();
            if ( !this.isRedactorStringEmpty( commentText ) ) {
                Model
-                   .get( this.createCommentUrl(), this.createCommentCredentials( params.entity, params.entityId, this.editor(), this.id() ) )
+                   .get( this.createCommentUrl(), this.createCommentCredentials( params.entity, params.entityId, commentText, this.id() ) )
                    .done( this.cancelEditor.bind(this) );
            }
        },

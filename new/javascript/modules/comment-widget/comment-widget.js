@@ -20,6 +20,8 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
       this.cacheData = {};
 
+       this.modelParams = params;
+
       this.editorHidden = ko.observable(false);
 
       /**

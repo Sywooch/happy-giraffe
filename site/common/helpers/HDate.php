@@ -8,6 +8,7 @@
  */
 class HDate
 {
+
     public static function ruMonths()
     {
         return array(
@@ -50,125 +51,129 @@ class HDate
 
     public static function formatMonthYear($month)
     {
-        return HDate::ruShortMonth(date('n',strtotime($month))). '. '.date('Y',strtotime($month));
+        return HDate::ruShortMonth(date('n', strtotime($month))) . '. ' . date('Y', strtotime($month));
     }
 
     public static function ruMonth($num)
     {
-        switch ($num) {
+        switch ($num)
+        {
             case 1 :
                 return "Январь";
-            case 2  :
+            case 2 :
                 return "Февраль";
-            case 3  :
+            case 3 :
                 return "Март";
-            case 4  :
+            case 4 :
                 return "Апрель";
-            case 5  :
+            case 5 :
                 return "Май";
-            case 6  :
+            case 6 :
                 return "Июнь";
-            case 7  :
+            case 7 :
                 return "Июль";
-            case 8  :
+            case 8 :
                 return "Август";
-            case 9  :
+            case 9 :
                 return "Сентябрь";
-            case 10  :
+            case 10 :
                 return "Октябрь";
-            case 11  :
+            case 11 :
                 return "Ноябрь";
-            case 12  :
+            case 12 :
                 return "Декабрь";
         }
     }
 
     public static function ruMonthWhen($num)
     {
-        switch ($num) {
+        switch ($num)
+        {
             case 1 :
                 return "Января";
-            case 2  :
+            case 2 :
                 return "Февраля";
-            case 3  :
+            case 3 :
                 return "Марта";
-            case 4  :
+            case 4 :
                 return "Апреля";
-            case 5  :
+            case 5 :
                 return "Мая";
-            case 6  :
+            case 6 :
                 return "Июня";
-            case 7  :
+            case 7 :
                 return "Июля";
-            case 8  :
+            case 8 :
                 return "Августа";
-            case 9  :
+            case 9 :
                 return "Сентября";
-            case 10  :
+            case 10 :
                 return "Октября";
-            case 11  :
+            case 11 :
                 return "Ноября";
-            case 12  :
+            case 12 :
                 return "Декабря";
         }
     }
 
     public static function ruMonthShort($num)
     {
-        switch ((int)$num) {
+        switch ((int) $num)
+        {
             case 1 :
                 return "янв";
-            case 2  :
+            case 2 :
                 return "фев";
-            case 3  :
+            case 3 :
                 return "мар";
-            case 4  :
+            case 4 :
                 return "апр";
-            case 5  :
+            case 5 :
                 return "май";
-            case 6  :
+            case 6 :
                 return "июн";
-            case 7  :
+            case 7 :
                 return "июл";
-            case 8  :
+            case 8 :
                 return "авг";
-            case 9  :
+            case 9 :
                 return "сен";
-            case 10  :
+            case 10 :
                 return "окт";
-            case 11  :
+            case 11 :
                 return "ноя";
-            case 12  :
+            case 12 :
                 return "дек";
         }
     }
 
     public static function getMonthIndex($month)
     {
-        switch ($month) {
+        switch ($month)
+        {
             case 'january' :
                 return 1;
-            case 'february'  :
+            case 'february' :
                 return 2;
-            case 'march'  :
+            case 'march' :
                 return 3;
-            case 'april'  :
+            case 'april' :
                 return 4;
-            case 'may'  :
+            case 'may' :
                 return 5;
-            case 'june'  :
+            case 'june' :
                 return 6;
-            case 'july'  :
+            case 'july' :
                 return 7;
-            case 'august'  :
+            case 'august' :
                 return 8;
-            case 'september'  :
+            case 'september' :
                 return 9;
-            case 'october'  :
+            case 'october' :
                 return 10;
-            case 'november'  :
+            case 'november' :
                 return 11;
-            case 'december'  :
+            case 'december' :
                 return 12;
             default:
                 return $month;
@@ -179,7 +184,8 @@ class HDate
     {
         $result = array();
         $first = 1;
-        while ($first < 32) {
+        while ($first < 32)
+        {
             $result [$first] = $first;
             $first++;
         }
@@ -191,13 +197,18 @@ class HDate
     {
         $result = array();
 
-        if ($first <= $second) {
-            while ($first < $second + 1) {
+        if ($first <= $second)
+        {
+            while ($first < $second + 1)
+            {
                 $result [$first] = $first;
                 $first++;
             }
-        } else {
-            while ($first > $second + 1) {
+        }
+        else
+        {
+            while ($first > $second + 1)
+            {
                 $result [$first] = $first;
                 $first--;
             }
@@ -213,7 +224,8 @@ class HDate
     public static function russian_date($timespan)
     {
         $date = explode(".", date("j.m.Y", $timespan));
-        switch ($date[1]) {
+        switch ($date[1])
+        {
             case 1:
                 $m = 'янв';
                 break;
@@ -279,9 +291,9 @@ class HDate
         elseif (date("Y:m:d", $ts) == date("Y:m:d", strtotime('-1 day')))
             return 'Вчера' . $delimiter . date("G:i", $ts);
         elseif (date("Y", $ts) == date("Y"))
-            return Yii::app()->dateFormatter->format('d MMM',$ts);
+            return Yii::app()->dateFormatter->format('d MMM', $ts);
         else
-            return Yii::app()->dateFormatter->format('d MMM yyyy',$ts);
+            return Yii::app()->dateFormatter->format('d MMM yyyy', $ts);
     }
 
     public static function GetFormattedTimestamp($ts)
@@ -306,13 +318,14 @@ class HDate
      */
     public static function getDaysList($num)
     {
-        $days = array('Пн','Вт','Ср','Чт','Пт','Сб','Вс');
+        $days = array('Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс');
 
         $today = date('N');
         $res = array('Завтра');
         $i = 1;
-        while($i < $num){
-            $res [] = $days[($i+$today) % 7];
+        while ($i < $num)
+        {
+            $res [] = $days[($i + $today) % 7];
 
             $i++;
         }
@@ -320,9 +333,10 @@ class HDate
         return $res;
     }
 
-    public static function getStringDate($d, $m, $y){
+    public static function getStringDate($d, $m, $y)
+    {
         //1986-08-06
-        return $y.'-'.sprintf("%02d", $m).'-'.sprintf("%02d", $d);
+        return $y . '-' . sprintf("%02d", $m) . '-' . sprintf("%02d", $d);
     }
 
     public static function isSameDate($ts1, $ts2)
@@ -332,7 +346,8 @@ class HDate
 
     public static function govnokod($n)
     {
-        switch ($n) {
+        switch ($n)
+        {
             case 1:
             case 4:
             case 5:
@@ -398,21 +413,19 @@ class HDate
             "Dec" => "дек",
         );
 
-        foreach($translations as $key => $translation)
-            $date = str_replace($translation, $key, $date);
-
-        return $date;
+        return str_replace(array_keys($translations), array_values($translations), $date);
     }
 
-    public static function mb_ucfirst($str, $enc = 'utf-8') {
-        return mb_strtoupper(mb_substr($str, 0, 1, $enc), $enc).mb_substr($str, 1, mb_strlen($str, $enc), $enc);
+    public static function mb_ucfirst($str, $enc = 'utf-8')
+    {
+        return mb_strtoupper(mb_substr($str, 0, 1, $enc), $enc) . mb_substr($str, 1, mb_strlen($str, $enc), $enc);
     }
 
     public static function enumeration($words)
     {
         $last = array_pop($words);
 
-        return ((! empty($words)) ? implode(', ', $words) . ' и ' : '') . $last;
+        return ((!empty($words)) ? implode(', ', $words) . ' и ' : '') . $last;
     }
 
     /**
@@ -425,9 +438,8 @@ class HDate
         // Сегодняшняя дата
         $sec_now = time();
         // Подсчитываем количество месяцев, лет
-        for($time = $sec_time, $month = 0;
-            $time < $sec_now;
-            $time = $time + date('t', $time) * 86400, $month++){
+        for ($time = $sec_time, $month = 0; $time < $sec_now; $time = $time + date('t', $time) * 86400, $month++)
+        {
             $rtime = $time;
         }
         $month = $month - 1;
@@ -439,14 +451,20 @@ class HDate
         $day = intval(($sec_now - $rtime) / 86400);
         $result = '';
         if ($year > 0)
-            $result .= $year.' '. Str::GenerateNoun(array("год", "года", "лет"), $year).", ";
+            $result .= $year . ' ' . Str::GenerateNoun(array("год", "года", "лет"), $year) . ", ";
         if ($month > 0)
-            $result .= $month.' '.Str::GenerateNoun(array("месяц", "месяца", "месяцев"), $month).", ";
+            $result .= $month . ' ' . Str::GenerateNoun(array("месяц", "месяца", "месяцев"), $month) . ", ";
         if ($day > 0)
-            $result .= $day.' '. Str::GenerateNoun(array("день", "дня", "дней"), $day)." ";
+            $result .= $day . ' ' . Str::GenerateNoun(array("день", "дня", "дней"), $day) . " ";
 
         $result = trim($result);
         $result = trim($result, ',');
         return $result;
     }
+
+    public static function date($format, $time = false)
+    {
+        return HDate::translate_date(date($format, $time));
+    }
+
 }

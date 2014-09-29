@@ -25,7 +25,7 @@
                 </div>
                 <div class="comments_cont">
                     <div class="wysiwyg-content">
-                        {comment}
+                        {response.link}{comment}
                     </div>
                 </div>
             </div>
@@ -60,7 +60,8 @@
                 '{author.link}' => $this->getUserLink($comment->author),
                 '{datetime}' => $comment->pubDate,
                 '{unixtime}' => $comment->pubUnixTime,
-                '{comment}' => $comment->purified->text,
+                '{response.link}' => $comment->response ? $this->getUserLink($comment->response->author, true) : '',
+                '{comment}' => $this->normalizeText($comment->purified->text),
             ));
 
             if ($comment->id == $comment->root_id)
@@ -73,7 +74,6 @@
         }
         ?>
     </ul>
-</div>
 </div>
 <?php
 Yii::app()->clientScript->registerAMD('Comments#' . $this->id, array('ko' => 'knockout', 'ko_library' => 'ko_library', 'commentScroll' => 'commentScroll'), 'ko.applyBindings({}, document.getElementById("' . $this->id . '_comments"));');

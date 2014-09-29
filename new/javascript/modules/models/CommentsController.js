@@ -208,11 +208,32 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
         return commentObj;
       },
 
+       findInAnswers: function (comment, answersArray) {
+           var commentObj,
+               id = comment.id;
+
+           if (answersArray.length > 0) {
+               for (var i=0; i < answersArray.length; i++) {
+                   if(id === answersArray[i].id()) {
+                       commentObj = i;
+                   }
+               }
+
+           }
+           return commentObj;
+
+       },
+
        findIfAnswer: function (comment, parsedData) {
-           var commentObj;
+           var commentObj,
+               id = comment.responseId;
+
+           if (comment.rootId !== 0) {
+              id = comment.rootId;
+           }
            if (parsedData.length > 0) {
                for (var i=0; i < parsedData.length; i++) {
-                   if(comment.responseId === parsedData[i].id()) {
+                   if(id === parsedData[i].id()) {
                        commentObj = i;
                    }
                }
@@ -255,6 +276,7 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
         * @return {Comment Object}              Объект готового комментария
         */
        newAnswer: function (comment, user, parsedData) {
+
            if ( user.success ) {
                var commentInstance = Object.create( Comment ),
                    userInstance = Object.create( User ),
@@ -273,6 +295,7 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
            }
            return false;
        }
+
 
    }
 

@@ -64,7 +64,7 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
 
        this.answerAdded = function (userData) {
-           var answerObject = this.commentsData.newCommentAddedUser( this.cacheData, userData, this.parsedData());
+           var answerObject = this.commentsData.newAnswer( this.cacheData, userData, this.parsedData());
            this.parsedData()[answerObject.parentId].answers.push(answerObject.comment);
        };
 
@@ -74,11 +74,23 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
       this.renewCommentAddedEvent = function (result, id) {
 
-        var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
+        if ( result.responseId !== 0 ) {
+            var commentRootId = this.commentsData.findIfAnswer( result, this.parsedData() );
+            var commentChildId = this.commentsData.findInAnswers( result, this.parsedData()[commentRootId].answers() );
+            if (commentChildId !== undefined) {
+                this.parsedData()[commentRootId].answers()[commentChildId].purifiedHtml( result.purifiedHtml );
+            }
 
-        if (commentObj !== undefined) {
-            this.parsedData()[commentObj].purifiedHtml( result.purifiedHtml );
         }
+
+        else {
+            var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
+
+            if (commentObj !== undefined) {
+                this.parsedData()[commentObj].purifiedHtml( result.purifiedHtml );
+            }
+        }
+
 
       };
 

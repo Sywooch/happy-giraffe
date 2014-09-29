@@ -150,18 +150,49 @@
                            <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(commentInner.dtimeCreate()).format('YYYY-MM-DD') }, moment: commentInner.dtimeCreate"></time>
                        </div>
                        <div class="comments_cont">
+                           <!-- ko if: $parents[1].authUser.id() === commentInner.user.id() -->
+
+                               <!-- ko if: commentInner.editingCurrent -->
+
+                                   <div class="redactor-control">
+                                       <div class="redactor-control_toolbar"></div>
+                                       <div class="redactor-control_hold">
+                                           <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : $parents[1].editorConfig, attr : commentInner.editor }"></textarea>
+                                       </div>
+                                       <div class="redactor-control_control clearfix">
+                                           <div class="float-r">
+                                               <button class="btn-green" data-bind="click: commentInner.renewComment">Отправить</button>
+                                           </div>
+                                       </div>
+                                   </div>
+
+                               <!-- /ko -->
+
+                               <!-- ko ifnot: commentInner.editingCurrent -->
+
+                               <div class="wysiwyg-content" data-bind="html: commentInner.purifiedHtml">
+                               </div>
+
+                               <!-- /ko -->
+
+                           <!-- /ko -->
+
+                           <!-- ko if: $parents[1].authUser.id() !== commentInner.user.id() -->
+
                            <div class="wysiwyg-content" data-bind="html: commentInner.purifiedHtml">
                            </div>
+
+                           <!-- /ko -->
                        </div>
                       <div class="comments_footer">
                         <!-- b-control-->
                         <div class="b-control">
-                          <div class="b-control_i b-control_i__answer" data-bind="click: response"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                          <div class="b-control_i b-control_i__answer" data-bind="click: commentInner.response"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
                           </div>
                           <!-- ko if: $parents[1].authUser.id() === comment.user.id() -->
-                          <div class="b-control_i b-control_i__delete" data-bind="click: remove"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
+                          <div class="b-control_i b-control_i__delete" data-bind="click: commentInner.remove"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
                           </div>
-                          <div class="b-control_i b-control_i__edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
+                          <div class="b-control_i b-control_i__edit" data-bind="click: commentInner.edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
                           </div>
                           <!-- /ko -->
                         </div>
@@ -169,7 +200,7 @@
                       </div>
                    </div>
               </div>
-                <!-- ko if: comment.answering -->
+                <!-- ko if: commentInner.answering -->
 
                 <div class="comments-gray_add clearfix">
                     <div class="comments_ava">
@@ -179,11 +210,11 @@
                         <div class="redactor-control">
                             <div class="redactor-control_toolbar"></div>
                             <div class="redactor-control_hold">
-                                <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : $parent.editorConfig, attr : commentInner.editor }"></textarea>
+                                <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : $parents[1].editorConfig, attr : commentInner.editor }"></textarea>
                             </div>
                             <div class="redactor-control_control clearfix">
                                 <div class="float-r">
-                                    <button class="btn-green" data-bind="click: commentInner.create">Отправить</button>
+                                    <button class="btn-green" data-bind="click: commentInner.create($parents[1].modelParams)">Отправить</button>
                                 </div>
                             </div>
                         </div>

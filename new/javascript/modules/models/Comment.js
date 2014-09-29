@@ -68,7 +68,7 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
       },
 
 
-       answering: false,
+      answering: false,
 
       beginEditing: function beginEditing(message) {
           this.editor(message.text());
@@ -133,7 +133,6 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
         },
 
        create: function create(params) {
-           console.log(params);
            var commentText = this.editor();
            if ( !this.isRedactorStringEmpty( commentText ) ) {
                Model
@@ -201,7 +200,7 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
 
             this.editingCurrent = object.editingCurrent;
 
-             this.answering = object.answering;
+            this.answering = object.answering;
 
             this.editor = this.editor;
 

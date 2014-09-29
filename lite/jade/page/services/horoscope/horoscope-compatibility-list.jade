@@ -1,0 +1,84 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+       
+    // b-main 
+    .b-main.clearfix
+    
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Гороскопы  
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last  Совместимость 
+        .b-main_cont
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+                    
+                    h1.heading-link-xxl Гороскоп совместимости знаков зодиака
+
+                    .wysiwyg-content.clearfix.visible-md-block
+                        p Саша + Маша = любовь? Или такой союз обречен на полное отсутствие взаимопонимания, постоянные ссоры иобиды? Это можно выяснить легко и просто с помощью такой полезной вещи, как гороскоп совместимостизнаков зодиака!
+
+                    .horoscope-compatibility-list 
+                        ul.horoscope-compatibility-list_ul
+                            - each item, i in zodiacList.tx
+                                - ii = i + 1
+
+                                li.horoscope-compatibility-list_li
+                                    .horoscope-compatibility-list_top
+                                        .ico-zodiac.ico-zodiac__s
+                                            .ico-zodiac_in(class='ico-zodiac__#{ii}')
+                                    ul.menu-link-simple.menu-link-simple__col
+                                        ul.menu-link-simple_ul
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Овен
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Телец
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Близнецы
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Рак
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Лев
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Дева
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Весы
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Скорпион
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Стрелец
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Козерог
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Водолей
+                                            li.menu-link-simple_li
+                                                a.menu-link-simple_a #{item} - Рыбы
+
+                    .seo-desc.wysiwyg-content.visible-md-block
+                        p Бывает так, что нежно любящие друг друга пары искренне полагают, что гороскоп совместимости знаковзодиака им совсем ни к чему. Но почему бы не узнать, какие подводные камни ожидают ваш союз, когдасхлынут потоки страсти? Еще классик говорил о том, что любовная лодка может с легкостью разбиться обыт.
+                        p Любовный гороскоп совместимости расскажет вам:
+                        ul
+                            li как сохранить свой союз на долгие-долгие годы;
+                            li как уберечь нежную любовь от испытаний бытом;
+                            li чем отличается мировоззрение разных знаков зодиака;
+                            li каковы сильные и слабые стороны вашей второй половинки;
+                            li как искать компромиссы с представителем того или иного знака зодиака.
+                        p Гороскоп совместимости мужчины и женщины, которым вам предлагает воспользоваться «Веселый жираф»,содержит множество подробностей о взаимоотношениях представителей разных зодиакальных знаков. Вам непридется довольствоваться короткими отписками и в очередной раз чувствовать себя обманутыми. Мыподготовили для своих читателей максимум интересной (и полезной!) информации, взятой исключительно издостоверных источников. Получается, что с нашей помощью вы бесплатно получаете профессиональную астрологическую консультацию на совместимость.
+                    .margin-b40
+                // /Основная колонка
+
+    // b-main 
+    +layout-footer-lite()
+

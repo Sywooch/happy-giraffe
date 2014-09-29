@@ -24,6 +24,7 @@ return array(
             'bucket' => 'test-happygiraffe',
         ),
         'imageProcessor' => array(
+            'class' => '\site\frontend\modules\photo\components\imageProcessor\ImageProcessor',
             'quality' => array(
                 72 => 100,
                 100 => 90,

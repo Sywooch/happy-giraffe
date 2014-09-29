@@ -12,9 +12,9 @@ class ThumbsManager extends \CApplicationComponent
 {
     protected function getThumbInternal(Photo $photo, CustomFilterInterface $filter, $path, $replace = false)
     {
-        $thumb = new Thumb($photo, $filter);
-        if (\Yii::app()->fs->exists($path) || $replace) {
-            \Yii::app()->fs->write($path, $thumb->getImage());
+        $thumb = new Thumb($photo, $filter, $path);
+        if (\Yii::app()->fs->has($path) || $replace) {
+            \Yii::app()->fs->write($path, $thumb->getImage()->get('gif'), true);
         }
         return $thumb;
     }

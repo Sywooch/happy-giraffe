@@ -47,7 +47,7 @@ class TestController extends PhotoController
     public function actionCrop()
     {
         $photo = Photo::model()->findByPk(112);
-        \Yii::app()->thumbs->getThumb($photo, 'uploadPreviewBig')->getUrl();
+        echo \Yii::app()->thumbs->getThumb($photo, 'uploadPreviewBig', true)->getUrl();
 
 //        $x = 0;
 //        $y = 0;

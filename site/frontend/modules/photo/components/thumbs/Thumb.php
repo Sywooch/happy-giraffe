@@ -59,4 +59,11 @@ class Thumb extends \CComponent
     {
         return \Yii::app()->fs->getUrl($this->path);
     }
+
+    public function getImage()
+    {
+        $image = \Yii::app()->imagine->load(\Yii::app()->fs->read($this->path));
+        $image = \Yii::app()->imageProcessor->process($image, $this->filter, true);
+        return $image;
+    }
 } 

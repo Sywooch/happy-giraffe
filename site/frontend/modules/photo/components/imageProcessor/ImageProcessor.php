@@ -11,32 +11,37 @@ namespace site\frontend\modules\photo\components\imageProcessor;
 
 class ImageProcessor extends \CApplicationComponent
 {
-    public function process($originalPath, $filter, $animate)
+    public $quality;
+
+    public function process($image, $filter, $animate)
     {
         /** @var \Imagine\Imagick\Image $image */
-        $image = \Yii::app()->imagine->load(\Yii::app()->fs->read($originalPath));
-        $format = pathinfo($originalPath, PATHINFO_EXTENSION);
-        $processor = $this->getProcessor($format, $animate);
+//        $image = \Yii::app()->imagine->load(\Yii::app()->fs->read($originalPath));
+//        $format = pathinfo($originalPath, PATHINFO_EXTENSION);
+        $format = 'gif';
+        $processor = $this->getProcessor($format, $animate, $filter);
+
+
 
         return $processor->process($image);
     }
 
-    protected function getProcessor($format, $animate)
+    protected function getProcessor($format, $animate, $filter)
     {
         switch ($format) {
             case 'jpg':
-                $class = 'JpgProcessor';
+                $class = 'site\frontend\modules\photo\components\imageProcessor\JpgProcessor';
                 break;
             case 'gif':
                 if ($animate) {
-                    $class = 'AnimatedGifProcessor';
+                    $class = 'site\frontend\modules\photo\components\imageProcessor\AnimatedGifProcessor';
                 } else {
-                    $class = 'StaticGifProcessor';
+                    $class = 'site\frontend\modules\photo\components\imageProcessor\StaticGifProcessor';
                 }
                 break;
             default:
-                $class = 'Processor';
+                $class = 'site\frontend\modules\photo\components\imageProcessor\Processor';
         }
-        return $class;
+        return new $class($filter);
     }
 } 

@@ -2,19 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: mikita
- * Date: 10/07/14
- * Time: 15:25
+ * Date: 29/09/14
+ * Time: 14:28
  */
 
-namespace site\frontend\modules\photo\components\thumbs;
+namespace site\frontend\modules\photo\components\imageProcessor;
 
 
-class ThumbJPG extends Thumb
+use Imagine\Imagick\Image;
+
+class JpgProcessor extends Processor
 {
-    protected function getOptions()
+    protected function getOptions(Image $image)
     {
-        return \CMap::mergeArray(parent::getOptions(), array(
-            'jpeg_quality' => $this->getJpegQuality(),
+        return \CMap::mergeArray(parent::getOptions($image), array(
+            'jpeg_quality' => $this->getJpegQuality($image),
         ));
     }
 
@@ -25,9 +27,9 @@ class ThumbJPG extends Thumb
      *
      * @return int качество JPEG
      */
-    protected function getJpegQuality()
+    protected function getJpegQuality(\Imagine\Imagick\Image $image)
     {
-        $width = $this->image->getSize()->getWidth();
+        $width = $this->filter->getWidth($image->getSize()->getWidth(), $image->getSize()->getHeight());
         $config = \Yii::app()->thumbs->quality;
         $q = array_pop($config);
         $config = array_reverse($config, true);

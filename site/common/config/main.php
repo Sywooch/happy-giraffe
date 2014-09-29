@@ -23,8 +23,17 @@ return array(
             'secret' => '0FqgJyA/QNsKcCQecHwAcNC2mK1X5fSRed2wRT7D',
             'bucket' => 'test-happygiraffe',
         ),
+        'imageProcessor' => array(
+            'quality' => array(
+                72 => 100,
+                100 => 90,
+                200 => 85,
+                350 => 80,
+                75,
+            ),
+        ),
         'thumbs' => array(
-            'class' => '\site\frontend\modules\photo\components\thumbs\ThumbsManager',
+            'class' => '\site\frontend\modules\photo\components\thumbs\SimpleThumbsManager',
             'presets' => array(
                 'uploadPreview' => array(
                     'filter' => 'lepilla',
@@ -57,13 +66,7 @@ return array(
                     'parameter' => 70,
                 ),
             ),
-            'quality' => array(
-                72 => 100,
-                100 => 90,
-                200 => 85,
-                350 => 80,
-                75,
-            ),
+
         ),
         'imagine' => array(
             'class' => '\site\common\components\ImagineComponent',

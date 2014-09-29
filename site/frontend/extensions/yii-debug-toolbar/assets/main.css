@@ -163,7 +163,7 @@
 #ydtb-toolbar.ydtb-collapse div[data-ydtb-sidebar] {display:none;}
 #ydtb-toolbar.ydtb-slim div[data-ydtb-sidebar] {width:64px;}
 #ydtb-toolbar div[data-ydtb-sidebar] * {color:#fff;}
-#ydtb-toolbar div[data-ydtb-sidebar] h1 {
+#ydtb-toolbar div[data-ydtb-sidebar] div.h1 {
 	height:64px;
 	line-height:64px;
 	font-size:24px;
@@ -172,7 +172,7 @@
 	padding:0 20px;
 }
 
-#ydtb-toolbar.ydtb-slim div[data-ydtb-sidebar] h1 {text-indent:-999999px;}
+#ydtb-toolbar.ydtb-slim div[data-ydtb-sidebar] div.h1 {text-indent:-999999px;}
 
 #ydtb-toolbar div[data-ydtb-sidebar] ul[data-ydtb-dashboard] {
 	display:block;

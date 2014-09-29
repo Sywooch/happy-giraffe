@@ -717,7 +717,7 @@
         };
     };
     if (typeof define === 'function' && define['amd']) {
-        define('ko_library', ['knockout', 'moment', 'wysiwyg', 'wswg', 'common'], f);
+        define('ko_library', ['knockout', 'moment', 'wysiwyg', 'care-wysiwyg', 'common'], f);
         require(["knockout", "knockout-amd-helpers", "text"], function(ko) {
             ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
             ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";

@@ -1,4 +1,4 @@
-define(["jquery", "knockout", "model", "wswg"], function($, ko, Model) {
+define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
 
    var Comment = {
 
@@ -67,6 +67,9 @@ define(["jquery", "knockout", "model", "wswg"], function($, ko, Model) {
          }
       },
 
+
+       answering: false,
+
       beginEditing: function beginEditing(message) {
           this.editor(message.text());
           this.edit();
@@ -75,26 +78,65 @@ define(["jquery", "knockout", "model", "wswg"], function($, ko, Model) {
       cancelEditing: function cancelEditing() {
           this.editor('');
           this.editingCurrent(false);
+          this.answering(false);
       },
 
       cancelEditor: function cancelEditor(data) {
           this.editor('');
           this.editingCurrent(false);
+          this.answering(false);
       },
 
       edit: function edit() {
          this.editor(this.originHtml());
-
-         console.log(this.editor());
-
          this.editingCurrent(true);
       },
+
+           /**
+            * Создание отдельного комментария
+            * @param  {string} entity
+            * @param  {int} entityId
+            * @param  {sting} text
+            * @param  {id} responseId
+            * @return {object}
+            */
+           createCommentCredentials: function createCommentCredentials(entity, entityId, text, responseId) {
+               if (responseId === undefined) {
+
+                   return {
+                       entity: entity,
+                       entityId: entityId,
+                       text: text
+                   }
+               }
+
+               return {
+                   entity: entity,
+                   entityId: entityId,
+                   text: text,
+                   responseId: responseId
+               }
+           },
+
+       create: function create(params) {
+           var commentText = this.editor();
+           if ( !this.isRedactorStringEmpty( commentText ) ) {
+               Model
+                   .get( this.createCommentUrl(), this.createCommentCredentials( params.entity, params.entityId, this.editor(), this.id() ) )
+                   .done( this.cancelEditor.bind(this) );
+           }
+       },
 
       renewComment: function renewComment() {
          Model
             .get( this.renewCommentUrl(), { id: this.id(), text: this.editor() } )
             .done( this.cancelEditor.bind(this) );
       },
+
+       response: function response () {
+           this.answering(true);
+           this.editor();
+       },
 
       remove: function remove() {
          Model
@@ -144,12 +186,14 @@ define(["jquery", "knockout", "model", "wswg"], function($, ko, Model) {
 
             this.editingCurrent = object.editingCurrent;
 
+             this.answering = object.answering;
+
             this.editor = this.editor;
 
             return this;
          }
       }
-   }
+   };
 
-   return Comment;
+    return Comment;
 });

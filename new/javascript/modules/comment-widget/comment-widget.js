@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'model', 'comment-model', 'user-model', 'wswg', 'knockout.mapping', 'ko_library', 'comet-connect'], function($, ko, CommentsController, UserData, template, moment, Model, Comment, User) {
+define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-widget.html', 'moment', 'model', 'comment-model', 'user-model', 'care-wysiwyg', 'knockout.mapping', 'ko_library', 'comet-connect'], function($, ko, CommentsController, UserData, template, moment, Model, Comment, User) {
 
    var CommentWidgetViewModel = function (params) {
 
@@ -30,13 +30,26 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
         this.cacheData = result;
 
-        Model.get(
-            User.getUserUrl,
-            {
-              id: result.authorId,
-              avatarSize: this.commentsData.commentAvatarSize
-            })
-          .done( this.getNewUser.bind( this ) );
+          if (this.cacheData.responseId !== 0) {
+              Model.get(
+                  User.getUserUrl,
+                  {
+                      id: result.authorId,
+                      avatarSize: this.commentsData.commentAvatarSize
+                  })
+                  .done( this.answerAdded.bind( this ) );
+          }
+          else {
+              Model.get(
+                  User.getUserUrl,
+                  {
+                      id: result.authorId,
+                      avatarSize: this.commentsData.commentAvatarSize
+                  })
+                  .done( this.getNewUser.bind( this ) );
+          }
+
+
       };
 
       Comet.prototype.newCommentAdded = this.newCommentAddedEvent.bind(this);
@@ -46,6 +59,12 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       this.getNewUser = function (userData) {
         this.parsedData.unshift( this.commentsData.newCommentAddedUser( this.cacheData, userData, this.parsedData()) );
       };
+
+
+       this.answerAdded = function (userData) {
+           var answerObject = this.commentsData.newCommentAddedUser( this.cacheData, userData, this.parsedData());
+           this.parsedData()[answerObject.parentId].answers.push(answerObject.comment);
+       };
 
       /**
        * Comet Обновление комментария

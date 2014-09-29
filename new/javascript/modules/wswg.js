@@ -8,6 +8,7 @@ define(['knockout', 'jquery', 'imagesLoaded', 'ko_upload', 'chosen', 'redactor']
         this.loaded = false;
 
         this.load = function load() {
+
             if ( !this.loaded ) {
                 $.get('/ajax/redactorNew/', function(response) {
                     $('body').append(response);

@@ -208,6 +208,19 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
         return commentObj;
       },
 
+       findIfAnswer: function (comment, parsedData) {
+           var commentObj;
+           if (parsedData.length > 0) {
+               for (var i=0; i < parsedData.length; i++) {
+                   if(comment.responseId === parsedData[i].id()) {
+                       commentObj = i;
+                   }
+               }
+
+           }
+           return commentObj;
+
+       },
 
       /**
        * Добавление юзера к новому комментарию
@@ -232,7 +245,34 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
           return commentObj;
         }
         return false;
-      }
+      },
+
+       /**
+        * Добавление юзера к новому ответу
+        * @param  {Comment object} comment      Объект комментария
+        * @param  {User object} user            Объект пользователя
+        * @param  {Observable array} parsedData Массив комментариев
+        * @return {Comment Object}              Объект готового комментария
+        */
+       newAnswer: function (comment, user, parsedData) {
+           if ( user.success ) {
+               var commentInstance = Object.create( Comment ),
+                   userInstance = Object.create( User ),
+                   commentObj = ko.mapping.fromJS({}),
+                   userObj = ko.mapping.fromJS({}),
+                   parentIdinList;
+
+               parentIdinList = this.findIfAnswer(comment, parsedData);
+
+               ko.mapping.fromJS( userInstance.init( user.data ), userObj );
+               ko.mapping.fromJS( commentInstance.init( comment ), commentObj );
+
+               commentObj.user = userObj;
+
+               return { parentId: parentIdinList, comment: commentObj };
+           }
+           return false;
+       }
 
    }
 

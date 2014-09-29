@@ -150,6 +150,7 @@
                            <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(commentInner.dtimeCreate()).format('YYYY-MM-DD') }, moment: commentInner.dtimeCreate"></time>
                        </div>
                        <div class="comments_cont">
+                           <a rel="author" class="comments_ansver-for" href="#">Тот кому отвечают</a>
                            <!-- ko if: $parents[1].authUser.id() === commentInner.user.id() -->
 
                                <!-- ko if: commentInner.editingCurrent -->

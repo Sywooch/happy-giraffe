@@ -50,6 +50,8 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
 
       editor: '',
 
+       answerTo: {},
+
       removeSucess: function removeSucess(successData) {
 
          if (successData === false) {
@@ -67,7 +69,6 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
          }
       },
 
-
       answering: false,
 
       beginEditing: function beginEditing(message) {
@@ -81,15 +82,15 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
           this.answering(false);
       },
 
-      cancelEditor: function cancelEditor(data) {
+      cancelEditor: function cancelEditor() {
           this.editor('');
           this.editingCurrent(false);
           this.answering(false);
       },
 
       edit: function edit() {
-         this.editor(this.originHtml());
-         this.editingCurrent(true);
+          this.editor(this.originHtml());
+          this.editingCurrent(true);
       },
 
            /**
@@ -148,6 +149,7 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
       },
 
        response: function response () {
+           this.cancelEditing();
            this.answering(true);
            this.editor();
        },
@@ -201,6 +203,8 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
             this.editingCurrent = object.editingCurrent;
 
             this.answering = object.answering;
+
+             this.answerTo = {};
 
             this.editor = this.editor;
 

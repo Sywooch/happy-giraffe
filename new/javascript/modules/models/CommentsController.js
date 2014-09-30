@@ -103,7 +103,6 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
             color;
 
         for ( var dataCounter = 0; dataCounter < dataComments.length; dataCounter++ ) {
-
           var userKey = UserControl.isUserInPack(dataComments[dataCounter].authorId, dataUser);
 
           if (userKey !== false) {
@@ -124,7 +123,12 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
             commentsArray[newArrayCounter - 1].color = color;
           }
           else {
-            commentsArray[newArrayCounter - 1].answers.push(dataComments[dataCounter]);
+              var response = dataComments[dataCounter];
+
+            var responseToComment = this.findById(response.responseId, dataComments);
+              response.answerTo.fullName = responseToComment.user.fullName;
+              response.answerTo.profileUrl = responseToComment.user.profileUrl;
+            commentsArray[newArrayCounter - 1].answers.push(response);
           }
 
         }
@@ -243,6 +247,44 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
 
        },
 
+       findById: function (responseId, parsedData) {
+           if (parsedData.length > 0) {
+               for (var i=0; i < parsedData.length; i++) {
+                   if(responseId === parsedData[i].id) {
+                       return parsedData[i];
+                   }
+                   if ( parsedData[i].answers.length > 0 ) {
+                       for (var k=0; k < parsedData[i].answers.length; k++) {
+                           if(responseId === parsedData[i].answers[k].id) {
+                               return parsedData[i].answers[k];
+                           }
+                       }
+                   }
+               }
+           }
+
+           return false;
+       },
+
+       findByObservableId: function (responseId, parsedData) {
+           if (parsedData.length > 0) {
+               for (var i=0; i < parsedData.length; i++) {
+                   if(responseId === parsedData[i].id()) {
+                       return parsedData[i];
+                   }
+                   if ( parsedData[i].answers().length > 0 ) {
+                       for (var k=0; k < parsedData[i].answers().length; k++) {
+                           if(responseId === parsedData[i].answers()[k].id()) {
+                               return parsedData[i].answers()[k];
+                           }
+                       }
+                   }
+               }
+           }
+
+           return false;
+       },
+
       /**
        * Добавление юзера к новому комментарию
        * @param  {Comment object} comment      Объект комментария
@@ -289,13 +331,16 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
                ko.mapping.fromJS( userInstance.init( user.data ), userObj );
                ko.mapping.fromJS( commentInstance.init( comment ), commentObj );
 
+               var responseToComment = this.findByObservableId(comment.responseId, parsedData);
+
                commentObj.user = userObj;
+               commentObj.answerTo.fullName = responseToComment.user.fullName;
+               commentObj.answerTo.profileUrl = responseToComment.user.profileUrl;
 
                return { parentId: parentIdinList, comment: commentObj };
            }
            return false;
        }
-
 
    }
 

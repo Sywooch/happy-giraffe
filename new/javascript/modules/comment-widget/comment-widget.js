@@ -71,7 +71,6 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       /**
        * Comet Обновление комментария
        */
-
       this.renewCommentAddedEvent = function (result, id) {
 
         if ( result.responseId !== 0 ) {

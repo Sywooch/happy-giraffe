@@ -2,9 +2,9 @@
 <script type="text/javascript">
     dataLayer = [{
         'WURFL': WURFL,
-        'isAmd': '<?=CJavaScript::encode(Yii::app()->clientScript->useAMD)?>',
-        'isGuest': '<?=CJavaScript::encode(Yii::app()->user->isGuest)?>',
-        'isModer': '<?=! Yii::app()->user->isGuest && Yii::app()->user->group != UserGroup::USER?>'
+        'isAmd': <?=CJavaScript::encode(Yii::app()->clientScript->useAMD)?>,
+        'isGuest': <?=CJavaScript::encode(Yii::app()->user->isGuest)?>,
+        'isModer': <?=(! Yii::app()->user->isGuest) && (Yii::app()->user->group != UserGroup::USER)?>
     }];
 </script>
 

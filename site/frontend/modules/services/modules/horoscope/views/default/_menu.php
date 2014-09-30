@@ -1,4 +1,5 @@
 <?php
+
 $zodiacText = ($this->zodiac ? Horoscope::model()->zodiac_list2[array_search($this->zodiac, Horoscope::model()->zodiac_list_eng)] : '');
 $this->widget('HMenu', array(
     'itemCssClass' => 'menu-link-simple_li',
@@ -37,7 +38,7 @@ $this->widget('HMenu', array(
         array(
             'label' => 'Гороскоп ' . $zodiacText . ' по дням',
             'template' => '<span class="color-gray">+ &nbsp;</span>{menu}',
-            'url' => $this->getUrl(array('period' => 'month', 'alias' => false)),
+            'url' => $this->getUrl(array('period' => 'month', 'alias' => false, 'date' => time())),
             'linkOptions' => array('class' => 'menu-link-simple_a'),
             'visible' => $this->zodiac && $this->period == 'day' && ($this->alias == 'today' || $this->alias == 'tomorrow') || ($this->zodiac && $this->period == 'year'),
         ),

@@ -87,6 +87,14 @@ $model->calculateMonthDays();
                     <?php
                     $daysInMonth = date("t", mktime(0, 0, 0, (int) $model->month, 1, (int) $model->year)); // узнаем число дней в месяце
                     $skip = date("w", mktime(0, 0, 0, (int) $model->month, 1, (int) $model->year)) - 1; // узнаем номер первого дня недели
+                    $time = $this->date;
+                    $d1 = mktime(0, 0, 0, date('m', $time), 1, date('Y', $time));
+                    $d2 = mktime(0, 0, 0, date('m', $time), $daysInMonth, date('Y', $time));
+                    $lastDay = Yii::app()->db->createCommand('SELECT MAX(DAYOFMONTH(`date`)) FROM `services__horoscope` WHERE `date` between FROM_UNIXTIME(:d1) AND FROM_UNIXTIME(:d2) AND `zodiac` = :z')->queryScalar(array(
+                        ':d1' => $d1,
+                        ':d2' => $d2,
+                        ':z' => $model->zodiac,
+                    ));
                     if ($skip == -1)
                         $skip = 6;
 
@@ -94,8 +102,10 @@ $model->calculateMonthDays();
                     {
                         if ($day < 0)
                             echo CHtml::tag('li', array('class' => 'b-calendar_li'), CHtml::tag('span', array('class' => 'b-calendar_a'), '&nbsp;'));
-                        else
+                        elseif ($day < $lastDay)
                             echo CHtml::tag('li', array('class' => 'b-calendar_li' . ($model->GetDayData($day) ? ' b-calendar_li__' . $model->GetDayData($day) : '')), CHtml::link($day + 1, $this->getUrl(array('period' => 'day', 'date' => mktime(0, 0, 0, (int) $model->month, $day + 1, (int) $model->year))), array('class' => 'b-calendar_a')));
+                        else
+                            echo CHtml::tag('li', array('class' => 'b-calendar_li' . ($model->GetDayData($day) ? ' b-calendar_li__' . $model->GetDayData($day) : '')), CHtml::tag('span', array('class' => 'b-calendar_a'), $day + 1));
                     }
                     ?>
                 </ul>

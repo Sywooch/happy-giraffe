@@ -44,4 +44,51 @@ class ImageProcessor extends \CApplicationComponent
         }
         return new $class($filter);
     }
+
+    public function get($image, $filter, $format, $animated)
+    {
+        $image = $this->prepare($image, $filter, $format, $animated);
+        return $image->get($format);
+    }
+
+    public function save($image, $filter, $format, $animated)
+    {
+        $image = $this->prepare($image, $filter, $format, $animated);
+        return $image->save($format);
+    }
+
+    public function show($image, $filter, $format, $animated)
+    {
+        $image = $this->prepare($image, $filter, $format, $animated);
+        return $image->show($format);
+    }
+
+    protected function prepare($image, $filter, $format, $animated)
+    {
+        if ($format == 'gif') {
+            if ($animated) {
+                $_filter = new AnimatedGifProcessor($filter);
+            } else {
+                $_filter = new StaticGifProcessor();
+            }
+            $_filter->apply($image);
+        }
+        return $image;
+    }
+
+    protected function getJpegQuality(\Imagine\Imagick\Image $image)
+    {
+        $width = $this->filter->getWidth($image->getSize()->getWidth(), $image->getSize()->getHeight());
+        $config = \Yii::app()->thumbs->quality;
+        $q = array_pop($config);
+        $config = array_reverse($config, true);
+        foreach ($config as $minWidth => $quality) {
+            if ($width <= $minWidth) {
+                $q = $quality;
+            } else {
+                break;
+            }
+        }
+        return $q;
+    }
 } 

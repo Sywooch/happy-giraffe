@@ -13,12 +13,15 @@ use site\frontend\components\api\ApiController;
 
 class PhotosApiController extends ApiController
 {
-    /**
-     * @param $photoId
-     * @todo непонятно, как фото кадрируется
-     */
-    public function actionMakeAvatar($photoId)
+    public function actionMakeAvatar($photoId, array $cropData)
     {
+        $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId);
 
+        \Yii::app()
+
+        $crop = new \PhotoCrop();
+        $crop->attributes = $cropData;
+        $crop->photo_id = $photoId;
+        $crop->save();
     }
 } 

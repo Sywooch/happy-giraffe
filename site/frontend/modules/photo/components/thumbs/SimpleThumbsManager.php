@@ -29,7 +29,7 @@ class SimpleThumbsManager extends ThumbsManager
     {
         $filter = $this->createFilter($presetName);
         $path = $this->getFsPath($photo, $presetName);
-        return $this->getThumbInternal($photo, $filter, $path, $replace);
+        return $this->getThumbInternal($photo, $filter, $path, true, $replace);
     }
 
     /**

@@ -13,7 +13,7 @@ use Imagine\Filter\FilterInterface;
 use Imagine\Image\ImageInterface;
 use Imagine\Imagick\Image;
 
-class AnimatedGifProcessor implements FilterInterface
+class AnimatedGifFilter implements FilterInterface
 {
     protected $filter;
 

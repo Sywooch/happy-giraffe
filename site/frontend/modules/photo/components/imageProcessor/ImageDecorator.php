@@ -16,6 +16,7 @@ use Imagine\Imagick\Image;
 class ImageDecorator
 {
     protected $image;
+    protected $filter;
     protected $format;
     protected $animated;
     protected $options;
@@ -25,19 +26,20 @@ class ImageDecorator
         $this->format = $format;
         $this->image = $image;
         $this->animated = $animated;
+        $this->filter = $filter;
 
         $this->options['animated'] = $animated;
         switch ($this->format) {
             case 'gif':
             case 'png':
                 if ($this->animated) {
-                    $_filter = new AnimatedGifProcessor($filter);
+                    $_filter = new AnimatedGifFilter($filter);
                 } else {
-                    $_filter = new StaticGifProcessor();
+                    $_filter = new StaticGifFilter();
                 }
                 $_filter->apply($this->image);
             case 'jpg':
-                $this->options['jpeg_quality'] = $this->getJpegQuality($this->image);
+                $this->options['jpeg_quality'] = $this->getJpegQuality();
                 break;
             default:
                 throw new \CException('Неподдерживаемый формат');
@@ -59,10 +61,10 @@ class ImageDecorator
         return $this->image->save($path, $this->options);
     }
 
-    protected function getJpegQuality(\Imagine\Imagick\Image $image)
+    protected function getJpegQuality()
     {
-        $width = $this->filter->getWidth($image->getSize()->getWidth(), $image->getSize()->getHeight());
-        $config = \Yii::app()->thumbs->quality;
+        $width = $this->filter->getWidth($this->image->getSize()->getWidth(), $this->image->getSize()->getHeight());
+        $config = \Yii::app()->getModule('photo')->quality;
         $q = array_pop($config);
         $config = array_reverse($config, true);
         foreach ($config as $minWidth => $quality) {

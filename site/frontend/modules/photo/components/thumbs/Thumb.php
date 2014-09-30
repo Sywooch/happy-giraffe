@@ -6,6 +6,7 @@
  */
 
 namespace site\frontend\modules\photo\components\thumbs;
+use site\frontend\modules\photo\components\imageProcessor\ImageDecorator;
 use site\frontend\modules\photo\components\thumbs\presets\PresetInterface;
 use site\frontend\modules\photo\models\Photo;
 
@@ -28,12 +29,16 @@ class Thumb extends \CComponent
 
     public $format;
 
-    public function __construct($photo, $filter, $path)
+    public $imageDecorator;
+
+    public function __construct($photo, $filter, $path, $animated)
     {
         $this->photo = $photo;
         $this->filter = $filter;
-        $this->path = $path;
-        $this->format = pathinfo($this->fs_name, PATHINFO_EXTENSION);
+        $image = \Yii::app()->imagine->load(\Yii::app()->fs->read($this->path));
+        $format = pathinfo($this->fs_name, PATHINFO_EXTENSION);
+        $this->imageDecorator = new ImageDecorator($image, $filter, $format, $animated);
+
     }
 
     /**
@@ -63,21 +68,18 @@ class Thumb extends \CComponent
         return \Yii::app()->fs->getUrl($this->path);
     }
 
-    public function getImage()
+    public function get()
     {
-        $image = $this->getImageInternal();
-        return $image->get($this->format);
+        return $this->imageDecorator->get();
     }
 
-    public function showImage()
+    public function show()
     {
-        $image = $this->getImageInternal();
-        $image->show($this->format);
+        return $this->imageDecorator->show();
     }
 
-    protected function getImageInternal()
+    public function save()
     {
-        $image = \Yii::app()->imagine->load(\Yii::app()->fs->read($this->path));
-        return \Yii::app()->imageProcessor->process($image, $this->filter, true);
+        return $this->imageDecorator->save($this->path);
     }
 } 

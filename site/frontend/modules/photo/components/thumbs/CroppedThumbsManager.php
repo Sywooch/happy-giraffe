@@ -20,7 +20,7 @@ class CroppedThumbsManager extends ThumbsManager
     public function getCrop(Photo $photo, $presetName, $cropData, $replace = false)
     {
         $filter = $this->createFilter($photo, $cropData);
-        $thumb = $this->getThumbInternal($photo, $filter, $this->getFsPath($photo, $presetName), $replace);
+        $thumb = $this->getThumbInternal($photo, $filter, $this->getFsPath($photo, $presetName), false, $replace);
         return $thumb;
     }
 

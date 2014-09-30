@@ -13,7 +13,7 @@ use Imagine\Filter\FilterInterface;
 use Imagine\Image\ImageInterface;
 use Imagine\Imagick\Image;
 
-class StaticGifProcessor implements FilterInterface
+class StaticGifFilter implements FilterInterface
 {
     public function apply(ImageInterface $image)
     {

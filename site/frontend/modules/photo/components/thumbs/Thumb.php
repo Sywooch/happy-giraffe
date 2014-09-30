@@ -27,18 +27,15 @@ class Thumb extends \CComponent
      */
     public $path;
 
-    public $format;
 
-    public $imageDecorator;
+    public $animated;
 
     public function __construct($photo, $filter, $path, $animated)
     {
+        $this->path = $path;
         $this->photo = $photo;
         $this->filter = $filter;
-        $image = \Yii::app()->imagine->load(\Yii::app()->fs->read($this->path));
-        $format = pathinfo($this->fs_name, PATHINFO_EXTENSION);
-        $this->imageDecorator = new ImageDecorator($image, $filter, $format, $animated);
-
+        $this->animated = $animated;
     }
 
     /**
@@ -70,16 +67,18 @@ class Thumb extends \CComponent
 
     public function get()
     {
-        return $this->imageDecorator->get();
+        return $this->getDecorator()->get();
     }
 
     public function show()
     {
-        return $this->imageDecorator->show();
+        return $this->getDecorator()->show();
     }
 
-    public function save()
+    protected function getDecorator()
     {
-        return $this->imageDecorator->save($this->path);
+        $image = \Yii::app()->imagine->load(\Yii::app()->fs->read($this->photo->getOriginalFsPath()));
+        $format = pathinfo($this->path, PATHINFO_EXTENSION);
+        return new ImageDecorator($image, $this->filter, $format, $this->animated);
     }
 } 

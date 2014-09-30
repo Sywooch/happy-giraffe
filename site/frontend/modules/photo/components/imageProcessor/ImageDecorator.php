@@ -21,29 +21,15 @@ class ImageDecorator
     protected $animated;
     protected $options;
 
+
+
     public function __construct(ImageInterface $image, FilterInterface $filter, $format, $animated)
     {
         $this->format = $format;
         $this->image = $image;
-        $this->animated = $animated;
+        $this->animated = $animated && $format == 'gif';
         $this->filter = $filter;
-
-        $this->options['animated'] = $animated;
-        switch ($this->format) {
-            case 'gif':
-            case 'png':
-                if ($this->animated) {
-                    $_filter = new AnimatedGifFilter($filter);
-                } else {
-                    $_filter = new StaticGifFilter();
-                }
-                $_filter->apply($this->image);
-            case 'jpg':
-                $this->options['jpeg_quality'] = $this->getJpegQuality();
-                break;
-            default:
-                throw new \CException('Неподдерживаемый формат');
-        }
+        $this->prepare();
     }
 
     public function get()
@@ -56,9 +42,34 @@ class ImageDecorator
         return $this->image->show($this->format, $this->options);
     }
 
-    public function save($path)
+    protected function prepare()
     {
-        return $this->image->save($path, $this->options);
+        $this->options['animated'] = $this->animated;
+        $filters = array();
+        switch ($this->format) {
+            case 'gif':
+                if ($this->animated) {
+                    $filters[] = new AnimatedGifFilter($this->filter);
+                } else {
+                    $filters[] = new StaticGifFilter();
+                    $filters[] = $this->filter;
+                }
+                break;
+            case 'jpg':
+            case 'png':
+                $filters[] = $this->filter;
+                $this->options['jpeg_quality'] = $this->getJpegQuality();
+                break;
+            default:
+                throw new \CException('Неподдерживаемый формат');
+        }
+
+//        var_dump($filters);
+//        die;
+
+        foreach ($filters as $f) {
+            $this->image = $f->apply($this->image);
+        }
     }
 
     protected function getJpegQuality()

@@ -15,7 +15,10 @@ use Imagine\Image\Point;
 
 class CropFilter implements CustomFilterInterface
 {
-    public $cropData;
+    public $x;
+    public $y;
+    public $w;
+    public $h;
     public $height;
     public $width;
 
@@ -31,17 +34,18 @@ class CropFilter implements CustomFilterInterface
 
     public function getWidth($imageWidth, $imageHeight)
     {
-        return $this->w;
+        return $this->width;
     }
 
     public function getHeight($imageWidth, $imageHeight)
     {
-        return $this->h;
+        return $this->height;
     }
 
     public function apply(ImageInterface $image)
     {
         $image->crop(new Point($this->x, $this->y), new Box($this->w, $this->h));
         $image->resize(new Box($this->width, $this->height));
+        return $image;
     }
 } 

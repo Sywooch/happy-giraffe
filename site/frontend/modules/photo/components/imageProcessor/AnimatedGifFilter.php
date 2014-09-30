@@ -24,8 +24,11 @@ class AnimatedGifFilter implements FilterInterface
 
     public function apply(ImageInterface $image)
     {
-        foreach ($image->layers() as $frame) {
+        $layers = $image->layers();
+        $layers->coalesce();
+        foreach ($layers as $frame) {
             $this->filter->apply($frame);
         }
+        return $image;
     }
 } 

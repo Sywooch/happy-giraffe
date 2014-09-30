@@ -6,12 +6,13 @@
  * Time: 02:53 PM
  */
 
-namespace site\frontend\modules\photo\components;
+namespace site\frontend\modules\photo\components\thumbs;
 
 
 use site\frontend\modules\photo\components\thumbs\filters\CropFilter;
 use site\frontend\modules\photo\components\thumbs\ThumbsManager;
 use site\frontend\modules\photo\models\Photo;
+
 
 class CroppedThumbsManager extends ThumbsManager
 {
@@ -19,8 +20,8 @@ class CroppedThumbsManager extends ThumbsManager
 
     public function getCrop(Photo $photo, $presetName, $cropData, $replace = false)
     {
-        $filter = $this->createFilter($photo, $cropData);
-        $thumb = $this->getThumbInternal($photo, $filter, $this->getFsPath($photo, $presetName), false, $replace);
+        $filter = $this->createFilter($presetName, $cropData);
+        $thumb = $this->getThumbInternal($photo, $filter, $this->getFsPath($photo, $presetName, $cropData), false, $replace);
         return $thumb;
     }
 
@@ -29,14 +30,15 @@ class CroppedThumbsManager extends ThumbsManager
         if (! array_key_exists($presetName, $this->presets)) {
             throw new \CException('Неизвестное имя пресета');
         }
-        $config = $this->crops[$presetName];
+        $config = $this->presets[$presetName];
 
         $filter = new CropFilter($cropData, $config['width'], $config['height']);
         return $filter;
     }
 
-    protected function getFsPath($photo, $presetName)
+    protected function getFsPath(Photo $photo, $presetName, $cropData)
     {
-        return 'crops/' . $presetName . '/' . $photo->fs_name;
+        $fsName = substr_replace($photo->fs_name, '_' . implode('x', $cropData), strrpos($photo->fs_name, '.'), 0);
+        return 'crops/' . $presetName . '/' . $fsName;
     }
 } 

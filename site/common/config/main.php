@@ -69,6 +69,24 @@ return array(
             ),
 
         ),
+        'crops' => array(
+            'class' => '\site\frontend\modules\photo\components\thumbs\CroppedThumbsManager',
+            'presets' => array(
+                'avatarSmall' => array(
+                    'width' => 24,
+                    'height' => 24,
+                ),
+                'avatar' => array(
+                    'width' => 72,
+                    'height' => 72,
+                ),
+                'avatarBig' => array(
+                    'width' => 200,
+                    'height' => 200,
+                ),
+            ),
+
+        ),
         'imagine' => array(
             'class' => '\site\common\components\ImagineComponent',
         ),

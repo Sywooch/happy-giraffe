@@ -129,6 +129,7 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
               response.answerTo.fullName = responseToComment.user.fullName;
               response.answerTo.profileUrl = responseToComment.user.profileUrl;
             commentsArray[newArrayCounter - 1].answers.push(response);
+
           }
 
         }
@@ -324,6 +325,7 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
                    userInstance = Object.create( User ),
                    commentObj = ko.mapping.fromJS({}),
                    userObj = ko.mapping.fromJS({}),
+//                   answer = ko.mapping.fromJS({}),
                    parentIdinList;
 
                parentIdinList = this.findIfAnswer(comment, parsedData);
@@ -336,6 +338,7 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
                commentObj.user = userObj;
                commentObj.answerTo.fullName = responseToComment.user.fullName;
                commentObj.answerTo.profileUrl = responseToComment.user.profileUrl;
+
 
                return { parentId: parentIdinList, comment: commentObj };
            }

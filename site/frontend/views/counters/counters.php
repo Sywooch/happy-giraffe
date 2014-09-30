@@ -4,7 +4,7 @@
         'WURFL': WURFL,
         'isAmd': <?=CJavaScript::encode(Yii::app()->clientScript->useAMD)?>,
         'isGuest': <?=CJavaScript::encode(Yii::app()->user->isGuest)?>,
-        'isModer': <?=CJavaScript::encode((! Yii::app()->user->isGuest) && (Yii::app()->user->group != UserGroup::USER))?>
+        'isModerator': <?=CJavaScript::encode((! Yii::app()->user->isGuest) && (Yii::app()->user->group != UserGroup::USER))?>
     }];
 </script>
 

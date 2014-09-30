@@ -9,18 +9,20 @@
 namespace site\frontend\modules\photo\components\imageProcessor;
 
 
+use Imagine\Filter\FilterInterface;
+use Imagine\Image\ImageInterface;
 use Imagine\Imagick\Image;
 
-class AnimatedGifProcessor extends Processor
+class AnimatedGifProcessor implements FilterInterface
 {
-    protected function getOptions(Image $image)
+    protected $filter;
+
+    public function __construct(FilterInterface $filter)
     {
-        return \CMap::mergeArray(parent::getOptions($image), array(
-            'animated' => true,
-        ));
+        $this->filter = $filter;
     }
 
-    protected function processInternal(Image $image)
+    public function apply(ImageInterface $image)
     {
         foreach ($image->layers() as $frame) {
             $this->filter->apply($frame);

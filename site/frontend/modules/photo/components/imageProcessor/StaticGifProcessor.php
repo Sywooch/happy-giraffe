@@ -9,18 +9,13 @@
 namespace site\frontend\modules\photo\components\imageProcessor;
 
 
+use Imagine\Filter\FilterInterface;
+use Imagine\Image\ImageInterface;
 use Imagine\Imagick\Image;
 
-class StaticGifProcessor extends Processor
+class StaticGifProcessor implements FilterInterface
 {
-    protected function getOptions(Image $image)
-    {
-        return \CMap::mergeArray(parent::getOptions($image), array(
-            'animated' => false,
-        ));
-    }
-
-    protected function processInternal(Image $image)
+    public function apply(ImageInterface $image)
     {
         $layers = $image->layers();
         $count = count($layers);

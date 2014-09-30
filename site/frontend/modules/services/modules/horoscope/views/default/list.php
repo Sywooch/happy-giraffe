@@ -23,6 +23,7 @@
                 {
                     $this->pageTitle = 'Гороскоп на завтра по знакам зодиака';
                     $this->metaDescription = 'Гороскопы для всех знаков Зодиака на завтра бесплатно';
+                    $this->metaKeywords = 'гороскоп на завтра, ежедневный гороскоп';
                     echo 'Гороскоп на завтра';
                     $this->breadcrumbs = array(
                         'Гороскопы' => $this->getUrl(array('alias' => 'today')),
@@ -33,6 +34,7 @@
                 {
                     $this->pageTitle = 'Гороскоп на каждый месяц';
                     $this->metaDescription = 'Ежемесячный гороскоп для всех знаков зодиака';
+                    $this->metaKeywords = 'гороскоп на месяц, ежемесячный гороскоп';
                     echo 'Гороскоп на месяц';
                     $this->breadcrumbs = array(
                         'Гороскопы' => $this->getUrl(array('alias' => 'today')),
@@ -43,6 +45,7 @@
                 {
                     $this->pageTitle = 'Гороскоп на 2013 год для всех знаков зодиака';
                     $this->metaDescription = 'Гороскоп на 2013 для всех знаков Зодиака: здоровье, карьера, финансы и личная жизнь';
+                    $this->metaKeywords = 'Гороскоп на ' . date('Y', $this->date) . ' год, гороскоп ' . date('Y', $this->date);
                     echo 'Гороскоп на 2013 год';
                     $this->breadcrumbs = array(
                         'Гороскопы' => $this->getUrl(array('alias' => 'today')),

@@ -63,7 +63,7 @@
                 $date = HDate::ruMonth(date('n', $this->date)) . ' ' . date('Y', $this->date);
                 $this->pageTitle = 'Гороскоп ' . $model->zodiacText2() . ' на ' . $date . ' года - Веселый Жираф';
                 $this->metaDescription = 'Гороскоп для ' . $model->zodiacText2() . ' на ' . $date . ' года';
-                $this->metaKeywords = 'Гороскоп ' . $model->zodiacText() . ', ' . HDate::ruMonth($month) . ' ' . $year;
+                $this->metaKeywords = 'Гороскоп ' . $model->zodiacText() . ', ' . HDate::ruMonth(date('m', $this->date)) . ' ' . date('Y', $this->date);
                 echo 'Гороскоп ' . $model->zodiacText2() . ' на ' . $date . ' года';
                 $this->breadcrumbs = array(
                     'Гороскопы' => array('/services/horoscope/default/index'),
@@ -75,7 +75,7 @@
             {
                 $this->pageTitle = 'Гороскоп  ' . $model->zodiacText() . '  на ' . date('Y', $this->date) . ' год для женщин и мужчин - Веселый Жираф';
                 $this->metaDescription = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . date('Y', $this->date) . ' год для женщин и мужчин. Познай свою судьбу!';
-                $this->metaKeywords = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год для женщин и мужчин. Познай свою судьбу!';
+                $this->metaKeywords = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . date('Y', $this->date) . ' год для женщин и мужчин. Познай свою судьбу!';
                 //if($this->alias)
                 //    $this->metaCanonical = $this->getUrl(array('alias' => false));
                 echo 'Гороскоп ' . $model->zodiacText2() . ' на ' . date('Y', $this->date) . ' год';
@@ -93,12 +93,8 @@
 
         <!-- Лайки от янжекса-->
         <div class="custom-likes">
-            <div class="custom-likes_slogan">Вам понравился гороскоп?
-            </div>
-            <div class="custom-likes_in">
-                <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
-            </div>
+            <div class="custom-likes_slogan">Вам понравился гороскоп?</div>
+            <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $model, 'lite' => true)); ?> 
         </div>
         <!-- Лайки от янжекса-->
 

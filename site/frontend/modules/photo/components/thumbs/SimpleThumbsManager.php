@@ -14,6 +14,11 @@ use site\frontend\modules\photo\models\Photo;
 class SimpleThumbsManager extends ThumbsManager
 {
     /**
+     * @var array конфигурация пресетов
+     */
+    public $presets;
+
+    /**
      * Получить миниатюру фото по заданному имени пресета
      * @param Photo $photo
      * @param string $presetName
@@ -39,11 +44,6 @@ class SimpleThumbsManager extends ThumbsManager
     }
 
     /**
-     * @var array конфигурация пресетов
-     */
-    public $presets;
-
-    /**
      * Инициализирует класс пресета
      * @param $presetName
      * @return filters\CustomFilterInterface
@@ -67,10 +67,5 @@ class SimpleThumbsManager extends ThumbsManager
     protected function getFsPath($photo, $presetName)
     {
         return 'thumbs/' . $presetName . '/' . $photo->fs_name;
-    }
-
-    protected function getRootPath()
-    {
-        return 'thumbs';
     }
 } 

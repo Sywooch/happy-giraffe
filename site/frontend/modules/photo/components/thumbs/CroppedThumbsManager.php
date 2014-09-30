@@ -17,13 +17,10 @@ class CroppedThumbsManager extends ThumbsManager
 {
     public $presets;
 
-    public function getCrop(Photo $photo, $presetName, $cropData)
+    public function getCrop(Photo $photo, $presetName, $cropData, $replace = false)
     {
-        if (! array_key_exists($presetName, $this->crops)) {
-            throw new \CException('Неизвестное имя пресета');
-        }
         $filter = $this->createFilter($photo, $cropData);
-        $thumb = $this->getThumbInternal($photo, $filter, $this->getFsPath($photo, $presetName));
+        $thumb = $this->getThumbInternal($photo, $filter, $this->getFsPath($photo, $presetName), $replace);
         return $thumb;
     }
 

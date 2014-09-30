@@ -10,7 +10,7 @@ use site\frontend\modules\photo\models\Photo;
 
 class ThumbsManager extends \CApplicationComponent
 {
-    protected function getThumbInternal(Photo $photo, CustomFilterInterface $filter, $path, $replace = false)
+    protected function getThumbInternal(Photo $photo, CustomFilterInterface $filter, $path, $replace)
     {
         $thumb = new Thumb($photo, $filter, $path);
         if (\Yii::app()->fs->has($path) || $replace) {

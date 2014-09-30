@@ -26,11 +26,14 @@ class Thumb extends \CComponent
      */
     public $path;
 
+    public $format;
+
     public function __construct($photo, $filter, $path)
     {
         $this->photo = $photo;
         $this->filter = $filter;
         $this->path = $path;
+        $this->format = pathinfo($this->fs_name, PATHINFO_EXTENSION);
     }
 
     /**
@@ -62,8 +65,19 @@ class Thumb extends \CComponent
 
     public function getImage()
     {
+        $image = $this->getImageInternal();
+        return $image->get($this->format);
+    }
+
+    public function showImage()
+    {
+        $image = $this->getImageInternal();
+        $image->show($this->format);
+    }
+
+    protected function getImageInternal()
+    {
         $image = \Yii::app()->imagine->load(\Yii::app()->fs->read($this->path));
-        $image = \Yii::app()->imageProcessor->process($image, $this->filter, true);
-        return $image;
+        return \Yii::app()->imageProcessor->process($image, $this->filter, true);
     }
 } 

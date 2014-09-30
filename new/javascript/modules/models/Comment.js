@@ -50,6 +50,8 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
 
       editor: '',
 
+       answerTo: {},
+
       removeSucess: function removeSucess(successData) {
 
          if (successData === false) {

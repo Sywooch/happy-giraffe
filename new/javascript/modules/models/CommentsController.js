@@ -124,6 +124,8 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
             commentsArray[newArrayCounter - 1].color = color;
           }
           else {
+            dataComments[dataCounter].answerTo.fullName = commentsArray[newArrayCounter - 1].user.fullName;
+            dataComments[dataCounter].answerTo.profileUrl = commentsArray[newArrayCounter - 1].user.profileUrl;
             commentsArray[newArrayCounter - 1].answers.push(dataComments[dataCounter]);
           }
 
@@ -282,6 +284,7 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
                    userInstance = Object.create( User ),
                    commentObj = ko.mapping.fromJS({}),
                    userObj = ko.mapping.fromJS({}),
+//                   answer = ko.mapping.fromJS({}),
                    parentIdinList;
 
                parentIdinList = this.findIfAnswer(comment, parsedData);
@@ -290,6 +293,8 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
                ko.mapping.fromJS( commentInstance.init( comment ), commentObj );
 
                commentObj.user = userObj;
+               commentObj.answerTo.fullName = parsedData[parentIdinList].user.fullName;
+               commentObj.answerTo.profileUrl = parsedData[parentIdinList].user.profileUrl;
 
                return { parentId: parentIdinList, comment: commentObj };
            }

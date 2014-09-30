@@ -32,7 +32,6 @@
   </div>
    <ul class="comments_ul" data-bind="foreach: { data: parsedData(), as: 'comment' }">
       <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + color() }">
-
         <!-- ko ifnot: comment.removed -->
          <div class="comments_i clearfix" >
              <div class="comments_ava">
@@ -150,7 +149,7 @@
                            <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(commentInner.dtimeCreate()).format('YYYY-MM-DD') }, moment: commentInner.dtimeCreate"></time>
                        </div>
                        <div class="comments_cont">
-                           <a rel="author" class="comments_ansver-for" href="#">Тот кому отвечают</a>
+                           <a rel="author" class="comments_ansver-for" href="" data-bind="text: commentInner.answerTo.fullName(), href: commentInner.answerTo.profileUrl()"></a>
                            <!-- ko if: $parents[1].authUser.id() === commentInner.user.id() -->
 
                                <!-- ko if: commentInner.editingCurrent -->
@@ -190,7 +189,7 @@
                         <div class="b-control">
                           <div class="b-control_i b-control_i__answer" data-bind="click: commentInner.response"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
                           </div>
-                          <!-- ko if: $parents[1].authUser.id() === comment.user.id() -->
+                          <!-- ko if: $parents[1].authUser.id() === commentInner.user.id() -->
                           <div class="b-control_i b-control_i__delete" data-bind="click: commentInner.remove"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
                           </div>
                           <div class="b-control_i b-control_i__edit" data-bind="click: commentInner.edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>

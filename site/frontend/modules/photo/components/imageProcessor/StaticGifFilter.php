@@ -18,9 +18,7 @@ class StaticGifFilter implements FilterInterface
     public function apply(ImageInterface $image)
     {
         $layers = $image->layers();
-        $count = count($layers);
-        for ($i = 1; $i < $count; $i++) {
-            $layers->remove($i);
-        }
+        $layers->coalesce();
+        return $layers->offsetGet(0);
     }
 } 

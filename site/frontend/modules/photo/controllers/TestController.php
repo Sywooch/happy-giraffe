@@ -46,9 +46,16 @@ class TestController extends PhotoController
 
     public function actionCrop()
     {
-        var_dump($);
-//        $photo = Photo::model()->findByPk(112);
-//        var_dump(\Yii::app()->fs->getAdapter()->getCache()->mimeType($photo->getOriginalFsPath()));
+        $photo = Photo::model()->findByPk(113);
+
+        $cropData = array(
+            'x' => 100,
+            'y' => 100,
+            'w' => 100,
+            'h' => 100,
+        );
+
+        echo \Yii::app()->crops->getCrop($photo, 'avatarBig', $cropData, true)->getUrl();
 
 //        $x = 0;
 //        $y = 0;

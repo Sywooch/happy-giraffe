@@ -37,6 +37,7 @@ class LepillaFilter extends Filter implements CustomFilterInterface
             $start = new Point(($newWidth - $this->width) / 2, 0);
             $image->crop($start, new Box($this->width, $this->height));
         }
+        return $image;
     }
 
     public function getWidth($imageWidth, $imageHeight)

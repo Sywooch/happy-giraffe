@@ -21,9 +21,10 @@ class SimpleThumbsManager extends ThumbsManager
     /**
      * Получить миниатюру фото по заданному имени пресета
      * @param Photo $photo
-     * @param string $presetName
-     * @param bool $create
+     * @param $presetName
+     * @param bool $replace
      * @return Thumb
+     * @throws \CException
      */
     public function getThumb(Photo $photo, $presetName, $replace = false)
     {
@@ -64,7 +65,7 @@ class SimpleThumbsManager extends ThumbsManager
         return $filter;
     }
 
-    protected function getFsPath($photo, $presetName)
+    protected function getFsPath(Photo $photo, $presetName)
     {
         return 'thumbs/' . $presetName . '/' . $photo->fs_name;
     }

@@ -61,6 +61,8 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
             </article>
             <!-- /b-article-->
 
+            <?php Yii::app()->controller->renderPartial('//banners/_direct_others'); ?>
+
             <?php if ($recipe->getPrev() !== null || $recipe->getNext() !== null): ?>
                 <table ellpadding="0" cellspacing="0" class="article-nearby clearfix">
                     <tr>

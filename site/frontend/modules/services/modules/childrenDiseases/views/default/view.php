@@ -41,7 +41,7 @@ $this->breadcrumbs = array(
                 <?php echo $model->prophylaxis_text ?>
             </div>
             <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $model, 'lite' => true)); ?> 
-            <?php $this->renderPartial('//banners/_disease'); ?>
+            <?php $this->renderPartial('//banners/_direct_others'); ?>
             <div class="margin-b40"></div>
         </div>
     </div>

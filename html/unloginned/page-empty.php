@@ -302,6 +302,7 @@
                 </div>
             </div>
         </div>
+
         <div class="footer-push"></div>
     </div>
     <?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/footer.php'; ?>

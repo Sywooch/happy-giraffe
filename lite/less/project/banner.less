@@ -155,17 +155,29 @@
 /* header-banner */
 .header-banner {
     /*background-color: #fafafa;*/
-
+    
     &_hold {
-        margin: 10px auto 0;
-        width: 1000px;
+        margin: 10px auto;
+        max-width: 1000px;
         text-align: center;
     }
+    &_hold embed,
     &_hold div,
-    &_hold img,
-    &_hold embed {
+    &_hold img {
         display: block;
+        width: auto !important;
+        height: auto !important;
+        max-width: 100%;
         margin: 0 auto;
     }
+
+    /*@media (min-width: @screen-desktop) {
+        &_hold {
+            margin-bottom: 0;
+            width: 1000px;
+            text-align: center;
+        }
+            
+    }*/
 }
 /* /header-banner */

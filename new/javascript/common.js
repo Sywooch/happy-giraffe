@@ -569,7 +569,8 @@ function showLoginWindow() {
     $('a[href="#login"]').trigger('click');
 }
 
-function openLoginPopup() {
+function openLoginPopup(event) {
+    event.preventDefault();
     $.magnificPopup.open({
         type: 'inline',
         overflowY: 'auto',

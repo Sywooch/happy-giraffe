@@ -71,7 +71,7 @@ class HoroscopeUrlRule extends \CBaseUrlRule
                     'zodiac' => false,
                     'period' => $path[1],
                     'date' => time(),
-                    'alias' => false,
+                    'alias' => 'today',
                 );
                 return 'services/horoscope/default/list';
             }

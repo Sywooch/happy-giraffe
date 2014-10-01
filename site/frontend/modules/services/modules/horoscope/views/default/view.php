@@ -91,12 +91,7 @@
         $this->renderPartial('_' . $this->period . '_one', array('model' => $model));
         ?>
 
-        <!-- Лайки от янжекса-->
-        <div class="custom-likes">
-            <div class="custom-likes_slogan">Вам понравился гороскоп?</div>
-            <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $model, 'lite' => true)); ?> 
-        </div>
-        <!-- Лайки от янжекса-->
+        <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $model, 'lite' => true, 'widgetTitle' => 'Вам понравился гороскоп?')); ?> 
 
         <div class="menu-link-simple menu-link-simple__center">
             <div class="menu-link-simple_t">Еще <?= $model->zodiacText() ?></div>

@@ -43,10 +43,10 @@
                 }
                 elseif ($this->period == 'year')
                 {
-                    $this->pageTitle = 'Гороскоп на 2013 год для всех знаков зодиака';
-                    $this->metaDescription = 'Гороскоп на 2013 для всех знаков Зодиака: здоровье, карьера, финансы и личная жизнь';
+                    $this->pageTitle = 'Гороскоп на год по знакам Зодиака';
+                    $this->metaDescription = 'Гороскоп на год по знакам Зодиака: здоровье, карьера, финансы и личная жизнь';
                     $this->metaKeywords = 'Гороскоп на ' . date('Y', $this->date) . ' год, гороскоп ' . date('Y', $this->date);
-                    echo 'Гороскоп на 2013 год';
+                    echo 'Гороскоп на год';
                     $this->breadcrumbs = array(
                         'Гороскопы' => $this->getUrl(array('alias' => 'today')),
                         'На год',

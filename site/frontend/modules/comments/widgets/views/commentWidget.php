@@ -1,7 +1,7 @@
 <div id="commentsList" class="comments_hold tab-pane active">
     <div class="comments_add">
         <div class="comments_add-hold"> Комментировать от
-            <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'simple')); ?> или <a href="?openLogin" onclick="$('[href=#loginWidget]').trigger('click')" class="comments_add-a">Войти</a>
+            <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'simple')); ?> или <a href="#" onclick="openLoginPopup()" class="comments_add-a">Войти</a>
         </div>
         <div class="comments_add-editor display-n"></div>
     </div>
@@ -76,5 +76,5 @@
     </ul>
 </div>
 <?php
-Yii::app()->clientScript->registerAMD('Comments#' . $this->id, array('ko' => 'knockout', 'ko_library' => 'ko_library', 'commentScroll' => 'commentScroll'), 'ko.applyBindings({}, document.getElementById("' . $this->id . '_comments"));');
+Yii::app()->clientScript->registerAMD('Comments#' . $this->id, array('ko' => 'knockout', 'ko_library' => 'ko_library', 'commentScroll' => 'commentScroll', "common" => "common"), 'ko.applyBindings({}, document.getElementById("' . $this->id . '_comments"));');
 ?>

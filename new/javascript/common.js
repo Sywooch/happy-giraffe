@@ -569,6 +569,24 @@ function showLoginWindow() {
     $('a[href="#login"]').trigger('click');
 }
 
+function openLoginPopup() {
+    $.magnificPopup.open({
+        type: 'inline',
+        overflowY: 'auto',
+        tClose: 'Закрыть',
+        fixedBgPos: true,
+        items: { src: '#loginWidget' },
+        callbacks: {
+            open: function() {
+                $('html').addClass('mfp-html');
+            },
+            close: function() {
+                $('html').removeClass('mfp-html');
+            }
+        }
+    });
+}
+
 function SeCounter() {
     var domain = location.protocol + '//' + location.host;
     if (document.referrer.indexOf(domain) != 0 && document.referrer != '')

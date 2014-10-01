@@ -513,6 +513,12 @@ return array(
         'lite_archive_user' => array(
             'depends' => array('lite_services_user'),
         ),
+        'lite_diseases' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_diseases_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
         'lite_horoscope' => array(
             'depends' => array('lite_services'),
         ),

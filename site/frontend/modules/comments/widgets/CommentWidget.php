@@ -24,7 +24,7 @@ class CommentWidget extends \CWidget
 
     public function getDataProvider()
     {
-        return new \CActiveDataProvider(\Comment::model()->byEntity($this->model)->specialSort());
+        return new \CActiveDataProvider(\Comment::model()->byEntity($this->model)->specialSort(), array('pagination' => false));
     }
 
     public function getUserLink($user, $response = false)
@@ -47,10 +47,12 @@ class CommentWidget extends \CWidget
     {
         $matches = array();
         // вырежем обращение из текста
-        if (preg_match('~^<p>(<a href="(/user/\d+/)">([^<]+)</a>, )~', $text, $matches))
+        if (strpos($text, '<p><a href="/user/') === 0)
         {
+            $pos = strpos($text, '</a>');
             //$text = substr_replace($text, '<p><span class="display-n">' . $matches[1] . '</span>', 0, strlen($matches[0]));
-            $text = substr_replace($text, '<p>', 0, strlen($matches[0]));
+            //$text = substr_replace($text, '<p>', 0, strlen($matches[0]));
+            $text = substr_replace($text, '', 3, $pos+2);
         }
 
         return $text;

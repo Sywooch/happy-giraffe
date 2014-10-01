@@ -33,6 +33,6 @@
     </script>
     <?php $this->endWidget(); ?>
     <?php else: ?>
-        <?php Yii::app()->controller->renderPartial('//banners/_route'); ?>
+        <?php Yii::app()->controller->renderPartial('//banners/_direct_others'); ?>
     <?php endif; ?>
 </div>

@@ -74,7 +74,7 @@ if ($period->features && $period->features_heading)
             ?>
         </div>
         <!-- Реклама яндекса-->
-        <?php $this->renderPartial('//banners/_calendar'); ?>
+        <?php $this->renderPartial('//banners/_direct_others'); ?>
     </div>
     <?php if ($period->communities): ?>
         <div class="b-main_row services-fast margin-b0">

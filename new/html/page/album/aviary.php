@@ -41,9 +41,9 @@
 
 <div id='injection_site'></div>
 
-<img id='image1' src='http://images.aviary.com/imagesv5/feather_default.jpg'/>
+<img id='image1' src='http://img4.wikia.nocookie.net/__cb20070819174055/uncyclopedia/images/b/be/200px-Dancing_Banana.gif'/>
 
 <!-- Add an edit button, passing the HTML id of the image and the public URL of the image -->
-<p><input type='image' src='http://images.aviary.com/images/edit-photo.png' value='Edit photo' onclick="return launchEditor('image1', 'http://images.aviary.com/imagesv5/feather_default.jpg');" /></p>
+<p><input type='image' src='http://images.aviary.com/images/edit-photo.png' value='Edit photo' onclick="return launchEditor('image1', 'http://img4.wikia.nocookie.net/__cb20070819174055/uncyclopedia/images/b/be/200px-Dancing_Banana.gif');" /></p>
 </body>
 </html>

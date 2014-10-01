@@ -80,7 +80,7 @@
         ga('send', 'pageview', self.currentPhoto().url());
                 yaCounter11221648.hit(self.currentPhoto().url());
                 self.setLikesPosition();
-        $('#photo-window_banner iframe').attr('src', '/direct4.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
+                $('#photo-window_banner iframe').attr('src', '/direct4.html?' + Math.floor(Math.random() * 9999999999) + 1000000000);
                 if (self.collectionClass == 'ContestPhotoCollection')
                     self.loadContestData();
 
@@ -183,17 +183,17 @@
             if (self.collectionClass == 'ContestPhotoCollection')
                 self.loadContestData();
 
-//    (function(bannerPlaceId, requestSrc, defaultLoad){
-//        var
-//            tgNS = window.ADFOX.RELOAD_CODE,
-//            initData = tgNS.initBanner(bannerPlaceId,requestSrc);
+//            (function(bannerPlaceId, requestSrc, defaultLoad){
+//                var
+//                    tgNS = window.ADFOX.RELOAD_CODE,
+//                    initData = tgNS.initBanner(bannerPlaceId,requestSrc);
 //
-//        $('#photo-window_banner .display-ib').html(initData.html);
+//                $('#photo-window_banner .display-ib').html(initData.html);
 //
-//        if(defaultLoad) {
-//            tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
-//        }
-//    })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
+//                if(defaultLoad) {
+//                    tgNS.loadBanner(initData.pr1, requestSrc, initData.sessionId);
+//                }
+//            })('bn-1', 'http://ads.adfox.ru/211012/prepareCode?pp=dey&amp;ps=bkqy&amp;p2=etcx&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a', true);
 
             $(window).on('resize', self.resized);
         }

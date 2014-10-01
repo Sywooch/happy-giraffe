@@ -129,14 +129,15 @@
 /* conv-pregnancy */
 .conv-pregnancy {
     margin: 20px 0;
-    background: url('@{path-img}/banner/conv-pregnancy.png') no-repeat 110px 57%;
+    background: url('@{path-img}/banner/conv-pregnancy.png') no-repeat 135px 50%;
 
     &__baby {
-        background: url('@{path-img}/banner/conv-pregnancy__baby.png') no-repeat 110px 57%;
+        min-height: 220px;
+        background: url('@{path-img}/banner/conv-pregnancy__baby.png') no-repeat 135px 50%;
     }
 
     &_hold {
-        padding: 40px 80px 40px 425px;
+        padding: 40px 60px 40px 440px;
         font-size: 14px;
     }
     &_tx {
@@ -150,3 +151,21 @@
     }
 }
 /* /conv-pregnancy */
+
+/* header-banner */
+.header-banner {
+    /*background-color: #fafafa;*/
+
+    &_hold {
+        margin: 10px auto 0;
+        width: 1000px;
+        text-align: center;
+    }
+    &_hold div,
+    &_hold img,
+    &_hold embed {
+        display: block;
+        margin: 0 auto;
+    }
+}
+/* /header-banner */

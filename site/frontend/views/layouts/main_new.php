@@ -4,7 +4,7 @@
     <title>Happy Giraffe</title>
     <!-- including .css--><link rel="stylesheet" type="text/css" href="/redactor/redactor.css" />
     <link rel="stylesheet" type="text/css" href="../../../css/all1.css" />
-    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
+    <!-- <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic"> -->
     <!-- including other jade works-->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script>

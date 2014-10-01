@@ -40,7 +40,8 @@
             'comments_li__green',
         );
 
-        $iterator = new CDataProviderIterator($dataProvider);
+        //$iterator = new CDataProviderIterator($dataProvider);
+        $iterator = $dataProvider->getData();
         $colorI = -1;
         $colorC = sizeof($colors);
         $color = $colors[0];

@@ -9,7 +9,7 @@ $this->widget('HMenu', array(
             'label' => 'На сегодня',
             'url' => $this->getUrl(array('alias' => 'today')),
             'linkOptions' => array('class' => 'menu-link-simple_a'),
-            'visible' => $this->alias !== 'today' || $this->period !== 'day',
+            'visible' => !($this->alias == 'today' && $this->period == 'day'),
         ),
         array(
             'label' => 'На завтра',
@@ -21,12 +21,13 @@ $this->widget('HMenu', array(
             'label' => 'На месяц',
             'url' => $this->getUrl(array('period' => 'month', 'alias' => 'today')),
             'linkOptions' => array('class' => 'menu-link-simple_a'),
-            'visible' => $this->period !== 'month' || $this->alias !== 'today',
+            'visible' => !($this->alias == 'today' && $this->period == 'month'),
         ),
-        array('label' => 'На год',
+        array(
+            'label' => 'На год',
             'url' => $this->getUrl(array('period' => 'year', 'alias' => 'today')),
             'linkOptions' => array('class' => 'menu-link-simple_a'),
-            'visible' => $this->period !== 'year' || $this->alias !== 'today' || ($this->alias !== 'tomorrow' && $this->period !== 'year'),
+            'visible' => !($this->alias == 'today' && $this->period == 'year'),
         ),
         array(
             'label' => 'Гороскоп совместимости',

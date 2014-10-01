@@ -46,16 +46,19 @@ class TestController extends PhotoController
 
     public function actionCrop()
     {
-        $photo = Photo::model()->findByPk(113);
+        $image = \Yii::app()->imagine->open('http://img.happy-giraffe.ru/thumbs/235x/180521/468ff4d08d1d39b768533bdf0df7b450.jpeg');
+        $image->show('jpg');
 
-        $cropData = array(
-            'x' => 100,
-            'y' => 100,
-            'w' => 100,
-            'h' => 100,
-        );
-
-        echo \Yii::app()->crops->getCrop($photo, 'avatarBig', $cropData, true)->getUrl();
+//        $photo = Photo::model()->findByPk(113);
+//
+//        $cropData = array(
+//            'x' => 100,
+//            'y' => 100,
+//            'w' => 100,
+//            'h' => 100,
+//        );
+//
+//        echo \Yii::app()->crops->getCrop($photo, 'avatarBig', $cropData, true)->getUrl();
 
 //        $x = 0;
 //        $y = 0;

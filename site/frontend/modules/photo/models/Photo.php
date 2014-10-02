@@ -146,7 +146,7 @@ class Photo extends \HActiveRecord implements \IHToJSON
     {
         $imageData = new ImageStringData($imageString);
         if (! $imageData->validate()) {
-            return false;
+            $imageData->getErrors()
         }
         $this->getImageFile()->buffer = $imageString;
         $this->attributes = $imageData->attributes;

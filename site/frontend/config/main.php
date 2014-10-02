@@ -128,6 +128,9 @@ return array(
         'comments' => array(
             'class' => 'site\frontend\modules\comments\CommentsModule',
         ),
+        'editorialDepartment' => array(
+            'class' => 'site\frontend\modules\editorialDepartment\EditorialDepartmentModule',
+        ),
         'friends',
         'favourites',
         'scores',

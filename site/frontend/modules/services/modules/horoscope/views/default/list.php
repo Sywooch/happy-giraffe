@@ -74,7 +74,7 @@
                 <div class="menu-link-simple_t">Узнайте гороскоп</div>
                 <?php $this->renderPartial('_menu'); ?>
             </div>
-            <?php if ($this->alias == 'today'): ?>
+            <?php if ($this->alias == 'today' && $this->period == 'day'): ?>
                 <div class="seo-desc wysiwyg-content visible-md-block">
                     <?= ServiceText::getText('horoscope', $this->period == 'day' ? $this->alias : $this->period) ?>
                 </div>

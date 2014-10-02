@@ -6,12 +6,14 @@
  * Time: 12:40
  */
 
-namespace site\frontend\modules\photo\components\imageProcessor;
+namespace site\frontend\modules\photo\components\thumbs;
 
 
 use Imagine\Filter\FilterInterface;
 use Imagine\Image\ImageInterface;
 use Imagine\Imagick\Image;
+use site\frontend\modules\photo\components\thumbs\filters\core\AnimatedGifFilter;
+use site\frontend\modules\photo\components\thumbs\filters\core\StaticGifFilter;
 
 class ImageDecorator
 {

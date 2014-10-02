@@ -9,7 +9,7 @@
 namespace site\frontend\modules\photo\components\thumbs;
 
 
-use site\frontend\modules\photo\components\thumbs\filters\CropFilter;
+use site\frontend\modules\photo\components\thumbs\filters\core\CropFilter;
 use site\frontend\modules\photo\components\thumbs\ThumbsManager;
 use site\frontend\modules\photo\models\Photo;
 

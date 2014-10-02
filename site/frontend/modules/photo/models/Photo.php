@@ -27,7 +27,6 @@ use site\frontend\modules\photo\components\ImageFile;
 class Photo extends \HActiveRecord implements \IHToJSON
 {
     private $_imageFile;
-    private $_imageString;
 
     const FS_NAME_LEVELS = 2;
     const FS_NAME_SYMBOLS_PER_LEVEL = 2;
@@ -149,15 +148,15 @@ class Photo extends \HActiveRecord implements \IHToJSON
         if (! $imageData->validate()) {
             return false;
         }
-        $this->_imageString = $imageString;
+        $this->getImageFile()->buffer = $imageString;
         $this->attributes = $imageData->attributes;
         $this->fs_name = $this->createFsName($imageData->extension);
         $this->attachEventHandler('onBeforeSave', array($this, 'writeImage'));
     }
 
-    public function getImageFile()
+    public function getImageFile($refresh = false)
     {
-        if ($this->_imageFile === null) {
+        if ($this->_imageFile === null || $refresh) {
             $this->_imageFile = new ImageFile($this);
         }
         return $this->_imageFile;
@@ -165,6 +164,6 @@ class Photo extends \HActiveRecord implements \IHToJSON
 
     protected function writeImage(\CModelEvent $event)
     {
-        $event->isValid = $this->getImageFile()->write($this->_imageString);
+        $event->isValid = $this->getImageFile()->write();
     }
 }

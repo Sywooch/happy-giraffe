@@ -9,9 +9,10 @@
 namespace site\frontend\modules\photo\components;
 
 
-class ImageFile
+class ImageFile extends \CComponent
 {
     protected $photo;
+    public $buffer;
 
     public function __construct($photo)
     {
@@ -23,8 +24,16 @@ class ImageFile
         return \Yii::app()->fs->read($this->getOriginalFsPath());
     }
 
-    public function write($imageString)
+    public function write($imageString = null)
     {
+        if ($imageString === null) {
+            $imageString = $this->buffer;
+        }
+
+        if ($imageString === null) {
+            throw new \CException('Содержимое файла для записи не задано');
+        }
+
         return \Yii::app()->fs->write($this->getOriginalFsPath(), $imageString);
     }
 

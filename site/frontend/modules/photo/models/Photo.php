@@ -110,12 +110,6 @@ class Photo extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function modify($)
-    {
-        $this->fs_name = $this->createFsName(pathinfo($this->fs_name, PATHINFO_EXTENSION));
-        $this->update('fs_name');
-    }
-
     protected function createFsName($extension)
     {
         $hash = md5(uniqid($this->original_name . microtime(), true));

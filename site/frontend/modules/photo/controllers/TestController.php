@@ -21,6 +21,7 @@ use site\frontend\modules\photo\components\observers\PhotoCollectionIdsObserver;
 use site\frontend\modules\photo\components\observers\PhotoCollectionNeatObserver;
 use site\frontend\modules\photo\components\PhotoCollectionObserver;
 use site\frontend\modules\photo\components\PhotoController;
+use site\frontend\modules\photo\models\ImageStringData;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
@@ -46,8 +47,10 @@ class TestController extends PhotoController
 
     public function actionCrop()
     {
-        $image = \Yii::app()->imagine->open('http://img.happy-giraffe.ru/thumbs/235x/180521/468ff4d08d1d39b768533bdf0df7b450.jpeg');
-        $image->show('jpg');
+        $string = file_get_contents('http://emilines.com/wp-content/uploads/2014/09/image-woman-drawing.jpg');
+
+        $data = new ImageStringData($string);
+
 
 //        $photo = Photo::model()->findByPk(113);
 //

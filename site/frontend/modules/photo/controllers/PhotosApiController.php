@@ -11,15 +11,17 @@ namespace site\frontend\modules\photo\controllers;
 
 use site\frontend\components\api\ApiController;
 use site\frontend\modules\photo\models\PhotoModify;
+use site\frontend\modules\photo\models\upload\ByUrlUploadForm;
 
 class PhotosApiController extends ApiController
 {
     public function actionUpdate($url, $photoId)
     {
-        $imageString = file_get_contents($url);
         $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId);
-        $modify = new PhotoModify($photo, $imageString);
-        $this->success = $modify->validate() && $modify->save();
+        $imageString = file_get_contents($url);
+        $photo->setImage($imageString);
+        $this->success = $photo->save();
+        $this->data = $photo;
     }
 
 //    public function actionMakeAvatar($photoId, array $cropData)

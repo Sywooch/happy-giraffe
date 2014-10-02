@@ -24,6 +24,8 @@ namespace site\frontend\modules\photo\models;
 
 class Photo extends \HActiveRecord implements \IHToJSON
 {
+    protected $imageString;
+
     const FS_NAME_LEVELS = 2;
     const FS_NAME_SYMBOLS_PER_LEVEL = 2;
 
@@ -146,5 +148,22 @@ class Photo extends \HActiveRecord implements \IHToJSON
             'fs_name' => $this->fs_name,
             'originalUrl' => $this->getOriginalUrl(),
         );
+    }
+
+    public function setImage($imageString)
+    {
+        $imageData = new ImageStringData($imageString);
+        if (! $imageData->validate()) {
+            return false;
+        }
+        $this->imageString = $imageString;
+        $this->attributes = $imageData->attributes;
+        $this->fs_name = $this->createFsName($imageData->extension);
+        $this->attachEventHandler('onBeforeSave', array($this, 'writeImage'));
+    }
+
+    protected function writeImage(\CModelEvent $event)
+    {
+        $event->isValid = \Yii::app()->fs->write($this->getOriginalFsPath(), $this->imageString) !== false;
     }
 }

@@ -30,12 +30,23 @@ class ByUrlUploadForm extends UploadForm
         ));
     }
 
-    protected function populate()
+//    protected function populate()
+//    {
+//        $client = new Client();
+//        $image = $client->get($this->url)->send()->getBody(true);
+//        $tmpFile = tempnam(sys_get_temp_dir(), 'php');
+//        file_put_contents($tmpFile, $image);
+//        return new PhotoCreate($tmpFile, basename($this->url));
+//    }
+
+    protected function getImageString()
     {
         $client = new Client();
-        $image = $client->get($this->url)->send()->getBody(true);
-        $tmpFile = tempnam(sys_get_temp_dir(), 'php');
-        file_put_contents($tmpFile, $image);
-        return new PhotoCreate($tmpFile, basename($this->url));
+        return $client->get($this->url)->send()->getBody(true);
+    }
+
+    protected function getOriginalName()
+    {
+        return basename($this->url);
     }
 } 

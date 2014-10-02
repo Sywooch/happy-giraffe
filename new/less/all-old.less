@@ -273,3 +273,60 @@
     }
 }
 /* /club-list */
+
+/* ava-list */
+.ava-list {
+    margin: 10px 0;
+    padding: 0 0 10px;
+    border-bottom: 1px solid #eee;
+    &:last-child {border-bottom: none;padding-bottom: 0;}
+    &_ul {}
+    &_li {
+        position: relative;
+        .inline-block();
+        vertical-align: middle;
+        margin: 0 3px 10px 0;
+    }
+    &_li .ava {float: none;}
+    &_last-tx {
+        .inline-block();
+        margin: 0 3px;
+        color: @color-gray-dark-light;
+        text-decoration: none;
+    }
+    &_last-tx:hover {
+        color: @color-link;
+        text-decoration: underline;
+    }
+    &_last {
+        .inline-block();
+        padding: 3px 8px 3px;
+        text-decoration: none;
+        color: #909090;
+        font-size: 11px;
+        line-height: 21px;
+        background: #ffe535;
+        .border-radius(4px);
+    }
+    &_last:hover &_like-hg {background-position: -21px 0;}
+    &_last:hover &_favorite {background-position: -21px -25px;}
+    &_like-hg {
+        margin: 0 3px 0 0;
+        .inline-block();
+        vertical-align: bottom;
+        width: 21px;
+        height: 25px;
+        background: url(/images/ava-list_last.png) no-repeat;
+    }
+    &_like-hg.active {background-position: -21px 0;}
+    &_favorite {
+        margin: 0 3px 0 0;
+        .inline-block();
+        vertical-align: bottom;
+        width: 21px;
+        height: 25px;
+        background: url(/images/ava-list_last.png) no-repeat 0 -25px;
+    }
+    &_favorite.active {background-position: -21px -25px;}
+}
+/* /ava-list */

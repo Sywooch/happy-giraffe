@@ -1,0 +1,116 @@
+/* calendar-serv */
+.calendar-serv {
+    margin: 1.5% 0 2%;
+    
+    &__pink &_t {color: #e5b0d7;}
+    &__pink &_i:hover {background-color: #d384be;}
+    &__green &_t {color: #59ac56;}
+    &__green &_i:hover {background-color: #59ac56;}
+
+    &_row {
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    &_t {
+        margin: 0;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+    }
+    
+    &_ul {
+        margin-bottom: 5px;
+    }
+    &_ul__column {
+        -moz-column-gap: 0;
+        -webkit-column-gap: 0;
+        column-gap: 0;
+        -webkit-columns: 2;
+        columns: 2;
+    }
+    // fallback for ie8-9
+    .no-csscolumns &_ul__column &_li {
+        display: inline-block;
+        vertical-align: top;
+        width: 48%;
+    }
+    &_li {
+        padding: 5px;
+    }
+    &_i {
+        display: inline-block;
+        padding: 6px;
+        width: 100%;
+        background-color: #fff;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        .border-radius(10px);
+    }
+    &_i:hover {
+        color: @color-white;
+        background-color: #d384be;
+    }
+    &_col-trimester {
+        .inline-block();
+        width: 48%;
+        vertical-align: top;
+    }
+    &_col-year {
+        .inline-block();
+        width: 100%;
+        vertical-align: top;
+    }
+    
+    &_desc-hide {display: none;}
+    
+    @media (min-width: @screen-xphone) {
+        
+        &_col-trimester {
+            width: 40%;
+            margin: 0 4%;
+        }
+        &_col-year {
+            width: 80%;
+        }
+    }
+    @media (min-width: @screen-phone) {
+
+        &_col-trimester {
+            width: 30%;
+            margin: 0 1.4%;
+        }
+        &_col-year {
+            width: 49%;
+            margin: 0 0.2%;
+        }
+        &_t {
+            font-size: 16px;
+            line-height: 20px;
+            margin-bottom: 3px;
+        }
+    }
+    @media (min-width: @screen-phone-landscape) {
+        &_col-year {
+            width: 43%;
+            margin: 0 3.2%;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        
+        &_desc-hide {display: inline;}
+        &_col-trimester {
+            width: 24%;
+            margin: 0 1.9%;
+        }
+        &_col-year {
+            width: 27%;
+            margin: 0 4.5%;
+        }
+        &_i {
+            font-size: 14px;
+            padding: 7px;
+        }
+    }
+}
+/* /calendar-serv */

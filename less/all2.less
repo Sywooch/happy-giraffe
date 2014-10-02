@@ -22,19 +22,6 @@
 @import "../redactor/redactor.less";
 /*@import "/project/vacancy.less";*/
 
-// new 
-// ---------------------------------------------------------------------------------------------
-@import "../new/less/project/popup-sign.less";
-@import "../new/less/plugins/jquery.Jcrop.less";
-@import "../new/less/plugins/magnific-popup.less";
-@import "../new/less/plugins/select2.less";
-@import "../new/less/plugins/select2.hg.less";
-@import "../new/less/project/form.less";
-@import "../new/less/project/footer.less";
-@import "../new/less/project/msg-fast.less";
-@import "../new/less/project/photo-window.less";
-
-
 /// services
 @import "/project/services/cook.less";
 @import "/project/services/decree-time.less";
@@ -600,7 +587,7 @@ table.fr_recipe_tb td { width: 50%;}
         max-width: 650px;
         margin: -25px 0 0;
         padding: 1px 23px 8px;
-        font: 35px/35px 'Roboto',Arial,Tahoma,Verdana,sans-serif;
+        font: 35px/35px Arial,Tahoma,Verdana,sans-serif;
         color: #0d0d0d;
         background: #fff;
     }
@@ -638,7 +625,7 @@ table.fr_recipe_tb td { width: 50%;}
     }
     &_t {
         font-size: 35px;
-        font: 35px/35px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+        font: 35px/35px Arial, Tahoma, sans-serif;
         color: #2d2d2d;
         margin: 5px 0 10px;
     }
@@ -653,7 +640,7 @@ table.fr_recipe_tb td { width: 50%;}
 /* b-article */
 .b-article {
     position: relative;
-    margin:20px 20px 30px;
+    margin: 20px 20px 30px;
 
     &__user-status &_cont {background: #cdecff;}
     &__user-status &_cont-tale {border-right-color: #cdecff;}
@@ -691,6 +678,7 @@ table.fr_recipe_tb td { width: 50%;}
     &__question &_t-a {color: #fff;}
 
     .wysiwyg-content {padding: 0 20px;}
+    .comments .wysiwyg-content {padding: 0;}
     .custom-likes-b {margin: 15px 0 35px;}
     &_repost &_cont {min-height: 115px;}
     &_in {
@@ -748,18 +736,20 @@ table.fr_recipe_tb td { width: 50%;}
     &_cont {
         position: relative;
         float: left;
-        width: 580px;
+        width: 578px;
         min-height:304px;
         padding: 12px 0 0;
         background: #fff;
         .border-radius(3px);
+        border: 1px solid #eaeaea;
     }
     &_cont-tale {
-        position: absolute;
+        display: none;
+        /*position: absolute;
         left: -20px;
         top: 35px;
         border: 10px solid transparent;
-        border-right-color: #fff;
+        border-right-color: #fff;*/
     }
     &_header {
         margin: 0 20px 10px;
@@ -839,12 +829,13 @@ table.fr_recipe_tb td { width: 50%;}
         z-index: 5;
     }
     &_removed:after {
-        content: '';
+        display: none;
+        /*content: '';
         position: absolute;
         left: -20px;
         top: 35px;
         border: 10px solid transparent;
-        border-right-color: #fff;
+        border-right-color: #fff;*/
     }
     &_removed-hold {
         position: absolute;
@@ -1441,7 +1432,7 @@ table.fr_recipe_tb td { width: 50%;}
         color: #fff;
         z-index: 25;
     }
-    &_ball-count {font: 30px/30px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;}
+    &_ball-count {font: 30px/30px Arial, Tahoma, sans-serif;}
     &_author {
         position: absolute;
         top: 0;
@@ -2788,7 +2779,7 @@ table.fr_recipe_tb td { width: 50%;}
         .inline-block();
         padding-left: 30px;
         margin-right: 9px;
-        font: 35px/35px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+        font: 35px/35px Arial, Tahoma, sans-serif;
         color: #0d0d0d;
         background: url(/images/breadcrumbs-big_i.png) no-repeat 0 22px;
     }
@@ -2897,7 +2888,7 @@ table.fr_recipe_tb td { width: 50%;}
     
     &_t {
         margin: 10px 20px 25px;
-        font: 30px/36px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+        font: 30px/36px Arial, Tahoma, sans-serif;
         text-align: center;
     }
     &_row {
@@ -3515,14 +3506,14 @@ table.fr_recipe_tb td { width: 50%;}
         .inline-block();
         vertical-align: middle;
         margin: 0 0 0 60px;
-        font: 60px/1em 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+        font: 60px/1em Arial, Tahoma, sans-serif;
         color: #fff;
     }
 
     /* contest */
     &_contest {margin: 0 20px 10px;}
     &_t-contest {
-        font: 45px/45px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+        font: 45px/45px Arial, Tahoma, sans-serif;
         color: #000;
     }
     &_t-contest-small {
@@ -3761,7 +3752,7 @@ table.fr_recipe_tb td { width: 50%;}
         margin: 15px 0 10px;
         text-align: center;
         font-size: 35px;
-        font-family: 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+        font-family: Arial, Tahoma, sans-serif;
         color: #f97b07;
     }
     &_hold {
@@ -4126,6 +4117,45 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /b-club-back */
 
+/* adfox-banner-html */
+.adfox-banner-html {
+    margin: 20px auto;
+    background: #f6f6f6;
+    background: rgba(255,255,255,0.4);
+
+    .i-highlight {padding: 0;}
+    
+    a {text-decoration: none;}
+    &_hold {
+        display: block;
+        padding: 15px 10px 15px 15px;
+    }
+    &_img-h {
+        float: left;
+        margin: 1px 15px 0 0;
+    }
+    &_img-h img {
+        display: block;
+    }
+    &_cont {
+        display: block;
+        overflow: hidden;
+    }
+    &_t {
+        font-weight: bold;
+        line-height: 16px;
+        text-decoration: underline;
+    }
+    &_t:hover {text-decoration: none;}
+    &_tx {
+        display: block;
+        line-height: 16px;
+        text-decoration: none;
+        color: #555;
+    }
+}
+/* /adfox-banner-html */
+
 /* branding pages */
 .theme {
 
@@ -4136,10 +4166,10 @@ table.fr_recipe_tb td { width: 50%;}
     &__adfox .layout-w1 {
         position: relative;
         overflow: hidden;
-        background: #f0f0f0;
+        background: #fff;
         width: 1000px;
         margin: 0 auto; 
-        .box-shadow(0px 0px 3px rgba(0,0,0,0.1));
+        .box-shadow(0 0 6px rgba(0,0,0,0.1));
         z-index: 1;
     }
     &__adfox .header-fix {
@@ -4149,9 +4179,52 @@ table.fr_recipe_tb td { width: 50%;}
         margin-left: -500px;
     }
 
+    &__kinder-umbrella {
+        padding-bottom: 0;
+        background-color: #fff;
+        background: url('/images/branding/kinder-umbrella/theme-1100.jpg') no-repeat 50% 0 !important;
+    }
+    @media screen and (min-width: 1100px) {
+        &__kinder-umbrella {
+            background: url('/images/branding/kinder-umbrella/theme-1200.jpg') no-repeat 50% 0 !important;
+        }  
+    }
+    @media screen and (min-width: 1200px) {
+        &__kinder-umbrella {
+            background: url('/images/branding/kinder-umbrella/theme-1400.jpg') no-repeat 50% 0 !important;
+        }  
+    }
+    @media screen and (min-width: 1400px) {
+        &__kinder-umbrella {
+            background: url('/images/branding/kinder-umbrella/theme-1680.jpg') no-repeat 50% 0 !important;
+        }  
+    }
+    @media screen and (min-width: 1680px) {
+        &__kinder-umbrella {
+            background: url('/images/branding/kinder-umbrella/theme-1920.jpg') no-repeat 50% 0 !important;
+        }  
+    } 
+
+    &__kinder-umbrella {
+        position: relative;
+        padding: 250px 0 130px;
+    }
+    /*&__kinder-umbrella .layout-container,*/
+    &__kinder-umbrella .start-page {
+        position: relative;
+        z-index: 5;
+        width: 1000px;
+        margin: 0 auto;
+        overflow: hidden;
+        background-color: #f0f0f0;
+    }
+    &__kinder-umbrella .layout-wrapper_hold {
+        min-height: 1700px;
+    }
+
     /*&__kinder-spring .layout-container {margin-bottom: 150px;}*/
 
-/*    &__adfox .start-page_container {
+    /*    &__adfox .start-page_container {
         width: 1000px;
         margin: 257px auto 150px;
         position: relative;
@@ -4212,7 +4285,7 @@ table.fr_recipe_tb td { width: 50%;}
     top: 0;
     right: 0;
     left: 0;
-    height: 100%;
+    bottom: 0;
 
     &__adkinder &_b {
         height: 672px;
@@ -4222,13 +4295,18 @@ table.fr_recipe_tb td { width: 50%;}
         height: 401px;
         background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1180.jpg) no-repeat 50% 100%;
     }
+    &__kinder-umbrella &_b {
+        bottom: 0;
+        height: 125px;
+        background:#fff url(/images/branding/kinder-umbrella/cover_b.jpg) repeat-x 0 100%;
+    }
     @media screen and (min-width: 1180px) {
-        &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1400.jpg) no-repeat 50% 0px;}
-        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1400.jpg) no-repeat 50% 0px;}
+        &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1400.jpg) no-repeat 50% 0;}
+        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1400.jpg) no-repeat 50% 0;}
     }
     @media screen and (min-width: 1400px) {
-        &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1920.jpg) no-repeat 50% 0px;}
-        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1920.jpg) no-repeat 50% 0px;}
+        &__adkinder &_b {background:#b7ddf2 url(/images/branding/kinder/cover_b-1920.jpg) no-repeat 50% 0;}
+        &__kinder-spring &_b {background:#eaf6ff url(/images/branding/kinder-spring/cover_b-1920.jpg) no-repeat 50% 0;}
     }
     &_b {
         position: absolute;
@@ -4407,6 +4485,10 @@ table.fr_recipe_tb td { width: 50%;}
 }
 
 /* /hainz-fruit-game */
+
+.bann-heinz_in {
+    .box-shadow(0 6px 16px rgba(0,0,0,.6)); 
+}
  
 /* /branding pages*/
 
@@ -4601,7 +4683,7 @@ table.fr_recipe_tb td { width: 50%;}
         background: #fb0202;
     }
     &_num {
-        font: 45px/47px 'Roboto', 'Helvetica Neue', Helvetica, Arial, Tahoma, sans-serif;
+        font: 45px/47px Arial, Tahoma, sans-serif;
     }
     &_vote {
         float: right;
@@ -4940,41 +5022,6 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /tabs-simple */
 
-/* adfox-banner-html */
-.adfox-banner-html {
-    margin: 20px auto;
-    background: #f6f6f6;
-    background: rgba(255,255,255,0.4);
-    
-    a {text-decoration: none;}
-    &_hold {
-        display: block;
-        padding: 15px 10px 15px 15px;
-    }
-    &_img-h {
-        float: left;
-        margin-right: 15px;
-    }
-    &_cont {
-        display: block;
-        overflow: hidden;
-    }
-    &_t {
-        display: block;
-        font-weight: bold;
-        line-height: 16px;
-        margin-bottom: 3px;
-        text-decoration: underline;
-    }
-    &_t:hover {text-decoration: none;}
-    &_tx {
-        line-height: 16px;
-        text-decoration: none;
-        color: #555;
-    }
-}
-/* /adfox-banner-html */
-
 /* user-actions */
 .user-actions {
     .inline-block();
@@ -5029,10 +5076,46 @@ table.fr_recipe_tb td { width: 50%;}
 }
 /* /user-actions */
 
+/* header-banner */
+.header-banner {
+    /*background-color: #fafafa;*/
+}
+.header-banner_hold {
+    margin: 0 auto;
+    padding: 10px 0;
+    width: 1000px;
+    text-align: center;
+}
+.header-banner_hold div,
+.header-banner_hold img,
+.header-banner_hold embed {
+    display: block;
+    margin: 0 auto;
+}
+/* /header-banner */
+
 
 
 // new 
 // ---------------------------------------------------------------------------------------------
+
+// Переменные и примешивания
+@import "../new/less/include/variables.less";
+// Путь к изображениям
+@path-img : '/new/images'; 
+
+@import "../new/less/include/mixins.less";
+
+@import "../new/less/project/popup-sign.less";
+@import "../new/less/plugins/jquery.Jcrop.less";
+@import "../new/less/plugins/magnific-popup.less";
+@import "../new/less/plugins/select2.less";
+@import "../new/less/plugins/select2.hg.less";
+@import "../new/less/project/form.less";
+@import "../new/less/project/msg-fast.less";
+@import "../new/less/project/photo-window.less";
+
+@import "../lite/less/project/yandex-search-form.less";
 
 
 .popup {
@@ -5042,4 +5125,4 @@ table.fr_recipe_tb td { width: 50%;}
 }
 
 // html banners  
-@import "/banner/ban-route-danger.less";
+@import "/banner/ban-route.less";

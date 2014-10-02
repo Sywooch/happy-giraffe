@@ -1,0 +1,235 @@
+// ----------------------------------------------------------
+// В файле все комментарии делать в less стиле // 
+// ----------------------------------------------------------
+
+// 1. ROOT  
+// Sizing shortcuts
+.size(@width; @height) {
+    width: @width;
+    height: @height;
+}
+.square(@size) {
+    .size(@size; @size);
+}
+             
+// 2. TYPOGRAPHY            
+
+.font-size(@font-size: 16){
+    @rem: (@font-size / 10);
+    font-size : @font-size * 1px;
+    font-size : ~"@{rem}rem";
+}
+
+.text-overflow() {
+    overflow : hidden;
+    text-overflow : ellipsis;
+    white-space : nowrap;
+}
+
+.text-dec_onhover() {
+    text-decoration: none;
+    &:hover {text-decoration: underline;}
+}
+
+// пришлось добавить -mixin что б отделить от подобных классов cosmetic.less с свойствами !impotant
+.font-xs-mixin()  {font-size:9px;line-height: 11px;font-family: Tahoma, Arial, Verdana, sans-serif;}
+.font-s-mixin()   {font-size:11px;line-height: 14px;font-family: Tahoma, Arial, Verdana, sans-serif;}
+.font-n-mixin()   {font-size:12px;line-height: 1.4em;font-family:  Arial,Tahoma, Verdana, sans-serif;}
+.font-m-mixin()   {font-size:14px;}
+.font-l-mixin()   {font-size:16px;line-height: 20px;}
+
+// gradients
+
+.ghorizontal(@startColor : @white, @endColor : @lightergrey) {
+background-color: @endColor;
+background-image  : -webkit-gradient(linear, 0 0, 100% 0, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
+background-image  : -webkit-linear-gradient(left, @startColor, @endColor);                   // Safari 5.1+, Chrome 10+
+background-image  : -moz-linear-gradient(left, @startColor, @endColor);                      // FF 3.6+
+background-image  : -ms-linear-gradient(left, @startColor, @endColor);                       // IE10
+background-image  : -o-linear-gradient(left, @startColor, @endColor);                        // Opera 11.10
+background-image  : linear-gradient(left, @startColor, @endColor);                           // W3C
+background-repeat : repeat-x; }
+
+.gvertical(@startColor : @white, @endColor:  @lightergrey) {
+background-color  : @endColor;
+background-image  : -webkit-gradient(linear, 0 0, 0 100%, from(@startColor), to(@endColor)); // Safari 4+, Chrome 2+
+background-image  : -webkit-linear-gradient(top, @startColor, @endColor);                    // Safari 5.1+, Chrome 10+
+background-image  : -moz-linear-gradient(top, @startColor, @endColor);                       // FF 3.6+
+background-image  : -ms-linear-gradient(top, @startColor, @endColor);                        // IE10
+background-image  : -o-linear-gradient(top, @startColor, @endColor);                         // Opera 11.10
+background-image  : linear-gradient(top, @startColor, @endColor);                            // W3C
+background-repeat : repeat-x; }
+
+.gdirectional(@startColor : @white, @endColor : @lightergrey, @deg : 45deg) {
+background-color  : @endColor;
+background-image  : -moz-linear-gradient(@deg, @startColor, @endColor);                     // FF 3.6+
+background-image  : -ms-linear-gradient(@deg, @startColor, @endColor);                      // IE10
+background-image  : -webkit-linear-gradient(@deg, @startColor, @endColor);                  // Safari 5.1+, Chrome 10+
+background-image  : -o-linear-gradient(@deg, @startColor, @endColor);                       // Opera 11.10
+background-image  : linear-gradient(@deg, @startColor, @endColor);                          // W3C
+background-repeat : repeat-x; }
+
+// .bordered(COLOR, COLOR, COLOR, COLOR);
+
+.bordered(@top-color: #eee, @right-color: #eee, @bottom-color: #eee, @left-color: #eee) {
+border-top : solid 1px @top-color;
+border-left : solid 1px @left-color;
+border-right : solid 1px @right-color;
+border-bottom : solid 1px @bottom-color; }
+
+// .box-shadow(HORIZONTAL VERTICAL BLUR COLOR)
+
+.box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
+    box-shadow : @shadow; 
+}
+
+// .drop-shadow(HORIZONTAL, VERTICAL, BLUR, ALPHA);
+
+.drop-shadow(@x-axis: 0, @y-axis: 1px, @blur: 2px, @alpha: 0.1) {
+    -webkit-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+    -moz-box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha);
+    box-shadow : @x-axis @y-axis @blur rgba(0, 0, 0, @alpha); 
+}
+
+
+// 5. ELEMENTS              ==============================
+
+// .background-alpha(VALUE VALUE);
+
+.background-alpha(@color: @white, @alpha: 1) {
+background-color : hsla(hue(@color), saturation(@color), lightness(@color), @alpha); }
+
+// .background-size(VALUE VALUE);
+
+.background-size(@size){
+-webkit-background-size : @size;
+-moz-background-size : @size;
+-o-background-size : @size;
+background-size : @size; }
+
+// .background-clip(VALUE); (border-box, padding-box, content-box)
+
+.background-clip(@clip) {
+-webkit-background-clip : @clip;
+-moz-background-clip : @clip;
+background-clip : @clip; }
+
+// .box-sizing(VALUE); (border-box, padding-box, content-box)
+
+.box-sizing(@boxsize: border-box) {
+-webkit-box-sizing : @boxsize;
+-moz-box-sizing : @boxsize;
+-ms-box-sizing : @boxsize;
+box-sizing : @boxsize; }
+
+// inline-block 
+.inline-block () {
+    display: inline-block;
+}
+
+// For image replacement
+
+.hide-text() {
+text-indent : 100%;
+white-space : nowrap;
+overflow : hidden; }
+
+// Hide from visual and speaking browsers
+
+.hidden() {
+display : none; 
+visibility : hidden; }
+
+// Hide but maintain layout
+
+.invisible() { 
+visibility : hidden; }
+
+// Hidden but available to speaking browsers
+
+.visuallyhidden() { 
+overflow : hidden; 
+position : absolute;
+clip : rect(0 0 0 0); 
+height : 1px; 
+width : 1px;
+margin : -1px; 
+padding : 0; 
+border : 0; }
+
+// .resize(VALUE) (none, both, horizontal, vertical, inherit)
+
+.resize(@direction: both) {
+resize : @direction;
+overflow : auto; }
+
+// .user-select(VALUE) (all, element, none, text)
+
+.user-select(@select) {
+-webkit-user-select : @select;
+-moz-user-select : @select;
+-o-user-select : @select;
+user-select : @select; }
+
+
+// border-radius(VALUE);
+.border-radius (@radius: 5px) {
+        border-radius: @radius;
+}
+// Single side border-radius
+.border-top-radius(@radius) {
+    border-top-right-radius: @radius;
+     border-top-left-radius: @radius;
+}
+.border-right-radius(@radius) {
+    border-bottom-right-radius: @radius;
+         border-top-right-radius: @radius;
+}
+.border-bottom-radius(@radius) {
+    border-bottom-right-radius: @radius;
+     border-bottom-left-radius: @radius;
+}
+.border-left-radius(@radius) {
+    border-bottom-left-radius: @radius;
+         border-top-left-radius: @radius;
+}
+
+// Retina images
+//
+// Short retina mixin for setting background-image and -size
+
+// 2 img convert to data-uri 
+.img-retina(@file-1x; @file-2x; @width-1x; @height-1x; @uri; @path) when (@uri = true) {
+    background-image: data-uri("@{path}/@{file-1x}");
+
+    @media 
+        only screen and (-webkit-min-device-pixel-ratio: 1.5),
+        only screen and (min-resolution: 144dpi) {
+            background-image: data-uri("@{path}/@{file-2x}");
+            background-size: @width-1x @height-1x;
+    }
+}
+.img-retina(@file-1x; @file-2x; @width-1x; @height-1x) {
+    background-image: url("@{file-1x}");
+
+    @media 
+        only screen and (-webkit-min-device-pixel-ratio: 1.5),
+        only screen and (min-resolution: 144dpi) {
+            background-image: url("@{file-2x}");
+            background-size: @width-1x @height-1x;
+    }
+}
+
+
+// Responsive image
+//
+// Keep images from scaling beyond the width of their parents.
+
+.img-responsive(@display: block;) {
+    display: @display;
+    max-width: 100%; // Part 1: Set a maximum relative to the parent
+    height: auto; // Part 2: Scale the height according to the width, otherwise you get stretching
+}
+
+
+

@@ -325,13 +325,14 @@
 .header-fix {
     display: none;
     position: fixed;
+    width: 100%;
+    min-width: 768px;
+    height: 50px;
     top: 0;
-    right: 0;
     left: 0;
     background: #fff;
     .box-shadow(0 0 3px rgba(0,0,0,0.15));
     z-index: 700;
-    height: 50px;
     
     &__rel {
         position: relative;
@@ -392,6 +393,13 @@
     &_dropin:hover .header_i-arrow {background-position: 0 -8px;}
     &_dropin.active .header-drop {display: block;}
 
+
+    @media (max-width: 800px) {
+        & {
+            display: none !important;
+        }
+    }
+    
 }
 /* /header-fix */
 
@@ -410,10 +418,10 @@
     width: 60%;
     margin: 0 auto;
     text-align: right;
-
-    @media screen and (min-width: 630px) {
+    
+    /*@media screen and (min-width: 630px) {
         & {width: 66%;}
-    }
+    }*/
     @media screen and (min-width: 850px) {
         & {width: 75%;}
     }

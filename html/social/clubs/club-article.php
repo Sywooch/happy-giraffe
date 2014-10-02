@@ -118,10 +118,10 @@
 								var block = $(block);
 								var blockTop = block.offset().top;
 								var blockHeight = block.outerHeight();
-/*
+								/*
 								var stopTop = $(elementStop).offset().top;
 								var blockStopTop = stopTop - blockTop - blockHeight - blockIndent;
-*/
+								*/
 								var inBlock = $(inBlock);
 								var blockStopBottom = inBlock.offset().top + inBlock.outerHeight();
 								
@@ -605,6 +605,32 @@
 					</div>
 				</div>
 				
+				<div class="fast-articles3">
+					<div class="fast-articles3_i">
+						<a href="#" class="fast-articles3_a">
+							<span class="fast-articles3_img-hold">
+								<img src="/images/banners/post-157877.jpg" class="fast-articles3_img" alt="">
+							</span>
+							<span class="fast-articles3_tx">Какое животное лучше завести для ребенка</span>
+						</a>
+					</div>
+					<div class="fast-articles3_i">
+						<a href="#" class="fast-articles3_a">
+							<span class="fast-articles3_img-hold">
+								<img src="/images/banners/post-90345.jpg" class="fast-articles3_img" alt="">
+							</span>
+							<span class="fast-articles3_tx">7 способов заново влюбиться в собственного мужа</span>
+						</a>
+					</div>
+					<div class="fast-articles3_i">
+						<a href="#" class="fast-articles3_a">
+							<span class="fast-articles3_img-hold">
+								<img src="/images/banners/post-81355.jpg" class="fast-articles3_img" alt="">
+							</span>
+							<span class="fast-articles3_tx">Как похудеть после родов при грудном вскармливании?</span>
+						</a>
+					</div>
+				</div>
 			</div>
 		</div>
 		</div>

@@ -14,7 +14,7 @@ mixin head (path)
         <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
         
         // ie8 
-        //- <!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
+        | <!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
 
         //+scripts(path)
         // script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")
@@ -38,7 +38,6 @@ mixin head (path)
         script(src="#{path}javascript/baron.js")
 
         // custom select
-        // script(src="#{path}javascript/selectize.js")
         script(src="#{path}javascript/select2.js")
 
         // wisywig
@@ -61,3 +60,20 @@ mixin head (path)
 
         // livereload
         script(src="//localhost:35729/livereload.js")
+
+
+
+
+mixin headLite (path)
+    head
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        //- <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        title Happy Giraffe
+
+        // на продакшене lite.css
+        <link rel="stylesheet" type="text/css" href="/new/css/lite.dev.css" />
+
+        // <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
+
+

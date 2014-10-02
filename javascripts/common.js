@@ -429,7 +429,7 @@ function openPopup(el) {
 function FriendButtonViewModel(data) {
     var self = this;
 
-    console.log(data);
+    //console.log(data);
 
     self.id = data.id;
     self.status = ko.observable(data.status);
@@ -614,7 +614,14 @@ var AddMenu = {
         else
             var url = '/blog/form/type' + type + '/?club_id='+club;
         $.post(url, {'short': 1}, function (response) {
-            $('#add_form_container').html(response);
+            var $formContainer = $(response).find('#add_form_container'),
+                $scriptContainer = $(response).filter('script');
+
+             $('#add_form_container')
+                .html(
+                    $formContainer.html() + '<script>' + $scriptContainer.text() + '</script>'
+                );
+
             $('.js_add_menu a').removeClass('active');
             $(el).addClass('active');
         });

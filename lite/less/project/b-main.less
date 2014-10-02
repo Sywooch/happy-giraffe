@@ -1,0 +1,117 @@
+/* b-main */
+.b-main {
+    position: relative;
+
+    &__white {background-color: #fff;}
+
+    &_cont {
+        margin: 0 15px;
+    }
+    &_col-article {
+
+    }
+    &_col-sidebar {
+        margin: 0 auto;
+    }
+    &_col-sidebar:first-child {margin-left: 0;}
+
+    &_row {
+        position: relative;
+        padding: 20px 0;
+    }
+    &_row__brown-light{background-color: #fff7e7;}
+    &_row__blue       {background-color: #d4efff;}
+    &_row__blue-light {background-color: #eaf9ff;}
+    &_row__gray       {background-color: #fafafa;}
+    &_row__green-dark {background-color: #75c472;}
+    &_row__green      {background-color: #e5f6e3;}
+    &_row__green-light{background-color: #b6e1b4;}
+    &_row__pink       {background-color: #e4a1d2;}
+    &_row__pink-light {background-color: #fcdff4;}
+
+    &_wide-phone {
+        margin: 10px -15px;
+    }
+
+
+    // from new folder
+    /* col-1 */
+    &_col-1 {
+        width:240px;
+        margin-bottom: 1px;
+        margin-left: 20px;
+        margin-right:20px;
+        float:left;
+        position: relative;
+        
+        .b-ava-large {margin-top: 0px; margin-bottom: 30px;}
+    }
+
+    &_col-12,
+    &_col-23 {
+        width:700px;
+        float:left;
+        position: relative;
+    }
+    &_col-hold {
+        &:extend(.clearfix all);
+    }
+    /*&_col-article {
+        float: left;
+        width: 600px;
+    }
+    &_col-sidebar {
+        float: left;
+        width: 240px;
+        margin-left: 20px;
+    }*/
+    &_col-sidebar:first-child {margin-left: 0;}
+    // from new folder
+    
+    @media (min-width: @screen-phone-landscape) {
+        &_row {
+            padding: 30px 0;
+        }
+        &_cont {
+            width: 600px;
+            margin: 0 auto;
+        }
+        &_col-article {
+            float: left;
+            width: 600px;
+        }
+        &_col-article__center {
+            float: none;
+            margin: 0 auto;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        
+        &_col-wide {
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        &_wide-phone {
+            margin: 10px auto;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        &_cont {
+            width: auto;
+            margin: 0 20px;
+        }
+        &_cont {margin: 0 60px;}
+        &_col-sidebar {
+            float: left;
+            width: 240px;
+            margin-left: 40px;
+        }
+
+        &_row__blue-quotes {
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+            background-image: url('@{path-img}/b-main_row__blue-quotes.png');
+        }
+    }
+}
+/* /b-main */

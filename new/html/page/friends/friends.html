@@ -15,7 +15,7 @@
   <!-- including .css-->
   <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-  <!-- ie8 -->
+  <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
   <!--+scripts(path)-->
   <!-- script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")-->
   <script>
@@ -34,7 +34,6 @@
   <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
   <!-- custom select-->
-  <!-- script(src="#{path}javascript/selectize.js")-->
   <script src="/new/javascript/select2.js"></script>
   <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
@@ -57,7 +56,7 @@
 </head>
 <body class="body body__bg-base">
   <div class="layout-container">
-    <div class="layout-header">
+    <div class="layout-header clearfix">
       <!-- header-fix-->
       <script>
         $(document).ready(function () {
@@ -187,7 +186,6 @@
               <li class="side-menu_li side-menu_li__find"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__find"></span><span class="side-menu_tx">Найти друзей</span></span></a></li>
               <li class="side-menu_li active"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__online-friend"></span><span class="side-menu_tx">Мои <br> друзья </span></span><span class="verticalalign-m-help"></span></a></li>
               <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__friend-add"></span><span class="side-menu_tx">Давай дружить</span><span class="side-menu_count">1</span></span><span class="verticalalign-m-help"></span></a></li>
-              <li class="side-menu_li"><a href="" class="side-menu_i"><span class="side-menu_i-hold"><span class="side-menu_ico side-menu_ico__advice"></span><span class="side-menu_tx">Жираф советует!</span><span class="side-menu_count-sub">59</span></span><span class="verticalalign-m-help"></span></a></li>
             </ul>
           </div>
         </div>
@@ -221,7 +219,7 @@
                     <!-- b-ava-large-->
                     <div class="b-ava-large">
                       <div class="b-ava-large_ava-hold clearfix">
-                        <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
+                        <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
                         <!-- - if (vars.icoFriendAdd)
                         a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
                             span.b-ava-large_ico.b-ava-large_ico__friend-add
@@ -259,7 +257,7 @@
                     <!-- b-ava-large-->
                     <div class="b-ava-large">
                       <div class="b-ava-large_ava-hold clearfix">
-                        <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
+                        <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
                         <!-- - if (vars.icoFriendAdd)
                         a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
                             span.b-ava-large_ico.b-ava-large_ico__friend-add
@@ -308,7 +306,7 @@
                     <!-- b-ava-large-->
                     <div class="b-ava-large">
                       <div class="b-ava-large_ava-hold clearfix">
-                        <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
+                        <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
                         <!-- - if (vars.icoFriendAdd)
                         a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
                             span.b-ava-large_ico.b-ava-large_ico__friend-add
@@ -346,7 +344,7 @@
                     <!-- b-ava-large-->
                     <div class="b-ava-large">
                       <div class="b-ava-large_ava-hold clearfix">
-                        <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
+                        <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a><a href="" title="Начать диалог" class="b-ava-large_bubble b-ava-large_bubble__dialog"><span class="b-ava-large_ico b-ava-large_ico__mail"></span><span class="b-ava-large_bubble-tx"></span></a><a href="" title="Фотографии" class="b-ava-large_bubble b-ava-large_bubble__photo"><span class="b-ava-large_ico b-ava-large_ico__photo"></span><span class="b-ava-large_bubble-tx">50</span></a><a href="" title="Записи в блоге" class="b-ava-large_bubble b-ava-large_bubble__blog"><span class="b-ava-large_ico b-ava-large_ico__blog"></span><span class="b-ava-large_bubble-tx">999</span></a>
                         <!-- - if (vars.icoFriendAdd)
                         a.b-ava-large_bubble.b-ava-large_bubble__friend-add(href='', title='Добавить в друзья')
                             span.b-ava-large_ico.b-ava-large_ico__friend-add

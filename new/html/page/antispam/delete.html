@@ -3,29 +3,55 @@
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <!-- a-->
 <!-- b-->
+<!-- c-->
+<!-- a-->
+<!-- b-->
+<!-- c-->
+<!-- /b-album-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Happy Giraffe</title>
-  <!-- including .css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
+  <!-- including .css-->
+  <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-  <!-- including other jade works-->
-  <!-- ie8 -->
+  <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
   <!--+scripts(path)-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <!-- script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")-->
   <script>
-    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    window.jQuery || document.write('<script src="/new/javascript/jquery-1.10.2.min.js"><\/script>')
     
   </script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/affix.js"></script>
+  <script src="/new/javascript/bootstrap/dropdown.js"></script>
+  <script src="/new/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
   <script src="/new/javascript/jquery.tooltipster.js"></script>
+  <!-- popup-->
+  <!-- script(src="#{path}javascript/jquery.fancybox.js")-->
   <script src="/new/javascript/jquery.magnific-popup.js"></script>
+  <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
+  <!-- custom select-->
   <script src="/new/javascript/select2.js"></script>
+  <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
+  <script src="/new/redactor/lang/ru.js"></script>
+  <script src="/new/redactor/plugins/fullscreen/fullscreen.js"></script>
+  <script src="/new/redactor/plugins/btnvideo/btnvideo.js"></script>
+  <script src="/new/redactor/plugins/formatbtn/formatbtn.js"></script>
   <script src="/new/javascript/jquery.Jcrop.js"></script>
+  <!-- Базовый js (вызывается на всех страницах)-->
   <script src="/new/javascript/common.js"></script>
+  <!-- js для работы в верстке-->
   <script src="/new/javascript/common-markup.js"></script>
+  <!-- jquery-ui подключается для верстки, в yii есть аналог
+  компоненты 
+      slider 
+  -->
+  <script src="/new/javascript/jquery-ui-1.10.4.custom.js"></script>
+  <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body">
@@ -48,12 +74,14 @@
       </script>
       <div class="header-fix">
         <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
-          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a"><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+          <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a">
+              <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
             <!-- header-drop-->
             <div class="header-drop">
               <div class="header-menu clearfix">
                 <ul class="header-menu_ul">
-                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile"><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                  <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                        <!-- ava--><span class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -82,10 +110,7 @@
           </div>
           <div class="header-fix-menu">
             <ul class="header-menu_ul clearfix">
-              <!-- li.header-fix-menu_li
-              a.header-fix-menu_a(href='')
-                  span.header-fix-menu_tx прямой эфир
-              -->
+              <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a></li>
               <li class="header-fix-menu_li active"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
               <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
               <li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
@@ -102,7 +127,8 @@
           <!-- logo__small-->
           <div class="logo logo__small"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a></div>
           <div class="header_t-big">Модератор</div>
-          <div class="header_user"><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a><a class="header_user-name">Александр Богоявленский</a>
+          <div class="header_user">
+            <!-- ava--><a href="" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a><a class="header_user-name">Александр Богоявленский</a>
           </div>
         </div>
       </div>
@@ -143,12 +169,39 @@
                   <!-- Статья с текстом-->
                   <!-- b-article-->
                   <article class="b-article clearfix">
-                    <div class="float-l">
-                      <div class="like-control like-control__small-indent clearfix"><a href="" class="ava"><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"></a>
+                    <div class="b-article_left">
+                      <div class="b-article_left-ava">
+                        <!-- ava--><a href="" class="ava"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                       </div>
-                      <div class="like-control clearfix"><a href="" title="Нравится" class="like-control_ico like-control_ico__like powertip">865</a>
-                        <div class="position-rel"><a href="" title="Репост" class="like-control_ico like-control_ico__repost powertip">5</a></div>
-                        <div class="position-rel"><a href="" title="В избранное" class="favorites-control_a active powertip">123865</a></div>
+                      <div class="like-control like-control__s clearfix">
+                        <div class="like-control_hold"><a href="" title="Нравится" class="like-control_i like-control_i__like powertip">
+                            <div class="like-control_ico"></div>
+                            <div class="like-control_tx">865</div></a>
+                          <div class="favorites-add-popup favorites-add-popup__right display-n">Вы не можете ставить "Нравиться" к своей записи</div>
+                        </div>
+                        <div class="like-control_hold"><a href="" title="В избранное" class="like-control_i like-control_i__favorites powertip">
+                            <div class="like-control_ico"></div>
+                            <div class="like-control_tx">863455</div></a>
+                          <div class="favorites-add-popup favorites-add-popup__right display-n">
+                            <div class="favorites-add-popup_t">Добавить запись в избранное
+                              <div class="favorites-add-popup_i clearfix"><img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
+                                <div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
+                              </div>
+                              <div class="favorites-add-popup_row">
+                                <label for="" class="favorites-add-popup_label">Теги:</label><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">отношения</a><a href="" class="ico-close"></a></span><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">любовь</a><a href="" class="ico-close"></a></span>
+                              </div>
+                              <div class="favorites-add-popup_row margin-b10"><a href="" class="textdec-none"><span class="ico-plus2 margin-r5"></span><span class="a-pseudo-gray color-gray">Добавить тег</span></a></div>
+                              <div class="favorites-add-popup_row">
+                                <label for="" class="favorites-add-popup_label">Комментарий:</label>
+                                <div class="float-r color-gray">0/150</div>
+                              </div>
+                              <div class="favorites-add-popup_row">
+                                <textarea name="" cols="25" rows="2" placeholder="Введите комментарий" class="favorites-add-popup_textarea"></textarea>
+                              </div>
+                              <div class="favorites-add-popup_row textalign-c margin-t10"><a href="" class="btn-gray-light">Отменить</a><a href="" class="btn-green">Добавить</a></div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <div class="b-article_cont clearfix">
@@ -157,7 +210,7 @@
                         <div class="meta-gray"><a href="" class="meta-gray_comment"><span class="ico-comment ico-comment__gray"></span><span class="meta-gray_tx">35</span></a>
                           <div class="meta-gray_view"><span class="ico-view ico-view__gray"></span><span class="meta-gray_tx">305</span></div>
                         </div>
-                        <div class="float-l"><a href="" class="b-article_author">Ангелина Богоявленская</a><span class="b-article_date">Сегодня 13:25</span></div>
+                        <div class="float-l"><a href="" class="b-article_author">Ангелина Богоявленская</a><span class="tx-date">Сегодня 13:25</span></div>
                       </div>
                       <h2 class="b-article_t"><a href="" class="b-article_t-a">Самое лучшее утро - просыпаюсь, а ты рядом</a></h2>
                       <div class="b-article_in clearfix">
@@ -167,12 +220,149 @@
                         </div>
                       </div>
                       <div class="textalign-r"><a href="" class="b-article_more">Смотреть далее</a></div>
+                      <!-- comments-->
+                      <div class="comments">
+                        <div class="comments_t"><a href="" class="comments_t-a">Комментарии 68</a></div>
+                        <div class="comments_hold scroll scroll__on">
+                          <div class="scroll_scroller">
+                            <ul class="comments_ul scroll_cont">
+                              <li class="comments_li clearfix">
+                                <div class="comments_ava">
+                                  <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                                </div>
+                                <div class="comments_frame">
+                                  <div class="comments_header">
+                                    <div class="tx-date">2 минуты назад</div><a href="" class="a-light comments_author">Ангелина Богоявленская</a>
+                                    <div class="user-actions user-actions__small">
+                                      <!--     
+                                      Виды иконок друг 
+                                      user-actions_i__friend - друг
+                                      user-actions_i__friend-add - добавить в друзья
+                                      user-actions_i__friend-added - приглашение выслано
+                                      user-actions_i__friend-append - встречное приглашение в друзья, принять
+                                      
+                                      --><a href="" title="Добавить в друзья" class="user-actions_i user-actions_i__friend-add powertip"><span class="user-actions_ico"></span></a><a href="" title="Написать сообщение" class="user-actions_i user-actions_i__message powertip"><span class="user-actions_ico"></span></a>
+                                    </div>
+                                  </div>
+                                  <div class="comments_cont">
+                                    <div class="wysiwyg-content">
+                                      <p><a href="" class="comments_ansver-for a-light">Ольга Максимова, </a> Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! </p>
+                                      <!-- одно фото в блок (ссылку)--><a href="" class="comments-gray_cont-img-w"><img alt="" src="/images/example/w220-h309-1.jpg"></a>
+                                      <p>Меняя название трека в альбоме</p>
+                                    </div>
+                                  </div>
+                                  <div class="comments_footer">
+                                    <div class="float-r">
+                                      <!-- b-control-->
+                                      <div class="b-control">
+                                        <div class="b-control_hold">
+                                          <div class="b-control_i tooltip-click-b"><span title="Пожаловаться" class="b-control_ico powertip b-control_ico__spam"></span>
+                                            <div class="tooltip-drop">
+                                              <div class="tooltip-popup">
+                                                <div class="tooltip-popup_t">Укажите вид нарушения:</div>
+                                                <label for="tooltip-popup_radio" class="tooltip-popup_label clearfix"></label>
+                                                <!-- id у input должны быть все разные, приведен пример для связки label с input атрибут name у каждого выпадающего окношка должен быть разный
+                                                input#tooltip-popup_radio.tooltip-popup_radio(type='radio', name='tooltip-popup_radio')
+                                                | Спам или реклама
+                                                -->
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Мошенничество
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Грубость, угрозы
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Интимный характер
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">Другое
+                                                </label>
+                                                <label for="" class="tooltip-popup_label clearfix">
+                                                  <input type="radio" name="tooltip-popup_radio" class="tooltip-popup_radio">
+                                                  <input type="text" name="" placeholder="Другое" class="tooltip-popup_itx">
+                                                </label>
+                                                <div class="clearfix textalign-c">
+                                                  <button class="btn-green btn-inactive">Пожаловаться</button>
+                                                  <button class="btn-gray-light">Отменить</button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <!-- /b-control-->
+                                    </div><a href="" class="comments_ansver">Ответить</a><a href="" title="Нравиться" class="comments_like like-hg-small powertip">68</a>
+                                  </div>
+                                </div>
+                              </li>
+                            </ul>
+                          </div>
+                          <div class="scroll_bar-hold">
+                            <div class="scroll_bar">
+                              <div class="scroll_bar-in"></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="comments_add">
+                          <!-- скрытый инпут, который заменяется на редактор-->
+                          <input type="text" placeholder="Добавить комментарий" class="comments_add-inp itx-gray display-n">
+                          <script>
+                            $(document).ready(function () { 
+                              $('.wysiwyg-redactor').redactor({
+                                  autoresize: true,
+                                  toolbarExternal: '.wysiwyg-toolbar-btn',
+                                  minHeight: 45,
+                                  buttons: ['bold', 'italic', 'underline', '|', 'image', 'video', 'smile'],
+                                  buttonsCustom: {
+                                      smile: {
+                                          title: 'smile',
+                                          callback: function(buttonName, buttonDOM, buttonObject) {
+                                              // your code, for example - getting code
+                                              var html = this.get();
+                                          }
+                                      },
+                                      h2: {
+                                          title: 'h2',
+                                          callback: function(buttonName, buttonDOM, buttonObject) {
+                                              // your code, for example - getting code
+                                              var html = this.get();
+                                          }
+                                      },
+                                      h3: {
+                                          title: 'h3',
+                                          callback: function(buttonName, buttonDOM, buttonObject) {
+                                              // your code, for example - getting code
+                                              var html = this.get();
+                                          }
+                                      }
+                                  }
+                              });
+                            });
+                          </script>
+                          <div class="wysiwyg-h">
+                            <div class="wysiwyg-toolbar"><a href="" class="wysiwyg-toolbar_close ico-close3"></a>
+                              <div class="wysiwyg-toolbar-btn"></div>
+                            </div>
+                            <textarea name="" class="wysiwyg-redactor"></textarea>
+                            <div class="redactor-control clearfix">
+                              <div class="float-r">
+                                <div class="redactor-control_key">
+                                  <input id="redactor-control_key-checkbox" type="checkbox" name="" class="redactor-control_key-checkbox">
+                                  <label for="redactor-control_key-checkbox" class="redactor-control_key-label">Enter - отправить</label>
+                                </div>
+                                <button class="btn-green-simple">Отправить</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </article>
                   <!-- /b-article-->
                 </div>
                 <div class="antispam_control">
-                  <div class="margin-b5 clearfix"><a title="Изменить решение" class="ico-del margin-r5 powertip"></a><a href="" title="Екатерина Прохожаева" class="ava powertip ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                  <div class="margin-b5 clearfix"><a title="Изменить решение" class="ico-del margin-r5 powertip"></a>
+                    <!-- ava--><a href="" title="Екатерина Прохожаева" class="ava powertip ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                   </div>
                   <div class="color-gray font-sx">Сегодня  23:15</div>
                 </div>
@@ -185,7 +375,8 @@
                   <!-- b-article-->
                   <article class="b-article b-article__photopost clearfix">
                     <div class="float-l">
-                      <div class="like-control like-control__small-indent clearfix"><a href="" class="ava"><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"></a>
+                      <div class="like-control like-control__small-indent clearfix">
+                        <!-- ava--><a href="" class="ava"><img alt="" src="http://img.happy-giraffe.ru/avatars/10/ava/f4e804935991c0792e91c174e83f3877.jpg" class="ava_img"></a>
                       </div>
                       <div class="like-control clearfix"><a href="" title="Нравится" class="like-control_ico like-control_ico__like powertip">865</a>
                         <div class="position-rel"><a href="" title="Репост" class="like-control_ico like-control_ico__repost powertip">5</a></div>
@@ -219,7 +410,8 @@
                   <!-- /b-article-->
                 </div>
                 <div class="antispam_control">
-                  <div class="margin-b5 clearfix"><a title="Изменить решение" class="ico-del margin-r5 powertip"></a><a href="" title="Екатерина Прохожаева" class="ava powertip ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
+                  <div class="margin-b5 clearfix"><a title="Изменить решение" class="ico-del margin-r5 powertip"></a>
+                    <!-- ava--><a href="" title="Екатерина Прохожаева" class="ava powertip ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></a>
                   </div>
                   <div class="color-gray font-sx">Сегодня  23:15</div>
                 </div>
@@ -232,16 +424,21 @@
                   <div class="yiipagination margin-l100">
                     <div class="pager">
                       <ul class="yiiPager">
+                        <li class="previous"><a href=""></a></li>
                         <li class="page"><a href="">1</a></li>
                         <li class="page"><a href="">2</a></li>
-                        <li class="page selected"><a href="">3</a></li>
-                        <li class="page"><a href="">4</a></li>
+                        <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
+                        <li class="page-points">...</li>
                         <li class="page"><a href="">5</a></li>
                         <li class="page"><a href="">6</a></li>
-                        <li class="page"><a href="">7</a></li>
+                        <li class="page selected"><a href="">7</a></li>
                         <li class="page"><a href="">8</a></li>
                         <li class="page"><a href="">9</a></li>
-                        <li class="page"><a href="">10</a></li>
+                        <!-- class .page-points нужно заменить на стандартный класс yii для этого элемента-->
+                        <li class="page-points">...</li>
+                        <li class="page"><a href="">15</a></li>
+                        <li class="page"><a href="">16</a></li>
+                        <li class="next"><a href=""></a></li>
                       </ul>
                     </div>
                   </div>

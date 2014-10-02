@@ -1,7 +1,8 @@
 // ----------------------------------------------------------
 // В файле все комментарии делать в less стиле // 
 // ----------------------------------------------------------
-// @import "include/lesshat.less";
+
+/*@import "include/lesshat.less";*/
 
 // 1. ROOT  
 // Sizing shortcuts
@@ -84,7 +85,6 @@ border-bottom : solid 1px @bottom-color; }
 // .box-shadow(HORIZONTAL VERTICAL BLUR COLOR)
 
 .box-shadow(@shadow: 0 1px 3px rgba(0,0,0,.25)) {
-    -webkit-box-shadow : @shadow;
     box-shadow : @shadow; 
 }
 
@@ -338,29 +338,5 @@ user-select : @select; }
     height: auto; // Part 2: Scale the height according to the width, otherwise you get stretching
 }
 
-
-// 6. LAYOUT                ============================== 
-
-// .columns(250px, 0, 24px, COLOR, solid, 1px)
-
-.columns(@colwidth: 250px, @colcount: 0, @colgap: 50px, @columnRuleColor: #eee, @columnRuleStyle: solid, @columnRuleWidth: 1px) {
--webkit-column-width : @colwidth;
--webkit-column-count : @colcount;
--webkit-column-gap : @colgap;
--webkit-column-rule-color : @columnRuleColor;
--webkit-column-rule-style : @columnRuleStyle;
--webkit-column-rule-width : @columnRuleWidth;
--moz-column-width : @colwidth;
--moz-column-count : @colcount;
--moz-column-gap : @colgap;
--moz-column-rule-color : @columnRuleColor;
--moz-column-rule-style : @columnRuleStyle;
--moz-column-rule-width : @columnRuleWidth;
-column-width : @colwidth;
-column-count : @colcount;
-column-gap : @colgap;
-column-rule-color : @columnRuleColor;
-column-rule-style : @columnRuleStyle;
-column-rule-width : @columnRuleWidth; }
 
 

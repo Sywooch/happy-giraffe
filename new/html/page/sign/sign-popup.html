@@ -7,6 +7,7 @@
 <!-- a-->
 <!-- b-->
 <!-- c-->
+<!-- /b-album-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +15,7 @@
   <!-- including .css-->
   <!-- на продакшене all1.css--><link rel="stylesheet" type="text/css" href="/new/css/all1.dev.css" />
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
-  <!-- ie8 -->
+  <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
   <!--+scripts(path)-->
   <!-- script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")-->
   <script>
@@ -22,6 +23,7 @@
     
   </script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/affix.js"></script>
   <script src="/new/javascript/bootstrap/dropdown.js"></script>
   <script src="/new/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
@@ -32,7 +34,6 @@
   <!-- custom scroll-->
   <script src="/new/javascript/baron.js"></script>
   <!-- custom select-->
-  <!-- script(src="#{path}javascript/selectize.js")-->
   <script src="/new/javascript/select2.js"></script>
   <!-- wisywig-->
   <script src="/new/redactor/redactor.js"></script>
@@ -55,7 +56,7 @@
 </head>
 <body class="body body__bg-base">
   <div class="layout-container">
-    <div class="layout-header">
+    <div class="layout-header clearfix">
       <!-- header-fix-->
       <script>
         $(document).ready(function () {
@@ -74,13 +75,13 @@
       <div class="header-fix">
         <div class="header-fix_hold clearfix"><a href="" class="header-fix_logo"></a>
           <div class="header-fix_dropin"><a href="" class="header-fix_dropin-a">
-              <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+              <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
             <!-- header-drop-->
             <div class="header-drop">
               <div class="header-menu clearfix">
                 <ul class="header-menu_ul">
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
-                        <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <!-- ava--><span class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                   <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -136,12 +137,12 @@
               <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
               <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
               <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a">
-                  <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                  <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
                 <div class="header-drop">
                   <div class="header-menu clearfix">
                     <ul class="header-menu_ul">
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
-                            <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                            <!-- ava--><span class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                       <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>

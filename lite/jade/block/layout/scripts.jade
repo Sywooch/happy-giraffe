@@ -1,0 +1,44 @@
+
+mixin scriptsLite(path)
+    script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js")
+    script.
+        window.jQuery || document.write('<script src="#{path}javascript/jquery-1.11.1.min.js"><\/script>')
+
+    script(src="#{path}javascript/modernizr.custom.js")
+
+    // Адаптивные изображения tag picture
+    script(src="#{path}javascript/picturefill.min.js")
+
+    // медиа запросы для ie8
+    <!--[if lt IE 9]> <script type="text/javascript" src="#{path}javascript/respond.min.js"></script> <![endif]-->
+
+    //- script(src="#{path}javascript/bootstrap/dropdown.js")
+    script(src="#{path}javascript/bootstrap/tab.js")
+
+    // tooltip
+    // script(src="#{path}javascript/jquery.tooltipster.js")
+
+    // popup
+    script(src="#{path}javascript/jquery.magnific-popup.js")
+
+    //- custom scroll
+    script(src="#{path}javascript/baron.js")
+
+    //- custom select
+    //- script(src="#{path}javascript/select2.js")
+
+    //- script(src="#{path}redactor/redactor.js")
+    //- script(src="#{path}redactor/lang/ru.js")
+    //- script(src="#{path}redactor/plugins/fullscreen/fullscreen.js")
+    //- script(src="#{path}redactor/plugins/btnvideo/btnvideo.js")
+    //- script(src="#{path}redactor/plugins/formatbtn/formatbtn.js")
+
+    // 
+    script(src="#{path}javascript/common.js")
+    script(src="#{path}javascript/common-markup.js")
+
+    
+    - if (debug == true)
+        // livereload
+        script(src="//localhost:35729/livereload.js")
+    

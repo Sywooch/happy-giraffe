@@ -1,0 +1,584 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/services.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__bg1 body__lite">
+  <div class="layout-container">
+    <div class="layout-loose layout-loose__white">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest header__kinder-gold">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        var $this = $(this),
+                            activeClass = 'active';
+                            
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                        
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                              
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                          
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                        
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                  });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__club">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
+                      <div class="header-popup_club">
+                        <!-- 18 клубов-->
+                        <div class="b-clubs">
+                          <ul class="b-clubs_ul">
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__1"></div>
+                                <div class="b-clubs_tx">Планирование</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__2"></div>
+                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__3"></div>
+                                <div class="b-clubs_tx">Дети до года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__4"></div>
+                                <div class="b-clubs_tx">Дети старше года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__5"></div>
+                                <div class="b-clubs_tx">Дошкольники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__6"></div>
+                                <div class="b-clubs_tx">Школьники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__7"></div>
+                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__8"></div>
+                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__9"></div>
+                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__10"></div>
+                                <div class="b-clubs_tx">Сад и огород</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__11"></div>
+                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__12"></div>
+                                <div class="b-clubs_tx">Красота и мода</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__13"></div>
+                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__14"></div>
+                                <div class="b-clubs_tx">Свадьба</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__15"></div>
+                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__16"></div>
+                                <div class="b-clubs_tx">Рукоделие</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__17"></div>
+                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__18"></div>
+                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <!-- Класс active отвечает за видимость попапапа-->
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__msg">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                      <div class="header-popup_msg"></div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+              </ul>
+            </div>
+            <!-- 
+            header_kindergold
+            header_kinderino
+            --><a href="#" style="vertical-align: top; margin: -13px 15px 0 25px;" class="visible-md-inline-block">
+              <!-- header_kindergold.jpgheader_kinderino.jpg
+              --><img src="/lite/images/banner/header_kinderino.jpg" alt="Kinder"></a>
+            <!-- /header-menu-->
+            <div class="sidebar-search clearfix sidebar-search__big">
+              <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+            </div>
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <!-- b-main -->
+        <div class="b-main clearfix">
+          <div class="b-main_cont">
+            <div class="b-crumbs b-crumbs__s">
+              <div class="b-crumbs_tx">Я здесь:</div>
+              <ul class="b-crumbs_ul">
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная </a></li>
+                <li class="b-crumbs_li"><a href="#" class="ico-club ico-club__s ico-club__13"></a></li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Справочник детских болезней     </span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="child-disease">
+            <div class="b-main_cont">
+              <div class="b-main_col-wide">   
+                <h1 class="heading-link-xxl heading-link-xxl__center">Справочник детских болезней</h1>
+              </div>
+            </div>
+            <div class="child-disease-head">
+              <div class="child-disease-head_in">
+                <div class="wysiwyg-content">
+                  <p>Вовремя «ловить» начальные симптомы болезней, быстро реагировать и тем самым сводить к минимуму опасность осложнений и значительно сокращать время лечения.</p>
+                  <div class="child-disease-head_slogan">Об этом наш сервис!</div>
+                </div>
+              </div>
+            </div>
+            <div class="b-main_row">
+              <div class="b-main_cont">
+                <div class="serv-category serv-category__child-disease clearfix">
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__1"></div>
+                        <div class="serv-category_t">Болезни кровообращения</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Врождённый порок сердца</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Ревматическая хорея  </a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Лимфаденит </a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__2"></div>
+                        <div class="serv-category_t">Гастроэнтерология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Гастрит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Дуоденит </a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Географический язык </a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Дискинезия желчевыводящих путей </a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Лактазная недостаточность </a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Непереносимость глютена </a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__3"></div>
+                        <div class="serv-category_t">Гематология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Анемия</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Гемофилия  </a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Лейкоз  </a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Тромбоцитопения </a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__4"></div>
+                        <div class="serv-category_t">Гиповитаминозы</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Рахит </a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__5"></div>
+                        <div class="serv-category_t">Дерматология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Атопический дерматит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Витилиго</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Себорея</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Угри</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Экзема</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Крапивница</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Потница</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Везикулопустулёз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Фурункул и карбункул</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Абсцесс</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__6"></div>
+                        <div class="serv-category_t">Детские инфекции</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Коклюш</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Ветряная оспа</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Корь</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Краснуха</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Эпидемический паротит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Скарлатина</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__8"></div>
+                        <div class="serv-category_t">Неврология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Менингит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Нервный тик</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Энцефалит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Гидроцефалия</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Вегето-сосудистая дистония</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Энцефалопатия</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__9"></div>
+                        <div class="serv-category_t">Онкология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Гемангиома</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Мастоцитома</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__7"></div>
+                        <div class="serv-category_t">Инфекции</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Дизентерия</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Амёбиаз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Холера</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Кишечные инфекции, вызванные условно-патогенной флорой</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Сальмонеллёз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Пищевая токсикоинфекция</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Туберкулёз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Дифтерия</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Гонококковая инфекция</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Лептоспироз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Сифилис</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Бешенство</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Рожа</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Острый полиомиелит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">ВИЧ-инфекция</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Инфекционный мононуклеоз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Трихомониаз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Хламидиоз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Простой герпес</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Клещевой энцефалит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Цитомегаловирусная инфекция</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Вирусные бородавки</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Туляремия</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Лейшманиоз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Бруцеллёз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Вирусный гепатит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Грипп</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Аденовирусная инфекция</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Ротавирусная инфекция</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Евстахиит</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__10"></div>
+                        <div class="serv-category_t">Оториноларингология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Трахеит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Ларингит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Острый ринит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Тонзиллит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Синусит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Острый фарингит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Вазомоторный ринит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Аллергический ринит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Травма барабанной перепонки</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Гипертрофия аденоидов</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Инородное тело бронха</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Тугоухость</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Инородное тело носа</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Мастоидит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Наружный отит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Средний отит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Серная пробка</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__11"></div>
+                        <div class="serv-category_t">Офтальмология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Коньюнктивит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Ячмень</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Близорукость</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Дакриоаденит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Дальнозоркость</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Астигматизм</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Нистагм</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Дальтонизм</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Склерит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Иридоциклит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Травма глаза</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Косоглазие</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__12"></div>
+                        <div class="serv-category_t">Паразитология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Лямблиоз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Грибковые заболевания</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Гельминтозы</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Педикулёз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Чесотка</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__13"></div>
+                        <div class="serv-category_t">Психиатрия</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Компьютерная зависимость</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Нервный стресс</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Умственная отсталость</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Шизофрения</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Эпилепсия</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Анорексия</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Булимия</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Токсикомания</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Наркомания</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Алкоголизм</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Никотиновая зависимость</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__14"></div>
+                        <div class="serv-category_t">Пульмонология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Бронхит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Пневмония</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__15"></div>
+                        <div class="serv-category_t">Стоматология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Стоматит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Нарушение прорезывания зубов</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__16"></div>
+                        <div class="serv-category_t">Урология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Нефрит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Цистит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Почечная колика</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Вульвит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Баланопостит</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__17"></div>
+                        <div class="serv-category_t">Хирургия</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Пупочная грыжа</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Аппендицит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Мозоль</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Острый панкреатит</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                  <ul class="serv-category_ul">
+                    <li class="serv-category_li">
+                      <div class="serv-category_top">
+                        <div class="serv-category_ico ico-child-disease ico-child-disease__18"></div>
+                        <div class="serv-category_t">Эндокринология</div>
+                      </div>
+                      <ul class="serv-category_in-ul">
+                        <li class="serv-category_in-li"><a class="a-light">Гипотиреоз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Тиреотоксикоз</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Сахарный диабет</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Тиреоидит</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Ожирение</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Синдром Жильбера</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Болезнь кленового сиропа</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Альбинизм</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Паратрофия</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Синдром Криглера-Найяра</a></li>
+                        <li class="serv-category_in-li"><a class="a-light">Фенилкетонурия</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="b-main_row child-disease-desc visible-md-block">
+              <div class="b-main_cont">
+                <div class="wysiwyg-content">
+                  <p>Детский организм работает совсем иначе, нежели взрослый. Посмотрите хотя бы на то, как много детки двигаются – и не устают. Взрослый бы при таких обстоятельствах не выдержал. Как много дети успевают за день – и запоминают все, а взрослый бы забыл. Как быстро дети растут, наконец! Все это – благодаря способностям, которыми их организм наделила природа. У нас, у взрослых, этого уже нет. А потому думать, что дети – это маленькие взрослые, ошибочно. Например, есть некоторые болезни, которыми не заболеют взрослые, но дети могут быть им подвержены.</p>
+                </div>
+              </div>
+            </div>
+            <div class="b-main_row visible-md-block">
+              <div class="b-main_cont margin-b40">
+                <div class="b-main_col-article b-main_col-article__center">
+                  <div class="wysiwyg-content">
+                    <p>Существует такой термин – «детские болезни». Раз он есть, значит, заболевания, которые выпадают на долю наших деток, особенные.</p>
+                    <p>Какие это болезни? Про некоторые мы знаем: скарлатина, ветрянка, коклюш, краснуха. Но и ангина, и бронхит, игастрит тоже бывают детскими, т.е. отличными от взрослых. И лечат их не взрослыми средствами, а методами илекарствами, предназначенными для детей.</p>
+                    <p>Диагностика детских болезней сложна. Детки реагируют на болячки по-разному, поэтому описать яркие симптомы какприсущие только одной болезни, невозможно. Например, обычная простуда может у одного ребенка вызвать только больв горле, а у другого – еще и аллергию, понос и сыпь. И определить, что есть что, очень сложно.</p>
+                    <p>Конечно, если ребенок заболел, надо звать врача. Но бывают разные ситуации, поэтому родителям стоит владетьинформацией о детских болезнях. Именно с этой целью мы создали сервис – Справочник детских болезней. Пусть онбудет в ваших закладках, чтобы при необходимости оказаться вам полезным. Информация о заболевании, его причинах,симптомах дается в удобной и понятной форме, также есть рекомендации по лечению и профилактике.</p>
+                    <p>Мы не призываем самостоятельно диагностировать и лечить болезни ваших детей. В любом случае старайтесь обращатьсяк врачу. Но знание симптомов болезней своего ребенка поможет вам составить его анамнез, т.е. историю здоровья, аэто очень пригодится в будущем.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- b-main -->
+        <!-- layout-footer-->
+        <div class="layout-footer clearfix">
+          <div class="layout-footer_hold">
+            <ul class="footer-list">
+              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+            </ul>
+            <ul class="footer-menu visible-md">
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
+            </ul>
+            <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+            <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+          </div>
+        </div>
+        <!-- /layout-footer-->
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

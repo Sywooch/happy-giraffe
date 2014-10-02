@@ -1,0 +1,229 @@
+// Отдельные элементы
+.heading-xxl {
+    margin: 15px 0; // Можно изменить на необходимый
+    font-size: 40px;
+    color: @color-base;
+}
+.heading-xl {
+    margin: 15px 0; // Можно изменить на необходимый
+    font-size: 25px;
+    color: @color-base;
+    font-weight: normal;
+}
+.heading-m {
+    margin: 20px 0 15px;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 16px;
+    letter-spacing: -0.4px;
+
+    @media (min-width: @screen-phone) {
+        & {
+            font-size: 18px;
+            line-height: 18px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        & {
+            font-size: 23px;
+            line-height: 23px;
+        }
+    }
+}
+.heading-small {
+    margin: 0;
+    font-size: 17px;
+    line-height: 22px;
+    color: #111;
+    font-weight: normal;
+}
+.heading-xs {
+    margin: 0;
+    font-size: 14px;
+    line-height: 16px;
+    color: #3d3d3d;
+    font-weight: normal;
+}
+.heading-link-xxl {
+    margin: 10px 0;
+    font-size: 25px;
+    line-height: 25px;
+    font-weight: bold;
+    color: @color-link-title;
+    text-decoration: none;
+    letter-spacing: -0.6px;
+
+    &__center {
+        text-align: center;
+    }
+    
+    @media (min-width: @screen-phone) {
+        & {
+            font-size: 35px;
+            line-height: 35px;
+        }
+    }
+
+    @media (min-width: @screen-tablet) {
+        & {
+            margin: 15px 0;
+            font-size: 45px;
+            line-height: 45px;
+        }
+    }
+}
+a.heading-link-xl:hover,
+a.heading-link-xxl:hover {text-decoration: underline;}
+.heading-link-xl {
+    margin: 15px 0;
+    font-size: 35px;
+    line-height: 38px;
+    font-weight: bold;
+    color: @color-link-title;
+    text-decoration: none;
+    letter-spacing: -0.6px;
+}
+
+.heading-h1-hold {
+
+    @media (min-width: @screen-desktop) {
+        & {width: 800px;}
+    }
+}
+
+.i-highlight {
+    padding: 0 4px;
+    background: #fff7af;
+}
+
+.tx-content {
+    font-size: 14px;
+    line-height: 20px;
+    color: @color-gray-dark;
+}
+.tx-date {
+    font: @fontsmallest;
+    color: @color-gray-light;
+}
+.tx-hint {
+    font: @fontsmall;
+    color: @color-gray-light;
+}
+.tx-error {
+    color: #FF8888;
+}
+
+
+.a-light {
+    text-decoration: none;
+    color: @color-link-light;
+
+    &:hover {
+        text-decoration: none;
+        color: @color-orange;
+    }
+    &.disabled {
+        color: #9edbf8;
+    }
+}
+.a-span {
+    color: @color-link;
+}
+.a-pseudo {
+    color: #289FD7;
+    text-decoration:none;
+    border-bottom:1px dotted #289FD7;
+}
+.a-pseudo:hover {text-decoration:none !important;border-bottom-color:transparent;}
+
+
+.btn-scrolltop {
+    display: none;
+    position: fixed;
+    z-index: 15;
+    top: 0;
+    right: 20px;
+    width: 67px;
+    height: 52px;
+    background: url('@{path-img}/btn-scrolltop.png') -67px 0;;
+    cursor: pointer;
+
+    &:hover {background-position: 0 0;}
+
+    @media screen and (min-width: 600px) {
+        & {display: block;}
+    }
+    /*@media screen and (min-width: 1200px) {
+        & {
+            display: block;
+            right: auto;
+            left: 50%;
+            margin-left: 500px;
+        }
+    }*/
+}
+.loader {
+    min-height: 30px;
+    text-align: center;
+    color: #b6b6b6;
+    font-size: 14px;
+    padding: 7px;
+    
+    &__white {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #fff;
+        .border-radius(5px);
+    }
+    &_tx {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 4px 5px 0;
+    }
+    &_img {
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 4px;
+    }
+}
+
+.post-arrow {
+    display: none;
+    position: fixed;
+    top: 50%;
+    right: 40px;
+    width: 62px;
+    height: 224px;
+    margin-top: -112px;
+    background: url('@{path-img}/post-arrow.png') no-repeat 0 0;
+    
+    &:hover {background-position: 0 -224px;}
+    @media screen and (min-width: 1230px) {
+        & {display: block;}
+    }
+}
+
+.b-border-img {
+    margin: 20px 0;
+    text-align: center;
+    border: 1px solid #eaf9ff;
+
+}
+
+.seo-desc {
+    margin: 20px 0;
+    padding: 25px 30px 25px 20px;
+    background-color: #fffce3;
+    .border-radius(4px);
+}
+
+// Дополнительный элемент при выделении и копировании текста с сайта. Что б при в ставке добавлялась ссылка на наш сайт
+#ctrlcopy {
+    height:1px;
+    overflow:hidden;
+    position:absolute;
+    width:1px;
+    margin: 5px 0 0 -1px;
+    line-height:0;
+    opacity: 0;
+}

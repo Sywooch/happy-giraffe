@@ -1,0 +1,99 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="") Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="") Народные рецепты
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="") Лимфаденит
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Лечим лимфаденит соком
+        .b-main_cont
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+                    
+                    // b-article
+                    article.b-article.clearfix
+                        .b-article_cont.clearfix
+                            .b-article_header.clearfix
+                                .icons-meta
+                                    a.icons-meta_comment(href='')
+                                        span.icons-meta_tx 35
+                                    .icons-meta_view
+                                        span.icons-meta_tx 305
+                                .float-l
+                                    +ava("ava__female ava__middle-sm-mid ava__small-xs", ava.a)
+
+                                    .b-article_author
+                                        a.a-light(href='') Ангелина Богоявленская
+                                    time.tx-date(datetime='1957-10-04') Сегодня 13:25
+                            h1.b-article_t Лечим лимфаденит соком
+                            .b-article_in.clearfix
+                                .wysiwyg-content.clearfix
+                                    
+                                    p
+                                        | Недавно посмотрел фильм "Убить Дракона" снятый в 1988 году с Абдуловым в главной роли. По мотивам пьесы Евгения Шварца «Дракон».
+                                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. 
+                                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                                .ingredients
+                                    h3.ingredients_t Ингредиенты:
+                                    ul.ingredients_ul
+                                        li.ingredients_i Свекольный сок - 50 мл. 
+                                        li.ingredients_i Курица - 2 шт. 
+                                .b-tags
+                                    a.b-tags_tag(href="") Болезни кровообращения
+                                    a.b-tags_tag(href="") Лимфаденит
+
+                            .textalign-c.visible-md-block
+                                .like-control.like-control__line
+                                    .like-control_hold
+                                        a.like-control_i.like-control_i__like.powertip(href='', title='Нравится')
+                                            .like-control_t Мне нравится!
+                                            .ico-action-hg.ico-action-hg__like
+                                            .like-control_tx 865
+                                    .like-control_hold
+                                        a.like-control_i.like-control_i__idea.powertip(href='', title='В избранное')
+                                            .like-control_t В закладки
+                                            .ico-action-hg.ico-action-hg__favorite
+                                            .like-control_tx 863455
+                            +customLikes('', customLikes.base)
+
+                    // /b-article
+                
+                    table.article-nearby.clearfix
+                        tr
+                            td
+                                a.article-nearby_a.article-nearby_a__l(href='')
+                                    span.article-nearby_tx Как приготовить Монастыпскую избу 
+                            td
+                                a.article-nearby_a.article-nearby_a__r(href='')
+                                    span.article-nearby_tx Готовим  Торт Сметанник в домашних условиях
+                    .adv-yandex
+                        a(href="", target="_blank")
+                            img(src="#{path}images/example/yandex-w600.jpg", alt="")
+
+                    //- .adv-banner
+                        a(href="", target="_blank")
+                            img(alt='', src='#{path}images/example/w600-h400.jpg')
+                    
+                    +commentsOpen('', commentsOpen.b)
+
+                // /Основная колонка
+    
+    +layout-footer-lite()

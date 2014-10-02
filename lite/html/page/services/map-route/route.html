@@ -1,0 +1,537 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/services.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__bg1 body__lite">
+  <div class="layout-container">
+    <div class="layout-loose layout-loose__white">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest header__kinder-gold">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        var $this = $(this),
+                            activeClass = 'active';
+                            
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                        
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                              
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                          
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                        
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                  });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__club">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
+                      <div class="header-popup_club">
+                        <!-- 18 клубов-->
+                        <div class="b-clubs">
+                          <ul class="b-clubs_ul">
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__1"></div>
+                                <div class="b-clubs_tx">Планирование</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__2"></div>
+                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__3"></div>
+                                <div class="b-clubs_tx">Дети до года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__4"></div>
+                                <div class="b-clubs_tx">Дети старше года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__5"></div>
+                                <div class="b-clubs_tx">Дошкольники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__6"></div>
+                                <div class="b-clubs_tx">Школьники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__7"></div>
+                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__8"></div>
+                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__9"></div>
+                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__10"></div>
+                                <div class="b-clubs_tx">Сад и огород</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__11"></div>
+                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__12"></div>
+                                <div class="b-clubs_tx">Красота и мода</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__13"></div>
+                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__14"></div>
+                                <div class="b-clubs_tx">Свадьба</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__15"></div>
+                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__16"></div>
+                                <div class="b-clubs_tx">Рукоделие</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__17"></div>
+                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__18"></div>
+                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <!-- Класс active отвечает за видимость попапапа-->
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__msg">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                      <div class="header-popup_msg"></div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+              </ul>
+            </div>
+            <!-- 
+            header_kindergold
+            header_kinderino
+            --><a href="#" style="vertical-align: top; margin: -13px 15px 0 25px;" class="visible-md-inline-block">
+              <!-- header_kindergold.jpgheader_kinderino.jpg
+              --><img src="/lite/images/banner/header_kinderino.jpg" alt="Kinder"></a>
+            <!-- /header-menu-->
+            <div class="sidebar-search clearfix sidebar-search__big">
+              <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+            </div>
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <!-- b-main -->
+        <div class="b-main clearfix">
+          <div class="b-main_cont">
+            <div class="b-crumbs b-crumbs__s">
+              <div class="b-crumbs_tx">Я здесь:</div>
+              <ul class="b-crumbs_ul">
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная </a></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">
+                    <div class="ico-club ico-club__s ico-club__18"></div></a></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Маршруты </a></li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Киев-Донецк</span></li>
+              </ul>
+            </div>
+          </div>
+          <!-- Маршруты-->
+          <div class="map-route">
+            <!-- Заголовок-->
+            <div class="b-main_cont">
+              <div class="b-main_col-hold clearfix">
+                <div class="heading-h1-hold">
+                  <h1 class="heading-link-xxl">Маршрут Киев &mdash; Донецк</h1>
+                </div>
+              </div>
+            </div>
+            <!-- Форма поиска маршрута-->
+            <div class="map-route-f map-route-f__row">
+              <div class="map-route-f_open-hold">
+                <!-- Клик отвечает за  показ формы поиска--><span class="map-route-f_open">Составить другой маршрут</span>
+              </div>
+              <!-- По умолчанию форма должна быть скрыта, с помощью стля или класса displa-n-->
+              <div class="map-route-f_hold">
+                <div class="map-route-f_i">
+                  <input type="text" name="" placeholder="Откуда" class="itx-simple map-route-f_inp map-route-f_inp__a">
+                </div>
+                <div class="map-route-f_revers"></div>
+                <div class="map-route-f_i">
+                  <input type="text" name="" placeholder="Куда" class="itx-simple map-route-f_inp map-route-f_inp__b">
+                </div>
+                <div class="map-route-f_btn-hold"><a href="#" class="btn btn-success btn-xm">Проложить маршрут</a></div>
+              </div>
+              <div class="map-route-f_tx">Узнайте, как доехать на авто от Киева до Донецка. Схема трассы Киев-Донецк на карте. Выбирайте нужные вам дороги, трассы, шоссе и магистрали на пути от Киева до Донецка</div>
+            </div>
+            <!-- /Форма поиска маршрута-->
+            <!-- Карта-->
+            <div class="route-canvas"><img src="/lite/images/services/map-route/map.jpg" alt="" style="max-height: 100%;">
+              <!-- Если оишбка добавить класс errorMessage и непоказывать блок loader -->
+              <div class="route-canvas_ovr errorMessage">
+                <div class="route-canvas_ovr-hold">
+                  <div class="route-canvas_ovr-tx">Подождите. Мы формируем для вас маршрут.</div>
+                </div>
+              </div>
+            </div>
+            <!-- Карта-->
+            <div class="route-canvas">
+              <div class="widget-load">
+                <div class="widget-load_hold">
+                  <div class="widget-load_loader">
+                    <div id="circular3dG">
+                      <div id="circular3d_1G" class="circular3dG"></div>
+                      <div id="circular3d_2G" class="circular3dG"></div>
+                      <div id="circular3d_3G" class="circular3dG"></div>
+                      <div id="circular3d_4G" class="circular3dG"></div>
+                      <div id="circular3d_5G" class="circular3dG"></div>
+                      <div id="circular3d_6G" class="circular3dG"></div>
+                      <div id="circular3d_7G" class="circular3dG"></div>
+                      <div id="circular3d_8G" class="circular3dG"></div>
+                    </div>
+                  </div>
+                  <div class="widget-load_tx">Идет загрузка</div>
+                </div>
+              </div>
+            </div>
+            <!-- /Карта-->
+            <div class="b-main_col-hold clearfix">
+              <div class="map-route_aside">
+                <div class="map-route-calc">
+                  <div class="map-route-calc_hold">
+                    <div class="map-route-calc_item">
+                      <div class="clearfix">
+                        <div class="map-route-calc_img map-route-calc_img__car">
+                        </div>
+                        <div class="map-route-calc_t">Расстояние <span class="hidden-xs">между Киевом и Донецком</span></div>
+                      </div>
+                      <div class="map-route-calc_value">1 388<span class="map-route-calc_units">км. </span></div>
+                      <div class="map-route-calc_desc">Столько километров от Киева до Донецка на автомобиле</div>
+                    </div>
+                    <div class="map-route-calc_item">
+                      <div class="clearfix">
+                        <div class="map-route-calc_img map-route-calc_img__time">
+                        </div>
+                        <div class="map-route-calc_t">Время в пути <span class="hidden-xs"> от Киева до Донецка</span></div>
+                      </div>
+                      <label for="route-time" class="map-route-calc_label">Ср. скорость км / ч </label>
+                      <div class="map-route-calc_row clearfix">
+                        <input type="text" name="" value="80" id="route-time" class="itx-simple map-route-calc_itx">
+                        <div class="map-route-calc_value">14 <span class="map-route-calc_units">ч. </span> 8<span class="map-route-calc_units">мин.</span></div>
+                      </div>
+                      <div class="map-route-calc_desc">Столько времени ехать от Киева до Донецка</div>
+                    </div>
+                    <div class="map-route-calc_item">
+                      <div class="clearfix">
+                        <div class="map-route-calc_img map-route-calc_img__fuel">
+                        </div>
+                        <div class="map-route-calc_t">Расход  топлива</div>
+                      </div>
+                      <label for="route-fuel" class="map-route-calc_label">Ср. расход (л. / 100 км)</label>
+                      <div class="map-route-calc_row clearfix">
+                        <input type="text" name="" value="80" id="route-fuel" class="itx-simple map-route-calc_itx">
+                        <div class="map-route-calc_value">140<span class="map-route-calc_units">л</span></div>
+                      </div>
+                    </div>
+                    <div class="map-route-calc_item">
+                      <div class="clearfix">
+                        <div class="map-route-calc_img map-route-calc_img__cost">
+                        </div>
+                        <div class="map-route-calc_t">Стоимость топлива</div>
+                      </div>
+                      <label for="route-cost" class="map-route-calc_label">Ср. расход (л. / 100 км)</label>
+                      <div class="map-route-calc_row clearfix">
+                        <input type="text" name="" value="80" id="route-cost" class="itx-simple map-route-calc_itx">
+                        <script src="/lite/javascript/select2.js"></script>
+                        <script src="/lite/javascript/select2_locale_ru.js"></script>
+                        <script>
+                          $(document).ready(function () {
+                          
+                                  // Измененный tag select
+                          $(".select-cus__search-off").select2({
+                                  minimumResultsForSearch: -1,
+                                  dropdownCssClass: 'select2-drop__search-off',
+                                  escapeMarkup: function(m) { return m; }
+                          });
+                              $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
+                              
+                          });
+                        </script>
+                        <select name="" class="select-cus select-cus__search-off select-cus__gray">
+                          <option value="1">руб / л.</option>
+                          <option value="2">руб / гал.</option>
+                          <option value="3">руб / бар.</option>
+                        </select>
+                        <div class="map-route-calc_value">3 898  <span class="map-route-calc_units">руб.</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="map-route_view">Маршрут просмотрели <span class="display-ib">6 895 </span> водителей </div>
+              </div>
+              <div class="map-route_cont">
+                <h2 class="heading-xl visible-md-block">Пункты следования на пути Киев &mdash; Донецк</h2>
+                <table class="map-route-table visible-md-table">
+                  <colgroup>
+                    <col class="map-route-table_col1">
+                    <col class="map-route-table_col2">
+                    <col class="map-route-table_col3">
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                  </colgroup>
+                  <thead class="map-route-table_thead">
+                    <tr>
+                      <td class="map-route-table_thead-td"></td>
+                      <td class="map-route-table_thead-td textalign-l">Пункт / регион</td>
+                      <td class="map-route-table_thead-td">Трасса</td>
+                      <td class="map-route-table_thead-td">Время участка </td>
+                      <td class="map-route-table_thead-td">Время в пути</td>
+                      <td class="map-route-table_thead-td">Участок, км     </td>
+                      <td class="map-route-table_thead-td">Всего, км</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="map-route-table_tr">
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">
+                          <div class="map-route-start"></div>
+                        </div>
+                      </td>
+                      <td class="map-route-table_td textalign-l">
+                        <div class="map-route-table_hold"><strong>Киев</strong><br>Вологодская обл. Волог</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold"><strong>M8</strong></div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">0:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">1:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">0:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">1:00</div>
+                      </td>
+                    </tr>
+                    <tr class="map-route-table_tr">
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">
+                          <div class="map-route-point">1</div>
+                        </div>
+                      </td>
+                      <td class="map-route-table_td textalign-l">
+                        <div class="map-route-table_hold"><strong>Киев</strong><br>Вологодская обл.</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold"><strong>M8</strong></div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">0:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">1:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">0:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">1:00</div>
+                      </td>
+                    </tr>
+                    <tr class="map-route-table_tr">
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">
+                          <div class="map-route-point">99</div>
+                        </div>
+                      </td>
+                      <td class="map-route-table_td textalign-l">
+                        <div class="map-route-table_hold"><strong>Киев</strong><br>Вологодская обл.</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold"><strong>M8</strong></div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">0:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">1:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">0:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">1:00</div>
+                      </td>
+                    </tr>
+                    <tr class="map-route-table_tr">
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">
+                          <div class="map-route-finish"></div>
+                        </div>
+                      </td>
+                      <td class="map-route-table_td textalign-l">
+                        <div class="map-route-table_hold"><strong>Киев</strong><br>Вологодская обл.</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold"><strong>M8</strong></div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">0:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">1:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">0:00</div>
+                      </td>
+                      <td class="map-route-table_td">
+                        <div class="map-route-table_hold">1:00</div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- Реклама яндекса-->
+                <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
+                <!-- баннер на всю ширину-->
+                <!-- href статьи http://www.happy-giraffe.ru/community/21/forum/photoPost/176862/-->
+                <!-- Изабражение вставляется через background для поизиционирования через css-->
+                <style type="text/css">
+                  /* Ширина изображения 600px */
+                  .ban-read-more {
+                      background-image: url('/lite/images/banner/ban-route-danger.jpg');
+                  }
+                  /* Ширина изображения до 1000px*/
+                  @media (min-width: 640px) {
+                      .ban-read-more {
+                          background-image: url('/lite/images/banner/ban-route-danger-w1000.jpg');
+                      }
+                  }
+                  
+                  /* 
+                      .ban-read-more {
+                          background-image: url('/lite/images/banner/ban-route__nice.jpg');
+                      }
+                      
+                      Изображения для других баннеров 
+                      .ban-read-more {
+                          background-image: url('/lite/images/banner/ban-route__nice2.jpg');
+                      }
+                      
+                      .ban-read-more {
+                          background-image: url('/lite/images/banner/ban-route__nice3.jpg');
+                      }
+                  */
+                  
+                </style>
+                <div class="ban-read-more">
+                  <div class="ban-read-more_hold">
+                    <div class="ban-read-more_cont">
+                      <div class="ban-read-more_t-sub">Рекомендуем для чтения</div>
+                      <div class="ban-read-more_author clearfix">
+                        <!-- Аватарки размером 40*40--><span class="ava ava__middle ava__small-sm-mid hidden-xxs"><img src="http://img.happy-giraffe.ru/thumbs/40x40/220231/avabdc8f4a293ba7a8614e61a14082f0993.jpg" alt="" class="ava_img"></span><span class="a-light">Марина Шевкопляс</span>
+                      </div>
+                      <div class="ban-read-more_t">20 самых опасных маршрутов в мире</div>
+                      <div class="ban-read-more_desc">Для автомобилиста-новичка любая дорога с большим количеством перекрестков, поворотов, дорожных знаков, гаишников и медленных бабушек может быть...</div>
+                      <div class="ban-read-more_arrow"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /Маршруты-->
+        </div>
+        <!-- b-main -->
+        <!-- layout-footer-->
+        <div class="layout-footer clearfix">
+          <div class="layout-footer_hold">
+            <ul class="footer-list">
+              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+            </ul>
+            <ul class="footer-menu visible-md">
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
+            </ul>
+            <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+            <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+          </div>
+        </div>
+        <!-- /layout-footer-->
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

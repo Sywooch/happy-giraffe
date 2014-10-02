@@ -6,12 +6,13 @@
  * Time: 02:57 PM
  */
 
-namespace site\frontend\modules\photo\components\thumbs\filters;
+namespace site\frontend\modules\photo\components\thumbs\filters\core;
 
 
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;
+use site\frontend\modules\photo\components\thumbs\filters\CustomFilterInterface;
 
 class CropFilter implements CustomFilterInterface
 {

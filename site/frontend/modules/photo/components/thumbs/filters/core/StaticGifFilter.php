@@ -6,7 +6,7 @@
  * Time: 14:35
  */
 
-namespace site\frontend\modules\photo\components\imageProcessor;
+namespace site\frontend\modules\photo\components\thumbs\filters\core;
 
 
 use Imagine\Filter\FilterInterface;

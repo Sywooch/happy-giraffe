@@ -11,7 +11,19 @@ namespace site\frontend\modules\photo\models;
 
 class ImageStringData extends \CValidator
 {
+    protected function validateAttribute($object, $attribute)
+    {
+        $imageString = $object->{$attribute};
 
+        $imageSize = $this->getImageSize($imageString);
+        if ($imageSize === false) {
+            $this->addError($object, $attribute, 'Загружаются только изображения');
+        }
+
+        if (! in_array($this->$attribute, array_keys(\Yii::app()->getModule('photo')->types))) {
+            $this->addError($object, $attribute, 'Загружаются только файлы jpg, png, gif');
+        }
+    }
 
     public $width;
     public $height;

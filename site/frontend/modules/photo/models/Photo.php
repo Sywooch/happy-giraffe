@@ -44,15 +44,8 @@ class Photo extends \HActiveRecord implements \IHToJSON
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
-			array('width, height, original_name, author_id', 'required'),
-			array('title', 'length', 'max'=>255),
-			array('width, height', 'length', 'max'=>5),
-			array('original_name, fs_name', 'length', 'max'=>100),
-			array('author_id', 'length', 'max'=>11),
-			array('created, updated', 'safe'),
+			array('title', 'length', 'max' => 150),
 		);
 	}
 
@@ -142,18 +135,6 @@ class Photo extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function setImage($imageString)
-    {
-        $imageData = new ImageStringData($imageString);
-        if (! $imageData->validate()) {
-            $imageData->getErrors()
-        }
-        $this->getImageFile()->buffer = $imageString;
-        $this->attributes = $imageData->attributes;
-        $this->fs_name = $this->createFsName($imageData->extension);
-        $this->attachEventHandler('onBeforeSave', array($this, 'writeImage'));
-    }
-
     public function getImageFile($refresh = false)
     {
         if ($this->_imageFile === null || $refresh) {
@@ -165,5 +146,34 @@ class Photo extends \HActiveRecord implements \IHToJSON
     protected function writeImage(\CModelEvent $event)
     {
         $event->isValid = $this->getImageFile()->write();
+    }
+
+    public function validate($attributes = null, $clearErrors = false)
+    {
+        return parent::validate($attributes, $clearErrors);
+    }
+
+    public function setImage($imageString)
+    {
+        $imageSize = \ImageSizeHelper::getImageSize($imageString);
+        if ($imageSize === false) {
+            $this->addError('image', 'Загружаются только изображения');
+            return;
+        }
+        if (! in_array($imageSize[2], array_keys(\Yii::app()->getModule('photo')->types))) {
+            $this->addError('image', 'Загружаются только файлы jpg, png, gif');
+            return;
+        }
+        $this->width = $imageSize[0];
+        $this->height = $imageSize[1];
+        $extension = \Yii::app()->getModule('photo')->types[$imageSize[2]];
+        $this->fs_name = $this->createFsName($extension);
+        $this->getImageFile()->buffer = $imageString;
+        $this->attachEventHandler('onBeforeSave', array($this, 'writeImage'));
+    }
+
+    public function getImage()
+    {
+        return $this->getImageFile()->read();
     }
 }

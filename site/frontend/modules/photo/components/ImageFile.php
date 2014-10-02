@@ -11,8 +11,8 @@ namespace site\frontend\modules\photo\components;
 
 class ImageFile extends \CComponent
 {
-    protected $photo;
     public $buffer;
+    protected $photo;
 
     public function __construct($photo)
     {
@@ -21,20 +21,12 @@ class ImageFile extends \CComponent
 
     public function read()
     {
-        return \Yii::app()->fs->read($this->getOriginalFsPath());
+        return $this->buffer !== null ? $this->buffer : \Yii::app()->fs->read($this->getOriginalFsPath());
     }
 
-    public function write($imageString = null)
+    public function write()
     {
-        if ($imageString === null) {
-            $imageString = $this->buffer;
-        }
-
-        if ($imageString === null) {
-            throw new \CException('Содержимое файла для записи не задано');
-        }
-
-        return \Yii::app()->fs->write($this->getOriginalFsPath(), $imageString);
+        return \Yii::app()->fs->write($this->getOriginalFsPath(), $this->photo->image);
     }
 
     public function getOriginalUrl()
@@ -42,7 +34,7 @@ class ImageFile extends \CComponent
         return \Yii::app()->fs->getUrl($this->getOriginalFsPath());
     }
 
-    public function getOriginalFsPath()
+    protected function getOriginalFsPath()
     {
         return 'originals/' . $this->photo->fs_name;
     }

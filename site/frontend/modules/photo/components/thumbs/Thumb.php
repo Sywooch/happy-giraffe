@@ -77,7 +77,7 @@ class Thumb extends \CComponent
 
     protected function getDecorator()
     {
-        $image = \Yii::app()->imagine->load($this->photo->getImageFile()->read());
+        $image = \Yii::app()->imagine->load($this->photo->getImage());
         $format = pathinfo($this->path, PATHINFO_EXTENSION);
         return new ImageDecorator($image, $this->filter, $format, $this->animated);
     }

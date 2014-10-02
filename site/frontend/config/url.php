@@ -82,6 +82,10 @@ return array(
         //comments
         'comments' => 'comments/default/index',
         'comments/<_a>' => 'comments/default/<_a>',
+        //editorialDepartment
+        'editorialDepartment' => 'editorialDepartment/default/index',
+        'editorialDepartment/<_c>' => 'editorialDepartment/<_c>/index',
+        'editorialDepartment/<_c>/<_a>' => 'editorialDepartment/<_c>/<_a>',
 
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',

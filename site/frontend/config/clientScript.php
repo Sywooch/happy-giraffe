@@ -525,6 +525,9 @@ return array(
         'lite_horoscope_user' => array(
             'depends' => array('lite_services_user'),
         ),
+        'lite_editorial-department_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
         'chosen' => array(
             'baseUrl' => '/',
             'amd' => true,

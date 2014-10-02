@@ -1,4 +1,4 @@
-define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
+define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model, Hg) {
 
    var Comment = {
 
@@ -48,17 +48,13 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
 
       editingCurrent: false,
 
+       currentEditorHidden: false,
+
       editor: '',
 
+       hasAnswers: false,
+
        answerTo: {},
-
-      removeSucess: function removeSucess(successData) {
-
-         if (successData === false) {
-
-         };
-
-      },
 
       editorConfig: {
           minHeight: 88,
@@ -157,13 +153,11 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
       remove: function remove() {
          Model
             .get( this.removeCommentUrl(), { id: this.id() } )
-            .done( this.removeSucess.bind(this) );
       },
 
       restore: function restore() {
          Model
-            .get( this.restoreCommentUrl(), { id: this.id() } )
-            .done( this.removeSucess.bind(this) );
+            .get( this.restoreCommentUrl(), { id: this.id() } );
       },
 
       init: function init (object) {
@@ -203,6 +197,9 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model) {
             this.editingCurrent = object.editingCurrent;
 
             this.answering = object.answering;
+
+             this.answering = object.hasAnswers;
+
 
              this.answerTo = {};
 

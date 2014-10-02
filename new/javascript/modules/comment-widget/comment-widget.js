@@ -4,6 +4,10 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
       comet.addChannel(params.channelId);
 
+       ko.mapping.defaultOptions().ignore = ["editorConfig"];
+
+       var redactor;
+
       this.commentsData = Object.create( CommentsController );
 
       this.userData = Object.create( UserData );
@@ -22,6 +26,8 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
        this.modelParams = params;
 
+       this.loaded = ko.observable(false);
+
       this.editorHidden = ko.observable(false);
 
       /**
@@ -31,7 +37,6 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       this.newCommentAddedEvent = function (result, id) {
 
         this.cacheData = result;
-
           if (this.cacheData.responseId !== 0) {
               Model.get(
                   User.getUserUrl,
@@ -50,8 +55,6 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
                   })
                   .done( this.getNewUser.bind( this ) );
           }
-
-
       };
 
       Comet.prototype.newCommentAdded = this.newCommentAddedEvent.bind(this);
@@ -81,7 +84,6 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
             }
 
         }
-
         else {
             var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
 
@@ -89,7 +91,6 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
                 this.parsedData()[commentObj].purifiedHtml( result.purifiedHtml );
             }
         }
-
 
       };
 
@@ -103,13 +104,21 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
        */
 
       this.commentRemovedEvent = function (result, id) {
+          if ( result.responseId !== 0 ) {
+              var commentRootId = this.commentsData.findIfAnswer( result, this.parsedData() );
+              var commentChildId = this.commentsData.findInAnswers( result, this.parsedData()[commentRootId].answers() );
+              if (commentChildId !== undefined) {
+                  this.parsedData()[commentRootId].answers()[commentChildId].removed( true );
+              }
 
-        var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
+          }
+          else {
+              var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
 
-        if (commentObj !== undefined) {
-            this.parsedData()[commentObj].removed( true );
-        }
-
+              if (commentObj !== undefined) {
+                  this.parsedData()[commentObj].removed( true );
+              }
+          }
       };
 
       Comet.prototype.commentRemoved = this.commentRemovedEvent.bind(this);
@@ -122,12 +131,21 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
       this.commentRestoredEvent = function (result, id) {
 
-        var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
+          if ( result.responseId !== 0 ) {
+              var commentRootId = this.commentsData.findIfAnswer( result, this.parsedData() );
+              var commentChildId = this.commentsData.findInAnswers( result, this.parsedData()[commentRootId].answers() );
+              if (commentChildId !== undefined) {
+                  this.parsedData()[commentRootId].answers()[commentChildId].removed( false );
+              }
 
-        if (commentObj !== undefined) {
-            this.parsedData()[commentObj].removed( false );
-        }
+          }
+          else {
+              var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
 
+              if (commentObj !== undefined) {
+                  this.parsedData()[commentObj].removed( false );
+              }
+          }
       };
 
       Comet.prototype.commentRestored = this.commentRestoredEvent.bind(this);
@@ -153,12 +171,13 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
          return true;
       };
 
+       this.scrolled = function scrolled(data, event) {
+           console.log('scrolling');
+       };
+
       this.cancelEditor = function cancelEditor(data) {
-
-          if (this.editorHidden() === false ) {
-
-          };
-
+          this.editor('');
+          this.editing(false);
       };
 
       this.addComment = function addComment () {
@@ -171,7 +190,6 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       };
 
       this.deleteComment = function deleteComment () {
-
          var commentText = this.editor();
          if ( !this.isRedactorStringEmpty( commentText ) ) {
             Model.get( Comment.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ));
@@ -183,7 +201,11 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
           buttons: ['bold', 'italic', 'underline'],
           plugins: ['imageCustom', 'smilesModal', 'videoModal'],
           callbacks: {
-              init: []
+              init: [
+                  function () {
+                      redactor = this;
+                }
+              ]
          }
       };
 
@@ -199,7 +221,8 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
       this.allEventsSucceed = function usersSucceed(userData) {
          ko.mapping.fromJS(this.userData.getCurrentUserFromList(userData.data, userData.success), this.authUser);
-         ko.mapping.fromJS(this.commentsData.allDataReceived(userData.data, this.commentsDataQueue.commentsData), this.parsedData);
+          this.parsedData = ko.mapping.fromJS(this.commentsData.allDataReceived(userData.data, this.commentsDataQueue.commentsData), this.parsedData);
+         this.loaded(true);
       }
 
       this.dataGetSucceed = function (data) {

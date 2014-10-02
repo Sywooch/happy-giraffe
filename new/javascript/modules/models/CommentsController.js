@@ -8,6 +8,8 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
        */
       commentAvatarSize: 40,
 
+       mappingIgnore: ["editorConfig"],
+
       /**
        * [getListData Массив собирающий параметры для запроса к API]
        * @param  {[type]} entitySub   Entity из параметров компонента
@@ -124,15 +126,20 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
           }
           else {
               var response = dataComments[dataCounter];
+              var responseToComment = this.findById(response.responseId, dataComments);
 
-            var responseToComment = this.findById(response.responseId, dataComments);
-              response.answerTo.fullName = responseToComment.user.fullName;
-              response.answerTo.profileUrl = responseToComment.user.profileUrl;
+              if (responseToComment) {
+                  response.answerTo.fullName = responseToComment.user.fullName;
+                  response.answerTo.profileUrl = responseToComment.user.profileUrl;
+                  responseToComment.hasAnswers = true;
+              }
+
             commentsArray[newArrayCounter - 1].answers.push(response);
 
           }
 
         }
+
         return commentsArray;
       },
 
@@ -209,7 +216,6 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
           }
 
         }
-
         return commentObj;
       },
 
@@ -263,26 +269,31 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
                    }
                }
            }
-
            return false;
        },
 
-       findByObservableId: function (responseId, parsedData) {
+
+       findByObservableId: function (responseId, parsedData, makeNotDeleteable) {
            if (parsedData.length > 0) {
                for (var i=0; i < parsedData.length; i++) {
                    if(responseId === parsedData[i].id()) {
+                       if (makeNotDeleteable) {
+                           parsedData[i].hasAnswers(true);
+                       }
                        return parsedData[i];
                    }
                    if ( parsedData[i].answers().length > 0 ) {
                        for (var k=0; k < parsedData[i].answers().length; k++) {
                            if(responseId === parsedData[i].answers()[k].id()) {
+                               if (makeNotDeleteable) {
+                                   parsedData[i].answers()[k].hasAnswers(true);
+                               }
                                return parsedData[i].answers()[k];
                            }
                        }
                    }
                }
            }
-
            return false;
        },
 
@@ -303,6 +314,8 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
           ko.mapping.fromJS( userInstance.init( user.data ), userObj );
           ko.mapping.fromJS( commentInstance.init( comment ), commentObj );
 
+
+          commentObj.editorConfig = Comment.editorConfig;
           commentObj.color( this.prevColor( this.getFirstColor(parsedData) ) );
           commentObj.user = userObj;
 
@@ -325,7 +338,6 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
                    userInstance = Object.create( User ),
                    commentObj = ko.mapping.fromJS({}),
                    userObj = ko.mapping.fromJS({}),
-//                   answer = ko.mapping.fromJS({}),
                    parentIdinList;
 
                parentIdinList = this.findIfAnswer(comment, parsedData);
@@ -333,9 +345,10 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
                ko.mapping.fromJS( userInstance.init( user.data ), userObj );
                ko.mapping.fromJS( commentInstance.init( comment ), commentObj );
 
-               var responseToComment = this.findByObservableId(comment.responseId, parsedData);
+               var responseToComment = this.findByObservableId(comment.responseId, parsedData, true);
 
                commentObj.user = userObj;
+               commentObj.editorConfig = Comment.editorConfig;
                commentObj.answerTo.fullName = responseToComment.user.fullName;
                commentObj.answerTo.profileUrl = responseToComment.user.profileUrl;
 

@@ -1,6 +1,6 @@
 <!-- comment-widget -->
-<div id="commentsList" class="comments_hold tab-pane active" data-bind="visible: parsedData().length > 0">
-  <div class="comments_add" data-bind="if: parsedData().length">
+<div id="commentsList" class="comments_hold tab-pane active" data-bind="visible: parsedData().length > 0, event: { scroll: scrolled }">
+  <div class="comments_add" data-bind="if: loaded">
     <div class="comments_add-frame">
       <div class="comments_i clearfix">
         <div class="comments_ava">
@@ -25,7 +25,6 @@
               </div>
             </div>
             <!-- /ko -->
-
         </div>
       </div>
     </div>
@@ -43,80 +42,65 @@
                      <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(comment.dtimeCreate()).format('YYYY-MM-DD') }, moment: comment.dtimeCreate"></time>
                  </div>
                  <div class="comments_cont">
-
-                    <!-- ko if: $parent.authUser.id() === comment.user.id() -->
-
-                      <!-- ko if: comment.editingCurrent -->
-
-                          <div class="redactor-control">
-                            <div class="redactor-control_toolbar"></div>
-                            <div class="redactor-control_hold">
-                              <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : $parent.editorConfig, attr : comment.editor }"></textarea>
-                            </div>
-                            <div class="redactor-control_control clearfix">
-                              <div class="float-r">
-                                <button class="btn-green" data-bind="click: renewComment">Отправить</button>
-                              </div>
-                            </div>
-                          </div>
-
-                        <!-- /ko -->
-
-                        <!-- ko ifnot: comment.editingCurrent -->
-
-                        <div class="wysiwyg-content" data-bind="html: comment.purifiedHtml">
-                        </div>
-
-                       <!-- /ko -->
-
-                    <!-- /ko -->
-
-                    <!-- ko if: $parent.authUser.id() !== comment.user.id() -->
-
-                       <div class="wysiwyg-content" data-bind="html: comment.purifiedHtml">
-                        </div>
-
-                    <!-- /ko -->
-
+                     <div class="wysiwyg-content" data-bind="html: comment.purifiedHtml">
+                     </div>
                  </div>
-                <div class="comments_footer">
-
-                  <!-- b-control-->
-
-                  <div class="b-control">
-                    <div class="b-control_i b-control_i__answer" data-bind="click: response"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span></div>
-
-                    <!-- ko if: $parent.authUser.id() === comment.user.id() -->
-
-                      <div class="b-control_i b-control_i__delete" data-bind="click: remove"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
-                      </div>
-
-                        <!-- ko ifnot: comment.editingCurrent -->
-
-                          <div class="b-control_i b-control_i__edit" data-bind="click: edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span></div>
-
-                        <!-- /ko -->
-
-                    <!-- /ko -->
-
-                  </div>
-                  <!-- /b-control-->
-
-                </div>
+                 <div class="comments_footer">
+                     <!-- b-control-->
+                     <div class="b-control">
+                         <div class="b-control_i b-control_i__answer" data-bind="click: comment.response"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                         </div>
+                         <!-- ko if: $parent.authUser.id() === comment.user.id() -->
+                             <!-- ko ifnot: comment.hasAnswers() || comment.editingCurrent() || comment.answering() -->
+                             <div class="b-control_i b-control_i__delete" data-bind="click: comment.remove"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
+                             </div>
+                             <!-- /ko -->
+                             <!-- ko ifnot: comment.editingCurrent() || comment.answering() -->
+                             <div class="b-control_i b-control_i__edit" data-bind="click: comment.edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
+                             </div>
+                             <!-- /ko -->
+                         <!-- /ko -->
+                     </div>
+                     <!-- /b-control-->
+                 </div>
              </div>
           </div>
 
-          <!-- ko if: comment.answering -->
-
+          <!-- ko if: $parent.authUser.id() === comment.user.id() -->
+              <!-- ko if: comment.editingCurrent() -->
               <div class="comments-gray_add clearfix">
                   <div class="comments_ava">
                       <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: $parent.authUser.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: $parent.authUser.avatarUrl()"></a>
                   </div>
                   <div class="comments-gray_frame">
                       <div class="redactor-control">
+                          <a class="wysiwyg-toolbar_close ico-close float-r" data-bind="click: comment.cancelEditing, tooltip: 'Отменить редактирование'"></a>
                           <div class="redactor-control_toolbar"></div>
                           <div class="redactor-control_hold">
-                              <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : $parent.editorConfig, attr : comment.editor }"></textarea>
+                              <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : comment.editorConfig, attr : comment.editor }"></textarea>
+                          </div>
+                          <div class="redactor-control_control clearfix">
+                              <div class="float-r">
+                                  <button class="btn-green" data-bind="click: comment.renewComment">Редактировать</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <!-- /ko -->
+          <!-- /ko -->
+
+          <!-- ko if: comment.answering -->
+              <div class="comments-gray_add clearfix">
+                  <div class="comments_ava">
+                      <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: $parent.authUser.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: $parent.authUser.avatarUrl()"></a>
+                  </div>
+                  <div class="comments-gray_frame">
+                      <div class="redactor-control">
+                          <a class="wysiwyg-toolbar_close ico-close float-r" data-bind="click: comment.cancelEditing, tooltip: 'Отменить редактирование'"></a>
+                          <div class="redactor-control_toolbar"></div>
+                          <div class="redactor-control_hold">
+                              <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : comment.editorConfig, attr : comment.editor }"></textarea>
                           </div>
                           <div class="redactor-control_control clearfix">
                               <div class="float-r">
@@ -126,99 +110,105 @@
                       </div>
                   </div>
               </div>
-
           <!-- /ko -->
 
         <!-- /ko -->
 
         <!-- ko if: comment.removed -->
           <!-- ko if: $parent.authUser.id() === comment.user.id() -->
-          <div class="im-message_tx color-gray" data-bind="click: restore">Сообщение удалено. <a href="#" class="font-s">Восстановить</a></div>
+          <div class="im-message_tx color-gray" data-bind="click: restore">Комментарий удален. <a href="#" class="font-s">Восстановить</a></div>
           <!-- /ko -->
         <!-- /ko -->
 
           <ul class="comments_ul" data-bind="if comment.answers.length > 0, foreach: { data: comment.answers(), as: 'commentInner' }">
             <li class="comments_li comments_li__lilac" data-bind="attr { class: 'comments_li comments_li__' + $parent.color() }">
-               <div class="comments_i clearfix">
-                   <div class="comments_ava">
-                       <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: commentInner.user.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: commentInner.user.avatarUrl()"></a>
-                   </div>
-                   <div class="comments_frame">
-                       <div class="comments_header">
-                           <a href="" rel="author" class="a-light comments_author" data-bind="text: commentInner.user.fullName(), href: commentInner.user.profileUrl()"></a>
-                           <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(commentInner.dtimeCreate()).format('YYYY-MM-DD') }, moment: commentInner.dtimeCreate"></time>
-                       </div>
-                       <div class="comments_cont">
-                           <a rel="author" class="comments_ansver-for" href="" data-bind="text: commentInner.answerTo.fullName(), href: commentInner.answerTo.profileUrl()"></a>
-                           <!-- ko if: $parents[1].authUser.id() === commentInner.user.id() -->
-
-                               <!-- ko if: commentInner.editingCurrent -->
-
-                                   <div class="redactor-control">
-                                       <div class="redactor-control_toolbar"></div>
-                                       <div class="redactor-control_hold">
-                                           <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : $parents[1].editorConfig, attr : commentInner.editor }"></textarea>
-                                       </div>
-                                       <div class="redactor-control_control clearfix">
-                                           <div class="float-r">
-                                               <button class="btn-green" data-bind="click: commentInner.renewComment">Отправить</button>
-                                           </div>
-                                       </div>
-                                   </div>
-
-                               <!-- /ko -->
-
-                               <!-- ko ifnot: commentInner.editingCurrent -->
-
-                               <div class="wysiwyg-content" data-bind="html: commentInner.purifiedHtml">
-                               </div>
-
-                               <!-- /ko -->
-
-                           <!-- /ko -->
-
-                           <!-- ko if: $parents[1].authUser.id() !== commentInner.user.id() -->
-
-                           <div class="wysiwyg-content" data-bind="html: commentInner.purifiedHtml">
+                    <!-- ko ifnot: commentInner.removed -->
+                       <div class="comments_i clearfix">
+                           <div class="comments_ava">
+                               <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: commentInner.user.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: commentInner.user.avatarUrl()"></a>
                            </div>
-
-                           <!-- /ko -->
-                       </div>
-                      <div class="comments_footer">
-                        <!-- b-control-->
-                        <div class="b-control">
-                          <div class="b-control_i b-control_i__answer" data-bind="click: commentInner.response"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
-                          </div>
-                          <!-- ko if: $parents[1].authUser.id() === commentInner.user.id() -->
-                          <div class="b-control_i b-control_i__delete" data-bind="click: commentInner.remove"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
-                          </div>
-                          <div class="b-control_i b-control_i__edit" data-bind="click: commentInner.edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
-                          </div>
-                          <!-- /ko -->
-                        </div>
-                        <!-- /b-control-->
+                           <div class="comments_frame">
+                               <div class="comments_header">
+                                   <a href="" rel="author" class="a-light comments_author" data-bind="text: commentInner.user.fullName(), href: commentInner.user.profileUrl()"></a>
+                                   <time datetime="" class="tx-date" data-bind="attr: { datetime: moment.unix(commentInner.dtimeCreate()).format('YYYY-MM-DD') }, moment: commentInner.dtimeCreate"></time>
+                               </div>
+                               <div class="comments_cont">
+                                   <!-- ko ifnot: commentInner.answerTo.fullName === undefined -->
+                                        <a rel="author" class="comments_ansver-for" href="" data-bind="text: commentInner.answerTo.fullName(), href: commentInner.answerTo.profileUrl()"></a>
+                                   <!-- /ko -->
+                                   <div class="wysiwyg-content" data-bind="html: commentInner.purifiedHtml">
+                                   </div>
+                               </div>
+                              <div class="comments_footer">
+                                <!-- b-control-->
+                                    <div class="b-control">
+                                         <div class="b-control_i b-control_i__answer" data-bind="click: commentInner.response"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                                         </div>
+                                        <!-- ko if: $parents[1].authUser.id() === commentInner.user.id() -->
+                                            <!-- ko ifnot: commentInner.hasAnswers() || commentInner.editingCurrent() || commentInner.answering() -->
+                                              <div class="b-control_i b-control_i__delete" data-bind="click: commentInner.remove"><span class="b-control_ico"></span><span class="b-control_tx">Удалить</span>
+                                              </div>
+                                            <!-- /ko -->
+                                            <!-- ko ifnot: commentInner.editingCurrent() || commentInner.answering() -->
+                                              <div class="b-control_i b-control_i__edit" data-bind="click: commentInner.edit"><span class="b-control_ico"></span><span class="b-control_tx">Редактировать</span>
+                                              </div>
+                                            <!-- /ko -->
+                                        <!-- /ko -->
+                                    </div>
+                                <!-- /b-control-->
+                              </div>
+                           </div>
                       </div>
-                   </div>
-              </div>
-                <!-- ko if: commentInner.answering -->
-                <div class="comments-gray_add clearfix">
-                    <div class="comments_ava">
-                        <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: $parents[1].authUser.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: $parents[1].authUser.avatarUrl()"></a>
-                    </div>
-                    <div class="comments-gray_frame">
-                        <div class="redactor-control">
-                            <div class="redactor-control_toolbar"></div>
-                            <div class="redactor-control_hold">
-                                <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : $parents[1].editorConfig, attr : commentInner.editor }"></textarea>
+                        <!-- ko if: $parents[1].authUser.id() === commentInner.user.id() -->
+                            <!-- ko if: commentInner.editingCurrent() -->
+                                <div class="comments-gray_add clearfix">
+                                    <div class="comments_ava">
+                                        <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: $parents[1].authUser.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: $parents[1].authUser.avatarUrl()"></a>
+                                    </div>
+                                    <div class="comments-gray_frame">
+                                        <div class="redactor-control">
+                                            <a class="wysiwyg-toolbar_close ico-close float-r" data-bind="click: comment.cancelEditing, tooltip: 'Отменить редактирование'"></a>
+                                            <div class="redactor-control_toolbar"></div>
+                                            <div class="redactor-control_hold">
+                                                <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : commentInner.editorConfig, attr : commentInner.editor }"></textarea>
+                                            </div>
+                                            <div class="redactor-control_control clearfix">
+                                                <div class="float-r">
+                                                    <button class="btn-green" data-bind="click: commentInner.renewComment">Редактировать</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- /ko -->
+                        <!-- /ko -->
+                        <!-- ko if: commentInner.answering -->
+                        <div class="comments-gray_add clearfix">
+                            <div class="comments_ava">
+                                <a href="" class="ava ava__middle ava__small-sm-mid" data-bind="href: $parents[1].authUser.profileUrl()"><img alt="" src="" class="ava_img" data-bind="src: $parents[1].authUser.avatarUrl()"></a>
                             </div>
-                            <div class="redactor-control_control clearfix">
-                                <div class="float-r">
-                                    <button class="btn-green" data-bind="click: commentInner.create($parents[1].modelParams)">Ответить</button>
+                            <div class="comments-gray_frame">
+                                <div class="redactor-control">
+                                    <a class="wysiwyg-toolbar_close ico-close float-r" data-bind="click: comment.cancelEditing, tooltip: 'Отменить редактирование'"></a>
+                                    <div class="redactor-control_toolbar"></div>
+                                    <div class="redactor-control_hold">
+                                        <textarea cols="40" name="redactor" rows="1" autofocus="autofocus" class="redactor" data-bind="wswgHG: { config : $parents[1].editorConfig, attr : commentInner.editor }"></textarea>
+                                    </div>
+                                    <div class="redactor-control_control clearfix">
+                                        <div class="float-r">
+                                            <button class="btn-green" data-bind="click: commentInner.create($parents[1].modelParams)">Ответить</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    <!-- /ko -->
+
+                <!-- /ko -->
+                <!-- ko if: commentInner.removed -->
+                    <!-- ko if: $parents[1].authUser.id() === commentInner.user.id() -->
+                    <div class="im-message_tx color-gray" data-bind="click: commentInner.restore">Комментарий удален. <a href="#" class="font-s">Восстановить</a></div>
+                    <!-- /ko -->
                 <!-- /ko -->
             </li>
          </ul>

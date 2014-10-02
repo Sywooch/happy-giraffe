@@ -9,6 +9,7 @@
         ko.bindingHandlers.wswgHG = {
             init: function(element, valueAccessor) {
                 var value = valueAccessor();
+                value.config = ko.toJS(value.config);
                 var wysiwyg = new hgwswg(element, value.config);
                 var attr = value.attr;
 
@@ -34,12 +35,12 @@
                 wysiwyg.run();
             }
         };
+
         ko.bindingHandlers.redactorHG = {
             init: function(element, valueAccessor) {
                 var value = valueAccessor();
                 var wysiwyg = new hgwysiwyg(element, value.config);
                 var attr = value.attr;
-                console.log(wysiwyg);
 
                 wysiwyg.addCallback('init', function() {
                     var obj = this;

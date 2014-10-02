@@ -22,9 +22,12 @@
 
 namespace site\frontend\modules\photo\models;
 
+use site\frontend\modules\photo\components\ImageFile;
+
 class Photo extends \HActiveRecord implements \IHToJSON
 {
-    protected $imageString;
+    private $_imageFile;
+    private $_imageString;
 
     const FS_NAME_LEVELS = 2;
     const FS_NAME_SYMBOLS_PER_LEVEL = 2;
@@ -127,16 +130,6 @@ class Photo extends \HActiveRecord implements \IHToJSON
         return $path;
     }
 
-    public function getOriginalUrl()
-    {
-        return \Yii::app()->fs->getUrl($this->getOriginalFsPath());
-    }
-
-    public function getOriginalFsPath()
-    {
-        return 'originals/' . $this->fs_name;
-    }
-
     public function toJSON()
     {
         return array(
@@ -146,7 +139,7 @@ class Photo extends \HActiveRecord implements \IHToJSON
             'width' => (int) $this->width,
             'height' => (int) $this->height,
             'fs_name' => $this->fs_name,
-            'originalUrl' => $this->getOriginalUrl(),
+            'originalUrl' => $this->getImageFile()->getOriginalUrl(),
         );
     }
 
@@ -156,14 +149,22 @@ class Photo extends \HActiveRecord implements \IHToJSON
         if (! $imageData->validate()) {
             return false;
         }
-        $this->imageString = $imageString;
+        $this->_imageString = $imageString;
         $this->attributes = $imageData->attributes;
         $this->fs_name = $this->createFsName($imageData->extension);
         $this->attachEventHandler('onBeforeSave', array($this, 'writeImage'));
     }
 
+    public function getImageFile()
+    {
+        if ($this->_imageFile === null) {
+            $this->_imageFile = new ImageFile($this);
+        }
+        return $this->_imageFile;
+    }
+
     protected function writeImage(\CModelEvent $event)
     {
-        $event->isValid = \Yii::app()->fs->write($this->getOriginalFsPath(), $this->imageString) !== false;
+        $event->isValid = $this->getImageFile()->write($this->_imageString);
     }
 }

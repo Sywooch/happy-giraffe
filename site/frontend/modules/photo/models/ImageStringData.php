@@ -9,8 +9,10 @@
 namespace site\frontend\modules\photo\models;
 
 
-class ImageStringData extends \CModel
+class ImageStringData extends \CValidator
 {
+
+
     public $width;
     public $height;
     public $extension;

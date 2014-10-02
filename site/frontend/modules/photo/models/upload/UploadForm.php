@@ -53,10 +53,8 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
     public function save()
     {
         if ($this->validate()) {
-            //try {
-                if ($this->photo === null) {
-                    $this->photo = new Photo();
-                }
+//            try {
+                $this->photo = new Photo();
                 $this->photo->setImage($this->getImageString());
                 $this->photo->original_name = $this->getOriginalName();
 

@@ -47,9 +47,8 @@ class TestController extends PhotoController
 
     public function actionCrop()
     {
-        $string = file_get_contents('http://emilines.com/wp-content/uploads/2014/09/image-woman-drawing.jpg');
-
-        $data = new ImageStringData($string);
+        $photo = Photo::model()->findByPk(114);
+        echo $photo->getOriginalUrl();
 
 
 //        $photo = Photo::model()->findByPk(113);

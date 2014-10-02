@@ -11,12 +11,11 @@ namespace site\frontend\modules\photo\models;
 
 class ImageStringData extends \CModel
 {
-    public $type;
     public $width;
     public $height;
+    public $extension;
 
-    protected $imageString;
-    protected $imageSize;
+    protected $type;
 
     public function rules()
     {
@@ -30,25 +29,33 @@ class ImageStringData extends \CModel
         return array(
             'width',
             'height',
-            'type',
+            'extension',
         );
     }
 
     public function __construct($imageString)
     {
         $imageSize = $this->getImageSize($imageString);
-        if ($imageSize !== false) {
-            $this->width = $this->imageSize[0];
-            $this->height = $this->imageSize[1];
-            $this->type = $this->imageSize[2];
+        if ($imageSize === false) {
+            throw new \CException('Неизвестный формат файла');
         }
+
+        $this->width = $imageSize[0];
+        $this->height = $imageSize[1];
+        $this->type = $imageSize[2];
     }
 
     public function validType($attribute)
     {
-        if (! in_array($this->$attribute, array(IMAGETYPE_JPEG, IMAGETYPE_GIF, IMAGETYPE_PNG))) {
+        if (! in_array($this->$attribute, array_keys(\Yii::app()->getModule('photo')->types))) {
             $this->addError($attribute, 'Загружаются только файлы jpg, png, gif');
         }
+    }
+
+    protected function afterValidate()
+    {
+        $this->extension = $this->getExtension();
+        parent::afterValidate();
     }
 
     protected function getExtension()

@@ -29,8 +29,18 @@ class FromComputerUploadForm extends UploadForm
         ));
     }
 
-    protected function populate()
+//    protected function populate()
+//    {
+//        return new PhotoCreate($this->file->getTempName(), $this->file->getName());
+//    }
+
+    protected function getImageString()
     {
-        return new PhotoCreate($this->file->getTempName(), $this->file->getName());
+        return file_get_contents($this->file->getTempName());
+    }
+
+    protected function getOriginalName()
+    {
+        return $this->file->getName();
     }
 } 

@@ -14,15 +14,18 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
 {
     const PRESET_NAME = 'uploadPreview';
 
-    /**
-     * @return PhotoCreate возвращает модель создаваемой фотографии
-     */
-    abstract protected function populate();
+//    /**
+//     * @return PhotoCreate возвращает модель создаваемой фотографии
+//     */
+//    abstract protected function populate();
+
+    abstract protected function getImageString();
+    abstract protected function getOriginalName();
 
     /**
      * @var PhotoCreate модель создаваемой фотографии
      */
-    protected $photo;
+    public $photo;
 
     /**
      * @var bool загружено ли фото
@@ -50,14 +53,21 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
     public function save()
     {
         if ($this->validate()) {
-            try {
-                $this->photo = $this->populate();
+            //try {
+                if ($this->photo === null) {
+                    $this->photo = new Photo();
+                }
+                $this->photo->setImage($this->getImageString());
+                $this->photo->original_name = $this->getOriginalName();
+
+
+
                 if ($this->success = $this->photo->save()) {
                     \Yii::app()->thumbs->getThumb($this->photo, self::PRESET_NAME, true);
                 }
-            } catch (\Exception $e) {
-                $this->addError('photo', 'Ошибка загрузки');
-            }
+//            } catch (\Exception $e) {
+//                $this->addError('photo', 'Ошибка загрузки');
+//            }
         }
 
         return \HJSON::encode(array(

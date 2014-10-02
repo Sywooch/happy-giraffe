@@ -620,7 +620,7 @@ class Horoscope extends HActiveRecord implements IPreview
             return $this->isCurrentMonth() ? ServiceText::getText('horoscope', 'month_' . $this->zodiac) : '';
         }
         if ($this->onYear())
-            return ServiceText::getText('horoscope', 'year_' . $this->zodiac);
+            return str_replace('2012', $this->year, ServiceText::getText('horoscope', 'year_' . $this->zodiac));
         if ($this->date == date("Y-m-d"))
             return ServiceText::getText('horoscope', 'today_' . $this->zodiac);
         if ($this->date == date("Y-m-d", strtotime('-1 day')))

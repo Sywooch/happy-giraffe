@@ -124,6 +124,8 @@ Yii::app()->clientScript->registerCss('blood_refresh', '.lists_td .errorMessage 
 
         </div>
 
+        <?php $this->renderPartial('//banners/_direct_others'); ?>
+
         <?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
             'service' => $service,
             'image' => '/images/services/baby/sex-child/parrents_bann.jpg',

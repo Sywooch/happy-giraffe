@@ -1,1 +1,3 @@
-<div id="epiceditor">123</div>
+<!-- ko if: idElement -->
+    <div data-bind="attr: { id: idElement }, afterLoad: loadEditor"></div>
+<!-- /ko -->

@@ -18,6 +18,8 @@ $form->hiddenField($model, 'clubId');
 ?>
 
 Заголовок статьи <?=$form->textField($model, 'title') ?><br />
+Превью (md) <?=$form->textArea($model, 'markDownPreview') ?><br />
+Превью (html) <?=$form->textArea($model, 'htmlTextPreview') ?><br />
 Текст (md) <?=$form->textArea($model, 'markDown') ?><br />
 Текст (html) <?=$form->textArea($model, 'htmlText') ?><br />
 meta.title <?=$form->textField($model, 'meta[title]') ?><br />

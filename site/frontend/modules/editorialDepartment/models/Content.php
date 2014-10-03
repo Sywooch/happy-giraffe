@@ -14,6 +14,8 @@ class Content extends \EMongoDocument
     public $entityId;
     public $clubId;
     public $title;
+    public $markDownPreview;
+    public $htmlTextPreview;
     public $markDown;
     public $htmlText;
     public $authorId;

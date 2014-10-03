@@ -612,11 +612,15 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         foreach ($periods as $period) {
             $doc = str_get_html($period->text);
             foreach ($doc->find('img') as $img) {
-                preg_match('#http://img\.happy-giraffe\.ru/thumbs/(\d+)x(\d+)/(?:\d+)/(.*)(?:\?\d+)?#', $img->src, $matches);
+                preg_match('#http://img\.happy-giraffe\.ru/thumbs/(\d+)x(\d+)/(?:\d+)/(.*)(\?\d+)?#', $img->src, $matches);
                 print_r($matches);
                 $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $matches[3]));
                 $photo->getPreviewPath($matches[1], $matches[2], false, false, AlbumPhoto::CROP_SIDE_CENTER, true);
-                $period->text = str_replace($matches[0], ($matches[0] . '?1'), $period->text);
+                $replace = $matches[0];
+                if (empty($matches[4])) {
+                    $replace .= '?1';
+                }
+                $period->text = str_replace($matches[0], $replace, $period->text);
             }
         }
     }

@@ -18,7 +18,7 @@ abstract class PhotoCollectionObserver extends \CComponent
     protected $model;
 
     /**
-     * @param PhotoCollection $model модель фотоколлекции
+     * @param \site\frontend\modules\photo\models\PhotoCollection $model модель фотоколлекции
      */
     public function __construct(PhotoCollection $model)
     {
@@ -28,8 +28,8 @@ abstract class PhotoCollectionObserver extends \CComponent
     /**
      * Возвращает объект обозревателя для данной коллекции
      *
-     * @param PhotoCollection $model модель фотоколлекции
-     * @return PhotoCollectionIdsObserver объект обозревателя
+     * @param \site\frontend\modules\photo\models\PhotoCollection $model модель фотоколлекции
+     * @return \site\frontend\modules\photo\models\PhotoCollectionIdsObserver объект обозревателя
      */
     public static function getObserver(PhotoCollection $model)
     {
@@ -59,6 +59,16 @@ abstract class PhotoCollectionObserver extends \CComponent
         return $criteria;
     }
 
+    /**
+     * Расширенная реализация round_slice
+     *
+     * В случае, если задано отрицательная смещения, отсчет ведется с конца массива
+     *
+     * @param array $array исходный массив
+     * @param int $offset смещение
+     * @param int $length длина выходного массива
+     * @return array выходной массив
+     */
     protected function roundSlice($array, $offset, $length)
     {
         if ($offset < 0) {

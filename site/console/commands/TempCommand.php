@@ -607,7 +607,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
     {
         Yii::import('site.frontend.modules.calendar.models.*');
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
-        $periods = CalendarPeriod::model()->findAll('id = 36');
+        $periods = CalendarPeriod::model()->findAll();
 
         foreach ($periods as $period) {
             $doc = str_get_html($period->text);
@@ -618,7 +618,6 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
                 $photo->getPreviewPath($matches[1], $matches[2], false, false, AlbumPhoto::CROP_SIDE_CENTER, true);
                 $period->text = str_replace($matches[0], ($matches[0] . '?1'), $period->text);
             }
-            var_dump($period->save(false));
         }
     }
 

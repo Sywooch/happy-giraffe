@@ -562,7 +562,7 @@ return array(
                             'application.modules.services.modules.menstrualCycle.controllers.DefaultController',
                             'application.modules.services.modules.babyBloodGroup.controllers.DefaultController',
 //                            'application.modules.services.modules.horoscope.controllers.DefaultController',
-                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
+//                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
                         ),
                     ),
                     'sitemapRecipeBook.xml' => array(

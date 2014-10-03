@@ -8,7 +8,7 @@ class SiteController extends BController
     {
         return array(
             array('allow',
-                'actions'=>array('index', 'logout', 'stat'),
+                'actions'=>array('index', 'logout', 'stat', 'testWeekly'),
                 'users' => array('@'),
             ),
             array('allow',

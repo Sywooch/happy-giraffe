@@ -28,18 +28,26 @@ return array(
             'preload' => '/javascripts/jquery.preload.min',
             'favouriteWidget' => '/javascripts/FavouriteWidget',
             'imagesLoaded' => '/javascripts/imagesloaded.pkgd.min',
+            'ko_photoUpload' => 'ko_photo',
             'AdFox' => '/javascripts/fox',
             'wysiwyg_old' => '/javascripts/wysiwyg',
             'upload' => '/javascripts/upload',
             'async' => '/new/javascript/plugins/async',
             'goog' => '/new/javascript/plugins/goog',
             'propertyParser' => '/new/javascript/plugins/propertyParser',
+            'kow' => '/new/javascript/modules/kow',
+            'comments-control' => '/new/javascript/modules/models/CommentsController',
+            'user-control' => '/new/javascript/modules/models/UserController',
+            'user-model' => '/new/javascript/modules/models/User',
+            'model' => '/new/javascript/modules/models/Model',
+            'comment-model' => '/new/javascript/modules/models/Comment',
+            'comment-widget' => '/new/javascript/modules/comment-widget/comment-widget',
             'routesCalc' => 'routes',
         ),
-    /* 'eval' => '
-      ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
-      ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
-      ', */
+        /* 'eval' => '
+          ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
+          ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
+          ', */
     ),
     'litePackages' => array(
         'default' => array(
@@ -87,6 +95,14 @@ return array(
         ),
     ),
     'packages' => array(
+        'bootstrap' => array(
+            'amd' => true,
+            'baseUrl' => '/',
+            'js' => array(
+                'new/javascript/bootstrap/dropdown.js',
+                'new/javascript/bootstrap/tab.js',
+            ),
+        ),
         'userSettings' => array(
             'baseUrl' => '/',
             'js' => array(
@@ -296,7 +312,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_post.js',
-            //'javascripts/baron.js',
+                //'javascripts/baron.js',
             ),
             'depends' => array('knockout', 'baron', 'ko_favourites', 'ko_upload', 'ko_library'),
         ),
@@ -364,7 +380,7 @@ return array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
-                'new/javascript/jquery-ui.min.js',
+                'new/javascript/jquery-ui-1.10.4.min.js',
             ),
             'depends' => array('jquery'),
         ),
@@ -380,18 +396,19 @@ return array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
-                'jQuery-File-Upload/js/jquery.iframe-transport.js',
-                'jQuery-File-Upload/js/jquery.fileupload.js',
+                'javascripts/upload.js',
+
             ),
-            'depends' => array('knockout', 'jquery.ui.widget', 'upload'),
+            'depends' => array('knockout', 'jquery_file_upload'),
         ),
-        'upload' => array(
+        'jquery_file_upload' => array(
             'baseUrl' => '/',
             'amd' => true,
             'js' => array(
-                'javascripts/upload.js',
+                'jQuery-File-Upload/js/jquery.iframe-transport.js',
+                'jQuery-File-Upload/js/jquery.fileupload.js',
             ),
-            'depends' => array('knockout'),
+            'depends' => array('jquery', 'jquery.ui.widget'),
         ),
         'ko_menu' => array(
             'baseUrl' => '/',
@@ -460,6 +477,14 @@ return array(
                 'javascripts/vacancy.js',
             ),
             'depends' => array('ko_upload'),
+        ),
+        'rowGrid' => array(
+            'baseUrl' => '/',
+            'amd' => true,
+            'js' => array(
+                'new/javascript/jquery.row-grid.min.js',
+            ),
+            'depends' => array('jquery'),
         ),
         'lite' => array(
             'amd' => true,

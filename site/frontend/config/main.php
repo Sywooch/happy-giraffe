@@ -131,6 +131,9 @@ return array(
         'editorialDepartment' => array(
             'class' => 'site\frontend\modules\editorialDepartment\EditorialDepartmentModule',
         ),
+        'users' => array(
+            'class' => 'site\frontend\modules\users\UsersModule',
+        ),
         'friends',
         'favourites',
         'scores',
@@ -145,9 +148,7 @@ return array(
         'signup',
         'mail',
         'developers',
-        'seo' => array(
-            'class' => '\site\frontend\modules\seo\SeoModule',
-        ),
+        'photo' => require(dirname(__FILE__) . '/../modules/photo/config/main.php'),
         'archive' => array(
            'class' => 'site\frontend\modules\archive\ArchiveModule',
         ),

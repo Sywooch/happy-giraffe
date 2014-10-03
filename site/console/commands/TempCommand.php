@@ -609,9 +609,9 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
         $periods = CalendarPeriod::model()->findAll('id = 36');
 
-        var_dump(Yii::app()->phpthumb->options['resizeUp']);
+        var_dump(Yii::app()->phpThumb->options['resizeUp']);
         Yii::app()->setParams(array('magic' => true));
-        Yii::app()->phpthumb->options['resizeUp'] = false;
+        Yii::app()->phpThumb->options['resizeUp'] = false;
 
         foreach ($periods as $period) {
             $doc = str_get_html($period->text);

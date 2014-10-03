@@ -34,6 +34,8 @@ class CommunityPost extends HActiveRecord
 
     public function behaviors()
     {
+        if($this->scenario == 'advEditor')
+            return array();
         return array(
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',

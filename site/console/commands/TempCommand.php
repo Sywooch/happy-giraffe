@@ -612,6 +612,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         var_dump(Yii::app()->phpThumb->options['resizeUp']);
         Yii::app()->setParams(array('magic' => true));
         Yii::app()->phpThumb->options['resizeUp'] = false;
+        var_dump(Yii::app()->phpThumb->options['resizeUp']);
 
         foreach ($periods as $period) {
             $doc = str_get_html($period->text);

@@ -18,7 +18,7 @@ $user = Yii::app()->user->model;
         </div>
         <div class="header-fix-menu">
             <ul class="header-menu_ul clearfix">
-                <li class="header-fix-menu_li"><a href="<?=$this->createUrl('/blog/air/index')?>" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a></li>
+                <!--<li class="header-fix-menu_li"><a href="" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a></li>-->
                 <li class="header-fix-menu_li active"><a href="<?=$this->createUrl('/myGiraffe/default/index', array('type' => 1))?>" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count" data-bind="text: newPostsCount, visible: newPostsCount() > 0 && activeModule() != 'myGiraffe'"></span></a></li>
                 <li class="header-fix-menu_li"><a href="<?=$this->createUrl('/messaging/default/index')?>" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span><span class="header-fix-menu_count" data-bind="text: newMessagesCount, visible: newMessagesCount() > 0 && activeModule() != 'messaging'"></span></a></li>
                 <li class="header-fix-menu_li"><a href="<?=$this->createUrl('/friends/default/index')?>" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count" data-bind="text: newFriendsCount, visible: newFriendsCount() > 0 && activeModule() != 'friends'"></span></a></li>

@@ -13,6 +13,7 @@ namespace site\frontend\modules\notifications\behaviors;
  *  г) onAfterDelete
  *  д) onBeforeFind
  *  е) onAfterFind
+ * Так же, поведение может работать совместно с поведением SoftDeleteBehavior, используя его события.
  * Поведение отвечает за:
  * 1. Формирование подписки на продолжение дискуссии (класс \site\frontend\modules\notifications\models\DiscussSubscription)
  * 2. Формирование сигналов (класс \site\frontend\modules\notifications\models\Notification)

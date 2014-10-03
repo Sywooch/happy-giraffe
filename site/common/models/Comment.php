@@ -11,8 +11,6 @@
  * @property string $entity
  * @property string $entity_id
  * @property string $response_id
- * @property string $quote_id
- * @property string $quote_text
  * @property string $root_id
  * @property string $removed
  * @property CommunityContent $commentEntity Комментируемая сущность
@@ -20,25 +18,15 @@
  * The followings are the available model relations:
  * @property User author
  * @property Comment $response
- * @property Comment $quote
- * @property AttachPhoto[] $photoAttaches
- * @property AttachPhoto $photoAttach
  */
 class Comment extends HActiveRecord
 {
-
-    public $selectable_quote = false;
-
-    const CONTENT_TYPE_DEFAULT = 1;
-    const CONTENT_TYPE_PHOTO = 2;
-    const CONTENT_TYPE_ONLY_TEXT = 3;
 
     /**
      * Комментируемая сущность
      * @var CActiveRecord 
      */
     protected $_entity = null;
-    public $count;
 
     /**
      * Массив фото, содержащихся в тексте, заполняется поведением ProcessingImagesBehavior
@@ -74,13 +62,10 @@ class Comment extends HActiveRecord
         return array(
             array('author_id, entity, entity_id', 'required'),
             array('text', 'CommentRequiredValidator', 'on' => 'default'),
-            array('author_id, entity_id, response_id, quote_id', 'length', 'max' => 11),
+            array('text', 'safe'),
+            array('author_id, entity_id, response_id', 'numerical', 'allowEmpty' => true, 'integerOnly' => true),
             array('entity', 'length', 'max' => 255),
-            array('text, quote_text, selectable_quote', 'safe'),
             array('removed', 'boolean'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
-            array('id, text, created, author_id, entity, entity_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -94,10 +79,6 @@ class Comment extends HActiveRecord
         return array(
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'response' => array(self::BELONGS_TO, 'Comment', 'response_id'),
-            'quote' => array(self::BELONGS_TO, 'Comment', 'quote_id'),
-            'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
-            'photoAttaches' => array(self::HAS_MANY, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
-            'photoAttach' => array(self::HAS_ONE, 'AttachPhoto', 'entity_id', 'condition' => 'entity = :entity', 'params' => array(':entity' => get_class($this))),
         );
     }
 
@@ -181,6 +162,7 @@ class Comment extends HActiveRecord
 
     public function get($entity, $entity_id, $pageSize = 25)
     {
+        throw new Exception('deprecated');
         return new CActiveDataProvider('Comment', array(
             'criteria' => array(
                 'condition' => 't.entity=:entity AND t.entity_id=:entity_id',
@@ -201,8 +183,6 @@ class Comment extends HActiveRecord
 
     public function afterSave()
     {
-//        if (get_class(Yii::app()) == 'CConsoleApplication')
-//            return;
 
         if ($this->isNewRecord)
         {
@@ -352,18 +332,11 @@ class Comment extends HActiveRecord
         return false;
     }
 
-    public function getContentType()
-    {
-        if ($this->entity == 'User')
-            return self::CONTENT_TYPE_ONLY_TEXT;
-        elseif (empty($this->photoAttaches))
-            return self::CONTENT_TYPE_DEFAULT;
-        else
-            return self::CONTENT_TYPE_PHOTO;
-    }
-
     public function getRemoveDescription()
     {
+        return 'Комментарий удалён';
+        throw new Exception('deprecated');
+/*
         if (!$this->remove && $this->removed)
             return 'Комментарий удален';
         if (!$this->remove && !$this->removed)
@@ -383,12 +356,13 @@ class Comment extends HActiveRecord
                 $text = 'Комментарий удален. Причина: ' . Removed::$types[$this->remove->type];
                 break;
         }
-        return $text;
+        return $text;*/
     }
 
     public function getGroupRemoveDescription($comments, $first, $last)
     {
-        $byAuthor = false;
+        throw new Exception('deprecated');
+/*        $byAuthor = false;
         $byOwner = false;
         $byModer = false;
         $reasons = array();
@@ -429,12 +403,7 @@ class Comment extends HActiveRecord
             $words[] = 'модератором по ' . ((count($reasons) > 1) ? 'причинам' : 'причине') . ' ' . HDate::enumeration($reasons);
         }
 
-        return ((count($comments) > 1) ? 'Комментарии с ' . $first . ' по ' . $last . ' были удалены' : 'Комментарий был удалён') . ' ' . HDate::enumeration($words);
-    }
-
-    public function isTextComment()
-    {
-        return empty($this->photoAttaches);
+        return ((count($comments) > 1) ? 'Комментарии с ' . $first . ' по ' . $last . ' были удалены' : 'Комментарий был удалён') . ' ' . HDate::enumeration($words);*/
     }
 
     /**
@@ -490,12 +459,6 @@ class Comment extends HActiveRecord
             return $entity->getPowerTipTitle(true);
         else
             return '';
-    }
-
-    public function restore()
-    {
-        Comment::model()->updateByPk($this->id, array('removed' => 0));
-        Removed::model()->restoreByEntity($this);
     }
 
     /**
@@ -590,5 +553,5 @@ class Comment extends HActiveRecord
 
         return $this;
     }
-
+    
 }

@@ -15,8 +15,8 @@ return array(
         'email' => array(
             'class' => 'site.frontend.modules.mail.commands.DefaultCommand',
         ),
-        'yandex' => array(
-            'class' => '\site\frontend\modules\seo\commands\YandexCommand',
+        'photo' => array(
+            'class' => 'site\frontend\modules\photo\commands\DefaultCommand',
         ),
     ),
     'import' => array(
@@ -68,6 +68,9 @@ return array(
         ),
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
+            'servers' => array(
+                array('host' => '127.0.0.1', 'port' => 4730),
+            ),
         ),
         'request' => array(
             'hostInfo' => 'http://www.happy-giraffe.ru',

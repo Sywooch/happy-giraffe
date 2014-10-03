@@ -533,7 +533,7 @@ class ContactsManager
         );
     }
 
-    public static function getContactsForDelivery($userId, $limit, $after = null, $before = null)
+    public static function getContactsForDelivery($userId, $limit, $after = null)
     {
         $rows = MessagingMessageUser::model()->unread()->user($userId)->findAll(array(
             'select' => 'author.*, COUNT(*) AS unreadCount',
@@ -542,7 +542,6 @@ class ContactsManager
                     'joinType' => 'INNER JOIN',
                     'scopes' => array(
                         'newer' => $after,
-                        'older' => $before,
                     ),
                     'with' => array(
                         'author' => array(
@@ -561,7 +560,7 @@ class ContactsManager
         }, $rows);
     }
 
-    public static function getContactsForDeliveryCount($userId, $after = null, $before = null)
+    public static function getContactsForDeliveryCount($userId, $after = null)
     {
         return MessagingMessageUser::model()->user($userId)->unread()->count(array(
             'select' => 'COUNT(DISTINCT message.author_id) AS contactsCount', // yii требует использовать алиас, но он тут не нужен и обращения к нему нигде нет
@@ -569,7 +568,6 @@ class ContactsManager
                 'message' => array(
                     'scopes' => array(
                         'newer' => $after,
-                        'older' => $before,
                     ),
                 ),
             ),

@@ -542,6 +542,9 @@ class User extends HActiveRecord
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
             ),
+            'PhotoCollectionBehavior' => array(
+                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+            ),
         );
     }
 

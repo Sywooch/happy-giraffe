@@ -161,7 +161,8 @@ return array(
         'phpThumb' => array(
             'class' => 'site.frontend.extensions.EPhpThumb.EPhpThumb',
             'options' => array(
-                'resizeUp' => true,
+                'resizeUp' => false,
+                'jpegQuality' => 70,
             ),
         ),
     ),

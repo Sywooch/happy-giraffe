@@ -622,6 +622,7 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
                 }
                 $period->text = str_replace($matches[0], $replace, $period->text);
             }
+            $period->save(false);
         }
     }
 

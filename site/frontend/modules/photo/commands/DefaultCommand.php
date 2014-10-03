@@ -30,7 +30,7 @@ class DefaultCommand extends \CConsoleCommand
      * Эта функция необходима для корректной работы кеш-адаптера DeferredCache, записывает файл в исходную ФС
      * @param $job
      */
-    protected function deferredWrite($job)
+    protected function deferredWrite(\GearmanJob $job)
     {
         $data = unserialize($job->workload());
         $key = $data['key'];
@@ -43,7 +43,7 @@ class DefaultCommand extends \CConsoleCommand
      * Эта функция пакетно создает миниатюры для загруженных/обновленных изображений
      * @param $job
      */
-    protected function createThumbs($job)
+    protected function createThumbs(\GearmanJob $job)
     {
         $photoId = $job->workload();
         $photo = Photo::model()->findByPk($photoId);

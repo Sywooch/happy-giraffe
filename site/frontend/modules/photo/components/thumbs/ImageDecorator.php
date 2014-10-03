@@ -23,8 +23,6 @@ class ImageDecorator
     protected $animated;
     protected $options;
 
-
-
     public function __construct(ImageInterface $image, FilterInterface $filter, $format, $animated)
     {
         $this->format = $format;
@@ -65,9 +63,6 @@ class ImageDecorator
             default:
                 throw new \CException('Неподдерживаемый формат');
         }
-
-//        var_dump($filters);
-//        die;
 
         foreach ($filters as $f) {
             $this->image = $f->apply($this->image);

@@ -14,16 +14,11 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
 {
     const PRESET_NAME = 'uploadPreview';
 
-//    /**
-//     * @return PhotoCreate возвращает модель создаваемой фотографии
-//     */
-//    abstract protected function populate();
-
     abstract protected function getImageString();
     abstract protected function getOriginalName();
 
     /**
-     * @var PhotoCreate модель создаваемой фотографии
+     * @var \site\frontend\modules\photo\models\Photo модель создаваемой фотографии
      */
     public $photo;
 
@@ -53,7 +48,7 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
     public function save()
     {
         if ($this->validate()) {
-//            try {
+            try {
                 $this->photo = new Photo();
                 $this->photo->setImage($this->getImageString());
                 $this->photo->original_name = $this->getOriginalName();
@@ -65,15 +60,23 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
                 }
 
 
-//            } catch (\Exception $e) {
-//                $this->addError('photo', 'Ошибка загрузки');
-//            }
+            } catch (\Exception $e) {
+                $this->addError('photo', 'Ошибка загрузки');
+            }
         }
 
         return \HJSON::encode(array(
             'photo' => $this->photo,
             'form' => $this,
         ));
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'error' => $this->getFirstError(),
+            'success' => $this->success,
+        );
     }
 
     /**
@@ -93,13 +96,5 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
         }
 
         return $errors[key($errors)][0];
-    }
-
-    public function toJSON()
-    {
-        return array(
-            'error' => $this->getFirstError(),
-            'success' => $this->success,
-        );
     }
 } 

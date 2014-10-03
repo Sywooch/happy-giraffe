@@ -472,10 +472,10 @@ class AlbumPhoto extends HActiveRecord
             return false;
         }
 
-        if ($image->width <= $width && $image->height <= $height
+        if (! isset(Yii::app()->params['magic']) && ($image->width <= $width && $image->height <= $height
             || $master == Image::WIDTH && $image->height <= $height
             || $master == Image::HEIGHT && $image->height <= $height
-        ) {
+            )) {
             //just copy file
             copy($this->originalPath, $thumb);
         } else {

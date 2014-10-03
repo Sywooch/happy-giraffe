@@ -561,13 +561,17 @@ return array(
                             'application.modules.services.modules.vaccineCalendar.controllers.DefaultController',
                             'application.modules.services.modules.menstrualCycle.controllers.DefaultController',
                             'application.modules.services.modules.babyBloodGroup.controllers.DefaultController',
-//                            'application.modules.services.modules.horoscope.controllers.DefaultController',
-//                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
                         ),
                     ),
                     'sitemapRecipeBook.xml' => array(
                         'aliases' => array(
                             'application.modules.services.modules.recipeBook.controllers.DefaultController',
+                        ),
+                    ),
+                    'sitemapHoroscope.xml' => array(
+                        'aliases' => array(
+                            'application.modules.services.modules.horoscope.controllers.DefaultController',
+                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
                         ),
                     ),
                 ),

@@ -49,11 +49,18 @@ class DefaultController extends LiteController
         return parent::beforeAction($action);
     }
 
+
+    /**
+     * @sitemap dataSource=sitemapList
+     */
     public function actionList($zodiac, $period, $date, $alias)
     {
         $this->render('list');
     }
 
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionView($zodiac, $period, $date, $alias)
     {
         $zodiac = Horoscope::model()->getZodiacId($this->zodiac);
@@ -76,4 +83,153 @@ class DefaultController extends LiteController
         $this->render('view', array('model' => $model));
     }
 
+    public function sitemapView()
+    {
+        Yii::import('application.modules.services.modules.horoscope.models.Horoscope');
+        $result = array();
+
+        // на сегодня
+        foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            $result[] = array(
+                'params' => array(
+                    'zodiac' => $z,
+                    'period' => 'day',
+                    'date' => time(),
+                    'alias' => 'today',
+                ),
+                'changefreq' => 'daily',
+                'priority' => 1,
+            );
+        }
+
+        // на завтра
+        foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            $result[] = array(
+                'params' => array(
+                    'zodiac' => $z,
+                    'period' => 'day',
+                    'date' => strtotime('+1 day'),
+                    'alias' => 'tomorrow',
+                ),
+                'changefreq' => 'daily',
+                'priority' => 1,
+            );
+        }
+
+        // на текущий месяц
+        foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            $result[] = array(
+                'params' => array(
+                    'zodiac' => $z,
+                    'period' => 'month',
+                    'date' => time(),
+                    'alias' => 'today',
+                ),
+                'changefreq' => 'weekly',
+                'priority' => 1,
+            );
+        }
+
+        // на текущий год
+        foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            $result[] = array(
+                'params' => array(
+                    'zodiac' => $z,
+                    'period' => 'year',
+                    'date' => time(),
+                    'alias' => 'today',
+                ),
+                'changefreq' => 'monthly',
+                'priority' => 1,
+            );
+        }
+
+        $data = Yii::app()->db->createCommand()
+            ->select('*')
+            ->from(Horoscope::model()->tableName())
+            ->queryAll();
+
+        foreach ($data as $row) {
+            // на произвольный месяц
+            if (! empty($row['year']) && ! empty($row['month'])) {
+                if (strtotime('-2 month') > mktime(0, 0, 0, $row['month'], 1, $row['year'])) {
+                    $changefreq = 'monthly';
+                    $priority = 0.5;
+                } else {
+                    $changefreq = 'daily';
+                    $priority = 1;
+                }
+
+                $result[] = array(
+                    'params' => array(
+                        'zodiac' => Horoscope::model()->zodiac_list_eng[$row['zodiac']],
+                        'period' => 'month',
+                        'date' => mktime(0, 0, 0, $row['month'], 1, $row['year']),
+                        'alias' => false,
+                    ),
+                    'changefreq' => $changefreq,
+                    'priority' => $priority,
+                );
+            // на произвольную дату
+            }
+        }
+
+        return $result;
+    }
+
+    public function sitemapList()
+    {
+        Yii::import('application.modules.services.modules.horoscope.models.Horoscope');
+        $result = array();
+
+        // на сегодня
+        $result[] = array(
+            'params' => array(
+                'zodiac' => false,
+                'period' => 'day',
+                'date' => time(),
+                'alias' => 'today',
+            ),
+            'changefreq' => 'daily',
+            'priority' => 0.9,
+        );
+
+        // на завтра
+        $result[] = array(
+            'params' => array(
+                'zodiac' => false,
+                'period' => 'day',
+                'date' => strtotime('+1 day'),
+                'alias' => 'tomorrow',
+            ),
+            'changefreq' => 'daily',
+            'priority' => 0.9,
+        );
+
+        // на месяц
+        $result[] = array(
+            'params' => array(
+                'zodiac' => false,
+                'period' => 'month',
+                'date' => time(),
+                'alias' => 'today',
+            ),
+            'changefreq' => 'weekly',
+            'priority' => 0.9,
+        );
+
+        // на год
+        $result[] = array(
+            'params' => array(
+                'zodiac' => false,
+                'period' => 'year',
+                'date' => time(),
+                'alias' => 'today',
+            ),
+            'changefreq' => 'monthly',
+            'priority' => 0.9,
+        );
+
+        return $result;
+    }
 }

@@ -394,7 +394,7 @@ return array(
         'phpThumb' => array(
             'class' => 'ext.EPhpThumb.EPhpThumb',
             'options' => array(
-                'resizeUp' => true,
+                'resizeUp' => false,
                 'jpegQuality' => 70,
             ),
         ),
@@ -561,8 +561,8 @@ return array(
                             'application.modules.services.modules.vaccineCalendar.controllers.DefaultController',
                             'application.modules.services.modules.menstrualCycle.controllers.DefaultController',
                             'application.modules.services.modules.babyBloodGroup.controllers.DefaultController',
-                            //'application.modules.services.modules.horoscope.controllers.DefaultController',
-                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
+//                            'application.modules.services.modules.horoscope.controllers.DefaultController',
+//                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
                         ),
                     ),
                     'sitemapRecipeBook.xml' => array(

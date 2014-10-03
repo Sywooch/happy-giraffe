@@ -609,11 +609,6 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
         $periods = CalendarPeriod::model()->findAll('id = 36');
 
-        var_dump(Yii::app()->phpThumb->options['resizeUp']);
-        Yii::app()->setParams(array('magic' => true));
-        Yii::app()->phpThumb->options['resizeUp'] = false;
-        var_dump(Yii::app()->phpThumb->options['resizeUp']);
-
         foreach ($periods as $period) {
             $doc = str_get_html($period->text);
             foreach ($doc->find('img') as $img) {
@@ -621,7 +616,9 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
                 print_r($matches);
                 $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $matches[3]));
                 $photo->getPreviewPath($matches[1], $matches[2], false, false, AlbumPhoto::CROP_SIDE_CENTER, true);
+                $period->text = str_replace($matches[0], $matches[0] . '?1', $period->text);
             }
+            $period->save(false);
         }
     }
 

@@ -394,7 +394,7 @@ return array(
         'phpThumb' => array(
             'class' => 'ext.EPhpThumb.EPhpThumb',
             'options' => array(
-                'resizeUp' => true,
+                'resizeUp' => false,
                 'jpegQuality' => 70,
             ),
         ),

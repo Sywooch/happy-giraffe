@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 10/09/14
- * Time: 12:44
+ * Базовый контроллер модуля
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\components;

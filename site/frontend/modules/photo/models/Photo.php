@@ -21,7 +21,6 @@
  */
 
 namespace site\frontend\modules\photo\models;
-
 use site\frontend\modules\photo\components\ImageFile;
 
 class Photo extends \HActiveRecord implements \IHToJSON

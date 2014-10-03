@@ -1,8 +1,8 @@
 <?php
 /**
- * Обозреватель коллекции
+ * Обозреватель коллекции.
  *
- * Позволяет получить единичное фото или набор из коллекции фотографий
+ * Позволяет получить единичное фото или набор из коллекции фотографий.
  *
  * @author Никита
  * @date 03/10/14
@@ -15,6 +15,9 @@ abstract class PhotoCollectionObserver extends \CComponent
 {
     const ORDER = 't.position ASC, t.id ASC';
 
+    /**
+     * @var PhotoCollection
+     */
     protected $model;
 
     /**
@@ -43,6 +46,7 @@ abstract class PhotoCollectionObserver extends \CComponent
      */
     public function getCount()
     {
+
         return $this->model->attachesCount;
     }
 

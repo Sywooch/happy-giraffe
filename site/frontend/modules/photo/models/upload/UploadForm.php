@@ -3,12 +3,13 @@
  * Форма загрузки фото
  *
  * Абстрактная модель загрузки фото, от нее необходимо наследовать конкретные модели загрузки
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\models\upload;
-use Aws\CloudFront\Exception\Exception;
 use site\frontend\modules\photo\models\Photo;
-use site\frontend\modules\photo\models\PhotoCreate;
 
 abstract class UploadForm extends \CFormModel implements \IHToJSON
 {
@@ -52,14 +53,9 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
                 $this->photo = new Photo();
                 $this->photo->setImage($this->getImageString());
                 $this->photo->original_name = $this->getOriginalName();
-
-
-
                 if ($this->success = $this->photo->save()) {
                     \Yii::app()->thumbs->getThumb($this->photo, self::PRESET_NAME, true);
                 }
-
-
             } catch (\Exception $e) {
                 $this->addError('photo', 'Ошибка загрузки');
             }

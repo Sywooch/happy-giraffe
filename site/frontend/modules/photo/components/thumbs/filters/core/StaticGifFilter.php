@@ -1,17 +1,17 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 29/09/14
- * Time: 14:35
+ * Статический фильтр для анимированных GIF
+ *
+ * Если обрабатываем статический гиф, необходимо убрать все кадры, кроме первого - иначе в итоговом изображении
+ * будут изображены все кадры поверх друг друга.
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\components\thumbs\filters\core;
-
-
 use Imagine\Filter\FilterInterface;
 use Imagine\Image\ImageInterface;
-use Imagine\Imagick\Image;
 
 class StaticGifFilter implements FilterInterface
 {

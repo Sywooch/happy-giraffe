@@ -1,8 +1,8 @@
 <?php
 /**
- * Консольная команда модуля
+ * Консольная команда модуля.
  *
- * Предназначена для обработки отложенных операций сервером очередей
+ * Предназначена для обработки отложенных операций сервером очередей.
  *
  * @author Никита
  * @date 03/10/14
@@ -14,7 +14,7 @@ use site\frontend\modules\photo\models\Photo;
 class DefaultCommand extends \CConsoleCommand
 {
     /**
-     * Основной воркер, должен быть всегда запущен для корректной работы приложения
+     * Основной воркер, должен быть всегда запущен для корректной работы приложения.
      */
     public function actionWorker()
     {
@@ -27,7 +27,7 @@ class DefaultCommand extends \CConsoleCommand
     }
 
     /**
-     * Эта функция необходима для корректной работы кеш-адаптера DeferredCache, записывает файл в исходную ФС
+     * Эта функция необходима для корректной работы кеш-адаптера DeferredCache, записывает файл в исходную ФС.
      * @param $job
      */
     protected function deferredWrite(\GearmanJob $job)
@@ -40,7 +40,7 @@ class DefaultCommand extends \CConsoleCommand
     }
 
     /**
-     * Эта функция пакетно создает миниатюры для загруженных/обновленных изображений
+     * Эта функция пакетно создает миниатюры для загруженных/обновленных изображений.
      * @param $job
      */
     protected function createThumbs(\GearmanJob $job)

@@ -1,10 +1,12 @@
 <?php
 /**
  * Менеджер миниатюр
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\components\thumbs;
-
 use site\frontend\modules\photo\components\thumbs\filters\CustomFilterInterface;
 use site\frontend\modules\photo\models\Photo;
 

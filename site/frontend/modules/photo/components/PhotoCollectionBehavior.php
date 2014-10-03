@@ -6,7 +6,6 @@
  */
 
 namespace site\frontend\modules\photo\components;
-use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoCollection;
 
 class PhotoCollectionBehavior extends \CActiveRecordBehavior

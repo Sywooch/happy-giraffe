@@ -6,8 +6,7 @@
  */
 
 namespace site\frontend\modules\photo\components\thumbs;
-use site\frontend\modules\photo\components\imageProcessor\ImageDecorator;
-use site\frontend\modules\photo\components\thumbs\presets\PresetInterface;
+use site\frontend\modules\photo\components\thumbs\filters\CustomFilterInterface;
 use site\frontend\modules\photo\models\Photo;
 
 class Thumb extends \CComponent
@@ -23,14 +22,16 @@ class Thumb extends \CComponent
     public $filter;
 
     /**
-     * @var
+     * @var string
      */
     public $path;
 
-
+    /**
+     * @var bool
+     */
     public $animated;
 
-    public function __construct($photo, $filter, $path, $animated)
+    public function __construct(Photo $photo, CustomFilterInterface $filter, $path, $animated)
     {
         $this->path = $path;
         $this->photo = $photo;

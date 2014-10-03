@@ -616,9 +616,9 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
                 print_r($matches);
                 $photo = AlbumPhoto::model()->findByAttributes(array('fs_name' => $matches[3]));
                 $photo->getPreviewPath($matches[1], $matches[2], false, false, AlbumPhoto::CROP_SIDE_CENTER, true);
-                $period->text = str_replace($matches[0], $matches[0] . '?1', $period->text);
+                $period->text = str_replace($matches[0], ($matches[0] . '?1'), $period->text);
             }
-            $period->save(false);
+            var_dump($period->save(false));
         }
     }
 

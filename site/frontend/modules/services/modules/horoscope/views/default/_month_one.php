@@ -18,8 +18,9 @@ $model->calculateMonthDays();
                     <div class="b-calendar_t">Год</div>
                     <ul class="b-calendar_ul">
                         <?php
+                        // Хардкодим 2012'й год
                         $models = Horoscope::model()->findAll(array(
-                            'condition' => '`year` IS NOT NULL AND `month` IS NULL AND `zodiac` = :z',
+                            'condition' => '`year` IS NOT NULL AND `month` IS NULL AND `zodiac` = :z AND (`year` = 2012 OR (SELECT `id` FROM `services__horoscope` WHERE `month` = 1 AND `year` = t.`year` AND `zodiac` = :z) IS NOT NULL)',
                             'order' => '`year`',
                             'params' => array(
                                 ':z' => $model->zodiac,
@@ -37,6 +38,7 @@ $model->calculateMonthDays();
                     <div class="b-calendar_t">Месяц</div>
                     <ul class="b-calendar_ul">
                         <?php
+                        // Совсем говнокод!!!
                         $models = Horoscope::model()->findAll(array(
                             'condition' => '`year` = :y AND `month` IS NOT NULL AND `zodiac` = :z',
                             'params' => array(

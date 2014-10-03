@@ -49,7 +49,6 @@ class DefaultController extends LiteController
         return parent::beforeAction($action);
     }
 
-
     /**
      * @sitemap dataSource=sitemapList
      */
@@ -171,6 +170,25 @@ class DefaultController extends LiteController
                     'priority' => $priority,
                 );
             // на произвольную дату
+            } elseif (empty($row['year']) && empty($row['month'])) {
+                if (strtotime('-1 month') > strtotime($row['date'])) {
+                    $changefreq = 'monthly';
+                    $priority = 0.5;
+                } else {
+                    $changefreq = 'daily';
+                    $priority = 1;
+                }
+
+                $result[] = array(
+                    'params' => array(
+                        'zodiac' => Horoscope::model()->zodiac_list_eng[$row['zodiac']],
+                        'period' => 'day',
+                        'date' => strtotime($row['date']),
+                        'alias' => false,
+                    ),
+                    'changefreq' => $changefreq,
+                    'priority' => $priority,
+                );
             }
         }
 

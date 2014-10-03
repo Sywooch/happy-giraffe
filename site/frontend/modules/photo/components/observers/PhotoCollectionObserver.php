@@ -29,7 +29,7 @@ abstract class PhotoCollectionObserver extends \CComponent
      * Возвращает объект обозревателя для данной коллекции
      *
      * @param \site\frontend\modules\photo\models\PhotoCollection $model модель фотоколлекции
-     * @return \site\frontend\modules\photo\models\PhotoCollectionIdsObserver объект обозревателя
+     * @return \site\frontend\modules\photo\components\observers\PhotoCollectionIdsObserver объект обозревателя
      */
     public static function getObserver(PhotoCollection $model)
     {

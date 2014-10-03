@@ -1,4 +1,6 @@
 // Отдельные элементы
+
+// Заголовки
 .heading-xxl {
     margin: 15px 0; // Можно изменить на необходимый
     font-size: 40px;
@@ -90,12 +92,9 @@ a.heading-link-xxl:hover {text-decoration: underline;}
         & {width: 800px;}
     }
 }
+// /Заголовки
 
-.i-highlight {
-    padding: 0 4px;
-    background: #fff7af;
-}
-
+// Text
 .tx-content {
     font-size: 14px;
     line-height: 20px;
@@ -112,8 +111,9 @@ a.heading-link-xxl:hover {text-decoration: underline;}
 .tx-error {
     color: #FF8888;
 }
+// /Text
 
-
+// Ссылки
 .a-light {
     text-decoration: none;
     color: @color-link-light;
@@ -135,6 +135,51 @@ a.heading-link-xxl:hover {text-decoration: underline;}
     border-bottom:1px dotted #289FD7;
 }
 .a-pseudo:hover {text-decoration:none !important;border-bottom-color:transparent;}
+// /Ссылки
+
+// Items
+.i-highlight {
+    padding: 0 4px;
+    background: #fff7af;
+}
+.i-allphoto {
+    margin: 40px 0;
+    text-align: center;
+    
+    &__family &_a {background-image: url('@{path-img}/i/i-allphoto__family.png');}
+    &_a {
+        .inline-block();
+        background: url('@{path-img}/i/i-allphoto.png') no-repeat;
+        padding: 7px 10px 8px 50px;
+        height: 30px;
+        font-size: 15px;
+        color: @color-gray;
+        text-decoration: none;
+    }
+    &_a:hover {
+        color: @color-gray-dark;
+        background-position: 0 -30px;
+    }
+}
+/*.i-info {
+    margin: 10px 0 15px;
+    border-left: 5px solid #b3e9b5;
+    padding: 11px 20px 11px 45px;
+    font-size: @font-base;
+    color: #3f9143;
+    background:#e3fbe4 url('@{path-img}/i-info.png') no-repeat 6px 5px;
+}*/
+// Эелмент фиксированный при скроле
+.i-affix {
+    position: relative;
+
+    &.affix {
+        position: fixed;
+        top: 0;
+        z-index: 100;
+    }
+}
+// /Items
 
 
 .btn-scrolltop {

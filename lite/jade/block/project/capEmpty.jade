@@ -1,0 +1,59 @@
+
+//- .cap-empty
+//- Заглушка
+    mod   __abs  __rel __im-b  __im-ava  __profile-family  __addPhoto  __addPhotoLink  __gray  __white  __blue
+    vars
+        imgMod
+        txTop
+        txTopMod
+        t
+        tMod
+        tx
+        txMod
+        txSub
+        txSubMod
+        topAbsMsg
+        topAbsMsgMod
+
+mixin cap-empty(mod, vars)
+    // cap-empty
+    .cap-empty(class=mod)
+        if (vars.topAbsMsg)
+            .cap-empty_abs-msg(class=vars.topAbsMsgMod)
+                .cap-empty_abs-msg-hold!= vars.topAbsMsg
+        else 
+            .cap-empty_hold
+                .cap-empty_img(class=vars.imgMod)
+                - if (vars.txTop)
+                    .cap-empty_tx-top(class=vars.txTopMod)!= vars.txTop
+                - if (vars.t)
+                    .cap-empty_t(class=vars.tMod)!= vars.t
+                - if (vars.tx)
+                    .cap-empty_tx(class=vars.txMod)!= vars.tx
+                - if (vars.txSub)
+                    .cap-empty_tx-sub(class=vars.txSubMod)!= vars.txSub
+            .verticalalign-m-help
+    // /cap-empty
+    
+- var capEmpty = {}
+- capEmpty.friendsListItem = {}
+- capEmpty.friendsListItem.txTop = "<a href='' class='b-ava-large_a'>Алекс Брянский</a>"
+- capEmpty.friendsListItem.t = "Удален из друзей",
+- capEmpty.friendsListItem.txSub = "<a href=''>Восстановить</a>"
+
+- capEmpty.addPhoto = {}
+- capEmpty.addPhoto.t = "Выберите файл с компьютера",
+- capEmpty.addPhoto.txSub = "<div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp'></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div>"
+
+- capEmpty.addPhotoMulti = {}
+- capEmpty.addPhotoMulti.t = "Выберите файлы с компьютера",
+- capEmpty.addPhotoMulti.txSub = "<div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp'></div>  <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div><div class='popup-add_cap-drag'>или перетащите фотографии сюда</div>"
+
+- capEmpty.addPhotoLink = {}
+- capEmpty.addPhotoLink.t = "Выберите файл из интернета",
+- capEmpty.addPhotoLink.tx = '<input type="text" placeholder="Вставте ссылку на изображение" class="itx-gray">',
+- capEmpty.addPhotoLink.txSub = "На любом сайте кликните правой кнопкой по нужному изображению, выберите “Копировать URL картинки” и вставте сюда"
+
+- capEmpty.albumPhotoDel = {}
+- capEmpty.albumPhotoDel.t = "Фотография удалена ",
+- capEmpty.albumPhotoDel.tx = "<a href=''>Восстановить</a>"

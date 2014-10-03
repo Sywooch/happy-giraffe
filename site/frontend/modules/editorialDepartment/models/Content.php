@@ -22,6 +22,11 @@ class Content extends \EMongoDocument
     public $dtimeCreate;
     public $dtimeUpdate;
 
+    public static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
     public function embeddedDocuments()
     {
         return array(
@@ -29,10 +34,14 @@ class Content extends \EMongoDocument
             'social' => '\site\frontend\modules\editorialDepartment\models\Social',
         );
     }
-
-    public static function model($className = __CLASS__)
+    
+    public function behaviors()
     {
-        return parent::model($className);
+        return array(
+            'converter' => array(
+                'class' => '\site\frontend\modules\editorialDepartment\behaviors\ConvertBehavior',
+            ),
+        );
     }
 
     public function getCollectionName()

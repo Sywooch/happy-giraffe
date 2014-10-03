@@ -1,29 +1,48 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 30/09/14
- * Time: 12:40
+ * Надстройка над Imagine
+ *
+ * Добавляет логику к стандартной обработке фото - управляет анимацией, определяет качество.
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\components\thumbs;
-
-
 use Imagine\Filter\FilterInterface;
 use Imagine\Image\ImageInterface;
-use Imagine\Imagick\Image;
 use site\frontend\modules\photo\components\thumbs\filters\core\AnimatedGifFilter;
 use site\frontend\modules\photo\components\thumbs\filters\core\StaticGifFilter;
+use site\frontend\modules\photo\components\thumbs\filters\CustomFilterInterface;
 
 class ImageDecorator
 {
+    /**
+     * @var ImageInterface
+     */
     protected $image;
+
+    /**
+     * @var CustomFilterInterface
+     */
     protected $filter;
+
+    /**
+     * @var string
+     */
     protected $format;
+
+    /**
+     * @var bool
+     */
     protected $animated;
+
+    /**
+     * @var array
+     */
     protected $options;
 
-    public function __construct(ImageInterface $image, FilterInterface $filter, $format, $animated)
+    public function __construct(ImageInterface $image, CustomFilterInterface $filter, $format, $animated)
     {
         $this->format = $format;
         $this->image = $image;

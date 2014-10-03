@@ -1,9 +1,11 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 16/09/14
- * Time: 15:23
+ * Коллекция альбома по умолчанию
+ *
+ * Содержит все фотографии альбома
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\models\collections;

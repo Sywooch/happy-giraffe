@@ -1,14 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 29/09/14
- * Time: 10:51
+ * Компонент для работы с обычными миниатюрами
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\components\thumbs;
-
-
 use site\frontend\modules\photo\models\Photo;
 
 class SimpleThumbsManager extends ThumbsManager

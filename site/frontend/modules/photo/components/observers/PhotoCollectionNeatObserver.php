@@ -1,14 +1,15 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 15/09/14
- * Time: 14:42
+ * "Аккуратный обозреватель"
+ *
+ * Получает только нужные фотографии, но реализация сложная и непроизводительная. Не используется.
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\components\observers;
 use site\frontend\modules\photo\models\PhotoAttach;
-use site\frontend\modules\photo\models\PhotoCollection;
 
 class PhotoCollectionNeatObserver extends PhotoCollectionObserver
 {

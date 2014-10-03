@@ -1,18 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 26/09/14
- * Time: 02:53 PM
+ * Компонент для работы с кадрированными фото
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\components\thumbs;
-
-
 use site\frontend\modules\photo\components\thumbs\filters\core\CropFilter;
-use site\frontend\modules\photo\components\thumbs\ThumbsManager;
 use site\frontend\modules\photo\models\Photo;
-
 
 class CroppedThumbsManager extends ThumbsManager
 {

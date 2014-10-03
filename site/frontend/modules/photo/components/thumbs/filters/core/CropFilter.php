@@ -1,14 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 26/09/14
- * Time: 02:57 PM
+ * Фильтр кадрирования
+ *
+ * Нужен для обработки фотографий, полученных фунционалом кадрирования - например, при загрузке аватары.
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\components\thumbs\filters\core;
-
-
 use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use Imagine\Image\Point;

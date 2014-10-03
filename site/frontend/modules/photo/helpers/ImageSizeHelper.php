@@ -1,9 +1,10 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 02/10/14
- * Time: 17:54
+ * Костыль, замещающий функцию getimagesizefromstring, которая есть в PHP 5.4, но нет в PHP 5.3
+ *
+ * @author Никита
+ * @date 03/10/14
+ * @todo Убрать как только перейдем на PHP 5.4
  */
 
 class ImageSizeHelper

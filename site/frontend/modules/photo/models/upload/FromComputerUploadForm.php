@@ -3,10 +3,12 @@
  * Форма загрузки с компьютера
  *
  * Конкретная реализация форма для загрузки изображения с компьютера
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\models\upload;
-use site\frontend\modules\photo\models\PhotoCreate;
 
 class FromComputerUploadForm extends UploadForm
 {
@@ -28,11 +30,6 @@ class FromComputerUploadForm extends UploadForm
             array('file', 'file', 'maxSize' => 1024 * 1024 * 8, 'tooLarge' => 'Файл больше 8мб'),
         ));
     }
-
-//    protected function populate()
-//    {
-//        return new PhotoCreate($this->file->getTempName(), $this->file->getName());
-//    }
 
     protected function getImageString()
     {

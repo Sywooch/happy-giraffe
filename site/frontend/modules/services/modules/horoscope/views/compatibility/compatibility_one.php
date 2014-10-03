@@ -37,7 +37,7 @@ $this->breadcrumbs = array(
                 </ul>
             </div>
             <!-- Реклама яндекса-->
-            <?php $this->renderPartial('//banners/_horoscope'); ?>
+            <?php $this->renderPartial('//banners/_direct_others'); ?>
         </div>
     </div>
 </div>

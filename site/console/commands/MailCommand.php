@@ -34,9 +34,9 @@ class MailCommand extends CConsoleCommand
         Yii::app()->email->sendCampaign($contents, HEmailSender::LIST_OUR_USERS);
     }
 
-    public function actionTestWeekly()
+    public function actionTestWeekly($date = null)
     {
-        $articles = Favourites::model()->getWeekPosts();
+        $articles = Favourites::model()->getWeekPosts($date);
         if (empty($articles))
             $articles = CommunityContent::model()->findAll(array(
                 'limit' => 6,

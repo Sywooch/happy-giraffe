@@ -33,7 +33,7 @@ class DefaultController extends HController
 		$this->render('index');
 	}
 
-    public function actionTestWeekly()
+    public function actionTestWeekly($date = null)
     {
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.frontend.extensions.*');
@@ -45,7 +45,7 @@ class DefaultController extends HController
         Yii::import('site.frontend.widgets.userAvatarWidget.Avatar');
         Yii::import('site.common.models.mongo.*');
 
-        $articles = Favourites::model()->getWeekPosts();
+        $articles = Favourites::model()->getWeekPosts($date);
         if (empty($articles))
             $articles = CommunityContent::model()->findAll(array(
                 'limit' => 6,

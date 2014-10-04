@@ -146,10 +146,6 @@ class Favourites extends EMongoDocument
         $criteria->sort('index', EMongoCriteria::SORT_ASC);
 
         $models = self::model()->findAll($criteria);
-
-        var_dump($models);
-        die;
-
         $ids = array();
         foreach ($models as $model)
             $ids [] = $model->entity_id;
@@ -167,7 +163,6 @@ class Favourites extends EMongoDocument
     public static function getArticlesByDate($index, $date, $limit = null)
     {
         $ids = self::getIdListByDate($index, $date);
-
         if (empty($ids))
             return array();
         $criteria = new CDbCriteria;

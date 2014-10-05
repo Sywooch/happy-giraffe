@@ -1,0 +1,84 @@
+
+.popup-add {
+    width: 740px;
+    background-color: #fff;
+
+    &__photo {}
+    &__photos {}
+
+    &_top {
+        padding: 20px 37px;
+    }
+    &_top .tabs-simple {margin-left: 40px;}
+    &_t {
+        .inline-block();
+        font-size: 20px;
+    }
+    &_in {
+        height: 520px;
+        padding: 20px 20px 30px;
+        background-color: #fafafa;
+    }
+    &_in__albums {padding-top: 5px;}
+    /*&_in__albums .tabs-simple > li:first-child > a {padding-left: 10px;}*/
+    &_scroll {
+        margin: 0 -10px 15px 0;
+        padding-right: 20px;
+    }
+
+    &_frame {
+        height: 470px;
+        padding: 0 5px;
+
+        .scroll_scroller {
+            max-height: 470px;
+        }
+    }
+    &_frame__multi {
+        border: 2px dashed #d6d6d6;
+    }
+    &_frame__multi.dragover {border-color: #bbb;}
+    &_frame__album {height: 442px;}
+    &_cap {
+        padding: 50px 0 10px;
+
+        .file-fake {vertical-align: middle;}
+    }
+    &_cap-desc {
+        .inline-block();
+        vertical-align: middle;
+        margin: 15px -50px 15px 20px;
+        text-align: left;
+        font: @fontsmall;
+    }
+    &_cap-drag {
+        margin: 20px;
+        font-size: 28px;
+        color: #ccc;
+    }
+    &_multi {
+        padding: 12px 5px;
+    }
+    &_multi-li {
+        .inline-block();
+    }
+    &_footer {
+        margin:  15px 20px 15px 17px;
+    }
+    &_footer .progress {
+        margin-left: 15px;
+        margin-bottom: 2px;
+    }
+    &_footer .file-fake {
+        margin-left: 15px;
+        vertical-align: middle;
+    }
+    &_footer .float-r .btn-link-gray.btn-s {
+        padding-top: 10px;
+        vertical-align: top;
+    }
+    &_footer-l {
+        float: left;
+        margin-top: 6px;
+    }
+}

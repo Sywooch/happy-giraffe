@@ -25,22 +25,23 @@ block layout
                     li.b-crumbs_li.b-crumbs_li__last
                         span.b-crumbs_last Фото
 
-            +userSection()
-      
+            +userSection('visible-md-block')
+    
 
             +bAlbum('', bAlbum.d)
             +bAlbum('', bAlbum.e)
 
-            .heading-small.margin-t40 
-                | Последние добавленные фото
-                .float-r
-                    .btn.btn-link.btn-link-gray.btn-s Все фотографии 628
+            .visible-md-block
+                .heading-small.margin-t40 
+                    | Последние добавленные фото
+                    .float-r
+                        .btn.btn-link.btn-link-gray.btn-s Все фотографии 628
 
-            +imgGrid('', imgGrid.e)
+                +imgGrid('', imgGrid.e)
 
-            .i-allphoto 
-                a.i-allphoto_a(href="#")
-                    | Смотреть все фотографии
+                .i-allphoto 
+                    a.i-allphoto_a(href="#")
+                        | Смотреть все фотографии
 
         
         +layout-footer-lite()

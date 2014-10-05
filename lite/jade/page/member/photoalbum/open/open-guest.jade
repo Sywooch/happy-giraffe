@@ -1,0 +1,58 @@
+include ../../../../block/config
+extend ../../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member.css'; 
+  
+block layout
+ 
+    .b-main
+        .b-main_cont.b-main_cont__wide
+            //.b-main_cols.clearfix
+                .b-main_col-1
+                    +sidebar-search('sidebar-search__big', {placeholder: 'Поиск'})
+                .b-main_col-23
+                    +userAddRecord('userAddRecord__s', userAddRecord.a)
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="") Главная
+                    li.b-crumbs_li
+                        +ava('ava__small', ava.a)
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Фото
+                        
+            +userSection()
+
+            .page-col
+                .page-col_cont.page-col_cont__in
+
+                        
+                    .user-album
+                        .b-crumbs.b-crumbs__m
+                            ul.b-crumbs_ul
+                                li.b-crumbs_li
+                                    a.b-crumbs_a(href="") Мои фото
+                                li.b-crumbs_li.b-crumbs_li__last
+                                    span.b-crumbs_last  Харьковский уикенд
+
+                        .user-album_top.clearfix
+                            .user-album_count-hold
+                                .user-album_count 26
+                                .user-album_count-tx фото
+                            // Заголовок
+                            h1.user-album_t
+                                | Харьковский уикенд
+
+                            .user-album_desc
+                                | В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+
+                        +imgGrid('', imgGrid.e)
+                        
+                        .heading-small Другие альбомы 5
+                        // превью фотоальбомов как в попапе загрузки фото
+                        +albumPreview('album-preview__album', albumPreview.album1)
+
+        +layout-footer-lite()
+        

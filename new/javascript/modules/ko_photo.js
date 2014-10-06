@@ -332,8 +332,10 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         };
 
         self.rotate = function(angle) {
-            $.post('/photo/upload/rotate/', { angle : angle, photoId : self.id }, function(response) {
-                mapping.fromJS(response.photo, {}, self);
+            $.post('/api/photo/photos/rotate/', JSON.stringify({ angle : angle, photoId : self.id() }), function(response) {
+                if (response.success) {
+                    mapping.fromJS(response.data, {}, self);
+                }
             }, 'json');
         };
 

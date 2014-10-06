@@ -406,8 +406,9 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
         self.selectAlbum = function(album) {
             if (album.photoCollection().attaches().length == 0) {
-                $.get('/photo/collection/getAttaches/', { collectionId : album.photoCollection().id() }, function(response) {
-                    album.photoCollection().attaches(ko.utils.arrayMap(response, function(attach) {
+                $.post('/api/photo/collections/getAttaches/', JSON.stringify({ collectionId : album.photoCollection().id() }), function(response) {
+                    console.log(response);
+                    album.photoCollection().attaches(ko.utils.arrayMap(response.data, function(attach) {
                         return new FromAlbumsPhotoAttach(attach, self);
                     }));
                     self.currentAlbum(album);

@@ -1,51 +1,51 @@
 define(function() {
 
-   var User = {
+    var User = {
 
-      getUserUrl: '/api/users/get/',
+        getUserUrl: '/api/users/get/',
 
-       /**
-        * Полное имя
-        * @returns {string}
-        */
-      fullName: function fullName() {
-         return this.firstName + ' ' + this.lastName;
-      },
+        /**
+         * Полное имя
+         * @returns {string}
+         */
+        fullName: function fullName() {
+            return this.firstName + ' ' + this.lastName;
+        },
 
-       /**
-        * init юзера
-        * @param object
-        * @returns {User}
-        */
-      init: function init (object) {
+        /**
+         * init юзера
+         * @param object
+         * @returns {User}
+         */
+        init: function init(object) {
 
-         if (object !== undefined) {
+            if (object !== undefined) {
 
-            this.avatarId = object.avatarId;
+                this.avatarId = object.avatarId;
 
-            this.avatarUrl = object.avatarUrl;
+                this.avatarUrl = object.avatarUrl;
 
-            this.firstName = object.firstName;
+                this.firstName = object.firstName;
 
-            this.gender = object.gender;
+                this.gender = object.gender;
 
-            this.id = object.id;
+                this.id = object.id;
 
-            this.isOnline = object.isOnline;
+                this.isOnline = object.isOnline;
 
-            this.lastName = object.lastName;
+                this.lastName = object.lastName;
 
-            this.profileUrl = object.profileUrl;
+                this.profileUrl = object.profileUrl;
 
-            this.publicChannel = object.publicChannel;
+                this.publicChannel = object.publicChannel;
 
-            this.fullName = this.fullName();
+                this.fullName = this.fullName();
 
-            return this;
-         }
+                return this;
+            }
 
-      }
-   }
+        }
+    };
 
-   return User;
+    return User;
 });

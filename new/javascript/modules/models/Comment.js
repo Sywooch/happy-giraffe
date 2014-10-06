@@ -1,252 +1,252 @@
 define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model, Hg) {
 
-   var Comment = {
+    var Comment = {
 
-      user: {},
+        user: {},
 
-      color: '',
+        color: '',
 
-      /**
-       * Url для получения списка комментариев
-       * @type {String}
-       */
-      getListUrl: '/api/comments/list/',
-
-      /**
-       * Url для получения одного комментария
-       * @type {String}
-       */
-      getComment: '/api/comments/get/',
-
-      /**
-       * Url страницы для создания комментария
-       * @type {String}
-       */
-      createCommentUrl: '/api/comments/create/',
-
-      /**
-       * Url страницы для удаления комментария
-       * @type {String}
-       */
-      removeCommentUrl: '/api/comments/remove/',
-
-      /**
-       * Url страницы для восстановления комментария
-       * @type {String}
-       */
-      restoreCommentUrl: '/api/comments/restore/',
-
-      /**
-       * Url страницы для обновления комментария
-       * @type {String}
-       */
-      renewCommentUrl: '/api/comments/update/',
-
-      answers: [],
-
-      removed: false,
-
-      editingCurrent: false,
-
-       currentEditorHidden: false,
-
-      editor: '',
-
-       hasAnswers: false,
-
-       answerTo: {},
-
-      editorConfig: {
-          minHeight: 88,
-          buttons: ['bold', 'italic', 'underline'],
-          plugins: ['imageCustom', 'smilesModal', 'videoModal'],
-          callbacks: {
-              init: []
-         }
-      },
-
-      answering: false,
-
-       /**
-        * Начало редактирования конкретного комментария
-        * @param message
-        */
-      beginEditing: function beginEditing(message) {
-          this.editor(message.text());
-          this.edit();
-      },
-
-       /**
-        * Конец редактирования
-        */
-      cancelEditing: function cancelEditing() {
-          this.editor('');
-          this.editingCurrent(false);
-          this.answering(false);
-      },
-
-       /**
-        * Закончить редактирование
-        */
-      cancelEditor: function cancelEditor() {
-          this.editor('');
-          this.editingCurrent(false);
-          this.answering(false);
-      },
-
-       /**
-        * Начать редактирование
+        /**
+         * Url для получения списка комментариев
+         * @type {String}
          */
-      edit: function edit() {
-          this.editor(this.originHtml());
-          this.editingCurrent(true);
-      },
+        getListUrl: '/api/comments/list/',
 
-           /**
-            * Создание отдельного комментария
-            * @param  {string} entity
-            * @param  {int} entityId
-            * @param  {sting} text
-            * @param  {id} responseId
-            * @return {object}
-            */
-           createCommentCredentials: function createCommentCredentials(entity, entityId, text, responseId) {
-               if (responseId === undefined) {
+        /**
+         * Url для получения одного комментария
+         * @type {String}
+         */
+        getComment: '/api/comments/get/',
 
-                   return {
-                       entity: entity,
-                       entityId: entityId,
-                       text: text
-                   }
-               }
+        /**
+         * Url страницы для создания комментария
+         * @type {String}
+         */
+        createCommentUrl: '/api/comments/create/',
 
-               return {
-                   entity: entity,
-                   entityId: entityId,
-                   text: text,
-                   responseId: responseId
-               }
-           },
+        /**
+         * Url страницы для удаления комментария
+         * @type {String}
+         */
+        removeCommentUrl: '/api/comments/remove/',
 
-       /**
-        * Проверка на пустое сообщение в редакторе
-        * @param string
-        * @returns {boolean}
-        */
-       isRedactorStringEmpty: function isRedactorStringEmpty(string) {
-           if (string !== '') {
-               string = string
-                   .replace(/(?!<\/?[imgiframe].*?>)<.*?>/g,"")
-                   .replace(/(&nbsp;)/ig, "")
-                   .trim();
+        /**
+         * Url страницы для восстановления комментария
+         * @type {String}
+         */
+        restoreCommentUrl: '/api/comments/restore/',
 
-               if (string !== '') {
-                   return false;
-               }
-           }
-           return true;
+        /**
+         * Url страницы для обновления комментария
+         * @type {String}
+         */
+        renewCommentUrl: '/api/comments/update/',
+
+        answers: [],
+
+        removed: false,
+
+        editingCurrent: false,
+
+        currentEditorHidden: false,
+
+        editor: '',
+
+        hasAnswers: false,
+
+        answerTo: {},
+
+        editorConfig: {
+            minHeight: 88,
+            buttons: ['bold', 'italic', 'underline'],
+            plugins: ['imageCustom', 'smilesModal', 'videoModal'],
+            callbacks: {
+                init: []
+            }
         },
 
-       /**
-        * Создание комментария
-        * @param params
-        */
-       create: function create(params) {
-           var commentText = this.editor();
-           if ( !this.isRedactorStringEmpty( commentText ) ) {
-               Model
-                   .get( this.createCommentUrl(), this.createCommentCredentials( params.entity, params.entityId, commentText, this.id() ) )
-                   .done( this.cancelEditor.bind(this) );
-           }
-       },
+        answering: false,
 
-       /**
-        * Обновление комментария
-        */
-      renewComment: function renewComment() {
-         Model
-            .get( this.renewCommentUrl(), { id: this.id(), text: this.editor() } )
-            .done( this.cancelEditor.bind(this) );
-      },
+        /**
+         * Начало редактирования конкретного комментария
+         * @param message
+         */
+        beginEditing: function beginEditing(message) {
+            this.editor(message.text());
+            this.edit();
+        },
 
-       /**
-        * Ответ на комментария
-        */
-       response: function response () {
-           this.cancelEditing();
-           this.answering(true);
-           this.editor();
-       },
+        /**
+         * Конец редактирования
+         */
+        cancelEditing: function cancelEditing() {
+            this.editor('');
+            this.editingCurrent(false);
+            this.answering(false);
+        },
 
-       /**
-        * Удаление комментария
-        */
-      remove: function remove() {
-         Model
-            .get( this.removeCommentUrl(), { id: this.id() } )
-      },
+        /**
+         * Закончить редактирование
+         */
+        cancelEditor: function cancelEditor() {
+            this.editor('');
+            this.editingCurrent(false);
+            this.answering(false);
+        },
 
-       /**
-        * Восстановление комментария
-        */
-      restore: function restore() {
-         Model
-            .get( this.restoreCommentUrl(), { id: this.id() } );
-      },
+        /**
+         * Начать редактирование
+         */
+        edit: function edit() {
+            this.editor(this.originHtml());
+            this.editingCurrent(true);
+        },
 
-       /**
-        * init комментария
-        * @param object
-        * @returns {Comment}
-        */
-      init: function init (object) {
+        /**
+         * Создание отдельного комментария
+         * @param  {string} entity
+         * @param  {int} entityId
+         * @param  {sting} text
+         * @param  {id} responseId
+         * @return {object}
+         */
+        createCommentCredentials: function createCommentCredentials(entity, entityId, text, responseId) {
+            if (responseId === undefined) {
 
-         if (object !== undefined) {
+                return {
+                    entity: entity,
+                    entityId: entityId,
+                    text: text
+                };
+            }
 
-            this.authorId = object.authorId;
+            return {
+                entity: entity,
+                entityId: entityId,
+                text: text,
+                responseId: responseId
+            };
+        },
 
-            this.dtimeCreate = object.dtimeCreate;
+        /**
+         * Проверка на пустое сообщение в редакторе
+         * @param string
+         * @returns {boolean}
+         */
+        isRedactorStringEmpty: function isRedactorStringEmpty(string) {
+            if (string !== '') {
+                string = string
+                    .replace(/(?!<\/?[imgiframe].*?>)<.*?>/g, '')
+                    .replace(/(&nbsp;)/ig, '')
+                    .trim();
 
-            this.entity = object.entity;
+                if (string !== '') {
+                    return false;
+                }
+            }
+            return true;
+        },
 
-            this.entityId = object.entityId;
+        /**
+         * Создание комментария
+         * @param params
+         */
+        create: function create(params) {
+            var commentText = this.editor();
+            if (!this.isRedactorStringEmpty(commentText)) {
+                Model
+                    .get(this.createCommentUrl(), this.createCommentCredentials(params.entity, params.entityId, commentText, this.id()))
+                    .done(this.cancelEditor.bind(this));
+            }
+        },
 
-            this.id = object.id;
+        /**
+         * Обновление комментария
+         */
+        renewComment: function renewComment() {
+            Model
+                .get(this.renewCommentUrl(), { id: this.id(), text: this.editor() })
+                .done(this.cancelEditor.bind(this));
+        },
 
-            this.entityUrl = object.entityUrl;
+        /**
+         * Ответ на комментария
+         */
+        response: function response() {
+            this.cancelEditing();
+            this.answering(true);
+            this.editor();
+        },
 
-            this.likesCount = object.likesCount;
+        /**
+         * Удаление комментария
+         */
+        remove: function remove() {
+            Model
+                .get(this.removeCommentUrl(), { id: this.id() });
+        },
 
-            this.originHtml = object.originHtml;
+        /**
+         * Восстановление комментария
+         */
+        restore: function restore() {
+            Model
+                .get(this.restoreCommentUrl(), { id: this.id() });
+        },
 
-            this.photoId = object.photoId;
+        /**
+         * init комментария
+         * @param object
+         * @returns {Comment}
+         */
+        init: function init(object) {
 
-            this.purifiedHtml = object.purifiedHtml;
+            if (object !== undefined) {
 
-            this.responseId = object.responseId;
+                this.authorId = object.authorId;
 
-            this.rootId = object.rootId;
+                this.dtimeCreate = object.dtimeCreate;
 
-            this.specialistLabel = object.specialistLabel;
+                this.entity = object.entity;
 
-            this.specialistLabel = object.specialistLabel;
+                this.entityId = object.entityId;
 
-            this.removed = object.removed;
+                this.id = object.id;
 
-            this.editingCurrent = object.editingCurrent;
+                this.entityUrl = object.entityUrl;
 
-            this.answering = object.answering;
+                this.likesCount = object.likesCount;
 
-             this.answering = object.hasAnswers;
+                this.originHtml = object.originHtml;
 
-             this.answerTo = {};
+                this.photoId = object.photoId;
 
-            this.editor = this.editor;
+                this.purifiedHtml = object.purifiedHtml;
 
-            return this;
-         }
-      }
-   };
+                this.responseId = object.responseId;
+
+                this.rootId = object.rootId;
+
+                this.specialistLabel = object.specialistLabel;
+
+                this.specialistLabel = object.specialistLabel;
+
+                this.removed = object.removed;
+
+                this.editingCurrent = object.editingCurrent;
+
+                this.answering = object.answering;
+
+                this.answering = object.hasAnswers;
+
+                this.answerTo = {};
+
+                this.editor = this.editor;
+
+                return this;
+            }
+        }
+    };
 
     return Comment;
 });

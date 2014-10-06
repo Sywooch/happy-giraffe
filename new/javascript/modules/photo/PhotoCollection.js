@@ -1,4 +1,4 @@
-define('photo/PhotoCollection', ['knockout', 'photo/PhotoAttach', 'photo/Photo'], function(ko, PhotoAttach, Photo) {
+define('photo/PhotoCollection', ['knockout', 'photo/PhotoAttach'], function(ko, PhotoAttach) {
     // Основная модель коллекции
     function PhotoCollection(data) {
         var self = this;
@@ -7,7 +7,7 @@ define('photo/PhotoCollection', ['knockout', 'photo/PhotoAttach', 'photo/Photo']
         self.attaches = ko.observableArray(ko.utils.arrayMap(data.attaches, function(attach) {
             return new PhotoAttach(attach);
         }));
-        self.cover = ko.observable(data.cover === null ? null : new Photo(data.cover));
+        self.cover = ko.observable(data.cover === null ? null : new PhotoAttach(data.cover));
     }
 
     return PhotoCollection;

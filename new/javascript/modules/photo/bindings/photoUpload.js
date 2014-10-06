@@ -25,7 +25,7 @@ define(['knockout'], function(ko) {
                 type: 'ajax',
                 ajax: {
                     settings: {
-                        url: '/photo/upload/form/',
+                        url: '/photo/default/uploadForm/',
                         data : data
                     }
                 }

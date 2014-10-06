@@ -15,6 +15,7 @@ return array(
             'createComment',
             'manageOwnPhotoCollection',
             'createPhotoAlbum',
+            'managePhotoAttach',
         ),
         'bizRule' => null,
         'data' => null
@@ -34,7 +35,6 @@ return array(
         'children' => array(
             'manageComment',
             'managePhotoAlbum',
-            'managePhotoAttach',
         ),
         'bizRule' => 'return $params["entity"]->author_id == \Yii::app()->user->id;',
         'data' => null
@@ -112,7 +112,7 @@ return array(
             'removePhotoAttach',
             'restorePhotoAttach',
         ),
-        'bizRule' => null,
+        'bizRule' => 'return $params["entity"]->collection->getOwner()->id == \Yii::app()->user->id;',
         'data' => null,
     ),
     'removePhotoAttach' => array(

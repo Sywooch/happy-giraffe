@@ -3,10 +3,12 @@
  * Модель для формирования попапа загрузки фото
  *
  * Занимается валидацией и обработкой данных, необходимых для формирования попапа загрузки фото
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\models\upload;
-
 use site\frontend\modules\photo\models\PhotoAlbum;
 
 class PopupForm extends \CFormModel implements \IHToJSON

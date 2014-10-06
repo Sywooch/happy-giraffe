@@ -9,4 +9,9 @@ return array(
         350 => 80,
         75,
     ),
+    'types' => array(
+        IMAGETYPE_JPEG => 'jpg',
+        IMAGETYPE_GIF => 'gif',
+        IMAGETYPE_PNG => 'png',
+    ),
 );

@@ -21,9 +21,12 @@
  */
 
 namespace site\frontend\modules\photo\models;
+use site\frontend\modules\photo\components\ImageFile;
 
 class Photo extends \HActiveRecord implements \IHToJSON
 {
+    private $_imageFile;
+
     const FS_NAME_LEVELS = 2;
     const FS_NAME_SYMBOLS_PER_LEVEL = 2;
 
@@ -40,15 +43,8 @@ class Photo extends \HActiveRecord implements \IHToJSON
 	 */
 	public function rules()
 	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
 		return array(
-			array('width, height, original_name, author_id', 'required'),
-			array('title', 'length', 'max'=>255),
-			array('width, height', 'length', 'max'=>5),
-			array('original_name, fs_name', 'length', 'max'=>100),
-			array('author_id', 'length', 'max'=>11),
-			array('created, updated', 'safe'),
+			array('title', 'length', 'max' => 150),
 		);
 	}
 
@@ -110,12 +106,6 @@ class Photo extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function imageUpdated()
-    {
-        $this->fs_name = $this->createFsName(pathinfo($this->fs_name, PATHINFO_EXTENSION));
-        $this->update('fs_name');
-    }
-
     protected function createFsName($extension)
     {
         $hash = md5(uniqid($this->original_name . microtime(), true));
@@ -131,16 +121,6 @@ class Photo extends \HActiveRecord implements \IHToJSON
         return $path;
     }
 
-    public function getOriginalUrl()
-    {
-        return \Yii::app()->fs->getUrl($this->getOriginalFsPath());
-    }
-
-    public function getOriginalFsPath()
-    {
-        return 'originals/' . $this->fs_name;
-    }
-
     public function toJSON()
     {
         return array(
@@ -150,7 +130,49 @@ class Photo extends \HActiveRecord implements \IHToJSON
             'width' => (int) $this->width,
             'height' => (int) $this->height,
             'fs_name' => $this->fs_name,
-            'originalUrl' => $this->getOriginalUrl(),
+            'originalUrl' => $this->getImageFile()->getOriginalUrl(),
         );
+    }
+
+    public function getImageFile($refresh = false)
+    {
+        if ($this->_imageFile === null || $refresh) {
+            $this->_imageFile = new ImageFile($this);
+        }
+        return $this->_imageFile;
+    }
+
+    protected function writeImage(\CModelEvent $event)
+    {
+        $event->isValid = $this->getImageFile()->write();
+    }
+
+    public function validate($attributes = null, $clearErrors = false)
+    {
+        return parent::validate($attributes, $clearErrors);
+    }
+
+    public function setImage($imageString)
+    {
+        $imageSize = \ImageSizeHelper::getImageSize($imageString);
+        if ($imageSize === false) {
+            $this->addError('image', 'Загружаются только изображения');
+            return;
+        }
+        if (! in_array($imageSize[2], array_keys(\Yii::app()->getModule('photo')->types))) {
+            $this->addError('image', 'Загружаются только файлы jpg, png, gif');
+            return;
+        }
+        $this->width = $imageSize[0];
+        $this->height = $imageSize[1];
+        $extension = \Yii::app()->getModule('photo')->types[$imageSize[2]];
+        $this->fs_name = $this->createFsName($extension);
+        $this->getImageFile()->buffer = $imageString;
+        $this->attachEventHandler('onBeforeSave', array($this, 'writeImage'));
+    }
+
+    public function getImage()
+    {
+        return $this->getImageFile()->read();
     }
 }

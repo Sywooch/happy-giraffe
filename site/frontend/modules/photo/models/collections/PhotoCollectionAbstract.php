@@ -1,9 +1,12 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 17/09/14
- * Time: 10:17
+ * Промежуточный класс абстрактной фотоколлекции
+ *
+ * Этот код не в PhotoCollection, потому что если сделать абстрактным родителя, нельзя будет обычным способом создавать
+ * новую модель ActiveRecord.
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\models\collections;
@@ -31,7 +34,7 @@ abstract class PhotoCollectionAbstract extends PhotoCollection
         }
     }
 
-    public function moveAttaches($destinationCollection, $attaches)
+    public function moveAttaches(PhotoCollection $destinationCollection, $attaches)
     {
         $newPosition = $this->getMaxPosition() + 1;
 
@@ -48,6 +51,9 @@ abstract class PhotoCollectionAbstract extends PhotoCollection
         ), $criteria) == count($attaches);
     }
 
+    /**
+     * @return \site\frontend\modules\photo\models\PhotoCollection[]
+     */
     public function getRelatedCollections()
     {
         return array();

@@ -21,6 +21,7 @@ use site\frontend\modules\photo\components\observers\PhotoCollectionIdsObserver;
 use site\frontend\modules\photo\components\observers\PhotoCollectionNeatObserver;
 use site\frontend\modules\photo\components\PhotoCollectionObserver;
 use site\frontend\modules\photo\components\PhotoController;
+use site\frontend\modules\photo\models\ImageStringData;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\PhotoAttach;
@@ -46,16 +47,20 @@ class TestController extends PhotoController
 
     public function actionCrop()
     {
-        $photo = Photo::model()->findByPk(113);
+        $photo = Photo::model()->findByPk(114);
+        echo $photo->getOriginalUrl();
 
-        $cropData = array(
-            'x' => 100,
-            'y' => 100,
-            'w' => 100,
-            'h' => 100,
-        );
 
-        echo \Yii::app()->crops->getCrop($photo, 'avatarBig', $cropData, true)->getUrl();
+//        $photo = Photo::model()->findByPk(113);
+//
+//        $cropData = array(
+//            'x' => 100,
+//            'y' => 100,
+//            'w' => 100,
+//            'h' => 100,
+//        );
+//
+//        echo \Yii::app()->crops->getCrop($photo, 'avatarBig', $cropData, true)->getUrl();
 
 //        $x = 0;
 //        $y = 0;

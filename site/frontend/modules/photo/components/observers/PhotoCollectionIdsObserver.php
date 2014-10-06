@@ -14,6 +14,9 @@ use site\frontend\modules\photo\models\PhotoAttach;
 
 class PhotoCollectionIdsObserver extends PhotoCollectionObserver
 {
+    /**
+     * @var array id аттачей коллекции
+     */
     private $_ids;
 
     public function getSingle($offset)
@@ -35,6 +38,11 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
         return $attaches;
     }
 
+    /**
+     * Возвращает массив id всех аттачей коллекции в правильном порядке.
+     *
+     * @return array id аттачей коллекции
+     */
     protected function getIds()
     {
         if ($this->_ids === null) {

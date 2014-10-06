@@ -15,6 +15,13 @@ class Meta extends \EMongoEmbeddedDocument
     public $description;
     public $canonical;
 
+    public function rules()
+    {
+        return array(
+            array('title, keywords, description, canonical', 'default', 'setOnEmpty' => null),
+        );
+    }
+
 }
 
 ?>

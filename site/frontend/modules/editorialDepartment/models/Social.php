@@ -14,6 +14,13 @@ class Social extends \EMongoEmbeddedDocument
     public $text;
     public $image;
 
+    public function rules()
+    {
+        return array(
+            array('title, text, image', 'default', 'setOnEmpty' => null),
+        );
+    }
+
 }
 
 ?>

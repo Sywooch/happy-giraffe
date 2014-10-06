@@ -35,6 +35,10 @@ class Content extends \EMongoDocument
     public function rules()
     {
         return array(
+            // Обязательность
+            array('clubId, forumId, rubricId, title, markDownPreview, htmlTextPreview, markDown, htmlText, authorId, fromUserId', 'required'),
+            // Сделаем числа числами
+            array('clubId, forumId, rubricId, authorId, fromUserId', '\site\common\components\HIntegerFilter'),
             // Проверим, что пользователь может писать от имени указанного им пользователя
             array('fromUserId', 'in', 'allowEmpty' => false, 'range' => \site\frontend\modules\editorialDepartment\components\UsersControl::getUsersList()),
         );
@@ -54,6 +58,10 @@ class Content extends \EMongoDocument
             'converter' => array(
                 'class' => '\site\frontend\modules\editorialDepartment\behaviors\ConvertBehavior',
             ),
+            /** @todo запилить поведение */
+            /*'timestampBehavior' => array(
+                
+            ),*/
         );
     }
 

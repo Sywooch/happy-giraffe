@@ -1,10 +1,13 @@
 <?php
 /**
- * Пресет Lepilla
+ * Пресет Lepilla, в честь Александра
  *
  * Независимо от изображения и конфигурации, происходит ресайз к заданной высоте. Если соотношение ширины к высоте
  * оригинального изображения превышает заданные конфигурацией пресета, то происходит вырезка фрагмента нужной ширины
  * из центра. В противном случае, изображение получается в ширину меньше, чем задано пресетом, но без обрезки.
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\components\thumbs\filters;
@@ -12,7 +15,7 @@ use Imagine\Image\Box;
 use Imagine\Image\Point;
 use Imagine\Image\ImageInterface;
 
-class LepillaFilter extends Filter implements CustomFilterInterface
+class LepillaFilter implements CustomFilterInterface
 {
     public $width;
     public $height;

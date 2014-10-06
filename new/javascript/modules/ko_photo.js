@@ -332,8 +332,10 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         };
 
         self.rotate = function(angle) {
-            $.post('/photo/upload/rotate/', { angle : angle, photoId : self.id }, function(response) {
-                mapping.fromJS(response.photo, {}, self);
+            $.post('/api/photo/photos/rotate/', JSON.stringify({ angle : angle, photoId : self.id() }), function(response) {
+                if (response.success) {
+                    mapping.fromJS(response.data, {}, self);
+                }
             }, 'json');
         };
 
@@ -404,8 +406,9 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
         self.selectAlbum = function(album) {
             if (album.photoCollection().attaches().length == 0) {
-                $.get('/photo/collection/getAttaches/', { collectionId : album.photoCollection().id() }, function(response) {
-                    album.photoCollection().attaches(ko.utils.arrayMap(response, function(attach) {
+                $.post('/api/photo/collections/getAttaches/', JSON.stringify({ collectionId : album.photoCollection().id() }), function(response) {
+                    console.log(response);
+                    album.photoCollection().attaches(ko.utils.arrayMap(response.data, function(attach) {
                         return new FromAlbumsPhotoAttach(attach, self);
                     }));
                     self.currentAlbum(album);

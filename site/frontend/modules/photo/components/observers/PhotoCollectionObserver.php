@@ -16,7 +16,7 @@ abstract class PhotoCollectionObserver extends \CComponent
     const ORDER = 't.position ASC, t.id ASC';
 
     /**
-     * @var PhotoCollection
+     * @var \site\frontend\modules\photo\models\PhotoCollection обозреваемая коллекция
      */
     protected $model;
 
@@ -64,7 +64,7 @@ abstract class PhotoCollectionObserver extends \CComponent
     }
 
     /**
-     * Расширенная реализация round_slice
+     * Расширенная реализация round_slice()
      *
      * В случае, если задано отрицательная смещения, отсчет ведется с конца массива
      *

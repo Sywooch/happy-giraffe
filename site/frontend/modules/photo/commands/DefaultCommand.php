@@ -28,7 +28,7 @@ class DefaultCommand extends \CConsoleCommand
 
     /**
      * Эта функция необходима для корректной работы кеш-адаптера DeferredCache, записывает файл в исходную ФС.
-     * @param $job
+     * @param \GearmanJob $job
      */
     protected function deferredWrite(\GearmanJob $job)
     {
@@ -41,7 +41,7 @@ class DefaultCommand extends \CConsoleCommand
 
     /**
      * Эта функция пакетно создает миниатюры для загруженных/обновленных изображений.
-     * @param $job
+     * @param \GearmanJob $job
      */
     protected function createThumbs(\GearmanJob $job)
     {

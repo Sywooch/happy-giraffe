@@ -10,9 +10,9 @@ use site\frontend\modules\photo\models\PhotoCollection;
 
 class PhotoCollectionBehavior extends \CActiveRecordBehavior
 {
-    public $photoCollection;
-
     /**
+     * Добавляет отношение "photoCollections".
+     *
      * @param \HActiveRecord $owner
      */
     public function attach($owner)
@@ -28,6 +28,12 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
         parent::attach($owner);
     }
 
+
+    /**
+     * При создании сущности, создает для нее все необходимые коллекции.
+     *
+     * @param \CModelEvent $event
+     */
     public function afterSave($event)
     {
         if ($this->owner->isNewRecord) {
@@ -37,6 +43,12 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
         }
     }
 
+    /**
+     * Возвращает определенную ключем коллекции сущности.
+     *
+     * @param string $key признак коллекции
+     * @return \site\frontend\modules\photo\models\PhotoCollection
+     */
     public function getPhotoCollection($key = 'default')
     {
         if (isset($this->owner->photoCollections[$key])) {
@@ -46,6 +58,12 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
         }
     }
 
+    /**
+     * Создает для данной сущности коллекцию с определенным ключем.
+     *
+     * @param string $key признак коллекции
+     * @return \site\frontend\modules\photo\models\PhotoCollection
+     */
     protected function createCollection($key)
     {
         $collection = new PhotoCollection();

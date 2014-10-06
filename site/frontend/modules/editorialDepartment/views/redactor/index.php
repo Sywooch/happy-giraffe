@@ -4,6 +4,9 @@
  * @var site\frontend\modules\editorialDepartment\models\Content $model
  * @var CActiveForm $form
  */
+use \site\frontend\modules\editorialDepartment\models as departmentModels;
+use \site\frontend\modules\editorialDepartment\components as departmentComponents;
+
 $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm', array(
     'id' => 'blog-form',
     //'action' => $action,
@@ -13,14 +16,22 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
         'validateOnSubmit' => false,
         'validateOnType' => false,
     )));
-
+$forum = Community::model()->findByPk($model->forumId);
+$users = departmentComponents\UsersControl::getUsersList();
+$users = array_combine($users, $users);
 $form->hiddenField($model, 'clubId');
 ?>
 
-    <?=$form->hiddenField($model, 'markDownPreview',  array('id' => 'markDownPreview'));?>
-    <?=$form->hiddenField($model, 'htmlTextPreview',  array('id' => 'htmlTextPreview'));?>
-    <?=$form->hiddenField($model, 'markDown',  array('id' => 'markDown'));?>
-    <?=$form->hiddenField($model, 'htmlText',  array('id' => 'htmlText'));?>
+    <?=$form->hiddenField($model, 'markDownPreview',  array('id' => 'markDownPreview')) ?>
+    <?=$form->hiddenField($model, 'htmlTextPreview',  array('id' => 'htmlTextPreview')) ?>
+    <?=$form->hiddenField($model, 'markDown',  array('id' => 'markDown')) ?>
+    <?=$form->hiddenField($model, 'htmlText',  array('id' => 'htmlText')) ?>
+
+    Форум <?=  CHtml::link($forum->title, $forum->getUrl()) ?><br />
+    Рубрика <?=$form->dropDownList($model, 'rubricId', CHtml::listData(departmentModels\Rubric::model()->byForum($model->forumId)->findAll(), 'id', 'title')) ?>
+    <?=$form->dropDownList($model, 'fromUserId', $users, array(
+        'class' => 'display-n'
+    )) ?>
 
     <div class="b-settings-blue_row clearfix">
         <div class="clearfix">
@@ -88,7 +99,7 @@ $form->hiddenField($model, 'clubId');
     <div class="b-settings-blue_row clearfix">
         <div class="clearfix">
         </div>
-        <label class="b-settings-blue_label" for="BlogContent_title">social.title</label>
+        <label class="b-settings-blue_label" for="BlogContent_title">social.text</label>
         <div class="w-400 float-l">
             <?=$form->textArea($model, 'social[text]',  array('class' => 'itx-simple w-400')) ?>
         </div>

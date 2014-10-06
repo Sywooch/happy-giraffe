@@ -1,5 +1,5 @@
 <?php $widget = $this->beginWidget('AdsWidget'); ?>
-<div style="margin: 15px;">
+<div class="adv-yandex">
     <div id="yandex_ad_<?= $widget->id ?>"></div>
     <script type="text/javascript">
         (function(w, d, n, s, t) {

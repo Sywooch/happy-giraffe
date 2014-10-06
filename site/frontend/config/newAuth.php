@@ -36,6 +36,7 @@ return array(
         'children' => array(
             'manageComment',
             'managePhotoAlbum',
+            'editPhoto',
         ),
         'bizRule' => 'return $params["entity"]->author_id == \Yii::app()->user->id;',
         'data' => null
@@ -165,6 +166,12 @@ return array(
         'data' => null,
     ),
     'uploadPhoto' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Загрузка фотографий',
+        'bizRule' => null,
+        'data' => null
+    ),
+    'editPhoto' => array(
         'type' => CAuthItem::TYPE_TASK,
         'description' => 'Загрузка фотографий',
         'bizRule' => null,

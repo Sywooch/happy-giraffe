@@ -17,14 +17,14 @@
             </ul>
         </div>
         <div class="popup-add_in tab-content">
-            <?php $this->renderPartial('_fromComputer', compact('form')); ?>
-            <?php $this->renderPartial('_fromAlbums', compact('form')); ?>
-            <?php $this->renderPartial('_byUrl', compact('form')); ?>
+            <?php $this->renderPartial('upload/_fromComputer', compact('form')); ?>
+            <?php $this->renderPartial('upload/_fromAlbums', compact('form')); ?>
+            <?php $this->renderPartial('upload/_byUrl', compact('form')); ?>
         </div>
     </div>
 </div>
 
-<?php $this->renderPartial('_photo'); ?>
+<?php $this->renderPartial('upload/_photo'); ?>
 
 <script type="text/javascript">
     require(['jquery', 'bootstrap'], function($) {

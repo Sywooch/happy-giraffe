@@ -20,7 +20,7 @@
                             <li class="album-preview_li" data-bind="click: $root.selectAlbum">
                                 <div class="album-preview_in">
                                     <div class="album-preview_img-hold">
-                                        <img src="" alt="" class="album-preview_img" data-bind="thumb: { photo: photoCollection().cover(), preset: 'uploadAlbumCover' }">
+                                        <img src="" alt="" class="album-preview_img" data-bind="thumb: { photo: photoCollection().cover().photo(), preset: 'uploadAlbumCover' }">
                                     </div>
                                     <div class="album-preview_overlay"></div>
                                 </div>

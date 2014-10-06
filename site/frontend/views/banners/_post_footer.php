@@ -1,4 +1,4 @@
-<div style="margin: 15px;">
+<div style="margin: 15px 0;">
     <?php if ($data instanceof CommunityContent): ?>
     <?php $this->beginWidget('AdsWidget'); ?>
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->

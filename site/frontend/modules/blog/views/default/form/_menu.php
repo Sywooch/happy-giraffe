@@ -11,7 +11,7 @@
                     echo CHtml::link(
                         'Супер-статью',
                         Yii::app()->createUrl('editorialDepartment/redactor/index', array(
-                            'clubId' => $club_id,
+                            'forumId' => $club_id,
                         )),
                         array('class' => 'user-add-record_ico user-add-record_ico__article')
                     );

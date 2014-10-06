@@ -10,10 +10,10 @@ namespace site\frontend\modules\editorialDepartment\controllers;
 class RedactorController extends \LiteController
 {
 
-    public function actionIndex($clubId)
+    public function actionIndex($forumId)
     {
         $model = new \site\frontend\modules\editorialDepartment\models\Content();
-        $model->clubId = $clubId;
+        $model->forumId = $forumId;
         
         if(isset($_POST['Content']))
         {

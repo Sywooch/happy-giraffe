@@ -1,37 +1,60 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 15/09/14
- * Time: 14:43
+ * Обозреватель коллекции.
+ *
+ * Позволяет получить единичное фото или набор из коллекции фотографий.
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\components\observers;
-
-
 use site\frontend\modules\photo\models\PhotoCollection;
 
 abstract class PhotoCollectionObserver extends \CComponent
 {
     const ORDER = 't.position ASC, t.id ASC';
 
+    /**
+     * @var \site\frontend\modules\photo\models\PhotoCollection обозреваемая коллекция
+     */
     protected $model;
 
-    public static function getObserver(PhotoCollection $model)
-    {
-        return new PhotoCollectionIdsObserver($model);
-    }
-
+    /**
+     * @param \site\frontend\modules\photo\models\PhotoCollection $model модель фотоколлекции
+     */
     public function __construct(PhotoCollection $model)
     {
         $this->model = $model;
     }
 
+    /**
+     * Возвращает объект обозревателя для данной коллекции
+     *
+     * @param \site\frontend\modules\photo\models\PhotoCollection $model модель фотоколлекции
+     * @return \site\frontend\modules\photo\components\observers\PhotoCollectionIdsObserver объект обозревателя
+     */
+    public static function getObserver(PhotoCollection $model)
+    {
+        return new PhotoCollectionIdsObserver($model);
+    }
+
+    /**
+     * Возвращает количество фотографий фотоколлекции
+     *
+     * @return int количество фотографий фотоколлекции
+     */
     public function getCount()
     {
+
         return $this->model->attachesCount;
     }
 
+    /**
+     * Возвращает критерию по умолчанию
+     *
+     * @return \CDbCriteria объект критерии
+     */
     protected function getDefaultCriteria()
     {
         $criteria = new \CDbCriteria();
@@ -40,6 +63,16 @@ abstract class PhotoCollectionObserver extends \CComponent
         return $criteria;
     }
 
+    /**
+     * Расширенная реализация round_slice()
+     *
+     * В случае, если задано отрицательная смещения, отсчет ведется с конца массива
+     *
+     * @param array $array исходный массив
+     * @param int $offset смещение
+     * @param int $length длина выходного массива
+     * @return array выходной массив
+     */
     protected function roundSlice($array, $offset, $length)
     {
         if ($offset < 0) {
@@ -54,6 +87,20 @@ abstract class PhotoCollectionObserver extends \CComponent
         return $result;
     }
 
+    /**
+     * Получение единичного аттача
+     *
+     * @param int $offset смещение
+     * @return \site\frontend\modules\photo\models\PhotoAttach аттач
+     */
     abstract public function getSingle($offset);
+
+    /**
+     * Получение
+     *
+     * @param int $length количество фотографи
+     * @param int $offset смещение
+     * @return \site\frontend\modules\photo\models\PhotoAttach[] массив аттачей
+     */
     abstract public function getSlice($length, $offset);
 } 

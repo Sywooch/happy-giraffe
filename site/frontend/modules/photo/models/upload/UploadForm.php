@@ -3,26 +3,25 @@
  * Форма загрузки фото
  *
  * Абстрактная модель загрузки фото, от нее необходимо наследовать конкретные модели загрузки
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\models\upload;
-use Aws\CloudFront\Exception\Exception;
 use site\frontend\modules\photo\models\Photo;
-use site\frontend\modules\photo\models\PhotoCreate;
 
 abstract class UploadForm extends \CFormModel implements \IHToJSON
 {
     const PRESET_NAME = 'uploadPreview';
 
-    /**
-     * @return PhotoCreate возвращает модель создаваемой фотографии
-     */
-    abstract protected function populate();
+    abstract protected function getImageString();
+    abstract protected function getOriginalName();
 
     /**
-     * @var PhotoCreate модель создаваемой фотографии
+     * @var \site\frontend\modules\photo\models\Photo модель создаваемой фотографии
      */
-    protected $photo;
+    public $photo;
 
     /**
      * @var bool загружено ли фото
@@ -51,7 +50,9 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
     {
         if ($this->validate()) {
             try {
-                $this->photo = $this->populate();
+                $this->photo = new Photo();
+                $this->photo->setImage($this->getImageString());
+                $this->photo->original_name = $this->getOriginalName();
                 if ($this->success = $this->photo->save()) {
                     \Yii::app()->thumbs->getThumb($this->photo, self::PRESET_NAME, true);
                 }
@@ -64,6 +65,14 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
             'photo' => $this->photo,
             'form' => $this,
         ));
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'error' => $this->getFirstError(),
+            'success' => $this->success,
+        );
     }
 
     /**
@@ -83,13 +92,5 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
         }
 
         return $errors[key($errors)][0];
-    }
-
-    public function toJSON()
-    {
-        return array(
-            'error' => $this->getFirstError(),
-            'success' => $this->success,
-        );
     }
 } 

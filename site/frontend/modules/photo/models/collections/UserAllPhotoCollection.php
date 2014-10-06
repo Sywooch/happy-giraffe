@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 16/09/14
- * Time: 15:31
+ * Все фото пользователя
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\models\collections;

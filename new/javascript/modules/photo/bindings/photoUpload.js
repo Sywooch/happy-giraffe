@@ -1,4 +1,4 @@
-define(['knockout'], function(ko) {
+define(['jquery', 'knockout', 'common'], function($, ko) {
     // Биндинг для загрузки фото
     ko.bindingHandlers.photoUpload = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {

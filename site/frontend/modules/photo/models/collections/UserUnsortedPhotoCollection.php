@@ -1,9 +1,9 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: mikita
- * Date: 16/09/14
- * Time: 15:30
+ * Фото, загруженные через сервис "мои фотоальбомы", но не в альбом
+ *
+ * @author Никита
+ * @date 03/10/14
  */
 
 namespace site\frontend\modules\photo\models\collections;

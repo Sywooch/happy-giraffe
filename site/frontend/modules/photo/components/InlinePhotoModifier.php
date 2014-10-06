@@ -1,6 +1,10 @@
 <?php
 /**
  * Класс для быстрых операций с фото
+ *
+ * @author Никита
+ * @date 03/10/14
+ * @todo Класс-инвалид. Удалить ASAP.
  */
 
 namespace site\frontend\modules\photo\components;

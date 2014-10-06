@@ -19,12 +19,12 @@ class AttachesApiController extends ApiController
             'remove' => array(
                 'class' => 'site\frontend\components\api\SoftDeleteAction',
                 'modelName' => '\site\frontend\modules\photo\models\PhotoAttach',
-                'checkAccess' => 'removePhotoAlbum',
+                'checkAccess' => 'removePhotoAttach',
             ),
             'restore' => array(
                 'class' => 'site\frontend\components\api\SoftRestoreAction',
                 'modelName' => '\site\frontend\modules\photo\models\PhotoAttach',
-                'checkAccess' => 'restorePhotoAlbum',
+                'checkAccess' => 'restorePhotoAttach',
             ),
         ));
     }

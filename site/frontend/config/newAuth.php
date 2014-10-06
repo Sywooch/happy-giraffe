@@ -15,6 +15,8 @@ return array(
             'createComment',
             'manageOwnPhotoCollection',
             'createPhotoAlbum',
+            'managePhotoAttach',
+            'uploadPhoto',
         ),
         'bizRule' => null,
         'data' => null
@@ -34,7 +36,6 @@ return array(
         'children' => array(
             'manageComment',
             'managePhotoAlbum',
-            'managePhotoAttach',
         ),
         'bizRule' => 'return $params["entity"]->author_id == \Yii::app()->user->id;',
         'data' => null
@@ -112,7 +113,7 @@ return array(
             'removePhotoAttach',
             'restorePhotoAttach',
         ),
-        'bizRule' => null,
+        'bizRule' => 'return $params["entity"]->collection->getOwner()->id == \Yii::app()->user->id;',
         'data' => null,
     ),
     'removePhotoAttach' => array(
@@ -162,5 +163,11 @@ return array(
         'description' => 'Перемещение аттачей',
         'bizRule' => null,
         'data' => null,
+    ),
+    'uploadPhoto' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Загрузка фотографий',
+        'bizRule' => null,
+        'data' => null
     ),
 );

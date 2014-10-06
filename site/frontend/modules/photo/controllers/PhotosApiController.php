@@ -10,8 +10,10 @@ namespace site\frontend\modules\photo\controllers;
 
 
 use site\frontend\components\api\ApiController;
+use site\frontend\modules\photo\components\thumbs\ImageDecorator;
 use site\frontend\modules\photo\models\PhotoModify;
 use site\frontend\modules\photo\models\upload\ByUrlUploadForm;
+use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
 
 class PhotosApiController extends ApiController
 {
@@ -22,6 +24,30 @@ class PhotosApiController extends ApiController
         $photo->setImage($imageString);
         $this->success = $photo->save();
         $this->data = $photo;
+    }
+
+    public function actionUploadFromComputer()
+    {
+        if (! \Yii::app()->user->checkAccess('uploadPhoto')) {
+            throw new \CHttpException(403, 'Недостаточно прав');
+        }
+
+        $form = new FromComputerUploadForm();
+        $form->file = \CUploadedFile::getInstanceByName('image');
+        $this->success = $form->save();
+        $this->data = $form;
+    }
+
+    public function actionUploadByUrl($url)
+    {
+        if (! \Yii::app()->user->checkAccess('uploadPhoto')) {
+            throw new \CHttpException(403, 'Недостаточно прав');
+        }
+
+        $form = new ByUrlUploadForm();
+        $form->url = $url;
+        $this->success = $form->save();
+        $this->data = $form;
     }
 
 //    public function actionMakeAvatar($photoId, array $cropData)

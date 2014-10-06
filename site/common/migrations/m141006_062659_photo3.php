@@ -4,10 +4,13 @@ class m141006_062659_photo3 extends CDbMigration
 {
 	public function up()
 	{
+        $this->execute("SET foreign_key_checks = 0;");
+
         $this->execute("DROP TABLE IF EXISTS `photo__attaches`;");
         $this->execute("DROP TABLE IF EXISTS `photo__collections`;");
         $this->execute("DROP TABLE IF EXISTS `photo__albums`;");
         $this->execute("DROP TABLE IF EXISTS `photo__photos`;");
+        $this->execute("DROP TABLE IF EXISTS `photo__crops`;");
 
         $this->execute("CREATE TABLE `photo__photos` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -75,6 +78,7 @@ class m141006_062659_photo3 extends CDbMigration
   KEY `photo_id` (`photo_id`),
   CONSTRAINT `photo__crops_ibfk_1` FOREIGN KEY (`photo_id`) REFERENCES `photo__photos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+        $this->execute("SET foreign_key_checks = 1;");
 	}
 
 	public function down()

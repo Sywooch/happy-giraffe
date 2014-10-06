@@ -22,6 +22,7 @@
 
 namespace site\frontend\modules\photo\models;
 use site\frontend\modules\photo\components\ImageFile;
+use site\frontend\modules\photo\helpers\ImageSizeHelper;
 
 class Photo extends \HActiveRecord implements \IHToJSON
 {
@@ -154,7 +155,7 @@ class Photo extends \HActiveRecord implements \IHToJSON
 
     public function setImage($imageString)
     {
-        $imageSize = \ImageSizeHelper::getImageSize($imageString);
+        $imageSize = ImageSizeHelper::getImageSize($imageString);
         if ($imageSize === false) {
             $this->addError('image', 'Загружаются только изображения');
             return;

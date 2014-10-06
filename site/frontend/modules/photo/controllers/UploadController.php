@@ -46,26 +46,6 @@ class UploadController extends \HController
     }
 
     /**
-     * Обработка загрузки с компьютера
-     */
-    public function actionFromComputer()
-    {
-        $form = new FromComputerUploadForm();
-        $form->file = \CUploadedFile::getInstanceByName('image');
-        echo $form->save();
-    }
-
-    /**
-     * Обработка загрузки по URL
-     */
-    public function actionByUrl()
-    {
-        $form = new ByUrlUploadForm();
-        $form->attributes = $_POST;
-        echo $form->save();
-    }
-
-    /**
      * Поворот фото
      */
     public function actionRotate()

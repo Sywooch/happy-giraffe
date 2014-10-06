@@ -11,6 +11,7 @@ namespace site\frontend\modules\photo\controllers;
 
 use site\frontend\components\api\ApiController;
 use site\frontend\modules\photo\components\thumbs\ImageDecorator;
+use site\frontend\modules\photo\helpers\ImageSizeHelper;
 use site\frontend\modules\photo\models\PhotoModify;
 use site\frontend\modules\photo\models\upload\ByUrlUploadForm;
 use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
@@ -48,6 +49,18 @@ class PhotosApiController extends ApiController
         $form->url = $url;
         $this->success = $form->save();
         $this->data = $form;
+    }
+
+    public function actionRotate($angle, $photoId)
+    {
+        $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId);
+        $decorator = new ImageDecorator($photo->image, true);
+        $decorator->rotate($angle);
+        $photo->image = $decorator->get();
+        $this->success = $photo->save();
+        if ($this->success) {
+            $this->data = $photo;
+        }
     }
 
 //    public function actionMakeAvatar($photoId, array $cropData)

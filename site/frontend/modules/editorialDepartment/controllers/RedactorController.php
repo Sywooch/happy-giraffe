@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\editorialDepartment\controllers;
 
+use \site\frontend\modules\editorialDepartment\models as departmentModels;
+
 /**
  * Description of RedactorController
  *
@@ -12,13 +14,35 @@ class RedactorController extends \LiteController
 
     public function actionIndex($forumId)
     {
-        $model = new \site\frontend\modules\editorialDepartment\models\Content();
+        $model = new departmentModels\Content();
+        $model->authorId = \Yii::app()->user->id;
         $model->forumId = $forumId;
-        
-        if(isset($_POST['Content']))
+        $model->clubId = \Community::model()->findByPk($forumId)->club_id;
+
+        if (isset($_POST['Content']))
         {
             $model->setAttributes($_POST['Content'], false);
-            echo "<pre>" . var_export($model->toArray(), true) . "</pre>";die;
+            if ($model->save())
+                $this->redirect(array('edit', 'entity' => $model->entity, 'entityId' => $model->entityId));
+        }
+
+        $this->render('index', array('model' => $model));
+    }
+
+    public function actionEdit($entity, $entityId)
+    {
+        $entityId = (int) $entityId;
+        $model = departmentModels\Content::model()->findByAttributes(compact('entity', 'entityId'));
+        if (is_null($model))
+            throw new \CHttpException(404);
+        if ($model->authorId != \Yii::app()->user->id)
+            throw new \CHttpException(403);
+        
+        if (isset($_POST['Content']))
+        {
+            $model->setAttributes($_POST['Content'], false);
+            if ($model->save())
+                $this->refresh();
         }
         
         $this->render('index', array('model' => $model));

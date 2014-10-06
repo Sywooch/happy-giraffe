@@ -12,23 +12,37 @@ namespace site\frontend\modules\editorialDepartment\behaviors;
 class ConvertBehavior extends \EMongoDocumentBehavior
 {
 
-    public function afterSave($event)
+    public function beforeSave($event)
     {
-        $communityContent = new \CommunityContent('advEditor');
-        $communityPost = new \CommunityPost('advEditor');
+        if ($this->owner->isNewRecord)
+        {
+            $communityContent = new \CommunityContent('advEditor');
+            $communityPost = new \CommunityPost('advEditor');
+        }
+        else
+        {
+            $communityContent = \CommunityContent::model()->with('post')->findByPk($this->owner->entityId);
+            $communityPost = $communityContent->post;
+            $communityContent->detachBehaviors();
+            $communityPost->detachBehaviors();
+            $communityContent->scenario = 'advEditor';
+            $communityPost->scenario = 'advEditor';
+        }
 
-        $communityContent->db->beginTransaction();
+        \Yii::app()->db->beginTransaction();
         try
         {
             $communityPost->text = $this->owner->htmlText;
 
+            $communityContent->author_id = $this->owner->fromUserId;
             $communityContent->title = $this->owner->title;
             $communityContent->updated = new \CDbExpression('FROM_UNIXTIME(:dtimeUpdate)', array('dtimeUpdate' => $this->owner->dtimeUpdate));
-            $communityContent->created = new \CDbExpression('FROM_UNIXTIME(:dtimeCreate)', array('dtimeCreate' => $this->owner->dtimeCreate));
+            if ($communityContent->isNewRecord)
+                $communityContent->created = new \CDbExpression('FROM_UNIXTIME(:dtimeCreate)', array('dtimeCreate' => $this->owner->dtimeCreate));
             $communityContent->rubric_id = $this->owner->rubricId;
             $communityContent->type_id = \CommunityContent::TYPE_POST;
             $communityContent->preview = $this->owner->htmlTextPreview;
-            
+
             $communityContent->meta_title = $this->owner->meta->title;
             $communityContent->meta_keywords = $this->owner->meta->keywords;
             $communityContent->meta_description = $this->owner->meta->description;
@@ -38,14 +52,19 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             $communityPost->content_id = $communityContent->id;
             if (!$communityPost->save(false))
                 throw new \Exception;
-            $communityContent->db->currentTransaction->commit();
+
+            \Yii::app()->db->currentTransaction->commit();
+            $this->owner->entity = get_class($communityContent);
+            $this->owner->entityId = (int) $communityContent->id;
         }
         catch (\Exception $e)
         {
-            $communityContent->db->currentTransaction->rollback();
+            \Yii::app()->db->currentTransaction->rollback();
+            $event->isValid = false;
+            return false;
         }
 
-        return parent::afterSave($event);
+        return parent::beforeSave($event);
     }
 
 }

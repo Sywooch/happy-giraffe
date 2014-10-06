@@ -21,7 +21,7 @@ $users = departmentComponents\UsersControl::getUsersList();
 $users = array_combine($users, $users);
 $form->hiddenField($model, 'clubId');
 ?>
-
+    <?=$form->errorSummary($model) ?>
     <?=$form->hiddenField($model, 'markDownPreview',  array('id' => 'markDownPreview')) ?>
     <?=$form->hiddenField($model, 'htmlTextPreview',  array('id' => 'htmlTextPreview')) ?>
     <?=$form->hiddenField($model, 'markDown',  array('id' => 'markDown')) ?>

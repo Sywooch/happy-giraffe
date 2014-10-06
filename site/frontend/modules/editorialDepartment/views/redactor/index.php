@@ -16,7 +16,7 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
         'validateOnSubmit' => false,
         'validateOnType' => false,
     )));
-$forum = Community::model()->findByPk($model->forumId);
+$forum = Community::model()->with('club')->findByPk($model->forumId);
 $users = departmentComponents\UsersControl::getUsersList();
 $users = array_combine($users, $users);
 $form->hiddenField($model, 'clubId');
@@ -27,6 +27,7 @@ $form->hiddenField($model, 'clubId');
     <?=$form->hiddenField($model, 'markDown',  array('id' => 'markDown')) ?>
     <?=$form->hiddenField($model, 'htmlText',  array('id' => 'htmlText')) ?>
 
+    Клуб <?=  CHtml::link($forum->club->title, $forum->club->getUrl()) ?><br />
     Форум <?=  CHtml::link($forum->title, $forum->getUrl()) ?><br />
     Рубрика <?=$form->dropDownList($model, 'rubricId', CHtml::listData(departmentModels\Rubric::model()->byForum($model->forumId)->findAll(), 'id', 'title')) ?>
     <?=$form->dropDownList($model, 'fromUserId', $users, array(

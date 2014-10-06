@@ -12,7 +12,7 @@ use site\frontend\components\api\ApiController;
 
 class CollectionsApiController extends ApiController
 {
-    public function actionGetAttaches($collectionId, $length, $offset)
+    public function actionGetAttaches($collectionId, $length = 0, $offset = 0)
     {
         $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId);
         $observer = PhotoCollectionObserver::getObserver($collection);

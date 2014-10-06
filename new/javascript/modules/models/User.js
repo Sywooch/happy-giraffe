@@ -4,10 +4,19 @@ define(function() {
 
       getUserUrl: '/api/users/get/',
 
+       /**
+        * Полное имя
+        * @returns {string}
+        */
       fullName: function fullName() {
          return this.firstName + ' ' + this.lastName;
       },
 
+       /**
+        * init юзера
+        * @param object
+        * @returns {User}
+        */
       init: function init (object) {
 
          if (object !== undefined) {

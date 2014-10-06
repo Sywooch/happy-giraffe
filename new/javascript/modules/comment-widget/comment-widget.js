@@ -4,13 +4,7 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
       comet.addChannel(params.channelId);
 
-       ko.mapping.defaultOptions().ignore = ["editorConfig"];
-
        var redactor;
-
-      this.commentsData = Object.create( CommentsController );
-
-      this.userData = Object.create( UserData );
 
       this.commentsDataQueue = [];
 
@@ -42,7 +36,7 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
                   User.getUserUrl,
                   {
                       id: result.authorId,
-                      avatarSize: this.commentsData.commentAvatarSize
+                      avatarSize: CommentsController.commentAvatarSize
                   })
                   .done( this.answerAdded.bind( this ) );
           }
@@ -51,7 +45,7 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
                   User.getUserUrl,
                   {
                       id: result.authorId,
-                      avatarSize: this.commentsData.commentAvatarSize
+                      avatarSize: CommentsController.commentAvatarSize
                   })
                   .done( this.getNewUser.bind( this ) );
           }
@@ -62,12 +56,12 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       comet.addEvent(2510, 'newCommentAdded');
 
       this.getNewUser = function (userData) {
-        this.parsedData.unshift( this.commentsData.newCommentAddedUser( this.cacheData, userData, this.parsedData()) );
+        this.parsedData.unshift( CommentsController.newCommentAddedUser( this.cacheData, userData, this.parsedData()) );
       };
 
 
        this.answerAdded = function (userData) {
-           var answerObject = this.commentsData.newAnswer( this.cacheData, userData, this.parsedData());
+           var answerObject = CommentsController.newAnswer( this.cacheData, userData, this.parsedData());
            this.parsedData()[answerObject.parentId].answers.push(answerObject.comment);
        };
 
@@ -77,15 +71,15 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       this.renewCommentAddedEvent = function (result, id) {
 
         if ( result.responseId !== 0 ) {
-            var commentRootId = this.commentsData.findIfAnswer( result, this.parsedData() );
-            var commentChildId = this.commentsData.findInAnswers( result, this.parsedData()[commentRootId].answers() );
+            var commentRootId = CommentsController.findIfAnswer( result, this.parsedData() );
+            var commentChildId = CommentsController.findInAnswers( result, this.parsedData()[commentRootId].answers() );
             if (commentChildId !== undefined) {
                 this.parsedData()[commentRootId].answers()[commentChildId].purifiedHtml( result.purifiedHtml );
             }
 
         }
         else {
-            var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
+            var commentObj = CommentsController.removedStatus( result, this.parsedData() );
 
             if (commentObj !== undefined) {
                 this.parsedData()[commentObj].purifiedHtml( result.purifiedHtml );
@@ -105,15 +99,15 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
 
       this.commentRemovedEvent = function (result, id) {
           if ( result.responseId !== 0 ) {
-              var commentRootId = this.commentsData.findIfAnswer( result, this.parsedData() );
-              var commentChildId = this.commentsData.findInAnswers( result, this.parsedData()[commentRootId].answers() );
+              var commentRootId = CommentsController.findIfAnswer( result, this.parsedData() );
+              var commentChildId = CommentsController.findInAnswers( result, this.parsedData()[commentRootId].answers() );
               if (commentChildId !== undefined) {
                   this.parsedData()[commentRootId].answers()[commentChildId].removed( true );
               }
 
           }
           else {
-              var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
+              var commentObj = CommentsController.removedStatus( result, this.parsedData() );
 
               if (commentObj !== undefined) {
                   this.parsedData()[commentObj].removed( true );
@@ -132,15 +126,15 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
       this.commentRestoredEvent = function (result, id) {
 
           if ( result.responseId !== 0 ) {
-              var commentRootId = this.commentsData.findIfAnswer( result, this.parsedData() );
-              var commentChildId = this.commentsData.findInAnswers( result, this.parsedData()[commentRootId].answers() );
+              var commentRootId = CommentsController.findIfAnswer( result, this.parsedData() );
+              var commentChildId = CommentsController.findInAnswers( result, this.parsedData()[commentRootId].answers() );
               if (commentChildId !== undefined) {
                   this.parsedData()[commentRootId].answers()[commentChildId].removed( false );
               }
 
           }
           else {
-              var commentObj = this.commentsData.removedStatus( result, this.parsedData() );
+              var commentObj = CommentsController.removedStatus( result, this.parsedData() );
 
               if (commentObj !== undefined) {
                   this.parsedData()[commentObj].removed( false );
@@ -157,45 +151,42 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
          this.editing(true);
       };
 
-      this.isRedactorStringEmpty = function isRedactorStringEmpty(string) {
-         if (string !== '') {
-            string = string
-                     .replace(/(?!<\/?[imgiframe].*?>)<.*?>/g,"")
-                     .replace(/(&nbsp;)/ig, "")
-                     .trim();
-
-            if (string !== '') {
-               return false;
-            }
-         }
-         return true;
-      };
-
-       this.scrolled = function scrolled(data, event) {
-           console.log('scrolling');
-       };
-
+       /**
+        * Конец редактирования
+        * @param data
+        */
       this.cancelEditor = function cancelEditor(data) {
           this.editor('');
           this.editing(false);
       };
 
+       /**
+        * Добавление комментария
+        */
       this.addComment = function addComment () {
          var commentText = this.editor();
-         if ( !this.isRedactorStringEmpty( commentText ) ) {
+         if ( !Comment.isRedactorStringEmpty( commentText ) ) {
             Model
-              .get( Comment.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ))
+              .get( Comment.createCommentUrl, CommentsController.createComment( params.entity, params.entityId, this.editor() ))
               .done( this.cancelEditor.bind(this) )
          }
       };
 
+       /**
+        * Удаление комментария
+        */
       this.deleteComment = function deleteComment () {
          var commentText = this.editor();
-         if ( !this.isRedactorStringEmpty( commentText ) ) {
-            Model.get( Comment.createCommentUrl, this.commentsData.createComment( params.entity, params.entityId, this.editor() ));
+         if ( !Comment.isRedactorStringEmpty( commentText ) ) {
+            Model.get( Comment.createCommentUrl, CommentsController.createComment( params.entity, params.entityId, this.editor() ));
          }
       };
 
+
+       /**
+        * Конфигурация редактора
+        * @type {{minHeight: number, buttons: string[], plugins: string[], callbacks: {init: *[]}}}
+        */
       this.editorConfig = {
           minHeight: 88,
           buttons: ['bold', 'italic', 'underline'],
@@ -209,30 +200,53 @@ define(['jquery', 'knockout', 'comments-control', 'user-control', 'text!comment-
          }
       };
 
+       /**
+        * Начало редактирования
+        * @param message
+        */
       this.beginEditing = function(message) {
           this.editor(message.text());
           this.setEditing();
       };
 
+       /**
+        * Конец редактирования
+        */
       this.cancelEditing = function() {
           this.editor('');
           this.editing(false);
       }
 
+       /**
+        * После получение всей информации
+        * @param userData
+        */
       this.allEventsSucceed = function usersSucceed(userData) {
-         ko.mapping.fromJS(this.userData.getCurrentUserFromList(userData.data, userData.success), this.authUser);
-          this.parsedData = ko.mapping.fromJS(this.commentsData.allDataReceived(userData.data, this.commentsDataQueue.commentsData), this.parsedData);
+         ko.mapping.fromJS(UserData.getCurrentUserFromList(userData.data, userData.success), this.authUser);
+         this.parsedData = ko.mapping.fromJS(CommentsController.allDataReceived(userData.data, this.commentsDataQueue.commentsData), this.parsedData);
          this.loaded(true);
-      }
+      };
 
+       /**
+        * После получения данных комментария, получаем юзеров
+        * @param data
+        */
       this.dataGetSucceed = function (data) {
-         this.commentsDataQueue = this.commentsData.parseData(data);
+         this.commentsDataQueue = CommentsController.parseData(data);
          Model.get( User.getUserUrl, this.commentsDataQueue.userPack).done( this.allEventsSucceed.bind( this ) );
       };
 
-      this.commentDataParams = this.commentsData.getListData( params.entity, params.entityId, params.listType );
+       /**
+        * Получение комментария
+        * @type {Object}
+        */
+      this.commentDataParams = CommentsController.getListData( params.entity, params.entityId, params.listType );
+
+       /**
+        * Запрос комментариев
+        */
       Model.get( Comment.getListUrl, this.commentDataParams ).done( this.dataGetSucceed.bind( this ) );
-   }
+   };
 
    return {
       viewModel: CommentWidgetViewModel,

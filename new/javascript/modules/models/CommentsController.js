@@ -219,6 +219,12 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
         return commentObj;
       },
 
+       /**
+        * Находит элемент в массиве ответов
+        * @param comment
+        * @param answersArray
+        * @returns {*}
+        */
        findInAnswers: function (comment, answersArray) {
            var commentObj,
                id = comment.id;
@@ -235,6 +241,12 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
 
        },
 
+       /**
+        * Проверка на то, ответ это или новый корневой комментарий
+        * @param comment
+        * @param parsedData
+        * @returns {*}
+        */
        findIfAnswer: function (comment, parsedData) {
            var commentObj,
                id = comment.responseId;
@@ -254,6 +266,12 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
 
        },
 
+       /**
+        * Поиск по id
+        * @param responseId
+        * @param parsedData
+        * @returns {*}
+        */
        findById: function (responseId, parsedData) {
            if (parsedData.length > 0) {
                for (var i=0; i < parsedData.length; i++) {
@@ -272,7 +290,13 @@ define(['jquery', 'knockout', 'user-control', 'user-model', 'comment-model', 'kn
            return false;
        },
 
-
+       /**
+        * Поиск по observableId
+        * @param responseId
+        * @param parsedData
+        * @param makeNotDeleteable
+        * @returns {*}
+        */
        findByObservableId: function (responseId, parsedData, makeNotDeleteable) {
            if (parsedData.length > 0) {
                for (var i=0; i < parsedData.length; i++) {

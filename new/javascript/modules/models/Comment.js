@@ -67,23 +67,36 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model, H
 
       answering: false,
 
+       /**
+        * Начало редактирования конкретного комментария
+        * @param message
+        */
       beginEditing: function beginEditing(message) {
           this.editor(message.text());
           this.edit();
       },
 
+       /**
+        * Конец редактирования
+        */
       cancelEditing: function cancelEditing() {
           this.editor('');
           this.editingCurrent(false);
           this.answering(false);
       },
 
+       /**
+        * Закончить редактирование
+        */
       cancelEditor: function cancelEditor() {
           this.editor('');
           this.editingCurrent(false);
           this.answering(false);
       },
 
+       /**
+        * Начать редактирование
+         */
       edit: function edit() {
           this.editor(this.originHtml());
           this.editingCurrent(true);
@@ -115,6 +128,11 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model, H
                }
            },
 
+       /**
+        * Проверка на пустое сообщение в редакторе
+        * @param string
+        * @returns {boolean}
+        */
        isRedactorStringEmpty: function isRedactorStringEmpty(string) {
            if (string !== '') {
                string = string
@@ -129,6 +147,10 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model, H
            return true;
         },
 
+       /**
+        * Создание комментария
+        * @param params
+        */
        create: function create(params) {
            var commentText = this.editor();
            if ( !this.isRedactorStringEmpty( commentText ) ) {
@@ -138,28 +160,45 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model, H
            }
        },
 
+       /**
+        * Обновление комментария
+        */
       renewComment: function renewComment() {
          Model
             .get( this.renewCommentUrl(), { id: this.id(), text: this.editor() } )
             .done( this.cancelEditor.bind(this) );
       },
 
+       /**
+        * Ответ на комментария
+        */
        response: function response () {
            this.cancelEditing();
            this.answering(true);
            this.editor();
        },
 
+       /**
+        * Удаление комментария
+        */
       remove: function remove() {
          Model
             .get( this.removeCommentUrl(), { id: this.id() } )
       },
 
+       /**
+        * Восстановление комментария
+        */
       restore: function restore() {
          Model
             .get( this.restoreCommentUrl(), { id: this.id() } );
       },
 
+       /**
+        * init комментария
+        * @param object
+        * @returns {Comment}
+        */
       init: function init (object) {
 
          if (object !== undefined) {
@@ -199,7 +238,6 @@ define(["jquery", "knockout", "model", "care-wysiwyg"], function($, ko, Model, H
             this.answering = object.answering;
 
              this.answering = object.hasAnswers;
-
 
              this.answerTo = {};
 

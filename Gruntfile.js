@@ -119,7 +119,7 @@ module.exports = function(grunt){
           // стили страницы вакансий
           'stylesheets/vacancy.css': ['less/vacancy.less'],
           // стили html баннеров, независимы от всего 
-          'stylesheets/banner.css': ['less/banner.less']
+          // 'stylesheets/banner.css': ['less/banner.less']
         },
         options: {
           compress: true,
@@ -163,6 +163,24 @@ module.exports = function(grunt){
           sourceMap: true,
         }
       },
+      newest: {
+        files: {
+          'new/css/all1.css': ['new/less/all1.less'] 
+        },
+        options: {
+          compress: true,
+          cleancss: true,
+        }
+      },
+      aviary: {
+        files: {
+          'new/css/plugins/aviary.hg.css': ['new/less/plugins/aviary.hg.less'] 
+        },
+        options: {
+          compress: true,
+          cleancss: true,
+        }
+      }
     },
 
     // неиспользуемые стили
@@ -624,12 +642,19 @@ module.exports = function(grunt){
       // следим за новым less
       newless: {
         files: ['new/less/**/*.less'],
-        tasks: ['less:newestdev'/*, 'cmq', 'cssmin', 'csso'*/],
+        tasks: ['less:newest', 'less:newestdev', /*'cmq','cssmin', 'csso'*/ ],
         options: {
           livereload: true,
         },
       },
       // следим за новым less
+      aviary: {
+        files: ['new/less/**/aviary.hg.less'],
+        tasks: ['less:aviary'],
+        options: {
+          livereload: true,
+        },
+      },
       liteless: {
         files: ['lite/less/**/*.less'],
         tasks: ['less:litedev'/*, 'cmq', 'cssmin', 'csso'*/],
@@ -672,6 +697,18 @@ module.exports = function(grunt){
         },
       },
 
+    },
+
+    csscomb: {
+      options: {
+          config: 'new/less/bootstrap/.csscomb.json'
+      },
+      aviary: {
+          files: {
+              'new/less/plugins/aviary.hg.less': ['new/less/plugins/aviary.hg.less'],
+          },
+      },
+        
     },
 
     // Поднимаем сервер

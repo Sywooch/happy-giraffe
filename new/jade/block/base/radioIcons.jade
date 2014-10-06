@@ -1,0 +1,47 @@
+//- radioIcons
+    mod
+    vars
+        item - array
+
+mixin radioIcons(mod, vars)
+    .radio-icons(class=mod, class=vars.tooltipClass, title=vars.title)
+        // type ставить по контексту "checkbox" или "radio"
+        input.radio-icons_radio(type=vars.type, name='',checked=vars.checked,id=vars.id)
+        label.radio-icons_label(for=vars.id)
+            - if (vars.label)
+                span.radio-icons_label-tx
+                    != vars.label
+
+
+- var radioIcons = {}
+- radioIcons.photo = {}
+- radioIcons.photo.label = ""
+- radioIcons.photo.type = "radio"
+- radioIcons.photo.id = "checkbox1"
+- radioIcons.photo.checked = false
+- radioIcons.photo.title = "Сделать основным"
+- radioIcons.photo.tooltipClass = "powertip"
+
+- radioIcons.selectAll = {}
+- radioIcons.selectAll.label = "Выбрать все "
+- radioIcons.selectAll.type = "checkbox"
+- radioIcons.selectAll.id = "checkbox-selectall"
+- radioIcons.selectAll.checked = false
+- radioIcons.selectAll.title =  ""
+- radioIcons.selectAll.tooltipClass = false
+
+- radioIcons.man = {}
+- radioIcons.man.label = "мужчина"
+- radioIcons.man.type = "checkbox"
+- radioIcons.man.id = "checkbox-gender"
+- radioIcons.man.checked = false
+- radioIcons.man.title =  false
+- radioIcons.man.tooltipClass = false
+
+- radioIcons.women = {}
+- radioIcons.women.label = "женщина"
+- radioIcons.women.type = "checkbox"
+- radioIcons.women.id = "checkbox-gender"
+- radioIcons.women.checked = false
+- radioIcons.women.title =  false
+- radioIcons.women.tooltipClass = false

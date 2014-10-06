@@ -1,0 +1,48 @@
+include ../../../block/config
+extend ../../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg2';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in
+
+            .user-album
+                .b-crumbs.b-crumbs__m
+                    ul.b-crumbs_ul
+                        li.b-crumbs_li
+                            a.b-crumbs_a(href="") Мои фото
+                        li.b-crumbs_li
+                            a.b-crumbs_a(href="") Харьковский уикенд
+                        li.b-crumbs_li.b-crumbs_li__last
+                            span.b-crumbs_last  Упорядочивание фотографий
+
+                .user-album_top.clearfix
+                    .user-album_count-hold
+                        .user-album_count 26
+                        .user-album_count-tx фото
+                    // Заголовок
+                    h1.user-album_t
+                        | Харьковский уикенд
+                    .user-album_desc
+                        | В половине чашке горячей воды разведем желатин.
+                
+                .i-info Перетаскивайте фото мышкой
+                .user-album_control.clearfix
+
+                    // Для фиксации элемента при скролле нужен new/javascript/bootstrap/affix.js
+                    // инициализация i-affix в common-markup.js
+                    .i-affix.clearfix
+                        .float-r
+                            .btn.btn-green.btn-ms Готово
+                            .btn.btn-link.btn-link-gray.btn-ms Отмена
+
+                
+                +albumPreview('album-preview__m album-preview__drag', albumPreview.a)
+
+            
+        +layout-footer('layout-footer__in')
+

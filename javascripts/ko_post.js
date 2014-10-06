@@ -1,6 +1,6 @@
 /** Repost ***/
 (function(window) {
-    function f(ko) {
+    function f(ko, mapping) {
         ko.bindingHandlers.chosenRubric =
         {
             init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
@@ -216,7 +216,7 @@
          */
         function BlogRecordSettings(data) {
             var self = this;
-            ko.mapping.fromJS(data, {}, self);
+            mapping.fromJS(data, {}, self);
             self.displayOptions = ko.observable(false);
             self.displayPrivacy = ko.observable(false);
             self.removed = ko.observable(false);
@@ -321,6 +321,6 @@
     if (typeof define === 'function' && define['amd']) {
         define('ko_post', ['knockout', 'knockout.mapping', 'baron', 'ko_favourites', 'ko_library'], f);
     } else {
-        f(window.ko);
+        f(window.ko, window.ko.mapping);
     }
 })(window);

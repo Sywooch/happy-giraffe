@@ -61,17 +61,14 @@ abstract class UploadForm extends \CFormModel implements \IHToJSON
             }
         }
 
-        return \HJSON::encode(array(
-            'photo' => $this->photo,
-            'form' => $this,
-        ));
+        return $this->success;
     }
 
     public function toJSON()
     {
         return array(
+            'photo' => $this->photo,
             'error' => $this->getFirstError(),
-            'success' => $this->success,
         );
     }
 

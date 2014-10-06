@@ -16,6 +16,7 @@ return array(
             'manageOwnPhotoCollection',
             'createPhotoAlbum',
             'managePhotoAttach',
+            'uploadPhoto',
         ),
         'bizRule' => null,
         'data' => null
@@ -162,5 +163,11 @@ return array(
         'description' => 'Перемещение аттачей',
         'bizRule' => null,
         'data' => null,
+    ),
+    'uploadPhoto' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Загрузка фотографий',
+        'bizRule' => null,
+        'data' => null
     ),
 );

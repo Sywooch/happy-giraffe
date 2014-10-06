@@ -20,9 +20,9 @@ class PhotosApiController extends ApiController
 {
     public function actionUpdate($url, $photoId)
     {
-        $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId);
-        $imageString = file_get_contents($url);
-        $photo->setImage($imageString);
+        /** @var \site\frontend\modules\photo\models\Photo $photo */
+        $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId, 'editPhoto');
+        $photo->image = file_get_contents($url);
         $this->success = $photo->save();
         $this->data = $photo;
     }
@@ -53,7 +53,7 @@ class PhotosApiController extends ApiController
 
     public function actionRotate($angle, $photoId)
     {
-        $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId);
+        $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId, 'editPhoto');
         $decorator = new ImageDecorator($photo->image, true);
         $decorator->rotate($angle);
         $photo->image = $decorator->get();

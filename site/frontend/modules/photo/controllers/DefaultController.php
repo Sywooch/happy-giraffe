@@ -12,6 +12,7 @@ namespace site\frontend\modules\photo\controllers;
 use site\frontend\modules\photo\components\observers\PhotoCollectionIdsObserver;
 use site\frontend\modules\photo\components\PhotoController;
 use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\upload\PopupForm;
 
 class DefaultController extends PhotoController
 {
@@ -24,5 +25,18 @@ class DefaultController extends PhotoController
     {
         $json = compact('userId');
         $this->render('index', compact('json'));
+    }
+
+    /**
+     * Выводит попап загрузки фото
+     */
+    public function actionUploadForm()
+    {
+        $form = new PopupForm();
+        $form->attributes = $_GET;
+        $form->userId = \Yii::app()->user->id;
+        if ($form->validate()) {
+            $this->renderPartial('upload/form', compact('form'));
+        }
     }
 } 

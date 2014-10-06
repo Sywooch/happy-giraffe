@@ -167,11 +167,11 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         });
 
         self.processResponse = function(photo, response) {
-            if (response.form.success) {
-                mapping.fromJS(response.photo, {}, photo);
+            if (response.success) {
+                mapping.fromJS(response.data.photo, {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
             } else {
-                photo.error(response.form.error);
+                photo.error(response.data.error);
                 photo.status(PhotoUpload.prototype.STATUS_FAIL);
             }
         }
@@ -203,7 +203,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
         this.fileUploadSettings = {
             dataType: 'json',
-            url: '/photo/upload/fromComputer/'
+            url: '/api/photo/photos/uploadFromComputer/'
         };
     }
 
@@ -287,12 +287,12 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                 self.added(new PhotoUpload({}, self));
 
                 self.photo().jqXHR = $.ajax({
-                    url: '/photo/upload/byUrl/',
+                    url: '/api/photo/photos/uploadByUrl/',
                     type: 'POST',
                     dataType: 'json',
-                    data: {
+                    data: JSON.stringify({
                         url : val
-                    },
+                    }),
                     success: function(data) {
                         self.processResponse(self.photo(), data);
                     },

@@ -7,6 +7,8 @@
  * @todo Убрать как только перейдем на PHP 5.4
  */
 
+namespace site\frontend\modules\photo\helpers;
+
 class ImageSizeHelper
 {
     public static function getImageSize($imageString)

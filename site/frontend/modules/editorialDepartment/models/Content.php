@@ -31,7 +31,7 @@ class Content extends \EMongoDocument
     {
         return parent::model($className);
     }
-    
+
     public function rules()
     {
         return array(
@@ -44,24 +44,26 @@ class Content extends \EMongoDocument
         );
     }
 
-        public function embeddedDocuments()
+    public function embeddedDocuments()
     {
         return array(
             'meta' => '\site\frontend\modules\editorialDepartment\models\Meta',
             'social' => '\site\frontend\modules\editorialDepartment\models\Social',
         );
     }
-    
+
     public function behaviors()
     {
         return array(
             'converter' => array(
                 'class' => '\site\frontend\modules\editorialDepartment\behaviors\ConvertBehavior',
             ),
-            /** @todo запилить поведение */
-            /*'timestampBehavior' => array(
-                
-            ),*/
+            'timestampBehavior' => array(
+                'class' => '\site\common\behaviors\HMongoTimestampBehavior',
+                'createAttribute' => 'dtimeCreate',
+                'updateAttribute' => 'dtimeUpdate',
+                'setUpdateOnCreate' => true,
+            )
         );
     }
 

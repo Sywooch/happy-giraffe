@@ -1,0 +1,229 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+    
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Готовим дома 
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Как выбирать продукты      
+        .cook-choose
+            .b-main_cont 
+                .b-main_col-wide    
+                    h1.heading-link-xxl.heading-link-xxl__center Как выбирать продукты
+            .b-main_row.b-main_row__blue.b-main_row__blue-quotes
+                .b-main_cont 
+                    .b-main_col-article.b-main_col-article__center
+                        .wysiwyg-content
+                            p Задумываетесь ли вы о том, как правильно выбрать продукты в супермаркете, магазине или на рынке? Скорее всего – да. Каждый здравомыслящий человек понимает, что «он есть то, что он ест», а потому к выбору продуктов относится серьёзно.
+            .b-main_row
+                .b-main_cont 
+                    .serv-category.serv-category__cook-choose.clearfix
+                        ul.serv-category_ul
+                            li.serv-category_li
+                                .serv-category_top
+                                    .serv-category_ico.ico-product.ico-product__1
+                                    .serv-category_t Овощи, фрукты, грибы 
+                                ul.serv-category_in-ul
+                                    li.serv-category_in-li
+                                        a.a-light Ананас
+                                    li.serv-category_in-li
+                                        a.a-light Арбуз  
+                                    li.serv-category_in-li
+                                        a.a-light Арбуз  
+                                    li.serv-category_in-li
+                                        a.a-light Бананы  
+                                    li.serv-category_in-li
+                                        a.a-light Виноград
+                                    li.serv-category_in-li
+                                        a.a-light Груша
+                                    li.serv-category_in-li
+                                        a.a-light Дыня 
+                                    li.serv-category_in-li
+                                        a.a-light Клубника 
+                                    li.serv-category_in-li
+                                        a.a-light Кокос
+                                    li.serv-category_in-li
+                                        a.a-light Лимон  
+                                    li.serv-category_in-li
+                                        a.a-light Мандарины  
+                                    li.serv-category_in-li
+                                        a.a-light Персики  
+                                    li.serv-category_in-li
+                                        a.a-light Помидоры
+                                    li.serv-category_in-li
+                                        a.a-light Репчатый
+                                    li.serv-category_in-li
+                                        a.a-light Лук 
+                                    li.serv-category_in-li
+                                        a.a-light Черешня  
+                                    li.serv-category_in-li
+                                        a.a-light Чернослив 
+                                    li.serv-category_in-li
+                                        a.a-light Шампиньоны  
+                        ul.serv-category_ul
+                            li.serv-category_li
+                                .serv-category_top
+                                    .serv-category_ico.ico-product.ico-product__4
+                                    .serv-category_t Мясо, птица, яица
+                                ul.serv-category_in-ul
+                                    li.serv-category_in-li
+                                        a.a-light Говядина           
+                                    li.serv-category_in-li
+                                        a.a-light Копченое сало 
+                                    li.serv-category_in-li
+                                        a.a-light Куриные яйца  
+                                    li.serv-category_in-li
+                                        a.a-light Мясо кролика
+                                    li.serv-category_in-li
+                                        a.a-light Мясо курицы 
+                                    li.serv-category_in-li
+                                        a.a-light Перепелиные яйца 
+                                    li.serv-category_in-li
+                                        a.a-light Свинина 
+                                    li.serv-category_in-li
+                                        a.a-light Сосиски
+                        ul.serv-category_ul
+                            li.serv-category_li
+                                .serv-category_top
+                                    .serv-category_ico.ico-product.ico-product__7
+                                    .serv-category_t Напитки
+                                ul.serv-category_in-ul
+                                    li.serv-category_in-li
+                                        a.a-light Зеленый чай 
+                                    li.serv-category_in-li
+                                        a.a-light Какао
+                                    li.serv-category_in-li
+                                        a.a-light Квас 
+                                    li.serv-category_in-li
+                                        a.a-light Кофе
+                                    li.serv-category_in-li
+                                        a.a-light Минеральная вода
+                                    li.serv-category_in-li
+                                        a.a-light Питьевая вода 
+                                    li.serv-category_in-li
+                                        a.a-light Травяной чай 
+                                    li.serv-category_in-li
+                                        a.a-light Цикорий
+                                    li.serv-category_in-li
+                                        a.a-light Чай
+                                    li.serv-category_in-li
+                                        a.a-light Чай каркадэ 
+                        ul.serv-category_ul
+                            li.serv-category_li
+                                .serv-category_top
+                                    .serv-category_ico.ico-product.ico-product__2
+                                    .serv-category_t Хлебобулочные изделия и крупы
+                                ul.serv-category_in-ul
+                                    li.serv-category_in-li
+                                        a.a-light Белый хлеб         
+                                    li.serv-category_in-li
+                                        a.a-light Гречка 
+                                    li.serv-category_in-li
+                                        a.a-light Мука  
+                                    li.serv-category_in-li
+                                        a.a-light Рис 
+                        ul.serv-category_ul
+                            li.serv-category_li
+                                .serv-category_top
+                                    .serv-category_ico.ico-product.ico-product__5
+                                    .serv-category_t Рыба и морепродукты
+                                ul.serv-category_in-ul
+                                    li.serv-category_in-li
+                                        a.a-light Красная икра                 
+                                    li.serv-category_in-li
+                                        a.a-light Креветки 
+                                    li.serv-category_in-li
+                                        a.a-light Рыба 
+                        ul.serv-category_ul
+                            li.serv-category_li
+                                .serv-category_top
+                                    .serv-category_ico.ico-product.ico-product__8
+                                    .serv-category_t Алкоголь
+                                ul.serv-category_in-ul
+                                    li.serv-category_in-li
+                                        a.a-light Вино          
+                                    li.serv-category_in-li
+                                        a.a-light Водка 
+                                    li.serv-category_in-li
+                                        a.a-light Шампанское 
+                        ul.serv-category_ul
+                            li.serv-category_li
+                                .serv-category_top
+                                    .serv-category_ico.ico-product.ico-product__3
+                                    .serv-category_t Молочная продукция
+                                ul.serv-category_in-ul
+                                    li.serv-category_in-li
+                                        a.a-light Йогурт 
+                                    li.serv-category_in-li
+                                        a.a-light Кефир 
+                                    li.serv-category_in-li
+                                        a.a-light Козье молоко  
+                                    li.serv-category_in-li
+                                        a.a-light Коровье молоко  
+                                    li.serv-category_in-li
+                                        a.a-light Ряженка  
+                                    li.serv-category_in-li
+                                        a.a-light Сливки 
+                                    li.serv-category_in-li
+                                        a.a-light Сливочное масло 
+                                    li.serv-category_in-li
+                                        a.a-light Сметана 
+                                    li.serv-category_in-li
+                                        a.a-light Сыр 
+                                    li.serv-category_in-li
+                                        a.a-light Творог
+                      
+                        ul.serv-category_ul
+                            li.serv-category_li
+                                .serv-category_top
+                                    .serv-category_ico.ico-product.ico-product__6
+                                    .serv-category_t Кондитерские изделия, десерты и сладости
+                                ul.serv-category_in-ul
+                                    li.serv-category_in-li
+                                        a.a-light Мед              
+                                    li.serv-category_in-li
+                                        a.a-light Шоколад 
+                        ul.serv-category_ul
+                            li.serv-category_li
+                                .serv-category_top
+                                    .serv-category_ico.ico-product.ico-product__9
+                                    .serv-category_t Майонезы, кетчупы, соусы и масла
+                                ul.serv-category_in-ul
+                                    li.serv-category_in-li
+                                        a.a-light Кетчуп 
+                                    li.serv-category_in-li
+                                        a.a-light Льняное масло 
+                                    li.serv-category_in-li
+                                        a.a-light Майонез 
+                                    li.serv-category_in-li
+                                        a.a-light Оливковое масло
+                                    li.serv-category_in-li
+                                        a.a-light Соевый соус 
+                                    li.serv-category_in-li
+                                        a.a-light Подсолнечное масло
+
+            .b-main_row
+                .b-main_cont.margin-b40
+                    .b-main_col-article.b-main_col-article__center
+                        .wysiwyg-content
+                            p Реалии нашей жизни таковы, что продавцы и производители продуктов в погоне за большей прибылью стараются снизить себестоимость продукции, а это чревато тем, что в состав привычныхнам изделий попадают некачественные компоненты: натуральные красители заменяются химическими «аналогами», аромат создаётся искусственными добавками, чтобы продукт хранился дольше –добавляются консерванты и так далее.
+                            p Хорошо, когда состав продукта написан на упаковке, а если это рынок и нужно выбрать овощи, фрукты, зелень или ягоды? Как выбрать спелый и полезный плод? Ведь, чтобы скоропортящийсятовар хранился подольше, продавцы могут орошать его специальными растворами, предотвращающими порчу, однако пользы для здоровья от оросителей, конечно, нет, а вот вред они принестимогут серьёзный.
+                            p Поэтому мы решили создать своеобразный справочник по выбору качественных продуктов. Заходите в любой из разделов и ищите то, что вы собираетесь купить в ближайшее время. Читайтекороткие статьи – практические советы, конкретные, простые и понятные, которые подскажут вам, как выбрать спелый фрукт, прекрасное вино и другие нужные вам продукты.
+                            p Мы очень рассчитываем на вашу помощь. Возможно, у вас есть какие-то свои хитрости, касающиеся того, как правильно выбрать любимые продукты, или, наоборот, вам хочется узнать, каквыбрать какой-то конкретный товар. Пишите комментарии – мы с большим вниманием относимся к вашим просьбам, пожеланиям, советам и обещаем очень быстро отреагировать на все вашипослания новыми интересными материалами.
+        
+    // b-main 
+    +layout-footer-lite()
+

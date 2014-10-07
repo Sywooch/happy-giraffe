@@ -185,6 +185,7 @@ module.exports = function(grunt){
             /.tooltip+/,
             /.header-menu_li+/,
             /.header_+/,
+            /.header-banner+/,
           ],
         },
         src: ['new/html/docs/*.html', 'new/html/page/**/*.html'],
@@ -207,6 +208,7 @@ module.exports = function(grunt){
             /.select2+/,
             /.header-menu_li+/,
             /.header_+/,
+            /.header-banner+/,
             //.tooltip+/,
           ],
         },
@@ -234,6 +236,8 @@ module.exports = function(grunt){
             /.select2+/,
             /.header-menu_li+/,
             /.header_+/,
+            /.header-banner+/,
+            /.calendar-serv-note__+/,
           ],
         },
         src: [
@@ -258,10 +262,14 @@ module.exports = function(grunt){
             /.jcrop+/,
             /.mfp+/,
             /.select2+/,
+            /.header-menu_li.active+/,
+            /.calendar-serv-note__+/,
+
+            /.header-drop+/, // Drop, active элементы
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
-            
+            /.header-banner+/,
             /.header-drop+/, // Drop, active элементы
             /.header-menu_li+/,
             /.header_+/,
@@ -461,27 +469,108 @@ module.exports = function(grunt){
                 map: function (filename) {
                     return filename.replace(/~/g, ":");
                 },
+                unit: 100
+            }
+        },
+        'ico-product': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-product",
+                spritePath: "lite/images/sprite/ico-product.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 100
+            }
+        },
+        'ico-zodiac': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-zodiac",
+                spritePath: "lite/images/sprite/ico-zodiac.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 100
+            }
+        },
+        'ico-child-disease': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-child-disease",
+                spritePath: "lite/images/sprite/ico-child-disease.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 100
+            }
+        },
+        'horoscope-year-t': {
+            options: {
+                spriteElementPath: "lite/images/sprite/horoscope-year-t",
+                spritePath: "lite/images/sprite/horoscope-year-t.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 100
+            }
+        },
+        'ico-spices': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-spices",
+                spritePath: "lite/images/sprite/ico-spices.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                // refSize: 100,
+                unit: 100
+            }
+        },
+        // 'cook-choose': {
                 //refSize: 75, 
                 // sizes: {
                 //     large: 130,
                 //     mid: 75
                 // },
-                unit: 100
-            }
-        },
+        //         unit: 10
+        //     }
+        // },
         // 'comments-menu_a': {
         //     options: {
-        //         spriteElementPath: "lite/images/sprite/comments-menu_a",
-        //         spritePath: "lite/images/sprite/comments-menu_a.svg",
+        //         spriteElementPath: "lite/images/sprite/cook-choose",
+        //         spritePath: "lite/images/sprite/cook-choose.svg",
         //         cssPath: "lite/less/sprite/",
         //         cssSuffix: 'less',
         //         cssSvgPrefix: '',
         //         cssPngPrefix: '.no-svg',
-        //         layout: 'vertical',
+        //         layout: 'horizontal',
         //         map: function (filename) {
         //             return filename.replace(/~/g, ":");
         //         },
-        //         unit: 200
+        //         // refSize: 100,
+        //         unit: 20
         //     }
         // },
     },
@@ -602,6 +691,8 @@ module.exports = function(grunt){
   // lite tasks
   // bild lite версии
   grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services','uncss:services_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+
+  grunt.registerTask('lite-css', [/*'jade:lite_prod',*/ 'less:litedev','uncss:lite_blog','uncss:services','uncss:services_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // Блоги
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // сервисы

@@ -1,0 +1,198 @@
+/* cook-choose */
+.cook-choose {
+    margin: 20px 0;
+    
+
+}
+/* /cook-choose */
+
+
+/* 
+    .cook-choose-quality 
+        __goob
+        __bad
+*/
+.cook-choose-quality {
+    position: relative;
+
+    &__good {
+        background-color: #effdeb;
+    }
+    &__bad {
+        background-color: #fdf1d7;
+    }
+    .verticalalign-m-help {
+        min-height: 260px;
+    }
+
+    @media (min-width: @screen-phone) {
+        & {
+            padding: 20px 0 35px;
+        }
+    }
+    @media (min-width: @screen-tablet) {
+        & {
+            padding: 30px 0 35px;
+        }
+
+        &:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 100%;
+            margin: 0;
+            background: url('@{path-img}/services/cook-choose/cook-choose.png') no-repeat 0 50%;
+        }
+        &__bad:after {
+            left: auto;
+            right: 0;
+            width: 203px;
+            background-position: -200px 50%;
+        }
+        &__good .b-main_cont{
+            width: auto;
+            margin: 0 13% 0 29%;
+        }
+        &__bad .b-main_cont {
+            width: auto;
+            min-height: 240px;
+            margin: 0 29% 0 13%;
+        }
+    }
+}
+/* /cook-choose-quality */
+
+/* 
+    product-verif 
+        __spices
+*/
+.product-verif {
+
+    &_hold {
+        position: relative;
+        margin-bottom: 20px;
+    }
+    &_hold__cook:before {
+        content: ' ';
+        display: block;
+        margin: 0 auto 5px;
+        width: 70px;
+        height: 90px;
+        background: url('@{path-img}/services/cook-choose/cook-choose.png') no-repeat -279px 0;
+        background-size: 345px auto;
+    }
+    
+    ol li {
+        padding: 10px 0;
+    }
+    ol li:before {
+        margin: 0 0 10px;
+        float: none;
+        font-size: 77px;
+        line-height: 65px;
+        color: #9f93ba;
+        display: block;
+        text-align: center;
+        content: counters(item, '') '';
+        counter-increment: item;
+    }
+
+    &__spices {
+        background-color: #ffeed2;
+    }
+    &__spices ol li:before {color: #c39958;}
+    &__spices h2 { 
+        text-align: center;
+    }
+    &__spices h2:before {
+        content: '';
+        display: block;
+        width: 50px;
+        height: 85px;
+        margin: 0 auto 10px;
+        background: url('@{path-img}/services/cook-spices/product-verif__spices-h2.png') no-repeat;
+    }
+
+
+    @media (min-width: @screen-phone) {
+        .b-main_cont {
+            padding-left: 70px;
+        }
+        &_hold__cook:before {
+            position: absolute;
+            top: -5px;
+            left: -80px;
+        }
+        ol li {
+            min-height: 80px;
+        }
+        ol li:before {
+            float: left;
+            margin-left: -70px;
+        }
+        &__spices h2 {
+            text-align: left;
+        }
+        &__spices h2:before {
+            display: inline-block;
+            margin: 0 25px 10px 0;
+            vertical-align: middle;
+        }
+    }
+
+    @media (min-width: @screen-tablet) {
+        .b-main_cont {
+            padding-left: 110px;
+        }
+        &_hold {
+            margin-bottom: 20px;
+        }
+        &_hold__cook:before {
+            left: -125px;
+            width: 90px;
+            height: 110px;
+            background-position: -340px 0;
+            background-size: 420px auto;
+        }
+        ol li {
+            min-height: 120px;
+            margin: 15px 0;
+        }
+        ol li:before {
+            margin-left: -120px;
+            font-size: 110px;
+            line-height: 90px;
+        }
+
+
+    }
+    @media (min-width: @screen-desktop) {
+        .b-main_cont {
+            padding-left: 130px;
+            width: 600px;
+            margin: 0 auto;
+        }
+        &_hold {
+            min-height: 160px;
+            margin-bottom: 40px;
+        }
+        &_hold__cook:before {
+            left: -150px;
+            width: 110px;
+            height: 150px;
+            background-position: -460px 0;
+            background-size: 570px auto;
+        }
+        ol li {
+            min-height: 130px;
+        }
+        ol li:before {
+            margin-left: -140px;
+            font-size: 130px;
+            line-height: 110px;
+        }
+    }
+}
+/* /product-verif */

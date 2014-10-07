@@ -1,4 +1,4 @@
-<div class="layout-footer clearfix">
+<!-- <div class="layout-footer clearfix">
 	<div class="layout-footer_hold">
 		
 		<ul class="footer-list">
@@ -27,3 +27,29 @@
 		Сайт предназначен для лиц старше 16 лет.</div>
 	</div>
 </div>
+ -->
+
+ 
+<!-- layout-footer-->
+<div class="layout-footer clearfix">
+  <div class="layout-footer_hold">
+    <ul class="footer-list">
+      <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+      <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+      <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+      <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+      <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+    </ul>
+    <ul class="footer-menu visible-md">
+      <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
+      <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
+      <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
+      <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
+      <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
+      <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
+    </ul>
+    <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+    <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+  </div>
+</div>
+<!-- /layout-footer-->

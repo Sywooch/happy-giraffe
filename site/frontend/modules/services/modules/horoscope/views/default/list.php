@@ -23,6 +23,7 @@
                 {
                     $this->pageTitle = 'Гороскоп на завтра по знакам зодиака';
                     $this->metaDescription = 'Гороскопы для всех знаков Зодиака на завтра бесплатно';
+                    $this->metaKeywords = 'гороскоп на завтра, ежедневный гороскоп';
                     echo 'Гороскоп на завтра';
                     $this->breadcrumbs = array(
                         'Гороскопы' => $this->getUrl(array('alias' => 'today')),
@@ -33,6 +34,7 @@
                 {
                     $this->pageTitle = 'Гороскоп на каждый месяц';
                     $this->metaDescription = 'Ежемесячный гороскоп для всех знаков зодиака';
+                    $this->metaKeywords = 'гороскоп на месяц, ежемесячный гороскоп';
                     echo 'Гороскоп на месяц';
                     $this->breadcrumbs = array(
                         'Гороскопы' => $this->getUrl(array('alias' => 'today')),
@@ -41,9 +43,10 @@
                 }
                 elseif ($this->period == 'year')
                 {
-                    $this->pageTitle = 'Гороскоп на 2013 год для всех знаков зодиака';
-                    $this->metaDescription = 'Гороскоп на 2013 для всех знаков Зодиака: здоровье, карьера, финансы и личная жизнь';
-                    echo 'Гороскоп на 2013 год';
+                    $this->pageTitle = 'Гороскоп на год по знакам Зодиака';
+                    $this->metaDescription = 'Гороскоп на год по знакам Зодиака: здоровье, карьера, финансы и личная жизнь';
+                    $this->metaKeywords = 'Гороскоп на ' . date('Y', $this->date) . ' год, гороскоп ' . date('Y', $this->date);
+                    echo 'Гороскоп на год';
                     $this->breadcrumbs = array(
                         'Гороскопы' => $this->getUrl(array('alias' => 'today')),
                         'На год',
@@ -51,7 +54,7 @@
                 }
                 ?>
             </h1>
-            <?php if ($this->alias == 'today'): ?>
+            <?php if ($this->alias == 'today' && $this->period == 'day'): ?>
                 <div class="wysiwyg-content visible-md-block">
                     <p>Нравится ли вам возможность ежедневно советоваться со звёздами? Наверняка вы не раз читали гороскоп для
                         своего знака Зодиака. Что-то в нём вам казалось смешным, а что-то – полезным. Действительно, в то время как
@@ -71,7 +74,7 @@
                 <div class="menu-link-simple_t">Узнайте гороскоп</div>
                 <?php $this->renderPartial('_menu'); ?>
             </div>
-            <?php if ($this->alias == 'today'): ?>
+            <?php if ($this->alias == 'today' && $this->period == 'day'): ?>
                 <div class="seo-desc wysiwyg-content visible-md-block">
                     <?= ServiceText::getText('horoscope', $this->period == 'day' ? $this->alias : $this->period) ?>
                 </div>

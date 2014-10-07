@@ -1,7 +1,7 @@
 <div id="commentsList" class="comments_hold tab-pane active">
     <div class="comments_add">
         <div class="comments_add-hold"> Комментировать от
-            <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'simple')); ?> или <a href="?openLogin" onclick="$('[href=#loginWidget]').trigger('click')" class="comments_add-a">Войти</a>
+            <?php $this->widget('site.frontend.modules.signup.widgets.AuthWidget', array('view' => 'simple')); ?> или <a href="#" onclick="openLoginPopup(event)" class="comments_add-a">Войти</a>
         </div>
         <div class="comments_add-editor display-n"></div>
     </div>
@@ -25,7 +25,7 @@
                 </div>
                 <div class="comments_cont">
                     <div class="wysiwyg-content">
-                        {comment}
+                        {response.link}{comment}
                     </div>
                 </div>
             </div>
@@ -40,7 +40,8 @@
             'comments_li__green',
         );
 
-        $iterator = new CDataProviderIterator($dataProvider);
+        //$iterator = new CDataProviderIterator($dataProvider);
+        $iterator = $dataProvider->getData();
         $colorI = -1;
         $colorC = sizeof($colors);
         $color = $colors[0];
@@ -60,7 +61,8 @@
                 '{author.link}' => $this->getUserLink($comment->author),
                 '{datetime}' => $comment->pubDate,
                 '{unixtime}' => $comment->pubUnixTime,
-                '{comment}' => $comment->purified->text,
+                '{response.link}' => $comment->response ? $this->getUserLink($comment->response->author, true) : '',
+                '{comment}' => $this->normalizeText($comment->purified->text),
             ));
 
             if ($comment->id == $comment->root_id)
@@ -74,7 +76,6 @@
         ?>
     </ul>
 </div>
-</div>
 <?php
-Yii::app()->clientScript->registerAMD('Comments#' . $this->id, array('ko' => 'knockout', 'ko_library' => 'ko_library', 'commentScroll' => 'commentScroll'), 'ko.applyBindings({}, document.getElementById("' . $this->id . '_comments"));');
+Yii::app()->clientScript->registerAMD('Comments#' . $this->id, array('ko' => 'knockout', 'ko_library' => 'ko_library', 'commentScroll' => 'commentScroll', "common" => "common"), 'ko.applyBindings({}, document.getElementById("' . $this->id . '_comments"));');
 ?>

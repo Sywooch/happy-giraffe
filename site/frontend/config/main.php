@@ -561,7 +561,7 @@ return array(
                             'application.modules.services.modules.vaccineCalendar.controllers.DefaultController',
                             'application.modules.services.modules.menstrualCycle.controllers.DefaultController',
                             'application.modules.services.modules.babyBloodGroup.controllers.DefaultController',
-                            'application.modules.services.modules.horoscope.controllers.DefaultController',
+                            //'application.modules.services.modules.horoscope.controllers.DefaultController',
                             'application.modules.services.modules.horoscope.controllers.CompatibilityController',
                         ),
                     ),

@@ -26,7 +26,7 @@
  * @property RecipeBookRecipe[] $recipeBookRecipes
  * @property AlbumPhoto $photo
  */
-class RecipeBookDisease extends HActiveRecord
+class RecipeBookDisease extends HActiveRecord implements IPreview
 {
     /**
      * Returns the static model of the specified AR class.
@@ -184,5 +184,15 @@ class RecipeBookDisease extends HActiveRecord
     public function getUrl()
     {
         return Yii::app()->createUrl('/services/recipeBook/default/disease', array('slug' => $this->slug));
+    }
+
+    public function getPreviewPhoto()
+    {
+        return $this->getImage();
+    }
+
+    public function getPreviewText()
+    {
+        return $this->getShort();
     }
 }

@@ -73,9 +73,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                     </tr>
                 </table>
             <?php endif; ?>
-            <?php if (false): ?>
-            <div class="adv-yandex"><a href="" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
-            <?php endif; ?>
+            <?php Yii::app()->controller->renderPartial('//banners/_direct_others'); ?>
             <?php if ($commentsWidget->count > 0): ?>
             <!-- comments-->
             <section class="comments comments__buble">

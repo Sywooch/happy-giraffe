@@ -7,10 +7,14 @@ if (!$this->alias)
     <table class="article-nearby clearfix">
         <tbody>
             <tr>
-                <td><?php if ($prev)
-    { ?><a class="article-nearby_a article-nearby_a__l" href="<?= $this->getUrl(array('date' => $prev)) ?>"><span class="article-nearby_tx"><?= HDate::date('j F Y', $prev) ?></span></a><?php } ?></td>
-                <td><?php if ($next)
-    { ?><a class="article-nearby_a article-nearby_a__r" href="<?= $this->getUrl(array('date' => $next)) ?>"><span class="article-nearby_tx"><?= HDate::date('j F Y', $next) ?></span></a><?php } ?></td>
+                <td><?php
+                    if ($prev)
+                    {
+                        ?><a class="article-nearby_a article-nearby_a__l" href="<?= $this->getUrl(array('date' => $prev)) ?>"><span class="article-nearby_tx"><?= HDate::date('j F Y', $prev) ?></span></a><?php } ?></td>
+                <td><?php
+                    if ($next)
+                    {
+                        ?><a class="article-nearby_a article-nearby_a__r" href="<?= $this->getUrl(array('date' => $next)) ?>"><span class="article-nearby_tx"><?= HDate::date('j F Y', $next) ?></span></a><?php } ?></td>
             </tr>
         </tbody>
     </table>
@@ -25,6 +29,9 @@ if (!$this->alias)
 </div>
 <div class="wysiwyg-content clearfix">
     <?php
-    echo Str::strToParagraph($model->text);
+    if ($this->alias)
+        echo CHtml::tag('noindex', array(), Str::strToParagraph($model->text));
+    else
+        echo Str::strToParagraph($model->text);
     ?>
 </div>

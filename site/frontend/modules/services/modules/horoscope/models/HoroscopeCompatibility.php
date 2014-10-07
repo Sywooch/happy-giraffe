@@ -9,7 +9,7 @@
  * @property integer $zodiac2
  * @property string $text
  */
-class HoroscopeCompatibility extends HActiveRecord
+class HoroscopeCompatibility extends HActiveRecord implements IPreview
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -141,5 +141,15 @@ class HoroscopeCompatibility extends HActiveRecord
                 unset($a[$key]);
 
         return $a;
+    }
+
+    public function getPreviewPhoto()
+    {
+        return '';
+    }
+
+    public function getPreviewText()
+    {
+        return $this->text;
     }
 }

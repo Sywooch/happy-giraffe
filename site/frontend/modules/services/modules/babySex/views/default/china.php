@@ -110,6 +110,8 @@ Yii::app()->clientScript->registerCss('china-baby', '.child_sex_china_banner div
             </div>
         </div>
 
+        <?php $this->renderPartial('//banners/_direct_others'); ?>
+
         <?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
             'service' => $service,
             'image' => '/images/services/baby/sex-child/china_bann.jpg',

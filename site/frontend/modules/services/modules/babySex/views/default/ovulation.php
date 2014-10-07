@@ -158,6 +158,8 @@ Yii::app()->clientScript->registerCss('baby-gender-ovulation', '.child_sex_ovuly
             <!-- .mother_calendar -->
         </div>
 
+        <?php $this->renderPartial('//banners/_direct_others'); ?>
+
         <?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
             'service' => $service,
             'image' => '/images/sex_child_ovulyaciya_bann.jpg',

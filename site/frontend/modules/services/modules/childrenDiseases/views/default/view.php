@@ -40,14 +40,8 @@ $this->breadcrumbs = array(
                 <h2><?php echo empty($model->prophylaxis_name) ? 'Профилактика' : $model->prophylaxis_name ?></h2>
                 <?php echo $model->prophylaxis_text ?>
             </div>
-            <div class="custom-likes">
-                <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
-                <div class="custom-likes_in">
-                    <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                    <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
-                </div>
-            </div>
-            <?php $this->renderPartial('//banners/_disease'); ?>
+            <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $model, 'lite' => true)); ?> 
+            <?php $this->renderPartial('//banners/_direct_others'); ?>
             <div class="margin-b40"></div>
         </div>
     </div>

@@ -81,17 +81,7 @@ $kak_viglyadat = (mb_substr($model->title_quality, -2, 2) == 'ки') ? 'Как �
     </div>
     <div class="b-main_row">
         <div class="b-main_cont">
-            <div class="b-main_col-article b-main_col-article__center">
-                <div class="custom-likes">
-                    <div class="custom-likes_slogan">Поделитесь с друзьями!</div>
-                    <div class="custom-likes_in">
-                        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                        <div data-yasharel10n = "ru" data-yasharequickservices = "vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme = "counter" data-yasharetype = "small" class = "yashare-auto-init"></div>
-                    </div>
-                </div>
-                <?php $this->renderPartial('//banners/_cookChoose'); ?>
-                <div class = "margin-b40"></div>
-            </div>
+            <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $model, 'lite' => true)); ?> 
         </div>
     </div>
 </div>

@@ -64,6 +64,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                     dropZone.removeClass('dragover');
                 });
             }
+
         }
     };
 

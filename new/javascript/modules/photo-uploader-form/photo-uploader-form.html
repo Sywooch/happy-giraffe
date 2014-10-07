@@ -1,0 +1,782 @@
+<style>
+/* popup */
+.popup {
+    position: relative;
+    margin: 20px auto;
+}
+.popup__close-white .mfp-close {
+    color: #fff !important;
+}
+.popup__error {
+    width: 500px;
+}
+.popup__error .mfp-close {
+    height: 25px;
+    width: 30px;
+    line-height: 25px;
+}
+.popup-add {
+    width: 740px;
+    background-color: #fff;
+    /*&_in__albums .tabs-simple > li:first-child > a {padding-left: 10px;}*/
+}
+.popup-add_top {
+    padding: 20px 37px;
+}
+.popup-add_top .tabs-simple {
+    margin-left: 40px;
+}
+.popup-add_t {
+    display: inline-block;
+    font-size: 20px;
+}
+.popup-add_in {
+    height: 520px;
+    padding: 20px 20px 30px;
+    background-color: #fafafa;
+}
+.popup-add_in__albums {
+    padding-top: 5px;
+}
+.popup-add_scroll {
+    margin: 0 -10px 15px 0;
+    padding-right: 20px;
+}
+.popup-add_frame {
+    height: 470px;
+    padding: 0 5px;
+    overflow: hidden;
+}
+.popup-add_frame .scroll_scroller {
+    max-height: 470px;
+}
+.popup-add_frame__multi {
+    border: 2px dashed #d6d6d6;
+}
+.popup-add_frame__multi.dragover {
+    border-color: #bbb;
+}
+.popup-add_frame__album {
+    height: 442px;
+}
+.popup-add_cap {
+    padding: 50px 0 10px;
+}
+.popup-add_cap .file-fake {
+    vertical-align: middle;
+}
+.popup-add_cap-desc {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 15px -50px 15px 20px;
+    text-align: left;
+    font: 11px/14px Tahoma, Arial, Verdana, sans-serif;
+}
+.popup-add_cap-drag {
+    margin: 20px;
+    font-size: 28px;
+    color: #ccc;
+}
+.popup-add_multi {
+    padding: 12px 0;
+}
+.popup-add_multi-li {
+    display: inline-block;
+    vertical-align: top;
+}
+.popup-add_footer {
+    margin: 15px 20px 15px 17px;
+}
+.popup-add_footer .progress {
+    margin-left: 15px;
+    margin-bottom: 2px;
+}
+.popup-add_footer .file-fake {
+    margin-left: 15px;
+    vertical-align: middle;
+}
+.popup-add_footer .float-r .btn-link-gray.btn-s {
+    padding-top: 10px;
+    vertical-align: top;
+}
+.popup-add_footer-l {
+    float: left;
+    margin-top: 6px;
+}
+/* i-photo */
+.i-photo {
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    width: 155px;
+    margin: 0 5px 13px;
+    /*&__empty {
+          height: 141px;
+          background-color: #eee;
+      }*/
+}
+.i-photo .ico-close5 {
+    position: absolute;
+    top: -9px;
+    right: -9px;
+    z-index: 5;
+}
+.i-photo .progress__cont {
+    margin-bottom: 5px;
+}
+.i-photo__load {
+    height: 141px;
+    background-color: #fff;
+    text-align: center;
+}
+.i-photo__load .i-photo_hold {
+    padding: 90px 30px 0;
+    background: url('/new/images/i-photo__load_hold.png') no-repeat 50% 25px;
+}
+.i-photo__ie {
+    width: 280px;
+}
+.i-photo__ie .tx-hint {
+    margin-top: 4px;
+    text-align: left;
+    color: #999999;
+}
+.i-photo__error {
+    height: 137px;
+    width: 151px;
+    border: 2px solid #fee8e8;
+    background-color: #fff;
+    color: #fbcdcd;
+    text-align: center;
+}
+.i-photo__error .tx-hint {
+    color: #fbcdcd;
+}
+.i-photo__error .i-photo_hold {
+    padding-top: 90px;
+    background: url('/new/images/i-photo__error_hold.png') no-repeat 50% 35px;
+}
+.i-photo_hold {
+    position: relative;
+}
+.i-photo_img-hold {
+    position: relative;
+    max-height: 141px;
+    height: 141px;
+    width: 155px;
+    background-color: #707070;
+    overflow: hidden;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+.i-photo_img-hold:hover .i-photo_overlay {
+    display: block;
+}
+.i-photo_img {
+    margin: 0;
+}
+.i-photo_overlay {
+    display: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 31px;
+    padding: 5px;
+    text-align: center;
+    background-color: #aaa;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.i-photo_rotate {
+    display: inline-block;
+    width: 15px;
+    height: 16px;
+    margin: 0 6px;
+    background: url('/new/images/i-photo_rotate.png') no-repeat;
+}
+.i-photo_rotate:hover {
+    background-position: 0 -16px;
+}
+.i-photo_rotate__r {
+    background-position: -15px 0px;
+}
+.i-photo_rotate__r:hover {
+    background-position: -15px -16px;
+}
+.i-photo_itx {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 12px;
+    border-radius: 0;
+}
+.i-photo_file-name {
+    display: inline-block;
+    margin: 10px;
+    text-align: left;
+}
+/* /i-photo */
+Заглушка
+cap-empty __abs  __rel __im-b  __im-ava  __profile-family  __addPhoto  __addPhotoLink  __gray  __white  __blue
+cap-empty_hold
+cap-empty_img
+cap-empty_t
+cap-empty_tx
+cap-empty_tx-sub
+
+*/
+.cap-empty {
+    position: relative;
+    z-index: 100;
+    text-align: center;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.cap-empty__abs {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+}
+.cap-empty__abs .cap-empty_hold {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+}
+.cap-empty__gray {
+    background: #e6e6e6;
+}
+.cap-empty__white {
+    background: #fff;
+    background: rgba(255, 255, 255, 0.95);
+}
+.cap-empty__blue {
+    background: #4772a7;
+    background: rgba(71, 114, 167, 0.75);
+}
+.cap-empty__blue .cap-empty_tx-sub {
+    color: #fff;
+}
+.cap-empty__im-b {
+    text-align: left;
+}
+.cap-empty__im-b .cap-empty_img {
+    float: left;
+    margin: 0 22px 0 120px;
+}
+.cap-empty__im-b .cap-empty_t {
+    padding-top: 12px;
+}
+.cap-empty__im-b .cap-empty_tx-sub {
+    color: #a0a09f;
+}
+.cap-empty__im-ava {
+    background: #c9e6fd;
+    background: rgba(187, 224, 252, 0.8);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.cap-empty__im-ava .btn-green {
+    margin-top: 8px;
+}
+.cap-empty__im-ava .cap-empty_tx-sub {
+    color: #a0a09f;
+}
+.cap-empty__profile-family {
+    margin-top: 150px;
+    height: 500px;
+}
+.cap-empty__profile-family .cap-empty_t {
+    margin: 20px;
+}
+.cap-empty__addPhoto .cap-empty_img {
+    height: 120px;
+    width: 200px;
+    background-image: url('/new/images/base/cap-empty__addPhoto_img.png');
+}
+.cap-empty__addPhotoLink {
+    padding: 0 140px;
+}
+.cap-empty__addPhotoLink .cap-empty_img {
+    height: 120px;
+    width: 160px;
+    background-image: url('/new/images/base/cap-empty__addPhotoLink_img.png');
+}
+.cap-empty__addPhotoLink .cap-empty_t {
+    margin-bottom: 15px;
+}
+.cap-empty__addPhotoLink .cap-empty_tx-sub {
+    font: 11px/14px Tahoma, Arial, Verdana, sans-serif;
+    color: #cccccc;
+    margin: 5px 0;
+    text-align: left;
+}
+.cap-empty_hold {
+    font-size: 12px;
+    line-height: 16px;
+}
+.cap-empty_img {
+    display: block;
+    height: 60px;
+    width: 60px;
+    margin: 0 auto 8px;
+    background: url('/new/images/base/cap-empty_img.png') no-repeat 0 0;
+}
+.cap-empty_img__white {
+    background-position: -60px 0;
+}
+.cap-empty_img__smile-gray {
+    background-position: -120px 0;
+}
+.cap-empty_img__family-big {
+    height: 180px;
+    width: 455px;
+    background: url('/new/images/base/cap-empty_img__family-big.png') no-repeat 50% 0;
+}
+.cap-empty_t {
+    margin: 5px 0;
+    color: #2d2d2d;
+    font-size: 16px;
+}
+.cap-empty_tx {
+    margin: 0 0 5px;
+}
+.cap-empty_tx > a {
+    text-decoration: none;
+}
+.cap-empty_tx > a:hover {
+    text-decoration: underline;
+}
+.cap-empty_tx-sub {
+    margin: 5px 0;
+    color: #b3b6b7;
+}
+.cap-empty_abs-msg {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: 0 auto;
+}
+.cap-empty_abs-msg-hold {
+    display: inline-block;
+    padding: 4px 10px;
+    color: #171717;
+    font-size: 14px;
+    background-color: #fdf48f;
+}
+.nav-tabs {
+    border-bottom: 1px solid transparent;
+}
+.nav-tabs > li {
+    float: left;
+    margin-bottom: -1px;
+}
+.nav-tabs > li > a {
+    margin-right: 2px;
+    line-height: 1.42857143;
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+}
+.nav-tabs > li > a:hover {
+    border-color: transparent transparent transparent;
+}
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a:focus {
+    color: #333333;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-bottom-color: transparent;
+    cursor: default;
+}
+.nav-tabs.nav-justified {
+    width: 100%;
+    border-bottom: 0;
+}
+.nav-tabs.nav-justified > li {
+    float: none;
+}
+.nav-tabs.nav-justified > li > a {
+    text-align: center;
+    margin-bottom: 5px;
+}
+.nav-tabs.nav-justified > .dropdown .dropdown-menu {
+    top: auto;
+    left: auto;
+}
+@media (min-width: 768px) {
+    .nav-tabs.nav-justified > li {
+        display: table-cell;
+        width: 1%;
+    }
+    .nav-tabs.nav-justified > li > a {
+        margin-bottom: 0;
+    }
+}
+.nav-tabs.nav-justified > li > a {
+    margin-right: 0;
+    border-radius: 4px;
+}
+.nav-tabs.nav-justified > .active > a,
+.nav-tabs.nav-justified > .active > a:hover,
+.nav-tabs.nav-justified > .active > a:focus {
+    border: 1px solid transparent;
+}
+@media (min-width: 768px) {
+    .nav-tabs.nav-justified > li > a {
+        border-bottom: 1px solid transparent;
+        border-radius: 4px 4px 0 0;
+    }
+    .nav-tabs.nav-justified > .active > a,
+    .nav-tabs.nav-justified > .active > a:hover,
+    .nav-tabs.nav-justified > .active > a:focus {
+        border-bottom-color: transparent;
+    }
+}
+.tabs-simple__inline {
+    display: inline-block;
+    vertical-align: middle;
+}
+.tabs-simple__inline > li > a {
+    padding: 0 10px;
+}
+.tabs-simple a {
+    color: #999999;
+    text-decoration: none;
+}
+.tabs-simple a:hover {
+    text-decoration: none;
+    color: #333333;
+}
+.tab-content > .tab-pane {
+    display: none;
+}
+.tab-content > .active {
+    display: block;
+}
+/*
+    Скрытый input загрузки файлов
+    file-fake
+        file-fake_btn
+        file-fake_inp
+*/
+.file-fake {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+.file-fake_btn {
+    position: relative;
+    z-index: 2;
+    cursor: pointer;
+}
+.file-fake_inp {
+    opacity: 0;
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    top: 0;
+    height: 100%;
+    display: block;
+    cursor: pointer;
+    filter: alpha(opacity=30);
+}
+.verticalalign-m-help {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1px;
+    margin: 0 -1px 0 0;
+    height: 100%;
+}
+</style>
+<div id="photo-computer-mylti-empty" class="popup popup-add popup-add__photos">
+    <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+    <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+            <div class="popup-add_t">Добавить фотографии</div>
+            <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+                <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+                <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+                <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+            </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+
+            <!-- fromComputer -->
+
+            <!-- ko if: multiple -->
+            <!-- ko stopBinding: true -->
+            <div id="photo-tab-computer-multiple" class="tab-pane">
+                    <div class="popup-add_frame popup-add_frame__multi" data-bind="visible: photos().length == 0">
+                        <div class="popup-add_cap">
+                            <div class="cap-empty cap-empty__addPhoto">
+                                <div class="cap-empty_hold">
+                                    <div class="cap-empty_img"></div>
+                                    <div class="cap-empty_t">Выберите файлы с компьютера</div>
+                                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp' name="image" data-bind="fileUpload: fileUploadSettings" multiple></div>  <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 8 Мб.</div><div class='popup-add_cap-drag' data-bind="visible: multiple">или перетащите фотографии сюда</div></div>
+                                </div>
+                                <div class="verticalalign-m-help"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="popup-add_scroll scroll" data-bind="visible: photos().length > 0">
+                        <div class="popup-add_frame popup-add_frame__multi">
+                            <div class="scroll_scroller">
+                                <ul class="popup-add_multi scroll_cont">
+                                    <!-- ko foreach: photos -->
+                                    <li class="popup-add_multi-li">
+                                        <div class="i-photo" data-bind="css: cssClass"><a href="" class="ico-close5" data-bind="click: $parent.removePhoto"></a>
+                                            <!-- ko if: status() == photo.$data.STATUS_SUCCESS -->
+                                            <div class="i-photo_hold">
+                                                <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo.$data, preset: 'uploadPreview' }">
+                                                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: rotateRight"></a></div>
+                                                </div>
+                                                <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                                            </div>
+                                            <!-- /ko -->
+
+                                            <!-- ko if: status() == photo.$data.STATUS_LOADING -->
+                                            <div class="i-photo_hold">
+                                                <div class="i-photo_progress">
+                                                    <div class="progress progress-striped active progress__cont">
+                                                        <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                                    </div>
+                                                    <div class="tx-hint">Загрузка</div>
+                                                </div>
+                                            </div>
+                                            <!-- /ko -->
+
+                                            <!-- ko if: status() == photo.$data.STATUS_FAIL -->
+                                            <div class="i-photo_hold error">
+                                                <div class="tx-hint" data-bind="text: original_name"></div>
+                                                <div class="tx-hint" data-bind="text: error"></div>
+                                            </div>
+                                            <!-- /ko -->
+                                        </div>
+                                    </li>
+                                    <!-- /ko -->
+                                </ul>
+                            </div>
+                            <div class="scroll_bar-hold">
+                                <div class="scroll_bar">
+                                    <div class="scroll_bar-in"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-add_footer clearfix" data-bind="visible: photos().length > 0">
+                        <div class="float-r"><button class="btn btn-success" data-bind="disable: loading, click: add">Добавить</button></div>
+                        <div class="popup-add_footer-l">
+                    <span class="color-gray-light">Загружено
+                        <span class="popup-add_footer-count" data-bind="text: successPhotos().length"></span> из <span class="popup-add_footer-count" name="image" data-bind="text: photos().length"></span></span>
+                            <div class="file-fake" data-bind="visible: ! loading()">
+                                <input type="file" class="file-fake_inp" name="image" data-bind="fileUpload: fileUploadSettingsMore" accept="image/gif, image/jpeg, image/png" multiple><a href="" class="file-fake_btn btn btn-primary btn-s"><span class="ico-plus ico-plus__s ico-plus__white"></span>Загрузить еще</a>
+                            </div>
+                            <div class="progress progress-striped active progress__cont progress__inline" data-bind="visible: loading">
+                                <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                            </div><a href="" class="btn-link btn-link-gray btn btn-s" data-bind="click: cancelAll, visible: loading">Отменить загрузку </a>
+                        </div>
+                    </div>
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
+
+            <!-- ko ifnot: multiple -->
+            <!-- ko stopBinding: true -->
+            <div id="photo-tab-computer" class="tab-pane">
+                    <div class="popup-add_frame">
+                        <div class="popup-add_cap">
+                            <div class="cap-empty cap-empty__addPhoto">
+                                <div class="cap-empty_hold">
+                                    <div class="cap-empty_img"></div>
+                                    <div class="cap-empty_t">Выберите файл с компьютера</div>
+                                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp' name="image" data-bind="fileUpload: fileUploadSettings" accept="image/gif, image/jpeg, image/png"></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 8 Мб.</div></div>
+                                </div>
+                                <div class="verticalalign-m-help"></div>
+                            </div>
+                        </div>
+                        <div class="textalign-c" data-bind="if: photo() !== null">
+                            <div class="i-photo" data-bind="css: photo.cssClass"><a href="" class="ico-close5" data-bind="click: $parent.removePhoto"></a>
+                                <!-- ko if: status() == photo.$data.STATUS_SUCCESS -->
+                                <div class="i-photo_hold">
+                                    <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo.$data, preset: 'uploadPreview' }">
+                                        <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: photo.rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: photo.rotateRight"></a></div>
+                                    </div>
+                                    <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                                </div>
+                                <!-- /ko -->
+
+                                <!-- ko if: status() == photo.$data.STATUS_LOADING -->
+                                <div class="i-photo_hold">
+                                    <div class="i-photo_progress">
+                                        <div class="progress progress-striped active progress__cont">
+                                            <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                        </div>
+                                        <div class="tx-hint">Загрузка</div>
+                                    </div>
+                                </div>
+                                <!-- /ko -->
+
+                                <!-- ko if: status() == photo.$data.STATUS_FAIL -->
+                                <div class="i-photo_hold error">
+                                    <div class="tx-hint" data-bind="text: photo.original_name"></div>
+                                    <div class="tx-hint" data-bind="text: photo.error"></div>
+                                </div>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-add_footer" data-bind="visible: photo() !== null">
+                        <div class="textalign-c"><button class="btn btn-success" data-bind="disable: loading, click: add">Добавить</button></div>
+                    </div>
+
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
+
+
+
+            <!-- end of fromComputer -->
+
+
+
+
+            <!-- from fromAlbums -->
+            <!-- ko stopBinding: true -->
+            <div id="photo-tab-album" class="tab-pane">
+                <ul class="tabs-simple nav nav-tabs">
+                    <li data-bind="css: { active: currentAlbum() === null }"><a href="" data-bind="click: unselectAlbum">Мои альбомы <span data-bind="text: albums().length"></span></a></li>
+                    <li data-bind="with: currentAlbum(), css: { active: currentAlbum() !== null }"><a href="" data-bind="click: $root.selectAlbum"><span data-bind="text: title"></span> <span data-bind="text: photoCollection().attachesCount()"></span></a></li>
+                    <!--<li><a href="#photo-album-all" data-toggle="tab">Все фото 468</a></li>-->
+                </ul>
+                <div class="tab-content">
+                    <div class="popup-add_scroll scroll">
+                        <div class="popup-add_frame popup-add_frame__album">
+                            <div class="scroll_scroller">
+                                <div class="album-preview album-preview__album scroll_cont" data-bind="visible: currentAlbum() === null">
+                                    <ul class="album-preview_ul">
+                                        <!-- ko foreach: albums -->
+                                        <li class="album-preview_li" data-bind="click: $root.selectAlbum">
+                                            <div class="album-preview_in">
+                                                <div class="album-preview_img-hold">
+                                                    <img src="" alt="" class="album-preview_img" data-bind="thumb: { photo: photoCollection().cover().photo(), preset: 'uploadAlbumCover' }">
+                                                </div>
+                                                <div class="album-preview_overlay"></div>
+                                            </div>
+                                            <div class="album-preview_hold">
+                                                <div class="album-preview_t" data-bind="text: title"></div>
+                                                <div class="album-preview_count"><span data-bind="text: photoCollection().attachesCount()"></span> фото</div>
+                                            </div>
+                                        </li>
+                                        <!-- /ko -->
+                                    </ul>
+                                </div>
+
+                                <div class="album-preview scroll_cont" data-bind="with: currentAlbum(), css: thumbsSizeClass">
+                                    <ul class="album-preview_ul">
+                                        <!-- ko foreach: photoCollection().attaches() -->
+                                        <li class="album-preview_li" data-bind="click: $root.selectAttach, css: { active: isActive }">
+                                            <div class="album-preview_in">
+                                                <div class="album-preview_img-hold">
+                                                    <img src="" alt="" class="album-preview_img" data-bind="thumb: { photo: photo(), preset: $root.thumbsPreset() }">
+                                                </div>
+                                                <div class="album-preview_overlay"></div>
+                                                <div class="album-preview_check"></div>
+                                            </div>
+                                        </li>
+                                        <!-- /ko -->
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="scroll_bar-hold">
+                                <div class="scroll_bar">
+                                    <div class="scroll_bar-in"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="popup-add_footer clearfix" data-bind="visible: currentAlbum() !== null">
+                            <div class="popup-add_footer-l">
+                                <div class="album-slider">
+                                    <div class="album-slider_tx album-slider_tx-minus" data-bind="click: function() { updateThumbsSize(-1) }">&ndash;</div>
+                                    <div class="album-slider_hold" data-bind="slider: thumbsSize, sliderOptions: { min: 1, max: 3 }"></div>
+                                    <div class="album-slider_tx album-slider_tx-plus" data-bind="click: function() { updateThumbsSize(1) }">+</div>
+                                </div>
+                            </div>
+                            <div class="float-r">
+                                <div class="btn btn-link-gray btn-s disabled" data-bind="text: hint"></div><button class="btn btn-success" data-bind="click: add, disable: photos().length == 0">Добавить</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- end of fromAlbums -->
+
+
+            <!-- _byUrl -->
+            <!-- ko stopBinding: true -->
+            <div id="photo-tab-link" class="tab-pane">
+                <div class="popup-add_frame">
+                    <div class="popup-add_cap">
+                        <div class="cap-empty cap-empty__addPhotoLink">
+                            <div class="cap-empty_hold">
+                                <div class="cap-empty_img"></div>
+                                <div class="cap-empty_t">Выберите файл из интернета</div>
+                                <div class="cap-empty_tx"><input type="text" placeholder="Вставте ссылку на изображение" class="itx-gray" data-bind="value: url, valueUpdate: 'input'"></div>
+                                <div class="cap-empty_tx-sub">На любом сайте кликните правой кнопкой по нужному изображению, выберите “Копировать URL картинки” и вставьте сюда</div>
+                            </div>
+                            <div class="verticalalign-m-help"></div>
+                        </div>
+                    </div>
+                    <div class="textalign-c" data-bind="if: photo() !== null">
+                        <div class="i-photo" data-bind="css: photo.cssClass"><a href="" class="ico-close5" data-bind="click: $parent.removePhoto"></a>
+                            <!-- ko if: status() == photo.$data.STATUS_SUCCESS -->
+                            <div class="i-photo_hold">
+                                <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo.$data, preset: 'uploadPreview' }">
+                                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: photo.rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: photo.rotateRight"></a></div>
+                                </div>
+                                <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                            </div>
+                            <!-- /ko -->
+
+                            <!-- ko if: status() == photo.$data.STATUS_LOADING -->
+                            <div class="i-photo_hold">
+                                <div class="i-photo_progress">
+                                    <div class="progress progress-striped active progress__cont">
+                                        <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                    </div>
+                                    <div class="tx-hint">Загрузка</div>
+                                </div>
+                            </div>
+                            <!-- /ko -->
+
+                            <!-- ko if: status() == photo.$data.STATUS_FAIL -->
+                            <div class="i-photo_hold error">
+                                <div class="tx-hint" data-bind="text: photo.original_name"></div>
+                                <div class="tx-hint" data-bind="text: photo.error"></div>
+                            </div>
+                            <!-- /ko -->
+                        </div>
+                    </div>
+                </div>
+                <div class="popup-add_footer" data-bind="visible: photo() !== null">
+                    <div class="textalign-c"><button class="btn btn-success" data-bind="disable: loading, click: add">Добавить</button></div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- end of  _byUrl -->
+
+        </div>
+    </div>
+</div>

@@ -9669,13 +9669,7 @@ fieldset[disabled] .btn-link-gray-gray:focus {
 .verticalalign-b {
   vertical-align: bottom;
 }
-.verticalalign-m-help {
-  display: inline-block;
-  vertical-align: middle;
-  width: 1px;
-  margin: 0 -1px 0 0;
-  height: 100%;
-}
+.file-fake_inp
 .verticalalign-el,
 .verticalalign-m-el,
 .album-preview_img {

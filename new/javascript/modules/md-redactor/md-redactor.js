@@ -1,11 +1,9 @@
-define(['knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/marked', 'extensions/epiceditor/epiceditor', 'ko_library'], function(ko, template, marked, EpicEditor) {
+define(['knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/marked', 'extensions/epiceditor/epiceditor', 'ko_library'], function mdRedactorViewHandler(ko, template, marked, EpicEditor) {
     function MdRedactorView(params) {
-
         this.editor = {};
         this.idElement = ko.observable(params.id);
         this.textareaId = params.textareaId;
         this.htmlId = params.htmlId;
-
         /**
          * Начинаем h-тэги с h2
          * @param text
@@ -13,9 +11,8 @@ define(['knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/
          * @returns {string}
          */
         this.rendererHeadingIncrement = function rendererHeadingIncrement(text, level) {
-            var escapedText = text.toLowerCase().replace(/[^\w]+/g, '-');
             level++;
-            return '<h' + level + '>' + escapedText +'</h' + level + '>';
+            return '<h' + level + '>' + text + '</h' + level + '>';
         };
 
         /**
@@ -23,10 +20,10 @@ define(['knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/
          * @param markedInstance
          * @returns {marked.Renderer}
          */
-        this.newRenderer = function newRenderer (markedInstance) {
-            var renderer = new marked.Renderer();
+        this.newRenderer = function newRenderer(markedInstance) {
+            var renderer = new markedInstance.Renderer();
             renderer.heading = this.rendererHeadingIncrement;
-            return renderer
+            return renderer;
         };
 
 
@@ -34,7 +31,7 @@ define(['knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/
          * Установка опций для парсера
          */
         marked.setOptions({
-            renderer:  this.newRenderer(this)
+            renderer: this.newRenderer(marked)
         });
 
 
@@ -89,10 +86,12 @@ define(['knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/
         /**
          * Загрузка редактора после рендера шаблона
          */
-        this.loadEditor = function loadEditor () {
-            this.editor = new EpicEditor(this.generateNewOpts( this.idElement(), this.textareaId, this.htmlId )).load();
+        this.loadEditor = function loadEditor() {
+            this.editor = new EpicEditor(this.generateNewOpts(this.idElement(), this.textareaId, this.htmlId)).load();
         };
     }
-
-    return { viewModel: MdRedactorView, template: template };
+    return {
+        viewModel: MdRedactorView,
+        template: template
+    };
 });

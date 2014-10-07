@@ -20,7 +20,7 @@ $kak_viglyadat = (mb_substr($model->title_quality, -2, 2) == 'ки') ? 'Как �
 <div class="cook-choose">
     <div class="b-main_cont">
         <div class="b-main_col-wide">   
-            <h1 class="heading-link-xxl heading-link-xxl__center">Как выбирать продукты</h1>
+            <h1 class="heading-link-xxl heading-link-xxl__center">Как выбирать <?= $model->title_accusative ?></h1>
         </div>
     </div>
     <div class="b-main_row b-main_row__blue b-main_row__blue-quotes">

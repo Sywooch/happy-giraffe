@@ -125,12 +125,13 @@ class Photo extends \HActiveRecord implements \IHToJSON
     public function toJSON()
     {
         return array(
-            'id' => $this->id,
+            'id' => (int) $this->id,
             'title' => $this->title,
-            'original_name' => $this->original_name,
+            'description' => $this->description,
+            'originalName' => $this->original_name,
             'width' => (int) $this->width,
             'height' => (int) $this->height,
-            'fs_name' => $this->fs_name,
+            'fsName' => $this->fs_name,
             'originalUrl' => $this->getImageFile()->getOriginalUrl(),
         );
     }

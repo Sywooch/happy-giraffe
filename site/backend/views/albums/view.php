@@ -1,195 +1,29 @@
-<?php
-$this->widget('site.frontend.widgets.photoView.photoViewWidget', array(
-    'selector' => '.img > a',
-    'entity' => 'Album',
-    'entity_id' => $model->id,
-));
-?>
+<script>
+    var AdFox_object_262959372 = '';
+    var tracking_url_262959372 = 'http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=486723&pid=1747390&bid=3534791&bn=3534791&rnd=262959372';
+    var AdFoxEvent_262959372 = new Image();
+    if(tracking_url_262959372 != '') {
+        AdFoxEvent_262959372.src = 'http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=486723&pid=1747390&bid=3534791&bn=3534791&rnd=262959372';
+        tracking_url_262959372 = '';
+    }
+    var AdFox_variable_262959372 = 0;
+    var AdFox_id_262959372 = 'AdFox_banner_455614';
+    var AdFox_yn_262959372 = 0;
+    var AdFox_pdoc_262959372 = parent.document;
+    if(AdFox_pdoc_262959372 != document){
+        var AdFox_pde_262959372 = AdFox_pdoc_262959372.getElementById(AdFox_id_262959372);
+        var AdFox_yn_262959372 = AdFox_pde_262959372?1:0;
+    }
 
-<div id="user">
+    AdFox_variable_262959372 = 1;
+    AdFox_object_262959372 += '<a href="http://ads.adfox.ru/211012/goLink?p2=faph&p1=bqzzr&p5=clsyh&pr=wdlhea" target="_blank" style="vertical-align: top; margin: -13px 20px 0 20px;" class="visible-md-inline-block" onmouseover="$(this).find(\'span\').css(\'backgroundPosition\', \'0 -20px\');" onmouseout="$(this).find(\'span\').css(\'backgroundPosition\', \'0 0\');"><img src="http://content.adfox.ru/141007/adfox/412516/1120087.gif" alt="" border=0><span style="display: block; width: 77px; height: 20px; margin: 3px 0px 0px; background: url(/lite/images/banner/header_kinderino-2-btn.png) 0px 0px no-repeat;" onmouseover="this.style.backgroundPosition='0 -20px'" onmouseout="this.style.backgroundPosition='0 0'"></span></a>';
 
-    <div class="main">
-        <div class="main-in">
-
-            <div class="content-title-new">
-                Альбом «<?=$model->title?>
-                »<?php if (Yii::app()->user->id == $this->user->id): ?> <?= CHtml::link('', '#albumSettings', array('class' => 'settings tooltip fancy', 'title' => 'Настройки альбома')) ?><?php endif; ?>
-                <?php if ($model->description): ?>
-                <span><?=$model->description?></span>
-                <?php endif; ?>
-            </div>
-
-            <div id="gallery" class="nopadding">
-
-                <div class="gallery-photos-new cols-3 clearfix">
-
-                    <?php
-                    $this->widget('MyListView', array(
-                        'dataProvider' => $dataProvider,
-                        'itemView' => '_photo',
-                        'summaryText' => 'показано: {start} - {end} из {count}',
-                        'pager' => array(
-                            'class' => 'AlbumLinkPager',
-                        ),
-                        'id' => 'photosList',
-                        'itemsTagName' => 'ul',
-                        //'template' => '{items}<div class="pagination pagination-center clearfix">{pager}</div>',
-                        'template' => '{items}',
-                        'viewData' => array(
-                            'currentPage' => $dataProvider->pagination->currentPage,
-                        ),
-                    ));
-
-                    $this->widget('PhotosAjaxMasonry', array(
-                            'dataProvider' => $dataProvider,
-
-                            'gallerySelector' => '.img > a',
-                            'galleryEntity' => 'Album',
-                            'galleryEntity_id' => $model->id,
-
-                            'masonryContainerSelector' => '#photosList ul.items',
-                            'masonryItemSelector' => 'li',
-                            'masonryColumnWidth' => 240
-                        )
-                    );
-                    ?>
-
-                </div>
-
-
-            </div>
-
-        </div>
-    </div>
-
-    <div class="side-left gallery-sidebar">
-
-        <div class="clearfix">
-            <div class="clearfix user-info-big">
-                <?php
-                $this->widget('application.widgets.avatarWidget.AvatarWidget', array(
-                    'user' => $this->user,
-                    'location' => false,
-                    'friendButton' => true,
-                    'nav' => true,
-                    'status' => true,
-                ));
-                ?>
-            </div>
-        </div>
-
-        <?php if (Yii::app()->user->id == $this->user->id): ?>
-            <div class="upload-photo-btn">
-                <?php
-                    AlbumsController::loadUploadScritps();
-                    echo CHtml::link(CHtml::image('/images/btn_upload_photo.png'), array('addPhoto', 'a' => $model->id), array('class' => 'fancy btn btn-green'));
-                ?>
-            </div>
-        <?php endif; ?>
-
-        <div class="club-topics-list-new">
-
-            <div class="block-title">Мои альбомы</div>
-
-            <?php
-            $items = array();
-            $items[] = array(
-                'label' => 'Все альбомы',
-                'url' => array('albums/user', 'id' => $this->user->id),
-                'template' => '<span>{menu}</span>',
-            );
-
-            foreach ($model->author->albums('albums:noSystem') as $album) {
-                $items[] = array(
-                    'label' => $album->title,
-                    'url' => $album->url,
-                    'template' => '<span>{menu}</span><div class="count">' . $album->photoCount . '</div>',
-                    'active' => $album->id == $model->id,
-                );
-            }
-
-            $this->widget('zii.widgets.CMenu', array(
-                'items' => $items,
-            ));
-            ?>
-
-        </div>
-
-    </div>
-
-</div>
-
-<div style="display:none">
-    <div id="albumSettings" class="popup">
-
-        <a href="javascript:void(0);" onclick="$.fancybox.close();" class="popup-close tooltip" title="Закрыть"></a>
-
-        <div class="popup-title">Настройки фотоальбома</div>
-
-        <!--<div class="default-nav">
-            <ul>
-                <li class="active"><a href="">Название альбома</a></li>
-                <li class="disabled"><a>Настройки 2</a></li>
-                <li class="disabled"><a>Настройки 3</a></li>
-            </ul>
-        </div>-->
-
-        <?php $form = $this->beginWidget('CActiveForm', array(
-        'action' => array('/ajax/setValues/'),
-        'enableAjaxValidation' => true,
-        'clientOptions' => array(
-            'validateOnType' => true,
-        ),
-        'htmlOptions' => array(
-            'onsubmit' => 'ajaxSetValues(this, function(response) {if (response) {$.fancybox.close(); window.location.reload();}}); return false;',
-        ),
-    )); ?>
-        <?=CHtml::hiddenField('entity', get_class($model))?>
-        <?=CHtml::hiddenField('entity_id', $model->id)?>
-
-        <div class="settings-form">
-
-            <div class="row">
-                <div class="row-title">Название альбома <span>(не более 30 знаков)</span></div>
-                <div class="row-elements"<?php if (!$model->title): ?> style="display: none;"<?php endif; ?>>
-                    <span class="item-title"><?=$model->title?></span>
-                    <a href="javascript:void(0)" onclick="Album.updateField(this)" class="edit tooltip" title="Редактировать название альбома"></a>
-                </div>
-                <div class="row-elements"<?php if ($model->title): ?> style="display: none;"<?php endif; ?>>
-                    <?=$form->textField($model, 'title', array('placeholder' => 'Введите название альбома'))?>
-                    <button onclick="Album.updateFieldSubmit(this, '.item-title'); return false;" class="btn btn-green-small"><span><span>Ok</span></span></button>
-                </div>
-                <?=$form->error($model, 'title')?>
-
-            </div>
-            <div class="row">
-                <div class="row-title">Комментарий к альбому</div>
-                <div class="row-elements"<?php if (!$model->description): ?> style="display: none;"<?php endif; ?>>
-                    <p><span><?=$model->description?></span><a href="javascript:void(0)" onclick="Album.updateField(this)" class="edit tooltip" title="Редактировать описание альбома"></a></p>
-                </div>
-                <div class="row-elements"<?php if ($model->description): ?> style="display: none;"<?php endif; ?>>
-                    <?=$form->textField($model, 'description')?>
-                    <button onclick="Album.updateFieldSubmit(this, 'p > span'); return false;" class="btn btn-green-small"><span><span>Ok</span></span></button>
-                </div>
-                <?=$form->error($model, 'description')?>
-
-            </div>
-
-        </div>
-
-        <div class="bottom">
-            <button class="btn btn-green-medium"><span><span>Сохранить настройки</span></span></button>
-        </div>
-
-        <?php $this->endWidget(); ?>
-
-    </div>
-</div>
-
-<?php
-if (Yii::app()->user->id == $this->user->id) {
-    $remove_tmpl = $this->beginWidget('site.frontend.widgets.removeWidget.RemoveWidget');
-    $remove_tmpl->registerTemplates();
-    $this->endWidget();
-}
-?>
+    if(AdFox_yn_262959372){
+        if(AdFox_variable_262959372){
+            AdFox_pde_262959372.innerHTML = AdFox_object_262959372;
+        }
+        setTimeout("document.close();", 1000);
+    }else{
+        document.write(AdFox_object_262959372);
+    }
+</script>

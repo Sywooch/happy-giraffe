@@ -35,7 +35,7 @@ class ChooseController extends LiteController
 
     public function sitemapView()
     {
-        $sql = 'SELECT slug FROM cook__choose UNION SELECT slug FROM cook__choose__categories';
+        $sql = 'SELECT slug FROM cook__choose';
         $command = Yii::app()->db->createCommand($sql);
         $models = $command->queryAll();
 
@@ -48,7 +48,7 @@ class ChooseController extends LiteController
                 ),
             );
         }
-
+        
         return $data;
     }
 

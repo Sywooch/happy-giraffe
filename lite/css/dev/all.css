@@ -14783,7 +14783,7 @@ html {
 }
 .b-album_img-hold {
   position: relative;
-  height: 230px;
+  height: 300px;
   text-align: center;
   background: #4d445c;
 }
@@ -14909,7 +14909,7 @@ html {
 }
 @media (min-width: 480px) {
   .b-album_img-hold {
-    height: 320px;
+    height: 380px;
   }
   .b-album_top {
     margin-bottom: 10px;
@@ -14927,7 +14927,7 @@ html {
 }
 @media (min-width: 768px) {
   .b-album_img-hold {
-    height: 450px;
+    height: 500px;
   }
   .b-album_top {
     margin-bottom: 15px;

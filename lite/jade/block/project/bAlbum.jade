@@ -16,12 +16,23 @@ mixin bAlbum(mod, vars)
                     .b-album_count-tx фото
         .b-album_img-hold(href="#")
             .b-album_img-a
-                // Высота изображений 580 пк
-                // Ширина изображения 980 ??
-                // Если изображения маленькие, они становятся по центру
                 .verticalalign-m-help
                 .verticalalign-m-el
-                    img.b-album_img-big(src="#{path}images/example/#{vars.img}", alt="")
+                    // У изображений стороны сторон сохраняются максимальные размеры изображения
+                    // телефоны до 480
+                    // height 300
+                    // width 480
+                    // устройства от w480
+                    // height 380
+                    // width 768
+                    // устройства от w768
+                    // height 500
+                    // width 960
+                    // десктоп и большие планшеты от w1000
+                    // Высота изображений 580
+                    // Ширина изображения 880
+                    // Если изображения маленькие, они становятся по центру
+                    img.b-album_img-big(srcset="#{vars.img}", alt="")
             .b-album_img-hold-ovr
                 .ico-zoom.ico-zoom__abs
         .b-album_overlay
@@ -85,13 +96,13 @@ mixin bAlbum(mod, vars)
 //- Альбом вид гостя
 - bAlbum.d = {}
 - bAlbum.d.top = true
-- bAlbum.d.img = 'w880-h580-1.jpg'
+- bAlbum.d.img = path+'images/services/cook-choose/product-1-w460.jpg 100w,'+path+'images/services/cook-choose/product-1.jpg 480w'
 - bAlbum.d.tx = 'Смотреть  <br> все фото &nbsp;'
 - bAlbum.d.prevAdd = false
 
 - bAlbum.e = {}
 - bAlbum.e.top = true
-- bAlbum.e.img = 'w430-h580.jpg'
+- bAlbum.e.img = path+'images/services/cook-choose/product-1-w460.jpg 100w,'+path+'images/example/w265-h400.jpg 480w, '+path+'images/example/w880-h580-1.jpg 768w,'+path+'images/example/w880-h585-1.jpg 1000w'
 - bAlbum.e.tx = 'Смотреть  <br> все фото &nbsp;'
 - bAlbum.e.prevAdd = false
 

@@ -627,7 +627,7 @@
 							<span class="fast-articles3_img-hold">
 								<img src="/images/banners/post-204717.jpg" class="fast-articles3_img" alt="">
 							</span>
-							<span class="fast-articles3_tx">Как похудеть после родов при грудном вскармливании?</span>
+							<span class="fast-articles3_tx">Научите ребенка правильно умываться</span>
 						</a>
 					</div>
 				</div>

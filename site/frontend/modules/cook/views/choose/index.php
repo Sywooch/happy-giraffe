@@ -2,7 +2,7 @@
 $this->pageTitle = 'Как выбрать продукты?';
 
 $this->breadcrumbs = array(
-    'Готовим дома' => array('/cook/default/index'),
+    '<div class="ico-club ico-club__s ico-club__7"></div>' => array('/cook/default/index'),
     'Как выбрать продукты?',
 );
 ?>

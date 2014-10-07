@@ -31,13 +31,7 @@ class RedactorController extends \LiteController
 
     public function actionEdit($entity, $entityId)
     {
-        $entityId = (int) $entityId;
-        $model = departmentModels\Content::model()->findByAttributes(compact('entity', 'entityId'));
-        if (is_null($model))
-            throw new \CHttpException(404);
-        if ($model->authorId != \Yii::app()->user->id)
-            throw new \CHttpException(403);
-        
+        $model = $this->getModel($entity, $entityId);
         if (isset($_POST['Content']))
         {
             $model->setAttributes($_POST['Content'], false);
@@ -46,6 +40,24 @@ class RedactorController extends \LiteController
         }
         
         $this->render('index', array('model' => $model));
+    }
+    
+    public function actionUrlForEdit($entity = 'CommunityContent', $entityId)
+    {
+        $model = $this->getModel($entity, $entityId);
+        echo \CJSON::encode(array('url' => $this->createUrl('edit', compact($entity, $entityId))));
+    }
+    
+    protected function getModel($entity, $entityId)
+    {
+        $entityId = (int) $entityId;
+        $model = departmentModels\Content::model()->findByAttributes(compact('entity', 'entityId'));
+        if (is_null($model))
+            throw new \CHttpException(404);
+        if ($model->authorId != \Yii::app()->user->id)
+            throw new \CHttpException(403);
+        
+        return $model;
     }
 
 }

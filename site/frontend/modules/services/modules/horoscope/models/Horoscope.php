@@ -812,6 +812,6 @@ class Horoscope extends HActiveRecord implements IPreview
 
     public function getPreviewPhoto()
     {
-        return '/images/widget/horoscope/big/' . $this->zodiac . ' .png';
+        return \Yii::app()->createAbsoluteUrl('/images/widget/horoscope/big/') . $this->zodiac . ' .png';
     }
 }

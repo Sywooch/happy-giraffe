@@ -1,29 +1,55 @@
-<script>
-    var AdFox_object_262959372 = '';
-    var tracking_url_262959372 = 'http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=486723&pid=1747390&bid=3534791&bn=3534791&rnd=262959372';
-    var AdFoxEvent_262959372 = new Image();
-    if(tracking_url_262959372 != '') {
-        AdFoxEvent_262959372.src = 'http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=486723&pid=1747390&bid=3534791&bn=3534791&rnd=262959372';
-        tracking_url_262959372 = '';
-    }
-    var AdFox_variable_262959372 = 0;
-    var AdFox_id_262959372 = 'AdFox_banner_455614';
-    var AdFox_yn_262959372 = 0;
-    var AdFox_pdoc_262959372 = parent.document;
-    if(AdFox_pdoc_262959372 != document){
-        var AdFox_pde_262959372 = AdFox_pdoc_262959372.getElementById(AdFox_id_262959372);
-        var AdFox_yn_262959372 = AdFox_pde_262959372?1:0;
-    }
-
-    AdFox_variable_262959372 = 1;
-    AdFox_object_262959372 += '<a href="http://ads.adfox.ru/211012/goLink?p2=faph&p1=bqzzr&p5=clsyh&pr=wdlhea" target="_blank" style="vertical-align: top; margin: -13px 20px 0 20px;" class="visible-md-inline-block" onmouseover="$(this).find(\'span\').css(\'backgroundPosition\', \'0 -20px\');" onmouseout="$(this).find(\'span\').css(\'backgroundPosition\', \'0 0\');"><img src="http://content.adfox.ru/141007/adfox/412516/1120087.gif" alt="" border=0><span style="display: block; width: 77px; height: 20px; margin: 3px 0px 0px; background: url(/lite/images/banner/header_kinderino-2-btn.png) 0px 0px no-repeat;" onmouseover="this.style.backgroundPosition='0 -20px'" onmouseout="this.style.backgroundPosition='0 0'"></span></a>';
-
-    if(AdFox_yn_262959372){
-        if(AdFox_variable_262959372){
-            AdFox_pde_262959372.innerHTML = AdFox_object_262959372;
+<script type="text/javascript">
+    var fk = function($) {
+        if (typeof(pr) == 'undefined') { var pr = Math.floor(Math.random() * 1000000); }
+        if (typeof(document.referrer) != 'undefined') {
+            if (typeof(afReferrer) == 'undefined') {
+                afReferrer = escape(document.referrer);
+            }
+        } else {
+            afReferrer = '';
         }
-        setTimeout("document.close();", 1000);
-    }else{
-        document.write(AdFox_object_262959372);
+        var addate = new Date();
+
+        var scrheight = '', scrwidth = '';
+        if (self.screen) {
+            scrwidth = screen.width;
+            scrheight = screen.height;
+        } else if (self.java) {
+            var jkit = java.awt.Toolkit.getDefaultToolkit();
+            var scrsize = jkit.getScreenSize();
+            scrwidth = scrsize.width;
+            scrheight = scrsize.height;
+        }
+
+        var dl = escape(document.location);
+        var pr1 = Math.floor(Math.random() * 1000000);
+
+        var code = '<div id="AdFox_banner_' + pr1 + '"><\/div><div style="visibility:hidden; position:absolute;"><iframe id="AdFox_iframe_' + pr1 + '" width=1 height=1 marginwidth=0 marginheight=0 scrolling=no frameborder=0><\/iframe><\/div>';
+
+
+        if ({{isGuest}})
+        {
+            $('header').addClass('header__kinder-gold');
+            $('AdFox_banner_' + pr1).addClass('visible-md-inline-block');
+            $('.header-menu').after(code);
+        } else {
+            $('.header-menu_li__dropin').prev().hide();
+            $('.header-menu_li__dropin').before('<li class="header-menu_li">' + code + '</li>');
+            $('#AdFox_banner_' + pr1).find('a').css('margin', '-13px 0 -35px;');
+        }
+
+        $('#AdFox_banner_' + pr1).find('a').css('padding', 'padding: 0 5px 0 0;');
+
+        AdFox_getCodeScript(1,pr1,'//ads.adfox.ru/211012/prepareCode?pp=g&amp;ps=bkqy&amp;p2=faph&amp;pct=a&amp;plp=a&amp;pli=a&amp;pop=a&amp;pr=' + pr +'&amp;pt=b&amp;pd=' + addate.getDate() + '&amp;pw=' + addate.getDay() + '&amp;pv=' + addate.getHours() + '&amp;prr=' + afReferrer + '&amp;pdw=' + scrwidth + '&amp;pdh=' + scrheight + '&amp;dl='+dl+'&amp;pr1='+pr1);
+    };
+
+    if ({{isAmd}}) {
+        require(['jquery', 'AdFox'], function($) {
+            fk($);
+        });
+    } else {
+        $(function() {
+            fk(jQuery);
+        });
     }
 </script>

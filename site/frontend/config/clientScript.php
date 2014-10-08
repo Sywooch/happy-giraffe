@@ -551,7 +551,7 @@ return array(
             'depends' => array('lite_services_user'),
         ),
         'lite_editorial-department_user' => array(
-            'depends' => array('lite_services_user'),
+            'depends' => array('lite-default'),
         ),
         'chosen' => array(
             'baseUrl' => '/',

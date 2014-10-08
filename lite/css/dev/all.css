@@ -16085,7 +16085,7 @@ textarea.error {
 .header {
   position: relative;
   background: #ffffff url('/lite/images/header.png') repeat-x 0 0;
-  z-index: 2;
+  z-index: 5;
   /*&_kindergold,
     &_kinderino {
         display: none;

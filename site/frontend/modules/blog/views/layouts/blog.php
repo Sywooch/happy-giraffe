@@ -62,6 +62,10 @@ $data['currentRubricId'] = $this->rubric_id;
                 <div class="aside-blog-desc_tx" data-bind="html: descriptionToShow"><?=$data['description']?></div>
             </div>
 
+            <?php Yii::beginProfile('subs'); ?>
+            <?php $this->renderPartial('_subscribers'); ?>
+            <?php Yii::endProfile('subs'); ?>
+
             <?php if ($this->action->id == 'view'): ?>
                 <!--AdFox START-->
                 <!--giraffe-->
@@ -94,10 +98,6 @@ $data['currentRubricId'] = $this->rubric_id;
                 </script>
                 <!--AdFox END-->
             <?php endif; ?>
-
-            <?php Yii::beginProfile('subs'); ?>
-            <?php $this->renderPartial('_subscribers'); ?>
-            <?php Yii::endProfile('subs'); ?>
 
             <?php Yii::beginProfile('rubrics'); ?>
             <div class="menu-simple blogInfo" id="rubricsList" data-bind="visible: showRubrics">

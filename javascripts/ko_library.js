@@ -115,9 +115,7 @@
             }
         };
 
-
-        ko.bindingHandlers.chosen =
-        {
+        ko.bindingHandlers.chosen = {
             init: function(element)
             {
                 $(element).addClass('chzn');

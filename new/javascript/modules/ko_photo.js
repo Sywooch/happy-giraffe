@@ -212,7 +212,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     function FromComputerSingleViewModel(data) {
         var self = this;
         PhotoUploadViewModel.apply(self, arguments);
-
         $.extend(self.fileUploadSettings, {
             add: function (e, data) {
                 self.added(self.populatePhoto(data));

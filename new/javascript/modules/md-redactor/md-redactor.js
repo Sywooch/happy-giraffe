@@ -1,9 +1,16 @@
-define(['knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/marked', 'extensions/epiceditor/epiceditor', 'ko_library'], function mdRedactorViewHandler(ko, template, marked, EpicEditor) {
+define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/marked', 'extensions/epiceditor/epiceditor', 'ko_photoUpload', 'ko_library'], function mdRedactorViewHandler($, ko, template, marked, EpicEditor) {
     function MdRedactorView(params) {
         this.editor = {};
         this.idElement = ko.observable(params.id);
         this.textareaId = params.textareaId;
         this.htmlId = params.htmlId;
+        this.photo = ko.observable(null);
+        this.careThrough = {};
+
+        this.loadPhotoComponent = function (data, event) {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+        };
+
         /**
          * Начинаем h-тэги с h2
          * @param text
@@ -14,7 +21,6 @@ define(['knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/
             level++;
             return '<h' + level + '>' + text + '</h' + level + '>';
         };
-
         /**
          * Генерируем новый объект Render из marked.js
          * @param markedInstance
@@ -25,7 +31,16 @@ define(['knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/
             renderer.heading = this.rendererHeadingIncrement;
             return renderer;
         };
-
+        this.generateSimpleImg = function generateSimpleImg(url, title) {
+            return "\n![" + title + "](" + url + " " + title + ")\n";
+        };
+        this.appendToText = function appendToText(text) {
+            var content = this.editor.exportFile('epiceditor');
+            this.editor.importFile('epiceditor', content + text);
+        };
+        this.photo.subscribe(function (img) {
+            this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title()));
+        }, this);
 
         /**
          * Установка опций для парсера

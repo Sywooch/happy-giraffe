@@ -1,14 +1,15 @@
-define(['knockout'], function(ko) {
+define(['knockout', 'text!photo/baseUrlConfig.json'], function (ko, baseConfigRaw) {
     // Биндинг для отображения миниатюр
     ko.bindingHandlers.thumb = {
         update: function (element, valueAccessor) {
-            var value = valueAccessor();
-            var photo = value.photo;
-            var preset = value.preset;
+            var value = valueAccessor(),
+                photo = value.photo,
+                preset = value.preset,
+                baseConfig = JSON.parse(baseConfigRaw);
 
             function update() {
-                var src = 'http://img.virtual-giraffe.ru/proxy_public_file/thumbs/' + preset + '/' + photo.fs_name();
-                //src = 'http://img2.dev.happy-giraffe.ru/thumbs/' + preset + '/' + photo.fs_name();
+                var src = baseConfig.local + preset + '/' + photo.fsName();
+                //src = baseConfig.server + photo.fsName();
                 //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
                 $(element).attr('src', src);
 //                console.log(preset);

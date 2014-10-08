@@ -1427,6 +1427,7 @@ ko.extenders['trackArrayChanges'] = function(target) {
             trackChanges();
         }
         return underlyingSubscribeFunction.apply(this, arguments);
+
     };
 
     function trackChanges() {

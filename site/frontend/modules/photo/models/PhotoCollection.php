@@ -143,7 +143,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     public function toJSON()
     {
         return array(
-            'id' => $this->id,
+            'id' => (int) $this->id,
             'attachesCount' => (int) $this->attachesCount,
             'cover' => $this->cover,
         );

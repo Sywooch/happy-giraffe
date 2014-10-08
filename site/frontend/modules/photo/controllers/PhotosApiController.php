@@ -10,6 +10,7 @@ namespace site\frontend\modules\photo\controllers;
 
 
 use site\frontend\components\api\ApiController;
+use site\frontend\modules\photo\components\InlinePhotoModifier;
 use site\frontend\modules\photo\components\thumbs\ImageDecorator;
 use site\frontend\modules\photo\helpers\ImageSizeHelper;
 use site\frontend\modules\photo\models\PhotoModify;
@@ -51,15 +52,14 @@ class PhotosApiController extends ApiController
         $this->data = $form;
     }
 
-    public function actionRotate($angle, $photoId)
+    public function actionRotate($photoId, $clockwise = true)
     {
         $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId, 'editPhoto');
-        $decorator = new ImageDecorator($photo->image, true);
-        $decorator->rotate($angle);
-        $photo->image = $decorator->get();
-        $this->success = $photo->save();
+        $angle = $clockwise ? 90 : -90;
+        $result = InlinePhotoModifier::rotate($photo, $angle);
+        $this->success = $result !== false;
         if ($this->success) {
-            $this->data = $photo;
+            $this->data = $result;
         }
     }
 

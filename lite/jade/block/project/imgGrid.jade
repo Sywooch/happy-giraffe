@@ -9,8 +9,8 @@ mixin imgGrid(mod, vars)
                 - each item in row.img
                     - if (typeof(item) == 'string')
                         - if (item == 'album-photo-add')
-                            // Нужно выставить высоту и ширину блоку, что б получалася полный ряд
-                            .img-grid_i(style="width: 280px; height: 380px;")
+                            // Нужно выставить высоту и ширину блоку, что б получалася полный ряд в desktop
+                            .img-grid_i.visible-md-block(style="width: 280px; height: 380px;")
                                 .album-photo-add.album-photo-add__m
                                     .album-photo-add_hold 
                                         | Загрузить еще
@@ -20,14 +20,33 @@ mixin imgGrid(mod, vars)
                             - if (row.albumPhotoDel)
                                 .img-grid_i.img-grid_i__del
                                     // Высота изображений может отличаться в зависимости от ряда
-                                    img.img-grid_img(src="#{path}images/example/#{item}", alt="")
+                                    img.img-grid_img(srcset="#{item}", alt="")
                                     // Заглушка удаленной фото
                                     +cap-empty('cap-empty__abs cap-empty__white', capEmpty.albumPhotoDel)
                                     - row.albumPhotoDel = false
                             - else 
                                 .img-grid_i
                                     // Высота изображений может отличаться в зависимости от ряда
-                                    img.img-grid_img(src="#{path}images/example/#{item}", alt="")
+
+                                    // телефоны до 480
+                                    // height 300
+                                    // width 480
+                                    // устройства от w480
+                                    // height 380
+                                    // width 768
+                                    // устройства от w768
+                                    // height 500
+                                    // width 960
+                                    // десктоп и большие планшеты от w1000
+                                    // Высота изображений 580
+                                    // Ширина изображения 880
+                                    picture.img-grid_img
+                                      source(srcset=path+'images/example/w280-h370-1.jpg', media="(min-width: 1024px)")
+                                      source(srcset=path+'images/example/w960-h630.jpg', media="(min-width: 768px)")
+                                      source(srcset=path+'images/example/w750-h490.jpg', media="(min-width: 480px)")
+                                      img(srcset=path+'images/example/w265-h400.jpg', alt="Фото")
+
+                                    //-img.img-grid_img(srcset="#{item}", sizes="100vw", alt="")
                                     
                                         
                                     .img-grid_overlay
@@ -66,7 +85,7 @@ mixin imgGrid(mod, vars)
                             .img-grid_loading(class="img-grid_loading__#{item.color}")
                                 .img-grid_loading-hold
                                     .css-progress.css-progress__xl
-                                        //- svg#svg.svg-loader(version="1.1" viewBox="0 0 300 300" preserveAspectRatio="xMinYMin meet" class="svg-content")
+                                        //-svg#svg.svg-loader(version="1.1" viewBox="0 0 300 300" preserveAspectRatio="xMinYMin meet" class="svg-content")
                                             defs
                                                   rect#rect(width='50', height='150', rx='25', ry='25')
                                                 g(transform='rotate(225 250 250)')
@@ -124,9 +143,10 @@ mixin imgGrid(mod, vars)
 - imgGrid.row5.albumPhotoDel = true
 
 - imgGrid.row6 = {}
-- imgGrid.row6.img = ['album-photo-add', 'w280-h370-3.jpg', 'w280-h370-1.jpg']
+- imgGrid.row6.img = ['album-photo-add', path+'images/example/w265-h400.jpg 480w, '+path+'images/example/w470-h350.jpg 768w, '+path+'images/example/w880-h580-1.jpg 1003w, '+path+'images/example/w280-h370-3.jpg 2500w',  path+'images/example/w265-h400.jpg 480w, '+path+'images/example/w470-h350.jpg 768w, '+path+'images/example/w880-h580-1.jpg 1005w, '+path+'images/example/w280-h370-1.jpg 2500w' ]
 
-
+//- path+'images/services/cook-choose/product-1-w460.jpg 100w,'+path+'images/example/w265-h400.jpg 480w, '+path+'images/example/w880-h580-1.jpg 768w,'+path+'images/example/w880-h585-1.jpg 1000w'
+//- path+'images/services/cook-choose/product-1-w460.jpg 100w,'+path+'images/example/w265-h400.jpg 480w, '+path+'images/example/w880-h580-1.jpg 768w,'+path+'images/example/w280-h370-1.jpg 1000w'
 
 - imgGrid.a = {}
 - imgGrid.a.rows = [imgGrid.row1, imgGrid.row3, imgGrid.row2, imgGrid.rowColor]
@@ -146,6 +166,6 @@ mixin imgGrid(mod, vars)
 - imgGrid.c.ava = true
 
 - imgGrid.e = {}
-- imgGrid.e.rows = [imgGrid.row6, imgGrid.row4, imgGrid.row5, imgGrid.rowColor]
+- imgGrid.e.rows = [imgGrid.row6,  imgGrid.rowColor] //imgGrid.row4, imgGrid.row5,
 - imgGrid.e.inAlbum = false //   у гостя 
 

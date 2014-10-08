@@ -7,17 +7,21 @@
                     .img-grid_zoom
 */
 .img-grid {
+    overflow: hidden;
     margin: 20px 0 0;
     
     &_row {
-        margin: 0 -25px 20px 0;
+        margin: 0;
     }
     &_i {
         position: relative;
-        float: left;
-        margin: 0 20px 0 0;
+        margin: 0 0 15px;
+        height: 320px;
+        height: 61.6vw;
         cursor: pointer;
+        background-color: #524261;
         color: #fff;
+        text-align: center;
     }
     &_i:hover &_overlay {
         z-index: 10;
@@ -26,12 +30,16 @@
     .ie8 &_i:hover &_overlay {display: block;filter: alpha(opacity=40);}
     /*&_i.loading &_overlay {display: none;}*/
     /*&_i.loading &_loading {display: block;}*/
-    &_i.loading &_img {visibility: hidden;}
+    /*&_i.loading &_img {visibility: hidden;}*/
     &_i__del:hover &_loading {display: none;}
+    & img,
     &_img {
         display: block;
         position: relative;
         z-index: 1;
+        margin: 0 auto;
+        max-height: 100%;
+        max-width: 100%;
     }
     &_overlay {
         position: absolute;
@@ -227,6 +235,19 @@
         .ico-move:hover {opacity: 1;}
     }
     .ie8 &_overlay-b {display: none;filter: alpha(opacity=50);}
+    
+    /////////
+    @media (min-width: @screen-desktop) {
+        
 
+        &_row {
+            margin: 0 -25px 20px 0;
+        }
+        &_i {
+            float: left;
+            margin: 0 20px 0 0;
+            height: 0;
+        }
+    }
 }
 /* /img-grid */

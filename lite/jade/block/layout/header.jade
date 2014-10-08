@@ -172,11 +172,12 @@ mixin headerGuest(mod, vars)
                 // 
                     header_kindergold
                     header_kinderino
-                a.visible-md-inline-block(href='#', style="vertical-align: top; margin: -13px 12px -20px 12px; text-align:center;")
-                    // header_kindergold.jpg
-                        header_kinderino.jpg
-                    img(src="#{path}images/banner/header_kinderino-2.gif", alt="Kinder", style="padding: 0 5px 0 0;")
-                    span(style="display:block; width:77px; height: 20px; margin: 3px 0 0; background: url('/lite/images/banner/header_kinderino-2-btn.png') no-repeat; ", onMouseOver="this.style.backgroundPosition='0 -20px'", onMouseOut="this.style.backgroundPosition='0 0'")
+                .header-ad-kinderino.header-ad-kinderino__guest
+                    a.header-ad-kinderino.header-ad-kinderino__guest(href='#', )
+                        // header_kindergold.jpg
+                            header_kinderino.jpg
+                        img(src="#{path}images/banner/header_kinderino-2.gif", alt="Kinder", )
+                        span(onMouseOver="this.style.backgroundPosition='0 -20px'", onMouseOut="this.style.backgroundPosition='0 0'")
 
 
             // /header-menu
@@ -326,16 +327,15 @@ mixin header(mod, vars)
                                 | Сигналы
                             span.header-menu_count 2
                     li.header-menu_li
-                        
-                            //if (vars.itemAd)
+                        .header-ad-kinderino
                             // 
                                 header_kindergold
                                 header_kinderino
-                            a(href='#', style="display: inline-block; vertical-align: top; margin: -13px 0 -35px; text-align: center;")
+                            a(href='#' )
                                 // header_kindergold.jpg
                                     header_kinderino.jpg
-                                img(src="#{path}images/banner/header_kinderino-2.gif", alt="Kinder", style="padding: 0 5px 0 0;")
-                                span(style="display:block; width:77px; height: 20px; margin: 3px 0 0; background: url('/lite/images/banner/header_kinderino-2-btn.png') no-repeat; ", onMouseOver="this.style.backgroundPosition='0 -20px'", onMouseOut="this.style.backgroundPosition='0 0'")
+                                img(src="#{path}images/banner/header_kinderino-2.gif", alt="Kinder", )
+                                span(onMouseOver="this.style.backgroundPosition='0 -20px'", onMouseOut="this.style.backgroundPosition='0 0'")
 
                     //- li.header-menu_li
                         a.header-menu_a(href='#')

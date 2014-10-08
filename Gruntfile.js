@@ -145,6 +145,24 @@ module.exports = function(grunt){
           sourceMap: true,
         },
       },
+      // newest: {
+      //   files: {
+      //     'new/css/all1.css': ['new/less/all1.less'] 
+      //   },
+      //   options: {
+      //     compress: true,
+      //     cleancss: true,
+      //   }
+      // },
+      aviary: {
+        files: {
+          'new/css/plugins/aviary.hg.css': ['new/less/plugins/aviary.hg.less'] 
+        },
+        options: {
+          compress: true,
+          cleancss: true,
+        }
+      },
 
 
       litedev: {
@@ -163,6 +181,7 @@ module.exports = function(grunt){
           sourceMap: true,
         }
       },
+<<<<<<< HEAD
       newest: {
         files: {
           'new/css/all1.css': ['new/less/all1.less'] 
@@ -181,6 +200,8 @@ module.exports = function(grunt){
           cleancss: true,
         }
       }
+=======
+>>>>>>> 6081550e7a623a80fec29defb625e8f09b115fc3
     },
 
     // неиспользуемые стили
@@ -192,7 +213,7 @@ module.exports = function(grunt){
 
           htmlroot     : 'new',
           ignore       : [
-            // Выбираем все стили где в начале .clsss
+            // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
             /.dropdown+/,
             /.flag+/,
@@ -217,7 +238,7 @@ module.exports = function(grunt){
 
           htmlroot     : 'lite',
           ignore       : [
-            // Выбираем все стили где в начале .clsss
+            // Выбираем все стили где в начале .class
             // /.dropdown+/,
             /#ctrlcopy+/,
             /.jcrop+/,
@@ -247,7 +268,7 @@ module.exports = function(grunt){
           timeout      : 1000,
           htmlroot     : 'lite',
           ignore       : [
-            // Выбираем все стили где в начале .clsss
+            // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
@@ -275,7 +296,7 @@ module.exports = function(grunt){
           timeout      : 1000,
           htmlroot     : 'lite',
           ignore       : [
-            // Выбираем все стили где в начале .clsss
+            // Выбираем все стили где в начале .class
             /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
@@ -301,6 +322,67 @@ module.exports = function(grunt){
 
         ],
         dest: 'lite/css/min/services-user.css'
+      },
+      'member': {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            /#ctrlcopy+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.select2+/,
+            /.header-menu_li+/,
+            /.header-banner+/,
+            /.header_+/,
+            
+            // Для страниц собранных разделов
+            /.flag+/,
+          ],
+        },
+        src: [
+          'lite/html/page/comments/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
+          'lite/html/page/member/**/*.html', 
+
+          '!lite/html/page/**/*-user.html', // стариницы зареганого пользователя
+          '!lite/html/page/comments/comments-page.html',
+        ],
+        dest: 'lite/css/min/member.css'
+      },
+      'member_user': {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            /#ctrlcopy+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.select2+/,
+            // Для пользователя
+            /.chzn+/,
+            /.redactor+/,
+            /.fancybox+/,
+            /.header-banner+/,
+            /.header-drop+/, // Drop, active элементы
+            /.header-menu_li+/,
+            /.header_+/,
+            // Для страниц собранных разделов
+            /.flag+/,
+          ],
+        },
+        src: [
+          'lite/html/page/comments/**/*.html', 
+          'lite/html/page/user/**/*.html', 
+          'lite/html/page/member/**/*.html', 
+
+          '!lite/html/page/comments/comments-page.html',
+        ],
+        dest: 'lite/css/min/member-user.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -642,12 +724,19 @@ module.exports = function(grunt){
       // следим за новым less
       newless: {
         files: ['new/less/**/*.less'],
+<<<<<<< HEAD
         tasks: ['less:newest', 'less:newestdev', /*'cmq','cssmin', 'csso'*/ ],
+=======
+        tasks: ['less:newestdev'/*, 'cmq', 'cssmin', 'csso'*/],
+>>>>>>> 6081550e7a623a80fec29defb625e8f09b115fc3
         options: {
           livereload: true,
         },
       },
+<<<<<<< HEAD
       // следим за новым less
+=======
+>>>>>>> 6081550e7a623a80fec29defb625e8f09b115fc3
       aviary: {
         files: ['new/less/**/aviary.hg.less'],
         tasks: ['less:aviary'],
@@ -655,6 +744,10 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
+<<<<<<< HEAD
+=======
+      // следим за новым less
+>>>>>>> 6081550e7a623a80fec29defb625e8f09b115fc3
       liteless: {
         files: ['lite/less/**/*.less'],
         tasks: ['less:litedev'/*, 'cmq', 'cssmin', 'csso'*/],
@@ -723,13 +816,13 @@ module.exports = function(grunt){
   });
 
   //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
-  grunt.registerTask('css-new', ['less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
+  grunt.registerTask('new-css', ['jade:new', 'less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
 
   // lite tasks
   // bild lite версии
   grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services','uncss:services_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 
-  grunt.registerTask('lite-css', [/*'jade:lite_prod',*/ 'less:litedev','uncss:lite_blog','uncss:services','uncss:services_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('lite-css', [/*'jade:lite_prod',*/ 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user','uncss:member', 'uncss:member_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // Блоги
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // сервисы

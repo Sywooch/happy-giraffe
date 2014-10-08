@@ -1,0 +1,91 @@
+
+/* i-photo */
+.i-photo {
+    .inline-block();
+    vertical-align: top;
+    position: relative;
+    width: 155px;
+    margin: 0 5px 13px;
+
+    .ico-close5 {
+        position: absolute;
+        top: -9px;
+        right: -9px;
+        z-index: 5;
+    }
+    .itx-gray {
+        font-size: 12px;
+        .border-radius(0);
+    }
+    .progress__cont {margin-bottom: 5px;}
+
+    /*&__empty {
+        height: 141px;
+        background-color: #eee;
+    }*/
+    &__load {
+        height: 141px;
+        background-color: #fff;
+        text-align: center;
+    }
+    &__load &_hold {
+        padding: 90px 30px 0;
+        background: url('@{path-img}/i-photo__load_hold.png') no-repeat 50% 25px;
+    }
+    &__ie {
+        width: 280px;
+    }
+    &__ie .tx-hint {
+        margin-top: 4px;
+        text-align: left;
+        color: @color-gray;
+    }
+    &__error {
+        height: 137px;
+        border: 2px solid #fee8e8;
+        background-color: #fff;
+        color: #fbcdcd;
+        text-align: center;
+    }
+    &__error .tx-hint {color: #fbcdcd;}
+    &__error &_hold {
+        padding-top: 90px;
+        background: url('@{path-img}/i-photo__error_hold.png') no-repeat 50% 35px;
+    }
+    &_img-hold {
+        position: relative;
+        height: 110px;
+        background-color: #707070;
+    }
+    &_img-hold:hover &_overlay {display: block;}
+    &_img {
+        max-height: 100%;
+    }
+    &_overlay {
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding: 5px;
+        text-align: center;
+        background-color: #aaa;
+        background-color: rgba(0,0,0,.4);
+    }
+    &_rotate {
+        .inline-block();
+        width: 15px;
+        height: 16px;
+        margin: 0 6px;
+        background: url('@{path-img}/i-photo_rotate.png') no-repeat;
+    }
+    &_rotate:hover {background-position: 0 -16px;}
+    &_rotate__r {background-position: -15px 0px;}
+    &_rotate__r:hover {background-position: -15px -16px;}
+    &_file-name {
+        .inline-block();
+        margin: 10px;
+        text-align: left;
+    }
+}
+/* /i-photo */

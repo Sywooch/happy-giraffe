@@ -495,8 +495,9 @@ return array(
             ),
         ),
         'lite-default' => array(
+            'baseUrl' => '/',
             'css' => array(
-                '/lite/css/dev/all.css'
+                'lite/css/dev/all.css'
             ),
             'depends' => array('lite'),
         ),

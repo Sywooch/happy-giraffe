@@ -36,7 +36,7 @@
                                     <!-- ko foreach: photos -->
                                     <li class="popup-add_multi-li">
                                         <div class="i-photo" data-bind="css: cssClass"><a href="" class="ico-close5" data-bind="click: $parent.removePhoto"></a>
-                                            <!-- ko if: photo().status() === $root.statusOk -->
+                                            <!-- ko if: photo().status() === photo().status() -->
                                             <div class="i-photo_hold">
                                                 <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
                                                     <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
@@ -107,7 +107,7 @@
                             </div>
                             <div class="textalign-c" data-bind="if: photo() !== null">
                                 <div class="i-photo" data-bind="css: photo().cssClass()"><a href="" class="ico-close5" data-bind="click: $root.removePhoto"></a>
-                                    <!-- ko if: photo().status() === $root.statusOk -->
+                                    <!-- ko if: photo().status() === photo().STATUS_SUCCESS -->
                                     <div class="i-photo_hold">
                                         <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
                                             <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
@@ -116,7 +116,7 @@
                                     </div>
                                     <!-- /ko -->
 
-                                    <!-- ko if: photo().status() === $root.statusLoading -->
+                                    <!-- ko if: photo().status() === photo().STATUS_LOADING -->
                                     <div class="i-photo_hold">
                                         <div class="i-photo_progress">
                                             <div class="progress progress-striped active progress__cont">
@@ -127,7 +127,7 @@
                                     </div>
                                     <!-- /ko -->
 
-                                    <!-- ko if: photo().status() === $root.statusFail -->
+                                    <!-- ko if: photo().status() === photo().STATUS_FAIL -->
                                     <div class="i-photo_hold error">
                                         <div class="tx-hint" data-bind="text: photo.original_name"></div>
                                         <div class="tx-hint" data-bind="text: photo.error"></div>

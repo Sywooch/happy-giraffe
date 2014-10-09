@@ -3,16 +3,30 @@
 .album-preview {
     /* Превью альбовом */
     &__album &_li {
-        width: 205px;
-        height: 190px;
+        display: block;
+        text-align: center;
     }
     &__album &_img-hold {
-        width: 205px;
-        height: 140px;
+        display: none;
     }
     &__album &_overlay {
         background: rgba(255,255,255,.2);
     }
+    @media (min-width: @screen-phone-landscape) {
+        
+        &__album &_li {
+            display: inline-block;
+            width: 205px;
+            height: 190px;
+            text-align: left;
+        }
+        &__album &_img-hold {
+            display: block;
+            width: 205px;
+            height: 140px;
+        }
+    }
+
     /* Превью фото маленькие */
     &__s &_li {
         width: auto;
@@ -30,6 +44,7 @@
         background: url('@{path-img}/album-preview__s_check.png') no-repeat;
     }
     &__s &_li.active &_check {background-position: 0 -30px;}
+
     /* Превью фото средние */
     &__m &_li {
         margin: 0 12px 12px 0;
@@ -43,6 +58,7 @@
         width: 155px;
         height: 140px;
     }
+
     /* Превью фото большие */
     &__xl &_li {
         width: auto;

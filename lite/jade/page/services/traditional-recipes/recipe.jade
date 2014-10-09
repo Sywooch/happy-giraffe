@@ -60,18 +60,8 @@ block layout
                                     a.b-tags_tag(href="") Болезни кровообращения
                                     a.b-tags_tag(href="") Лимфаденит
 
-                            .textalign-c.visible-md-block
-                                .like-control.like-control__line
-                                    .like-control_hold
-                                        a.like-control_i.like-control_i__like.powertip(href='', title='Нравится')
-                                            .like-control_t Мне нравится!
-                                            .ico-action-hg.ico-action-hg__like
-                                            .like-control_tx 865
-                                    .like-control_hold
-                                        a.like-control_i.like-control_i__idea.powertip(href='', title='В избранное')
-                                            .like-control_t В закладки
-                                            .ico-action-hg.ico-action-hg__favorite
-                                            .like-control_tx 863455
+                            +likeControl()
+                            
                             +customLikes('', customLikes.base)
 
                     // /b-article

@@ -43,7 +43,7 @@ mixin bArticle-single(mod, vars)
                     .b-article_in-img
                         iframe(width='600', height='330', src='http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&feature=oembed&wmode=transparent', frameborder='0', allowfullscreen='')
                     p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
-                .textalign-c
+                //-.textalign-c
                     .like-control.like-control__line.clearfix
                         .like-control_hold
                             a.like-control_i.like-control_i__like.powertip(href='', title='Нравится')
@@ -53,6 +53,7 @@ mixin bArticle-single(mod, vars)
                             a.like-control_i.like-control_i__favorites.powertip(href='', title='В избранное')
                                 .like-control_ico
                                 .like-control_tx 863455
+                +likeControl()
                 +customLikes('', customLikes.base)
                 
                 +adv-yandex()

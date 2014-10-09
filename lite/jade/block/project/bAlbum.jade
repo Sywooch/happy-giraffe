@@ -35,6 +35,10 @@ mixin bAlbum(mod, vars)
                     img.b-album_img-big(srcset="#{vars.img}", alt="")
             .b-album_img-hold-ovr
                 .ico-zoom.ico-zoom__abs
+            - if (vars.arrow)
+                // Стрелки показывать скрывать по тапу (касанию пальца)
+                a.b-album_arrow.b-album_arrow__l(href="#")
+                a.b-album_arrow.b-album_arrow__r(href="#")
         .b-album_overlay
             a.b-album_r
                 - if (vars.tx)
@@ -42,7 +46,7 @@ mixin bAlbum(mod, vars)
                         != vars.tx
                         
                 .b-album_ico-album(class=vars.icoAlbumMod)
-                .b-album_arrow
+                .b-album_arrow-all
             ul.b-album_prev.clearfix.visible-md-block
                 // Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.
                 li.b-album_prev-li
@@ -106,5 +110,11 @@ mixin bAlbum(mod, vars)
 - bAlbum.e.tx = 'Смотреть  <br> все фото &nbsp;'
 - bAlbum.e.prevAdd = false
 
+- bAlbum.photolink = {}
+- bAlbum.photolink.top = false
+- bAlbum.photolink.img = path+'images/services/cook-choose/product-1-w460.jpg 100w,'+path+'images/example/w960-h630.jpg 480w, '+path+'images/example/w750-h490.jpg 768w,'+path+'images/example/w880-h585-1.jpg 1000w'
+- bAlbum.photolink.tx = 'Смотреть  <br> все фото &nbsp;'
+- bAlbum.photolink.prevAdd = false
+- bAlbum.photolink.arrow = true
 
 

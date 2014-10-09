@@ -19,9 +19,17 @@
     position: relative;
     margin: 25px 0 30px;
 
+    &__photolink {
+        margin: 0;
+    }
+    &__photolink &_overlay {
+        display: none;
+    }
+
     &_img-hold {
         position: relative;
         height: 300px;
+        height: 70vw;
         text-align: center;
         background: #4d445c;
     }
@@ -86,7 +94,7 @@
     &_ico-album__family {
         background: url('@{path-img}/b-album_ico-album__family.png') no-repeat;
     }
-    &_arrow {
+    &_arrow-all {
         .inline-block();
         vertical-align: middle;
         width: 16px;
@@ -112,6 +120,38 @@
         left: 0;
         border: 2px solid #ffe641; // #A591CD; // #4baa41;
     }
+
+    /*&_arrow {
+        &:extend(.photo-window_arrow);
+    }
+    &_arrow__r {
+        &:extend(.photo-window_arrow__r all);
+    }
+    &_arrow__l {
+        &:extend(.photo-window_arrow__l all);
+    }
+    */
+
+    &_arrow {
+        position: absolute;
+        top: 50%;
+        left: 45px;
+        width: 59px;
+        height: 160px;
+        margin-top: -80px;
+        background: url('@{path-img}/photo-window_arrow.png') no-repeat 0 0;
+        /*opacity: 0;*/
+        z-index: 7;
+        .transition(opacity 0.3s ease);
+    }
+    &_arrow:hover {background-position: 0 -160px;}
+    &_arrow__r {
+        left: auto;
+        right: 45px;
+        background-position: -59px 0;
+    }
+    &_arrow__r:hover {background-position: -59px -160px;}
+
 
 
     ///// top
@@ -146,7 +186,10 @@
     }
     
     @media (min-width: @screen-phone) {
-        &_img-hold {height: 380px;}
+        &_img-hold {
+            height: 380px;
+            height: 65vw;
+        }
         &_top {
             margin-bottom: 10px;
         }
@@ -163,7 +206,10 @@
     }
     @media (min-width: @screen-tablet) {
 
-        &_img-hold {height: 500px;}
+        &_img-hold {
+            height: 500px;
+            height: 50vw;
+        }
         &_top {
             margin-bottom: 15px;
         }
@@ -194,7 +240,9 @@
 
     @media (min-width: @screen-desktop) {
         
-        &_img-hold {height: 580px;}
+        &_img-hold {
+            height: 580px;
+        }
         &_top {
             position: absolute;
             top: 0;
@@ -230,6 +278,10 @@
         &_count-hold {
             top: 19px;
             right: 20px;
+        }
+
+        &__photolink &_overlay {
+            display: block;
         }
     }
 }

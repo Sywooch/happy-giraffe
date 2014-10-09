@@ -35,8 +35,16 @@ class CommunityPost extends HActiveRecord
     public function behaviors()
     {
         if($this->scenario == 'advEditor')
-            return array();
+            return array(
+//                'PhotoCollectionBehavior' => array(
+//                    'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+//                    'attributeCollections' => array('text'),
+//                ),
+            );
         return array(
+//            'PhotoCollectionBehavior' => array(
+//                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+//            ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),

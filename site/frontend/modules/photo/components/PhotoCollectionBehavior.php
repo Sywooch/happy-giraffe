@@ -44,10 +44,12 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
             }
         }
 
-        foreach ($this->textCollections as $attribute) {
-            $photoIds = $this->getPhotoIdsByString($this->owner->$attribute);
+
+        foreach ($this->attributeCollections as $attribute) {
+            $photoIds = $this->getPhotoIdsByString($this->owner->$attribute . '<img src="" collection-item="22"><img src="" collection-item="23">');
+
             $collection = $this->getPhotoCollection($this->getAttributeCollectionKey($attribute));
-            $collection->attachPhotos($photoIds);
+            $collection->attachPhotos($photoIds, true);
         }
     }
 

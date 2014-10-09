@@ -24,7 +24,9 @@ class ConvertBehavior extends \EMongoDocumentBehavior
             $communityContent = \CommunityContent::model()->with('post')->findByPk($this->owner->entityId);
             $communityPost = $communityContent->post;
             $communityContent->detachBehaviors();
+            $communityContent->attachBehaviors($communityContent->behaviors());
             $communityPost->detachBehaviors();
+            $communityPost->attachBehaviors($communityPost->behaviors());
             $communityContent->scenario = 'advEditor';
             $communityPost->scenario = 'advEditor';
         }
@@ -59,6 +61,7 @@ class ConvertBehavior extends \EMongoDocumentBehavior
         }
         catch (\Exception $e)
         {
+            die($e->getMessage());
             \Yii::app()->db->currentTransaction->rollback();
             $event->isValid = false;
             return false;

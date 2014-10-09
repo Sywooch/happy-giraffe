@@ -36,15 +36,15 @@ class CommunityPost extends HActiveRecord
     {
         if($this->scenario == 'advEditor')
             return array(
-//                'PhotoCollectionBehavior' => array(
-//                    'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
-//                    'attributeCollections' => array('text'),
-//                ),
+                'PhotoCollectionBehavior' => array(
+                    'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                    'attributeCollections' => array('text'),
+                ),
             );
         return array(
-//            'PhotoCollectionBehavior' => array(
-//                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
-//            ),
+            'PhotoCollectionBehavior' => array(
+                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+            ),
             'purified' => array(
                 'class' => 'site.common.behaviors.PurifiedBehavior',
                 'attributes' => array('text'),

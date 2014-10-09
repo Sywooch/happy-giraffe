@@ -154,8 +154,17 @@ class CommunityContent extends HActiveRecord implements IPreview
     public function behaviors()
     {
         if($this->scenario == 'advEditor')
-            return array();
+            return array(
+                'PhotoCollectionBehavior' => array(
+                    'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                    'attributeCollections' => array('preview'),
+                ),
+            );
         return array(
+            'PhotoCollectionBehavior' => array(
+                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                'attributeCollections' => array('preview'),
+            ),
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
             ),

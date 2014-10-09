@@ -103,7 +103,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         if (isset(self::$config[$attributes['entity']][$attributes['key']])) {
             $class = self::$config[$attributes['entity']][$attributes['key']];
         } elseif (strpos($attributes['key'], 'AttributeCollection') !== false) {
-            $class = 'site\frontend\modules\photo\models\collections\AttributeCollection';
+            $class = 'site\frontend\modules\photo\models\collections\AttributePhotoCollection';
         } else {
             throw new \Exception('Invalid collection');
         }
@@ -172,10 +172,15 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         $success = true;
         foreach ($ids as $i => $photoId) {
             foreach ($collections as $collection) {
-                $success = $success && $collection->attachPhoto($photoId, $preservePositions ? ($i + 1) : 0);
+                $success = $success && $collection->attachPhoto($photoId, $preservePositions ? $i++ : 0);
             }
         }
         return $success;
+    }
+
+    public function removeAttaches()
+    {
+        return PhotoAttach::model()->deleteAll('collection_id = :collectionId', array(':collectionId' => $this->id)) > 0;
     }
 
     public function sortAttaches($attachesIds)

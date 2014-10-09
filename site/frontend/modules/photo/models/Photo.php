@@ -144,11 +144,6 @@ class Photo extends \HActiveRecord implements \IHToJSON
         return $this->_imageFile;
     }
 
-    protected function writeImage(\CModelEvent $event)
-    {
-        $event->isValid = $this->getImageFile()->write();
-    }
-
     public function validate($attributes = null, $clearErrors = false)
     {
         return parent::validate($attributes, $clearErrors);
@@ -170,7 +165,12 @@ class Photo extends \HActiveRecord implements \IHToJSON
         $extension = \Yii::app()->getModule('photo')->types[$imageSize[2]];
         $this->fs_name = $this->createFsName($extension);
         $this->getImageFile()->buffer = $imageString;
-        $this->attachEventHandler('onBeforeSave', array($this, 'writeImage'));
+        $this->attachEventHandler('onBeforeSave', function(\CModelEvent $event) {
+            $event->isValid = $this->getImageFile()->write();
+        });
+        $this->attachEventHandler('onAfterSave', function(\CModelEvent $event) {
+            \Yii::app()->gearman->client()->doBackground('createThumbs', $this->id);
+        });
     }
 
     public function getImage()

@@ -31,7 +31,20 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
             ko.applyBindings(albums, document.getElementById(albumTabName));
             ko.applyBindings(url, document.getElementById(urlTabName));
         };
-        this.initPUTabs('photo-tab-computer', 'photo-tab-computer-multiple', 'photo-tab-album', 'photo-tab-link');
+
+        $.post('/api/photo/albums/getByUser/', JSON.stringify({"userId": userConfig.userId})).done(function getUserAlbums(data) {
+            if (data.data.albums.length > 0) {
+                this.initPUTabs('photo-tab-computer', 'photo-tab-computer-multiple', 'photo-tab-album', 'photo-tab-link');
+            } else {
+                $.post('/api/photo/albums/create/', JSON.stringify({"attributes": {"title" : "markup"}})).done(function createUserAlbum(data) {
+                    if (response.success) {
+                        this.initPUTabs('photo-tab-computer', 'photo-tab-computer-multiple', 'photo-tab-album', 'photo-tab-link');
+                    }
+                });
+            }
+        });
+
+
     }
     return {
         viewModel: PhotoUploaderFormView,

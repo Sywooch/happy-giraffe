@@ -809,4 +809,14 @@ class SeoTempCommand extends CConsoleCommand
 
         $this->writeCsv('disease', $result);
     }
+
+    public function actionShevkoplyas()
+    {
+        $result = array();
+        $posts = CommunityContent::model()->findAll('author_id = :author_id', array(':author_id' => 220231));
+        foreach ($posts as $p) {
+            $result[] = array($p->getUrl(false, true), $p->title);
+        }
+        $this->writeCsv('sh', $result);
+    }
 } 

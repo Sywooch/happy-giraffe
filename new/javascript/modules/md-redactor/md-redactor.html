@@ -1,4 +1,4 @@
 <!-- ko if: idElement -->
     <div data-bind="attr: { id: idElement }, afterLoad: loadEditor"></div>
-    <p><a class="btn-blue btn-h46 float-r" data-bind="photoComponentUpload: { data: { multiple: false, collectionId: 1 }, observable: photo }, click: loadPhotoComponent">Загрузить одно фото</a></p>
+    <p><a class="btn-blue btn-h46 float-r" data-bind="photoComponentUpload: { data: { multiple: false, collectionId: collectionId() }, observable: photo }, click: loadPhotoComponent">Загрузить одно фото</a></p>
 <!-- /ko -->

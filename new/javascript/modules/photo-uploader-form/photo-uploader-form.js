@@ -32,6 +32,9 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
             ko.applyBindings(url, document.getElementById(urlTabName));
         };
 
+        /**
+         * Код совсем не соответствует тому, что здесь должно быть. Уберем, когда будут фотопосты к альбомам.
+         */
         $.post('/api/photo/albums/getByUser/', JSON.stringify({"userId": userConfig.userId})).done(function getUserAlbums(data) {
             if (data.data.albums.length > 0) {
                 this.initPUTabs('photo-tab-computer', 'photo-tab-computer-multiple', 'photo-tab-album', 'photo-tab-link');

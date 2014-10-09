@@ -39,7 +39,7 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
                 $('a[href="#photo-tab-computer"]').tab('show');
                 // end of UGLY JQUERY AJAX
             } else {
-                $.post('/api/photo/albums/create/', JSON.stringify({"attributes": {"title" : "markup"}})).done(function createUserAlbum(data) {
+                $.post('/api/photo/albums/create/', JSON.stringify({"attributes": {"title" : "markup"}})).done(function createUserAlbum(response) {
                     if (response.success) {
                         //UGLY JQUERY AJAX
                         $('a[data-toggle="tab"]').on('shown.bs.tab', function photoUploaderTabHandler() {

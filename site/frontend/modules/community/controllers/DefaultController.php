@@ -496,8 +496,9 @@ class DefaultController extends HController
 
     public function actionContacts()
     {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->forum = Community::model()->findByPk(Community::COMMUNITY_NEWS);
-        $this->pageTitle = 'О нас';
+        $this->pageTitle = 'Редакция новостей';
         $this->layout = '//layouts/news';
         $this->render('contacts');
     }

@@ -3,6 +3,9 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         this.initData = {};
         this.multiple =  params.initData.multiple;
         this.initData.form = params.initData;
+        this.statusFail = 2;
+        this.statusOk = 1;
+        this.statusLoading = 0;
 
         //UGLY JQUERY AJAX
         $('a[data-toggle="tab"]').on('shown.bs.tab', function photoUploaderTabHandler() {

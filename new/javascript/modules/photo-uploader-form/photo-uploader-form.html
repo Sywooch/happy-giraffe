@@ -36,16 +36,16 @@
                                     <!-- ko foreach: photos -->
                                     <li class="popup-add_multi-li">
                                         <div class="i-photo" data-bind="css: cssClass"><a href="" class="ico-close5" data-bind="click: $parent.removePhoto"></a>
-                                            <!-- ko if: status() == photo.$data.STATUS_SUCCESS -->
+                                            <!-- ko if: photo().status() === $root.statusOk -->
                                             <div class="i-photo_hold">
-                                                <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo.$data, preset: 'uploadPreview' }">
-                                                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: rotateRight"></a></div>
+                                                <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
+                                                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
                                                 </div>
                                                 <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                                             </div>
                                             <!-- /ko -->
 
-                                            <!-- ko if: status() == photo.$data.STATUS_LOADING -->
+                                            <!-- ko if: photo().status() === $root.statusLoading -->
                                             <div class="i-photo_hold">
                                                 <div class="i-photo_progress">
                                                     <div class="progress progress-striped active progress__cont">
@@ -56,7 +56,7 @@
                                             </div>
                                             <!-- /ko -->
 
-                                            <!-- ko if: status() == photo.$data.STATUS_FAIL -->
+                                            <!-- ko if: photo().status() === $root.statusFail -->
                                             <div class="i-photo_hold error">
                                                 <div class="tx-hint" data-bind="text: original_name"></div>
                                                 <div class="tx-hint" data-bind="text: error"></div>
@@ -107,16 +107,16 @@
                             </div>
                             <div class="textalign-c" data-bind="if: photo() !== null">
                                 <div class="i-photo" data-bind="css: photo().cssClass()"><a href="" class="ico-close5" data-bind="click: $root.removePhoto"></a>
-                                    <!-- ko if: photo().status() === 1 -->
+                                    <!-- ko if: photo().status() === $root.statusOk -->
                                     <div class="i-photo_hold">
                                         <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
-                                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: photo.rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: photo.rotateRight"></a></div>
+                                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
                                         </div>
                                         <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                                     </div>
                                     <!-- /ko -->
 
-                                    <!-- ko if: photo().status() === 0 -->
+                                    <!-- ko if: photo().status() === $root.statusLoading -->
                                     <div class="i-photo_hold">
                                         <div class="i-photo_progress">
                                             <div class="progress progress-striped active progress__cont">
@@ -127,7 +127,7 @@
                                     </div>
                                     <!-- /ko -->
 
-                                    <!-- ko if: photo().status() === 2 -->
+                                    <!-- ko if: photo().status() === $root.statusFail -->
                                     <div class="i-photo_hold error">
                                         <div class="tx-hint" data-bind="text: photo.original_name"></div>
                                         <div class="tx-hint" data-bind="text: photo.error"></div>
@@ -239,16 +239,16 @@
                         </div>
                         <div class="textalign-c" data-bind="if: photo() !== null">
                             <div class="i-photo" data-bind="css: photo.cssClass"><a href="" class="ico-close5" data-bind="click: $root.removePhoto"></a>
-                                <!-- ko if: status() == photo.$data.STATUS_SUCCESS -->
+                                <!-- ko if: photo().status() === $root.statusOk -->
                                 <div class="i-photo_hold">
-                                    <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo.$data, preset: 'uploadPreview' }">
-                                        <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click: photo.rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click: photo.rotateRight"></a></div>
+                                    <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
+                                        <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
                                     </div>
                                     <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                                 </div>
                                 <!-- /ko -->
 
-                                <!-- ko if: status() == photo.$data.STATUS_LOADING -->
+                                <!-- ko if: photo().status() === $root.statusLoading -->
                                 <div class="i-photo_hold">
                                     <div class="i-photo_progress">
                                         <div class="progress progress-striped active progress__cont">
@@ -259,7 +259,7 @@
                                 </div>
                                 <!-- /ko -->
 
-                                <!-- ko if: status() == photo.$data.STATUS_FAIL -->
+                                <!-- ko if: photo().status() === $root.statusFail -->
                                 <div class="i-photo_hold error">
                                     <div class="tx-hint" data-bind="text: photo.original_name"></div>
                                     <div class="tx-hint" data-bind="text: photo.error"></div>

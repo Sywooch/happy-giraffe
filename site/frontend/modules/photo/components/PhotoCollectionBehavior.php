@@ -10,6 +10,8 @@ use site\frontend\modules\photo\models\PhotoCollection;
 
 class PhotoCollectionBehavior extends \CActiveRecordBehavior
 {
+    public $attributeCollections = array();
+
     /**
      * Добавляет отношение "photoCollections".
      *
@@ -41,6 +43,12 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
                 $this->createCollection($key);
             }
         }
+
+        foreach ($this->textCollections as $attribute) {
+            $photoIds = $this->getPhotoIdsByString($this->owner->$attribute);
+            $collection = $this->getPhotoCollection($this->getAttributeCollectionKey($attribute));
+            $collection->attachPhotos($photoIds);
+        }
     }
 
     /**
@@ -56,6 +64,30 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
         } else {
             return $this->createCollection($key);
         }
+    }
+
+    protected function getAttributeCollectionKey($attribute)
+    {
+        return $attribute . 'AttributeCollection';
+    }
+
+    protected function getPhotoIdsByString($string)
+    {
+        include_once \Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+
+        $result = array();
+        $doc = str_get_html($string);
+        if ($doc === false) {
+            return $result;
+        }
+
+        foreach ($doc->find('img') as $img) {
+            if ($img->{'collection-item'} !== false) {
+                $result[] = $img->{'collection-item'};
+            }
+        }
+
+        return $result;
     }
 
     /**

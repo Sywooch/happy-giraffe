@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html', 'ko_photoUpload', 'bootstrap'], function photoUploaderFormViewHandler($, ko, template, uploader) {
+define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html', 'ko_photoUpload', "user-config", 'bootstrap'], function photoUploaderFormViewHandler($, ko, template, uploader, userConfig) {
     function PhotoUploaderFormView(params) {
         this.initData = {};
         this.multiple =  params.initData.multiple;
@@ -7,12 +7,7 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         this.statusOk = 1;
         this.statusLoading = 0;
 
-        //UGLY JQUERY AJAX
-        $('a[data-toggle="tab"]').on('shown.bs.tab', function photoUploaderTabHandler() {
-            $(document).trigger('koUpdate');
-        });
-        $('a[href="#photo-tab-computer"]').tab('show');
-        // end of UGLY JQUERY AJAX
+
 
         this.initPUTabs = function initPUTabs(computerTabName, computerTabMultipleName, albumTabName, urlTabName) {
             var computer,
@@ -37,16 +32,27 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
          */
         $.post('/api/photo/albums/getByUser/', JSON.stringify({"userId": userConfig.userId})).done(function getUserAlbums(data) {
             if (data.data.albums.length > 0) {
-                this.initPUTabs('photo-tab-computer', 'photo-tab-computer-multiple', 'photo-tab-album', 'photo-tab-link');
+                //UGLY JQUERY AJAX
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function photoUploaderTabHandler() {
+                    $(document).trigger('koUpdate');
+                });
+                $('a[href="#photo-tab-computer"]').tab('show');
+                // end of UGLY JQUERY AJAX
             } else {
                 $.post('/api/photo/albums/create/', JSON.stringify({"attributes": {"title" : "markup"}})).done(function createUserAlbum(data) {
                     if (response.success) {
-                        this.initPUTabs('photo-tab-computer', 'photo-tab-computer-multiple', 'photo-tab-album', 'photo-tab-link');
+                        //UGLY JQUERY AJAX
+                        $('a[data-toggle="tab"]').on('shown.bs.tab', function photoUploaderTabHandler() {
+                            $(document).trigger('koUpdate');
+                        });
+                        $('a[href="#photo-tab-computer"]').tab('show');
+                        // end of UGLY JQUERY AJAX
                     }
                 });
             }
         });
 
+        this.initPUTabs('photo-tab-computer', 'photo-tab-computer-multiple', 'photo-tab-album', 'photo-tab-link');
 
     }
     return {

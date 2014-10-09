@@ -11,7 +11,7 @@ define('photo/Photo', ['knockout', 'text!photo/baseUrlConfig.json'], function (k
         self.originalUrl = ko.observable(data.originalUrl);
         this.baseConfig = JSON.parse(baseConfigRaw);
         this.getGeneratedPreset = function generatePreseted(preset) {
-            return this.baseConfig.local + preset + '/' + this.fsName();
+            return this.baseConfig.dev + preset + '/' + this.fsName();
         };
     }
 

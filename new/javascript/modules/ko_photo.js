@@ -180,32 +180,10 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     PhotoUploadViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
     PhotoUploadViewModel.prototype.add = function() {
         var self = this;
-
+        PhotoAddViewModel.prototype.add.call(self);
         /**
          * REALLY MESSY CODE JUST FOR THE TIME BEING
          */
-
-        $.post('/api/photo/albums/getByUser/', JSON.stringify({"userId": userConfig.userId})).done(function getUserAlbums(data) {
-            if(data.data.albums.length > 0) {
-                $.post('/api/photo/collections/addPhotos/', JSON.stringify({ collectionId : self.collectionId, photosIds : self.photoIds() }), function(response) {
-                    if (response.success) {
-                        PhotoAddViewModel.prototype.add.call(self);
-                    }
-                }, 'json');
-            } else {
-                $.post('/api/photo/albums/create/', JSON.stringify({"attributes": {"title" : "markup"}})).done(function createUserAlbum(data) {
-                    if (response.success) {
-                        $.post('/api/photo/collections/addPhotos/', JSON.stringify({ collectionId : self.collectionId, photosIds : self.photoIds() }), function(response) {
-                            if (response.success) {
-                                PhotoAddViewModel.prototype.add.call(self);
-                            }
-                        }, 'json');
-                    }
-                });
-            }
-        });
-
-
 
     }
     PhotoUploadViewModel.prototype.removePhotoInternal = function(photo) {

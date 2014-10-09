@@ -7,7 +7,12 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         this.statusOk = 1;
         this.statusLoading = 0;
 
-
+        //UGLY JQUERY AJAX
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function photoUploaderTabHandler() {
+            $(document).trigger('koUpdate');
+        });
+        $('a[href="#photo-tab-computer"]').tab('show');
+        // end of UGLY JQUERY AJAX
 
         this.initPUTabs = function initPUTabs(computerTabName, computerTabMultipleName, albumTabName, urlTabName) {
             var computer,
@@ -27,30 +32,6 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
             ko.applyBindings(url, document.getElementById(urlTabName));
         };
 
-        /**
-         * Код совсем не соответствует тому, что здесь должно быть. Уберем, когда будут фотопосты к альбомам.
-         */
-        $.post('/api/photo/albums/getByUser/', JSON.stringify({"userId": userConfig.userId})).done(function getUserAlbums(data) {
-            if (data.data.albums.length > 0) {
-                //UGLY JQUERY AJAX
-                $('a[data-toggle="tab"]').on('shown.bs.tab', function photoUploaderTabHandler() {
-                    $(document).trigger('koUpdate');
-                });
-                $('a[href="#photo-tab-computer"]').tab('show');
-                // end of UGLY JQUERY AJAX
-            } else {
-                $.post('/api/photo/albums/create/', JSON.stringify({"attributes": {"title" : "markup"}})).done(function createUserAlbum(response) {
-                    if (response.success) {
-                        //UGLY JQUERY AJAX
-                        $('a[data-toggle="tab"]').on('shown.bs.tab', function photoUploaderTabHandler() {
-                            $(document).trigger('koUpdate');
-                        });
-                        $('a[href="#photo-tab-computer"]').tab('show');
-                        // end of UGLY JQUERY AJAX
-                    }
-                });
-            }
-        });
 
         this.initPUTabs('photo-tab-computer', 'photo-tab-computer-multiple', 'photo-tab-album', 'photo-tab-link');
 

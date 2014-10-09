@@ -1,10 +1,11 @@
-define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/marked', 'extensions/epiceditor/epiceditor', 'ko_photoUpload', 'ko_library'], function mdRedactorViewHandler($, ko, template, marked, EpicEditor) {
+define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/epiceditor/marked', 'extensions/epiceditor/epiceditor', "user-config" ,'ko_photoUpload', 'ko_library'], function mdRedactorViewHandler($, ko, template, marked, EpicEditor, userConfig) {
     function MdRedactorView(params) {
         this.editor = {};
         this.idElement = ko.observable(params.id);
         this.textareaId = params.textareaId;
         this.htmlId = params.htmlId;
         this.photo = ko.observable(null);
+        this.collectionId = ko.observable();
         this.careThrough = {};
 
         this.loadPhotoComponent = function (data, event) {
@@ -98,11 +99,25 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             return opts;
         };
 
+
         /**
          * Загрузка редактора после рендера шаблона
          */
         this.loadEditor = function loadEditor() {
-            this.editor = new EpicEditor(this.generateNewOpts(this.idElement(), this.textareaId, this.htmlId)).load();
+            var that = this;
+            $.post('/api/photo/albums/getByUser/', JSON.stringify({"userId": userConfig.userId})).done(function getUserAlbums(data) {
+                if (data.data.albums.length > 0) {
+                    that.collectionId(data.data.albums[0]);
+                    that.editor = new EpicEditor(that.generateNewOpts(that.idElement(), that.textareaId, that.htmlId)).load();
+                } else {
+                    $.post('/api/photo/albums/create/', JSON.stringify({"attributes": {"title" : "markup"}})).done(function createUserAlbum(response) {
+                        if (response.success) {
+                            that.collectionId(response.data.id);
+                            that.editor = new EpicEditor(that.generateNewOpts(that.idElement(), that.textareaId, that.htmlId)).load();
+                        }
+                    });
+                }
+            });
         };
     }
     return {

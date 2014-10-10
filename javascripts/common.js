@@ -25,6 +25,16 @@ function removeA(arr) {
     return arr;
 }
 
+$.fn.exists = function(callback) {
+    var args = [].slice.call(arguments, 1);
+
+    if (this.length) {
+        callback.call(this, args);
+    }
+
+    return this;
+};
+
 $(document).ready(function () {
 
     $(document).ajaxComplete(function(event, xhr, settings) {
@@ -42,6 +52,13 @@ $(document).ready(function () {
             $('#popup-error-link').trigger('click');
         }
     });
+
+    $('a.article-settings_a__edit').exists(function changePurposeOfRedacting (){
+        $.post('/editorialDepartment/redactor/urlForEdit/?entityId=' + $(this).data('id'))
+            .done(function (data) { var urlObj = JSON.parse(data); console.log(urlObj.url) })
+            .fail(function (err) { console.log(err) });
+    });
+
 
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});
 

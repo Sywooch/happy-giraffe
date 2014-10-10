@@ -129,8 +129,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
                     toggleEdit: 'Включить редактирование',
                     toggleFullscreen: 'Полный экран'
                 },
-                autogrow: true,
-                autogrow.minHeight: 300
+                autogrow: false
             };
             return opts;
         };

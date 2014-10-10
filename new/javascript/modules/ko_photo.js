@@ -135,10 +135,10 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         var self = this;
         if (self.multiple) {
             ko.utils.arrayForEach(self.photos(), function(photo) {
-                ko.bindingHandlers.photoUpload.callback(photo);
+                ko.bindingHandlers.photoComponentUpload.callback(photo);
             });
         } else {
-            ko.bindingHandlers.photoUpload.callback(self.photo());
+            ko.bindingHandlers.photoComponentUpload.callback(self.photo());
         }
     };
     PhotoAddViewModel.prototype.removePhotoInternal = function(photo) {

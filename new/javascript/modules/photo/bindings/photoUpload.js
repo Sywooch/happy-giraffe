@@ -56,7 +56,7 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
             };
             $(element).magnificPopup({
                 items: {
-                    src: customReturner('photo-uploader-form', { initData: JSON.stringify(data), editor: viewModel.editor}),
+                    src: customReturner('photo-uploader-form', JSON.stringify({ initData: data, editor: viewModel.editor })),
                     type: 'inline'
                 }
             });

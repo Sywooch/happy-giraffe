@@ -44,8 +44,8 @@ class RedactorController extends \LiteController
     
     public function actionUrlForEdit($entity = 'CommunityContent', $entityId)
     {
-        $model = $this->getModel($entity, $entityId);
-        echo \CJSON::encode(array('url' => $this->createUrl('edit', compact($entity, $entityId))));
+        $this->getModel($entity, $entityId);
+        echo \CJSON::encode(array('url' => $this->createUrl('edit', array('entity' => $entity, 'entityId' => $entityId))));
     }
     
     protected function getModel($entity, $entityId)

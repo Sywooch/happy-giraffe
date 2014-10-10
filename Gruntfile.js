@@ -235,6 +235,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.calendar-serv-note__+/,
+            /.cook-choose .wysiwyg-content+/,
           ],
         },
         src: [
@@ -261,6 +262,8 @@ module.exports = function(grunt){
             /.select2+/,
             /.header-menu_li.active+/,
             /.calendar-serv-note__+/,
+            /.cook-choose .wysiwyg-content+/,
+
 
             /.header-drop+/, // Drop, active элементы
             /.chzn+/,

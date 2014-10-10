@@ -19,7 +19,6 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          */
         this.photo.subscribe(function (img) {
             this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
-            console.log(this);
         }, this);
         /**
          * Начинаем h-тэги с h2
@@ -40,10 +39,12 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          * @returns {string}
          */
         this.rendererImageAttribute = function rendererImageAttribute(href, title, text, attrs) {
-            console.log(href, title, text, attrs);
             var out = '<img src="' + href + '" alt="' + text + '"';
             if (title) {
                 out += ' title="' + title + '"';
+            }
+            else {
+                out += ' title=""';
             }
             if (attrs) {
                 out += attrs;

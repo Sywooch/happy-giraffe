@@ -620,7 +620,6 @@
                     title: cap[3],
                     attrs: cap[4] // added by NI Атрибуты в md у изображения
                 });
-                console.log(out,cap[0], cap[2], cap[3], cap[4]);
                 this.inLink = false;
                 continue;
             }

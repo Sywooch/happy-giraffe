@@ -616,7 +616,7 @@
                 src = src.substring(cap[0].length);
                 this.inLink = true;
                 var attributeReg = /(\w+-?\w+=\"[^\"]*\")/g;
-                console.log((cap[3]).match(attributeReg));
+                console.log(cap[3], (cap[3]).match(attributeReg));
                 out += this.outputLink(cap, {
                     href: cap[2],
                     title: cap[3],

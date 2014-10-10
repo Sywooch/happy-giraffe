@@ -50,7 +50,7 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
 
             var callback = value.callback || defaultCallback;
 
-            ko.bindingHandlers.photoUpload.callback = function(photo, instance) {
+            ko.bindingHandlers.photoComponentUpload.callback = function(photo, instance) {
                 callback(photo, viewModel.editor);
                 $.magnificPopup.close();
             };

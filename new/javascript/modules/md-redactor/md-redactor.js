@@ -6,6 +6,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.htmlId = params.htmlId;
         this.photo = ko.observable(null);
         this.collectionId = ko.observable();
+        var mdThat = this;
         /**
          * Загружаем popup загрузчика фотографий
          * @param data
@@ -25,8 +26,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             return '<h' + level + '>' + text + '</h' + level + '>';
         };
         this.photoInsertion = function photoInsertion(img) {
-            console.log(this);
-            this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
+            mdThat.appendToText(mdThat.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
         };
         /**
          * Новая генерация изображения с атрибутами

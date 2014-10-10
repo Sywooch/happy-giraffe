@@ -6,7 +6,7 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
             var data = value.data;
             var observable = value.observable;
 
-            var defaultCallback = function(photo) {
+            var defaultCallback = function (photo) {
                 if (observable() instanceof Array) {
                     observable.push(photo);
                 } else {

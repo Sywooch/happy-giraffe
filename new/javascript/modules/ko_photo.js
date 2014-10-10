@@ -181,11 +181,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     PhotoUploadViewModel.prototype.add = function() {
         var self = this;
         PhotoAddViewModel.prototype.add.call(self);
-        /**
-         * REALLY MESSY CODE JUST FOR THE TIME BEING
-         */
-
-    }
+    };
     PhotoUploadViewModel.prototype.removePhotoInternal = function(photo) {
         var self = this;
         if (photo.status() == PhotoUpload.prototype.STATUS_LOADING) {

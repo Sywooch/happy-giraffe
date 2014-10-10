@@ -71,7 +71,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          * @returns {string}
          */
         this.generateSimpleImg = function generateSimpleImg(url, title, imageId) {
-            return "\n![" + title + "](" + url + " " + title + " " + this.generateCollectionItemAttr(imageId) + ")\n";
+            return "\n![" + title + "](" + url + " " + title + ")(" +  this.generateCollectionItemAttr(imageId) + ")\n";
         };
         /**
          * Вставка тега в текст

@@ -59,6 +59,7 @@ $(document).ready(function () {
                 .done(function (data) {
                     var urlObj = JSON.parse(data),
                         $this = $(this);
+                    console.log($this);
                     $this
                         .removeClass('fancy-top')
                         .attr('src', urlObj.url);

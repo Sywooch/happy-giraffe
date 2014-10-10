@@ -1,0 +1,113 @@
+include ../../../block/config
+extend ../../../extend/layout_base_user
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css';
+  
+
+block layout
+ 
+    // Кастомный select
+    script(src="#{path}javascript/select2.js")
+    script(src="#{path}javascript/select2_locale_ru.js")
+    script.
+        $(document).ready(function () {
+
+                // Измененный tag select
+            $(".select-cus__search-off").select2({
+                width: '100%',
+                minimumResultsForSearch: -1,
+                dropdownCssClass: 'select2-drop__search-off',
+                escapeMarkup: function(m) { return m; }
+            });
+            $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
+
+        });
+
+    .b-main
+        .b-main_cont.b-main_cont__wide
+            .postAdd.margin-t40
+                .postAdd_hold
+                    .postAdd_row
+                        .postAdd_count 1
+                        .b-main_col-article
+                            //-.heading-m.row.margin-0
+                                .col-xs-3 Клуб   
+                                .col-xs-7
+                                    a.a-title(href='#') Планирование
+                            .postAdd_t Форум  
+                            a.heading-m.margin-0(href='#') Планирование
+                    .postAdd_row 
+                        .postAdd_count 2
+                        .b-main_col-article
+                            .postAdd_t Форум  
+                            a.heading-m.margin-0(href='#') Планирование
+                    .postAdd_row
+                        .postAdd_count 3
+                        .b-main_col-article
+                            .postAdd_t Рубрика
+                            // .success
+                            .inp-valid.inp-valid__abs
+                                select.select-cus.select-cus__search-off.select-cus__gray(placeholder="Рубрика")
+                                    option
+                                    option(value="1") Планирование беременности
+                                    option(value="2") Планирование повторной беременности
+                                    option(value="3") 3
+                                    option(value="4") Базальная температура, овуляция и определение беременности
+                                    option(value="5") 5
+                                    option(value="6") 6
+                                    option(value="7") 7
+                                    option(value="8") 8
+                                    option(value="8") Эко и бесплодие
+                                    option(value="10") 10
+                                    option(value="11") 11
+                                    option(value="12") 12
+                    // Строка
+                    .postAdd_row 
+                        .postAdd_count 4
+                        .b-main_col-article
+                            div
+                                // Верстк для примера, на самом деле здесь редактор его стилизирую отдельно
+                                textarea.itx-gray(rows="3", cols="40", placeholder="Текст статьи")
+                                .textalign-r.margin-t10
+                                    .btn.btn-primary.btn-m Загрузить одно фото
+                    // Строка
+                    .postAdd_row 
+                        .postAdd_count 5
+                        .b-main_col-article
+                            .inp-valid.inp-valid__abs
+                                .inp-valid_count 450
+                                textarea.itx-gray(rows="3", cols="40", placeholder="meta.title")
+                    // Строка
+                    .postAdd_row 
+                        .postAdd_count 6
+                        .b-main_col-article
+                            .inp-valid.inp-valid__abs
+                                .inp-valid_count 450
+                                textarea.itx-gray(rows="3", cols="40", placeholder="meta.keywords")
+                    // Строка
+                    .postAdd_row 
+                        .postAdd_count 7
+                        .b-main_col-article
+                            .inp-valid.inp-valid__abs
+                                .inp-valid_count 450
+                                textarea.itx-gray(rows="3", cols="40", placeholder="meta.description")
+                    // Строка
+                    .postAdd_row 
+                        .postAdd_count 8
+                        .b-main_col-article
+                            .inp-valid.inp-valid__abs
+                                .inp-valid_count 450
+                                textarea.itx-gray(rows="3", cols="40", placeholder="social.title")
+                    // Строка
+                    .postAdd_row 
+                        .postAdd_count 9
+                        .b-main_col-article
+                            .inp-valid.inp-valid__abs
+                                .inp-valid_count 450
+                                textarea.itx-gray(rows="3", cols="40", placeholder="social.text")
+                    // Строка
+                    +postAddRowBtns('', postAddRowBtns.a)
+
+
+        +layout-footer-lite()

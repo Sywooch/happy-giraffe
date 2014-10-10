@@ -181,16 +181,16 @@ module.exports = function(grunt){
           sourceMap: true,
         }
       },
-<<<<<<< HEAD
-      newest: {
-        files: {
-          'new/css/all1.css': ['new/less/all1.less'] 
-        },
-        options: {
-          compress: true,
-          cleancss: true,
-        }
-      },
+      
+      // newest: {
+      //   files: {
+      //     'new/css/all1.css': ['new/less/all1.less'] 
+      //   },
+      //   options: {
+      //     compress: true,
+      //     cleancss: true,
+      //   }
+      // },
       aviary: {
         files: {
           'new/css/plugins/aviary.hg.css': ['new/less/plugins/aviary.hg.less'] 
@@ -200,8 +200,6 @@ module.exports = function(grunt){
           cleancss: true,
         }
       }
-=======
->>>>>>> 6081550e7a623a80fec29defb625e8f09b115fc3
     },
 
     // неиспользуемые стили
@@ -724,19 +722,12 @@ module.exports = function(grunt){
       // следим за новым less
       newless: {
         files: ['new/less/**/*.less'],
-<<<<<<< HEAD
-        tasks: ['less:newest', 'less:newestdev', /*'cmq','cssmin', 'csso'*/ ],
-=======
         tasks: ['less:newestdev'/*, 'cmq', 'cssmin', 'csso'*/],
->>>>>>> 6081550e7a623a80fec29defb625e8f09b115fc3
         options: {
           livereload: true,
         },
       },
-<<<<<<< HEAD
-      // следим за новым less
-=======
->>>>>>> 6081550e7a623a80fec29defb625e8f09b115fc3
+
       aviary: {
         files: ['new/less/**/aviary.hg.less'],
         tasks: ['less:aviary'],
@@ -744,10 +735,7 @@ module.exports = function(grunt){
           livereload: true,
         },
       },
-<<<<<<< HEAD
-=======
-      // следим за новым less
->>>>>>> 6081550e7a623a80fec29defb625e8f09b115fc3
+
       liteless: {
         files: ['lite/less/**/*.less'],
         tasks: ['less:litedev'/*, 'cmq', 'cssmin', 'csso'*/],

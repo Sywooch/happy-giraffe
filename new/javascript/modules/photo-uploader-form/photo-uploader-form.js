@@ -3,7 +3,6 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         this.initData = {};
         this.multiple =  params.initData.multiple;
         this.initData.form = params.initData;
-        this.editor = params.editor;
         this.statusFail = 2;
         this.statusOk = 1;
         this.statusLoading = 0;
@@ -16,20 +15,19 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         // end of UGLY JQUERY AJAX
 
         this.initPUTabs = function initPUTabs(computerTabName, computerTabMultipleName, albumTabName, urlTabName) {
-            console.log(params);
             var computer,
                 computerMultiple,
                 albums,
                 url;
             if (this.initData.form.multiple === true) {
-                computerMultiple = new uploader.FromComputerMultipleViewModel(this.initData, this.editor);
+                computerMultiple = new uploader.FromComputerMultipleViewModel(this.initData);
                 ko.applyBindings(computerMultiple, document.getElementById(computerTabMultipleName));
             } else {
-                computer = new uploader.FromComputerSingleViewModel(this.initData, this.editor);
+                computer = new uploader.FromComputerSingleViewModel(this.initData);
                 ko.applyBindings(computer, document.getElementById(computerTabName));
             }
-            albums = new uploader.FromAlbumsViewModel(this.initData, this.editor);
-            url = new uploader.ByUrlViewModel(this.initData, this.editor);
+            albums = new uploader.FromAlbumsViewModel(this.initData);
+            url = new uploader.ByUrlViewModel(this.initData);
             ko.applyBindings(albums, document.getElementById(albumTabName));
             ko.applyBindings(url, document.getElementById(urlTabName));
         };

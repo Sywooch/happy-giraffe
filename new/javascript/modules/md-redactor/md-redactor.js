@@ -6,15 +6,20 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.htmlId = params.htmlId;
         this.photo = ko.observable(null);
         this.collectionId = ko.observable();
-        var mdThat = this;
         /**
          * Загружаем popup загрузчика фотографий
          * @param data
          * @param event
          */
         this.loadPhotoComponent = function (data, event) {
-            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            ko.applyBindings({}, $('photo-upl   oader-form')[0]);
         };
+        /**
+         * Подписка на изменение фотографии
+         */
+        this.photo.subscribe(function (img) {
+            this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
+        }, this);
         /**
          * Начинаем h-тэги с h2
          * @param text
@@ -24,11 +29,6 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.rendererHeadingIncrement = function rendererHeadingIncrement(text, level) {
             level++;
             return '<h' + level + '>' + text + '</h' + level + '>';
-        };
-        this.photoInsertion = function photoInsertion(img, instance) {
-            console.log(instance);
-            var content = instance.exportFile('epiceditor');
-            instance.importFile('epiceditor', content + mdThat.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
         };
         /**
          * Новая генерация изображения с атрибутами
@@ -77,7 +77,8 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          * @param text
          */
         this.appendToText = function appendToText(text) {
-
+            var content = this.editor.exportFile('epiceditor');
+            this.editor.importFile('epiceditor', content + text);
         };
         /**
          * Установка опций для парсера

@@ -101,7 +101,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         self.collectionId = data.form.collectionId;
         self.multiple = data.form.multiple;
         self.photos = ko.observableArray([]);
-        self.editor = {};
         self.photo = ko.computed({
             read: function () {
                 return self.photos().length > 0 ? self.photos()[0] : null;
@@ -139,7 +138,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                 ko.bindingHandlers.photoComponentUpload.callback(photo);
             });
         } else {
-            ko.bindingHandlers.photoComponentUpload.callback(self.photo(), self.editor);
+            ko.bindingHandlers.photoComponentUpload.callback(self.photo());
         }
     };
     PhotoAddViewModel.prototype.removePhotoInternal = function(photo) {
@@ -150,7 +149,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     // Основная модель загрузки фото
     function PhotoUploadViewModel(data) {
         var self = this;
-        self.editor = {};
         PhotoAddViewModel.apply(self, arguments);
 
         self.loadingPhotos = ko.computed(function() {
@@ -207,9 +205,8 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     }
 
     // Модель одиночной загрузки файла с компьютера
-    function FromComputerSingleViewModel(data, editor) {
+    function FromComputerSingleViewModel(data) {
         var self = this;
-        self.editor = editor;
         PhotoUploadViewModel.apply(self, arguments);
         $.extend(self.fileUploadSettings, {
             add: function (e, data) {
@@ -230,7 +227,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     asFromComputer.call(FromComputerSingleViewModel.prototype);
 
     // Модель множественной загрузки с компьютера
-    function FromComputerMultipleViewModel(data, editor) {
+    function FromComputerMultipleViewModel(data) {
         var self = this;
         PhotoUploadViewModel.apply(self, arguments);
 
@@ -274,7 +271,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     asFromComputer.call(FromComputerMultipleViewModel.prototype);
 
     // Модель загрузки по URL
-    function ByUrlViewModel(urlData, editor) {
+    function ByUrlViewModel(urlData) {
         var self = this;
         PhotoUploadViewModel.apply(self, arguments);
 
@@ -363,7 +360,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     }
 
     // Модель вставки из альбомов
-    function FromAlbumsViewModel(data, editor) {
+    function FromAlbumsViewModel(data) {
         var self = this;
         PhotoAddViewModel.apply(self, arguments);
 

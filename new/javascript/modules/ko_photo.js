@@ -101,6 +101,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         self.collectionId = data.form.collectionId;
         self.multiple = data.form.multiple;
         self.photos = ko.observableArray([]);
+        self.editor = {};
         self.photo = ko.computed({
             read: function () {
                 return self.photos().length > 0 ? self.photos()[0] : null;
@@ -131,14 +132,14 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             self.removePhotoInternal(photo);
         }
     }
-    PhotoAddViewModel.prototype.add = function(editor) {
+    PhotoAddViewModel.prototype.add = function() {
         var self = this;
         if (self.multiple) {
             ko.utils.arrayForEach(self.photos(), function(photo) {
                 ko.bindingHandlers.photoComponentUpload.callback(photo);
             });
         } else {
-            ko.bindingHandlers.photoComponentUpload.callback(self.photo(), editor);
+            ko.bindingHandlers.photoComponentUpload.callback(self.photo(), self.editor);
         }
     };
     PhotoAddViewModel.prototype.removePhotoInternal = function(photo) {
@@ -149,6 +150,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     // Основная модель загрузки фото
     function PhotoUploadViewModel(data) {
         var self = this;
+        self.editor = {};
         PhotoAddViewModel.apply(self, arguments);
 
         self.loadingPhotos = ko.computed(function() {

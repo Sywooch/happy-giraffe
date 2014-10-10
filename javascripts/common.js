@@ -62,7 +62,6 @@ $(document).ready(function () {
                     $this
                         .removeClass('fancy-top')
                         .attr('href', urlObj.url);
-
                 });
         });
         });

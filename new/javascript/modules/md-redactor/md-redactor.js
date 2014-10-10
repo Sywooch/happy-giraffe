@@ -19,7 +19,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          */
         this.photo.subscribe(function (img) {
             this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
-        }, this);
+        }.bind(this));
         /**
          * Начинаем h-тэги с h2
          * @param text
@@ -58,7 +58,6 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             var renderer = new markedInstance.Renderer();
             renderer.heading = this.rendererHeadingIncrement;
             renderer.image = this.rendererImageAttribute;
-
             return renderer;
         };
         this.generateCollectionItemAttr = function generateCollectionItemAttr(imageId) {

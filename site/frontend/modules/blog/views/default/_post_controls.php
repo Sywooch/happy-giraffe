@@ -41,7 +41,7 @@ $ownArticle = $model->author_id == Yii::app()->user->id;
                 <?php endif ?>
                 <div class="article-settings_i">
                     <a href="<?= $this->createUrl('/blog/default/form', array('id' => $model->id, 'club_id' => $model->getIsFromBlog() ? '' : $model->rubric->community_id)) ?>"
-                       class="article-settings_a article-settings_a__edit powertip fancy-top" title="Редактировать"></a>
+                       class="article-settings_a article-settings_a__edit powertip fancy-top" data-id="<?=$model->id?>" title="Редактировать"></a>
                 </div>
                 <?php if ($model->author_id == Yii::app()->user->id && $model->getIsFromBlog()):?>
                 <div class="article-settings_i">

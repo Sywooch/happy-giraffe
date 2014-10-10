@@ -19816,7 +19816,7 @@ h2.calendar-serv-note_t {
 .services-calendars .wysiwyg-content em {
   display: block;
   margin: 0 -900px 20px;
-  padding: 20px 900px;
+  padding: 30px 900px;
   font-style: normal;
 }
 .services-calendars .wysiwyg-content img {
@@ -19826,7 +19826,7 @@ h2.calendar-serv-note_t {
 .services-calendars .calendar-serv-note {
   position: relative;
   margin: 30px -15px 20px;
-  padding: 20px 15px;
+  padding: 30px 15px;
 }
 .services-calendars .services-fast {
   margin-top: 35px;
@@ -19834,7 +19834,7 @@ h2.calendar-serv-note_t {
 @media (min-width: 640px) {
   .services-calendars .calendar-serv-note {
     margin: 40px -200px 20px;
-    padding: 20px 200px;
+    padding: 30px 200px;
   }
 }
 @media (min-width: 768px) {

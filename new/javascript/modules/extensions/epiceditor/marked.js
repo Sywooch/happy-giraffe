@@ -699,7 +699,7 @@
 
     InlineLexer.prototype.outputLink = function(cap, link) {
         var href = escape(link.href)
-            , title = link.title ? escape(link.title) : null
+            , title = link.title ? link.title : null
             , attrs = link.attrs ? link.attrs : null; // added by NI Атрибуты в md у изображения
 
         return cap[0].charAt(0) !== '!'

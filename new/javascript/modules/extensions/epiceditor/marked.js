@@ -700,7 +700,7 @@
     InlineLexer.prototype.outputLink = function(cap, link) {
         var href = escape(link.href)
             , title = link.title ? escape(link.title) : null
-            , attrs = link.attrs ? escape(link.attrs) : null; // added by NI Атрибуты в md у изображения
+            , attrs = link.attrs ? link.attrs : null; // added by NI Атрибуты в md у изображения
 
         return cap[0].charAt(0) !== '!'
             ? this.renderer.link(href, title, this.output(cap[1]), attrs) // added by NI Атрибуты в md у изображения

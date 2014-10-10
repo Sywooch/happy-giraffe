@@ -6,7 +6,6 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.htmlId = params.htmlId;
         this.photo = ko.observable(null);
         this.collectionId = ko.observable();
-        var creatorEditor = this;
         /**
          * Загружаем popup загрузчика фотографий
          * @param data
@@ -20,7 +19,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          */
         this.photo.subscribe(function (img) {
             this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
-        }.bind(creatorEditor));
+        }, this);
         /**
          * Начинаем h-тэги с h2
          * @param text

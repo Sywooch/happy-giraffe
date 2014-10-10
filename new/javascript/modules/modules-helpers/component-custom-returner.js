@@ -9,7 +9,7 @@ define(function () {
                 if (iter !== 1) {
                     componentString = componentString + ", ";
                 }
-                if (objParams.hasOwnProperty(paramI) && objParams[paramI] !== undefined, objParams[paramI] !== null) {
+                if (objParams.hasOwnProperty(paramI) && objParams[paramI] !== undefined && objParams[paramI] !== null) {
                     componentString = componentString + paramI + ":" + objParams[paramI];
                 }
             }

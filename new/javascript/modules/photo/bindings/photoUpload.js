@@ -50,13 +50,13 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
 
             var callback = value.callback || defaultCallback;
 
-            ko.bindingHandlers.photoComponentUpload.callback = function(photo) {
-                callback(photo, viewModel.editor);
+            ko.bindingHandlers.photoComponentUpload.callback = function(photo, instance) {
+                callback(photo, instance);
                 $.magnificPopup.close();
             };
             $(element).magnificPopup({
                 items: {
-                    src: customReturner('photo-uploader-form', { initData: JSON.stringify(data) }),
+                    src: customReturner('photo-uploader-form', { initData: JSON.stringify(data), editor: viewModel.editor}),
                     type: 'inline'
                 }
             });

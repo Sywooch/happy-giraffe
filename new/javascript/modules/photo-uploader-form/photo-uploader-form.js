@@ -3,6 +3,7 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         this.initData = {};
         this.multiple =  params.initData.multiple;
         this.initData.form = params.initData;
+        this.editor = params.editor;
         this.statusFail = 2;
         this.statusOk = 1;
         this.statusLoading = 0;
@@ -20,14 +21,14 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
                 albums,
                 url;
             if (this.initData.form.multiple === true) {
-                computerMultiple = new uploader.FromComputerMultipleViewModel(this.initData);
+                computerMultiple = new uploader.FromComputerMultipleViewModel(this.initData, this.editor);
                 ko.applyBindings(computerMultiple, document.getElementById(computerTabMultipleName));
             } else {
-                computer = new uploader.FromComputerSingleViewModel(this.initData);
+                computer = new uploader.FromComputerSingleViewModel(this.initData, this.editor);
                 ko.applyBindings(computer, document.getElementById(computerTabName));
             }
-            albums = new uploader.FromAlbumsViewModel(this.initData);
-            url = new uploader.ByUrlViewModel(this.initData);
+            albums = new uploader.FromAlbumsViewModel(this.initData, this.editor);
+            url = new uploader.ByUrlViewModel(this.initData, this.editor);
             ko.applyBindings(albums, document.getElementById(albumTabName));
             ko.applyBindings(url, document.getElementById(urlTabName));
         };

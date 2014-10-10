@@ -131,14 +131,14 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
             self.removePhotoInternal(photo);
         }
     }
-    PhotoAddViewModel.prototype.add = function() {
+    PhotoAddViewModel.prototype.add = function(editor) {
         var self = this;
         if (self.multiple) {
             ko.utils.arrayForEach(self.photos(), function(photo) {
                 ko.bindingHandlers.photoComponentUpload.callback(photo);
             });
         } else {
-            ko.bindingHandlers.photoComponentUpload.callback(self.photo());
+            ko.bindingHandlers.photoComponentUpload.callback(self.photo(), editor);
         }
     };
     PhotoAddViewModel.prototype.removePhotoInternal = function(photo) {
@@ -205,8 +205,9 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     }
 
     // Модель одиночной загрузки файла с компьютера
-    function FromComputerSingleViewModel(data) {
+    function FromComputerSingleViewModel(data, editor) {
         var self = this;
+        self.editor = editor;
         PhotoUploadViewModel.apply(self, arguments);
         $.extend(self.fileUploadSettings, {
             add: function (e, data) {
@@ -227,7 +228,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     asFromComputer.call(FromComputerSingleViewModel.prototype);
 
     // Модель множественной загрузки с компьютера
-    function FromComputerMultipleViewModel(data) {
+    function FromComputerMultipleViewModel(data, editor) {
         var self = this;
         PhotoUploadViewModel.apply(self, arguments);
 
@@ -271,7 +272,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     asFromComputer.call(FromComputerMultipleViewModel.prototype);
 
     // Модель загрузки по URL
-    function ByUrlViewModel() {
+    function ByUrlViewModel(urlData, editor) {
         var self = this;
         PhotoUploadViewModel.apply(self, arguments);
 
@@ -360,7 +361,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     }
 
     // Модель вставки из альбомов
-    function FromAlbumsViewModel(data) {
+    function FromAlbumsViewModel(data, editor) {
         var self = this;
         PhotoAddViewModel.apply(self, arguments);
 

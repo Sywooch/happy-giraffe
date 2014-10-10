@@ -58,14 +58,15 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
      * Возвращает определенную ключем коллекции сущности.
      *
      * @param string $key признак коллекции
+     * @param boolean $create создавать ли коллекцию в случае отсутствия
      * @return \site\frontend\modules\photo\models\PhotoCollection
      */
-    public function getPhotoCollection($key = 'default')
+    public function getPhotoCollection($key = 'default', $create = true)
     {
         if (isset($this->owner->photoCollections[$key])) {
             return $this->owner->photoCollections[$key];
         } else {
-            return $this->createCollection($key);
+            return ($create) ? $this->createCollection($key) : null;
         }
     }
 

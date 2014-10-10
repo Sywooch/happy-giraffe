@@ -54,12 +54,11 @@ $(document).ready(function () {
     });
 
     $('a.article-settings_a__edit').exists(function changePurposeOfRedacting (){
-        $(this).each(function () {
+        $('a.article-settings_a__edit').each(function () {
+            var $this = $(this);
             $.post('/editorialDepartment/redactor/urlForEdit/?entityId=' + $(this).data('id'))
                 .done(function (data) {
-                    var urlObj = JSON.parse(data),
-                        $this = $(this);
-                    console.log($this);
+                    var urlObj = JSON.parse(data);
                     $this
                         .removeClass('fancy-top')
                         .attr('src', urlObj.url);

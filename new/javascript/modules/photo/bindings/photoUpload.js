@@ -49,9 +49,12 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
                 }
             };
 
+            console.log(instance);
+
             var callback = value.callback || defaultCallback;
 
             ko.bindingHandlers.photoUpload.callback = function(photo) {
+                console.log(instance);
                 callback(photo, instance);
                 $.magnificPopup.close();
             };

@@ -26,6 +26,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             return '<h' + level + '>' + text + '</h' + level + '>';
         };
         this.photoInsertion = function photoInsertion(img, instance) {
+            console.log(instance);
             var content = instance.exportFile('epiceditor');
             instance.importFile('epiceditor', content + mdThat.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
         };

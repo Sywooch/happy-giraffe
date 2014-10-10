@@ -1,7 +1,5 @@
-<script type="text/javascript" src="//wurfl.io/wurfl.js"></script>
 <script type="text/javascript">
     dataLayer = [{
-        'WURFL': WURFL,
         'isAmd': <?=CJavaScript::encode(Yii::app()->clientScript->useAMD)?>,
         'isGuest': <?=CJavaScript::encode(Yii::app()->user->isGuest)?>,
         'isModerator': <?=CJavaScript::encode((! Yii::app()->user->isGuest) && (Yii::app()->user->group != UserGroup::USER))?>

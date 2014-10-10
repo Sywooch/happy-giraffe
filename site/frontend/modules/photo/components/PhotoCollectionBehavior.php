@@ -12,6 +12,8 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
 {
     public $attributeCollections = array();
 
+    private $_justCreated = array();
+
     /**
      * Добавляет отношение "photoCollections".
      *
@@ -63,8 +65,9 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
      */
     public function getPhotoCollection($key = 'default', $create = true)
     {
-        if (isset($this->owner->photoCollections[$key])) {
-            return $this->owner->photoCollections[$key];
+        $collections = $this->getOwnerCollections();
+        if (isset($collections[$key])) {
+            return $collections[$key];
         } else {
             return ($create) ? $this->createCollection($key) : null;
         }
@@ -73,6 +76,11 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
     public function getAttributePhotoCollection($attribute)
     {
         return $this->getPhotoCollection($this->getAttributeCollectionKey($attribute));
+    }
+
+    protected function getOwnerCollections()
+    {
+        return array_merge($this->owner->photoCollections, $this->_justCreated);
     }
 
     protected function getAttributeCollectionKey($attribute)
@@ -103,7 +111,7 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
      * Создает для данной сущности коллекцию с определенным ключем.
      *
      * @param string $key признак коллекции
-     * @return \site\frontend\modules\photo\models\PhotoCollection
+     * @return null|\site\frontend\modules\photo\models\PhotoCollection
      */
     protected function createCollection($key)
     {
@@ -111,7 +119,10 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
         $collection->entity_id = $this->owner->id;
         $collection->entity = $this->owner->getEntityName();
         $collection->key = $key;
-        $collection->save();
-        return $collection;
+        $success = $collection->save();
+        if ($success) {
+            $this->_justCreated = $collection;
+        }
+        return ($success) ? $collection : null;
     }
 } 

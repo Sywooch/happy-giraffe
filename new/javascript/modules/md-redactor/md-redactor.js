@@ -26,7 +26,8 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             return '<h' + level + '>' + text + '</h' + level + '>';
         };
         this.photoInsertion = function photoInsertion(img) {
-            mdThat.appendToText(mdThat.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
+            var content = this.editor.exportFile('epiceditor');
+            this.editor.importFile('epiceditor', content + mdThat.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
         };
         /**
          * Новая генерация изображения с атрибутами
@@ -75,8 +76,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          * @param text
          */
         this.appendToText = function appendToText(text) {
-            var content = this.editor.exportFile('epiceditor');
-            this.editor.importFile('epiceditor', content + text);
+
         };
         /**
          * Установка опций для парсера

@@ -37,7 +37,10 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var value = valueAccessor();
             var data = value.data;
-            var observable = value.observable;
+            var observable = value.observable,
+                instance = value.instance;
+
+            console.log(instance);
 
 
             var defaultCallback = function(photo) {

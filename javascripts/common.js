@@ -54,10 +54,19 @@ $(document).ready(function () {
     });
 
     $('a.article-settings_a__edit').exists(function changePurposeOfRedacting (){
-        $.post('/editorialDepartment/redactor/urlForEdit/?entityId=' + $(this).data('id'))
-            .done(function (data) { var urlObj = JSON.parse(data); console.log(urlObj.url) })
-            .fail(function (err) { console.log(err) });
-    });
+        $(this).each(function () {
+            $.post('/editorialDepartment/redactor/urlForEdit/?entityId=' + $(this).data('id'))
+                .done(function (data) {
+                    var urlObj = JSON.parse(data),
+                        $this = $(this);
+                    $this
+                        .removeClass('fancy-top')
+                        .src(urlObj.url);
+
+                });
+        });
+        });
+
 
 
     $(".wysiwyg-content").addtocopy({htmlcopytxt:'<br /><br />Подробнее: <a href="' + window.location.href + '">' + window.location.href + '</a>'});

@@ -4,7 +4,7 @@ class m141010_105822_collection_index extends CDbMigration
 {
 	public function up()
 	{
-        $this->execute("ALTER TABLE `photo__collections` ADD UNIQUE INDEX (`entity`, `entity_id`, `key`);")
+        $this->execute("ALTER TABLE `photo__collections` ADD UNIQUE INDEX (`entity`, `entity_id`, `key`);");
 	}
 
 	public function down()

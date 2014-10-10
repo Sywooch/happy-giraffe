@@ -12,7 +12,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          * @param event
          */
         this.loadPhotoComponent = function (data, event) {
-            ko.applyBindings({}, $('photo-upl   oader-form')[0]);
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
         };
         /**
          * Подписка на изменение фотографии

@@ -39,7 +39,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          * @returns {string}
          */
         this.rendererImageAttribute = function rendererImageAttribute(href, title, text, attrs) {
-            var out = '<img src="' + href + '" alt="' + text + '" ';
+            var out = '<img src="' + href + '" alt="' + text + '"';
             if (title) {
                 out += ' title="' + title + '"';
             }
@@ -62,7 +62,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             return renderer;
         };
         this.generateCollectionItemAttr = function generateCollectionItemAttr(imageId) {
-            return 'collection-item="' + imageId + '"';
+            return ' collection-item="' + imageId + '"';
         };
         /**
          * Генерация простого изображения

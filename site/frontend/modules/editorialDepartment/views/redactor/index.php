@@ -22,10 +22,10 @@ $users = array_combine($users, $users);
 $form->hiddenField($model, 'clubId');
 ?>
     <?=$form->errorSummary($model) ?>
-    <?=$form->hiddenField($model, 'markDownPreview',  array('id' => 'markDownPreview')) ?>
-    <?=$form->hiddenField($model, 'htmlTextPreview',  array('id' => 'htmlTextPreview')) ?>
-    <?=$form->hiddenField($model, 'markDown',  array('id' => 'markDown')) ?>
-    <?=$form->hiddenField($model, 'htmlText',  array('id' => 'htmlText')) ?>
+    <?=$form->textarea($model, 'markDownPreview',  array('id' => 'markDownPreview', 'class' => 'display-n')) ?>
+    <?=$form->textarea($model, 'htmlTextPreview',  array('id' => 'htmlTextPreview', 'class' => 'display-n')) ?>
+    <?=$form->textarea($model, 'markDown',  array('id' => 'markDown', 'class' => 'display-n')) ?>
+    <?=$form->textarea($model, 'htmlText',  array('id' => 'htmlText', 'class' => 'display-n')) ?>
 
     Клуб <?=  CHtml::link($forum->club->title, $forum->club->getUrl()) ?><br />
     Форум <?=  CHtml::link($forum->title, $forum->getUrl()) ?><br />

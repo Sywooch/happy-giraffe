@@ -61,9 +61,7 @@ $(document).ready(function () {
                     var urlObj = JSON.parse(data);
                     $this
                         .removeClass('fancy-top')
-                        .attr('src', urlObj.url);
-
-                    console.log($this);
+                        .attr('href', urlObj.url);
 
                 });
         });

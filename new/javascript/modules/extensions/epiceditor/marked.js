@@ -613,6 +613,7 @@
 
             // link
             if (cap = this.rules.link.exec(src)) {
+                console.log(cap);
                 src = src.substring(cap[0].length);
                 this.inLink = true;
                 out += this.outputLink(cap, {

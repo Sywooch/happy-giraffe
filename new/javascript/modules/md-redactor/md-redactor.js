@@ -43,9 +43,6 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             if (title) {
                 out += ' title="' + title + '"';
             }
-            else {
-                out += ' title=""';
-            }
             if (attrs) {
                 out += attrs;
             }

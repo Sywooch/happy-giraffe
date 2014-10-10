@@ -616,8 +616,6 @@
             if (cap = this.rules.link.exec(src)) {
                 src = src.substring(cap[0].length);
                 this.inLink = true;
-                console.log(src, cap);
-
                 out += this.outputLink(cap, {
                     href: cap[2],
                     title: cap[3],
@@ -701,7 +699,7 @@
 
     InlineLexer.prototype.outputLink = function(cap, link) {
         var href = escape(link.href)
-            , title = link.title ? link.title : null
+            , title = link.title ? escape(link.title) : null
             , attrs = link.attrs ? link.attrs : null; // added by NI Атрибуты в md у изображения
 
         return cap[0].charAt(0) !== '!'

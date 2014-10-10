@@ -61,7 +61,7 @@ $(document).ready(function () {
                         $this = $(this);
                     $this
                         .removeClass('fancy-top')
-                        .src(urlObj.url);
+                        .attr('src', urlObj.url);
 
                 });
         });

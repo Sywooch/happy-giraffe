@@ -6,12 +6,21 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.htmlId = params.htmlId;
         this.photo = ko.observable(null);
         this.collectionId = ko.observable();
-        this.careThrough = {};
-
+        /**
+         * Загружаем popup загрузчика фотографий
+         * @param data
+         * @param event
+         */
         this.loadPhotoComponent = function (data, event) {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
         };
-
+        /**
+         * Подписка на изменение фотографии
+         */
+        this.photo.subscribe(function (img) {
+            this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
+            console.log(this);
+        }, this);
         /**
          * Начинаем h-тэги с h2
          * @param text
@@ -23,6 +32,25 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             return '<h' + level + '>' + text + '</h' + level + '>';
         };
         /**
+         * Новая генерация изображения с атрибутами
+         * @param href
+         * @param title
+         * @param text
+         * @param attrs
+         * @returns {string}
+         */
+        this.rendererImageAttribute = function rendererImageAttribute(href, title, text, attrs) {
+            var out = '<img src="' + href + '" alt="' + text + '"';
+            if (title) {
+                out += ' title="' + title + '"';
+            }
+            if (attrs) {
+                out += attrs;
+            }
+            out += this.options.xhtml ? '/>' : '>';
+            return out;
+        };
+        /**
          * Генерируем новый объект Render из marked.js
          * @param markedInstance
          * @returns {marked.Renderer}
@@ -30,27 +58,36 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.newRenderer = function newRenderer(markedInstance) {
             var renderer = new markedInstance.Renderer();
             renderer.heading = this.rendererHeadingIncrement;
+            renderer.image = this.rendererImageAttribute;
+
             return renderer;
         };
-        this.generateSimpleImg = function generateSimpleImg(url, title) {
-            return "\n![" + title + "](" + url + " " + title + ")\n";
+        this.generateCollectionItemAttr = function generateCollectionItemAttr(imageId) {
+            return 'collection-item="' + imageId + '"';
         };
+        /**
+         * Генерация простого изображения
+         * @param url
+         * @param title
+         * @returns {string}
+         */
+        this.generateSimpleImg = function generateSimpleImg(url, title, imageId) {
+            return "\n![" + title + "](" + url + " " + title + " " + this.generateCollectionItemAttr(imageId) + ")\n";
+        };
+        /**
+         * Вставка тега в текст
+         * @param text
+         */
         this.appendToText = function appendToText(text) {
             var content = this.editor.exportFile('epiceditor');
             this.editor.importFile('epiceditor', content + text);
         };
-        this.photo.subscribe(function (img) {
-            this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title()));
-        }, this);
-
         /**
          * Установка опций для парсера
          */
         marked.setOptions({
             renderer: this.newRenderer(marked)
         });
-
-
         /**
          * Генератор опций для редактора
          * @param id
@@ -98,26 +135,11 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             };
             return opts;
         };
-
-
         /**
          * Загрузка редактора после рендера шаблона
          */
         this.loadEditor = function loadEditor() {
-            var that = this;
-            $.post('/api/photo/albums/getByUser/', JSON.stringify({"userId": userConfig.userId})).done(function getUserAlbums(data) {
-                if (data.data.albums.length > 0) {
-                    that.collectionId(data.data.albums[0]);
-                    that.editor = new EpicEditor(that.generateNewOpts(that.idElement(), that.textareaId, that.htmlId)).load();
-                } else {
-                    $.post('/api/photo/albums/create/', JSON.stringify({"attributes": {"title" : "markup"}})).done(function createUserAlbum(response) {
-                        if (response.success) {
-                            that.collectionId(response.data.id);
-                            that.editor = new EpicEditor(that.generateNewOpts(that.idElement(), that.textareaId, that.htmlId)).load();
-                        }
-                    });
-                }
-            });
+            this.editor = new EpicEditor(this.generateNewOpts(this.idElement(), this.textareaId, this.htmlId)).load();
         };
     }
     return {

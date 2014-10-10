@@ -617,7 +617,8 @@
                 this.inLink = true;
                 out += this.outputLink(cap, {
                     href: cap[2],
-                    title: cap[3]
+                    title: cap[3],
+                    attrs: cap[4] // added by NI Атрибуты в md у изображения
                 });
                 this.inLink = false;
                 continue;
@@ -697,11 +698,12 @@
 
     InlineLexer.prototype.outputLink = function(cap, link) {
         var href = escape(link.href)
-            , title = link.title ? escape(link.title) : null;
+            , title = link.title ? escape(link.title) : null
+            , attrs = link.attrs ? escape(link.attrs) : null; // added by NI Атрибуты в md у изображения
 
         return cap[0].charAt(0) !== '!'
-            ? this.renderer.link(href, title, this.output(cap[1]))
-            : this.renderer.image(href, title, escape(cap[1]));
+            ? this.renderer.link(href, title, this.output(cap[1]), attrs) // added by NI Атрибуты в md у изображения
+            : this.renderer.image(href, title, escape(cap[1]), attrs); // added by NI Атрибуты в md у изображения
     };
 
     /**

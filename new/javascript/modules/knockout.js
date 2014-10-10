@@ -1032,7 +1032,7 @@ var defaultEvent = "change";
 var ko_subscribable_fn = {
     subscribe: function (callback, callbackTarget, event) {
         var self = this;
-
+        console.log(callbackTarget);
         event = event || defaultEvent;
         var boundCallback = callbackTarget ? callback.bind(callbackTarget) : callback;
 

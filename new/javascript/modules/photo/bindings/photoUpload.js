@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'common'], function($, ko) {
+define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'common'], function ($, ko, customReturner) {
     // Биндинг для загрузки фото
     ko.bindingHandlers.photoUpload = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -54,10 +54,9 @@ define(['jquery', 'knockout', 'common'], function($, ko) {
                 callback(photo);
                 $.magnificPopup.close();
             };
-
             $(element).magnificPopup({
                 items: {
-                    src: "<photo-uploader-form params='initData: " + JSON.stringify(data) + "'></photo-uploader-form>",
+                    src: customReturner('photo-uploader-form', { initData: JSON.stringify(data) }),
                     type: 'inline'
                 }
             });

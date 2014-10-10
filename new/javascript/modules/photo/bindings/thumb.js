@@ -8,7 +8,7 @@ define(['knockout', 'text!photo/baseUrlConfig.json'], function (ko, baseConfigRa
                 baseConfig = JSON.parse(baseConfigRaw);
 
             function update() {
-                var src = baseConfig.dev + preset + '/' + photo.fsName();
+                var src = baseConfig.local + preset + '/' + photo.fsName();
                 //src = baseConfig.server + photo.fsName();
                 //src = 'https://test-happygiraffe.s3.amazonaws.com/thumbs/' + preset + '/' + photo.fs_name();
                 $(element).attr('src', src);

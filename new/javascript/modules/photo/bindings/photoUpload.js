@@ -37,8 +37,7 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var value = valueAccessor();
             var data = value.data;
-            var observable = value.observable,
-                instance = value.instance;
+            var observable = value.observable;
 
 
             var defaultCallback = function(photo, instance) {
@@ -49,13 +48,10 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
                 }
             };
 
-            console.log(viewModel);
-
             var callback = value.callback || defaultCallback;
 
             ko.bindingHandlers.photoUpload.callback = function(photo, instance) {
-                console.log(instance);
-                callback(photo, instance);
+                callback(photo, viewModel.editor);
                 $.magnificPopup.close();
             };
             $(element).magnificPopup({

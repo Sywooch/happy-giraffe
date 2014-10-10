@@ -63,6 +63,8 @@ $(document).ready(function () {
                         .removeClass('fancy-top')
                         .attr('src', urlObj.url);
 
+                    console.log($this);
+
                 });
         });
         });

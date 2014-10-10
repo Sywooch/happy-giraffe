@@ -40,12 +40,12 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          * @returns {string}
          */
         this.rendererImageAttribute = function rendererImageAttribute(href, title, text, attrs) {
+            console.log(href, title, text, attrs);
             var out = '<img src="' + href + '" alt="' + text + '"';
             if (title) {
                 out += ' title="' + title + '"';
             }
             if (attrs) {
-                console.log(href, title, text, attrs);
                 out += attrs;
             }
             out += this.options.xhtml ? '/>' : '>';

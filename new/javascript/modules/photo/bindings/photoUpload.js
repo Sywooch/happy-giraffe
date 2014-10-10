@@ -43,7 +43,7 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
             console.log(instance);
 
 
-            var defaultCallback = function(photo) {
+            var defaultCallback = function(photo, instance) {
                 if (observable() instanceof Array) {
                     observable.push(photo);
                 } else {
@@ -53,8 +53,8 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
 
             var callback = value.callback || defaultCallback;
 
-            ko.bindingHandlers.photoUpload.callback = function(photo) {
-                callback(photo);
+            ko.bindingHandlers.photoUpload.callback = function(photo, instance) {
+                callback(photo, instance);
                 $.magnificPopup.close();
             };
             $(element).magnificPopup({

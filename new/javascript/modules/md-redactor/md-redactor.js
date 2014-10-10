@@ -25,9 +25,9 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             level++;
             return '<h' + level + '>' + text + '</h' + level + '>';
         };
-        this.photoInsertion = function photoInsertion(img) {
-            var content = this.editor.exportFile('epiceditor');
-            this.editor.importFile('epiceditor', content + mdThat.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
+        this.photoInsertion = function photoInsertion(img, instance) {
+            var content = instance.exportFile('epiceditor');
+            instance.importFile('epiceditor', content + mdThat.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
         };
         /**
          * Новая генерация изображения с атрибутами

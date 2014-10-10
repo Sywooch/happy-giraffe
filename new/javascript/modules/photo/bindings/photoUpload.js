@@ -49,7 +49,7 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
                 }
             };
 
-            console.log(instance);
+            console.log(viewModel);
 
             var callback = value.callback || defaultCallback;
 

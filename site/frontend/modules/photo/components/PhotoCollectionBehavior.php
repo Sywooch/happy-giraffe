@@ -39,8 +39,10 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
     public function afterSave($event)
     {
         if ($this->owner->isNewRecord) {
-            foreach (PhotoCollection::$config[$this->owner->getEntityName()] as $key => $class) {
-                $this->createCollection($key);
+            if (isset(PhotoCollection::$config[$this->owner->getEntityName()])) {
+                foreach (PhotoCollection::$config[$this->owner->getEntityName()] as $key => $class) {
+                    $this->createCollection($key);
+                }
             }
         }
 

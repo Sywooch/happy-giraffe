@@ -45,6 +45,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
                 out += ' title="' + title + '"';
             }
             if (attrs) {
+                console.log(href, title, text, attrs);
                 out += attrs;
             }
             out += this.options.xhtml ? '/>' : '>';

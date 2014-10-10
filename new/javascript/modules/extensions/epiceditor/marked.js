@@ -615,7 +615,7 @@
             if (cap = this.rules.link.exec(src)) {
                 src = src.substring(cap[0].length);
                 this.inLink = true;
-                var attributeReg = /(\w+-?\w+)=\"[^\"]*\"/g;
+                var attributeReg = /(\w+-?\w+=\"[^\"]*\")/g;
                 console.log(attributeReg.exec(cap[3]));
                 out += this.outputLink(cap, {
                     href: cap[2],

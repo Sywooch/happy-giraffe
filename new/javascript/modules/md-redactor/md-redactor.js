@@ -25,7 +25,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             return '<h' + level + '>' + text + '</h' + level + '>';
         };
         this.photoInsertion = function photoInsertion(img) {
-            this.appendToText(this.generateSimpleImg(img).getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id());
+            this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
         };
         /**
          * Новая генерация изображения с атрибутами

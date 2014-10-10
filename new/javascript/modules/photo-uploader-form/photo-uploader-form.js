@@ -16,6 +16,7 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
         // end of UGLY JQUERY AJAX
 
         this.initPUTabs = function initPUTabs(computerTabName, computerTabMultipleName, albumTabName, urlTabName) {
+            console.log(this.editor);
             var computer,
                 computerMultiple,
                 albums,

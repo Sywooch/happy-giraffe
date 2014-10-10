@@ -450,7 +450,7 @@
         autolink: /^<([^ >]+(@|:\/)[^ >]+)>/,
         url: noop,
         tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
-        link: /^!?\[(inside)\]\(href\)/,
+        link: /^!?\[(inside)\]\(href\)\(attrs\)/,
         reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
         nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
         strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,
@@ -467,6 +467,7 @@
     inline.link = replace(inline.link)
     ('inside', inline._inside)
     ('href', inline._href)
+    ('attrs', inline._href)
     ();
 
     inline.reflink = replace(inline.reflink)
@@ -615,8 +616,8 @@
             if (cap = this.rules.link.exec(src)) {
                 src = src.substring(cap[0].length);
                 this.inLink = true;
-                var attributeReg = /(\w+-?\w+=\"[^\"]*\")/g;
-                console.log(cap[3], (cap[3]).match(attributeReg));
+                console.log(src, cap);
+
                 out += this.outputLink(cap, {
                     href: cap[2],
                     title: cap[3],

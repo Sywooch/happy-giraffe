@@ -14,25 +14,25 @@ mixin bAlbum(mod, vars)
                 .b-album_count-hold
                     .b-album_count 240
                     .b-album_count-tx фото
-        .b-album_img-hold(href="#")
-            .b-album_img-a
-                .verticalalign-m-help
-                .verticalalign-m-el
-                    // У изображений стороны сторон сохраняются максимальные размеры изображения
-                    // телефоны до 480
-                    // height 300
-                    // width 480
-                    // устройства от w480
-                    // height 380
-                    // width 768
-                    // устройства от w768
-                    // height 500
-                    // width 960
-                    // десктоп и большие планшеты от w1000
-                    // Высота изображений 580
-                    // Ширина изображения 880
-                    // Если изображения маленькие, они становятся по центру
-                    img.b-album_img-big(srcset="#{vars.img}", alt="")
+        .b-album_img-hold
+            a.b-album_img-a(href="#")
+                img.b-album_img-big(srcset="#{vars.img}", alt="")
+                //-.verticalalign-m-help
+                //-.verticalalign-m-el
+                // У изображений стороны сторон сохраняются максимальные размеры изображения
+                // телефоны до 480
+                // height 300
+                // width 480
+                // устройства от w480
+                // height 380
+                // width 768
+                // устройства от w768
+                // height 500
+                // width 960
+                // десктоп и большие планшеты от w1000
+                // Высота изображений 580
+                // Ширина изображения 880
+                //- Если изображения маленькие, они становятся по центру
             .b-album_img-hold-ovr
                 .ico-zoom.ico-zoom__abs
             - if (vars.arrow)

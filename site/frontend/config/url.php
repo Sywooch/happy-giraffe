@@ -379,6 +379,7 @@ return array(
 
         'photo/user/<authorId:\d+>/albums/<id:\d+>' => 'photo/albums/view',
         'photo/user/<userId:\d+>/albums' => 'photo/default/index',
+        'photo/user/<userId:\d+>/albums/create' => 'photo/default/create',
         'photo/<_c>/<_a>' => 'photo/<_c>/<_a>',
 
 

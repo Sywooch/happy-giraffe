@@ -121,7 +121,7 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
         $collection->key = $key;
         $success = $collection->save();
         if ($success) {
-            $this->_justCreated = $collection;
+            $this->_justCreated[] = $collection;
         }
         return ($success) ? $collection : null;
     }

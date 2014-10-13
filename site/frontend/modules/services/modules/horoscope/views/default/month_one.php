@@ -60,7 +60,7 @@ $data = $model->CalculateMonthData();
             </div>
         </div>
 
-        <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $model, 'title' => $this->social_title)); ?>
+        <?php $this->renderPartial('likes_simple',array('model'=>$model)) ?>
 
     </div>
 

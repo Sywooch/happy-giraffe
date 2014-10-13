@@ -153,7 +153,18 @@ class CommunityContent extends HActiveRecord implements IPreview
 
     public function behaviors()
     {
+        if($this->scenario == 'advEditor')
+            return array(
+                'PhotoCollectionBehavior' => array(
+                    'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                    'attributeCollections' => array('preview'),
+                ),
+            );
         return array(
+            'PhotoCollectionBehavior' => array(
+                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                'attributeCollections' => array('preview'),
+            ),
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
             ),
@@ -268,6 +279,8 @@ class CommunityContent extends HActiveRecord implements IPreview
 
     public function beforeSave()
     {
+        if($this->scenario == 'advEditor')
+            return parent::beforeSave();
         if (empty($this->rubric_id))
             $this->rubric_id = CommunityRubric::getDefaultUserRubric($this->author_id);
 
@@ -299,6 +312,8 @@ class CommunityContent extends HActiveRecord implements IPreview
 
     public function afterSave()
     {
+        if ($this->scenario == 'advEditor')
+            return parent::beforeSave();
         if ($this->isNewRecord && $this->type_id != 4) {
             Yii::app()->cache->set('activityLastUpdated', time());
         }

@@ -23,6 +23,7 @@ class RelatedEntityBehavior extends CActiveRecordBehavior
 
     public function getRelatedModel()
     {
+        $this->run();
         $entityName = 'RelatedEntity' . $this->owner->entity;
         return $this->owner->$entityName;
     }
@@ -35,16 +36,17 @@ class RelatedEntityBehavior extends CActiveRecordBehavior
         unset($criteria->with[$relationIndex]);
         $class = CActiveRecord::BELONGS_TO;
 
-        foreach ($this->possibleRelations as $entity) {
+        foreach ($this->possibleRelations as $entity => $entityClass) {
             $relationName = 'RelatedEntity' . $entity;
             $this->owner->getMetaData()->relations[$relationName] =
                 new $class($relationName,
-                    $entity,
+                    $entityClass,
                     'entity_id'
                 );
             if ($relationIndex !== false)
                 $criteria->with[] = $relationName;
         }
+
         $this->owner->setDbCriteria($criteria);
     }
 }

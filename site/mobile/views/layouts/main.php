@@ -197,7 +197,6 @@
         <!--/ tns-counter.ru -->
         <?php endif; ?>
 
-        <?php if (false): ?>
         <!--AdFox START-->
         <!--giraffe-->
         <!--Площадка: Весёлый Жираф / * / *-->
@@ -227,6 +226,5 @@
             // -->
         </script>
         <!-- _________________________AdFox Asynchronous code END___________________________ -->
-        <?php endif; ?>
     </body>
 </html>

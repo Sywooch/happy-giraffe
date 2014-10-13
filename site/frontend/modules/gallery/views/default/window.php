@@ -126,13 +126,7 @@ $model = AlbumPhoto::model()->findByPk($json['initialPhotoId']);
             </div>
 
             <div id="photo-window_banner" class="photo-window_banner clearfix">
-                <?php if (false): ?>
-                    <iframe src="/direct4.html?<?=mt_rand(1000000000, 9999999999)?>" width="300" height="350" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
-                <?php else: ?>
-                    <div class="display-ib">
-
-                    </div>
-                <?php endif; ?>
+                <iframe src="/google.html?<?=mt_rand(1000000000, 9999999999)?>" width="300" height="250" marginwidth="0" marginheight="0" scrolling="no" frameborder="0"></iframe>
             </div>
         </div>
 

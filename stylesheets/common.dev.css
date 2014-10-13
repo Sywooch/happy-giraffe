@@ -7993,7 +7993,7 @@ textarea.error,
 /* /header-login */
 .layout-header {
   position: relative;
-  z-index: 2;
+  z-index: 5;
   /*&__nologin .header {margin-bottom: 0;}*/
 }
 .layout-header__nologin .layout-header_scrolltop {

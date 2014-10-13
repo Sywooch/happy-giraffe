@@ -1,0 +1,223 @@
+// класс на body для редактора, нужен для стилизации редактора.
+.body__avpw {
+    .avpw {
+        background-color: #fff;
+    }
+    #avpw_controls {
+        overflow: visible;
+    }
+
+    //top
+    /*#avpw_tool_content_header {
+        height: 18px;
+    }*/
+    #avpw_breadcrumb_header {display: none !important;}
+    .avpw_main_close {
+        width: 18px;
+        height: 18px;
+        z-index: 50;
+    }
+    .avpw_close_button {
+        top: 5px;
+        right: 10px;
+        background-color: transparent;
+        border-color: transparent;
+    }
+    .avpw_main_close .avpw_close_inner {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        background: url('/new/images/aviary/aviary_atlas_minimum_standard.png') no-repeat -2080px -95px;
+        opacity: .3;
+        cursor: pointer;
+        
+        &:hover {
+            opacity: 1;
+        }
+    }
+    
+    #avpw_lftArrow {
+        left: 30px;
+    }
+    #avpw_rghtArrow {
+        right: 145px;
+    }
+    .avpw_tool_icon {margin-top: 10px;}
+    .avpw_arrow_icon {
+        margin-top: -18px;
+        background: url('/new/images/aviary/aviary_atlas_minimum_standard.png') no-repeat;
+        opacity: .3;
+    }
+    .avpw_prev:hover .avpw_arrow_icon,
+    .avpw_next:hover .avpw_arrow_icon {
+        opacity: 1;
+    }
+    .avpw_next_disabled .avpw_arrow_icon,
+    .avpw_next_disabled:hover .avpw_arrow_icon,
+    .avpw_prev_disabled .avpw_arrow_icon, 
+    .avpw_prev_disabled:hover .avpw_arrow_icon {
+        opacity: .07;
+    }
+    .avpw_tool_scroll .avpw_clip {
+        /*height: 80px;*/
+        border-width: 0;
+    }
+    .avpw_tool_pager .avpw_clip {
+        left: 70px;
+        right: 210px;
+    }
+    .avpw_scroll_page_complete {
+        text-align: left;
+    }
+
+    .avpw_icon .avpw_label {
+        color: #b6b6b6;
+        width: 100%;
+        left: 0;
+        text-align: center;
+    }
+    .avpw_icon:hover .avpw_label {color: #333;}
+    /*.avpw_tool_icon_inner:before {background: none;}*/
+    .avpw_tool_icon_inner {
+        background: url('/new/images/aviary/aviary_atlas_minimum_standard.png') no-repeat;
+    }
+
+    .avpw_mode_action_left {
+        left: 30px;
+    }
+    .avpw_mode_action_right {
+        right: 30px;
+        width: 170px;
+    }
+    /*.avpw_crop_custom_control_left,
+    .avpw_tool_scroll .avpw_clip,
+    .avpw_tool_stretch .avpw_scroll_strip,
+    .avpw_tool_scroll,
+    .avpw_tool_stretch .avpw_bookend,
+    #avpw_tool_content_wrapper, 
+    #avpw_tool_main_container, 
+    #avpw_tool_options_container, 
+    #avpw_tool_container, 
+    .avpw_bookend, 
+    .avpw_mode_action {
+        height: 100px;
+    }*/
+    .avpw .avpw_crop_custom_control,
+    .avpw_preset_crop_icon {
+        margin: 5px 0;
+        height: 90px;
+    }
+    #avpw_tool_container {
+        left: 145px;
+        right: 145px;
+    }
+    .avpw .avpw_number_input {
+        border: 1px solid #e6e6e6;
+    }
+    .avpw .avpw_number_input:focus {border-color: #a0ceee;}
+
+    .avpw_crop_custom_control_right {
+        padding-top: 10px;
+    }
+    .avpw_filter_icon {
+        width: 85px;
+        text-align: center;
+    }
+    .avpw_preset_crop_icon {
+        width: 100px;
+    }
+    .avpw_tool_stretch .avpw_overlay_strip {
+        margin: 5px 0;
+    }
+    .avpw_slider_container {top: 30px;}
+    .avpw_slider_positioned_inner {border-radius: 10px;}
+
+    .avpw_mode_action .avpw_button {
+        /*border-width: 0;*/
+        color: #999;
+        background-color: #fff;
+    }
+    .avpw .avpw_button:hover {
+        color: #666;
+        opacity: 1;
+    }
+    .avpw .avpw_primary_button, 
+    .avpw .avpw_primary_button:link, 
+    .avpw .avpw_primary_button:visited, 
+    .avpw .avpw_primary_button:active {
+        border-width: 0;
+        background-color: #4fb044;
+        color: #fff;
+        border-radius: 3px;
+    }
+    .avpw .avpw_primary_button:hover {
+        background-color: #479e3d;
+        color: #fff;
+        opacity: 1;
+    }
+    
+
+    //center
+    .avpw_canvas_background {
+        background-color: #fafafa;
+    }
+    #avpw_canvas_embed {
+        top: 125px;
+        bottom: 5px;
+    }
+    #avpw_zoom_button {display: none;}
+    #avpw_zoom_container {
+        position: static;
+    }
+    .avpw_zoom_slider_container {
+        opacity: 1;
+        top: auto;
+        bottom: 7px;
+        left: 50%;
+        margin-left: -110px;
+        width: 227px;
+        z-index: 50;
+    }
+    #avpw_zoom_handle {
+        border: 1px solid #c9cbcd;
+        width: 26px;
+        height: 26px;
+        margin-top: -14px;
+        margin-left: -13px;
+    }
+    #avpw_zoom_inner,
+    #avpw_zoom_slider{
+        background-color: #c9cbcd;
+        border-radius: 3px;
+    }
+    .avpw_slider_bookend {
+        color: #c9cbcd;
+        font-size: 20px;
+        width: 14px;
+    }
+    #avpw_zoom_container .avpw_slider_bookend_left {
+        line-height: 24px;
+    }
+
+
+
+    // footer
+    #avpw_footer {
+        height: 55px;
+        background-color: #fafafa;
+        z-index: 5;
+    }
+    #avpw_history {
+        margin-top: 8px;
+        margin-left: 30px;
+    }
+    .avpw .avpw_history_blocker {width: 42px;}
+    .avpw .avpw_history_button {
+        width: 40px;
+    }
+    #avpw_powered_branding {
+        display: none;
+    }
+
+
+}

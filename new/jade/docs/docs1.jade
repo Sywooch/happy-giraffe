@@ -288,13 +288,15 @@ block layout-wrapper
                 .docs_example.docs_example__indents
                     .display-ib
                         .inp-valid.inp-valid__abs.error
-                            .radio-icons.radio-icons__inline.margin-l20
-                                input#radio4.radio-icons_radio(type='radio', name='')
-                                label.radio-icons_label(for='radio4')
-                                    | Мужской
-                                input#radio3.radio-icons_radio(type='radio', name='')
-                                label.radio-icons_label(for='radio3')
-                                    | Женский
+                            +radioIcons('radio-icons__inline', radioIcons.man)
+                            +radioIcons('radio-icons__inline', radioIcons.women)
+                            //- .radio-icons.radio-icons__inline.margin-l20
+                            //-     input#radio4.radio-icons_radio(type='radio', name='')
+                            //-     label.radio-icons_label(for='radio4')
+                            //-         | Мужской
+                            //-     input#radio3.radio-icons_radio(type='radio', name='')
+                            //-     label.radio-icons_label(for='radio3')
+                            //-         | Женский
                             .inp-valid_error
                                 .errorMessage 
                                     | Выберите пол
@@ -302,13 +304,10 @@ block layout-wrapper
                 .docs_example.docs_example__indents
                     .display-ib
                         .inp-valid.inp-valid__abs.success
-                            .radio-icons.radio-icons__inline.radio-icons__checkbox.margin-l20
-                                input#checkbox4.radio-icons_radio(type='checkbox', name='',checked="checked")
-                                label.radio-icons_label(for='checkbox4')
-                                    | Мужской
-                                input#checkbox3.radio-icons_radio(type='checkbox', name='')
-                                label.radio-icons_label(for='checkbox3')
-                                    | Женский
+
+                            +radioIcons('radio-icons__inline radio-icons__checkbox', radioIcons.man)
+                            +radioIcons('radio-icons__inline radio-icons__checkbox', radioIcons.women)
+                            
                             .inp-valid_error
                                 .errorMessage 
                                     | Выберите пол

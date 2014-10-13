@@ -115,9 +115,7 @@
             }
         };
 
-
-        ko.bindingHandlers.chosen =
-        {
+        ko.bindingHandlers.chosen = {
             init: function(element)
             {
                 $(element).addClass('chzn');
@@ -484,7 +482,18 @@
                     //scroll.scrollTo( { top: scroll.scrollTop() + scroll.height() - (scroll.offset().top - self.offset().top + self.height()) }, 800);
                 });
             }
-        }
+        };
+
+
+        /**
+         * Функция отработает после применения всех binding на элементе, если её поставить в конце
+         * @type {{init: Function}}
+         */
+        ko.bindingHandlers.afterLoad = {
+            init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+                valueAccessor().call(viewModel);
+            }
+        };
 
         // Добавляем событие koUpdate и koElementAdded
         // koUpdate Срабатывает при рендере шаблона (template, with, foreach)

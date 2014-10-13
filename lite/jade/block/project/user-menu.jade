@@ -1,0 +1,31 @@
+mixin user-menu(mod, vars) 
+    // user-menu
+    .user-menu
+        .user-menu_ava
+            +ava('ava__middle ava__female', ava.a)
+        ul.user-menu_ul
+            - var i = 0
+            - each item, ico in vars.items
+                - if (vars.itemActive == i) {active = 'active'} else {active = null}
+                - if (vars.itemDisabled == i) {disabled = 'disabled'} else {disabled = null}
+                li.user-menu_li(class=active, class=disabled)
+                    a.user-menu_i
+                        .user-menu_ico(class='user-menu_ico__#{ico}')
+                        .user-menu_tx
+                            != item
+                - i = i + 1
+
+    // /user-menu
+
+
+- var userMenu = {}
+- userMenu.a = {}
+- userMenu.a.itemActive = 1
+//- userMenu.a.itemDisabled = 4
+- userMenu.a.items = {}
+- userMenu.a.items.profile = 'Анкета'
+- userMenu.a.items.family = 'Семья'
+- userMenu.a.items.blog = 'Блог'
+- userMenu.a.items.photo = 'Фото'
+- userMenu.a.items.interest = 'Интересы'
+

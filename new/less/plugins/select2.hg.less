@@ -1,3 +1,5 @@
+
+.select2-default {color: @color-gray-light !important;}
 .select-cus__blue {
     .select2-choice {
         border-width: 0;
@@ -59,31 +61,36 @@
 
 .select2-drop {
     margin-top: 2px;
-    color: #333;
-    .box-shadow(none);
+    color: @color-base;
+    .box-shadow(0 0 4px rgba(0, 0, 0, 0.15));
+    .border-radius(0);
     
     &.select2-drop-active {
-        border: 1px solid #a0ceee;
+        border: none;
     }
     .select2-results {
         margin: 3px 3px 3px 0;
         padding: 0;
     }
     .select2-results .select2-highlighted {
-        background: #e5f0fe;
-        color: #333;
+        background: #fff;
+        color: @color-gray-light;
+
+        .select2-match {color: @color-gray-light;}
     }
+    .select2-results .select2-result-label {padding: 4px 15px 5px;}
     .select2-search {margin-top: 4px;}
     .select2-search input {
         z-index: 9000;
-        background: #fff;
+        border-width: 0 0 1px;
+        border-color: #e1e1e1;
         background: #fff url('@{path-img}/plugins/select-cus_search.png') no-repeat 100% 4px;
-        border-color: #ccc;
         color: #333;
-        .border-radius(3px);
+        padding-left: 11px;
+        /*.border-radius(3px);*/
     }
     .select2-result_desc {
-        color: @color-gray-light;
+        color: @color-gray;
         .font-s-mixin();
     }
     .select2-match {
@@ -105,3 +112,6 @@
 }
 
 .select2-drop__search-off .select2-search {display: none;}
+
+.select2-drop__add .select2-search input {background-image: none;}
+

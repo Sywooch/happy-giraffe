@@ -1,0 +1,372 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<!-- /b-album-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/member-user.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__user body__lite">
+  <!-- header-fix-->
+  <script>
+    $(document).ready(function () {
+        $(window).on('scroll',function () {
+            var contanerScroll = $(window).scrollTop();
+            var header = $('.layout-header');
+            console.log(header.height());
+            if (contanerScroll > header.height() + header.offset().top) {
+                $('.header-fix').fadeIn(400);
+            } else {
+                $('.header-fix').fadeOut(400);
+            }
+        });
+    });
+  </script>
+  <div class="header-fix">
+    <div class="header-fix_hold clearfix"><a href="#" class="header-fix_logo"></a>
+      <div class="header-fix_dropin"><a href="#" class="header-fix_dropin-a">
+          <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+        <!-- header-drop-->
+        <div class="header-drop">
+          <div class="header-menu clearfix">
+            <ul class="header-menu_ul">
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                    <!-- ava--><span href="#" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+            </ul>
+          </div>
+          <!-- header-drop_b-->
+          <div class="header-drop_b">
+            <div class="float-r margin-t3"><a href="#">Жираф рекомендует</a></div>
+            <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+            <div class="club-list club-list__small clearfix">
+              <ul class="club-list_ul clearfix">
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- /header-drop_b-->
+        </div>
+        <!-- /header-drop -->
+      </div>
+      <div class="header-fix-menu">
+        <ul class="header-menu_ul clearfix">
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a></li>
+          <li class="header-fix-menu_li active"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /header-fix-->
+  <div class="layout-container">
+    <div class="layout-loose layout-loose__white">
+      <div class="layout-header">
+        <!-- header-->
+        <div class="header header__user header__base">
+          <div class="header_hold clearfix">
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li active"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li">
+                  <div class="header-ad-kinderino">
+                    <!-- 
+                    header_kindergold
+                    header_kinderino
+                    --><a href="#">
+                      <!-- header_kindergold.jpgheader_kinderino.jpg
+                      --><img src="/lite/images/banner/header_kinderino-2.gif" alt="Kinder"><span onMouseOver="this.style.backgroundPosition='0 -20px'" onMouseOut="this.style.backgroundPosition='0 0'"></span></a>
+                  </div>
+                </li>
+                <li class="header-menu_li header-menu_li__dropin"><a href="#" class="header-menu_a">
+                    <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                  <div class="header-drop">
+                    <div class="header-menu clearfix">
+                      <ul class="header-menu_ul">
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                              <!-- ava--><span href="#" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                      </ul>
+                    </div>
+                    <!-- header-drop_b-->
+                    <div class="header-drop_b">
+                      <div class="float-r margin-t3"><a href="#">Жираф рекомендует</a></div>
+                      <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                      <div class="club-list club-list__small clearfix">
+                        <ul class="club-list_ul clearfix">
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /header-drop_b-->
+                  </div>
+                  <!-- /header-drop -->
+                </li>
+              </ul>
+            </div>
+            <!-- /header-menu-->
+          </div>
+        </div>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <!-- Кастомный select-->
+        <script src="/lite/javascript/select2.js"></script>
+        <script src="/lite/javascript/select2_locale_ru.js"></script>
+        <script>
+          $(document).ready(function () {
+          
+                  // Измененный tag select
+          $(".select-cus__search-off").select2({
+                  width: '100%',
+                  minimumResultsForSearch: -1,
+                  dropdownCssClass: 'select2-drop__search-off',
+                  escapeMarkup: function(m) { return m; }
+          });
+              $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
+              
+          });
+          
+        </script>
+        <div class="b-main">
+          <div class="b-main_cont b-main_cont__wide">
+            <div class="postAdd margin-t40">
+              <div class="postAdd_hold">
+                <div class="postAdd_row">
+                  <div class="postAdd_count">1</div>
+                  <div class="b-main_col-article">
+                    <div class="postAdd_t">Форум  </div><a href="#" class="heading-m margin-0">Планирование</a>
+                  </div>
+                </div>
+                <div class="postAdd_row">
+                  <div class="postAdd_count">2</div>
+                  <div class="b-main_col-article">
+                    <div class="postAdd_t">Форум  </div><a href="#" class="heading-m margin-0">Планирование</a>
+                  </div>
+                </div>
+                <div class="postAdd_row">
+                  <div class="postAdd_count">3</div>
+                  <div class="b-main_col-article">
+                    <div class="postAdd_t">Рубрика</div>
+                    <!-- .success-->
+                    <div class="inp-valid inp-valid__abs">
+                      <select placeholder="Рубрика" class="select-cus select-cus__search-off select-cus__gray">
+                        <option></option>
+                        <option value="1">Планирование беременности</option>
+                        <option value="2">Планирование повторной беременности</option>
+                        <option value="3">3</option>
+                        <option value="4">Базальная температура, овуляция и определение беременности</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="8">Эко и бесплодие</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <!-- Строка-->
+                <div class="postAdd_row">
+                  <div class="postAdd_count">4</div>
+                  <div class="b-main_col-article">
+                    <div class="inp-valid inp-valid__abs">
+                      <div class="inp-valid_count">30</div>
+                      <input placeholder="Заголовок" class="itx-gray">
+                    </div>
+                  </div>
+                </div>
+                <!-- Строка-->
+                <div class="postAdd_row">
+                  <div class="postAdd_count">4</div>
+                  <div class="b-main_col-article">
+                    <div>
+                      <!-- Верстк для примера, на самом деле здесь редактор его стилизирую отдельно-->
+                      <textarea rows="3" cols="40" placeholder="Текст статьи" class="itx-gray"></textarea>
+                      <div class="textalign-r margin-t10">
+                        <div class="btn btn-primary btn-m">Загрузить одно фото</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Строка-->
+                <div class="postAdd_row">
+                  <div class="postAdd_count">5</div>
+                  <div class="b-main_col-article">
+                    <div class="inp-valid inp-valid__abs">
+                      <div class="inp-valid_count">450</div>
+                      <textarea rows="3" cols="40" placeholder="meta.title" class="itx-gray"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <!-- Строка-->
+                <div class="postAdd_row">
+                  <div class="postAdd_count">6</div>
+                  <div class="b-main_col-article">
+                    <div class="inp-valid inp-valid__abs">
+                      <div class="inp-valid_count">450</div>
+                      <textarea rows="3" cols="40" placeholder="meta.keywords" class="itx-gray"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <!-- Строка-->
+                <div class="postAdd_row">
+                  <div class="postAdd_count">7</div>
+                  <div class="b-main_col-article">
+                    <div class="inp-valid inp-valid__abs">
+                      <div class="inp-valid_count">450</div>
+                      <textarea rows="3" cols="40" placeholder="meta.description" class="itx-gray"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <!-- Строка-->
+                <div class="postAdd_row">
+                  <div class="postAdd_count">8</div>
+                  <div class="b-main_col-article">
+                    <div class="inp-valid inp-valid__abs">
+                      <div class="inp-valid_count">450</div>
+                      <textarea rows="3" cols="40" placeholder="social.title" class="itx-gray"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <!-- Строка-->
+                <div class="postAdd_row">
+                  <div class="postAdd_count">9</div>
+                  <div class="b-main_col-article">
+                    <div class="inp-valid inp-valid__abs">
+                      <div class="inp-valid_count">450</div>
+                      <textarea rows="3" cols="40" placeholder="social.text" class="itx-gray"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <!-- Строка-->
+                <!-- postAdd_btns-->
+                <div class="postAdd_row">
+                  <div class="postAdd_count"></div>
+                  <div class="b-main_col-article clearfix">
+                    <!-- Блок управления приватностью записи-->
+                    <!--.privacy-select.float-l
+                    .privacy-select_hold.clearfix
+                        .privacy-select_tx Для кого:
+                        .privacy-select_drop-hold.dropdown.dropup
+                            a.privacy-select_a.dropdown-toggle(href='', data-toggle="dropdown", data-target="#", id="dLabel1")
+                                span.ico-users.ico-users__friend.active
+                                span.privacy-select_a-tx
+                                    | только
+                                    br
+                                    | друзьям
+                            .privacy-select_drop.dropdown-menu.pull-right.dropdown-menu__check(role='', aria-labelledby="dLabel1")
+                                .privacy-select_i
+                                    a.privacy-select_a(href='')
+                                        span.ico-users.ico-users__all
+                                        span.privacy-select_a-tx
+                                            | для
+                                            | всех
+                                .privacy-select_i
+                                    a.privacy-select_a(href='')
+                                        span.ico-users.ico-users__friend
+                                        span.privacy-select_a-tx
+                                            | только
+                                            | друзьям
+                    -->
+                    <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a>
+                      <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success">Опубликовать</span>
+                        <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark"><i class="ico-arrow-d-white"></i></span>
+                          <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
+                            <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">
+                                <div class="dropdown-menu_in">Опубликовать сейчас</div></a></li>
+                            <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                                <div class="dropdown-menu_in">Предпросмотр</div></a></li>
+                            <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
+                                <div class="dropdown-menu_in">Сохранить в черновик</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Футер-->
+          <!-- layout-footer-->
+          <div class="layout-footer clearfix">
+            <div class="layout-footer_hold">
+              <ul class="footer-list">
+                <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+              </ul>
+              <ul class="footer-menu visible-md">
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
+              </ul>
+              <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+              <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+            </div>
+          </div>
+          <!-- /layout-footer-->
+          <!-- /Футер-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

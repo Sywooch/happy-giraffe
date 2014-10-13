@@ -1,0 +1,2025 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<!-- /b-album-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__lite">
+  <div class="layout-container">
+    <div class="layout-loose layout-loose__white">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest header__kinder-gold">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        var $this = $(this),
+                            activeClass = 'active';
+                            
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                        
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                              
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                          
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                        
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                  });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__club">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
+                      <div class="header-popup_club">
+                        <!-- 18 клубов-->
+                        <div class="b-clubs">
+                          <ul class="b-clubs_ul">
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__1"></div>
+                                <div class="b-clubs_tx">Планирование</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__2"></div>
+                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__3"></div>
+                                <div class="b-clubs_tx">Дети до года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__4"></div>
+                                <div class="b-clubs_tx">Дети старше года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__5"></div>
+                                <div class="b-clubs_tx">Дошкольники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__6"></div>
+                                <div class="b-clubs_tx">Школьники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__7"></div>
+                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__8"></div>
+                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__9"></div>
+                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__10"></div>
+                                <div class="b-clubs_tx">Сад и огород</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__11"></div>
+                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__12"></div>
+                                <div class="b-clubs_tx">Красота и мода</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__13"></div>
+                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__14"></div>
+                                <div class="b-clubs_tx">Свадьба</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__15"></div>
+                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__16"></div>
+                                <div class="b-clubs_tx">Рукоделие</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__17"></div>
+                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__18"></div>
+                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <!-- Класс active отвечает за видимость попапапа-->
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__msg">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                      <div class="header-popup_msg"></div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+              </ul>
+            </div>
+            <!-- 
+            header_kindergold
+            header_kinderino
+            -->
+            <div class="header-ad-kinderino header-ad-kinderino__guest"><a href="#" class="header-ad-kinderino header-ad-kinderino__guest">
+                <!-- header_kindergold.jpgheader_kinderino.jpg
+                --><img src="/lite/images/banner/header_kinderino-2.gif" alt="Kinder"><span onMouseOver="this.style.backgroundPosition='0 -20px'" onMouseOut="this.style.backgroundPosition='0 0'"></span></a></div>
+            <!-- /header-menu-->
+            <div class="sidebar-search clearfix sidebar-search__big">
+              <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+            </div>
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <div class="b-main">
+          <div class="b-main_cont b-main_cont__wide">
+            <div class="margin-20">
+              <h2>Загрузка одного фото </h2><a href="#photo-computer-one-empty" class="popup-a popup-a__add">Заглушка для загрузки одного фото</a><br><br><a href="#photo-computer-one-load" class="popup-a popup-a__add">Одно фото загружается</a><br><br>
+              <h2>Загрузка нескольких фото </h2><a href="#photo-computer-mylti-empty" class="popup-a popup-a__add">Заглушка для загрузки нескольких фото</a><br><br><a href="#photo-computer-mylti-load" class="popup-a popup-a__add">Несколько фото загружается</a><br><br><a href="#photo-computer-mylti-loaded" class="popup-a popup-a__add">Несколько фото загружено</a><br><br>
+              <h2>Загрузка фото по ссылке</h2><a href="#photo-link-empty" class="popup-a popup-a__add">Заглушка для загрузки фото по ссылке</a><br><br><a href="#photo-link-loaded" class="popup-a popup-a__add">Фото по ссылке загружено</a><br><br>
+              <h2>Загрузка фото из альбомов</h2><a href="#photo-albums-list" class="popup-a popup-a__add">Фотографии из альбома, выбор альбома</a><br><br><a href="#photo-album-list-m" class="popup-a popup-a__add">Фотографии из альбома, средний размер</a><br><br><a href="#photo-album-list-s" class="popup-a popup-a__add">Фотографии из альбома, маленький размер</a><br><br><a href="#photo-album-list-xl" class="popup-a popup-a__add">Фотографии из альбома, большой размер</a><br><br>
+              <h3>Пример загрузки фото с помощью плагина</h3>
+              <div class="file-fake">
+                <input id="fileupload" type="file" multiple class="file-fake_inp">
+                <div class="btn btn-primary">Обзор</div>
+              </div>
+              <div id="files" class="files textalign-c"></div>
+              <!--script(src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js")--><!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
+              <script src="/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script><!-- The Load Image plugin is included for the preview images and image resizing functionality -->
+              <script src="http://blueimp.github.io/JavaScript-Load-Image/js/load-image.min.js"></script><!-- The Canvas to Blob plugin is included for image resizing functionality -->
+              <script src="http://blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script><!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
+              <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script><!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
+              <script src="/jQuery-File-Upload/js/jquery.iframe-transport.js"></script><!-- The basic File Upload plugin -->
+              <script src="/jQuery-File-Upload/js/jquery.fileupload.js"></script><!-- The File Upload processing plugin -->
+              <script src="/jQuery-File-Upload/js/jquery.fileupload-process.js"></script><!-- The File Upload image preview & resize plugin -->
+              <script src="/jQuery-File-Upload/js/jquery.fileupload-image.js"></script><!-- The File Upload audio preview plugin -->
+              <script src="/jQuery-File-Upload/js/jquery.fileupload-audio.js"></script><!-- The File Upload video preview plugin -->
+              <script src="/jQuery-File-Upload/js/jquery.fileupload-video.js"></script><!-- The File Upload validation plugin -->
+              <script src="/jQuery-File-Upload/js/jquery.fileupload-validate.js"></script>
+              <script>
+                /*global window, $ */
+                $(function () {
+                    'use strict';
+                    // Change this to the location of your server-side upload handler:
+                    var url = window.location.hostname === 'blueimp.github.io' ?
+                                '//jquery-file-upload.appspot.com/' : 'server/php/',
+                    uploadButton = $('<button/>')
+                            .addClass('btn btn-primary')
+                            .prop('disabled', true)
+                            .text('Processing...')
+                            .on('click', function () {
+                                var $this = $(this),
+                                    data = $this.data();
+                                $this
+                                    .off('click')
+                                    .text('Abort')
+                                    .on('click', function () {
+                                        $this.remove();
+                                        data.abort();
+                                    });
+                                data.submit().always(function () {
+                                    $this.remove();
+                                });
+                            });
+                    $('#fileupload').fileupload({
+                        url: url,
+                        dataType: 'json',
+                        autoUpload: false,
+                        acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+                        maxFileSize: 5000000, // 5 MB
+                        // Enable image resizing, except for Android and Opera,
+                        // which actually support image resizing, but fail to
+                        // send Blob objects via XHR requests:
+                        disableImageResize: /Android(?!.*Chrome)|Opera/
+                            .test(window.navigator.userAgent),
+                        previewMaxWidth: 150,
+                        previewMaxHeight: 150,
+                        previewCrop: true
+                    }).on('fileuploadadd', function (e, data) {
+                        data.context = $('<div/>').appendTo('#files');
+                        $.each(data.files, function (index, file) {
+                            var node = $('<p/>')
+                                    .append($('<span/>').text(file.name));
+                            if (!index) {
+                                node
+                                    .append('<br>')
+                                    .append(uploadButton.clone(true).data(data));
+                            }
+                            node.appendTo(data.context);
+                        });
+                    }).on('fileuploadprocessalways', function (e, data) {
+                        var index = data.index,
+                            file = data.files[index],
+                            node = $(data.context.children()[index]);
+                        if (file.preview) {
+                            node
+                                .prepend('<br>')
+                                .prepend(file.preview);
+                        }
+                        if (file.error) {
+                            node
+                                .append('<br>')
+                                .append($('<span class="text-danger"/>').text(file.error));
+                        }
+                        if (index + 1 === data.files.length) {
+                            data.context.find('button')
+                                .text('Upload')
+                                .prop('disabled', !!data.files.error);
+                        }
+                    }).on('fileuploadprogressall', function (e, data) {
+                        var progress = parseInt(data.loaded / data.total * 100, 10);
+                        $('#progress .progress-bar').css(
+                            'width',
+                            progress + '%'
+                        );
+                    }).on('fileuploaddone', function (e, data) {
+                        $.each(data.result.files, function (index, file) {
+                            if (file.url) {
+                                var link = $('<a>')
+                                    .attr('target', '_blank')
+                                    .prop('href', file.url);
+                                $(data.context.children()[index])
+                                    .wrap(link);
+                            } else if (file.error) {
+                                var error = $('<span class="text-danger"/>').text(file.error);
+                                $(data.context.children()[index])
+                                    .append('<br>')
+                                    .append(error);
+                            }
+                        });
+                    }).on('fileuploadfail', function (e, data) {
+                        $.each(data.files, function (index, file) {
+                            var error = $('<span class="text-danger"/>').text('File upload failed.');
+                            $(data.context.children()[index])
+                                .append('<br>')
+                                .append(error);
+                        });
+                    }).prop('disabled', !$.support.fileInput)
+                        .parent().addClass($.support.fileInput ? undefined : 'disabled');
+                });
+                
+                
+              </script>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+    <!-- .popup-add-->
+    <!-- Заглушка для загрузки одного фото -->
+    <div id="photo-computer-one-empty" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <!-- .popup-add_frame__multi-->
+          <div id="photo-tab-computer" class="tab-pane active">
+            <div class="popup-add_frame">
+              <div class="popup-add_cap">
+                <!-- Размер файла, необходимо указать программисту-->
+                <!-- cap-empty-->
+                <div class="cap-empty cap-empty__addPhoto">
+                  <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_t">Выберите файл с компьютера</div>
+                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp'></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div></div>
+                  </div>
+                  <div class="verticalalign-m-help"></div>
+                </div>
+                <!-- /cap-empty-->
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add -->
+    <!-- .popup-add-->
+    <!-- Одно фото загружается-->
+    <div id="photo-computer-one-load" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <!-- tabs bootstrap, работают по id-->
+            <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <!-- tabs bootstrap, работают по id-->
+          <div id="photo-tab-computer" class="tab-pane active">
+            <div class="popup-add_frame">
+              <div class="popup-add_cap">
+                <!-- cap-empty-->
+                <div class="cap-empty cap-empty__addPhoto">
+                  <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_t">Выберите файл с компьютера</div>
+                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp'></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div></div>
+                  </div>
+                  <div class="verticalalign-m-help"></div>
+                </div>
+                <!-- /cap-empty-->
+              </div>
+              <div class="textalign-c">
+                <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                -->
+                <div class="i-photo i-photo__ie i-photo__loaded"><a href="" class="ico-close5"></a>
+                  <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                  <!-- Вид для ие-->
+                  <div class="i-photo_hold">
+                    <div class="i-photo_file-name">IMG_5295.JPG</div>
+                    <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                    <!-- Продумать текст-->
+                  </div>
+                  <div class="tx-hint">Для предпросмотра загружаемых изображений нужно обновить браузер на более новый.</div>
+                </div>
+                <!-- /Блок фотографии-->
+              </div>
+            </div>
+            <div class="popup-add_footer">
+              <div class="textalign-c"><a href="" class="btn btn-success">Добавить</a></div>
+            </div>
+          </div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!--//////////////////////////////////////////////////-->
+    <!-- .popup-add-->
+    <!-- Заглушка для загрузки нескольких фото -->
+    <div id="photo-computer-mylti-empty" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <div id="photo-tab-computer" class="tab-pane active">
+            <!-- К .popup-add_frame__multi при перетаскивании добавить class.dragover-->
+            <div class="popup-add_frame popup-add_frame__multi dragover">
+              <div class="popup-add_cap">
+                <!-- Размер файла, необходимо указать программисту-->
+                <!-- cap-empty-->
+                <div class="cap-empty cap-empty__addPhoto">
+                  <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_t">Выберите файлы с компьютера</div>
+                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp'></div>  <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 700 Kб.</div><div class='popup-add_cap-drag'>или перетащите фотографии сюда</div></div>
+                  </div>
+                  <div class="verticalalign-m-help"></div>
+                </div>
+                <!-- /cap-empty-->
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!-- .popup-add-->
+    <!-- Загружается несколько фото -->
+    <div id="photo-computer-mylti-load" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <div id="photo-tab-computer" class="tab-pane active">
+            <!-- К .popup-add_frame__multi при перетаскивании добавить class.dragover-->
+            <!-- При загрузке изображений нужно делать upadate baron скролл-->
+            <div class="popup-add_scroll scroll">
+              <div class="popup-add_frame popup-add_frame__multi">
+                <div class="scroll_scroller">
+                  <ul class="popup-add_multi scroll_cont">
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__loaded"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загруженное фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                          </div>
+                          <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__load"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загрузка фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_progress">
+                            <!-- boostrap progressbar-->
+                            <!-- progressbar изначально уже весь заполнен-->
+                            <div class="progress progress-striped active progress__cont">
+                              <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                            </div>
+                            <div class="tx-hint">Загрузка</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__loaded"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загруженное фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                          </div>
+                          <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__load"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загрузка фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_progress">
+                            <!-- boostrap progressbar-->
+                            <!-- progressbar изначально уже весь заполнен-->
+                            <div class="progress progress-striped active progress__cont">
+                              <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                            </div>
+                            <div class="tx-hint">Загрузка</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__load"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загрузка фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_progress">
+                            <!-- boostrap progressbar-->
+                            <!-- progressbar изначально уже весь заполнен-->
+                            <div class="progress progress-striped active progress__cont">
+                              <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                            </div>
+                            <div class="tx-hint">Загрузка</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__load"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загрузка фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_progress">
+                            <!-- boostrap progressbar-->
+                            <!-- progressbar изначально уже весь заполнен-->
+                            <div class="progress progress-striped active progress__cont">
+                              <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                            </div>
+                            <div class="tx-hint">Загрузка</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__error"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Ошибка-->
+                        <div class="i-photo_hold error">
+                          <div class="tx-hint">IMG_5295.JPG</div>
+                          <div class="tx-hint">Ошибка загрузки</div>
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__load"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загрузка фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_progress">
+                            <!-- boostrap progressbar-->
+                            <!-- progressbar изначально уже весь заполнен-->
+                            <div class="progress progress-striped active progress__cont">
+                              <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                            </div>
+                            <div class="tx-hint">Загрузка</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__load"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загрузка фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_progress">
+                            <!-- boostrap progressbar-->
+                            <!-- progressbar изначально уже весь заполнен-->
+                            <div class="progress progress-striped active progress__cont">
+                              <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                            </div>
+                            <div class="tx-hint">Загрузка</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__load"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загрузка фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_progress">
+                            <!-- boostrap progressbar-->
+                            <!-- progressbar изначально уже весь заполнен-->
+                            <div class="progress progress-striped active progress__cont">
+                              <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                            </div>
+                            <div class="tx-hint">Загрузка</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__load"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загрузка фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_progress">
+                            <!-- boostrap progressbar-->
+                            <!-- progressbar изначально уже весь заполнен-->
+                            <div class="progress progress-striped active progress__cont">
+                              <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                            </div>
+                            <div class="tx-hint">Загрузка</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__load"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загрузка фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_progress">
+                            <!-- boostrap progressbar-->
+                            <!-- progressbar изначально уже весь заполнен-->
+                            <div class="progress progress-striped active progress__cont">
+                              <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                            </div>
+                            <div class="tx-hint">Загрузка</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__loaded"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загруженное фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                          </div>
+                          <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                  </ul>
+                </div>
+                <div class="scroll_bar-hold">
+                  <div class="scroll_bar">
+                    <div class="scroll_bar-in"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="popup-add_footer clearfix">
+              <div class="float-r"><a href="" class="btn btn-success disabled">Добавить</a></div>
+              <div class="popup-add_footer-l"><span class="color-gray-light">Загружено  
+                  <spanc class="popup-add_footer-count">7 </spanc>из <span class="popup-add_footer-count">125</span></span>
+                <!-- boostrap progressbar-->
+                <!-- progressbar изначально уже весь заполнен-->
+                <div class="progress progress-striped active progress__cont progress__inline">
+                  <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                </div><a href="" class="btn-link btn-link-gray btn btn-s">Отменить загрузку </a>
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!-- .popup-add-->
+    <!-- Загрузилось несколько фото-->
+    <div id="photo-computer-mylti-loaded" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <li class="active"><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <div id="photo-tab-computer" class="tab-pane active">
+            <!-- К .popup-add_frame__multi при перетаскивании добавить class.dragover-->
+            <div class="popup-add_scroll scroll">
+              <div class="popup-add_frame popup-add_frame__multi">
+                <div class="scroll_scroller">
+                  <ul class="popup-add_multi scroll_cont">
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__loaded"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загруженное фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                          </div>
+                          <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__loaded"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загруженное фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                          </div>
+                          <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__error"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Ошибка-->
+                        <div class="i-photo_hold error">
+                          <div class="tx-hint">IMG_5295.JPG</div>
+                          <div class="tx-hint">Ошибка загрузки</div>
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                    <li class="popup-add_multi-li">
+                      <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                      -->
+                      <div class="i-photo i-photo__loaded"><a href="" class="ico-close5"></a>
+                        <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                        <!-- Загруженное фото-->
+                        <div class="i-photo_hold">
+                          <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                          </div>
+                          <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                        </div>
+                      </div>
+                      <!-- /Блок фотографии-->
+                    </li>
+                  </ul>
+                </div>
+                <div class="scroll_bar-hold">
+                  <div class="scroll_bar">
+                    <div class="scroll_bar-in"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="popup-add_footer clearfix">
+              <div class="float-r"><a href="" class="btn btn-success">Добавить</a></div>
+              <div class="popup-add_footer-l"><span class="color-gray">Загружено  
+                  <spanc class="popup-add_footer-count">125 </spanc>из <span class="popup-add_footer-count">125</span></span>
+                <div class="file-fake">
+                  <input type="file" class="file-fake_inp"><a href="" class="file-fake_btn btn btn-primary btn-s"><span class="ico-plus ico-plus__s ico-plus__white"></span>Загрузить еще</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!--//////////////////////////////////////////////////-->
+    <!-- .popup-add-->
+    <!-- Одно фото по ссылке загружено-->
+    <div id="photo-link-empty" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <!-- tabs bootstrap, работают по id-->
+            <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li class="active"><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <!-- tabs bootstrap, работают по id-->
+          <div id="photo-tab-computer" class="tab-pane"></div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane active">
+            <div class="popup-add_frame">
+              <div class="popup-add_cap">
+                <!-- cap-empty-->
+                <div class="cap-empty cap-empty__addPhotoLink">
+                  <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_t">Выберите файл из интернета</div>
+                    <div class="cap-empty_tx"><input type="text" placeholder="Вставте ссылку на изображение" class="itx-gray"></div>
+                    <div class="cap-empty_tx-sub">На любом сайте кликните правой кнопкой по нужному изображению, выберите “Копировать URL картинки” и вставте сюда</div>
+                  </div>
+                  <div class="verticalalign-m-help"></div>
+                </div>
+                <!-- /cap-empty-->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!-- .popup-add-->
+    <!-- Одно фото по ссылке загружено-->
+    <div id="photo-link-loaded" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <!-- tabs bootstrap, работают по id-->
+            <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li class="active"><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+          <!-- tabs bootstrap, работают по id-->
+          <div id="photo-tab-computer" class="tab-pane"></div>
+          <div id="photo-tab-album" class="tab-pane"></div>
+          <div id="photo-tab-link" class="tab-pane active">
+            <div class="popup-add_frame">
+              <div class="popup-add_cap">
+                <!-- cap-empty-->
+                <div class="cap-empty cap-empty__addPhotoLink">
+                  <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_t">Выберите файл из интернета</div>
+                    <div class="cap-empty_tx"><input type="text" placeholder="Вставте ссылку на изображение" class="itx-gray"></div>
+                    <div class="cap-empty_tx-sub">На любом сайте кликните правой кнопкой по нужному изображению, выберите “Копировать URL картинки” и вставте сюда</div>
+                  </div>
+                  <div class="verticalalign-m-help"></div>
+                </div>
+                <!-- /cap-empty-->
+              </div>
+              <div class="textalign-c">
+                <!-- Блок фотографии Разные состояния блока применяются модификаторы .i-photo__load  .i-photo__error .i-photo__ie  .i-photo__loaded
+                -->
+                <div class="i-photo i-photo__loaded"><a href="" class="ico-close5"></a>
+                  <!-- Разные состоянияния блока могут лежать в разных .i-photo_hold можно и управлять видами через их видимость-->
+                  <!-- Загруженное фото-->
+                  <div class="i-photo_hold">
+                    <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
+                      <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                    </div>
+                    <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                  </div>
+                </div>
+                <!-- /Блок фотографии-->
+              </div>
+            </div>
+            <div class="popup-add_footer">
+              <div class="textalign-c"><a href="" class="btn btn-success">Добавить</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!--////////////////////////////////////////////////-->
+    <!-- .popup-add s-->
+    <!-- Фотографии из альбома, список альбомов-->
+    <div id="photo-albums-list" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <!-- tabs bootstrap, работают по id-->
+            <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li class="active"><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in popup-add_in__albums tab-content">
+          <!-- tabs bootstrap, работают по id-->
+          <div id="photo-tab-computer" class="tab-pane"></div>
+          <div id="photo-tab-album" class="tab-pane active">
+            <ul class="tabs-simple nav nav-tabs">
+              <!-- tabs bootstrap, работают по id-->
+              <li class="active"><a href="#photo-albums">Мои альбомы 15</a></li>
+              <li><a href="#photo-album-all">Все фото 468</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="photo-albums" class="tab-pane active">
+                <div class="popup-add_scroll scroll">
+                  <div class="popup-add_frame popup-add_frame__album">
+                    <div class="scroll_scroller">
+                      <!-- Список альбомов-->
+                      <div class="album-preview album-preview__album scroll_cont">
+                        <ul class="album-preview_ul">
+                          <li class="album-preview_li">
+                            <div class="album-preview_in">
+                              <div class="album-preview_img-hold">
+                                <!-- --><img src="/new/images/example/w205-h140.jpg" alt="" class="album-preview_img">
+                              </div>
+                              <div class="album-preview_overlay"></div>
+                            </div>
+                            <div class="album-preview_hold">
+                              <div class="album-preview_t">Выходные - мое хобби, а также очень интересно и познавательно ...</div>
+                              <div class="album-preview_count">38 фото</div>
+                            </div>
+                          </li>
+                          <li class="album-preview_li">
+                            <div class="album-preview_in">
+                              <div class="album-preview_img-hold">
+                                <!-- --><img src="/new/images/example/w155-h110.jpg" alt="" class="album-preview_img">
+                              </div>
+                              <div class="album-preview_overlay"></div>
+                            </div>
+                            <div class="album-preview_hold">
+                              <div class="album-preview_t">Выходные - мое хобби, а также очень интересно и познавательно ...</div>
+                              <div class="album-preview_count">38 фото</div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="scroll_bar-hold">
+                      <div class="scroll_bar">
+                        <div class="scroll_bar-in"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id="photo-album-open">
+                <!-- Пустой список фото в альбоме-->
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!-- .popup-add-->
+    <!-- Фотографии из альбома, средний размер превью-->
+    <div id="photo-album-list-m" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <!-- tabs bootstrap, работают по id-->
+            <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li class="active"><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in popup-add_in__albums tab-content">
+          <!-- tabs bootstrap, работают по id-->
+          <div id="photo-tab-computer" class="tab-pane"></div>
+          <div id="photo-tab-album" class="tab-pane active">
+            <ul class="tabs-simple nav nav-tabs">
+              <!-- tabs bootstrap, работают по id-->
+              <li><a href="#photo-albums">Мои альбомы 15</a></li>
+              <li class="active"><a href="#photo-album-open">Семейный альбом 28</a></li>
+              <li><a href="#photo-album-all">Все фото 468</a></li>
+            </ul>
+            <div id="photo-albums" class="tab-pane">
+              <!-- Пустой список альбомов-->
+            </div>
+            <div id="photo-album-open" class="tab-pane active">
+              <div class="popup-add_scroll scroll">
+                <div class="popup-add_frame popup-add_frame__album">
+                  <div class="scroll_scroller">
+                    <!-- Список альбомов
+                    .album-preview__s
+                    .album-preview__m
+                    .album-preview__xl
+                    -->
+                    <div class="album-preview album-preview__m scroll_cont">
+                      <ul class="album-preview_ul">
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h110.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w205-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="scroll_bar-hold">
+                    <div class="scroll_bar">
+                      <div class="scroll_bar-in"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="popup-add_footer clearfix">
+                <div class="popup-add_footer-l">
+                  <div class="album-slider">
+                    <div class="album-slider_tx album-slider_tx-minus">&ndash;</div>
+                    <!-- jquery iu slider 
+                    инициализируется из common-makup.js в верстке загружается файл jquery-ui-1.10.4.custom.js
+                    Есть CJuiSlider в yii 
+                    -->
+                    <div class="album-slider_hold"></div>
+                    <div class="album-slider_tx album-slider_tx-plus">+</div>
+                  </div>
+                </div>
+                <div class="float-r">
+                  <div class="btn btn-link-gray btn-s disabled">Выберите фото </div><a href="" class="btn btn-success disabled">Добавить</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!-- .popup-add-->
+    <!-- Фотографии из альбома, маленький размер превью-->
+    <div id="photo-album-list-s" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <!-- tabs bootstrap, работают по id-->
+            <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li class="active"><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in popup-add_in__albums tab-content">
+          <!-- tabs bootstrap, работают по id-->
+          <div id="photo-tab-computer" class="tab-pane"></div>
+          <div id="photo-tab-album" class="tab-pane active">
+            <ul class="tabs-simple nav nav-tabs">
+              <!-- tabs bootstrap, работают по id-->
+              <li><a href="#photo-albums">Мои альбомы 15</a></li>
+              <li class="active"><a href="#photo-album-open">Семейный альбом 28</a></li>
+              <li><a href="#photo-album-all">Все фото 468</a></li>
+            </ul>
+            <div id="photo-albums" class="tab-pane">
+              <!-- Пустой список альбомов-->
+            </div>
+            <div id="photo-album-open" class="tab-pane active">
+              <div class="popup-add_scroll scroll">
+                <div class="popup-add_frame popup-add_frame__album">
+                  <div class="scroll_scroller">
+                    <!-- Список альбомов
+                    .album-preview__s
+                    .album-preview__m
+                    .album-preview__xl
+                    -->
+                    <div class="album-preview album-preview__s scroll_cont">
+                      <ul class="album-preview_ul">
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li active">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h110.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w205-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="scroll_bar-hold">
+                    <div class="scroll_bar">
+                      <div class="scroll_bar-in"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="popup-add_footer clearfix">
+                <div class="popup-add_footer-l">
+                  <div class="album-slider">
+                    <div class="album-slider_tx album-slider_tx-minus">&ndash;</div>
+                    <!-- jquery iu slider 
+                    инициализируется из common-makup.js в верстке загружается файл jquery-ui-1.10.4.custom.js
+                    Есть CJuiSlider в yii 
+                    -->
+                    <div class="album-slider_hold"></div>
+                    <div class="album-slider_tx album-slider_tx-plus">+</div>
+                  </div>
+                </div>
+                <div class="float-r">
+                  <div class="btn btn-link-gray btn-s disabled">Выбрано: 1</div><a href="" class="btn btn-success">Добавить</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+    <!-- .popup-add-->
+    <!-- Фотографии из альбома, большой размер превью-->
+    <div id="photo-album-list-xl" class="popup popup-add popup-add__photos">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+      <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+          <div class="popup-add_t">Добавить фотографии</div>
+          <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+            <!-- tabs bootstrap, работают по id-->
+            <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+            <li class="active"><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+            <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+          </ul>
+        </div>
+        <div class="popup-add_in popup-add_in__albums tab-content">
+          <!-- tabs bootstrap, работают по id-->
+          <div id="photo-tab-computer" class="tab-pane"></div>
+          <div id="photo-tab-album" class="tab-pane active">
+            <ul class="tabs-simple nav nav-tabs">
+              <!-- tabs bootstrap, работают по id-->
+              <li><a href="#photo-albums">Мои альбомы 15</a></li>
+              <li class="active"><a href="#photo-album-open">Семейный альбом 28</a></li>
+              <li><a href="#photo-album-all">Все фото 468</a></li>
+            </ul>
+            <div id="photo-albums" class="tab-pane">
+              <!-- Пустой список альбомов-->
+            </div>
+            <div id="photo-album-open" class="tab-pane active">
+              <div class="popup-add_scroll scroll">
+                <div class="popup-add_frame popup-add_frame__album">
+                  <div class="scroll_scroller">
+                    <!-- Список альбомов
+                    .album-preview__s
+                    .album-preview__m
+                    .album-preview__xl
+                    -->
+                    <div class="album-preview album-preview__xl scroll_cont">
+                      <ul class="album-preview_ul">
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w325-h295.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li active">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h110.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li active">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w325-h295.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                        <li class="album-preview_li">
+                          <div class="album-preview_in">
+                            <div class="album-preview_img-hold">
+                              <!-- --><img src="/new/images/example/w205-h140.jpg" alt="" class="album-preview_img">
+                            </div>
+                            <div class="album-preview_overlay"></div>
+                            <div class="album-preview_check"></div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="scroll_bar-hold">
+                    <div class="scroll_bar">
+                      <div class="scroll_bar-in"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="popup-add_footer clearfix">
+                <div class="popup-add_footer-l">
+                  <div class="album-slider">
+                    <div class="album-slider_tx album-slider_tx-minus">&ndash;</div>
+                    <!-- jquery iu slider 
+                    инициализируется из common-makup.js в верстке загружается файл jquery-ui-1.10.4.custom.js
+                    Есть CJuiSlider в yii 
+                    -->
+                    <div class="album-slider_hold"></div>
+                    <div class="album-slider_tx album-slider_tx-plus">+</div>
+                  </div>
+                </div>
+                <div class="float-r">
+                  <div class="btn btn-link-gray btn-s disabled verticalalign-base">Выбрано: 1</div><a href="" class="btn btn-success">Добавить</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div id="photo-tab-link" class="tab-pane"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /popup-add-->
+  </div>
+</body></html>

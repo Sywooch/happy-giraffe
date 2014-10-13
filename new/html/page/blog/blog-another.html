@@ -6,6 +6,7 @@
 <!-- a-->
 <!-- b-->
 <!-- c-->
+<!-- /b-album-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,12 +16,13 @@
   <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:400&amp;subset=latin,cyrillic-ext,cyrillic">
   <!-- ie8 --><!--[if lt IE 9]><script src="http://cdnjs.cloudflare.com/ajax/libs/es5-shim/2.0.8/es5-shim.min.js"></script><![endif]-->
   <!--+scripts(path)-->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <!-- script(src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js")-->
   <script>
-    window.jQuery || document.write('<script src="/new//javascript/jquery-1.10.2.min.js"><\/script>')
+    window.jQuery || document.write('<script src="/new/javascript/jquery-1.10.2.min.js"><\/script>')
     
   </script>
   <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
+  <script src="/new/javascript/bootstrap/affix.js"></script>
   <script src="/new/javascript/bootstrap/dropdown.js"></script>
   <script src="/new/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
@@ -89,12 +91,12 @@
                 <li class="header-menu_li active"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
                 <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
                 <li class="header-menu_li header-menu_li__dropin"><a href="" class="header-menu_a">
-                    <!-- ava--><span href="" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                    <!-- ava--><span class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
                   <div class="header-drop">
                     <div class="header-menu clearfix">
                       <ul class="header-menu_ul">
                         <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
-                              <!-- ava--><span href="" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                              <!-- ava--><span class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
                         <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
                         <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
                         <li class="header-menu_li"><a href="" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
@@ -143,7 +145,7 @@
               <!-- userAddRecord-->
               <div class="userAddRecord clearfix userAddRecord__s userAddRecord__s">
                 <div class="userAddRecord_ava-hold">
-                  <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                  <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                 </div>
                 <div class="userAddRecord_hold">
                   <div class="userAddRecord_tx">Я хочу добавить
@@ -158,7 +160,7 @@
             <ul class="b-crumbs_ul">
               <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Главная</a></li>
               <li class="b-crumbs_li">
-                <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
               </li>
               <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Блог</span></li>
             </ul>
@@ -192,7 +194,7 @@
               <div class="userSection_center">
                 <div class="b-ava-large b-ava-large__nohover">
                   <div class="b-ava-large_ava-hold">
-                    <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                    <!-- ava--><a href="" class="ava ava__large ava__male"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                   </div><span class="b-ava-large_online">На сайте</span>
                 </div>
                 <div class="userSection_center-reg">с Веселым Жирафом 2 года 5 месяцев 203 дня</div>
@@ -217,19 +219,19 @@
             <div class="userSubscribers"><span class="userSubscribers_tx">У моего блога 468 подписчиков</span>
               <ul class="userSubscribers_ul">
                 <li class="userSubscribers_li">
-                  <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                  <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                 </li>
                 <li class="userSubscribers_li">
-                  <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                  <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                 </li>
                 <li class="userSubscribers_li">
-                  <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                  <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                 </li>
                 <li class="userSubscribers_li">
-                  <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                  <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                 </li>
                 <li class="userSubscribers_li">
-                  <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                  <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                 </li>
               </ul><a href="" class="userSubscribers_btn btn-green-simple"><span class="ico-plus ico-plus__s ico-plus__white"></span>Подписаться</a>
             </div>
@@ -292,7 +294,7 @@
                         <div class="meta-gray_view"><span class="ico-view ico-view__gray"></span><span class="meta-gray_tx">305</span></div>
                       </div>
                       <div class="float-l">
-                        <!-- ava--><a href="" class="ava ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="b-article_author">Ангелина Богоявленская</a><span class="b-article_date">Сегодня 13:25</span>
+                        <!-- ava--><a href="" class="ava ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="b-article_author">Ангелина Богоявленская</a><span class="b-article_date">Сегодня 13:25</span>
                       </div>
                     </div>
                     <h1 class="b-article_t">Самое лучшее утро - просыпаюсь, а ты рядом</h1>
@@ -382,7 +384,7 @@
                       -->
                       <li class="comments_li comments_li__blue clearfix">
                         <div class="comments_ava">
-                          <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </div>
                         <div class="comments_frame">
                           <div class="comments_header">
@@ -451,7 +453,7 @@
                       </li>
                       <li class="comments_li comments_li__yellow clearfix">
                         <div class="comments_ava">
-                          <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </div>
                         <div class="comments_frame">
                           <div class="comments_header">
@@ -518,7 +520,7 @@
                       </li>
                       <li class="comments_li comments_li__red comments_li__self clearfix">
                         <div class="comments_ava">
-                          <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </div>
                         <div class="comments_frame">
                           <div class="comments_header">
@@ -567,7 +569,7 @@
                       </li>
                       <li class="comments_li comments_li__green comments_li__self clearfix">
                         <div class="comments_ava">
-                          <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </div>
                         <div class="comments_frame">
                           <div class="comments_header">
@@ -602,7 +604,7 @@
                       </li>
                       <li class="comments_li comments_li__lilac comments_li__self clearfix">
                         <div class="comments_ava">
-                          <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__middle"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </div>
                         <div class="comments_frame">
                           <div class="comments_header">
@@ -644,95 +646,95 @@
                     <div class="ava-list">
                       <ul class="ava-list_ul clearfix">
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-                        </li>
-                        <li class="ava-list_li"><a href="" class="ava ava__small"></a></li>
-                        <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-                        </li>
-                        <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
-                        </li>
-                        <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-                        </li>
-                        <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
-                        </li>
-                        <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
-                        </li>
-                        <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li"><a href="" class="ava ava__small"></a></li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                        </li>
+                        <li class="ava-list_li">
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                        </li>
+                        <li class="ava-list_li">
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                        </li>
+                        <li class="ava-list_li">
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li"><a href="" class="ava ava__small"></a></li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li"><a href="" class="ava ava__small"></a></li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                        </li>
+                        <li class="ava-list_li"><a href="" class="ava ava__small"></a></li>
+                        <li class="ava-list_li">
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                        </li>
+                        <li class="ava-list_li">
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                        </li>
+                        <li class="ava-list_li">
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li"><a href="" class="ava-list_last"><span class="ava-list_like-hg"></span>3251</a></li>
                       </ul>
@@ -741,22 +743,22 @@
                     <div class="ava-list">
                       <ul class="ava-list_ul clearfix">
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li">
-                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                          <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                         </li>
                         <li class="ava-list_li"><a href="" class="ava-list_last"><span class="ava-list_favorite active"></span>3251 и вы</a></li>
                       </ul>
@@ -775,35 +777,35 @@
                 -->
                 <div class="article-similar article-similar__lilac">
                   <div class="article-similar_row">
-                    <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдин</a>
+                    <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдин</a>
                   </div>
                   <div class="article-similar_row"><a href="" class="article-similar_t">Наши первые движения </a></div>
                   <div class="article-similar_img-hold"><a href=""><img src="/new/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
                 </div>
                 <div class="article-similar article-similar__red">
                   <div class="article-similar_row">
-                    <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдинwerwerweryrtyrtyrtyrtyrtyа</a>
+                    <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдинwerwerweryrtyrtyrtyrtyrtyа</a>
                   </div>
                   <div class="article-similar_row"><a href="" class="article-similar_t">Наши первые движения</a></div>
                   <div class="article-similar_img-hold"><a href=""><img src="/new/images/example/w240-h176.jpg" alt="" class="article-similar_img"></a></div>
                 </div>
                 <div class="article-similar article-similar__yellow">
                   <div class="article-similar_row">
-                    <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина !!Красотуля!!</a>
+                    <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина !!Красотуля!!</a>
                   </div>
                   <div class="article-similar_row"><a href="" class="article-similar_t">Наши первые движения по полу в окружении родителей</a></div>
                   <div class="article-similar_img-hold"><a href=""><img src="/new/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
                 </div>
                 <div class="article-similar article-similar__blue">
                   <div class="article-similar_row">
-                    <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдина</a>
+                    <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдина</a>
                   </div>
                   <div class="article-similar_row"><a href="" class="article-similar_t">Коррекция фигуры: убираем висячий дряблый живот</a></div>
                   <div class="article-similar_img-hold"><a href=""><img src="/new/images/example/w240-h183.jpg" alt="" class="article-similar_img"></a></div>
                 </div>
                 <div class="article-similar article-similar__green">
                   <div class="article-similar_row">
-                    <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдина</a>
+                    <!-- ava--><a href="" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдина</a>
                   </div>
                   <div class="article-similar_row"><a href="" class="article-similar_t">Обязательства мешают любовным отношениям</a></div>
                   <div class="article-similar_img-hold"><a href=""><img src="/new/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>

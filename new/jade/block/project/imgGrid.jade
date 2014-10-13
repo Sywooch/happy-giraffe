@@ -1,0 +1,151 @@
+
+mixin imgGrid(mod, vars)
+    // img-grid
+    .img-grid(class=mod)
+        // Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.
+        - each row in vars.rows
+            // Ряд изображений
+            .img-grid_row.clearfix
+                - each item in row.img
+                    - if (typeof(item) == 'string')
+                        - if (item == 'album-photo-add')
+                            // Нужно выставить высоту и ширину блоку, что б получалася полный ряд
+                            .img-grid_i(style="width: 280px; height: 380px;")
+                                .album-photo-add.album-photo-add__m
+                                    .album-photo-add_hold 
+                                        | Загрузить еще
+                                        br  
+                                        | фото в альбом
+                        - else
+                            - if (row.albumPhotoDel)
+                                .img-grid_i.img-grid_i__del
+                                    // Высота изображений может отличаться в зависимости от ряда
+                                    img.img-grid_img(src="#{path}images/example/#{item}", alt="")
+                                    // Заглушка удаленной фото
+                                    +cap-empty('cap-empty__abs cap-empty__white', capEmpty.albumPhotoDel)
+                                    - row.albumPhotoDel = false
+                            - else 
+                                .img-grid_i
+                                    // Высота изображений может отличаться в зависимости от ряда
+                                    img.img-grid_img(src="#{path}images/example/#{item}", alt="")
+                                    
+                                        
+                                    .img-grid_overlay
+                                        span.ico-zoom.ico-zoom__abs
+                                        - if (vars.inAlbum)
+                                            - if (vars.ava == true)
+                                                .img-grid_ico-ava.active
+                                                - vars.ava = false
+                                            - else 
+                                                .img-grid_ico-ava
+                                            - if (vars.inAlbum != 'withoutAlbum')
+                                                - if (vars.album == true)
+                                                    .img-grid_ico-album.active
+                                                    - vars.album = false
+                                                - else 
+                                                    .img-grid_ico-album
+                                            .img-grid_overlay-b
+                                                a.ico-trash.powertip(href="", title="Удалить фото")
+                                                a.ico-photo-edit.powertip(href="", title="Редактировать")
+                                                a.ico-move.powertip(href="", title="Переместить")
+                                    
+                    - else
+                        // При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.
+                        // До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. 
+                        .img-grid_i.loading
+                            img.img-grid_img(src="#", alt="", width='160', height='260')
+                            .img-grid_overlay
+                                span.ico-zoom.ico-zoom__abs
+                            // Блок процесса загрузки фото
+                            // Цвета 
+                                img-grid_loading__purple
+                                img-grid_loading__yellow
+                                img-grid_loading__carrot
+                                img-grid_loading__green
+                                img-grid_loading__blue
+                            .img-grid_loading(class="img-grid_loading__#{item.color}")
+                                .img-grid_loading-hold
+                                    .css-progress.css-progress__xl
+                                        //- svg#svg.svg-loader(version="1.1" viewBox="0 0 300 300" preserveAspectRatio="xMinYMin meet" class="svg-content")
+                                            defs
+                                                  rect#rect(width='50', height='150', rx='25', ry='25')
+                                                g(transform='rotate(225 250 250)')
+                                                    g
+                                                        use#one(style='fill: #0FF0FF;', x='225', y='0', xlink:href='#rect')
+                                                        use#five(style='fill: #0FF0FF;', x='225', y='350', xlink:href='#rect')
+                                                    g(transform='rotate(45, 250, 250)')
+                                                        use#two(x='225', y='0', xlink:href='#rect')
+                                                        use#six(x='225', y='350', xlink:href='#rect')
+                                                    g(transform='rotate(90, 250, 250)')
+                                                        use#three(x='225', y='0', xlink:href='#rect')
+                                                        use#seven(x='225', y='350', xlink:href='#rect')
+                                                    g(transform='rotate(135, 250, 250)')
+                                                        use#four(x='225', y='0', xlink:href='#rect')
+                                                        use#eight(x='225', y='350', xlink:href='#rect')
+
+                                    .img-grid_loading-tx Загрузка фотографии
+
+
+- var imgGrid = {}
+
+- imgGrid.loadingPurple = {}
+- imgGrid.loadingPurple.color = 'purple'
+- imgGrid.loadingYellow = {}
+- imgGrid.loadingYellow.color = 'yellow'
+- imgGrid.loadingCarrot = {}
+- imgGrid.loadingCarrot.color = 'carrot'
+- imgGrid.loadingGreen = {}
+- imgGrid.loadingGreen.color = 'green'
+- imgGrid.loadingBlue = {}
+- imgGrid.loadingBlue.color = 'blue'
+
+- imgGrid.rowColor = {}
+- imgGrid.rowColor.img = [imgGrid.loadingPurple, imgGrid.loadingYellow, imgGrid.loadingCarrot, imgGrid.loadingGreen, imgGrid.loadingBlue]
+
+- imgGrid.row1 = {}
+- imgGrid.row1.img = ['w558-h360-1.jpg', 'w305-h360-1.jpg']
+
+- imgGrid.row2 = {}
+- imgGrid.row2.img = ['w305-h360-1.jpg', 'w558-h360-1.jpg']
+
+- imgGrid.row3 = {}
+- imgGrid.row3.img = ['w280-h370-1.jpg','w280-h370-2.jpg', 'w280-h370-3.jpg']
+
+
+- imgGrid.row4 = {}
+- imgGrid.row4.img = ['w305-h360-1.jpg', 'w558-h360-1.jpg']
+
+
+- imgGrid.row5 = {}
+- imgGrid.row5.img = ['w280-h370-1.jpg', 'w280-h370-2.jpg', 'w280-h370-3.jpg']
+- imgGrid.row5.inAlbum = {} //  в альбоме
+- imgGrid.row5.ava = false
+- imgGrid.row5.album = false
+- imgGrid.row5.albumPhotoDel = true
+
+- imgGrid.row6 = {}
+- imgGrid.row6.img = ['album-photo-add', 'w280-h370-3.jpg', 'w280-h370-1.jpg']
+
+
+
+- imgGrid.a = {}
+- imgGrid.a.rows = [imgGrid.row1, imgGrid.row3, imgGrid.row2, imgGrid.rowColor]
+- imgGrid.a.inAlbum = {} //  в альбоме
+- imgGrid.a.ava = true
+- imgGrid.a.album = true
+
+- imgGrid.b = {}
+- imgGrid.b.rows = [imgGrid.row6, imgGrid.row4, imgGrid.row5, imgGrid.rowColor]
+- imgGrid.b.inAlbum = {} //  в альбоме
+- imgGrid.b.ava = true
+- imgGrid.b.album = true
+
+- imgGrid.c = {}
+- imgGrid.c.rows = [imgGrid.row6, imgGrid.row4, imgGrid.row5, imgGrid.rowColor]
+- imgGrid.c.inAlbum = 'withoutAlbum' //  в альбоме без альбома
+- imgGrid.c.ava = true
+
+- imgGrid.e = {}
+- imgGrid.e.rows = [imgGrid.row6, imgGrid.row4, imgGrid.row5, imgGrid.rowColor]
+- imgGrid.e.inAlbum = false //   у гостя 
+

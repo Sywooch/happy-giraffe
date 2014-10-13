@@ -1,0 +1,280 @@
+<div id="photo-computer-mylti-empty" class="popup popup-add popup-add__photos">
+    <button title="Закрыть (Esc)" type="button" class="mfp-close">×</button>
+    <div class="popup-add_hold">
+        <div class="popup-add_top clearfix">
+            <div class="popup-add_t">Добавить фотографии</div>
+            <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
+                <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
+                <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
+                <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
+            </ul>
+        </div>
+        <div class="popup-add_in tab-content">
+
+            <!-- fromComputer -->
+
+            <!-- ko if: multiple -->
+            <!-- ko stopBinding: true -->
+            <div id="photo-tab-computer-multiple" class="tab-pane">
+                    <div class="popup-add_frame popup-add_frame__multi" data-bind="visible: photos().length == 0">
+                        <div class="popup-add_cap">
+                            <div class="cap-empty cap-empty__addPhoto">
+                                <div class="cap-empty_hold">
+                                    <div class="cap-empty_img"></div>
+                                    <div class="cap-empty_t">Выберите файлы с компьютера</div>
+                                    <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp' name="image" data-bind="fileUpload: fileUploadSettings" multiple></div>  <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 8 Мб.</div><div class='popup-add_cap-drag' data-bind="visible: multiple">или перетащите фотографии сюда</div></div>
+                                </div>
+                                <div class="verticalalign-m-help"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="popup-add_scroll scroll" data-bind="visible: photos().length > 0">
+                        <div class="popup-add_frame popup-add_frame__multi">
+                            <div class="scroll_scroller">
+                                <ul class="popup-add_multi scroll_cont">
+                                    <!-- ko foreach: photos -->
+                                    <li class="popup-add_multi-li">
+                                        <div class="i-photo" data-bind="css: cssClass"><a href="" class="ico-close5" data-bind="click: $parent.removePhoto"></a>
+                                            <!-- ko if: photo().status() === photo().status() -->
+                                            <div class="i-photo_hold">
+                                                <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
+                                                    <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
+                                                </div>
+                                                <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                                            </div>
+                                            <!-- /ko -->
+
+                                            <!-- ko if: photo().status() === $root.statusLoading -->
+                                            <div class="i-photo_hold">
+                                                <div class="i-photo_progress">
+                                                    <div class="progress progress-striped active progress__cont">
+                                                        <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                                    </div>
+                                                    <div class="tx-hint">Загрузка</div>
+                                                </div>
+                                            </div>
+                                            <!-- /ko -->
+
+                                            <!-- ko if: photo().status() === $root.statusFail -->
+                                            <div class="i-photo_hold error">
+                                                <div class="tx-hint" data-bind="text: original_name"></div>
+                                                <div class="tx-hint" data-bind="text: error"></div>
+                                            </div>
+                                            <!-- /ko -->
+                                        </div>
+                                    </li>
+                                    <!-- /ko -->
+                                </ul>
+                            </div>
+                            <div class="scroll_bar-hold">
+                                <div class="scroll_bar">
+                                    <div class="scroll_bar-in"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-add_footer clearfix" data-bind="visible: photos().length > 0">
+                        <div class="float-r"><button class="btn btn-success" data-bind="disable: loading, click: add">Добавить</button></div>
+                        <div class="popup-add_footer-l">
+                    <span class="color-gray-light">Загружено
+                        <span class="popup-add_footer-count" data-bind="text: successPhotos().length"></span> из <span class="popup-add_footer-count" name="image" data-bind="text: photos().length"></span></span>
+                            <div class="file-fake" data-bind="visible: ! loading()">
+                                <input type="file" class="file-fake_inp" name="image" data-bind="fileUpload: fileUploadSettingsMore" accept="image/gif, image/jpeg, image/png" multiple><a href="" class="file-fake_btn btn btn-primary btn-s"><span class="ico-plus ico-plus__s ico-plus__white"></span>Загрузить еще</a>
+                            </div>
+                            <div class="progress progress-striped active progress__cont progress__inline" data-bind="visible: loading">
+                                <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                            </div><a href="" class="btn-link btn-link-gray btn btn-s" data-bind="click: cancelAll, visible: loading">Отменить загрузку </a>
+                        </div>
+                    </div>
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
+
+            <!-- ko ifnot: multiple -->
+                <!-- ko stopBinding: true -->
+                <div id="photo-tab-computer" class="tab-pane">
+                        <div class="popup-add_frame">
+                            <div class="popup-add_cap">
+                                <div class="cap-empty cap-empty__addPhoto">
+                                    <div class="cap-empty_hold">
+                                        <div class="cap-empty_img"></div>
+                                        <div class="cap-empty_t">Выберите файл с компьютера</div>
+                                        <div class="cap-empty_tx-sub"><div class='file-fake'><div class='btn btn-s btn-primary file-fake_btn'>Обзор</div><input type='file' class='file-fake_inp' name="image" data-bind="fileUpload: fileUploadSettings" accept="image/gif, image/jpeg, image/png"></div> <div class='popup-add_cap-desc'>Разрешенные форматы файлов JPG, GIF, PNG.<br> Максимальный размер 8 Мб.</div></div>
+                                    </div>
+                                    <div class="verticalalign-m-help"></div>
+                                </div>
+                            </div>
+                            <div class="textalign-c" data-bind="if: photo() !== null">
+                                <div class="i-photo" data-bind="css: photo().cssClass()"><a href="" class="ico-close5" data-bind="click: $root.removePhoto"></a>
+                                    <!-- ko if: photo().status() === photo().STATUS_SUCCESS -->
+                                    <div class="i-photo_hold">
+                                        <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
+                                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
+                                        </div>
+                                        <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                                    </div>
+                                    <!-- /ko -->
+
+                                    <!-- ko if: photo().status() === photo().STATUS_LOADING -->
+                                    <div class="i-photo_hold">
+                                        <div class="i-photo_progress">
+                                            <div class="progress progress-striped active progress__cont">
+                                                <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                            </div>
+                                            <div class="tx-hint">Загрузка</div>
+                                        </div>
+                                    </div>
+                                    <!-- /ko -->
+
+                                    <!-- ko if: photo().status() === photo().STATUS_FAIL -->
+                                    <div class="i-photo_hold error">
+                                        <div class="tx-hint" data-bind="text: photo.original_name"></div>
+                                        <div class="tx-hint" data-bind="text: photo.error"></div>
+                                    </div>
+                                    <!-- /ko -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="popup-add_footer" data-bind="visible: photo() !== null">
+                            <div class="textalign-c"><button class="btn btn-success" data-bind="disable: loading, click: add">Добавить</button></div>
+                        </div>
+                </div>
+                <!-- /ko -->
+            <!-- /ko -->
+
+
+
+            <!-- end of fromComputer -->
+
+
+
+
+            <!-- from fromAlbums -->
+                <!-- ko stopBinding: true -->
+                <div id="photo-tab-album" class="tab-pane">
+                    <ul class="tabs-simple nav nav-tabs">
+                        <li data-bind="css: { active: currentAlbum() === null }"><a href="" data-bind="click: unselectAlbum">Мои альбомы <span data-bind="text: albums().length"></span></a></li>
+                        <li data-bind="with: currentAlbum(), css: { active: currentAlbum() !== null }"><a href="" data-bind="click: $root.selectAlbum"><span data-bind="text: title"></span> <span data-bind="text: photoCollection().attachesCount()"></span></a></li>
+                        <!--<li><a href="#photo-album-all" data-toggle="tab">Все фото 468</a></li>-->
+                    </ul>
+                    <div class="tab-content">
+                        <div class="popup-add_scroll scroll">
+                            <div class="popup-add_frame popup-add_frame__album">
+                                <div class="scroll_scroller">
+                                    <div class="album-preview album-preview__album scroll_cont" data-bind="visible: currentAlbum() === null">
+                                        <ul class="album-preview_ul">
+                                            <!-- ko foreach: albums -->
+                                            <li class="album-preview_li" data-bind="click: $root.selectAlbum">
+                                                <div class="album-preview_in">
+                                                    <div class="album-preview_img-hold">
+                                                        <img src="" alt="" class="album-preview_img" data-bind="thumb: { photo: photoCollection().cover().photo(), preset: 'uploadAlbumCover' }">
+                                                    </div>
+                                                    <div class="album-preview_overlay"></div>
+                                                </div>
+                                                <div class="album-preview_hold">
+                                                    <div class="album-preview_t" data-bind="text: title"></div>
+                                                    <div class="album-preview_count"><span data-bind="text: photoCollection().attachesCount()"></span> фото</div>
+                                                </div>
+                                            </li>
+                                            <!-- /ko -->
+                                        </ul>
+                                    </div>
+
+                                    <div class="album-preview scroll_cont" data-bind="with: currentAlbum(), css: thumbsSizeClass">
+                                        <ul class="album-preview_ul">
+                                            <!-- ko foreach: photoCollection().attaches() -->
+                                            <li class="album-preview_li" data-bind="click: $root.selectAttach, css: { active: isActive }">
+                                                <div class="album-preview_in">
+                                                    <div class="album-preview_img-hold">
+                                                        <img src="" alt="" class="album-preview_img" data-bind="thumb: { photo: photo(), preset: $root.thumbsPreset() }">
+                                                    </div>
+                                                    <div class="album-preview_overlay"></div>
+                                                    <div class="album-preview_check"></div>
+                                                </div>
+                                            </li>
+                                            <!-- /ko -->
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="scroll_bar-hold">
+                                    <div class="scroll_bar">
+                                        <div class="scroll_bar-in"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="popup-add_footer clearfix" data-bind="visible: currentAlbum() !== null">
+                                <div class="popup-add_footer-l">
+                                    <div class="album-slider">
+                                        <div class="album-slider_tx album-slider_tx-minus" data-bind="click: function() { updateThumbsSize(-1) }">&ndash;</div>
+                                        <div class="album-slider_hold" data-bind="slider: thumbsSize, sliderOptions: { min: 1, max: 3 }"></div>
+                                        <div class="album-slider_tx album-slider_tx-plus" data-bind="click: function() { updateThumbsSize(1) }">+</div>
+                                    </div>
+                                </div>
+                                <div class="float-r">
+                                    <div class="btn btn-link-gray btn-s disabled" data-bind="text: hint"></div><button class="btn btn-success" data-bind="click: add, disable: photos().length == 0">Добавить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            <!-- end of fromAlbums -->
+
+
+            <!-- _byUrl -->
+                <!-- ko stopBinding: true -->
+                <div id="photo-tab-link" class="tab-pane">
+                    <div class="popup-add_frame">
+                        <div class="popup-add_cap">
+                            <div class="cap-empty cap-empty__addPhotoLink">
+                                <div class="cap-empty_hold">
+                                    <div class="cap-empty_img"></div>
+                                    <div class="cap-empty_t">Выберите файл из интернета</div>
+                                    <div class="cap-empty_tx"><input type="text" placeholder="Вставте ссылку на изображение" class="itx-gray" data-bind="value: url, valueUpdate: 'input'"></div>
+                                    <div class="cap-empty_tx-sub">На любом сайте кликните правой кнопкой по нужному изображению, выберите “Копировать URL картинки” и вставьте сюда</div>
+                                </div>
+                                <div class="verticalalign-m-help"></div>
+                            </div>
+                        </div>
+                        <div class="textalign-c" data-bind="if: photo() !== null">
+                            <div class="i-photo" data-bind="css: photo.cssClass"><a href="" class="ico-close5" data-bind="click: $root.removePhoto"></a>
+                                <!-- ko if: photo().status() === $root.statusOk -->
+                                <div class="i-photo_hold">
+                                    <div class="i-photo_img-hold"><img src="" alt="" class="i-photo_img" data-bind="thumb: { photo: photo(), preset: 'uploadPreview' }">
+                                        <div class="i-photo_overlay"><a href="" class="i-photo_rotate" data-bind="click:  photo().rotateLeft"></a><a href="" class="i-photo_rotate i-photo_rotate__r" data-bind="click:  photo().rotateRight"></a></div>
+                                    </div>
+                                    <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
+                                </div>
+                                <!-- /ko -->
+
+                                <!-- ko if: photo().status() === $root.statusLoading -->
+                                <div class="i-photo_hold">
+                                    <div class="i-photo_progress">
+                                        <div class="progress progress-striped active progress__cont">
+                                            <div role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%" class="progress-bar progress-bar__cont"></div>
+                                        </div>
+                                        <div class="tx-hint">Загрузка</div>
+                                    </div>
+                                </div>
+                                <!-- /ko -->
+
+                                <!-- ko if: photo().status() === $root.statusFail -->
+                                <div class="i-photo_hold error">
+                                    <div class="tx-hint" data-bind="text: photo.original_name"></div>
+                                    <div class="tx-hint" data-bind="text: photo.error"></div>
+                                </div>
+                                <!-- /ko -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="popup-add_footer" data-bind="visible: photo() !== null">
+                        <div class="textalign-c"><button class="btn btn-success" data-bind="disable: loading, click: add">Добавить</button></div>
+                    </div>
+                </div>
+                <!-- /ko -->
+            <!-- end of  _byUrl -->
+
+        </div>
+    </div>
+</div>

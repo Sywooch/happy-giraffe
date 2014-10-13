@@ -1,0 +1,450 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<!-- /b-album-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/member-user.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__user body__lite">
+  <!-- header-fix-->
+  <script>
+    $(document).ready(function () {
+        $(window).on('scroll',function () {
+            var contanerScroll = $(window).scrollTop();
+            var header = $('.layout-header');
+            console.log(header.height());
+            if (contanerScroll > header.height() + header.offset().top) {
+                $('.header-fix').fadeIn(400);
+            } else {
+                $('.header-fix').fadeOut(400);
+            }
+        });
+    });
+  </script>
+  <div class="header-fix">
+    <div class="header-fix_hold clearfix"><a href="#" class="header-fix_logo"></a>
+      <div class="header-fix_dropin"><a href="#" class="header-fix_dropin-a">
+          <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+        <!-- header-drop-->
+        <div class="header-drop">
+          <div class="header-menu clearfix">
+            <ul class="header-menu_ul">
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                    <!-- ava--><span href="#" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+            </ul>
+          </div>
+          <!-- header-drop_b-->
+          <div class="header-drop_b">
+            <div class="float-r margin-t3"><a href="#">Жираф рекомендует</a></div>
+            <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+            <div class="club-list club-list__small clearfix">
+              <ul class="club-list_ul clearfix">
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- /header-drop_b-->
+        </div>
+        <!-- /header-drop -->
+      </div>
+      <div class="header-fix-menu">
+        <ul class="header-menu_ul clearfix">
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a></li>
+          <li class="header-fix-menu_li active"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /header-fix-->
+  <div class="layout-container">
+    <div class="layout-loose">
+      <div class="layout-header">
+        <!-- header-->
+        <div class="header header__user header__base">
+          <div class="header_hold clearfix">
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li active"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li">
+                  <div class="header-ad-kinderino">
+                    <!-- 
+                    header_kindergold
+                    header_kinderino
+                    --><a href="#">
+                      <!-- header_kindergold.jpgheader_kinderino.jpg
+                      --><img src="/lite/images/banner/header_kinderino-2.gif" alt="Kinder"><span onMouseOver="this.style.backgroundPosition='0 -20px'" onMouseOut="this.style.backgroundPosition='0 0'"></span></a>
+                  </div>
+                </li>
+                <li class="header-menu_li header-menu_li__dropin"><a href="#" class="header-menu_a">
+                    <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                  <div class="header-drop">
+                    <div class="header-menu clearfix">
+                      <ul class="header-menu_ul">
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                              <!-- ava--><span href="#" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                      </ul>
+                    </div>
+                    <!-- header-drop_b-->
+                    <div class="header-drop_b">
+                      <div class="float-r margin-t3"><a href="#">Жираф рекомендует</a></div>
+                      <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                      <div class="club-list club-list__small clearfix">
+                        <ul class="club-list_ul clearfix">
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /header-drop_b-->
+                  </div>
+                  <!-- /header-drop -->
+                </li>
+              </ul>
+            </div>
+            <!-- /header-menu-->
+          </div>
+        </div>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <!-- user-menu-->
+        <div class="user-menu">
+          <div class="user-menu_ava">
+            <!-- ava--><a href="#" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+          </div>
+          <ul class="user-menu_ul">
+            <li class="user-menu_li"><a class="user-menu_i">
+                <div class="user-menu_ico user-menu_ico__profile"></div>
+                <div class="user-menu_tx">Анкета
+                </div></a></li>
+            <li class="user-menu_li active"><a class="user-menu_i">
+                <div class="user-menu_ico user-menu_ico__family"></div>
+                <div class="user-menu_tx">Семья
+                </div></a></li>
+            <li class="user-menu_li"><a class="user-menu_i">
+                <div class="user-menu_ico user-menu_ico__blog"></div>
+                <div class="user-menu_tx">Блог
+                </div></a></li>
+            <li class="user-menu_li"><a class="user-menu_i">
+                <div class="user-menu_ico user-menu_ico__photo"></div>
+                <div class="user-menu_tx">Фото
+                </div></a></li>
+            <li class="user-menu_li"><a class="user-menu_i">
+                <div class="user-menu_ico user-menu_ico__interest"></div>
+                <div class="user-menu_tx">Интересы
+                </div></a></li>
+          </ul>
+        </div>
+        <!-- /user-menu-->
+        <div class="page-col page-col__user">
+          <div class="page-col_cont page-col_cont__in">
+            <div class="user-album">
+              <div class="b-crumbs b-crumbs__m">
+                <ul class="b-crumbs_ul">
+                  <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Мои фото</a></li>
+                  <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last"> Харьковский уикенд</span></li>
+                </ul>
+              </div>
+              <div class="user-album_top clearfix">
+                <div class="user-album_count-hold">
+                  <div class="user-album_count">26</div>
+                  <div class="user-album_count-tx">фото</div>
+                </div>
+                <!-- Заголовок-->
+                <div class="user-album_switch">
+                  <h1 class="user-album_t">Харьковский уикенд<a class="ico-edit ico-edit__s"></a></h1>
+                </div>
+                <!-- Редактирование заголовка-->
+                <div class="user-album_switch display-n">
+                  <div class="user-album_t display-ib w-400">
+                    <div class="inp-valid inp-valid__abs">
+                      <input type="text" value="Виктория" class="itx-gray">
+                      <div class="inp-valid_count">150</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="user-album_desc">
+                  <!-- .display-n вскрываем описание при редактирвоании-->
+                  <div class="user-album_switch display-n">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.<a class="ico-edit ico-edit__s"></a></div>
+                  <!-- Блок редактирвоания описания-->
+                  <div class="user-album_switch">
+                    <!-- Отправка значения происходит по enter-->
+                    <textarea rows="8" cols="40" class="itx-gray">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер.</textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="user-album_control clearfix"><a href="" class="user-album_del">Удалить альбом</a><a href="" class="user-album_sort">Упорядочить фото</a><a href="" class="user-album_move">Переместить в другой альбом</a></div>
+              <!-- img-grid-->
+              <div class="img-grid">
+                <!-- Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.-->
+                <!-- Ряд изображений-->
+                <div class="img-grid_row clearfix">
+                  <!-- Нужно выставить высоту и ширину блоку, что б получалася полный ряд-->
+                  <div style="width: 280px; height: 380px;" class="img-grid_i">
+                    <div class="album-photo-add album-photo-add__m">
+                      <div class="album-photo-add_hold">Загрузить еще<br>фото в альбом</div>
+                    </div>
+                  </div>
+                  <div class="img-grid_i">
+                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w280-h370-3.jpg" alt="" class="img-grid_img">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                      <div class="img-grid_ico-ava active"></div>
+                      <div class="img-grid_ico-album active"></div>
+                      <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
+                    </div>
+                  </div>
+                  <div class="img-grid_i">
+                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w280-h370-1.jpg" alt="" class="img-grid_img">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                      <div class="img-grid_ico-ava"></div>
+                      <div class="img-grid_ico-album"></div>
+                      <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Ряд изображений-->
+                <div class="img-grid_row clearfix">
+                  <div class="img-grid_i">
+                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w305-h360-1.jpg" alt="" class="img-grid_img">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                      <div class="img-grid_ico-ava"></div>
+                      <div class="img-grid_ico-album"></div>
+                      <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
+                    </div>
+                  </div>
+                  <div class="img-grid_i">
+                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w558-h360-1.jpg" alt="" class="img-grid_img">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                      <div class="img-grid_ico-ava"></div>
+                      <div class="img-grid_ico-album"></div>
+                      <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Ряд изображений-->
+                <div class="img-grid_row clearfix">
+                  <div class="img-grid_i img-grid_i__del">
+                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w280-h370-1.jpg" alt="" class="img-grid_img">
+                    <!-- Заглушка удаленной фото-->
+                    <!-- cap-empty-->
+                    <div class="cap-empty cap-empty__abs cap-empty__white">
+                      <div class="cap-empty_hold">
+                        <div class="cap-empty_img"></div>
+                        <div class="cap-empty_t">Фотография удалена </div>
+                        <div class="cap-empty_tx"><a href=''>Восстановить</a></div>
+                      </div>
+                      <div class="verticalalign-m-help"></div>
+                    </div>
+                    <!-- /cap-empty-->
+                  </div>
+                  <div class="img-grid_i">
+                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w280-h370-2.jpg" alt="" class="img-grid_img">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                      <div class="img-grid_ico-ava"></div>
+                      <div class="img-grid_ico-album"></div>
+                      <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
+                    </div>
+                  </div>
+                  <div class="img-grid_i">
+                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w280-h370-3.jpg" alt="" class="img-grid_img">
+                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
+                      <div class="img-grid_ico-ava"></div>
+                      <div class="img-grid_ico-album"></div>
+                      <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Ряд изображений-->
+                <div class="img-grid_row clearfix">
+                  <!-- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.-->
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <div class="img-grid_i loading"><img src="#" alt="" width="160" height="260" class="img-grid_img">
+                    <!--.img-grid_overlayspan.ico-zoom.ico-zoom__abs
+                    -->
+                    <!-- Блок процесса загрузки фото-->
+                    <!-- Цвета 
+                    img-grid_loading__purple
+                    img-grid_loading__yellow
+                    img-grid_loading__carrot
+                    img-grid_loading__green
+                    img-grid_loading__blue
+                    -->
+                    <div class="img-grid_loading img-grid_loading__purple">
+                      <div class="img-grid_loading-hold">
+                        <div class="css-progress css-progress__xl">
+                        </div>
+                        <div class="img-grid_loading-tx">Загрузка фотографии</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.-->
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <div class="img-grid_i loading"><img src="#" alt="" width="160" height="260" class="img-grid_img">
+                    <!--.img-grid_overlayspan.ico-zoom.ico-zoom__abs
+                    -->
+                    <!-- Блок процесса загрузки фото-->
+                    <!-- Цвета 
+                    img-grid_loading__purple
+                    img-grid_loading__yellow
+                    img-grid_loading__carrot
+                    img-grid_loading__green
+                    img-grid_loading__blue
+                    -->
+                    <div class="img-grid_loading img-grid_loading__yellow">
+                      <div class="img-grid_loading-hold">
+                        <div class="css-progress css-progress__xl">
+                        </div>
+                        <div class="img-grid_loading-tx">Загрузка фотографии</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.-->
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <div class="img-grid_i loading"><img src="#" alt="" width="160" height="260" class="img-grid_img">
+                    <!--.img-grid_overlayspan.ico-zoom.ico-zoom__abs
+                    -->
+                    <!-- Блок процесса загрузки фото-->
+                    <!-- Цвета 
+                    img-grid_loading__purple
+                    img-grid_loading__yellow
+                    img-grid_loading__carrot
+                    img-grid_loading__green
+                    img-grid_loading__blue
+                    -->
+                    <div class="img-grid_loading img-grid_loading__carrot">
+                      <div class="img-grid_loading-hold">
+                        <div class="css-progress css-progress__xl">
+                        </div>
+                        <div class="img-grid_loading-tx">Загрузка фотографии</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.-->
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <div class="img-grid_i loading"><img src="#" alt="" width="160" height="260" class="img-grid_img">
+                    <!--.img-grid_overlayspan.ico-zoom.ico-zoom__abs
+                    -->
+                    <!-- Блок процесса загрузки фото-->
+                    <!-- Цвета 
+                    img-grid_loading__purple
+                    img-grid_loading__yellow
+                    img-grid_loading__carrot
+                    img-grid_loading__green
+                    img-grid_loading__blue
+                    -->
+                    <div class="img-grid_loading img-grid_loading__green">
+                      <div class="img-grid_loading-hold">
+                        <div class="css-progress css-progress__xl">
+                        </div>
+                        <div class="img-grid_loading-tx">Загрузка фотографии</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.-->
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <div class="img-grid_i loading"><img src="#" alt="" width="160" height="260" class="img-grid_img">
+                    <!--.img-grid_overlayspan.ico-zoom.ico-zoom__abs
+                    -->
+                    <!-- Блок процесса загрузки фото-->
+                    <!-- Цвета 
+                    img-grid_loading__purple
+                    img-grid_loading__yellow
+                    img-grid_loading__carrot
+                    img-grid_loading__green
+                    img-grid_loading__blue
+                    -->
+                    <div class="img-grid_loading img-grid_loading__blue">
+                      <div class="img-grid_loading-hold">
+                        <div class="css-progress css-progress__xl">
+                        </div>
+                        <div class="img-grid_loading-tx">Загрузка фотографии</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Футер-->
+          <!-- layout-footer-->
+          <div class="layout-footer clearfix">
+            <div class="layout-footer_hold">
+              <ul class="footer-list">
+                <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+              </ul>
+              <ul class="footer-menu visible-md">
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
+              </ul>
+              <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+              <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+            </div>
+          </div>
+          <!-- /layout-footer-->
+          <!-- /Футер-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

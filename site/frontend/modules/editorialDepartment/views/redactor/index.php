@@ -61,52 +61,17 @@ $form->hiddenField($model, 'clubId');
 
     <md-redactor style="display: block; border: 1px solid #e0e1e2; border-radius: 3px;" params="id: 'md-redactor-2', textareaId: 'markDown', htmlId: 'htmlText'"></md-redactor>
 
-    <div class="b-settings-blue_row clearfix">
-        <div class="clearfix">
-        </div>
-        <label class="b-settings-blue_label" for="BlogContent_title">meta.title</label>
-        <div class="w-400 float-l">
-            <?=$form->textArea($model, 'meta[title]',  array('class' => 'itx-simple w-400')) ?>
-        </div>
-    </div>
+            <?=$form->textArea($model, 'meta[title]',  array('class' => 'display-n')) ?>
 
-    <div class="b-settings-blue_row clearfix">
-        <div class="clearfix">
-        </div>
-        <label class="b-settings-blue_label" for="BlogContent_title">meta.keywords</label>
-        <div class="w-400 float-l">
-            <?=$form->textArea($model, 'meta[keywords]',  array('class' => 'itx-simple w-400')) ?>
-        </div>
-    </div>
+            <?=$form->textArea($model, 'meta[keywords]',  array('class' => 'display-n')) ?>
 
-    <div class="b-settings-blue_row clearfix">
-        <div class="clearfix">
-        </div>
-        <label class="b-settings-blue_label" for="BlogContent_title">meta.description</label>
-        <div class="w-400 float-l">
-            <?=$form->textArea($model, 'meta[description]',  array('class' => 'itx-simple w-400')) ?>
-        </div>
-    </div>
+            <?=$form->textArea($model, 'meta[description]',  array('class' => 'display-n')) ?>
 
-    <div class="b-settings-blue_row clearfix">
-        <div class="clearfix">
-        </div>
-        <label class="b-settings-blue_label" for="BlogContent_title">social.title</label>
-        <div class="w-400 float-l">
-            <?=$form->textArea($model, 'social[title]',  array('class' => 'itx-simple w-400')) ?>
-        </div>
-    </div>
+            <?=$form->textArea($model, 'social[title]',  array('class' => 'display-n')) ?>
 
-    <div class="b-settings-blue_row clearfix">
-        <div class="clearfix">
-        </div>
-        <label class="b-settings-blue_label" for="BlogContent_title">social.text</label>
-        <div class="w-400 float-l">
-            <?=$form->textArea($model, 'social[text]',  array('class' => 'itx-simple w-400')) ?>
-        </div>
-    </div>
+            <?=$form->textArea($model, 'social[text]',  array('class' => 'display-n')) ?>
 
-    social.image <?=$form->hiddenField($model, 'social[image]') ?>
+            <?=$form->hiddenField($model, 'social[image]') ?>
 
 <?=CHtml::submitButton('save') ?>
 

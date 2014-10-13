@@ -807,11 +807,11 @@ class Horoscope extends HActiveRecord implements IPreview
 
     public function getPreviewText()
     {
-        return ($this->month === null && $this->year !== null) ? $this->health : $this->text;
+        return $this->text;
     }
 
     public function getPreviewPhoto()
     {
-        return '/images/widget/horoscope/big/' . $this->zodiac . ' .png';
+        return \Yii::app()->createAbsoluteUrl('/images/widget/horoscope/big/') . $this->zodiac . ' .png';
     }
 }

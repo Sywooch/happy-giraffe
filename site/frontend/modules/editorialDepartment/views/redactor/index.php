@@ -85,7 +85,7 @@ $form->hiddenField($model, 'clubId');
     <div class="postAdd_count">6</div>
     <div class="b-main_col-article">
         <div class="inp-valid inp-valid__abs">
-            <md-redactor class="md-redactor" style="display: block; border: 1px solid #e0e1e2; border-radius: 3px;" params="id: 'md-redactor-2', textareaId: 'markDown', htmlId: 'htmlText'"></md-redactor>
+            <md-redactor class="md-redactor" params="id: 'md-redactor-2', textareaId: 'markDown', htmlId: 'htmlText'"></md-redactor>
         </div>
     </div>
 </div>

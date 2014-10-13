@@ -48,7 +48,6 @@ $(function() {
         });
         $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
     });
-​
 
     $(document).ajaxError(function() {
         if(arguments[3] !== '' && arguments[3] !== 'abort') {

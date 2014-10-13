@@ -102,7 +102,7 @@ $form->hiddenField($model, 'clubId');
 </div>
 <!-- Строка-->
 <div class="postAdd_row">
-    <div class="postAdd_count">5</div>
+    <div class="postAdd_count">6</div>
     <div class="b-main_col-article">
         <div class="inp-valid inp-valid__abs">
             <md-redactor class="md-redactor" style="display: block; border: 1px solid #e0e1e2; border-radius: 3px;" params="id: 'md-redactor-2', textareaId: 'markDown', htmlId: 'htmlText'"></md-redactor>
@@ -116,17 +116,17 @@ $form->hiddenField($model, 'clubId');
 <!--    <div class="b-main_col-article">-->
 <!--        <div class="inp-valid inp-valid__abs">-->
 <!--            <!-- <div class="inp-valid_count">450</div> -->-->
-<!--            --><?//=$form->textArea($model, 'meta[title]',  array('class' => 'itx-gray','class' => 'display-n')) ?>
+            <?=$form->textArea($model, 'meta[title]',  array('class' => 'itx-gray','class' => 'display-n')) ?>
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
-<!--<!-- Строка-->-->
+<!-- Строка-->
 <!--<div class="postAdd_row">-->
 <!--    <div class="postAdd_count">7</div>-->
 <!--    <div class="b-main_col-article">-->
 <!--        <div class="inp-valid inp-valid__abs">-->
-<!--            <!-- <div class="inp-valid_count">450</div> -->-->
-<!--            --><?//=$form->textArea($model, 'meta[keywords]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
+            <!-- <div class="inp-valid_count">450</div> -->
+            <?=$form->textArea($model, 'meta[keywords]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
@@ -135,18 +135,18 @@ $form->hiddenField($model, 'clubId');
 <!--    <div class="postAdd_count">8</div>-->
 <!--    <div class="b-main_col-article">-->
 <!--        <div class="inp-valid inp-valid__abs">-->
-<!--            <!-- <div class="inp-valid_count">450</div> -->-->
-<!--            --><?//=$form->textArea($model, 'meta[description]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
+            <!-- <div class="inp-valid_count">450</div> -->
+            <?=$form->textArea($model, 'meta[description]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
-<!--<!-- Строка-->-->
+<!-- Строка-->
 <!--<div class="postAdd_row">-->
 <!--    <div class="postAdd_count">9</div>-->
 <!--    <div class="b-main_col-article">-->
 <!--        <div class="inp-valid inp-valid__abs">-->
-<!--            <!-- <div class="inp-valid_count">450</div> -->-->
-<!--            --><?//=$form->textArea($model, 'social[title]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
+            <!-- <div class="inp-valid_count">450</div> -->
+            <?=$form->textArea($model, 'social[title]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->
@@ -155,8 +155,8 @@ $form->hiddenField($model, 'clubId');
 <!--    <div class="postAdd_count">10</div>-->
 <!--    <div class="b-main_col-article">-->
 <!--        <div class="inp-valid inp-valid__abs">-->
-<!--            <!-- <div class="inp-valid_count">450</div> -->-->
-<!--            --><?//=$form->textArea($model, 'social[text]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
+            <!-- <div class="inp-valid_count">450</div> -->
+            <?=$form->textArea($model, 'social[text]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
 <!--        </div>-->
 <!--    </div>-->
 <!--</div>-->

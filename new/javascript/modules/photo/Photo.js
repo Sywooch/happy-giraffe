@@ -1,4 +1,4 @@
-define('photo/Photo', ['knockout', 'text!photo/baseUrlConfig.json'], function (ko, baseConfigRaw) {
+define('photo/Photo', ['knockout', 'photo/baseUrlCreator'], function (ko, baseConfig) {
     // Основная модель фотографии
     function Photo(data) {
         this.id = ko.observable(data.id);
@@ -8,9 +8,8 @@ define('photo/Photo', ['knockout', 'text!photo/baseUrlConfig.json'], function (k
         this.height = ko.observable(data.height);
         this.fs_name = ko.observable(data.fs_name);
         this.originalUrl = ko.observable(data.originalUrl);
-        this.baseConfig = JSON.parse(baseConfigRaw);
         this.getGeneratedPreset = function generatePreseted(preset) {
-            return this.baseConfig.dev + preset + '/' + this.fsName();
+            return baseConfig + preset + '/' + this.fsName();
         };
     }
 

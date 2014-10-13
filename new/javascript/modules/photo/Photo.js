@@ -8,6 +8,7 @@ define('photo/Photo', ['knockout', 'photo/baseUrlCreator'], function (ko, baseCo
         this.height = ko.observable(data.height);
         this.fs_name = ko.observable(data.fs_name);
         this.originalUrl = ko.observable(data.originalUrl);
+        this.baseConfig = baseConfig;
         this.getGeneratedPreset = function generatePreseted(preset) {
             return baseConfig + preset + '/' + this.fsName();
         };

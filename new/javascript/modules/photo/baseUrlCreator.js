@@ -1,7 +1,7 @@
-define('baseUrlCreator', ['photo-config'], function (photoConfig) {
+define('photo/baseUrlCreator', ['photo-config'], function (photoConfig) {
     var thumb = '/v2/thumbs/';
-    if (photoConfig.hostName !== undefined) {
-        return photoConfig.hostName + thumb;
+    if (photoConfig.hostname !== undefined) {
+        return photoConfig.hostname + thumb;
     }
     return '';
 });

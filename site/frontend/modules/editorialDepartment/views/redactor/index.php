@@ -159,7 +159,7 @@ $this->endWidget();
 
 /**
  * @var ClientScript $cs
- */t
+ */
 $cs = Yii::app()->clientScript;
 $cs->registerAMD("md-redactor", array("kow", "common"));
 ?>

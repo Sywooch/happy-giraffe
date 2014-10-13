@@ -1,24 +1,4 @@
 <!-- css для продакшена member-user.css  -->
-
-<!-- Кастомный select -->
-<script src="/lite/javascript/select2.js"></script>
-<script src="/lite/javascript/select2_locale_ru.js"></script>
-<script>
-    $(document).ready(function () {
-
-        // Измененный tag select
-        $(".select-cus__search-off").select2({
-            width: '100%',
-            minimumResultsForSearch: -1,
-            dropdownCssClass: 'select2-drop__search-off',
-            escapeMarkup: function(m) { return m; }
-        });
-        $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
-
-    });
-
-</script>
-
 <div class="b-main_cont b-main_cont__wide">
 <div class="postAdd margin-t40">
 <div class="postAdd_hold">
@@ -181,7 +161,7 @@ $this->endWidget();
  * @var ClientScript $cs
  */
 $cs = Yii::app()->clientScript;
-$cs->registerAMD("md-redactor", array("kow"));
+$cs->registerAMD("md-redactor", array("kow", "common"));
 ?>
 </div>
 </div>

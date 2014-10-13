@@ -29,7 +29,7 @@ class ClientScript extends CClientScript
      * @var string URL до файла, загружаемого первым, должен содержать requireJS
      */
     public $amdFile = false;
-    
+
     /**
      * @var int Позиция для подключения скрипта из ClientScript::amdFile
      */
@@ -39,18 +39,16 @@ class ClientScript extends CClientScript
      * @var bool Если true, то используется AMD, обычное использование методов registerScript и подобных приведёт к генерации исключения 
      */
     public $useAMD = false;
-    
+
     /**
      * @var array Конфигурация стилей для lite-версии 
      */
     public $litePackages = array();
-    
+
     /**
      * @var array Подключенные пакеты lite версии
      */
     protected $liteScripts = array();
-
-
     // настройки оптимизации отдачи статики
     public $jsCombineEnabled;
     public $cssDomain;
@@ -61,7 +59,7 @@ class ClientScript extends CClientScript
     public function render(&$output)
     {
         $this->renderLite();
-        
+
         if ($this->amdFile && $this->useAMD)
             $this->renderAMDConfig();
 
@@ -93,11 +91,13 @@ class ClientScript extends CClientScript
     protected function renderAMDConfig()
     {
         // Соберём конфиги
-        $this->amd['urlArgs'] = 'r=' . rand(0, 1000); 
+        $this->amd['urlArgs'] = 'r=' . rand(0, 1000);
         $this->releaseId;
         $this->addPackagesToAMDConfig();
         $conf = $this->amd;
-        $eval = $conf['eval'];
+
+        $eval = $conf['eval'] . $this->getUserModule();
+        $eval = $eval . $this->getCometConfigModule();
         unset($conf['eval']);
 
         // Добавим наши скрипты в самое начало
@@ -276,7 +276,7 @@ class ClientScript extends CClientScript
                     $this->amd['shim'][$name][] = $dependence;
                 }
         }
-        
+
         return $this;
     }
 
@@ -358,7 +358,7 @@ class ClientScript extends CClientScript
         else
             return parent::registerPackage($name);
     }
-    
+
     /**
      * Смотри CClientScript::registerScriptFile.
      * 
@@ -504,7 +504,8 @@ class ClientScript extends CClientScript
                 if (strpos($scriptFile, '/') === 0 && strpos($scriptFile, '/', 1) !== 0)
                 {
                     unset($this->scriptFiles[$position][$scriptFile]);
-                    if ($this->getJsStaticDomain() !== null) {
+                    if ($this->getJsStaticDomain() !== null)
+                    {
                         $scriptFile = $this->getJsStaticDomain() . $scriptFile;
                     }
                     $scriptFile = $this->addReleaseId($scriptFile);
@@ -581,7 +582,7 @@ class ClientScript extends CClientScript
         if (isset($this->litePackages[$name]))
         {
             $package = $this->litePackages[$name];
-            if(isset($package['depends']))
+            if (isset($package['depends']))
                 foreach ($package['depends'] as $depend)
                     if (!isset($this->liteScripts[$depend]))
                         $this->registerLitePackage($depend);
@@ -618,6 +619,30 @@ class ClientScript extends CClientScript
                 }
             }
         }
+    }
+
+    protected function getUserModule()
+    {
+        $id = Yii::app()->user->id;
+        $isGuest = CJSON::encode(Yii::app()->user->isGuest);
+        $isModer = CJSON::encode(Yii::app()->user->checkAccess('moderator'));
+        $mod = <<<JS
+define("user-config", function () {
+    var userConfig = {
+        userId: {$id},
+        isGuest: {$isGuest},
+        isModer: {$isModer}
+    };
+
+    return userConfig;
+});
+JS;
+        return $mod;
+    }
+
+    protected function getCometConfigModule()
+    {
+        return 'define("comet-connect",["comet"], function() { comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . \UserCache::GetCurrentUserCache() . '\'); return comet; });';
     }
 
 }

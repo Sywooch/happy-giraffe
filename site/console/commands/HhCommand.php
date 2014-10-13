@@ -16,8 +16,8 @@ Yii::import('site.common.components.Hh.*');
 
 class HhCommand extends CConsoleCommand
 {
-    const LOGIN = 'n.ikita@happy-giraffe.ru';
-    const PASSWORD = 'happy-giraffe';
+    const LOGIN = 'mira@happy-giraffe.ru';
+    const PASSWORD = 'mirahh';
 
     public function actionSync($code)
     {
@@ -50,8 +50,8 @@ class HhCommand extends CConsoleCommand
             CURLOPT_COOKIEFILE => $this->getCookie(),
             CURLOPT_POST => true,
             CURLOPT_POSTFIELDS => array(
-                'username' => self::LOGIN,
-                'password' => self::PASSWORD,
+                'username' => 'mira@happy-giraffe.ru',
+                'password' => 'mirahh',
             ),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_FOLLOWLOCATION => true,
@@ -71,7 +71,6 @@ class HhCommand extends CConsoleCommand
         ));
 
         for ($i = 0; true; $i++) {
-            echo "page: $i\n";
             curl_setopt($ch, CURLOPT_URL, $this->getPageUrl($query, $i));
             $response = curl_exec($ch);
             if (curl_getinfo($ch, CURLINFO_HTTP_CODE) == 200)
@@ -93,24 +92,14 @@ class HhCommand extends CConsoleCommand
     {
         $html = str_get_html($response);
 
-        $resumes = $html->find('div[data-hh-resume-hash]');
-
-        if (count($resumes) == 0) {
-            Yii::app()->end();
-        }
-
         foreach ($html->find('div[data-hh-resume-hash]') as $a) {
             $hash = $a->getAttribute('data-hh-resume-hash');
-            echo "resume: $hash";
             try {
                 $model = new HhResume();
                 $model->_id = $hash;
                 $model->query = $query;
                 $model->save();
-            } catch (MongoCursorException $e) {
-                echo " already exists";
-            }
-            echo "\n";
+            } catch (MongoCursorException $e) {}
         }
     }
 

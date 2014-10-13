@@ -84,39 +84,14 @@ class MailMessageDaily extends MailMessage
 
     public function getSubject()
     {
-        if ($this->getMenuActiveElementsCount() == 1 || $this->getMenuActiveElementsCount() == 2) {
-            $a = array();
-            if ($this->newCommentsCount > 0) {
-                $a[] = $this->newCommentsCount . ' ' . Str::GenerateNoun(array('новый комментарий', 'новых комментария', 'новых комментариев'), $this->newCommentsCount);
-            }
-
-            if ($this->newMessagesCount > 0) {
-                $a[] .= $this->newCommentsCount . ' ' . Str::GenerateNoun(array('новое сообщение', 'новых сообщения', 'новых сообщений'), $this->newMessagesCount);
-            }
-
-            if ($this->newFriendsCount > 0) {
-                $a[] .= $this->newCommentsCount . ' ' . Str::GenerateNoun(array('приглашение дружить', 'приглашения дружить', 'приглашений дружить'), $this->newFriendsCount);
-            }
-
-            if ($this->newLikesCount > 0) {
-                $a[] .= $this->newCommentsCount . ' ' . Str::GenerateNoun(array('новый лайк', 'новых лайка', 'новых лайков'), $this->newLikesCount);
-            }
-
-            if ($this->newFavouritesCount > 0) {
-                $a[] .= $this->newCommentsCount . ' ' . Str::GenerateNoun(array('добавление в избранное', 'добавления в избранное', 'добавлений в избранное'), $this->newFavouritesCount);
-            }
-
-            return 'У Вас ' . implode(', ', $a) . ' и еще много-много интересного.';
-        } else {
-            return 'Вас ждет много интересного на “Веселом Жирафе”';
-        }
+        return 'Вас ждет много интересного на “Веселом Жирафе';
     }
 
     public function getMenuActiveElementsCount()
     {
         $counters = array(
             $this->newCommentsCount,
-            $this->newMessagesCount,
+            $this->newCommentsCount,
             $this->newFriendsCount,
             $this->newLikesCount,
             $this->newFavouritesCount,
@@ -140,11 +115,7 @@ class MailMessageDaily extends MailMessage
 
     public function getTitle()
     {
-        if ($this->getMenuActiveElementsCount() > 0) {
-            return 'Здравствуйте, ' . $this->user->first_name . '! В Вашем профиле появились новые события.';
-        } else {
-            return 'У Вас не было новых событий, но мы предлагаем новости нашего сайта.';
-        }
+        return 'Здравствуйте, ' . $this->user->first_name . '! В Вашем профиле появились новые события.';
     }
 
     public function getMessagesUrlParams()

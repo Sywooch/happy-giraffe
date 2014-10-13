@@ -23,8 +23,8 @@
         $cs
             ->registerCssFile('/redactor/redactor.css')
             ->registerCssFile('/stylesheets/common.css')
-            ->registerCssFile('/stylesheets/global.css')
-            ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext');
+            ->registerCssFile('/stylesheets/global.css');
+            // ->registerCssFile('http://fonts.googleapis.com/css?family=Roboto:300&subset=latin,cyrillic-ext');
         if(!$cs->useAMD)
             $cs
                 ->registerCoreScript('jquery')
@@ -49,7 +49,7 @@
             <link rel="stylesheet" href='/stylesheets/ie.css' type="text/css" media="screen" />
         <![endif]-->
     </head>
-    <body class="body-gray<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
+    <body class="body-gray theme theme__adfox <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>" id="body">
         <?php Yii::app()->ads->showCounters(); ?>
 
         <?php if (Yii::app()->user->checkAccess('editMeta')):?>

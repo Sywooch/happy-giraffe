@@ -12,6 +12,8 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
 {
     public $attributeCollections = array();
 
+    private $_justCreated = array();
+
     /**
      * Добавляет отношение "photoCollections".
      *
@@ -39,15 +41,18 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
     public function afterSave($event)
     {
         if ($this->owner->isNewRecord) {
-            foreach (PhotoCollection::$config[$this->owner->getEntityName()] as $key => $class) {
-                $this->createCollection($key);
+            if (isset(PhotoCollection::$config[$this->owner->getEntityName()])) {
+                foreach (PhotoCollection::$config[$this->owner->getEntityName()] as $key => $class) {
+                    $this->createCollection($key);
+                }
             }
         }
 
-        foreach ($this->textCollections as $attribute) {
+        foreach ($this->attributeCollections as $attribute) {
             $photoIds = $this->getPhotoIdsByString($this->owner->$attribute);
             $collection = $this->getPhotoCollection($this->getAttributeCollectionKey($attribute));
-            $collection->attachPhotos($photoIds);
+            $collection->removeAttaches();
+            $collection->attachPhotos($photoIds, true);
         }
     }
 
@@ -55,15 +60,27 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
      * Возвращает определенную ключем коллекции сущности.
      *
      * @param string $key признак коллекции
+     * @param boolean $create создавать ли коллекцию в случае отсутствия
      * @return \site\frontend\modules\photo\models\PhotoCollection
      */
-    public function getPhotoCollection($key = 'default')
+    public function getPhotoCollection($key = 'default', $create = true)
     {
-        if (isset($this->owner->photoCollections[$key])) {
-            return $this->owner->photoCollections[$key];
+        $collections = $this->getOwnerCollections();
+        if (isset($collections[$key])) {
+            return $collections[$key];
         } else {
-            return $this->createCollection($key);
+            return ($create) ? $this->createCollection($key) : null;
         }
+    }
+
+    public function getAttributePhotoCollection($attribute)
+    {
+        return $this->getPhotoCollection($this->getAttributeCollectionKey($attribute));
+    }
+
+    protected function getOwnerCollections()
+    {
+        return array_merge($this->owner->photoCollections, $this->_justCreated);
     }
 
     protected function getAttributeCollectionKey($attribute)
@@ -94,7 +111,7 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
      * Создает для данной сущности коллекцию с определенным ключем.
      *
      * @param string $key признак коллекции
-     * @return \site\frontend\modules\photo\models\PhotoCollection
+     * @return null|\site\frontend\modules\photo\models\PhotoCollection
      */
     protected function createCollection($key)
     {
@@ -102,7 +119,10 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
         $collection->entity_id = $this->owner->id;
         $collection->entity = $this->owner->getEntityName();
         $collection->key = $key;
-        $collection->save();
-        return $collection;
+        $success = $collection->save();
+        if ($success) {
+            $this->_justCreated = $collection;
+        }
+        return ($success) ? $collection : null;
     }
 } 

@@ -1,4 +1,3 @@
-<?php $type = $model->getType() ?>
 <div class="horoscope-fast-list clearfix">
 
     <ul>

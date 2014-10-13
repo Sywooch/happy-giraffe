@@ -1,4 +1,4 @@
-<?php $this->beginContent('//layouts/main'); ?>
+<?php $this->beginContent('//layouts/lite/main'); ?>
 
     <div class="b-section">
         <div class="b-section_hold">

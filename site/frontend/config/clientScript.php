@@ -495,8 +495,9 @@ return array(
             ),
         ),
         'lite-default' => array(
+            'baseUrl' => '/',
             'css' => array(
-                '/lite/css/dev/all.css'
+                'lite/css/dev/all.css'
             ),
             'depends' => array('lite'),
         ),
@@ -537,6 +538,21 @@ return array(
         ),
         'lite_archive_user' => array(
             'depends' => array('lite_services_user'),
+        ),
+        'lite_diseases' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_diseases_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
+        'lite_horoscope' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_horoscope_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
+        'lite_editorial-department_user' => array(
+            'depends' => array('lite-default'),
         ),
         'chosen' => array(
             'baseUrl' => '/',

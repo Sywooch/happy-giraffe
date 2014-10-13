@@ -14,6 +14,7 @@ class YandexShareWidget extends CWidget
      */
     public $model;
 
+    public $widgetTitle = 'Поделитесь с друзьями!';
     public $title;
     public $description;
     public $imageUrl;

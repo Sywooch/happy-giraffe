@@ -100,11 +100,15 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 
     protected function instantiate($attributes)
     {
-        if (! isset(self::$config[$attributes['entity']][$attributes['key']])) {
+        if (isset(self::$config[$attributes['entity']][$attributes['key']])) {
+            $class = self::$config[$attributes['entity']][$attributes['key']];
+        } elseif (strpos($attributes['key'], 'AttributeCollection') !== false) {
+            $class = 'site\frontend\modules\photo\models\collections\AttributePhotoCollection';
+        } else {
             throw new \Exception('Invalid collection');
         }
 
-        $class = self::$config[$attributes['entity']][$attributes['key']];
+
         $model = new $class(null);
         return $model;
     }
@@ -149,16 +153,66 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function attachPhoto($photoId)
+    public function attachPhoto($photoId, $position = 0)
     {
         $attach = new PhotoAttach();
         $attach->photo_id = $photoId;
+        $attach->position = $position;
         $attach->collection_id = $this->id;
         $success = $attach->save();
         if ($success && $this->cover_id === null) {
             $this->setCover($attach->id);
         }
         return $success;
+    }
+
+    public function attachPhotos($ids, $preservePositions = false)
+    {
+        $collections = array_merge(array($this), $this->getRelatedCollections());
+        $success = true;
+        foreach ($ids as $i => $photoId) {
+            foreach ($collections as $collection) {
+                $success = $success && $collection->attachPhoto($photoId, $preservePositions ? $i++ : 0);
+            }
+        }
+        return $success;
+    }
+
+    public function removeAttaches()
+    {
+        return PhotoAttach::model()->deleteAll('collection_id = :collectionId', array(':collectionId' => $this->id)) > 0;
+    }
+
+    public function sortAttaches($attachesIds)
+    {
+        foreach ($attachesIds as $i => $attachId) {
+            PhotoAttach::model()->updateByPk($attachId, array('position' => $i));
+        }
+    }
+
+    public function moveAttaches(PhotoCollection $destinationCollection, $attaches)
+    {
+        $newPosition = $this->getMaxPosition() + 1;
+
+        $criteria = new \CDbCriteria(array(
+            'scopes' => array(
+                'collection' => $this->id,
+            ),
+        ));
+        $criteria->addInCondition('id', $attaches);
+
+        return PhotoAttach::model()->updateAll(array(
+            'collection_id' => $destinationCollection->id,
+            'position' => $newPosition,
+        ), $criteria) == count($attaches);
+    }
+
+    /**
+     * @return \site\frontend\modules\photo\models\PhotoCollection[]
+     */
+    public function getRelatedCollections()
+    {
+        return array();
     }
 
     protected function getMaxPosition()

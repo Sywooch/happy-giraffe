@@ -43,7 +43,7 @@ if (! Yii::app()->user->isGuest)
     <!-- wisywig-->
     <script src="/new/redactor/redactor.js"></script>
 </head>
-<body class="body<?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
+<body class="body theme theme__adfox <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
 <div class="layout-container">
     <div class="error-serv display-n">
         <div class="error-serv_hold"><span class="ico-error-smile margin-r5"></span>Произошла критическая ошибка.<a class="error-serv_a" href="javascript:void(0)" onclick="document.location.reload()">Перезагрузить страницу</a></div>

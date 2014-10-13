@@ -66,8 +66,12 @@ return array(
                     'method' => 'heighten',
                     'parameter' => 70,
                 ),
+                'postPreviewSmall' => array(
+                    'filter' => 'lepilla',
+                    'width' => 205,
+                    'height' => 140,
+                ),
             ),
-
         ),
         'crops' => array(
             'class' => '\site\frontend\modules\photo\components\thumbs\CroppedThumbsManager',
@@ -85,7 +89,6 @@ return array(
                     'height' => 200,
                 ),
             ),
-
         ),
         'imagine' => array(
             'class' => '\site\common\components\ImagineComponent',

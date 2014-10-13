@@ -111,55 +111,55 @@ $form->hiddenField($model, 'clubId');
 </div>
 
 <!-- Строка-->
-<div class="postAdd_row">
-    <div class="postAdd_count">6</div>
-    <div class="b-main_col-article">
-        <div class="inp-valid inp-valid__abs">
-            <!-- <div class="inp-valid_count">450</div> -->
-            <?=$form->textArea($model, 'meta[title]',  array('class' => 'itx-gray','class' => 'display-n')) ?>
-        </div>
-    </div>
-</div>
-<!-- Строка-->
-<div class="postAdd_row">
-    <div class="postAdd_count">7</div>
-    <div class="b-main_col-article">
-        <div class="inp-valid inp-valid__abs">
-            <!-- <div class="inp-valid_count">450</div> -->
-            <?=$form->textArea($model, 'meta[keywords]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
-        </div>
-    </div>
-</div>
-<!-- Строка-->
-<div class="postAdd_row">
-    <div class="postAdd_count">8</div>
-    <div class="b-main_col-article">
-        <div class="inp-valid inp-valid__abs">
-            <!-- <div class="inp-valid_count">450</div> -->
-            <?=$form->textArea($model, 'meta[description]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
-        </div>
-    </div>
-</div>
-<!-- Строка-->
-<div class="postAdd_row">
-    <div class="postAdd_count">9</div>
-    <div class="b-main_col-article">
-        <div class="inp-valid inp-valid__abs">
-            <!-- <div class="inp-valid_count">450</div> -->
-            <?=$form->textArea($model, 'social[title]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
-        </div>
-    </div>
-</div>
-<!-- Строка-->
-<div class="postAdd_row">
-    <div class="postAdd_count">10</div>
-    <div class="b-main_col-article">
-        <div class="inp-valid inp-valid__abs">
-            <!-- <div class="inp-valid_count">450</div> -->
-            <?=$form->textArea($model, 'social[text]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
-        </div>
-    </div>
-</div>
+<!--<div class="postAdd_row">-->
+<!--    <div class="postAdd_count">6</div>-->
+<!--    <div class="b-main_col-article">-->
+<!--        <div class="inp-valid inp-valid__abs">-->
+<!--            <!-- <div class="inp-valid_count">450</div> -->-->
+<!--            --><?//=$form->textArea($model, 'meta[title]',  array('class' => 'itx-gray','class' => 'display-n')) ?>
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<!-- Строка-->-->
+<!--<div class="postAdd_row">-->
+<!--    <div class="postAdd_count">7</div>-->
+<!--    <div class="b-main_col-article">-->
+<!--        <div class="inp-valid inp-valid__abs">-->
+<!--            <!-- <div class="inp-valid_count">450</div> -->-->
+<!--            --><?//=$form->textArea($model, 'meta[keywords]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<!-- Строка-->-->
+<!--<div class="postAdd_row">-->
+<!--    <div class="postAdd_count">8</div>-->
+<!--    <div class="b-main_col-article">-->
+<!--        <div class="inp-valid inp-valid__abs">-->
+<!--            <!-- <div class="inp-valid_count">450</div> -->-->
+<!--            --><?//=$form->textArea($model, 'meta[description]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<!-- Строка-->-->
+<!--<div class="postAdd_row">-->
+<!--    <div class="postAdd_count">9</div>-->
+<!--    <div class="b-main_col-article">-->
+<!--        <div class="inp-valid inp-valid__abs">-->
+<!--            <!-- <div class="inp-valid_count">450</div> -->-->
+<!--            --><?//=$form->textArea($model, 'social[title]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<!-- Строка-->-->
+<!--<div class="postAdd_row">-->
+<!--    <div class="postAdd_count">10</div>-->
+<!--    <div class="b-main_col-article">-->
+<!--        <div class="inp-valid inp-valid__abs">-->
+<!--            <!-- <div class="inp-valid_count">450</div> -->-->
+<!--            --><?//=$form->textArea($model, 'social[text]',  array('class' => 'itx-gray', 'class' => 'display-n')) ?>
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 
 <?=$form->hiddenField($model, 'social[image]') ?>

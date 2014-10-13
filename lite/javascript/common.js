@@ -50,6 +50,7 @@ $(function() {
         callbacks: {
             open: function() {
                 $('html').addClass('mfp-html');
+                addBaron('.scroll');
             },
             close: function() {
                 $('html').removeClass('mfp-html');

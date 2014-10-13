@@ -194,14 +194,6 @@ mixin headerGuest(mod, vars)
 
 //- 
 
-- var header = {}
-
-//- +header('header__simple', header.simple)
-- header.simple = {}
-- header.nosearch = {}
-- header.nosearch.nosearch = true
-
-
 //- Главная шапка сайта
     mod     
     vars
@@ -344,7 +336,7 @@ mixin header(mod, vars)
                                 | Успехи
                     li.header-menu_li.header-menu_li__dropin
                         a.header-menu_a(href='#')
-                            +ava("ava__middle ava__female", avaVarsSpan)
+                            +ava("ava__middle ava__female", avaVars)
                             span.header-menu_tx Я
                                 span.header_i-arrow
                         +header-drop()
@@ -352,6 +344,14 @@ mixin header(mod, vars)
     // /header
 
 //- 
+
+- var header = {}
+
+//- +header('header__simple', header.simple)
+- header.simple = {}
+- header.nosearch = {}
+- header.nosearch.nosearch = true
+
 
 
 

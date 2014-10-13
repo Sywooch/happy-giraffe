@@ -1,0 +1,6 @@
+<!-- ko if: idElement -->
+    <div data-bind="attr: { id: idElement }, afterLoad: loadEditor"></div>
+    <div class="textalign-r margin-t10">
+        <a class="btn btn-primary btn-m" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: loadPhotoComponent">Загрузить одно фото</a>
+    </div>
+<!-- /ko -->

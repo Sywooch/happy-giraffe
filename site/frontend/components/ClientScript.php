@@ -96,8 +96,9 @@ class ClientScript extends CClientScript
         $this->addPackagesToAMDConfig();
         $conf = $this->amd;
 
-        $eval = $conf['eval'] . $this->getUserModule();
+        $eval = $conf['eval'];
         $eval = $eval . $this->getCometConfigModule();
+        $eval .= $this->getPhotoConfigModule();
         unset($conf['eval']);
 
         // Добавим наши скрипты в самое начало
@@ -645,4 +646,16 @@ JS;
         return 'define("comet-connect",["comet"], function() { comet.connect(\'http://' . \Yii::app()->comet->host . '\', \'' . \Yii::app()->comet->namespace . '\', \'' . \UserCache::GetCurrentUserCache() . '\'); return comet; });';
     }
 
+    protected function getPhotoConfigModule()
+    {
+        $domain = Yii::app()->params['photos_url'];
+        $config = <<<JS
+define("photo-config", function() {
+    return {
+        hostname: '$domain'
+    };
+});
+JS;
+        return $config;
+    }
 }

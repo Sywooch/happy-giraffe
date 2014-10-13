@@ -28,6 +28,28 @@ function addBaron(el) {
 
 $(function() {
 
+    $.fn.exists = function(callback) {
+        var args = [].slice.call(arguments, 1);
+
+        if (this.length) {
+            callback.call(this, args);
+        }
+
+        return this;
+    };
+
+
+    $('.postAdd').exists(function() {
+        $(".select-cus__search-off").select2({
+            width: '100%',
+            minimumResultsForSearch: -1,
+            dropdownCssClass: 'select2-drop__search-off',
+            escapeMarkup: function(m) { return m; }
+        });
+        $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
+    });
+​
+
     $(document).ajaxError(function() {
         if(arguments[3] !== '' && arguments[3] !== 'abort') {
             $(".error-serv").removeClass('display-n');

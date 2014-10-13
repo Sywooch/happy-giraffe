@@ -236,7 +236,7 @@ XMLINDEX;
 				foreach ($results[1] as $result)
 				{
 																// Parse params
-					$params= (!empty($result)) ? $this->parseParamsString($result) : array();
+					$params= (!empty($result)) ? $this->parseParamsString(trim($result)) : array();
 					$action=$m->name;
 
 					if (isset($params['dataSource'])) {			// get dataSource to urls_data

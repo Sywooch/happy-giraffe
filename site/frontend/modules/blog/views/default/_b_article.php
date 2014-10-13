@@ -18,7 +18,7 @@
             <?php endif; ?>
             <?php $this->widget('application.modules.blog.widgets.LikeWidget', array('model' => $model)); ?>
             <!-- ko stopBinding: true -->
-            <?php /*$this->widget('application.modules.blog.widgets.RepostWidget', array('model' => $model, 'right' => true));*/ ?>
+            <?php $this->widget('application.modules.blog.widgets.RepostWidget', array('model' => $model, 'right' => true)); ?>
             <!-- /ko -->
             <!-- ko stopBinding: true -->
             <?php $this->widget('FavouriteWidget', array('model' => $model, 'right' => true)); ?>
@@ -60,6 +60,10 @@
                 <?php if (($photo = $model->getPhoto()) !== null): ?>
                     <div class="b-article_in-img">
                         <?=CHtml::image($photo->getPreviewUrl(235, null, Image::WIDTH), $photo->title, array('class' => 'content-ing'))?>
+                    </div>
+                <?php elseif($model->getAttributePhotoCollection('preview', false) && $model->getAttributePhotoCollection('preview')->attachesCount > 0): ?>
+                    <div class="b-article_in-img">
+                        <?=CHtml::image(\Yii::app()->thumbs->getThumb($model->getAttributePhotoCollection('preview')->attaches[0]->photo, 'postPreviewSmall')->getUrl(), $model->getAttributePhotoCollection('preview')->attaches[0]->photo->title, array('class' => 'content-ing'))?>
                     </div>
                 <?php else: ?>
                     <p><?=$model->getContentText(256)?></p>

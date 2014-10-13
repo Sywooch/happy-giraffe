@@ -11,7 +11,7 @@ class HJSON extends CJSON
     /**
      * Расширенный метод конвертирования объектов в JSON,
      * позволяет настраивать структуру JSON-объекта
-     * 
+     *
      * @param mixed $var объект для конвертирования
      * @param array $config настройки структуры JSON
      * @param array $subConfig настройки структуры JSON, для рекурсивного обхода
@@ -21,6 +21,8 @@ class HJSON extends CJSON
     {
         /* $config = func_num_args() > 1 ? func_get_arg(1) : array();
           $subConfig = func_num_args() > 2 ? func_get_arg(2) : array(); */
+        if ($var instanceof CJavaScriptExpression)
+            return (string) $var;
         switch (gettype($var))
         {
             case 'array':
@@ -43,7 +45,7 @@ class HJSON extends CJSON
 
     public static function canonicalName($name)
     {
-        
+
     }
 
     protected static function encodeModel($var, $config = array(), $subConfig = array())

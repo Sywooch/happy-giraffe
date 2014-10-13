@@ -1,4 +1,3 @@
-
 <!-- layout-footer-->
 <div class="layout-footer clearfix">
     <div class="layout-footer_hold">

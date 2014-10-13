@@ -12,6 +12,11 @@ class CommentsModule extends \CWebModule
 
     public function init()
     {
+        
+        \Yii::app()->setComponent('authManager', array(
+            'class' => '\site\frontend\components\AuthManager',
+        ));
+        
         \Yii::app()->clientScript->useAMD = true;
         /** @todo так не делать */
         \Yii::app()->clientScript->registerCssFile("/lite/css/dev/all.css");

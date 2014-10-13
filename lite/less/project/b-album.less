@@ -37,12 +37,15 @@
         position: relative;
         height: 100%;
     }
-    &_img-big {
+    &_img-picture {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
+    }
+    &_img-big {
+        max-height: 100%;
     }
     &_img-pad {
         padding-bottom: 65%;
@@ -242,9 +245,9 @@
 
     @media (min-width: @screen-desktop) {
         
-        &_img-hold {
+        /*&_img-hold {
             height: 572px;
-        }
+        }*/
         &_top {
             position: absolute;
             top: 0;

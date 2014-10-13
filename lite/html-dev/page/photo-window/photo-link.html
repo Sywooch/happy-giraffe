@@ -218,11 +218,14 @@
             <!-- b-album-->
             <section class="b-album b-album__photolink">
               <div class="b-album_img-hold"><a href="#" class="b-album_img-a">
-                  <div class="b-album_img-pad"></div>
-                  <!-- У изображений стороны сторон сохраняются максимальные размеры изображения-->
-                  <!-- 880*572 соотношение сторон 65% -->
-                  <!-- 600*390 -->
-                  <!-- (на вставленные изображения не обращать внимания)--><img srcset="/lite/images/example/w600-h390-1.jpg 840w,/lite/images/example/w880-h585-1.jpg 1000w" alt="" class="b-album_img-big"></a>
+                  <div class="b-album_img-pad">
+                    <!-- У изображений соотношения сторон сохраняются -->
+                    <!-- 0,65 соотношение сторон-->
+                    <!-- (на вставленные изображения не обращать внимания)-->
+                  </div>
+                  <picture class="b-album_img-picture">
+                    <source srcset="/lite/images/example/2-960.jpg 1x, /lite/images/example/1-1920.jpg 2x" media="(min-width: 640px)"><img src="/lite/images/example/1-1280.jpg" alt="Фото" class="b-album_img-big">
+                  </picture></a>
                 <div class="b-album_img-hold-ovr">
                   <div class="ico-zoom ico-zoom__abs"></div>
                 </div>

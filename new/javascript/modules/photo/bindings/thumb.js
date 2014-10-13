@@ -14,5 +14,5 @@ define(['knockout',  'photo/baseUrlCreator'], function (ko, baseConfig) {
                     update();
                 });
         }
-    };
+    }
 });

@@ -194,6 +194,8 @@ class Comment extends HActiveRecord
             Yii::import('site.frontend.modules.routes.models.*');
             Scoring::commentCreated($this);
 
+            FriendEventManager::add(FriendEvent::TYPE_COMMENT_ADDED, array('model' => $this, 'relatedModel' => $this->relatedModel));
+
             //send signals to commentator panel
             if (Yii::app()->user->checkAccess('commentator_panel'))
             {

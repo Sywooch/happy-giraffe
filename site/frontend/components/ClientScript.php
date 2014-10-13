@@ -96,7 +96,7 @@ class ClientScript extends CClientScript
         $this->addPackagesToAMDConfig();
         $conf = $this->amd;
 
-        $eval = $conf['eval'];
+        $eval = $conf['eval'] . $this->getUserModule();
         $eval = $eval . $this->getCometConfigModule();
         $eval .= $this->getPhotoConfigModule();
         unset($conf['eval']);

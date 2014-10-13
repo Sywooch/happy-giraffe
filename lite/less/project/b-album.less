@@ -28,10 +28,8 @@
 
     &_img-hold {
         position: relative;
-        height: 300px;
-        height: 70vw;
-        text-align: center;
         background: #4d445c;
+        text-align: center;
     }
     &_img-hold:hover &_img-hold-ovr {display: block;}
     &_img-a {
@@ -40,9 +38,14 @@
         height: 100%;
     }
     &_img-big {
-        display: block;
-        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100%;
+    }
+    &_img-pad {
+        padding-bottom: 65%;
     }
     &_img-hold-ovr {
         display: none;
@@ -188,8 +191,7 @@
     
     @media (min-width: @screen-phone) {
         &_img-hold {
-            height: 380px;
-            height: 65vw;
+            /*min-height: 380px;*/
         }
         &_top {
             margin-bottom: 10px;
@@ -208,8 +210,7 @@
     @media (min-width: @screen-tablet) {
 
         &_img-hold {
-            height: 500px;
-            height: 50vw;
+            /*min-height: 500px;*/
         }
         &_top {
             margin-bottom: 15px;
@@ -242,7 +243,7 @@
     @media (min-width: @screen-desktop) {
         
         &_img-hold {
-            height: 580px;
+            height: 572px;
         }
         &_top {
             position: absolute;

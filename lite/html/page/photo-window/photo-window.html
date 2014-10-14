@@ -1,0 +1,313 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<!-- /b-album-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/member.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__lite">
+  <div class="layout-container">
+    <div class="layout-loose layout-loose__white">
+      <div class="layout-header">
+        <!-- header-->
+        <header class="header header__guest header__kinder-gold">
+          <div class="header_hold clearfix">
+            <div class="header-login"><a href="#loginWidget" class="header-login_a popup-a">Вход</a><a href="#registerWidget" class="header-login_a popup-a">Регистрация</a></div>
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <!-- js улучшить. Закрывать попап при клике не на нем.-->
+              <script>
+                $(document).ready(function () {
+                  $('a.header-menu_a').on('click', function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        var $this = $(this),
+                            activeClass = 'active';
+                            
+                        var $currentPopup =  $this.siblings('div.header-popup');
+                        
+                        $this
+                          .parent()
+                            .toggleClass(activeClass)
+                            .siblings()
+                              .removeClass(activeClass);
+                              
+                        $this
+                          .children('span.header-menu_count:visible')
+                          .hide();
+                          
+                        $(document).on('click', function() {
+                            $('li.header-menu_li').removeClass(activeClass);
+                            $(this).unbind();
+                            $currentPopup.unbind();
+                        });
+                        
+                        $currentPopup.on('click', function (e) {
+                          e.stopPropagation();
+                        });
+                  });
+                  });
+              </script>
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__club">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Вступайте в разные клубы на Веселом жирафе!</div>
+                      <div class="header-popup_club">
+                        <!-- 18 клубов-->
+                        <div class="b-clubs">
+                          <ul class="b-clubs_ul">
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__1"></div>
+                                <div class="b-clubs_tx">Планирование</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__2"></div>
+                                <div class="b-clubs_tx">Беременность и роды</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__3"></div>
+                                <div class="b-clubs_tx">Дети до года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__4"></div>
+                                <div class="b-clubs_tx">Дети старше года</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__5"></div>
+                                <div class="b-clubs_tx">Дошкольники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__6"></div>
+                                <div class="b-clubs_tx">Школьники</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__7"></div>
+                                <div class="b-clubs_tx">Готовим на кухне</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__8"></div>
+                                <div class="b-clubs_tx">Ремонт в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__9"></div>
+                                <div class="b-clubs_tx">Домашние хлопоты</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__10"></div>
+                                <div class="b-clubs_tx">Сад и огород</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__11"></div>
+                                <div class="b-clubs_tx">Наши питомцы</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__12"></div>
+                                <div class="b-clubs_tx">Красота и мода</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__13"></div>
+                                <div class="b-clubs_tx">Наше здоровье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__14"></div>
+                                <div class="b-clubs_tx">Свадьба</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__15"></div>
+                                <div class="b-clubs_tx">Отношения в семье</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__16"></div>
+                                <div class="b-clubs_tx">Рукоделие</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__17"></div>
+                                <div class="b-clubs_tx">Цветы в доме</div></a></li>
+                            <li class="b-clubs_li"><a href="#" class="b-clubs_a">
+                                <div class="ico-club ico-club__18"></div>
+                                <div class="b-clubs_tx">Наш автомобиль</div></a></li>
+                          </ul>
+                        </div>
+                      </div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+                <!-- Класс active отвечает за видимость попапапа-->
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">вам письмо</span><span class="header-menu_count">1</span></a>
+                  <!-- Конверсионный попап-->
+                  <div class="header-popup header-popup__msg">
+                    <div class="header-popup_hold">
+                      <div class="header-popup_t">Общайтесь с миллинами мам и пап на любые темы на Веселом жирафе!</div>
+                      <div class="header-popup_msg"></div>
+                      <div class="header-popup_b clearfix">
+                        <div class="header-popup_btn btn btn-success btn-xl">Присоединяйтесь!</div>
+                        <div class="header-popup_b-l"><span class="header-popup_b-tx">Начните прямо сейчас с помощью</span>
+                          <div class="ico-social-hold"><a href="#" class="ico-social ico-social__m ico-social__odnoklassniki"></a><a href="#" class="ico-social ico-social__m ico-social__vkontakte"></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /Конверсионный попап-->
+                </li>
+              </ul>
+            </div>
+            <!-- 
+            header_kindergold
+            header_kinderino
+            --><a href="#" style="vertical-align: top; margin: -13px 15px 0 25px;" class="visible-md-inline-block">
+              <!-- header_kindergold.jpgheader_kinderino.jpg
+              --><img src="/lite/images/banner/header_kinderino.jpg" alt="Kinder"></a>
+            <!-- /header-menu-->
+            <div class="sidebar-search clearfix sidebar-search__big">
+              <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
+            </div>
+          </div>
+        </header>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+  <script>
+    /* Height block comment scroll in photo-window */
+    function photoWindColH () {
+        var colCont = $(".photo-window_cont");
+        var bannerH = document.getElementById('photo-window_banner').offsetHeight;
+        colCont.height($(window).height() - bannerH - 24);
+        
+    }
+    
+    /* Позиция блока с лайками */
+    function likePos () {
+        var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
+        $('.photo-window .like-control').css({'bottom' : likeBottom});
+    }
+    
+    $(document).ready(function () {
+        photoWindColH();
+        likePos();
+        
+    /* custom scroll */
+      var scroll = $('.scroll').baron({
+        scroller: '.scroll_scroller',
+        barOnCls: 'scroll__on',
+        container: '.scroll_cont',
+        track: '.scroll_bar-hold',
+        bar: '.scroll_bar'
+      });
+      
+      
+    });
+    $(window).resize(function () {
+        photoWindColH();
+        likePos();
+    });
+    
+  </script>
+  <div class="photo-window display-b">
+    <div class="photo-window_w"><a href="" class="photo-window_close"></a>
+      <div class="photo-window_top">
+        <div class="photo-window_count">25 из 52</div>
+      </div>
+      <!--Обрабатывать клик на .photo-window_c для листания следующего изображения 
+      -->
+      <div class="photo-window_c">
+        <div class="photo-window_img-hold"><img src="/images/example/w960-h537-1.jpg" alt="" class="photo-window_img">
+          <div class="verticalalign-m-help"></div>
+        </div><a href="#photo-window-end" data-theme="white-simple" class="photo-window_arrow photo-window_arrow__l fancy"></a><a href="#photo-window-end" data-theme="white-simple" class="photo-window_arrow photo-window_arrow__r fancy"></a>
+        <div class="like-control clearfix"><a href="" class="like-control_ico like-control_ico__like">865</a>
+          <div class="favorites-control"><a href="" class="favorites-control_a">12365</a>
+            <div class="favorites-add-popup favorites-add-popup__right">
+              <div class="favorites-add-popup_t">Добавить запись в избранное</div>
+              <div class="favorites-add-popup_i clearfix"><img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
+                <div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
+              </div>
+              <div class="favorites-add-popup_row">
+                <label for="" class="favorites-add-popup_label">Теги:</label><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">отношения</a><a href="" class="ico-close"></a></span><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">любовь</a><a href="" class="ico-close"></a></span>
+              </div>
+              <div class="favorites-add-popup_row margin-b10"><a href="" class="textdec-none"><span class="ico-plus2 margin-r5"></span><span class="a-pseudo-gray color-gray">Добавить тег</span></a></div>
+              <div class="favorites-add-popup_row">
+                <label for="" class="favorites-add-popup_label">Комментарий:</label>
+                <div class="float-r color-gray">0/150</div>
+              </div>
+              <div class="favorites-add-popup_row">
+                <textarea name="" cols="25" rows="2" placeholder="Введите комментарий" class="favorites-add-popup_textarea"></textarea>
+              </div>
+              <div class="favorites-add-popup_row textalign-c margin-t10"><a href="" class="btn-gray-light">Отменить</a><a href="" class="btn-green">Добавить</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="photo-window_col">
+        <div class="photo-window_col-hold scroll">
+          <div class="scroll_scroller photo-window_cont">
+            <div class="scroll_cont">
+              <div class="photo-window_cont-t clearfix">
+                <div class="meta-gray"><a href="" class="meta-gray_comment"><span class="ico-comment ico-comment__gray"></span><span class="meta-gray_tx">35</span></a>
+                  <div class="meta-gray_view"><span class="ico-view ico-view__gray"></span><span class="meta-gray_tx">305</span></div>
+                </div>
+                <div class="b-user-info b-user-info__middle float-l">
+                  <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                  <div class="b-user-info_hold"><a href="" class="b-user-info_name">Ангелина Богоявленская</a>
+                    <div class="b-user-info_date">16 июн 2013</div>
+                  </div>
+                </div>
+              </div>
+              <div class="photo-window_about">Фотопост <a href="">Места моих путешествий</a></div>
+              <div class="photo-window_t">
+                <input type="text" name="" placeholder="Введите название фото и нажмите Enter" class="itx-gray">
+                <!--Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a> 
+                -->
+              </div>
+              <div class="photo-window_desc-hold">
+                <div class="photo-window_desc clearfix">
+                  <p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.<a href="" class="ico-edit powertip"></a></p>
+                </div>
+              </div>
+              <div class="comments-gray comments-gray__small">
+                <div class="comments-gray_add active clearfix">
+                  <div class="comments-gray_ava">
+                    <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
+                  </div>
+                  <div class="comments-gray_frame">
+                    <textarea name=" " cols="15" rows="2" placeholder="Введите ваш комментарий и нажмите Enter" class="itx-gray"></textarea>
+                  </div>
+                </div>
+                <div class="comments-gray_t"><span class="comments-gray_t-tx">Комментарии<span class="color-gray">(28)</span></span><a id="comments-show" href="" class="font-small">Показать </a>
+                  <!--<a href="" class="float-r font-small">Статистика (14)</a> 
+                  -->
+                  <div class="comments-gray_sent display-b">Комментарий успешно отправлен.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="scroll_bar-hold">
+            <div class="scroll_bar">
+              <div class="scroll_bar-in"></div>
+            </div>
+          </div>
+        </div>
+        <div id="photo-window_banner" class="photo-window_banner clearfix"><img src="/images/example/w300-h250.jpg" alt="alt"></div>
+      </div>
+    </div>
+  </div>
+</body></html>

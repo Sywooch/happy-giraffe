@@ -21,7 +21,11 @@ mixin imgGrid(mod, vars)
                             - if (row.albumPhotoDel)
                                 .img-grid_i.img-grid_i__del
                                     // Высота изображений может отличаться в зависимости от ряда
-                                    img.img-grid_img(srcset="#{item}", alt="")
+                                    picture.img-grid_img
+                                        source(srcset=path+'images/example/'+item.w1, media="(min-width: 1024px)")
+                                        source(srcset=path+'images/example/'+item.w2, media="(min-width: 768px)")
+                                        source(srcset=path+'images/example/'+item.w3, media="(min-width: 480px)")
+                                        img(srcset=path+'images/example/'+item.w4, alt="Фото")
                                     // Заглушка удаленной фото
                                     +cap-empty('cap-empty__abs cap-empty__white', capEmpty.albumPhotoDel)
                                     - row.albumPhotoDel = false
@@ -88,7 +92,8 @@ mixin imgGrid(mod, vars)
 
                                     .loader-circle
                                         .loader-circle_hold
-                                            .loader-circle_i
+                                            .loader-circle_1
+                                            .loader-circle_2
                                         //-svg#svg.svg-loader(version="1.1" viewBox="0 0 300 300" preserveAspectRatio="xMinYMin meet" class="svg-content")
                                             defs
                                                   rect#rect(width='50', height='150', rx='25', ry='25')
@@ -150,7 +155,7 @@ mixin imgGrid(mod, vars)
 - imgGrid.row2.img = ['w305-h360-1.jpg', 'w558-h360-1.jpg']
 
 - imgGrid.row3 = {}
-- imgGrid.row3.img = ['w280-h370-1.jpg','w280-h370-2.jpg', 'w280-h370-3.jpg']
+- imgGrid.row3.img = [ imgGrid.img1, imgGrid.img2]
 
 
 - imgGrid.row4 = {}
@@ -158,7 +163,7 @@ mixin imgGrid(mod, vars)
 
 
 - imgGrid.row5 = {}
-- imgGrid.row5.img = ['w280-h370-1.jpg', 'w280-h370-2.jpg', 'w280-h370-3.jpg']
+- imgGrid.row5.img = [imgGrid.img1, imgGrid.img2 , imgGrid.img3]
 - imgGrid.row5.inAlbum = {} //  в альбоме
 - imgGrid.row5.ava = false
 - imgGrid.row5.album = false
@@ -174,19 +179,19 @@ mixin imgGrid(mod, vars)
 //- path+'images/services/cook-choose/product-1-w460.jpg 100w,'+path+'images/example/w265-h400.jpg 480w, '+path+'images/example/w880-h580-1.jpg 768w,'+path+'images/example/w280-h370-1.jpg 1000w'
 
 - imgGrid.a = {}
-- imgGrid.a.rows = [imgGrid.row1, imgGrid.row3, imgGrid.row2, imgGrid.rowColor]
+- imgGrid.a.rows = [imgGrid.row1, imgGrid.row7, imgGrid.rowColor]
 - imgGrid.a.inAlbum = {} //  в альбоме
 - imgGrid.a.ava = true
 - imgGrid.a.album = true
 
 - imgGrid.b = {}
-- imgGrid.b.rows = [imgGrid.row6, imgGrid.row4, imgGrid.row5, imgGrid.rowColor]
+- imgGrid.b.rows = [imgGrid.row6, imgGrid.row7,  imgGrid.rowColor]
 - imgGrid.b.inAlbum = {} //  в альбоме
 - imgGrid.b.ava = true
 - imgGrid.b.album = true
 
 - imgGrid.c = {}
-- imgGrid.c.rows = [imgGrid.row6, imgGrid.row4, imgGrid.row5, imgGrid.rowColor]
+- imgGrid.c.rows = [imgGrid.row6, imgGrid.row5, imgGrid.rowColor]
 - imgGrid.c.inAlbum = 'withoutAlbum' //  в альбоме без альбома
 - imgGrid.c.ava = true
 

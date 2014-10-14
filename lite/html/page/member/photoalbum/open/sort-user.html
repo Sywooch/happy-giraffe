@@ -1,0 +1,423 @@
+<!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->
+<!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
+<!-- /b-album-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/member-user.css' />
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
+    
+  </script>
+  <script src="/lite/javascript/modernizr.custom.js"></script>
+  <!-- Адаптивные изображения tag picture-->
+  <script src="/lite/javascript/picturefill.min.js"></script>
+  <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/tab.js"></script>
+  <!-- tooltip-->
+  <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <!-- popup-->
+  <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <script src="/lite/javascript/baron.js"></script>
+  <!-- -->
+  <script src="/lite/javascript/common.js"></script>
+  <script src="/lite/javascript/common-markup.js"></script>
+</head>
+<body class="body body__user body__lite">
+  <!-- header-fix-->
+  <script>
+    $(document).ready(function () {
+        $(window).on('scroll',function () {
+            var contanerScroll = $(window).scrollTop();
+            var header = $('.layout-header');
+            console.log(header.height());
+            if (contanerScroll > header.height() + header.offset().top) {
+                $('.header-fix').fadeIn(400);
+            } else {
+                $('.header-fix').fadeOut(400);
+            }
+        });
+    });
+  </script>
+  <div class="header-fix">
+    <div class="header-fix_hold clearfix"><a href="#" class="header-fix_logo"></a>
+      <div class="header-fix_dropin"><a href="#" class="header-fix_dropin-a">
+          <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span><span class="header_i-arrow"></span></a>
+        <!-- header-drop-->
+        <div class="header-drop">
+          <div class="header-menu clearfix">
+            <ul class="header-menu_ul">
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                    <!-- ava--><span href="#" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+              <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+            </ul>
+          </div>
+          <!-- header-drop_b-->
+          <div class="header-drop_b">
+            <div class="float-r margin-t3"><a href="#">Жираф рекомендует</a></div>
+            <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+            <div class="club-list club-list__small clearfix">
+              <ul class="club-list_ul clearfix">
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+              </ul>
+            </div>
+          </div>
+          <!-- /header-drop_b-->
+        </div>
+        <!-- /header-drop -->
+      </div>
+      <div class="header-fix-menu">
+        <ul class="header-menu_ul clearfix">
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">прямой эфир</span></a></li>
+          <li class="header-fix-menu_li active"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">мой жираф</span><span class="header-fix-menu_count">256</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">диалоги</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">друзья</span><span class="header-fix-menu_count">2</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">сигналы</span></a></li>
+          <li class="header-fix-menu_li"><a href="#" class="header-fix-menu_a"><span class="header-fix-menu_tx">успехи</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- /header-fix-->
+  <div class="layout-container">
+    <div class="layout-loose">
+      <div class="layout-header">
+        <!-- header-->
+        <div class="header header__user header__base">
+          <div class="header_hold clearfix">
+            <!-- logo-->
+            <div class="logo"><a title="Веселый жираф - сайт для всей семьи" href="" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+            <!-- /logo-->
+            <!-- header-menu-->
+            <div class="header-menu">
+              <ul class="header-menu_ul clearfix">
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__broadcast"></span><span class="header-menu_tx">Прямой эфир</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__giraffe"></span><span class="header-menu_tx">Мой Жираф</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li active"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
+                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
+                <li class="header-menu_li header-menu_li__dropin"><a href="#" class="header-menu_a">
+                    <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
+                  <div class="header-drop">
+                    <div class="header-menu clearfix">
+                      <ul class="header-menu_ul">
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__profile">
+                              <!-- ava--><span href="#" class="ava ava__small ava__male"><img alt="" src="http://img.happy-giraffe.ru/avatars/12963/ava/8d26a6f4dbae0536f8dbec37c0b5e5f8.jpg" class="ava_img"></span></span><span class="header-menu_tx">Анкета</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__family"></span><span class="header-menu_tx">Семья</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__blog"></span><span class="header-menu_tx">Блог</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__photo"></span><span class="header-menu_tx">Фото</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__favorite"></span><span class="header-menu_tx">Избранное</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__settings"></span><span class="header-menu_tx">Настройки</span></a></li>
+                        <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__logout"></span><span class="header-menu_tx"></span></a></li>
+                      </ul>
+                    </div>
+                    <!-- header-drop_b-->
+                    <div class="header-drop_b">
+                      <div class="float-r margin-t3"><a href="#">Жираф рекомендует</a></div>
+                      <div class="heading-small">Мои клубы <span class="color-gray"> (5)</span></div>
+                      <div class="club-list club-list__small clearfix">
+                        <ul class="club-list_ul clearfix">
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/2-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/5-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/7-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/8-w50.png" alt="" class="club-list_img"></span></a></li>
+                          <li class="club-list_li"><a href="#" class="club-list_i"><span class="club-list_img-hold"><img src="/images/club/9-w50.png" alt="" class="club-list_img"></span></a></li>
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- /header-drop_b-->
+                  </div>
+                  <!-- /header-drop -->
+                </li>
+              </ul>
+            </div>
+            <!-- /header-menu-->
+          </div>
+        </div>
+        <!-- /header-->
+      </div>
+      <div class="layout-loose_hold clearfix">
+        <!-- user-menu-->
+        <div class="user-menu">
+          <div class="user-menu_ava">
+            <!-- ava--><a href="#" class="ava ava__middle ava__female"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+          </div>
+          <ul class="user-menu_ul">
+            <li class="user-menu_li"><a class="user-menu_i">
+                <div class="user-menu_ico user-menu_ico__profile"></div>
+                <div class="user-menu_tx">Анкета
+                </div></a></li>
+            <li class="user-menu_li active"><a class="user-menu_i">
+                <div class="user-menu_ico user-menu_ico__family"></div>
+                <div class="user-menu_tx">Семья
+                </div></a></li>
+            <li class="user-menu_li"><a class="user-menu_i">
+                <div class="user-menu_ico user-menu_ico__blog"></div>
+                <div class="user-menu_tx">Блог
+                </div></a></li>
+            <li class="user-menu_li"><a class="user-menu_i">
+                <div class="user-menu_ico user-menu_ico__photo"></div>
+                <div class="user-menu_tx">Фото
+                </div></a></li>
+            <li class="user-menu_li"><a class="user-menu_i">
+                <div class="user-menu_ico user-menu_ico__interest"></div>
+                <div class="user-menu_tx">Интересы
+                </div></a></li>
+          </ul>
+        </div>
+        <!-- /user-menu-->
+        <div class="page-col page-col__user">
+          <div class="page-col_cont page-col_cont__in">
+            <div class="user-album">
+              <div class="b-crumbs b-crumbs__m">
+                <ul class="b-crumbs_ul">
+                  <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Мои фото</a></li>
+                  <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Харьковский уикенд</a></li>
+                  <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last"> Упорядочивание фотографий</span></li>
+                </ul>
+              </div>
+              <div class="user-album_top clearfix">
+                <div class="user-album_count-hold">
+                  <div class="user-album_count">26</div>
+                  <div class="user-album_count-tx">фото</div>
+                </div>
+                <!-- Заголовок-->
+                <h1 class="user-album_t">Харьковский уикенд</h1>
+                <div class="user-album_desc">В половине чашке горячей воды разведем желатин.</div>
+              </div>
+              <div class="i-info">Перетаскивайте фото мышкой</div>
+              <div class="user-album_control clearfix">
+                <!-- Для фиксации элемента при скролле нужен new/javascript/bootstrap/affix.js-->
+                <!-- инициализация i-affix в common-markup.js-->
+                <div class="i-affix clearfix">
+                  <div class="float-r">
+                    <div class="btn btn-green btn-ms">Готово</div>
+                    <div class="btn btn-link btn-link-gray btn-ms">Отмена</div>
+                  </div>
+                </div>
+              </div>
+              <!-- Список альбомов
+              .album-preview__s
+              .album-preview__m
+              .album-preview__xl
+              -->
+              <div class="album-preview album-preview__m album-preview__drag">
+                <ul class="album-preview_ul">
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <!-- .album-preview_li__drag и .display-n классы на элемент что тащаят-->
+                  <li class="album-preview_li album-preview_li__drag">
+                    <div class="album-preview_in display-n">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div>
+                    </div>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                      <div class="album-preview_img-hold">
+                        <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
+                      </div>
+                      <div class="album-preview_overlay"></div></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- Футер-->
+          <!-- layout-footer-->
+          <div class="layout-footer clearfix">
+            <div class="layout-footer_hold">
+              <ul class="footer-list">
+                <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+                <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+              </ul>
+              <ul class="footer-menu visible-md">
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
+                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
+              </ul>
+              <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+              <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+            </div>
+          </div>
+          <!-- /layout-footer-->
+          <!-- /Футер-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popup-container display-n"> 
+  </div>
+</body></html>

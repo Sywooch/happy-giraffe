@@ -208,21 +208,58 @@
                 <!-- Что б изображения не падали, последний элемент может выступать до 5 пк за рамку, эти пиксели обрежуться.-->
                 <!-- Ряд изображений-->
                 <div class="img-grid_row clearfix">
-                  <!-- Нужно выставить высоту и ширину блоку, что б получалася полный ряд-->
-                  <div style="width: 280px; height: 380px;" class="img-grid_i">
+                  <!--= item.color-->
+                  <!-- Нужно выставить высоту и ширину блоку, что б получалася полный ряд в desktop-->
+                  <div style="width: 280px; height: 380px;" class="img-grid_i visible-md-block">
                     <div class="album-photo-add album-photo-add__m">
                       <div class="album-photo-add_hold">Загрузить еще<br>фото в альбом</div>
                     </div>
                   </div>
+                  <!--= item.color-->
                   <div class="img-grid_i">
-                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w280-h370-3.jpg" alt="" class="img-grid_img">
+                    <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
+                    <!-- телефоны до 480-->
+                    <!-- height 300-->
+                    <!-- width 480-->
+                    <!-- устройства от w480-->
+                    <!-- height 380-->
+                    <!-- width 768-->
+                    <!-- устройства от w768-->
+                    <!-- height 500-->
+                    <!-- width 960-->
+                    <!-- десктоп и большие планшеты от w1000-->
+                    <!-- Высота изображений 580-->
+                    <!-- Ширина изображения 880-->
+                    <picture class="img-grid_img">
+                      <source srcset="/lite/images/example/w280-h370-1.jpg" media="(min-width: 1024px)">
+                      <source srcset="/lite/images/example/w960-h630.jpg" media="(min-width: 768px)">
+                      <source srcset="/lite/images/example/w750-h490.jpg" media="(min-width: 480px)"><img srcset="/lite/images/example/w265-h400.jpg" alt="Фото">
+                    </picture>
                     <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
                       <div class="img-grid_ico-ava active"></div>
                       <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
                     </div>
                   </div>
+                  <!--= item.color-->
                   <div class="img-grid_i">
-                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w280-h370-1.jpg" alt="" class="img-grid_img">
+                    <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
+                    <!-- телефоны до 480-->
+                    <!-- height 300-->
+                    <!-- width 480-->
+                    <!-- устройства от w480-->
+                    <!-- height 380-->
+                    <!-- width 768-->
+                    <!-- устройства от w768-->
+                    <!-- height 500-->
+                    <!-- width 960-->
+                    <!-- десктоп и большие планшеты от w1000-->
+                    <!-- Высота изображений 580-->
+                    <!-- Ширина изображения 880-->
+                    <picture class="img-grid_img">
+                      <source srcset="/lite/images/example/w280-h370-2.jpg" media="(min-width: 1024px)">
+                      <source srcset="/lite/images/example/w960-h630.jpg" media="(min-width: 768px)">
+                      <source srcset="/lite/images/example/w750-h490.jpg" media="(min-width: 480px)"><img srcset="/lite/images/example/w265-h400.jpg" alt="Фото">
+                    </picture>
                     <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
                       <div class="img-grid_ico-ava"></div>
                       <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
@@ -231,15 +268,51 @@
                 </div>
                 <!-- Ряд изображений-->
                 <div class="img-grid_row clearfix">
+                  <!--= item.color-->
                   <div class="img-grid_i">
-                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w305-h360-1.jpg" alt="" class="img-grid_img">
+                    <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
+                    <!-- телефоны до 480-->
+                    <!-- height 300-->
+                    <!-- width 480-->
+                    <!-- устройства от w480-->
+                    <!-- height 380-->
+                    <!-- width 768-->
+                    <!-- устройства от w768-->
+                    <!-- height 500-->
+                    <!-- width 960-->
+                    <!-- десктоп и большие планшеты от w1000-->
+                    <!-- Высота изображений 580-->
+                    <!-- Ширина изображения 880-->
+                    <picture class="img-grid_img">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 1024px)">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 768px)">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 480px)"><img srcset="/lite/images/example/undefined" alt="Фото">
+                    </picture>
                     <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
                       <div class="img-grid_ico-ava"></div>
                       <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
                     </div>
                   </div>
+                  <!--= item.color-->
                   <div class="img-grid_i">
-                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w558-h360-1.jpg" alt="" class="img-grid_img">
+                    <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
+                    <!-- телефоны до 480-->
+                    <!-- height 300-->
+                    <!-- width 480-->
+                    <!-- устройства от w480-->
+                    <!-- height 380-->
+                    <!-- width 768-->
+                    <!-- устройства от w768-->
+                    <!-- height 500-->
+                    <!-- width 960-->
+                    <!-- десктоп и большие планшеты от w1000-->
+                    <!-- Высота изображений 580-->
+                    <!-- Ширина изображения 880-->
+                    <picture class="img-grid_img">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 1024px)">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 768px)">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 480px)"><img srcset="/lite/images/example/undefined" alt="Фото">
+                    </picture>
                     <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
                       <div class="img-grid_ico-ava"></div>
                       <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
@@ -248,8 +321,9 @@
                 </div>
                 <!-- Ряд изображений-->
                 <div class="img-grid_row clearfix">
+                  <!--= item.color-->
                   <div class="img-grid_i img-grid_i__del">
-                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w280-h370-1.jpg" alt="" class="img-grid_img">
+                    <!-- Высота изображений может отличаться в зависимости от ряда--><img srcset="w280-h370-1.jpg" alt="" class="img-grid_img">
                     <!-- Заглушка удаленной фото-->
                     <!-- cap-empty-->
                     <div class="cap-empty cap-empty__abs cap-empty__white">
@@ -262,15 +336,51 @@
                     </div>
                     <!-- /cap-empty-->
                   </div>
+                  <!--= item.color-->
                   <div class="img-grid_i">
-                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w280-h370-2.jpg" alt="" class="img-grid_img">
+                    <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
+                    <!-- телефоны до 480-->
+                    <!-- height 300-->
+                    <!-- width 480-->
+                    <!-- устройства от w480-->
+                    <!-- height 380-->
+                    <!-- width 768-->
+                    <!-- устройства от w768-->
+                    <!-- height 500-->
+                    <!-- width 960-->
+                    <!-- десктоп и большие планшеты от w1000-->
+                    <!-- Высота изображений 580-->
+                    <!-- Ширина изображения 880-->
+                    <picture class="img-grid_img">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 1024px)">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 768px)">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 480px)"><img srcset="/lite/images/example/undefined" alt="Фото">
+                    </picture>
                     <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
                       <div class="img-grid_ico-ava"></div>
                       <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
                     </div>
                   </div>
+                  <!--= item.color-->
                   <div class="img-grid_i">
-                    <!-- Высота изображений может отличаться в зависимости от ряда--><img src="/lite/images/example/w280-h370-3.jpg" alt="" class="img-grid_img">
+                    <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
+                    <!-- телефоны до 480-->
+                    <!-- height 300-->
+                    <!-- width 480-->
+                    <!-- устройства от w480-->
+                    <!-- height 380-->
+                    <!-- width 768-->
+                    <!-- устройства от w768-->
+                    <!-- height 500-->
+                    <!-- width 960-->
+                    <!-- десктоп и большие планшеты от w1000-->
+                    <!-- Высота изображений 580-->
+                    <!-- Ширина изображения 880-->
+                    <picture class="img-grid_img">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 1024px)">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 768px)">
+                      <source srcset="/lite/images/example/undefined" media="(min-width: 480px)"><img srcset="/lite/images/example/undefined" alt="Фото">
+                    </picture>
                     <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
                       <div class="img-grid_ico-ava"></div>
                       <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a><a href="" title="Редактировать" class="ico-photo-edit powertip"></a><a href="" title="Переместить" class="ico-move powertip"></a></div>
@@ -279,10 +389,9 @@
                 </div>
                 <!-- Ряд изображений-->
                 <div class="img-grid_row clearfix">
-                  <!-- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.-->
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <!--= item.color-->
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
                   <div class="img-grid_i loading"><img src="#" alt="" width="160" height="260" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
                     <!-- Блок процесса загрузки фото-->
                     <!-- Цвета 
                     img-grid_loading__purple
@@ -293,16 +402,18 @@
                     -->
                     <div class="img-grid_loading img-grid_loading__purple">
                       <div class="img-grid_loading-hold">
-                        <div class="css-progress css-progress__xl">
+                        <div class="loader-circle">
+                          <div class="loader-circle_hold">
+                            <div class="loader-circle_i"></div>
+                          </div>
                         </div>
                         <div class="img-grid_loading-tx">Загрузка фотографии</div>
                       </div>
                     </div>
                   </div>
-                  <!-- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.-->
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <!--= item.color-->
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
                   <div class="img-grid_i loading"><img src="#" alt="" width="160" height="260" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
                     <!-- Блок процесса загрузки фото-->
                     <!-- Цвета 
                     img-grid_loading__purple
@@ -313,16 +424,18 @@
                     -->
                     <div class="img-grid_loading img-grid_loading__yellow">
                       <div class="img-grid_loading-hold">
-                        <div class="css-progress css-progress__xl">
+                        <div class="loader-circle">
+                          <div class="loader-circle_hold">
+                            <div class="loader-circle_i"></div>
+                          </div>
                         </div>
                         <div class="img-grid_loading-tx">Загрузка фотографии</div>
                       </div>
                     </div>
                   </div>
-                  <!-- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.-->
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <!--= item.color-->
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
                   <div class="img-grid_i loading"><img src="#" alt="" width="160" height="260" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
                     <!-- Блок процесса загрузки фото-->
                     <!-- Цвета 
                     img-grid_loading__purple
@@ -333,16 +446,18 @@
                     -->
                     <div class="img-grid_loading img-grid_loading__carrot">
                       <div class="img-grid_loading-hold">
-                        <div class="css-progress css-progress__xl">
+                        <div class="loader-circle">
+                          <div class="loader-circle_hold">
+                            <div class="loader-circle_i"></div>
+                          </div>
                         </div>
                         <div class="img-grid_loading-tx">Загрузка фотографии</div>
                       </div>
                     </div>
                   </div>
-                  <!-- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.-->
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <!--= item.color-->
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
                   <div class="img-grid_i loading"><img src="#" alt="" width="160" height="260" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
                     <!-- Блок процесса загрузки фото-->
                     <!-- Цвета 
                     img-grid_loading__purple
@@ -353,16 +468,18 @@
                     -->
                     <div class="img-grid_loading img-grid_loading__green">
                       <div class="img-grid_loading-hold">
-                        <div class="css-progress css-progress__xl">
+                        <div class="loader-circle">
+                          <div class="loader-circle_hold">
+                            <div class="loader-circle_i"></div>
+                          </div>
                         </div>
                         <div class="img-grid_loading-tx">Загрузка фотографии</div>
                       </div>
                     </div>
                   </div>
-                  <!-- При отложенной загрузке изображений на .img-grid_i нужно высталять ширину и высоту изображения.-->
-                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. -->
+                  <!--= item.color-->
+                  <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
                   <div class="img-grid_i loading"><img src="#" alt="" width="160" height="260" class="img-grid_img">
-                    <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span></div>
                     <!-- Блок процесса загрузки фото-->
                     <!-- Цвета 
                     img-grid_loading__purple
@@ -373,7 +490,10 @@
                     -->
                     <div class="img-grid_loading img-grid_loading__blue">
                       <div class="img-grid_loading-hold">
-                        <div class="css-progress css-progress__xl">
+                        <div class="loader-circle">
+                          <div class="loader-circle_hold">
+                            <div class="loader-circle_i"></div>
+                          </div>
                         </div>
                         <div class="img-grid_loading-tx">Загрузка фотографии</div>
                       </div>

@@ -126,6 +126,7 @@ class HController extends CController
             'fb_source',
             'action_object_map',
             'open_gallery',
+            'openGallery',
         );
 
         // seo-фильтр get-параметров

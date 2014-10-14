@@ -381,9 +381,10 @@ return array(
 
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
 
-        'photo/user/<authorId:\d+>/albums/<id:\d+>' => 'photo/albums/view',
+//        'photo/user/<authorId:\d+>/albums/<id:\d+>' => 'photo/albums/view',
         'photo/user/<userId:\d+>/albums' => 'photo/default/index',
         'photo/user/<userId:\d+>/albums/create' => 'photo/default/create',
+        'photo/user/<userId:\d+>/albums/<id:\d+>' => 'photo/default/view',
         'photo/<_c>/<_a>' => 'photo/<_c>/<_a>',
 
 

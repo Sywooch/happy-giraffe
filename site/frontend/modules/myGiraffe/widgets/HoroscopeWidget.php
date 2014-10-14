@@ -28,7 +28,7 @@ class HoroscopeWidget extends CWidget
             $criteria->compare('`date`', date("Y-m-d"));
             $horoscope = Horoscope::model()->find($criteria);
             if ($horoscope !== null) {
-                $this->title = 'Гороскоп ' . $horoscope->zodiacText2() . ' на сегодня ';;
+                $this->title = 'Гороскоп ' . $horoscope->zodiacText2() . ' на сегодня ';
 
                 UserAttributes::set(Yii::app()->user->id, 'horoscope_seen', 1);
 

@@ -161,9 +161,6 @@ return array(
         'ads' => array(
             'class' => 'Ads',
         ),
-        'gearman' => array(
-            'class' => 'site.common.components.Gearman',
-        ),
         'postman' => array(
             'class' => 'application.modules.mail.components.MailPostman',
         ),

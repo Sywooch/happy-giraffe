@@ -1,0 +1,44 @@
+<div class="user-album" data-bind="if: loading() === false">
+    <div class="user-album_top clearfix">
+        <!-- Счетчик серого цвета из-за .user-album_count-hold__gray-->
+        <div class="user-album_count-hold user-album_count-hold__gray">
+            <div class="user-album_count" data-bind="text: photoAlbum.photoCount()"></div>
+            <div class="user-album_count-tx">фото</div>
+        </div>
+        <!-- Заголовок-->
+        <div class="user-album_switch" data-bind="ifnot: photoAlbum.title.editing() === true">
+            <h1 class="user-album_t"><span data-bind="text: photoAlbum.title()"></span><a class="ico-edit ico-edit__s" data-bind="click: photoAlbum.edit"></a></h1>
+        </div>
+        <!-- Редактирование заголовка-->
+        <div class="user-album_switch" data-bind="if: photoAlbum.title.editing() === true">
+            <div class="user-album_t">
+                <div class="display-ib w-400">
+                    <div class="inp-valid inp-valid__abs"  data-bind="css: photoAlbum.title.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                        <input type="text" value="" class="itx-gray" placeholder="Введите заголовок альбома" data-bind="textInput: photoAlbum.title">
+                        <div class="inp-valid_count" data-bind="text: titleLength()">150</div>
+                        <div class="inp-valid_error" data-bind="validationMessage: photoAlbum.title"></div>
+                        <div><a class="btn btn-link-gray margin-r15" data-bind="click: photoAlbum.cancelEdit(photoAlbum.title)">Отменить</a><button class="btn btn-success btn-sm disabled">Ок</button></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="user-album_desc">
+            <div class="user-album_switch" ><span data-bind="text: photoAlbum.description() !== '' ?  photoAlbum.description() : 'Введите описание альбома'"></span><a class="ico-edit ico-edit__s"  data-bind="click: photoAlbum.edit"></a></div>
+            <!-- Блок редактирвоания описания-->
+            <div class="user-album_switch">
+                <div class="inp-valid inp-valid__abs"  data-bind="css: photoAlbum.description.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                    <!-- Отправка значения происходит по enter-->
+                    <textarea rows="8" cols="40" class="itx-gray" data-bind="textInput: photoAlbum.description"></textarea>
+                    <div class="inp-valid_count" data-bind="text: descriptionLength()">450</div>
+                    <div class="inp-valid_error" data-bind="validationMessage: photoAlbum.description"></div>
+                    <div><a href="" class="btn btn-link-gray margin-r15" data-bind="click: photoAlbum.cancelEdit(photoAlbum.description)">Отменить</a><button class="btn btn-success btn-sm disabled">Ок</button></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="user-album_control clearfix"><a href="" class="user-album_del">Удалить альбом</a></div>
+    <div class="album-photo-add album-photo-add__big">
+        <div class="album-photo-add_hold">Загрузить <br>фото в альбом</div>
+    </div>
+</div>

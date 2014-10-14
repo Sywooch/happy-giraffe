@@ -1,4 +1,4 @@
-define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model'], function(ko, PhotoCollection, Model) {
+define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model', 'extensions/knockout.validation'], function(ko, PhotoCollection, Model) {
     // Основная модель фотоальбома
     //function PhotoAlbum(data) {
     //    this.id = ko.observable(data.id);
@@ -23,45 +23,27 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model']
     //}
 
 
-    ko.extenders.required = function requiredHandler(target, overrideMessage) {
-        //define a function to do validation
-        function validate(newValue) {
-            if (target.hasError() !== true) {
-                if (newValue.trim() === '') {
-                    target.hasError(true);
-                    target.validationMessage(overrideMessage || "Это поле обязательное");
-                } else {
-                    target.hasError(false);
+    ko.validation.configure({
+        registerExtenders: true,
+        messagesOnModified: true
+    });
+    ko.validation.rules.mustFill = {
+        validator: function (val, bool) {
+            if (val !== undefined) {
+                if (bool && val.trim() !== '') {
+                    return true;
                 }
+                return false;
             }
-        }
-        //validate whenever the value changes
-        target.subscribe(validate);
-        //return the original observable
-        return target;
+        },
+        message: 'Это обязательное поле'
     };
-
-    ko.extenders.morethan = function morethanHandler(target, max) {
-        //define a function to do validation
-        function validate(newValue) {
-            if (target.hasError() !== true) {
-                if (newValue.length > max) {
-                    target.hasError(true);
-                    target.validationMessage("Максимальное число символов " + max);
-                } else {
-                    target.hasError(false);
-                }
-            }
-        }
-        //validate whenever the value changes
-        target.subscribe(validate);
-        //return the original observable
-        return target;
-    };
+    ko.validation.registerExtenders();
 
     var PhotoAlbum = {
-        createUrl: '/api/photo/albums/create',
+        createUrl: '/api/photo/albums/create/',
         deleteUrl: '/api/photo/albums/delete',
+        getByUser: '/api/photo/albums/getByUser/',
         id: ko.observable(),
         photoCollection: ko.observable(),
         maxTitleLength: 150,
@@ -69,8 +51,37 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model']
         title: ko.observable(),
         description: ko.observable(),
         create: function createPhotoAlbum(callback) {
+            var objCreate = {};
+            objCreate.attributes = {};
+            objCreate.attributes.title = this.title();
+            if (this.description() !== undefined && this.description() !== "") {
+                objCreate.attributes.description = this.description();
+            }
             Model
-                .get(this.createUrl, { id : this.id() })
+                .get(this.createUrl, objCreate)
+                .done(callback);
+        },
+        edit: function (data, event) {
+            console.log(data, event);
+            //if (value.editing !== undefined) {
+            //    value.editing = ko.observable(true);
+            //}
+        },
+        cancelEdit: function (value) {
+            value.editing = ko.observable(false);
+        },
+        findById: function findById(id, albums) {
+            var albumIterator;
+            for (albumIterator = 0; albumIterator < albums.length; albumIterator++) {
+                if (id === albums[albumIterator].id) {
+                    return albums[albumIterator];
+                }
+            }
+            return false;
+        },
+        get: function getByUserPhotoAlbum(userId, empty, callback) {
+            Model
+                .get(this.getByUser, { userId: userId, notEmpty: empty })
                 .done(callback);
         },
         delete: function deletePhotoAlbum(callback) {
@@ -82,15 +93,21 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model']
             this.id = ko.observable(data.id);
             this.title = ko.observable(data.title);
             this.description = ko.observable(data.description);
-            this.photoCollection = ko.observable(new PhotoCollection(data.photoCollection));
+            this.photoCollection = ko.observable(new PhotoCollection(data.photoCollections.default));
+            this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше" + this.maxTitleLength }, mustFill: true });
+            this.title.editing = ko.observable(false);
+            this.description.extend({ maxLength: { params: this.maxDescriptionLength, message: "Количество символов не больше" + this.maxDescriptionLength } });
+            this.description.editing = ko.observable(false);
+            this.photoCount = ko.computed(function photoCount() {
+                if (this.photoCollection() !== undefined) {
+                    return this.photoCollection().attachesCount();
+                }
+            }, this);
+            return this;
         }
     };
-    PhotoAlbum.title.hasError = ko.observable(false);
-    PhotoAlbum.title.validationMessage = ko.observable('');
-    PhotoAlbum.description.hasError = ko.observable(false);
-    PhotoAlbum.description.validationMessage = ko.observable('');
-    PhotoAlbum.title.extend({ required: "Введите название альбома", morethan: PhotoAlbum.maxTitleLength });
-    PhotoAlbum.description.extend({ morethan: PhotoAlbum.maxDescriptionLength });
+    PhotoAlbum.title.extend({ maxLength: { params: PhotoAlbum.maxTitleLength, message: "Количество символов не больше" + PhotoAlbum.maxTitleLength }, mustFill: true });
+    PhotoAlbum.description.extend({ maxLength: { params: PhotoAlbum.maxDescriptionLength, message: "Количество символов не больше" + PhotoAlbum.maxDescriptionLength } });
 
     return PhotoAlbum;
 });

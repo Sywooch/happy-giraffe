@@ -12,4 +12,8 @@ define(["jquery", "knockout"], function ($, ko) {
     $('photo-albums-create').each(function componentIterator() {
         ko.applyBindings({}, $(this)[0]);
     });
+    ko.components.register('photo-album', { require: 'photo-album/photo-album' });
+    $('photo-album').each(function componentIterator() {
+        ko.applyBindings({}, $(this)[0]);
+    });
 });

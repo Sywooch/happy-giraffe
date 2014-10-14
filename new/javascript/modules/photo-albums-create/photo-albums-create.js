@@ -1,4 +1,4 @@
-define(['knockout', 'text!photo-albums-create/photo-albums-create.html', 'photo/PhotoAlbum'], function (ko, template, PhotoAlbum) {
+define(['knockout', 'text!photo-albums-create/photo-albums-create.html', 'photo/PhotoAlbum', 'user-config', 'extensions/knockout.validation'], function (ko, template, PhotoAlbum, userConfig) {
     function PhotoAlbumsCreateViewModel(params) {
         this.photoAlbum = Object.create(PhotoAlbum);
         this.titleLength = ko.computed(function computedLength() {
@@ -13,8 +13,10 @@ define(['knockout', 'text!photo-albums-create/photo-albums-create.html', 'photo/
             }
             return this.photoAlbum.maxDescriptionLength;
         }, this);
-        this.createAlbumsHandler = function createAlbumsHandler(createData) {
-
+        this.createAlbumsHandler = function createAlbumsHandler(createdData) {
+            if (createdData.success === true && createdData.data.id !== undefined) {
+                window.location = '/photo/user/' + userConfig.userId + '/albums/' + createdData.data.id + '/';
+            }
         };
         this.submitCreateFunction = function submitCreateFunction() {
             this.photoAlbum.create(this.createAlbumsHandler.bind(this));

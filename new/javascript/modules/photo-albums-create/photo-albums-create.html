@@ -5,31 +5,27 @@
             <div class="postAdd_row">
                 <div class="postAdd_count">1</div>
                 <div class="postAdd_cont">
-                    <div class="inp-valid inp-valid__abs" data-bind="css: photoAlbum.title.hasError() === true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                    <div class="inp-valid inp-valid__abs"  data-bind="css: photoAlbum.title.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                         <input type="text" placeholder="Заголовок альбома" class="itx-gray" data-bind="textInput: photoAlbum.title">
                         <div class="inp-valid_count" data-bind="text: titleLength">150</div>
-                        <!-- ko if: photoAlbum.title.hasError() === true -->
-                        <div class="inp-valid_error" data-bind="text: photoAlbum.title.validationMessage"></div>
-                        <!-- /ko -->
+                        <div class="inp-valid_error" data-bind="validationMessage: photoAlbum.title"></div>
                     </div>
                 </div>
             </div>
             <div class="postAdd_row">
                 <div class="postAdd_count">2</div>
                 <div class="postAdd_cont">
-                    <div class="inp-valid inp-valid__abs" data-bind="css: photoAlbum.description.hasError() === true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                    <div class="inp-valid inp-valid__abs" data-bind="css: photoAlbum.description.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                         <textarea rows="5" cols="40" placeholder="Описание альбома" class="itx-gray" data-bind="textInput: photoAlbum.description"></textarea>
                         <div class="inp-valid_count" data-bind="text: descriptionLength">450</div>
-                        <!-- ko if: photoAlbum.description.hasError() === true -->
-                        <div class="inp-valid_error" data-bind="text: photoAlbum.description.validationMessage"></div>
-                        <!-- /ko -->
+                        <div class="inp-valid_error" data-bind="validationMessage: photoAlbum.description"></div>
                     </div>
                 </div>
             </div>
             <div class="postAdd_row">
                 <div class="postAdd_count"></div>
                 <div class="postAdd_cont">
-                    <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a><button class="btn btn-success btn-xm disabled">Создать альбом</button></div>
+                    <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a><button data-bind="css: (photoAlbum.title.isValid() && photoAlbum.description.isValid()) !== true ? 'btn btn-success btn-xm disabled' : 'btn btn-success btn-xm'" class="btn btn-success btn-xm disabled">Создать альбом</button></div>
                 </div>
             </div>
         </div>

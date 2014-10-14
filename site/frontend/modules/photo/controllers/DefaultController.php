@@ -34,6 +34,11 @@ class DefaultController extends PhotoController
         $this->render('create', compact('json'));
     }
 
+    public function actionView($userId, $id)
+    {
+        $this->render('view', compact('userId', 'id'));
+    }
+
     /**
      * Выводит попап загрузки фото
      */

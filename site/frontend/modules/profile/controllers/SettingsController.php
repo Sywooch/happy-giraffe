@@ -11,7 +11,7 @@ class SettingsController extends HController
     {
         return array(
             'accessControl',
-            'ajaxOnly - personal, social, subscribes, password, captcha, remove, socialAuth',
+            'ajaxOnly - personal, social, password, captcha, remove, socialAuth',
         );
     }
 
@@ -67,13 +67,6 @@ class SettingsController extends HController
     {
         $this->pageTitle = 'Мои настройки - Социальные сети';
         $this->render('social');
-    }
-
-    public function actionSubscribes()
-    {
-        $this->pageTitle = 'Мои настройки - Рассылки';
-        $form = new SubscribesForm(Yii::app()->user->id);
-        $this->render('subscribes', compact('form'));
     }
 
     public function actionRemoveService()

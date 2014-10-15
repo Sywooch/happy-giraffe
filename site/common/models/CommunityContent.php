@@ -153,7 +153,18 @@ class CommunityContent extends HActiveRecord implements IPreview
 
     public function behaviors()
     {
+        if($this->scenario == 'advEditor')
+            return array(
+                'PhotoCollectionBehavior' => array(
+                    'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                    'attributeCollections' => array('preview'),
+                ),
+            );
         return array(
+            'PhotoCollectionBehavior' => array(
+                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+                'attributeCollections' => array('preview'),
+            ),
             'ContentBehavior' => array(
                 'class' => 'site\frontend\modules\notifications\behaviors\ContentBehavior',
             ),
@@ -268,6 +279,8 @@ class CommunityContent extends HActiveRecord implements IPreview
 
     public function beforeSave()
     {
+        if($this->scenario == 'advEditor')
+            return parent::beforeSave();
         if (empty($this->rubric_id))
             $this->rubric_id = CommunityRubric::getDefaultUserRubric($this->author_id);
 
@@ -299,6 +312,8 @@ class CommunityContent extends HActiveRecord implements IPreview
 
     public function afterSave()
     {
+        if ($this->scenario == 'advEditor')
+            return parent::beforeSave();
         if ($this->isNewRecord && $this->type_id != 4) {
             Yii::app()->cache->set('activityLastUpdated', time());
         }
@@ -1148,7 +1163,15 @@ class CommunityContent extends HActiveRecord implements IPreview
             return array(
                 'text' => 'Pampers',
                 'img' => '/images/banners/ava-Pampers.jpg',
-                'pix' => '<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=414017&pid=1250434&bid=2757529&bn=2757529&rnd=681016377" border="0" width="1" height="1">',
+                'pix' => '',
+            );
+        }
+
+        if ($this->id == 204717) {
+            return array(
+                'text' => 'Ушастый нянь',
+                'img' => '/images/banners/ava-nyan.jpg',
+                'pix' => '',
             );
         }
 

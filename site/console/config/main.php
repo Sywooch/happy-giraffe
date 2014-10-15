@@ -15,8 +15,8 @@ return array(
         'email' => array(
             'class' => 'site.frontend.modules.mail.commands.DefaultCommand',
         ),
-        'yandex' => array(
-            'class' => '\site\frontend\modules\seo\commands\YandexCommand',
+        'photo' => array(
+            'class' => 'site\frontend\modules\photo\commands\DefaultCommand',
         ),
     ),
     'import' => array(
@@ -65,9 +65,6 @@ return array(
         'indexden' => array(
             'class' => 'site.common.components.IndexDen',
             'apiUrl' => 'http://:tebadytarure@nygeme.api.indexden.com',
-        ),
-        'gearman' => array(
-            'class' => 'site.common.components.Gearman',
         ),
         'request' => array(
             'hostInfo' => 'http://www.happy-giraffe.ru',
@@ -161,7 +158,8 @@ return array(
         'phpThumb' => array(
             'class' => 'site.frontend.extensions.EPhpThumb.EPhpThumb',
             'options' => array(
-                'resizeUp' => true,
+                'resizeUp' => false,
+                'jpegQuality' => 70,
             ),
         ),
     ),

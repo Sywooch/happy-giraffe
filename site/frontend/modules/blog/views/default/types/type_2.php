@@ -40,6 +40,7 @@ $post = $data->post;
             <div class="b-article_in-img">
                 <?=$data->video->embed?>
             </div>
+            <p><?=$data->getContentText(500, '') ?></p>
         </div>
     </div>
 

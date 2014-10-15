@@ -53,6 +53,11 @@ class CometModel extends CComponent
 	// Обновление счётчиков
     const MESSAGING_UPDATE_COUNTERS = 2080;
     const MESSAGING_COUNT_CONTACT = 2083;
+    
+    const COMMENTS_NEW = 2510;
+    const COMMENTS_UPDATE = 2520;
+    const COMMENTS_DELETE = 2530;
+    const COMMENTS_RESTORE = 2540;
 
     const SETTING_UPDATED = 3000;
     const BLACKLIST_ADDED = 3001;

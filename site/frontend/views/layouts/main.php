@@ -49,14 +49,10 @@ $this->widget('PhotoCollectionViewWidget', array('registerScripts' => true));
     </div>
 <?php endif ?>
 
-    <?php /* Фиксированные элементы */ ?>
+<div class="layout-w1">
     <?php if (! Yii::app()->user->isGuest): ?>
         <?php $this->renderPartial('//_menu_fix'); ?>
     <?php endif; ?>
-
-<div class="layout-w1">
-
-
     <div class="layout-container" id="layout-container">
         <?php if (Yii::app()->user->isGuest): ?>
             <?php $this->renderPartial('//_header_guest'); ?>

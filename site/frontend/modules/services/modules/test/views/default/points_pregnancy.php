@@ -10,7 +10,7 @@
 
         <div class="title">
 
-            <h1 class="title_tx"><?=$test->title ?></h1>
+            <h1><?=$test->title ?></h1>
 
         </div>
 
@@ -87,7 +87,7 @@ foreach ($test->testQuestions as $question):?>
 
         <div class="title">
 
-            <div class="title_tx"><?=$test->title ?></div>
+            <h1><?=$test->title ?></h1>
 
         </div>
 
@@ -119,10 +119,8 @@ foreach ($test->testQuestions as $question):?>
 
     <div class="margin-20">
         <div class="wysiwyg-content">
-            <div class="title_tx"><?php echo $test->title ?></div>
+            <h1><?php echo $test->title ?></h1>
             <?php echo $test->text ?>
         </div>
     </div>
 </div>
-
-<img src="http://ad.adriver.ru/cgi-bin/rle.cgi?sid=1&bt=21&ad=420214&pid=1313272&bid=2833663&bn=2833663&rnd=<?=mt_rand(1000000000, 9999999999)?>" border="0" width="1" height="1" id="pix">

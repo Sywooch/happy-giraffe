@@ -6,9 +6,6 @@
  * сообщений и передает их "почтальону" MailPostman
  */
 
-Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
-Yii::import('site.common.models.mongo.UserAttributes');
-
 abstract class MailSender extends CComponent
 {
     const DEBUG_DEVELOPMENT = 0;
@@ -16,8 +13,6 @@ abstract class MailSender extends CComponent
     const DEBUG_PRODUCTION = 2;
 
     public $type;
-
-    protected $startTime;
     protected $lastDeliveryTimestamp;
     protected $debugMode = self::DEBUG_DEVELOPMENT;
     protected $percent = 100;
@@ -47,38 +42,6 @@ abstract class MailSender extends CComponent
         }
     }
 
-    public function preview(User $user)
-    {
-        /** @var MailPostman $postman */
-        $postman = Yii::app()->postman;
-        $mode = $postman->mode;
-        $postman->mode = MailPostman::MODE_ECHO;
-
-        try {
-            if ($this->beforeSend()) {
-                $this->processInternal($user);
-            }
-        } catch (Exception $e) {
-            header('Content-Type: text/html; charset=utf-8');
-            echo $e->getMessage();
-            Yii::log($e->getMessage(), CLogger::LEVEL_ERROR, 'mail');
-        }
-    }
-
-    protected function send(MailMessage $message)
-    {
-        /** @var MailPostman $postman */
-        $postman = Yii::app()->postman;
-        if ($postman->send($message)) {
-            $message->delivery->sent();
-        }
-    }
-
-    protected function processInternal(User $user)
-    {
-        $this->process($user);
-    }
-
     protected function getDeliveryType()
     {
         return $this->type;
@@ -94,7 +57,7 @@ abstract class MailSender extends CComponent
         try {
             $iterator = $this->getIterator();
             foreach ($iterator as $user) {
-                $this->processInternal($user);
+                $this->process($user);
             }
         } catch (Exception $e) {
             echo $e->getMessage();
@@ -116,8 +79,6 @@ abstract class MailSender extends CComponent
         $newDelivery = new MailSendersHistory();
         $newDelivery->type = $this->type;
         $newDelivery->save();
-
-        $this->startTime = time();
 
         return true;
     }
@@ -149,14 +110,16 @@ abstract class MailSender extends CComponent
     {
         $criteria = new CDbCriteria();
 
-        if ($this->debugMode == self::DEBUG_DEVELOPMENT) {
+        switch ($this->debugMode) {
+            case self::DEBUG_DEVELOPMENT:
                 $criteria->compare('t.id', 12936);
-        }
-        if (($this->debugMode == self::DEBUG_TESTING) || YII_DEBUG) {
+                break;
+            case self::DEBUG_TESTING:
                 $criteria->join = 'LEFT OUTER JOIN auth__assignments aa ON aa.userid = t.id AND aa.itemname = :itemname';
                 $criteria->params[':itemname'] = 'tester';
                 $criteria->addCondition('aa.itemname IS NOT NULL');
                 $criteria = $this->limitByPercent($criteria);
+                break;
         }
 
         return $criteria;

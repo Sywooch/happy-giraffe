@@ -34,9 +34,9 @@ class MailCommand extends CConsoleCommand
         Yii::app()->email->sendCampaign($contents, HEmailSender::LIST_OUR_USERS);
     }
 
-    public function actionTestWeekly()
+    public function actionTestWeekly($date = null)
     {
-        $articles = Favourites::model()->getWeekPosts();
+        $articles = Favourites::model()->getWeekPosts($date);
         if (empty($articles))
             $articles = CommunityContent::model()->findAll(array(
                 'limit' => 6,
@@ -159,26 +159,18 @@ class MailCommand extends CConsoleCommand
         }
     }
 
-    public function actionVacancyTest()
+    public function actionVacancyTest($email)
     {
-        $a = array(
-            'pavel@happy-giraffe.ru' => 'Павел',
-            'nikita@happy-giraffe.ru' => 'Никита',
-            'tantalid@mail.ru' => 'Андрей',
-            'andrey@happy-giraffe.ru' => 'Андрей',
-        );
-
-        foreach ($a as $email => $firstName) {
-            $subject = $firstName . ', мы ищем Frontend-разработчика в Ярославле!';
-            $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite2.php', compact('firstName'), true);
-            ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф');
-        }
+        $firstName = 'Андрей';
+        $subject = $firstName . ', мы ищем web-разработчика!';
+        $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', compact('firstName'), true);
+        ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф');
     }
 
     public function actionVacancy()
     {
         $criteria = new EMongoCriteria();
-        $criteria->limit(500);
+        $criteria->limit(1000);
         $criteria->parsed('!=', false);
         $criteria->send('==', false);
         $models = HhResume::model()->findAll($criteria);
@@ -186,8 +178,8 @@ class MailCommand extends CConsoleCommand
             if (isset($m->contacts['Эл. почта'])) {
                 $email = $m->contacts['Эл. почта'];
                 $firstName = $m->firstName;
-                $subject = $firstName . ', мы ищем Frontend-разработчика!';
-                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite2.php', compact('firstName'), true);
+                $subject = $firstName . ', мы ищем опытных разработчиков для Веселого Жирафа';
+                $html = $this->renderFile(Yii::getPathOfAlias('site.common.tpl') . DIRECTORY_SEPARATOR . 'vacancyInvite.php', compact('firstName'), true);
                 if (ElasticEmail::send($email, $subject, $html, 'noreply@happy-giraffe.ru', 'Весёлый Жираф')) {
                     $m->send = true;
                     $m->save();

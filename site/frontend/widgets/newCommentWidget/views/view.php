@@ -25,7 +25,7 @@ $data = array(
 <!-- ko stopBinding: true -->
 <div class="comments-gray <?=$this->objectName ?><?php if ($this->full): ?> comments-gray__wide<?php endif; ?>" id="<?=$this->objectName ?>" style="display: none" data-bind="visible: true, baron: extended">
     <?php if ($this->entity == 'Service' && $this->entity_id == 9): ?>
-        <?php Yii::app()->controller->renderPartial('//banners/_route'); ?>
+        <?php Yii::app()->controller->renderPartial('//banners/_direct_others'); ?>
     <?php endif; ?>
     <div id="comment_list"></div>
 

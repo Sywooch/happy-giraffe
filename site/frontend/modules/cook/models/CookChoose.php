@@ -21,7 +21,7 @@
  * The followings are the available model relations:
  * @property CookChooseCategories $category
  */
-class CookChoose extends HActiveRecord
+class CookChoose extends HActiveRecord implements IPreview
 {
 
     public static function model($className = __CLASS__)
@@ -139,5 +139,15 @@ class CookChoose extends HActiveRecord
     public function getUrl()
     {
         return Yii::app()->controller->createUrl('/cook/choose/view', array('id' => $this->slug));
+    }
+
+    public function getPreviewPhoto()
+    {
+        return $this->photo->getPreviewUrl(70, 70);
+    }
+
+    public function getPreviewText()
+    {
+        return $this->desc_quality;
     }
 }

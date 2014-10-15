@@ -624,7 +624,7 @@ class ClientScript extends CClientScript
 
     protected function getUserModule()
     {
-        $id = Yii::app()->user->id;
+        $id = CJavaScript::encode(Yii::app()->user->id);
         $isGuest = CJSON::encode(Yii::app()->user->isGuest);
         $isModer = CJSON::encode(Yii::app()->user->checkAccess('moderator'));
         $mod = <<<JS

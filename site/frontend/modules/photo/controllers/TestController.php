@@ -47,9 +47,16 @@ class TestController extends PhotoController
 
     public function actionCrop()
     {
-        $post = \CommunityPost::model()->find();
-        $post->getAttributePhotoCollection('text');
-        $post->getAttributePhotoCollection('text');
+        $post1 = \CommunityPost::model()->with('photoCollections')->findByPk(11);
+        $post2 = \CommunityPost::model()->with('photoCollections')->findByPk(11);
+
+
+
+        $post1->getAttributePhotoCollection('text');
+        $post2->getAttributePhotoCollection('text');
+
+
+
 //        \Yii::app()->gearman->client()->doBackground('lol', 'ok');
 //        $photo = Photo::model()->findByPk(114);
 //        echo $photo->getOriginalUrl();

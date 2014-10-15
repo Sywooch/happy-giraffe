@@ -51,6 +51,8 @@
             <?php $this->endWidget(); ?>
         <?php endif; ?>
 
+        <?php $this->renderPartial('_users2'); ?>
+
         <?php if ($this->action->id == 'view'): ?>
             <!--AdFox START-->
             <!--giraffe-->
@@ -83,8 +85,6 @@
             </script>
             <!--AdFox END-->
         <?php endif; ?>
-
-        <?php $this->renderPartial('_users2'); ?>
 
         <?php $this->renderPartial('_rubrics', array('rubrics'=>$this->forum->rootRubrics)); ?>
 

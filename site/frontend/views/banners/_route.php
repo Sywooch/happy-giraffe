@@ -1,5 +1,5 @@
 <?php $this->beginWidget('AdsWidget'); ?>
-<div style="margin: 15px;">
+<div class="adv-yandex">
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad_route"></div>
     <script type="text/javascript">

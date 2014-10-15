@@ -161,9 +161,6 @@ return array(
         'ads' => array(
             'class' => 'Ads',
         ),
-        'gearman' => array(
-            'class' => 'site.common.components.Gearman',
-        ),
         'postman' => array(
             'class' => 'application.modules.mail.components.MailPostman',
         ),
@@ -398,7 +395,7 @@ return array(
         'phpThumb' => array(
             'class' => 'ext.EPhpThumb.EPhpThumb',
             'options' => array(
-                'resizeUp' => true,
+                'resizeUp' => false,
                 'jpegQuality' => 70,
             ),
         ),
@@ -565,13 +562,17 @@ return array(
                             'application.modules.services.modules.vaccineCalendar.controllers.DefaultController',
                             'application.modules.services.modules.menstrualCycle.controllers.DefaultController',
                             'application.modules.services.modules.babyBloodGroup.controllers.DefaultController',
-                            'application.modules.services.modules.horoscope.controllers.DefaultController',
-                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
                         ),
                     ),
                     'sitemapRecipeBook.xml' => array(
                         'aliases' => array(
                             'application.modules.services.modules.recipeBook.controllers.DefaultController',
+                        ),
+                    ),
+                    'sitemapHoroscope.xml' => array(
+                        'aliases' => array(
+                            'application.modules.services.modules.horoscope.controllers.DefaultController',
+                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
                         ),
                     ),
                 ),

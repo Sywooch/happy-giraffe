@@ -345,7 +345,7 @@
         return PhotoCollectionViewModel;
     };
     if (typeof define === 'function' && define['amd']) {
-        define('gallery', ['knockout', 'favouriteWidget', 'ko_comments', 'history2', 'preload', 'powertip'], f);
+        define('gallery', ['knockout', 'favouriteWidget', 'ko_comments', 'history2', 'preload', 'powertip', 'AdFox'], f);
     } else {
         window.PhotoCollectionViewModel = f(window.ko, window.FavouriteWidget);
     }

@@ -235,7 +235,7 @@ class SeoTempCommand extends CConsoleCommand
         $this->writeCsv('epicFail2', $_result);
     }
 
-    public function actionCompare($date1, $date2, $engine)
+    public function actionCompare($date1, $date2, $engine, $growth)
     {
         $result = array();
 
@@ -262,7 +262,7 @@ class SeoTempCommand extends CConsoleCommand
             'Пост от ВЖ',
         ));
         foreach ($result as $path => $counts) {
-            if (($counts[1] - $counts[0]) > 0) {
+            if ((($counts[1] - $counts[0]) > 0) == $growth) {
                 continue;
             }
 

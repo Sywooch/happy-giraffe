@@ -131,10 +131,10 @@ body .redactor_box_fullscreen {
     }
     .postAdd {padding-bottom: 35px;}
     // наследуем стили от стандартных элементов проекта
-    input[type="text"]:extend(.itx-gray){}
-    input[type="password"]:extend(.itx-gray){}
-    input[type="email"]:extend(.itx-gray){}
-    textarea:extend(.itx-gray){}
+    input[type="text"]:extend(.itx-gray all){}
+    input[type="password"]:extend(.itx-gray all){}
+    input[type="email"]:extend(.itx-gray all){}
+    textarea:extend(.itx-gray all){}
     // Перебиваем свойства 2 раз, что не пербито стандартными
     input[type="text"],
     input[type="password"],
@@ -143,10 +143,7 @@ body .redactor_box_fullscreen {
         height: auto;
         .box-shadow(none);
 
-        &:focus {
-            .box-shadow(none);
-            border-color: #a0ceee;
-        }
+        &:focus {.box-shadow(none);}
     }
 
 

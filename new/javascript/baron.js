@@ -4,16 +4,16 @@
     if (!window) return; // Server side
 
 var
-    _baron = baron, // Stored baron value for noConflict usage
-    pos = ['left', 'top', 'right', 'bottom', 'width', 'height'],
+    _baron = window.baron, // Stored baron value for noConflict usage
+    $ = window.jQuery, // Trying to use jQuery
     origin = {
         v: { // Vertical
-            x: 'Y', pos: pos[1], oppos: pos[3], crossPos: pos[0], crossOpPos: pos[2], size: pos[5], crossSize: pos[4],
+            x: 'Y', pos: 'top', oppos: 'bottom', crossPos: 'left', size: 'height', crossSize: 'width',
             client: 'clientHeight', crossClient: 'clientWidth', crossScroll: 'scrollWidth', offset: 'offsetHeight', crossOffset: 'offsetWidth', offsetPos: 'offsetTop',
             scroll: 'scrollTop', scrollSize: 'scrollHeight'
         },
         h: { // Horizontal
-            x: 'X', pos: pos[0], oppos: pos[2], crossPos: pos[1], crossOpPos: pos[3], size: pos[4], crossSize: pos[5],
+            x: 'X', pos: 'left', oppos: 'right', crossPos: 'top', size: 'width', crossSize: 'height',
             client: 'clientWidth', crossClient: 'clientHeight', crossScroll: 'scrollHeight', offset: 'offsetWidth', crossOffset: 'offsetHeight', offsetPos: 'offsetLeft',
             scroll: 'scrollLeft', scrollSize: 'scrollWidth'
         }
@@ -30,14 +30,13 @@ var
         }
     },
 
-    baron = function(params) {
-        var jQueryMode,
+    baron = function(params) { // this - window or jQuery instance
+        var jQueryMode = (this && this[0] && this[0].nodeType),
             roots,
             $;
 
         params = params || {};
         $ = params.$ || window.jQuery;
-        jQueryMode = this instanceof $;  // this - window or jQuery instance
 
         if (jQueryMode) {
             params.root = roots = this;
@@ -45,7 +44,7 @@ var
             roots = $(params.root || params.scroller);
         }
 
-        return new baron.fn.constructor(roots, params, $).autoUpdate();
+        return new baron.fn.constructor(roots, params, $);
     };
 
     baron.fn = {
@@ -76,11 +75,9 @@ var
         dispose: function() {
             var params = this.params;
 
-            if (this[0]) { /* Если есть хотя бы 1 рабочий инстанс */
-                each(this, function(item) {
-                    item.dispose(params);
-                });
-            }
+            each(this, function(item) {
+                item.dispose(params);
+            });
             this.params = null;
         },
 
@@ -110,7 +107,7 @@ var
     function manageEvents(item, eventManager, mode) {
         item._eventHandlers = item._eventHandlers || [ // Creating new functions for one baron item only one time
             {
-                // onScroll:
+                // onScroll: 
                 element: item.scroller,
 
                 handler: function(e) {
@@ -119,16 +116,7 @@ var
 
                 type: 'scroll'
             }, {
-                // onKeyup (textarea):
-                element: item.scroller,
-
-                handler: function() {
-                    item.update();
-                },
-
-                type: 'keyup'
-            }, {
-                // onMouseDown:
+                // onMouseDown: 
                 element: item.bar,
 
                 handler: function(e) {
@@ -139,7 +127,7 @@ var
 
                 type: 'touchstart mousedown'
             }, {
-                // onMouseUp:
+                // onMouseUp: 
                 element: document,
 
                 handler: function() {
@@ -149,7 +137,7 @@ var
 
                 type: 'mouseup blur touchend'
             }, {
-                // onCoordinateReset:
+                // onCoordinateReset: 
                 element: document,
 
                 handler: function(e) {
@@ -160,7 +148,7 @@ var
 
                 type: 'touchstart mousedown'
             }, {
-                // onMouseMove:
+                // onMouseMove: 
                 element: document,
 
                 handler: function(e) {
@@ -171,7 +159,7 @@ var
 
                 type: 'mousemove touchmove'
             }, {
-                // onResize:
+                // onResize: 
                 element: window,
 
                 handler: function() {
@@ -180,7 +168,7 @@ var
 
                 type: 'resize'
             }, {
-                // sizeChange:
+                // sizeChange: 
                 element: item.root,
 
                 handler: function() {
@@ -233,9 +221,7 @@ var
 
         manageAttr(out.root, params.direction, 'on');
 
-        out.update({
-            initMode: true
-        });
+        out.update();
 
         return out;
     }
@@ -293,11 +279,9 @@ var
                 track,
                 resizePauseTimer,
                 scrollPauseTimer,
-                scrollingTimer,
                 pause,
                 scrollLastFire,
-                resizeLastFire,
-                oldBarSize;
+                resizeLastFire;
 
             resizeLastFire = scrollLastFire = new Date().getTime();
 
@@ -323,7 +307,6 @@ var
             this.direction = params.direction;
             this.origin = origin[this.direction];
             this.barOnCls = params.barOnCls;
-            this.scrollingCls = params.scrollingCls;
             this.barTopLimit = 0;
             pause = params.pause * 1000 || 0;
 
@@ -390,11 +373,8 @@ var
                 var free = this.scroller[this.origin.scrollSize] - this.scroller[this.origin.client],
                     x;
 
-                if (r) {
-                    x = this.pos(r * free);
-                } else {
-                    x = this.pos();
-                }
+                if (r) x = this.pos(r * free);
+                else x = this.pos();
 
                 return x / (free || 1);
             };
@@ -439,16 +419,19 @@ var
 
                     self.barOn();
 
-                    client = self.scroller[self.origin.crossClient];
+                    if (self.scroller.tagName == 'TEXTAREA') {
+                        client = self.scroller[self.origin.crossScroll];
+                    } else {
+                        client = self.scroller[self.origin.crossClient];
+                    }
 
                     delta = self.scroller[self.origin.crossOffset] - client;
 
                     if (params.freeze && !self.clipper.style[self.origin.crossSize]) { // Sould fire only once
                         $(self.clipper).css(self.origin.crossSize, self.clipper[self.origin.crossClient] - delta + 'px');
                     }
-
                     $(self.scroller).css(self.origin.crossSize, self.clipper[self.origin.crossClient] + delta + 'px');
-
+                    
                     Array.prototype.unshift.call(arguments, 'resize');
                     fire.apply(self, arguments);
 
@@ -462,33 +445,10 @@ var
                 }
             };
 
-            this.updatePositions = function() {
-                var newBarSize,
-                    self = this;
-
-                if (self.bar) {
-                    newBarSize = (track[self.origin.client] - self.barTopLimit) * self.scroller[self.origin.client] / self.scroller[self.origin.scrollSize];
-
-                    // Positioning bar
-                    if (parseInt(oldBarSize, 10) != parseInt(newBarSize, 10)) {
-                        setBarSize.call(self, newBarSize);
-                        oldBarSize = newBarSize;
-                    }
-
-                    barPos = relToPos.call(self, self.rpos());
-
-                    posBar.call(self, barPos);
-                }
-
-                Array.prototype.unshift.call( arguments, 'scroll' );
-                fire.apply(self, arguments);
-
-                scrollLastFire = new Date().getTime();
-            };
-
             // onScroll handler
             this.scroll = function() {
-                var delay = 0,
+                var oldBarSize, newBarSize,
+                    delay = 0,
                     self = this;
 
                 if (new Date().getTime() - scrollLastFire < pause) {
@@ -496,40 +456,45 @@ var
                     delay = pause;
                 }
 
-                if (new Date().getTime() - scrollLastFire < pause) {
-                    clearTimeout(scrollPauseTimer);
-                    delay = pause;
+                // this.barOn();
+
+                function upd() {
+                    if (self.bar) {
+                        newBarSize = (track[self.origin.client] - self.barTopLimit) * self.scroller[self.origin.client] / self.scroller[self.origin.scrollSize];
+
+                        // Positioning bar
+                        if (oldBarSize != newBarSize) {
+                            setBarSize.call(self, newBarSize);
+                            oldBarSize = newBarSize;
+                        }
+                        
+                        barPos = relToPos.call(self, self.rpos());
+
+                        posBar.call(self, barPos);
+                    }
+
+                    Array.prototype.unshift.call( arguments, 'scroll' );
+                    fire.apply(self, arguments);
+
+                    scrollLastFire = new Date().getTime();
                 }
 
                 if (delay) {
-                    scrollPauseTimer = setTimeout(function() {
-                        self.updatePositions();
-                    }, delay);
+                    scrollPauseTimer = setTimeout(upd, delay);
                 } else {
-                    self.updatePositions();
+                    upd();
                 }
-
-                if (self.scrollingCls) {
-                    if (!scrollingTimer) {
-                        this.$(this.scroller).addClass(this.scrollingCls);
-                    }
-                    clearTimeout(scrollingTimer);
-                    scrollingTimer = setTimeout(function() {
-                        self.$(self.scroller).removeClass(self.scrollingCls);
-                        scrollingTimer = undefined;
-                    }, 300);
-                }
-
+                
             };
 
             return this;
         },
 
         update: function(params) {
-            fire.call(this, 'upd', params); // Update all plugins' params
+            fire.call(this, 'upd', params); // Обновляем параметры всех плагинов
 
             this.resize(1);
-            this.updatePositions();
+            this.scroll();
 
             return this;
         },
@@ -569,7 +534,7 @@ var
         return baron;
     };
 
-    baron.version = '0.7.7';
+    baron.version = '0.6.9';
 
     if ($ && $.fn) { // Adding baron to jQuery as plugin
         $.fn.baron = baron;
@@ -579,14 +544,12 @@ var
         module.exports = baron.noConflict();
     }
 })(window);
-
 /* Fixable elements plugin for baron 0.6+ */
 (function(window, undefined) {
     var fix = function(userParams) {
         var elements, viewPortSize,
             params = { // Default params
                 outside: '',
-                inside: '',
                 before: '',
                 after: '',
                 past: '',
@@ -692,7 +655,7 @@ var
 
             var event = {
                 element: elements,
-
+                
                 handler: function() {
                     var parent = $(this)[0].parentNode,
                         top = parent.offsetTop,
@@ -720,17 +683,17 @@ var
 
             if (params.clickable) {
                 this._eventHandlers.push(event); // For auto-dispose
-                // eventManager(event.element, event.type, event.handler, 'off');
+                eventManager(event.element, event.type, event.handler, 'off');
                 eventManager(event.element, event.type, event.handler, 'on');
             }
         }
 
         this.on('init', init, userParams);
 
-        var fixFlag = [], // 1 - past, 2 - future, 3 - current (not fixed)
-            gradFlag = [];
         this.on('init scroll', function() {
-            var fixState, hTop, gradState;
+            var fixState, hTop, gradState,
+                fixFlag = [], // 1 - past, 2 - future, 3 - current (not fixed)
+                gradFlag = [];
 
             if (elements) {
                 var change;
@@ -779,11 +742,8 @@ var
                             this.$(elements[i]).addClass(params.future).removeClass(params.past);
                         }
 
-                        if (fixFlag[i] == 3) {
-                            if (params.future || params.past) this.$(elements[i]).removeClass(params.past).removeClass(params.future);
-                            if (params.inside) this.$(elements[i]).addClass(params.inside);
-                        } else if (params.inside) {
-                            this.$(elements[i]).removeClass(params.inside);
+                        if (fixFlag[i] == 3 && (params.future || params.past)) {
+                            this.$(elements[i]).removeClass(params.past).removeClass(params.future);
                         }
 
                         if (fixFlag[i] != fixFlag[i + 1] && fixFlag[i] == 1 && params.before) {
@@ -826,47 +786,28 @@ var
 (function(window, undefined) {
     var controls = function(params) {
         var forward, backward, track, screen,
-            self = this, // AAAAAA!!!!!11
-            event;
+            self = this; // AAAAAA!!!!!11
 
         screen = params.screen || 0.9;
 
         if (params.forward) {
             forward = this.$(params.forward, this.clipper);
 
-            event = {
-                element: forward,
-
-                handler: function() {
-                    var y = self.pos() - params.delta || 30;
-
-                    self.pos(y);
-                },
-
-                type: 'click'
-            };
-
-            this._eventHandlers.push(event); // For auto-dispose
-            this.event(event.element, event.type, event.handler, 'on');
+            this.event(forward, 'click', function() {
+                var y = self.pos() - params.delta || 30;
+                
+                self.pos(y);
+            });
         }
 
         if (params.backward) {
             backward = this.$(params.backward, this.clipper);
 
-            event = {
-                element: backward,
+            this.event(backward, 'click', function() {
+                var y = self.pos() + params.delta || 30;
 
-                handler: function() {
-                    var y = self.pos() + params.delta || 30;
-
-                    self.pos(y);
-                },
-
-                type: 'click'
-            };
-
-            this._eventHandlers.push(event); // For auto-dispose
-            this.event(event.element, event.type, event.handler, 'on');
+                self.pos(y);
+            });
         }
 
         if (params.track) {
@@ -877,31 +818,23 @@ var
             }
 
             if (track) {
-                event = {
-                    element: track,
+                this.event(track, 'mousedown', function(e) {
+                    var x = e['offset' + self.origin.x],
+                        xBar = self.bar[self.origin.offsetPos],
+                        sign = 0;
 
-                    handler: function(e) {
-                        var x = e['offset' + self.origin.x],
-                            xBar = self.bar[self.origin.offsetPos],
-                            sign = 0;
+                    if (x < xBar) {
+                        sign = -1;
+                    } else if (x > xBar + self.bar[self.origin.offset]) {
+                        sign = 1;
+                    }
 
-                        if (x < xBar) {
-                            sign = -1;
-                        } else if (x > xBar + self.bar[self.origin.offset]) {
-                            sign = 1;
-                        }
-
-                        var y = self.pos() + sign * screen * self.scroller[self.origin.client];
-                        self.pos(y);
-                    },
-
-                    type: 'mousedown'
-                };
-
-                this._eventHandlers.push(event); // For auto-dispose
-                this.event(event.element, event.type, event.handler, 'on');
+                    var y = self.pos() + sign * screen * self.scroller[self.origin.client];
+                    self.pos(y);
+                });
             }
         }
+
     };
 
     baron.fn.controls = function(params) {
@@ -950,7 +883,7 @@ var
 
         function step(x, force) {
             var k = x * 0.0005;
-
+            
             return Math.floor(force - k * (x + 550));
         }
 
@@ -1022,6 +955,7 @@ var
                 _zeroXCount++;
             } else {
                 _zeroXCount = 0;
+                
             }
             if (_zeroXCount > 1) {
                 toggle(false);
@@ -1061,45 +995,6 @@ var
 
         while (this[i]) {
             pull.call(this[i], params);
-            i++;
-        }
-
-        return this;
-    };
-})(window);
-/* Autoupdate plugin for baron 0.6+ */
-(function(window, undefined) {
-    var MutationObserver = window.MutationObserver || window.WebKitMutationObserver || window.MozMutationObserver || null;
-
-    var autoUpdate = function() {
-        var self = this;
-
-        this._observer = new MutationObserver(function() {
-            console.log('observe callback');
-            self.update();
-        });
-
-        this.on('init', function() {
-            self._observer.observe(self.root, {
-                childList: true,
-                subtree: true,
-                characterData: true
-            });
-        });
-
-        this.on('dispose', function() {
-            self._observer.dissconect();
-            delete self._observer;
-        });
-    };
-
-    baron.fn.autoUpdate = function(params) {
-        if (!MutationObserver) return this;
-
-        var i = 0;
-
-        while (this[i]) {
-            autoUpdate.call(this[i], params);
             i++;
         }
 

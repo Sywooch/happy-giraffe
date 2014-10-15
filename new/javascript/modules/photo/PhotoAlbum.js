@@ -42,14 +42,18 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
 
     var PhotoAlbum = {
         createUrl: '/api/photo/albums/create/',
-        deleteUrl: '/api/photo/albums/delete',
+        deleteUrl: '/api/photo/albums/remove/',
+        restoreUrl: '/api/photo/albums/restore/',
+        editUrl: '/api/photo/albums/edit/',
         getByUser: '/api/photo/albums/getByUser/',
         id: ko.observable(),
+        editing: ko.observable(),
         photoCollection: ko.observable(),
         maxTitleLength: 150,
         maxDescriptionLength: 450,
         title: ko.observable(),
         description: ko.observable(),
+        removed: ko.observable(false),
         create: function createPhotoAlbum(callback) {
             var objCreate = {};
             objCreate.attributes = {};
@@ -60,15 +64,6 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
             Model
                 .get(this.createUrl, objCreate)
                 .done(callback);
-        },
-        edit: function (data, event) {
-            console.log(data, event);
-            //if (value.editing !== undefined) {
-            //    value.editing = ko.observable(true);
-            //}
-        },
-        cancelEdit: function (value) {
-            value.editing = ko.observable(false);
         },
         findById: function findById(id, albums) {
             var albumIterator;
@@ -88,6 +83,23 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
             Model
                 .get(this.deleteUrl, { id : this.id() })
                 .done(callback);
+            this.removed(true);
+        },
+        restore: function restorePhotoAlbum(callback) {
+            Model
+                .get(this.restoreUrl, { id : this.id() })
+                .done(callback);
+            this.removed(false);
+        },
+        edit: function deletePhotoAlbum(callback) {
+            var objCreate = {};
+            objCreate.id = this.id();
+            objCreate.attributes = {};
+            objCreate.attributes.title = this.title();
+            objCreate.attributes.description = this.description();
+            Model
+                .get(this.editUrl, objCreate)
+                .done(callback);
         },
         init: function initPhotoAlbum(data) {
             this.id = ko.observable(data.id);
@@ -95,9 +107,8 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
             this.description = ko.observable(data.description);
             this.photoCollection = ko.observable(new PhotoCollection(data.photoCollections.default));
             this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше" + this.maxTitleLength }, mustFill: true });
-            this.title.editing = ko.observable(false);
             this.description.extend({ maxLength: { params: this.maxDescriptionLength, message: "Количество символов не больше" + this.maxDescriptionLength } });
-            this.description.editing = ko.observable(false);
+            this.editing = ko.observable(false);
             this.photoCount = ko.computed(function photoCount() {
                 if (this.photoCollection() !== undefined) {
                     return this.photoCollection().attachesCount();

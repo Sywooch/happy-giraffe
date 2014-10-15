@@ -267,7 +267,7 @@ class SeoTempCommand extends CConsoleCommand
                 $counts[1],
                 $counts[1] - $counts[0],
                 strtr($counts[0] == 0 ? '-' : ($counts[1] - $counts[0]) * 100 / $counts[0], '.', ','),
-                $post->by_happy_giraffe,
+                ($post === null) ? '-' : $post->by_happy_giraffe,
             );
         }
 

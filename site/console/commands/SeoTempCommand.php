@@ -253,7 +253,14 @@ class SeoTempCommand extends CConsoleCommand
             }
         }
 
-        $_result = array();
+        $_result = array(array(
+            'Ссылка',
+            $date1,
+            $date2,
+            'Разница',
+            'Разница, %',
+            'Пост от ВЖ',
+        ));
         foreach ($result as $path => $counts) {
             if (($counts[1] - $counts[0]) > 0) {
                 continue;

@@ -34,10 +34,17 @@
 }
 .heading-small {
     margin: 0;
-    font-size: 17px;
-    line-height: 22px;
-    color: #111;
+    font-size: 16px;
+    line-height: 20px;
+    color: #333;
     font-weight: normal;
+
+    @media (min-width: @screen-phone) {
+        & {
+            font-size: 18px;
+            line-height: 22px;
+        }
+    }
 }
 .heading-xs {
     margin: 0;
@@ -80,13 +87,29 @@ a.heading-link-xxl:hover {
     color: @color-link-title;
 }
 .heading-link-xl {
-    margin: 15px 0;
-    font-size: 35px;
-    line-height: 38px;
+    margin: 10px 0;
+    font-size: 23px;
+    line-height: 28px;
     font-weight: bold;
     color: @color-link-title;
     text-decoration: none;
     letter-spacing: -0.6px;
+
+
+    @media (min-width: @screen-phone) {
+        & {
+            font-size: 30px;
+            line-height: 32px;
+        }
+    }
+
+    @media (min-width: @screen-tablet) {
+        & {
+            margin: 15px 0;
+            font-size: 35px;
+            line-height: 38px;
+        }
+    }
 }
 
 .heading-h1-hold {
@@ -128,12 +151,6 @@ a.heading-link-xxl:hover {
     &.disabled {
         color: #9edbf8;
     }
-}
-.a-title {
-    text-decoration: none;
-    color: @color-link-title;
-
-    /*&:hover {text-decoration: underline;}*/
 }
 .a-span {
     color: @color-link;

@@ -14,11 +14,22 @@ mixin bAlbum(mod, vars)
                 .b-album_count-hold
                     .b-album_count 240
                     .b-album_count-tx фото
-        .b-album_img-hold(href="#")
-            .b-album_img-a
-                .verticalalign-m-help
-                .verticalalign-m-el
-                    // У изображений стороны сторон сохраняются максимальные размеры изображения
+        .b-album_img-hold
+            a.b-album_img-a(href="#")
+                .b-album_img-pad
+                    //-.verticalalign-m-help
+                    //-.verticalalign-m-el
+                    // У изображений соотношения сторон сохраняются 
+                    // 0,65 соотношение сторон
+                    // (на вставленные изображения не обращать внимания)
+                picture.b-album_img-picture
+                
+                    //- source(srcset=path+'images/example/'+item.w1, media="(min-width: 1024px)")
+                    source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
+                    //- source(srcset=path+'images/example/w880-h580-1.jpg', media="(min-width: 480px)")
+                    img.b-album_img-big(src=path+'images/example/photoalbum/1-1280.jpg', alt="Фото")
+                //- img.b-album_img-big(src=path+'images/example/w640-h416-1.jpg', srcset="#{vars.img}", alt="", sizes="100vw")
+                //-
                     // телефоны до 480
                     // height 300
                     // width 480
@@ -31,10 +42,13 @@ mixin bAlbum(mod, vars)
                     // десктоп и большие планшеты от w1000
                     // Высота изображений 580
                     // Ширина изображения 880
-                    // Если изображения маленькие, они становятся по центру
-                    img.b-album_img-big(srcset="#{vars.img}", alt="")
+                //- Если изображения маленькие, они становятся по центру
             .b-album_img-hold-ovr
                 .ico-zoom.ico-zoom__abs
+            - if (vars.arrow)
+                // Стрелки показывать скрывать по тапу (касанию пальца)
+                a.b-album_arrow.b-album_arrow__l(href="#")
+                a.b-album_arrow.b-album_arrow__r(href="#")
         .b-album_overlay
             a.b-album_r
                 - if (vars.tx)
@@ -42,7 +56,7 @@ mixin bAlbum(mod, vars)
                         != vars.tx
                         
                 .b-album_ico-album(class=vars.icoAlbumMod)
-                .b-album_arrow
+                .b-album_arrow-all
             ul.b-album_prev.clearfix.visible-md-block
                 // Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.
                 li.b-album_prev-li
@@ -76,20 +90,20 @@ mixin bAlbum(mod, vars)
 
 - bAlbum.a = {}
 - bAlbum.a.top = false
-- bAlbum.a.img = 'w430-h580.jpg'
+- bAlbum.a.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
 - bAlbum.a.tx = 'Семейный альбом <br> <span>60 </span> фото'
 - bAlbum.a.icoAlbumMod = 'b-album_ico-album__family'
 - bAlbum.a.prevAdd = false
 
 - bAlbum.b = {}
 - bAlbum.b.top = true
-- bAlbum.b.img = 'w880-h580-1.jpg'
+- bAlbum.b.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
 - bAlbum.b.tx = 'Смотреть  <br> все фото &nbsp;'
 - bAlbum.b.prevAdd = true
 
 - bAlbum.c = {}
 - bAlbum.c.top = true
-- bAlbum.c.img = 'w305-h360-1.jpg'
+- bAlbum.c.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
 - bAlbum.c.tx = 'Смотреть  <br> все фото &nbsp;'
 - bAlbum.c.prevAdd = true
 
@@ -106,5 +120,11 @@ mixin bAlbum(mod, vars)
 - bAlbum.e.tx = 'Смотреть  <br> все фото &nbsp;'
 - bAlbum.e.prevAdd = false
 
+- bAlbum.photolink = {}
+- bAlbum.photolink.top = false
+- bAlbum.photolink.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
+- bAlbum.photolink.tx = 'Смотреть  <br> все фото &nbsp;'
+- bAlbum.photolink.prevAdd = false
+- bAlbum.photolink.arrow = true
 
 

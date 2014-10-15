@@ -15,6 +15,7 @@
                 a.user-album_move(href="") Переместить в другой альбом
 */
 .user-album {
+    position: relative;
     margin-top: 30px;
     
     .img-grid {margin-top: 10px;}
@@ -36,11 +37,11 @@
         &:extend(.heading-link-xxl);
         
         display: block;
-        margin: 5px 250px 10px 0;
+        margin: 5px 50px 10px 0;
     }
     &_desc {
         &:extend(.tx-content);
-        margin: 5px 250px 20px 0;
+        margin: 5px 50px 20px 0;
     }
     &_count-hold {
         float: right;
@@ -50,12 +51,11 @@
     }
     &_count-hold__gray {color: @color-gray-light;}
     &_count {
-        font-size: 60px;
-        line-height: 50px;
+        margin-top: 5px;
+        font-size: 32px;
     }
     &_count-tx {
-        font-size: 28px;
-        line-height: 28px;
+        display: none;
     }
     &_control {
         margin: 0 0 15px;
@@ -104,6 +104,32 @@
     &_del:hover {
         background-position: 100% -30px;
         color: @color-gray-dark;
+    }
+
+    @media (min-width: @screen-phone) {
+        
+        &_count {
+            margin-top: 8px;
+            font-size: 45px;
+            line-height: 45px;
+        }
+    }
+
+    @media (min-width: @screen-tablet) {
+        
+        &_t,
+        &_desc {
+            margin-right: 250px;
+        }
+        &_count {
+            font-size: 60px;
+            line-height: 50px;
+        }
+        &_count-tx {
+            display: block;
+            font-size: 28px;
+            line-height: 28px;
+        }
     }
 }
 /* /user-album */

@@ -37,7 +37,7 @@
         </div>
     </div>
     <div class="user-album_control clearfix"><a href="" class="user-album_del" data-bind="click: remove">Удалить альбом</a></div>
-    <div class="album-photo-add album-photo-add__big" data-bind="photoComponentUpload: { data: { multiple: true }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent">
+    <div class="album-photo-add album-photo-add__big" data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photoAlbum.photoCollection().id() }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent">
         <div class="album-photo-add_hold">Загрузить <br>фото в альбом</div>
     </div>
     <!-- ko if: photoAlbum.removed() === true  -->

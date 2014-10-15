@@ -96,6 +96,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
     // Основная модель вставки фотографий
     function PhotoAddViewModel(data) {
+        console.log(data);
         var self = this;
 
         self.collectionId = data.form.collectionId;
@@ -168,8 +169,9 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         });
 
         self.processResponse = function(photo, response) {
+            //console.log(ko, mapping);
             if (response.success) {
-                mapping.fromJS(response.data.photo, {}, photo);
+                ko.mapping.fromJS(response.data.photo, {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
             } else {
                 photo.error(response.data.error);
@@ -180,7 +182,15 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     PhotoUploadViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
     PhotoUploadViewModel.prototype.add = function() {
         var self = this;
-        PhotoAddViewModel.prototype.add.call(self);
+        console.log(self.collectionId, self.photoIds());
+        $.post('/api/photo/collections/addPhotos/', JSON.stringify({ collectionId : self.collectionId, photosIds : self.photoIds() }), function(response) {
+            if (response.success) {
+                PhotoAddViewModel.prototype.add.call(self);
+            }
+        }, 'json');
+
+        //Только для редактора
+        //PhotoAddViewModel.prototype.add.call(self);
     };
     PhotoUploadViewModel.prototype.removePhotoInternal = function(photo) {
         var self = this;
@@ -330,7 +340,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         self.rotate = function(angle) {
             $.post('/api/photo/photos/rotate/', JSON.stringify({ angle : angle, photoId : self.id() }), function(response) {
                 if (response.success) {
-                    mapping.fromJS(response.data, {}, self);
+                    ko.mapping.fromJS(response.data, {}, self);
                 }
             }, 'json');
         };

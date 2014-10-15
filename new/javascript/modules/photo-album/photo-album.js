@@ -10,6 +10,7 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
                 album = this.photoAlbum.findById(params.albumId, passedData.data.albums);
                 if (album) {
                     this.photoAlbum = this.photoAlbum.init(album);
+                    console.log(this.photoAlbum);
                     this.loading(false);
                 }
             }

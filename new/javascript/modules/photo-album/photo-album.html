@@ -1,5 +1,4 @@
 <div class="user-album" data-bind="if: loading() === false">
-    <!-- ko ifnot: photoAlbum.removed() === true  -->
     <div class="user-album_top clearfix">
         <!-- Счетчик серого цвета из-за .user-album_count-hold__gray-->
         <div class="user-album_count-hold user-album_count-hold__gray">
@@ -38,11 +37,17 @@
         </div>
     </div>
     <div class="user-album_control clearfix"><a href="" class="user-album_del" data-bind="click: remove">Удалить альбом</a></div>
-    <div class="album-photo-add album-photo-add__big">
+    <div class="album-photo-add album-photo-add__big" data-bind="photoComponentUpload: { data: { multiple: true }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent">
         <div class="album-photo-add_hold">Загрузить <br>фото в альбом</div>
     </div>
-    <!-- /ko -->
     <!-- ko if: photoAlbum.removed() === true  -->
-        Альбом удален <a href="" data-bind="click: restore">Восстановить</a>
+    <div class="cap-empty cap-empty__abs-top cap-empty__white ">
+        <div class="cap-empty_hold">
+            <div class="cap-empty_img"></div>
+            <div class="cap-empty_t">Фотоальбом удален </div>
+            <div class="cap-empty_tx"><a href="" data-bind="click: restore">Восстановить</a></div>
+        </div>
+        <div class="verticalalign-m-help"></div>
+    </div>
     <!-- /ko -->
 </div>

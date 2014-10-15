@@ -105,7 +105,9 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
             this.id = ko.observable(data.id);
             this.title = ko.observable(data.title);
             this.description = ko.observable(data.description);
-            this.photoCollection = ko.observable(new PhotoCollection(data.photoCollections.default));
+            if (data.photoCollections !== undefined) {
+                this.photoCollection = ko.observable(new PhotoCollection(data.photoCollections.default));
+            }
             this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше" + this.maxTitleLength }, mustFill: true });
             this.description.extend({ maxLength: { params: this.maxDescriptionLength, message: "Количество символов не больше" + this.maxDescriptionLength } });
             this.editing = ko.observable(false);

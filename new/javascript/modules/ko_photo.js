@@ -393,7 +393,8 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         });
 
         self.albums = ko.observableArray(ko.utils.arrayMap(data.albums, function(album) {
-            return new PhotoAlbum(album);
+            var photoAlbum = Object.create(PhotoAlbum);
+            return PhotoAlbum.init(album);
         }));
 
         self.unselectAlbum = function() {

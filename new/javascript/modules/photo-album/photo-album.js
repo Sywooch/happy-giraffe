@@ -1,4 +1,5 @@
-define(['knockout', 'text!photo-album/photo-album.html', 'photo/PhotoAlbum', 'user-config', 'extensions/knockout.validation'], function (ko, template, PhotoAlbum, userConfig) {
+define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoAlbum', 'user-config', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig) {
+    "use strict";
     function PhotoAlbumViewModel(params) {
         this.loading = ko.observable(true);
         this.photoAlbum = Object.create(PhotoAlbum);
@@ -56,6 +57,9 @@ define(['knockout', 'text!photo-album/photo-album.html', 'photo/PhotoAlbum', 'us
         };
         this.restore = function () {
             this.photoAlbum.restore(this.restorePhotoAlbum.bind(this));
+        };
+        this.loadPhotoComponent = function () {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
         };
         this.photoAlbum.get(userConfig.userId, false, this.getPhotoAlbum.bind(this));
     }

@@ -255,7 +255,7 @@ class SeoTempCommand extends CConsoleCommand
 
         $_result = array();
         foreach ($result as $path => $counts) {
-            if (($counts[1] - $counts[0]) < 0) {
+            if (($counts[1] - $counts[0]) > 0) {
                 continue;
             }
 

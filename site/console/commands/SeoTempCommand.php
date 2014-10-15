@@ -262,7 +262,7 @@ class SeoTempCommand extends CConsoleCommand
             'Пост от ВЖ',
         ));
         foreach ($result as $path => $counts) {
-            if ((($counts[1] - $counts[0]) > 0) == $growth) {
+            if ((($counts[1] - $counts[0]) > 0) != $growth) {
                 continue;
             }
 

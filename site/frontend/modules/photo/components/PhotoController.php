@@ -10,6 +10,6 @@ namespace site\frontend\modules\photo\components;
 
 class PhotoController extends \LiteController
 {
-    //public $layout = '//layouts/new/mainNew';
+    public $layout = '//layouts/lite/personalArea';
 
 } 

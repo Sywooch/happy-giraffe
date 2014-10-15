@@ -195,9 +195,12 @@ class Favourites extends EMongoDocument
         return $sorted_models;
     }
 
-    public function getWeekPosts()
+    public function getWeekPosts($date = null)
     {
-        return $this->getArticlesByDate(self::WEEKLY_MAIL, date("Y-m-d"));
+        if ($date === null) {
+            $date = date("Y-m-d");
+        }
+        return $this->getArticlesByDate(self::WEEKLY_MAIL, $date);
     }
 
     /**

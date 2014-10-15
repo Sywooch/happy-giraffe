@@ -235,6 +235,52 @@ class SeoTempCommand extends CConsoleCommand
         $this->writeCsv('epicFail2', $_result);
     }
 
+    public function actionCompare($date1, $date2, $engine, $growth)
+    {
+        $result = array();
+
+        $paths1 = $this->getPathes($date1, $date1, $engine);
+        $paths2 = $this->getPathes($date2, $date2, $engine);
+
+        $paths = array($paths1, $paths2);
+
+        foreach ($paths as $k => $p) {
+            foreach ($p as $path => $value) {
+                if (! isset($result[$path])) {
+                    $result[$path] = array_fill(0, 2, 0);
+                }
+                $result[$path][$k] = $value['ga:entrances'];
+            }
+        }
+
+        $_result = array(array(
+            'Ссылка',
+            $date1,
+            $date2,
+            'Разница',
+            'Разница, %',
+            'Пост от ВЖ',
+        ));
+        foreach ($result as $path => $counts) {
+            if ((($counts[1] - $counts[0]) > 0) != $growth) {
+                continue;
+            }
+
+            $post = $this->getPostByPath($path);
+
+            $_result[] = array(
+                'http://www.happy-giraffe.ru' . $path,
+                $counts[0],
+                $counts[1],
+                $counts[1] - $counts[0],
+                strtr($counts[0] == 0 ? '-' : ($counts[1] - $counts[0]) * 100 / $counts[0], '.', ','),
+                ($post === null) ? '-' : $post->by_happy_giraffe,
+            );
+        }
+
+        $this->writeCsv('compare', $_result);
+    }
+
     public function actionEpicFail()
     {
         $patterns = array(
@@ -808,5 +854,15 @@ class SeoTempCommand extends CConsoleCommand
         }
 
         $this->writeCsv('disease', $result);
+    }
+
+    public function actionShevkoplyas()
+    {
+        $result = array();
+        $posts = CommunityContent::model()->findAll('author_id = :author_id', array(':author_id' => 220231));
+        foreach ($posts as $p) {
+            $result[] = array($p->getUrl(false, true), $p->title);
+        }
+        $this->writeCsv('sh', $result);
     }
 } 

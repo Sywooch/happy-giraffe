@@ -49,11 +49,17 @@ class DefaultController extends LiteController
         return parent::beforeAction($action);
     }
 
+    /**
+     * @sitemap dataSource=sitemapList
+     */
     public function actionList($zodiac, $period, $date, $alias)
     {
         $this->render('list');
     }
 
+    /**
+     * @sitemap dataSource=sitemapView
+     */
     public function actionView($zodiac, $period, $date, $alias)
     {
         $zodiac = Horoscope::model()->getZodiacId($this->zodiac);
@@ -76,306 +82,172 @@ class DefaultController extends LiteController
         $this->render('view', array('model' => $model));
     }
 
-    /**
-     * @sitemap
-     */
-    public function actionIndex()
+    public function sitemapView()
     {
-        /* $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => date("Y-m-d")));
-          $this->title = 'Гороскоп на сегодня по знакам Зодиака';
-          $this->meta_title = $this->title;
+        Yii::import('application.modules.services.modules.horoscope.models.Horoscope');
+        $result = array();
 
-          $this->render('list', array('models' => $models)); */
-        var_dump(Yii::app()->request->getQueryString());
-    }
-
-    /**
-     * @sitemap dataSource=sitemapView
-     */
-    public function actionToday($zodiac)
-    {
-        $date = date("Y-m-d");
-        $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
-        $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на сегодня ';
-        $this->social_title = 'Гороскоп на сегодня ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
-        $this->meta_title = 'Гороскоп на сегодня ' . $model->zodiacText() . ' для женщин и мужчин - Веселый Жираф';
-        $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на сегодня для женщин и мужчин. Обновляется ежедневно!';
-        $this->meta_keywords = 'Гороскоп на сегодня ' . $model->zodiacText() . ', ежедневный гороскоп ' . $model->zodiacText();
-
-        $this->render('view', compact('model'));
-    }
-
-    /**
-     * @sitemap dataSource=sitemapDateView
-     */
-    public function actionDate($zodiac, $date)
-    {
-        $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
-        $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $text = $model->zodiacText2() . ' на ' . Yii::app()->dateFormatter->format('d MMMM yyyy', strtotime($model->date));
-        $this->title = 'Гороскоп ' . $text;
-        $this->meta_title = 'Гороскоп ' . $text . ' для женщин и мужчин - Веселый Жираф';
-        $this->meta_description = 'Бесплатный гороскоп ' . $text . ' для женщин и мужчин. Обновляется ежедневно!';
-        $this->meta_keywords = $this->title;
-
-        $this->render('view', compact('model'));
-    }
-
-    /**
-     * @sitemap dataSource=sitemapView
-     */
-    public function actionYesterday($zodiac)
-    {
-        $date = date("Y-m-d", strtotime('-1 day'));
-
-        $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
-        $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
-        if ($model === null)
-            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-        $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на вчера ';
-        $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
-        $this->meta_title = 'Гороскоп на вчера ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
-        $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на вчера для женщин и мужчин. Познай судьбу!';
-        $this->meta_keywords = 'Гороскоп на вчера ' . $model->zodiacText();
-
-        $this->render('view', compact('model'));
-    }
-
-    /**
-     * @sitemap dataSource=sitemapView
-     */
-    public function actionTomorrow($zodiac = '')
-    {
-        $date = date("Y-m-d", strtotime('+1 day'));
-
-        if (empty($zodiac))
-        {
-            $this->title = 'Гороскоп на завтра';
-            $this->social_title = 'Гороскоп на завтра по знакам Зодиака';
-            $this->meta_title = 'Гороскоп на завтра по знакам Зодиака';
-            $this->meta_description = 'Гороскопы для всех знаков Зодиака на завтра бесплатно';
-            $this->meta_keywords = 'гороскоп на завтра, ежедневный гороскоп';
-
-            $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('date' => $date));
-            $this->render('list', array('models' => $models));
+        // на сегодня
+        foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            $result[] = array(
+                'params' => array(
+                    'zodiac' => $z,
+                    'period' => 'day',
+                    'date' => time(),
+                    'alias' => 'today',
+                ),
+                'changefreq' => 'daily',
+                'priority' => 1,
+            );
         }
-        else
-        {
-            $zodiac = Horoscope::model()->getZodiacId(trim($zodiac));
-            $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'date' => $date));
-            if ($model === null)
-                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-            $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на завтра ';
-            $this->social_title = 'Гороскоп на ' . Yii::app()->dateFormatter->format('dd MMMM yyyy', strtotime($model->date)) . ' ' . $model->zodiacText();
-            $this->meta_title = 'Гороскоп на завтра ' . $model->zodiacText() . ' для мужчин и женщин - Веселый Жираф';
-            $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на завтра для женщин и мужчин. Обновляется ежедневно!';
-            $this->meta_keywords = 'Гороскоп на завтра ' . $model->zodiacText() . ', ежедневный гороскоп ' . $model->zodiacText();
-
-            $this->render('tomorrow_one', compact('model'));
+        // на завтра
+        foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            $result[] = array(
+                'params' => array(
+                    'zodiac' => $z,
+                    'period' => 'day',
+                    'date' => strtotime('+1 day'),
+                    'alias' => 'tomorrow',
+                ),
+                'changefreq' => 'daily',
+                'priority' => 1,
+            );
         }
-    }
 
-    /**
-     * @sitemap dataSource=sitemapMonthView
-     */
-    public function actionMonth($zodiac = '', $month = '')
-    {
-        if (empty($zodiac))
-        {
-            $this->title = 'Гороскоп на месяц';
-            $this->social_title = $this->title;
-            $this->meta_title = 'Гороскоп на каждый месяц';
-            $this->meta_description = 'Ежемесячный гороскоп для всех знаков зодиака';
-            $this->meta_keywords = 'гороскоп на месяц, ежемесячный гороскоп';
-
-            $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('year' => date('Y'), 'month' => date('n')));
-            $this->render('list', array('models' => $models));
+        // на текущий месяц
+        foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            $result[] = array(
+                'params' => array(
+                    'zodiac' => $z,
+                    'period' => 'month',
+                    'date' => time(),
+                    'alias' => 'today',
+                ),
+                'changefreq' => 'weekly',
+                'priority' => 1,
+            );
         }
-        else
-        {
-            if (empty($month))
-            {
-                $zodiac = Horoscope::model()->getZodiacId($zodiac);
-                $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => date('Y'), 'month' => date('n')));
-                if ($model === null)
-                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
 
-                $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на месяц';
-                $this->social_title = 'Гороскоп ' . $model->zodiacText2() . ' на месяц';
-                $this->meta_title = 'Гороскоп на каждый месяц ' . $model->zodiacText() . ' - Веселый Жираф';
-                $this->meta_description = 'Бесплатный гороскоп на месяц ' . $model->zodiacText() . ' для женщин и мужчин. Обновляется ежемесячно!';
-                $this->meta_keywords = 'Гороскоп на месяц ' . $model->zodiacText() . ', ежемесячный гороскоп ' . $model->zodiacText();
-                $model->calculateMonthDays();
-
-                $this->render('month_one', compact('model'));
-            } else
-            {
-                preg_match('/(\d\d\d\d)-(\d\d)/', $month, $matches);
-                if (!isset($matches[1]) || !isset($matches[2]))
-                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-                $year = $matches[1];
-                $month = $matches[2];
-
-                $zodiac = Horoscope::model()->getZodiacId($zodiac);
-                $model = Horoscope::model()->findByAttributes(array(
-                    'zodiac' => $zodiac,
-                    'year' => $year,
-                    'month' => $month
-                ));
-                if ($model === null)
-                    throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-                $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на ' . HDate::ruMonth($month) . ' ' . $year . ' года';
-                $this->social_title = $this->title;
-                $this->meta_title = $model->zodiacText() . '. Гороскоп ' . $model->zodiacText2() . ' на ' . HDate::ruMonth($month) . ' ' . $year . ' года';
-                $this->meta_description = 'Гороскоп для ' . $model->zodiacText2() . ' на ' . HDate::ruMonth($month) . ' ' . $year . ' года';
-                $this->meta_keywords = 'Гороскоп ' . $model->zodiacText() . ', ' . HDate::ruMonth($month) . ' ' . $year;
-                $model->calculateMonthDays();
-
-                $this->render('month_one', compact('model'));
-            }
+        // на текущий год
+        foreach (Horoscope::model()->zodiac_list_eng as $z) {
+            $result[] = array(
+                'params' => array(
+                    'zodiac' => $z,
+                    'period' => 'year',
+                    'date' => time(),
+                    'alias' => 'today',
+                ),
+                'changefreq' => 'monthly',
+                'priority' => 1,
+            );
         }
-    }
 
-    /**
-     * @sitemap dataSource=sitemapYearView
-     */
-    public function actionYear($year = '', $zodiac = '')
-    {
-        if (empty($year))
-            $year = 2012;
-
-        if (empty($zodiac))
-        {
-            $this->title = 'Гороскоп на ' . $year . ' год';
-            $this->social_title = $this->title;
-            $this->meta_title = 'Гороскоп на ' . $year . ' год. Гороскоп на 2013 год для всех знаков Зодиака';
-            $this->meta_description = 'Гороскоп на ' . $year . ' для всех знаков Зодиака: здоровье, карьера, финансы и личная жизнь';
-            $this->meta_keywords = 'Гороскоп на ' . $year . ' год, гороскоп ' . $year;
-
-            $models = Horoscope::model()->sortByZodiac()->findAllByAttributes(array('year' => $year, 'month' => null));
-            $this->render('list', array('models' => $models));
-        }
-        else
-        {
-            $zodiac = Horoscope::model()->getZodiacId($zodiac);
-
-            $model = Horoscope::model()->findByAttributes(array('zodiac' => $zodiac, 'year' => $year, 'month' => null));
-            if ($model === null)
-                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-            $this->title = 'Гороскоп ' . $model->zodiacText2() . ' на ' . $year . ' год';
-            $this->social_title = $this->title;
-            $this->meta_title = 'Гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год для женщин и мужчин – Веселый Жираф';
-            $this->meta_description = 'Бесплатный гороскоп ' . $model->zodiacText() . ' на ' . $year . ' год для женщин и мужчин. Познай свою судьбу!';
-            $this->meta_keywords = 'Гороскоп на ' . $year . ' год ' . $model->zodiacText();
-
-            $this->render('year_one', compact('model'));
-        }
-    }
-
-    /* public function sitemapView()
-      {
-      Yii::import('application.modules.services.modules.horoscope.models.Horoscope');
-
-      $data = array();
-      foreach (Horoscope::model()->zodiac_list_eng as $z)
-      $data[] = array('params' => array('zodiac' => $z));
-
-      return $data;
-      } */
-
-    public function sitemapDateView()
-    {
-        $data = array();
-        $dates = Yii::app()->db->createCommand()
-            ->selectDistinct('date')
-            ->from(Horoscope::model()->tableName())
-            ->queryColumn();
-        foreach ($dates as $date)
-            if ($date !== '0000-00-00' && !empty($date))
-            {
-                foreach (Horoscope::model()->zodiac_list_eng as $z)
-                {
-                    $data[] = array(
-                        'params' => array(
-                            'zodiac' => $z,
-                            'date' => $date
-                        ),
-                    );
-                }
-            }
-
-        return $data;
-    }
-
-    public function sitemapMonthView()
-    {
-        $data = array('params' => array());
-
-        foreach (Horoscope::model()->zodiac_list_eng as $z)
-            $data[] = array('params' => array('zodiac' => $z));
-
-        $rows = Yii::app()->db->createCommand()
-            ->selectDistinct(array('month', 'year'))
+        $data = Yii::app()->db->createCommand()
+            ->select('*')
             ->from(Horoscope::model()->tableName())
             ->queryAll();
-        foreach ($rows as $row)
-            if (!empty($row['month']) && !empty($row['year']))
-            {
-                foreach (Horoscope::model()->zodiac_list_eng as $z)
-                {
-                    $data[] = array(
-                        'params' => array(
-                            'zodiac' => $z,
-                            'month' => $row['year'] . '-' . sprintf('%02d', $row['month'])
-                        ),
-                    );
+
+        foreach ($data as $row) {
+            // на произвольный месяц
+            if (! empty($row['year']) && ! empty($row['month'])) {
+                if (strtotime('-2 month') > mktime(0, 0, 0, $row['month'], 1, $row['year'])) {
+                    $changefreq = 'monthly';
+                    $priority = 0.5;
+                } else {
+                    $changefreq = 'daily';
+                    $priority = 1;
                 }
+
+                $result[] = array(
+                    'params' => array(
+                        'zodiac' => Horoscope::model()->zodiac_list_eng[$row['zodiac']],
+                        'period' => 'month',
+                        'date' => mktime(0, 0, 0, $row['month'], 1, $row['year']),
+                        'alias' => false,
+                    ),
+                    'changefreq' => $changefreq,
+                    'priority' => $priority,
+                );
+            // на произвольную дату
+            } elseif (empty($row['year']) && empty($row['month'])) {
+                if (strtotime('-1 month') > strtotime($row['date'])) {
+                    $changefreq = 'monthly';
+                    $priority = 0.5;
+                } else {
+                    $changefreq = 'daily';
+                    $priority = 1;
+                }
+
+                $result[] = array(
+                    'params' => array(
+                        'zodiac' => Horoscope::model()->zodiac_list_eng[$row['zodiac']],
+                        'period' => 'day',
+                        'date' => strtotime($row['date']),
+                        'alias' => false,
+                    ),
+                    'changefreq' => $changefreq,
+                    'priority' => $priority,
+                );
             }
+        }
 
-        return $data;
+        return $result;
     }
 
-    public function sitemapYearView()
+    public function sitemapList()
     {
-        $data = array('params' => array());
+        Yii::import('application.modules.services.modules.horoscope.models.Horoscope');
+        $result = array();
 
-        foreach (Horoscope::model()->zodiac_list_eng as $z)
-            $data[] = array('params' => array('zodiac' => $z));
+        // на сегодня
+        $result[] = array(
+            'params' => array(
+                'zodiac' => false,
+                'period' => 'day',
+                'date' => time(),
+                'alias' => 'today',
+            ),
+            'changefreq' => 'daily',
+            'priority' => 0.9,
+        );
 
-        $years = Yii::app()->db->createCommand()
-            ->selectDistinct('year')
-            ->from(Horoscope::model()->tableName())
-            ->where('month IS NULL OR month =""')
-            ->queryColumn();
-        foreach ($years as $year)
-            if (!empty($year))
-                foreach (Horoscope::model()->zodiac_list_eng as $z)
-                {
-                    $data[] = array(
-                        'params' => array(
-                            'zodiac' => $z,
-                            'year' => $year
-                        ),
-                    );
-                }
+        // на завтра
+        $result[] = array(
+            'params' => array(
+                'zodiac' => false,
+                'period' => 'day',
+                'date' => strtotime('+1 day'),
+                'alias' => 'tomorrow',
+            ),
+            'changefreq' => 'daily',
+            'priority' => 0.9,
+        );
 
-        return $data;
+        // на месяц
+        $result[] = array(
+            'params' => array(
+                'zodiac' => false,
+                'period' => 'month',
+                'date' => time(),
+                'alias' => 'today',
+            ),
+            'changefreq' => 'weekly',
+            'priority' => 0.9,
+        );
+
+        // на год
+        $result[] = array(
+            'params' => array(
+                'zodiac' => false,
+                'period' => 'year',
+                'date' => time(),
+                'alias' => 'today',
+            ),
+            'changefreq' => 'monthly',
+            'priority' => 0.9,
+        );
+
+        return $result;
     }
-
-    public function getZodiacList()
-    {
-        
-    }
-
 }

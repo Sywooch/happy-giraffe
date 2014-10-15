@@ -10,6 +10,9 @@ return array(
         'Gaufrette' => 'site.common.vendor.Gaufrette',
     ),
     'components' => array(
+        'gearman' => array(
+            'class' => 'site.common.components.Gearman',
+        ),
         'fsFly' => array(
             'class' => '\site\common\components\flysystem\PhotoS3Component',
             'key' => 'AKIAIRCLO4AYJCJRTV4Q',

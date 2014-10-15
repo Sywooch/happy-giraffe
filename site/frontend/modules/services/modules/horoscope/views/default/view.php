@@ -109,7 +109,7 @@
         }
         ?>
         <!-- Реклама яндекса-->
-        <?php $this->renderPartial('//banners/_horoscope'); ?>
+        <?php $this->renderPartial('//banners/_direct_others'); ?>
         <div class='margin-b40'></div>
     </div>
     <!-- /Основная колонка-->

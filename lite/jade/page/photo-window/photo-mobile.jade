@@ -1,0 +1,84 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'member.css'; 
+
+block layout
+
+    script.
+        $(document).ready(function () {
+
+            $('.popup-photoview').magnificPopup({
+                type: 'image',
+                gallery: {
+                  enabled: true, // set to true to enable gallery
+
+                  preload: [0,2], // read about this option in next Lazy-loading section
+
+                  navigateByImgClick: false,
+
+                  arrowMarkup: '<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%"></button>', // markup of an arrow button
+
+                  tPrev: 'Previous (Left arrow key)', // title for left button
+                  tNext: 'Next (Right arrow key)', // title for right button
+                  tCounter: '<span class="mfp-counter">%curr% of %total%</span>' // markup of counter
+                },
+
+                overflowY: 'hidden',
+                tClose: 'Закрыть',
+                fixedBgPos: true,
+                
+                // When elemened is focused, some mobile browsers in some cases zoom in
+                // It looks not nice, so we disable it:
+                callbacks: {
+                    open: function() {
+                        $('html').addClass('mfp-html');
+                    },
+                    close: function() {
+                        $('html').removeClass('mfp-html');
+                    }
+                }
+            });
+        });
+ 
+    // b-main 
+    .b-main.clearfix
+        .b-main_cont
+            .margin-20
+                h2 Фотопросмотрщик
+                a.popup-photoview(href="/images/example/w960-h537-1.jpg") Фото 1
+                br
+                a.popup-photoview(href="/lite/images/example/photoalbum/1-1920.jpg") Фото 1
+                br
+                a.popup-photoview(href="/lite/images/example/w880-h585-1.jpg") Фото 1
+                br
+                a.popup-photoview(href="/lite/images/example/photoalbum/2-1920.jpg") Фото 1
+                br
+                br
+                br
+                 
+
+block block-hidden 
+    // .popup-photoview
+    #photo1.popup.popup-sign.popup-photoview
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t Регистрация на Веселом Жирафе
+                .popup-sign_slogan Стань полноправным участником сайта за 1 минуту!
+            .popup-sign_cont
+                .popup-sign_social
+                    .popup-sign_row
+                        .popup-sign_label С помощью социальных сетей
+                    ul.social-btns.clearfix
+                        li
+                            a.social-btn.social-btn__odnoklassniki
+                                span.social-btn_ico
+                                span.social-btn_tx Одноклассники
+                        li
+                            a.social-btn.social-btn__vkontakte
+                                span.social-btn_ico
+                                span.social-btn_tx ВКонтакте
+
+    // /popup-photoview
+

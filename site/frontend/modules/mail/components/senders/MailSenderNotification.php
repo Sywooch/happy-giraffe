@@ -15,7 +15,7 @@ Yii::import('site.frontend.modules.notifications.components.*');
 
 class MailSenderNotification extends MailSender
 {
-    public $debugMode = self::DEBUG_PRODUCTION;
+    public $debugMode = self::DEBUG_TESTING;
 
     const TYPE_DISCUSS = 'notificationDiscuss';
     const TYPE_REPLY = 'notificationReply';
@@ -34,16 +34,10 @@ class MailSenderNotification extends MailSender
 
     public function process(User $user)
     {
-        echo $user->id . "\n";
-
         $notifications = Notification::model()->getNotificationsList($user->id, 0, 0, 999);
 
         foreach ($notifications as $notification) {
-            if (! $this->checkSubscribesSettings($user, $notification)) {
-                continue;
-            }
-
-            if (($notification->updated < strtotime($this->lastDeliveryTimestamp)) || ($notification->updated > $this->startTime)) {
+            if ($notification->updated < strtotime($this->lastDeliveryTimestamp)) {
                 continue;
             }
 
@@ -76,7 +70,7 @@ class MailSenderNotification extends MailSender
                 $params['comment'] = $comment;
             }
             $message = new $messageClass($user, $params);
-            $this->send($message);
+            Yii::app()->postman->send($message);
         }
     }
 
@@ -90,34 +84,6 @@ class MailSenderNotification extends MailSender
             case Notification::USER_CONTENT_COMMENT:
                 return 'MailMessageNotificationComment';
         }
-    }
-
-    protected function checkSubscribesSettings(User $user, Notification $notification)
-    {
-        switch ($notification->type) {
-            case Notification::DISCUSS_CONTINUE:
-                $setting = 'discussions';
-                break;
-            case Notification::REPLY_COMMENT:
-                $setting = 'replies';
-                break;
-            case Notification::USER_CONTENT_COMMENT:
-                if ($notification instanceof NotificationGroup) {
-                    $model = $notification->getEntity();
-                    if ($model instanceof CommunityContent && $model->type_id == CommunityContent::TYPE_QUESTION) {
-                        $setting = 'answers';
-                    } else {
-                        $setting = 'comments';
-                    }
-                } else {
-                    return true;
-                }
-                break;
-            default:
-                return true;
-        }
-
-        return UserAttributes::get($user->id, $setting, true) === true;
     }
 
     protected function getUsersCriteria()

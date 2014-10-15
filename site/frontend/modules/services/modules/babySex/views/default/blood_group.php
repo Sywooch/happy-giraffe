@@ -80,6 +80,8 @@ Yii::app()->clientScript->registerScriptFile($baseUrl . '/blood_group.js', CClie
             </div>
         </div>
 
+        <?php $this->renderPartial('//banners/_direct_others'); ?>
+
         <?php $this->widget('application.widgets.serviceSocial.serviceSocialWidget', array(
             'service' => $service,
             'image' => '/images/sex_child_blood.jpg',

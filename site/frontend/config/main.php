@@ -128,6 +128,12 @@ return array(
         'comments' => array(
             'class' => 'site\frontend\modules\comments\CommentsModule',
         ),
+        'editorialDepartment' => array(
+            'class' => 'site\frontend\modules\editorialDepartment\EditorialDepartmentModule',
+        ),
+        'users' => array(
+            'class' => 'site\frontend\modules\users\UsersModule',
+        ),
         'friends',
         'favourites',
         'scores',
@@ -142,9 +148,7 @@ return array(
         'signup',
         'mail',
         'developers',
-        'seo' => array(
-            'class' => '\site\frontend\modules\seo\SeoModule',
-        ),
+        'photo' => require(dirname(__FILE__) . '/../modules/photo/config/main.php'),
         'archive' => array(
            'class' => 'site\frontend\modules\archive\ArchiveModule',
         ),
@@ -156,9 +160,6 @@ return array(
         ),
         'ads' => array(
             'class' => 'Ads',
-        ),
-        'gearman' => array(
-            'class' => 'site.common.components.Gearman',
         ),
         'postman' => array(
             'class' => 'application.modules.mail.components.MailPostman',
@@ -394,7 +395,7 @@ return array(
         'phpThumb' => array(
             'class' => 'ext.EPhpThumb.EPhpThumb',
             'options' => array(
-                'resizeUp' => true,
+                'resizeUp' => false,
                 'jpegQuality' => 70,
             ),
         ),
@@ -561,13 +562,17 @@ return array(
                             'application.modules.services.modules.vaccineCalendar.controllers.DefaultController',
                             'application.modules.services.modules.menstrualCycle.controllers.DefaultController',
                             'application.modules.services.modules.babyBloodGroup.controllers.DefaultController',
-                            'application.modules.services.modules.horoscope.controllers.DefaultController',
-                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
                         ),
                     ),
                     'sitemapRecipeBook.xml' => array(
                         'aliases' => array(
                             'application.modules.services.modules.recipeBook.controllers.DefaultController',
+                        ),
+                    ),
+                    'sitemapHoroscope.xml' => array(
+                        'aliases' => array(
+                            'application.modules.services.modules.horoscope.controllers.DefaultController',
+                            'application.modules.services.modules.horoscope.controllers.CompatibilityController',
                         ),
                     ),
                 ),

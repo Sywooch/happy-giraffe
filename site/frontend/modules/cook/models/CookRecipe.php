@@ -25,7 +25,7 @@
  * @property CookCuisine $cuisine
  * @property AttachPhoto[] $attachPhotos
  */
-class CookRecipe extends HActiveRecord implements IPreview
+class CookRecipe extends CActiveRecord implements IPreview
 {
     const COOK_RECIPE_LOWFAT = 11;
     const COOK_RECIPE_LOWCAL = 40;

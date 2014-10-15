@@ -14,6 +14,7 @@ class YandexShareWidget extends CWidget
      */
     public $model;
 
+    public $widgetTitle = 'Поделитесь с друзьями!';
     public $title;
     public $description;
     public $imageUrl;
@@ -114,7 +115,7 @@ class YandexShareWidget extends CWidget
 
     protected function getDefaultImage()
     {
-        return Yii::app()->request->hostInfo . '/new/images/external/vg-150-x-150.png';
+        return Yii::app()->request->hostInfo . '/new/images/external/vg-200-x-200.png';
     }
 
     protected function getTitle()
@@ -144,6 +145,6 @@ class YandexShareWidget extends CWidget
     protected function getDescription()
     {
         $description = $this->model->getPreviewText();
-        return (strlen($description) > 0) ? Str::getDescription($description, 128) : $this->title;
+        return (strlen($description) > 0) ? Str::getDescription($description, 128) : $this->getTitle();
     }
 }

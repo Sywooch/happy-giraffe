@@ -13,6 +13,11 @@ class HActiveRecord extends CActiveRecord
 
     public function getPhotoCollection()
     {
+        /** @var site\frontend\modules\photo\components\PhotoCollectionBehavior $behavior */
+        if ($behavior = $this->asa('PhotoCollectionBehavior')) {
+            return $behavior->getPhotoCollection();
+        }
+
         return $this->photos;
     }
 
@@ -136,6 +141,11 @@ class HActiveRecord extends CActiveRecord
         return $users;
     }
 
+    public function getEntityName()
+    {
+        $reflect = new ReflectionClass($this);
+        return $reflect->getShortName();
+    }
 //    protected function beforeFind()
 //    {
 //        parent::$db = $this->getConnectionForSelect();
@@ -181,9 +191,4 @@ class HActiveRecord extends CActiveRecord
 //    {
 //        return $connection->cache(60)->createCommand('SHOW STATUS WHERE `variable_name` = \'Threads_connected\';')->queryScalar();
 //    }
-
-    public function getEntityName()
-    {
-        return get_class($this);
-    }
 }

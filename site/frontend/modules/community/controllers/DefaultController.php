@@ -11,31 +11,15 @@ class DefaultController extends HController
     public $rubric_id;
     public $forum;
 
-    public function behaviors()
-    {
-        return array(
-            'lastModified' => array(
-                'class' => 'LastModifiedBehavior',
-                'getParameter' => 'content_id',
-                'entity' => 'CommunityContent',
-            ),
-        );
-    }
-
     public function filters()
     {
         $filters = array();
 
         if (Yii::app()->user->isGuest) {
-            $filters[] = array(
-                'CHttpCacheFilter + view',
-                'lastModified' => $this->lastModified->getDateTime(),
-            );
-
             $filters [] = array(
                 'COutputCache + view',
                 'duration' => 300,
-                'varyByParam' => array('content_id', 'openGallery'),
+                'varyByParam' => array('content_id'),
             );
 
             $filters [] = array(
@@ -496,8 +480,9 @@ class DefaultController extends HController
 
     public function actionContacts()
     {
+        Yii::app()->clientScript->registerMetaTag('noindex', 'robots');
         $this->forum = Community::model()->findByPk(Community::COMMUNITY_NEWS);
-        $this->pageTitle = 'О нас';
+        $this->pageTitle = 'Редакция новостей';
         $this->layout = '//layouts/news';
         $this->render('contacts');
     }

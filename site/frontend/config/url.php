@@ -4,7 +4,7 @@ return array(
     'urlFormat' => 'path',
     'showScriptName' => false,
     'urlSuffix' => '/',
-    'useStrictParsing' => true,
+    //'useStrictParsing' => true,
     'rules' => array(
         /*************************
          *      CONTROLLERS      *
@@ -50,9 +50,7 @@ return array(
         'moderation' => 'site/moderationRules',
         'site/<_a:(confirmEmail|resendConfirmEmail|passwordRecovery|passwordRecoveryForm|login|logout|link|out|hh|flushSchema|vacancySend|qualityTest)>' => 'site/<_a>',
         '<view:(advertiser|abuse)>' => array('site/page'),
-        'jobs/developer' => array('vacancy/form', 'defaultParams' => array('type' => 'backend')),
-        'jobs/frontend-developer' => array('vacancy/form', 'defaultParams' => array('type' => 'frontend')),
-        'vacancy/upload' => 'vacancy/upload',
+        'developer' => 'site/vacancy',
 
         //===================== Subscribes =========================//
         'subscribes' => 'myGiraffe/default/subscribes',
@@ -82,6 +80,10 @@ return array(
         //comments
         'comments' => 'comments/default/index',
         'comments/<_a>' => 'comments/default/<_a>',
+        //editorialDepartment
+        'editorialDepartment' => 'editorialDepartment/default/index',
+        'editorialDepartment/<_c>' => 'editorialDepartment/<_c>/index',
+        'editorialDepartment/<_c>/<_a>' => 'editorialDepartment/<_c>/<_a>',
 
         // rss controller
         'rss/page<page:\d+>' => 'rss/index',
@@ -275,7 +277,7 @@ return array(
         'childCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 0)),
         'pregnancyCalendar' => array('calendar/default/index', 'defaultParams' => array('calendar' => 1)),
 
-        '<_m:(test|tester|vaccineCalendar|childrenDiseases|menstrualCycle|horoscope|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
+        '<_m:(test|tester|vaccineCalendar|childrenDiseases|menstrualCycle|babyBloodGroup|placentaThickness|pregnancyWeight|contractionsTime|names|hospitalBag|maternityLeave|dailyCalories|weightLoss|idealWeight|bodyFat|birthDate)>/' => 'services/<_m>/default/index',
         '<_m:(babySex|vaccineCalendar|sewing|hospitalBag)>/<_a>/' => 'services/<_m>/default/<_a>',
 
         'babySex' => 'services/babySex/default/index',
@@ -290,14 +292,15 @@ return array(
         'horoscope/compatibility' => 'services/horoscope/compatibility/index',
 
         //horoscope
-        'horoscope/likes/<zodiac:[\d]+>/<date:\d\d\d\d-\d\d-\d\d>' => 'services/horoscope/default/likes',
+        array( 'class' => 'site.frontend.modules.services.modules.horoscope.components.HoroscopeUrlRule'),
+        /*'horoscope/likes/<zodiac:[\d]+>/<date:\d\d\d\d-\d\d-\d\d>' => 'services/horoscope/default/likes',
         'horoscope/month/<zodiac:[\w]+>/<month:\d\d\d\d-\d\d>' => 'services/horoscope/default/month',
         'horoscope/year/<zodiac:[\w]+>/<year:\d\d\d\d>' => 'services/horoscope/default/year',
         'horoscope/year/<year:\d\d\d\d>' => 'services/horoscope/default/year',
         'horoscope/<zodiac:[\w]+>/<date:\d\d\d\d-\d\d-\d\d>' => 'services/horoscope/default/date',
         'horoscope/<_a:(year|month|tomorrow|yesterday)>/<zodiac:[\w]+>' => 'services/horoscope/default/<_a>',
         'horoscope/<_a:(year|month|tomorrow|viewed)>' => 'services/horoscope/default/<_a>',
-        'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/today',
+        'horoscope/<zodiac:[\w]+>' => 'services/horoscope/default/today',*/
 
         'names/saint/<month:[\w]+>' => 'services/names/default/saint/',
         'names/<_a:(saintCalc|likes|like|top10|saint)>' => 'services/names/default/<_a>',
@@ -375,13 +378,22 @@ return array(
         'signup/<_c>/<_a>' => 'signup/<_c>/<_a>',
         'geo/<_c>/<_a>' => 'geo/<_c>/<_a>',
         'developers/<_c>/<_a>' => 'developers/<_c>/<_a>',
-        'seo/<_c>/<_a>' => 'seo/<_c>/<_a>',
 
-        'mail/<_c>/<_a>' => 'mail/<_c>/<_a>',
+        'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
+
+        'photo/user/<authorId:\d+>/albums/<id:\d+>' => 'photo/albums/view',
+        'photo/user/<userId:\d+>/albums' => 'photo/default/index',
+        'photo/<_c>/<_a>' => 'photo/<_c>/<_a>',
+
 
         'onair' => 'blog/air/index',
 
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),
         'map' => 'archive/default/map',
+        
+        /* API */
+        'api/comments/<_a>' => 'comments/api/<_a>',
+        'api/<_m>/<_c>/<_a>' => '<_m>/<_c>Api/<_a>',
+        'api/<_m>/<_a>' => '<_m>/api/<_a>',
     ),
 );

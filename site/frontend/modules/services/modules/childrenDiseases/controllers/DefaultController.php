@@ -1,9 +1,8 @@
 <?php
 
-class DefaultController extends HController
+class DefaultController extends LiteController
 {
-    public $layout = 'desease';
-    public $pageTitle = 'Справочник детских болезней';
+
     public $category_id = 0;
 
     public function init()
@@ -12,11 +11,21 @@ class DefaultController extends HController
         $service->userUsedService();
 
         parent::init();
+
+        $this->pageTitle = 'Справочник детских болезней';
+    }
+
+    public function beforeAction($action)
+    {
+        $package = Yii::app()->user->isGuest ? 'lite_diseases' : 'lite_diseases_user';
+        Yii::app()->clientScript->registerPackage($package);
+        Yii::app()->clientScript->useAMD = true;
+        return parent::beforeAction($action);
     }
 
     public function actionIndex()
     {
-        $categories = RecipeBookDiseaseCategory::model()->findAll();
+        $categories = RecipeBookDiseaseCategory::model()->cache(3600)->with(array('diseases'))->findAll();
 
         $this->render('index', array(
             'categories' => $categories
@@ -29,16 +38,12 @@ class DefaultController extends HController
     public function actionView($id)
     {
         $model = $this->loadModel($id);
-        if ($model == null) {
-            $model = $this->loadCategory($id);
-            if ($model === null)
-                throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
-
-            $this->category_id = $model->id;
-            $this->pageTitle = $model->title;
-            $this->render('category', compact('model'));
-        } else {
-
+        if ($model == null)
+        {
+            throw new CHttpException(404, 'Запрашиваемая вами страница не найдена.');
+        }
+        else
+        {
             $this->category_id = $model->category_id;
             $this->pageTitle = $model->title;
 
@@ -87,6 +92,6 @@ class DefaultController extends HController
         }
 
         return $data;
-
     }
+
 }

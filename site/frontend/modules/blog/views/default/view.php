@@ -81,17 +81,7 @@ if ($full) {
 
         <?php $this->renderPartial('blog.views.default.types/type_' . $source->type_id, array('data' => $source, 'full' => $full, 'showTitle' => empty($data->source_id) ? true : false, 'show_new' => isset($show_new) ? true : false)); ?>
 
-        <?php
-            if ($full) {
-                foreach ($gplus2 as $account => $ids) {
-                    if (in_array($data->id, $ids)) {
-                        echo '<p style="margin-left: 20px;">Автор: ' . CHtml::link($data->author->fullName, $account . '?rel=author', array('target' => '_blank')) . '</p>';
-                    }
-                }
-            }
-        ?>
-
-        <?php if ($full && $data->contestWork === null && $data->type_id != CommunityContentType::TYPE_STATUS) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
+        <?php if ($full && $data->contestWork === null) $this->renderPartial('blog.views.default._likes', array('data' => $source)); ?>
 
         <?php if ($full): ?>
             <?php $this->renderPartial('//banners/_post_footer', compact('data')); ?>

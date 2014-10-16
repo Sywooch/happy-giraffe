@@ -257,6 +257,9 @@ return array(
 		),
 		'assetManager'=>require_once(dirname(__FILE__).'/assets.php'),
 		'cache'=>require_once(dirname(__FILE__).'/cache.php'),
+        'apc'=>array(
+            'class'=>'CApcCache',
+        ),
 		'user'=>array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',

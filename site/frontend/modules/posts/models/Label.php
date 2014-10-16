@@ -12,7 +12,7 @@ namespace site\frontend\modules\posts\models;
  * The followings are the available model relations:
  * @property PostContents[] $postContents
  */
-class PostLabels extends \CActiveRecord
+class Label extends \CActiveRecord
 {
 
     /**

@@ -72,7 +72,7 @@ class Content extends \CActiveRecord
     public function relations()
     {
         return array(
-            'postLabels' => array(self::MANY_MANY, '\site\frontend\modules\posts\models\PostLabels', 'post__tags(contentId, labelId)'),
+            'labelModels' => array(self::MANY_MANY, '\site\frontend\modules\posts\models\Label', 'post__tags(contentId, labelId)'),
         );
     }
 

@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoAlbum', 'user-config', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig) {
+define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoAlbum', 'user-config', 'extensions/imagesloaded', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, imagesLoaded) {
     "use strict";
     function PhotoAlbumViewModel(params) {
         this.loading = ko.observable(true);
@@ -10,7 +10,6 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
                 album = this.photoAlbum.findById(params.albumId, passedData.data.albums);
                 if (album) {
                     this.photoAlbum = this.photoAlbum.init(album);
-                    console.log(this.photoAlbum);
                     this.loading(false);
                 }
             }

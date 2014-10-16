@@ -17,6 +17,26 @@ define(["jquery", "knockout"], function ($, ko) {
                     dataType: 'json'
                 }
             );
+        },
+
+        findById: function findById(id, array) {
+            var iterator;
+            for (iterator = 0; iterator < array.length; iterator++) {
+                if (id === array[iterator].id) {
+                    return array[iterator];
+                }
+            }
+            return false;
+        },
+
+        findByIdObservable: function findByIdObservable(id, array) {
+            var iterator;
+            for (iterator = 0; iterator < array.length; iterator++) {
+                if (id === array[iterator].id()) {
+                    return array[iterator];
+                }
+            }
+            return false;
         }
 
     };

@@ -11,9 +11,9 @@ define(['knockout',  'photo/baseUrlCreator'], function (ko, baseConfig) {
                 $(element).attr('src', src);
             }
             update();
-            photo.fs_name.subscribe(function (fs_name) {
+            photo.fsName.subscribe(function (fsName) {
                 update();
             });
         }
-    }
+    };
 });

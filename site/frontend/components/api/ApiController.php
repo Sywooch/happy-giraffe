@@ -107,6 +107,7 @@ class ApiController extends \CController
     // Метод, отвечающий за вывод результата
     public function printResult()
     {
+        header('Content-Type: application/json', true);
         echo \HJSON::encode($this->result);
     }
 

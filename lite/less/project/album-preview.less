@@ -90,6 +90,7 @@
     &_li {
         .inline-block();
         margin: 5px 12px 6px 0;
+        cursor: pointer;
     }
     &_li.active &_check {
         display: block;
@@ -99,7 +100,6 @@
         display: block;
         position: relative;
         background-color: #e1e1e1;
-        cursor: pointer;
     }
     &_in:hover &_check,
     &_in:hover &_overlay {display: block;}
@@ -138,13 +138,14 @@
         background-color: #fff;
     }
     &_t {
+        width: 180px;
         display: block;
         white-space: nowrap;
         .text-overflow();
         color: @color-gray-dark;
         text-decoration: none;
     }
-    &_t:hover {text-decoration: underline;}
+    &_t:hover {color: @color-orange;}
     &_count {
         font: @fontsmall;
         color: #b6b6b6;

@@ -23,8 +23,9 @@ mixin albumPreview(mod, vars)
                         - var active = 'active'
                     - else 
                         - active = ''
+                    // Отлавливать клик на li
                     li.album-preview_li(class=active)
-                        a.album-preview_in(href="")
+                        .album-preview_in
                             .album-preview_img-hold
                                 // 
                                 img.album-preview_img(src="/new/images/example/#{img}", alt="")
@@ -33,7 +34,7 @@ mixin albumPreview(mod, vars)
                                 .album-preview_check
                         - if (vars.album)
                             .album-preview_hold
-                                a.album-preview_t(href="") 
+                                .album-preview_t 
                                     = vars.items.tx[i]
                                 .album-preview_count 
                                     = vars.items.count[i]

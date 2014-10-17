@@ -12,7 +12,7 @@ use site\frontend\components\api\ApiController;
 
 class CollectionsApiController extends ApiController
 {
-    public function actionList($collectionId, $page, $pageSize)
+    public function actionListAttaches($collectionId, $page, $pageSize)
     {
         $offset = $page * $pageSize;
         $length = $pageSize;

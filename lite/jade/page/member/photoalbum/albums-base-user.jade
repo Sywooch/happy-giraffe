@@ -36,6 +36,16 @@ block layout
                 .album-empty_count 0
             // /album-empty
 
+            // album-empty
+            .album-empty
+                .album-empty_hold
+                    a.album-empty_t(href="") Харьковский уикенд
+                a.album-photo-add(href="") 
+                a.album-empty_del(href="")
+                .album-empty_count 0
+                +cap-empty('cap-empty__abs cap-empty__white', capEmpty.photoalbumDel)
+            // /album-empty
+
             .heading-small.margin-t60 
                 | Последние добавленные фото
                 .float-r

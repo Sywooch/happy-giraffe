@@ -25,7 +25,15 @@
     background: url('/images/ico/ico-close4.png') no-repeat;
 }
 .ico-close4:hover {background-position: 0 0;}
+.ico-plus {
+    .inline-block();
+    vertical-align: middle;
+    width: 13px;
+    height: 13px;
+    background: url('@{path-img}/ico/ico-plus.svg') no-repeat;
+}
 
+////////////////////////////
 .ico-social-hold {
     .inline-block();
     vertical-align: middle;
@@ -52,15 +60,7 @@
     &__vkontakte.ico-social__m {background-position: -32px 0;}
 }
 
-.ico-plus {
-    .inline-block();
-    vertical-align: middle;
-    width: 13px;
-    height: 13px;
-    background: url('@{path-img}/ico/ico-plus.svg') no-repeat;
-}
-
-
+//////////////////////////
 .ico-action-hg {
     .inline-block();
     vertical-align: middle;
@@ -77,7 +77,7 @@ a.ico-action-hg__comment:hover {background-position: -70px -35px;}
 .ico-action-hg__like {background-position: 0 0;}
 a.ico-action-hg__like:hover {background-position: 0 -35px;}
 
-
+///////////////////////
 .ico-users{
     .inline-block();
     width:40px;
@@ -170,7 +170,7 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
     }
 }
 
-
+//////////////////////// Семья
 .ico-family {
     .inline-block();
     width: 55px;
@@ -237,6 +237,7 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
     &__girl          {background-position: -160px -1920px;}
 }
 
+//////////////////////
 .ico-zoom {
     width: 99px;
     height: 99px;
@@ -249,8 +250,32 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
         margin: -50px 0 0 -50px;
     }
 }
+.ico-ovrPlay {
+    width: 99px;
+    height: 99px;
+    background: url('@{path-img}/ico/ico-ovrPlay.svg') no-repeat;
 
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+    }
+}
 
+.ico-gif-l {
+    position: relative;
+    z-index: 50;
+    display: inline-block;
+    padding: 2px 12px;
+    background-color: #04acf2;
+    font-size: 25px;
+    font-weight: bold;
+    color: #fff;
+    .border-radius(5px);
+}
+
+///////////////////
 .ico-edit {
     .inline-block();
 }
@@ -285,4 +310,4 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
     background: url('@{path-img}/ico/ico-trash.png') no-repeat;
 }
 
-
+//////////////////

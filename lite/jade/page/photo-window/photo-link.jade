@@ -5,7 +5,7 @@ block vars
     - global.cssFile = 'member.css'; 
   
 block layout
-          
+   
     .b-main
         .b-main_cont
             .b-crumbs.b-crumbs__s
@@ -34,7 +34,7 @@ block layout
                                 +ava("ava__female ava__middle-sm-mid", ava.a)
                                 a.b-article_author(href='') Ангелина Богоявленская
                                 time.tx-date(pubdate='1957-10-04') Сегодня 13:25
-                        h1.b-article_t.textalign-c-desc-l Как хорошо отдохнуть вместе в парке, где все так красиво
+                        h1.b-article_t Как хорошо отдохнуть вместе в парке, где все так красиво
         .b-main_cont.b-main_cont__wide
             +bAlbum('b-album__photolink', bAlbum.photolink)
 
@@ -44,7 +44,7 @@ block layout
 
                     // b-article
                     .b-article.clearfix
-                        .wysiwyg-content.textalign-c-desc-l 
+                        .wysiwyg-content
                             p Ну наконец-то я дождалась своего отпуска, мне даже не верится что этот день настал Когда сегодня приехала домой, села на диван и такая усталость меня накрыла 
 
                     +likeControl()
@@ -64,6 +64,6 @@ block layout
 
                 .i-allphoto 
                     a.i-allphoto_a(href="#")
-                        | Смотреть все фотографии
+                        | Смотреть все фотографии 
 
         +layout-footer-lite() 

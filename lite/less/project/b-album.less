@@ -84,6 +84,8 @@
         /*opacity: 0.7;*/
         color: #ffe641;
     }
+    &_r:hover &_ico-album {background-position: 0 -30px;}
+    &_r:hover &_arrow-all {background-position: 0 -56px;}
     &_tx {
         .inline-block();
         vertical-align: middle;
@@ -106,9 +108,9 @@
         vertical-align: middle;
         width: 16px;
         height: 56px;
-        background: url('@{path-img}/b-album_arrow.png') no-repeat;
+        background: url('@{path-img}/b-album_arrow-all.png') no-repeat;
     }
-    &_prev {}
+    /*&_prev {}*/
     &_prev-li {
         float: left;
         margin: 0 5px 0 0;
@@ -127,39 +129,6 @@
         left: 0;
         border: 2px solid #ffe641; // #A591CD; // #4baa41;
     }
-
-    /*&_arrow {
-        &:extend(.photo-window_arrow);
-    }
-    &_arrow__r {
-        &:extend(.photo-window_arrow__r all);
-    }
-    &_arrow__l {
-        &:extend(.photo-window_arrow__l all);
-    }
-    */
-
-    &_arrow {
-        position: absolute;
-        top: 50%;
-        left: 45px;
-        width: 59px;
-        height: 160px;
-        margin-top: -80px;
-        background: url('@{path-img}/photo-window_arrow.png') no-repeat 0 0;
-        /*opacity: 0;*/
-        z-index: 7;
-        .transition(opacity 0.3s ease);
-    }
-    &_arrow:hover {background-position: 0 -160px;}
-    &_arrow__r {
-        left: auto;
-        right: 45px;
-        background-position: -59px 0;
-    }
-    &_arrow__r:hover {background-position: -59px -160px;}
-
-
 
     ///// top
     &_top {
@@ -383,12 +352,20 @@
     album-empty
 */
 .album-empty {
+    position: relative;
     margin: 20px 0 25px;
     border: 1px solid #f5f5f5;
     padding: 10px 20px;
     
     .album-photo-add {
         vertical-align: middle;
+    }
+    .cap-empty_t {
+        margin: 15px 0 5px;
+    }
+    .cap-empty_img {
+        float: left;
+        margin-left: -80px;
     }
     &_hold {
         .inline-block();

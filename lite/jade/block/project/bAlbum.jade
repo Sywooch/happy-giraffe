@@ -17,11 +17,8 @@ mixin bAlbum(mod, vars)
         .b-album_img-hold
             a.b-album_img-a(href="#")
                 .b-album_img-pad
-                    //-.verticalalign-m-help
-                    //-.verticalalign-m-el
                     // У изображений соотношения сторон сохраняются 
                     // 0,65 соотношение сторон
-                    // (на вставленные изображения не обращать внимания)
                 picture.b-album_img-picture
                 
                     //- source(srcset=path+'images/example/'+item.w1, media="(min-width: 1024px)")
@@ -42,13 +39,12 @@ mixin bAlbum(mod, vars)
                     // десктоп и большие планшеты от w1000
                     // Высота изображений 580
                     // Ширина изображения 880
-                //- Если изображения маленькие, они становятся по центру
             .b-album_img-hold-ovr
                 .ico-zoom.ico-zoom__abs
             - if (vars.arrow)
                 // Стрелки показывать скрывать по тапу (касанию пальца)
-                a.b-album_arrow.b-album_arrow__l(href="#")
-                a.b-album_arrow.b-album_arrow__r(href="#")
+                a.i-photo-arrow.i-photo-arrow__l.i-photo-arrow__abs(href="#")
+                a.i-photo-arrow.i-photo-arrow__r.i-photo-arrow__abs(href="#")
         .b-album_overlay
             a.b-album_r
                 - if (vars.tx)

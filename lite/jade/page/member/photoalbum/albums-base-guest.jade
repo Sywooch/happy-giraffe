@@ -5,17 +5,10 @@ block vars
     - global.cssFile = 'member.css'; 
  
 block layout
-
+    
     .b-main
-
-        //- .b-main_cols.clearfix
-            .b-main_col-1
-                +sidebar-search('sidebar-search__big', {placeholder: 'Поиск'})
-            .b-main_col-23
-                +userAddRecord('userAddRecord__s', userAddRecord.a)
-
         .b-main_cont.b-main_cont__wide
-            .b-crumbs.b-crumbs__s
+            .b-crumbs.b-crumbs__m
                 .b-crumbs_tx Я здесь
                 ul.b-crumbs_ul
                     li.b-crumbs_li

@@ -190,10 +190,28 @@ a.heading-link-xxl:hover {
 .i-info {
     margin: 10px 0 15px;
     border-left: 5px solid #b3e9b5;
-    padding: 11px 20px 11px 45px;
+    padding: 14px 20px 14px 45px;
     font-size: @font-base;
+    line-height: 1.25em;
     color: #3f9143;
-    background:#e3fbe4 url('@{path-img}/i-info.png') no-repeat 6px 5px;
+    background:#e3fbe4 url('@{path-img}/i/i-info.png') no-repeat 7px 8px;
+}
+.i-info-success {
+    position: relative;
+    margin: 10px 0 15px;
+    border-left: 5px solid transparent;
+    padding: 14px 20px 14px 45px;
+    font-size: @font-base;
+    line-height: 1.25em;
+    color: #9B952F;
+    background:#FFFBBB url('@{path-img}/i/i-info-success.svg') no-repeat 7px 8px;
+
+    .ico-close {
+        position: absolute;
+        top: 50%;
+        right: 15px;
+        margin-top: -4px;
+    }
 }
 // Эелмент фиксированный при скроле
 .i-affix {
@@ -271,6 +289,71 @@ a.heading-link-xxl:hover {
     &:hover {background-position: 0 -224px;}
     @media screen and (min-width: 1230px) {
         & {display: block;}
+    }
+}
+
+
+.i-photo-arrow {
+    display: inline-block;
+    width: 43px;
+    height: 74px;
+    background: url('@{path-img}/i/i-photo-arrow.png') no-repeat -350px 0;
+    z-index: 7;
+    .transition(opacity 0.3s ease);
+
+    &:hover    {background-position: -350px -170px;}
+    &__r       {background-position: -393px 0;}
+    &__r:hover {background-position: -393px -170px;}
+
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        margin-top: -40px;
+    }
+    &__abs&__r {
+        left: auto;
+        right: 10px;
+    }
+
+    @media (min-width: @screen-phone) {
+        & {
+            height: 114px;
+            background-position: -200px 0;
+        }
+        &:hover {background-position: -200px -170px;}
+        &__r {background-position: -243px 0;}
+        &__r:hover {background-position: -243px -170px;}
+
+        &__abs {
+            position: absolute;
+            top: 50%;
+            left: 25px;
+            margin-top: -57px;
+        }
+        &__abs&__r {
+            left: auto;
+            right: 25px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        & {
+            width: 53px;
+            height: 154px;
+            background-position: 0 0;
+        }
+        &:hover {background-position: 0 -170px;}
+        &__r {background-position: -53px 0;}
+        &__r:hover {background-position: -53px -170px;}
+
+        &__abs {
+            left: 30px;
+            margin-top: -77px;
+        }
+        &__abs&__r {
+            left: auto;
+            right: 30px;
+        }
     }
 }
 

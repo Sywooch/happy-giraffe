@@ -5,7 +5,7 @@ block vars
     - global.cssFile = 'member-user.css'; 
  
 block layout
-
+ 
     +user-menu('', userMenu.a)
 
     .page-col.page-col__user
@@ -28,24 +28,11 @@ block layout
                     .user-album_switch
                         h1.user-album_t
                             | Харьковский уикенд
-                            a.ico-edit.ico-edit__s
-                    // Редактирование заголовка
-                    .user-album_switch.display-n
-                        .user-album_t.display-ib.w-400
-                            .inp-valid.inp-valid__abs
-                                input.itx-gray(type="text", value="Виктория")
-                                .inp-valid_count 150
+                            a.ico-edit.ico-edit__s.powertip( href='#', title='Редактировать')
 
                     .user-album_desc
-                        // .display-n вскрываем описание при редактирвоании
                         .user-album_switch.display-n
                             | В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
-                            a.ico-edit.ico-edit__s
-                        // Блок редактирвоания описания
-                        .user-album_switch
-                            // Отправка значения происходит по enter
-                            textarea.itx-gray(rows='8', cols="40") 
-                                | В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер.
                 .user-album_control.clearfix
                     a.user-album_del(href="") Удалить альбом
 

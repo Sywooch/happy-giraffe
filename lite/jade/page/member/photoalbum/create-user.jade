@@ -9,38 +9,33 @@ block layout
     +user-menu('', userMenu.a)
 
     .page-col.page-col__user
-        .page-col_cont.page-col_cont__in.b-main
+        .page-col_cont.page-col_cont__in
             
-            .b-main_col-hold.clearfix
-                .b-crumbs.b-crumbs__m
-                    ul.b-crumbs_ul
-                        li.b-crumbs_li
-                            a.b-crumbs_a(href="") Мои фото
-                        li.b-crumbs_li.b-crumbs_li__last
-                            span.b-crumbs_last  Создание альбома
+                .user-album
+                    .user-album_t-create
+                        | Новый фотоальбом
+                        .user-album_t-create-ico
 
-                // Добавление 
-                .postAdd
-                    .postAdd_hold.margin-t40
-                        .postAdd_row
-                            .postAdd_count 1
-                            .postAdd_cont
-                                .inp-valid.inp-valid__abs
-                                    input.itx-gray(type='text', placeholder="Заголовок альбома")
-                                    .inp-valid_count 150
 
-                        .postAdd_row
-                            .postAdd_count 2
-                            .postAdd_cont
-                                .inp-valid.inp-valid__abs
-                                    textarea.itx-gray(rows='5', cols='40', placeholder="Описание альбома")
-                                    .inp-valid_count 450
-                        .postAdd_row
-                            .postAdd_count 
-                            .postAdd_cont
-                                .postAdd_btns-hold
-                                    a.btn.btn-link-gray.margin-r15(href="") Отменить
-                                    a.btn.btn-success.btn-xm.disabled(href="") Создать альбом
+                    // Добавление 
+                    .postAdd
+                        .postAdd_hold.margin-t40
+                            .postAdd_row
+                                .postAdd_cont
+                                    .inp-valid.inp-valid__abs
+                                        input.itx-gray(type='text', placeholder="Заголовок альбома")
+                                        .inp-valid_count 150
+
+                            .postAdd_row
+                                .postAdd_cont
+                                    .inp-valid.inp-valid__abs
+                                        textarea.itx-gray(rows='5', cols='40', placeholder="Описание альбома")
+                                        .inp-valid_count 450
+                            .postAdd_row
+                                .postAdd_cont
+                                    .postAdd_btns-hold
+                                        a.btn.btn-default.btn-xm.margin-r15(href="") Отменить
+                                        a.btn.btn-success.btn-xm.loading(href="") Создать альбом
 
                        
                 // /Добавление 

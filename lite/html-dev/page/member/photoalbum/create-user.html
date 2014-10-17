@@ -14,9 +14,11 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
   <!-- popup-->
   <script src="/lite/javascript/jquery.magnific-popup.js"></script>
   <script src="/lite/javascript/baron.js"></script>
@@ -180,19 +182,15 @@
         </div>
         <!-- /user-menu-->
         <div class="page-col page-col__user">
-          <div class="page-col_cont page-col_cont__in b-main">
-            <div class="b-main_col-hold clearfix">
-              <div class="b-crumbs b-crumbs__m">
-                <ul class="b-crumbs_ul">
-                  <li class="b-crumbs_li"><a href="" class="b-crumbs_a">Мои фото</a></li>
-                  <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last"> Создание альбома</span></li>
-                </ul>
+          <div class="page-col_cont page-col_cont__in">
+            <div class="user-album">
+              <div class="user-album_t-create">Новый фотоальбом
+                <div class="user-album_t-create-ico"></div>
               </div>
               <!-- Добавление -->
               <div class="postAdd">
                 <div class="postAdd_hold margin-t40">
                   <div class="postAdd_row">
-                    <div class="postAdd_count">1</div>
                     <div class="postAdd_cont">
                       <div class="inp-valid inp-valid__abs">
                         <input type="text" placeholder="Заголовок альбома" class="itx-gray">
@@ -201,7 +199,6 @@
                     </div>
                   </div>
                   <div class="postAdd_row">
-                    <div class="postAdd_count">2</div>
                     <div class="postAdd_cont">
                       <div class="inp-valid inp-valid__abs">
                         <textarea rows="5" cols="40" placeholder="Описание альбома" class="itx-gray"></textarea>
@@ -210,15 +207,14 @@
                     </div>
                   </div>
                   <div class="postAdd_row">
-                    <div class="postAdd_count"></div>
                     <div class="postAdd_cont">
-                      <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a><a href="" class="btn btn-success btn-xm disabled">Создать альбом</a></div>
+                      <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a><a href="" class="btn btn-success btn-xm loading">Создать альбом</a></div>
                     </div>
                   </div>
                 </div>
               </div>
-              <!-- /Добавление -->
             </div>
+            <!-- /Добавление -->
           </div>
           <!-- Футер-->
           <!-- layout-footer-->

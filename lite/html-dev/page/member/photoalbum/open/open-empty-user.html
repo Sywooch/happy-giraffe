@@ -14,9 +14,11 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
   <!-- popup-->
   <script src="/lite/javascript/jquery.magnific-popup.js"></script>
   <script src="/lite/javascript/baron.js"></script>
@@ -195,26 +197,43 @@
                   <div class="user-album_count-tx">фото</div>
                 </div>
                 <!-- Заголовок-->
-                <div class="user-album_switch display-n">
-                  <h1 class="user-album_t">Харьковский уикенд<a class="ico-edit ico-edit__s"></a></h1>
-                </div>
-                <!-- Редактирование заголовка-->
                 <div class="user-album_switch">
-                  <div class="user-album_t">
-                    <div class="display-ib w-400">
-                      <div class="inp-valid inp-valid__abs">
-                        <input type="text" value="Виктория" class="itx-gray">
-                        <div class="inp-valid_count">150</div>
+                  <h1 class="user-album_t">Харьковский уикенд<a href="#" title="Редактировать" class="ico-edit ico-edit__s powertip"></a></h1>
+                </div>
+                <div class="user-album_desc">
+                  <div class="user-album_switch">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</div>
+                </div>
+                <div class="i-info-success">Альбом успешно создан.</div>
+                <!-- Редактирование-->
+                <div class="postAdd display-n">
+                  <div class="postAdd_hold margin-t40">
+                    <div class="postAdd_row">
+                      <div class="postAdd_count">1</div>
+                      <div class="postAdd_cont">
+                        <div class="inp-valid inp-valid__abs">
+                          <input type="text" placeholder="Заголовок альбома" class="itx-gray">
+                          <div class="inp-valid_count">150</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="postAdd_row">
+                      <div class="postAdd_count"></div>
+                      <div class="postAdd_cont">
+                        <div class="inp-valid inp-valid__abs">
+                          <textarea rows="5" cols="40" placeholder="Описание альбома" class="itx-gray"></textarea>
+                          <div class="inp-valid_count">450</div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="postAdd_row">
+                      <div class="postAdd_count"></div>
+                      <div class="postAdd_cont">
+                        <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отмена</a><a href="" class="btn btn-success btn-xm">Ok</a></div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div class="user-album_desc">
-                  <div class="user-album_switch">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер.<a class="ico-edit ico-edit__s"></a></div>
-                  <!-- Блок редактирвоания описания-->
-                  <div class="user-album_switch display-n">
-                    <!-- Отправка значения происходит по enter-->
-                    <textarea rows="8" cols="40" class="itx-gray">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. </textarea>
+                  <div class="i-info-success">
+                    <div class="ico-smile"></div>133 фотографии перемещено в <a href="#">Как хорошо отдыхать</a><a href="#" class="ico-close"></a>
                   </div>
                 </div>
               </div>

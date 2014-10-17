@@ -46,6 +46,16 @@ class User extends ApiModel
         );
     }
 
+    public function actionAttributes()
+    {
+        return array(
+            'insert' => false,
+            'update' => false,
+            'remove' => false,
+            'restore' => false,
+        );
+    }
+
 }
 
 ?>

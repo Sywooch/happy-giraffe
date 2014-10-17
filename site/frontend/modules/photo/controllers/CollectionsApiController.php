@@ -12,12 +12,15 @@ use site\frontend\components\api\ApiController;
 
 class CollectionsApiController extends ApiController
 {
-    public function actionGetAttaches($collectionId, $length = 0, $offset = 0)
+    public function actionGetAttaches($collectionId, $offset, $length = null, $circular = false)
     {
         $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId);
         $observer = PhotoCollectionObserver::getObserver($collection);
         $this->success = true;
-        $this->data = $observer->getSlice($length, $offset);
+        $this->data['attaches'] = $observer->getSlice($offset, $length, $circular);
+        if ($circular === false) {
+            $this->data['isLast'] = $length === null || ($offset + $length) >= $observer->getCount();
+        }
     }
 
     public function actionMy()

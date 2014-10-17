@@ -37,6 +37,8 @@ return array(
         'site.frontend.modules.services.modules.test.models.*',
         'site.frontend.modules.services.modules.lines.models.*',
         'site.frontend.modules.valentinesDay.models.*',
+        'site.frontend.modules.antispam.models.*',
+        'site.frontend.modules.antispam.components.*',
     ),
     'modules'=>array(
         'seo',

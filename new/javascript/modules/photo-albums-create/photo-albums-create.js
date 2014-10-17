@@ -1,6 +1,13 @@
 define(['knockout', 'text!photo-albums-create/photo-albums-create.html', 'photo/PhotoAlbum', 'user-config', 'extensions/knockout.validation'], function (ko, template, PhotoAlbum, userConfig) {
     function PhotoAlbumsCreateViewModel(params) {
-        this.photoAlbum = Object.create(PhotoAlbum);
+        this.loading = ko.observable(false);
+        if (params.photoAlbum.id() !== undefined) {
+            this.photoAlbum = params.photoAlbum;
+            this.savedTitle = this.photoAlbum.title();
+            this.savedDescription = this.photoAlbum.description();
+        } else {
+            this.photoAlbum = Object.create(PhotoAlbum);
+        }
         this.titleLength = ko.computed(function computedLength() {
             if (this.photoAlbum.title() !== undefined) {
                 return this.photoAlbum.maxTitleLength - this.photoAlbum.title().length;
@@ -18,8 +25,26 @@ define(['knockout', 'text!photo-albums-create/photo-albums-create.html', 'photo/
                 window.location = '/photo/user/' + userConfig.userId + '/albums/' + createdData.data.id + '/';
             }
         };
+        this.cancel = function cancelFn() {
+            if (this.photoAlbum.id() !== undefined) {
+                this.photoAlbum.title(this.savedTitle);
+                this.photoAlbum.description(this.savedDescription);
+                this.photoAlbum.editing(false);
+            }
+        };
+        this.editAlbumsHandler = function createAlbumsHandler(editedData) {
+            if (editedData.success === true && editedData.data.id !== undefined) {
+                this.loading(false);
+                this.photoAlbum.editing(false);
+            }
+        };
         this.submitCreateFunction = function submitCreateFunction() {
-            this.photoAlbum.create(this.createAlbumsHandler.bind(this));
+            if (this.photoAlbum.id() !== undefined) {
+                this.photoAlbum.edit(this.editAlbumsHandler.bind(this));
+            } else {
+                this.photoAlbum.create(this.createAlbumsHandler.bind(this));
+            }
+            this.loading(true);
         };
     }
     return { viewModel: PhotoAlbumsCreateViewModel, template: template };

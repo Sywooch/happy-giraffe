@@ -40,17 +40,7 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
             return this.photoAlbum.maxDescriptionLength;
         }, this);
         this.edit = function () {
-            this.savingState.title = this.photoAlbum.title();
-            this.savingState.description = this.photoAlbum.description();
             this.photoAlbum.editing(true);
-        };
-        this.successEdit = function () {
-            this.photoAlbum.edit(this.editPhotoAlbum.bind(this));
-        };
-        this.cancelEdit = function () {
-            this.photoAlbum.editing(false);
-            this.photoAlbum.title(this.savingState.title);
-            this.photoAlbum.description(this.savingState.description);
         };
         this.remove = function () {
             this.photoAlbum.delete(this.deletePhotoAlbum.bind(this));

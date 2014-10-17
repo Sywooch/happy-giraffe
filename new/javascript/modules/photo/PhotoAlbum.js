@@ -1,4 +1,6 @@
 define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model', 'extensions/knockout.validation'], function(ko, PhotoCollection, Model) {
+
+    //---------------------------------------------Старый код фотоальбомов
     // Основная модель фотоальбома
     //function PhotoAlbum(data) {
     //    this.id = ko.observable(data.id);
@@ -21,7 +23,7 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
     //
     //    };
     //}
-
+    //!---------------------------------------------Старый код фотоальбомов
 
     ko.validation.configure({
         registerExtenders: true,
@@ -47,7 +49,7 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
         editUrl: '/api/photo/albums/edit/',
         getByUser: '/api/photo/albums/getByUser/',
         id: ko.observable(),
-        editing: ko.observable(),
+        editing: ko.observable(false),
         photoCollection: ko.observable(),
         maxTitleLength: 150,
         maxDescriptionLength: 450,

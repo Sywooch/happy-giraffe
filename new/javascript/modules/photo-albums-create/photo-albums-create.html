@@ -3,7 +3,6 @@
     <form data-bind="submit: submitCreateFunction">
         <div class="postAdd_hold margin-t40">
             <div class="postAdd_row">
-                <div class="postAdd_count">1</div>
                 <div class="postAdd_cont">
                     <div class="inp-valid inp-valid__abs"  data-bind="css: photoAlbum.title.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                         <input type="text" placeholder="Заголовок альбома" class="itx-gray" data-bind="textInput: photoAlbum.title">
@@ -13,7 +12,6 @@
                 </div>
             </div>
             <div class="postAdd_row">
-                <div class="postAdd_count">2</div>
                 <div class="postAdd_cont">
                     <div class="inp-valid inp-valid__abs" data-bind="css: photoAlbum.description.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
                         <textarea rows="5" cols="40" placeholder="Описание альбома" class="itx-gray" data-bind="textInput: photoAlbum.description"></textarea>
@@ -23,9 +21,16 @@
                 </div>
             </div>
             <div class="postAdd_row">
-                <div class="postAdd_count"></div>
                 <div class="postAdd_cont">
-                    <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a><button data-bind="css: (photoAlbum.title.isValid() && photoAlbum.description.isValid()) !== true ? 'btn btn-success btn-xm disabled' : 'btn btn-success btn-xm'" class="btn btn-success btn-xm disabled">Создать альбом</button></div>
+                    <div class="postAdd_btns-hold">
+                        <a href="" class="btn btn-default btn-xm margin-r15" data-bind="click: cancel">Отмена</a>
+                        <!-- ko if: loading() === false -->
+                        <button data-bind="css: (photoAlbum.title.isValid() && photoAlbum.description.isValid()) !== true ? 'btn btn-success btn-xm disabled' : 'btn btn-success btn-xm'">Ok</button>
+                        <!-- /ko -->
+                        <!-- ko if: loading() === true -->
+                        <button class="btn btn-success btn-xm loading">Ok</button>
+                        <!-- /ko -->
+                    </div>
                 </div>
             </div>
         </div>

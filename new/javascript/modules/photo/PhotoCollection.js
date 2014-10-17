@@ -64,28 +64,31 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                         photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), "uploadPreviewBig"));
                         return photoAttach;
                     }.bind(this)));
+                    if (this.attaches().length > 0) {
+                        //-------- ImagesLoaded
+                        var imgLoad = imagesLoaded('photo-album');
+
+                        new Masonry('#imgs', {
+                            // options
+                            itemSelector: '.img-grid_i',
+                            "isFitWidth": true,
+                            gutter: 10
+                        });
+                        imgLoad.on('progress', function (instance, image) {
+                            var attach = Model.findByIdObservable(parseInt(image.img.dataset.id), this.attaches());
+                            if (image.isLoaded) {
+                                attach.loading(false);
+                            } else {
+                                attach
+                                    .loading(false)
+                                    .broke(true);
+                            }
+                            var result = image.isLoaded ? 'loaded' : 'broken';
+                        }.bind(this));
+                        //-------- !ImagesLoaded
+                    }
 
 
-                    //-------- ImagesLoaded
-                    var imgLoad = imagesLoaded('photo-album');
-
-                    new Masonry('#imgs', {
-                        // options
-                        itemSelector: '.img-grid_i',
-                        "isFitWidth": true
-                    });
-                    imgLoad.on('progress', function (instance, image) {
-                        var attach = Model.findByIdObservable(parseInt(image.img.dataset.id), this.attaches());
-                        if (image.isLoaded) {
-                            attach.loading(false);
-                        } else {
-                            attach
-                                .loading(false)
-                                .broke(true);
-                        }
-                        var result = image.isLoaded ? 'loaded' : 'broken';
-                    }.bind(this));
-                    //-------- !ImagesLoaded
 
 
                 }.bind(this));

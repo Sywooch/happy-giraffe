@@ -13,6 +13,7 @@ define(["jquery", "knockout"], function ($, ko) {
                 {
                     type: 'POST',
                     url: url,
+                    contentType: 'application/json; charset=UTF-8',
                     data:  JSON.stringify(paramsData),
                     dataType: 'json'
                 }

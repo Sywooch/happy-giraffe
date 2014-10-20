@@ -7,6 +7,10 @@
     &_cont {
         margin: 0 15px;
     }
+    &_cont__wide {
+        margin: 0 10px;
+    }
+
     &_col-article {
 
     }
@@ -76,6 +80,11 @@
             width: 600px;
             margin: 0 auto;
         }
+        &_cont__wide {
+            margin: 0 2%;
+            width: auto;
+        }
+
         &_col-article {
             float: left;
             width: 600px;
@@ -98,9 +107,15 @@
     @media (min-width: @screen-desktop) {
         &_cont {
             width: auto;
-            margin: 0 20px;
+            margin: 0 60px;
+
+
+            .userSection {
+                margin-left: -60px;
+                margin-right: -60px;
+                margin-bottom: 50px;
+            }
         }
-        &_cont {margin: 0 60px;}
         &_col-sidebar {
             float: left;
             width: 240px;

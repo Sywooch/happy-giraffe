@@ -62,6 +62,22 @@
 }
 /* /header-login */
 
+
+.layout-header {
+   position:relative;
+   
+    &__nologin .header_hold {
+        width: 980px;
+        padding: 20px 0 15px 20px;
+    }
+    &__nologin .header .logo {
+        margin: 0 0 12px 10px;
+        float: none;
+        display: block;
+    }
+}
+
+
 /* 
     header 
     Главная шапка сайта
@@ -92,14 +108,14 @@
     }
     .logo {
         float: left;
-        margin: 5px 10px 5px 30px;
+        margin: 5px 10px 5px 40px;
     }
     .logo__small {margin: 0 25px 0 35px;}
 
 	&_hold {
 		width: 1000px;
 		margin: 0 auto;
-		padding: 25px 0 18px;
+		padding: 25px 0;
 	}
     &_t-big {
         float: left;
@@ -146,6 +162,8 @@
 .header-menu {
     float: right;
     margin: 5px 20px 0 0;
+    /*width: 700px;
+    text-align: right;*/
     
     .ava {
         float: none;
@@ -156,7 +174,7 @@
         position: relative;
         .inline-block();
         vertical-align: top;
-        margin: 0 12px;
+        margin: 0 11px;
         text-align: center;
     }
     &_li__dropin &_a:hover &_ico,

@@ -30,7 +30,7 @@ mixin iPhoto(mod, vars)
             // Вид для ие
             .i-photo_hold
                 .i-photo_file-name IMG_5295.JPG
-                input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок')
+                input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок', maxlength="150")
                 // Продумать текст
             .tx-hint Для предпросмотра загружаемых изображений нужно обновить браузер на более новый.
         
@@ -38,11 +38,11 @@ mixin iPhoto(mod, vars)
             // Загруженное фото
             .i-photo_hold
                 .i-photo_img-hold
-                    img.i-photo_img(src='#{vars.src}', alt="")
+                    img.i-photo_img.i-photo_img__square(src='#{vars.src}', alt="")
                     .i-photo_overlay
                         a.i-photo_rotate(href="") 
                         a.i-photo_rotate.i-photo_rotate__r(href="") 
-                input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок')
+                input.i-photo_itx.itx-gray(type="text", placeholder='Введите заголовок', maxlength="150")
     // /Блок фотографии
 
 - var iPhoto = {}
@@ -57,8 +57,8 @@ mixin iPhoto(mod, vars)
 
 - iPhoto.loaded = {}
 - iPhoto.loaded.type = "loaded"
-- iPhoto.loaded.src = "/new/images/example/w155-h110.jpg"
+- iPhoto.loaded.src = "/new/images/example/w155-h140.jpg"
 
 - iPhoto.ie = {}
 - iPhoto.ie.type = "ie"
-- iPhoto.ie.src = "/new/images/example/w155-h110.jpg"
+- iPhoto.ie.src = ""

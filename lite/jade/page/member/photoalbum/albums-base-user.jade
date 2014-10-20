@@ -5,13 +5,13 @@ block vars
     - global.cssFile = 'member-user.css'; 
  
 block layout
- 
+
     +user-menu('', userMenu.a)
   
     .page-col.page-col__user
         .page-col_cont.page-col_cont__in
 
-            +userAddRecord('userAddRecord__blog', userAddRecord.albums)
+            +userAddRecord('', userAddRecord.albums)
 
             +bAlbum('', bAlbum.b)
             +bAlbum('', bAlbum.c)

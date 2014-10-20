@@ -17,7 +17,7 @@ mixin userAddRecord(mod, vars)
         .userAddRecord_hold
             - if (vars.draft)
                 .userAddRecord_draft-hold
-                    a.userAddRecord_draft(href="") Черновики 2
+                    a.userAddRecord_draft(href="#") Черновики 2
             - if (vars.tx)
                 .userAddRecord_tx 
                     = vars.tx
@@ -37,11 +37,17 @@ mixin userAddRecord(mod, vars)
                         when 'photo-add'
                             a.userAddRecord_i(href='', data-theme='transparent')
                                 .userAddRecord_ico.userAddRecord_ico__photo-add.fancy
-                                .userAddRecord_desc Фотографии
+                                .userAddRecord_desc 
+                                    | Фотографии 
+                                    br
+                                    | без альбома
                         when 'album'
                             a.userAddRecord_i.fancy(href='', data-theme='transparent')
                                 .userAddRecord_ico.userAddRecord_ico__album
-                                .userAddRecord_desc Фотоальбом
+                                .userAddRecord_desc 
+                                    | Новый
+                                    br 
+                                    | альбом
 
     // /userAddRecord
     

@@ -5,8 +5,9 @@
 mixin customLikes(mod, vars)
     // Лайки от яндекса
     .custom-likes
-        .custom-likes_slogan
-            = vars.slogan
+        if (vars.slogan)
+            .custom-likes_slogan
+                = vars.slogan
         .custom-likes_in
             script(type='text/javascript', src='//yandex.st/share/share.js', charset='utf-8')
             .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='vkontakte,facebook,twitter,odnoklassniki,moimir', data-yasharetheme='counter', data-yasharetype='small')
@@ -17,6 +18,8 @@ mixin customLikes(mod, vars)
 
 - customLikes.base = {}
 - customLikes.base.slogan = 'Поделитесь с друзьями!'
+
+- customLikes.noslogan = {}
 
 - customLikes.horoscope = {}
 - customLikes.horoscope.slogan = 'Вам понравился гороскоп?'

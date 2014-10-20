@@ -26,7 +26,7 @@
         <!-- /ko -->
     </div>
     <!-- ko if: photoAlbum.photoCollection().attaches().length === 0 -->
-    <div class="album-photo-add album-photo-add__big" data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photoAlbum.photoCollection().id() }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent">
+    <div class="album-photo-add album-photo-add__big" data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photoAlbum.photoCollection().id(),  }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent">
         <div class="album-photo-add_hold">Загрузить <br>фото в альбом</div>
     </div>
     <!-- /ko -->
@@ -38,7 +38,7 @@
             </div>
         </div>
         <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
-        <div class="img-grid_i">
+        <div class="img-grid_i" data-bind="attr: { 'style': 'width:' +  photo().presetWidth() + '; height: ' + photo().presetHeight() + ';' }">
             <picture class="img-grid_img loading">
                 <img src="" data-bind="src: photo().getGeneratedPreset('uploadPreviewBig'), attr: { 'data-id': id(), 'width': photo().presetWidth(), 'height': photo().presetHeight() }" alt="Фото">
             </picture>

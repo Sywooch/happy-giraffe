@@ -119,7 +119,7 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
                     return this.photoCollection().attachesCount();
                 }
             }, this);
-            return this;
+            //return this;
         }
     };
     PhotoAlbum.title.extend({ maxLength: { params: PhotoAlbum.maxTitleLength, message: "Количество символов не больше" + PhotoAlbum.maxTitleLength }, mustFill: true });

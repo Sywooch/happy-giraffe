@@ -148,7 +148,7 @@
 
             <!-- from fromAlbums -->
                 <!-- ko stopBinding: true -->
-                <div id="photo-tab-album" class="tab-pane">
+                <div id="photo-tab-album" class="tab-pane" data-bind="if: albums().length > 0">
                     <ul class="tabs-simple nav nav-tabs">
                         <li data-bind="css: { active: currentAlbum() === null }"><a href="" data-bind="click: unselectAlbum">Мои альбомы <span data-bind="text: albums().length"></span></a></li>
                         <li data-bind="with: currentAlbum(), css: { active: currentAlbum() !== null }"><a href="" data-bind="click: $root.selectAlbum"><span data-bind="text: title"></span> <span data-bind="text: photoCollection().attachesCount()"></span></a></li>
@@ -160,7 +160,7 @@
                                 <div class="scroll_scroller">
                                     <div class="album-preview album-preview__album scroll_cont" data-bind="visible: currentAlbum() === null">
                                         <ul class="album-preview_ul">
-                                            <!-- ko foreach: albums -->
+                                            <!-- ko foreach: albums() -->
                                             <li class="album-preview_li" data-bind="click: $root.selectAlbum">
                                                 <div class="album-preview_in">
                                                     <div class="album-preview_img-hold">
@@ -176,7 +176,7 @@
                                             <!-- /ko -->
                                         </ul>
                                     </div>
-
+                                    <!-- ko if: currentAlbum() !== null -->
                                     <div class="album-preview scroll_cont" data-bind="with: currentAlbum(), css: thumbsSizeClass">
                                         <ul class="album-preview_ul">
                                             <!-- ko foreach: photoCollection().attaches() -->
@@ -192,6 +192,7 @@
                                             <!-- /ko -->
                                         </ul>
                                     </div>
+                                    <!-- /ko -->
                                 </div>
                                 <div class="scroll_bar-hold">
                                     <div class="scroll_bar">

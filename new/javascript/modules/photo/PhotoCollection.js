@@ -12,52 +12,10 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 .get(this.getAttachesUrl, { collectionId: this.id(), length: this.pageCount, offset: offset })
                 .done(this.getAttaches.bind(this));
         };
-        this.presetsBound = function iterateAttaches(attach) {
-            var photoAttach = new PhotoAttach(attach);
-            PresetManager.presets = presets;
-            photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), "uploadPreviewBig"));
-            photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), "uploadPreviewBig"));
-            return photoAttach;
-        };
-        this.attachesBound = function (presets) {
-            this.attaches(ko.utils.arrayMap(attaches.data, function iterateAttaches(attach) {
-                var photoAttach = new PhotoAttach(attach);
-                PresetManager.presets = presets;
-                photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), "uploadPreviewBig"));
-                photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), "uploadPreviewBig"));
-                return photoAttach;
-            }.bind(this)));
-
-
-            //-------- ImagesLoaded
-            var imgLoad = imagesLoaded('photo-album');
-
-            new Masonry('#imgs', {
-                // options
-                itemSelector: '.img-grid_i',
-                "isFitWidth": true
-            });
-            imgLoad.on('progress', function (instance, image) {
-                var attach = Model.findByIdObservable(parseInt(image.img.dataset.id), this.attaches());
-                if (image.isLoaded) {
-                    attach.loading(false);
-                } else {
-                    attach
-                        .loading(false)
-                        .broke(true);
-                }
-                var result = image.isLoaded ? 'loaded' : 'broken';
-            }.bind(this));
-            //-------- !ImagesLoaded
-
-
-        };
         this.getAttaches = function getAttaches(attaches) {
             if (attaches.success) {
                 PresetManager.getPresets(function (presets) {
-
-
-                    this.attaches(ko.utils.arrayMap(attaches.data, function iterateAttaches(attach) {
+                    this.attaches(ko.utils.arrayMap(attaches.data.attaches, function iterateAttaches(attach) {
                         var photoAttach = new PhotoAttach(attach);
                         PresetManager.presets = presets;
                         photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), "uploadPreviewBig"));
@@ -65,32 +23,31 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                         return photoAttach;
                     }.bind(this)));
                     if (this.attaches().length > 0) {
+
                         //-------- ImagesLoaded
                         var imgLoad = imagesLoaded('photo-album');
 
                         new Masonry('#imgs', {
                             // options
                             itemSelector: '.img-grid_i',
-                            "isFitWidth": true,
-                            gutter: 10
+                            "isFitWidth": true
                         });
                         imgLoad.on('progress', function (instance, image) {
                             var attach = Model.findByIdObservable(parseInt(image.img.dataset.id), this.attaches());
-                            if (image.isLoaded) {
-                                attach.loading(false);
-                            } else {
-                                attach
-                                    .loading(false)
-                                    .broke(true);
+                            if (attach.loading !== undefined) {
+                                if (image.isLoaded) {
+                                    attach.loading(false);
+                                } else {
+                                    attach
+                                        .loading(false)
+                                        .broke(true);
+                                }
                             }
                             var result = image.isLoaded ? 'loaded' : 'broken';
                         }.bind(this));
                         //-------- !ImagesLoaded
+
                     }
-
-
-
-
                 }.bind(this));
             }
         };

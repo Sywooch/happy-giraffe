@@ -32,6 +32,7 @@ if(Yii::app()->user->isGuest)
 }
 else
 {
+    $this->bodyClass = 'theme theme__adfox'
     // Тут для залогиненых пользователей
 ?>
     <div class="layout-search-hold">

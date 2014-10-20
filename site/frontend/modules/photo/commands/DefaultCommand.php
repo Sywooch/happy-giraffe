@@ -10,6 +10,7 @@
 
 namespace site\frontend\modules\photo\commands;
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\photo\models\PhotoAlbum;
 
 class DefaultCommand extends \CConsoleCommand
 {
@@ -51,5 +52,27 @@ class DefaultCommand extends \CConsoleCommand
             \Yii::app()->thumbs->createAll($photo);
         }
         echo "createThumbs\n";
+    }
+
+    public function actionMigrate()
+    {
+        $criteria = new \CDbCriteria();
+        $criteria->compare('removed', 0);
+        $criteria->compare('type', 0);
+
+        $dp = new \CActiveDataProvider('Album', array(
+            'criteria' => $criteria,
+        ));
+        $iterator = new \CDataProviderIterator($dp);
+
+        foreach ($iterator as $i) {
+            /** @var \site\frontend\modules\photo\models\PhotoAlbum $newAlbum */
+            /** @var \Album $i */
+            $newAlbum = new PhotoAlbum();
+            $newAlbum->title = $i->title;
+            $newAlbum->description = $i->description;
+            $newAlbum->created = $i->created;
+            $newAlbum->updated = $i->updated;
+        }
     }
 } 

@@ -200,6 +200,9 @@ class CommunityContent extends HActiveRecord implements IPreview
 //            'yandexwm' => array(
 //                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
 //            ),
+            'convertToNewPost' => array(
+                'class' => '\site\frontend\modules\posts\behaviors\converters\CommunityContentBehavior',
+            ),
         );
     }
 

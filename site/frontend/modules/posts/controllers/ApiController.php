@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\posts\controllers;
 
+use site\frontend\modules\posts as posts;
+
 /**
  * Description of ApiController
  *
@@ -9,7 +11,15 @@ namespace site\frontend\modules\posts\controllers;
  */
 class ApiController extends \site\frontend\components\api\ApiController
 {
-    //put your code here
+
+    public function create()
+    {
+        $request = $this->getActionParams();
+        $post = new posts\models\Content('migrate');
+        $post->setAttributes($request);
+        $post->save();
+    }
+
 }
 
 ?>

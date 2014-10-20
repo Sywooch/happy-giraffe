@@ -14,6 +14,7 @@ namespace site\frontend\modules\posts\models;
  * @property string $html
  * @property string $preview
  * @property string $labels
+ * @property array $labelsArray
  * @property string $dtimeCreate
  * @property string $dtimeUpdate
  * @property string $dtimePublication
@@ -21,6 +22,7 @@ namespace site\frontend\modules\posts\models;
  * @property string $originEntity
  * @property string $originEntityId
  * @property string $originManageInfo
+ * @property string $originManageInfoObject
  * @property integer $isDraft
  * @property integer $uniqueIndex
  * @property integer $isNoindex
@@ -29,14 +31,20 @@ namespace site\frontend\modules\posts\models;
  * @property integer $isAutoSocial
  * @property integer $isRemoved
  * @property string $meta
+ * @property string $metaObject
  * @property string $social
+ * @property string $socialObject
  * @property string $template
+ * @property string $templateObject
  *
  * The followings are the available model relations:
- * @property PostLabels[] $postLabels
+ * @property PostLabels[] $labelModels
  */
-class Content extends \CActiveRecord
+class Content extends \CActiveRecord implements \IHToJSON, \IPreview
 {
+
+    protected $labelDelimiter = '|';
+    protected $_relatedModels = array();
 
     /**
      * @return string the associated database table name
@@ -110,6 +118,37 @@ class Content extends \CActiveRecord
         );
     }
 
+    public function toJSON()
+    {
+        return array(
+            'id' => (int) $this->id,
+            'url' => (string) $this->url,
+            'authorId' => (int) $this->authorId,
+            'title' => (string) $this->title,
+            'text' => (string) $this->text,
+            'html' => (string) $this->html,
+            'preview' => (string) $this->preview,
+            'labels' => $this->labelsArray,
+            'dtimeCreate' => (int) $this->dtimeCreate,
+            'dtimeUpdate' => (int) $this->dtimeUpdate,
+            'dtimePublication' => is_null($this->dtimePublication) ? null : (int) $this->dtimePublication,
+            'originService' => (string) $this->originService,
+            'originEntity' => (string) $this->originEntity,
+            'originEntityId' => (string) $this->originEntityId,
+            'originManageInfo' => $this->originManageInfoObject->toJSON(),
+            'isDraft' => (bool) $this->isDraft,
+            'uniqueIndex' => is_null($this->uniqueIndex) ? null : (int) $this->uniqueIndex,
+            'isNoindex' => (bool) $this->isNoindex,
+            'isNofollow' => (bool) $this->isNofollow,
+            'isAutoMeta' => (bool) $this->isAutoMeta,
+            'isAutoSocial' => (bool) $this->isAutoSocial,
+            'isRemoved' => (bool) $this->isRemoved,
+            'meta' => $this->metaObject->toJSON(),
+            'social' => $this->socialObject->toJSON(),
+            'template' => $this->templateObject->toJSON(),
+        );
+    }
+
     /**
      * Retrieves a list of models based on the current search/filter conditions.
      *
@@ -140,7 +179,7 @@ class Content extends \CActiveRecord
     public function defaultScope()
     {
         return array(
-            'condition'=> $this->getTableAlias(true, false) . '`isRemoved`=0',
+            'condition' => $this->getTableAlias(true, false) . '`isRemoved`=0',
         );
     }
 
@@ -153,6 +192,58 @@ class Content extends \CActiveRecord
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    public function getPreviewPhoto()
+    {
+        /** @todo Реализовать */
+    }
+
+    public function getPreviewText()
+    {
+        /** @todo Реализовать */
+    }
+
+    public function getLabelsArray()
+    {
+        return explode($this->labelDelimiter, $this->labels);
+    }
+
+    public function setLabelsArray($array)
+    {
+        $this->labels = implode($this->labelDelimiter, $array);
+    }
+
+    public function getOriginManageInfoObject()
+    {
+        if (!isset($this->_relatedModels['originalManageInfo']))
+            $this->_relatedModels['originalManageInfo'] = new ManageInfo($this->originManageInfo);
+
+        return $this->_relatedModels['originalManageInfo'];
+    }
+
+    public function getMetaObject()
+    {
+        if (!isset($this->_relatedModels['metaObject']))
+            $this->_relatedModels['metaObject'] = new MetaInfo($this->originManageInfo);
+
+        return $this->_relatedModels['metaObject'];
+    }
+
+    public function getSocialObject()
+    {
+        if (!isset($this->_relatedModels['socialObject']))
+            $this->_relatedModels['socialObject'] = new SocialInfo($this->originManageInfo);
+
+        return $this->_relatedModels['socialObject'];
+    }
+
+    public function getTemplateObject()
+    {
+        if (!isset($this->_relatedModels['templateObject']))
+            $this->_relatedModels['templateObject'] = new TemplateInfo($this->originManageInfo);
+
+        return $this->_relatedModels['templateObject'];
     }
 
 }

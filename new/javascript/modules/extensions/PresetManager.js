@@ -6,7 +6,7 @@ define(['knockout', 'models/Model'], function PresetManagerHandler(ko, Model) {
         presets: {},
 
         getPresets: function getPresets(callbackFun) {
-            return Model.get(this.getPresetsUrl).done(callbackFun);
+            return Model.get(this.getPresetsUrl).done(callbackFun)  ;
         },
 
         filters: {
@@ -21,6 +21,17 @@ define(['knockout', 'models/Model'], function PresetManagerHandler(ko, Model) {
                     }
                 },
                 getHeight: function(imageWidth, imageHeight, presetConfig) {
+                    return presetConfig.height;
+                }
+            },
+            relativeResize: {
+                getWidth: function(imageWidth, imageHeight, presetConfig) {
+                    return 100;
+                },
+                getHeight: function(imageWidth, imageHeight, presetConfig) {
+                    if (presetConfig.method === "heighten") {
+                        return presetConfig.parameter;
+                    }
                     return presetConfig.height;
                 }
             }

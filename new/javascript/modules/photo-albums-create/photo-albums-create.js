@@ -1,7 +1,7 @@
 define(['knockout', 'text!photo-albums-create/photo-albums-create.html', 'photo/PhotoAlbum', 'user-config', 'extensions/knockout.validation'], function (ko, template, PhotoAlbum, userConfig) {
     function PhotoAlbumsCreateViewModel(params) {
         this.loading = ko.observable(false);
-        if (params.photoAlbum.id() !== undefined) {
+        if (params.photoAlbum !== undefined) {
             this.photoAlbum = params.photoAlbum;
             this.savedTitle = this.photoAlbum.title();
             this.savedDescription = this.photoAlbum.description();

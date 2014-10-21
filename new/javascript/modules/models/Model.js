@@ -38,6 +38,11 @@ define(["jquery", "knockout"], function ($, ko) {
                 }
             }
             return false;
+        },
+
+        colorsArray: ['purple', 'yellow', 'carrot', 'green', 'blue'],
+        returnNewColor: function returnNewColor(index) {
+            return this.elementCssClass + this.colorsArray[($.inArray(this.colorsArray[index() % this.colorsArray.length], this.colorsArray)) % this.colorsArray.length];
         }
 
     };

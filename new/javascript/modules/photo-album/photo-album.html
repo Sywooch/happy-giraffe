@@ -43,7 +43,7 @@
                 <img src="" data-bind="src: photo().getGeneratedPreset('uploadPreviewBig'), attr: { 'data-id': id(), 'width': photo().presetWidth(), 'height': photo().presetHeight() }" alt="Фото">
             <!--</picture>-->
             <!-- ko if: loading() === true -->
-            <div class="img-grid_loading img-grid_loading__purple">
+            <div class="img-grid_loading img-grid_loading__purple" data-bind="css: $parent.returnNewColor($index)">
                 <div class="img-grid_loading-hold">
                     <div class="loader-circle">
                         <div class="loader-circle_hold">

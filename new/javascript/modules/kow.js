@@ -16,4 +16,12 @@ define(["jquery", "knockout"], function ($, ko) {
     $('photo-album').each(function componentIterator() {
         ko.applyBindings({}, $(this)[0]);
     });
+    ko.components.register('photo-albums', { require: 'photo-albums/photo-albums' });
+    $('photo-albums').each(function componentIterator() {
+        ko.applyBindings({}, $(this)[0]);
+    });
+    ko.components.register('photo-album-compact', { require: 'photo-album-compact/photo-album-compact' });
+    $('photo-album-compact').each(function componentIterator() {
+        ko.applyBindings({}, $(this)[0]);
+    });
 });

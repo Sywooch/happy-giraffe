@@ -16,7 +16,6 @@ define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetMan
         this.getGeneratedPreset = function generatePreseted(preset) {
             return baseConfig + preset + '/' + this.fsName();
         };
-        //console.log(PresetManager.getWidth(this.width(), this.height(), "lepilla"), PresetManager.getHeight(this.width(), this.height(), "lepilla"));
     }
     return Photo;
 });

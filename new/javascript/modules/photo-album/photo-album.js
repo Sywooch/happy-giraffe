@@ -1,9 +1,12 @@
-define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoAlbum', 'user-config', 'extensions/imagesloaded', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, imagesLoaded) {
+define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'extensions/imagesloaded', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, Model, imagesLoaded) {
     "use strict";
     function PhotoAlbumViewModel(params) {
         this.loading = ko.observable(true);
         this.photoAlbum = Object.create(PhotoAlbum);
         this.savingState = {};
+        this.colorsArray = ['purple', 'yellow', 'carrot', 'green', 'blue'];
+        this.elementCssClass = 'img-grid_loading img-grid_loading__';
+        this.returnNewColor = Model.returnNewColor;
         this.getPhotoAlbum = function getPhotoAlbum(passedData) {
             var album;
             if (passedData.success === true) {

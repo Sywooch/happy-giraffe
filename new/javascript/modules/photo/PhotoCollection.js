@@ -1,4 +1,4 @@
-define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'models/Model', 'extensions/imagesloaded', 'extensions/masonry', 'extensions/PresetManager', 'extensions/isotope'], function PhotoCollectionModel($, ko, PhotoAttach, Model, imagesLoaded, Masonry, PresetManager, Isotope) {
+define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'models/Model', 'extensions/imagesloaded', 'extensions/masonry', 'extensions/PresetManager', 'extensions/isotope', 'extensions/packery'], function PhotoCollectionModel($, ko, PhotoAttach, Model, imagesLoaded, Masonry, PresetManager, Isotope, Packery) {
     "use strict";
     // Основная модель коллекции
     function PhotoCollection(data) {
@@ -7,6 +7,14 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.id = ko.observable(data.id);
         this.attaches = ko.observableArray();
         this.attachesCount = ko.observable(data.attachesCount);
+        this.cover = ko.observable(data.cover);
+        this.usablePreset = '';
+        this.getCover = function getCover(attaches) {
+            if (this.cover()) {
+                return this.cover();
+            }
+            return attaches[0];
+        };
         this.getAttachesPage = function getAttachesPage(offset) {
             Model
                 .get(this.getAttachesUrl, { collectionId: this.id(), length: this.pageCount, offset: offset })
@@ -27,22 +35,29 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         };
         this.loadImagesCreation = function (event, elemName, container) {
             var imgLoad = imagesLoaded(elemName),
-                iso = new Isotope(container, {layoutMode: 'fitRows'}),
-                imageLoadAlg = this.loadImagesAlg;
+                pckry = new Packery(container, {
+                    // options
+                    itemSelector: '.img-grid_i',
+                    gutter: 10
+                });
+            var imageLoadAlg = this.loadImagesAlg;
             imgLoad.on(event, imageLoadAlg.bind(this));
         };
         this.iterateAttaches = function iterateAttaches(attach) {
             var photoAttach = new PhotoAttach(attach);
-            photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), "uploadPreviewBig"));
-            photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), "uploadPreviewBig"));
+            photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset));
+            photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset));
             return photoAttach;
         };
         this.gainPhotoInLine = function (presets) {
+            console.log(presets);
             if (presets !== undefined) {
                 PresetManager.presets = presets;
                 this.attaches(ko.utils.arrayMap(this.attachesCache, this.iterateAttaches.bind(this)));
                 if (this.attaches().length > 0) {
                     this.loadImagesCreation('progress', 'photo-album', '#imgs');
+                    this.cover(this.getCover(this.attaches()));
+                    console.log(this.cover());
                 }
             }
         };

@@ -1,46 +1,4 @@
-define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model', 'extensions/knockout.validation'], function(ko, PhotoCollection, Model) {
-
-    //---------------------------------------------Старый код фотоальбомов
-    // Основная модель фотоальбома
-    //function PhotoAlbum(data) {
-    //    this.id = ko.observable(data.id);
-    //    this.title = ko.observable(data.title);
-    //    this.description = ko.observable(data.description);
-    //    this.photoCollection = ko.observable(new PhotoCollection(data.photoCollection));
-    //
-    //    this.createUrl =
-    //
-    //    this.remove = function removePhotoAlbum(callback) {
-    //        Model
-    //            .get('/photo/albums/delete/', { id : this.id() })
-    //            .done(callback);
-    //    };
-    //
-    //    this.create = function createPhotoAlbum(callback) {
-    //        Model
-    //            .get('/photo/albums/delete/', { id : this.id() })
-    //            .done(callback);
-    //
-    //    };
-    //}
-    //!---------------------------------------------Старый код фотоальбомов
-
-    ko.validation.configure({
-        registerExtenders: true,
-        messagesOnModified: true
-    });
-    ko.validation.rules.mustFill = {
-        validator: function (val, bool) {
-            if (val !== undefined) {
-                if (bool && val.trim() !== '') {
-                    return true;
-                }
-                return false;
-            }
-        },
-        message: 'Это обязательное поле'
-    };
-    ko.validation.registerExtenders();
+define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model', 'extensions/knockout.validation', 'extensions/validatorRules'], function(ko, PhotoCollection, Model) {
 
     var PhotoAlbum = {
         createUrl: '/api/photo/albums/create/',
@@ -56,6 +14,8 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
         title: ko.observable(),
         description: ko.observable(),
         removed: ko.observable(false),
+        pageCount: 20,
+        usablePreset: '',
         create: function createPhotoAlbum(callback) {
             var objCreate = {};
             objCreate.attributes = {};
@@ -109,6 +69,8 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
             this.description = ko.observable(data.description);
             if (data.photoCollections !== undefined) {
                 this.photoCollection = ko.observable(new PhotoCollection(data.photoCollections.default));
+                this.photoCollection().pageCount = this.pageCount;
+                this.photoCollection().usablePreset = this.usablePreset;
                 this.photoCollection().getAttachesPage(0);
             }
             this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше" + this.maxTitleLength }, mustFill: true });

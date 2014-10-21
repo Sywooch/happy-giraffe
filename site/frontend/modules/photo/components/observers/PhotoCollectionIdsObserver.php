@@ -49,8 +49,7 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
             $criteria = PhotoAttach::model()->collection($this->model->id)->getDbCriteria();
             $criteria->select = 'id';
             $criteria->order = self::ORDER;
-            $builder = new \CDbCommandBuilder(\Yii::app()->db->getSchema());
-            $command = $builder->createFindCommand(PhotoAttach::model()->tableName(), $criteria);
+            $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(PhotoAttach::model()->tableName(), $criteria);
             $this->_ids = $command->queryColumn();
         }
         return $this->_ids;

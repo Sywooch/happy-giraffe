@@ -17,7 +17,6 @@ class MigrateManager
         $criteria = new \CDbCriteria();
         $criteria->compare('removed', 0);
         $criteria->compare('type', 0);
-        $criteria->compare('id', 47831);
 
         $dp = new \CActiveDataProvider('Album', array(
             'criteria' => $criteria,
@@ -38,7 +37,7 @@ class MigrateManager
 
         $photo = new Photo();
         $photo->image = file_get_contents($oldPhoto->getOriginalPath());
-        $photo->title = $oldPhoto->title;
+        $photo->title = mb_substr($oldPhoto->title, 0, 150, 'UTF-8');
         $photo->original_name = $oldPhoto->file_name;
         $photo->created = $oldPhoto->created;
         $photo->updated = $oldPhoto->updated;

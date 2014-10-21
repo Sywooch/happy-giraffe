@@ -36,7 +36,10 @@ class CollectionsApiController extends ApiController
     {
         $user = $this->getModel('\User', \Yii::app()->user->id);
         $this->success = true;
-        $this->data = $user->photoCollections;
+        $this->data = array(
+            'all' => $user->getPhotoCollection('default'),
+            'unsorted' => $user->getPhotoCollection('unsorted'),
+        );
     }
 
     public function actionSetCover($collectionId, $attachId)

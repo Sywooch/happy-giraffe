@@ -20,10 +20,6 @@ class PhotoModule extends \CWebModule
 			'photo.components.*',
 		));
 
-        /** @var \ClientScript $cs */
-//        $cs = \Yii::app()->clientScript;
-//        $cs->useAMD = true;
-
         \Yii::app()->setComponent('authManager', array(
             'class' => '\site\frontend\components\AuthManager',
             'showErrors' => YII_DEBUG,

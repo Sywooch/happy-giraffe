@@ -9,8 +9,11 @@
  */
 
 namespace site\frontend\modules\photo\commands;
+use site\frontend\modules\photo\components\MigrateManager;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\PhotoAttach;
+use site\frontend\modules\photo\models\PhotoCollection;
 
 class DefaultCommand extends \CConsoleCommand
 {
@@ -56,23 +59,14 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionMigrate()
     {
-        $criteria = new \CDbCriteria();
-        $criteria->compare('removed', 0);
-        $criteria->compare('type', 0);
+        PhotoAlbum::model()->deleteAll();
+        PhotoAttach::model()->deleteAll();
+        PhotoCollection::model()->deleteAll();
+        Photo::model()->deleteAll();
 
-        $dp = new \CActiveDataProvider('Album', array(
-            'criteria' => $criteria,
-        ));
-        $iterator = new \CDataProviderIterator($dp);
+        $album = \Album::model()->findByPk(47831);
+        $mm = new MigrateManager();
+        $mm->moveUserAlbum($album);
 
-        foreach ($iterator as $i) {
-            /** @var \site\frontend\modules\photo\models\PhotoAlbum $newAlbum */
-            /** @var \Album $i */
-            $newAlbum = new PhotoAlbum();
-            $newAlbum->title = $i->title;
-            $newAlbum->description = $i->description;
-            $newAlbum->created = $i->created;
-            $newAlbum->updated = $i->updated;
-        }
     }
 } 

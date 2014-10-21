@@ -63,6 +63,11 @@ abstract class PhotoCollectionObserver extends \CComponent
         return $criteria;
     }
 
+    protected function slice($array, $offset, $length, $circular)
+    {
+        return $circular ? $this->roundSlice($array, $offset, $length) : array_slice($array, $offset, $length);
+    }
+
     /**
      * Расширенная реализация round_slice()
      *
@@ -102,5 +107,5 @@ abstract class PhotoCollectionObserver extends \CComponent
      * @param int $offset смещение
      * @return \site\frontend\modules\photo\models\PhotoAttach[] массив аттачей
      */
-    abstract public function getSlice($length, $offset);
+    abstract public function getSlice($offset, $length = null, $circular = false);
 } 

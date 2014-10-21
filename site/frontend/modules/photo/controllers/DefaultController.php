@@ -16,6 +16,7 @@ use site\frontend\modules\photo\models\upload\PopupForm;
 
 class DefaultController extends PhotoController
 {
+    //public $layout = '//layouts/lite/main';
     public function actionPresets()
     {
         echo \CJSON::encode(\Yii::app()->thumbs->presets);
@@ -25,6 +26,17 @@ class DefaultController extends PhotoController
     {
         $json = compact('userId');
         $this->render('index', compact('json'));
+    }
+
+    public function actionCreate($userId)
+    {
+        $json = compact('userId');
+        $this->render('create', compact('json'));
+    }
+
+    public function actionView($userId, $id)
+    {
+        $this->render('view', compact('userId', 'id'));
     }
 
     /**

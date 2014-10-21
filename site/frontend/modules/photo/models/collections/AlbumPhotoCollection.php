@@ -22,28 +22,28 @@ class AlbumPhotoCollection extends PhotoCollectionAbstract
 
     public function getCollectionTitle()
     {
-        return $this->RelatedModelBehavior->title;
+        return $this->RelatedModelBehavior->relatedModel->relatedModel->title;
     }
 
     public function getCollectionDescription()
     {
-        return $this->RelatedModelBehavior->description;
+        return $this->RelatedModelBehavior->relatedModel->description;
     }
 
     public function getRelatedCollections()
     {
         return array(
-            $this->RelatedModelBehavior->author->getPhotoCollection('default'),
+            $this->RelatedModelBehavior->relatedModel->author->getPhotoCollection('default'),
         );
     }
 
     public function canMoveTo(PhotoCollection $collection)
     {
-        return $collection instanceof AlbumPhotoCollection && $collection->RelatedModelBehavior->author_id == $this->relateModel->author_id;
+        return $collection instanceof AlbumPhotoCollection && $collection->RelatedModelBehavior->relatedModel->author_id == $this->RelatedModelBehavior->relatedModel->author_id;
     }
 
     public function getOwner()
     {
-        return $this->RelatedModelBehavior->author;
+        return $this->RelatedModelBehavior->relatedModel->author;
     }
 } 

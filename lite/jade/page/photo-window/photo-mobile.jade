@@ -47,18 +47,17 @@ block layout
                 br
                 br
                  
-
+  
 block block-hidden 
     // .popup-photoview
     #photo1.popup.popup-photoview
         button(title="Закрыть (Esc)", type="button", class="mfp-close mfp-close__white") ×
-
+ 
         ul.bxslider
             li.bxslider_li
                 // показывать скрывать по тапу (касанию пальца)
                 .popup-photoview_top
 
-                    .popup-photoview_count 25 фото из 52
                     .popup-photoview_title Девочки, нашла гороскоп, по которому можно определить, какой спорт подойдет вашему ребенку согласно знаку  зодиака
                 .popup-photoview_c
                         .verticalalign-m-help
@@ -72,14 +71,14 @@ block block-hidden
 
                 // показывать скрывать по тапу (касанию пальца)
                 .popup-photoview_bottom
-                    +customLikes('', customLikes.noslogan)
+                    .popup-photoview_count 25 фото из 52
+                    +customLikes('', customLikes.few)
 
 
             li.bxslider_li
                 // показывать скрывать по тапу (касанию пальца)
                 .popup-photoview_top
 
-                    .popup-photoview_count 26 фото из 52
                     .popup-photoview_title  какой спорт подойдет вашему ребенку согласно знаку  зодиака
                 .popup-photoview_c
 
@@ -93,6 +92,7 @@ block block-hidden
 
                 // показывать скрывать по тапу (касанию пальца)
                 .popup-photoview_bottom
+                    .popup-photoview_count 26 фото из 52
                     +customLikes('', customLikes.noslogan)
 
     // /popup-photoview

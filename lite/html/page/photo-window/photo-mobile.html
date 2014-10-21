@@ -21,6 +21,8 @@
   <script src="/lite/javascript/jquery.powertip.js"></script>
   <!-- popup-->
   <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
   <script src="/lite/javascript/baron.js"></script>
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
@@ -187,23 +189,9 @@
         <script>
           $(document).ready(function () {
           
-              $('.popup-photoview').magnificPopup({
-                  type: 'image',
-                  gallery: {
-                    enabled: true, // set to true to enable gallery
-                    
-                    preload: [0,2], // read about this option in next Lazy-loading section
-                    
-                    navigateByImgClick: false,
-                    
-                    arrowMarkup: '<button title="%title%" type="button" class="mfp-arrow mfp-arrow-%dir%"></button>', // markup of an arrow button
-                    
-                    tPrev: 'Previous (Left arrow key)', // title for left button
-                    tNext: 'Next (Right arrow key)', // title for right button
-                    tCounter: '<span class="mfp-counter">%curr% of %total%</span>' // markup of counter
-                  },
-                  
-                  overflowY: 'hidden',
+              $('.popup-photoview-a').magnificPopup({
+                  type: 'inline',
+                  overflowY: 'auto',
                   tClose: 'Закрыть',
                   fixedBgPos: true,
                   
@@ -211,13 +199,22 @@
                   // It looks not nice, so we disable it:
                   callbacks: {
                       open: function() {
-                          $('html').addClass('mfp-html');
+                          $('html').addClass('mfp-html-photoview');
+                          
+                          $('.bxslider').bxSlider(
+                              {
+                                  mode: 'fade',
+                                  pager: false,
+                                  controls: true
+                              }
+                          );
                       },
                       close: function() {
-                          $('html').removeClass('mfp-html');
+                          $('html').removeClass('mfp-html-photoview');
                       }
                   }
               });
+              
           });
           
         </script>
@@ -225,7 +222,7 @@
         <div class="b-main clearfix">
           <div class="b-main_cont">
             <div class="margin-20">
-              <h2>Фотопросмотрщик</h2><a href="/images/example/w960-h537-1.jpg" class="popup-photoview">Фото 1</a><br><a href="/lite/images/example/photoalbum/1-1920.jpg" class="popup-photoview">Фото 1</a><br><a href="/lite/images/example/w880-h585-1.jpg" class="popup-photoview">Фото 1</a><br><a href="/lite/images/example/photoalbum/2-1920.jpg" class="popup-photoview">Фото 1</a><br><br><br>
+              <h2>Фотопросмотрщик</h2><a href="#photo1" class="popup-photoview-a">Фото 1</a><br><br><br>
             </div>
           </div>
         </div>
@@ -234,24 +231,58 @@
   </div>
   <div class="popup-container display-n"> 
     <!-- .popup-photoview-->
-    <div id="photo1" class="popup popup-sign popup-photoview">
-      <div class="popup-sign_hold">
-        <div class="popup-sign_top">
-          <div class="popup-sign_t">Регистрация на Веселом Жирафе</div>
-          <div class="popup-sign_slogan">Стань полноправным участником сайта за 1 минуту!</div>
-        </div>
-        <div class="popup-sign_cont">
-          <div class="popup-sign_social">
-            <div class="popup-sign_row">
-              <div class="popup-sign_label">С помощью социальных сетей</div>
-            </div>
-            <ul class="social-btns clearfix">
-              <li><a class="social-btn social-btn__odnoklassniki"><span class="social-btn_ico"></span><span class="social-btn_tx">Одноклассники</span></a></li>
-              <li><a class="social-btn social-btn__vkontakte"><span class="social-btn_ico"></span><span class="social-btn_tx">ВКонтакте</span></a></li>
-            </ul>
+    <div id="photo1" class="popup popup-photoview">
+      <button title="Закрыть (Esc)" type="button" class="mfp-close mfp-close__white">×</button>
+      <ul class="bxslider">
+        <li class="bxslider_li">
+          <!-- показывать скрывать по тапу (касанию пальца)-->
+          <div class="popup-photoview_top">
+            <div class="popup-photoview_title">Девочки, нашла гороскоп, по которому можно определить, какой спорт подойдет вашему ребенку согласно знаку  зодиака</div>
           </div>
-        </div>
-      </div>
+          <div class="popup-photoview_c">
+            <div class="verticalalign-m-help"></div>
+            <picture class="popup-photoview_picture verticalalign-m-el">
+              <source srcset="/lite/images/example/photoalbum/2-960.jpg 1x, /lite/images/example/photoalbum/1-1920.jpg 2x" media="(min-width: 640px)"><img src="/lite/images/example/photoalbum/1-1280.jpg" alt="Фото" class="popup-photoview_img">
+            </picture>
+          </div>
+          <!-- показывать скрывать по тапу (касанию пальца)-->
+          <div class="popup-photoview_bottom">
+            <div class="popup-photoview_count">25 фото из 52</div>
+            <!-- Лайки от яндекса-->
+            <div class="custom-likes">
+              <div class="custom-likes_in">
+                <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,odnoklassniki" data-yasharetheme="counter" class="yashare-auto-init"></div>
+              </div>
+            </div>
+            <!-- Лайки от яндекса-->
+          </div>
+        </li>
+        <li class="bxslider_li">
+          <!-- показывать скрывать по тапу (касанию пальца)-->
+          <div class="popup-photoview_top">
+            <div class="popup-photoview_title"> какой спорт подойдет вашему ребенку согласно знаку  зодиака</div>
+          </div>
+          <div class="popup-photoview_c">
+            <div class="verticalalign-m-help"></div>
+            <picture class="popup-photoview_picture verticalalign-m-el">
+              <source srcset="/lite/images/example/photoalbum/1-960.jpg 1x, /lite/images/example/photoalbum/2-1920.jpg 2x" media="(min-width: 640px)"><img src="/lite/images/example/photoalbum/2-1280.jpg" alt="Фото" class="popup-photoview_img">
+            </picture>
+          </div>
+          <!-- показывать скрывать по тапу (касанию пальца)-->
+          <div class="popup-photoview_bottom">
+            <div class="popup-photoview_count">26 фото из 52</div>
+            <!-- Лайки от яндекса-->
+            <div class="custom-likes">
+              <div class="custom-likes_in">
+                <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" class="yashare-auto-init"></div>
+              </div>
+            </div>
+            <!-- Лайки от яндекса-->
+          </div>
+        </li>
+      </ul>
     </div>
     <!-- /popup-photoview-->
   </div>

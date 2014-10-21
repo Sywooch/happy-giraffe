@@ -54,7 +54,8 @@ block block-dev-view
                         .verticalalign-m-help
                     a.photo-window_arrow.photo-window_arrow__l.fancy(href='#photo-window-end', data-theme='white-simple')
                     a.photo-window_arrow.photo-window_arrow__r.fancy(href='#photo-window-end', data-theme='white-simple')
-                    .like-control.clearfix
+                    +likeControl()
+                    //-.like-control.clearfix
                         a.like-control_ico.like-control_ico__like(href='') 865
                         .favorites-control
                             a.favorites-control_a(href='') 12365
@@ -79,7 +80,7 @@ block block-dev-view
                                     label.favorites-add-popup_label(for='') Комментарий:
                                     .float-r.color-gray 0/150
                                 .favorites-add-popup_row
-                                    textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
+                                    textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий') 
                                 .favorites-add-popup_row.textalign-c.margin-t10
                                     a.btn-gray-light(href='') Отменить
                                     a.btn-green(href='') Добавить

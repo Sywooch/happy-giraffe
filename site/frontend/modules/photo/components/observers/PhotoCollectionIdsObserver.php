@@ -46,9 +46,12 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
     protected function getIds()
     {
         if ($this->_ids === null) {
-            $alias = PhotoAttach::model()->getTableAlias();
-            $sql = 'SELECT id FROM ' . PhotoAttach::model()->tableName() . ' ' . $alias . ' WHERE ' . $alias . '.collection_id = :collection_id ORDER BY ' . self::ORDER;
-            $this->_ids = \Yii::app()->db->createCommand($sql)->queryColumn(array(':collection_id' => $this->model->id));
+            $criteria = PhotoAttach::model()->collection($this->model->id)->getDbCriteria();
+            $criteria->select = 'id';
+            $criteria->order = self::ORDER;
+            $builder = new \CDbCommandBuilder(\Yii::app()->db->getSchema());
+            $command = $builder->createFindCommand(PhotoAttach::model()->tableName(), $criteria);
+            $this->_ids = $command->queryColumn();
         }
         return $this->_ids;
     }

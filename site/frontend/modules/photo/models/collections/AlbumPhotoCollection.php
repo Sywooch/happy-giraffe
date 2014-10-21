@@ -33,7 +33,7 @@ class AlbumPhotoCollection extends PhotoCollectionAbstract
     public function getRelatedCollections()
     {
         return array(
-            $this->RelatedModelBehavior->relatedModel->author->getPhotoCollection('default'),
+            //$this->RelatedModelBehavior->relatedModel->author->getPhotoCollection('default'),
         );
     }
 

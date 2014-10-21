@@ -148,7 +148,6 @@ return array(
         'signup',
         'mail',
         'developers',
-        'photo' => require(dirname(__FILE__) . '/../modules/photo/config/main.php'),
         'archive' => array(
            'class' => 'site\frontend\modules\archive\ArchiveModule',
         ),

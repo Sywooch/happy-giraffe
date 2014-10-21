@@ -24,13 +24,13 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
         return PhotoAttach::model()->findByPk($this->ids[$offset]);
     }
 
-    public function getSlice($length = 0, $offset = 0)
+    public function getSlice($offset, $length = null, $circular = false)
     {
         if ($this->getCount() == 0) {
             return array();
         }
 
-        $ids = $length == 0 ? $this->ids : $this->roundSlice($this->ids, $offset, $length);
+        $ids = ($length == null && $offset == 0) ? $this->ids : $this->slice($this->ids, $offset, $length, $circular);
         $criteria = $this->getDefaultCriteria();
         $criteria->order = '';
         $criteria->addInCondition('t.id', $ids);

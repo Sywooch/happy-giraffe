@@ -18339,8 +18339,8 @@ h2.horoscope-year-t {
   margin: 0;
 }
 .img-grid_i {
-  position: relative;
-  margin: 0 0 15px;
+  /*position: relative;*/
+  /*margin: 0 0 15px;*/
   /*height: 320px;
         height: 61.6vw;*/
   cursor: pointer;
@@ -18628,8 +18628,8 @@ h2.horoscope-year-t {
     margin: 0 -25px 20px 0;
   }
   .img-grid_i {
-    float: left;
-    margin: 0 20px 0 0;
+    /*float: left;*/
+    margin: 0 10px 10px 0;
     height: auto;
   }
   .img-grid_img-pad {

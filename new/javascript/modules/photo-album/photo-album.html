@@ -32,16 +32,16 @@
     <!-- /ko -->
     <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 -->
     <div id="imgs">
-        <div style="width: 280px; height: 380px;" class="img-grid_i visible-md-block" data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photoAlbum.photoCollection().id() }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent">
-            <div class="album-photo-add album-photo-add__m">
-                <div class="album-photo-add_hold">Загрузить еще<br>фото в альбом</div>
-            </div>
-        </div>
+        <!--<div style="width: 280px; height: 380px;" class="img-grid_i visible-md-block" data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photoAlbum.photoCollection().id() }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent">-->
+            <!--<div class="album-photo-add album-photo-add__m">-->
+                <!--<div class="album-photo-add_hold">Загрузить еще<br>фото в альбом</div>-->
+            <!--</div>-->
+        <!--</div>-->
         <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
-        <div class="img-grid_i" data-bind="attr: { 'style': 'width:' +  photo().presetWidth() + '; height: ' + photo().presetHeight() + ';' }">
-            <picture class="img-grid_img loading">
+        <div class="img-grid_i" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }">
+            <!--<picture class="img-grid_img loading">-->
                 <img src="" data-bind="src: photo().getGeneratedPreset('uploadPreviewBig'), attr: { 'data-id': id(), 'width': photo().presetWidth(), 'height': photo().presetHeight() }" alt="Фото">
-            </picture>
+            <!--</picture>-->
             <!-- ko if: loading() === true -->
             <div class="img-grid_loading img-grid_loading__purple">
                 <div class="img-grid_loading-hold">
@@ -59,12 +59,22 @@
                 <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
                     <div class="img-grid_ico-ava"></div>
                     <div class="img-grid_ico-album"></div>
-                    <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip"></a>
+                    <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip" data-bind="click: remove"></a>
                         <!--<a href="" title="Редактировать" class="ico-photo-edit powertip"></a>-->
                         <!--<a href="" title="Переместить" class="ico-move powertip"></a>-->
                     </div>
                 </div>
             <!-- /ko  -->
+            <!-- ko if: removed() === true -->
+            <div class="cap-empty cap-empty__abs cap-empty__white">
+                <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_t">Фотография удалена </div>
+                    <div class="cap-empty_tx"><a href="" data-bind="click: restore">Восстановить</a></div>
+                </div>
+                <div class="verticalalign-m-help"></div>
+            </div>
+            <!-- /ko -->
             <!-- ko if: broke() === true -->
             <div class="cap-empty cap-empty__abs cap-empty__white">
                 <div class="cap-empty_hold">

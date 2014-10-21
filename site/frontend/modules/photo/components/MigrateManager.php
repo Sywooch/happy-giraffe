@@ -12,45 +12,30 @@ use site\frontend\modules\photo\models\PhotoAlbum;
 
 class MigrateManager
 {
-    public function moveUserAlbums()
+    public function moveUserAlbumsPhotos()
     {
-        PhotoAlbum::model()->deleteAll();
-
         $criteria = new \CDbCriteria();
         $criteria->compare('removed', 0);
         $criteria->compare('type', 0);
-        $criteria->compare('author_id', 12936);
+        $criteria->compare('id', 47831);
 
         $dp = new \CActiveDataProvider('Album', array(
             'criteria' => $criteria,
         ));
         $iterator = new \CDataProviderIterator($dp);
         foreach ($iterator as $album) {
-            $this->moveUserAlbum($album);
+            foreach ($album->photos as $photo) {
+                $this->movePhoto($photo);
+            }
         }
-    }
-
-    public function moveUserAlbum(\Album $oldAlbum)
-    {
-        $album = new PhotoAlbum();
-        $album->title = $oldAlbum->title;
-        $album->description = $oldAlbum->description;
-        $album->created = $oldAlbum->created;
-        $album->updated = $oldAlbum->updated;
-        $album->author_id = $oldAlbum->author_id;
-        $album->save();
-
-        $photosIds = array();
-        foreach ($oldAlbum->photos as $photo) {
-            $photo = $this->movePhoto($photo);
-            $photosIds[] = $photo->id;
-        }
-
-        $album->getPhotoCollection()->attachPhotos($photosIds, true);
     }
     
     protected function movePhoto(\AlbumPhoto $oldPhoto)
     {
+        if ($oldPhoto->newPhotoId !== null) {
+            return $oldPhoto->newPhotoId;
+        }
+
         $photo = new Photo();
         $photo->image = file_get_contents($oldPhoto->getOriginalPath());
         $photo->title = $oldPhoto->title;
@@ -61,7 +46,44 @@ class MigrateManager
         if (! $photo->save()) {
             throw new \CException('Не удалось перенести фото');
         }
+        \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
         \Yii::app()->thumbs->createAll($photo);
-        return $photo;
+        return $photo->id;
     }
+
+//    public function moveUserAlbums()
+//    {
+//        PhotoAlbum::model()->deleteAll();
+//
+//        $criteria = new \CDbCriteria();
+//        $criteria->compare('removed', 0);
+//        $criteria->compare('type', 0);
+//        $criteria->compare('author_id', 12936);
+//
+//        $dp = new \CActiveDataProvider('Album', array(
+//            'criteria' => $criteria,
+//        ));
+//        $iterator = new \CDataProviderIterator($dp);
+//        foreach ($iterator as $album) {
+//            $this->moveUserAlbum($album);
+//        }
+//    }
+//
+//    public function moveUser(\Album $oldAlbum)
+//    {
+//        $album = new PhotoAlbum();
+//        $album->title = $oldAlbum->title;
+//        $album->description = $oldAlbum->description;
+//        $album->created = $oldAlbum->created;
+//        $album->updated = $oldAlbum->updated;
+//        $album->author_id = $oldAlbum->author_id;
+//        $album->save();
+//
+//        $photosIds = array();
+//        foreach ($oldAlbum->photos as $photo) {
+//            $photosIds[] = $this->movePhoto($photo);
+//        }
+//
+//        $album->getPhotoCollection()->attachPhotos($photosIds, true);
+//    }
 } 

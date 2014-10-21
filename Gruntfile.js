@@ -228,6 +228,8 @@ module.exports = function(grunt){
             /.header_+/,
             /.header-banner+/,
             //.tooltip+/,
+            
+            /.bx-wrapper+/,
           ],
         },
         src: [
@@ -319,6 +321,7 @@ module.exports = function(grunt){
             
             // Для страниц собранных разделов
             /.flag+/,
+            /.bx-wrapper+/,
           ],
         },
         src: [
@@ -353,6 +356,7 @@ module.exports = function(grunt){
             /.header_+/,
             // Для страниц собранных разделов
             /.flag+/,
+            /.bx-wrapper+/,
           ],
         },
         src: [

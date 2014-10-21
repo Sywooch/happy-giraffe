@@ -59,14 +59,7 @@ class DefaultCommand extends \CConsoleCommand
 
     public function actionMigrate()
     {
-        PhotoAlbum::model()->deleteAll();
-        PhotoAttach::model()->deleteAll();
-        PhotoCollection::model()->deleteAll();
-        Photo::model()->deleteAll();
-
-        $album = \Album::model()->findByPk(47831);
         $mm = new MigrateManager();
-        $mm->moveUserAlbum($album);
-
+        $mm->moveUserAlbumsPhotos();
     }
 } 

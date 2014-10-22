@@ -8,16 +8,34 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.attachesCount = ko.observable(data.attachesCount);
         this.cover = ko.observable();
         this.usablePreset = '';
-        this.getCover = function getCover(cover) {
-            if (cover) {
-                return new PhotoAttach(cover);
+        PresetManager.presets = data.presets;
+        this.handlePresets = function gainPhotoInLine(presets) {
+            if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
+                PresetManager.presets = presets;
             }
-            Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
-                    .done(this.handleCover.bind(this));
         };
-        this.handleCover = function (photoAttach) {
-            if (photoAttach.data.success !== 0 && photoAttach.data.attaches.length !== 0) {
+        this.getCover = function getCover(cover) {
+            if (!$.isEmptyObject(PresetManager.presets)) {
+                if (cover) {
+                    var photoAttach = new PhotoAttach(cover);
+                    photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset));
+                    photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset));
+                    return photoAttach;
+                }
+                Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
+                    .done(this.handleCover.bind(this));
+            } else {
+                Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
+                    .then(PresetManager.getPresets(this.handlePresets.bind(this)))
+                    .done(this.handleCover.bind(this));
+            }
+
+        };
+        this.handleCover = function handleCover(photoAttach) {
+            if (photoAttach.success === true && photoAttach.data.attaches.length !== 0) {
                 this.cover(new PhotoAttach(photoAttach.data.attaches[0]));
+                this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
             }
         };
         this.getCover(data.cover);
@@ -40,11 +58,9 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
             result = image.isLoaded ? 'loaded' : 'broken';
         };
-        this.loadImagesCreation = function (event, elemName, container) {
+        this.loadImagesCreation = function loadImagesCreation(event, elemName, container) {
             var imgLoad = imagesLoaded(elemName),
-                pckry = new Packery(container, {
-                    itemSelector: '.img-grid_i'
-                });
+                pckry = new Packery(container, { itemSelector: '.img-grid_i' });
             var imageLoadAlg = this.loadImagesAlg;
             imgLoad.on(event, imageLoadAlg.bind(this));
         };
@@ -54,20 +70,24 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset));
             return photoAttach;
         };
-        this.gainPhotoInLine = function (presets) {
-            if (presets !== undefined) {
-                PresetManager.presets = presets;
+        this.gainPhotoInLine = function gainPhotoInLine(presets) {
+            PresetManager.presets = presets;
+            if (PresetManager.presets !== undefined) {
                 this.attaches(ko.utils.arrayMap(this.attachesCache, this.iterateAttaches.bind(this)));
                 if (this.attaches().length > 0) {
                     this.loadImagesCreation('progress', 'photo-album', '#imgs');
-                    this.cover(this.getCover(this.attaches()));
                 }
             }
         };
         this.getAttaches = function getAttaches(attaches) {
             if (attaches.success) {
                 this.attachesCache = attaches.data.attaches;
-                PresetManager.getPresets(this.gainPhotoInLine.bind(this));
+                if ($.isEmptyObject(PresetManager.presets) || PresetManager.presets === undefined) {
+                    PresetManager.getPresets(this.gainPhotoInLine.bind(this));
+                } else {
+                    this.gainPhotoInLine(PresetManager.presets);
+                }
+
             }
         };
     }

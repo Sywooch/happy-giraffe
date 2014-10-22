@@ -1,65 +1,52 @@
 <!-- ko if: photoAlbum.photoCount() > 0 -->
-<section class="b-album">
-    <div class="b-album_top">
-        <div class="tx-date">Обновлен  Вчера 13:45</div>
-        <h2 class="b-album_title"><a href="#" class="b-album_title-a heading-link-xl" data-bind="href: photoAlbumUrl, text: photoAlbum.title()"></a></h2>
-        <a href="#" class="b-album_desc" data-bind="href: photoAlbumUrl, text: photoAlbum.description()"></a>
-        <div class="b-album_count-hold">
-            <div class="b-album_count" data-bind="text: photoAlbum.photoCount()">240</div>
-            <div class="b-album_count-tx">фото</div>
-        </div>
-    </div>
-    <div href="#" class="b-album_img-hold">
-        <div class="b-album_img-a">
-            <div class="verticalalign-m-help"></div>
-            <div class="verticalalign-m-el">
-                <!-- У изображений стороны сторон сохраняются максимальные размеры изображения-->
-                <!-- телефоны до 480-->
-                <!-- height 300-->
-                <!-- width 480-->
-                <!-- устройства от w480-->
-                <!-- height 380-->
-                <!-- width 768-->
-                <!-- устройства от w768-->
-                <!-- height 500-->
-                <!-- width 960-->
-                <!-- десктоп и большие планшеты от w1000-->
-                <!-- Высота изображений 580-->
-                <!-- Ширина изображения 880-->
-                <!-- Если изображения маленькие, они становятся по центру-->
-                <!-- ko if: photoAlbum.photoCollection().cover() -->
-                <img src="" alt="" class="b-album_img-big" data-bind="src: photoAlbum.photoCollection().cover().photo().getGeneratedPreset('myPhotosAlbumCover')">
-                <!-- /ko -->
+    <section class="b-album">
+        <div class="b-album_top">
+            <div class="tx-date">Обновлен  Вчера 13:45</div>
+            <h2 class="b-album_title"><a href="#" class="b-album_title-a heading-link-xl" data-bind="href: photoAlbumUrl, text: photoAlbum.title()"></a></h2>
+            <a href="#" class="b-album_desc" data-bind="href: photoAlbumUrl, text: photoAlbum.description()"></a>
+            <div class="b-album_count-hold">
+                <div class="b-album_count" data-bind="text: photoAlbum.photoCount()">240</div>
+                <div class="b-album_count-tx">фото</div>
             </div>
         </div>
-        <div class="b-album_img-hold-ovr">
-            <div class="ico-zoom ico-zoom__abs"></div>
+        <!-- ko if: photoAlbum.photoCollection().cover() !== undefined -->
+        <div href="#" class="b-album_img-hold" data-bind="attr: { 'style': 'height: ' + photoAlbum.photoCollection().cover().photo().presetHeight() + 'px;' }">
+            <div class="b-album_img-a">
+                <div class="verticalalign-m-help"></div>
+                <div class="verticalalign-m-el">
+                    <img src="" alt="" class="b-album_img-big" data-bind="src: photoAlbum.photoCollection().cover().photo().getGeneratedPreset('myPhotosAlbumCover')">
+                </div>
+            </div>
+            <div class="b-album_img-hold-ovr">
+                <div class="ico-zoom ico-zoom__abs"></div>
+            </div>
         </div>
-    </div>
-    <div class="b-album_overlay">
-        <a class="b-album_r" href="" data-bind="href: photoAlbumUrl">
-        <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
-        </div>
-        <div class="b-album_ico-album"></div>
-        <div class="b-album_arrow"></div></a>
-        <ul class="b-album_prev clearfix visible-md-block">
-            <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-            <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 -->
-                <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
-                <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
-                    <a href="#" class="b-album_prev-a">
-                        <img src="" alt="" class="b-album_prev-img" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">
-                        <div class="b-album_prev-hold"></div>
-                    </a>
-                </li>
+        <!-- /ko -->
+        <div class="b-album_overlay">
+            <a class="b-album_r" data-bind="href: photoAlbumUrl">
+                <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
+                </div>
+                <div class="b-album_ico-album"></div>
+                <div class="b-album_arrow-all"></div>
+            </a>
+            <ul class="b-album_prev clearfix visible-md-block">
+                <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
+                <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 -->
+                    <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
+                    <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
+                        <a href="#" class="b-album_prev-a">
+                            <img src="" alt="" class="b-album_prev-img" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">
+                            <div class="b-album_prev-hold"></div>
+                        </a>
+                    </li>
+                    <!-- /ko -->
                 <!-- /ko -->
-            <!-- /ko -->
-            <!-- ko if: photoAlbum.photoCollection().attaches().length === 0 -->
-            <!-- /ko -->
-            <li class="b-album_prev-li"><a href="#" class="album-photo-add" data-bind="href: photoAlbumUrl"></a></li>
-        </ul>
-    </div>
-</section>
+                <!-- ko if: photoAlbum.photoCollection().attaches().length === 0 -->
+                <!-- /ko -->
+                <li class="b-album_prev-li"><a href="#" class="album-photo-add" data-bind="href: photoAlbumUrl"></a></li>
+            </ul>
+        </div>
+    </section>
 <!-- /ko -->
 <!-- ko if: photoAlbum.photoCount() === 0 -->
 <!-- album-empty -->

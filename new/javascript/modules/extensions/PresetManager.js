@@ -1,12 +1,13 @@
 define(['knockout', 'models/Model'], function PresetManagerHandler(ko, Model) {
     "use strict";
     var PresetManager = {
+
         getPresetsUrl: '/photo/default/presets/',
 
         presets: {},
 
         getPresets: function getPresets(callbackFun) {
-            return Model.get(this.getPresetsUrl).done(callbackFun)  ;
+            return Model.get(this.getPresetsUrl).done(callbackFun);
         },
 
         filters: {

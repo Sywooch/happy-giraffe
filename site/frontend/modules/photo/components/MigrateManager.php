@@ -63,7 +63,6 @@ class MigrateManager
         }
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
         echo (++$this->i) . "\n";
-        sleep(5);
         return $photo->id;
     }
 

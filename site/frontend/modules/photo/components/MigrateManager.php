@@ -11,7 +11,7 @@ use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 
 set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
-    echo (time() - $errcontext['time']);
+    echo (time() - $errcontext['time']) . "\n";
     return false;
 });
 
@@ -33,7 +33,7 @@ class MigrateManager
             foreach ($album->photos as $photo) {
                 $this->movePhoto($photo);
                 echo (time() - $time);
-                $time = time();
+                $time = time() . "\n";
                 \Yii::app()->db->active = false;
                 \Yii::app()->db->active = true;
             }

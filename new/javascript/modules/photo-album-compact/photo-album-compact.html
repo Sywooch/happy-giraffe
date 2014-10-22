@@ -1,8 +1,9 @@
+<!-- ko if: photoAlbum.photoCount() > 0 -->
 <section class="b-album">
     <div class="b-album_top">
         <div class="tx-date">Обновлен  Вчера 13:45</div>
-        <h2 class="b-album_title"><a href="#" class="b-album_title-a heading-link-xl" data-bind="text: photoAlbum.title()"></a></h2>
-        <!-- 2 строки описания, предположительно 140 символов--><a href="#" class="b-album_desc" data-bind="text: photoAlbum.description()"></a>
+        <h2 class="b-album_title"><a href="#" class="b-album_title-a heading-link-xl" data-bind="href: photoAlbumUrl, text: photoAlbum.title()"></a></h2>
+        <a href="#" class="b-album_desc" data-bind="href: photoAlbumUrl, text: photoAlbum.description()"></a>
         <div class="b-album_count-hold">
             <div class="b-album_count" data-bind="text: photoAlbum.photoCount()">240</div>
             <div class="b-album_count-tx">фото</div>
@@ -35,7 +36,8 @@
             <div class="ico-zoom ico-zoom__abs"></div>
         </div>
     </div>
-    <div class="b-album_overlay"><a class="b-album_r">
+    <div class="b-album_overlay">
+        <a class="b-album_r" href="" data-bind="href: photoAlbumUrl">
         <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
         </div>
         <div class="b-album_ico-album"></div>
@@ -52,7 +54,23 @@
                 </li>
                 <!-- /ko -->
             <!-- /ko -->
-            <li class="b-album_prev-li"><a href="#" class="album-photo-add"></a></li>
+            <!-- ko if: photoAlbum.photoCollection().attaches().length === 0 -->
+            <!-- /ko -->
+            <li class="b-album_prev-li"><a href="#" class="album-photo-add" data-bind="href: photoAlbumUrl"></a></li>
         </ul>
     </div>
 </section>
+<!-- /ko -->
+<!-- ko if: photoAlbum.photoCount() === 0 -->
+<!-- album-empty -->
+<div class="album-empty">
+    <div class="album-empty_hold">
+        <a href="" data-bind="href: photoAlbumUrl, text: photoAlbum.title()" class="album-empty_t"></a>
+        <a href="" data-bind="href: photoAlbumUrl, text: photoAlbum.description()" class="album-empty_desc"></a>
+    </div>
+    <a href="" data-bind="href: photoAlbumUrl" class="album-photo-add"></a>
+    <a href="" data-bind="href: photoAlbumUrl" class="album-empty_del"></a>
+    <div class="album-empty_count">0</div>
+</div>
+<!-- /album-empty -->
+<!-- /ko -->

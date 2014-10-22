@@ -11,7 +11,7 @@ define(['knockout', 'models/Model'], function PresetManagerHandler(ko, Model) {
 
         filters: {
             lepilla: {
-                getWidth: function(imageWidth, imageHeight, presetConfig) {
+                getWidth: function getWidth(imageWidth, imageHeight, presetConfig) {
                     var imageRatio = imageWidth / imageHeight,
                         presetRatio = presetConfig.width / presetConfig.height;
                     if (imageRatio >= presetRatio) {
@@ -20,15 +20,16 @@ define(['knockout', 'models/Model'], function PresetManagerHandler(ko, Model) {
                         return imageRatio * presetConfig.height;
                     }
                 },
-                getHeight: function(imageWidth, imageHeight, presetConfig) {
+                getHeight: function getHeight(imageWidth, imageHeight, presetConfig) {
                     return presetConfig.height;
                 }
             },
             relativeResize: {
-                getWidth: function(imageWidth, imageHeight, presetConfig) {
-                    return 100;
+                getWidth: function getWidth(imageWidth, imageHeight, presetConfig) {
+                    var imageRatio = presetConfig.parameter / imageHeight;
+                    return Math.round(imageWidth * imageRatio);
                 },
-                getHeight: function(imageWidth, imageHeight, presetConfig) {
+                getHeight: function getHeight(imageWidth, imageHeight, presetConfig) {
                     if (presetConfig.method === "heighten") {
                         return presetConfig.parameter;
                     }
@@ -37,12 +38,12 @@ define(['knockout', 'models/Model'], function PresetManagerHandler(ko, Model) {
             }
         },
 
-        getWidth: function(imageWidth, imageHeight, preset) {
+        getWidth: function getWidth(imageWidth, imageHeight, preset) {
             var config = this.presets[preset];
             return this.filters[config.filter].getWidth(imageWidth, imageHeight, config);
         },
 
-        getHeight: function(imageWidth, imageHeight, preset) {
+        getHeight: function getHeight(imageWidth, imageHeight, preset) {
             var config = this.presets[preset];
             return this.filters[config.filter].getHeight(imageWidth, imageHeight, config);
         }

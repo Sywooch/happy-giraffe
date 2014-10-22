@@ -7,6 +7,7 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.colorsArray = ['purple', 'yellow', 'carrot', 'green', 'blue'];
         this.elementCssClass = 'img-grid_loading img-grid_loading__';
         this.returnNewColor = Model.returnNewColor;
+        this.photoAlbum.usablePreset = 'albumList';
         this.getPhotoAlbum = function getPhotoAlbum(passedData) {
             var album;
             if (passedData.success === true) {

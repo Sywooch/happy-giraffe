@@ -1,4 +1,18 @@
-<!-- ko if: photoAlbums().length === 0 -->
+<div class="userAddRecord clearfix userAddRecord__blog userAddRecord__blog">
+    <div class="userAddRecord_hold">
+        <div class="userAddRecord_tx">Я хочу добавить
+        </div>
+        <a href="" data-theme="transparent" class="userAddRecord_i">
+            <div class="userAddRecord_ico userAddRecord_ico__photo-add fancy"></div>
+            <div class="userAddRecord_desc">Фотографии</div>
+        </a>
+        <a href="" data-theme="transparent" class="userAddRecord_i" data-bind="href: newPhotoAlbumUrl">
+            <div class="userAddRecord_ico userAddRecord_ico__album"></div>
+            <div class="userAddRecord_desc">Фотоальбом</div>
+        </a>
+    </div>
+</div>
+<!-- ko if: photoAlbums().length === 0 && loading() === false -->
 <div class="section-empty">
     <div class="section-empty_t">Что бы вы хотели добавить в раздел «Мои фото»?</div>
     <ul class="section-empty_ul">
@@ -27,7 +41,7 @@
     </div>
 </div>
 <!-- /ko -->
-<!-- ko if: photoAlbums().length !== 0 -->
+<!-- ko if: photoAlbums().length !== 0 && loading() === false -->
     <!-- ko foreach: photoAlbums() -->
         <photo-album-compact params="album: $data"></photo-album-compact>
     <!-- /ko -->

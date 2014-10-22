@@ -362,7 +362,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                     return 'uploadPreviewBig';
             }
         });
-        PhotoAlbum.get(userConfig.userId, false, self.applyAlbums);
+        PhotoAlbum.get(userConfig.userId, true, self.applyAlbums);
 
 
         self.unselectAlbum = function() {
@@ -370,17 +370,15 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         };
 
         self.selectAlbum = function(album) {
-            //if (album.photoCollection().attaches().length === 0) {
-                $.post('/api/photo/collections/getAttaches/', JSON.stringify({ collectionId : album.photoCollection().id(), offset: 0 }), function(response) {
-                    album.photoCollection().attaches(ko.utils.arrayMap(response.data.attaches, function(attach) {
-                        var photoAttach = new FromAlbumsPhotoAttach(attach, self);
-                        return photoAttach;
-                    }));
-                    self.currentAlbum(album);
-                }, 'json');
-            //} else {
-            //    self.currentAlbum(album);
-            //}
+            $.post('/api/photo/collections/getAttaches/', JSON.stringify({ collectionId : album.photoCollection().id(), offset: 0 }), function(response) {
+                album.photoCollection().usablePreset = 'uploadPreview';
+                album.photoCollection().attaches(ko.utils.arrayMap(response.data.attaches, function(attach) {
+                    var photoAttach = new FromAlbumsPhotoAttach(attach, self);
+                    return photoAttach;
+                }));
+                self.currentAlbum(album);
+
+            }, 'json');
         };
 
         self.selectAttach = function(attach) {;

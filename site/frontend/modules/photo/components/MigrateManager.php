@@ -34,9 +34,8 @@ class MigrateManager
         $iterator = new \CDataProviderIterator($dp);
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
+                echo $photo->id . "\n";
                 $this->movePhoto($photo);
-                \Yii::app()->db->active = false;
-                \Yii::app()->db->active = true;
             }
         }
     }

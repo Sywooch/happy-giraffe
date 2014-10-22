@@ -21,8 +21,8 @@ class MigrateManager
         $dp = new \CActiveDataProvider('Album', array(
             'criteria' => $criteria,
         ));
-        $iterator = new \CDataProviderIterator($dp);
         $time = time();
+        $iterator = new \CDataProviderIterator($dp);
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
                 if ($time < (time() - 10)) {
@@ -33,7 +33,7 @@ class MigrateManager
                 }
 
                 $this->movePhoto($photo);
-                echo $photo->id . "\n";
+                echo $photo->id . '-' . (time() - $time) . "\n" ;
             }
         }
     }

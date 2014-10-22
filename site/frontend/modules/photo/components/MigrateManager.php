@@ -26,9 +26,9 @@ class MigrateManager
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
                 $this->movePhoto($photo);
+                \Yii::app()->db->active = false;
+                \Yii::app()->db->active = true;
             }
-            \Yii::app()->db->active = false;
-            \Yii::app()->db->active = true;
         }
     }
     

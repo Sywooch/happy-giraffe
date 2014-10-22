@@ -18,7 +18,7 @@ mixin commentsOpen (mod, vars)
                     a.comments-menu_a.comments-menu_a__favorites(href="#favoritesList", data-toggle="tab") Закладки 865
         .tab-content
             #commentsList.comments_hold.tab-pane.active
-                - if (vars.user == false)
+                - if (vars.user === false)
                     +commentAdd('', commentAdd.guest)
                 - else 
                     +commentAdd('', commentAdd.user)

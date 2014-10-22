@@ -21,6 +21,19 @@ $(function() {
     //     }
     // });
 
+    // Фиксация элемента при скролле
+    $('.i-affix').affix({
+        offset: {
+            top: function () {
+                return (this.top = $('.i-affix').offset().top)
+            }
+        }
+      });
+    $('.i-affix').on('affix.bs.affix', function () {
+        $this = $(this);
+        $this.parent().css( "height", $this.outerHeight() );
+    });
+
 
 });
 

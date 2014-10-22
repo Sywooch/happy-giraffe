@@ -27,27 +27,44 @@ block layout
                         .user-album_count 0
                         .user-album_count-tx фото
                     
+
                     // Заголовок
-                    .user-album_switch.display-n
+                    .user-album_switch
                         h1.user-album_t
                             | Харьковский уикенд
-                            a.ico-edit.ico-edit__s
-                    // Редактирование заголовка
-                    .user-album_switch
-                        .user-album_t
-                            .display-ib.w-400
-                                .inp-valid.inp-valid__abs
-                                    input.itx-gray(type="text", value="Виктория")
-                                    .inp-valid_count 150
-                    .user-album_desc 
+                            a.ico-edit.ico-edit__s.powertip( href='#', title='Редактировать')
+
+                    .user-album_desc
                         .user-album_switch
-                            | В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер.
-                            a.ico-edit.ico-edit__s
-                        // Блок редактирвоания описания
-                        .user-album_switch.display-n
-                            // Отправка значения происходит по enter
-                            textarea.itx-gray(rows='8', cols="40") 
-                                | В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. 
+                            | В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+
+                    .i-info-success Альбом успешно создан.
+                            
+                    // Редактирование
+                    .postAdd.display-n
+                        .postAdd_hold.margin-t40
+                            .postAdd_row
+                                .postAdd_cont
+                                    .inp-valid.inp-valid__abs
+                                        input.itx-gray(type='text', placeholder="Заголовок альбома")
+                                        .inp-valid_count 150
+
+                            .postAdd_row
+                                .postAdd_cont
+                                    .inp-valid.inp-valid__abs
+                                        textarea.itx-gray(rows='5', cols='40', placeholder="Описание альбома")
+                                        .inp-valid_count 450
+                            .postAdd_row
+                                .postAdd_cont
+                                    .postAdd_btns-hold
+                                        a.btn.btn-default.btn-xm.margin-r15(href="") Отмена
+                                        a.btn.btn-success.btn-xm(href="") Ok
+                        .i-info-success 
+                            .ico-smile
+                            | 133 фотографии перемещено в 
+                            a(href='#') Как хорошо отдыхать
+                            a.ico-close(href='#') 
+                                        
                 .user-album_control.clearfix
                     a.user-album_del(href="") Удалить альбом
 

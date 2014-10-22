@@ -14,8 +14,7 @@
 .btn-gold,
 .btn-corncolor,
 .btn-yellow,
-.btn-green-simple,
-.btn-green  {
+.btn-green-simple {
     .inline-block();
     padding: 4px 13px 6px;
     margin-bottom: 0;
@@ -41,18 +40,9 @@
 
 
 .btn-green {
-    color: #fff;
-    .gvertical(#49cf43, #21a34a);
+    &:extend(.btn-success all);
 }
-.ie7 .btn-green,
-.ie8 .btn-green {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#49cf43', endColorstr='#21a34a',GradientType=0 ); /* IE6-8 */}
-.ie9 .btn-green {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzcxZTE2YyIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMyMWEzNGEiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+); }
-.btn-green:hover {
-    .gvertical(#54cf4e, #089735);
-}
-.ie7 .btn-green:hover,
-.ie8 .btn-green:hover {filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#54cf4e', endColorstr='#089735',GradientType=0 ); /* IE6-8 */}
-.ie9 .btn-green:hover {background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzU0Y2Y0ZSIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwODk3MzUiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);}
+
 
 
 .btn-gray-light {
@@ -145,6 +135,10 @@
 
 // boostrap button 
 
+@-webkit-keyframes btnloading { from {background-position: 0 0;} to {background-position: 30px 0;} }
+@-moz-keyframes btnloading { from {background-position: 0 0;} to {background-position: 30px 0;} }
+@keyframes btnloading { from {background-position: 0 0;} to {background-position: 30px 0;} }
+
 // button
 .btn {
     text-decoration: none;
@@ -154,6 +148,11 @@
         outline: 0;
         background-image: none;
         .box-shadow(none);
+    }
+    &.loading {
+        background-size: 30px 30px;
+        #gradient > .striped(rgba(0,0,0,.10), -45deg);
+        .animation(btnloading 2s linear infinite forwards);
     }
 
     .ico-plus {

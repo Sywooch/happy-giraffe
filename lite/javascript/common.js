@@ -81,10 +81,10 @@ $(document).ready(function () {
     });
 
     /* Подсказки при наведении */
-    // $('.powertip').powerTip({
-    //     placement: 'n',
-    //     offset: 5
-    // });
+    $('.powertip').powerTip({
+        placement: 'n',
+        offset: 5
+    });
 
 });
 

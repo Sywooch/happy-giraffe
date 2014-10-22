@@ -2,7 +2,7 @@ include ../../../block/config
 extend ../../../extend/layout_base
 block vars
     - var bodyClass = 'body__lite';
-    - global.cssFile = ''; 
+    - global.cssFile = 'member-user.css'; 
   
 
 
@@ -394,7 +394,6 @@ block block-hidden
 
 
 
-
     ////////////////////////////////////////////////////
     // .popup-add
     // Одно фото по ссылке загружено
@@ -421,7 +420,7 @@ block block-hidden
                         .popup-add_cap
                             +cap-empty("cap-empty__addPhotoLink", capEmpty.addPhotoLink)
     // /popup-add
-
+ 
     // .popup-add
     // Одно фото по ссылке загружено
     #photo-link-loaded.popup.popup-add.popup-add__photos
@@ -456,7 +455,7 @@ block block-hidden
     // /popup-add
 
 
-
+ 
     //////////////////////////////////////////////////
     // .popup-add s
     // Фотографии из альбома, список альбомов
@@ -490,7 +489,8 @@ block block-hidden
                                 .popup-add_frame.popup-add_frame__album
                                     .scroll_scroller
                                         // Список альбомов
-                                        .album-preview.album-preview__album.scroll_cont
+                                        +albumPreview('', albumPreview.album1)
+                                        //-.album-preview.album-preview__album.scroll_cont
                                             ul.album-preview_ul
                                                 li.album-preview_li
                                                     .album-preview_in

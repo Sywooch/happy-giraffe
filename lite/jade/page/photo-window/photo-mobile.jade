@@ -1,0 +1,99 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'member.css'; 
+
+block layout
+
+    script.
+        $(document).ready(function () {
+
+            $('.popup-photoview-a').magnificPopup({
+                type: 'inline',
+                overflowY: 'auto',
+                tClose: 'Закрыть',
+                fixedBgPos: true,
+                
+                // When elemened is focused, some mobile browsers in some cases zoom in
+                // It looks not nice, so we disable it:
+                callbacks: {
+                    open: function() {
+                        $('html').addClass('mfp-html-photoview');
+
+                        $('.bxslider').bxSlider(
+                            {
+                                mode: 'fade',
+                                pager: false,
+                                controls: true
+                            }
+                        );
+                    },
+                    close: function() {
+                        $('html').removeClass('mfp-html-photoview');
+                    }
+                }
+            });
+
+        });
+ 
+    // b-main 
+    .b-main.clearfix
+        .b-main_cont
+            .margin-20
+                h2 Фотопросмотрщик
+                a.popup-photoview-a(href="#photo1") Фото 1
+                br
+                br
+                br
+                 
+  
+block block-hidden 
+    // .popup-photoview
+    #photo1.popup.popup-photoview
+        button(title="Закрыть (Esc)", type="button", class="mfp-close mfp-close__white") ×
+ 
+        ul.bxslider
+            li.bxslider_li
+                // показывать скрывать по тапу (касанию пальца)
+                .popup-photoview_top
+
+                    .popup-photoview_title Девочки, нашла гороскоп, по которому можно определить, какой спорт подойдет вашему ребенку согласно знаку  зодиака
+                .popup-photoview_c
+                        .verticalalign-m-help
+                        picture.popup-photoview_picture.verticalalign-m-el
+                        
+                            //- source(srcset=path+'images/example/'+item.w1, media="(min-width: 1024px)")
+                            source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
+                            //- source(srcset=path+'images/example/w880-h580-1.jpg', media="(min-width: 480px)")
+                            img.popup-photoview_img(src=path+'images/example/photoalbum/1-1280.jpg', alt="Фото")
+
+
+                // показывать скрывать по тапу (касанию пальца)
+                .popup-photoview_bottom
+                    .popup-photoview_count 25 фото из 52
+                    +customLikes('', customLikes.few)
+
+
+            li.bxslider_li
+                // показывать скрывать по тапу (касанию пальца)
+                .popup-photoview_top
+
+                    .popup-photoview_title  какой спорт подойдет вашему ребенку согласно знаку  зодиака
+                .popup-photoview_c
+
+                    .verticalalign-m-help
+                    picture.popup-photoview_picture.verticalalign-m-el
+                    
+                        //- source(srcset=path+'images/example/'+item.w1, media="(min-width: 1024px)")
+                        source(srcset=path+'images/example/photoalbum/1-960.jpg 1x, '+path+'images/example/photoalbum/2-1920.jpg 2x' media="(min-width: 640px)")
+                        //- source(srcset=path+'images/example/w880-h580-1.jpg', media="(min-width: 480px)")
+                        img.popup-photoview_img(src=path+'images/example/photoalbum/2-1280.jpg', alt="Фото")
+
+                // показывать скрывать по тапу (касанию пальца)
+                .popup-photoview_bottom
+                    .popup-photoview_count 26 фото из 52
+                    +customLikes('', customLikes.noslogan)
+
+    // /popup-photoview
+

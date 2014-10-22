@@ -38,6 +38,10 @@ class MigrateManager
             return $oldPhoto->newPhotoId;
         }
 
+        if (! is_file($oldPhoto->getOriginalPath())) {
+            return false;
+        }
+
         $photo = new Photo();
         $photo->image = file_get_contents($oldPhoto->getOriginalPath());
         $photo->title = mb_substr($oldPhoto->title, 0, 150, 'UTF-8');

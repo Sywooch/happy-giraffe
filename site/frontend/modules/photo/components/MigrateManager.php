@@ -25,6 +25,8 @@ class MigrateManager
         $iterator = new \CDataProviderIterator($dp);
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
+                echo $photo->id . '-' . (time() - $time) . "\n" ;
+
                 if ($time < (time() - 10)) {
                     $time = time();
                     \Yii::app()->db->active = false;
@@ -33,7 +35,6 @@ class MigrateManager
                 }
 
                 $this->movePhoto($photo);
-                echo $photo->id . '-' . (time() - $time) . "\n" ;
             }
         }
     }

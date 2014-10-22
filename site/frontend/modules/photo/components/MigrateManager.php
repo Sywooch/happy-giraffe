@@ -62,7 +62,7 @@ class MigrateManager
             throw new \CException('Не удалось перенести фото');
         }
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
-        echo ++$this->i;
+        echo (++$this->i) . "\n";
         return $photo->id;
     }
 

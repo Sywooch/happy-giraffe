@@ -35,7 +35,6 @@ class MigrateManager
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
                 $this->movePhoto($photo);
-                sleep(5);
                 \Yii::app()->db->active = false;
                 \Yii::app()->db->active = true;
             }
@@ -64,6 +63,7 @@ class MigrateManager
         }
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
         echo (++$this->i) . "\n";
+        sleep(5);
         return $photo->id;
     }
 

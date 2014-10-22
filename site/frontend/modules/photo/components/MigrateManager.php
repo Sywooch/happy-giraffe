@@ -25,7 +25,7 @@ class MigrateManager
         $time = time();
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
-                if ($time < (time() - 15)) {
+                if ($time < (time() - 10)) {
                     $time = time();
                     \Yii::app()->db->active = false;
                     \Yii::app()->db->active = true;

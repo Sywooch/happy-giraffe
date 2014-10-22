@@ -26,11 +26,11 @@ class MigrateManager
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
                 if ($time < (time() - 10)) {
-                    echo "reconnecting...\n";
+                    $time = time();
                     \Yii::app()->db->active = false;
                     \Yii::app()->db->active = true;
+                    echo "reconnecting...\n";
                 }
-                $time = time();
 
                 $this->movePhoto($photo);
                 echo $photo->id . "\n";

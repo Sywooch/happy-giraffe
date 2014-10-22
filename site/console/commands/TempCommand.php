@@ -670,8 +670,6 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
             sleep(mt_rand(1, 10));
 
             echo time() . "\n";
-            \Yii::app()->db->active = false;
-            \Yii::app()->db->active = true;
         }
     }
 }

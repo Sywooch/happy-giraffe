@@ -32,8 +32,8 @@ class MigrateManager
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
                 $this->movePhoto($photo);
-                echo (time() - $time);
-                $time = time() . "\n";
+                echo (time() - $time) . "\n";
+                $time = time();
                 \Yii::app()->db->active = false;
                 \Yii::app()->db->active = true;
             }

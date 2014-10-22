@@ -22,12 +22,19 @@ class MigrateManager
             'criteria' => $criteria,
         ));
         $iterator = new \CDataProviderIterator($dp);
+        $time = time();
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
+                if ($time < (time() - 20)) {
+                    echo "reconnecting...\n";
+                    \Yii::app()->db->active = false;
+                    \Yii::app()->db->active = true;
+                }
+                $time = time();
+
                 $this->movePhoto($photo);
+                echo $photo->id . "\n";
             }
-            \Yii::app()->db->active = false;
-            \Yii::app()->db->active = true;
         }
     }
     

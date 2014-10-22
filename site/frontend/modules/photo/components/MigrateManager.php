@@ -25,7 +25,7 @@ class MigrateManager
         $time = time();
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
-                if ($time > (time() - 10)) {
+                if ($time < (time() - 10)) {
                     echo "reconnecting...\n";
                     \Yii::app()->db->active = false;
                     \Yii::app()->db->active = true;

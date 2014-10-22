@@ -17,6 +17,8 @@ set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
 
 class MigrateManager
 {
+    public $i = 0;
+
     public function moveUserAlbumsPhotos()
     {
         \Yii::app()->db->setPersistent(false);
@@ -26,7 +28,6 @@ class MigrateManager
         $criteria->compare('type', 0);
         $criteria->with = array('photos');
 
-        echo 'start:' . time() . "\n";
         $dp = new \CActiveDataProvider('Album', array(
             'criteria' => $criteria,
         ));
@@ -34,7 +35,6 @@ class MigrateManager
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
                 $this->movePhoto($photo);
-                echo 'reconnect:' . time() . "\n";
                 \Yii::app()->db->active = false;
                 \Yii::app()->db->active = true;
             }
@@ -62,6 +62,7 @@ class MigrateManager
             throw new \CException('Не удалось перенести фото');
         }
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
+        echo ++$this->i;
         return $photo->id;
     }
 

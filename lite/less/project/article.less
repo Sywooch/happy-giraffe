@@ -14,10 +14,6 @@
         vertical-align: top;
         margin-bottom: 10px;
     }
-    &__single &_t {
-        font-size: 45px;
-        line-height: 50px;
-    }
     &__single &_cont-tale {display: none;}
     /* /new */
 
@@ -227,7 +223,7 @@
     }*/
     &_t {
         font-size: 11px;
-        color: #908850;
+        color: @color-gray;
     }
     &_tx {
         color: @color-gray;
@@ -287,7 +283,7 @@
         text-decoration: none;
     }
 
-    @media (min-width: @screen-desktop) {
+    @media (min-width: @screen-phone-landscape) {
         display: block;
     }
 }

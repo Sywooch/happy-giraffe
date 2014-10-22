@@ -11,7 +11,7 @@ use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 
 set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
-    echo (time() - $errcontext['time']) . "\n";
+    echo time() . "\n";
     return false;
 });
 
@@ -24,7 +24,7 @@ class MigrateManager
         $criteria->compare('type', 0);
         $criteria->with = array('photos');
 
-        $time = time();
+        echo time() . "\n";
         $dp = new \CActiveDataProvider('Album', array(
             'criteria' => $criteria,
         ));
@@ -32,8 +32,7 @@ class MigrateManager
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
                 $this->movePhoto($photo);
-                echo (time() - $time) . "\n";
-                $time = time();
+                echo time() . "\n";
                 \Yii::app()->db->active = false;
                 \Yii::app()->db->active = true;
             }

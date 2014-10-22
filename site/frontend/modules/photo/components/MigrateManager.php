@@ -15,7 +15,7 @@ class MigrateManager
     public function moveUserAlbumsPhotos()
     {
         $criteria = new \CDbCriteria();
-        $criteria->compare('removed', 0);
+        $criteria->compare('t.removed', 0);
         $criteria->compare('type', 0);
         $criteria->with = array('photos');
 

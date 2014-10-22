@@ -14,11 +14,15 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
   <!-- popup-->
   <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
   <script src="/lite/javascript/baron.js"></script>
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
@@ -236,25 +240,34 @@
         <div class="photo-window_img-hold"><img src="/images/example/w960-h537-1.jpg" alt="" class="photo-window_img">
           <div class="verticalalign-m-help"></div>
         </div><a href="#photo-window-end" data-theme="white-simple" class="photo-window_arrow photo-window_arrow__l fancy"></a><a href="#photo-window-end" data-theme="white-simple" class="photo-window_arrow photo-window_arrow__r fancy"></a>
-        <div class="like-control clearfix"><a href="" class="like-control_ico like-control_ico__like">865</a>
-          <div class="favorites-control"><a href="" class="favorites-control_a">12365</a>
-            <div class="favorites-add-popup favorites-add-popup__right">
-              <div class="favorites-add-popup_t">Добавить запись в избранное</div>
-              <div class="favorites-add-popup_i clearfix"><img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
-                <div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
+        <div class="textalign-c visible-md-block">
+          <div class="like-control like-control__line">
+            <div class="like-control_hold"><a href="#" title="Нравится" class="like-control_i like-control_i__like powertip">
+                <div class="like-control_t">Мне нравится!</div>
+                <div class="ico-action-hg ico-action-hg__like"></div>
+                <div class="like-control_tx">865</div></a></div>
+            <div class="like-control_hold"><a href="#" title="В избранное" class="like-control_i like-control_i__idea powertip">
+                <div class="like-control_t">В закладки</div>
+                <div class="ico-action-hg ico-action-hg__favorite"></div>
+                <div class="like-control_tx">863455</div></a>
+              <div class="favorites-add-popup favorites-add-popup__right">
+                <div class="favorites-add-popup_t">Добавить запись в избранное</div>
+                <div class="favorites-add-popup_i clearfix"><img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
+                  <div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
+                </div>
+                <div class="favorites-add-popup_row">
+                  <label for="" class="favorites-add-popup_label">Теги:</label><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">отношения</a><a href="" class="ico-close"></a></span><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">любовь</a><a href="" class="ico-close"></a></span>
+                </div>
+                <div class="favorites-add-popup_row margin-b10"><a href="" class="textdec-none"><span class="ico-plus2 margin-r5"></span><span class="a-pseudo-gray color-gray">Добавить тег</span></a></div>
+                <div class="favorites-add-popup_row">
+                  <label for="" class="favorites-add-popup_label">Комментарий:</label>
+                  <div class="float-r color-gray">0/150</div>
+                </div>
+                <div class="favorites-add-popup_row">
+                  <textarea name="" cols="25" rows="2" placeholder="Введите комментарий" class="favorites-add-popup_textarea"></textarea>
+                </div>
+                <div class="favorites-add-popup_row textalign-c margin-t10"><a href="#" class="btn-secondary btn-s">Отменить</a><a href="#" class="btn-success btn-s">Добавить</a></div>
               </div>
-              <div class="favorites-add-popup_row">
-                <label for="" class="favorites-add-popup_label">Теги:</label><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">отношения</a><a href="" class="ico-close"></a></span><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">любовь</a><a href="" class="ico-close"></a></span>
-              </div>
-              <div class="favorites-add-popup_row margin-b10"><a href="" class="textdec-none"><span class="ico-plus2 margin-r5"></span><span class="a-pseudo-gray color-gray">Добавить тег</span></a></div>
-              <div class="favorites-add-popup_row">
-                <label for="" class="favorites-add-popup_label">Комментарий:</label>
-                <div class="float-r color-gray">0/150</div>
-              </div>
-              <div class="favorites-add-popup_row">
-                <textarea name="" cols="25" rows="2" placeholder="Введите комментарий" class="favorites-add-popup_textarea"></textarea>
-              </div>
-              <div class="favorites-add-popup_row textalign-c margin-t10"><a href="" class="btn-gray-light">Отменить</a><a href="" class="btn-green">Добавить</a></div>
             </div>
           </div>
         </div>

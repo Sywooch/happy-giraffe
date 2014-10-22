@@ -43,7 +43,7 @@ if (! Yii::app()->user->isGuest)
     <!-- wisywig-->
     <script src="/new/redactor/redactor.js"></script>
 </head>
-<body class="body theme theme__adfox <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
+<body class="body <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
 <?php Yii::app()->ads->showCounters(); ?>
 <div class="layout-container">
     <div class="error-serv display-n">

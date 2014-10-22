@@ -17,24 +17,17 @@ class MigrateManager
         $criteria = new \CDbCriteria();
         $criteria->compare('removed', 0);
         $criteria->compare('type', 0);
+        $criteria->with('photos');
 
         $dp = new \CActiveDataProvider('Album', array(
             'criteria' => $criteria,
         ));
-        $time = time();
         $iterator = new \CDataProviderIterator($dp);
         foreach ($iterator as $album) {
             foreach ($album->photos as $photo) {
-                echo $photo->id . '-' . (time() - $time) . "\n" ;
-
-                if ($time < (time() - 10)) {
-                    $time = time();
-                    \Yii::app()->db->active = false;
-                    \Yii::app()->db->active = true;
-                    echo "reconnecting...\n";
-                }
-
                 $this->movePhoto($photo);
+                \Yii::app()->db->active = false;
+                \Yii::app()->db->active = true;
             }
         }
     }

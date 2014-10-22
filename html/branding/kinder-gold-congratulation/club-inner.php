@@ -8,6 +8,11 @@
 	
 </head>
 <body class="body-gray theme theme__adfox theme__kinder-gold-congratulation" style="">
+	
+	<div class="kinder-gold-congratulation">
+		<a class="kinder-gold-congratulation_btn" href=""></a>
+		
+	</div>
 <!-- 
 	adFox настройки
 	1. URL перехода - полная ссылка для перехода (http://...) на сайт рекламодателя. Если не указывать ссылку для перехода, то баннер будет некликабельным.
@@ -69,7 +74,6 @@ document.write('<scr' + 'ipt type="text/javascript" src="http://ads.adfox.ru/211
 // -->
 </script>
 <!--AdFox END-->
-
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/header-fix.php'; ?>
 

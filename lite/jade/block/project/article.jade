@@ -5,15 +5,15 @@ mixin bArticle-single(mod, vars)
         .b-article_cont.clearfix
             .b-article_cont-tale
             .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small-xs ava__middle-sm", ava.a)
+                    a.b-article_author(href='') Ангелина Богоявленская
+                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
                 .icons-meta
                     a.icons-meta_comment(href='')
                         span.icons-meta_tx 35
                     .icons-meta_view
                         span.icons-meta_tx 305
-                .float-l
-                    +ava("ava__female ava__middle-sm-mid", ava.a)
-                    a.b-article_author(href='') Ангелина Богоявленская
-                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
             h1.b-article_t Самое лучшее утро - просыпаюсь, а ты рядом
             .b-article_in.clearfix
                 .wysiwyg-content.clearfix
@@ -41,7 +41,8 @@ mixin bArticle-single(mod, vars)
                         li A не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
                     p Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен 
                     .b-article_in-img
-                        iframe(width='600', height='330', src='http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&feature=oembed&wmode=transparent', frameborder='0', allowfullscreen='')
+                        .video-container
+                            iframe(width='600', height='330', src='http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&feature=oembed&wmode=transparent', frameborder='0', allowfullscreen='')
                     p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
                 //-.textalign-c
                     .like-control.like-control__line.clearfix

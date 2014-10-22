@@ -14,12 +14,15 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
-  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
   <!-- popup-->
   <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
   <script src="/lite/javascript/baron.js"></script>
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
@@ -224,12 +227,12 @@
                   <div class="b-article_cont clearfix">
                     <div class="b-article_cont-tale"></div>
                     <div class="b-article_header clearfix">
+                      <div class="float-l">
+                        <!-- ava--><a href="#" class="ava ava__female ava__small-xs ava__middle-sm"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="b-article_author">Ангелина Богоявленская</a>
+                        <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                      </div>
                       <div class="icons-meta"><a href="" class="icons-meta_comment"><span class="icons-meta_tx">35</span></a>
                         <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
-                      </div>
-                      <div class="float-l">
-                        <!-- ava--><a href="#" class="ava ava__female ava__middle-sm-mid"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="b-article_author">Ангелина Богоявленская</a>
-                        <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
                       </div>
                     </div>
                     <h1 class="b-article_t">Самое лучшее утро - просыпаюсь, а ты рядом</h1>
@@ -258,18 +261,41 @@
                         </ol>
                         <p>Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен </p>
                         <div class="b-article_in-img">
-                          <iframe width="600" height="330" src="http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&amp;feature=oembed&amp;wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
+                          <div class="video-container">
+                            <iframe width="600" height="330" src="http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&amp;feature=oembed&amp;wmode=transparent" frameborder="0" allowfullscreen=""></iframe>
+                          </div>
                         </div>
                         <p>Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
                       </div>
-                      <div class="textalign-c">
-                        <div class="like-control like-control__line clearfix">
-                          <div class="like-control_hold"><a href="" title="Нравится" class="like-control_i like-control_i__like powertip">
-                              <div class="like-control_ico"></div>
+                      <div class="textalign-c visible-md-block">
+                        <div class="like-control like-control__line">
+                          <div class="like-control_hold"><a href="#" title="Нравится" class="like-control_i like-control_i__like powertip">
+                              <div class="like-control_t">Мне нравится!</div>
+                              <div class="ico-action-hg ico-action-hg__like"></div>
                               <div class="like-control_tx">865</div></a></div>
-                          <div class="like-control_hold"><a href="" title="В избранное" class="like-control_i like-control_i__favorites powertip">
-                              <div class="like-control_ico"></div>
-                              <div class="like-control_tx">863455</div></a></div>
+                          <div class="like-control_hold"><a href="#" title="В избранное" class="like-control_i like-control_i__idea powertip">
+                              <div class="like-control_t">В закладки</div>
+                              <div class="ico-action-hg ico-action-hg__favorite"></div>
+                              <div class="like-control_tx">863455</div></a>
+                            <div class="favorites-add-popup favorites-add-popup__right display-n">
+                              <div class="favorites-add-popup_t">Добавить запись в избранное</div>
+                              <div class="favorites-add-popup_i clearfix"><img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
+                                <div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
+                              </div>
+                              <div class="favorites-add-popup_row">
+                                <label for="" class="favorites-add-popup_label">Теги:</label><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">отношения</a><a href="" class="ico-close"></a></span><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">любовь</a><a href="" class="ico-close"></a></span>
+                              </div>
+                              <div class="favorites-add-popup_row margin-b10"><a href="" class="textdec-none"><span class="ico-plus2 margin-r5"></span><span class="a-pseudo-gray color-gray">Добавить тег</span></a></div>
+                              <div class="favorites-add-popup_row">
+                                <label for="" class="favorites-add-popup_label">Комментарий:</label>
+                                <div class="float-r color-gray">0/150</div>
+                              </div>
+                              <div class="favorites-add-popup_row">
+                                <textarea name="" cols="25" rows="2" placeholder="Введите комментарий" class="favorites-add-popup_textarea"></textarea>
+                              </div>
+                              <div class="favorites-add-popup_row textalign-c margin-t10"><a href="#" class="btn-secondary btn-s">Отменить</a><a href="#" class="btn-success btn-s">Добавить</a></div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <!-- Лайки от яндекса-->
@@ -278,7 +304,7 @@
                         </div>
                         <div class="custom-likes_in">
                           <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                          <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
+                          <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" class="yashare-auto-init"></div>
                         </div>
                       </div>
                       <!-- Лайки от яндекса-->
@@ -324,7 +350,7 @@
                           <div class="comments_i clearfix">
                             <div class="comments_ava">
                               <!-- Аватарки размером 40*40-->
-                              <!-- ava--><a href="#" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                              <!-- ava--><a href="#" class="ava ava__middle ava__small-xs"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                             </div>
                             <div class="comments_frame">
                               <div class="comments_header"><a href="" rel="author" class="a-light comments_author"> Иванна Хлебникова</a>
@@ -346,7 +372,7 @@
                               <div class="comments_i clearfix">
                                 <div class="comments_ava">
                                   <!-- Аватарки размером 40*40-->
-                                  <!-- ava--><a href="#" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
+                                  <!-- ava--><a href="#" class="ava ava__middle ava__small-xs"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/189385/74c3062ab78a806abc8d3a3e8990bf0e.jpg" class="ava_img"></a>
                                 </div>
                                 <div class="comments_frame">
                                   <div class="comments_header"><a href="" rel="author" class="a-light comments_author"> Иванна Хлебникова</a>
@@ -367,7 +393,7 @@
                               <div class="comments_i clearfix">
                                 <div class="comments_ava">
                                   <!-- Аватарки размером 40*40-->
-                                  <!-- ava--><a href="#" class="ava ava__middle ava__small-sm-mid"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                                  <!-- ava--><a href="#" class="ava ava__middle ava__small-xs"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                                 </div>
                                 <div class="comments_frame">
                                   <header class="comments_header"><a href="" rel="author" class="a-light comments_author">Ангелина Богоявленская</a>
@@ -392,7 +418,7 @@
                           <div class="comments_i clearfix">
                             <div class="comments_ava">
                               <!-- Аватарки размером 40*40-->
-                              <!-- ava--><a href="#" class="ava ava__middle ava__small-sm-mid"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
+                              <!-- ava--><a href="#" class="ava ava__middle ava__small-xs"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                             </div>
                             <div class="comments_frame">
                               <div class="comments_header"><a href="" rel="author" class="a-light comments_author"> Иванна Хлебникова</a>

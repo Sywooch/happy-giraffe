@@ -55,7 +55,6 @@ class MigrateManager
             throw new \CException('Не удалось перенести фото');
         }
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
-        \Yii::app()->thumbs->createAll($photo);
         return $photo->id;
     }
 

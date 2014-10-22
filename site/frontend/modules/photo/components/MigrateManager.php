@@ -19,6 +19,9 @@ class MigrateManager
 {
     public function moveUserAlbumsPhotos()
     {
+        var_dump(\Yii::app()->db->persistent);
+        die;
+
         $criteria = new \CDbCriteria();
         $criteria->compare('t.removed', 0);
         $criteria->compare('type', 0);

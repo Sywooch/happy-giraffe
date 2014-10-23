@@ -15,7 +15,6 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
         };
         this.getCover = function getCover(cover) {
-            console.log(PresetManager);
             if (!$.isEmptyObject(PresetManager.presets)) {
                 if (cover) {
                     var photoAttach = new PhotoAttach(cover);

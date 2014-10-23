@@ -41,6 +41,7 @@ define(['knockout', 'models/Model'], function PresetManagerHandler(ko, Model) {
 
         getWidth: function getWidth(imageWidth, imageHeight, preset) {
             var config = this.presets[preset];
+            console.log(this.presets, preset, config);
             return this.filters[config.filter].getWidth(imageWidth, imageHeight, config);
         },
 

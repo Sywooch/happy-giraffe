@@ -10,15 +10,14 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         this.photoAlbum.init(params.album);
         this.opened = ko.observable(false);
         this.photoAlbumUrl = '/photo/user/' + userConfig.userId + '/albums/' + this.photoAlbum.id();
-        this.remove = function () {
+        this.remove = function remove() {
             this.photoAlbum.delete();
         };
-        this.restore = function () {
+        this.restore = function restore() {
             this.photoAlbum.restore();
         };
         this.openPhotoHandler = function openPhotoHandler() {
             this.opened(true);
-            console.log($('photo-slider')[0]);
             ko.applyBindings({}, $('photo-slider')[0]);
         };
         this.openPhoto = function openPhoto() {

@@ -9,6 +9,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.cover = ko.observable();
         this.usablePreset = '';
         PresetManager.presets = data.presets;
+        console.log(PresetManager.presets);
         this.handlePresets = function gainPhotoInLine(presets) {
             if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
                 PresetManager.presets = presets;

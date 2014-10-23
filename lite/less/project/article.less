@@ -50,7 +50,7 @@
         &:extend(.heading-link-xxl);
     }
     &_t-list {
-        margin: 0 0 15px;
+        margin: 10px 0;
     }
     &_t-a {
         &:extend(.heading-link-xl);
@@ -62,6 +62,19 @@
         &_header .tx-date {display: inline-block;}
     }
 
+    @media (min-width: @screen-tablet) {
+        .wysiwyg-content {
+            margin: 0 40px 10px 0; 
+        }
+        // Компенсация отступа текста
+        &_in-img { 
+            margin: 0 -40px 0 0;
+        }
+        &_t-list {
+            margin: 20px 40px 20px 0;
+        }
+    }
+
     @media (min-width: @screen-desktop) {
         & {margin: 30px 0;}
         &__list {
@@ -69,7 +82,7 @@
             padding: 14px;
         }
         &__list &_in-img {
-            margin: 0 -14px;
+            margin: 0 -54px 0 -14px;
         }
     }
 }
@@ -262,7 +275,7 @@
 /* icons-meta */
 .icons-meta {
     float: right;
-    margin: 3px 10px;
+    margin: 3px 0 3px 10px;
     font-size: 11px;
     color: #737575;
 

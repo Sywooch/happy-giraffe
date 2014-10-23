@@ -90,22 +90,24 @@ mixin bArticleListItem(mod, vars)
                 a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
             .b-article_in.clearfix
                 .wysiwyg-content.clearfix
-                    //- Если не указали тип записи в миксине
-                    if (!vars.type)
-                        - vars.type = 'text'
-                    if (vars.type == 'text')
-                        // Текстовая статья
-                        .b-article_in-img
-                            a(href='#')
-                                img(alt='', src='#{path}images/example/w600-h415.jpg')
-                    if (vars.type == 'video')
-                        // Статья видео
-                        .b-article_in-img
-                            // Во всех статьях видео необходимо обвернуть в .video-container
-                            .video-container
-                                iframe(width='600', height='330', src='http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&feature=oembed&wmode=transparent', frameborder='0', allowfullscreen='')
-                    p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  
-                        a.ico-more(href='#') 
+                    a(href='#') 
+                        //- Если не указали тип записи в миксине
+                        if (!vars.type)
+                            - vars.type = 'text'
+                        if (vars.type == 'text')
+                            // Текстовая статья
+                            .b-article_in-img
+                                a(href='#')
+                                    img(alt='', src='#{path}images/example/w600-h415.jpg')
+                        if (vars.type == 'video')
+                            // Статья видео
+                            .b-article_in-img
+                                // Во всех статьях видео необходимо обвернуть в .video-container
+                                .video-container
+                                    iframe(width='600', height='330', src='http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&feature=oembed&wmode=transparent', frameborder='0', allowfullscreen='')
+                        // Описание определенное количество символов
+                        p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  
+                            span.ico-more
 
                 if (vars.type == 'text')
                     +commentsList('', commentsList.b)

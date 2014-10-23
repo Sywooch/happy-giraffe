@@ -34,15 +34,46 @@
     background: url('/images/ico/ico-close4.png') no-repeat;
 }
 .ico-close4:hover {background-position: 0 0;}
+
+////////////////////////////////////////////////
+// ico-base спрайт
 .ico-plus {
     .inline-block();
     vertical-align: middle;
     width: 13px;
     height: 13px;
-    background: url('@{path-img}/ico/ico-plus.svg') no-repeat;
+}
+.ico-more {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
 }
 
+.ico-ovrPlay {
+    width: 99px;
+    height: 99px;
+
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+    }
+}
+.ico-zoom {
+    
+
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+    }
+}
+
+// /ico-base спрайт
 ////////////////////////////
+
 .ico-social-hold {
     .inline-block();
     vertical-align: middle;
@@ -247,30 +278,6 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
 }
 
 //////////////////////
-.ico-zoom {
-    width: 99px;
-    height: 99px;
-    background: url('@{path-img}/img-grid_zoom.png') no-repeat;
-
-    &__abs {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -50px 0 0 -50px;
-    }
-}
-.ico-ovrPlay {
-    width: 99px;
-    height: 99px;
-    background: url('@{path-img}/ico/ico-ovrPlay.svg') no-repeat;
-
-    &__abs {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -50px 0 0 -50px;
-    }
-}
 
 .ico-gif-l {
     position: relative;

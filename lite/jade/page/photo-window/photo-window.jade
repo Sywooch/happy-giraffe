@@ -54,7 +54,7 @@ block block-dev-view
                         .verticalalign-m-help
                     a.photo-window_arrow.photo-window_arrow__l.fancy(href='#photo-window-end', data-theme='white-simple')
                     a.photo-window_arrow.photo-window_arrow__r.fancy(href='#photo-window-end', data-theme='white-simple')
-                    +likeControl()
+                    +likeControl('', likeControl.base)
                     //-.like-control.clearfix
                         a.like-control_ico.like-control_ico__like(href='') 865
                         .favorites-control
@@ -89,13 +89,11 @@ block block-dev-view
                         .scroll_scroller.photo-window_cont
                             .scroll_cont
                                 .photo-window_cont-t.clearfix
-                                    .meta-gray
-                                        a.meta-gray_comment(href='')
-                                            span.ico-comment.ico-comment__gray
-                                            span.meta-gray_tx 35
-                                        .meta-gray_view
-                                            span.ico-view.ico-view__gray
-                                            span.meta-gray_tx 305
+                                    .icons-meta
+                                        a.icons-meta_comment(href='')
+                                            span.icons-meta_tx 35
+                                        .icons-meta_view
+                                            span.icons-meta_tx 305
                                     .b-user-info.b-user-info__middle.float-l
                                         +ava('ava__middle ava__female', avaVars)
                                         .b-user-info_hold

@@ -18,9 +18,9 @@ mixin commentsOpen (mod, vars)
                     a.comments-menu_a.comments-menu_a__favorites(href="#favoritesList", data-toggle="tab") Закладки 865
         .tab-content
             #commentsList.comments_hold.tab-pane.active
-                - if (vars.user === false)
+                if (!vars.user)
                     +commentAdd('', commentAdd.guest)
-                - else 
+                else 
                     +commentAdd('', commentAdd.user)
                 ul.comments_ul
                     // 
@@ -37,19 +37,19 @@ mixin commentsOpen (mod, vars)
                                 +ava("ava__middle ava__small-xs", ava.b)
                             .comments_frame
                                 .comments_header
-                                    a.a-light.comments_author(href="", rel='author')  Иванна Хлебникова
+                                    a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
                                     time.tx-date(datetime='2012-12-23') 2 минуты назад
                                 .comments_cont
                                     .wysiwyg-content
                                         p 
                                             |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
                                         // одно фото в блок (ссылку)
-                                        a.comments_cont-img-w(href='')
+                                        a.comments_cont-img-w(href='#')
                                             // размеры превью максимум 400*400 пк
                                             img(alt='', src='/images/example/w220-h309-1.jpg')
                                         p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
 
-                                - if (vars.user)
+                                if (vars.user)
                                     .comments_footer
                                         +bControl("", bControl.e)
                         ul.comments_ul
@@ -61,15 +61,15 @@ mixin commentsOpen (mod, vars)
                                         +ava("ava__middle ava__small-xs", ava.b)
                                     .comments_frame
                                         .comments_header
-                                            a.a-light.comments_author(href="", rel='author')  Иванна Хлебникова
+                                            a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
                                             time.tx-date(datetime='2012-12-23') 2 минуты назад
                                         .comments_cont
                                             .wysiwyg-content
                                                 p 
-                                                    a.comments_ansver-for(href="") Ольга Максимова &nbsp; 
+                                                    a.comments_ansver-for(href="#") Ольга Максимова &nbsp; 
                                                     | Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
 
-                                        - if (vars.user)
+                                        if (vars.user)
                                             .comments_footer
                                                 +bControl("", bControl.d)
                             // /комментарий вложенный
@@ -83,7 +83,7 @@ mixin commentsOpen (mod, vars)
                                         +ava("ava__middle ava__small-xs", ava.a)
                                     .comments_frame
                                         header.comments_header
-                                            a.a-light.comments_author(href="", rel='author') Ангелина Богоявленская
+                                            a.a-light.comments_author(href="#", rel='author') Ангелина Богоявленская
                                             time.tx-date(datetime='2012-12-23') 23 декабря
                                         .comments_cont
                                             .wysiwyg-content
@@ -92,7 +92,7 @@ mixin commentsOpen (mod, vars)
                                                     span.comments_ansver-for Ольга Максимова &nbsp; 
                                                     | Свой комментарий. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
 
-                                        - if (vars.user)
+                                        if (vars.user)
                                             .comments_footer
                                                 +bControl("", bControl.e)
                             // /комментарий вложенный
@@ -106,13 +106,13 @@ mixin commentsOpen (mod, vars)
                                 +ava("ava__middle ava__small-xs", ava.c)
                             .comments_frame
                                 .comments_header
-                                    a.a-light.comments_author(href="", rel='author')  Иванна Хлебникова
+                                    a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
                                     time.tx-date(datetime='2014-11-04T18:20:54+00:00') 2 минуты назад
                                 .comments_cont
                                     .wysiwyg-content
                                         p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
 
-                                - if (vars.user)
+                                if (vars.user)
                                     .comments_footer
                                         +bControl("", bControl.e)
                     // комментарий 
@@ -221,21 +221,20 @@ mixin commentsOpen (mod, vars)
 
 
 //- comment-add
-    
     mod
     vars
 mixin commentAdd (mod, vars)
     .comments_add
         //- .comment-add_t Комментировать
-        - if (vars.state == 'guest')
+        if (vars.state == 'guest')
             .comments_add-hold
                 |  Комментировать от
                 .ico-social-hold
-                    a.ico-social.ico-social__odnoklassniki(href="")
-                    a.ico-social.ico-social__vkontakte(href="")
+                    a.ico-social.ico-social__odnoklassniki(href="#")
+                    a.ico-social.ico-social__vkontakte(href="#")
                 |  или 
                 a.comments_add-a Войти
-        - if (vars.state == 'user')
+        if (vars.state == 'user')
             // Заглушка редактора до клика по ней, затем загружается редактор
             .comments_add-frame
                 .comments_i.clearfix
@@ -258,7 +257,7 @@ mixin commentAdd (mod, vars)
                         +ava("ava__middle ava__small-sm-mid", ava.c)
                     .comments_frame
                         // Когда еще нет комментов то текст placeholder: 
-                            Введите комментарий первым
+                        // Введите комментарий первым
                         textarea.itx-simple(placeholder=" Введите ваш комментарий ", rows="3", cols='30')
                         .comments_add-editor
                             // Загружаем стили и скрипты редактора при необходимости
@@ -309,3 +308,129 @@ mixin commentAdd (mod, vars)
 
 - commentAdd.user = {}
 - commentAdd.user.state = 'user'
+
+
+
+
+
+//- comments
+//- Открытые комментарии в статьях
+//- mod 
+    vars
+        
+mixin commentsList (mod, vars)
+    // comments
+    section.comments
+        #commentsList.comments_hold
+            ul.comments_ul
+                // 
+                    варианты цветов комментов. В такой последовательности
+                    .comments_li__lilac
+                    .comments_li__yellow
+                    .comments_li__red
+                    .comments_li__blue
+                    .comments_li__green
+                li.comments_li
+                    .comments_i.clearfix
+                        .comments_ava
+                            // Аватарки размером 40*40
+                            +ava("ava__middle ava__small-xs", ava.b)
+                        .comments_frame
+                            .comments_header
+                                a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
+                                time.tx-date(datetime='2012-12-23') 2 минуты назад
+                            .comments_cont
+                                .wysiwyg-content
+                                    p 
+                                        |  Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                    // одно фото в блок (ссылку)
+                                    a.comments_cont-img-w(href='#')
+                                        // размеры превью максимум 400*400 пк
+                                        img(alt='', src='/images/example/w220-h309-1.jpg')
+                                    p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                            if (vars.user)
+                                .comments_footer
+                                    +bControl("", bControl.e)
+                    //-ul.comments_ul
+                        // комментарий вложенный
+                        li.comments_li
+                            .comments_i.clearfix
+                                .comments_ava
+                                    // Аватарки размером 40*40
+                                    +ava("ava__middle ava__small-xs", ava.b)
+                                .comments_frame
+                                    .comments_header
+                                        a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
+                                        time.tx-date(datetime='2012-12-23') 2 минуты назад
+                                    .comments_cont
+                                        .wysiwyg-content
+                                            p 
+                                                a.comments_ansver-for(href="#") Ольга Максимова &nbsp; 
+                                                | Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                        // /комментарий вложенный
+
+                        // комментарий вложенный
+                        // Свой комментарий
+                        li.comments_li.comments_li__self
+                            .comments_i.clearfix
+                                .comments_ava
+                                    // Аватарки размером 40*40
+                                    +ava("ava__middle ava__small-xs", ava.a)
+                                .comments_frame
+                                    header.comments_header
+                                        a.a-light.comments_author(href="#", rel='author') Ангелина Богоявленская
+                                        time.tx-date(datetime='2012-12-23') 23 декабря
+                                    .comments_cont
+                                        .wysiwyg-content
+                                            p
+                                                // Если аккаунт удален, меняем а на span что б не было 404 ошибок.
+                                                span.comments_ansver-for Ольга Максимова &nbsp; 
+                                                | Свой комментарий. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                        // /комментарий вложенный
+                // / комментарий  
+
+                // комментарий     
+                li.comments_li
+                    .comments_i.clearfix
+                        .comments_ava
+                            // Аватарки размером 40*40
+                            +ava("ava__middle ava__small-xs", ava.c)
+                        .comments_frame
+                            .comments_header
+                                a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
+                                time.tx-date(datetime='2014-11-04T18:20:54+00:00') 2 минуты назад
+                            .comments_cont
+                                .wysiwyg-content
+                                    p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                // комментарий     
+                li.comments_li
+                    .comments_i.clearfix
+                        .comments_ava
+                            // Аватарки размером 40*40
+                            +ava("ava__middle ava__small-xs", ava.c)
+                        .comments_frame
+                            .comments_header
+                                a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
+                                time.tx-date(datetime='2014-11-04T18:20:54+00:00') 2 минуты назад
+                            .comments_cont
+                                .wysiwyg-content
+                                    p Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
+
+                // комментарий 
+
+    // /comments
+
+- var commentsList = {}
+- commentsList.a = {}
+- commentsList.a.user = true
+
+- commentsList.b = {}
+- commentsList.b.user = false
+
+- commentsList.commentPage = {}
+- commentsList.commentPage.user = false
+

@@ -89,7 +89,7 @@ a.heading-link-xxl:hover {
 .heading-link-xl {
     margin: 10px 0;
     font-size: 23px;
-    line-height: 28px;
+    line-height: 25px;
     font-weight: bold;
     color: @color-link-title;
     text-decoration: none;
@@ -107,7 +107,7 @@ a.heading-link-xxl:hover {
         & {
             margin: 15px 0;
             font-size: 35px;
-            line-height: 38px;
+            line-height: 35px;
         }
     }
 }
@@ -286,12 +286,17 @@ a.heading-link-xxl:hover {
     display: none;
     position: fixed;
     top: 50%;
-    left: 40px;
+    left: 30px;
     height: 154px;
     margin-top: -77px;
     z-index: 100;
- 
-    &:hover .i-photo-arrow {background-position: 0 -170px;}
+    
+    .i-photo-arrow {.opacity(0.4);}
+    &:hover .i-photo-arrow {
+        background-position: 0 -170px;
+        .opacity(0.8);
+    }
+
     &__r .i-photo-arrow {background-position: -53px 0;}
     &__r:hover .i-photo-arrow {background-position: -53px -170px;}
 
@@ -342,7 +347,7 @@ a.heading-link-xxl:hover {
 
     &__r {
         left: auto;
-        right: 40px;
+        right: 30px;
     }
     &__r:hover &_in {
         left: auto;

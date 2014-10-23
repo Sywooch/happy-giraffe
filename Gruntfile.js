@@ -544,6 +544,21 @@ module.exports = function(grunt){
         //         unit: 5
         //     }
         // },
+        'ico-base': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-base",
+                spritePath: "lite/images/sprite/ico-base.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'vertical',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 20
+            }
+        },
         'ico-arrow': {
             options: {
                 spriteElementPath: "lite/images/sprite/ico-arrow",

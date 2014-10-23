@@ -546,7 +546,7 @@ class User extends HActiveRecord
                 'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
             ),
             'FamilyBehavior' => array(
-                'class' => 'site\frontend\modules\photo\components\FamilyBehavior',
+                'class' => 'site\frontend\modules\family\components\FamilyBehavior',
             ),
         );
     }

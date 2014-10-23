@@ -36,7 +36,9 @@ class FamilyMember extends \HActiveRecord
 	 */
 	public function rules()
 	{
+        return array(
 
+        );
 	}
 
 	/**
@@ -48,7 +50,7 @@ class FamilyMember extends \HActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, '\User', 'userId'),
-			'family' => array(self::BELONGS_TO, '\site\frontend\modules\family\modelsFamily', 'familyId'),
+			'family' => array(self::BELONGS_TO, '\site\frontend\modules\family\models\Family', 'familyId'),
 		);
 	}
 

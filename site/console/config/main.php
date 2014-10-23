@@ -18,6 +18,9 @@ return array(
         'photo' => array(
             'class' => 'site\frontend\modules\photo\commands\DefaultCommand',
         ),
+        'postConverter' => array(
+            'class' => 'site\frontend\modules\posts\commands\ConvertCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

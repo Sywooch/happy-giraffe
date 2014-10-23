@@ -17,12 +17,22 @@ abstract class SerializedModel extends \CModel implements \IHToJSON
 
     public function __construct($data)
     {
-        $this - unserialize($data);
+        $this->unserialize($data);
     }
-    
+
     public function __toString()
     {
-        return '';
+        return $this->serialize();
+    }
+
+    public function serialize()
+    {
+        return \CJSON::encode($this->toJSON());
+    }
+
+    public function toJSON()
+    {
+        return $this->attributes;
     }
 
 }

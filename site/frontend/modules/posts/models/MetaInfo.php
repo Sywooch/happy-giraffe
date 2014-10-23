@@ -10,14 +10,9 @@ namespace site\frontend\modules\posts\models;
 class MetaInfo extends SerializedModel
 {
 
-    public $title = '';
-    public $keywords = '';
-    public $description = '';
-
-    public function __construct($data)
-    {
-        $this - unserialize($data);
-    }
+    public $title = null;
+    public $keywords = null;
+    public $description = null;
 
     public function attributeNames()
     {
@@ -26,11 +21,6 @@ class MetaInfo extends SerializedModel
             'keywords',
             'description',
         );
-    }
-
-    public function toJSON()
-    {
-        
     }
 
 }

@@ -36,13 +36,16 @@
             <div class="section-empty_desc-tx">Создавайте свои фотоальбомы и делитесь ими со своими друзьями и Веселым Жирафом. А также получайте за это дополнительные баллы в вашу общую копилку.</div>
         </div>
         <div class="section-empty_desc display-n">
-            <div class="section-empty_desc-tx">Создавайте свои фотоальбомы и делитесь ими со своими друзьями и Веселым Жирафом. А также получайте за это дополнительные баллы в вашу общую копилку.</div>
+            <div clickass="section-empty_desc-tx">Создавайте свои фотоальбомы и делитесь ими со своими друзьями и Веселым Жирафом. А также получайте за это дополнительные баллы в вашу общую копилку.</div>
         </div>
     </div>
 </div>
 <!-- /ko -->
 <!-- ko if: photoAlbums().length !== 0 && loading() === false -->
     <!-- ko foreach: photoAlbums() -->
+        <photo-album-compact params="album: $data, presets: $parent.presets"></photo-album-compact>
+    <!-- /ko -->
+    <!-- ko foreach: emptyPhotoAlbums() -->
         <photo-album-compact params="album: $data, presets: $parent.presets"></photo-album-compact>
     <!-- /ko -->
 <!-- /ko -->

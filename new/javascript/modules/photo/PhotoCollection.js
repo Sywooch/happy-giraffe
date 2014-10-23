@@ -2,7 +2,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
     "use strict";
     function PhotoCollection(data) {
         this.getAttachesUrl = '/api/photo/collections/getAttaches/';
-        this.pageCount = 20;
+        this.pageCount = null;
         this.id = ko.observable(data.id);
         this.attaches = ko.observableArray();
         this.attachesCount = ko.observable(data.attachesCount);

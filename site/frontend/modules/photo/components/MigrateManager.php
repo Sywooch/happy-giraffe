@@ -10,15 +10,8 @@ namespace site\frontend\modules\photo\components;
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 
-set_error_handler(function($errno, $errstr, $errfile, $errline, $errcontext) {
-    echo 'error:' . time() . "\n";
-    return false;
-});
-
 class MigrateManager
 {
-    public $i = 0;
-
     public function moveUserAlbumsPhotos()
     {
         $criteria = new \CDbCriteria();
@@ -65,7 +58,6 @@ class MigrateManager
         \Yii::app()->db->active = true;
 
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
-        echo (++$this->i) . "\n";
         return $photo->id;
     }
 

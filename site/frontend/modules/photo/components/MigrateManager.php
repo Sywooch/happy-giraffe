@@ -21,8 +21,6 @@ class MigrateManager
 
     public function moveUserAlbumsPhotos()
     {
-        \Yii::app()->db->setPersistent(false);
-
         $criteria = new \CDbCriteria();
         $criteria->compare('t.removed', 0);
         $criteria->compare('type', 0);
@@ -37,6 +35,8 @@ class MigrateManager
                 echo $photo->id . "\n";
                 $this->movePhoto($photo);
             }
+            \Yii::app()->db->active = false;
+            \Yii::app()->db->active = true;
         }
     }
     
@@ -60,6 +60,10 @@ class MigrateManager
         if (! $photo->save()) {
             throw new \CException('Не удалось перенести фото');
         }
+
+        \Yii::app()->db->active = false;
+        \Yii::app()->db->active = true;
+
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
         echo (++$this->i) . "\n";
         return $photo->id;

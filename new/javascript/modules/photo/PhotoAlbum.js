@@ -67,7 +67,7 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
             this.id = ko.observable(data.id);
             this.title = ko.observable(data.title);
             this.description = ko.observable(data.description);
-            console.log(data.photoCollections);
+            console.log(data.photoCollections, data.photoCollections !== undefined);
             if (data.photoCollections !== undefined) {
                 data.photoCollections.default.presets = data.presets;
                 this.photoCollection = ko.observable(new PhotoCollection(data.photoCollections.default));

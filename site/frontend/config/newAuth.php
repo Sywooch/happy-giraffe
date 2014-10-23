@@ -17,6 +17,7 @@ return array(
             'createPhotoAlbum',
             'managePhotoAttach',
             'uploadPhoto',
+            'manageOwnFamily',
         ),
         'bizRule' => null,
         'data' => null
@@ -176,5 +177,17 @@ return array(
         'description' => 'Загрузка фотографий',
         'bizRule' => null,
         'data' => null
+    ),
+    'manageOwnFamily' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление своей фотоколлекцией',
+        'children' => array(
+            'addPhotos',
+            'sortPhotoCollection',
+            'setCover',
+            'moveAttaches',
+        ),
+        'bizRule' => 'return $params["entity"]->getOwner()->id == \Yii::app()->user->id;',
+        'data' => null,
     ),
 );

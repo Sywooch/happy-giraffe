@@ -28,7 +28,7 @@ class Family extends \CActiveRecord
 	public function rules()
 	{
 		return array(
-
+            array('description', 'length', 'max' => 500),
 		);
 	}
 
@@ -40,7 +40,7 @@ class Family extends \CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'familyMembers' => array(self::HAS_MANY, 'FamilyMember', 'familyId'),
+			'familyMembers' => array(self::HAS_MANY, '\site\frontend\modules\family\models\FamilyMember', 'familyId'),
 		);
 	}
 
@@ -65,4 +65,32 @@ class Family extends \CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    public function behaviors()
+    {
+        return array(
+            'withRelated' => array(
+                'class' => 'site.common.extensions.wr.WithRelatedBehavior',
+            ),
+        );
+    }
+
+    public function canEdit()
+    {
+        return FamilyMember::model()->family($this->id)-user(\Yii::app()->user->id)->exists();
+    }
+
+    public static function getByUser()
+    {
+        $family = FamilyMember::model()->with('family')->user(\Yii::app()->user->id)->find();
+        if ($family === null) {
+            $family = new Family();
+        }
+    }
+
+    protected static function createFamily()
+    {
+        $family = new Family();
+        $me = new Adult();
+    }
 }

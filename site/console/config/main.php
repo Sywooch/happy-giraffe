@@ -18,6 +18,9 @@ return array(
         'photo' => array(
             'class' => 'site\frontend\modules\photo\commands\DefaultCommand',
         ),
+        'family' => array(
+            'class' => 'site\frontend\modules\family\commands\DefaultCommand',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

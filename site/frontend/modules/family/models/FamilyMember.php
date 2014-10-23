@@ -14,12 +14,14 @@ namespace site\frontend\modules\family\models;
  * @property string $description
  * @property string $userId
  * @property string $familyId
+ * @property integer $removed
+ * @property string $adultRelationshipStatus
  *
  * The followings are the available model relations:
  * @property \User $user
  * @property \site\frontend\modules\family\models\Family $family
  */
-class FamilyMember extends \CActiveRecord
+class FamilyMember extends \HActiveRecord
 {
 	/**
 	 * @return string the associated database table name
@@ -34,9 +36,7 @@ class FamilyMember extends \CActiveRecord
 	 */
 	public function rules()
 	{
-		return array(
 
-		);
 	}
 
 	/**
@@ -47,8 +47,8 @@ class FamilyMember extends \CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'User', 'userId'),
-			'family' => array(self::BELONGS_TO, 'Family', 'familyId'),
+			'user' => array(self::BELONGS_TO, '\User', 'userId'),
+			'family' => array(self::BELONGS_TO, '\site\frontend\modules\family\modelsFamily', 'familyId'),
 		);
 	}
 
@@ -66,6 +66,8 @@ class FamilyMember extends \CActiveRecord
 			'description' => 'Description',
 			'userId' => 'User',
 			'familyId' => 'Family',
+			'removed' => 'Removed',
+			'adultRelationshipStatus' => 'Adult Relationship Status',
 		);
 	}
 
@@ -79,4 +81,41 @@ class FamilyMember extends \CActiveRecord
 	{
 		return parent::model($className);
 	}
+
+    protected function instantiate($attributes)
+    {
+        switch ($attributes['type']) {
+            case 'adult':
+                $class = '\site\frontend\modules\family\models\Adult';
+                break;
+            case 'child':
+                $class = '\site\frontend\modules\family\models\Child';
+                break;
+            case 'planning':
+                $class = '\site\frontend\modules\family\models\PlanningChild';
+                break;
+            case 'waiting':
+                $class = '\site\frontend\modules\family\models\PregnancyChild';
+                break;
+            case 'waitingTwins':
+                $class = '\site\frontend\modules\family\models\PregnancyTwins';
+                break;
+            default:
+                throw new \CException('Wrong type');
+        }
+        $model = new $class(null);
+        return $model;
+    }
+
+    public function family($familyId)
+    {
+        $this->getDbCriteria()->compare($this->getTableAlias() . '.familyId', $familyId);
+        return $this;
+    }
+
+    public function user($userId)
+    {
+        $this->getDbCriteria()->compare($this->getTableAlias() . '.userId', $userId);
+        return $this;
+    }
 }

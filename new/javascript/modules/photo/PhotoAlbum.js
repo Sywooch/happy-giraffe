@@ -72,6 +72,7 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
                 this.photoCollection = ko.observable(new PhotoCollection(data.photoCollections.default));
                 this.photoCollection().pageCount = this.pageCount;
                 this.photoCollection().usablePreset = this.usablePreset;
+                console.log(this.usablePreset, this.photoCollection().usablePreset);
                 this.photoCollection().getAttachesPage(0);
             }
             this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше" + this.maxTitleLength }, mustFill: true });

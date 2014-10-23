@@ -31,7 +31,7 @@ namespace site\frontend\modules\posts\models;
  * @property integer $isAutoSocial
  * @property integer $isRemoved
  * @property string $meta
- * @property string $metaObject
+ * @property \site\frontentd\modules\posts\models\MetaInfo $metaObject
  * @property string $social
  * @property string $socialObject
  * @property string $template
@@ -62,8 +62,14 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
+            array('text', 'filter', 'filter' => array($this, 'fillText'), 'on' => 'oldPost'),
+            array('meta', 'filter', 'filter' => array($this->metaObject, 'serialize')),
+            array('social', 'filter', 'filter' => array($this->socialObject, 'serialize')),
+            array('template', 'filter', 'filter' => array($this->templateObject, 'serialize')),
+            array('originManageInfo', 'filter', 'filter' => array($this->originManageInfoObject, 'serialize')),
             array('authorId, title, html, labels, dtimeCreate, originService, originEntity, originEntityId, originManageInfo', 'required'),
-            array('isDraft, uniqueIndex, isNoindex, isNofollow, isAutoMeta, isAutoSocial, isRemoved', 'numerical', 'integerOnly' => true),
+            array('isDraft, isNoindex, isNofollow, isAutoMeta, isAutoSocial, isRemoved', 'boolean'),
+            array('uniqueIndex', 'numerical', 'integerOnly' => true),
             array('url, title', 'length', 'max' => 255),
             array('authorId, dtimeCreate, dtimeUpdate, dtimePublication', 'length', 'max' => 10),
             array('originService, originEntity, originEntityId', 'length', 'max' => 100),
@@ -72,6 +78,11 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
             // @todo Please remove those attributes that should not be searched.
             array('id, url, authorId, title, text, html, preview, labels, dtimeCreate, dtimeUpdate, dtimePublication, originService, originEntity, originEntityId, originManageInfo, isDraft, uniqueIndex, isNoindex, isNofollow, isAutoMeta, isAutoSocial, isRemoved, meta, social, template', 'safe', 'on' => 'search'),
         );
+    }
+
+    public function fillText()
+    {
+        return trim(preg_replace('~\s+~', ' ', strip_tags($this->html)));
     }
 
     /**
@@ -179,8 +190,49 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
     public function defaultScope()
     {
         return array(
-            'condition' => $this->getTableAlias(true, false) . '`isRemoved`=0',
+            'condition' => $this->getTableAlias(true, false) . '.`isRemoved`=0',
         );
+    }
+
+    public function afterSave()
+    {
+        /** @todo убрать в поведение */
+        $labels = $this->labelsArray;
+        $oldLabels = $this->labelModels;
+        foreach ($oldLabels as $oldLabel)
+        {
+            $i = array_search($oldLabel->text, $labels);
+            if ($i === false)
+            {
+                // старого тега больше нет
+                PostTags::model()->deleteByPk(array('labelId' => $oldLabel->id, 'contentId' => $this->id));
+            }
+            else
+            {
+                // тег уже есть
+                unset($labels[$i]);
+            }
+        }
+        $ids = array();
+        foreach ($labels as $label)
+        {
+            $model = Label::model()->findByAttributes(array('text' => $label));
+            if (!$model)
+            {
+                $model = new Label();
+                $model->text = $label;
+                $model->save();
+            }
+            if ($model->id && !isset($ids[$model->id]))
+            {
+                $tag = new PostTags();
+                $tag->attributes = array('labelId' => $model->id, 'contentId' => $this->id);
+                $tag->save();
+            }
+            $ids[$model->id] = 1;
+        }
+
+        return parent::afterSave();
     }
 
     /**

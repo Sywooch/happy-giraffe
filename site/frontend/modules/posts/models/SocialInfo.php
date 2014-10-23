@@ -10,14 +10,9 @@ namespace site\frontend\modules\posts\models;
 class SocialInfo extends SerializedModel
 {
 
-    public $title = '';
-    public $imageUrl = '';
-    public $description = '';
-
-    public function __construct($data)
-    {
-        $this - unserialize($data);
-    }
+    public $title = null;
+    public $imageUrl = null;
+    public $description = null;
 
     public function attributeNames()
     {
@@ -26,11 +21,6 @@ class SocialInfo extends SerializedModel
             'imageUrl',
             'description',
         );
-    }
-
-    public function toJSON()
-    {
-        
     }
 
 }

@@ -11,7 +11,7 @@ class TemplateInfo extends SerializedModel
 {
 
     public $layout = '';
-    public $data = '';
+    public $data = array();
 
     public function attributeNames()
     {
@@ -19,11 +19,6 @@ class TemplateInfo extends SerializedModel
             'layout',
             'data',
         );
-    }
-
-    public function toJSON()
-    {
-        
     }
 
 }

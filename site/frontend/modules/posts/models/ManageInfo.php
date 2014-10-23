@@ -19,11 +19,6 @@ class ManageInfo extends SerializedModel
         );
     }
 
-    public function toJSON()
-    {
-        
-    }
-
 }
 
 ?>

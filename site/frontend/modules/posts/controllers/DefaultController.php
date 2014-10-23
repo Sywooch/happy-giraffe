@@ -15,9 +15,17 @@ class DefaultController extends PostController
 
     public function actionIndex()
     {
-        $t = microtime(true);
-        var_dump(User::model()->findByPk(83)->attributes);
-        echo microtime(true) - $t;
+        ob_start();
+
+        $models = \CommunityContent::model()->findAll(array(
+            'condition' => 'type_id = ' . \CommunityContent::TYPE_POST,
+            'limit' => 1000,
+            'order' => 'RAND()',
+        ));
+        foreach ($models as $model)
+        {
+            $model->addTaskToConvert();
+        }
         $text = ob_get_clean();
         $this->renderText('<pre>' . htmlspecialchars($text) . '</pre>');
     }

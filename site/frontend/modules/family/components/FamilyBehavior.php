@@ -4,11 +4,13 @@
  * @date 23/10/14
  */
 
-class FamilyBehavior extends CActiveRecordBehavior
+namespace site\frontend\modules\family\components;
+
+class FamilyBehavior extends \CActiveRecordBehavior
 {
     public function afterSave($event)
     {
-        $member = \site\frontend\modules\family\models\FamilyMember::model()->user($this->id)->find();
+        $member = \site\frontend\modules\family\models\FamilyMember::model()->user($this->owner->id)->find();
         $this->syncFamilyMember($member);
         $member->save();
     }
@@ -36,6 +38,7 @@ class FamilyBehavior extends CActiveRecordBehavior
     {
         $member->gender = $this->owner->gender;
         $member->birthday = $this->owner->birthday;
-        $member->name = $this->owner->firstName;
+        $member->name = $this->owner->first_name;
+        $member->userId = $this->owner->id;
     }
-} 
+}

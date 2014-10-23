@@ -661,5 +661,11 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
         echo $i;
     }
+
+    public function actionTest()
+    {
+        $photo = AlbumPhoto::createByUrl('http://img.happy-giraffe.ru/temp/4c3604cd0fa4c9f309286d48fb522453e682ec2c.jpg', 12936);
+        var_dump($photo);
+    }
 }
 

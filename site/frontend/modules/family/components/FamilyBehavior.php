@@ -28,6 +28,7 @@ class FamilyBehavior extends \CActiveRecordBehavior
     {
         $family = new \site\frontend\modules\family\models\Family();
         $familyMember = new \site\frontend\modules\family\models\Adult();
+        $familyMember->scenario = 'familyCreate';
         $this->syncFamilyMember($familyMember);
         $family->familyMembers = array($familyMember);
         $success = $family->withRelated->save(true, array('familyMembers'));

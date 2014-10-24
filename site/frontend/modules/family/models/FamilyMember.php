@@ -15,7 +15,6 @@ namespace site\frontend\modules\family\models;
  * @property string $userId
  * @property string $familyId
  * @property integer $removed
- * @property string $adultRelationshipStatus
  *
  * The followings are the available model relations:
  * @property \User $user
@@ -23,6 +22,9 @@ namespace site\frontend\modules\family\models;
  */
 class FamilyMember extends \HActiveRecord
 {
+    const GENDER_FEMALE = 0;
+    const GENDER_MALE = 1;
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -69,7 +71,6 @@ class FamilyMember extends \HActiveRecord
 			'userId' => 'User',
 			'familyId' => 'Family',
 			'removed' => 'Removed',
-			'adultRelationshipStatus' => 'Adult Relationship Status',
 		);
 	}
 
@@ -109,6 +110,22 @@ class FamilyMember extends \HActiveRecord
         return $model;
     }
 
+    protected function beforeValidate()
+    {
+        $validateCanBeAdded = $this->isNewRecord && $this->scenario != 'familyCreate';
+
+        if ($validateCanBeAdded && ! $this->canBeAdded()) {
+            throw new \CException('Этого члена семьи нельзя добавить в семью');
+        }
+
+        return parent::beforeValidate();
+    }
+
+    protected function canBeAdded()
+    {
+        return true;
+    }
+
     public function family($familyId)
     {
         $this->getDbCriteria()->compare($this->getTableAlias() . '.familyId', $familyId);
@@ -118,6 +135,12 @@ class FamilyMember extends \HActiveRecord
     public function user($userId)
     {
         $this->getDbCriteria()->compare($this->getTableAlias() . '.userId', $userId);
+        return $this;
+    }
+
+    public function gender($gender)
+    {
+        $this->getDbCriteria()->compare($this->getTableAlias() . '.gender', $gender);
         return $this;
     }
 }

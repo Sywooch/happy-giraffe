@@ -12,6 +12,8 @@ use site\frontend\modules\photo\models\PhotoAlbum;
 
 class MigrateManager
 {
+    private $problem = array(484399);
+
     public function moveUserAlbumsPhotos()
     {
         $criteria = new \CDbCriteria();
@@ -35,6 +37,10 @@ class MigrateManager
     
     protected function movePhoto(\AlbumPhoto $oldPhoto)
     {
+        if (in_array($oldPhoto->id, $this->problem)) {
+            return false;
+        }
+
         if ($oldPhoto->newPhotoId !== null) {
             return $oldPhoto->newPhotoId;
         }

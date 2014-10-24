@@ -59,13 +59,9 @@ class HHtml extends CHtml
         $cs = Yii::app()->clientScript;
         $js = 'ko.applyBindings({}, document.getElementById(\'' . $id . '\'));';
         if ($cs->useAMD)
-        {
             $cs->registerAMD($id, array('ko' => 'knockout', 'ko_library' => 'ko_library'), $js);
-        }
         else
-        {
             $cs->registerScript($id, $js);
-        }
 
         return '<!-- ko stopBinding: true -->' . self::tag('time', $htmlOptions, $content) . '<!-- /ko -->';
     }

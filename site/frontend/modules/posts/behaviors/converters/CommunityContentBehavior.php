@@ -26,7 +26,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     public function afterSave($event)
     {
         parent::afterSave($event);
-        $this->convertToNewPost();
+        $this->addTaskToConvert();
     }
 
     public function addTaskToConvert()

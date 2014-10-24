@@ -2,6 +2,8 @@
 
 namespace site\frontend\modules\comments\widgets;
 
+use site\frontend\modules\comments\models\Comment;
+
 /**
  * Виджет, предназначенный для вывода комментариев
  *
@@ -11,6 +13,7 @@ class CommentWidget extends \CWidget
 {
 
     public $model;
+    protected $_count = null;
 
     public function run()
     {
@@ -22,12 +25,14 @@ class CommentWidget extends \CWidget
 
     public function getCount()
     {
-        return \Comment::model()->byEntity($this->model)->count();
+        if (is_null($this->_count))
+            $this->_count = Comment::model()->byEntity($this->model)->count();
+        return $this->_count;
     }
 
     public function getDataProvider()
     {
-        return new \CActiveDataProvider(\Comment::model()->byEntity($this->model)->specialSort(), array('pagination' => false));
+        return new \CActiveDataProvider(Comment::model()->byEntity($this->model)->specialSort(), array('pagination' => false));
     }
 
     public function getUserLink($user, $response = false)
@@ -55,7 +60,7 @@ class CommentWidget extends \CWidget
             $pos = strpos($text, '</a>');
             //$text = substr_replace($text, '<p><span class="display-n">' . $matches[1] . '</span>', 0, strlen($matches[0]));
             //$text = substr_replace($text, '<p>', 0, strlen($matches[0]));
-            $text = substr_replace($text, '', 3, $pos+2);
+            $text = substr_replace($text, '', 3, $pos + 2);
         }
 
         return $text;
@@ -73,7 +78,7 @@ class CommentWidget extends \CWidget
             'entity' => get_class($this->model),
             'entityId' => (int) $this->model->id,
             'listType' => 'list',
-            'channelId' => \site\frontend\modules\comments\models\Comment::getChannel($this->model),
+            'channelId' => Comment::getChannel($this->model),
         );
         foreach ($params as $k => $v)
             $paramsStr[] = $k . ':' . \CJSON::encode($v);

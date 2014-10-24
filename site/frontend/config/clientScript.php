@@ -560,6 +560,12 @@ return array(
         'lite_editorial-department_user' => array(
             'depends' => array('lite-default'),
         ),
+        'lite_posts_user' => array(
+            'depends' => array('lite-default'),
+        ),
+        'lite_posts' => array(
+            'depends' => array('lite-default'),
+        ),
         'chosen' => array(
             'baseUrl' => '/',
             'amd' => true,

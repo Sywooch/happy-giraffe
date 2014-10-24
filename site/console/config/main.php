@@ -20,6 +20,8 @@ return array(
         ),
         'family' => array(
             'class' => 'site\frontend\modules\family\commands\DefaultCommand',
+        'postConverter' => array(
+            'class' => 'site\frontend\modules\posts\commands\ConvertCommand',
         ),
     ),
     'import' => array(

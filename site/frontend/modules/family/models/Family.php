@@ -8,6 +8,7 @@ namespace site\frontend\modules\family\models;
  * The followings are the available columns in table 'family__families':
  * @property string $id
  * @property string $description
+ * @property string $adultsRelationshipStatus
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\family\models\FamilyMember[] $familyMembers
@@ -52,6 +53,7 @@ class Family extends \CActiveRecord
 		return array(
 			'id' => 'ID',
 			'description' => 'Description',
+            'adultRelationshipStatus' => 'Adult Relationship Status',
 		);
 	}
 

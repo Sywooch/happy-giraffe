@@ -57,7 +57,8 @@ class MigrateManager
         $photo->updated = $oldPhoto->updated;
         $photo->author_id = $oldPhoto->author_id;
         if (! $photo->save()) {
-            throw new \CException('Не удалось перенести фото');
+            echo "error\n";
+            return false;
         }
 
         \Yii::app()->db->active = false;

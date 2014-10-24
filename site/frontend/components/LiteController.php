@@ -13,16 +13,30 @@
  */
 class LiteController extends HController
 {
-    
-    protected $_metaCanonical = null;
 
+    protected $_metaCanonical = null;
     public $layout = '//layouts/lite/main';
+    public $litePackage = false;
 
     public function init()
     {
         header('Vary: User-Agent');
         $this->dnsPrefetch();
         parent::init();
+    }
+
+    public function beforeAction($action)
+    {
+        if ($this->litePackage)
+        {
+            $package = 'lite_' . $this->litePackage;
+            $userPackage = 'lite_' . $this->litePackage . '_user';
+            // если не гость и если есть отдельный пакет для пользователя, то подключаем его, иначе - общий.
+            $package = \Yii::app()->user->isGuest ? $package : \Yii::app()->clientScript->getPackageBaseUrl($userPackage) ? $userPackage : $package;
+            \Yii::app()->clientScript->registerPackage($package);
+            \Yii::app()->clientScript->useAMD = true;
+        }
+        return parent::beforeAction($action);
     }
 
     public function filters()
@@ -33,6 +47,7 @@ class LiteController extends HController
         {
             $filters [] = array(
                 'COutputCache',
+                'cacheID' => 'cache',
                 'duration' => 300,
                 'varyByParam' => array_keys($_GET),
                 'varyByExpression' => 'Yii::app()->vm->getVersion()',
@@ -75,7 +90,7 @@ class LiteController extends HController
         $this->meta_keywords = is_null($this->page_meta_model) ? $var : $this->meta_keywords;
         ;
     }
-    
+
     public function getMetaCanonical()
     {
         return $this->_metaCanonical;
@@ -99,11 +114,11 @@ class LiteController extends HController
         {
             $cs->registerMetaTag(trim($this->meta_keywords), 'keywords');
         }
-        
-        if(!empty($this->metaCanonical))
+
+        if (!empty($this->metaCanonical))
         {
             $canonical = $this->metaCanonical;
-            if(is_array($canonical))
+            if (is_array($canonical))
             {
                 $route = array_shift($canonical);
                 $canonical = $this->createAbsoluteUrl('/' . $route, $canonical);

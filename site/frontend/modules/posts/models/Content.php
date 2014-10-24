@@ -95,6 +95,19 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
         );
     }
 
+    public function behaviors()
+    {
+        return array(
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
+                'createAttribute' => 'dtimeCreate',
+                'updateAttribute' => 'dtimeUpdate',
+                'publicationAttribute' => 'dtimePublication',
+                'owerwriteAttributeIfSet' => false,
+            ),
+        );
+    }
+
     /**
      * @return array customized attribute labels (name=>label)
      */
@@ -296,6 +309,18 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
             $this->_relatedModels['templateObject'] = new TemplateInfo($this->originManageInfo);
 
         return $this->_relatedModels['templateObject'];
+    }
+
+    /* scopes */
+
+    public function byEntity($entity, $entityId)
+    {
+        $this->dbCriteria->addColumnCondition(array(
+            'originEntity' => $entity,
+            'originEntityId' => $entityId,
+        ));
+
+        return $this;
     }
 
 }

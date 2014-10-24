@@ -47,32 +47,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -211,38 +211,38 @@
               <!-- Алфавит-->
               <div class="map-route-abc">
                 <ul class="map-route-abc_ul">
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">А</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Б</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">В</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Г</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Д</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Е</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ё</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ж</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">З</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">И</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Й</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Е</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">К</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Л</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">М</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Н</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">О</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">П</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Р</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">С</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Т</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">У</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ф</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Х</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ц</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ч</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ш</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Щ</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ы</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Э</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Ю</a></li>
-                  <li class="map-route-abc_li"><a href="#" class="map-route-abc_a">Я</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">А</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Б</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">В</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Г</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Д</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Е</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Ё</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Ж</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">З</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">И</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Й</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Е</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">К</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Л</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">М</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Н</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">О</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">П</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Р</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">С</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Т</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">У</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Ф</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Х</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Ц</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Ч</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Ш</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Щ</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Ы</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Э</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Ю</a></li>
+                  <li class="map-route-abc_li"> <a href="#" class="map-route-abc_a">Я</a></li>
                 </ul>
               </div>
               <!-- Алфавит-->
@@ -352,9 +352,9 @@
         <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

@@ -5,7 +5,7 @@ mixin bArticle-single(mod, vars)
         .b-article_cont.clearfix
             .b-article_header.clearfix
                 .float-l
-                    +ava("ava__female ava__small-xs ava__middle-sm-mid", ava.a)
+                    +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
                     a.b-article_author(href='#') Ангелина Богоявленская
                     time.tx-date(pubdate='1957-10-04') Сегодня 13:25
                 .icons-meta
@@ -53,21 +53,12 @@ mixin bArticle-single(mod, vars)
                             a.like-control_i.like-control_i__favorites.powertip(href='#', title='В избранное')
                                 .like-control_ico
                                 .like-control_tx 863455
-                +likeControl()
-                +customLikes('', customLikes.base)
+            +likeControl('like-control__line', likeControl.base)
+            +customLikes('', customLikes.base)
                 
             +adv-yandex()
 
     // /b-article
-
-
-
-
-
-
-
-
-
 
 
 
@@ -78,7 +69,7 @@ mixin bArticleListItem(mod, vars)
         .b-article_cont.clearfix
             .b-article_header.clearfix
                 .float-l
-                    +ava("ava__female ava__small-xs ava__middle-sm-mid", ava.a)
+                    +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
                     a.b-article_author(href='#') Ангелина Богоявленская
                     time.tx-date(pubdate='1957-10-04') Сегодня 13:25
                 .icons-meta
@@ -90,41 +81,40 @@ mixin bArticleListItem(mod, vars)
                 a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
             .b-article_in.clearfix
                 .wysiwyg-content.clearfix
-                    a(href='#') 
-                        //- Если не указали тип записи в миксине
-                        if (!vars.type)
-                            - vars.type = 'text'
-                        if (vars.type == 'text')
-                            // Текстовая статья
-                            .b-article_in-img
-                                a(href='#')
-                                    img(alt='', src='#{path}images/example/w600-h415.jpg')
-                        if (vars.type == 'video')
-                            // Статья видео
-                            .b-article_in-img
-                                // Во всех статьях видео необходимо обвернуть в .video-container
-                                .video-container
-                                    iframe(width='600', height='330', src='http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&feature=oembed&wmode=transparent', frameborder='0', allowfullscreen='')
-                        // Описание определенное количество символов
-                        p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  
-                            span.ico-more
+                    //- Если не указали тип записи в миксине
+                    if (!vars.type)
+                        - vars.type = 'text'
+                    if (vars.type == 'text')
+                        // Текстовая статья
+                        .b-article_in-img
+                            a(href='#')
+                                img(alt='', src='#{path}images/example/w600-h415.jpg')
+                    if (vars.type == 'video')
+                        // Статья видео
+                        .b-article_in-img
+                            // Во всех статьях видео необходимо обвернуть в .video-container
+                            .video-container
+                                iframe(width='600', height='330', src='http://www.youtube.com/embed/IS9xI7Arrsk?wmode=transparent&feature=oembed&wmode=transparent', frameborder='0', allowfullscreen='')
+                    // Описание определенное количество символов
+                    p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  
+                        span.ico-more
 
-                if (vars.type == 'text')
-                    +commentsList('', commentsList.b)
+            if (vars.type == 'text')
+                +commentsList('', commentsList.b)
 
 
-                .article-also
-                    .article-also_row
-                        +likeControl('like-control__small', likeControl.articleList)
-                    .article-also_row
-                        .article-also_tx Смотреть все 
-                            a(href='#') комментарии
-                            .visible-md-inline-block
-                                | ,
-                                a(href='#')  нравится, 
-                            .visible-md-inline-block
-                                a(href='#')  закладки 
-                            | .
+            .article-also
+                .article-also_row
+                    +likeControl('like-control__small', likeControl.articleList)
+                .article-also_row
+                    .article-also_tx Смотреть все 
+                        a(href='#') комментарии
+                        .visible-md-inline-block
+                            | ,
+                            a(href='#')  нравится, 
+                        .visible-md-inline-block
+                            a(href='#')  закладки 
+                        | .
 
     // /b-article
 
@@ -139,3 +129,185 @@ mixin bArticleListItem(mod, vars)
 - bArticleListItem.b.type = 'video'
 
 
+
+
+mixin bArticleListPhotopost(mod, vars)
+    // Статья с текстом
+    // b-article
+    article.b-article.b-article__list.b-article__photopost.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='1957-10-04') Сегодня 13:25
+                .icons-meta
+                    a.icons-meta_comment(href='#')
+                        span.icons-meta_tx 35
+                    .icons-meta_view
+                        span.icons-meta_tx 305
+            //-.b-article_t-list
+                a.b-article_t-a(href='#') Самое лучшее утро - просыпаюсь, а ты рядом
+
+            +bAlbumPhotopost('b-album__photopost', bAlbumPhotopost.a)
+
+            .b-article_in.clearfix
+                .wysiwyg-content.clearfix
+                    // Описание определенное количество символов
+                    p Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь  
+                        span.ico-more
+
+            if (vars.type == 'text')
+                +commentsList('', commentsList.b)
+
+
+            .article-also
+                .article-also_row
+                    +likeControl('like-control__small', likeControl.articleList)
+                .article-also_row
+                    .article-also_tx Смотреть все 
+                        a(href='#') комментарии
+                        .visible-md-inline-block
+                            | ,
+                            a(href='#')  нравится, 
+                        .visible-md-inline-block
+                            a(href='#')  закладки 
+                        | .
+
+    // /b-article
+
+- var bArticleListPhotopost = {}
+- bArticleListPhotopost.base = {}
+
+
+mixin bArticleStatus(mod, vars)
+    // Статья статус
+    if (vars.status !== 'open')
+        - mod = mod + ' b-article__list'
+    // b-article
+    article.b-article.b-article__user-status.clearfix(class=mod)
+        .b-article_cont.clearfix
+            .b-article_header.clearfix
+                .float-l
+                    +ava("ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid ", ava.a)
+                    a.b-article_author(href='#') Ангелина Богоявленская
+                    time.tx-date(pubdate='2014-10-04') минуту назад
+                .icons-meta
+                    a.icons-meta_comment(href='#')
+                        span.icons-meta_tx 35
+                    .icons-meta_view
+                        span.icons-meta_tx 305
+
+            .b-article_in.clearfix
+                .user-status.user-status__base
+                    .user-status_hold
+                        if (vars.status == 'open')
+                            // в списке статей user-status_tx ссылка
+                            .user-status_tx Говори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!
+                        else 
+                            // в списке статей user-status_tx ссылка
+                            a.user-status_tx(href='#') Говори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!
+                    .user-status_bottom
+                        .b-user-mood
+                            .b-user-mood_hold
+                                .b-user-mood_tx Мое настроение -
+                            .b-user-mood_img
+                                img(src='/images/widget/mood/6.png')
+
+
+
+            if (vars.status == 'list')
+                .article-also
+                    .article-also_row
+                        +likeControl('like-control__small', likeControl.articleList)
+                    .article-also_row
+                        .article-also_tx Смотреть все 
+                            a(href='#') комментарии
+                            .visible-md-inline-block
+                                | ,
+                                a(href='#')  нравится, 
+                            .visible-md-inline-block
+                                a(href='#')  закладки 
+                            | .
+                            
+            if (vars.status == 'open')
+                +likeControl('like-control__line', likeControl.base)
+                +customLikes('', customLikes.base)
+                    
+                +adv-yandex()
+
+    // /b-article
+- var bArticleStatus = {}
+
+- bArticleStatus.open = {}
+- bArticleStatus.open.status = 'open'
+
+- bArticleStatus.list = {}
+- bArticleStatus.list.status = 'list'
+
+
+
+mixin sidebarArticle(mod, vars)
+    ///////
+    // Сайд бар
+    // Содержимое загружaть отложено
+    aside.b-main_col-sidebar.visible-md
+        .adv-banner.adv-banner__bd
+            a(href="") 
+                img(src="#{path}images/example/w240-h400.jpg", alt="")
+        // Варианты цветов блока
+            article-similar__green
+            article-similar__blue
+            article-similar__lilac
+            article-similar__red
+            article-similar__yellow
+        .article-similar.article-similar__lilac
+            .article-similar_row
+                +ava('ava__small', ava.a)
+                a.article-similar_author(href="") Марина Правдин
+            .article-similar_row
+                a.article-similar_t(href="") Наши первые движения 
+            .article-similar_img-hold
+                a(href="")
+                    img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
+        .article-similar.article-similar__red
+            .article-similar_row
+                +ava('ava__small', ava.a)
+                a.article-similar_author(href="") Марина Правдинwerwerweryrtyrtyrtyrtyrtyа
+            .article-similar_row
+                a.article-similar_t(href="") Наши первые движения
+            .article-similar_img-hold
+                a(href="")
+                    img.article-similar_img(src="#{path}images/example/w240-h176.jpg", alt="")
+        .article-similar.article-similar__yellow
+            .article-similar_row
+                +ava('ava__small', ava.a)
+                a.article-similar_author(href="") Марина !!Красотуля!!
+            .article-similar_row
+                a.article-similar_t(href="") Наши первые движения по полу в окружении родителей
+            .article-similar_img-hold
+                a(href="")
+                    img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
+        .article-similar.article-similar__blue
+            .article-similar_row
+                +ava('ava__small', ava.a)
+                a.article-similar_author(href="") Марина Правдина
+            .article-similar_row
+                a.article-similar_t(href="") Коррекция фигуры: убираем висячий дряблый живот
+            .article-similar_img-hold
+                a(href="")
+                    img.article-similar_img(src="#{path}images/example/w240-h183.jpg", alt="")
+        .article-similar.article-similar__green
+            .article-similar_row
+                +ava('ava__small', ava.a)
+                a.article-similar_author(href="") Марина Правдина
+            .article-similar_row
+                a.article-similar_t(href="") Обязательства мешают любовным отношениям
+            .article-similar_img-hold
+                a(href="")
+                    img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
+    // Сайд бар
+
+- var sidebarArticle = {}
+
+- sidebarArticle.base = {}

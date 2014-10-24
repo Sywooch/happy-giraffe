@@ -47,32 +47,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -224,13 +224,14 @@
                   </div>
                 </div>
                 <!-- Лайки от яндекса-->
+                
                 <div class="menu-link-simple menu-link-simple__center">
                   <div class="menu-link-simple_t">Еще Овен</div>
                   <ul class="menu-link-simple_ul">
                     <li class="menu-link-simple_li"><a href="#" class="menu-link-simple_a">На завтра</a></li>
                     <li class="menu-link-simple_li"><a href="#" class="menu-link-simple_a">На месяц</a></li>
                     <li class="menu-link-simple_li"><a href="#" class="menu-link-simple_a">На 2014</a></li>
-                    <li class="menu-link-simple_li"><a href="#" class="menu-link-simple_a"><span class="color-gray">+ &nbsp;</span>Гороскоп Овна по дням</a></li>
+                    <li class="menu-link-simple_li"><a href="#" class="menu-link-simple_a"> <span class="color-gray">+ &nbsp;</span>Гороскоп Овна по дням</a></li>
                   </ul>
                 </div>
                 <div class="seo-desc wysiwyg-content visible-md-block">
@@ -246,7 +247,7 @@
                 <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
               </div>
               <!-- /Основная колонка-->
-              <div class="b-main_col-sidebar">
+              <div class="b-main_col-sidebar"> 
                 <!-- Зодиаки-->
                 <div class="zodiac-list zodiac-list__sidebar">
                   <ul class="zodiac-list_ul">
@@ -325,6 +326,7 @@
                   </ul>
                 </div>
                 <!-- Зодиаки-->
+                
               </div>
             </div>
           </div>
@@ -335,9 +337,9 @@
         <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

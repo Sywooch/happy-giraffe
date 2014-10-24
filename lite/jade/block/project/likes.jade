@@ -51,12 +51,13 @@ mixin likeControlCont(mod, vars)
                 - holdClass = 'visible-md-inline-block'
 
         .like-control(class=mod)
-            .like-control_hold.like-control_hold__comment
-                a.like-control_i.powertip(href='#', title='Комментировать')
-                    if (vars.title)
-                        .like-control_t Комментарии
-                    .ico-action-hg.ico-action-hg__comment(href='#') 
-                    .like-control_tx 865
+            if (vars.comment)
+                .like-control_hold.like-control_hold__comment
+                    a.like-control_i.powertip(href='#', title='Комментировать')
+                        if (vars.title)
+                            .like-control_t Комментарии
+                        .ico-action-hg.ico-action-hg__comment(href='#') 
+                        .like-control_tx 865
             .like-control_hold(class=holdClass)
                 a.like-control_i.powertip(href='#', title='Нравится')
                     if (vars.title)
@@ -101,10 +102,12 @@ mixin likeControlCont(mod, vars)
 
 - likeControl.base = {}
 - likeControl.base.mod = 'like-control__line'
+- likeControl.base.comment = false
 - likeControl.base.center = true
 - likeControl.base.title = true
 
 - likeControl.articleList = {}
 - likeControl.articleList.mod = 'like-control__small'
+- likeControl.articleList.comment = true
 - likeControl.articleList.center = false
 - likeControl.articleList.title = false

@@ -47,32 +47,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -198,13 +198,13 @@
               </ul>
             </div>
           </div>
-          <div class="b-main_cont">
+          <div class="b-main_cont"> 
             <div class="b-main_col-wide">   
               <h1 class="heading-link-xxl heading-link-xxl__center">Календарь развития ребенка </h1>
             </div>
           </div>
           <div class="b-main_row b-main_row__brown-light adap-padding-tb-s20-t30">
-            <div class="b-main_cont">
+            <div class="b-main_cont"> 
               <div class="b-main_col-article b-main_col-article__center">
                 <div class="tx-content">
                   <p class="color-brown">Этот календарь даст вам представление о развитии вашего ребенка, начиная с момента его рождения до окончания школы. Вот он впервые приподнял свою маленькую головку, а теперь улыбнулся вам в ответ, произнес первое слово, вот уже побежал, а вот и 1 класс… Наш календарь организован такими периодами, чтобы дать вам практические и полезные рекомендации в самые необходимые моменты.</p>
@@ -213,7 +213,7 @@
             </div>
           </div>
           <div class="b-main_row b-main_row__green-dark">
-            <div class="b-main_cont">
+            <div class="b-main_cont"> 
               <div class="b-main_col-wide color-white">
                 <h2 class="heading-m textalign-c margin-0">Выберите возраст вашего ребенка</h2>
               </div>
@@ -230,32 +230,32 @@
                       <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">Новорожденный </a></li>
                     </ul>
                     <ul class="calendar-serv_ul clearfix calendar-serv_ul__column">
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">1 нед. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">2 нед. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">3 нед. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">4 нед. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">2 мес.  </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">3 мес. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">4 мес. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">5 мес. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">6 мес. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">7 мес. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">8 мес. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">9 мес. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">10 мес.</a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">11 мес. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">12 мес. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">1 нед. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">2 нед. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">3 нед. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">4 нед. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">2 мес.  </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">3 мес. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">4 мес. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">5 мес. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">6 мес. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">7 мес. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">8 мес. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">9 мес. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">10 мес.</a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">11 мес. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">12 мес. </a></li>
                     </ul>
                   </div>
                   <div class="calendar-serv_col-year">
                     <div class="calendar-serv_t">Дети старше года  </div>
                     <ul class="calendar-serv_ul calendar-serv_ul__column clearfix">
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">12-15 мес.       </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">21-24 мес.</a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">15-18 мес. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">2-2.5 года</a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">18-21 мес. </a></li>
-                      <li class="calendar-serv_li"><a href="#" class="calendar-serv_i">2.5-3 года</a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">12-15 мес.       </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">21-24 мес.</a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">15-18 мес. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">2-2.5 года</a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">18-21 мес. </a></li>
+                      <li class="calendar-serv_li"> <a href="#" class="calendar-serv_i">2.5-3 года</a></li>
                     </ul>
                     <div class="calendar-serv_t">Дошкольники </div>
                     <ul class="calendar-serv_ul clearfix">
@@ -293,9 +293,9 @@
         <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

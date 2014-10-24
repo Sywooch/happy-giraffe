@@ -50,32 +50,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -433,7 +433,7 @@
                                       <yass-div class="b-serp-item__text"><b>Привет</b>!!!! Приветик ВСЕМ, что то я заработалась.... Захожу на сайт на минутку и почти не с кем не общаюсь....</yass-div>
                                       <yass-div class="b-serp-item__links">
                                         <yass-span class="b-serp-url b-serp-url_inline_yes">
-                                          <yass-span class="b-serp-url__item"><a target="_blank" href="http://www.happy-giraffe.ru/pregnancy-and-children/" class="tsearch_list__title-link">happy-giraffe.ru/pregnancy-and-children/</a></yass-span>
+                                          <yass-span class="b-serp-url__item"> <a target="_blank" href="http://www.happy-giraffe.ru/pregnancy-and-children/" class="tsearch_list__title-link">happy-giraffe.ru/pregnancy-and-children/</a></yass-span>
                                         </yass-span>
                                         <yass-span class="b-serp-item__links-item"><a href="http://hghltd.yandex.net/yandbtm?fmode=inject&amp;url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F15501%2Fblog%2Fpost36112%2F&amp;tld=ru&amp;lang=ru&amp;la=1404566528&amp;text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&amp;l10n=ru&amp;mime=html&amp;sign=75e4674cf9ec897cf7f70bb0fe0dfc52&amp;keyno=0" target="_blank" class="b-serp-item__links-link">сохранённая копия</a></yass-span>
                                       </yass-div>
@@ -446,7 +446,7 @@
                                       <yass-div class="b-serp-item__text"><b>Привет</b></yass-div>
                                       <yass-div class="b-serp-item__links">
                                         <yass-span class="b-serp-url b-serp-url_inline_yes">
-                                          <yass-span class="b-serp-url__item"><a target="_blank" href="" class="tsearch_list__title-link">happy-giraffe.ru/user/15497/blog/post29276/</a></yass-span>
+                                          <yass-span class="b-serp-url__item"> <a target="_blank" href="" class="tsearch_list__title-link">happy-giraffe.ru/user/15497/blog/post29276/</a></yass-span>
                                         </yass-span>
                                         <yass-span class="b-serp-item__links-item"><a href="http://hghltd.yandex.net/yandbtm?fmode=inject&amp;url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F15497%2Fblog%2Fpost29276%2F&amp;tld=ru&amp;lang=ru&amp;la=1397028096&amp;text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&amp;l10n=ru&amp;mime=html&amp;sign=2657ec9946506f1f9a897bbfc5e8dd16&amp;keyno=0" target="_blank" class="b-serp-item__links-link">cохранённая копия</a></yass-span>
                                       </yass-div>
@@ -459,7 +459,7 @@
                                       <yass-div class="b-serp-item__text"><b>Привет</b>, красотулечки!!!! Всем доброго утра, а у кого уже день - доброго дня! Заходите в гости.</yass-div>
                                       <yass-div class="b-serp-item__links">
                                         <yass-span class="b-serp-url b-serp-url_inline_yes">
-                                          <yass-span class="b-serp-url__item"><a target="_blank" href="" class="tsearch_list__title-link">happy-giraffe.ru/user/189230/blog/post187007/</a></yass-span>
+                                          <yass-span class="b-serp-url__item"> <a target="_blank" href="" class="tsearch_list__title-link">happy-giraffe.ru/user/189230/blog/post187007/</a></yass-span>
                                         </yass-span>
                                         <yass-span class="b-serp-item__links-item"><a href="http://hghltd.yandex.net/yandbtm?fmode=inject&amp;url=http%3A%2F%2Fwww.happy-giraffe.ru%2Fuser%2F189230%2Fblog%2Fpost187007%2F&amp;tld=ru&amp;lang=ru&amp;la=1406185600&amp;text=%D0%BF%D1%80%D0%B8%D0%B2%D0%B5%D1%82&amp;l10n=ru&amp;mime=html&amp;sign=1abc1dc4cd3a02074fff24a03614ca2e&amp;keyno=0" target="_blank" class="b-serp-item__links-link">сохранённая копия</a></yass-span>
                                       </yass-div>
@@ -599,7 +599,7 @@
                 <script>
                   (function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0];s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Results.init();})})(window,document,'yandex_site_callbacks');
                   
-                  
+                                  
                 </script>
                 <style>
                   #ya-site-results
@@ -835,7 +835,7 @@
                   
                       $('.b-pager__current').css('cssText', 'color: #fff !important');
                       $('.b-head tr:first').hide();
-                      
+                  
                       var bhead_result = $('.b-head__found').text();
                       var bhead_result_nstr = bhead_result.substring(6); //без "нашел"
                       var bhead_result_n = parseInt(bhead_result_nstr); // число
@@ -845,11 +845,11 @@
                       if ( bhead_result_n > 0 ){
                           $('#ya-site-results > div > yass-div').prepend('<div class="bhead_result">Яндекс нашёл <b>'+bhead_result_n+'</b>'+bhead_result_text+'</div>');
                           }
-                          
+                      
                       /*$('.b-bottom-wizard').prepend('<div class="ya-copy">Поисковая технология <a href="http://site.yandex.ru/?from=serp" title="Яндекс" onclick="this.blur();" target="_blank"><img alt="Яндекс" src="http://yandex.st/sitesearch2/35.5//blocks/l-head/ru/yandex52x21x24-rb.png" height="14" style="vertical-align: top; padding: 0 0 0 4px;"></a></div>'); */
                       
                       $('.b-wrapper_is-bem_yes').append('<div class="ya-copy">Поисковая технология <a href="http://site.yandex.ru/?from=serp" title="Яндекс" onclick="this.blur();" target="_blank"><img alt="Яндекс" src="http://yandex.st/sitesearch2/35.5//blocks/l-head/ru/yandex52x21x24-rb.png" height="14" style="vertical-align: top; padding: 0 0 0 4px;"></a></div>');  
-                      
+                  
                   });
                 </script>
               </div>
@@ -862,9 +862,9 @@
         <div class="layout-footer clearfix layout-footer__in">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

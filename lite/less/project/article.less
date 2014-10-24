@@ -11,6 +11,11 @@
     }
     .comments {margin-bottom: 0;}
 
+    &__list &_in .wysiwyg-content p:hover {
+        color: @color-gray;
+        cursor: pointer;
+    }
+
     &_cont-tale {display: none;}
 
     &_in {
@@ -18,7 +23,7 @@
     }
     &_in-img {
         position: relative;
-        margin: 0 0 10px;
+        margin: 5px 0 10px;
     }
     &_in-img:hover &_in-img-overlay {display: block;}
     &_in-img img {
@@ -34,7 +39,7 @@
     }
     
     &_header {
-        margin-bottom: 5px;
+        margin-bottom: 10px;
     }
     &_header .tx-date {display: block;}
     &_header .ava {
@@ -68,7 +73,7 @@
         }
         // Компенсация отступа текста
         &_in-img { 
-            margin: 0 -40px 0 0;
+            margin: 5px -40px 10px 0;
         }
         &_t-list {
             margin: 20px 40px 20px 0;
@@ -76,13 +81,25 @@
     }
 
     @media (min-width: @screen-desktop) {
-        & {margin: 30px 0;}
+        & {margin: 20px 0 30px;}
         &__list {
             border: 1px solid #fafafa;
             padding: 14px;
         }
         &__list &_in-img {
-            margin: 0 -54px 0 -14px;
+            margin: 5px -54px 10px -14px;
+        }
+        &__user-status .user-status {
+            margin-left: -14px;
+            margin-right: -14px;
+            padding-left: 34px;
+            padding-right: 34px;
+        }
+        &__list .b-album {
+            margin: 0 -14px 10px;
+        }
+        &__list .user-status {
+            margin-bottom: 10px;
         }
     }
 }
@@ -226,6 +243,9 @@
         .inline-block();
         padding: 5px 20px;
     }
+    &__small &_hold:last-child {
+        padding-left: 0;
+    }
 
     &_hold {
         position: relative;
@@ -249,6 +269,10 @@
     &_i.active .ico-action-hg__favorite,
     &_i:hover .ico-action-hg__favorite{
         &:extend(a.ico-action-hg__favorite:hover);
+    }
+    &_i.active .ico-action-hg__comment,
+    &_i:hover .ico-action-hg__comment{
+        &:extend(a.ico-action-hg__comment:hover);
     }
 
     &_t {
@@ -347,7 +371,7 @@
         margin: 0 10px;
         color: #fff;
         text-decoration: none;
-        max-width: 170px;
+        max-width: 150px;
     }
     &_t {
         .inline-block();
@@ -356,10 +380,12 @@
         line-height: 24px;
         font-weight: bold;
         color: #fff;
-        text-decoration: none;
     }
     &_t:hover,
-    &_author:hover {text-decoration: underline;}
+    &_author:hover {
+        color: #fff;
+        text-decoration: underline;
+    }
 }
 /* /article-similar */
 
@@ -572,3 +598,76 @@
     }
 }
 /* /ingredients */
+
+/* user-status */
+.user-status {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 20px 20px;
+    background-color: #caebff;
+    
+    &:after {
+        content: '';
+        position: absolute;
+        top: -20px;
+        left: 18px;
+        border: 10px solid transparent;
+        border-bottom-color: #caebff;
+    }
+    &_hold {}
+    &_tx {
+        font: italic 22px/28px 'Times New Roman', Georgia, Times, serif;
+        color: @color-link-title;
+    }
+    &_bottom {
+        margin: 5px 0;
+        text-align: right;
+    }
+
+    @media (min-width: @screen-phone) {
+        
+        &:after {
+            left: 36px;
+        }
+        &_tx {
+            font-size: 28px;
+            line-height: 35px;
+        }
+    }
+    
+    @media (min-width: @screen-tablet) {
+        & {
+            margin-bottom: 30px;
+        }
+        &:after {
+            left: 70px;
+        }
+        &_tx {
+            font-size: 36px;
+            line-height: 45px;
+        }
+    }
+}
+/* /user-status */
+
+
+/* b-user-mood */
+.b-user-mood {
+    position: relative;
+    .inline-block();
+
+    &_img {
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 3px;
+    }
+    &_hold {
+        .inline-block();
+        vertical-align: middle;
+    }
+    &_tx {
+        margin-top: 8px;
+        font-size: 13px;
+    }
+}
+/* /b-user-mood */

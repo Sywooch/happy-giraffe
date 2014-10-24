@@ -352,44 +352,6 @@ mixin commentsList (mod, vars)
                             if (vars.user)
                                 .comments_footer
                                     +bControl("", bControl.e)
-                    //-ul.comments_ul
-                        // комментарий вложенный
-                        li.comments_li
-                            .comments_i.clearfix
-                                .comments_ava
-                                    // Аватарки размером 40*40
-                                    +ava("ava__middle ava__small-xs", ava.b)
-                                .comments_frame
-                                    .comments_header
-                                        a.a-light.comments_author(href="#", rel='author')  Иванна Хлебникова
-                                        time.tx-date(datetime='2012-12-23') 2 минуты назад
-                                    .comments_cont
-                                        .wysiwyg-content
-                                            p 
-                                                a.comments_ansver-for(href="#") Ольга Максимова &nbsp; 
-                                                | Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
-
-                        // /комментарий вложенный
-
-                        // комментарий вложенный
-                        // Свой комментарий
-                        li.comments_li.comments_li__self
-                            .comments_i.clearfix
-                                .comments_ava
-                                    // Аватарки размером 40*40
-                                    +ava("ava__middle ava__small-xs", ava.a)
-                                .comments_frame
-                                    header.comments_header
-                                        a.a-light.comments_author(href="#", rel='author') Ангелина Богоявленская
-                                        time.tx-date(datetime='2012-12-23') 23 декабря
-                                    .comments_cont
-                                        .wysiwyg-content
-                                            p
-                                                // Если аккаунт удален, меняем а на span что б не было 404 ошибок.
-                                                span.comments_ansver-for Ольга Максимова &nbsp; 
-                                                | Свой комментарий. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.
-
-                        // /комментарий вложенный
                 // / комментарий  
 
                 // комментарий     

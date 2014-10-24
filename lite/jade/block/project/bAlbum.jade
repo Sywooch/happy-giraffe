@@ -124,3 +124,86 @@ mixin bAlbum(mod, vars)
 - bAlbum.photolink.arrow = true
 
 
+
+
+
+//- bAlbumPhotopost
+    mod     
+    vars 
+mixin bAlbumPhotopost(mod, vars)
+    // b-album
+    section.b-album(class=mod)
+        - if (vars.top)
+            .b-album_top
+                .b-album_title
+                    a.b-album_title-a.heading-link-xl(href='#')  Ялта ♥♥♥
+                .b-album_count-hold
+                    .b-album_count 240
+        .b-album_img-hold
+            a.b-album_img-a(href="#")
+                .b-album_count-hold.b-album_count-hold__in
+                    .b-album_count 240
+                    .b-album_count-tx фото
+                .b-album_img-pad
+                    // У изображений соотношения сторон сохраняются 
+                    // 0,65 соотношение сторон
+                picture.b-album_img-picture
+                
+                    source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
+                    img.b-album_img-big(src=path+'images/example/photoalbum/1-1280.jpg', alt="Фото")
+
+            //-.b-album_img-hold-ovr
+                .ico-zoom.ico-zoom__abs
+            - if (vars.arrow)
+                // Стрелки показывать скрывать по тапу (касанию пальца)
+                a.i-photo-arrow.i-photo-arrow__l.i-photo-arrow__abs(href="#")
+                a.i-photo-arrow.i-photo-arrow__r.i-photo-arrow__abs(href="#")
+        .b-album_overlay
+            a.b-album_r
+                - if (vars.tx)
+                    .b-album_tx
+                        != vars.tx
+                        
+                .b-album_ico-album(class=vars.icoAlbumMod)
+                .b-album_arrow-all
+            ul.b-album_prev.clearfix.visible-md-block
+                
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="#")
+                        //- высота изображений 50-70 px
+                        img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                        .b-album_prev-hold
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="#")
+                        img.b-album_prev-img(src="#{path}images/example/w46-h70-1.jpg", alt="")
+                        .b-album_prev-hold
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="#")
+                        img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                        .b-album_prev-hold
+                if (vars.prevCount > 3)
+                    li.b-album_prev-li
+                        a.b-album_prev-a(href="#")
+                            img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                            .b-album_prev-hold
+                    li.b-album_prev-li
+                        a.b-album_prev-a(href="#")
+                            img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                            .b-album_prev-hold
+                if (vars.prevAdd)
+                    li.b-album_prev-li
+                        a.album-photo-add(href="#")
+                    
+    // /b-album
+ 
+- var bAlbumPhotopost = {}
+
+- bAlbumPhotopost.a = {}
+- bAlbumPhotopost.a.top = true
+- bAlbumPhotopost.a.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
+- bAlbumPhotopost.a.tx = 'Смотреть <br> все фото'
+- bAlbumPhotopost.a.icoAlbumMod = ''
+- bAlbumPhotopost.a.prevCount = 3
+- bAlbumPhotopost.a.prevAdd = false
+
+

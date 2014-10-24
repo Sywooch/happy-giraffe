@@ -47,32 +47,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -231,13 +231,14 @@
                   <div class="b-family">
                     <div class="b-family_top b-family_top__white"></div>
                     <ul class="b-family_ul">
-                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span>Жена</span></span></a></li>
-                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>8 лет</span></span></a></li>
-                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-5"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>5 лет</span></span></a></li>
-                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Сын</span><br><span>2,5 года</span></span></a></li>
+                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span> Жена</span></span></a></li>
+                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span> Дочь</span><br><span> 8 лет</span></span></a></li>
+                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-5"></span></span><span class="b-family_tx"><span> Дочь</span><br><span> 5 лет</span></span></a></li>
+                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span> Сын</span><br><span> 2,5 года</span></span></a></li>
                     </ul>
                   </div>
                   <!-- /b-family-->
+                  
                 </div>
               </div>
               <div class="userSection_panel">
@@ -250,6 +251,7 @@
               </div>
             </section>
             <!-- /userSection-->
+            
             <!-- b-album-->
             <section class="b-album">
               <div class="b-album_top">
@@ -337,7 +339,9 @@
               </div>
             </section>
             <div class="visible-md-block">
-              <div class="heading-small margin-t40">Последние добавленные фото
+              <div class="heading-small margin-t40">
+                 
+                Последние добавленные фото
                 <div class="float-r">
                   <div class="btn btn-link btn-link-gray btn-s">Все фотографии 628</div>
                 </div>
@@ -366,7 +370,8 @@
                     <picture class="img-grid_picture">
                       <source srcset="/lite/images/example/w280-h370-1.jpg" media="(min-width: 1025px)">
                       <source srcset="/lite/images/example/photoalbum/2-960.jpg 1x, /lite/images/example/photoalbum/1-1920.jpg 2x" media="(min-width: 640px)"><img src="/lite/images/example/photoalbum/1-1280.jpg" alt="Фото" class="img-grid_img">
-                    </picture><span class="ico-gif-l">GIF</span>
+                    </picture>
+                    <span class="ico-gif-l">GIF</span>
                     <div class="img-grid_overlay"><span class="ico-ovrPlay ico-ovrPlay__abs"></span>
                     </div>
                   </div>
@@ -390,6 +395,7 @@
                       <source srcset="/lite/images/example/w280-h370-2.jpg" media="(min-width: 1025px)">
                       <source srcset="/lite/images/example/photoalbum/2-960.jpg 1x, /lite/images/example/photoalbum/1-1920.jpg 2x" media="(min-width: 640px)"><img src="/lite/images/example/photoalbum/1-1280.jpg" alt="Фото" class="img-grid_img">
                     </picture>
+                    
                     <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
                     </div>
                   </div>
@@ -413,6 +419,7 @@
                       <source srcset="/lite/images/example/w280-h370-3.jpg" media="(min-width: 1025px)">
                       <source srcset="/lite/images/example/photoalbum/2-960.jpg 1x, /lite/images/example/photoalbum/1-1920.jpg 2x" media="(min-width: 640px)"><img src="/lite/images/example/photoalbum/1-1280.jpg" alt="Фото" class="img-grid_img">
                     </picture>
+                    
                     <div class="img-grid_overlay"><span class="ico-zoom ico-zoom__abs"></span>
                     </div>
                   </div>
@@ -421,6 +428,8 @@
                 <div class="img-grid_row clearfix">
                   <!--= item.color-->
                   <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
+                  
+                  
                   <div class="img-grid_i loading">
                     <div class="img-grid_img-pad"></div>
                     <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
@@ -462,6 +471,8 @@
                   </div>
                   <!--= item.color-->
                   <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
+                  
+                  
                   <div class="img-grid_i loading">
                     <div class="img-grid_img-pad"></div>
                     <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
@@ -503,6 +514,8 @@
                   </div>
                   <!--= item.color-->
                   <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
+                  
+                  
                   <div class="img-grid_i loading">
                     <div class="img-grid_img-pad"></div>
                     <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
@@ -544,6 +557,8 @@
                   </div>
                   <!--= item.color-->
                   <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
+                  
+                  
                   <div class="img-grid_i loading">
                     <div class="img-grid_img-pad"></div>
                     <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
@@ -585,6 +600,8 @@
                   </div>
                   <!--= item.color-->
                   <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
+                  
+                  
                   <div class="img-grid_i loading">
                     <div class="img-grid_img-pad"></div>
                     <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
@@ -626,7 +643,7 @@
                   </div>
                 </div>
               </div>
-              <div class="i-allphoto"><a href="#" class="i-allphoto_a">Смотреть все фотографии</a></div>
+              <div class="i-allphoto"> <a href="#" class="i-allphoto_a">Смотреть все фотографии</a></div>
             </div>
           </div>
           <!-- Футер-->
@@ -634,9 +651,9 @@
           <div class="layout-footer clearfix">
             <div class="layout-footer_hold">
               <ul class="footer-list">
-                <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+                <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-                <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+                <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
               </ul>

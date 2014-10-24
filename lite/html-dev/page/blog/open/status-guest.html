@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href='/lite/css/min/member.css' />
+  <title>Happy Giraffe</title><link rel="stylesheet" type="text/css" href="/lite/css/dev/all.css" />
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script>
     window.jQuery || document.write('<script src="/lite/javascript/jquery-1.11.1.min.js"><\/script>')
@@ -27,6 +27,8 @@
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
+  <!-- livereload-->
+  <script src="//localhost:35729/livereload.js"></script>
 </head>
 <body class="body body__lite">
   <div class="layout-container">
@@ -187,7 +189,23 @@
         <!-- /header-->
       </div>
       <div class="layout-loose_hold clearfix">
-        <div class="b-main">
+        <!-- b-main -->
+        <div class="b-main clearfix">
+          <!-- стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту --><a href="#" class="post-arrow post-arrow__l"> 
+            <div class="i-photo-arrow"></div>
+            <div class="post-arrow_in-hold">
+              <div class="post-arrow_in">
+                <div class="post-arrow_img-hold"><img src="/lite/images/example/w122-h85-1.jpg" alt="Ксения Бородина впервые в своей жизни сварила суп" class="post-arrow_img"></div>
+                <div class="post-arrow_t">Ксения Бородина впервые в своей жизни сварила суп</div>
+              </div>
+            </div></a><a href="#" class="post-arrow post-arrow__r"> 
+            <div class="i-photo-arrow"></div>
+            <div class="post-arrow_in-hold">
+              <div class="post-arrow_in">
+                <div class="post-arrow_img-hold"><img src="/lite/images/example/w122-h85-1.jpg" alt="Ксения Бородина впервые в своей жизни сварила суп" class="post-arrow_img"></div>
+                <div class="post-arrow_t">Ксения Бородина впервые в своей жизни сварила суп</div>
+              </div>
+            </div></a>
           <div class="b-main_cont">
             <div class="b-crumbs b-crumbs__s">
               <div class="b-crumbs_tx">Я здесь</div>
@@ -196,128 +214,107 @@
                 <li class="b-crumbs_li">
                   <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a>
                 </li>
-                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Фото</span></li>
+                <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Блог</span></li>
               </ul>
             </div>
             <div class="b-main_col-hold clearfix">
+              <!--/////-->
+              <!-- Основная колонка-->
               <div class="b-main_col-article">
+                <!-- Статья статус-->
                 <!-- b-article-->
-                <div class="b-article clearfix">
-                  <div class="b-article_header clearfix">
-                    <div class="icons-meta"><a href="" class="icons-meta_comment"><span class="icons-meta_tx">35</span></a>
-                      <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
+                <article class="b-article b-article__user-status clearfix">
+                  <div class="b-article_cont clearfix">
+                    <div class="b-article_header clearfix">
+                      <div class="float-l">
+                        <!-- ava--><a href="#" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="b-article_author">Ангелина Богоявленская</a>
+                        <time pubdate="2014-10-04" class="tx-date">минуту назад</time>
+                      </div>
+                      <div class="icons-meta"><a href="#" class="icons-meta_comment"><span class="icons-meta_tx">35</span></a>
+                        <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
+                      </div>
                     </div>
-                    <div class="float-l">
-                      <!-- ava--><a href="#" class="ava ava__female ava__middle-sm-mid"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="b-article_author">Ангелина Богоявленская</a>
-                      <time pubdate="1957-10-04" class="tx-date">Сегодня 13:25</time>
+                    <div class="b-article_in clearfix">
+                      <div class="user-status user-status__base">
+                        <div class="user-status_hold">
+                          <!-- в списке статей user-status_tx ссылка-->
+                          <div class="user-status_tx">Говори себе с утра: Счастье, нам вставать пора!!! Так со Счастьем и вставай, от себя не отпускай!!!</div>
+                        </div>
+                        <div class="user-status_bottom">
+                          <div class="b-user-mood">
+                            <div class="b-user-mood_hold">
+                              <div class="b-user-mood_tx">Мое настроение -</div>
+                            </div>
+                            <div class="b-user-mood_img"><img src="/images/widget/mood/6.png"></div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                  <h1 class="b-article_t">Как хорошо отдохнуть вместе в парке, где все так красиво</h1>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="b-main_cont b-main_cont__wide">
-            <!-- b-album-->
-            <section class="b-album b-album__photolink">
-              <div class="b-album_img-hold"><a href="#" class="b-album_img-a">
-                  <div class="b-album_img-pad">
-                    <!-- У изображений соотношения сторон сохраняются -->
-                    <!-- 0,65 соотношение сторон-->
-                  </div>
-                  <picture class="b-album_img-picture">
-                    <source srcset="/lite/images/example/photoalbum/2-960.jpg 1x, /lite/images/example/photoalbum/1-1920.jpg 2x" media="(min-width: 640px)"><img src="/lite/images/example/photoalbum/1-1280.jpg" alt="Фото" class="b-album_img-big">
-                  </picture></a>
-                <div class="b-album_img-hold-ovr">
-                  <div class="ico-zoom ico-zoom__abs"></div>
-                </div>
-                <!-- Стрелки показывать скрывать по тапу (касанию пальца)--><a href="#" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a><a href="#" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
-              </div>
-              <div class="b-album_overlay"><a class="b-album_r">
-                  <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
-                  </div>
-                  <div class="b-album_ico-album"></div>
-                  <div class="b-album_arrow-all"></div></a>
-                <ul class="b-album_prev clearfix visible-md-block">
-                  <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-                  <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                      <div class="b-album_prev-hold"></div></a></li>
-                  <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">
-                      <div class="b-album_prev-hold"></div></a></li>
-                  <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                      <div class="b-album_prev-hold"></div></a></li>
-                  <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                      <div class="b-album_prev-hold"></div></a></li>
-                  <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                      <div class="b-album_prev-hold"></div></a></li>
-                </ul>
-              </div>
-            </section>
-          </div>
-          <div class="b-main_cont">
-            <div class="b-main_col-hold clearfix">
-              <div class="b-main_col-article">
-                <!-- b-article-->
-                <div class="b-article clearfix">
-                  <div class="wysiwyg-content">
-                    <p>Ну наконец-то я дождалась своего отпуска, мне даже не верится что этот день настал Когда сегодня приехала домой, села на диван и такая усталость меня накрыла </p>
-                  </div>
-                </div>
-                <div class="textalign-c">
-                  <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
-                  <div class="like-control like-control__line">
-                    <div class="like-control_hold"><a href="#" title="Нравится" class="like-control_i powertip">
-                        <div class="like-control_t">Мне нравится!</div>
-                        <div class="ico-action-hg ico-action-hg__like"></div>
-                        <div class="like-control_tx">865</div></a></div>
-                    <div class="like-control_hold"><a href="#" title="В избранное" class="like-control_i powertip">
-                        <div class="like-control_t">В закладки</div>
-                        <div class="ico-action-hg ico-action-hg__favorite"></div>
-                        <div class="like-control_tx">8634</div></a>
-                      <!-- .favorites-add-popup.favorites-add-popup__right.display-n
-                      .favorites-add-popup_t Добавить запись в избранное
-                      .favorites-add-popup_i.clearfix
-                          img.favorites-add-popup_i-img(src='/images/example/w60-h40.jpg', alt='')
-                          .favorites-add-popup_i-hold Неравный брак. Смертельно опасен или жизненно необходим?
-                      .favorites-add-popup_row
-                          label.favorites-add-popup_label(for='') Теги:
-                          span.favorites-add-popup_tag
-                              a.favorites-add-popup_tag-a(href='') отношения
-                              a.ico-close(href='#')
-                          span.favorites-add-popup_tag
-                              a.favorites-add-popup_tag-a(href='') любовь
-                              a.ico-close(href='#')
-                      .favorites-add-popup_row.margin-b10
-                          a.textdec-none(href='#')
-                              span.ico-plus2.margin-r5
-                              span.a-pseudo-gray.color-gray Добавить тег
-                      .favorites-add-popup_row
-                          label.favorites-add-popup_label(for='') Комментарий:
-                          .float-r.color-gray 0/150
-                      .favorites-add-popup_row
-                          textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
-                      .favorites-add-popup_row.textalign-c.margin-t10
-                          a.btn-secondary.btn-s(href='#') Отменить
-                          a.btn-success.btn-s(href='#') Добавить
-                      
-                      
-                      -->
+                    <div class="textalign-c">
+                      <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
+                      <div class="like-control like-control__line">
+                        <div class="like-control_hold"><a href="#" title="Нравится" class="like-control_i powertip">
+                            <div class="like-control_t">Мне нравится!</div>
+                            <div class="ico-action-hg ico-action-hg__like"></div>
+                            <div class="like-control_tx">865</div></a></div>
+                        <div class="like-control_hold"><a href="#" title="В избранное" class="like-control_i powertip">
+                            <div class="like-control_t">В закладки</div>
+                            <div class="ico-action-hg ico-action-hg__favorite"></div>
+                            <div class="like-control_tx">8634</div></a>
+                          <!-- .favorites-add-popup.favorites-add-popup__right.display-n
+                          .favorites-add-popup_t Добавить запись в избранное
+                          .favorites-add-popup_i.clearfix
+                              img.favorites-add-popup_i-img(src='/images/example/w60-h40.jpg', alt='')
+                              .favorites-add-popup_i-hold Неравный брак. Смертельно опасен или жизненно необходим?
+                          .favorites-add-popup_row
+                              label.favorites-add-popup_label(for='') Теги:
+                              span.favorites-add-popup_tag
+                                  a.favorites-add-popup_tag-a(href='') отношения
+                                  a.ico-close(href='#')
+                              span.favorites-add-popup_tag
+                                  a.favorites-add-popup_tag-a(href='') любовь
+                                  a.ico-close(href='#')
+                          .favorites-add-popup_row.margin-b10
+                              a.textdec-none(href='#')
+                                  span.ico-plus2.margin-r5
+                                  span.a-pseudo-gray.color-gray Добавить тег
+                          .favorites-add-popup_row
+                              label.favorites-add-popup_label(for='') Комментарий:
+                              .float-r.color-gray 0/150
+                          .favorites-add-popup_row
+                              textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
+                          .favorites-add-popup_row.textalign-c.margin-t10
+                              a.btn-secondary.btn-s(href='#') Отменить
+                              a.btn-success.btn-s(href='#') Добавить
+                          
+                          
+                          -->
+                        </div>
+                      </div>
                     </div>
+                    <!-- Лайки от яндекса-->
+                    <div class="custom-likes">
+                      <div class="custom-likes_slogan">Поделитесь с друзьями!
+                      </div>
+                      <div class="custom-likes_in">
+                        <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+                        <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" class="yashare-auto-init"></div>
+                      </div>
+                    </div>
+                    <!-- Лайки от яндекса-->
+                    
+                    <!-- Реклама яндекса-->
+                    <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
                   </div>
-                </div>
-                <!-- Лайки от яндекса-->
-                <div class="custom-likes">
-                  <div class="custom-likes_slogan">Поделитесь с друзьями!
-                  </div>
-                  <div class="custom-likes_in">
-                    <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                    <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" class="yashare-auto-init"></div>
-                  </div>
-                </div>
-                <!-- Лайки от яндекса-->
-                
-                <!-- Реклама яндекса-->
-                <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
+                </article>
+                <!-- /b-article-->
+                <table class="article-nearby clearfix">
+                  <tr>
+                    <td><a href="#" class="article-nearby_a article-nearby_a__l"><span class="article-nearby_tx">Как приготовить Монастыпскую избу </span></a></td>
+                    <td><a href="#" class="article-nearby_a article-nearby_a__r"><span class="article-nearby_tx">Готовим  Торт Сметанник в домашних условиях</span></a></td>
+                  </tr>
+                </table>
+                <div class="adv-article"><a href="#" target="_blank"><img alt="" src="/lite/images/example/w600-h400.jpg"></a></div>
                 <!-- comments-->
                 <section class="comments comments__buble">
                   <div class="comments-menu">
@@ -533,34 +530,84 @@
                 </section>
                 <!-- /comments-->
               </div>
+              <!-- /Основная колонка-->
+              <!--/////-->
+              <!-- Сайд бар-->
+              <!-- Содержимое загружaть отложено-->
+              <aside class="b-main_col-sidebar visible-md">
+                <div class="adv-banner adv-banner__bd"><a href=""> <img src="/lite/images/example/w240-h400.jpg" alt=""></a></div>
+                <!-- Варианты цветов блока
+                article-similar__green
+                article-similar__blue
+                article-similar__lilac
+                article-similar__red
+                article-similar__yellow
+                -->
+                <div class="article-similar article-similar__lilac">
+                  <div class="article-similar_row">
+                    <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдин</a>
+                  </div>
+                  <div class="article-similar_row"><a href="" class="article-similar_t">Наши первые движения </a></div>
+                  <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
+                </div>
+                <div class="article-similar article-similar__red">
+                  <div class="article-similar_row">
+                    <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдинwerwerweryrtyrtyrtyrtyrtyа</a>
+                  </div>
+                  <div class="article-similar_row"><a href="" class="article-similar_t">Наши первые движения</a></div>
+                  <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h176.jpg" alt="" class="article-similar_img"></a></div>
+                </div>
+                <div class="article-similar article-similar__yellow">
+                  <div class="article-similar_row">
+                    <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина !!Красотуля!!</a>
+                  </div>
+                  <div class="article-similar_row"><a href="" class="article-similar_t">Наши первые движения по полу в окружении родителей</a></div>
+                  <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
+                </div>
+                <div class="article-similar article-similar__blue">
+                  <div class="article-similar_row">
+                    <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдина</a>
+                  </div>
+                  <div class="article-similar_row"><a href="" class="article-similar_t">Коррекция фигуры: убираем висячий дряблый живот</a></div>
+                  <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h183.jpg" alt="" class="article-similar_img"></a></div>
+                </div>
+                <div class="article-similar article-similar__green">
+                  <div class="article-similar_row">
+                    <!-- ava--><a href="#" class="ava ava__small"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="article-similar_author">Марина Правдина</a>
+                  </div>
+                  <div class="article-similar_row"><a href="" class="article-similar_t">Обязательства мешают любовным отношениям</a></div>
+                  <div class="article-similar_img-hold"><a href=""><img src="/lite/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
+                </div>
+              </aside>
+              <!-- Сайд бар-->
             </div>
           </div>
-          <!-- Футер-->
-          <!-- layout-footer-->
-          <div class="layout-footer clearfix">
-            <div class="layout-footer_hold">
-              <ul class="footer-list">
-                <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
-                <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-                <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
-                <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
-                <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
-              </ul>
-              <ul class="footer-menu visible-md">
-                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
-                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
-                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
-                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
-                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
-                <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
-              </ul>
-              <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
-              <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
-            </div>
-          </div>
-          <!-- /layout-footer-->
-          <!-- /Футер-->
         </div>
+        <!-- Футер-->
+        <!-- layout-footer-->
+        <div class="layout-footer clearfix">
+          <div class="layout-footer_hold">
+            <ul class="footer-list">
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
+              <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
+            </ul>
+            <ul class="footer-menu visible-md">
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__pregnancy">Беременность и дети</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__home">Наш дом</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__beauty">Красота и здоровье</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__husband-and-wife">Муж и жена</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__hobby">Интересы и увлечения</a></li>
+              <li class="footer-menu_li"><a href="#" class="footer-menu_a footer-menu_a__family-holiday">Семейный отдых</a></li>
+            </ul>
+            <div class="layout-footer_tx">© 2012–2014 Веселый Жираф. Социальная сеть для всей семьи. Использование редакционных материалов happy-giraffe.ru возможно только с письменного разрешения редакции и/или при наличии активной ссылки на источник. Все права на пользовательские картинки и тексты принадлежат их авторам. Сайт предназначен для лиц старше 16 лет.</div>
+            <div class="layout-footer_privacy-hold"><a href="#" class="layout-footer_privacy">Политика конфедициальности</a><a href="#" class="layout-footer_privacy">Карта сайта</a></div>
+          </div>
+        </div>
+        <!-- /layout-footer-->
+        <!-- /Футер-->
       </div>
     </div>
   </div>

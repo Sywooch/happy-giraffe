@@ -47,32 +47,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -209,8 +209,8 @@
                 <!-- Перелинковка-->
                 <table class="article-nearby clearfix">
                   <tr>
-                    <td><a href="#" class="article-nearby_a article-nearby_a__l"><span class="article-nearby_tx">10 августа 2014  </span></a></td>
-                    <td><a href="#" class="article-nearby_a article-nearby_a__r"><span class="article-nearby_tx">12 августа 2014  </span></a></td>
+                    <td><a href="#" class="article-nearby_a article-nearby_a__l"><span class="article-nearby_tx"> 10 августа 2014  </span></a></td>
+                    <td><a href="#" class="article-nearby_a article-nearby_a__r"><span class="article-nearby_tx"> 12 августа 2014  </span></a></td>
                   </tr>
                 </table>
                 <div class="horoscope-day">
@@ -232,6 +232,7 @@
                   </div>
                 </div>
                 <!-- Лайки от яндекса-->
+                
                 <div class="menu-link-simple menu-link-simple__center">
                   <div class="menu-link-simple_t">Еще Овен</div>
                   <ul class="menu-link-simple_ul">
@@ -254,9 +255,9 @@
         <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

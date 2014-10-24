@@ -18,7 +18,11 @@
 .b-album {
     position: relative;
     margin: 25px 0 30px;
-
+    
+    &__photopost {margin: 15px 0;}
+    &__photopost &_count-hold__in {
+        display: none;
+    }
     &__photolink {
         margin: 0;
     }
@@ -139,7 +143,7 @@
         margin: 0;
     }
     &_title {
-        margin: 0;
+        margin: 0 50px 0 0;
     }
     &_desc {
         display: none;
@@ -153,13 +157,15 @@
     }
     &_count {
         font-size: 23px;
-        line-height: 28px;
+        line-height: 18px;
     }
     &_count-tx {
         display: none;
         font-size: 28px;
         line-height: 28px;
     }
+
+
     
     @media (min-width: @screen-phone) {
         &_img-hold {
@@ -169,14 +175,14 @@
             margin-bottom: 10px;
         }
         &_title {
-            margin: 5px 0;
+            margin: 5px 70px 5px 0;
         }
         &_count-hold {
             top: -5px;
         }
         &_count {
-            font-size: 45px;
-            line-height: 45px;
+            font-size: 40px;
+            line-height: 28px;
         }
     }
     @media (min-width: @screen-tablet) {
@@ -195,13 +201,14 @@
             .tx-content();
 
             display: block;
+            min-height: 40px;
             margin-right: 150px;
             text-decoration: none;
             color: @color-gray-dark;
         }
 
         &_count-hold {
-            top: 10px;
+            top: 18px;
         }
         &_count {
             font-size: 60px;
@@ -209,6 +216,14 @@
         }
         &_count-tx {
             display: block;
+        }
+        
+        &__photopost &_count-hold {
+            top: 0;
+        }
+        &__photopost &_count {
+            font-size: 49px;
+            line-height: 35px;
         }
     }
 
@@ -257,6 +272,29 @@
         &__photolink &_overlay {
             display: block;
         }
+
+        &__photopost &_top {
+            position: relative;
+            padding: 0;
+            color: @color-link-title;
+            background: none;
+        }
+        &__photopost &_title {
+            padding-left: 15px;
+        }
+        &__photopost &_top &_count-hold {
+            display: none;
+        }
+
+        &__photopost &_count-hold__in {
+            display: block;
+            top: 18px;
+            right: 15px;
+            z-index: 5;
+        }
+        &__photopost &_title-a,
+        &__photopost &_desc {color: @color-link-title;}
+        &__photopost a&_title-a:hover {color: @color-orange;}
     }
 }
 /* /b-album */

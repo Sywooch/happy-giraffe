@@ -12,7 +12,7 @@ use site\frontend\modules\photo\models\PhotoAlbum;
 
 class MigrateManager
 {
-    private $problem = array(484399);
+    private $problem = array();
 
     public function moveUserAlbumsPhotos()
     {

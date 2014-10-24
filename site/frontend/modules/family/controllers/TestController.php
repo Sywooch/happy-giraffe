@@ -24,4 +24,11 @@ class TestController extends \HController
         $adult->relationshipStatus = 'engaged';
         $adult->save();
     }
+
+    public function actionChangeUser()
+    {
+        $user = \User::model()->findByPk(12936);
+        $user->first_name = 'lolwhat' . mt_rand(1, 100);
+        $user->save();
+    }
 } 

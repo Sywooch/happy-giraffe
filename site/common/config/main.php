@@ -10,6 +10,10 @@ return array(
         'Gaufrette' => 'site.common.vendor.Gaufrette',
     ),
     'components' => array(
+        'api' => array(
+            'class' => 'site\frontend\components\api\ApiComponent',
+            'baseUrl' => 'http://www.virtual-giraffe.ru/api',
+        ),
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
         ),

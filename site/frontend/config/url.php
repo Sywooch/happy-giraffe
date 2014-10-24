@@ -133,6 +133,11 @@ return array(
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
 
+        // posts
+        'posts' => 'posts/default/index',
+        'posts/<_a>' => 'posts/default/<_a>',
+        'posts/<_c>/<_a>' => 'posts/<_c>/<_a>',
+        
         //blog
         'blog/edit/content_id/<content_id:\d+>' => 'blog/edit',
         'blog/add/content_type_slug/<content_type_slug>' => 'blog/add',

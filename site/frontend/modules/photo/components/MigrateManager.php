@@ -18,7 +18,7 @@ class MigrateManager
         $criteria->compare('t.removed', 0);
         $criteria->compare('type', 0);
         $criteria->with = array('photos' => array(
-            'condition' => 'photos.newPhotoId IS NOT NULL',
+            'condition' => 'photos.newPhotoId IS NULL',
         ));
 
         $dp = new \CActiveDataProvider('Album', array(

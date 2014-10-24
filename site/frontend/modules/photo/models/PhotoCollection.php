@@ -150,6 +150,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             'id' => (int) $this->id,
             'attachesCount' => (int) $this->attachesCount,
             'cover' => $this->cover,
+            'updated' => strtotime($this->updated),
         );
     }
 
@@ -170,9 +171,10 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     {
         $collections = array_merge(array($this), $this->getRelatedCollections());
         $success = true;
-        foreach ($ids as $i => $photoId) {
-            foreach ($collections as $collection) {
-                $success = $success && $collection->attachPhoto($photoId, $preservePositions ? $i++ : 0);
+        foreach ($collections as $collection) {
+            foreach ($ids as $i => $photoId) {
+                $success = $success && $collection->attachPhoto($photoId, $preservePositions ? ($i + 1) : 0);
+                $collection->update(array('updated'));
             }
         }
         return $success;

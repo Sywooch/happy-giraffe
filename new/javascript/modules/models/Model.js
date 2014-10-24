@@ -1,4 +1,4 @@
-define(["jquery", "knockout"], function ($, ko) {
+define(["jquery", "knockout", "models/User"], function ($, ko, User) {
 
     var Model = {
 
@@ -39,7 +39,14 @@ define(["jquery", "knockout"], function ($, ko) {
             }
             return false;
         },
-
+        checkRights: function checkRights(externalId) {
+            if (User.userId !== null) {
+                if (parseInt(User.userId) === externalId) {
+                    return true;
+                }
+            }
+            return false;
+        },
         colorsArray: ['purple', 'yellow', 'carrot', 'green', 'blue'],
         returnNewColor: function returnNewColor(index) {
             return this.elementCssClass + this.colorsArray[($.inArray(this.colorsArray[index() % this.colorsArray.length], this.colorsArray)) % this.colorsArray.length];

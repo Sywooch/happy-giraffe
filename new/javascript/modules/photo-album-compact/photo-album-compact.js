@@ -1,15 +1,17 @@
-define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'extensions/imagesloaded', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, Model, imagesLoaded, customReturner) {
+define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'extensions/imagesloaded', 'modules-helpers/component-custom-returner', 'models/User', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, Model, imagesLoaded, customReturner, User) {
     function PhotoAlbumCompact(params) {
         this.photoAlbum = Object.create(PhotoAlbum);
         this.photoAlbum.pageCount = 5;
         this.photoAlbum.usablePreset = 'myPhotosPreview';
         this.colorsArray = ['purple', 'yellow', 'carrot', 'green', 'blue'];
         this.elementCssClass = 'b-album_prev-li img-grid_loading__';
+        this.userId = (User.userId === null) ? params.userId : User.userId;
         this.returnNewColor = Model.returnNewColor;
         params.album.presets = params.presets;
         this.photoAlbum.init(params.album);
         this.opened = ko.observable(false);
-        this.photoAlbumUrl = '/photo/user/' + userConfig.userId + '/albums/' + this.photoAlbum.id();
+        this.userId = (User.userId === null) ? params.userId : User.userId;
+        this.photoAlbumUrl = '/photo/user/' + this.userId + '/albums/' + this.photoAlbum.id();
         this.remove = function remove() {
             this.photoAlbum.delete();
         };

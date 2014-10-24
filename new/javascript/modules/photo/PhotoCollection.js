@@ -2,6 +2,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
     "use strict";
     function PhotoCollection(data) {
         this.getAttachesUrl = '/api/photo/collections/getAttaches/';
+        this.getNotSortedAttaches = '/api/photo/collections/getByUser/';
         this.pageCount = null;
         this.id = ko.observable(data.id);
         this.attaches = ko.observableArray();
@@ -29,7 +30,6 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                     .then(PresetManager.getPresets(this.handlePresets.bind(this)))
                     .done(this.handleCover.bind(this));
             }
-
         };
         this.handleCover = function handleCover(photoAttach) {
             if (photoAttach.success === true && photoAttach.data.attaches.length !== 0) {
@@ -43,6 +43,11 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             Model
                 .get(this.getAttachesUrl, { collectionId: this.id(), length: this.pageCount, offset: offset })
                 .done(this.getAttaches.bind(this));
+        };
+        this.getAllAttaches = function getAllAttaches(userId) {
+            Model
+                .get(this.getNotSortedAttaches, { userId: userId })
+                .done(this.getNotSortedAttachesHandler.bind(this));
         };
         this.loadImagesAlg = function loadImagesAlg(instance, image) {
             var attach = Model.findByIdObservable(parseInt(image.img.dataset.id), this.attaches()),
@@ -77,6 +82,17 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 if (this.attaches().length > 0) {
                     this.loadImagesCreation('progress', 'photo-album', '#imgs');
                 }
+            }
+        };
+        this.getNotSortedAttachesHandler = function getAttaches(attaches) {
+            if (attaches.success) {
+                this.attachesCache = attaches.data.attaches;
+                if ($.isEmptyObject(PresetManager.presets) || PresetManager.presets === undefined) {
+                    PresetManager.getPresets(this.gainPhotoInLine.bind(this));
+                } else {
+                    this.gainPhotoInLine(PresetManager.presets);
+                }
+
             }
         };
         this.getAttaches = function getAttaches(attaches) {

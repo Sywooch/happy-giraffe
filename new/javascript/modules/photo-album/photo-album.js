@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'extensions/imagesloaded', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, Model, imagesLoaded) {
+define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'extensions/imagesloaded', 'models/User', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, Model, imagesLoaded, User) {
     "use strict";
     function PhotoAlbumViewModel(params) {
         this.loading = ko.observable(true);
@@ -9,6 +9,8 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.returnNewColor = Model.returnNewColor;
         this.photoAlbum.usablePreset = 'albumList';
         this.photoAlbum.pageCount = null;
+        this.rightsForManipulation = Model.checkRights(params.userId);
+        this.userId = (User.userId === null) ? params.userId : User.userId;
         this.getPhotoAlbum = function getPhotoAlbum(passedData) {
             var album;
             if (passedData.success === true) {
@@ -56,7 +58,7 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.loadPhotoComponent = function () {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
         };
-        this.photoAlbum.get(userConfig.userId, false, this.getPhotoAlbum.bind(this));
+        this.photoAlbum.get(this.userId, false, this.getPhotoAlbum.bind(this));
     }
 
     return { viewModel: PhotoAlbumViewModel, template: template };

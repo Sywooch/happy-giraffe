@@ -31,8 +31,8 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
         };
         this.handleCoverWithPresets = function handleCoverWithPresets(photoAttach, presets) {
-            photoAttach = photoAttach.data;
-            presets = presets.data;
+            photoAttach = photoAttach[0];
+            presets = presets[0];
             if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
                 PresetManager.presets = presets;
             }

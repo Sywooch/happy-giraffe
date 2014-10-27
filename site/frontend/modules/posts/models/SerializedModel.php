@@ -10,14 +10,27 @@ namespace site\frontend\modules\posts\models;
 abstract class SerializedModel extends \CModel implements \IHToJSON
 {
 
+    protected $_owner = null;
+
     public function unserialize($data)
     {
         $this->setAttributes(\CJSON::decode($data), false);
     }
 
-    public function __construct($data)
+    public function __construct($data, $owner)
     {
+        $this->_owner = $owner;
         $this->unserialize($data);
+    }
+
+    public function getOwner()
+    {
+        return $this->_owner;
+    }
+    
+    public function getPrimaryKey()
+    {
+        return $this->_owner->primaryKey;
     }
 
     public function __toString()

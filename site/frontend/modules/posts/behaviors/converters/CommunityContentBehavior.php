@@ -47,16 +47,16 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $rubric = $oldPost->rubric;
         while ($rubric)
         {
-            $tags[] = $rubric->title;
+            $tags[] = 'Рубрика: ' . $rubric->title;
             $rubric = $rubric->parent;
         }
         if ($oldPost->rubric->community)
         {
-            $tags[] = $oldPost->rubric->community->title;
+            $tags[] = 'Форум: ' . $oldPost->rubric->community->title;
             if ($oldPost->rubric->community->club)
-                $tags[] = $oldPost->rubric->community->club->title;
+                $tags[] = 'Клуб: ' . $oldPost->rubric->community->club->title;
             if ($oldPost->rubric->community->club && $oldPost->rubric->community->club->section)
-                $tags[] = $oldPost->rubric->community->club->section->title;
+                $tags[] = 'Секция: ' . $oldPost->rubric->community->club->section->title;
         }
 
         $newPost = \site\frontend\modules\posts\models\Content::model()->findByAttributes(array(
@@ -67,7 +67,6 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (!$newPost)
             $newPost = new \site\frontend\modules\posts\models\Content('oldPost');
 
-        var_dump($newPost->isNewRecord);
         $newPost->labelsArray = array_reverse($tags);
         $newPost->url = $oldPost->getUrl(false, true);
         $newPost->originService = $service;
@@ -80,16 +79,24 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $photo = $oldPost->post->photo;
 
         if ($photo)
+        {
             $newPost->preview = $oldPost->preview . '<div class="b-article_in-img">' . $photo->getPreviewHtml(580, 1100) . '</div>';
+            $newPost->socialObject->imageUrl = $photo->getPreviewUrl();
+        }
         else
+        {
             $newPost->preview = $oldPost->preview;
-
+        }
+        
         $newPost->isAutoMeta = $oldPost->meta_description ? false : true;
         $newPost->metaObject->description = $newPost->isAutoMeta ? $oldPost->meta_description_auto : $oldPost->meta_description;
         $newPost->metaObject->title = trim($oldPost->title);
         $newPost->dtimeCreate = strtotime($oldPost->created);
         $newPost->dtimeUpdate = max($newPost->dtimeCreate, strtotime($oldPost->updated), strtotime($oldPost->last_updated));
         $newPost->dtimePublication = $newPost->dtimeCreate;
+        
+        $newPost->socialObject->description = $newPost->metaObject->description;
+        $newPost->isAutoSocial = true;
 
         $newPost->templateObject->layout = $oldPost->isFromBlog ? 'newBlogPost' : 'newCommunityPost';
 
@@ -102,7 +109,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->isDraft = 0;
         var_dump($newPost->save());
         var_dump($newPost->errors);
-        var_export($newPost->attributes);
+        var_dump($newPost->attributes);
     }
 
     protected function convertPhotoPost()

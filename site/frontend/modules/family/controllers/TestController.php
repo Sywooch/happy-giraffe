@@ -8,6 +8,7 @@ namespace site\frontend\modules\family\controllers;
 
 
 use site\frontend\modules\family\models\Adult;
+use site\frontend\modules\family\models\Family;
 use site\frontend\modules\family\models\FamilyMember;
 
 class TestController extends \HController
@@ -35,7 +36,7 @@ class TestController extends \HController
 
     public function actionMagic()
     {
-        $member = FamilyMember::model()->find();
-        var_dump($member->user->firstName);
+        $family = Family::getByUserId(\Yii::app()->user->id);
+        var_dump(\Yii::app()->user->checkAccess('updateFamily', array('entity' => $family)));
     }
 } 

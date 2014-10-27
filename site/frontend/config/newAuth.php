@@ -180,14 +180,17 @@ return array(
     ),
     'manageOwnFamily' => array(
         'type' => CAuthItem::TYPE_TASK,
-        'description' => 'Управление своей фотоколлекцией',
+        'description' => 'Управление своей семьей',
         'children' => array(
-            'addPhotos',
-            'sortPhotoCollection',
-            'setCover',
-            'moveAttaches',
+            'updateFamily',
         ),
-        'bizRule' => 'return $params["entity"]->getOwner()->id == \Yii::app()->user->id;',
+        'bizRule' => 'return $params["entity"]->canManage(\Yii::app()->user->id);',
         'data' => null,
+    ),
+    'updateFamily' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Редактирование семьи',
+        'bizRule' => null,
+        'data' => null
     ),
 );

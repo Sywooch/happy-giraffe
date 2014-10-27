@@ -16,6 +16,11 @@ class FamilyModule extends \CWebModule
 			'family.models.*',
 			'family.components.*',
 		));
+
+        \Yii::app()->setComponent('authManager', array(
+            'class' => '\site\frontend\components\AuthManager',
+            'showErrors' => YII_DEBUG,
+        ));
 	}
 
 	public function beforeControllerAction($controller, $action)

@@ -169,12 +169,9 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 
         $collections = array_merge(array($this), $this->getRelatedCollections());
         $success = true;
+        /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
         foreach ($collections as $collection) {
-            $startPosition = $this->getMaxPosition() + 1;
-            if ($collection->cover_id === null) {
-                $collection->setCover($ids[0]);
-            }
-
+            $startPosition = $collection->getMaxPosition() + 1;
             foreach ($ids as $i => $photoId) {
                 $position = $startPosition + $i;
                 $attach = $collection->attachPhoto($photoId, $position);

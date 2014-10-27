@@ -26,10 +26,6 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         'PhotoAlbum' => array(
             'default' => 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection',
         ),
-        'User' => array(
-            'default' => 'site\frontend\modules\photo\models\collections\UserAllPhotoCollection',
-            'unsorted' => 'site\frontend\modules\photo\models\collections\UserUnsortedPhotoCollection',
-        ),
     );
 
 	/**
@@ -102,12 +98,9 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     {
         if (isset(self::$config[$attributes['entity']][$attributes['key']])) {
             $class = self::$config[$attributes['entity']][$attributes['key']];
-        } elseif (strpos($attributes['key'], 'AttributeCollection') !== false) {
-            $class = 'site\frontend\modules\photo\models\collections\AttributePhotoCollection';
         } else {
-            throw new \Exception('Invalid collection');
+            $class = 'site\frontend\modules\photo\models\PhotoCollection';
         }
-
 
         $model = new $class(null);
         return $model;
@@ -150,6 +143,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             'id' => (int) $this->id,
             'attachesCount' => (int) $this->attachesCount,
             'cover' => $this->cover,
+            'updated' => strtotime($this->updated),
         );
     }
 
@@ -166,13 +160,21 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         return $success;
     }
 
-    public function attachPhotos($ids, $preservePositions = false)
+    public function attachPhotos($ids, $replace = false)
     {
+        if ($replace) {
+            $this->removeAttaches();
+        }
+
         $collections = array_merge(array($this), $this->getRelatedCollections());
         $success = true;
-        foreach ($ids as $i => $photoId) {
-            foreach ($collections as $collection) {
-                $success = $success && $collection->attachPhoto($photoId, $preservePositions ? $i++ : 0);
+        foreach ($collections as $collection) {
+            $startPosition = $this->getMaxPosition() + 1;
+
+            foreach ($ids as $i => $photoId) {
+                $position = $startPosition + $i;
+                $success = $success && $collection->attachPhoto($photoId, $position);
+                $collection->update(array('updated'));
             }
         }
         return $success;
@@ -190,21 +192,26 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         }
     }
 
-    public function moveAttaches(PhotoCollection $destinationCollection, $attaches)
+    public function moveAttaches(PhotoCollection $destinationCollection, $attachesIds)
     {
-        $newPosition = $this->getMaxPosition() + 1;
+        $startPosition = $this->getMaxPosition() + 1;
 
         $criteria = new \CDbCriteria(array(
             'scopes' => array(
                 'collection' => $this->id,
             ),
         ));
-        $criteria->addInCondition('id', $attaches);
+        $criteria->addInCondition('id', $attachesIds);
 
-        return PhotoAttach::model()->updateAll(array(
-            'collection_id' => $destinationCollection->id,
-            'position' => $newPosition,
-        ), $criteria) == count($attaches);
+        $attaches = PhotoAttach::model()->findAll($criteria);
+        $success = true;
+        foreach ($attaches as $i => $attach) {
+            $position = $startPosition + $i;
+            $attach->position = $position;
+            $attach->collection_id = $destinationCollection->id;
+            $success = $success && $attach->update(array('position', 'collection_id'));
+        }
+        return $success;
     }
 
     /**
@@ -223,6 +230,8 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
                 'collection' => $this->id,
             ),
         ));
-        return \Yii::app()->db->commandBuilder->createFindCommand(PhotoAttach::model()->tableName(), $criteria)->queryScalar();
+        PhotoAttach::model()->applyScopes($criteria);
+        $maxPosition = \Yii::app()->db->commandBuilder->createFindCommand(PhotoAttach::model()->tableName(), $criteria)->queryScalar();
+        return ($maxPosition !== null) ? $maxPosition : -1;
     }
 }

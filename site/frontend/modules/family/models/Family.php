@@ -11,9 +11,9 @@ namespace site\frontend\modules\family\models;
  * @property string $adultsRelationshipStatus
  *
  * The followings are the available model relations:
- * @property \site\frontend\modules\family\models\FamilyMember[] $familyMembers
+ * @property \site\frontend\modules\family\models\FamilyMember[] $members
  */
-class Family extends \CActiveRecord
+class Family extends \CActiveRecord implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name
@@ -41,7 +41,7 @@ class Family extends \CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'familyMembers' => array(self::HAS_MANY, '\site\frontend\modules\family\models\FamilyMember', 'familyId'),
+			'members' => array(self::HAS_MANY, '\site\frontend\modules\family\models\FamilyMember', 'familyId'),
 		);
 	}
 
@@ -82,18 +82,33 @@ class Family extends \CActiveRecord
         return FamilyMember::model()->family($this->id)-user(\Yii::app()->user->id)->exists();
     }
 
-    public static function getByUser()
+    public static function getByUserId($userId)
     {
-        $family = FamilyMember::model()->with('family')->user(\Yii::app()->user->id)->find();
-        if ($family === null) {
-            $family = new Family();
-
+        $family = FamilyMember::model()->with('family')->user($userId)->find();
+        if ($family !== null) {
+            return $family;
         }
+
+        $family = self::createFamily($userId);
+        return ($family === false) ? null : $family;
     }
 
-    protected static function createFamily()
+    protected static function createFamily($userId)
     {
         $family = new Family();
-        $me = new Adult();
+        $member = new Adult();
+        $member->fillByUser($userId);
+        $family->members = array($member);
+        $success = $family->withRelated->save(true, array('members'));
+        return ($success) ? $family : false;
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'id' => (int) $this->id,
+            'description' => $this->description,
+            'members' => $this->members,
+        );
     }
 }

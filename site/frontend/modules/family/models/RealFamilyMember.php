@@ -15,4 +15,15 @@ abstract class RealFamilyMember extends FamilyMemberAbstract
             array('name', 'safe'),
         );
     }
+
+    public function toJSON()
+    {
+        return \CMap::mergeArray(parent::toJSON(), array(
+            'name' => $this->name,
+            'gender' => $this->gender,
+            'birthday' => $this->birthday,
+            'description' => (string) $this->description,
+            'userId' => $this->userId,
+        ));
+    }
 } 

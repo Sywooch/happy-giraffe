@@ -20,7 +20,7 @@ namespace site\frontend\modules\family\models;
  * @property \User $user
  * @property \site\frontend\modules\family\models\Family $family
  */
-class FamilyMember extends \HActiveRecord
+class FamilyMember extends \HActiveRecord implements \IHToJSON
 {
     const GENDER_FEMALE = 0;
     const GENDER_MALE = 1;
@@ -167,9 +167,24 @@ class FamilyMember extends \HActiveRecord
             return false;
         }
 
-        $this->name = $this->user->firstName;
-        $this->birthday = $this->user->birthday;
-        $this->gender = $this->user->gender;
+
         return $this->update(array('name', 'birthday', 'gender'));
+    }
+    
+    public function fillByUser($userId)
+    {
+        $user = \site\frontend\components\api\models\User::model()->findByPk($userId);
+        $this->name = $user->firstName;
+        $this->birthday = $user->birthday;
+        $this->gender = $user->gender;
+        $this->userId = $userId;
+    }
+
+    public function toJSON()
+    {
+        return array(
+            'id' => (int) $this->id,
+            'type' => $this->type,
+        );
     }
 }

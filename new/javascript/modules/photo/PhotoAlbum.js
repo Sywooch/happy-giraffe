@@ -45,13 +45,13 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
             Model
                 .get(this.deleteUrl, { id : this.id() })
                 .done(callback);
-            this.removed(true);
+            //this.removed(true);
         },
         restore: function restorePhotoAlbum(callback) {
             Model
                 .get(this.restoreUrl, { id : this.id() })
                 .done(callback);
-            this.removed(false);
+            //this.removed(false);
         },
         edit: function deletePhotoAlbum(callback) {
             var objCreate = {};

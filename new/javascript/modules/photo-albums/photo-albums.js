@@ -1,10 +1,11 @@
-define(['jquery', 'knockout', 'text!photo-albums/photo-albums.html', 'photo/PhotoAlbum', 'user-config', 'extensions/imagesloaded', 'extensions/PresetManager', 'models/User', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, imagesLoaded, PresetManager, User) {
+define(['jquery', 'knockout', 'text!photo-albums/photo-albums.html', 'photo/PhotoAlbum', 'user-config', 'extensions/imagesloaded', 'extensions/PresetManager', 'models/User', 'models/Model', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, imagesLoaded, PresetManager, User, Model) {
     function PhotoAlbums(params) {
         this.photoAlbum = Object.create(PhotoAlbum);
         this.photoAlbums = ko.observableArray();
         this.emptyPhotoAlbums = ko.observableArray();
         this.loading = ko.observable(true);
-        this.userId = (User.userId === null) ? params.userId : User.userId;
+        this.rightsForManipulation = Model.checkRights(params.userId);
+        this.userId = params.userId;
         this.newPhotoAlbumUrl = '/photo/user/' + User.userId + '/albums/create/';
         this.handlePresets = function (presets) {
             this.presets = presets;

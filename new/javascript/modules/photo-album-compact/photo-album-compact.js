@@ -14,11 +14,9 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         this.photoAlbumUrl = '/photo/user/' + this.userId + '/albums/' + this.photoAlbum.id();
         this.remove = function remove() {
             this.photoAlbum.delete();
-            this.photoAlbum.removed(true);
         };
         this.restore = function restore() {
             this.photoAlbum.restore();
-            this.photoAlbum.removed(false);
         };
         this.openPhotoHandler = function openPhotoHandler() {
             this.opened(true);

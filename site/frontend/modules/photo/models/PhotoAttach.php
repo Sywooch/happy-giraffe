@@ -95,6 +95,14 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
         );
     }
 
+    public function defaultScope()
+    {
+        $t = $this->getTableAlias(false, false);
+        return array(
+            'condition' => $t . '.removed = 0',
+        );
+    }
+
     public function toJSON()
     {
         return array(

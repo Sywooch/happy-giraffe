@@ -106,6 +106,14 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
         );
     }
 
+    public function defaultScope()
+    {
+        $t = $this->getTableAlias(false, false);
+        return array(
+            'condition' => $t . '.removed = 0',
+        );
+    }
+
     public function user($userId)
     {
         $this->getDbCriteria()->compare($this->getTableAlias() . '.author_id', $userId);

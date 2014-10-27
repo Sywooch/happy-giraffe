@@ -51,6 +51,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         };
         this.getCover(data.cover);
         this.getAttachesPage = function getAttachesPage(offset) {
+            console.log(this.attachesCount);
             if (this.attachesCount > 0) {
                 Model
                     .get(this.getAttachesUrl, { collectionId: this.id(), length: this.pageCount, offset: offset })

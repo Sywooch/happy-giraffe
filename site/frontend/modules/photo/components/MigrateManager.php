@@ -20,7 +20,9 @@ class MigrateManager
 
         $photoIds = array();
         foreach ($post->gallery->items as $item) {
-            $photoIds[] = self::movePhoto($item->photo);
+            if ($photoId = self::movePhoto($item->photo, array('description' => $item->description))) {
+                $photoIds[] = $photoId;
+            }
         }
         $collection = $post->getPhotoCollection();
         $collection->attachPhotos($photoIds, true);
@@ -48,7 +50,7 @@ class MigrateManager
         }
     }
     
-    public static function movePhoto(\AlbumPhoto $oldPhoto)
+    public static function movePhoto(\AlbumPhoto $oldPhoto, $attributes = array())
     {
         if ($oldPhoto->newPhotoId !== null) {
             return $oldPhoto->newPhotoId;
@@ -65,6 +67,9 @@ class MigrateManager
         $photo->created = $oldPhoto->created;
         $photo->updated = $oldPhoto->updated;
         $photo->author_id = $oldPhoto->author_id;
+        foreach ($attributes as $attribute => $value) {
+            $photo->$attribute = $value;
+        }
         if (! $photo->save()) {
             echo "error\n";
             return false;

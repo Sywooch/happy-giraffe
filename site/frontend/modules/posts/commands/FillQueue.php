@@ -17,12 +17,15 @@ class FillQueue extends \CConsoleCommand
             'order' => 'created desc'
         );
 
-
-        $models = \CommunityContent::model()->findAll($criteria);
-        foreach ($models as $model)
-        {
+        $dataProvider = new \CActiveDataProvider("CommunityContent", array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 100,
+            ),
+        ));
+        $iterator = new \CDataProviderIterator($dataProvider);
+        foreach ($iterator as $model)
             $model->addTaskToConvert();
-        }
     }
 
 }

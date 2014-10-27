@@ -17,13 +17,14 @@ class PostController extends \LiteController
     public $layout = '/layouts/newBlogPost';
     public $post = null;
     protected $_user = null;
+    protected $_leftPost = null;
+    protected $_rightPost = null;
 
     public function actionView($content_id)
     {
         $this->post = Content::model()->byEntity('CommunityContent', $content_id)->find();
-        /** @todo Проверять правильность урла тут */
-        /* if (!$this->post || $this->post->url !== \Yii::app()->request->hostinfo . \Yii::app()->request->requestUri)
-          throw new \CHttpException(404); */
+        if (!$this->post || $this->post->parsedUrl !== \Yii::app()->request->requestUri)
+            throw new \CHttpException(404);
         $this->render('view');
     }
 
@@ -31,10 +32,33 @@ class PostController extends \LiteController
     {
         if (is_null($this->_user))
         {
-            $this->_user = \site\frontend\components\api\models\User::model()->findByPk($this->post->authorId);
+            $this->_user = \site\frontend\components\api\models\User::model()->query('get', array(
+                'id' => $this->post->authorId,
+                'avatarSize' => \Avatar::SIZE_MEDIUM,
+            ));
         }
 
         return $this->_user;
+    }
+
+    public function getLeftPost()
+    {
+        if (is_null($this->_leftPost))
+        {
+            $this->_leftPost = Content::model()->cache(3600)->byService('oldBlog')->leftFor($this->post)->find();
+        }
+
+        return $this->_leftPost;
+    }
+
+    public function getRightPost()
+    {
+        if (is_null($this->_rightPost))
+        {
+            $this->_rightPost = Content::model()->cache(3600)->byService('oldBlog')->rightFor($this->post)->find();
+        }
+
+        return $this->_rightPost;
     }
 
 }

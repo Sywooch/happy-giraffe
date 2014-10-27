@@ -31,16 +31,16 @@ namespace site\frontend\modules\posts\models;
  * @property integer $isAutoSocial
  * @property integer $isRemoved
  * @property string $meta
- * @property \site\frontentd\modules\posts\models\MetaInfo $metaObject
+ * @property site\frontentd\modules\posts\models\MetaInfo $metaObject
  * @property string $social
- * @property string $socialObject
+ * @property site\frontentd\modules\posts\models\SocialInfo $socialObject
  * @property string $template
- * @property string $templateObject
+ * @property site\frontentd\modules\posts\models\TemplateInfo $templateObject
  *
  * The followings are the available model relations:
  * @property PostLabels[] $labelModels
  */
-class Content extends \CActiveRecord implements \IHToJSON, \IPreview
+class Content extends \CActiveRecord implements \IHToJSON
 {
 
     protected $labelDelimiter = '|';
@@ -282,7 +282,7 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
     public function getOriginManageInfoObject()
     {
         if (!isset($this->_relatedModels['originalManageInfo']))
-            $this->_relatedModels['originalManageInfo'] = new ManageInfo($this->originManageInfo);
+            $this->_relatedModels['originalManageInfo'] = new ManageInfo($this->originManageInfo, $this);
 
         return $this->_relatedModels['originalManageInfo'];
     }
@@ -290,7 +290,7 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
     public function getMetaObject()
     {
         if (!isset($this->_relatedModels['metaObject']))
-            $this->_relatedModels['metaObject'] = new MetaInfo($this->originManageInfo);
+            $this->_relatedModels['metaObject'] = new MetaInfo($this->meta, $this);
 
         return $this->_relatedModels['metaObject'];
     }
@@ -298,7 +298,7 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
     public function getSocialObject()
     {
         if (!isset($this->_relatedModels['socialObject']))
-            $this->_relatedModels['socialObject'] = new SocialInfo($this->originManageInfo);
+            $this->_relatedModels['socialObject'] = new SocialInfo($this->social, $this);
 
         return $this->_relatedModels['socialObject'];
     }
@@ -306,9 +306,14 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
     public function getTemplateObject()
     {
         if (!isset($this->_relatedModels['templateObject']))
-            $this->_relatedModels['templateObject'] = new TemplateInfo($this->originManageInfo);
+            $this->_relatedModels['templateObject'] = new TemplateInfo($this->template, $this);
 
         return $this->_relatedModels['templateObject'];
+    }
+
+    public function getParsedUrl()
+    {
+        return parse_url($this->url, PHP_URL_PATH);
     }
 
     /* scopes */
@@ -319,6 +324,73 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
             'originEntity' => $entity,
             'originEntityId' => $entityId,
         ));
+
+        return $this;
+    }
+
+    public function published()
+    {
+        $this->dbCriteria->addCondition($this->tableAlias . '.dtimePublication IS NOT NULL');
+
+        return $this;
+    }
+
+    public function orderAsc()
+    {
+        $this->dbCriteria->order = $this->tableAlias . '.dtimePublication ASC';
+
+        return $this;
+    }
+
+    public function orderDesc()
+    {
+        $this->dbCriteria->order = $this->tableAlias . '.dtimePublication DESC';
+
+        return $this;
+    }
+
+    public function byService($service)
+    {
+        $this->dbCriteria->addColumnCondition(array('originService' => $service));
+
+        return $this;
+    }
+
+    public function byEntityClass($entity)
+    {
+        $this->dbCriteria->addColumnCondition(array('originEntity' => $entity));
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param site\frontend\modules\posts\models\Content $post
+     * @return site\frontend\modules\posts\models\Content
+     */
+    public function leftFor($post)
+    {
+        $this->dbCriteria->addColumnCondition(array(
+            'authorId' => $post->authorId,
+        ));
+        $this->dbCriteria->compare('dtimePublication', '<' . $post->dtimePublication);
+        $this->orderDesc();
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param site\frontend\modules\posts\models\Content $post
+     * @return site\frontend\modules\posts\models\Content
+     */
+    public function rightFor($post)
+    {
+        $this->dbCriteria->addColumnCondition(array(
+            'authorId' => $post->authorId,
+        ));
+        $this->dbCriteria->compare('dtimePublication', '>' . $post->dtimePublication);
+        $this->orderAsc();
 
         return $this;
     }

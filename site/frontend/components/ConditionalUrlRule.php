@@ -17,7 +17,7 @@ class ConditionalUrlRule extends CBaseUrlRule
     public function createUrl($manager, $route, $params, $ampersand)
     {
         $urlRuleClass = Yii::import(Yii::app()->urlManager->urlRuleClass, true);
-        $rule = new $urlRuleClass($this->getActualRoute(), $this->pattern);
+        $rule = new $urlRuleClass($route, $this->pattern);
         return $rule->createUrl($manager,$route,$params,$ampersand);
     }
 

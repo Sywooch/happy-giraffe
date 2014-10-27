@@ -1,6 +1,11 @@
 <?php
+/** @todo перенести обработку $this->post->metaObject в контроллер */
+$this->pageTitle = $this->post->title;
+$this->metaDescription = $this->post->metaObject->description;
 $this->breadcrumbs = array(
-    'asdfdfas',
+    '<span class="ava ava__small">' . CHtml::image($this->user->avatarUrl, $this->user->fullName, array('class' => 'ava_img')) . "</span>" => $this->user->profileUrl,
+    'Блог' => Yii::app()->createUrl('/blog/default/index', array('user_id' => $this->user->id)),
+    $this->post->title,
 );
 $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
         /** @todo Исправить класс при конвертации */
@@ -19,17 +24,17 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <div class="b-article_cont-tale"></div>
                 <div class="b-article_header clearfix">
                     <div class="float-l">
-                        <a href="#" class="ava ava__female ava__small-xs ava__middle-sm"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="" class="b-article_author"><?= $this->user->fullName ?></a>
+                        <a href="<?= $this->user->profileUrl ?>" class="ava ava__female ava__small-xs ava__middle-sm"><span class="ico-status ico-status__online"></span><img alt="" src="<?= $this->user->avatarUrl ?>" class="ava_img"></a><a href="<?= $this->user->profileUrl ?>" class="b-article_author"><?= $this->user->fullName ?></a>
                         <?= HHtml::timeTag($this->post); ?>
                     </div>
                     <div class="icons-meta"><a href="" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
-                        <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
+                        <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->incViewsByPath($this->post->parsedUrl) ?></span></div>
                     </div>
                 </div>
                 <h1 class="b-article_t"><?= $this->post->title ?></h1>
                 <div class="b-article_in clearfix">
                     <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
-                    <div class="textalign-c visible-md-block">
+                    <!--<div class="textalign-c visible-md-block">
                         <div class="like-control like-control__line">
                             <div class="like-control_hold"><a href="#" onclick="openLoginPopup(event)" title="Нравится" class="like-control_i like-control_i__like powertip">
                                     <div class="like-control_t">Мне нравится!</div>
@@ -41,49 +46,16 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                     <div class="like-control_tx">через js</div></a>
                             </div>
                         </div>
-                    </div>
-                    <!-- Лайки от яндекса-->
-                    <div class="custom-likes">
-                        <div class="custom-likes_slogan">Поделитесь с друзьями!
-                        </div>
-                        <div class="custom-likes_in">
-                            <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                            <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" class="yashare-auto-init"></div>
-                        </div>
-                    </div>
-                    <!-- Лайки от яндекса-->
+                    </div>-->
+                    <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $this->post->socialObject, 'lite' => true)); ?>
                     <!-- Реклама яндекса-->
-                    <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
+                    <?php $this->renderPartial('//banners/_direct_others'); ?>
                 </div>
             </div>
         </article>
         <!-- /b-article-->
-        <!-- стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту -->
-        <a href="#" class="post-arrow post-arrow__l">
-            <div class="i-photo-arrow"></div>
-            <div class="post-arrow_in-hold">
-                <div class="post-arrow_in">
-                    <div class="post-arrow_img-hold"><img src="/lite/images/example/w122-h85-1.jpg" alt="Ксения Бородина впервые в своей жизни сварила суп" class="post-arrow_img"></div>
-                    <div class="post-arrow_t">Ксения Бородина впервые в своей жизни сварила суп</div>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="post-arrow post-arrow__r">
-            <div class="i-photo-arrow"></div>
-            <div class="post-arrow_in-hold">
-                <div class="post-arrow_in">
-                    <div class="post-arrow_img-hold"><img src="/lite/images/example/w122-h85-1.jpg" alt="Ксения Бородина впервые в своей жизни сварила суп" class="post-arrow_img"></div>
-                    <div class="post-arrow_t">Ксения Бородина впервые в своей жизни сварила суп</div>
-                </div>
-            </div>
-        </a>
-        <table class="article-nearby clearfix">
-            <tr>
-                <td><a href="#" class="article-nearby_a article-nearby_a__l"><span class="article-nearby_tx">Как приготовить Монастыпскую избу </span></a></td>
-                <td><a href="#" class="article-nearby_a article-nearby_a__r"><span class="article-nearby_tx">Готовим  Торт Сметанник в домашних условиях</span></a></td>
-            </tr>
-        </table>
-        <div class="adv-banner"><a href="#" target="_blank"><img alt="" src="/lite/images/example/w600-h400.jpg"></a></div>
+        <?php $this->renderPartial('_lr', array('left' => $this->leftPost, 'right' => $this->rightPost)); ?>
+        <?php $this->renderPartial('//banners/_article_banner', compact('data')); ?>
         <!-- comments-->
         <section class="comments comments__buble">
             <div class="comments-menu">

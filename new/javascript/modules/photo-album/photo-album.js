@@ -10,7 +10,7 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.photoAlbum.usablePreset = 'albumList';
         this.photoAlbum.pageCount = null;
         this.rightsForManipulation = Model.checkRights(params.userId);
-        this.userId = (User.userId === null) ? params.userId : User.userId;
+        this.userId = params.userId;
         this.getPhotoAlbum = function getPhotoAlbum(passedData) {
             var album;
             if (passedData.success === true) {

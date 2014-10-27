@@ -32,11 +32,14 @@ class CollectionsApiController extends ApiController
         $this->data['attaches'] = $observer->getSlice($offset, $length, $circular);
     }
 
-    public function actionMy()
+    public function actionGetByUser($userId)
     {
-        $user = $this->getModel('\User', \Yii::app()->user->id);
+        $user = $this->getModel('\User', $userId);
         $this->success = true;
-        $this->data = $user->photoCollections;
+        $this->data = array(
+            'all' => $user->getPhotoCollection('default'),
+            'unsorted' => $user->getPhotoCollection('unsorted'),
+        );
     }
 
     public function actionSetCover($collectionId, $attachId)

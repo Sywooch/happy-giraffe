@@ -26,10 +26,6 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         'PhotoAlbum' => array(
             'default' => 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection',
         ),
-        'User' => array(
-            'default' => 'site\frontend\modules\photo\models\collections\UserAllPhotoCollection',
-            'unsorted' => 'site\frontend\modules\photo\models\collections\UserUnsortedPhotoCollection',
-        ),
     );
 
 	/**
@@ -102,12 +98,9 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     {
         if (isset(self::$config[$attributes['entity']][$attributes['key']])) {
             $class = self::$config[$attributes['entity']][$attributes['key']];
-        } elseif (strpos($attributes['key'], 'AttributeCollection') !== false) {
-            $class = 'site\frontend\modules\photo\models\collections\AttributePhotoCollection';
         } else {
-            throw new \Exception('Invalid collection');
+            $class = 'site\frontend\modules\photo\models\collections\PhotoCollection';
         }
-
 
         $model = new $class(null);
         return $model;

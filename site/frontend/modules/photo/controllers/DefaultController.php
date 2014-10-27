@@ -24,8 +24,8 @@ class DefaultController extends PhotoController
 
     public function actionIndex($userId)
     {
-        $json = compact('userId');
-        $this->render('index', compact('json'));
+//        $json = compact('userId');
+        $this->render('index', compact('userId'));
     }
 
     public function actionCreate($userId)

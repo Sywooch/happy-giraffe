@@ -5,18 +5,22 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         this.photoAlbum.usablePreset = 'myPhotosPreview';
         this.colorsArray = ['purple', 'yellow', 'carrot', 'green', 'blue'];
         this.elementCssClass = 'b-album_prev-li img-grid_loading__';
-        this.userId = (User.userId === null) ? params.userId : User.userId;
+        this.rightsForManipulation = Model.checkRights(params.userId);
+        this.userId = params.userId;
         this.returnNewColor = Model.returnNewColor;
         params.album.presets = params.presets;
+        this.removed = ko.observable(false);
         this.photoAlbum.init(params.album);
         this.opened = ko.observable(false);
-        this.userId = (User.userId === null) ? params.userId : User.userId;
+        this.userId = params.userId;
         this.photoAlbumUrl = '/photo/user/' + this.userId + '/albums/' + this.photoAlbum.id();
         this.remove = function remove() {
             this.photoAlbum.delete();
+            this.removed(true);
         };
         this.restore = function restore() {
             this.photoAlbum.restore();
+            this.removed(false);
         };
         this.openPhotoHandler = function openPhotoHandler() {
             this.opened(true);

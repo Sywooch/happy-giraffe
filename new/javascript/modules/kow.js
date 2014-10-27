@@ -28,4 +28,8 @@ define(["jquery", "knockout"], function ($, ko) {
     $('photo-slider').each(function componentIterator() {
         ko.applyBindings({}, $(this)[0]);
     });
+    ko.components.register('photo-collection', { require: 'photo-collection/photo-collection' });
+    $('photo-collection').each(function componentIterator() {
+        ko.applyBindings({}, $(this)[0]);
+    });
 });

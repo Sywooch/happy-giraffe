@@ -1,7 +1,7 @@
 <!-- ko if: photoAlbum.photoCount() > 0 -->
     <section class="b-album">
         <div class="b-album_top">
-            <div class="tx-date">Обновлен  Вчера 13:45</div>
+            <div class="tx-date">Обновлен <span data-bind="moment: photoAlbum.photoCollection().updated()"></span></div>
             <h2 class="b-album_title"><a href="#" class="b-album_title-a heading-link-xl" data-bind="href: photoAlbumUrl, text: photoAlbum.title()"></a></h2>
             <a href="#" class="b-album_desc" data-bind="href: photoAlbumUrl, text: photoAlbum.description()"></a>
             <div class="b-album_count-hold">
@@ -31,7 +31,7 @@
             </a>
             <ul class="b-album_prev clearfix visible-md-block">
                 <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-                <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 -->
+                <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 && rightsForManipulation === true -->
                     <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
                     <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
                         <a href="#" class="b-album_prev-a">
@@ -57,7 +57,7 @@
         <a href="" data-bind="href: photoAlbumUrl" class="album-photo-add"></a>
         <a href="" data-bind="href: photoAlbumUrl, click: remove" class="album-empty_del"></a>
         <div class="album-empty_count">0</div>
-        <!-- ko if: photoAlbum.removed() === true -->
+        <!-- ko if: removed() === true -->
         <div class="cap-empty cap-empty__abs cap-empty__white">
             <div class="cap-empty_hold">
                 <div class="cap-empty_img"></div>

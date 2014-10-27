@@ -14,8 +14,7 @@ define(['jquery', 'knockout', 'text!photo-albums/photo-albums.html', 'photo/Phot
         this.getAlbums = function getAlbums() {
             if (User.isGuest === true) {
                 this.photoAlbum.get(this.userId, true, this.fillThePictures.bind(this));
-            }
-            else {
+            } else {
                 this.photoAlbum.get(this.userId, false, this.fillThePictures.bind(this));
             }
         };

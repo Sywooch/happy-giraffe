@@ -45,13 +45,11 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
             Model
                 .get(this.deleteUrl, { id : this.id() })
                 .done(callback);
-            this.removed(true);
         },
         restore: function restorePhotoAlbum(callback) {
             Model
                 .get(this.restoreUrl, { id : this.id() })
                 .done(callback);
-            this.removed(false);
         },
         edit: function deletePhotoAlbum(callback) {
             var objCreate = {};
@@ -66,13 +64,16 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
         init: function initPhotoAlbum(data) {
             this.id = ko.observable(data.id);
             this.title = ko.observable(data.title);
+            this.updated = ko.observable(data.title);
             this.description = ko.observable(data.description);
             if (data.photoCollections !== undefined) {
                 data.photoCollections.default.presets = data.presets;
                 this.photoCollection = ko.observable(new PhotoCollection(data.photoCollections.default));
                 this.photoCollection().pageCount = this.pageCount;
                 this.photoCollection().usablePreset(this.usablePreset);
+                this.photoCollection().updated(data.photoCollections.default.updated);
                 this.photoCollection().getAttachesPage(0);
+
             }
             this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше" + this.maxTitleLength }, mustFill: true });
             this.description.extend({ maxLength: { params: this.maxDescriptionLength, message: "Количество символов не больше" + this.maxDescriptionLength } });

@@ -167,7 +167,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         return $success;
     }
 
-    public function attachPhotos($ids, $replace = true)
+    public function attachPhotos($ids, $replace = false)
     {
         if ($replace) {
             $this->removeAttaches();

@@ -158,20 +158,18 @@ class HActiveRecord extends CActiveRecord
         return array();
     }
 
-    public function getApiRelated($name, $refresh = false, $params = array())
+    public function getApiRelated($name, $refresh = false)
     {
-        $md = $this->getApiMd();
-        /** @var ApiRelation $relation */
-        $relation = $md[$name];
-        $a = $relation->className;
-        $params = $relation->params;
-        $params['id'] = $this->{$relation->foreignKey};
-
-        print_r($params);
-        die;
-
-        $model = $a::model()->query('get', $params);
-        return $model;
+        if (! isset($this->_apiRelated[$name]) || $refresh) {
+            $md = $this->getApiMd();
+            /** @var site\frontend\components\api\ApiRelation $relation */
+            $relation = $md[$name];
+            $className = $relation->className;
+            $params = $relation->params;
+            $params['id'] = $this->{$relation->foreignKey};
+            $this->_apiRelated[$name] = $className::model()->query('get', $params);
+        }
+        return $this->_apiRelated[$name];
     }
 
     public function getApiMd()
@@ -193,18 +191,10 @@ class HActiveRecord extends CActiveRecord
 
     public function __get($name)
     {
-        if(isset($this->_attributes[$name]))
-            return $this->_attributes[$name];
-        elseif(isset($this->getMetaData()->columns[$name]))
-            return null;
-        elseif(isset($this->_related[$name]))
-            return $this->_related[$name];
-        elseif(isset($this->getMetaData()->relations[$name]))
-            return $this->getRelated($name);
-        elseif(($apiMd = $this->getApiMd()) && isset($apiMd[$name])) {
+        if (($apiMd = $this->getApiMd()) && isset($apiMd[$name])) {
             return $this->getApiRelated($name);
+        } else {
+            return parent::__get($name);
         }
-        else
-            return CComponent::__get
     }
 }

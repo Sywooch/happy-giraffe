@@ -159,4 +159,17 @@ class FamilyMember extends \HActiveRecord
         }
         return $this;
     }
+
+    public function updateByUser()
+    {
+        if ($this->userId === null || $this->user === null)
+        {
+            return false;
+        }
+
+        $this->name = $this->user->firstName;
+        $this->birthday = $this->user->birthday;
+        $this->gender = $this->user->gender;
+        return $this->update(array('name', 'birthday', 'gender'));
+    }
 }

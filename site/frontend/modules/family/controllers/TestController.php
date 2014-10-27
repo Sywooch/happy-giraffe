@@ -36,6 +36,6 @@ class TestController extends \HController
     public function actionMagic()
     {
         $member = FamilyMember::model()->find();
-        var_dump($member->userId);
+        var_dump($member->user->firstName);
     }
 } 

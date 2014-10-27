@@ -21,6 +21,7 @@ class DefaultCommand extends CConsoleCommand
     public function updateMember(\GearmanJob $job)
     {
         $userId = $job->workload();
+        /** @var \site\frontend\modules\family\models\FamilyMember $member */
         $member = \site\frontend\modules\family\models\FamilyMember::model()->user($userId)->find();
         if ($member !== null) {
             $member->updateByUser();

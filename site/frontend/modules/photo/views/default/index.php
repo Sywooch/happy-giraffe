@@ -7,4 +7,4 @@
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('photo-albums', array('kow'));
 ?>
-<photo-albums></photo-albums>
+<photo-albums  params="userId: <?= $userId ?>"></photo-albums>

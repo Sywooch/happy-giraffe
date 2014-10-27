@@ -14,16 +14,23 @@ class MigrateManager
 {
     public static function syncPhotoPostCollection(\CommunityContent $post)
     {
-        if ($post->gallery === null || empty($post->gallery->items)) {
+        if ($post->gallery === null || empty($post->gallery->items))
+        {
             return false;
         }
 
         $photoIds = array();
-        foreach ($post->gallery->items as $item) {
-            $photoIds[] = self::movePhoto($item->photo);
+        foreach ($post->gallery->items as $item)
+        {
+            if ($photoId = self::movePhoto($item->photo))
+                $photoIds[] = $photoId;
         }
+        if (empty($photoIds))
+            $photoIds[] = 3;
         $collection = $post->getPhotoCollection();
         $collection->attachPhotos($photoIds, true);
+
+        return $collection;
     }
 
 

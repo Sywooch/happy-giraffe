@@ -12,7 +12,7 @@ use site\frontend\modules\photo\models\PhotoAlbum;
 
 class MigrateManager
 {
-    public static function syncPhotoPost(\CommunityContent $post)
+    public static function syncPhotoPostCollection(\CommunityContent $post)
     {
         if ($post->gallery === null || empty($post->gallery->items)) {
             return false;

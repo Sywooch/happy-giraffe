@@ -154,6 +154,9 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         $attach->position = $position;
         $attach->collection_id = $this->id;
         $success = $attach->save();
+        if ($success && $this->cover_id === null) {
+            $this->setCover($attach->id);
+        }
         return $success;
     }
 

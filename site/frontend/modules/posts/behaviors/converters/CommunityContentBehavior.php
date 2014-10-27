@@ -35,9 +35,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $this->convertToNewPost();
     }
 
-    protected function convertPost()
+    protected function convertCommon(&$oldPost, &$newPost)
     {
-        echo "post\n";
         $oldPost = $this->owner;
         $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         $entity = get_class($oldPost);
@@ -67,12 +66,26 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (!$newPost)
             $newPost = new \site\frontend\modules\posts\models\Content('oldPost');
 
+        $newPost->scenario = 'oldPost';
+
         $newPost->labelsArray = array_reverse($tags);
         $newPost->url = $oldPost->getUrl(false, true);
         $newPost->originService = $service;
         $newPost->originEntity = $entity;
         $newPost->originEntityId = $id;
         $newPost->authorId = $oldPost->author_id;
+        $newPost->dtimeCreate = strtotime($oldPost->created);
+        $newPost->dtimeUpdate = max($newPost->dtimeCreate, strtotime($oldPost->updated), strtotime($oldPost->last_updated));
+        $newPost->dtimePublication = $newPost->dtimeCreate;
+    }
+
+    protected function convertPost()
+    {
+        echo "post\n";
+        $newPost = null;
+        $oldPost = null;
+        $this->convertCommon($oldPost, $newPost);
+
         $newPost->title = trim($oldPost->title);
         $newPost->html = $oldPost->post->text;
         $newPost->text = $oldPost->post->text;
@@ -87,14 +100,11 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         {
             $newPost->preview = $oldPost->preview;
         }
-        
+
         $newPost->isAutoMeta = $oldPost->meta_description ? false : true;
         $newPost->metaObject->description = $newPost->isAutoMeta ? $oldPost->meta_description_auto : $oldPost->meta_description;
         $newPost->metaObject->title = trim($oldPost->title);
-        $newPost->dtimeCreate = strtotime($oldPost->created);
-        $newPost->dtimeUpdate = max($newPost->dtimeCreate, strtotime($oldPost->updated), strtotime($oldPost->last_updated));
-        $newPost->dtimePublication = $newPost->dtimeCreate;
-        
+
         $newPost->socialObject->description = $newPost->metaObject->description;
         $newPost->isAutoSocial = true;
 
@@ -115,6 +125,14 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     protected function convertPhotoPost()
     {
         echo 'photopost';
+        $newPost = null;
+        $oldPost = null;
+        $this->convertCommon($oldPost, $newPost);
+
+        $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
+        var_dump($collection->attaches);
+
+        die();
     }
 
     protected function convertVideoPost()

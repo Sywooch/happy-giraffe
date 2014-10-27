@@ -21,7 +21,12 @@ class ConvertCommand extends \CConsoleCommand
         $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         $entity = get_class($oldPost);
         $id = $oldPost->id;
-        $fName = $service . '_' . $entity . '_convert';
+        $types = array(
+            \CommunityContent::TYPE_POST => 'post',
+            \CommunityContent::TYPE_VIDEO => 'video',
+            \CommunityContent::TYPE_PHOTO_POST => 'photopost',
+        );
+        $fName = $service . '_' . $entity . '_convert_' . ($types[$oldPost->type_id] ? : 'unknown');
         $data = array(
             'service' => $service,
             'entity' => $entity,
@@ -43,9 +48,12 @@ class ConvertCommand extends \CConsoleCommand
 
     public function actionIndex()
     {
+        /** @todo параметризировать команду, что бы можно было выбирать обработчики */
         $worker = \Yii::app()->gearman->worker();
-        $worker->addFunction('oldBlog_CommunityContent_convert', array($this, 'convertPost'));
-        $worker->addFunction('oldCommunity_CommunityContent_convert', array($this, 'convertPost'));
+        $worker->addFunction('oldBlog_CommunityContent_convert_post', array($this, 'convertPost'));
+        $worker->addFunction('oldCommunity_CommunityContent_convert_post', array($this, 'convertPost'));
+        $worker->addFunction('oldBlog_CommunityContent_convert_photopost', array($this, 'convertPost'));
+        $worker->addFunction('oldCommunity_CommunityContent_convert_photopost', array($this, 'convertPost'));
 
         while ($worker->work());
     }

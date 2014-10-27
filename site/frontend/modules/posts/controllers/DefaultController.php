@@ -19,7 +19,7 @@ class DefaultController extends \LiteController
         ob_start();
 
         $models = \CommunityContent::model()->findAll(array(
-            'condition' => 'type_id = ' . \CommunityContent::TYPE_POST . ' AND author_id = 56',
+            'condition' => 'type_id = ' . \CommunityContent::TYPE_PHOTO_POST . ' AND author_id = 56',
         ));
         foreach ($models as $model)
         {

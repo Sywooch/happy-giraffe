@@ -13,7 +13,7 @@ class FillQueue extends \CConsoleCommand
     public function actionIndex($author = null)
     {
         $criteria = array(
-            'condition' => 'type_id = ' . \CommunityContent::TYPE_POST . ($author ? ' AND author_id = ' . $author : ''),
+            'condition' => 'type_id = ' . \CommunityContent::TYPE_PHOTO_POST . ($author ? ' AND author_id = ' . $author : ''),
             'order' => 'created desc'
         );
 

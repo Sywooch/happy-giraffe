@@ -99,7 +99,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         if (isset(self::$config[$attributes['entity']][$attributes['key']])) {
             $class = self::$config[$attributes['entity']][$attributes['key']];
         } else {
-            $class = 'site\frontend\modules\photo\models\collections\PhotoCollection';
+            $class = 'site\frontend\modules\photo\models\PhotoCollection';
         }
 
         $model = new $class(null);

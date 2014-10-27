@@ -51,9 +51,11 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         };
         this.getCover(data.cover);
         this.getAttachesPage = function getAttachesPage(offset) {
-            Model
-                .get(this.getAttachesUrl, { collectionId: this.id(), length: this.pageCount, offset: offset })
-                .done(this.getAttaches.bind(this));
+            if (this.attachesCount > 0) {
+                Model
+                    .get(this.getAttachesUrl, { collectionId: this.id(), length: this.pageCount, offset: offset })
+                    .done(this.getAttaches.bind(this));
+            }
         };
         this.getAllAttaches = function getAllAttaches(userId) {
             Model

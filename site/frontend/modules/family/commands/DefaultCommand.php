@@ -11,8 +11,7 @@ class DefaultCommand extends CConsoleCommand
      */
     public function actionWorker()
     {
-        \Yii::app()->gearman->worker()->addFunction('deferredWrite', array($this, 'deferredWrite'));
-        \Yii::app()->gearman->worker()->addFunction('createThumbs', array($this, 'createThumbs'));
+        \Yii::app()->gearman->worker()->addFunction('updateMember', array($this, 'updateMember'));
 
         while (\Yii::app()->gearman->worker()->work()) {
             echo "OK\n";
@@ -21,10 +20,10 @@ class DefaultCommand extends CConsoleCommand
 
     public function updateMember(\GearmanJob $job)
     {
-        $data = unserialize($job->workload());
-        $key = $data['key'];
-        $content = $data['content'];
-        \Yii::app()->fs->getAdapter()->getSource()->write($key, $content);
-        echo "deferredWrite:\n$key\n\n";
+        $userId = $job->workload();
+        $member = \site\frontend\modules\family\models\FamilyMember::model()->user($userId)->find();
+        if ($member !== null) {
+            $member->updateByUser();
+        }
     }
 } 

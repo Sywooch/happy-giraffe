@@ -16,6 +16,7 @@ use Imagine\Image\Point;
 use Imagine\Imagick\Image;
 use Imagine\Imagick\Imagine;
 use League\Flysystem\Filesystem;
+use site\frontend\modules\photo\components\MigrateManager;
 use site\frontend\modules\photo\components\observers\PhotoCollectionGreedyObserver;
 use site\frontend\modules\photo\components\observers\PhotoCollectionIdsObserver;
 use site\frontend\modules\photo\components\observers\PhotoCollectionNeatObserver;
@@ -47,41 +48,8 @@ class TestController extends PhotoController
 
     public function actionCrop()
     {
-        $post1 = \CommunityPost::model()->with('photoCollections')->findByPk(11);
-        $post2 = \CommunityPost::model()->with('photoCollections')->findByPk(11);
-
-
-
-        $post1->getAttributePhotoCollection('text');
-        $post2->getAttributePhotoCollection('text');
-
-
-
-//        \Yii::app()->gearman->client()->doBackground('lol', 'ok');
-//        $photo = Photo::model()->findByPk(114);
-//        echo $photo->getOriginalUrl();
-
-
-//        $photo = Photo::model()->findByPk(113);
-//
-//        $cropData = array(
-//            'x' => 100,
-//            'y' => 100,
-//            'w' => 100,
-//            'h' => 100,
-//        );
-//
-//        echo \Yii::app()->crops->getCrop($photo, 'avatarBig', $cropData, true)->getUrl();
-
-//        $x = 0;
-//        $y = 0;
-//        $w = 580;
-//        $h = 580;
-//
-//        $photo = Photo::model()->findByPk(106);
-//
-//        $thumb = \Yii::app()->thumbs->getCrop($photo, 'avatarBig', $x, $y, $w, $h);
-//        $thumb->show();
+        $post = \CommunityContent::model()->findByPk(52273);
+        MigrateManager::syncPhotoPost($post);
     }
 
     public function actionObserver()

@@ -23,7 +23,7 @@ abstract class RealFamilyMember extends FamilyMemberAbstract
             'gender' => $this->gender,
             'birthday' => $this->birthday,
             'description' => (string) $this->description,
-            'userId' => $this->userId,
+            'userId' => (int) $this->userId,
         ));
     }
 } 

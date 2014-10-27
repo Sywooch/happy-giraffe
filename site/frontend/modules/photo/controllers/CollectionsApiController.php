@@ -12,19 +12,34 @@ use site\frontend\components\api\ApiController;
 
 class CollectionsApiController extends ApiController
 {
-    public function actionGetAttaches($collectionId, $length = 0, $offset = 0)
+    public function actionListAttaches($collectionId, $page, $pageSize)
+    {
+        $offset = $page * $pageSize;
+        $length = $pageSize;
+
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId);
+        $observer = PhotoCollectionObserver::getObserver($collection);
+        $this->success = true;
+        $this->data['attaches'] = $observer->getSlice($offset, $length, false);
+        $this->data['isLast'] = ($offset + $length) >= $observer->getCount();
+    }
+
+    public function actionGetAttaches($collectionId, $offset, $length = null, $circular = false)
     {
         $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId);
         $observer = PhotoCollectionObserver::getObserver($collection);
         $this->success = true;
-        $this->data = $observer->getSlice($length, $offset);
+        $this->data['attaches'] = $observer->getSlice($offset, $length, $circular);
     }
 
-    public function actionMy()
+    public function actionGetByUser($userId)
     {
-        $user = $this->getModel('\User', \Yii::app()->user->id);
+        $user = $this->getModel('\User', $userId);
         $this->success = true;
-        $this->data = $user->photoCollections;
+        $this->data = array(
+            'all' => $user->getPhotoCollection('default'),
+            'unsorted' => $user->getPhotoCollection('unsorted'),
+        );
     }
 
     public function actionSetCover($collectionId, $attachId)

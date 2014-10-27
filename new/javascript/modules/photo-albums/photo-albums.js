@@ -45,7 +45,6 @@ define(['jquery', 'knockout', 'text!photo-albums/photo-albums.html', 'photo/Phot
             return arr;
         };
         this.fillThePictures = function fillThePictures(caredData) {
-            console.log(caredData);
             var valuesEmpty = caredData.data.albums.slice(0),
                 valuesFilled = caredData.data.albums.slice(0);
             if (caredData.success === true) {

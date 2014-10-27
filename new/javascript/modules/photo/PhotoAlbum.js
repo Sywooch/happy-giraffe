@@ -14,6 +14,7 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
         description: ko.observable(),
         removed: ko.observable(false),
         pageCount: 20,
+        type: 'full',
         usablePreset: '',
         create: function createPhotoAlbum(callback) {
             var objCreate = {};
@@ -70,7 +71,7 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
                 data.photoCollections.default.presets = data.presets;
                 this.photoCollection = ko.observable(new PhotoCollection(data.photoCollections.default));
                 this.photoCollection().pageCount = this.pageCount;
-                this.photoCollection().usablePreset = this.usablePreset;
+                this.photoCollection().usablePreset(this.usablePreset);
                 this.photoCollection().getAttachesPage(0);
             }
             this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше" + this.maxTitleLength }, mustFill: true });

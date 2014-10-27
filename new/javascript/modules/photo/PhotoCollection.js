@@ -8,7 +8,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.attaches = ko.observableArray();
         this.attachesCount = ko.observable(data.attachesCount);
         this.cover = ko.observable();
-        this.usablePreset = '';
+        this.usablePreset = ko.observable();
         PresetManager.presets = data.presets;
         this.handlePresets = function gainPhotoInLine(presets) {
             if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
@@ -19,16 +19,27 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             if (!$.isEmptyObject(PresetManager.presets)) {
                 if (cover) {
                     var photoAttach = new PhotoAttach(cover);
-                    photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset));
-                    photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset));
-                    return photoAttach;
+                    photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
+                    photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
+                    this.cover(photoAttach);
                 }
                 Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
                     .done(this.handleCover.bind(this));
             } else {
-                Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
-                    .then(PresetManager.getPresets(this.handlePresets.bind(this)))
-                    .done(this.handleCover.bind(this));
+                $.when(Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1}), Model.get(PresetManager.getPresetsUrl))
+                    .done(this.handleCoverWithPresets.bind(this));
+            }
+        };
+        this.handleCoverWithPresets = function handleCoverWithPresets(photoAttach, presets) {
+            photoAttach = photoAttach.data;
+            presets = presets.data;
+            if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
+                PresetManager.presets = presets;
+            }
+            if (photoAttach.success === true && photoAttach.data.attaches.length !== 0) {
+                this.cover(new PhotoAttach(photoAttach.data.attaches[0]));
+                this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
             }
         };
         this.handleCover = function handleCover(photoAttach) {
@@ -71,8 +82,8 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         };
         this.iterateAttaches = function iterateAttaches(attach) {
             var photoAttach = new PhotoAttach(attach);
-            photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset));
-            photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset));
+            photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset()));
+            photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset()));
             return photoAttach;
         };
         this.gainPhotoInLine = function gainPhotoInLine(presets) {

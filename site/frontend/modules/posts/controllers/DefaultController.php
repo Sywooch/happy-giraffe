@@ -10,17 +10,16 @@ use site\frontend\components\api\models\User;
  *
  * @author Кирилл
  */
-class DefaultController extends PostController
+class DefaultController extends \LiteController
 {
+    public $litePackage = 'posts';
 
     public function actionIndex()
     {
         ob_start();
 
         $models = \CommunityContent::model()->findAll(array(
-            'condition' => 'type_id = ' . \CommunityContent::TYPE_POST,
-            'limit' => 1000,
-            'order' => 'RAND()',
+            'condition' => 'type_id = ' . \CommunityContent::TYPE_POST . ' AND author_id = 56',
         ));
         foreach ($models as $model)
         {

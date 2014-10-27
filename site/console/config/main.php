@@ -21,6 +21,9 @@ return array(
         'postConverter' => array(
             'class' => 'site\frontend\modules\posts\commands\ConvertCommand',
         ),
+        'postFillQueue' => array(
+            'class' => 'site\frontend\modules\posts\commands\FillQueue',
+        ),
     ),
     'import' => array(
         'site.common.components.*',

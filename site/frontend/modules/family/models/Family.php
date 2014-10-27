@@ -87,6 +87,7 @@ class Family extends \CActiveRecord
         $family = FamilyMember::model()->with('family')->user(\Yii::app()->user->id)->find();
         if ($family === null) {
             $family = new Family();
+
         }
     }
 

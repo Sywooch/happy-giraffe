@@ -7,7 +7,7 @@
 namespace site\frontend\modules\family\models;
 
 
-abstract class Pregnancy extends FamilyMemberAbstract
+abstract class Pregnancy extends WaitingChild
 {
 
 } 

@@ -57,21 +57,8 @@ class Adult extends RealFamilyMember
         parent::afterSave();
     }
 
-    public function canBeAdded()
+    protected function canBeAdded()
     {
         return ! FamilyMember::model()->family($this->familyId)->gender($this->gender)->exists();
-    }
-
-    /**
-     * @return \site\frontend\modules\family\models\FamilyMember
-     */
-    public function getPartner()
-    {
-        return FamilyMember::model()->family($this->familyId)->gender($this->getOppositeGender())->find();
-    }
-
-    protected function getOppositeGender()
-    {
-        return ($this->gender == self::GENDER_FEMALE) ? self::GENDER_MALE : self::GENDER_FEMALE;
     }
 } 

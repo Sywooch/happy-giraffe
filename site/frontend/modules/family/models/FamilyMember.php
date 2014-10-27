@@ -51,7 +51,6 @@ class FamilyMember extends \HActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, '\User', 'userId'),
 			'family' => array(self::BELONGS_TO, '\site\frontend\modules\family\models\Family', 'familyId'),
 		);
 	}
@@ -142,5 +141,28 @@ class FamilyMember extends \HActiveRecord
     {
         $this->getDbCriteria()->compare($this->getTableAlias() . '.gender', $gender);
         return $this;
+    }
+
+    public function type($type)
+    {
+        if (is_array($type)) {
+            $this->getDbCriteria()->addInCondition($this->getTableAlias() . '.type', $type);
+        } else {
+            $this->getDbCriteria()->compare($this->getTableAlias() . '.type', $type);
+        }
+        return $this;
+    }
+
+    public function getUser()
+    {
+        if (is_null($this->_user))
+        {
+            $this->_user = \site\frontend\components\api\models\User::model()->query('get', array(
+                'id' => $this->post->authorId,
+                'avatarSize' => \Avatar::SIZE_MEDIUM,
+            ));
+        }
+
+        return $this->_user;
     }
 }

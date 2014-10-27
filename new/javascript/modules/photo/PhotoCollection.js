@@ -16,18 +16,24 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
         };
         this.getCover = function getCover(cover) {
-            if (!$.isEmptyObject(PresetManager.presets)) {
-                if (cover) {
-                    var photoAttach = new PhotoAttach(cover);
-                    photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
-                    photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
-                    this.cover(photoAttach);
+            if (this.attachesCount() > 0) {
+                if (!$.isEmptyObject(PresetManager.presets)) {
+                    if (cover) {
+                        var photoAttach = new PhotoAttach(cover);
+                        photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
+                        photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
+                        this.cover(photoAttach);
+                    }
+                    Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
+                        .done(this.handleCover.bind(this));
+                } else {
+                    $.when(Model.get(this.getAttachesUrl, {
+                        collectionId: this.id(),
+                        offset: 0,
+                        length: 1
+                    }), Model.get(PresetManager.getPresetsUrl))
+                        .done(this.handleCoverWithPresets.bind(this));
                 }
-                Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
-                    .done(this.handleCover.bind(this));
-            } else {
-                $.when(Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1}), Model.get(PresetManager.getPresetsUrl))
-                    .done(this.handleCoverWithPresets.bind(this));
             }
         };
         this.handleCoverWithPresets = function handleCoverWithPresets(photoAttach, presets) {

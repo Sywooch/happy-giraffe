@@ -55,6 +55,13 @@ class FamilyMember extends \HActiveRecord
 		);
 	}
 
+    public function apiRelations()
+    {
+        return array(
+            'user' => array('site\frontend\components\api\ApiRelation', 'site\frontend\components\api\models\User', 'userId'),
+        );
+    }
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -151,18 +158,5 @@ class FamilyMember extends \HActiveRecord
             $this->getDbCriteria()->compare($this->getTableAlias() . '.type', $type);
         }
         return $this;
-    }
-
-    public function getUser()
-    {
-        if (is_null($this->_user))
-        {
-            $this->_user = \site\frontend\components\api\models\User::model()->query('get', array(
-                'id' => $this->post->authorId,
-                'avatarSize' => \Avatar::SIZE_MEDIUM,
-            ));
-        }
-
-        return $this->_user;
     }
 }

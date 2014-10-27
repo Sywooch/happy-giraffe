@@ -13,6 +13,6 @@ class FamilyBehavior extends \CActiveRecordBehavior
 {
     public function afterSave($event)
     {
-        \Yii::app()->gearman->client()->doBackground('')
+        \Yii::app()->gearman->client()->doBackground('updateMember', $this->owner->id);
     }
 }

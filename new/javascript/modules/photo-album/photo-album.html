@@ -67,7 +67,7 @@
             <!-- ko if: loading() === false && broke() === false -->
                 <div class="img-grid_overlay">
                     <span class="ico-zoom ico-zoom__abs"></span>
-                    <!-- ko if: $root.rightsForManipulation === true -->
+                    <!-- ko if: $parent.rightsForManipulation === true -->
                     <div class="img-grid_ico-ava"></div>
                     <div class="img-grid_ico-album"></div>
                     <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip" data-bind="click: remove"></a>

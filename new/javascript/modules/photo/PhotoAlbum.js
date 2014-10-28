@@ -6,6 +6,7 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
         editUrl: '/api/photo/albums/edit/',
         getByUser: '/api/photo/albums/getByUser/',
         id: ko.observable(),
+        url: '',
         editing: ko.observable(false),
         photoCollection: ko.observable(),
         maxTitleLength: 150,
@@ -64,7 +65,8 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
         init: function initPhotoAlbum(data) {
             this.id = ko.observable(data.id);
             this.title = ko.observable(data.title);
-            this.updated = ko.observable(data.title);
+            this.updated = ko.observable(data.updated);
+            this.url = data.url;
             this.description = ko.observable(data.description);
             if (data.photoCollections !== undefined) {
                 data.photoCollections.default.presets = data.presets;

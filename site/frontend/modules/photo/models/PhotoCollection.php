@@ -154,7 +154,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         $attach->position = $position;
         $attach->collection_id = $this->id;
         $success = $attach->save();
-        return $success;
+        return ($success) ? $attach : false;
     }
 
     public function attachPhotos($ids, $replace = false)
@@ -169,15 +169,16 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 
         $collections = array_merge(array($this), $this->getRelatedCollections());
         $success = true;
+        /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
         foreach ($collections as $collection) {
-            $startPosition = $this->getMaxPosition() + 1;
-            if ($collection->cover_id === null) {
-                $collection->setCover($ids[0]);
-            }
-
+            $startPosition = $collection->getMaxPosition() + 1;
             foreach ($ids as $i => $photoId) {
                 $position = $startPosition + $i;
-                $success = $success && $collection->attachPhoto($photoId, $position);
+                $attach = $collection->attachPhoto($photoId, $position);
+                $success = $success && ($attach !== false);
+                if ($i == 0 && $collection->cover_id === null) {
+                    $collection->setCover($attach->id);
+                }
                 $collection->update(array('updated'));
             }
         }

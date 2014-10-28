@@ -64,9 +64,11 @@ class ConvertCommand extends \CConsoleCommand
      */
     public function convertPost($job)
     {
+        var_dump($job);
         $data = self::unserialize($job->workload());
         $model = \CActiveRecord::model($data['entity'])->findByPk($data['entityId']);
         $model->convertToNewPost();
+        echo '.';
     }
 
 }

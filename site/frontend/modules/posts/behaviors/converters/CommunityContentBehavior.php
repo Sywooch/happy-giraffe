@@ -81,7 +81,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
     protected function convertPost()
     {
-        echo "post\n";
+        //echo "post\n";
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost);
@@ -117,9 +117,9 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->isNofollow = false;
         $newPost->isRemoved = $oldPost->removed;
         $newPost->isDraft = 0;
-        var_dump($newPost->save());
+        /*var_dump($newPost->save());
         var_dump($newPost->errors);
-        var_dump($newPost->attributes);
+        var_dump($newPost->attributes);*/
     }
 
     protected function convertPhotoPost()

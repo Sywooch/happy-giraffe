@@ -12,9 +12,9 @@ use site\frontend\components\api\ApiController;
 
 class CollectionsApiController extends ApiController
 {
-    public function get($collectionId)
+    public function actionGet($id)
     {
-        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId);
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $id);
         $this->success = true;
         $this->data = $collection;
     }

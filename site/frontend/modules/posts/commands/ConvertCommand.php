@@ -50,6 +50,8 @@ class ConvertCommand extends \CConsoleCommand
     {
         /** @todo параметризировать команду, что бы можно было выбирать обработчики */
         $worker = \Yii::app()->gearman->worker();
+        $worker->addFunction('oldBlog_CommunityContent_convert', array($this, 'convertPost'));
+        $worker->addFunction('oldCommunity_CommunityContent_convert', array($this, 'convertPost'));
         $worker->addFunction('oldBlog_CommunityContent_convert_post', array($this, 'convertPost'));
         $worker->addFunction('oldCommunity_CommunityContent_convert_post', array($this, 'convertPost'));
         $worker->addFunction('oldBlog_CommunityContent_convert_photopost', array($this, 'convertPost'));

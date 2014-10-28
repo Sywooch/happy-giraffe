@@ -23,10 +23,12 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         };
         this.deletePhotoAlbum = function deletePhotoAlbum(passedData) {
             if (passedData.success === true) {
+                this.photoAlbum.removed(true);
             }
         };
         this.restorePhotoAlbum = function restorePhotoAlbum(passedData) {
             if (passedData.success === true) {
+                this.photoAlbum.removed(false);
             }
         };
         this.editPhotoAlbum = function editPhotoAlbum(passedData) {

@@ -31,7 +31,7 @@
             </a>
             <ul class="b-album_prev clearfix visible-md-block">
                 <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-                <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 && rightsForManipulation === true -->
+                <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 -->
                     <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
                     <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
                         <a href="#" class="b-album_prev-a">
@@ -41,9 +41,9 @@
                     </li>
                     <!-- /ko -->
                 <!-- /ko -->
-                <!-- ko if: photoAlbum.photoCollection().attaches().length === 0 -->
-                <!-- /ko -->
+                <!-- ko if: rightsForManipulation === true -->
                 <li class="b-album_prev-li"><a href="#" class="album-photo-add" data-bind="href: photoAlbumUrl"></a></li>
+                <!-- /ko -->
             </ul>
         </div>
     </section>

@@ -9,6 +9,8 @@ namespace site\frontend\modules\family\models;
  * @property string $id
  * @property string $description
  * @property string $adultsRelationshipStatus
+ * @property string $created
+ * @property string $updated
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\family\models\FamilyMember[] $members
@@ -54,6 +56,8 @@ class Family extends \CActiveRecord implements \IHToJSON
 			'id' => 'ID',
 			'description' => 'Description',
             'adultRelationshipStatus' => 'Adult Relationship Status',
+            'created' => 'Created',
+            'updated' => 'Updated',
 		);
 	}
 
@@ -73,6 +77,12 @@ class Family extends \CActiveRecord implements \IHToJSON
         return array(
             'withRelated' => array(
                 'class' => 'site.common.extensions.wr.WithRelatedBehavior',
+            ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+                'setUpdateOnCreate' => true,
             ),
         );
     }
@@ -101,16 +111,6 @@ class Family extends \CActiveRecord implements \IHToJSON
         return ($family === false) ? null : $family;
     }
 
-    protected static function createFamily($userId)
-    {
-        $family = new Family();
-        $member = new Adult();
-        $member->fillByUser($userId);
-        $family->members = array($member);
-        $success = $family->withRelated->save(true, array('members'));
-        return ($success) ? $family : false;
-    }
-
     public function toJSON()
     {
         return array(
@@ -123,5 +123,15 @@ class Family extends \CActiveRecord implements \IHToJSON
     public function canManage($userId)
     {
         return FamilyMember::model()->user($userId)->family($this->id)->exists();
+    }
+
+    protected static function createFamily($userId)
+    {
+        $family = new Family();
+        $member = new Adult();
+        $member->fillByUser($userId);
+        $family->members = array($member);
+        $success = $family->withRelated->save(true, array('members'));
+        return ($success) ? $family : false;
     }
 }

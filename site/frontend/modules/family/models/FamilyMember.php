@@ -14,10 +14,12 @@ namespace site\frontend\modules\family\models;
  * @property string $description
  * @property string $userId
  * @property string $familyId
+ * @property string $created
+ * @property string $updated
  * @property integer $removed
  *
  * The followings are the available model relations:
- * @property \User $user
+ * @property \site\frontend\components\api\models\User $user
  * @property \site\frontend\modules\family\models\Family $family
  */
 class FamilyMember extends \HActiveRecord implements \IHToJSON
@@ -76,6 +78,8 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
 			'description' => 'Description',
 			'userId' => 'User',
 			'familyId' => 'Family',
+            'created' => 'Created',
+            'updated' => 'Updated',
 			'removed' => 'Removed',
 		);
 	}
@@ -91,45 +95,19 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
 		return parent::model($className);
 	}
 
-    protected function instantiate($attributes)
+    public function behaviors()
     {
-        switch ($attributes['type']) {
-            case 'adult':
-                $class = '\site\frontend\modules\family\models\Adult';
-                break;
-            case 'child':
-                $class = '\site\frontend\modules\family\models\Child';
-                break;
-            case 'planning':
-                $class = '\site\frontend\modules\family\models\PlanningChild';
-                break;
-            case 'waiting':
-                $class = '\site\frontend\modules\family\models\PregnancyChild';
-                break;
-            case 'waitingTwins':
-                $class = '\site\frontend\modules\family\models\PregnancyTwins';
-                break;
-            default:
-                throw new \CException('Wrong type');
-        }
-        $model = new $class(null);
-        return $model;
-    }
-
-    protected function beforeValidate()
-    {
-        $validateCanBeAdded = $this->isNewRecord && $this->scenario != 'familyCreate';
-
-        if ($validateCanBeAdded && ! $this->canBeAdded()) {
-            throw new \CException('Этого члена семьи нельзя добавить в семью');
-        }
-
-        return parent::beforeValidate();
-    }
-
-    protected function canBeAdded()
-    {
-        return true;
+        return array(
+            'softDelete' => array(
+                'class' => 'site.common.behaviors.SoftDeleteBehavior',
+            ),
+            'CTimestampBehavior' => array(
+                'class' => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute' => 'created',
+                'updateAttribute' => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
+        );
     }
 
     public function family($familyId)
@@ -186,5 +164,46 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
             'id' => (int) $this->id,
             'type' => $this->type,
         );
+    }
+
+    protected function instantiate($attributes)
+    {
+        switch ($attributes['type']) {
+            case 'adult':
+                $class = '\site\frontend\modules\family\models\Adult';
+                break;
+            case 'child':
+                $class = '\site\frontend\modules\family\models\Child';
+                break;
+            case 'planning':
+                $class = '\site\frontend\modules\family\models\PlanningChild';
+                break;
+            case 'waiting':
+                $class = '\site\frontend\modules\family\models\PregnancyChild';
+                break;
+            case 'waitingTwins':
+                $class = '\site\frontend\modules\family\models\PregnancyTwins';
+                break;
+            default:
+                throw new \CException('Wrong type');
+        }
+        $model = new $class(null);
+        return $model;
+    }
+
+    protected function beforeValidate()
+    {
+        $validateCanBeAdded = $this->isNewRecord && $this->scenario != 'familyCreate';
+
+        if ($validateCanBeAdded && ! $this->canBeAdded()) {
+            throw new \CException('Этого члена семьи нельзя добавить в семью');
+        }
+
+        return parent::beforeValidate();
+    }
+
+    protected function canBeAdded()
+    {
+        return true;
     }
 }

@@ -33,9 +33,9 @@ class DefaultController extends PhotoController
         $this->render('create', compact('json'));
     }
 
-    public function actionView($userId, $id)
+    public function actionAlbum($userId, $id)
     {
-        $this->render('view', compact('userId', 'id'));
+        $this->render('album', compact('userId', 'id'));
     }
 
     /**

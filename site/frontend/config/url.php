@@ -126,8 +126,6 @@ return array(
         'user/<user_id:\d+>/rss' => 'rss/user',
         'user/<user_id:\d+>/comments/rss/page<page:\d+>' => 'rss/comments',
         'user/<user_id:\d+>/comments/rss' => 'rss/comments',
-        'user/<user_id:\d+>/albums' => 'gallery/user/index',
-        'user/<user_id:\d+>/albums/<album_id:\d+>' => 'gallery/user/view',
         'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
@@ -381,12 +379,10 @@ return array(
 
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
 
-//        'photo/user/<authorId:\d+>/albums/<id:\d+>' => 'photo/albums/view',
-        'photo/user/<userId:\d+>/albums' => 'photo/default/index',
+        'user/<userId:\d+>/albums' => 'photo/default/index',
+        'user/<userId:\d+>/albums/<id:\d+>' => 'photo/default/album',
         'photo/user/<userId:\d+>/albums/create' => 'photo/default/create',
-        'photo/user/<userId:\d+>/albums/<id:\d+>' => 'photo/default/view',
         'photo/<_c>/<_a>' => 'photo/<_c>/<_a>',
-
 
         'onair' => 'blog/air/index',
 

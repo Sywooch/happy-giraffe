@@ -1,42 +1,44 @@
 <!-- Добавление -->
-<div class="user-album_t-create">Новый фотоальбом
-    <div class="user-album_t-create-ico"></div>
-</div>
-<div class="postAdd">
-    <form data-bind="submit: submitCreateFunction">
-        <div class="postAdd_hold margin-t40">
-            <div class="postAdd_row">
-                <div class="postAdd_cont">
-                    <div class="inp-valid inp-valid__abs"  data-bind="css: photoAlbum.title.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
-                        <input type="text" placeholder="Заголовок альбома" class="itx-gray" data-bind="textInput: photoAlbum.title">
-                        <div class="inp-valid_count" data-bind="text: titleLength">150</div>
-                        <div class="inp-valid_error" data-bind="validationMessage: photoAlbum.title"></div>
+<div class="user-album">
+    <div class="user-album_t-create">Новый фотоальбом
+        <div class="user-album_t-create-ico"></div>
+    </div>
+    <div class="postAdd">
+        <form data-bind="submit: submitCreateFunction">
+            <div class="postAdd_hold margin-t40">
+                <div class="postAdd_row">
+                    <div class="postAdd_cont">
+                        <div class="inp-valid inp-valid__abs"  data-bind="css: photoAlbum.title.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                            <input type="text" placeholder="Заголовок альбома" class="itx-gray" data-bind="textInput: photoAlbum.title">
+                            <div class="inp-valid_count" data-bind="text: titleLength">150</div>
+                            <div class="inp-valid_error" data-bind="validationMessage: photoAlbum.title"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="postAdd_row">
+                    <div class="postAdd_cont">
+                        <div class="inp-valid inp-valid__abs" data-bind="css: photoAlbum.description.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
+                            <textarea rows="5" cols="40" placeholder="Описание альбома" class="itx-gray" data-bind="textInput: photoAlbum.description"></textarea>
+                            <div class="inp-valid_count" data-bind="text: descriptionLength">450</div>
+                            <div class="inp-valid_error" data-bind="validationMessage: photoAlbum.description"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="postAdd_row">
+                    <div class="postAdd_cont">
+                        <div class="postAdd_btns-hold">
+                            <a href="" class="btn btn-default btn-xm margin-r15" data-bind="click: cancel">Отмена</a>
+                            <!-- ko if: loading() === false -->
+                            <button data-bind="css: (photoAlbum.title.isValid() && photoAlbum.description.isValid()) !== true ? 'btn btn-success btn-xm disabled' : 'btn btn-success btn-xm'">Ok</button>
+                            <!-- /ko -->
+                            <!-- ko if: loading() === true -->
+                            <button class="btn btn-success btn-xm loading">Ok</button>
+                            <!-- /ko -->
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="postAdd_row">
-                <div class="postAdd_cont">
-                    <div class="inp-valid inp-valid__abs" data-bind="css: photoAlbum.description.isValid() !== true ? 'inp-valid inp-valid__abs error' : 'inp-valid inp-valid__abs'">
-                        <textarea rows="5" cols="40" placeholder="Описание альбома" class="itx-gray" data-bind="textInput: photoAlbum.description"></textarea>
-                        <div class="inp-valid_count" data-bind="text: descriptionLength">450</div>
-                        <div class="inp-valid_error" data-bind="validationMessage: photoAlbum.description"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="postAdd_row">
-                <div class="postAdd_cont">
-                    <div class="postAdd_btns-hold">
-                        <a href="" class="btn btn-default btn-xm margin-r15" data-bind="click: cancel">Отмена</a>
-                        <!-- ko if: loading() === false -->
-                        <button data-bind="css: (photoAlbum.title.isValid() && photoAlbum.description.isValid()) !== true ? 'btn btn-success btn-xm disabled' : 'btn btn-success btn-xm'">Ok</button>
-                        <!-- /ko -->
-                        <!-- ko if: loading() === true -->
-                        <button class="btn btn-success btn-xm loading">Ok</button>
-                        <!-- /ko -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>
 <!-- /Добавление -->

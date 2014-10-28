@@ -1,4 +1,5 @@
 <?php
+
 date_default_timezone_set('Europe/Moscow');
 return array(
     'id' => 'happy-giraffe',
@@ -6,7 +7,7 @@ return array(
     'name' => 'My Console Application',
     'sourceLanguage' => 'en',
     'language' => 'ru',
-    'preload'=>array('log'),
+    'preload' => array('log'),
     'commandMap' => array(
         'migrate' => array(
             'class' => 'system.cli.commands.MigrateCommand',
@@ -20,6 +21,20 @@ return array(
         ),
         'postConverter' => array(
             'class' => 'site\frontend\modules\posts\commands\ConvertCommand',
+        ),
+        'articleConverter' => array(
+            'class' => 'site\frontend\modules\posts\commands\ConvertCommand',
+            'commands' => array(
+                'oldBlog_CommunityContent_convert_post',
+                'oldCommunity_CommunityContent_convert_post',
+            ),
+        ),
+        'photoPostConverter' => array(
+            'class' => 'site\frontend\modules\posts\commands\ConvertCommand',
+            'commands' => array(
+                'oldBlog_CommunityContent_convert_photopost',
+                'oldCommunity_CommunityContent_convert_photopost',
+            ),
         ),
         'postFillQueue' => array(
             'class' => 'site\frontend\modules\posts\commands\FillQueue',
@@ -44,12 +59,12 @@ return array(
     ),
     'behaviors' => array(
         'edms' => array(
-            'class'=>'EDMSBehavior',
+            'class' => 'EDMSBehavior',
             'connectionId' => 'mongodb',
         )
     ),
     'components' => array(
-        'statePersister'=> array(
+        'statePersister' => array(
             'stateFile' => Yii::getPathOfAlias('site.frontend.runtime') . DIRECTORY_SEPARATOR . 'state.bin',
         ),
         'postman' => array(
@@ -77,7 +92,7 @@ return array(
             'baseUrl' => '',
             'scriptUrl' => '',
         ),
-        'comet'=>array(
+        'comet' => array(
             'class' => 'site.frontend.extensions.Dklab_Realplexor',
             'host' => 'plexor.www.happy-giraffe.ru',
             'port' => 10010,
@@ -88,12 +103,12 @@ return array(
 //            'class' => 'CMemCache',
         ),
         'mongodb' => array(
-            'class'            => 'EMongoDB',
+            'class' => 'EMongoDB',
             'connectionString' => 'mongodb://localhost',
-            'dbName'           => 'happy_giraffe_db',
-            'fsyncFlag'        => true,
-            'safeFlag'         => true,
-            'useCursor'        => false
+            'dbName' => 'happy_giraffe_db',
+            'fsyncFlag' => true,
+            'safeFlag' => true,
+            'useCursor' => false
         ),
         'mongodb_production' => array(
             'class' => 'EMongoDB',
@@ -112,12 +127,12 @@ return array(
             'useCursor' => false
         ),
         'edms' => array(
-            'class'            => 'EDMSConnection',
-            'dbName'           => 'happy_giraffe_db',
+            'class' => 'EDMSConnection',
+            'dbName' => 'happy_giraffe_db',
         ),
-        'db'=>require_once(dirname(__FILE__).'/db.php'),
+        'db' => require_once(dirname(__FILE__) . '/db.php'),
         'db_seo' => array(
-            'class'=>'CDbConnection',
+            'class' => 'CDbConnection',
             'connectionString' => 'mysql:host=localhost;dbname=happy_giraffe_seo',
             'emulatePrepare' => true,
             'username' => 'root',
@@ -141,14 +156,14 @@ return array(
             'server' => '127.0.0.1',
             'port' => 9312,
             'maxQueryTime' => 3000,
-            'enableProfiling'=>0,
-            'enableResultTrace'=>0,
+            'enableProfiling' => 0,
+            'enableResultTrace' => 0,
             'fieldWeights' => array(
                 'name' => 10000,
                 'keywords' => 100,
             ),
         ),
-        'urlManager'=>require_once(dirname(__FILE__).'/../../frontend/config/url.php'),
+        'urlManager' => require_once(dirname(__FILE__) . '/../../frontend/config/url.php'),
         'mc' => array(
             'class' => 'site.common.extensions.mailchimp.MailChimp',
             'apiKey' => 'c0ff51b36480912260a410258b64af5f-us5',
@@ -158,7 +173,7 @@ return array(
             'class' => 'site.common.components.Mandrill',
             'apiKey' => '1f816ac2-65b7-4a28-90c9-7e8fb1669d43',
         ),
-        'email'=>array(
+        'email' => array(
             'class' => 'site.common.components.HEmailSender',
         ),
         'phpThumb' => array(
@@ -169,8 +184,8 @@ return array(
             ),
         ),
     ),
-    'params'=>array(
-        'photos_url'=>'http://img.happy-giraffe.ru',
-        'use_proxy_auth'=>true,
+    'params' => array(
+        'photos_url' => 'http://img.happy-giraffe.ru',
+        'use_proxy_auth' => true,
     ),
 );

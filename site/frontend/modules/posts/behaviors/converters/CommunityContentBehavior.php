@@ -77,6 +77,21 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->dtimeCreate = strtotime($oldPost->created);
         $newPost->dtimeUpdate = max($newPost->dtimeCreate, strtotime($oldPost->updated), strtotime($oldPost->last_updated));
         $newPost->dtimePublication = $newPost->dtimeCreate;
+        $newPost->uniqueIndex = $oldPost->uniqueness;
+        $newPost->isNoindex = !(is_int($oldPost->uniqueness) && $oldPost->uniqueness > 50);
+        $newPost->isNofollow = false;
+        $newPost->isRemoved = $oldPost->removed;
+        $newPost->isDraft = 0;
+        $newPost->title = trim($oldPost->title);
+
+        $newPost->templateObject->layout = $oldPost->isFromBlog ? 'newBlogPost' : 'newCommunityPost';
+        $newPost->originManageInfoObject->link = array('url' => '/' . ($oldPost->isFromBlog ? 'blogs' : 'community') . '/edit/post', 'get' => array('id' => $oldPost->id));
+        $newPost->isAutoMeta = $oldPost->meta_description ? false : true;
+        $newPost->metaObject->description = $newPost->isAutoMeta ? $oldPost->meta_description_auto : $oldPost->meta_description;
+        $newPost->metaObject->title = trim($oldPost->title);
+
+        $newPost->socialObject->description = $newPost->metaObject->description;
+        $newPost->isAutoSocial = true;
     }
 
     protected function convertPost()
@@ -86,7 +101,6 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost);
 
-        $newPost->title = trim($oldPost->title);
         $newPost->html = $oldPost->post->text;
         $newPost->text = $oldPost->post->text;
         $photo = $oldPost->post->photo;
@@ -101,25 +115,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $newPost->preview = $oldPost->preview;
         }
 
-        $newPost->isAutoMeta = $oldPost->meta_description ? false : true;
-        $newPost->metaObject->description = $newPost->isAutoMeta ? $oldPost->meta_description_auto : $oldPost->meta_description;
-        $newPost->metaObject->title = trim($oldPost->title);
-
-        $newPost->socialObject->description = $newPost->metaObject->description;
-        $newPost->isAutoSocial = true;
-
-        $newPost->templateObject->layout = $oldPost->isFromBlog ? 'newBlogPost' : 'newCommunityPost';
-
-        $newPost->originManageInfoObject->link = array('url' => '/' . ($oldPost->isFromBlog ? 'blogs' : 'community') . '/edit/post', 'get' => array('id' => $oldPost->id));
-
-        $newPost->uniqueIndex = $oldPost->uniqueness;
-        $newPost->isNoindex = !(is_int($oldPost->uniqueness) && $oldPost->uniqueness > 50);
-        $newPost->isNofollow = false;
-        $newPost->isRemoved = $oldPost->removed;
-        $newPost->isDraft = 0;
-        /*var_dump($newPost->save());
-        var_dump($newPost->errors);
-        var_dump($newPost->attributes);*/
+        $newPost->save();
     }
 
     protected function convertPhotoPost()
@@ -130,8 +126,23 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $this->convertCommon($oldPost, $newPost);
 
         $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
-        var_dump($collection->attaches);
+        var_dump($collection->refresh());
+        $count = $collection->attachesCount;
+        var_dump($collection->cover);
+        $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
+        $photoAlbumTag = \CHtml::tag('photo-collection', array(
+                'params' =>
+                'id: ' . (int) $collection->id . ', ' .
+                'attachCount: ' . (int) $count . ', ' .
+                'coverId: ' . $collection->cover->photo->id,
+                ), '<div class="b-album_img-hold"><span class="b-album_img-a"><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div><div class="b-album_img-picture"><img class="b-album_img-big" alt="Фото" src="' . $cover . '"></div></span></div>');
 
+        $newPost->html = $oldPost->photoPost->text;
+        $newPost->text = $oldPost->photoPost->text;
+        $newPost->preview = $photoAlbumTag . \CHtml::tag('p', array('class' => 'wysiwyg-content clearfix'), $oldPost->preview . '<span class="ico-more"></span>');
+        $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'uploadPreview')->getUrl();
+
+        var_dump($newPost->attributes);
         die();
     }
 
@@ -146,5 +157,4 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     }
 
 }
-
 ?>

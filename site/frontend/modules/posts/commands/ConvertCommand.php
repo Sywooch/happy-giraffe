@@ -10,6 +10,13 @@ namespace site\frontend\modules\posts\commands;
 class ConvertCommand extends \CConsoleCommand
 {
 
+    public $commands = array(
+        'oldBlog_CommunityContent_convert_post',
+        'oldCommunity_CommunityContent_convert_post',
+        'oldBlog_CommunityContent_convert_photopost',
+        'oldCommunity_CommunityContent_convert_photopost',
+    );
+
     /**
      * Добавление задачи, для конвертирования CommunityContent в новый сервис постов
      * 
@@ -46,16 +53,16 @@ class ConvertCommand extends \CConsoleCommand
         return \CJSON::decode($data);
     }
 
-    public function actionIndex()
+    public function actionIndex(Array $command = array(), $fake = false)
     {
         /** @todo параметризировать команду, что бы можно было выбирать обработчики */
         $worker = \Yii::app()->gearman->worker();
-        $worker->addFunction('oldBlog_CommunityContent_convert', array($this, 'convertPost'));
-        $worker->addFunction('oldCommunity_CommunityContent_convert', array($this, 'convertPost'));
-        $worker->addFunction('oldBlog_CommunityContent_convert_post', array($this, 'convertPost'));
-        $worker->addFunction('oldCommunity_CommunityContent_convert_post', array($this, 'convertPost'));
-        $worker->addFunction('oldBlog_CommunityContent_convert_photopost', array($this, 'convertPost'));
-        $worker->addFunction('oldCommunity_CommunityContent_convert_photopost', array($this, 'convertPost'));
+        if (empty($command))
+            $command = $this->commands;
+
+        foreach ($command as $c)
+            if (in_array($c, $this->commands))
+                $worker->addFunction($c, array($this, $fake ? 'fake' : 'convertPost'));
 
         while ($worker->work());
     }
@@ -66,7 +73,6 @@ class ConvertCommand extends \CConsoleCommand
      */
     public function convertPost($job)
     {
-        var_dump($job);
         try
         {
             $data = self::unserialize($job->workload());
@@ -79,6 +85,11 @@ class ConvertCommand extends \CConsoleCommand
             var_dump($data);
             echo $e;
         }
+    }
+
+    public function fake($job)
+    {
+        return null;
     }
 
 }

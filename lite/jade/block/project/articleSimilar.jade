@@ -1,0 +1,56 @@
+
+//- articleSimilar
+//- 
+    mod
+    vars
+mixin articleSimilar(mod, vars)
+
+    // Варианты цветов блока
+        article-similar__green
+        article-similar__blue
+        article-similar__lilac
+        article-similar__red
+        article-similar__yellow
+    .article-similar(class=mod)
+        .article-similar_row
+            +ava('ava__middle', ava.a)
+            a.article-similar_author(href="#") 
+                = vars.author
+        .article-similar_row
+            a.article-similar_t(href="#") 
+                = vars.title
+        .article-similar_img-hold
+            a(href="#")
+                if (vars.count)
+                    .article-similar_count-hold
+                        .article-similar_count-t 128
+                        .article-similar_count-tx фото
+                img.article-similar_img(src="#{path}images/"+vars.images, alt="")
+
+- var articleSimilar = {}
+
+- articleSimilar.a = {}
+- articleSimilar.a.author = 'Марина Правдинина'
+- articleSimilar.a.title = 'Наши первые движения '
+- articleSimilar.a.images = 'example/w240-h165.jpg'
+
+- articleSimilar.b = {}
+- articleSimilar.b.coount = true
+- articleSimilar.b.author = 'Марина Правдинина'
+- articleSimilar.b.title = 'Наши первые движения '
+- articleSimilar.b.images = 'example/w240-h165.jpg'
+
+- articleSimilar.c = {}
+- articleSimilar.c.author = 'Марина Правдининаertertertert'
+- articleSimilar.c.title = 'Яркие идеи для оформления детской комнаты '
+- articleSimilar.c.images = 'example/w240-h183.jpg'
+
+- articleSimilar.d = {}
+- articleSimilar.d.author = 'Антон Кузнецов-Привольный'
+- articleSimilar.d.title = 'Одиночное путешествие: куда поехать и как организовать '
+- articleSimilar.d.images = 'example/w240-h176.jpg'
+
+- articleSimilar.e = {}
+- articleSimilar.e.author = 'Антон Привольный'
+- articleSimilar.e.title = 'Первый российский Comic Con '
+- articleSimilar.e.images = 'example/w240-h154-1.jpg'

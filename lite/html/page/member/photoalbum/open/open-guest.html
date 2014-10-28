@@ -44,32 +44,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -222,7 +222,10 @@
                   <!-- Нужно выставить высоту и ширину блоку, что б получалася полный ряд-->
                   <div style="width: 280px; height: 380px;" class="img-grid_i">
                     <div class="album-photo-add album-photo-add__m">
-                      <div class="album-photo-add_hold">Загрузить еще<br>фото в альбом</div>
+                      <div class="album-photo-add_hold">
+                         
+                        Загрузить еще<br>фото в альбом
+                      </div>
                     </div>
                   </div>
                   <div class="img-grid_i">
@@ -399,8 +402,8 @@
                         <!-- --><img src="/new/images/example/w205-h140.jpg" alt="" class="album-preview_img">
                       </div>
                       <div class="album-preview_overlay"></div></a>
-                    <div class="album-preview_hold"><a href="" class="album-preview_t">Моя семья</a>
-                      <div class="album-preview_count">25 фото
+                    <div class="album-preview_hold"><a href="" class="album-preview_t"> Моя семья</a>
+                      <div class="album-preview_count"> 25 фото
                       </div>
                     </div>
                   </li>
@@ -409,8 +412,8 @@
                         <!-- --><img src="/new/images/example/w205-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
                       <div class="album-preview_overlay"></div></a>
-                    <div class="album-preview_hold"><a href="" class="album-preview_t">Мои работы по рукоделию</a>
-                      <div class="album-preview_count">145 фото
+                    <div class="album-preview_hold"><a href="" class="album-preview_t"> Мои работы по рукоделию</a>
+                      <div class="album-preview_count"> 145 фото
                       </div>
                     </div>
                   </li>
@@ -419,8 +422,8 @@
                         <!-- --><img src="/new/images/example/w205-h140.jpg" alt="" class="album-preview_img">
                       </div>
                       <div class="album-preview_overlay"></div></a>
-                    <div class="album-preview_hold"><a href="" class="album-preview_t">Выходные - мое хобби, а также очень интересно и познавательно </a>
-                      <div class="album-preview_count">25 фото
+                    <div class="album-preview_hold"><a href="" class="album-preview_t"> Выходные - мое хобби, а также очень интересно и познавательно </a>
+                      <div class="album-preview_count"> 25 фото
                       </div>
                     </div>
                   </li>
@@ -429,8 +432,8 @@
                         <!-- --><img src="/new/images/example/w205-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
                       <div class="album-preview_overlay"></div></a>
-                    <div class="album-preview_hold"><a href="" class="album-preview_t">Моя семья</a>
-                      <div class="album-preview_count">145 фото
+                    <div class="album-preview_hold"><a href="" class="album-preview_t"> Моя семья</a>
+                      <div class="album-preview_count"> 145 фото
                       </div>
                     </div>
                   </li>
@@ -439,8 +442,8 @@
                         <!-- --><img src="/new/images/example/w205-h140.jpg" alt="" class="album-preview_img">
                       </div>
                       <div class="album-preview_overlay"></div></a>
-                    <div class="album-preview_hold"><a href="" class="album-preview_t">Мои работы по рукоделию</a>
-                      <div class="album-preview_count">1 фото
+                    <div class="album-preview_hold"><a href="" class="album-preview_t"> Мои работы по рукоделию</a>
+                      <div class="album-preview_count"> 1 фото
                       </div>
                     </div>
                   </li>
@@ -453,9 +456,9 @@
           <div class="layout-footer clearfix">
             <div class="layout-footer_hold">
               <ul class="footer-list">
-                <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+                <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-                <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+                <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
               </ul>

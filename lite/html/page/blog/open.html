@@ -44,32 +44,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -230,7 +230,7 @@
                         <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
                         <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. </p>
                         <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
-                        <ul>
+                        <ul> 
                           <li> Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</li>
                           <li>A не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</li>
                           <li>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</li>
@@ -241,7 +241,7 @@
                         <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
                         <h3>Tолько лишь на экране, все же Роберт Паттинсон и Кристен </h3>
                         <p>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</p>
-                        <ol>
+                        <ol> 
                           <li>В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</li>
                           <li> Желе торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</li>
                           <li>A не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.</li>
@@ -272,6 +272,7 @@
                         </div>
                       </div>
                       <!-- Лайки от яндекса-->
+                      
                       <!-- Реклама яндекса-->
                       <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
                     </div>
@@ -413,7 +414,10 @@
                               </div>
                               <div class="comments_cont">
                                 <div class="wysiwyg-content">
-                                  <p> Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! </p>
+                                  <p>
+                                     
+                                     Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                  </p>
                                   <!-- одно фото в блок (ссылку)--><a href="" class="comments_cont-img-w">
                                     <!-- размеры превью максимум 400*400 пк--><img alt="" src="/images/example/w220-h309-1.jpg"></a>
                                   <p>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
@@ -422,7 +426,7 @@
                               <div class="comments_footer">
                                 <!-- b-control-->
                                 <div class="b-control">
-                                  <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                                  <div class="b-control_i b-control_i__answer"><span class="b-control_ico"> </span><span class="b-control_tx">Ответить</span>
                                   </div>
                                 </div>
                                 <!-- /b-control-->
@@ -443,7 +447,7 @@
                                   </div>
                                   <div class="comments_cont">
                                     <div class="wysiwyg-content">
-                                      <p><a href="" class="comments_ansver-for">Ольга Максимова &nbsp; </a>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
+                                      <p> <a href="" class="comments_ansver-for">Ольга Максимова &nbsp; </a>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
                                     </div>
                                   </div>
                                   <div class="comments_footer">
@@ -482,7 +486,7 @@
                                   <div class="comments_footer">
                                     <!-- b-control-->
                                     <div class="b-control">
-                                      <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                                      <div class="b-control_i b-control_i__answer"><span class="b-control_ico"> </span><span class="b-control_tx">Ответить</span>
                                       </div>
                                     </div>
                                     <!-- /b-control-->
@@ -513,7 +517,7 @@
                               <div class="comments_footer">
                                 <!-- b-control-->
                                 <div class="b-control">
-                                  <div class="b-control_i b-control_i__answer"><span class="b-control_ico"></span><span class="b-control_tx">Ответить</span>
+                                  <div class="b-control_i b-control_i__answer"><span class="b-control_ico"> </span><span class="b-control_tx">Ответить</span>
                                   </div>
                                 </div>
                                 <!-- /b-control-->
@@ -525,7 +529,7 @@
                       </ul>
                       <div class="article-users visible-md-block">
                         <div class="article-users_row"><a class="article-users_count">
-                            <div class="ico-action-hg ico-action-hg__like"></div>
+                            <div class="ico-action-hg ico-action-hg__like"> </div>
                             <div class="article-users_count-tx">865</div></a>
                           <div class="ava-list">
                             <ul class="ava-list_ul clearfix">
@@ -563,7 +567,7 @@
                           </div><a class="a-light">Смотреть все</a>
                         </div>
                         <div class="article-users_row"><a class="article-users_count">
-                            <div class="ico-action-hg ico-action-hg__favorite"></div>
+                            <div class="ico-action-hg ico-action-hg__favorite"> </div>
                             <div class="article-users_count-tx">5</div></a>
                           <div class="ava-list">
                             <ul class="ava-list_ul clearfix">
@@ -607,11 +611,13 @@
                         <ul class="list-subsribe-users_ul">
                           <li class="list-subsribe-users_li">
                             <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
-                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-success btn-sl"><span class="ico-plus"></span>Подписаться</a>
+                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-success btn-sl"> <span class="ico-plus"></span>Подписаться</a>
                           </li>
                           <li class="list-subsribe-users_li">
                             <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
-                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-secondary btn-sl">Читаю</a>
+                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-secondary btn-sl">
+                               
+                              Читаю</a>
                           </li>
                         </ul>
                       </div>
@@ -625,7 +631,7 @@
               <!-- Сайд бар-->
               <!-- Содержимое загружaть отложено-->
               <aside class="b-main_col-sidebar">
-                <div class="adv-banner adv-banner__bd"><a href=""><img src="/lite/images/example/w240-h400.jpg" alt=""></a></div>
+                <div class="adv-banner adv-banner__bd"><a href=""> <img src="/lite/images/example/w240-h400.jpg" alt=""></a></div>
                 <!-- Варианты цветов блока
                 article-similar__green
                 article-similar__blue
@@ -678,9 +684,9 @@
         <div class="layout-footer clearfix layout-footer__in">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

@@ -44,32 +44,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -216,7 +216,7 @@
                     // Change this to the location of your server-side upload handler:
                     var url = window.location.hostname === 'blueimp.github.io' ?
                                 '//jquery-file-upload.appspot.com/' : 'server/php/',
-                    uploadButton = $('<button/>')
+                        uploadButton = $('<button/>')
                             .addClass('btn btn-primary')
                             .prop('disabled', true)
                             .text('Processing...')
@@ -358,6 +358,7 @@
       </div>
     </div>
     <!-- /popup-add -->
+    
     <!-- .popup-add-->
     <!-- Одно фото загружается-->
     <div id="photo-computer-one-load" class="popup popup-add popup-add__photos">
@@ -414,6 +415,7 @@
       </div>
     </div>
     <!-- /popup-add-->
+    
     <!--//////////////////////////////////////////////////-->
     <!-- .popup-add-->
     <!-- Заглушка для загрузки нескольких фото -->
@@ -482,7 +484,7 @@
                         <!-- Загруженное фото-->
                         <div class="i-photo_hold">
                           <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
-                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"> </a><a href="" class="i-photo_rotate i-photo_rotate__r"> </a></div>
                           </div>
                           <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                         </div>
@@ -516,7 +518,7 @@
                         <!-- Загруженное фото-->
                         <div class="i-photo_hold">
                           <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
-                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"> </a><a href="" class="i-photo_rotate i-photo_rotate__r"> </a></div>
                           </div>
                           <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                         </div>
@@ -696,7 +698,7 @@
                         <!-- Загруженное фото-->
                         <div class="i-photo_hold">
                           <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
-                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"> </a><a href="" class="i-photo_rotate i-photo_rotate__r"> </a></div>
                           </div>
                           <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                         </div>
@@ -758,7 +760,7 @@
                         <!-- Загруженное фото-->
                         <div class="i-photo_hold">
                           <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
-                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"> </a><a href="" class="i-photo_rotate i-photo_rotate__r"> </a></div>
                           </div>
                           <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                         </div>
@@ -773,7 +775,7 @@
                         <!-- Загруженное фото-->
                         <div class="i-photo_hold">
                           <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
-                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"> </a><a href="" class="i-photo_rotate i-photo_rotate__r"> </a></div>
                           </div>
                           <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                         </div>
@@ -801,7 +803,7 @@
                         <!-- Загруженное фото-->
                         <div class="i-photo_hold">
                           <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
-                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                            <div class="i-photo_overlay"><a href="" class="i-photo_rotate"> </a><a href="" class="i-photo_rotate i-photo_rotate__r"> </a></div>
                           </div>
                           <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                         </div>
@@ -822,7 +824,7 @@
               <div class="popup-add_footer-l"><span class="color-gray">Загружено  
                   <spanc class="popup-add_footer-count">125 </spanc>из <span class="popup-add_footer-count">125</span></span>
                 <div class="file-fake">
-                  <input type="file" class="file-fake_inp"><a href="" class="file-fake_btn btn btn-primary btn-s"><span class="ico-plus ico-plus__s ico-plus__white"></span>Загрузить еще</a>
+                  <input type="file" class="file-fake_inp"><a href="" class="file-fake_btn btn btn-primary btn-s"> <span class="ico-plus ico-plus__s ico-plus__white"></span>Загрузить еще</a>
                 </div>
               </div>
             </div>
@@ -833,6 +835,9 @@
       </div>
     </div>
     <!-- /popup-add-->
+    
+    
+    
     <!--//////////////////////////////////////////////////-->
     <!-- .popup-add-->
     <!-- Одно фото по ссылке загружено-->
@@ -914,7 +919,7 @@
                   <!-- Загруженное фото-->
                   <div class="i-photo_hold">
                     <div class="i-photo_img-hold"><img src="/new/images/example/w155-h110.jpg" alt="" class="i-photo_img">
-                      <div class="i-photo_overlay"><a href="" class="i-photo_rotate"></a><a href="" class="i-photo_rotate i-photo_rotate__r"></a></div>
+                      <div class="i-photo_overlay"><a href="" class="i-photo_rotate"> </a><a href="" class="i-photo_rotate i-photo_rotate__r"> </a></div>
                     </div>
                     <input type="text" placeholder="Введите заголовок" class="i-photo_itx itx-gray">
                   </div>
@@ -930,6 +935,8 @@
       </div>
     </div>
     <!-- /popup-add-->
+    
+    
     <!--////////////////////////////////////////////////-->
     <!-- .popup-add s-->
     <!-- Фотографии из альбома, список альбомов-->
@@ -2021,5 +2028,6 @@
       </div>
     </div>
     <!-- /popup-add-->
+    
   </div>
 </body></html>

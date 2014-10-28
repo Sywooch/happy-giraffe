@@ -44,32 +44,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -198,7 +198,7 @@
             </div>
           </div>
           <!-- Заголовок страницы-->
-          <div class="b-main_cont">
+          <div class="b-main_cont"> 
             <div class="b-main_col-wide">   
               <h1 class="heading-link-xxl heading-link-xxl__center">3 неделя беременности</h1>
             </div>
@@ -211,7 +211,7 @@
           </div>
           <!-- Контент -->
           <div class="services-calendars services-calendars__pregnancy">
-            <div class="b-main_cont">
+            <div class="b-main_cont"> 
               <div class="b-main_col-article b-main_col-article__center wysiwyg-content">
                 <p><em>На седьмом месяце жизни ребёнок уже знает своё имя и интересуется отражением в зеркале.</em></p>
                 <p></p>
@@ -262,24 +262,36 @@
                   <div class="b-main_col-article b-main_col-article__center">
                     <div class="services-fast_t heading-m">Полезные сервисы. Попробуйте!</div>
                     <ul class="services-fast_ul">
-                      <li class="services-fast_li"><a href="#" class="services-fast_a">
+                      <li class="services-fast_li"><a href="#" class="services-fast_a"> 
                           <div class="services-fast_ico"><img src="/lite/images/services/service_img_1.png" alt="">
                             <div class="verticalalign-m-help"></div>
                           </div>
-                          <div class="services-fast_tx">Выбор имени <br>для ребенка</div></a></li>
-                      <li class="services-fast_li"><a href="#" class="services-fast_a">
+                          <div class="services-fast_tx">
+                             
+                            Выбор имени <br>для ребенка
+                          </div></a></li>
+                      <li class="services-fast_li"><a href="#" class="services-fast_a"> 
                           <div class="services-fast_ico"><img src="/lite/images/services/service_img_9.png" alt="">
                             <div class="verticalalign-m-help"></div>
                           </div>
-                          <div class="services-fast_tx">Тест на <br>беременность</div></a></li>
-                      <li class="services-fast_li"><a href="#" class="services-fast_a">
+                          <div class="services-fast_tx">
+                             
+                            Тест на <br>беременность
+                          </div></a></li>
+                      <li class="services-fast_li"><a href="#" class="services-fast_a"> 
                           <div class="services-fast_ico"><img src="/lite/images/services/service_img_8.png" alt="">
                             <div class="verticalalign-m-help"></div>
                           </div>
-                          <div class="services-fast_tx">Определение<br>пола ребенка</div></a></li>
-                      <li class="services-fast_li"><a href="#" class="services-fast_a">
+                          <div class="services-fast_tx">
+                             
+                            Определение<br>пола ребенка
+                          </div></a></li>
+                      <li class="services-fast_li"><a href="#" class="services-fast_a"> 
                           <div class="services-fast_ico"><img src="/lite/images/services/service_img_5.png" alt=""></div>
-                          <div class="services-fast_tx">Вес при<br>беремеенности</div></a></li>
+                          <div class="services-fast_tx">
+                             
+                            Вес при<br>беремеенности
+                          </div></a></li>
                     </ul>
                   </div>
                 </div>
@@ -317,9 +329,9 @@
         <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

@@ -381,7 +381,7 @@ return array(
 
         'user/<userId:\d+>/albums' => 'photo/default/index',
         'user/<userId:\d+>/albums/<id:\d+>' => 'photo/default/album',
-        'photo/user/<userId:\d+>/albums/create' => 'photo/default/create',
+        'user/<userId:\d+>/albums/create' => 'photo/default/create',
         'photo/<_c>/<_a>' => 'photo/<_c>/<_a>',
 
         'onair' => 'blog/air/index',

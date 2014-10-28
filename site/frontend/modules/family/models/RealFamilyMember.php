@@ -12,7 +12,11 @@ abstract class RealFamilyMember extends FamilyMemberAbstract
     public function rules()
     {
         return array(
+            /*
+             * @todo валидация
+             */
             array('name', 'safe'),
+            array('birthday', 'date', 'format' => 'yyyy-M-d'),
         );
     }
 

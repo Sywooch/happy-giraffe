@@ -18,6 +18,7 @@ return array(
             'managePhotoAttach',
             'uploadPhoto',
             'manageOwnFamily',
+            'manageOwnFamilyMembers',
         ),
         'bizRule' => null,
         'data' => null
@@ -192,5 +193,34 @@ return array(
         'description' => 'Редактирование семьи',
         'bizRule' => null,
         'data' => null
+    ),
+    'manageOwnFamilyMembers' => array(
+        'type' => CAuthItem::TYPE_TASK,
+        'description' => 'Управление своей семьей',
+        'children' => array(
+            'updateFamilyMember',
+            'removeFamilyMember',
+            'restoreFamilyMember',
+        ),
+        'bizRule' => 'return $params["entity"]->family->canManage(\Yii::app()->user->id);',
+        'data' => null,
+    ),
+    'updateFamilyMember' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Перемещение аттачей',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'removeFamilyMember' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Перемещение аттачей',
+        'bizRule' => null,
+        'data' => null,
+    ),
+    'restoreFamilyMember' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Перемещение аттачей',
+        'bizRule' => null,
+        'data' => null,
     ),
 );

@@ -19,6 +19,22 @@ class ApiController extends \site\frontend\components\api\ApiController
                 'modelName' => '\site\frontend\modules\family\models\Family',
                 'checkAccess' => 'updateFamily',
             ),
+
+            'updateMember' => array(
+                'class' => 'site\frontend\components\api\EditAction',
+                'modelName' => '\site\frontend\modules\family\models\FamilyMember',
+                'checkAccess' => 'updateFamilyMember',
+            ),
+            'removeMember' => array(
+                'class' => 'site\frontend\components\api\SoftDeleteAction',
+                'modelName' => '\site\frontend\modules\family\models\FamilyMember',
+                'checkAccess' => 'removeFamilyMember',
+            ),
+            'restoreMember' => array(
+                'class' => 'site\frontend\components\api\SoftRestoreAction',
+                'modelName' => '\site\frontend\modules\family\models\FamilyMember',
+                'checkAccess' => 'restoreFamilyMember',
+            ),
         ));
     }
 

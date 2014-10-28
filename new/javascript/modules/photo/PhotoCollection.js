@@ -104,6 +104,16 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 }
             }
         };
+        this.getCollectionCount = function getCollectionCount(id) {
+            Model
+                .get(this.getAttachesUrl, { collectionId: this.id(), offset: 0 })
+                .done(this.countAttaches.bind(this));
+        };
+        this.countAttaches = function countAttaches(attaches) {
+            if (attaches.success) {
+                this.attachesCount(attaches.data.attaches.length);
+            }
+        };
         this.getNotSortedAttachesHandler = function getAttaches(attaches) {
             if (attaches.success) {
                 this.attachesCache = attaches.data.attaches;

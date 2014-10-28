@@ -9,6 +9,8 @@
         this.loading = ko.observable(true);
         this.broke = ko.observable(false);
         this.removed = ko.observable(false);
+        this.setCoverUrl = '/api/photo/collections/setCover/';
+        this.isCover = ko.observable(false);
         this.remove = function () {
             Model.get(this.removeUrl, {
                 id: this.id()
@@ -26,6 +28,16 @@
                     this.removed(false);
                 }
             }.bind(this));
+        };
+        this.setCover = function setCover(collectionId, data) {
+            Model
+                .get(this.setCoverUrl, { collectionId: collectionId, attachId: this.id() })
+                .done(this.setCoverHandler.bind(this));
+        };
+        this.setCoverHandler = function setCoverHandler(status) {
+            if (status.success === true) {
+                this.isCover(true);
+            }
         };
     }
 

@@ -25,8 +25,10 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                         photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
                         this.cover(photoAttach);
                     }
-                    Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
-                        .done(this.handleCover.bind(this));
+                    else {
+                        Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
+                            .done(this.handleCover.bind(this));
+                    }
                 } else {
                     $.when(Model.get(this.getAttachesUrl, {
                         collectionId: this.id(),
@@ -102,6 +104,16 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 if (this.attaches().length > 0) {
                     this.loadImagesCreation('progress', 'photo-album', '#imgs');
                 }
+            }
+        };
+        this.getCollectionCount = function getCollectionCount(id) {
+            Model
+                .get(this.getAttachesUrl, { collectionId: this.id(), offset: 0 })
+                .done(this.countAttaches.bind(this));
+        };
+        this.countAttaches = function countAttaches(attaches) {
+            if (attaches.success) {
+                this.attachesCount(attaches.data.attaches.length);
             }
         };
         this.getNotSortedAttachesHandler = function getAttaches(attaches) {

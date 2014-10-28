@@ -1,9 +1,8 @@
 <!-- ko if: photoCollection.attaches().length > 0 -->
 <section class="b-album">
     <div class="b-album_top">
-        <div class="tx-date">Обновлен <span data-bind="moment: photoCollection.updated()"></span></div>
         <div class="b-album_count-hold">
-            <div class="b-album_count" data-bind="text: photoCollection.attaches().length"></div>
+            <div class="b-album_count" data-bind="visible: photoCollection.attachesCount() !== 1, text: photoCollection.attachesCount()"></div>
             <div class="b-album_count-tx">фото</div>
         </div>
     </div>
@@ -29,7 +28,7 @@
         </a>
         <ul class="b-album_prev clearfix visible-md-block">
             <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-            <!-- ko if: photoCollection.attaches().length > 0 && rightsForManipulation === true -->
+            <!-- ko if: photoCollection.attaches().length > 0 -->
                 <!-- ko foreach: photoCollection.attaches() -->
                 <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
                     <a href="#" class="b-album_prev-a">

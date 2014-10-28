@@ -94,10 +94,10 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
             ),
             'UrlBehavior' => array(
                 'class' => 'site\common\behaviors\UrlBehavior',
-                'route' => '/photo/albums/view',
+                'route' => '/photo/default/album',
                 'params' => array(
                     'id' => 'id',
-                    'authorId' => 'author_id',
+                    'userId' => 'author_id',
                 ),
             ),
             'softDelete' => array(

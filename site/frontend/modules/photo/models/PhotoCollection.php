@@ -42,15 +42,8 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     public function rules()
     {
         return array(
-            array('cover_id', 'validateCover', 'on' => 'setCover'),
-        );
-    }
 
-    public function validateCover($attribute, $params)
-    {
-        if (! PhotoAttach::model()->collection($this->id)->exists('id = :id', array(':id' => $this->$attribute))) {
-            $this->addError($attribute, '');
-        }
+        );
     }
 
 	/**
@@ -122,10 +115,14 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function setCover($attach)
+    public function setCover(PhotoAttach $attach)
     {
-        $this->cover_id = $attach;
-        return $this->save();
+        if ($attach->collection_id == $this->id) {
+            $this->cover = $attach;
+            $this->cover_id = $attach->id;
+            return true;
+        }
+        return false;
     }
 
     public function scopes()
@@ -163,31 +160,74 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             return false;
         }
 
-        if ($replace) {
-            $this->removeAttaches();
+        if (! is_array($ids)) {
+            $ids = array($ids);
         }
 
         $collections = array_merge(array($this), $this->getRelatedCollections());
-        $success = true;
         /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
         foreach ($collections as $collection) {
-            $startPosition = $collection->getMaxPosition() + 1;
-            foreach ($ids as $i => $photoId) {
-                $position = $startPosition + $i;
-                $attach = $collection->attachPhoto($photoId, $position);
-                $success = $success && ($attach !== false);
-                if ($i == 0 && $collection->cover_id === null) {
-                    $collection->setCover($attach->id);
-                }
-                $collection->update(array('updated'));
-            }
+            self::attachPhotosInternal($collection, $ids, $replace);
         }
-        return $success;
+        return true;
     }
 
-    public function removeAttaches()
+    protected static function attachPhotosInternal(PhotoCollection $collection, $ids, $replace)
     {
-        return PhotoAttach::model()->deleteAll('collection_id = :collectionId', array(':collectionId' => $this->id)) > 0;
+        if ($replace) {
+            $newAttaches = array();
+            /** @var \site\frontend\modules\photo\models\PhotoAttach $attach */
+            foreach ($collection->attaches as $attach) {
+                if (array_search($attach->photo_id, $ids) === false) {
+                    $attach->scenario = 'attachPhotos';
+                    $attach->delete();
+                    if ($attach->id == $collection->cover_id) {
+                        $collection->cover = null;
+                    }
+                } else {
+                    $newAttaches[] = $attach;
+                }
+            }
+            $startPosition = 0;
+        } else {
+            $newAttaches = $collection->attaches;
+            $startPosition = $collection->getMaxPosition();
+        }
+
+        foreach ($ids as $positionOffset => $id) {
+            $newPosition = $startPosition + $positionOffset;
+            if ($attach = $collection->getAttachByPhotoId($id)) {
+                $updatePosition = $replace && ($attach->position != $newPosition);
+                if ($updatePosition) {
+                    $attach->position = $newPosition;
+                    $attach->update(array('position'));
+                }
+            } else {
+                $attach = $collection->attachPhoto($id, $newPosition);
+                $newAttaches[] = $attach;
+            }
+        }
+
+        $collection->attaches = $newAttaches;
+        if ($collection->cover === null) {
+            $collection->setCover($collection->getDefaultCover());
+        }
+        $collection->update(array('updated', 'cover_id'));
+    }
+
+    protected function getDefaultCover()
+    {
+        return (isset($this->attaches[0])) ? $this->attaches[0] : null;
+    }
+
+    protected function getAttachByPhotoId($photoId)
+    {
+        foreach ($this->attaches as $attach) {
+            if ($attach->photo_id == $photoId) {
+                return $attach;
+            }
+        }
+        return null;
     }
 
     public function sortAttaches($attachesIds)

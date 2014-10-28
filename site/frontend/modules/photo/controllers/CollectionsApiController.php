@@ -12,6 +12,13 @@ use site\frontend\components\api\ApiController;
 
 class CollectionsApiController extends ApiController
 {
+    public function get($collectionId)
+    {
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId);
+        $this->success = true;
+        $this->data = $collection;
+    }
+
     public function actionListAttaches($collectionId, $page, $pageSize)
     {
         $offset = $page * $pageSize;
@@ -74,7 +81,7 @@ class CollectionsApiController extends ApiController
      * @param $id
      * @param bool $checkAccess
      * @param bool $resetScope
-     * @return \site\frontend\modules\photo\models\collections\PhotoCollectionAbstract
+     * @return \site\frontend\modules\photo\models\PhotoCollection
      */
     public function getModel($class, $id, $checkAccess = false, $resetScope = false)
     {

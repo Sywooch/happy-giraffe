@@ -43,8 +43,6 @@ class AlbumsApiController extends \site\frontend\components\api\ApiController
     /**
      * @param $userId
      * @param bool $notEmpty
-     * @todo возможно параметр notEmpty нужно дополнительно корректировать сервером в случае, если клиент пытается
-     * получить список альбомов другого пользователя, включающий пустые альбомы - зависит от требований
      */
     public function actionGetByUser($userId, $notEmpty = true)
     {

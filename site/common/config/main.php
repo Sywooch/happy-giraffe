@@ -9,6 +9,9 @@ return array(
         'Imagine' => 'site.common.vendor.Imagine',
         'Gaufrette' => 'site.common.vendor.Gaufrette',
     ),
+    'modules' => array(
+        'photo' => require(dirname(__FILE__) . '/../../frontend/modules/photo/config/main.php'),
+    ),
     'components' => array(
         'gearman' => array(
             'class' => 'site.common.components.Gearman',

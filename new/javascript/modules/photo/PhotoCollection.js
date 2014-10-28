@@ -25,8 +25,10 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                         photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
                         this.cover(photoAttach);
                     }
-                    Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
-                        .done(this.handleCover.bind(this));
+                    else {
+                        Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
+                            .done(this.handleCover.bind(this));
+                    }
                 } else {
                     $.when(Model.get(this.getAttachesUrl, {
                         collectionId: this.id(),

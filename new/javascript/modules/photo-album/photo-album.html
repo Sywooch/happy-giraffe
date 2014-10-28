@@ -69,7 +69,7 @@
                     <span class="ico-zoom ico-zoom__abs"></span>
                     <!-- ko if: $parent.rightsForManipulation === true -->
                     <!--<div class="img-grid_ico-ava"></div>-->
-                    <!--<div class="img-grid_ico-album"></div>-->
+                    <div data-bind="css: { 'active': isCover() === true,  'img-grid_ico-album': true }, click: function (data, event) { setCover($parent.photoAlbum.photoCollection().id(), data) }"></div>
                     <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip" data-bind="click: remove"></a>
                         <!--<a href="" title="Редактировать" class="ico-photo-edit powertip"></a>-->
                         <!--<a href="" title="Переместить" class="ico-move powertip"></a>-->

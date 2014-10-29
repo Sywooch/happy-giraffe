@@ -11,6 +11,8 @@ class UserSectionWidget extends CWidget
 
     public function run()
     {
-        $this->render('UserSectionWidget');
+        if (Yii::app()->controller instanceof LiteController && Yii::app()->user->id != $this->user->id) {
+            $this->render('UserSectionWidget');
+        }
     }
 } 

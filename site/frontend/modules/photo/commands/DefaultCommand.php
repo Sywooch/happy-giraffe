@@ -36,11 +36,11 @@ class DefaultCommand extends \CConsoleCommand
      */
     public function deferredWrite(\GearmanJob $job)
     {
-        $data = unserialize($job->workload());
-        $key = $data['key'];
-        $content = $data['content'];
-        \Yii::app()->fs->getAdapter()->getSource()->write($key, $content);
-        echo "deferredWrite:\n$key\n\n";
+//        $data = unserialize($job->workload());
+//        $key = $data['key'];
+//        $content = $data['content'];
+//        \Yii::app()->fs->getAdapter()->getSource()->write($key, $content);
+//        echo "deferredWrite:\n$key\n\n";
     }
 
     /**

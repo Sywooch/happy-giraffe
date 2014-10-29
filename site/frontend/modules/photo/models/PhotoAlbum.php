@@ -80,8 +80,8 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
     public function behaviors()
     {
         return array(
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,

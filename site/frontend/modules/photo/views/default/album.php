@@ -16,4 +16,6 @@ $cs->registerAMD('photo-album', array('kow'));
 ?>
 <?php //$this->widget('profile.widgets.UserSectionWidget'); ?>
 
-<photo-album params="userId: <?= $userId ?>, albumId: <?= $id ?>"></photo-album>
+<div class="b-main_cont b-main_cont__wide">
+    <photo-album params="userId: <?= $userId ?>, albumId: <?= $id ?>"></photo-album>
+</div>

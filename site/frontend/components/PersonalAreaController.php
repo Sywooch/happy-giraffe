@@ -23,7 +23,7 @@ class PersonalAreaController extends LiteController
         }
 
         if ($this->pageOwner !== null) {
-            $this->breadcrumbs[$this->widget('Avatar', array('user' => $this->pageOwner, 'size' => Avatar::SIZE_MICRO), true)] = array();
+            $this->breadcrumbs[$this->widget('Avatar', array('user' => $this->pageOwner, 'size' => Avatar::SIZE_MICRO, 'tag' => 'span'), true)] = array();
         }
 
         parent::init();

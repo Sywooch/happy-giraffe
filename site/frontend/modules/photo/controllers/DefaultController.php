@@ -31,7 +31,7 @@ class DefaultController extends PhotoController
             throw new \CHttpException(404);
         }
 
-        $this->render('index', compact('userId'));
+        $this->render('index', compact('userId', 'user'));
     }
 
     public function actionCreate($userId)

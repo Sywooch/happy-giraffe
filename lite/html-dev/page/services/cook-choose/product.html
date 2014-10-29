@@ -49,32 +49,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -203,13 +203,13 @@
             </div>
           </div>
           <div class="cook-choose">
-            <div class="b-main_cont">
+            <div class="b-main_cont"> 
               <div class="b-main_col-wide">   
                 <h1 class="heading-link-xxl heading-link-xxl__center">Как выбирать продукты</h1>
               </div>
             </div>
             <div class="b-main_row b-main_row__blue b-main_row__blue-quotes">
-              <div class="b-main_cont">
+              <div class="b-main_cont"> 
                 <div class="b-main_col-article b-main_col-article__center">
                   <div class="wysiwyg-content textalign-c">
                     <p>Рыба является важной составляющей рациона человека. Она содержит полезные микроэлементы, например фосфор, а также достаточно белка и углеводов. Рыба может быть пресноводной и морской, также разделяют рыбу по жирности. Наименее жирная пресноводная рыба, морская содержит больший процент жиров, хотя есть определённые «сухие» сорта, например хек или морской окунь. Чаще всего сегодня покупают морскую рыбу, поэтому важно знать, как выбрать такую рыбу и что следует предпринять для её сохранения.</p>
@@ -270,6 +270,7 @@
                     </div>
                   </div>
                   <!-- Лайки от яндекса-->
+                  
                   <!-- Реклама яндекса-->
                   <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
                   <div class="margin-b40"></div>
@@ -284,9 +285,9 @@
         <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

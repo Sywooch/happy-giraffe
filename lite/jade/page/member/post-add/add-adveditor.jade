@@ -4,7 +4,6 @@ block vars
     - var bodyClass = 'body__lite';
     - global.cssFile = 'member-user.css';
   
-
 block layout
  
     // Кастомный select
@@ -23,7 +22,7 @@ block layout
             $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
 
         });
-
+ 
     .b-main
         .b-main_cont.b-main_cont__wide
             .postAdd.margin-t40
@@ -115,6 +114,5 @@ block layout
                                 textarea.itx-gray(rows="3", cols="40", placeholder="social.text")
                     // Строка
                     +postAddRowBtns('', postAddRowBtns.a)
-
 
         +layout-footer-lite()

@@ -88,6 +88,15 @@ mixin imgGrid(mod, vars)
                     - else
                         // До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого
 
+                        //-.img-grid_i.loading
+                            .b-album_img-pad
+                            picture.img-grid_picture
+
+                                source(srcset=path+'images/example/w280-h370-3.jpg', media="(min-width: 1025px)")
+                                source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
+                                img.img-grid_img(src=path+'images/example/photoalbum/1-1280.jpg', alt="Фото")
+                            //img.img-grid_img(src="#", alt="", width='160', height='260')
+
 
 
                         .img-grid_i.loading

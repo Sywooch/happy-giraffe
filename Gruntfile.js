@@ -238,10 +238,9 @@ module.exports = function(grunt){
             // Выбираем все стили где в начале .class
             // /.dropdown+/,
             /#ctrlcopy+/,
-            /.jcrop+/,
-            /.mfp+/,
-            /.mfp+/,
-            /.select2+/,
+            //.jcrop+/,
+            //.mfp+/,
+            //.select2+/,
             /.header-menu_li+/,
             /.header_+/,
             /.header-+/,
@@ -253,7 +252,7 @@ module.exports = function(grunt){
         src: [
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
-          'lite/html/page/sign/**/*.html', 
+          '!lite/html/page/sign/**/*.html', 
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого 
           '!lite/html/page/comments/comments-page.html'

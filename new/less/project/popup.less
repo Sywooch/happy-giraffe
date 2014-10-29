@@ -49,7 +49,6 @@
     &_frame {
         height: 470px;
         padding: 0 5px;
-        overflow: hidden;
 
         .scroll_scroller {
             max-height: 470px;
@@ -78,11 +77,10 @@
         color: #ccc;
     }
     &_multi {
-        padding: 12px 0;
+        padding: 12px 5px;
     }
     &_multi-li {
         .inline-block();
-        vertical-align: top;
     }
     &_footer {
         margin:  15px 20px 15px 17px;
@@ -120,6 +118,10 @@
         right: -9px;
         z-index: 5;
     }
+    .itx-gray {
+        font-size: 12px;
+        .border-radius(0);
+    }
     .progress__cont {margin-bottom: 5px;}
 
     /*&__empty {
@@ -145,7 +147,6 @@
     }
     &__error {
         height: 137px;
-        width: 151px;
         border: 2px solid #fee8e8;
         background-color: #fff;
         color: #fbcdcd;
@@ -156,31 +157,21 @@
         padding-top: 90px;
         background: url('@{path-img}/i-photo__error_hold.png') no-repeat 50% 35px;
     }
-
-    &_hold {
-        position: relative;
-    }
     &_img-hold {
         position: relative;
-        max-height: 141px;
-        height: 141px;
-        width: 155px;
+        height: 110px;
         background-color: #707070;
-        overflow: hidden;
-        display: table-cell;
-        vertical-align: middle;
-        text-align: center;
     }
     &_img-hold:hover &_overlay {display: block;}
     &_img {
-        margin: 0;
+        max-height: 100%;
     }
     &_overlay {
         display: none;
         position: absolute;
         left: 0;
         right: 0;
-        bottom: 31px;
+        bottom: 0;
         padding: 5px;
         text-align: center;
         background-color: #aaa;
@@ -196,14 +187,6 @@
     &_rotate:hover {background-position: 0 -16px;}
     &_rotate__r {background-position: -15px 0px;}
     &_rotate__r:hover {background-position: -15px -16px;}
-    &_itx {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        font-size: 12px;
-        .border-radius(0);
-    }
     &_file-name {
         .inline-block();
         margin: 10px;
@@ -234,7 +217,6 @@
         margin: 0 6px 6px 0;
     }
     &__s &_img-hold {
-        max-width: 75px;
         width: 75px;
         height: 70px;
     }
@@ -255,7 +237,6 @@
         border: 2px dashed #d9d9d9;
     }
     &__m &_img-hold {
-        max-width: 155px;
         width: 155px;
         height: 140px;
     }
@@ -266,7 +247,6 @@
         margin: 0 12px 12px 0;
     }
     &__xl &_img-hold {
-        max-width: 325px;
         width: 325px;
         height: 295px;
     }
@@ -290,7 +270,6 @@
     }
     &_li {
         .inline-block();
-        vertical-align: top;
         margin: 5px 12px 6px 0;
     }
     &_li.active &_check {

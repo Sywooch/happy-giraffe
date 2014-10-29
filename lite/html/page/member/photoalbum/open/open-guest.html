@@ -28,7 +28,7 @@
   <script src="/lite/javascript/common.js"></script>
   <script src="/lite/javascript/common-markup.js"></script>
 </head>
-<body class="body body__lite">
+<body class="body body__lite body__cont-wide">
   <div class="layout-container">
     <div class="layout-loose layout-loose__white">
       <div class="layout-header">
@@ -188,7 +188,7 @@
       </div>
       <div class="layout-loose_hold clearfix">
         <div class="b-main">
-          <div class="b-main_cont b-main_cont__wide">
+          <div class="b-main_cont">
             <div class="b-crumbs b-crumbs__s">
               <div class="b-crumbs_tx">Я здесь</div>
               <ul class="b-crumbs_ul">
@@ -200,6 +200,8 @@
                 <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Харьковский уикенд </span></li>
               </ul>
             </div>
+          </div>
+          <div class="b-main_cont">   
             <div class="user-album">
               <div class="user-album_top clearfix">
                 <div class="user-album_count-hold">
@@ -293,8 +295,6 @@
                 <div class="img-grid_row clearfix">
                   <!--= item.color-->
                   <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
-                  
-                  
                   <div class="img-grid_i loading">
                     <div class="img-grid_img-pad"></div>
                     <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
@@ -336,8 +336,6 @@
                   </div>
                   <!--= item.color-->
                   <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
-                  
-                  
                   <div class="img-grid_i loading">
                     <div class="img-grid_img-pad"></div>
                     <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
@@ -379,8 +377,6 @@
                   </div>
                   <!--= item.color-->
                   <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
-                  
-                  
                   <div class="img-grid_i loading">
                     <div class="img-grid_img-pad"></div>
                     <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
@@ -422,8 +418,6 @@
                   </div>
                   <!--= item.color-->
                   <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
-                  
-                  
                   <div class="img-grid_i loading">
                     <div class="img-grid_img-pad"></div>
                     <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
@@ -465,8 +459,6 @@
                   </div>
                   <!--= item.color-->
                   <!-- До момента загрузки/показа изображения на .img-grid_i ставить класс .loading, затем убирать. Можно обсудить и обойтись без этого-->
-                  
-                  
                   <div class="img-grid_i loading">
                     <div class="img-grid_img-pad"></div>
                     <!-- Высота изображений может отличаться в зависимости от ряда в десктоп-->
@@ -508,7 +500,9 @@
                   </div>
                 </div>
               </div>
-              <div class="heading-small">Другие альбомы 5</div>
+              <div class="textalign-c">
+                <div class="heading-small">Другие альбомы 5</div>
+              </div>
               <!-- превью фотоальбомов как в попапе загрузки фото-->
               <!-- Список альбомов
               .album-preview__s

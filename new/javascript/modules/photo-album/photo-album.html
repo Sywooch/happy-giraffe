@@ -1,0 +1,126 @@
+<div class="user-album clearfix" data-bind="if: loading() === false">
+    <div class="user-album_top clearfix">
+        <!-- Счетчик серого цвета из-за .user-album_count-hold__gray-->
+        <div data-bind="css: photoAlbum.photoCount() > 0 ? 'user-album_count-hold' : 'user-album_count-hold user-album_count-hold__gray'">
+            <div class="user-album_count" data-bind="text: photoAlbum.photoCount()"></div>
+            <div class="user-album_count-tx">фото</div>
+        </div>
+        <!-- Заголовок-->
+        <div class="user-album_switch" data-bind="if: photoAlbum.editing() === false">
+            <h1 class="user-album_t">
+                <span data-bind="text: photoAlbum.title()"></span>
+                <!-- ko if: rightsForManipulation === true -->
+                <a class="ico-edit ico-edit__s" data-bind="click: edit"></a>
+                <!-- /ko -->
+            </h1>
+        </div>
+        <div class="user-album_desc">
+            <div class="user-album_switch" data-bind="if: photoAlbum.editing() === false">
+                <span data-bind="text: photoAlbum.description() !== '' ?  photoAlbum.description() : 'Введите описание альбома'"></span>
+            </div>
+        </div>
+        <!-- ko if: photoAlbum.editing() === true && rightsForManipulation === true -->
+        <photo-albums-create params="photoAlbum: photoAlbum">
+            <div class="b-album_img-hold" style="height: 350px; width: 560px; margin-top: 10px;">
+                <div class="img-grid_loading-hold">
+                    <div class="loader-circle">
+                        <div class="loader-circle_hold">
+                            <div class="loader-circle_1"></div>
+                            <div class="loader-circle_2"></div>
+                        </div>
+                    </div>
+                    <div class="img-grid_loading-tx">Загрузка создания</div>
+                </div>
+            </div>
+        </photo-albums-create>
+        <!-- /ko -->
+    </div>
+    <!-- ko if: rightsForManipulation === true -->
+    <div class="user-album_control clearfix">
+        <a href="" class="user-album_del" data-bind="click: remove">Удалить альбом</a>
+        <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 -->
+        <!--<a href="" class="user-album_sort">Упорядочить фото</a>-->
+        <!--<a href="" class="user-album_move">Переместить в другой альбом</a>-->
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+    <!-- ko if: photoAlbum.photoCount() === 0 && rightsForManipulation === true -->
+    <div class="album-photo-add album-photo-add__big" data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photoAlbum.photoCollection().id(),  }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent">
+        <div class="album-photo-add_hold">Загрузить <br>фото в альбом</div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 -->
+    <div id="imgs">
+        <!-- ko if: photoAlbum.photoCount() !== 0 && rightsForManipulation === true -->
+        <div style="width: 280px; height: 380px;" class="img-grid_i visible-md-block" data-bind="photoComponentUpload: { data: { multiple: true, collectionId: photoAlbum.photoCollection().id() }, observable: photoAlbum.photoCollection().attaches }, click: loadPhotoComponent">
+            <div class="album-photo-add album-photo-add__m">
+                <div class="album-photo-add_hold">Загрузить еще<br>фото в альбом</div>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
+        <div class="img-grid_i" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }">
+            <!--<picture class="img-grid_img loading">-->
+                <img src="" data-bind="src: photo().getGeneratedPreset('albumList'), attr: { 'data-id': id(), 'width': photo().presetWidth(), 'height': photo().presetHeight() }" alt="Фото">
+            <!--</picture>-->
+            <!-- ko if: loading() === true -->
+            <div class="img-grid_loading img-grid_loading__purple" data-bind="css: $parent.returnNewColor($index)">
+                <div class="img-grid_loading-hold">
+                    <div class="loader-circle">
+                        <div class="loader-circle_hold">
+                            <div class="loader-circle_1"></div>
+                            <div class="loader-circle_2"></div>
+                        </div>
+                    </div>
+                    <div class="img-grid_loading-tx">Загрузка фотографии</div>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: loading() === false && broke() === false -->
+                <div class="img-grid_overlay">
+                    <span class="ico-zoom ico-zoom__abs"></span>
+                    <!-- ko if: $parent.rightsForManipulation === true -->
+                    <!--<div class="img-grid_ico-ava"></div>-->
+                    <div data-bind="css: { 'active': isCover() === true || $parent.photoAlbum.photoCollection().cover().id() === id(),  'img-grid_ico-album': true }, click: function (data, event) { setCover($parent.photoAlbum.photoCollection().id(), data) }"></div>
+                    <div class="img-grid_overlay-b"><a href="" title="Удалить фото" class="ico-trash powertip" data-bind="click: remove"></a>
+                        <!--<a href="" title="Редактировать" class="ico-photo-edit powertip"></a>-->
+                        <!--<a href="" title="Переместить" class="ico-move powertip"></a>-->
+                    </div>
+                    <!-- /ko -->
+                </div>
+            <!-- /ko  -->
+            <!-- ko if: removed() === true -->
+            <div class="cap-empty cap-empty__abs cap-empty__white">
+                <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_t">Фотография удалена </div>
+                    <div class="cap-empty_tx"><a href="" data-bind="click: restore">Восстановить</a></div>
+                </div>
+                <div class="verticalalign-m-help"></div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: broke() === true -->
+            <div class="cap-empty cap-empty__abs cap-empty__white">
+                <div class="cap-empty_hold">
+                    <div class="cap-empty_img"></div>
+                    <div class="cap-empty_t">Ошибка отображения</div>
+                </div>
+                <div class="verticalalign-m-help"></div>
+            </div>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if: photoAlbum.removed() === true  -->
+    <div class="cap-empty cap-empty__abs-top cap-empty__white ">
+        <div class="cap-empty_hold">
+            <div class="cap-empty_img"></div>
+            <div class="cap-empty_t">Фотоальбом удален </div>
+            <div class="cap-empty_tx"><a href="" data-bind="click: restore">Восстановить</a></div>
+        </div>
+        <div class="verticalalign-m-help"></div>
+    </div>
+    <!-- /ko -->
+</div>

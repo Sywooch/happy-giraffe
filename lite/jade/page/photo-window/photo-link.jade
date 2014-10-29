@@ -3,7 +3,7 @@ extend ../../extend/layout_base
 block vars
     - var bodyClass = 'body__lite';
     - global.cssFile = 'member.css'; 
-  
+
 block layout
    
     .b-main
@@ -19,6 +19,7 @@ block layout
                         span.b-crumbs_last Фото
 
             //-+userSection('visible-md-block')
+        .b-main_cont
             .b-main_col-hold.clearfix
                 .b-main_col-article
 
@@ -35,7 +36,7 @@ block layout
                                 a.b-article_author(href='') Ангелина Богоявленская
                                 time.tx-date(pubdate='1957-10-04') Сегодня 13:25
                         h1.b-article_t Как хорошо отдохнуть вместе в парке, где все так красиво
-        .b-main_cont.b-main_cont__wide
+        .b-main_cont
             +bAlbum('b-album__photolink', bAlbum.photolink)
 
         .b-main_cont

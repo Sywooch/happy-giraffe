@@ -25,8 +25,6 @@ class DefaultController extends PhotoController
 
     public function actionIndex($userId)
     {
-        $this->ownerId = $userId;
-
         $user = \User::model()->findByPk($userId);
         if ($user === null) {
             throw new \CHttpException(404);

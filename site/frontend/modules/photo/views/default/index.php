@@ -6,10 +6,12 @@
  * @var ClientScript $cs
  */
 $this->pageTitle = $user->getFullName() . ' - Фотоальбомы';
-$this->breadcrumbs[] = 'Фото';
+$this->breadcrumbs += array(
+    'Фото',
+);
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('photo-albums', array('kow'));
 ?>
-<?php $this->widget('profile.widgets.UserSectionWidget', compact('user')); ?>
+<?php $this->widget('profile.widgets.UserSectionWidget'); ?>
 
 <photo-albums params="userId: <?= $userId ?>"></photo-albums>

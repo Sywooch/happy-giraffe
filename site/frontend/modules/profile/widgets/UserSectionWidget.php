@@ -6,13 +6,12 @@
 
 class UserSectionWidget extends CWidget
 {
-    /** @var \User */
-    public $user;
-
     public function run()
     {
-        if (Yii::app()->controller instanceof LiteController && Yii::app()->controller->isPersonalArea()) {
-            $this->render('UserSectionWidget');
+        $controller = Yii::app()->controller;
+        $showWidget = $controller instanceof PersonalAreaController && ! $controller->isPersonalArea() && ($user = $controller->pageOwner);
+        if ($showWidget) {
+            $this->render('UserSectionWidget', compact('user'));
         }
     }
 } 

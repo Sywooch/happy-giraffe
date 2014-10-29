@@ -49,6 +49,11 @@ class DefaultController extends PhotoController
         $this->render('album', compact('userId', 'id', 'album'));
     }
 
+    public function actionSingle($userId, $albumId, $photoId)
+    {
+
+    }
+
     /**
      * Выводит попап загрузки фото
      */

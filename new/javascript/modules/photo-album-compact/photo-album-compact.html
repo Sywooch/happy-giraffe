@@ -1,4 +1,4 @@
-<!-- ko if: photoAlbum.photoCount() > 0 -->
+<!-- ko if: photoAlbum.photoCount() > 0 && photoAlbum.photoCollection().loading() === false -->
     <section class="b-album">
         <div class="b-album_top">
             <div class="tx-date">Обновлен <span data-bind="moment: photoAlbum.photoCollection().updated()"></span></div>
@@ -9,7 +9,6 @@
                 <div class="b-album_count-tx">фото</div>
             </div>
         </div>
-        <!-- ko if: photoAlbum.photoCollection().cover() -->
         <div href="#" class="b-album_img-hold" data-bind="attr: { 'style': 'height: ' + photoAlbum.photoCollection().cover().photo().presetHeight() + 'px;' }">
             <div class="b-album_img-a">
                 <div class="verticalalign-m-help"></div>
@@ -21,7 +20,6 @@
                 <div class="ico-zoom ico-zoom__abs"></div>
             </div>
         </div>
-        <!-- /ko -->
         <div class="b-album_overlay">
             <a class="b-album_r" data-bind="href: photoAlbum.url">
                 <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
@@ -47,6 +45,21 @@
             </ul>
         </div>
     </section>
+<!-- /ko -->
+<!-- ko if: photoAlbum.photoCollection().loading() === true && photoAlbum.photoCount() > 0 -->
+<section class="b-album">
+    <div class="b-album_img-hold" style="height: 580px;">
+        <div class="img-grid_loading-hold">
+            <div class="loader-circle">
+                <div class="loader-circle_hold">
+                    <div class="loader-circle_1"></div>
+                    <div class="loader-circle_2"></div>
+                </div>
+            </div>
+            <div class="img-grid_loading-tx">Загрузка альбома</div>
+        </div>
+    </div>
+</section>
 <!-- /ko -->
 <!-- ko if: photoAlbum.photoCount() === 0 -->
     <div class="album-empty">

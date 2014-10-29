@@ -10,6 +10,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.cover = ko.observable();
         this.usablePreset = ko.observable();
         this.updated = ko.observable();
+        this.loading = ko.observable(true);
         PresetManager.presets = data.presets;
         this.handlePresets = function gainPhotoInLine(presets) {
             if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
@@ -24,6 +25,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                         photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
                         photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), 'myPhotosAlbumCover'));
                         this.cover(photoAttach);
+                        this.loading(false);
                     } else {
                         Model.get(this.getAttachesUrl, {collectionId: this.id(), offset: 0, length: 1})
                             .done(this.handleCover.bind(this));
@@ -56,12 +58,14 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
                 this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
             }
+            this.loading(false);
         };
         this.handleCover = function handleCover(photoAttach) {
             if (photoAttach.success === true && photoAttach.data.attaches.length !== 0) {
                 this.cover(new PhotoAttach(photoAttach.data.attaches[0]));
                 this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
                 this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                this.loading(false);
             }
         };
         this.handlePresetsWOCover = function handleCover(presets) {
@@ -69,6 +73,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 PresetManager.presets = presets;
                 this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
                 this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                this.loading(false);
             }
         };
         this.getCover(data.cover);

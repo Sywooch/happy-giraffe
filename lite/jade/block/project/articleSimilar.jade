@@ -33,6 +33,7 @@ mixin articleSimilar(mod, vars)
 - articleSimilar.a.author = 'Марина Правдинина'
 - articleSimilar.a.title = 'Наши первые движения '
 - articleSimilar.a.images = 'example/w240-h165.jpg'
+- articleSimilar.a.count = true
 
 - articleSimilar.b = {}
 - articleSimilar.b.coount = true
@@ -54,3 +55,37 @@ mixin articleSimilar(mod, vars)
 - articleSimilar.e.author = 'Антон Привольный'
 - articleSimilar.e.title = 'Первый российский Comic Con '
 - articleSimilar.e.images = 'example/w240-h154-1.jpg'
+
+
+
+//- articleSimilar
+//- 
+    mod
+    vars
+mixin articleSimilarIcons(mod, vars)
+
+    // Варианты цветов блока
+        article-similar__green
+        article-similar__blue
+        article-similar__lilac
+        article-similar__red
+        article-similar__yellow
+    .article-similar.article-similar__ico(class=mod)
+        .article-similar_row
+            +ava('ava__middle', ava.a)
+            a.article-similar_author(href='#') 
+                = vars.author
+        .article-similar_ico-hold
+            .verticalalign-m-help
+            a.article-similar_ico-a(href='#') 
+                .article-similar_ico
+                    img.article-similar_img(src="#{path}images/"+vars.images, alt="")
+                span.article-similar_t 
+                    = vars.title
+
+- articleSimilarIcons = {}
+- articleSimilarIcons.a = {}
+- articleSimilarIcons.a.author = 'Антон Привольный'
+- articleSimilarIcons.a.title = '50 лучших идей ИНТЕРЬЕРА'
+- articleSimilarIcons.a.images = 'example/article-similar_ico-1.png'
+

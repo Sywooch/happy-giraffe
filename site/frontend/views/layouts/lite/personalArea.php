@@ -8,7 +8,13 @@
 $this->beginContent('//layouts/lite/common');
 ?>
 <?php if (Yii::app()->user->isGuest || $this->ownerId != Yii::app()->user->id): ?>
-    <?=$content?>
+    <div class="layout-loose_hold clearfix">
+        <div class="b-main">
+            <div class="b-main_cont b-main_cont__wide">
+            <?=$content?>
+            </div>
+        </div>
+    </div>
 <?php else: ?>
     <div class="layout-loose_hold clearfix">
         <div class="user-menu">

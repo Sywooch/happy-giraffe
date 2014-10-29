@@ -7,8 +7,10 @@
  * @var ClientScript $cs
  */
 $this->pageTitle = 'Фотоальбом' ;
-$this->breadcrumbs['Фото'] = array('/photo/default/index', 'userId' => $userId);
-$this->breadcrumbs[] = $album->title;
+$this->breadcrumbs += array(
+    'Фото' => array('/photo/default/index', 'userId' => $userId),
+    $album->title,
+);
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('photo-album', array('kow'));
 ?>

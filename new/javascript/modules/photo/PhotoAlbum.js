@@ -77,8 +77,8 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
                 this.photoCollection().getAttachesPage(0);
 
             }
-            this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше" + this.maxTitleLength }, mustFill: true });
-            this.description.extend({ maxLength: { params: this.maxDescriptionLength, message: "Количество символов не больше" + this.maxDescriptionLength } });
+            this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше " + this.maxTitleLength }, mustFill: true });
+            this.description.extend({ maxLength: { params: this.maxDescriptionLength, message: "Количество символов не больше " + this.maxDescriptionLength } });
             this.editing = ko.observable(false);
             this.photoCount = ko.computed(function photoCount() {
                 if (this.photoCollection() !== undefined) {
@@ -87,8 +87,8 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
             }, this);
         }
     };
-    PhotoAlbum.title.extend({ maxLength: { params: PhotoAlbum.maxTitleLength, message: "Количество символов не больше" + PhotoAlbum.maxTitleLength }, mustFill: true });
-    PhotoAlbum.description.extend({ maxLength: { params: PhotoAlbum.maxDescriptionLength, message: "Количество символов не больше" + PhotoAlbum.maxDescriptionLength } });
+    PhotoAlbum.title.extend({ maxLength: { params: PhotoAlbum.maxTitleLength, message: "Количество символов не больше " + PhotoAlbum.maxTitleLength }, mustFill: true });
+    PhotoAlbum.description.extend({ maxLength: { params: PhotoAlbum.maxDescriptionLength, message: "Количество символов не больше " + PhotoAlbum.maxDescriptionLength } });
 
     return PhotoAlbum;
 });

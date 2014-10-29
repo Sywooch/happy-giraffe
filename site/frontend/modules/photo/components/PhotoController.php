@@ -10,5 +10,9 @@ namespace site\frontend\modules\photo\components;
 
 class PhotoController extends \PersonalAreaController
 {
-
+    public function init()
+    {
+        $this->bodyClass .= ' body__cont-wide';
+        parent::init();
+    }
 } 

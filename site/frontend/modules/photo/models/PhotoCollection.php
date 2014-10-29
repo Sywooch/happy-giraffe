@@ -177,6 +177,13 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         return true;
     }
 
+    /**
+     * @param PhotoCollection $collection
+     * @param $ids
+     * @param $replace
+     * @throws \CDbException
+     * @todo оптимизировать для больших коллекций
+     */
     protected static function attachPhotosInternal(PhotoCollection $collection, $ids, $replace)
     {
         if ($replace) {

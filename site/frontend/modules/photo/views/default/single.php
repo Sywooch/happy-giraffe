@@ -1,3 +1,42 @@
+<?php
+/**
+ * @var PhotoController $this
+ * @var site\frontend\modules\photo\models\PhotoAttach $attach
+ * @var site\frontend\modules\photo\models\PhotoAlbum $album
+ * @var int $userId
+ * @var ClientScript $cs
+ */
+$this->breadcrumbs += array(
+    'Фото' => array('/photo/default/index', 'userId' => $userId),
+    $album->title => $album->getUrl(),
+    $attach->photo->title,
+);
+$commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $attach->photo));
+?>
+
+<div class="b-main">
+    <div class="b-main_cont">
+        <div class="b-main_col-hold clearfix">
+            <div class="b-main_col-article">
+                <!-- b-article-->
+                <div class="b-article clearfix">
+                    <div class="b-article_header clearfix">
+                        <div class="icons-meta"><a href="" class="icons-meta_comment"><span class="icons-meta_tx"><?=$commentsWidget->count?></span></a>
+                            <div class="icons-meta_view"><span class="icons-meta_tx"><?=$this->getViews()?></span></div>
+                        </div>
+                        <div class="float-l">
+                            <?php $this->widget('Avatar', array('user' => $recipe->author)); ?>
+                            <div class="b-article_author"><a href="<?=$recipe->author->getUrl()?>" class="a-light"><?=$recipe->author->getFullName()?></a></div>
+                            <?=HHtml::timeTag($recipe, array('class' => 'tx-date'))?>
+                        </div>
+                    </div>
+                    <h1 class="b-article_t"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="b-main_cont b-main_cont__wide">
     <!-- b-album-->
     <section class="b-album b-album__photolink">

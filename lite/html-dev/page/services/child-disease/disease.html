@@ -14,11 +14,15 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
   <!-- popup-->
   <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
   <script src="/lite/javascript/baron.js"></script>
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
@@ -45,32 +49,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -200,14 +204,14 @@
           </div>
           <!-- Заголовок страницы-->
           <div class="child-disease">
-            <div class="b-main_cont">
-              <div class="b-main_col-wide">
+            <div class="b-main_cont"> 
+              <div class="b-main_col-wide"> 
                 <h1 class="heading-link-xxl heading-link-xxl__center">Дизентерия</h1>
               </div>
             </div>
           </div>
           <div class="b-main_row b-main_row__blue">
-            <div class="b-main_cont">
+            <div class="b-main_cont"> 
               <div class="b-main_col-article b-main_col-article__center">
                 <div class="wysiwyg-content">
                   <p>Дизентерия – это желудочно-кишечное заболевание. Поражает в основном толстый кишечник и может протекать как остро, так и хронически. Наиболее часто встречается в тех регионах, где не соблюдаются санитарно- гигиенические правила. Заболевают чаще всего дети первых 2-3 лет жизни. Также достаточно часто возникают вспышки в детских дошкольных и школьных учреждениях.</p>
@@ -241,10 +245,11 @@
                   </div>
                   <div class="custom-likes_in">
                     <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                    <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
+                    <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" class="yashare-auto-init"></div>
                   </div>
                 </div>
                 <!-- Лайки от яндекса-->
+                
                 <!-- Реклама яндекса-->
                 <div class="adv-yandex"><a href="#" target="_blank"><img src="/lite/images/example/yandex-w600.jpg" alt=""></a></div>
                 <div class="margin-b40"></div>
@@ -259,9 +264,9 @@
         <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

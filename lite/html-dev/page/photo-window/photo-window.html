@@ -49,32 +49,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -199,7 +199,7 @@
         var colCont = $(".photo-window_cont");
         var bannerH = document.getElementById('photo-window_banner').offsetHeight;
         colCont.height($(window).height() - bannerH - 24);
-        
+    
     }
     
     /* Позиция блока с лайками */
@@ -211,8 +211,8 @@
     $(document).ready(function () {
         photoWindColH();
         likePos();
-        
-    /* custom scroll */
+    
+      /* custom scroll */
       var scroll = $('.scroll').baron({
         scroller: '.scroll_scroller',
         barOnCls: 'scroll__on',
@@ -220,8 +220,8 @@
         track: '.scroll_bar-hold',
         bar: '.scroll_bar'
       });
-      
-      
+    
+    
     });
     $(window).resize(function () {
         photoWindColH();

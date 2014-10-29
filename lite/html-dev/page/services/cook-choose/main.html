@@ -14,11 +14,15 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
   <!-- popup-->
   <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
   <script src="/lite/javascript/baron.js"></script>
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
@@ -45,32 +49,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -197,13 +201,13 @@
             </div>
           </div>
           <div class="cook-choose">
-            <div class="b-main_cont">
+            <div class="b-main_cont"> 
               <div class="b-main_col-wide">   
                 <h1 class="heading-link-xxl heading-link-xxl__center">Как выбирать продукты</h1>
               </div>
             </div>
             <div class="b-main_row b-main_row__blue b-main_row__blue-quotes">
-              <div class="b-main_cont">
+              <div class="b-main_cont"> 
                 <div class="b-main_col-article b-main_col-article__center">
                   <div class="wysiwyg-content">
                     <p>Задумываетесь ли вы о том, как правильно выбрать продукты в супермаркете, магазине или на рынке? Скорее всего – да. Каждый здравомыслящий человек понимает, что «он есть то, что он ест», а потому к выбору продуктов относится серьёзно.</p>
@@ -212,7 +216,7 @@
               </div>
             </div>
             <div class="b-main_row">
-              <div class="b-main_cont">
+              <div class="b-main_cont"> 
                 <div class="serv-category serv-category__cook-choose clearfix">
                   <ul class="serv-category_ul">
                     <li class="serv-category_li">
@@ -391,9 +395,9 @@
         <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

@@ -14,11 +14,15 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
   <!-- popup-->
   <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
   <script src="/lite/javascript/baron.js"></script>
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
@@ -45,32 +49,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -311,10 +315,14 @@
                     </div>
                     <div class="b-calendar_day-type">
                       <div class="b-calendar_day-type-row">
-                        <div class="b-calendar_day-good"></div><span class="color-gray">&nbsp; - &nbsp; благоприятные дни</span>
+                        <div class="b-calendar_day-good"> </div><span class="color-gray">
+                           
+                          &nbsp; - &nbsp; благоприятные дни</span>
                       </div>
                       <div class="b-calendar_day-type-row">
-                        <div class="b-calendar_day-bad"></div><span class="color-gray">&nbsp; - &nbsp; неблагоприятные дни</span>
+                        <div class="b-calendar_day-bad"> </div><span class="color-gray">
+                           
+                          &nbsp; - &nbsp; неблагоприятные дни</span>
                       </div>
                     </div>
                   </div>
@@ -325,10 +333,11 @@
                   </div>
                   <div class="custom-likes_in">
                     <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
-                    <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" data-yasharetype="small" class="yashare-auto-init"></div>
+                    <div data-yasharel10n="ru" data-yasharequickservices="vkontakte,facebook,twitter,odnoklassniki,moimir" data-yasharetheme="counter" class="yashare-auto-init"></div>
                   </div>
                 </div>
                 <!-- Лайки от яндекса-->
+                
                 <div class="menu-link-simple menu-link-simple__center">
                   <div class="menu-link-simple_t">Еще Овен</div>
                   <ul class="menu-link-simple_ul">
@@ -353,9 +362,9 @@
         <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

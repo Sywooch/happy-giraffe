@@ -14,12 +14,15 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
-  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
   <!-- popup-->
   <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
   <script src="/lite/javascript/baron.js"></script>
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
@@ -156,14 +159,14 @@
           $(document).ready(function () {
           
                   // Измененный tag select
-          $(".select-cus__search-off").select2({
+              $(".select-cus__search-off").select2({
                   width: '100%',
                   minimumResultsForSearch: -1,
                   dropdownCssClass: 'select2-drop__search-off',
                   escapeMarkup: function(m) { return m; }
-          });
+              });
               $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
-              
+          
           });
           
         </script>
@@ -177,7 +180,7 @@
                     <div class="postAdd_t">Форум  </div><a href="#" class="heading-m margin-0">Планирование</a>
                   </div>
                 </div>
-                <div class="postAdd_row">
+                <div class="postAdd_row"> 
                   <div class="postAdd_count">2</div>
                   <div class="b-main_col-article">
                     <div class="postAdd_t">Форум  </div><a href="#" class="heading-m margin-0">Планирование</a>
@@ -208,7 +211,7 @@
                   </div>
                 </div>
                 <!-- Строка-->
-                <div class="postAdd_row">
+                <div class="postAdd_row"> 
                   <div class="postAdd_count">4</div>
                   <div class="b-main_col-article">
                     <div class="inp-valid inp-valid__abs">
@@ -218,7 +221,7 @@
                   </div>
                 </div>
                 <!-- Строка-->
-                <div class="postAdd_row">
+                <div class="postAdd_row"> 
                   <div class="postAdd_count">4</div>
                   <div class="b-main_col-article">
                     <div>
@@ -231,7 +234,7 @@
                   </div>
                 </div>
                 <!-- Строка-->
-                <div class="postAdd_row">
+                <div class="postAdd_row"> 
                   <div class="postAdd_count">5</div>
                   <div class="b-main_col-article">
                     <div class="inp-valid inp-valid__abs">
@@ -241,7 +244,7 @@
                   </div>
                 </div>
                 <!-- Строка-->
-                <div class="postAdd_row">
+                <div class="postAdd_row"> 
                   <div class="postAdd_count">6</div>
                   <div class="b-main_col-article">
                     <div class="inp-valid inp-valid__abs">
@@ -251,7 +254,7 @@
                   </div>
                 </div>
                 <!-- Строка-->
-                <div class="postAdd_row">
+                <div class="postAdd_row"> 
                   <div class="postAdd_count">7</div>
                   <div class="b-main_col-article">
                     <div class="inp-valid inp-valid__abs">
@@ -261,7 +264,7 @@
                   </div>
                 </div>
                 <!-- Строка-->
-                <div class="postAdd_row">
+                <div class="postAdd_row"> 
                   <div class="postAdd_count">8</div>
                   <div class="b-main_col-article">
                     <div class="inp-valid inp-valid__abs">
@@ -271,7 +274,7 @@
                   </div>
                 </div>
                 <!-- Строка-->
-                <div class="postAdd_row">
+                <div class="postAdd_row"> 
                   <div class="postAdd_count">9</div>
                   <div class="b-main_col-article">
                     <div class="inp-valid inp-valid__abs">
@@ -283,7 +286,7 @@
                 <!-- Строка-->
                 <!-- postAdd_btns-->
                 <div class="postAdd_row">
-                  <div class="postAdd_count"></div>
+                  <div class="postAdd_count"> </div>
                   <div class="b-main_col-article clearfix">
                     <!-- Блок управления приватностью записи-->
                     <!--.privacy-select.float-l
@@ -311,15 +314,24 @@
                                             | друзьям
                     -->
                     <div class="postAdd_btns-hold"><a href="" class="btn btn-link-gray margin-r15">Отменить</a>
-                      <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success">Опубликовать</span>
+                      <div class="btn-group dropup"><span class="btn btn-xm postAdd_btn-out btn-success"> Опубликовать</span>
                         <div class="btn-group dropdown"><span data-toggle="dropdown" data-target="#" id="dLabel" class="btn btn-xm open dropdown-toggle btn-success-dark"><i class="ico-arrow-d-white"></i></span>
                           <ul role="" aria-labelledby="dLabel" class="dropdown-menu pull-right dropdown-menu__check">
                             <li class="dropdown-menu_li active"><a href="#" class="dropdown-menu_a">
-                                <div class="dropdown-menu_in">Опубликовать сейчас</div></a></li>
+                                <div class="dropdown-menu_in">
+                                   
+                                  Опубликовать сейчас
+                                </div></a></li>
+                            <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a"> 
+                                <div class="dropdown-menu_in">
+                                   
+                                  Предпросмотр
+                                </div></a></li>
                             <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
-                                <div class="dropdown-menu_in">Предпросмотр</div></a></li>
-                            <li class="dropdown-menu_li"><a href="#" class="dropdown-menu_a">
-                                <div class="dropdown-menu_in">Сохранить в черновик</div></a></li>
+                                <div class="dropdown-menu_in">
+                                   
+                                  Сохранить в черновик
+                                </div></a></li>
                           </ul>
                         </div>
                       </div>
@@ -334,9 +346,9 @@
           <div class="layout-footer clearfix">
             <div class="layout-footer_hold">
               <ul class="footer-list">
-                <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+                <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-                <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+                <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
               </ul>

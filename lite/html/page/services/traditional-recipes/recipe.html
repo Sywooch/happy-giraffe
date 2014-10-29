@@ -47,32 +47,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -236,14 +236,33 @@
                     </div>
                     <div class="textalign-c visible-md-block">
                       <div class="like-control like-control__line">
-                        <div class="like-control_hold"><a href="" title="Нравится" class="like-control_i like-control_i__like powertip">
+                        <div class="like-control_hold"><a href="#" title="Нравится" class="like-control_i like-control_i__like powertip">
                             <div class="like-control_t">Мне нравится!</div>
                             <div class="ico-action-hg ico-action-hg__like"></div>
                             <div class="like-control_tx">865</div></a></div>
-                        <div class="like-control_hold"><a href="" title="В избранное" class="like-control_i like-control_i__idea powertip">
+                        <div class="like-control_hold"><a href="#" title="В избранное" class="like-control_i like-control_i__idea powertip">
                             <div class="like-control_t">В закладки</div>
                             <div class="ico-action-hg ico-action-hg__favorite"></div>
-                            <div class="like-control_tx">863455</div></a></div>
+                            <div class="like-control_tx">863455</div></a>
+                          <div class="favorites-add-popup favorites-add-popup__right">
+                            <div class="favorites-add-popup_t">Добавить запись в избранное</div>
+                            <div class="favorites-add-popup_i clearfix"><img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
+                              <div class="favorites-add-popup_i-hold">Неравный брак. Смертельно опасен или жизненно необходим?</div>
+                            </div>
+                            <div class="favorites-add-popup_row">
+                              <label for="" class="favorites-add-popup_label">Теги:</label><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">отношения</a><a href="" class="ico-close"></a></span><span class="favorites-add-popup_tag"><a href="" class="favorites-add-popup_tag-a">любовь</a><a href="" class="ico-close"></a></span>
+                            </div>
+                            <div class="favorites-add-popup_row margin-b10"><a href="" class="textdec-none"><span class="ico-plus2 margin-r5"></span><span class="a-pseudo-gray color-gray">Добавить тег</span></a></div>
+                            <div class="favorites-add-popup_row">
+                              <label for="" class="favorites-add-popup_label">Комментарий:</label>
+                              <div class="float-r color-gray">0/150</div>
+                            </div>
+                            <div class="favorites-add-popup_row">
+                              <textarea name="" cols="25" rows="2" placeholder="Введите комментарий" class="favorites-add-popup_textarea"></textarea>
+                            </div>
+                            <div class="favorites-add-popup_row textalign-c margin-t10"><a href="#" class="btn-secondary btn-s">Отменить</a><a href="#" class="btn-success btn-s">Добавить</a></div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <!-- Лайки от яндекса-->
@@ -256,6 +275,7 @@
                       </div>
                     </div>
                     <!-- Лайки от яндекса-->
+                    
                   </div>
                 </article>
                 <!-- /b-article-->
@@ -303,7 +323,10 @@
                               </div>
                               <div class="comments_cont">
                                 <div class="wysiwyg-content">
-                                  <p> Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! </p>
+                                  <p>
+                                     
+                                     Ну не все. Я видео скидыавала Лере Догузовой про матрешек вот это более правдивое представление.  Неотесанное быдло которое не умеет себя вести и это не Россия а и Украина тоже! 
+                                  </p>
                                   <!-- одно фото в блок (ссылку)--><a href="" class="comments_cont-img-w">
                                     <!-- размеры превью максимум 400*400 пк--><img alt="" src="/images/example/w220-h309-1.jpg"></a>
                                   <p>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
@@ -325,7 +348,7 @@
                                   </div>
                                   <div class="comments_cont">
                                     <div class="wysiwyg-content">
-                                      <p><a href="" class="comments_ansver-for">Ольга Максимова &nbsp; </a>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
+                                      <p> <a href="" class="comments_ansver-for">Ольга Максимова &nbsp; </a>Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.</p>
                                     </div>
                                   </div>
                                 </div>
@@ -381,7 +404,7 @@
                       </ul>
                       <div class="article-users visible-md-block">
                         <div class="article-users_row"><a class="article-users_count">
-                            <div class="ico-action-hg ico-action-hg__like"></div>
+                            <div class="ico-action-hg ico-action-hg__like"> </div>
                             <div class="article-users_count-tx">865</div></a>
                           <div class="ava-list">
                             <ul class="ava-list_ul clearfix">
@@ -419,7 +442,7 @@
                           </div><a class="a-light">Смотреть все</a>
                         </div>
                         <div class="article-users_row"><a class="article-users_count">
-                            <div class="ico-action-hg ico-action-hg__favorite"></div>
+                            <div class="ico-action-hg ico-action-hg__favorite"> </div>
                             <div class="article-users_count-tx">5</div></a>
                           <div class="ava-list">
                             <ul class="ava-list_ul clearfix">
@@ -463,11 +486,13 @@
                         <ul class="list-subsribe-users_ul">
                           <li class="list-subsribe-users_li">
                             <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
-                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-success btn-sl"><span class="ico-plus"></span>Подписаться</a>
+                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-success btn-sl"> <span class="ico-plus"></span>Подписаться</a>
                           </li>
                           <li class="list-subsribe-users_li">
                             <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a class="a-light">Ангелина Богоявленская</a>
-                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-secondary btn-sl">Читаю</a>
+                            <time datetime="1957-10-04" class="tx-date">Сегодня 13:25</time><a class="btn btn-secondary btn-sl">
+                               
+                              Читаю</a>
                           </li>
                         </ul>
                       </div>
@@ -485,9 +510,9 @@
         <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

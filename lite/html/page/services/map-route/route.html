@@ -47,32 +47,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -193,8 +193,8 @@
               <div class="b-crumbs_tx">Я здесь:</div>
               <ul class="b-crumbs_ul">
                 <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Главная </a></li>
-                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">
-                    <div class="ico-club ico-club__s ico-club__18"></div></a></li>
+                <li class="b-crumbs_li"><a href="#" class="b-crumbs_a"> 
+                    <div class="ico-club ico-club__s ico-club__18"> </div></a></li>
                 <li class="b-crumbs_li"><a href="#" class="b-crumbs_a">Маршруты </a></li>
                 <li class="b-crumbs_li b-crumbs_li__last"><span class="b-crumbs_last">Киев-Донецк</span></li>
               </ul>
@@ -242,7 +242,7 @@
             <div class="route-canvas">
               <div class="widget-load">
                 <div class="widget-load_hold">
-                  <div class="widget-load_loader">
+                  <div class="widget-load_loader"> 
                     <div id="circular3dG">
                       <div id="circular3d_1G" class="circular3dG"></div>
                       <div id="circular3d_2G" class="circular3dG"></div>
@@ -312,13 +312,13 @@
                           $(document).ready(function () {
                           
                                   // Измененный tag select
-                          $(".select-cus__search-off").select2({
+                              $(".select-cus__search-off").select2({
                                   minimumResultsForSearch: -1,
                                   dropdownCssClass: 'select2-drop__search-off',
                                   escapeMarkup: function(m) { return m; }
-                          });
+                              });
                               $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
-                              
+                          
                           });
                         </script>
                         <select name="" class="select-cus select-cus__search-off select-cus__gray">
@@ -331,7 +331,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="map-route_view">Маршрут просмотрели <span class="display-ib">6 895 </span> водителей </div>
+                <div class="map-route_view">
+                   
+                  Маршрут просмотрели <span class="display-ib">6 895 </span> водителей 
+                </div>
               </div>
               <div class="map-route_cont">
                 <h2 class="heading-xl visible-md-block">Пункты следования на пути Киев &mdash; Донецк</h2>
@@ -480,12 +483,12 @@
                       .ban-read-more {
                           background-image: url('/lite/images/banner/ban-route__nice.jpg');
                       }
-                      
+                  
                       Изображения для других баннеров 
                       .ban-read-more {
                           background-image: url('/lite/images/banner/ban-route__nice2.jpg');
                       }
-                      
+                  
                       .ban-read-more {
                           background-image: url('/lite/images/banner/ban-route__nice3.jpg');
                       }
@@ -516,9 +519,9 @@
         <div class="layout-footer clearfix">
           <div class="layout-footer_hold">
             <ul class="footer-list">
-              <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+              <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-              <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+              <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
               <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
             </ul>

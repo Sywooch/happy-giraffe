@@ -7,8 +7,6 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
-
-
 use site\frontend\components\api\ApiController;
 
 class AttachesApiController extends ApiController

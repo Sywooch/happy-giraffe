@@ -7,13 +7,8 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
-
-
 use site\frontend\components\api\ApiController;
 use site\frontend\modules\photo\components\InlinePhotoModifier;
-use site\frontend\modules\photo\components\thumbs\ImageDecorator;
-use site\frontend\modules\photo\helpers\ImageSizeHelper;
-use site\frontend\modules\photo\models\PhotoModify;
 use site\frontend\modules\photo\models\upload\ByUrlUploadForm;
 use site\frontend\modules\photo\models\upload\FromComputerUploadForm;
 
@@ -62,16 +57,4 @@ class PhotosApiController extends ApiController
             $this->data = $result;
         }
     }
-
-//    public function actionMakeAvatar($photoId, array $cropData)
-//    {
-//        $photo = $this->getModel('site\frontend\modules\photo\models\Photo', $photoId);
-//
-//        \Yii::app()
-//
-//        $crop = new \PhotoCrop();
-//        $crop->attributes = $cropData;
-//        $crop->photo_id = $photoId;
-//        $crop->save();
-//    }
 } 

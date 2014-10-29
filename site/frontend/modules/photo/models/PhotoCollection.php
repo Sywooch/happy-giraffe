@@ -89,14 +89,19 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 
     protected function instantiate($attributes)
     {
-        if (isset(self::$config[$attributes['entity']][$attributes['key']])) {
-            $class = self::$config[$attributes['entity']][$attributes['key']];
+        $class = self::getClassName($attributes['entity'], $attributes['key']);
+        $model = new $class(null);
+        return $model;
+    }
+
+    public static function getClassName($entity, $key)
+    {
+        if (isset(self::$config[$entity][$key])) {
+            $class = self::$config[$entity][$key];
         } else {
             $class = 'site\frontend\modules\photo\models\PhotoCollection';
         }
-
-        $model = new $class(null);
-        return $model;
+        return $class;
     }
 
     public function behaviors()
@@ -172,6 +177,13 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         return true;
     }
 
+    /**
+     * @param PhotoCollection $collection
+     * @param $ids
+     * @param $replace
+     * @throws \CDbException
+     * @todo оптимизировать для больших коллекций
+     */
     protected static function attachPhotosInternal(PhotoCollection $collection, $ids, $replace)
     {
         if ($replace) {
@@ -188,14 +200,14 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
                     $newAttaches[] = $attach;
                 }
             }
-            $startPosition = 0;
+            $maxPosition = 0;
         } else {
             $newAttaches = $collection->attaches;
-            $startPosition = $collection->getMaxPosition();
+            $maxPosition = $collection->getMaxPosition();
         }
 
         foreach ($ids as $positionOffset => $id) {
-            $newPosition = $startPosition + $positionOffset;
+            $newPosition = $maxPosition + $positionOffset + 1;
             if ($attach = $collection->getAttachByPhotoId($id)) {
                 $updatePosition = $replace && ($attach->position != $newPosition);
                 if ($updatePosition) {

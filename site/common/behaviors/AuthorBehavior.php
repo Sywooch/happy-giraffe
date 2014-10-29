@@ -14,7 +14,6 @@ class AuthorBehavior extends \CActiveRecordBehavior
 
     public function beforeValidate($event)
     {
-
         if (! $this->owner->hasAttribute($this->attr)) {
             throw new \CException('Attribute is invalid');
         }
@@ -27,16 +26,9 @@ class AuthorBehavior extends \CActiveRecordBehavior
         }
     }
 
-    public function beforeDelete($event)
+    public function getAuthorId()
     {
-        if ($this->isAuthorized()) {
-            $event->isValid = false;
-        }
-    }
-
-    public function isAuthorized()
-    {
-        return \Yii::app()->user->id != $this->owner->{$this->attr};
+        return $this->owner->{$this->attr};
     }
 
     /**

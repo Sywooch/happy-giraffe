@@ -10,11 +10,13 @@
  * @property string $metaDescription Мета-тег description, переопределяется через PageMetaTag
  * @property string $metaKeywords Мета-тег keywoeds, переопределяется через PageMetaTag
  * @property string|array $metaCanonical Мета-тег canonical
+ * @property-read MetaNavigationTags $metaNavigation Инструмент для управления тегами link rel="next|prev|last|first"
  */
 class LiteController extends HController
 {
 
     protected $_metaCanonical = null;
+    protected $_metaNavigation = null;
     public $layout = '//layouts/lite/main';
     public $litePackage = false;
 
@@ -99,7 +101,13 @@ class LiteController extends HController
     public function setMetaCanonical($var)
     {
         $this->_metaCanonical = $var;
-        ;
+    }
+
+    public function getMetaNavigation()
+    {
+        if (is_null($this->_metaNavigation))
+            $this->_metaNavigation = new MetaNavigationTags();
+        return $this->_metaNavigation;
     }
 
     protected function afterRender($view, &$output)
@@ -107,7 +115,7 @@ class LiteController extends HController
         $cs = Yii::app()->clientScript;
         if (!empty($this->meta_description))
         {
-            $cs->registerMetaTag(Str::truncate(strip_tags(trim($this->meta_description)), 250), 'description');
+            $cs->registerMetaTag(Str::truncate(strip_tags(trim($this->meta_description)), 500), 'description');
         }
 
         if ($this->meta_keywords !== null)
@@ -126,6 +134,9 @@ class LiteController extends HController
             $cs->registerLinkTag('canonical', null, $canonical);
         }
 
+        if ($this->_metaNavigation)
+            $this->_metaNavigation->render();
+
         /* if ($this->meta_title !== null)
           {
           $this->pageTitle = Str::truncate(trim($this->meta_title), 70);
@@ -136,8 +147,9 @@ class LiteController extends HController
 
     protected function dnsPrefetch()
     {
-        if (YII_DEBUG)
-            return;
+        // https://happygiraffe.atlassian.net/browse/DEV-174
+        /* if (YII_DEBUG)
+          return; */
         /**
          * @var ClientScript $cs
          */

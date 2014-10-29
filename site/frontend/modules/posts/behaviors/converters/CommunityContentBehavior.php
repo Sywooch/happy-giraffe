@@ -35,7 +35,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
             $this->convertToNewPost();
     }
 
-    protected function convertCommon(&$oldPost, &$newPost)
+    protected function convertCommon(&$oldPost, &$newPost, $scenario)
     {
         $oldPost = $this->owner;
         $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
@@ -66,7 +66,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (!$newPost)
             $newPost = new \site\frontend\modules\posts\models\Content('oldPost');
 
-        $newPost->scenario = 'oldPost';
+        $newPost->scenario = $scenario;
 
         $newPost->labelsArray = array_reverse($tags);
         $newPost->url = $oldPost->getUrl(false, true);
@@ -78,7 +78,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->dtimeUpdate = max($newPost->dtimeCreate, strtotime($oldPost->updated), strtotime($oldPost->last_updated));
         $newPost->dtimePublication = $newPost->dtimeCreate;
         $newPost->uniqueIndex = $oldPost->uniqueness;
-        $newPost->isNoindex = !(is_int($oldPost->uniqueness) && $oldPost->uniqueness > 50);
+        $newPost->isNoindex = is_int($oldPost->uniqueness) && !$oldPost->uniqueness > 50;
         $newPost->isNofollow = false;
         $newPost->isRemoved = $oldPost->removed;
         $newPost->isDraft = 0;
@@ -99,7 +99,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         //echo "post\n";
         $newPost = null;
         $oldPost = null;
-        $this->convertCommon($oldPost, $newPost);
+        $this->convertCommon($oldPost, $newPost, 'oldPost');
 
         $newPost->html = $oldPost->post->text;
         $newPost->text = $oldPost->post->text;
@@ -120,30 +120,26 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
     protected function convertPhotoPost()
     {
-        echo 'photopost';
         $newPost = null;
         $oldPost = null;
-        $this->convertCommon($oldPost, $newPost);
+        $this->convertCommon($oldPost, $newPost, 'oldPhotoPost');
 
         $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
-        var_dump($collection->refresh());
         $count = $collection->attachesCount;
-        var_dump($collection->cover);
         $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
         $photoAlbumTag = \CHtml::tag('photo-collection', array(
                 'params' =>
                 'id: ' . (int) $collection->id . ', ' .
                 'attachCount: ' . (int) $count . ', ' .
                 'coverId: ' . $collection->cover->photo->id,
-                ), '<div class="b-album_img-hold"><span class="b-album_img-a"><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div><div class="b-album_img-picture"><img class="b-album_img-big" alt="Фото" src="' . $cover . '"></div></span></div>');
+                ), '<div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div>');
 
-        $newPost->html = $oldPost->photoPost->text;
+        $newPost->html = $photoAlbumTag . $oldPost->photoPost->text;
         $newPost->text = $oldPost->photoPost->text;
         $newPost->preview = $photoAlbumTag . \CHtml::tag('p', array('class' => 'wysiwyg-content clearfix'), $oldPost->preview . '<span class="ico-more"></span>');
         $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'uploadPreview')->getUrl();
 
-        var_dump($newPost->attributes);
-        die();
+        $newPost->save();
     }
 
     protected function convertVideoPost()
@@ -157,4 +153,5 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     }
 
 }
+
 ?>

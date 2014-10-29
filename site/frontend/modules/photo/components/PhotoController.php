@@ -8,8 +8,11 @@
 
 namespace site\frontend\modules\photo\components;
 
-class PhotoController extends \LiteController
+class PhotoController extends \PersonalAreaController
 {
-    public $layout = '//layouts/lite/personalArea';
-
+    public function init()
+    {
+        $this->bodyClass .= ' body__cont-wide';
+        parent::init();
+    }
 } 

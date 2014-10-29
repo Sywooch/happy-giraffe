@@ -8,8 +8,7 @@
 
 namespace site\frontend\modules\photo\components;
 
-class PhotoController extends \LiteController
+class PhotoController extends \PersonalAreaController
 {
-    public $layout = '//layouts/lite/personalArea';
 
 } 

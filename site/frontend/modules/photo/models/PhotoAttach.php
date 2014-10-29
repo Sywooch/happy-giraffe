@@ -120,8 +120,11 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
 
     protected function beforeDelete()
     {
-        if ($this->collection->cover_id == $this->id) {
-            throw new \Exception('Нельзя удалить обложку');
+        if ($this->scenario != 'attachPhotos') {
+            if ($this->collection->cover_id == $this->id) {
+                throw new \Exception('Нельзя удалить обложку');
+            }
         }
+        return parent::beforeDelete();
     }
 }

@@ -7,12 +7,10 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
-use site\frontend\modules\photo\components\observers\PhotoCollectionObserver;
+use site\frontend\components\api\ApiController;
 use site\frontend\modules\photo\models\PhotoAlbum;
-use site\frontend\modules\photo\models\PhotoCollection;
-use site\frontend\modules\users\models\User;
 
-class AlbumsApiController extends \site\frontend\components\api\ApiController
+class AlbumsApiController extends ApiController
 {
     public function actions()
     {

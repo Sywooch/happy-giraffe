@@ -112,9 +112,19 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
         );
     }
 
+    /**
+     * @param int $collectionId
+     * @return \site\frontend\modules\photo\models\PhotoAttach $this
+     */
     public function collection($collectionId)
     {
         $this->getDbCriteria()->compare($this->getTableAlias() . '.collection_id', $collectionId);
+        return $this;
+    }
+
+    public function photo($photoId)
+    {
+        $this->getDbCriteria()->compare($this->getTableAlias() . '.photo_id', $photoId);
         return $this;
     }
 

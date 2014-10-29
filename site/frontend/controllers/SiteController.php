@@ -90,8 +90,7 @@ class SiteController extends HController
         if (! Yii::app()->user->isGuest)
             $this->redirect(array('myGiraffe/default/index', 'type' => 1));
 
-        $this->layout = '//layouts/common';
-		$this->pageTitle = 'Веселый Жираф - сайт для всей семьи';
+        $this->layout = false;
         $this->render('home', compact('openLogin'));
 	}
 

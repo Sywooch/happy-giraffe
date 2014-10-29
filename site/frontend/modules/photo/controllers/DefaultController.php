@@ -38,6 +38,7 @@ class DefaultController extends PhotoController
 
     public function actionCreate($userId)
     {
+        $this->ownerId = \Yii::app()->user->id;
         $json = compact('userId');
         $this->render('create', compact('json'));
     }

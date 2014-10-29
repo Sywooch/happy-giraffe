@@ -2,9 +2,6 @@
 
 namespace site\frontend\modules\posts\controllers;
 
-use site\frontend\modules\posts\components\PostController;
-use site\frontend\components\api\models\User;
-
 /**
  * Description of DefaultController
  *

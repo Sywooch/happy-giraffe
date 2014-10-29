@@ -316,12 +316,14 @@
                 article-similar__red
                 article-similar__yellow
                 -->
-                <div class="article-similar article-similar__red">
+                <div class="article-similar article-similar__ico article-similar__red">
                   <div class="article-similar_row">
-                    <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="article-similar_author"> Марина Правдининаertertertert</a>
+                    <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="article-similar_author"> Антон Привольный</a>
                   </div>
-                  <div class="article-similar_row"><a href="#" class="article-similar_t"> Яркие идеи для оформления детской комнаты </a></div>
-                  <div class="article-similar_img-hold"><a href="#"><img src="/lite/images/example/w240-h183.jpg" alt="" class="article-similar_img"></a></div>
+                  <div class="article-similar_ico-hold">
+                    <div class="verticalalign-m-help"></div><a href="#" class="article-similar_ico-a"> 
+                      <div class="article-similar_ico"><img src="/lite/images/example/article-similar_ico-1.png" alt="" class="article-similar_img"></div><span class="article-similar_t"> 50 лучших идей ИНТЕРЬЕРА</span></a>
+                  </div>
                 </div>
                 <!-- Варианты цветов блока
                 article-similar__green

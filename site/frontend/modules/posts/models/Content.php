@@ -318,6 +318,26 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     /* scopes */
 
+    /**
+     * 
+     * @param int $authorId
+     * @return site\frontend\modules\posts\models\Content
+     */
+    public function byAuthor($authorId)
+    {
+        $this->dbCriteria->addColumnCondition(array(
+            'authorId' => $authorId,
+        ));
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param string $entity
+     * @param string $entityId
+     * @return site\frontend\modules\posts\models\Content
+     */
     public function byEntity($entity, $entityId)
     {
         $this->dbCriteria->addColumnCondition(array(

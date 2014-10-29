@@ -124,7 +124,8 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
      */
     protected function createCollection($key)
     {
-        $collection = new PhotoCollection();
+        $class = PhotoCollection::getClassName($this->owner->getEntityName(), $key);
+        $collection = new $class();
         $collection->entity_id = $this->owner->id;
         $collection->entity = $this->owner->getEntityName();
         $collection->key = $key;

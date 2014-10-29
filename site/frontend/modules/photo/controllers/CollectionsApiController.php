@@ -12,6 +12,13 @@ use site\frontend\components\api\ApiController;
 
 class CollectionsApiController extends ApiController
 {
+    public function actionGet($id)
+    {
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $id);
+        $this->success = true;
+        $this->data = $collection;
+    }
+
     public function actionListAttaches($collectionId, $page, $pageSize)
     {
         $offset = $page * $pageSize;
@@ -48,8 +55,7 @@ class CollectionsApiController extends ApiController
         /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
         $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'setCover');
         $attach = $this->getModel('site\frontend\modules\photo\models\PhotoAttach', $attachId);
-        $collection->setCover($attach);
-        $this->success = $collection->save();
+        $this->success = $collection->setCover($attach) && $collection->save(true, array('cover_id'));
     }
 
     public function actionAddPhotos($collectionId, array $photosIds)

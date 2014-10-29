@@ -238,9 +238,9 @@ module.exports = function(grunt){
             // Выбираем все стили где в начале .class
             // /.dropdown+/,
             /#ctrlcopy+/,
-            //.jcrop+/,
-            //.mfp+/,
-            //.select2+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.select2+/,
             /.header-menu_li+/,
             /.header_+/,
             /.header-+/,

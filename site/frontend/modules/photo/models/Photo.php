@@ -24,7 +24,7 @@ namespace site\frontend\modules\photo\models;
 use site\frontend\modules\photo\components\ImageFile;
 use site\frontend\modules\photo\helpers\ImageSizeHelper;
 
-class Photo extends \HActiveRecord implements \IHToJSON
+class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
 {
     private $_imageFile;
 
@@ -58,7 +58,6 @@ class Photo extends \HActiveRecord implements \IHToJSON
 		// class name for the relations automatically generated below.
 		return array(
 			'photoAttaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\PhotoAttach', 'photo_id'),
-			'author' => array(self::BELONGS_TO, '\User', 'author_id'),
 		);
 	}
 
@@ -95,8 +94,8 @@ class Photo extends \HActiveRecord implements \IHToJSON
     public function behaviors()
     {
         return array(
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'zii.behaviors.HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
@@ -182,5 +181,18 @@ class Photo extends \HActiveRecord implements \IHToJSON
     public function getImage()
     {
         return $this->getImageFile()->read();
+    }
+
+    /*
+     * @todo поставить корректный пресет
+     */
+    public function getPreviewPhoto()
+    {
+        return \Yii::app()->thumbs->getThumb($this, 'rowGrid')->getUrl();
+    }
+
+    public function getPreviewText()
+    {
+        return $this->description;
     }
 }

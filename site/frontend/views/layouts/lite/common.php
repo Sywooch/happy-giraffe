@@ -1,6 +1,6 @@
 <?php
 /**
- * @var LiteController $this
+ * @var PersonalAreaController $this
  */
 ?>
 <!DOCTYPE html><!--[if lt IE 10]>     <html class="no-js lt-ie10"> <![endif]-->

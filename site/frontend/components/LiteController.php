@@ -13,6 +13,10 @@
  */
 class LiteController extends HController
 {
+    /**
+     * @var int id пользователя-владельца страницы, нужно для лейаута personalArea
+     */
+    public $ownerId;
     
     protected $_metaCanonical = null;
 

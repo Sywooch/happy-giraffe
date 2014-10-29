@@ -7,7 +7,7 @@
  */
 $this->beginContent('//layouts/lite/common');
 ?>
-<?php if (Yii::app()->user->isGuest): ?>
+<?php if (Yii::app()->user->isGuest || $this->ownerId != Yii::app()->user->id): ?>
     <?=$content?>
 <?php else: ?>
     <div class="layout-loose_hold clearfix">

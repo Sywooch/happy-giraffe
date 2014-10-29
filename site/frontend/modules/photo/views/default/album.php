@@ -1,10 +1,14 @@
 <?php
+/**
+ * @var PhotoController $this
+ * @var int $id
+ * @var int $userId
+ * @var \site\frontend\modules\photo\models\PhotoAlbum $album
+ * @var ClientScript $cs
+ */
 $this->pageTitle = 'Фотоальбом' ;
-
-$this->breadcrumbs = array(
-    'мои фото' => array('/photo/default/index'),
-    'Фотоальбом',
-);
+$this->breadcrumbs['Фото'] = array('/photo/default/index', 'userId' => $userId);
+$this->breadcrumbs[] = $album->title;
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('photo-album', array('kow'));
 ?>

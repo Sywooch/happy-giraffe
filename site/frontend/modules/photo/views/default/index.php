@@ -5,6 +5,8 @@
  * @var \User $user
  * @var ClientScript $cs
  */
+$this->pageTitle = $user->getFullName() . ' - Фотоальбомы';
+$this->breadcrumbs[] = 'Фото';
 $cs = Yii::app()->clientScript;
 $cs->registerAMD('photo-albums', array('kow'));
 ?>

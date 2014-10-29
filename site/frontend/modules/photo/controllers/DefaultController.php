@@ -18,7 +18,6 @@ use site\frontend\modules\photo\models\upload\PopupForm;
 
 class DefaultController extends PhotoController
 {
-    //public $layout = '//layouts/lite/main';
     public function actionPresets()
     {
         echo \CJSON::encode(\Yii::app()->thumbs->presets);
@@ -38,7 +37,6 @@ class DefaultController extends PhotoController
 
     public function actionCreate($userId)
     {
-        $this->ownerId = \Yii::app()->user->id;
         $json = compact('userId');
         $this->render('create', compact('json'));
     }
@@ -50,7 +48,7 @@ class DefaultController extends PhotoController
             throw new \CHttpException(404);
         }
 
-        $this->render('album', compact('userId', 'id'));
+        $this->render('album', compact('userId', 'id', 'album'));
     }
 
     /**

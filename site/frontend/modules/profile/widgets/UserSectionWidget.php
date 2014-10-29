@@ -11,7 +11,7 @@ class UserSectionWidget extends CWidget
 
     public function run()
     {
-        if (Yii::app()->controller instanceof LiteController && Yii::app()->user->id != $this->user->id) {
+        if (Yii::app()->controller instanceof LiteController && Yii::app()->controller->isPersonalArea()) {
             $this->render('UserSectionWidget');
         }
     }

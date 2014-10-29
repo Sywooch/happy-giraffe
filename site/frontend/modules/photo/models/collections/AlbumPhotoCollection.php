@@ -13,23 +13,8 @@ namespace site\frontend\modules\photo\models\collections;
 
 use site\frontend\modules\photo\models\PhotoCollection;
 
-class AlbumPhotoCollection extends PhotoCollectionAbstract
+class AlbumPhotoCollection extends PhotoCollection
 {
-    public function getCollectionLabel()
-    {
-        return 'Фотоальбом';
-    }
-
-    public function getCollectionTitle()
-    {
-        return $this->RelatedModelBehavior->relatedModel->relatedModel->title;
-    }
-
-    public function getCollectionDescription()
-    {
-        return $this->RelatedModelBehavior->relatedModel->description;
-    }
-
     public function getRelatedCollections()
     {
         return array(

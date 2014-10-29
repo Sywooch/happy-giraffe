@@ -9,8 +9,10 @@
 namespace site\frontend\modules\photo\controllers;
 
 
+use site\frontend\modules\notifications\models\User;
 use site\frontend\modules\photo\components\observers\PhotoCollectionIdsObserver;
 use site\frontend\modules\photo\components\PhotoController;
+use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
 use site\frontend\modules\photo\models\upload\PopupForm;
 
@@ -24,7 +26,11 @@ class DefaultController extends PhotoController
 
     public function actionIndex($userId)
     {
-//        $json = compact('userId');
+        $user = \User::model()->findByPk($userId);
+        if ($user === null) {
+            throw new \CHttpException(404);
+        }
+
         $this->render('index', compact('userId'));
     }
 
@@ -34,9 +40,14 @@ class DefaultController extends PhotoController
         $this->render('create', compact('json'));
     }
 
-    public function actionView($userId, $id)
+    public function actionAlbum($userId, $id)
     {
-        $this->render('view', compact('userId', 'id'));
+        $album = PhotoAlbum::model()->user($userId)->findByPk($id);
+        if ($album === null) {
+            throw new \CHttpException(404);
+        }
+
+        $this->render('album', compact('userId', 'id'));
     }
 
     /**

@@ -2,7 +2,7 @@
 /**
  * @var $openLogin
  */
-
+$this->layout = false;
 Yii::app()->ads->addVerificationTags();
 // Yii::app()->clientScript
 //     ->registerScriptFile('/javascripts/jquery.fitvids.js')
@@ -12,10 +12,14 @@ Yii::app()->ads->addVerificationTags();
   $cs
       ->registerCssFile('/lite/css/min/homepage.css')
       ->registerCssFile('http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin');
-
-  $this->bodyClass = 'body__homepage';
 ?>
-
+<!DOCTYPE html>
+<html class="no-js ">
+<head>
+    <meta charset="utf-8">
+    <title>Веселый Жираф - сайт для всей семьи</title>
+</head>
+<body>
   <div class="layout-container homepage">
     <div class="layout-loose layout-loose__white">
       <div class="layout-header">
@@ -478,3 +482,5 @@ Yii::app()->ads->addVerificationTags();
         <?php endif; ?>
     });
 </script>
+      </body>
+      </html>

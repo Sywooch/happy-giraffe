@@ -1,11 +1,11 @@
-mixin logo()
+mixin logo(mod, vars)
     // logo
-    .logo
+    .logo(class=mod)
         a.logo_i(title="Веселый жираф - сайт для всей семьи", href="") Веселый жираф - сайт для всей семьи
         span.logo_slogan САЙТ ДЛЯ ВСЕЙ СЕМЬИ
     // /logo
 
-mixin logo__small()
+mixin logo__small(mod, vars)
     // logo__small
-    .logo.logo__small
+    .logo.logo__small(class=mod)
         a.logo_i(title="Веселый жираф - сайт для всей семьи", href="") Веселый жираф - сайт для всей семьи

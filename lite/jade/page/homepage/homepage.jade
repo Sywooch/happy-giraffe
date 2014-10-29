@@ -5,15 +5,17 @@ include ../../block/config
 //- vars from template file
 - var bodyClass = ''; 
 - var global = {}; 
+- global.cssFile = 'homepage.css';
  
 block vars
      
 //- tag head
 +headLite(path, global)
-link(href='http://fonts.googleapis.com/css?family=PT+Sans&subset=cyrillic,latin', rel='stylesheet', type='text/css')
+link(href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic,latin', rel='stylesheet', type='text/css')
+
 /// layout out
 body.body.body__lite.body__bg2(class='body__homepage')
-
+ 
     .layout-container.homepage
         .layout-loose.layout-loose__white
             .layout-header
@@ -28,8 +30,8 @@ body.body.body__lite.body__bg2(class='body__homepage')
 
                             +sidebarSearch('sidebar-search__big', sidebarSearch.a)
                         .header_row-home
-                            +logo()
-                
+                            +logo('logo__l')
+            
             .layout-loose_hold.clearfix
 
                 .homepage-desc
@@ -46,6 +48,10 @@ body.body.body__lite.body__bg2(class='body__homepage')
                                 a.homepage_btn-sign.btn.btn-success.btn-xxl(href='#') Присоединяйся!
                                 .homepage-desc_soc
                                     span.i-or-tx или войти с помощью
+
+                                    span.ico-social-hold
+                                        a.ico-social.ico-social__m.ico-social__odnoklassniki(href='#')
+                                        a.ico-social.ico-social__m.ico-social__vkontakte(href='#')
 
                 // Клубы
                 .homepage_row
@@ -68,7 +74,7 @@ body.body.body__lite.body__bg2(class='body__homepage')
                                         a.homepage-clubs_a(href='#') 
                                             .homepage-clubs_ico-hold
                                                 .ico-club.ico-club__15
-                                            .homepage-clubs_tx Отношение в семье
+                                            .homepage-clubs_tx Отношение в семье 
                             // collection
                             .homepage-clubs_collection.homepage-clubs_collection__2
                                 .homepage-clubs_title-hold
@@ -228,9 +234,10 @@ body.body.body__lite.body__bg2(class='body__homepage')
                 .homepage_row
                     .homepage-counter
                         .homepage_title  Нас посетило уже! 
-                        script(type='text/javascript', src='/javascripts/jquery.lwtCountdown-1.0.js')
-
-                        script.
+                        
+                        //- Счетчик 
+                        //-   script(type='text/javascript', src='/javascripts/jquery.lwtCountdown-1.0.js')
+                        //-script.
                             jQuery(document).ready(function() {
                                 $('#counter-users').countUp({
                                     numberSet : 62789298,

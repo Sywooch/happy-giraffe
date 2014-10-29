@@ -240,7 +240,6 @@ module.exports = function(grunt){
             /#ctrlcopy+/,
             /.jcrop+/,
             /.mfp+/,
-            /.mfp+/,
             /.select2+/,
             /.header-menu_li+/,
             /.header_+/,
@@ -379,6 +378,35 @@ module.exports = function(grunt){
           '!lite/html/page/comments/comments-page.html',
         ],
         dest: 'lite/css/min/member-user.css'
+      },
+      // Домашняя страница
+      lite_homepage: {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            // /.dropdown+/,
+            /#ctrlcopy+/,
+            //.jcrop+/,
+            /.mfp+/,
+            /.select2+/,
+            //.header-menu_li+/,
+            /.header_+/,
+            //.header-+/,
+            //.tooltip+/,
+          ],
+        },
+        src: [
+          'lite/html/page/homepage/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
+
+          '!lite/html/page/**/*-user.html', // стариницы зареганого 
+          '!lite/html/page/comments/comments-page.html'
+        ],
+        dest: 'lite/css/min/homepage.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -806,9 +834,9 @@ module.exports = function(grunt){
 
   // lite tasks
   // bild lite версии
-  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services','uncss:services_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user', 'uncss:member', 'uncss:member_user', 'uncss:lite_homepage',  'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 
-  grunt.registerTask('lite-css', [/*'jade:lite_prod',*/ 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user','uncss:member', 'uncss:member_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('lite-css', [/*'jade:lite_prod',*/ 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user','uncss:member', 'uncss:member_user', 'uncss:lite_homepage', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // Блоги
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // сервисы

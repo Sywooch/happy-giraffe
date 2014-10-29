@@ -34,6 +34,11 @@ $this->beginContent('//layouts/lite/common');
                     'linkOptions' => array('class' => 'user-menu_i'),
                 ),
                 array(
+                    'label' => '<div class="user-menu_ico user-menu_ico__blog"></div><div class="user-menu_tx">Блог</div>',
+                    'url' => array('/blog/default/index', 'user_id' => Yii::app()->user->id),
+                    'linkOptions' => array('class' => 'user-menu_i'),
+                ),
+                array(
                     'label' => '<div class="user-menu_ico user-menu_ico__photo"></div><div class="user-menu_tx">Фото</div>',
                     'url' => array('/photo/default/index', 'userId' => Yii::app()->user->id),
                     'linkOptions' => array('class' => 'user-menu_i'),

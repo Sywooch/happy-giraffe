@@ -13,7 +13,13 @@ class PersonalAreaController extends LiteController
 
     private $_owner;
 
-    protected function afterAction($action)
+    public function init()
+    {
+
+        parent::init();
+    }
+
+    protected function beforeAction($action)
     {
         if ((isset($this->actionParams['userId']))) {
             $this->ownerId = $this->actionParams['userId'];
@@ -27,7 +33,7 @@ class PersonalAreaController extends LiteController
             $this->breadcrumbs[$this->widget('Avatar', array('user' => $this->pageOwner, 'size' => Avatar::SIZE_MICRO, 'tag' => 'span'), true)] = array();
         }
 
-        parent::afterAction($action);
+        return parent::beforeAction($action);
     }
 
     public function isPersonalLayout()

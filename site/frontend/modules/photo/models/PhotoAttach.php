@@ -84,7 +84,7 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
     {
         return array(
             'HTimestampBehavior' => array(
-                'class' => 'zii.behaviors.HTimestampBehavior',
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,

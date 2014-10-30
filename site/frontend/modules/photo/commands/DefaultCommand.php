@@ -76,16 +76,16 @@ class DefaultCommand extends \CConsoleCommand
                     );
                     \Yii::app()->gearman->client()->doBackground('deferredWrite', serialize($data));
                 }
-                foreach (\Yii::app()->thumbs->presets as $name => $config) {
-                    $thumbFsPath = 'thumbs/' . $name . '/' . $photo->fs_name;
-                    if ($local->exists($thumbFsPath)) {
-                        if (! $source->exists($thumbFsPath)) {
-                            \Yii::app()->thumbs->getThumb($photo, $name);
-                        }
-                    } else {
-                        echo $photo->id . ' - ' . $name . "\n";
-                    }
-                }
+//                foreach (\Yii::app()->thumbs->presets as $name => $config) {
+//                    $thumbFsPath = 'thumbs/' . $name . '/' . $photo->fs_name;
+//                    if ($local->exists($thumbFsPath)) {
+//                        if (! $source->exists($thumbFsPath)) {
+//                            \Yii::app()->thumbs->getThumb($photo, $name);
+//                        }
+//                    } else {
+//                        echo $photo->id . ' - ' . $name . "\n";
+//                    }
+//                }
             } else {
                 echo $photo->id . "\n";
             }

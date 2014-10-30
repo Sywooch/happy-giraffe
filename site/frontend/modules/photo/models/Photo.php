@@ -95,7 +95,7 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
     {
         return array(
             'HTimestampBehavior' => array(
-                'class' => 'zii.behaviors.HTimestampBehavior',
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,

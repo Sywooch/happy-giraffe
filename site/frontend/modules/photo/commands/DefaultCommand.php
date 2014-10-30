@@ -75,7 +75,12 @@ class DefaultCommand extends \CConsoleCommand
             $fsPath = $photo->getImageFile()->getOriginalFsPath();
             if ($local->exists($fsPath)) {
                 if (! $source->exists($fsPath)) {
-                    \Yii::app()->fs->getAdapter()->getSource()->write($fsPath, $local->read($fsPath));
+                    $data = array(
+                        'key' => $fsPath,
+                        'content' => $local->read($fsPath),
+                    );
+                    \Yii::app()->gearman->client()->doBackground('deferredWrite', serialize($data));
+                    echo "added to queue\n";
                 }
             } else {
                 echo "error\n";

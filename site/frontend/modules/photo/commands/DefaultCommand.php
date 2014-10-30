@@ -65,7 +65,7 @@ class DefaultCommand extends \CConsoleCommand
         $source = \Yii::app()->fs->getAdapter()->getSource();
         $photo = Photo::model()->findByPk(299057);
         $fsPath = $photo->getImageFile()->getOriginalFsPath();
-        var_dump($local->exists($fsPath));
+        var_dump($local->read($fsPath));
         var_dump($source->exists($fsPath));
 
 

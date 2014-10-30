@@ -34,10 +34,10 @@ class DefaultCommand extends \CConsoleCommand
      */
     public function deferredWrite(\GearmanJob $job)
     {
-        $data = unserialize($job->workload());
-        $key = $data['key'];
-        $content = $data['content'];
-        \Yii::app()->fs->getAdapter()->getSource()->write($key, $content);
+//        $data = unserialize($job->workload());
+//        $key = $data['key'];
+//        $content = $data['content'];
+//        \Yii::app()->fs->getAdapter()->getSource()->write($key, $content);
     }
 
     /**
@@ -46,11 +46,11 @@ class DefaultCommand extends \CConsoleCommand
      */
     public function createThumbs(\GearmanJob $job)
     {
-        $photoId = $job->workload();
-        $photo = Photo::model()->findByPk($photoId);
-        if ($photo !== null) {
-            \Yii::app()->thumbs->createAll($photo);
-        }
+//        $photoId = $job->workload();
+//        $photo = Photo::model()->findByPk($photoId);
+//        if ($photo !== null) {
+//            \Yii::app()->thumbs->createAll($photo);
+//        }
     }
 
     public function actionMigrate()

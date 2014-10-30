@@ -23,14 +23,14 @@ class CustomCache extends Cache
         return $this->cache;
     }
 
-    public function exists($key)
-    {
-        if ($this->needsReload($key)) {
-            return $this->source->exists($key);
-        } else {
-            return $this->cache->exists($key);
-        }
-    }
+//    public function exists($key)
+//    {
+//        if ($this->needsReload($key)) {
+//            return $this->source->exists($key);
+//        } else {
+//            return $this->cache->exists($key);
+//        }
+//    }
 
     public function getUrl($key)
     {

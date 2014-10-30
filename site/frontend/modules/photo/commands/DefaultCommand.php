@@ -62,18 +62,23 @@ class DefaultCommand extends \CConsoleCommand
     public function actionSync()
     {
         $local = \Yii::app()->fs->getAdapter()->getCache();
+        $source = \Yii::app()->fs->getAdapter()->getSource();
         $dp = new \CActiveDataProvider('site\frontend\modules\photo\models\Photo');
         $iterator = new \CDataProviderIterator($dp, 100);
         /** @var \site\frontend\modules\photo\models\Photo $photo */
-        foreach ($iterator as $photo) {
+        foreach ($iterator as $i => $photo) {
             $fsPath = $photo->getImageFile()->getOriginalFsPath();
             if ($local->exists($fsPath)) {
-                $data = array(
-                    'key' => $fsPath,
-                    'content' => $local->read($fsPath),
-                );
-                \Yii::app()->gearman->client()->doBackground('deferredWrite', serialize($data));
-                \Yii::app()->gearman->client()->doBackground('createThumbs', $photo->id);
+                if (! $source->exists($fsPath)) {
+                    $data = array(
+                        'key' => $fsPath,
+                        'content' => $local->read($fsPath),
+                    );
+                    \Yii::app()->gearman->client()->doBackground('deferredWrite', serialize($data));
+                }
+                foreach (\Yii::app()->getModule('photo')->presets as $name => $config) {
+                    \Yii::app()->thumbs->getThumb($photo, $name, false);
+                }
             } else {
                 echo $photo->id . "\n";
             }

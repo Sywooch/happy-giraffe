@@ -12,11 +12,20 @@ use site\frontend\components\api\ApiController;
 
 class CollectionsApiController extends ApiController
 {
-    public function actionGet($id)
+    public function actions()
     {
-        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $id);
-        $this->success = true;
-        $this->data = $collection;
+        return \CMap::mergeArray(parent::actions(), array(
+            'get' => 'site\frontend\components\api\PackAction',
+        ));
+    }
+
+    public function packGet($id)
+    {
+        $model = $this->getModel('\site\frontend\modules\photo\models\PhotoCollection', $id);
+        $this->success = $model !== null;
+        if ($this->success) {
+            $this->data = $model;
+        }
     }
 
     public function actionListAttaches($collectionId, $page, $pageSize)

@@ -380,7 +380,7 @@ module.exports = function(grunt){
         dest: 'lite/css/min/member-user.css'
       },
       // Домашняя страница
-      lite_homepage: {
+      'lite_homepage': {
         options: {
           stylesheets  : ['/css/dev/all.css'],
           timeout      : 1000,
@@ -388,23 +388,16 @@ module.exports = function(grunt){
           htmlroot     : 'lite',
           ignore       : [
             // Выбираем все стили где в начале .class
-            // /.dropdown+/,
-            /#ctrlcopy+/,
-            //.jcrop+/,
-            /.mfp+/,
-            /.select2+/,
-            //.header-menu_li+/,
-            /.header_+/,
-            //.header-+/,
-            //.tooltip+/,
+            // /#ctrlcopy+/,
+            // /.mfp+/,
+            // /.select2+/,
           ],
         },
         src: [
-          'lite/html/page/homepage/**/*.html', 
-          'lite/html/page/sign/**/*.html', 
+          'lite/html-dev/page/homepage/**/*.html', 
+          //'lite/html/page/sign/**/*.html', 
+          // 'lite/html/page/member/**/*.html', 
 
-          '!lite/html/page/**/*-user.html', // стариницы зареганого 
-          '!lite/html/page/comments/comments-page.html'
         ],
         dest: 'lite/css/min/homepage.css'
       },

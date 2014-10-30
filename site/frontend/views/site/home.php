@@ -282,6 +282,7 @@
         <!-- /Посты-->
         
         <!-- Посетители-->
+<<<<<<< HEAD
         <div class="homepage_row">
           <div class="homepage-counter">
             <div class="homepage_title"> Нас посетило уже! </div>
@@ -324,6 +325,9 @@
             
           </div>
         </div>
+=======
+        <?php $this->widget('application.widgets.home.CounterWidget'); ?>
+>>>>>>> 540b3925e34ad96f5b26d69e187eba5f5ff352c0
         <!-- /Посетители-->
 
       <?php $this->renderPartial('//_footer'); ?>

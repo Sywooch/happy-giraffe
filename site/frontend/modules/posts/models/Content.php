@@ -45,6 +45,7 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     protected $labelDelimiter = '|';
     protected $_relatedModels = array();
+    protected $_user = null;
 
     /**
      * @return string the associated database table name
@@ -212,32 +213,26 @@ class Content extends \CActiveRecord implements \IHToJSON
         /** @todo убрать в поведение */
         $labels = $this->labelsArray;
         $oldLabels = $this->labelModels;
-        foreach ($oldLabels as $oldLabel)
-        {
+        foreach ($oldLabels as $oldLabel) {
             $i = array_search($oldLabel->text, $labels);
-            if ($i === false)
-            {
+            if ($i === false) {
                 // старого тега больше нет
                 PostTags::model()->deleteByPk(array('labelId' => $oldLabel->id, 'contentId' => $this->id));
             }
-            else
-            {
+            else {
                 // тег уже есть
                 unset($labels[$i]);
             }
         }
         $ids = array();
-        foreach ($labels as $label)
-        {
+        foreach ($labels as $label) {
             $model = Label::model()->findByAttributes(array('text' => $label));
-            if (!$model)
-            {
+            if (!$model) {
                 $model = new Label();
                 $model->text = $label;
                 $model->save();
             }
-            if ($model->id && !isset($ids[$model->id]))
-            {
+            if ($model->id && !isset($ids[$model->id])) {
                 $tag = new PostTags();
                 $tag->attributes = array('labelId' => $model->id, 'contentId' => $this->id);
                 $tag->save();
@@ -246,6 +241,18 @@ class Content extends \CActiveRecord implements \IHToJSON
         }
 
         return parent::afterSave();
+    }
+
+    public function getUser()
+    {
+        if (is_null($this->_user)) {
+            $this->_user = \site\frontend\components\api\models\User::model()->query('get', array(
+                'id' => $this->authorId,
+                'avatarSize' => \Avatar::SIZE_MEDIUM,
+            ));
+        }
+
+        return $this->_user;
     }
 
     /**
@@ -259,14 +266,9 @@ class Content extends \CActiveRecord implements \IHToJSON
         return parent::model($className);
     }
 
-    public function getPreviewPhoto()
+    public function getCommentsUrl()
     {
-        /** @todo Реализовать */
-    }
-
-    public function getPreviewText()
-    {
-        /** @todo Реализовать */
+        return $this->url . '#comment_list';
     }
 
     public function getLabelsArray()

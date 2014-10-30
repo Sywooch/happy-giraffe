@@ -203,6 +203,8 @@ module.exports = function(grunt){
     },
 
     // неиспользуемые стили
+    // Ломается в некоторых случаях не правильности тегов:
+    // <link> между <head> и <body>
     uncss: {
       new: {
         options: {
@@ -395,7 +397,7 @@ module.exports = function(grunt){
         },
         src: [
           'lite/html-dev/page/homepage/**/*.html', 
-          //'lite/html/page/sign/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
           // 'lite/html/page/member/**/*.html', 
 
         ],

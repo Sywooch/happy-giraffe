@@ -9,6 +9,8 @@ namespace site\frontend\modules\family\models;
 
 abstract class RealFamilyMember extends FamilyMemberAbstract
 {
+    abstract public function getAgeString();
+
     public function rules()
     {
         return array(
@@ -28,6 +30,7 @@ abstract class RealFamilyMember extends FamilyMemberAbstract
             'birthday' => $this->birthday,
             'description' => (string) $this->description,
             'userId' => (int) $this->userId,
+            'ageString' => $this->getAgeString(),
         ));
     }
 } 

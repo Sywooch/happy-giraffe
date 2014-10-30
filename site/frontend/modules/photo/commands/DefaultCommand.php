@@ -62,9 +62,8 @@ class DefaultCommand extends \CConsoleCommand
     public function actionSync()
     {
         $local = \Yii::app()->fs->getAdapter()->getCache();
-        $source = \Yii::app()->fs->getAdapter()->getSource();
         $dp = new \CActiveDataProvider('site\frontend\modules\photo\models\Photo');
-        $iterator = new \CDataProviderIterator($dp, 1000);
+        $iterator = new \CDataProviderIterator($dp, 100);
         /** @var \site\frontend\modules\photo\models\Photo $photo */
         foreach ($iterator as $photo) {
             $fsPath = $photo->getImageFile()->getOriginalFsPath();

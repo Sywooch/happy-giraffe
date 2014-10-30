@@ -294,9 +294,11 @@
             Из него необходим только #counter-users 
             Счет не нужно что б шел, убрать из него js
             */
-            // $this->widget('application.widgets.home.CounterWidget')
+            //$this->widget('application.widgets.home.CounterWidget')
             ?>
-            <!--Countdown dashboard start 
+            <!--
+            Пример итогового вида
+            Countdown dashboard start 
             -->
             <div id="counter-users" class="counter-users">
               <div class="counter-users_dash counter-users_dash__millions">

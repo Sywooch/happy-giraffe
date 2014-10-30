@@ -14,6 +14,7 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
@@ -108,7 +109,16 @@
                 <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__im"></span><span class="header-menu_tx">Диалоги</span><span class="header-menu_count">25456</span></a></li>
                 <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__friend"></span><span class="header-menu_tx">Друзья</span><span class="header-menu_count">2</span></a></li>
                 <li class="header-menu_li active"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__notice"></span><span class="header-menu_tx">Сигналы</span><span class="header-menu_count">2</span></a></li>
-                <li class="header-menu_li"><a href="#" class="header-menu_a"><span class="header-menu_ico header-menu_ico__award"></span><span class="header-menu_tx">Успехи</span></a></li>
+                <li class="header-menu_li">
+                  <div class="header-ad-kinderino">
+                    <!-- 
+                    header_kindergold
+                    header_kinderino
+                    --><a href="#">
+                      <!-- header_kindergold.jpgheader_kinderino.jpg
+                      --><img src="/lite/images/banner/header_kinderino-2.gif" alt="Kinder"><span onMouseOver="this.style.backgroundPosition='0 -20px'" onMouseOut="this.style.backgroundPosition='0 0'"></span></a>
+                  </div>
+                </li>
                 <li class="header-menu_li header-menu_li__dropin"><a href="#" class="header-menu_a">
                     <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span><span class="header-menu_tx">Я<span class="header_i-arrow"></span></span></a>
                   <div class="header-drop">
@@ -179,12 +189,13 @@
           </ul>
         </div>
         <!-- /user-menu-->
+        
         <div class="page-col page-col__user">
           <div class="page-col_cont page-col_cont__in">
             <!-- userAddRecord-->
             <div class="userAddRecord clearfix userAddRecord__blog userAddRecord__blog">
               <div class="userAddRecord_hold">
-                <div class="userAddRecord_tx">Я хочу добавить
+                <div class="userAddRecord_tx"> Я хочу добавить
                 </div><a href="" data-theme="transparent" class="userAddRecord_i">
                   <div class="userAddRecord_ico userAddRecord_ico__photo-add fancy"></div>
                   <div class="userAddRecord_desc">Фотографии</div></a><a href="" data-theme="transparent" class="userAddRecord_i fancy">
@@ -308,17 +319,19 @@
             <div class="heading-small margin-t40">Альбомы без фотографий</div>
             <!-- album-empty-->
             <div class="album-empty">
-              <div class="album-empty_hold"><a href="" class="album-empty_t">Харьковский уикенд </a><a href="" class="album-empty_desc">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Для торта разводим согласно инструкции. Поломаем не небольшие кусочки ... </a></div><a href="" class="album-photo-add"></a><a href="" class="album-empty_del"></a>
+              <div class="album-empty_hold"><a href="" class="album-empty_t">Харьковский уикенд </a><a href="" class="album-empty_desc">В половине чашке горячей воды разведем желатин. Дадим ему остыть. Для торта разводим согласно инструкции. Поломаем не небольшие кусочки ... </a></div><a href="" class="album-photo-add"> </a><a href="" class="album-empty_del"> </a>
               <div class="album-empty_count">0</div>
             </div>
             <!-- /album-empty-->
             <!-- album-empty-->
             <div class="album-empty">
-              <div class="album-empty_hold"><a href="" class="album-empty_t">Харьковский уикенд</a></div><a href="" class="album-photo-add"></a><a href="" class="album-empty_del"></a>
+              <div class="album-empty_hold"><a href="" class="album-empty_t">Харьковский уикенд</a></div><a href="" class="album-photo-add"> </a><a href="" class="album-empty_del"></a>
               <div class="album-empty_count">0</div>
             </div>
             <!-- /album-empty-->
-            <div class="heading-small margin-t60">Последние добавленные фото
+            <div class="heading-small margin-t60">
+               
+              Последние добавленные фото
               <div class="float-r">
                 <div class="btn btn-link btn-link-gray btn-s">Фото вне альбомов 28</div>
                 <div class="btn btn-link btn-link-gray btn-s">Все фотографии 628</div>
@@ -332,7 +345,10 @@
                 <!-- Нужно выставить высоту и ширину блоку, что б получалася полный ряд-->
                 <div style="width: 280px; height: 380px;" class="img-grid_i">
                   <div class="album-photo-add album-photo-add__m">
-                    <div class="album-photo-add_hold">Загрузить еще<br>фото в альбом</div>
+                    <div class="album-photo-add_hold">
+                       
+                      Загрузить еще<br>фото в альбом
+                    </div>
                   </div>
                 </div>
                 <div class="img-grid_i">
@@ -507,16 +523,16 @@
                 </div>
               </div>
             </div>
-            <div class="i-allphoto"><a href="" class="i-allphoto_a">Смотреть все фотографии</a></div>
+            <div class="i-allphoto"> <a href="" class="i-allphoto_a">Смотреть все фотографии</a></div>
           </div>
           <!-- Футер-->
           <!-- layout-footer-->
           <div class="layout-footer clearfix">
             <div class="layout-footer_hold">
               <ul class="footer-list">
-                <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+                <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-                <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+                <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
               </ul>

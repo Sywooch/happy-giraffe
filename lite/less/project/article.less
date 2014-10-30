@@ -145,6 +145,24 @@
 }
 /* /wysiwyg-content  */
 
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 30px; height: 0; overflow: hidden;
+    
+     
+    iframe,
+    object,
+    embed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+}
+
 /* like-control */
 .like-control {
     position: relative;
@@ -357,6 +375,10 @@
     &_count-tx {
         font-size: 15px;
         line-height: 1em;
+    }
+    &_text {
+        padding: 0 12px 12px;
+        font-size: 14px;
     }
 
     // ico

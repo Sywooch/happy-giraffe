@@ -19,13 +19,18 @@ mixin articleSimilar(mod, vars)
         .article-similar_row
             a.article-similar_t(href="#") 
                 = vars.title
-        .article-similar_img-hold
-            a(href="#")
-                if (vars.count)
-                    .article-similar_count-hold
-                        .article-similar_count-t 128
-                        .article-similar_count-tx фото
-                img.article-similar_img(src="#{path}images/"+vars.images, alt="")
+        if (vars.text)
+            .article-similar_text 
+                p
+                    = vars.text
+        else
+            .article-similar_img-hold
+                a(href="#")
+                    if (vars.count)
+                        .article-similar_count-hold
+                            .article-similar_count-t 128
+                            .article-similar_count-tx фото
+                    img.article-similar_img(src="#{path}images/"+vars.images, alt="")
 
 - var articleSimilar = {}
 
@@ -36,7 +41,7 @@ mixin articleSimilar(mod, vars)
 - articleSimilar.a.count = true
 
 - articleSimilar.b = {}
-- articleSimilar.b.coount = true
+- articleSimilar.b.count = true
 - articleSimilar.b.author = 'Марина Правдинина'
 - articleSimilar.b.title = 'Наши первые движения '
 - articleSimilar.b.images = 'example/w240-h165.jpg'
@@ -44,7 +49,7 @@ mixin articleSimilar(mod, vars)
 - articleSimilar.c = {}
 - articleSimilar.c.author = 'Марина Правдининаertertertert'
 - articleSimilar.c.title = 'Яркие идеи для оформления детской комнаты '
-- articleSimilar.c.images = 'example/w240-h183.jpg'
+- articleSimilar.c.text = 'Решил наш дедуля утеплить дом, благо сейчас многие фирмы работают в кредит. Принцип утепления заключается в том, что в кирпичах...'
 
 - articleSimilar.d = {}
 - articleSimilar.d.author = 'Антон Кузнецов-Привольный'

@@ -14,6 +14,7 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
+  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
@@ -45,32 +46,32 @@
                   $('a.header-menu_a').on('click', function (e) {
                         e.preventDefault();
                         e.stopPropagation();
-                        
+                
                         var $this = $(this),
                             activeClass = 'active';
-                            
+                
                         var $currentPopup =  $this.siblings('div.header-popup');
-                        
+                
                         $this
                           .parent()
                             .toggleClass(activeClass)
                             .siblings()
                               .removeClass(activeClass);
-                              
+                
                         $this
                           .children('span.header-menu_count:visible')
                           .hide();
-                          
+                
                         $(document).on('click', function() {
                             $('li.header-menu_li').removeClass(activeClass);
                             $(this).unbind();
                             $currentPopup.unbind();
                         });
-                        
+                
                         $currentPopup.on('click', function (e) {
                           e.stopPropagation();
                         });
-                  });
+                      });
                   });
               </script>
               <ul class="header-menu_ul clearfix">
@@ -172,9 +173,10 @@
             <!-- 
             header_kindergold
             header_kinderino
-            --><a href="#" style="vertical-align: top; margin: -13px 15px 0 25px;" class="visible-md-inline-block">
-              <!-- header_kindergold.jpgheader_kinderino.jpg
-              --><img src="/lite/images/banner/header_kinderino.jpg" alt="Kinder"></a>
+            -->
+            <div class="header-ad-kinderino header-ad-kinderino__guest"><a href="#" class="header-ad-kinderino header-ad-kinderino__guest">
+                <!-- header_kindergold.jpgheader_kinderino.jpg
+                --><img src="/lite/images/banner/header_kinderino-2.gif" alt="Kinder"><span onMouseOver="this.style.backgroundPosition='0 -20px'" onMouseOut="this.style.backgroundPosition='0 0'"></span></a></div>
             <!-- /header-menu-->
             <div class="sidebar-search clearfix sidebar-search__big">
               <!-- Форма яндекс поиска--><div class="ya-site-form ya-site-form_inited_no" onclick="return {'action':'','arrow':false,'bg':'transparent','fontsize':12,'fg':'#000000','language':'ru','logo':'rb','publicname':'Yandex Site Search #1883818','suggest':true,'target':'_self','tld':'ru','type':3,'usebigdictionary':true,'searchid':1883818,'webopt':false,'websearch':false,'input_fg':'#000000','input_bg':'#ffffff','input_fontStyle':'normal','input_fontWeight':'normal','input_placeholder':'','input_placeholderColor':'#000000','input_borderColor':'#7f9db9'}"><form action="http://yandex.ru/sitesearch" method="get" target="_self"><input type="hidden" name="searchid" value="1883818"/><input type="hidden" name="l10n" value="ru"/><input type="hidden" name="reqenc" value=""/><input type="text" name="text" value=""/><input type="submit" value="Õ‡ÈÚË"/></form></div><script type="text/javascript">(function(w,d,c){var s=d.createElement('script'),h=d.getElementsByTagName('script')[0],e=d.documentElement;if((' '+e.className+' ').indexOf(' ya-page_js_yes ')===-1){e.className+=' ya-page_js_yes';}s.type='text/javascript';s.async=true;s.charset='utf-8';s.src=(d.location.protocol==='https:'?'https:':'http:')+'//site.yandex.net/v2.0/js/all.js';h.parentNode.insertBefore(s,h);(w[c]||(w[c]=[])).push(function(){Ya.Site.Form.init()})})(window,document,'yandex_site_callbacks');</script>
@@ -190,7 +192,7 @@
               +sidebar-search('sidebar-search__big', {placeholder: 'Поиск'})
           .b-main_col-23
               +userAddRecord('userAddRecord__s', userAddRecord.a)
-              
+          
           -->
           <div class="b-main_cont b-main_cont__wide">
             <div class="b-crumbs b-crumbs__s">
@@ -235,13 +237,14 @@
                   <div class="b-family">
                     <div class="b-family_top b-family_top__white"></div>
                     <ul class="b-family_ul">
-                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span>Жена</span></span></a></li>
-                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>8 лет</span></span></a></li>
-                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-5"></span></span><span class="b-family_tx"><span>Дочь</span><br><span>5 лет</span></span></a></li>
-                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span>Сын</span><br><span>2,5 года</span></span></a></li>
+                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__wife"></span></span><span class="b-family_tx"><span> Жена</span></span></a></li>
+                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-8"></span></span><span class="b-family_tx"><span> Дочь</span><br><span> 8 лет</span></span></a></li>
+                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__girl-5"></span></span><span class="b-family_tx"><span> Дочь</span><br><span> 5 лет</span></span></a></li>
+                      <li class="b-family_li"><a href="" class="b-family_a"><span class="b-family_img-hold"><span class="ico-family ico-family__boy-small"></span></span><span class="b-family_tx"><span> Сын</span><br><span> 2,5 года</span></span></a></li>
                     </ul>
                   </div>
                   <!-- /b-family-->
+                  
                 </div>
               </div>
               <div class="userSection_panel">
@@ -254,6 +257,7 @@
               </div>
             </section>
             <!-- /userSection-->
+            
             <!-- b-album-->
             <section class="b-album">
               <div class="b-album_top">
@@ -365,7 +369,9 @@
               </div>
             </section>
             <div class="visible-md-block">
-              <div class="heading-small margin-t40">Последние добавленные фото
+              <div class="heading-small margin-t40">
+                 
+                Последние добавленные фото
                 <div class="float-r">
                   <div class="btn btn-link btn-link-gray btn-s">Все фотографии 628</div>
                 </div>
@@ -378,7 +384,10 @@
                   <!-- Нужно выставить высоту и ширину блоку, что б получалася полный ряд-->
                   <div style="width: 280px; height: 380px;" class="img-grid_i">
                     <div class="album-photo-add album-photo-add__m">
-                      <div class="album-photo-add_hold">Загрузить еще<br>фото в альбом</div>
+                      <div class="album-photo-add_hold">
+                         
+                        Загрузить еще<br>фото в альбом
+                      </div>
                     </div>
                   </div>
                   <div class="img-grid_i">
@@ -541,7 +550,7 @@
                   </div>
                 </div>
               </div>
-              <div class="i-allphoto"><a href="#" class="i-allphoto_a">Смотреть все фотографии</a></div>
+              <div class="i-allphoto"> <a href="#" class="i-allphoto_a">Смотреть все фотографии</a></div>
             </div>
           </div>
           <!-- Футер-->
@@ -549,9 +558,9 @@
           <div class="layout-footer clearfix">
             <div class="layout-footer_hold">
               <ul class="footer-list">
-                <li class="footer-list_li visible-md-inline-block"><a href="#" class="footer-list_a">О нас</a></li>
+                <li class="footer-list_li visible-md-inline-block"> <a href="#" class="footer-list_a">О нас</a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a">Правила сайта</a></li>
-                <li class="footer-list_li"><a href="#" class="footer-list_a">Правообладателям</a></li>
+                <li class="footer-list_li"> <a href="#" class="footer-list_a">Правообладателям</a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a footer-list__reklama">Реклама </a></li>
                 <li class="footer-list_li"><a href="#" class="footer-list_a">Контакты </a></li>
               </ul>

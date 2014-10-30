@@ -65,7 +65,7 @@ class DefaultCommand extends \CConsoleCommand
         $source = \Yii::app()->fs->getAdapter()->getSource();
         $dp = new \CActiveDataProvider('site\frontend\modules\photo\models\Photo', array(
             'criteria' => array(
-                'order' => 'id DESC',
+                'order' => 'id ASC',
             ),
         ));
         $iterator = new \CDataProviderIterator($dp, 100);

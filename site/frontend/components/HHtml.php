@@ -53,7 +53,7 @@ class HHtml extends CHtml
         $htmlOptions['datetime'] = $model->pubDate;
         $htmlOptions['data-bind'] = 'moment: ' . $model->pubUnixTime;
         $htmlOptions['id'] = $id;
-        if (!$content)
+        if ($content === false)
             $content = Yii::app()->format->formatDatetime($model->pubUnixTime);
 
         $cs = Yii::app()->clientScript;

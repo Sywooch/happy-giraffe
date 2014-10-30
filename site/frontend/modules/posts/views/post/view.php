@@ -25,7 +25,7 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                 <div class="b-article_header clearfix">
                     <div class="float-l">
                         <a href="<?= $this->user->profileUrl ?>" class="ava ava__female ava__small-xs ava__middle-sm"><span class="ico-status ico-status__online"></span><img alt="" src="<?= $this->user->avatarUrl ?>" class="ava_img"></a><a href="<?= $this->user->profileUrl ?>" class="b-article_author"><?= $this->user->fullName ?></a>
-                        <?= HHtml::timeTag($this->post); ?>
+                        <?= HHtml::timeTag($this->post, array(), null); ?>
                     </div>
                     <div class="icons-meta"><a href="" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
                         <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->incViewsByPath($this->post->parsedUrl) ?></span></div>

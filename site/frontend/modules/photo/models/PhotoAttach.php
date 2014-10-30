@@ -83,8 +83,8 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
     public function behaviors()
     {
         return array(
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'zii.behaviors.HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
@@ -126,6 +126,16 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
     {
         $this->getDbCriteria()->compare($this->getTableAlias() . '.photo_id', $photoId);
         return $this;
+    }
+
+    public function getTitle()
+    {
+        if (! empty($this->photo->title)) {
+            return $this->photo->title;
+        } else {
+            $index = $this->collection->observer->getIndexByAttachId($this->id);
+            return 'Фотография ' . ($index + 1);
+        }
     }
 
     protected function beforeDelete()

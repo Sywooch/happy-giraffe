@@ -20,8 +20,12 @@
 
 namespace site\frontend\modules\photo\models;
 
+use site\frontend\modules\photo\components\observers\PhotoCollectionObserver;
+
 class PhotoCollection extends \HActiveRecord implements \IHToJSON
 {
+    private $_observer;
+
     public static $config = array(
         'PhotoAlbum' => array(
             'default' => 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection',
@@ -107,8 +111,8 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     public function behaviors()
     {
         return array(
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
@@ -290,5 +294,16 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         PhotoAttach::model()->applyScopes($criteria);
         $maxPosition = \Yii::app()->db->commandBuilder->createFindCommand(PhotoAttach::model()->tableName(), $criteria)->queryScalar();
         return ($maxPosition !== null) ? $maxPosition : -1;
+    }
+
+    /**
+     * @return \site\frontend\modules\photo\components\observers\PhotoCollectionObserver
+     */
+    protected function getObserver()
+    {
+        if ($this->_observer === null) {
+            $this->_observer = PhotoCollectionObserver::getObserver($this);
+        }
+        return $this->_observer;
     }
 }

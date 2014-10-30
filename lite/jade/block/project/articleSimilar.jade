@@ -30,7 +30,11 @@ mixin articleSimilar(mod, vars)
                         .article-similar_count-hold
                             .article-similar_count-t 128
                             .article-similar_count-tx фото
-                    img.article-similar_img(src="#{path}images/"+vars.images, alt="")
+                    if (vars.images)
+                        img.article-similar_img(src="#{path}images/"+vars.images, alt="")
+                    if (vars.video)
+                        .video-container
+                            != vars.video
 
 - var articleSimilar = {}
 
@@ -54,7 +58,7 @@ mixin articleSimilar(mod, vars)
 - articleSimilar.d = {}
 - articleSimilar.d.author = 'Антон Кузнецов-Привольный'
 - articleSimilar.d.title = 'Одиночное путешествие: куда поехать и как организовать '
-- articleSimilar.d.images = 'example/w240-h176.jpg'
+- articleSimilar.d.video = '<iframe width="560" height="315" src="http://www.youtube.com/embed/BDYETEsDTp8?wmode=transparent" frameborder="0" allowfullscreen=""></iframe>'
 
 - articleSimilar.e = {}
 - articleSimilar.e.author = 'Антон Привольный'

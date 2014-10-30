@@ -1,4 +1,4 @@
-mixin headLite (path, global, vars)
+mixin headLite (path, global)
     head
         | <meta charset="utf-8">
         | <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,6 +10,7 @@ mixin headLite (path, global, vars)
         - else 
             | <link rel="stylesheet" type="text/css" href='/lite/css/min/#{global.cssFile}' />
 
-        = vars.headItem
+        if (global.headItem)
+            != global.headItem
             
         +scriptsLite(path)

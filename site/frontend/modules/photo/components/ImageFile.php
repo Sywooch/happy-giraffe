@@ -66,7 +66,7 @@ class ImageFile extends \CComponent
      *
      * @return string путь файла в ФС
      */
-    protected function getOriginalFsPath()
+    public function getOriginalFsPath()
     {
         return 'originals/' . $this->photo->fs_name;
     }

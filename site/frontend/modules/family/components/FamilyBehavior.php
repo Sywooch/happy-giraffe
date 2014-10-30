@@ -7,8 +7,6 @@
 namespace site\frontend\modules\family\components;
 
 
-use site\frontend\modules\family\models\api\FamilyMember;
-
 class FamilyBehavior extends \CActiveRecordBehavior
 {
     public function afterSave($event)

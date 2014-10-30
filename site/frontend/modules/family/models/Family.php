@@ -89,10 +89,10 @@ class Family extends \CActiveRecord implements \IHToJSON
 
     public function canEdit()
     {
-        return FamilyMember::model()->family($this->id)-user(\Yii::app()->user->id)->exists();
+        return FamilyMember::model()->family($this->id)->user(\Yii::app()->user->id)->exists();
     }
 
-    public static function getByUserId($userId)
+    public static function getByUserId($userId, $create = true)
     {
         $family = Family::model()->find(array(
             'with' => array(
@@ -107,8 +107,7 @@ class Family extends \CActiveRecord implements \IHToJSON
             return $family;
         }
 
-        $family = self::createFamily($userId);
-        return ($family === false) ? null : $family;
+        return ($create) ? self::createFamily($userId) : null;
     }
 
     public function toJSON()
@@ -132,6 +131,6 @@ class Family extends \CActiveRecord implements \IHToJSON
         $member->fillByUser($userId);
         $family->members = array($member);
         $success = $family->withRelated->save(true, array('members'));
-        return ($success) ? $family : false;
+        return ($success) ? $family : null;
     }
 }

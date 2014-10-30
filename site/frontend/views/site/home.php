@@ -3,9 +3,7 @@
  * @var $openLogin
  */
 
-  /****
-    Не уверен что нужно
-  */
+  /* Предотвратим случайное переключение шаблона в контроллере */
   $this->layout = false;
   Yii::app()->ads->addVerificationTags();
 
@@ -245,103 +243,41 @@
 
         <!-- Посты-->
         <div class="homepage_row">
-          <div class="homepage-posts">
-            <div class="homepage_title"> Лучшие записи </div>
-            <div class="homepage-posts_col-hold">
-              <div class="homepage-posts_col">
-
-                <!-- 
-                В старой версии главной страницы такой вывод списка статей
-                <?php
-                if ($this->beginCache(300)):
-                $models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 6);
-
-                foreach ($models as $model): ?>
-                    <?php $this->renderPartial('application.modules.blog.views.default._b_article', array('model' => $model, 'showLikes' => true)); ?>
-                <?php endforeach; ?>
-                <?php $this->endCache();endif; ?>
-
-                 -->
-                <!-- Варианты цветов блока
-                article-similar__green
-                article-similar__blue
-                article-similar__lilac
-                article-similar__red
-                article-similar__yellow
-                -->
-                <div class="article-similar article-similar__lilac">
-                  <div class="article-similar_row">
-                    <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="article-similar_author"> Антон Привольный</a>
-                  </div>
-                  <div class="article-similar_row"><a href="#" class="article-similar_t"> Первый российский Comic Con </a></div>
-                  <div class="article-similar_img-hold"><a href="#"><img src="/lite/images/example/w240-h154-1.jpg" alt="" class="article-similar_img"></a></div>
+            <div class="homepage-posts">
+                <div class="homepage_title"> Лучшие записи </div>
+                <div class="homepage-posts_col-hold">
+                    <?php
+                    if (true || $this->beginCache(300))
+                    {
+                        //$models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 6);
+                        $models = CommunityContent::model()->findAll(array(
+                            'order' => 'created DESC',
+                            // Можешь поменять лимиты и посмотреть, как будут компановаться списки
+                            'limit' => 6,
+                        ));
+                        // Можешь вывести нужные тебе посты
+                        $models[0] = CommunityContent::model()->findByPk(63447);
+                        $models[3] = CommunityContent::model()->findByPk(82667);
+                        // крутить в цикле таблицу 3х2 нет смысла.
+                        ?>
+                        <div class="homepage-posts_col">
+                            <? isset($models[0]) ? $this->renderPartial('_home_article', array('model' => $models[0], 'color' => 'lilac')) : ''; ?>
+                            <? isset($models[3]) ? $this->renderPartial('_home_article', array('model' => $models[3], 'color' => 'yellow')) : ''; ?>
+                        </div>
+                        <div class="homepage-posts_col">
+                            <? isset($models[1]) ? $this->renderPartial('_home_article', array('model' => $models[1], 'color' => 'blue')) : ''; ?>
+                            <? isset($models[4]) ? $this->renderPartial('_home_article', array('model' => $models[4], 'color' => 'green')) : ''; ?>
+                        </div>
+                        <div class="homepage-posts_col"> 
+                            <? isset($models[2]) ? $this->renderPartial('_home_article', array('model' => $models[2], 'color' => 'red')) : ''; ?>
+                            <? isset($models[5]) ? $this->renderPartial('_home_article', array('model' => $models[5], 'color' => 'lilac')) : ''; ?>
+                        </div>
+                        <?php
+                        //$this->endCache();
+                    }
+                    ?>
                 </div>
-                <!-- Варианты цветов блока
-                article-similar__green
-                article-similar__blue
-                article-similar__lilac
-                article-similar__red
-                article-similar__yellow
-                -->
-                <div class="article-similar article-similar__yellow">
-                  <div class="article-similar_row">
-                    <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="article-similar_author"> Марина Правдинина</a>
-                  </div>
-                  <div class="article-similar_row"><a href="#" class="article-similar_t"> Наши первые движения </a></div>
-                  <div class="article-similar_img-hold"><a href="#"><img src="/lite/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
-                </div>
-              </div>
-              <div class="homepage-posts_col">
-                <!-- Варианты цветов блока
-                article-similar__green
-                article-similar__blue
-                article-similar__lilac
-                article-similar__red
-                article-similar__yellow
-                -->
-                <div class="article-similar article-similar__blue">
-                  <div class="article-similar_row">
-                    <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="article-similar_author"> Марина Правдинина</a>
-                  </div>
-                  <div class="article-similar_row"><a href="#" class="article-similar_t"> Наши первые движения </a></div>
-                  <div class="article-similar_img-hold"><a href="#"><img src="/lite/images/example/w240-h165.jpg" alt="" class="article-similar_img"></a></div>
-                </div>
-                <div class="bnr-base"><a href="#"> <img src="/lite/images/example/w240-h400-2.jpg" alt=""></a></div>
-              </div>
-              <div class="homepage-posts_col"> 
-                <!-- Варианты цветов блока
-                article-similar__green
-                article-similar__blue
-                article-similar__lilac
-                article-similar__red
-                article-similar__yellow
-                -->
-                <div class="article-similar article-similar__ico article-similar__red">
-                  <div class="article-similar_row">
-                    <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="article-similar_author"> Антон Привольный</a>
-                  </div>
-                  <div class="article-similar_ico-hold">
-                    <div class="verticalalign-m-help"></div><a href="#" class="article-similar_ico-a"> 
-                      <div class="article-similar_ico"><img src="/lite/images/example/article-similar_ico-1.png" alt="" class="article-similar_img"></div><span class="article-similar_t"> 50 лучших идей ИНТЕРЬЕРА</span></a>
-                  </div>
-                </div>
-                <!-- Варианты цветов блока
-                article-similar__green
-                article-similar__blue
-                article-similar__lilac
-                article-similar__red
-                article-similar__yellow
-                -->
-                <div class="article-similar article-similar__green">
-                  <div class="article-similar_row">
-                    <!-- ava--><a href="#" class="ava ava__middle"><span class="ico-status ico-status__online"></span><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></a><a href="#" class="article-similar_author"> Антон Кузнецов-Привольный</a>
-                  </div>
-                  <div class="article-similar_row"><a href="#" class="article-similar_t"> Одиночное путешествие: куда поехать и как организовать </a></div>
-                  <div class="article-similar_img-hold"><a href="#"><img src="/lite/images/example/w240-h176.jpg" alt="" class="article-similar_img"></a></div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
         <!-- /Посты-->
         

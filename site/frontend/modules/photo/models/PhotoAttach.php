@@ -128,6 +128,16 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
         return $this;
     }
 
+    public function getTitle()
+    {
+        if (! empty($this->photo->title)) {
+            return $this->photo->title;
+        } else {
+            $index = $this->collection->observer->getIndexByAttachId($this->id);
+            return 'Фотография ' . ($index + 1);
+        }
+    }
+
     protected function beforeDelete()
     {
         if ($this->scenario != 'attachPhotos') {

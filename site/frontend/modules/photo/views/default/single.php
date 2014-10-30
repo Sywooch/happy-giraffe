@@ -10,7 +10,7 @@ $photo = $attach->photo;
 $this->breadcrumbs += array(
     'Фото' => array('/photo/default/index', 'userId' => $userId),
     $album->title => $album->getUrl(),
-    $photo->title,
+    $attach->getTitle(),
 );
 $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $photo));
 ?>
@@ -104,7 +104,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
         <section class="comments comments__buble">
             <div class="comments-menu">
                 <ul data-tabs="tabs" class="comments-menu_ul">
-                    <li class="comments-menu_li active"><a href="#commentsList" data-toggle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии 68 </a></li>
+                    <li class="comments-menu_li active"><a href="#commentsList" data-toggle="tab" class="comments-menu_a comments-menu_a__comments">Комментарии <?=$commentsWidget->count?> </a></li>
                     <!--<li class="comments-menu_li"><a href="#likesList" data-toggle="tab" class="comments-menu_a comments-menu_a__likes">Нравится 865</a></li>
                     <li class="comments-menu_li"><a href="#favoritesList" data-toggle="tab" class="comments-menu_a comments-menu_a__favorites">Закладки 865</a></li>-->
                 </ul>

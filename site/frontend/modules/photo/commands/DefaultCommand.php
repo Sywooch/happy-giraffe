@@ -74,15 +74,7 @@ class DefaultCommand extends \CConsoleCommand
                     'content' => $local->read($fsPath),
                 );
                 \Yii::app()->gearman->client()->doBackground('deferredWrite', serialize($data));
-
-                foreach (\Yii::app()->thumbs->presets as $name => $config) {
-                    $thumb = \Yii::app()->thumbs->getThumb($photo, $name, false);
-                    $data = array(
-                        'key' => $thumb->path,
-                        'content' => $local->read($thumb->path),
-                    );
-                    \Yii::app()->gearman->client()->doBackground('deferredWrite', serialize($data));
-                }
+                \Yii::app()->gearman->client()->doBackground('createThumbs', $photo->id);
             } else {
                 echo $photo->id . "\n";
             }

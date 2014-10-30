@@ -38,6 +38,11 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
         return $attaches;
     }
 
+    public function getIndexByAttachId($attachId)
+    {
+        return array_search($attachId, $this->ids);
+    }
+
     /**
      * Возвращает массив id всех аттачей коллекции в правильном порядке.
      *

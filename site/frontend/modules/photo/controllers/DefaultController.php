@@ -75,7 +75,7 @@ class DefaultController extends PhotoController
         if ($attach === null) {
             throw new \CHttpException(404);
         }
-        $this->render('single', compact('attach'));
+        $this->render('single', compact('attach', 'userId', 'album'));
     }
 
     /**

@@ -75,15 +75,14 @@ class DefaultCommand extends \CConsoleCommand
             $fsPath = $photo->getImageFile()->getOriginalFsPath();
             if ($local->exists($fsPath)) {
                 if (! $source->exists($fsPath)) {
-                    $data = array(
-                        'key' => $fsPath,
-                        'content' => $local->read($fsPath),
-                    );
-                    \Yii::app()->gearman->client()->doBackground('deferredWrite', serialize($data));
-                    echo "added to queue\n";
+                    $bytesWritten = $source->write($fsPath, $local->read($fsPath));
+                    if ($bytesWritten === false) {
+                        echo "cant write original\n";
+                    }
                 }
+                \Yii::app()->gearman->client()->doBackground('createThumbs', $photo->id);
             } else {
-                echo "error\n";
+                echo "no local file\n";
             }
             \Yii::app()->db->active = false;
             \Yii::app()->db->active = true;

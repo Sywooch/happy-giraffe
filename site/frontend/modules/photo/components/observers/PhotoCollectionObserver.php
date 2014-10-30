@@ -32,7 +32,7 @@ abstract class PhotoCollectionObserver extends \CComponent
      * Возвращает объект обозревателя для данной коллекции
      *
      * @param \site\frontend\modules\photo\models\PhotoCollection $model модель фотоколлекции
-     * @return \site\frontend\modules\photo\components\observers\PhotoCollectionIdsObserver объект обозревателя
+     * @return \site\frontend\modules\photo\components\observers\PhotoCollectionObserver объект обозревателя
      */
     public static function getObserver(PhotoCollection $model)
     {
@@ -108,4 +108,6 @@ abstract class PhotoCollectionObserver extends \CComponent
      * @return \site\frontend\modules\photo\models\PhotoAttach[] массив аттачей
      */
     abstract public function getSlice($offset, $length = null, $circular = false);
+
+    abstract public function getIndexByAttachId($attachId);
 } 

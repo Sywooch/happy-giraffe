@@ -72,6 +72,7 @@ class DefaultCommand extends \CConsoleCommand
         /** @var \site\frontend\modules\photo\models\Photo $photo */
         foreach ($iterator as $i => $photo) {
             echo $i . ' - ' . $photo->id . "\n";
+            \Yii::app()->gearman->client()->doBackground('createThumbs', $photo->id);
             $fsPath = $photo->getImageFile()->getOriginalFsPath();
             if ($local->exists($fsPath)) {
                 if (! $source->exists($fsPath)) {
@@ -80,7 +81,6 @@ class DefaultCommand extends \CConsoleCommand
                         echo "cant write original\n";
                     }
                 }
-                \Yii::app()->gearman->client()->doBackground('createThumbs', $photo->id);
             } else {
                 echo "no local file\n";
             }

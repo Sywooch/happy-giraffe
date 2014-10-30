@@ -76,7 +76,7 @@ class DefaultCommand extends \CConsoleCommand
                     );
                     \Yii::app()->gearman->client()->doBackground('deferredWrite', serialize($data));
                 }
-                foreach (\Yii::app()->getModule('photo')->presets as $name => $config) {
+                foreach (\Yii::app()->thumbs->presets as $name => $config) {
                     \Yii::app()->thumbs->getThumb($photo, $name, false);
                 }
             } else {

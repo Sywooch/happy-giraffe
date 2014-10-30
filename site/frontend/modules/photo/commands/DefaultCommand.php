@@ -47,6 +47,8 @@ class DefaultCommand extends \CConsoleCommand
     public function createThumbs(\GearmanJob $job)
     {
         $photoId = $job->workload();
+        \Yii::app()->db->active = false;
+        \Yii::app()->db->active = true;
         $photo = Photo::model()->findByPk($photoId);
         if ($photo !== null) {
             \Yii::app()->thumbs->createAll($photo);

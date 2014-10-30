@@ -63,6 +63,13 @@ class DefaultCommand extends \CConsoleCommand
     {
         $local = \Yii::app()->fs->getAdapter()->getCache();
         $source = \Yii::app()->fs->getAdapter()->getSource();
+        $photo = Photo::model()->findByPk(299057);
+        $fsPath = $photo->getImageFile()->getOriginalFsPath();
+        var_dump($local->exists($fsPath));
+        var_dump($source->exists($fsPath));
+
+
+        die;
         $dp = new \CActiveDataProvider('site\frontend\modules\photo\models\Photo', array(
             'criteria' => array(
                 'order' => 'id ASC',

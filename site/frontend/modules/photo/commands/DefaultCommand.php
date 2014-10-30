@@ -65,16 +65,17 @@ class DefaultCommand extends \CConsoleCommand
     {
         $local = \Yii::app()->fs->getAdapter()->getCache();
         $source = \Yii::app()->fs->getAdapter()->getSource();
+
         $dp = new \CActiveDataProvider('site\frontend\modules\photo\models\Photo', array(
             'criteria' => array(
                 'order' => 'id ASC',
             ),
         ));
+
         $iterator = new \CDataProviderIterator($dp, 100);
         /** @var \site\frontend\modules\photo\models\Photo $photo */
         foreach ($iterator as $i => $photo) {
-            echo $i . ' - ' . $photo->id . "\n";
-            \Yii::app()->thumbs->createAll($photo);
+            echo $i . ' - originals - ' . $photo->id . "\n";
             $fsPath = $photo->getImageFile()->getOriginalFsPath();
             if ($local->exists($fsPath)) {
                 if (! $source->exists($fsPath)) {
@@ -88,6 +89,13 @@ class DefaultCommand extends \CConsoleCommand
             }
             \Yii::app()->db->active = false;
             \Yii::app()->db->active = true;
+        }
+
+        $iterator = new \CDataProviderIterator($dp, 100);
+        /** @var \site\frontend\modules\photo\models\Photo $photo */
+        foreach ($iterator as $i => $photo) {
+            echo $i . ' - thumbs - ' . $photo->id . "\n";
+            \Yii::app()->thumbs->createAll($photo);
         }
     }
 } 

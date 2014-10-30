@@ -82,6 +82,9 @@ class DefaultCommand extends \CConsoleCommand
             } else {
                 echo $photo->id . "\n";
             }
+            if ($i == 100) {
+                echo '---' . $i . '---' . "\n";
+            }
             \Yii::app()->db->active = false;
             \Yii::app()->db->active = true;
         }

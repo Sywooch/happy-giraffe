@@ -63,16 +63,9 @@ class DefaultCommand extends \CConsoleCommand
     {
         $local = \Yii::app()->fs->getAdapter()->getCache();
         $source = \Yii::app()->fs->getAdapter()->getSource();
-        $photo = Photo::model()->findByPk(299057);
-        $fsPath = $photo->getImageFile()->getOriginalFsPath();
-        var_dump($local->read($fsPath));
-        var_dump($source->exists($fsPath));
-
-
-        die;
         $dp = new \CActiveDataProvider('site\frontend\modules\photo\models\Photo', array(
             'criteria' => array(
-                'order' => 'id ASC',
+                'order' => 'id DESC',
             ),
         ));
         $iterator = new \CDataProviderIterator($dp, 100);
@@ -87,17 +80,8 @@ class DefaultCommand extends \CConsoleCommand
                         'content' => $local->read($fsPath),
                     );
                     \Yii::app()->gearman->client()->doBackground('deferredWrite', serialize($data));
+                    echo "deferred write task added\n";
                 }
-//                foreach (\Yii::app()->thumbs->presets as $name => $config) {
-//                    $thumbFsPath = 'thumbs/' . $name . '/' . $photo->fs_name;
-//                    if ($local->exists($thumbFsPath)) {
-//                        if (! $source->exists($thumbFsPath)) {
-//                            \Yii::app()->thumbs->getThumb($photo, $name);
-//                        }
-//                    } else {
-//                        echo $photo->id . ' - ' . $name . "\n";
-//                    }
-//                }
             } else {
                 echo "error\n";
             }

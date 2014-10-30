@@ -27,7 +27,7 @@ class LiteController extends HController
         parent::init();
     }
 
-    public function beforeAction($action)
+    protected function beforeAction($action)
     {
         if ($this->litePackage)
         {

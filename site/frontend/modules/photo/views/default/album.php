@@ -1,6 +1,6 @@
 <?php
 /**
- * @var PhotoController $this
+ * @var \site\frontend\modules\photo\components\PhotoController $this
  * @var int $id
  * @var int $userId
  * @var \site\frontend\modules\photo\models\PhotoAlbum $album

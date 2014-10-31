@@ -8,12 +8,13 @@ namespace site\frontend\modules\photo\controllers;
 
 
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\photo\models\PhotoAttach;
 
 class TestController extends \HController
 {
     public function actionCrop()
     {
-        $photo = Photo::model()->findByPk(164);
-        \Yii::app()->thumbs->getThumb($photo, 'test')->show();
+        $attach = PhotoAttach::model()->findByPk(181);
+        echo $attach->getUrl();
     }
 } 

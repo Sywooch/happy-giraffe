@@ -390,9 +390,9 @@ module.exports = function(grunt){
           htmlroot     : 'lite',
           ignore       : [
             // Выбираем все стили где в начале .class
-            // /#ctrlcopy+/,
-            // /.mfp+/,
-            // /.select2+/,
+            /#ctrlcopy+/,
+            /.mfp+/,
+            /.select2+/,
           ],
         },
         src: [

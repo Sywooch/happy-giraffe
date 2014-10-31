@@ -107,12 +107,15 @@
                     </div>
                 </div>
             </div>
-            <div class="article-also_row">
-                <div class="article-also_tx">Смотреть все <a href="<?= $data->commentsUrl ?>">комментарии</a>
-                    <!--<div class="visible-md-inline-block">,<a href="#"> нравится, </a></div>
-                    <div class="visible-md-inline-block"><a href="#"> закладки </a></div>.-->
+            
+            <?php if ($data->commentsUrl) ?>
+                <div class="article-also_row">
+                    <div class="article-also_tx">Смотреть все <a href="<?= $data->commentsUrl ?>">комментарии</a>
+                        <!--<div class="visible-md-inline-block">,<a href="#"> нравится, </a></div>
+                        <div class="visible-md-inline-block"><a href="#"> закладки </a></div>.-->
+                    </div>
                 </div>
-            </div>
+            <?php endif ?>
         </div>
     </div>
 </article>

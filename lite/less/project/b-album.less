@@ -114,6 +114,8 @@
     &_prev-li {
         float: left;
         margin: 0 5px 0 0;
+        max-width: 110px; // для контроля ширины всего списка и недопускать паданья элементов
+        max-height: 70px;
     }
     &_prev-a {
         position: relative;
@@ -128,6 +130,11 @@
         bottom: 0;
         left: 0;
         border: 2px solid #ffe641; // #A591CD; // #4baa41;
+    }
+    // сопряжено с _prev-li 
+    &_prev-img { 
+        max-width: none;
+        max-height: 100%;
     }
 
     ///// top

@@ -12,7 +12,7 @@ $visitorsLength = strlen($visitors);
             <?php
                 for ($i = 0; $i < $visitorsLength; $i++):
                     $showOpening = ($i == 0) || (($visitorsLength - $i) % 3 == 0);
-                    $showClosing = ($visitorsLength - $i) % 3 == 0;
+                    $showClosing = ($visitorsLength - $i - 1) % 3 == 0;
             ?>
                 <?php if ($showOpening): ?><div class="counter-users_dash"><?php endif; ?>
                         <div class="counter-users_digit"><?=substr($visitors, $i, 1)?></div>

@@ -2,13 +2,11 @@
 
 class CounterWidget extends CWidget
 {
-    private $coef = 0.33;
-
     /**
      * прибивление поситителей по часам
      * @var array
      */
-    public $visits = array(
+    private $visits = array(
         0 => 3000,
         1 => 2000,
         2 => 1000,

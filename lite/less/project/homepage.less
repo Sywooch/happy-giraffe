@@ -72,22 +72,22 @@
     }
     &_collection {
         .inline-block();
-        margin: 0 50px 30px 0;
+        margin: 0 72px 30px 0;
         text-align: center;
     }
     &_collection:hover &_title {color: #009ee0;}
     &_collection:hover &_ul {border-top-color: #e2f4ff;}
     /* collection__1 */
     &_collection__1 {
-        margin-right: 40px;
+        margin-right: 33px;
     }
-    &_collection__1 &_li {margin-right: 4px;}
+    &_collection__1 &_li {margin-left: 4px;}
     &_collection__1 &_ico-hold {
         border-color: #faf6ff;
         background-color: #faf6ff;
     }
     /* collection__2 */
-    &_collection__2 &_li {margin-right: 0;}
+    &_collection__2 &_li {margin-left: 2px;}
     &_collection__2 &_ico-hold {
         border-color: #f3fcff;
         background-color: #f3fcff;
@@ -133,7 +133,10 @@
         display: inline-block;
         vertical-align: top;
         width: 108px;
-        margin-right: 17px;
+        margin-left: 17px;
+    }
+    &_li:first-child {
+        margin-left: 0;
     }
     &_a {
         display: inline-block;

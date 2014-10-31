@@ -2,6 +2,8 @@
 
 class CounterWidget extends CWidget
 {
+    const DIGITS_PER_SECTION = 3;
+
     /**
      * прибивление поситителей по часам
      * @var array

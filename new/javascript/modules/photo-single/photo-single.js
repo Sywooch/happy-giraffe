@@ -1,7 +1,9 @@
-define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'photo/PhotoAttach', 'extensions/imagesloaded', 'modules-helpers/component-custom-returner', 'models/User', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, Model, PhotoAttach, imagesLoaded, customReturner, User) {
-    function PhotoAlbumCompact(params) {
+define(['jquery', '../knockout', 'text!photo-single/photo-single.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'extensions/imagesloaded', 'modules-helpers/component-custom-returner', 'models/User', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, Model, imagesLoaded, customReturner, User) {
+    function PhotoSingleViewModel(params) {
         this.photoAlbum = Object.create(PhotoAlbum);
         this.photoAlbum.pageCount = 5;
+        this.loading = ko.observable(true);
+        this.photoAlbum.id(params.album);
         this.photoAlbum.usablePreset = 'myPhotosPreview';
         this.colorsArray = ['purple', 'yellow', 'carrot', 'green', 'blue'];
         this.elementCssClass = 'b-album_prev-li img-grid_loading__';
@@ -10,10 +12,14 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         this.returnNewColor = Model.returnNewColor;
         params.album.presets = params.presets;
         this.removed = ko.observable(false);
-        this.photoAlbum.init(params.album);
         this.opened = ko.observable(false);
-        this.userId = params.userId;
-        PhotoAttach.get(params.attachId).done(function (data) { console.log(data); });
+        this.gettingAlbum = function gettingAlbum(albums) {
+            if (albums.success === true) {
+                this.photoAlbum.init(this.photoAlbum.findById(this.photoAlbum.id(), albums.data.albums));
+                this.loading(false);
+            }
+        };
+        this.photoAlbum.get(this.userId, true, this.gettingAlbum.bind(this));
         this.remove = function remove() {
             this.photoAlbum.delete();
             this.removed(true);
@@ -30,5 +36,5 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
             return customReturner('photo-slider');
         };
     }
-    return { viewModel: PhotoAlbumCompact, template: template };
+    return { viewModel: PhotoSingleViewModel, template: template };
 });

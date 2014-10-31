@@ -7,9 +7,9 @@ if ($left)
         <div class="post-arrow_in-hold">
             <div class="post-arrow_in">
                 <div class="verticalalign-m-help"></div>
-                <?php if ($left->socialObject->imageUrl) ?>
+                <?php if ($left->socialObject->imageUrl): ?>
                     <div class="post-arrow_img-hold"><img src="<?= $left->socialObject->imageUrl ?>" alt="" class="post-arrow_img"></div>
-                <?php endif ?>
+                <?php endif; ?>
                 <div class="post-arrow_t"><?= $left->title ?></div>
             </div>
         </div>
@@ -24,9 +24,9 @@ if ($right)
         <div class="post-arrow_in-hold">
             <div class="post-arrow_in">
                 <div class="verticalalign-m-help"></div>
-                <?php if ($left->socialObject->imageUrl) ?>
+                <?php if ($left->socialObject->imageUrl): ?>
                     <div class="post-arrow_img-hold"><img src="<?= $right->socialObject->imageUrl ?>" alt="" class="post-arrow_img"></div>
-                <?php endif ?>
+                <?php endif; ?>
                 <div class="post-arrow_t"><?= $right->title ?></div>
             </div>
         </div>

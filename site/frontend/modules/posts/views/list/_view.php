@@ -108,14 +108,13 @@
                 </div>
             </div>
             
-            <?php if ($data->commentsUrl) ?>
-                <div class="article-also_row">
-                    <div class="article-also_tx">Смотреть все <a href="<?= $data->commentsUrl ?>">комментарии</a>
-                        <!--<div class="visible-md-inline-block">,<a href="#"> нравится, </a></div>
-                        <div class="visible-md-inline-block"><a href="#"> закладки </a></div>.-->
-                    </div>
+            <div class="article-also_row">
+                <!-- тут проверять на наличие комментариев -->
+                <div class="article-also_tx">Смотреть все <a href="<?= $data->commentsUrl ?>">комментарии</a>
+                    <!--<div class="visible-md-inline-block">,<a href="#"> нравится, </a></div>
+                    <div class="visible-md-inline-block"><a href="#"> закладки </a></div>.-->
                 </div>
-            <?php endif ?>
+            </div>
         </div>
     </div>
 </article>

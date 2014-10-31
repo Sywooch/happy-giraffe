@@ -17,7 +17,7 @@ class ListController extends \PersonalAreaController
 
     public function getListDataProvider($authorId)
     {
-        return new \CActiveDataProvider(Content::model()->byEntityClass('CommunityContent')->byAuthor($authorId), array(
+        return new \CActiveDataProvider(Content::model()->byService('oldBlog')->byAuthor($authorId)->orderDesc(), array(
             'pagination' => array(
                 'pageSize' => 10,
                 'pageVar' => 'BlogContent_page',

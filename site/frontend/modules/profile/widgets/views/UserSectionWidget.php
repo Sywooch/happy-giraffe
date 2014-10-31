@@ -68,8 +68,9 @@
                 ),
                 array(
                     'label' => 'Блог',
-                    'url' => array('/blog/default/index', 'user_id' => $user->id),
+                    'url' => array('/posts/list/index', 'user_id' => $user->id),
                     'linkOptions' => array('class' => 'userSection_panel-a'),
+                    'active' => in_array(Yii::app()->controller->route, array('posts/list/index', 'blog/default/index')),
                 ),
                 array(
                     'label' => 'Фото',

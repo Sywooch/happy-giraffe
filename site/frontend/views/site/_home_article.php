@@ -26,9 +26,7 @@
     <?php elseif ($model->type_id == CommunityContent::TYPE_PHOTO_POST): ?>
         <div class="article-similar_img-hold">
             <div class="article-similar_count-hold">
-                <!-- КОличество фото в фотопосте -->
-                <?= $model->getPhoto() ?>
-                <div class="article-similar_count-t"> </div>
+                <div class="article-similar_count-t"><?=$model->getPhotoCollection()->attachesCount?></div>
                 <div class="article-similar_count-tx">фото</div>
             </div>
 

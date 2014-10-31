@@ -124,7 +124,7 @@ return array(
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog',
             'trueRoute' => 'posts/list/index',
-            'falseRoute' => 'blog/default/view',
+            'falseRoute' => 'blog/default/index',
         ),
         'newblog/<_a:>' => 'blog/default/<_a>',
 

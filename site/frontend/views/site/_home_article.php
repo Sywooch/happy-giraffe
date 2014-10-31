@@ -28,12 +28,12 @@
         </div>
     <?php elseif ($model->type_id == CommunityContent::TYPE_PHOTO_POST): ?>
         <div class="article-similar_img-hold">
-            <div class="article-similar_count-hold">
-                <!-- КОличество фото в фотопосте -->
-                <?= $model->getPhoto() ?>
-                <div class="article-similar_count-t"> </div>
+            <!-- Количество фото в фотопосте -->
+            <!-- <div class="article-similar_count-hold">
+                <div class="article-similar_count-t"> 45</div>
                 <div class="article-similar_count-tx">фото</div>
-            </div>
+            </div> -->
+
 
             <?php $this->widget('PhotoCollectionViewWidget', array('width' => 240, 'maxHeight' => 100, 'borderSize' => 1, 'href' => $model->url, 'maxRows' => 3, 'minPhotos' => 1, 'collection' => new PhotoPostPhotoCollection(array('contentId' => $model->id)))); ?>
         </div>

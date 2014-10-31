@@ -256,16 +256,16 @@
                             'limit' => 6,
                         ));
                         // Можешь вывести нужные тебе посты
-                        // $models[0] = CommunityContent::model()->findByPk(63447);
-                        // $models[3] = CommunityContent::model()->findByPk(82667);
+                        $models[0] = CommunityContent::model()->findByPk(180977);
+                        $models[3] = CommunityContent::model()->findByPk(209988);
                         // крутить в цикле таблицу 3х2 нет смысла.
                         ?>
                         <!-- <div class="homepage-posts_col"> -->
                             <? isset($models[0]) ? $this->renderPartial('_home_article', array('model' => $models[0], 'color' => 'lilac')) : ''; ?>
-                            <? isset($models[3]) ? $this->renderPartial('_home_article', array('model' => $models[3], 'color' => 'yellow')) : ''; ?>
+                            <? isset($models[3]) ? $this->renderPartial('_home_article', array('model' => $models[1], 'color' => 'yellow')) : ''; ?>
                         <!-- </div> -->
                         
-                            <? isset($models[1]) ? $this->renderPartial('_home_article', array('model' => $models[1], 'color' => 'blue')) : ''; ?>
+                            <? isset($models[1]) ? $this->renderPartial('_home_article', array('model' => $models[3], 'color' => 'blue')) : ''; ?>
                             <? isset($models[4]) ? $this->renderPartial('_home_article', array('model' => $models[4], 'color' => 'green')) : ''; ?>
 
 

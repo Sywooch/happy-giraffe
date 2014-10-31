@@ -20,25 +20,18 @@ class PhotoModule extends \CWebModule
 			'photo.components.*',
 		));
 
-        /** @var \ClientScript $cs */
-        $cs = \Yii::app()->clientScript;
-        $cs->useAMD = true;
-
         \Yii::app()->setComponent('authManager', array(
             'class' => '\site\frontend\components\AuthManager',
             'showErrors' => YII_DEBUG,
         ));
 	}
 
-	public function beforeControllerAction($controller, $action)
-	{
-		if(parent::beforeControllerAction($controller, $action))
-		{
-			// this method is called before any module controller action is performed
-			// you may place customized code here
-			return true;
-		}
-		else
-			return false;
-	}
+    public function beforeControllerAction($controller, $action)
+    {
+        $package = \Yii::app()->user->isGuest ? 'lite_photo' : 'lite_photo_user';
+        \Yii::app()->clientScript->registerPackage($package);
+        \Yii::app()->clientScript->useAMD = true;
+        return parent::beforeControllerAction($controller, $action);
+    }
+
 }

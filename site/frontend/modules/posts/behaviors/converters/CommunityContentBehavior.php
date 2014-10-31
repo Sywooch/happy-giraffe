@@ -44,13 +44,11 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $tags = array();
         $rubric = $oldPost->rubric;
-        while ($rubric)
-        {
+        while ($rubric) {
             $tags[] = 'Рубрика: ' . $rubric->title;
             $rubric = $rubric->parent;
         }
-        if ($oldPost->rubric->community)
-        {
+        if ($oldPost->rubric->community) {
             $tags[] = 'Форум: ' . $oldPost->rubric->community->title;
             if ($oldPost->rubric->community->club)
                 $tags[] = 'Клуб: ' . $oldPost->rubric->community->club->title;
@@ -105,14 +103,10 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->text = $oldPost->post->text;
         $photo = $oldPost->post->photo;
 
-        if ($photo)
-        {
-            $newPost->preview = $oldPost->preview . '<div class="b-article_in-img">' . $photo->getPreviewHtml(580, 1100) . '</div>';
-            $newPost->socialObject->imageUrl = $photo->getPreviewUrl();
-        }
-        else
-        {
-            $newPost->preview = $oldPost->preview;
+        $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($newPost->fillText(), 200, ' <span class="ico-more"></span>') . '</p>';
+        if ($photo) {
+            $newPost->preview = '<div class="b-article_in-img">' . $photo->getPreviewHtml(600, 1100) . '</div>' . $newPost->preview;
+            $newPost->socialObject->imageUrl = $photo->getPreviewUrl(200, 200);
         }
 
         $newPost->save();
@@ -136,8 +130,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $newPost->html = $photoAlbumTag . $oldPost->photoPost->text;
         $newPost->text = $oldPost->photoPost->text;
-        $newPost->preview = $photoAlbumTag . \CHtml::tag('p', array('class' => 'wysiwyg-content clearfix'), $oldPost->preview . '<span class="ico-more"></span>');
-        $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'uploadPreview')->getUrl();
+        $newPost->preview = $photoAlbumTag . $oldPost->preview . '<p>' . \site\common\helpers\HStr::truncate($newPost->fillText(), 200, ' <span class="ico-more"></span>') . '</p>';
+        $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
 
         $newPost->save();
     }

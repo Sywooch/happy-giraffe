@@ -87,11 +87,6 @@ return array(
                     'width' => 205,
                     'height' => 140,
                 ),
-                'goodPresetName' => array(
-                    'filter' => 'fixed',
-                    'width' => 200,
-                    'height' => 200,
-                ),
             ),
         ),
         'crops' => array(

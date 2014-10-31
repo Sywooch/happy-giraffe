@@ -31,7 +31,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                             <?=HHtml::timeTag($photo, array('class' => 'tx-date'))?>
                         </div>
                     </div>
-                    <h1 class="b-article_t"><?=$photo->title?></h1>
+                    <h1 class="b-article_t"><?=$attach->getTitle()?></h1>
                 </div>
             </div>
         </div>

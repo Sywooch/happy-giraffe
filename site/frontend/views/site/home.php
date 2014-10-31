@@ -260,18 +260,18 @@
                         // $models[3] = CommunityContent::model()->findByPk(82667);
                         // крутить в цикле таблицу 3х2 нет смысла.
                         ?>
-                        <div class="homepage-posts_col">
+                        <!-- <div class="homepage-posts_col"> -->
                             <? isset($models[0]) ? $this->renderPartial('_home_article', array('model' => $models[0], 'color' => 'lilac')) : ''; ?>
                             <? isset($models[3]) ? $this->renderPartial('_home_article', array('model' => $models[3], 'color' => 'yellow')) : ''; ?>
-                        </div>
-                        <div class="homepage-posts_col">
+                        <!-- </div> -->
+                        
                             <? isset($models[1]) ? $this->renderPartial('_home_article', array('model' => $models[1], 'color' => 'blue')) : ''; ?>
                             <? isset($models[4]) ? $this->renderPartial('_home_article', array('model' => $models[4], 'color' => 'green')) : ''; ?>
-                        </div>
-                        <div class="homepage-posts_col"> 
+
+
                             <? isset($models[2]) ? $this->renderPartial('_home_article', array('model' => $models[2], 'color' => 'red')) : ''; ?>
                             <? isset($models[5]) ? $this->renderPartial('_home_article', array('model' => $models[5], 'color' => 'lilac')) : ''; ?>
-                        </div>
+                        
                         <?php
                         //$this->endCache();
                     }

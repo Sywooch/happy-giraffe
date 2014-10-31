@@ -46,4 +46,19 @@ class ApiController extends \site\frontend\components\api\ApiController
             $this->data = $family;
         }
     }
+
+    public function actionCreateMember(array $attributes)
+    {
+        if (! \Yii::app()->user->checkAccess('createFamilyMember')) {
+            throw new \CHttpException(403, 'Недостаточно прав');
+        }
+
+        /** @var \HActiveRecord $model */
+        $model = new $this->modelName();
+        $model->attributes = $attributes;
+        $this->controller->success = $model->save();
+        $this->controller->data = $model->hasErrors() ? array(
+            'errors' => $model->getErrors(),
+        ) : $model;
+    }
 } 

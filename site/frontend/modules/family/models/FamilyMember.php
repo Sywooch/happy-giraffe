@@ -168,27 +168,27 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
 
     protected function instantiate($attributes)
     {
-        switch ($attributes['type']) {
-            case 'adult':
-                $class = '\site\frontend\modules\family\models\Adult';
-                break;
-            case 'child':
-                $class = '\site\frontend\modules\family\models\Child';
-                break;
-            case 'planning':
-                $class = '\site\frontend\modules\family\models\PlanningChild';
-                break;
-            case 'waiting':
-                $class = '\site\frontend\modules\family\models\PregnancyChild';
-                break;
-            case 'waitingTwins':
-                $class = '\site\frontend\modules\family\models\PregnancyTwins';
-                break;
-            default:
-                throw new \CException('Wrong type');
-        }
+        $class = self::getClassName($attributes['type']);
         $model = new $class(null);
         return $model;
+    }
+
+    public static function getClassName($type)
+    {
+        switch ($type) {
+            case 'adult':
+                return '\site\frontend\modules\family\models\Adult';
+            case 'child':
+                return '\site\frontend\modules\family\models\Child';
+            case 'planning':
+                return '\site\frontend\modules\family\models\PlanningChild';
+            case 'waiting':
+                return '\site\frontend\modules\family\models\PregnancyChild';
+            case 'waitingTwins':
+                return '\site\frontend\modules\family\models\PregnancyTwins';
+            default:
+                return false;
+        }
     }
 
     protected function beforeValidate()

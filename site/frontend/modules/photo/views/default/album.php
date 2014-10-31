@@ -16,6 +16,6 @@ $cs->registerAMD('photo-album', array('kow'));
 ?>
 <?php //$this->widget('profile.widgets.UserSectionWidget'); ?>
 
-<div class="b-main_cont">
+<?php if (! $this->isPersonalArea()): ?><div class="b-main_cont"><?php endif; ?>
     <photo-album params="userId: <?= $userId ?>, albumId: <?= $id ?>"></photo-album>
-</div>
+<?php if (! $this->isPersonalArea()): ?></div><?php endif; ?>

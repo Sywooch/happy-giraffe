@@ -7,12 +7,10 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
-use site\frontend\modules\photo\components\observers\PhotoCollectionObserver;
+use site\frontend\components\api\ApiController;
 use site\frontend\modules\photo\models\PhotoAlbum;
-use site\frontend\modules\photo\models\PhotoCollection;
-use site\frontend\modules\users\models\User;
 
-class AlbumsApiController extends \site\frontend\components\api\ApiController
+class AlbumsApiController extends ApiController
 {
     public function actions()
     {
@@ -43,8 +41,6 @@ class AlbumsApiController extends \site\frontend\components\api\ApiController
     /**
      * @param $userId
      * @param bool $notEmpty
-     * @todo возможно параметр notEmpty нужно дополнительно корректировать сервером в случае, если клиент пытается
-     * получить список альбомов другого пользователя, включающий пустые альбомы - зависит от требований
      */
     public function actionGetByUser($userId, $notEmpty = true)
     {

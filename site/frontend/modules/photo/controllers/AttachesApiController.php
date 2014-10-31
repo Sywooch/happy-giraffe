@@ -7,8 +7,6 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
-
-
 use site\frontend\components\api\ApiController;
 
 class AttachesApiController extends ApiController
@@ -16,6 +14,7 @@ class AttachesApiController extends ApiController
     public function actions()
     {
         return \CMap::mergeArray(parent::actions(), array(
+            'get' => 'site\frontend\components\api\PackAction',
             'remove' => array(
                 'class' => 'site\frontend\components\api\SoftDeleteAction',
                 'modelName' => '\site\frontend\modules\photo\models\PhotoAttach',
@@ -27,5 +26,14 @@ class AttachesApiController extends ApiController
                 'checkAccess' => 'restorePhotoAttach',
             ),
         ));
+    }
+
+    public function packGet($id)
+    {
+        $model = $this->getModel('\site\frontend\modules\photo\models\PhotoAttach', $id);
+        $this->success = $model !== null;
+        if ($this->success) {
+            $this->data = $model;
+        }
     }
 } 

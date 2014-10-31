@@ -9,7 +9,11 @@
  */
 
 namespace site\frontend\modules\photo\commands;
+use site\frontend\modules\photo\components\MigrateManager;
 use site\frontend\modules\photo\models\Photo;
+use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\PhotoAttach;
+use site\frontend\modules\photo\models\PhotoCollection;
 
 class DefaultCommand extends \CConsoleCommand
 {
@@ -51,5 +55,11 @@ class DefaultCommand extends \CConsoleCommand
             \Yii::app()->thumbs->createAll($photo);
         }
         echo "createThumbs\n";
+    }
+
+    public function actionMigrate()
+    {
+        $mm = new MigrateManager();
+        $mm->moveUserAlbumsPhotos();
     }
 } 

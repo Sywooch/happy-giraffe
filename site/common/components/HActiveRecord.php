@@ -11,11 +11,11 @@ class HActiveRecord extends CActiveRecord
         'photo' => 'Фото',
     );
 
-    public function getPhotoCollection()
+    public function getPhotoCollection($key = 'default')
     {
         /** @var site\frontend\modules\photo\components\PhotoCollectionBehavior $behavior */
         if ($behavior = $this->asa('PhotoCollectionBehavior')) {
-            return $behavior->getPhotoCollection();
+            return $behavior->getPhotoCollection($key);
         }
 
         return $this->photos;

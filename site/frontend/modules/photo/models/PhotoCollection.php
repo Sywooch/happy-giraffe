@@ -108,7 +108,6 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             throw new \Exception('Invalid collection');
         }
 
-
         $model = new $class(null);
         return $model;
     }

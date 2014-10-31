@@ -13,7 +13,7 @@
             </div>
         <?php elseif ($model->getAttributePhotoCollection('preview', false) && $model->getAttributePhotoCollection('preview')->attachesCount > 0): ?>
             <div class="article-similar_img-hold">
-                <?= CHtml::image(\Yii::app()->thumbs->getThumb($model->getAttributePhotoCollection('preview')->attaches[0]->photo, 'postPreviewSmall')->getUrl(), $model->getAttributePhotoCollection('preview')->attaches[0]->photo->title, array('class' => 'content-ing')) ?>
+                <?= CHtml::image(\Yii::app()->thumbs->getThumb($model->getAttributePhotoCollection('preview')->attaches[0]->photo, 'postPreviewSmall')->getUrl(), $model->getAttributePhotoCollection('preview')->attaches[0]->photo->title, array('class' => 'article-similar_img')) ?>
             </div>
         <?php else: ?>
             <div class="article-similar_text">
@@ -33,7 +33,6 @@
                 <div class="article-similar_count-t"> 45</div>
                 <div class="article-similar_count-tx">фото</div>
             </div> -->
-
 
             <?php $this->widget('PhotoCollectionViewWidget', array('width' => 240, 'maxHeight' => 100, 'borderSize' => 1, 'href' => $model->url, 'maxRows' => 3, 'minPhotos' => 1, 'collection' => new PhotoPostPhotoCollection(array('contentId' => $model->id)))); ?>
         </div>

@@ -32,4 +32,8 @@ define(["jquery", "knockout"], function ($, ko) {
     $('photo-collection').each(function componentIterator() {
         ko.applyBindings({}, $(this)[0]);
     });
+    ko.components.register('photo-single', { require: 'photo-single/photo-single' });
+    $('photo-single').each(function componentIterator() {
+        ko.applyBindings({}, $(this)[0]);
+    });
 });

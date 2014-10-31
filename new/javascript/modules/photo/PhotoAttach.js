@@ -4,6 +4,7 @@
         this.removeUrl = '/api/photo/attaches/remove/';
         this.restoreUrl = '/api/photo/attaches/restore/';
         this.setCoverUrl = '/api/photo/collections/setCover/';
+        this.getAttachUrl = '/api/photo/collections/get/';
         this.id = ko.observable(data.id);
         this.position = ko.observable(data.position);
         this.photo = ko.observable(new Photo(data.photo));
@@ -11,6 +12,7 @@
         this.broke = ko.observable(false);
         this.removed = ko.observable(false);
         this.isCover = ko.observable(false);
+        this.urlPart = 'photo' + this.photo().id() + '/';
         this.remove = function () {
             Model.get(this.removeUrl, {
                 id: this.id()
@@ -19,6 +21,11 @@
                     this.removed(true);
                 }
             }.bind(this));
+        };
+        this.get = function (id) {
+            return Model.get(this.getAttachUrl, {
+                id: id
+            });
         };
         this.restore = function () {
             Model.get(this.restoreUrl, {

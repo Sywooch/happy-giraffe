@@ -31,6 +31,7 @@ class HStr extends \CComponent
             else {
                 $result = mb_substr($result, 0, $length, 'UTF-8');
             }
+            $result .= $etc;
         }
 
         return $result;

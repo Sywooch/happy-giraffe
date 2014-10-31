@@ -10,12 +10,20 @@ namespace site\frontend\modules\posts\commands;
 class FillQueue extends \CConsoleCommand
 {
 
-    public function actionIndex($author = null)
+    public function actionIndex($author = null, $type = null)
     {
-        $criteria = array(
-            'condition' => 'type_id = ' . \CommunityContent::TYPE_PHOTO_POST . ($author ? ' AND author_id = ' . $author : ''),
-            'order' => 'created desc'
-        );
+        $criteria = new \CDbCriteria();
+        $criteria->order = 'created desc';
+        if ($author) {
+            $criteria->addColumnCondition(array(
+                'author_id' => $author,
+            ));
+        }
+        if ($type) {
+            $criteria->addColumnCondition(array(
+                'type_id' => $type,
+            ));
+        }
 
         $dataProvider = new \CActiveDataProvider("CommunityContent", array(
             'criteria' => $criteria,
@@ -24,8 +32,13 @@ class FillQueue extends \CConsoleCommand
             ),
         ));
         $iterator = new \CDataProviderIterator($dataProvider);
-        foreach ($iterator as $model)
+        $count = 0;
+        foreach ($iterator as $model) {
             $model->addTaskToConvert();
+            $count++;
+            echo '.';
+        }
+        echo "\ntotal " . $count . " items\n";
     }
 
 }

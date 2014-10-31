@@ -10,7 +10,7 @@
             </div>
         </div>
         <div class="b-article_t-list"><a href="<?= $data->parsedUrl ?>" class="b-article_t-a"><?= $data->title ?></a></div>
-        <div class="b-article_in clearfix"><?= $data->preview ?></div>
+        <div class="b-article_in clearfix"><div class="wysiwyg-content clearfix"><?= $data->preview ?></div></div>
         <!-- comments-->
         <? /*<section class="comments">
             <div id="commentsList" class="comments_hold">

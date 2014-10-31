@@ -256,8 +256,8 @@
                             'limit' => 6,
                         ));
                         // Можешь вывести нужные тебе посты
-                        $models[0] = CommunityContent::model()->findByPk(63447);
-                        $models[3] = CommunityContent::model()->findByPk(82667);
+                        // $models[0] = CommunityContent::model()->findByPk(63447);
+                        // $models[3] = CommunityContent::model()->findByPk(82667);
                         // крутить в цикле таблицу 3х2 нет смысла.
                         ?>
                         <div class="homepage-posts_col">

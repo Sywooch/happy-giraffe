@@ -10,19 +10,20 @@ include ../../block/config
 block vars
     
 //- tag head
-- googlefont = '<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">'
+if (debug)
+    - googlefont = '<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,700&amp;subset=cyrillic,latin" rel="stylesheet" type="text/css">'
 
 - global.headItem = googlefont
-+headLite(path, global, headLite)
++headLite(path, global)
 
-/// layout out
+/// layout out 
 body.body.body__lite.body__bg2(class='body__homepage')
  
     .layout-container.homepage
         .layout-loose.layout-loose__white
             .layout-header
 
-                // header
+                // header 
                 header.header.header__homepage
                     .header_hold
                         .clearfix

@@ -13,9 +13,10 @@ mixin articleSimilar(mod, vars)
         article-similar__yellow
     .article-similar(class=mod)
         .article-similar_row
-            +ava('ava__middle', ava.a)
-            a.article-similar_author(href="#") 
-                = vars.author
+            a.article-similar_header-a(href="#") 
+                +ava('ava__middle', ava.e)
+                span.article-similar_author
+                    = vars.author
         .article-similar_row
             a.article-similar_t(href="#") 
                 = vars.title

@@ -203,8 +203,7 @@ module.exports = function(grunt){
     },
 
     // неиспользуемые стили
-    // Ломается в некоторых случаях не правильности тегов:
-    // <link> между <head> и <body>
+    // Ломается на fonts.googleapis.com
     uncss: {
       new: {
         options: {
@@ -384,6 +383,7 @@ module.exports = function(grunt){
       // Домашняя страница
       'lite_homepage': {
         options: {
+          ignoreSheets : [/fonts.googleapis/],
           stylesheets  : ['/css/dev/all.css'],
           timeout      : 1000,
 
@@ -393,10 +393,13 @@ module.exports = function(grunt){
             /#ctrlcopy+/,
             /.mfp+/,
             /.select2+/,
+            /@font-face+/,
+
           ],
+           
         },
         src: [
-          'lite/html-dev/page/homepage/**/*.html', 
+          'lite/html/page/homepage/**/*.html', 
           'lite/html/page/sign/**/*.html', 
           // 'lite/html/page/member/**/*.html', 
 

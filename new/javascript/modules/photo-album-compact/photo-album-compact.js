@@ -13,7 +13,6 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         this.photoAlbum.init(params.album);
         this.opened = ko.observable(false);
         this.userId = params.userId;
-        PhotoAttach.get(params.attachId).done(function (data) { console.log(data); });
         this.remove = function remove() {
             this.photoAlbum.delete();
             this.removed(true);

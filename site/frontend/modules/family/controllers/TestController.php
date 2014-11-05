@@ -7,6 +7,7 @@
 namespace site\frontend\modules\family\controllers;
 
 
+use Aws\CloudFront\Exception\Exception;
 use site\frontend\modules\family\models\Adult;
 use site\frontend\modules\family\models\Family;
 use site\frontend\modules\family\models\FamilyMember;
@@ -15,14 +16,14 @@ class TestController extends \HController
 {
     public function actionFamily()
     {
-        \Yii::app()->user->model->getFamily();
+        Family::getByUserId(\Yii::app()->user->id);
+
     }
 
-    public function actionAddAdult($gender, $familyId)
+    public function actionAddAdult()
     {
         $adult = new Adult();
-        $adult->gender = $gender;
-        $adult->familyId = $familyId;
+        $adult->familyId = 10;
         $adult->relationshipStatus = 'engaged';
         $adult->save();
     }
@@ -36,7 +37,10 @@ class TestController extends \HController
 
     public function actionMagic()
     {
-        $family = Family::getByUserId(\Yii::app()->user->id);
-        var_dump(\Yii::app()->user->checkAccess('updateFamily', array('entity' => $family)));
+        try {
+            $a = new \DateTime('говно');
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
     }
 } 

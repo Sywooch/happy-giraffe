@@ -11,6 +11,6 @@ abstract class WaitingChild extends FamilyMemberAbstract
 {
     protected function canBeAdded()
     {
-        return ! FamilyMember::model()->type(array('planning', 'waiting', 'waitingTwins'))->exists();
+        return ! FamilyMember::model()->type(array('planning', 'waiting'))->exists();
     }
 } 

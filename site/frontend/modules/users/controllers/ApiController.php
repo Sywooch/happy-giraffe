@@ -13,11 +13,7 @@ class ApiController extends \site\frontend\components\api\ApiController
     public function actions()
     {
         return \CMap::mergeArray(parent::actions(), array(
-            'update' => array(
-                'class' => 'site\frontend\components\api\EditAction',
-                'modelName' => '\site\frontend\modules\family\models\Familt',
-                'checkAccess' => 'editPhotoAlbum',
-            ),
+            'get' => 'site\frontend\components\api\PackAction',
         ));
     }
 

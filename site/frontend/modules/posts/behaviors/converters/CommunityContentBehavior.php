@@ -138,12 +138,42 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
     protected function convertVideoPost()
     {
-        echo 'videopost';
+        $newPost = null;
+        $oldPost = null;
+        $this->convertCommon($oldPost, $newPost, 'oldVideoPost');
+
+        $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.video', array('content' => $oldPost, 'text' => $oldPost->video->text));
+        $newPost->text = strip_tags($oldPost->video->text);
+        $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.video', array('content' => $oldPost, 'text' => '<p>' . \site\common\helpers\HStr::truncate($newPost->text, 200, ' <span class="ico-more"></span>') . '</p>'));
+
+        $newPost->save();
     }
 
     protected function convertStatus()
     {
-        echo 'status';
+        $newPost = null;
+        $oldPost = null;
+        $this->convertCommon($oldPost, $newPost, 'oldStatusPost');
+
+        $newPost->isNoindex = true;
+
+        $newPost->title = $oldPost->author->fullName . ' - статус от ' . date('d.m.y h:i', $newPost->dtimeCreate);
+        $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.status', array('content' => $oldPost));
+        $newPost->text = strip_tags($oldPost->status->text);
+        $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.statusPreview', array('content' => $oldPost));
+
+        $newPost->save();
+    }
+
+    protected function render($file, $data)
+    {
+        $file = \Yii::getPathOfAlias($file) . '.php';
+        if (\Yii::app() instanceof \CConsoleApplication) {
+            return \Yii::app()->command->renderFile($file, $data, true);
+        }
+        else {
+            return \Yii::app()->controller->renderInternal($file, $data, true);
+        }
     }
 
 }

@@ -16,21 +16,22 @@ class FillQueue extends \CConsoleCommand
         $criteria->order = 'created desc';
         if ($author) {
             $criteria->addColumnCondition(array(
-                'author_id' => $author,
+                'author_id' => (int) $author,
             ));
         }
         if ($type) {
             $criteria->addColumnCondition(array(
-                'type_id' => $type,
+                'type_id' => (int) $type,
             ));
         }
 
-        $dataProvider = new \CActiveDataProvider("CommunityContent", array(
+        $dataProvider = new \CActiveDataProvider(\CommunityContent::model()->resetScope(), array(
             'criteria' => $criteria,
             'pagination' => array(
                 'pageSize' => 100,
             ),
         ));
+
         $iterator = new \CDataProviderIterator($dataProvider);
         $count = 0;
         foreach ($iterator as $model) {

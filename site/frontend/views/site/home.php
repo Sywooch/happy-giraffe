@@ -45,7 +45,7 @@
 
             <div class="header_row-home">
               <!-- logo-->
-              <div class="logo logo__l"><a title="Веселый жираф - сайт для всей семьи" href="<?=$this->createUrl('/site/index')?>" class="logo_i">Веселый жираф - сайт для всей семьи</a><span class="logo_slogan">САЙТ ДЛЯ ВСЕЙ СЕМЬИ</span></div>
+              <h1 class="logo logo__l"><span class="logo_i">Веселый жираф - сайт для всей семьи</span></h1>
               <!-- /logo-->
             </div>
           </div>

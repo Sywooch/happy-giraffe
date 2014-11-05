@@ -1,41 +1,19 @@
 <!-- ko if: loading() === false -->
-    <!-- ko if: photoAlbum.photoCount() > 0 && photoAlbum.photoCollection().loading() === false -->
+    <!-- ko if: photoAttach.photo().presetHeight() > 0 && photoAlbum.photoCount() > 0 && photoAlbum.photoCollection().attaches().length > 0 -->
     <section class="b-album">
-        <div href="#" class="b-album_img-hold" data-bind="attr: { 'style': 'height: ' + photoAlbum.photoCollection().cover().photo().presetHeight() + 'px;' }">
+        <div href="#" class="b-album_img-hold" data-bind="attr: { 'style': 'height: ' + photoAttach.photo().presetHeight() + 'px;' }">
             <div class="b-album_img-a">
                 <div class="verticalalign-m-help"></div>
                 <div class="verticalalign-m-el">
-                    <img src="" alt="" class="b-album_img-big" data-bind="src: photoAlbum.photoCollection().cover().photo().getGeneratedPreset('myPhotosAlbumCover')">
+                    <img src="" alt="" class="b-album_img-big" data-bind="src: photoAttach.photo().getGeneratedPreset('myPhotosAlbumCover')">
                 </div>
             </div>
             <div class="b-album_img-hold-ovr">
                 <div class="ico-zoom ico-zoom__abs"></div>
             </div>
         </div>
-        <div class="b-album_overlay">
-            <a class="b-album_r" data-bind="href: photoAlbum.url">
-                <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
-                </div>
-                <div class="b-album_ico-album"></div>
-                <div class="b-album_arrow-all"></div>
-            </a>
-            <ul class="b-album_prev clearfix visible-md-block">
-                <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-                <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 -->
-                <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
-                <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
-                    <a href="#" class="b-album_prev-a" data-bind="href: $parent.photoAlbum.url + $data.urlPart">
-                        <img src="" alt="" class="b-album_prev-img" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">
-                        <div class="b-album_prev-hold"></div>
-                    </a>
-                </li>
-                <!-- /ko -->
-                <!-- /ko -->
-                <!-- ko if: rightsForManipulation === true -->
-                <li class="b-album_prev-li"><a href="#" class="album-photo-add" data-bind="href: photoAlbum.url"></a></li>
-                <!-- /ko -->
-            </ul>
-        </div>
+        <a href="#" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs" data-bind="visible: prev(), href: prev()"></a>
+        <a href="#" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs" data-bind="visible: next(), href: next()"></a>
     </section>
     <!-- /ko -->
 <!-- /ko -->

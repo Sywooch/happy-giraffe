@@ -14,6 +14,8 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
         title: ko.observable(),
         description: ko.observable(),
         removed: ko.observable(false),
+        offset: ko.observable(0),
+        circular: ko.observable(0),
         pageCount: 20,
         type: 'full',
         usablePreset: '',
@@ -74,8 +76,8 @@ define('photo/PhotoAlbum', ['knockout', 'photo/PhotoCollection', 'models/Model',
                 this.photoCollection().pageCount = this.pageCount;
                 this.photoCollection().usablePreset(this.usablePreset);
                 this.photoCollection().updated(data.photoCollections.default.updated);
-                this.photoCollection().getAttachesPage(0);
-
+                this.photoCollection().circular = this.circular();
+                this.photoCollection().getAttachesPage(this.offset());
             }
             this.title.extend({ maxLength: { params: this.maxTitleLength, message: "Количество символов не больше " + this.maxTitleLength }, mustFill: true });
             this.description.extend({ maxLength: { params: this.maxDescriptionLength, message: "Количество символов не больше " + this.maxDescriptionLength } });

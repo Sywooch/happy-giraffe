@@ -7,9 +7,9 @@ define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetMan
         this.original_name = ko.observable(data.original_name);
         this.width = ko.observable(data.width);
         this.preset = ko.observable();
+        this.height = ko.observable(data.height);
         this.presetWidth = ko.observable();
         this.presetHeight = ko.observable();
-        this.height = ko.observable(data.height);
         this.fsName = ko.observable(data.fsName);
         this.originalUrl = ko.observable(data.originalUrl);
         this.baseConfig = baseConfig;

@@ -11,6 +11,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.usablePreset = ko.observable();
         this.updated = ko.observable();
         this.loading = ko.observable(true);
+        this.circular = ko.observable(false);
         this.presets = data.presets;
         PresetManager.presets = data.presets;
         this.handlePresets = function gainPhotoInLine(presets) {
@@ -84,7 +85,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.getAttachesPage = function getAttachesPage(offset) {
             if (this.attachesCount() > 0) {
                 Model
-                    .get(this.getAttachesUrl, { collectionId: this.id(), length: this.pageCount, offset: offset })
+                    .get(this.getAttachesUrl, { collectionId: this.id(), length: this.pageCount, offset: offset, circular: this.circular })
                     .done(this.getAttaches.bind(this));
             }
         };
@@ -144,7 +145,8 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 this.attachesCache = attaches.data.attaches;
                 if ($.isEmptyObject(PresetManager.presets) || PresetManager.presets === undefined) {
                     PresetManager.getPresets(this.gainPhotoInLine.bind(this));
-                } else {
+                }
+                  else {
                     this.gainPhotoInLine(PresetManager.presets);
                 }
 

@@ -4,9 +4,10 @@
         this.removeUrl = '/api/photo/attaches/remove/';
         this.restoreUrl = '/api/photo/attaches/restore/';
         this.setCoverUrl = '/api/photo/collections/setCover/';
-        this.getAttachUrl = '/api/photo/collections/get/';
+        this.getAttachUrl = '/api/photo/attaches/get/';
         this.id = ko.observable(data.id);
         this.position = ko.observable(data.position);
+        this.url = ko.observable(data.url);
         this.photo = ko.observable(new Photo(data.photo));
         this.loading = ko.observable(true);
         this.broke = ko.observable(false);

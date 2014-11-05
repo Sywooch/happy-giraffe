@@ -118,15 +118,14 @@ return array(
             'trueRoute' => 'posts/post/view',
             'falseRoute' => 'blog/default/view',
         ),
-        //'user/<user_id:\d+>/blog' => 'blog/default/index',
-        array(
+        'user/<user_id:\d+>/blog' => 'blog/default/index',
+        /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog',
             'trueRoute' => 'posts/list/index',
             'falseRoute' => 'blog/default/index',
-        ),
-        'newblog/<_a:>' => 'blog/default/<_a>',
+        ),*/
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',

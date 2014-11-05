@@ -28,7 +28,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                         <div class="float-l">
                             <?php $this->widget('Avatar', array('user' => $photo->author)); ?>
                             <div class="b-article_author"><a href="<?=$photo->author->getUrl()?>" class="a-light"><?=$photo->author->getFullName()?></a></div>
-                            <?=HHtml::timeTag($photo, array('class' => 'tx-date'))?>
+
                         </div>
                     </div>
                     <h1 class="b-article_t"><?=$attach->getTitle()?></h1>
@@ -40,40 +40,41 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
 
 <div class="b-main_cont b-main_cont__wide">
     <!-- b-album-->
-    <section class="b-album b-album__photolink">
-        <div class="b-album_img-hold"><a href="#" class="b-album_img-a">
-                <div class="b-album_img-pad">
-                    <!-- У изображений соотношения сторон сохраняются -->
-                    <!-- 0,65 соотношение сторон-->
-                </div>
-                <picture class="b-album_img-picture">
-                    <source srcset="/lite/images/example/photoalbum/2-960.jpg 1x, /lite/images/example/photoalbum/1-1920.jpg 2x" media="(min-width: 640px)"><img src="/lite/images/example/photoalbum/1-1280.jpg" alt="Фото" class="b-album_img-big">
-                </picture></a>
-            <div class="b-album_img-hold-ovr">
-                <div class="ico-zoom ico-zoom__abs"></div>
-            </div>
-            <!-- Стрелки показывать скрывать по тапу (касанию пальца)--><a href="#" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a><a href="#" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
-        </div>
-        <div class="b-album_overlay"><a class="b-album_r">
-                <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
-                </div>
-                <div class="b-album_ico-album"></div>
-                <div class="b-album_arrow-all"></div></a>
-            <ul class="b-album_prev clearfix visible-md-block">
-                <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                        <div class="b-album_prev-hold"></div></a></li>
-                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">
-                        <div class="b-album_prev-hold"></div></a></li>
-                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                        <div class="b-album_prev-hold"></div></a></li>
-                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">
-                        <div class="b-album_prev-hold"></div></a></li>
-                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">
-                        <div class="b-album_prev-hold"></div></a></li>
-            </ul>
-        </div>
-    </section>
+    <photo-single params="userId: <?= $userId ?>, attach: <?= $attach->id ?>, album: <?= $album->id ?>"></photo-single>
+<!--    <section class="b-album b-album__photolink">-->
+<!--        <div class="b-album_img-hold"><a href="#" class="b-album_img-a">-->
+<!--                <div class="b-album_img-pad">-->
+<!--                    <!-- У изображений соотношения сторон сохраняются -->
+<!--                    <!-- 0,65 соотношение сторон-->
+<!--                </div>-->
+<!--                <picture class="b-album_img-picture">-->
+<!--                    <source srcset="/lite/images/example/photoalbum/2-960.jpg 1x, /lite/images/example/photoalbum/1-1920.jpg 2x" media="(min-width: 640px)"><img src="/lite/images/example/photoalbum/1-1280.jpg" alt="Фото" class="b-album_img-big">-->
+<!--                </picture></a>-->
+<!--            <div class="b-album_img-hold-ovr">-->
+<!--                <div class="ico-zoom ico-zoom__abs"></div>-->
+<!--            </div>-->
+<!--            <!-- Стрелки показывать скрывать по тапу (касанию пальца)--><a href="#" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a><a href="#" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
+<!--        </div>-->
+<!--        <div class="b-album_overlay"><a class="b-album_r">-->
+<!--                <div class="b-album_tx">Смотреть  <br> все фото &nbsp;-->
+<!--                </div>-->
+<!--                <div class="b-album_ico-album"></div>-->
+<!--                <div class="b-album_arrow-all"></div></a>-->
+<!--            <ul class="b-album_prev clearfix visible-md-block">-->
+<!--                <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
+<!--                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">-->
+<!--                        <div class="b-album_prev-hold"></div></a></li>-->
+<!--                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">-->
+<!--                        <div class="b-album_prev-hold"></div></a></li>-->
+<!--                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">-->
+<!--                        <div class="b-album_prev-hold"></div></a></li>-->
+<!--                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">-->
+<!--                        <div class="b-album_prev-hold"></div></a></li>-->
+<!--                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">-->
+<!--                        <div class="b-album_prev-hold"></div></a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </section>-->
 </div>
 
 <div class="b-main_cont">
@@ -96,7 +97,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                         <div class="ico-action-hg ico-action-hg__favorite"></div>
                         <div class="like-control_tx">863455</div></a></div>
             </div>
-        </div>-->
+         /div>-->
         <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $photo, 'lite' => true)); ?>
         <!-- Реклама яндекса-->
         <?php $this->renderPartial('//banners/_direct_others'); ?>

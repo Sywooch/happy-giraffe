@@ -1,14 +1,21 @@
 <?php
-/**
- * @author Никита
- * @date 23/10/14
- */
+
 
 namespace site\frontend\modules\family\models;
 
+/**
+ * @author Никита
+ * @date 23/10/14
+ *
+ * @property \site\frontend\modules\family\models\FamilyMember $partner
+ */
 
-class Adult extends RealFamilyMember
+class Adult extends FamilyMemberAbstract
 {
+    const STATUS_FRIENDS = 'friends';
+    const STATUS_ENGAGED = 'engaged';
+    const STATUS_MARRIED = 'married';
+
     public $type = 'adult';
     public $relationshipStatus;
 
@@ -17,7 +24,13 @@ class Adult extends RealFamilyMember
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
-
+            array('relationshipStatus', 'in', 'range' => array(
+                self::STATUS_FRIENDS,
+                self::STATUS_ENGAGED,
+                self::STATUS_MARRIED,
+            ), 'allowEmpty' => false, 'except' => 'familyCreate'),
+            array('name', 'length', 'max' => 100),
+            array('description', 'length', 'max' => 500),
         ));
     }
 
@@ -25,16 +38,16 @@ class Adult extends RealFamilyMember
     {
         $titles = array(
             'friends' => array(
-                0 => 'Подруга',
-                1 => 'Друг',
+                self::GENDER_FEMALE => 'Подруга',
+                self::GENDER_MALE => 'Друг',
             ),
             'engaged' => array(
-                0 => 'Невеста',
-                1 => 'Жених',
+                self::GENDER_FEMALE => 'Невеста',
+                self::GENDER_MALE => 'Жених',
             ),
             'married' => array(
-                0 => 'Жена',
-                1 => 'Муж',
+                self::GENDER_FEMALE => 'Жена',
+                self::GENDER_MALE => 'Муж',
             ),
         );
 
@@ -57,8 +70,48 @@ class Adult extends RealFamilyMember
         parent::afterSave();
     }
 
+    protected function beforeValidate()
+    {
+        if (parent::beforeValidate()) {
+            if ($this->scenario != 'familyCreate') {
+                $this->gender = $this->getGenderByPartner();
+            }
+            return true;
+        }
+        return false;
+    }
+
+    protected function getGenderByPartner()
+    {
+        return ($this->partner->gender == self::GENDER_MALE) ? self::GENDER_FEMALE : self::GENDER_MALE;
+    }
+
     protected function canBeAdded()
     {
-        return ! FamilyMember::model()->family($this->familyId)->gender($this->gender)->exists();
+        $adults = $this->family->getMembersByType(FamilyMember::TYPE_ADULT);
+        return count($adults) < 2;
+    }
+
+    public function toJSON()
+    {
+        return \CMap::mergeArray(parent::toJSON(), array(
+            'name' => $this->name,
+            'gender' => $this->gender,
+            'birthday' => $this->birthday,
+            'description' => (string) $this->description,
+            'userId' => (int) $this->userId,
+            'ageString' => $this->getAgeString(),
+        ));
+    }
+
+    public function getPartner()
+    {
+        $adults = $this->family->getMembersByType(FamilyMember::TYPE_ADULT);
+        foreach ($adults as $adult) {
+            if ($adult->id != $this->id) {
+                return $adult;
+            }
+        }
+        return null;
     }
 } 

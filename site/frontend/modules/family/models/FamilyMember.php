@@ -27,6 +27,11 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
     const GENDER_FEMALE = 0;
     const GENDER_MALE = 1;
 
+    const TYPE_ADULT = 'adult';
+    const TYPE_CHILD = 'child';
+    const TYPE_PLANNING = 'planning';
+    const TYPE_WAITING = 'waiting';
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -184,8 +189,6 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
                 return '\site\frontend\modules\family\models\PlanningChild';
             case 'waiting':
                 return '\site\frontend\modules\family\models\PregnancyChild';
-            case 'waitingTwins':
-                return '\site\frontend\modules\family\models\PregnancyTwins';
             default:
                 return false;
         }

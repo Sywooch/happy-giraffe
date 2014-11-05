@@ -124,13 +124,28 @@ class Family extends \CActiveRecord implements \IHToJSON
         return FamilyMember::model()->user($userId)->family($this->id)->exists();
     }
 
+    public function getMembersByType($type)
+    {
+        $result = array();
+        foreach ($this->members as $member) {
+            if ($member->type == $type) {
+                $result[] = $member;
+            }
+        }
+        return $result;
+    }
+
     protected static function createFamily($userId)
     {
         $family = new Family();
         $member = new Adult();
+        $member->scenario = 'familyCreate';
         $member->fillByUser($userId);
         $family->members = array($member);
         $success = $family->withRelated->save(true, array('members'));
+
+
+
         return ($success) ? $family : null;
     }
 }

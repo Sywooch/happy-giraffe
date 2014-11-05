@@ -11,9 +11,11 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.usablePreset = ko.observable();
         this.updated = ko.observable();
         this.loading = ko.observable(true);
+        this.presets = data.presets;
         PresetManager.presets = data.presets;
         this.handlePresets = function gainPhotoInLine(presets) {
             if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
+                this.presets = presets;
                 PresetManager.presets = presets;
             }
         };
@@ -51,6 +53,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             photoAttach = photoAttach[0];
             presets = presets[0];
             if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
+                this.presets = presets;
                 PresetManager.presets = presets;
             }
             if (photoAttach.success === true && photoAttach.data.attaches.length !== 0) {
@@ -71,6 +74,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.handlePresetsWOCover = function handleCover(presets) {
             if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
                 PresetManager.presets = presets;
+                this.presets = presets;
                 this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
                 this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
                 this.loading(false);
@@ -117,6 +121,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         };
         this.gainPhotoInLine = function gainPhotoInLine(presets) {
             PresetManager.presets = presets;
+            this.presets = presets;
             if (PresetManager.presets !== undefined) {
                 this.attaches(ko.utils.arrayMap(this.attachesCache, this.iterateAttaches.bind(this)));
                 if (this.attaches().length > 0) {

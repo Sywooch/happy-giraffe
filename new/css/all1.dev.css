@@ -16281,7 +16281,7 @@ html[dir="rtl"] .select2-container-multi .select2-search-choice-close {
 .img-grid_i {
   position: relative;
   float: left;
-  margin: 0 20px 0 0;
+  margin: 0 20px 20px 0;
   cursor: pointer;
   color: #fff;
 }

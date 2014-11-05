@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'extensions/imagesloaded', 'models/User', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, Model, imagesLoaded, User) {
+define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'extensions/imagesloaded', 'models/User',  'photo/PresetManager', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, Model, imagesLoaded, User, PresetManager) {
     "use strict";
     function PhotoAlbumViewModel(params) {
         this.loading = ko.observable(true);
@@ -18,6 +18,17 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
                 if (album) {
                     this.photoAlbum.init(album);
                     this.loading(false);
+                    this.photoAlbum.photoCollection().attaches.subscribe(function (val) {
+                        for (var i=0; i < val.length; i++) {
+                            if(val[i].photo().presetHeight() === undefined || val[i].photo().presetWidth() === undefined) {
+                                //PresetManager.presets = this.photoAlbum.photoCollection().presets;
+                                //val[i].photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), this.photoAlbum.usablePreset));
+                                //val[i].photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), this.photoAlbum.usablePreset));
+                                //console.log(val[i]);
+                            }
+                        }
+
+                    }.bind(this));
                 }
             }
         };

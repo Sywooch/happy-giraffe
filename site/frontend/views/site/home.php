@@ -247,18 +247,9 @@
                 <div class="homepage_title"> Лучшие записи </div>
                 <div class="homepage-posts_col-hold">
                     <?php
-                    if (true || $this->beginCache(300))
+                    if ($this->beginCache('homepageArticles', array('duration' => 300)))
                     {
-                        //$models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 6);
-                        $models = CommunityContent::model()->findAll(array(
-                            'order' => 'created DESC',
-                            // Можешь поменять лимиты и посмотреть, как будут компановаться списки
-                            'limit' => 6,
-                        ));
-                        // Можешь вывести нужные тебе посты
-                        $models[0] = CommunityContent::model()->findByPk(180977);
-                        $models[3] = CommunityContent::model()->findByPk(209988);
-                        // крутить в цикле таблицу 3х2 нет смысла.
+                        $models = Favourites::getArticlesByDate(Favourites::BLOCK_INTERESTING, date("Y-m-d"), 6);
                         ?>
                         <!-- <div class="homepage-posts_col"> -->
                             <? isset($models[0]) ? $this->renderPartial('_home_article', array('model' => $models[0], 'color' => 'lilac')) : ''; ?>
@@ -273,7 +264,7 @@
                             <? isset($models[5]) ? $this->renderPartial('_home_article', array('model' => $models[5], 'color' => 'lilac')) : ''; ?>
                         
                         <?php
-                        //$this->endCache();
+                        $this->endCache();
                     }
                     ?>
                 </div>

@@ -14,7 +14,7 @@
             <?php endif; ?>
             <?php if (!empty($user->address->country_id)): ?>
             <div class="location locationsmall clearfix">
-                <?=$user->address->getFlag(true, 'span')?>
+                <?=$user->address->getFlag(false, 'span')?>
                 <?php if (!empty($user->address->city_id) || !empty($user->address->region_id)): ?>
                     <span class="location_tx"><?=$user->address->getUserFriendlyLocation()?></span>
                 <?php endif; ?>

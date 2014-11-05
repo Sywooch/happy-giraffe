@@ -101,8 +101,10 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function urlParams($model)
+    public function urlParams(PhotoAttach $model)
     {
+        var_dump($model->photo_id);
+        die;
         $album = $model->collection->RelatedModelBehavior->relatedModel;
         $userId = $album->getAuthorId();
         $albumId = $album->id;

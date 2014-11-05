@@ -51,7 +51,7 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
     protected function getIds()
     {
         if ($this->_ids === null) {
-            $criteria = PhotoAttach::model()->collection($this->model->id)->getDbCriteria();
+            $criteria = clone PhotoAttach::model()->collection($this->model->id)->getDbCriteria();
             $criteria->select = 'id';
             $criteria->order = self::ORDER;
             $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(PhotoAttach::model()->tableName(), $criteria);

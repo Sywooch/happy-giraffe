@@ -22,7 +22,7 @@ define(['knockout', 'text!photo-albums-create/photo-albums-create.html', 'photo/
         }, this);
         this.createAlbumsHandler = function createAlbumsHandler(createdData) {
             if (createdData.success === true && createdData.data.id !== undefined) {
-                window.location = '/photo/user/' + userConfig.userId + '/albums/' + createdData.data.id + '/';
+                window.location = '/user/' + userConfig.userId + '/albums/' + createdData.data.id + '/';
             }
         };
         this.cancel = function cancelFn() {

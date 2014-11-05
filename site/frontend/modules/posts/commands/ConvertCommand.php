@@ -15,6 +15,9 @@ class ConvertCommand extends \CConsoleCommand
         'oldCommunity_CommunityContent_convert_post',
         'oldBlog_CommunityContent_convert_photopost',
         'oldCommunity_CommunityContent_convert_photopost',
+        'oldBlog_CommunityContent_convert_status',
+        'oldBlog_CommunityContent_convert_video',
+        'oldCommunity_CommunityContent_convert_video',
     );
 
     /**
@@ -32,8 +35,11 @@ class ConvertCommand extends \CConsoleCommand
             \CommunityContent::TYPE_POST => 'post',
             \CommunityContent::TYPE_VIDEO => 'video',
             \CommunityContent::TYPE_PHOTO_POST => 'photopost',
+            \CommunityContent::TYPE_STATUS => 'status',
         );
-        $fName = $service . '_' . $entity . '_convert_' . ($types[$oldPost->type_id] ? : 'unknown');
+        if(!isset($types[$oldPost->type_id]))
+            return false;
+        $fName = $service . '_' . $entity . '_convert_' . $types[$oldPost->type_id];
         $data = array(
             'service' => $service,
             'entity' => $entity,
@@ -76,7 +82,7 @@ class ConvertCommand extends \CConsoleCommand
         try
         {
             $data = self::unserialize($job->workload());
-            $model = \CActiveRecord::model($data['entity'])->findByPk($data['entityId']);
+            $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
             $model->convertToNewPost();
             echo '.';
         }

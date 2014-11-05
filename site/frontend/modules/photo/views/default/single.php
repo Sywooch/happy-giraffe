@@ -13,6 +13,8 @@ $this->breadcrumbs += array(
     $attach->getTitle(),
 );
 $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $photo));
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('photo-single', array('kow'));
 ?>
 
 <div class="b-main">
@@ -53,7 +55,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
 <!--            <div class="b-album_img-hold-ovr">-->
 <!--                <div class="ico-zoom ico-zoom__abs"></div>-->
 <!--            </div>-->
-<!--            <!-- Стрелки показывать скрывать по тапу (касанию пальца)--><a href="#" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a><a href="#" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
+<!--            <!-- Стрелки показывать скрывать по тапу (касанию пальца)-->
 <!--        </div>-->
 <!--        <div class="b-album_overlay"><a class="b-album_r">-->
 <!--                <div class="b-album_tx">Смотреть  <br> все фото &nbsp;-->

@@ -1,6 +1,6 @@
 <?php
 /**
- * @var PhotoController $this
+ * @var \site\frontend\modules\photo\components\PhotoController $this
  * @var int $userId
  * @var \User $user
  * @var ClientScript $cs
@@ -14,6 +14,6 @@ $cs->registerAMD('photo-albums', array('kow'));
 ?>
 <?php $this->widget('profile.widgets.UserSectionWidget'); ?>
 
-<div class="b-main_cont">
+<?php if (! $this->isPersonalArea()): ?><div class="b-main_cont"><?php endif; ?>
     <photo-albums params="userId: <?= $userId ?>"></photo-albums>
-</div>
+<?php if (! $this->isPersonalArea()): ?></div><?php endif; ?>

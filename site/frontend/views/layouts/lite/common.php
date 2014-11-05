@@ -17,7 +17,7 @@
     <a id="btn-seo" href="/ajax/editMeta/?route=<?=urlencode(Yii::app()->controller->route) ?>&params=<?=urlencode(serialize(Yii::app()->controller->actionParams)) ?>" class="fancy" data-theme="white-square"></a>
 <?php endif ?>
 <div class="layout-container">
-    <div class="layout-loose<?php if (! $this->isPersonalLayout()): ?> layout-loose__white<?php endif; ?>">
+    <div class="layout-loose<?php if ($this instanceof PersonalAreaController && ! $this->isPersonalLayout()): ?> layout-loose__white<?php endif; ?>">
         <div class="layout-header">
             <?php if (Yii::app()->user->isGuest): ?>
                 <?php $this->renderPartial('//_header_guest'); ?>

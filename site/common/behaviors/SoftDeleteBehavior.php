@@ -107,12 +107,6 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
         $this->owner->raiseEvent('onBeforeSoftRestore', $event);
     }
 
-    public function notRemoved()
-    {
-        $this->owner->getDbCriteria()->compare($this->owner->getTableAlias(), 0);
-        return $this;
-    }
-
     public function afterSoftRestore()
     {
         if ($this->owner->hasEventHandler('onAfterSoftRestore'))

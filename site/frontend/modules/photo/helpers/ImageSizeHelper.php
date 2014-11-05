@@ -13,6 +13,10 @@ class ImageSizeHelper
 {
     public static function getImageSize($imageString)
     {
+        if (empty($imageString)) {
+            return false;
+        }
+
         $uri = 'data://application/octet-stream;base64,'  . base64_encode($imageString);
         return getimagesize($uri);
     }

@@ -227,7 +227,7 @@ class ClientScript extends CClientScript
         {
             $params = array_keys($depends);
         }
-        return $this->registerScript($id, "$(window).load(function() { require(" . CJSON::encode($modules) . ", function( " . implode(', ', $params) . " ) {\n" . $script . "\n}); });", self::POS_AMD);
+        return $this->registerScript($id, "$(document).ready(function() { require(" . CJSON::encode($modules) . ", function( " . implode(', ', $params) . " ) {\n" . $script . "\n}); });", self::POS_AMD);
     }
 
     /**
@@ -239,7 +239,7 @@ class ClientScript extends CClientScript
      */
     public function registerAMDFile($depends, $file)
     {
-        return $this->registerScript($file, '$(window).load(function() { require(' . CJSON::encode($depends) . ', function() { require(["' . $file . '"]); }); });', self::POS_AMD);
+        return $this->registerScript($file, '$(document).ready(function() { require(' . CJSON::encode($depends) . ', function() { require(["' . $file . '"]); }); });', self::POS_AMD);
     }
 
     /**

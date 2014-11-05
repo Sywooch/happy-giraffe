@@ -27,7 +27,7 @@
                 <div class="postAdd_row">
                     <div class="postAdd_cont">
                         <div class="postAdd_btns-hold">
-                            <a href="" class="btn btn-default btn-xm margin-r15" data-bind="click: cancel">Отмена</a>
+                            <a href="" class="btn btn-default btn-xm margin-r15" data-bind="attr: {href: urlCommon}">Отмена</a>
                             <!-- ko if: loading() === false -->
                             <button data-bind="css: (photoAlbum.title.isValid() && photoAlbum.description.isValid()) !== true ? 'btn btn-success btn-xm disabled' : 'btn btn-success btn-xm'">Ok</button>
                             <!-- /ko -->

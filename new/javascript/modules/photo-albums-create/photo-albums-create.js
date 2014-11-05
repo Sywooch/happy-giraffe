@@ -1,6 +1,7 @@
 define(['knockout', 'text!photo-albums-create/photo-albums-create.html', 'photo/PhotoAlbum', 'user-config', 'extensions/knockout.validation'], function (ko, template, PhotoAlbum, userConfig) {
     function PhotoAlbumsCreateViewModel(params) {
         this.loading = ko.observable(false);
+        this.urlCommon = '/user/' + userConfig.userId + '/albums/';
         if (params.photoAlbum !== undefined) {
             this.photoAlbum = params.photoAlbum;
             this.savedTitle = this.photoAlbum.title();
@@ -22,7 +23,7 @@ define(['knockout', 'text!photo-albums-create/photo-albums-create.html', 'photo/
         }, this);
         this.createAlbumsHandler = function createAlbumsHandler(createdData) {
             if (createdData.success === true && createdData.data.id !== undefined) {
-                window.location = '/user/' + userConfig.userId + '/albums/' + createdData.data.id + '/';
+                window.location =  this.urlcommon + createdData.data.id + '/';
             }
         };
         this.cancel = function cancelFn() {

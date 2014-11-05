@@ -1,6 +1,5 @@
 define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'photo/PhotoAttach', 'extensions/imagesloaded', 'modules-helpers/component-custom-returner', 'models/User', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoAlbum, userConfig, Model, PhotoAttach, imagesLoaded, customReturner, User) {
     function PhotoAlbumCompact(params) {
-        console.log(params);
         this.photoAlbum = Object.create(PhotoAlbum);
         this.photoAlbum.pageCount = 5;
         this.photoAlbum.usablePreset = 'myPhotosPreview';

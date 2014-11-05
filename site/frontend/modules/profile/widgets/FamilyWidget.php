@@ -1,5 +1,7 @@
 <?php
 
+Yii::import('profile.widgets.UserCoreWidget');
+
 class FamilyWidget extends UserCoreWidget
 {
     public function init()

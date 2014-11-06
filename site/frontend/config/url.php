@@ -127,6 +127,7 @@ return array(
             'trueRoute' => 'posts/list/index',
             'falseRoute' => 'blog/default/index',
         ),*/
+        'newblog/<_a:>' => 'blog/default/<_a>',
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',

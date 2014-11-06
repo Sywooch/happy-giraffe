@@ -40,7 +40,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
             <div class="b-album_img-a">
                 <div class="verticalalign-m-help"></div>
                 <div class="verticalalign-m-el">
-                    <?=CHtml::image(Yii::app()->thumbs->getThumb($photo, 'myPhotosAlbumCover')->getUrl(), $attach->title)?>
+                    <?=CHtml::image(Yii::app()->thumbs->getThumb($photo, 'myPhotosAlbumCover')->getUrl(), $attach->getTitle())?>
                 </div>
             </div>
 

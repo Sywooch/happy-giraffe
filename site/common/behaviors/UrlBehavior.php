@@ -8,7 +8,7 @@
 
 namespace site\common\behaviors;
 
-class UrlBehavior extends \CActiveRecordBehavior
+class UrlBehavior extends \CActiveRecordBehavior implements \ILinkable
 {
     public $preparedUrl;
     public $route;

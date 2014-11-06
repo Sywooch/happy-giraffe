@@ -26,6 +26,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         };
         this.initializeSlider = function initializeSlider() {
             window.history.pushState(null, 'Фотоальбом', this.photoAttach().url());
+            this.collection.getPartsCollection(this.collection.id(), 0, null);
             this.getUser();
             this.getCollection();
         };
@@ -38,15 +39,8 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             colCont.height($(window).height() - bannerH - 24);
 
         }
-        /* Позиция блока с лайками */
-        function likePos () {
-            var likeBottom = ($('.photo-window_img-hold').height() - $('.photo-window_img').height()) / 2 + 30;
-            $('.photo-window .like-control').css({'bottom' : likeBottom});
-        }
-
         $(document).ready(function () {
             photoWindColH();
-            likePos();
 
             /* custom scroll */
             var scroll = $('.scroll').baron({
@@ -60,7 +54,6 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
 
         $(window).resize(function () {
             photoWindColH();
-            likePos();
         });
     };
 

@@ -1,19 +1,23 @@
 <!-- ko if: loading() === false -->
-    <!-- ko if: photoAttach.photo().presetHeight() > 0 && photoAlbum.photoCount() > 0 && photoAlbum.photoCollection().attaches().length > 0 -->
+    <!-- ko if: photoAttach().photo().presetHeight() > 0 -->
     <section class="b-album">
-        <div href="#" class="b-album_img-hold" data-bind="attr: { 'style': 'height: ' + photoAttach.photo().presetHeight() + 'px;' }">
+        <div href="#" class="b-album_img-hold" data-bind="attr: { 'style': 'height: ' + photoAttach().photo().presetHeight() + 'px;' }">
             <div class="b-album_img-a">
                 <div class="verticalalign-m-help"></div>
                 <div class="verticalalign-m-el">
-                    <img src="" alt="" class="b-album_img-big" data-bind="src: photoAttach.photo().getGeneratedPreset('myPhotosAlbumCover')">
+                    <img src="" alt="" class="b-album_img-big" data-bind="src: photoAttach().photo().getGeneratedPreset('myPhotosAlbumCover')">
                 </div>
             </div>
             <div class="b-album_img-hold-ovr">
-                <div class="ico-zoom ico-zoom__abs"></div>
+                <div class="ico-zoom ico-zoom__abs" data-bind="click: openPhotoHandler"></div>
             </div>
         </div>
-        <a href="#" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs" data-bind="visible: prev(), href: prev()"></a>
-        <a href="#" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs" data-bind="visible: next(), href: next()"></a>
+        <!-- ko if: photoAttachPrev -->
+        <a href="#" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs" data-bind="href: photoAttachPrev.url()"></a>
+        <!-- /ko -->
+        <!-- ko if: photoAttachNext -->
+        <a href="#" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs" data-bind="href: photoAttachNext.url()"></a>
+        <!-- /ko -->
     </section>
     <!-- /ko -->
 <!-- /ko -->
@@ -33,5 +37,5 @@
 </section>
 <!-- /ko -->
 <!-- ko if: opened() === true -->
-<photo-slider></photo-slider>
+<photo-slider params="photo: photoAttach, collectionId: collectionId, userId: userId"></photo-slider>
 <!-- /ko -->

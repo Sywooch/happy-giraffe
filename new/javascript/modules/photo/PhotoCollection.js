@@ -135,8 +135,19 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 .get(this.getAttachesUrl, { collectionId: this.id(), offset: 0 })
                 .done(this.countAttaches.bind(this));
         };
+        this.getPartsCollection = function getPartsCollection(id, offset, length) {
+            Model
+                .get(this.getAttachesUrl, { collectionId: this.id(), offset: offset, length: length })
+                .done(this.getPartsCollectionHandler.bind(this));
+        };
+        this.getPartsCollectionHandler = function getPartsCollectionHandler(attaches) {
+            if (attaches.success) {
+                console.log(attaches.data.attaches);
+            }
+        };
         this.countAttaches = function countAttaches(attaches) {
             if (attaches.success) {
+
                 this.attachesCount(attaches.data.attaches.length);
             }
         };
@@ -145,8 +156,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 this.attachesCache = attaches.data.attaches;
                 if ($.isEmptyObject(PresetManager.presets) || PresetManager.presets === undefined) {
                     PresetManager.getPresets(this.gainPhotoInLine.bind(this));
-                }
-                  else {
+                } else {
                     this.gainPhotoInLine(PresetManager.presets);
                 }
 

@@ -283,12 +283,15 @@ a.heading-link-xxl:hover {
 
 .post-arrow {
     display: none;
+    visibility: hidden;
     position: fixed;
     top: 50%;
     left: 30px;
     height: 154px;
     margin-top: -77px;
     z-index: 100;
+    .opacity(0);
+    .transition(all 0.5s ease);
     
     .i-photo-arrow {.opacity(0.4);}
     &:hover .i-photo-arrow {
@@ -374,8 +377,17 @@ a.heading-link-xxl:hover {
         right: -315px;
     }
 
+    @media (min-width: @screen-desktop) {
+        & {
+            display: block;
+        }
+    }
+
     @media screen and (min-width: 1230px) {
-        & {display: block;}
+        &.visible {
+            visibility: visible;
+            .opacity(1);
+        }
     }
 }
 

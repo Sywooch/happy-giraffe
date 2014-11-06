@@ -5,3 +5,4 @@ define('photo/baseUrlCreator', ['photo-config'], function (photoConfig) {
     }
     return '';
 });
+ko_gallery.js

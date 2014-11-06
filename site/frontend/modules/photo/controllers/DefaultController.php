@@ -75,6 +75,9 @@ class DefaultController extends PhotoController
         if ($attach === null) {
             throw new \CHttpException(404);
         }
+        $currentIndex = $collection->observer->getIndexByAttachId($attach->id);
+        $nextAttach = $collection->observer->getSingle($currentIndex + 1);
+        $prevAttach = $collection->observer->getSingle($currentIndex - 1);
         $this->render('single', compact('attach', 'userId', 'album'));
     }
 

@@ -30,6 +30,9 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         'PhotoAlbum' => array(
             'default' => 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection',
         ),
+        'CommunityContent' => array(
+            'default' => 'site\frontend\modules\photo\models\collections\CommunityContentPhotoCollection',
+        ),
     );
 
 	/**
@@ -119,9 +122,17 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             ),
             'RelatedModelBehavior' => array(
                 'class' => 'site.common.behaviors.RelatedEntityBehavior',
-                'possibleRelations' => array('PhotoAlbum' => '\site\frontend\modules\photo\models\PhotoAlbum'),
+                'possibleRelations' => array(
+                    'PhotoAlbum' => '\site\frontend\modules\photo\models\PhotoAlbum',
+                    'CommunityContent' => '\CommunityContent',
+                ),
             ),
         );
+    }
+
+    public function getAttachUrl(PhotoAttach $attach)
+    {
+        return $this->RelatedModelBehavior->relatedModel->getUrl() . 'photo' . $attach->photo_id . '/';
     }
 
     public function setCover(PhotoAttach $attach)

@@ -672,5 +672,11 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
             echo $post->id . '- ' . time() . "\n";
         }
     }
+
+    public function actionConvertPost($id)
+    {
+        $post = CommunityContent::model()->findByPk($id);
+        $post->convertToNewPost();
+    }
 }
 

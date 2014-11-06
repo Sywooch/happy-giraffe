@@ -12,7 +12,6 @@ use site\frontend\modules\posts\models\Content;
  */
 class PostController extends \LiteController
 {
-
     public $litePackage = 'posts';
     public $layout = '/layouts/newBlogPost';
     public $post = null;
@@ -61,6 +60,28 @@ class PostController extends \LiteController
         return $this->_rightPost;
     }
 
+    public function actionSinglePhoto($user_id, $content_id, $photo_id)
+    {
+        $oldPhoto = \AlbumPhoto::model()->with('newPhoto')->findByPk($photo_id);
+        if ($oldPhoto === null || $oldPhoto->newPhoto === null) {
+            throw new \CHttpException(404);
+        }
+
+        $post = \CommunityContent::model()->with('author')->findByPk($content_id);
+        if ($post === null || $post->author_id != $user_id) {
+            throw new \CHttpException(404);
+        }
+
+
+        $this->breadcrumbs = array(
+            $this->widget('Avatar', array('user' => $post->author, 'size' => \Avatar::SIZE_MICRO, 'tag' => 'span'), true) => array(),
+            'Блог' => array('/posts/list/index', 'user_id' => $user_id),
+            $post->title => $post->getUrl(),
+        );
+
+        $collection = $post->getPhotoCollection();
+        \site\frontend\modules\photo\components\SinglePhotoRenderer::render($collection, $oldPhoto->newPhoto);
+    }
 }
 
 ?>

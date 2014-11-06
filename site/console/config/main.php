@@ -4,6 +4,7 @@ date_default_timezone_set('Europe/Moscow');
 return array(
     'id' => 'happy-giraffe',
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
+    'homeUrl' => 'http://www.happy-giraffe.ru',
     'name' => 'My Console Application',
     'sourceLanguage' => 'en',
     'language' => 'ru',

@@ -30,6 +30,9 @@ class ConvertCommand extends \CConsoleCommand
         $client = \Yii::app()->gearman->client();
         $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         $entity = get_class($oldPost);
+        if($entity == 'BlogContent') {
+            $entity = 'CommunityContent';
+        }
         $id = $oldPost->id;
         $types = array(
             \CommunityContent::TYPE_POST => 'post',

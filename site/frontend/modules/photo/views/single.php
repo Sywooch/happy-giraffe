@@ -1,17 +1,12 @@
 <?php
 /**
- * @var PhotoController $this
+ * @var HController $this
  * @var site\frontend\modules\photo\models\PhotoAttach $attach
- * @var site\frontend\modules\photo\models\PhotoAlbum $album
- * @var int $userId
- * @var ClientScript $cs
+ * @var site\frontend\modules\photo\models\PhotoAttach $attachNext
+ * @var site\frontend\modules\photo\models\PhotoAttach $attachPrev
+ * @var site\frontend\modules\photo\models\PhotoCollection $collection
  */
 $photo = $attach->photo;
-$this->breadcrumbs += array(
-    'Фото' => array('/photo/default/index', 'userId' => $userId),
-    $album->title => $album->getUrl(),
-    $attach->getTitle(),
-);
 $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $photo));
 ?>
 
@@ -40,41 +35,28 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
 
 <div class="b-main_cont b-main_cont__wide">
     <!-- b-album-->
-    <photo-single params="userId: <?= $userId ?>, attach: <?= $attach->id ?>, album: <?= $album->id ?>"></photo-single>
-<!--    <section class="b-album b-album__photolink">-->
-<!--        <div class="b-album_img-hold"><a href="#" class="b-album_img-a">-->
-<!--                <div class="b-album_img-pad">-->
-<!--                    <!-- У изображений соотношения сторон сохраняются -->
-<!--                    <!-- 0,65 соотношение сторон-->
-<!--                </div>-->
-<!--                <picture class="b-album_img-picture">-->
-<!--                    <source srcset="/lite/images/example/photoalbum/2-960.jpg 1x, /lite/images/example/photoalbum/1-1920.jpg 2x" media="(min-width: 640px)"><img src="/lite/images/example/photoalbum/1-1280.jpg" alt="Фото" class="b-album_img-big">-->
-<!--                </picture></a>-->
-<!--            <div class="b-album_img-hold-ovr">-->
-<!--                <div class="ico-zoom ico-zoom__abs"></div>-->
-<!--            </div>-->
-<!--            <!-- Стрелки показывать скрывать по тапу (касанию пальца)--><a href="#" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a><a href="#" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
-<!--        </div>-->
-<!--        <div class="b-album_overlay"><a class="b-album_r">-->
-<!--                <div class="b-album_tx">Смотреть  <br> все фото &nbsp;-->
-<!--                </div>-->
-<!--                <div class="b-album_ico-album"></div>-->
-<!--                <div class="b-album_arrow-all"></div></a>-->
-<!--            <ul class="b-album_prev clearfix visible-md-block">-->
-<!--                <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
-<!--                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">-->
-<!--                        <div class="b-album_prev-hold"></div></a></li>-->
-<!--                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w46-h70-1.jpg" alt="" class="b-album_prev-img">-->
-<!--                        <div class="b-album_prev-hold"></div></a></li>-->
-<!--                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">-->
-<!--                        <div class="b-album_prev-hold"></div></a></li>-->
-<!--                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-1.jpg" alt="" class="b-album_prev-img">-->
-<!--                        <div class="b-album_prev-hold"></div></a></li>-->
-<!--                <li class="b-album_prev-li"><a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img">-->
-<!--                        <div class="b-album_prev-hold"></div></a></li>-->
-<!--            </ul>-->
-<!--        </div>-->
-<!--    </section>-->
+    <section class="b-album b-album__photolink">
+        <div class="b-album_img-hold">
+            <div class="b-album_img-a">
+                <div class="verticalalign-m-help"></div>
+                <div class="verticalalign-m-el">
+                    <?=CHtml::image(Yii::app()->thumbs->getThumb($photo, 'myPhotosAlbumCover')->getUrl(), $attach->title)?>
+                </div>
+            </div>
+
+            <div class="b-album_img-hold-ovr">
+                <div class="ico-zoom ico-zoom__abs"></div>
+            </div>
+
+            <?php if ($prev = $collection->observer->getPrev($attach->id)): ?>
+                <a href="<?=$prev->getUrl()?>" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a>
+            <?php endif; ?>
+
+            <?php if ($next = $collection->observer->getNext($attach->id)): ?>
+                <a href="<?=$next->getUrl()?>" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
+            <?php endif; ?>
+        </div>
+    </section>
 </div>
 
 <div class="b-main_cont">

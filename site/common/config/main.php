@@ -54,7 +54,7 @@ return array(
                 ),
                 'albumList' => array(
                     'filter' => 'lepilla',
-                    'width' => 280,
+                    'width' => 270,
                     'height' => 380,
                 ),
                 'uploadAlbumCover' => array(

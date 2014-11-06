@@ -95,7 +95,7 @@
             <div class="article-also_row">
                 <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
                 <div class="like-control like-control__small">
-                    <div class="like-control_hold like-control_hold__comment"><a href="#" title="Комментировать" onclick="openLoginPopup(event); return false;" class="like-control_i powertip">
+                    <div class="like-control_hold like-control_hold__comment"><a href="<?= $data->commentsUrl ?>" title="Комментировать" class="like-control_i powertip">
                             <div href="#" class="ico-action-hg ico-action-hg__comment"> </div>
                             <div class="like-control_tx">&nbsp;</div></a></div>
                     <div class="like-control_hold visible-md-inline-block"><a href="#" title="Нравится" onclick="openLoginPopup(event); return false;" class="like-control_i powertip">

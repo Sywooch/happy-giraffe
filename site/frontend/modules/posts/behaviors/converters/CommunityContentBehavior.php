@@ -117,7 +117,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldPost');
 
-        $newPost->html = $oldPost->post->text;
+        $newPost->html = $oldPost->post->purified->text;
         $newPost->text = $oldPost->post->text;
         $photo = $oldPost->post->photo;
 
@@ -135,16 +135,16 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost = null;
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldPhotoPost');
-
         $collection = \site\frontend\modules\photo\components\MigrateManager::syncPhotoPostCollection($oldPost);
         $count = $collection->attachesCount;
         $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
+        $url = $collection->observer->getSingle(0)->getUrl();
         $photoAlbumTag = \CHtml::tag('photo-collection', array(
                 'params' =>
                 'id: ' . (int) $collection->id . ', ' .
                 'attachCount: ' . (int) $count . ', ' .
                 'coverId: ' . $collection->cover->photo->id,
-                ), '<div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div>');
+                ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
 
         $newPost->html = $photoAlbumTag . $oldPost->photoPost->text;
         $newPost->text = $oldPost->photoPost->text;

@@ -55,7 +55,7 @@
                             </div>
                             <!-- ko if: userInstance.loading() === false -->
                             <div class="b-user-info b-user-info__middle float-l">
-                                <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" class="ava_img" data-bind="src: userInstance.avatarUrl()"></span>
+                                <!-- ava--><span href="#" class="" data-bind="css: { 'ava ava__middle ava__female': userInstance.gender() === 0, 'ava ava__middle ava__male': userInstance.gender() === 1 }"><img alt="" class="ava_img" data-bind="src: userInstance.avatarUrl()"></span>
                                 <div class="b-user-info_hold"><a href="" class="b-user-info_name" data-bind="href: userInstance.profileUrl(), text: userInstance.fullName"></a>
                                     <!-- ko if: collection.updated() !== undefined -->
                                     <div class="b-user-info_date" data-bind="moment: collection.updated()">16 июн 2013</div>

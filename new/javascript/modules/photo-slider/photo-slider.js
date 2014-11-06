@@ -25,6 +25,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             this.collection.getCollectionCount(this.collection.id());
         };
         this.initializeSlider = function initializeSlider() {
+            console.log(this.photoAttach);
             window.history.pushState(null, 'Фотоальбом', this.photoAttach.url());
             this.getUser();
             this.getCollection();

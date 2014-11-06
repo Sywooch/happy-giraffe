@@ -19,7 +19,7 @@
 
 namespace site\frontend\modules\photo\models;
 
-class PhotoAttach extends \HActiveRecord implements \IHToJSON
+class PhotoAttach extends \HActiveRecord implements \IHToJSON, \ILinkable
 {
 	/**
 	 * @return string the associated database table name
@@ -100,18 +100,9 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
         );
     }
 
-    public function getUrlInternal()
+    public function getUrl($absolute = false)
     {
         return $this->collection->getAttachUrl($this);
-    }
-
-    public function urlParams(PhotoAttach $model)
-    {
-        $album = $model->collection->RelatedModelBehavior->relatedModel;
-        $userId = $album->getAuthorId();
-        $albumId = $album->id;
-        $photoId = $model->photo_id;
-        return compact('userId', 'albumId', 'photoId');
     }
 
     public function defaultScope()

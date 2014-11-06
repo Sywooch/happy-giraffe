@@ -50,6 +50,7 @@
             if ($ul && $comment->id == $comment->root_id) {
                 echo CHtml::closeTag('ul');
                 echo CHtml::closeTag('li');
+                $ul = false;
             }
             if ($comment->id == $comment->root_id)
                 $color = $colors[(++$colorI) % $colorC];
@@ -73,6 +74,10 @@
             else {
                 echo CHtml::closeTag('li');
             }
+        }
+        if ($ul) {
+            echo CHtml::closeTag('ul');
+            echo CHtml::closeTag('li');
         }
         ?>
     </ul>

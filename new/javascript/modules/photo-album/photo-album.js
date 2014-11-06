@@ -9,8 +9,10 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.returnNewColor = Model.returnNewColor;
         this.photoAlbum.usablePreset = 'albumList';
         this.photoAlbum.pageCount = null;
+        this.currentPhoto = ko.observable();
         this.rightsForManipulation = Model.checkRights(params.userId);
         this.userId = params.userId;
+        this.opened = ko.observable(false);
         this.getPhotoAlbum = function getPhotoAlbum(passedData) {
             var album;
             if (passedData.success === true) {
@@ -67,6 +69,18 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         };
         this.restore = function () {
             this.photoAlbum.restore(this.restorePhotoAlbum.bind(this));
+        };
+        this.chooseCurrentPhotoAttach = function chooseCurrentPhotoAttach(photoAttach) {
+            this.currentPhoto(photoAttach);
+        };
+        this.openPhotoHandler = function openPhotoHandler(photoAttach) {
+            this.opened(true);
+            this.chooseCurrentPhotoAttach(photoAttach);
+            ko.applyBindings({}, $('photo-slider')[0]);
+        };
+        this.closePhotoHandler = function closePhotoHandler() {
+            ko.cleanNode({}, $('photo-slider')[0]);
+            this.opened(false);
         };
         this.loadPhotoComponent = function () {
             ko.applyBindings({}, $('photo-uploader-form')[0]);

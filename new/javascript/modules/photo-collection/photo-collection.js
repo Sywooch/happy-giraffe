@@ -5,7 +5,6 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
         this.photoCollection.pageCount = 5;
         this.photoCollection.usablePreset('myPhotosPreview');
         this.collectionCount = function collectionCount(count) {
-            console.log(count);
             if (count === undefined) {
                 this.photoCollection.getCollectionCount(params.id);
             } else {

@@ -78,7 +78,7 @@
             <!-- /ko -->
             <!-- ko if: loading() === false && broke() === false -->
                 <div class="img-grid_overlay">
-                    <span class="ico-zoom ico-zoom__abs"></span>
+                    <span class="ico-zoom ico-zoom__abs" data-bind="click: function () { $parent.openPhotoHandler($data); }"></span>
                     <!-- ko if: $parent.rightsForManipulation === true -->
                     <!--<div class="img-grid_ico-ava"></div>-->
                     <div data-bind="css: { 'active': isCover() === true || $parent.photoAlbum.photoCollection().cover().id() === id(),  'img-grid_ico-album': true }, click: function (data, event) { setCover($parent.photoAlbum.photoCollection().id(), data) }"></div>
@@ -124,3 +124,6 @@
     </div>
     <!-- /ko -->
 </div>
+<!-- ko if: opened() === true -->
+<photo-slider params="photo: currentPhoto(), collectionId: photoAlbum.photoCollection().id(), userId: userId"></photo-slider>
+<!-- /ko -->

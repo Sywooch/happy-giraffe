@@ -9,7 +9,7 @@
                 <div class="b-album_count-tx">фото</div>
             </div>
         </div>
-        <div href="#" class="b-album_img-hold" data-bind="attr: { 'style': 'height: ' + photoAlbum.photoCollection().cover().photo().presetHeight() + 'px;' }">
+        <div href="#" class="b-album_img-hold" data-bind="click: function () { openPhotoHandler(photoAlbum.photoCollection().cover()); }, attr: { 'style': 'height: ' + photoAlbum.photoCollection().cover().photo().presetHeight() + 'px;' }">
             <div class="b-album_img-a">
                 <div class="verticalalign-m-help"></div>
                 <div class="verticalalign-m-el">
@@ -32,7 +32,7 @@
                 <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 -->
                     <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
                     <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
-                        <a href="#" class="b-album_prev-a" data-bind="href: $parent.photoAlbum.url + $data.urlPart">
+                        <a href="#" class="b-album_prev-a" data-bind="href: $parent.photoAlbum.url + $data.urlPart, click: function () { $parent.openPhotoHandler($data); }">
                             <img src="" alt="" class="b-album_prev-img" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">
                             <div class="b-album_prev-hold"></div>
                         </a>
@@ -83,5 +83,5 @@
     </div>
 <!-- /ko -->
 <!-- ko if: opened() === true -->
-    <photo-slider></photo-slider>
+    <photo-slider params="photo: currentPhoto(), collectionId: photoAlbum.photoCollection().id(), userId: userId"></photo-slider>
 <!-- /ko -->

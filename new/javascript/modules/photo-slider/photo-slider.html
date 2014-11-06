@@ -1,12 +1,13 @@
 <div class="photo-window display-b">
-    <div class="photo-window_w"><a href="" class="photo-window_close"></a>
+    <div class="photo-window_w"><a href="" class="photo-window_close" data-bind="click: $parent.closePhotoHandler.bind($parent)"></a>
         <div class="photo-window_top">
-            <div class="photo-window_count">25 из 52</div>
+            <!-- ko if: collection.attachesCount() > 0 -->
+            <div class="photo-window_count" data-bind="text: '1 из ' + collection.attachesCount()"></div>
+            <!-- /ko -->
         </div>
-        <!--Обрабатывать клик на .photo-window_c для листания следующего изображения
-        -->
+        <!--Обрабатывать клик на .photo-window_c для листания следующего изображения -->
         <div class="photo-window_c">
-            <div class="photo-window_img-hold"><img src="/images/example/w960-h537-1.jpg" alt="" class="photo-window_img">
+            <div class="photo-window_img-hold"><img src="" data-bind="src: photoAttach().photo().getGeneratedPreset('sliderPhoto')" alt="" class="photo-window_img">
                 <div class="verticalalign-m-help"></div>
             </div>
             <a href="#photo-window-end" data-theme="white-simple" class="photo-window_arrow photo-window_arrow__l fancy"></a>
@@ -16,11 +17,11 @@
                     <div class="like-control_hold"><a href="#" class="like-control_i like-control_i__like powertip">
                         <div class="like-control_t">Мне нравится!</div>
                         <div class="ico-action-hg ico-action-hg__like"></div>
-                        <div class="like-control_tx">865</div></a></div>
+                        <div class="like-control_tx">0</div></a></div>
                     <div class="like-control_hold"><a href="#" class="like-control_i like-control_i__idea powertip">
                         <div class="like-control_t">В закладки</div>
                         <div class="ico-action-hg ico-action-hg__favorite"></div>
-                        <div class="like-control_tx">863455</div></a>
+                        <div class="like-control_tx">0</div></a>
                         <div class="favorites-add-popup favorites-add-popup__right display-n">
                             <div class="favorites-add-popup_t">Добавить запись в избранное</div>
                             <div class="favorites-add-popup_i clearfix"><img src="/images/example/w60-h40.jpg" alt="" class="favorites-add-popup_i-img">
@@ -51,39 +52,43 @@
                             <div class="icons-meta"><a href="" class="icons-meta_comment"><span class="icons-meta_tx">35</span></a>
                                 <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
                             </div>
+                            <!-- ko if: userInstance.loading() === false -->
                             <div class="b-user-info b-user-info__middle float-l">
-                                <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
-                                <div class="b-user-info_hold"><a href="" class="b-user-info_name">Ангелина Богоявленская</a>
-                                    <div class="b-user-info_date">16 июн 2013</div>
+                                <!-- ava--><span href="#" class="ava ava__middle ava__female"><img alt="" class="ava_img" data-bind="src: userInstance.avatarUrl()"></span>
+                                <div class="b-user-info_hold"><a href="" class="b-user-info_name" data-bind="href: userInstance.profileUrl(), text: userInstance.fullName"></a>
+                                    <!-- ko if: collection.updated() !== undefined -->
+                                    <div class="b-user-info_date" data-bind="moment: collection.updated()">16 июн 2013</div>
+                                    <!-- /ko -->
                                 </div>
                             </div>
+                            <!-- /ko -->
                         </div>
-                        <div class="photo-window_about">Фотопост <a href="">Места моих путешествий</a></div>
-                        <div class="photo-window_t">
-                            <input type="text" name="" placeholder="Введите название фото и нажмите Enter" class="itx-gray">
-                            <!--Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a>
-                            -->
-                        </div>
-                        <div class="photo-window_desc-hold">
-                            <div class="photo-window_desc clearfix">
-                                <p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.<a href="" class="ico-edit powertip"></a></p>
-                            </div>
-                        </div>
-                        <div class="comments-gray comments-gray__small">
-                            <div class="comments-gray_add active clearfix">
-                                <div class="comments-gray_ava">
-                                    <!-- ava--><span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>
-                                </div>
-                                <div class="comments-gray_frame">
-                                    <textarea name=" " cols="15" rows="2" placeholder="Введите ваш комментарий и нажмите Enter" class="itx-gray"></textarea>
-                                </div>
-                            </div>
-                            <div class="comments-gray_t"><span class="comments-gray_t-tx">Комментарии<span class="color-gray">(28)</span></span><a id="comments-show" href="" class="font-small">Показать </a>
-                                <!--<a href="" class="float-r font-small">Статистика (14)</a>
-                                -->
-                                <div class="comments-gray_sent display-b">Комментарий успешно отправлен.</div>
-                            </div>
-                        </div>
+                        <!--<div class="photo-window_about">Фотопост <a href="">Места моих путешествий</a></div>-->
+                        <!--<div class="photo-window_t">-->
+                            <!--<input type="text" name="" placeholder="Введите название фото и нажмите Enter" class="itx-gray">-->
+                            <!--&lt;!&ndash;Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a>-->
+                            <!--&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<div class="photo-window_desc-hold">-->
+                            <!--<div class="photo-window_desc clearfix">-->
+                                <!--<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.<a href="" class="ico-edit powertip"></a></p>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="comments-gray comments-gray__small">-->
+                            <!--<div class="comments-gray_add active clearfix">-->
+                                <!--<div class="comments-gray_ava">-->
+                                    <!--&lt;!&ndash; ava&ndash;&gt;<span href="#" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.ru/thumbs/200x200/167771/ava9a3e33bd8a5a29146175425a5281390d.jpg" class="ava_img"></span>-->
+                                <!--</div>-->
+                                <!--<div class="comments-gray_frame">-->
+                                    <!--<textarea name=" " cols="15" rows="2" placeholder="Введите ваш комментарий и нажмите Enter" class="itx-gray"></textarea>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--<div class="comments-gray_t"><span class="comments-gray_t-tx">Комментарии<span class="color-gray">(28)</span></span><a id="comments-show" href="" class="font-small">Показать </a>-->
+                                <!--&lt;!&ndash;<a href="" class="float-r font-small">Статистика (14)</a>-->
+                                <!--&ndash;&gt;-->
+                                <!--<div class="comments-gray_sent display-b">Комментарий успешно отправлен.</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     </div>
                 </div>
                 <div class="scroll_bar-hold">

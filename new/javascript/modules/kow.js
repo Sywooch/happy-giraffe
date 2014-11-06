@@ -25,9 +25,6 @@ define(["jquery", "knockout"], function ($, ko) {
         ko.applyBindings({}, $(this)[0]);
     });
     ko.components.register('photo-slider', { require: 'photo-slider/photo-slider' });
-    $('photo-slider').each(function componentIterator() {
-        ko.applyBindings({}, $(this)[0]);
-    });
     ko.components.register('photo-collection', { require: 'photo-collection/photo-collection' });
     $('photo-collection').each(function componentIterator() {
         ko.applyBindings({}, $(this)[0]);

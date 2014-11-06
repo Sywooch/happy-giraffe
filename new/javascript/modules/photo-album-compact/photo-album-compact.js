@@ -2,6 +2,7 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
     function PhotoAlbumCompact(params) {
         this.photoAlbum = Object.create(PhotoAlbum);
         this.photoAlbum.pageCount = 5;
+        this.currentPhoto = ko.observable();
         this.photoAlbum.usablePreset = 'myPhotosPreview';
         this.colorsArray = ['purple', 'yellow', 'carrot', 'green', 'blue'];
         this.elementCssClass = 'b-album_prev-li img-grid_loading__';
@@ -17,13 +18,21 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
             this.photoAlbum.delete();
             this.removed(true);
         };
+        this.chooseCurrentPhotoAttach = function chooseCurrentPhotoAttach(photoAttach) {
+            this.currentPhoto(photoAttach);
+        };
         this.restore = function restore() {
             this.photoAlbum.restore();
             this.removed(false);
         };
-        this.openPhotoHandler = function openPhotoHandler() {
+        this.openPhotoHandler = function openPhotoHandler(photoAttach) {
             this.opened(true);
+            this.chooseCurrentPhotoAttach(photoAttach);
             ko.applyBindings({}, $('photo-slider')[0]);
+        };
+        this.closePhotoHandler = function closePhotoHandler() {
+            ko.cleanNode({}, $('photo-slider')[0]);
+            this.opened(false);
         };
         this.openPhoto = function openPhoto() {
             return customReturner('photo-slider');

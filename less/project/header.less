@@ -145,7 +145,7 @@
 
 .layout-header {
    position:relative;
-   z-index: 5;
+   z-index: 10;
    
     &__nologin {}
     &__nologin &_scrolltop {
@@ -239,7 +239,9 @@
                 header_user-name
             header_i-arrow
 */
-.header {
+.header {    
+    position: relative;
+    z-index: 10;
     margin: 0 0 20px;
     background:#fff url(/new/images/header.png) repeat-x 0 0;
     

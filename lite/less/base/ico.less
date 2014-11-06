@@ -66,10 +66,15 @@
 // /ico-base спрайт
 ////////////////////////////
 
-.ico-social-hold {
+.ico-social-hold, // -hold стараться не использовать
+.ico-social-ul {
     .inline-block();
     vertical-align: middle;
     margin: 4px;
+
+    &_li {
+        display: inline-block;
+    }
 }
 .ico-social {
     .inline-block();

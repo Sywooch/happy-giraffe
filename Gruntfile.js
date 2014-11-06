@@ -92,7 +92,7 @@ module.exports = function(grunt){
           ext: ".html"
         }],
         options: {
-          pretty: true,
+          pretty: false,
           client: false,
           cache: true,
           nospawn : true,
@@ -203,6 +203,7 @@ module.exports = function(grunt){
     },
 
     // неиспользуемые стили
+    // Ломается на fonts.googleapis.com
     uncss: {
       new: {
         options: {
@@ -384,6 +385,32 @@ module.exports = function(grunt){
           '!lite/html/page/comments/comments-page.html',
         ],
         dest: 'lite/css/min/member-user.css'
+      },
+      // Домашняя страница
+      'lite_homepage': {
+        options: {
+          ignoreSheets : [/fonts.googleapis/],
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            /#ctrlcopy+/,
+            /.mfp+/,
+            /.select2+/,
+            /@font-face+/,
+
+          ],
+           
+        },
+        src: [
+          'lite/html/page/homepage/**/*.html', 
+          'lite/html/page/sign/**/*.html', 
+          // 'lite/html/page/member/**/*.html', 
+
+        ],
+        dest: 'lite/css/min/homepage.css'
       },
     },
     // Объеденяем медиа запросы в css
@@ -822,13 +849,13 @@ module.exports = function(grunt){
   });
 
   //grunt.registerTask('bild', ['css:new', 'css:lite'/*, 'jade'*/]);
-  grunt.registerTask('new-css', ['jade:new', 'less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
+  grunt.registerTask('new-css', [/*'jade:new',*/ 'less:newestdev', /*'uncss:new', 'cmq:new',*/ 'cssmin:new', 'csso:new']);
 
   // lite tasks
   // bild lite версии
-  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services','uncss:services_user', 'uncss:member', 'uncss:member_user','cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user', 'uncss:member', 'uncss:member_user', 'uncss:lite_homepage',  'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 
-  grunt.registerTask('lite-css', [/*'jade:lite_prod',*/ 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user','uncss:member', 'uncss:member_user', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('lite-css', [/*'jade:lite_prod',*/ 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user','uncss:member', 'uncss:member_user', 'uncss:lite_homepage', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // Блоги
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // сервисы

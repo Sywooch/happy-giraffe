@@ -11,6 +11,14 @@ namespace site\frontend\modules\posts\behaviors\converters;
 class CommunityContentBehavior extends \CActiveRecordBehavior
 {
 
+    public function events()
+    {
+        return array_merge(parent::events(), array(
+			'onAfterSoftDelete'=>'afterSoftDelete',
+			'onAfterSoftRestore'=>'afterSoftRestore',
+		));
+    }
+
     public function convertToNewPost()
     {
         if ($this->owner->type_id == \CommunityContent::TYPE_POST)
@@ -28,7 +36,17 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         parent::afterSave($event);
         $this->addTaskToConvert();
     }
-
+    
+    public function afterSoftDelete($event)
+    {
+        $this->addTaskToConvert();
+    }
+    
+    public function afterSoftRestore($event)
+    {
+        $this->addTaskToConvert();
+    }
+    
     public function addTaskToConvert()
     {
         if (!\site\frontend\modules\posts\commands\ConvertCommand::addConvertTask($this->owner))
@@ -56,7 +74,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
                 $tags[] = 'Секция: ' . $oldPost->rubric->community->club->section->title;
         }
 
-        $newPost = \site\frontend\modules\posts\models\Content::model()->findByAttributes(array(
+        $newPost = \site\frontend\modules\posts\models\Content::model()->resetScope()->findByAttributes(array(
             'originService' => $service,
             'originEntity' => $entity,
             'originEntityId' => $id,

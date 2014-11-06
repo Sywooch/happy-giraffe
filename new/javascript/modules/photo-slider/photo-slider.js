@@ -23,9 +23,9 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         };
         this.getCollection = function getCollection() {
             this.collection.getCollectionCount(this.collection.id());
-            console.log(this.collection);
         };
         this.initializeSlider = function initializeSlider() {
+            window.history.pushState(null, 'Фотоальбом', this.photoAttach.url());
             this.getUser();
             this.getCollection();
         };

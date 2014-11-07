@@ -11,7 +11,10 @@
     }
     .comments {margin-bottom: 0;}
 
-    &__list &_in .wysiwyg-content p:hover {
+    &__list .wysiwyg-content p:hover .ico-more{
+        &:extend(.ico-more:hover);
+    }
+    &__list .wysiwyg-content p:hover {
         color: @color-gray;
         cursor: pointer;
     }
@@ -23,12 +26,11 @@
     }
     &_in-img {
         position: relative;
-        margin: 5px 0 10px;
+        margin: 8px 0;
     }
     &_in-img:hover &_in-img-overlay {display: block;}
     &_in-img img {
         display: block;
-        margin: 0;
     }
     &_in-img iframe {max-width:100%;}
 
@@ -64,7 +66,10 @@
 
     @media (min-width: @screen-phone) {
         
-        &_header .tx-date {display: inline-block;}
+        &_header .tx-date {
+            display: inline-block;
+            margin-left: 4px;
+        }
     }
 
     @media (min-width: @screen-tablet) {
@@ -81,11 +86,18 @@
     }
 
     @media (min-width: @screen-desktop) {
-        & {margin: 20px 0 30px;}
+        & {
+            margin: 20px 0 20px;
+            padding: 15px 0 0;
+        }
+        & .adv-yandex {
+            margin: 30px 0 0;
+        }
         &__list {
-            border: 1px solid #fafafa;
+            border: 1px solid #f0f0f0;
             padding: 14px;
         }
+        &__list:hover {border-color: #e4e4e4;}
         &__list &_in-img {
             margin: 5px -54px 10px -14px;
         }
@@ -105,6 +117,7 @@
         &__list .user-status {
             margin-bottom: 10px;
         }
+        
     }
 }
 /* /b-article */
@@ -250,15 +263,16 @@
     &__small &_hold:last-child {
         padding-left: 0;
     }
+    &__small &_hold__comment {
+        background: none;
+        padding-left: 0;
+    }
 
     &_hold {
         position: relative;
         display: inline-block;
         background-color: #fae141;
         margin: 0 -2px;
-    }
-    &_hold__comment {
-        background: none;
     }
     &_i {
         .inline-block();
@@ -303,7 +317,7 @@
 /* icons-meta */
 .icons-meta {
     float: right;
-    margin: 3px 0 3px 10px;
+    margin: 0 0 0 10px;
     font-size: 11px;
     color: #737575;
 
@@ -442,7 +456,7 @@
 .article-nearby {
     position: relative;
     width: 100%;
-    margin: 20px 0;
+    margin: 20px 0 40px;
 
     &_hint {
         color: @color-gray-dark;

@@ -14,9 +14,9 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     public function events()
     {
         return array_merge(parent::events(), array(
-			'onAfterSoftDelete'=>'afterSoftDelete',
-			'onAfterSoftRestore'=>'afterSoftRestore',
-		));
+            'onAfterSoftDelete' => 'afterSoftDelete',
+            'onAfterSoftRestore' => 'afterSoftRestore',
+        ));
     }
 
     public function convertToNewPost()
@@ -36,17 +36,17 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         parent::afterSave($event);
         $this->addTaskToConvert();
     }
-    
+
     public function afterSoftDelete($event)
     {
         $this->addTaskToConvert();
     }
-    
+
     public function afterSoftRestore($event)
     {
         $this->addTaskToConvert();
     }
-    
+
     public function addTaskToConvert()
     {
         if (!\site\frontend\modules\posts\commands\ConvertCommand::addConvertTask($this->owner))
@@ -121,9 +121,11 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $oldPost->post->purified->clearCache();
         $newPost->html = $oldPost->post->purified->text;
         $newPost->text = $oldPost->post->text;
+        $clearText = $newPost->fillText();
+        $newPost->isNoindex = $newPost->isNoindex ? true : \site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
         $photo = $oldPost->post->photo;
 
-        $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($newPost->fillText(), 200, ' <span class="ico-more"></span>') . '</p>';
+        $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <span class="ico-more"></span>') . '</p>';
         if ($photo) {
             $newPost->preview = '<div class="b-article_in-img">' . $photo->getPreviewHtml(600, 1100) . '</div>' . $newPost->preview;
             $newPost->socialObject->imageUrl = $photo->getPreviewUrl(200, 200);
@@ -152,6 +154,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->text = $oldPost->photoPost->text;
         $newPost->preview = $photoAlbumTag . $oldPost->preview . '<p>' . \site\common\helpers\HStr::truncate($newPost->fillText(), 200, ' <span class="ico-more"></span>') . '</p>';
         $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
+        $newPost->isNoindex = false;
 
         $newPost->save();
     }
@@ -165,6 +168,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->html = $this->render('site.frontend.modules.posts.behaviors.converters.views.video', array('content' => $oldPost, 'text' => $oldPost->video->text));
         $newPost->text = strip_tags($oldPost->video->text);
         $newPost->preview = $this->render('site.frontend.modules.posts.behaviors.converters.views.video', array('content' => $oldPost, 'text' => '<p>' . \site\common\helpers\HStr::truncate($newPost->text, 200, ' <span class="ico-more"></span>') . '</p>'));
+        $newPost->isNoindex = false;
 
         $newPost->save();
     }

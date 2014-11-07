@@ -56,6 +56,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     protected function convertCommon(&$oldPost, &$newPost, $scenario)
     {
         $oldPost = $this->owner;
+        $oldPost->purified->clearCache();
         $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         $entity = get_class($oldPost);
         $id = $oldPost->id;
@@ -117,6 +118,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $oldPost = null;
         $this->convertCommon($oldPost, $newPost, 'oldPost');
 
+        $oldPost->post->purified->clearCache();
         $newPost->html = $oldPost->post->purified->text;
         $newPost->text = $oldPost->post->text;
         $photo = $oldPost->post->photo;

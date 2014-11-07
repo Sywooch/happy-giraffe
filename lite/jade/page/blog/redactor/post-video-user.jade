@@ -8,7 +8,6 @@ block layout
   
     // b-main 
     .b-main.clearfix
-        +postArrow('')
         
         .b-main_cont
             .b-crumbs.b-crumbs__s
@@ -24,7 +23,7 @@ block layout
                 ///////
                 // Основная колонка
                 .b-main_col-article
-                    +bArticle-single('b-article__lite')
+                    +article-markdown('', articleMarkdown.a)
 
                     table.article-nearby.clearfix
                         tr

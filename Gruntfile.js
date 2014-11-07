@@ -691,6 +691,22 @@ module.exports = function(grunt){
                 unit: 100
             }
         },
+        'markdown-day': {
+            options: {
+                spriteElementPath: "lite/images/sprite/markdown-day",
+                spritePath: "lite/images/sprite/markdown-day.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                // refSize: 100,
+                unit: 100
+            }
+        },
         // 'cook-choose': {
                 //refSize: 75, 
                 // sizes: {

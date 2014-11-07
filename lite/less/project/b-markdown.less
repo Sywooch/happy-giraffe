@@ -20,7 +20,10 @@
             }
         }
     }
-    h2:first-child {margin-top: 0;}
+    h2:first-child {
+        margin-top: 0;
+        margin-bottom: 40px;
+    }
 
     .b-article_in-img {
         margin-top: 30px;
@@ -30,7 +33,7 @@
         margin-top: 30px;
         margin-bottom: 15px;
     }*/
-    &_img-hold:hover &_img-water {color: @color-orange;}
+    /*&_img-hold:hover &_img-water {color: @color-orange;}*/
     &_img-water {
         position: absolute;
         bottom: 0;
@@ -46,7 +49,7 @@
     @media (min-width: @screen-tablet) {
         
         & &_img-hold {
-            margin-top: 50px;
+            margin-top: 40px;
         }
     }
 }
@@ -60,3 +63,78 @@ add in old css
 
 
 */
+
+/* .markdown-compare */
+.markdown-compare {
+    margin: 20px 0;
+    padding: 15px 20px;
+
+    h3:first-child {
+        margin-top: 0;
+    }
+    &__l {
+        margin-right: 15px;
+        background-color: #ffe1cd;
+    }
+    &__r {
+        margin-left: 15px;
+        background-color: #dcf1fd;
+    }
+    &_img-hold {
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    @media (min-width: @screen-phone-landscape) {
+        &__l {
+            margin-right: 65px;
+        }
+        &__r {
+            margin-left: 65px;
+            margin-right: -40px;
+        }
+    }
+}
+/* /markdown-compare */
+
+/* .markdown-day */
+.markdown-day {
+    padding: 20px;
+
+    &__1 {
+        background-color: #a6deff;
+    }
+    &__2 {
+        background-color: #ffcc84;
+    }
+    &__3 {
+        background-color: #d5b6e8;
+    }
+    
+    &_t {
+        position: relative;
+        margin: 0 0 15px;
+        padding: 15px 20px 12px 85px;
+        font-size: 35px;
+        line-height: 35px;
+        font-weight: bold;
+        color: @color-base;
+    }
+    &_t:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    &_img-hold {
+        margin: 10px 0;
+        text-align: center;
+    }
+
+    @media (min-width: @screen-desktop) {
+        & {
+            margin-right: -40px;
+        }
+    }
+}
+/* markdown-day */

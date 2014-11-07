@@ -19,8 +19,8 @@ class Child extends FamilyMemberAbstract
             array('gender', 'in', 'range' => array(self::GENDER_MALE, self::GENDER_FEMALE), 'allowEmpty' => false),
             array('birthday', 'date', 'format' => 'yyyy-M-d', 'allowEmpty' => false),
             array('birthday', 'validateBirthday'),
-            array('name', 'length', 'max' => 100),
-            array('description', 'length', 'max' => 500),
+            array('name', 'length', 'max' => 50),
+            array('description', 'length', 'max' => 1000),
         ));
     }
 

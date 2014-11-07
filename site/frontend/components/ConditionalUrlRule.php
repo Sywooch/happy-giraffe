@@ -17,6 +17,10 @@ class ConditionalUrlRule extends CBaseUrlRule
 
     public function createUrl($manager, $route, $params, $ampersand)
     {
+        if ($route == 'posts/list/index') {
+            die('123');
+        }
+
         if ($route !== $this->trueRoute && $route !== $this->falseRoute) {
             return false;
         }

@@ -23,6 +23,7 @@ class SinglePhotoRenderer
         \Yii::app()->controller->breadcrumbs += array(
             $attach->title,
         );
+        \Yii::app()->controller->pageTitle = $attach->title;
 
         $attachNext = $collection->observer->getNext($attach->id);
         $attachPrev = $collection->observer->getPrev($attach->id);

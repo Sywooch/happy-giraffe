@@ -40,6 +40,14 @@ class UniquenessChecker extends \CComponent
         ));
     }
 
+    /**
+     * Метод, проверяющий, стоит ли проверять уникальность через сервис
+     * Проверяет длину и наличие пользователя в списке исключений
+     * 
+     * @param type $author
+     * @param type $text
+     * @return bool true - если требуется проверка, иначе - false
+     */
     public static function checkBeforeTest($author, $text)
     {
         return !self::checkNoindexByUser($author) && strlen($text) > 250;

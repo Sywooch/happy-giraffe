@@ -12,10 +12,13 @@ class PregnancyChild extends WaitingChild
     const GENDER_TWINS = 2;
     const PREGNANCY_MONTHS = 9;
 
+    public $type = 'waiting';
+
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
             array('gender', 'in', 'range' => array(self::GENDER_FEMALE, self::GENDER_MALE, self::GENDER_TWINS)),
+            array('birthday', 'date', 'format' => 'yyyy-M-d', 'allowEmpty' => false),
             array('birthday', 'validateBirthday'),
         ));
     }
@@ -46,5 +49,10 @@ class PregnancyChild extends WaitingChild
             default:
                 return 'Ждем ребенка';
         }
+    }
+
+    protected function isPublic()
+    {
+        return time() > strtotime($this->birthday);
     }
 } 

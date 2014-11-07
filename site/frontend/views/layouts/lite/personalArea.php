@@ -35,7 +35,7 @@ $this->beginContent('//layouts/lite/common');
                 ),
                 array(
                     'label' => '<div class="user-menu_ico user-menu_ico__blog"></div><div class="user-menu_tx">Блог</div>',
-                    'url' => array('/posts/list/index', 'user_id' => Yii::app()->user->id),
+                    'url' => array('/blog/default/index', 'user_id' => Yii::app()->user->id),
                     'linkOptions' => array('class' => 'user-menu_i'),
                     'active' => Yii::app()->controller->module !== null && in_array(Yii::app()->controller->module->id, array('posts', 'blog')),
                 ),

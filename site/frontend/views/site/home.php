@@ -22,6 +22,7 @@
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>
 <body class="body body__lite  body__bg2 body__homepage <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>  ">
+  <?php Yii::app()->ads->showCounters(); ?>
   <div class="layout-container homepage">
     <div class="layout-loose layout-loose__white">
       <div class="layout-header">

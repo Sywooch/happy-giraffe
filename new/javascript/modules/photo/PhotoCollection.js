@@ -94,7 +94,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 .get(this.getNotSortedAttaches, { userId: userId })
                 .done(this.getNotSortedAttachesHandler.bind(this));
         };
-        this.loadImagesAlg = function loadImagesAlg(instance, image) {baseUrlCreator
+        this.loadImagesAlg = function loadImagesAlg(instance, image) {
             var attach = Model.findByIdObservable(parseInt(image.img.dataset.id), this.attaches()),
                 result;
             if (attach.loading !== undefined) {

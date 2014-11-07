@@ -10,7 +10,7 @@ namespace site\frontend\modules\posts\commands;
 class FillQueue extends \CConsoleCommand
 {
 
-    public function actionIndex($author = null, $type = null)
+    public function actionIndex($author = null, $type = null, $all = false)
     {
         $criteria = new \CDbCriteria();
         $criteria->order = 'created desc';
@@ -22,6 +22,11 @@ class FillQueue extends \CConsoleCommand
         if ($type) {
             $criteria->addColumnCondition(array(
                 'type_id' => (int) $type,
+            ));
+        }
+        if (!$all) {
+            $criteria->addColumnCondition(array(
+                'removed' => 0,
             ));
         }
 

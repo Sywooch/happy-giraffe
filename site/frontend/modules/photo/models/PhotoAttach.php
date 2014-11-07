@@ -19,7 +19,7 @@
 
 namespace site\frontend\modules\photo\models;
 
-class PhotoAttach extends \HActiveRecord implements \IHToJSON, \ILinkable
+class PhotoAttach extends \HActiveRecord implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name
@@ -95,14 +95,9 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON, \ILinkable
             /** @todo урлы могут различаться в зависимости от коллекции - добавить полиморфизм аттачей */
             'UrlBehavior' => array(
                 'class' => 'site\common\behaviors\UrlBehavior',
-                'preparedUrl' => array($this, 'getUrlInternal'),
+                'preparedUrl' => array($this->collection, 'getAttachUrl'),
             ),
         );
-    }
-
-    public function getUrl($absolute = false)
-    {
-        return $this->collection->getAttachUrl($this);
     }
 
     public function defaultScope()

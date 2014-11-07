@@ -9,8 +9,9 @@ namespace site\frontend\modules\photo\controllers;
 
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAttach;
+use site\frontend\modules\photo\models\PhotoCollection;
 
-class SinglePhotoController extends \HController
+class SinglePhotoController extends \LiteController
 {
     public function actionPhotoPost($user_id, $content_id, $photo_id)
     {
@@ -24,30 +25,19 @@ class SinglePhotoController extends \HController
             throw new \CHttpException(404);
         }
 
-        $this->breadcrumbs = array(
-            $this->widget('Avatar', array('user' => $post->author, 'size' => \Avatar::SIZE_MICRO, 'tag' => 'span'), true) => array(),
-            'Блог' => array('/posts/list/index', 'user_id' => $user_id),
-            $post->title => $post->getUrl(),
-        );
-
         $collection = $post->getPhotoCollection();
         $this->renderSinglePhoto($collection, $oldPhoto->newPhoto);
     }
 
-    protected function renderSinglePhoto(\PhotoCollection $collection, Photo $photo)
+    protected function renderSinglePhoto(PhotoCollection $collection, Photo $photo)
     {
-        $attach = PhotoAttach::model()->collection($collection->id)->photo($photo->id)->with('photo')->find();
+        $attach = PhotoAttach::model()->collection($collection->id)->photo($photo->id)->with('photo', 'photo.author')->find();
         if ($attach === null) {
             throw new \CHttpException(404);
         }
 
-        \Yii::app()->controller->breadcrumbs += array(
-            $attach->title,
-        );
-        \Yii::app()->controller->pageTitle = $attach->title;
-
         $attachNext = $collection->observer->getNext($attach->id);
         $attachPrev = $collection->observer->getPrev($attach->id);
-        \Yii::app()->controller->render('photo.views.single', compact('collection', 'attach', 'attachPrev', 'attachNext'));
+        \Yii::app()->controller->render('index', compact('collection', 'attach', 'attachPrev', 'attachNext'));
     }
 } 

@@ -28,10 +28,8 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         this.openPhotoHandler = function openPhotoHandler(photoAttach) {
             this.opened(true);
             this.chooseCurrentPhotoAttach(photoAttach);
-            ko.applyBindings({}, $('photo-slider')[0]);
         };
         this.closePhotoHandler = function closePhotoHandler() {
-            ko.cleanNode({}, $('photo-slider')[0]);
             this.opened(false);
         };
         this.openPhoto = function openPhoto() {

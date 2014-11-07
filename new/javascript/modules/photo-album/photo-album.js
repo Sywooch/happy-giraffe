@@ -76,10 +76,8 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.openPhotoHandler = function openPhotoHandler(photoAttach) {
             this.opened(true);
             this.chooseCurrentPhotoAttach(photoAttach);
-            ko.applyBindings({}, $('photo-slider')[0]);
         };
         this.closePhotoHandler = function closePhotoHandler() {
-            ko.cleanNode({}, $('photo-slider')[0]);
             this.opened(false);
         };
         this.loadPhotoComponent = function () {

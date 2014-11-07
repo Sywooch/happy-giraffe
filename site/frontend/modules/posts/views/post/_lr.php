@@ -1,6 +1,7 @@
 <?php
 if ($left)
 {
+    $this->metaNavigation->prev = $left->parsedUrl;
     ?>
     <a href="<?= $left->parsedUrl ?>" class="post-arrow post-arrow__l" rel="prev">
         <div class="i-photo-arrow"></div>
@@ -18,6 +19,7 @@ if ($left)
 }
 if ($right)
 {
+    $this->metaNavigation->next = $right->parsedUrl;
     ?>
     <a href="<?= $right->parsedUrl ?>" class="post-arrow post-arrow__r" rel="next">
         <div class="i-photo-arrow"></div>

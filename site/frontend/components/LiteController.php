@@ -19,6 +19,7 @@ class LiteController extends HController
     protected $_metaNavigation = null;
     public $layout = '//layouts/lite/main';
     public $litePackage = false;
+    public $metaNoindex = false;
 
     public function init()
     {
@@ -136,7 +137,10 @@ class LiteController extends HController
 
         if ($this->_metaNavigation)
             $this->_metaNavigation->render();
-
+        
+        if($this->metaNoindex)
+            $cs->registerMetaTag('noindex', 'robots');
+        
         /* if ($this->meta_title !== null)
           {
           $this->pageTitle = Str::truncate(trim($this->meta_title), 70);

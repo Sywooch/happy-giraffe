@@ -38,12 +38,14 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             var oldIndex = this.current().index();
             this.current().index(oldIndex + 1);
             this.current().element(this.collection.attaches()[this.current().index()]);
+            window.history.pushState(null, 'Фотоальбом', this.current().element().url());
             this.collection.loadImage('progress', '.photo-window_img-hold', '.photo-window_img-hold');
         };
         this.prev = function prev() {
             var oldIndex = this.current().index();
             this.current().index(oldIndex - 1);
             this.current().element(this.collection.attaches()[this.current().index()]);
+            window.history.pushState(null, 'Фотоальбом', this.current().element().url());
             this.collection.loadImage('progress', '.photo-window_img-hold', '.photo-window_img-hold');
         };
         this.collection.attaches.subscribe(this.lookForStart.bind(this));

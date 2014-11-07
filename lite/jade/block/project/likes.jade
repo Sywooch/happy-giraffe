@@ -5,11 +5,15 @@
 mixin customLikes(mod, vars)
     // Лайки от яндекса
     .custom-likes
-        .custom-likes_slogan
-            = vars.slogan
+        if (vars.slogan)
+            .custom-likes_slogan
+                = vars.slogan
         .custom-likes_in
             script(type='text/javascript', src='//yandex.st/share/share.js', charset='utf-8')
-            .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='vkontakte,facebook,twitter,odnoklassniki,moimir', data-yasharetheme='counter', data-yasharetype='small')
+            if (vars.counter3)
+                .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='vkontakte,facebook,odnoklassniki', data-yasharetheme='counter')
+            else 
+                .yashare-auto-init(data-yasharel10n='ru', data-yasharequickservices='vkontakte,facebook,twitter,odnoklassniki,moimir', data-yasharetheme='counter')
     // Лайки от яндекса
 
 
@@ -18,5 +22,92 @@ mixin customLikes(mod, vars)
 - customLikes.base = {}
 - customLikes.base.slogan = 'Поделитесь с друзьями!'
 
+- customLikes.noslogan = {}
+
+- customLikes.few = {}
+- customLikes.few.counter3 = true
+
 - customLikes.horoscope = {}
 - customLikes.horoscope.slogan = 'Вам понравился гороскоп?'
+
+
+
+//- Миксин обвертка
+mixin likeControl(mod, vars)
+    if (vars.center)
+        .textalign-c
+            +likeControlCont(mod, vars)
+    else
+        +likeControlCont(mod, vars)
+
+//-
+mixin likeControlCont(mod, vars)
+    block likeControlCont
+        if (!vars.mod)
+            - mod = 'like-control__line'
+        // при маленьком размере в мобильном исчезают только лайки и избранное
+        if (vars.mod)
+            if (vars.mod == 'like-control__small')
+                - holdClass = 'visible-md-inline-block'
+
+        .like-control(class=mod)
+            if (vars.comment)
+                .like-control_hold.like-control_hold__comment
+                    a.like-control_i.powertip(href='#', title='Комментировать')
+                        if (vars.title)
+                            .like-control_t Комментарии
+                        .ico-action-hg.ico-action-hg__comment(href='#') 
+                        .like-control_tx 865
+            .like-control_hold(class=holdClass)
+                a.like-control_i.powertip(href='#', title='Нравится')
+                    if (vars.title)
+                        .like-control_t Мне нравится!
+                    .ico-action-hg.ico-action-hg__like
+                    .like-control_tx 865
+            .like-control_hold(class=holdClass)
+                a.like-control_i.powertip(href='#', title='В избранное')
+                    if (vars.title)
+                        .like-control_t В закладки
+                    .ico-action-hg.ico-action-hg__favorite
+                    .like-control_tx 8634
+
+                // .favorites-add-popup.favorites-add-popup__right.display-n
+                    .favorites-add-popup_t Добавить запись в избранное
+                    .favorites-add-popup_i.clearfix
+                        img.favorites-add-popup_i-img(src='/images/example/w60-h40.jpg', alt='')
+                        .favorites-add-popup_i-hold Неравный брак. Смертельно опасен или жизненно необходим?
+                    .favorites-add-popup_row
+                        label.favorites-add-popup_label(for='') Теги:
+                        span.favorites-add-popup_tag
+                            a.favorites-add-popup_tag-a(href='') отношения
+                            a.ico-close(href='#')
+                        span.favorites-add-popup_tag
+                            a.favorites-add-popup_tag-a(href='') любовь
+                            a.ico-close(href='#')
+                    .favorites-add-popup_row.margin-b10
+                        a.textdec-none(href='#')
+                            span.ico-plus2.margin-r5
+                            span.a-pseudo-gray.color-gray Добавить тег
+                    .favorites-add-popup_row
+                        label.favorites-add-popup_label(for='') Комментарий:
+                        .float-r.color-gray 0/150
+                    .favorites-add-popup_row
+                        textarea.favorites-add-popup_textarea(name='', cols='25', rows='2', placeholder='Введите комментарий')
+                    .favorites-add-popup_row.textalign-c.margin-t10
+                        a.btn-secondary.btn-s(href='#') Отменить
+                        a.btn-success.btn-s(href='#') Добавить
+
+
+- var likeControl = {}
+
+- likeControl.base = {}
+- likeControl.base.mod = 'like-control__line'
+- likeControl.base.comment = false
+- likeControl.base.center = true
+- likeControl.base.title = true
+
+- likeControl.articleList = {}
+- likeControl.articleList.mod = 'like-control__small'
+- likeControl.articleList.comment = true
+- likeControl.articleList.center = false
+- likeControl.articleList.title = false

@@ -5,7 +5,7 @@
         margin: 15px 0 15px;
         font-size: 16px;
         line-height: 25px;
-        font-weight: bold;
+        font-weight: normal;
         color: @color-base;
 
 
@@ -23,7 +23,40 @@
     h2:first-child {margin-top: 0;}
 
     .b-article_in-img {
-        margin: 30px 0 15px;
+        margin-top: 30px;
+        margin-bottom: 10px;
+    }
+    /*&_img-hold {
+        margin-top: 30px;
+        margin-bottom: 15px;
+    }*/
+    &_img-hold:hover &_img-water {color: @color-orange;}
+    &_img-water {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 4px 20px;
+        text-align: center;
+        color: #fff;
+        text-shadow: 0 0 1 #000;
+        .opacity(0.8);
+    }
+
+    @media (min-width: @screen-tablet) {
+        
+        & &_img-hold {
+            margin-top: 50px;
+        }
     }
 }
 /* /b-markdown */
+
+
+/* 
+add in old css
+
+
+
+
+*/

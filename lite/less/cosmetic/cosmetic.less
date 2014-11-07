@@ -20,8 +20,6 @@
 .z-index0 {z-index: 0;}
 .z-index1 {z-index: 1;}
 
-.overflow-h {overflow: hidden;}
-
 .margin-0     {margin:0 !important;}
 .margin-3     {margin:3px !important;}
 .margin-5     {margin:5px !important;}
@@ -128,9 +126,16 @@
 .bg-none {background: none;}
 .bg-white {background: #fff;}
 
-.textalign-l{text-align: left !important;}
-.textalign-c{text-align: center !important;}
-.textalign-r{text-align: right !important;}
+.textalign-l {text-align: left !important;}
+.textalign-c {text-align: center !important;}
+.textalign-r {text-align: right !important;}
+.textalign-c-desc-l {
+    text-align: center !important;
+
+    @media (min-width: @screen-desktop) {
+        text-align: left !important;
+    }
+}
 
 .verticalalign-t {vertical-align: top;}
 .verticalalign-m {vertical-align: middle;}
@@ -181,7 +186,7 @@
 .fontstyle-i {font-style: italic;}
 .fontstyle-n {font-style: normal;}
 
-.opacity-0   {opacity: (0);filter: alpha(opacity=00);}
+.opacity-0   {opacity: (0);filter: alpha(opacity=0);}
 .opacity-10  {opacity: (0.1);filter: alpha(opacity=10);}
 .opacity-20  {opacity: (0.2);filter: alpha(opacity=20);}
 .opacity-40  {opacity: (0.4);filter: alpha(opacity=40);}

@@ -1032,6 +1032,7 @@ var defaultEvent = "change";
 var ko_subscribable_fn = {
     subscribe: function (callback, callbackTarget, event) {
         var self = this;
+
         event = event || defaultEvent;
         var boundCallback = callbackTarget ? callback.bind(callbackTarget) : callback;
 
@@ -1426,7 +1427,6 @@ ko.extenders['trackArrayChanges'] = function(target) {
             trackChanges();
         }
         return underlyingSubscribeFunction.apply(this, arguments);
-
     };
 
     function trackChanges() {

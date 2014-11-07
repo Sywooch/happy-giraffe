@@ -14,12 +14,15 @@
   <!-- Адаптивные изображения tag picture-->
   <script src="/lite/javascript/picturefill.min.js"></script>
   <!-- медиа запросы для ie8--><!--[if lt IE 9]> <script type="text/javascript" src="/lite/javascript/respond.min.js"></script> <![endif]-->
-  <script src="/lite/javascript/bootstrap/dropdown.js"></script>
+  <script src="/lite/javascript/bootstrap/affix.js"></script>
   <script src="/lite/javascript/bootstrap/tab.js"></script>
   <!-- tooltip-->
   <!-- script(src="#{path}javascript/jquery.tooltipster.js")-->
+  <script src="/lite/javascript/jquery.powertip.js"></script>
   <!-- popup-->
   <script src="/lite/javascript/jquery.magnific-popup.js"></script>
+  <!-- Галерея-->
+  <script src="/lite/javascript/jquery.bxslider.min.js"></script>
   <script src="/lite/javascript/baron.js"></script>
   <!-- -->
   <script src="/lite/javascript/common.js"></script>
@@ -213,8 +216,8 @@
                 <!-- инициализация i-affix в common-markup.js-->
                 <div class="i-affix clearfix">
                   <div class="float-r">
-                    <div class="btn btn-green btn-ms">Готово</div>
-                    <div class="btn btn-link btn-link-gray btn-ms">Отмена</div>
+                    <div class="btn btn-success btn-ms">Готово</div>
+                    <div class="btn btn-link btn-default btn-ms">Отмена</div>
                   </div>
                 </div>
               </div>
@@ -225,11 +228,14 @@
               -->
               <div class="album-preview album-preview__m album-preview__drag">
                 <ul class="album-preview_ul">
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
                   <!-- .album-preview_li__drag и .display-n классы на элемент что тащаят-->
                   <li class="album-preview_li album-preview_li__drag">
@@ -240,161 +246,239 @@
                       <div class="album-preview_overlay"></div>
                     </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w155-h140-2.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
-                  <li class="album-preview_li"><a href="" class="album-preview_in">
+                  <!-- Отлавливать клик на li-->
+                  <li class="album-preview_li">
+                    <div class="album-preview_in">
                       <div class="album-preview_img-hold">
                         <!-- --><img src="/new/images/example/w95-h140-1.jpg" alt="" class="album-preview_img">
                       </div>
-                      <div class="album-preview_overlay"></div></a>
+                      <div class="album-preview_overlay"></div>
+                    </div>
                   </li>
                 </ul>
               </div>

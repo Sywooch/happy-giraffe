@@ -1,12 +1,30 @@
 <?php
 /**
- * @var HController $this
+ * @var \LiteController $this
  * @var site\frontend\modules\photo\models\PhotoAttach $attach
  * @var site\frontend\modules\photo\models\PhotoAttach $attachNext
  * @var site\frontend\modules\photo\models\PhotoAttach $attachPrev
- * @var site\frontend\modules\photo\models\PhotoCollection $collection
+ * @var site\frontend\modules\photo\models\PhotoCollection|site\frontend\modules\photo\components\IPublicPhotoCollection $collection
  */
 $photo = $attach->photo;
+$this->breadcrumbs = array(
+    $this->widget('Avatar', array(
+        'user' => $photo->author,
+        'size' => \Avatar::SIZE_MICRO,
+        'tag' => 'span'), true) => array('/profile/default/index', 'user_id' => $photo->getAuthorId()),
+    'Блог' => array('/blog/default/index', 'user_id' => $photo->getAuthorId()),
+    $collection->getTitle() => $collection->getUrl(),
+    $attach->getTitle(),
+);
+$this->pageTitle = $attach->getTitle() . ' - ' . $collection->getTitle();
+$this->metaDescription = $photo->description;
+$this->metaCanonical = $collection->getUrl();
+if ($attachPrev !== null) {
+    $this->metaNavigation->prev = $attachPrev->getUrl();
+}
+if ($attachNext !== null) {
+    $this->metaNavigation->next = $attachNext->getUrl();
+}
 $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $photo));
 ?>
 
@@ -48,12 +66,12 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                 <div class="ico-zoom ico-zoom__abs"></div>
             </div>
 
-            <?php if ($prev = $collection->observer->getPrev($attach->id)): ?>
-                <a href="<?=$prev->getUrl()?>" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a>
+            <?php if ($attachPrev !== null): ?>
+                <a href="<?=$attachPrev->getUrl()?>" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a>
             <?php endif; ?>
 
-            <?php if ($next = $collection->observer->getNext($attach->id)): ?>
-                <a href="<?=$next->getUrl()?>" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
+            <?php if ($attachNext !== null): ?>
+                <a href="<?=$attachNext->getUrl()?>" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
             <?php endif; ?>
         </div>
     </section>

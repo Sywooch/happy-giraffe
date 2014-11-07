@@ -8,7 +8,7 @@
 
 namespace site\common\behaviors;
 
-class UrlBehavior extends \CActiveRecordBehavior implements \ILinkable
+class UrlBehavior extends \CActiveRecordBehavior
 {
     public $preparedUrl;
     public $route;
@@ -17,22 +17,32 @@ class UrlBehavior extends \CActiveRecordBehavior implements \ILinkable
     public function getUrl($absolute = false)
     {
         if ($this->preparedUrl !== null) {
-            return $this->normalizeProperty($this->preparedUrl);
+            return $this->normalizePreparedUrl($this->preparedUrl);
         }
 
         if ($this->route === null) {
             throw new \CException('Route is not provided');
         }
 
-        $finalRoute = $this->normalizeProperty($this->route);
+        $finalRoute = $this->normalizeRoute($this->route);
         $finalParams = $this->normalizeParams($this->params);
 
         return $absolute ? \Yii::app()->createUrl($finalRoute, $finalParams) : \Yii::app()->createAbsoluteUrl($finalRoute, $finalParams);
     }
 
-    protected function normalizeProperty($property)
+    protected function normalizePreparedUrl($preparedUrl)
     {
-        return (is_callable($property)) ? call_user_func($property, $this->owner) : $property;
+        if (is_callable($preparedUrl)) {
+            return call_user_func($preparedUrl, $this->owner);
+        } elseif ($this->owner->hasAttribute($preparedUrl)) {
+            return $this->owner->$preparedUrl;
+        }
+        return $preparedUrl;
+    }
+
+    protected function normalizeRoute($route)
+    {
+        return (is_callable($route)) ? call_user_func($route, $this->owner) : $route;
     }
 
     protected function normalizeParams($inputParams)

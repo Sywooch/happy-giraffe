@@ -68,7 +68,7 @@
                 ),
                 array(
                     'label' => 'Блог',
-                    'url' => array('/posts/list/index', 'user_id' => $user->id),
+                    'url' => array('/blog/default/index', 'user_id' => $user->id),
                     'linkOptions' => array('class' => 'userSection_panel-a'),
                     'active' => Yii::app()->controller->module !== null && in_array(Yii::app()->controller->module->id, array('posts', 'blog')),
                 ),

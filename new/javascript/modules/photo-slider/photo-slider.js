@@ -30,7 +30,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             if (value > 0) {
                 this.collection.loadImage('progress', '.photo-window_img-hold', '.photo-window_img-hold');
             }
-        });
+        }, this);
         this.lookForStart = function lookForStart(newAttaches) {
             this.current(Model.findByIdObservableIndex(this.photoAttach().id(), this.collection.attaches()));
             window.history.pushState(null, 'Фотоальбом', this.current().element().url());

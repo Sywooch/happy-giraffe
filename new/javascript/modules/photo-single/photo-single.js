@@ -6,7 +6,7 @@ define(['jquery', '../knockout', 'text!photo-single/photo-single.html', 'photo/P
         this.photoAttachPrev = params.attachPrev !== false ? new PhotoAttach(params.attachPrev) : false;
         this.photoAttachNext = params.attachNext !== false ? new PhotoAttach(params.attachNext) : false;
         this.loading = ko.observable(true);
-        this.photoAttach().id = ko.observable(params.attach);
+        this.photoAttach().id = ko.observable(params.attach.id);
         this.colorsArray = ['purple', 'yellow', 'carrot', 'green', 'blue'];
         this.elementCssClass = 'b-album_prev-li img-grid_loading__';
         this.rightsForManipulation = Model.checkRights(params.userId);

@@ -9,6 +9,10 @@ define(['knockout', 'models/Model'], function PresetManagerHandler(ko, Model) {
             return Model.get(this.getPresetsUrl).done(callbackFun);
         },
 
+        get: function get() {
+            return Model.get(this.getPresetsUrl);
+        },
+
         filters: {
             lepilla: {
                 getWidth: function getWidth(imageWidth, imageHeight, presetConfig) {

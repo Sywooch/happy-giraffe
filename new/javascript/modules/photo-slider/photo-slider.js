@@ -7,9 +7,11 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.userId = params.userId;
         this.photoAttach = params.photo;
         this.user = Object.create(User);
+        this.current = ko.observable(false);
         this.userInstance = ko.mapping.fromJS({});
         this.userInstance.loading = ko.observable(true);
         this.collection = new PhotoCollection(collectionData);
+        this.collection.usablePreset = ko.observable('sliderPhoto');
         this.userHandler = function userHandler(user) {
             if (user.success === true) {
                 ko.mapping.fromJS(this.user.init(user.data), this.userInstance);
@@ -18,14 +20,34 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         };
         this.getUser = function getUser() {
             Model
-                .get(this.user.getUserUrl, {id: this.userId, avatarSize: 'SIZE_SMALL'})
+                .get(this.user.getUserUrl, {id: this.userId, avatarSize: 40})
                 .done(this.userHandler.bind(this));
         };
         this.getCollection = function getCollection() {
             this.collection.getCollectionCount(this.collection.id());
         };
+        this.lookForStart = function lookForStart(newAttaches) {
+            this.current(Model.findByIdObservableIndex(this.photoAttach().id(), this.collection.attaches()));
+            window.history.pushState(null, 'Фотоальбом', this.current().element().url());
+            this.collection.loadImage('progress', '.photo-window_img-hold', '.photo-window_img-hold');
+            this.imgTag = ko.computed(function () {
+                return '<img src="' + this.current().element().photo().getGeneratedPreset('sliderPhoto') + '" data-id="' + this.current().element().id() + '" class="photo-window_img">';
+            }, this);
+        };
+        this.next = function next() {
+            var oldIndex = this.current().index();
+            this.current().index(oldIndex + 1);
+            this.current().element(this.collection.attaches()[this.current().index()]);
+            this.collection.loadImage('progress', '.photo-window_img-hold', '.photo-window_img-hold');
+        };
+        this.prev = function prev() {
+            var oldIndex = this.current().index();
+            this.current().index(oldIndex - 1);
+            this.current().element(this.collection.attaches()[this.current().index()]);
+            this.collection.loadImage('progress', '.photo-window_img-hold', '.photo-window_img-hold');
+        };
+        this.collection.attaches.subscribe(this.lookForStart.bind(this));
         this.initializeSlider = function initializeSlider() {
-            window.history.pushState(null, 'Фотоальбом', this.photoAttach().url());
             this.collection.getPartsCollection(this.collection.id(), 0, null);
             this.getUser();
             this.getCollection();

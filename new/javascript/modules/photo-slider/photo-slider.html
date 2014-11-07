@@ -1,17 +1,41 @@
 <div class="photo-window display-b">
     <div class="photo-window_w"><a href="" class="photo-window_close" data-bind="click: $parent.closePhotoHandler.bind($parent)"></a>
         <div class="photo-window_top">
-            <!-- ko if: collection.attachesCount() > 0 -->
-            <div class="photo-window_count" data-bind="text: '1 из ' + collection.attachesCount()"></div>
+            <!-- ko if: current() !== false && collection.attachesCount() > 0 -->
+            <div class="photo-window_count" data-bind="text: (current().index() + 1) + ' из ' + collection.attachesCount()"></div>
             <!-- /ko -->
         </div>
         <!--Обрабатывать клик на .photo-window_c для листания следующего изображения -->
         <div class="photo-window_c">
-            <div class="photo-window_img-hold"><img src="" data-bind="src: photoAttach().photo().getGeneratedPreset('sliderPhoto')" alt="" class="photo-window_img">
+            <!-- ko if: current() !== false && collection.attachesCount() > 0 -->
+            <div class="photo-window_img-hold">
+                <!-- ko if: current().element().loading() === true && current().element().broke() === false -->
+                <div class="img-grid_loading-hold">
+                    <div class="loader-circle">
+                        <div class="loader-circle_hold">
+                            <div class="loader-circle_1"></div>
+                            <div class="loader-circle_2"></div>
+                        </div>
+                    </div>
+                    <div class="img-grid_loading-tx">Загрузка фото</div>
+                </div>
+                <!-- /ko -->
+                <!-- ko if: current().element().broke() === true -->
+                <!-- /ko -->
+                <!-- ko if: current().element().broke() === false -->
+                <div data-bind="html: imgTag()"></div>
+                <!-- /ko -->
                 <div class="verticalalign-m-help"></div>
             </div>
-            <a href="#photo-window-end" data-theme="white-simple" class="photo-window_arrow photo-window_arrow__l fancy"></a>
-            <a href="#photo-window-end" data-theme="white-simple" class="photo-window_arrow photo-window_arrow__r fancy"></a>
+            <!-- /ko -->
+            <!-- ko if: current() !== false && collection.attachesCount() > 0 -->
+                <!-- ko if: (current().index() + 1) > 1 -->
+                <a href="#photo-window-end" data-theme="white-simple" class="photo-window_arrow photo-window_arrow__l" data-bind="click: prev"></a>
+                <!-- /ko -->
+                <!-- ko if: (current().index() + 1) !== collection.attachesCount() -->
+                <a href="#photo-window-end" data-theme="white-simple" class="photo-window_arrow photo-window_arrow__r" data-bind="click: next"></a>
+                <!-- /ko -->
+            <!-- /ko -->
             <div class="textalign-c visible-md-block">
                 <!--<div class="like-control like-control__line" style="bottom: 30px;">-->
                     <!--<div class="like-control_hold"><a href="#" class="like-control_i like-control_i__like powertip">-->
@@ -50,9 +74,9 @@
                 <div class="scroll_scroller photo-window_cont" style="width: 300px; height: 114px;">
                     <div class="scroll_cont">
                         <div class="photo-window_cont-t clearfix">
-                            <div class="icons-meta"><a href="" class="icons-meta_comment"><span class="icons-meta_tx">35</span></a>
-                                <div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>
-                            </div>
+                            <!--<div class="icons-meta"><a href="" class="icons-meta_comment"><span class="icons-meta_tx">35</span></a>-->
+                                <!--<div class="icons-meta_view"><span class="icons-meta_tx">305</span></div>-->
+                            <!--</div>-->
                             <!-- ko if: userInstance.loading() === false -->
                             <div class="b-user-info b-user-info__middle float-l">
                                 <!-- ava--><span href="#" class="" data-bind="css: { 'ava ava__middle ava__female': userInstance.gender() === 0, 'ava ava__middle ava__male': userInstance.gender() === 1 }"><img alt="" class="ava_img" data-bind="src: userInstance.avatarUrl()"></span>

@@ -8,6 +8,7 @@ namespace site\frontend\modules\family\controllers;
 
 
 use site\frontend\modules\family\models\Family;
+use site\frontend\modules\family\models\FamilyMember;
 
 class ApiController extends \site\frontend\components\api\ApiController
 {
@@ -19,7 +20,6 @@ class ApiController extends \site\frontend\components\api\ApiController
                 'modelName' => '\site\frontend\modules\family\models\Family',
                 'checkAccess' => 'updateFamily',
             ),
-
             'updateMember' => array(
                 'class' => 'site\frontend\components\api\EditAction',
                 'modelName' => '\site\frontend\modules\family\models\FamilyMember',
@@ -38,9 +38,9 @@ class ApiController extends \site\frontend\components\api\ApiController
         ));
     }
 
-    public function actionGet($userId)
+    public function actionGet($id)
     {
-        $family = Family::getByUserId($userId);
+        $family = Family::getByUserId($id);
         $this->success = $family !== null;
         if ($family !== null) {
             $this->data = $family;
@@ -53,11 +53,18 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
-        /** @var \HActiveRecord $model */
-        $model = new $this->modelName();
+        $family = Family::getByUserId(\Yii::app()->user->id, false);
+        if ($family === null) {
+            throw new \CException('У авторизованного пользователя нет семьи');
+        }
+
+        $modelClass = FamilyMember::getClassName($attributes['type']);
+        /** @var \site\frontend\modules\family\models\FamilyMember $model */
+        $model = new $modelClass();
+        $model->familyId = $family->id;
         $model->attributes = $attributes;
-        $this->controller->success = $model->save();
-        $this->controller->data = $model->hasErrors() ? array(
+        $this->success = $model->save();
+        $this->data = $model->hasErrors() ? array(
             'errors' => $model->getErrors(),
         ) : $model;
     }

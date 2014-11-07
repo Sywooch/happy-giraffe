@@ -28,9 +28,9 @@ class Adult extends FamilyMemberAbstract
                 self::STATUS_FRIENDS,
                 self::STATUS_ENGAGED,
                 self::STATUS_MARRIED,
-            ), 'allowEmpty' => false, 'except' => 'familyCreate'),
-            array('name', 'length', 'max' => 100),
-            array('description', 'length', 'max' => 500),
+            ), 'allowEmpty' => false),
+            array('name', 'length', 'max' => 50),
+            array('description', 'length', 'max' => 1000),
         ));
     }
 
@@ -100,7 +100,6 @@ class Adult extends FamilyMemberAbstract
             'birthday' => $this->birthday,
             'description' => (string) $this->description,
             'userId' => (int) $this->userId,
-            'ageString' => $this->getAgeString(),
         ));
     }
 

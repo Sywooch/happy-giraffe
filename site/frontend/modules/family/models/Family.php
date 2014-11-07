@@ -142,7 +142,7 @@ class Family extends \CActiveRecord implements \IHToJSON
         $member->scenario = 'familyCreate';
         $member->fillByUser($userId);
         $family->members = array($member);
-        $success = $family->withRelated->save(true, array('members'));
+        $success = $family->withRelated->save(false, array('members'));
 
 
 

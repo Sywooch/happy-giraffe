@@ -19,6 +19,7 @@ return array(
             'uploadPhoto',
             'manageOwnFamily',
             'manageOwnFamilyMembers',
+            'createFamilyMember',
         ),
         'bizRule' => null,
         'data' => null
@@ -169,13 +170,13 @@ return array(
     ),
     'uploadPhoto' => array(
         'type' => CAuthItem::TYPE_TASK,
-        'description' => 'Загрузка фотографий',
+        'description' => 'Загрузка фото',
         'bizRule' => null,
         'data' => null
     ),
     'editPhoto' => array(
         'type' => CAuthItem::TYPE_TASK,
-        'description' => 'Загрузка фотографий',
+        'description' => 'Редактирование фото',
         'bizRule' => null,
         'data' => null
     ),
@@ -196,7 +197,7 @@ return array(
     ),
     'manageOwnFamilyMembers' => array(
         'type' => CAuthItem::TYPE_TASK,
-        'description' => 'Управление своей семьей',
+        'description' => 'Управление членами семьи',
         'children' => array(
             'updateFamilyMember',
             'removeFamilyMember',
@@ -205,21 +206,27 @@ return array(
         'bizRule' => 'return $params["entity"]->family->canManage(\Yii::app()->user->id);',
         'data' => null,
     ),
+    'createFamilyMember' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Создание члена семьи',
+        'bizRule' => null,
+        'data' => null,
+    ),
     'updateFamilyMember' => array(
         'type' => CAuthItem::TYPE_OPERATION,
-        'description' => 'Перемещение аттачей',
+        'description' => 'Редактирование члена семьи',
         'bizRule' => null,
         'data' => null,
     ),
     'removeFamilyMember' => array(
         'type' => CAuthItem::TYPE_OPERATION,
-        'description' => 'Перемещение аттачей',
+        'description' => 'Удаление члена семьи',
         'bizRule' => null,
         'data' => null,
     ),
     'restoreFamilyMember' => array(
         'type' => CAuthItem::TYPE_OPERATION,
-        'description' => 'Перемещение аттачей',
+        'description' => 'Восстановление члена семьи',
         'bizRule' => null,
         'data' => null,
     ),

@@ -26,7 +26,7 @@ return array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\w+>/photo<photo_id:\d+>',
-            'trueRoute' => 'posts/post/singlePhoto',
+            'trueRoute' => 'photo/singlePhoto/photoPost',
             'falseRoute' => array('gallery/default/singlePhoto', 'defaultParams' => array('entity' => 'CommunityContentGallery')),
         ),
 //        array(

@@ -29,10 +29,10 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.lookForStart = function lookForStart(newAttaches) {
             this.current(Model.findByIdObservableIndex(this.photoAttach().id(), this.collection.attaches()));
             window.history.pushState(null, 'Фотоальбом', this.current().element().url());
-            this.collection.loadImage('progress', '.photo-window_img-hold', '.photo-window_img-hold');
             this.imgTag = ko.computed(function () {
                 return '<img src="' + this.current().element().photo().getGeneratedPreset('sliderPhoto') + '" data-id="' + this.current().element().id() + '" class="photo-window_img">';
             }, this);
+            this.collection.loadImage('progress', '.photo-window_img-hold', '.photo-window_img-hold');
         };
         this.next = function next() {
             var oldIndex = this.current().index();

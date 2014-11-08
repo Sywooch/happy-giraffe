@@ -55,6 +55,15 @@ class DefaultCommand extends \CConsoleCommand
         }
     }
 
+    public function actionUpdatePhotoPostPhoto(\GearmanJob $job)
+    {
+        $data = unserialize($job->workload());
+        $oldPhoto = \AlbumPhoto::model()->findByPk($data['oldPhotoId']);
+        if ($oldPhoto !== null) {
+            MigrateManager::updatePhoto($oldPhoto, $data['attributes']);
+        }
+    }
+
     public function actionMigrate()
     {
         $mm = new MigrateManager();

@@ -17,7 +17,7 @@ class UniquenessChecker extends \CComponent
      * @param string $text Текст, проверяемый на уникальность
      * @return int|null Уникальность от 0 до 100, если -1,
      * то проверка не производилась,
-     * из-за исключений (длина текста меньше 250 или пользователь в списке исключений).
+     * из-за исключений (пользователь в списке исключений).
      * Может вернуть null, если сервис проверки недоступен
      */
     public static function complexTest($author, $text)
@@ -40,9 +40,17 @@ class UniquenessChecker extends \CComponent
         ));
     }
 
+    /**
+     * Метод, проверяющий, стоит ли проверять уникальность через сервис
+     * Проверяет наличие пользователя в списке исключений
+     * 
+     * @param type $author
+     * @param type $text
+     * @return bool true - если требуется проверка, иначе - false
+     */
     public static function checkBeforeTest($author, $text)
     {
-        return !self::checkNoindexByUser($author) && strlen($text) > 250;
+        return !self::checkNoindexByUser($author) /*&& strlen($text) > 250*/;
     }
 
 }

@@ -92,6 +92,10 @@ class MigrateManager
 
         self::updatePhotoInfo($oldPhoto, $photo, $attributes);
         $updateAttributes = array_merge(array_keys($attributes), array('title'));
+
+        var_dump($updateAttributes);
+        die;
+
         return $photo->update(array($updateAttributes));
     }
 

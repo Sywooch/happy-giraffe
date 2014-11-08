@@ -62,7 +62,7 @@ class PregnancyChild extends WaitingChild
         ));
     }
 
-    protected function isPublic()
+    public function isPublic()
     {
         return time() > strtotime($this->birthday);
     }

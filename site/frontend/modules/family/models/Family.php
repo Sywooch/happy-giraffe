@@ -94,15 +94,9 @@ class Family extends \CActiveRecord implements \IHToJSON
 
     public static function getByUserId($userId, $create = true)
     {
-        $family = Family::model()->find(array(
-            'with' => array(
-                'members' => array(
-                    'scopes' => array(
-                        'user' => $userId,
-                    ),
-                )
-            )
-        ));
+        /** @var \site\frontend\modules\family\models\FamilyMember $member */
+        $member = FamilyMember::model()->user($userId)->find();
+        $family = $member->family;
         if ($family !== null) {
             return $family;
         }

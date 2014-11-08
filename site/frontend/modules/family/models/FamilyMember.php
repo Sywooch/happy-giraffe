@@ -198,7 +198,7 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
         return true;
     }
 
-    protected function isPublic()
+    public function isPublic()
     {
         return true;
     }

@@ -22,7 +22,7 @@ class MigrateManager
         $photoIds = array();
         foreach ($post->gallery->items as $item)
         {
-            if ($photoId = self::movePhoto($item->photo, array('description' => $item->description)))
+            if ($photoId = self::movePhoto($item->photo, array('title' => $item->photo->title, 'description' => $item->description)))
                 $photoIds[] = $photoId;
         }
         if (empty($photoIds))
@@ -97,9 +97,12 @@ class MigrateManager
 
     protected static function updatePhotoInfo(\AlbumPhoto $oldPhoto, Photo &$photo, $attributes)
     {
-        $photo->title = mb_substr($oldPhoto->title, 0, 150, 'UTF-8');
         foreach ($attributes as $attribute => $value) {
-            $photo->$attribute = $value;
+            if ($attribute == 'title') {
+                $photo->title = mb_substr($oldPhoto->title, 0, 150, 'UTF-8');
+            } else {
+                $photo->$attribute = $value;
+            }
         }
     }
 } 

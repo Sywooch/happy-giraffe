@@ -143,6 +143,7 @@ class TempCommand extends CConsoleCommand
 
     public function actionSeo1()
     {
+        throw new Exception('Низя!');
         $criteria = new CDbCriteria();
         $criteria->with = array('post');
         $criteria->condition = 'uniqueness IS NULL AND type_id = 1';
@@ -165,6 +166,7 @@ class TempCommand extends CConsoleCommand
 
     public function actionSeo2()
     {
+        throw new Exception('Низя!');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.extensions.GoogleAnalytics');

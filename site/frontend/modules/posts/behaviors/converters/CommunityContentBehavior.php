@@ -122,7 +122,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $newPost->html = $oldPost->post->purified->text;
         $newPost->text = $oldPost->post->text;
         $clearText = $newPost->fillText();
-        $newPost->isNoindex = $newPost->isNoindex ? true : \site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
+        $newPost->isNoindex = $newPost->isNoindex ? true : !\site\common\helpers\UniquenessChecker::checkBeforeTest($oldPost->author_id, $clearText);
         $photo = $oldPost->post->photo;
 
         $newPost->preview = '<p>' . \site\common\helpers\HStr::truncate($clearText, 200, ' <span class="ico-more"></span>') . '</p>';

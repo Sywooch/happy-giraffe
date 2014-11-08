@@ -58,12 +58,7 @@ class CommunityContentGalleryItem extends CActiveRecord implements IPreview
 
     protected function afterSave()
     {
-        $data = array(
-            'oldPhotoId' => $this->photo_id,
-            'attributes' => array(
-                'description' => $this->description,
-            ),
-        );
-        \Yii::app()->gearman->client()->doBackground('updatePhotoPostPhoto', serialize($data));
+        \site\frontend\modules\photo\components\MigrateManager::updatePhoto($this->photo, array('description' => $this->description));
+        parent::afterSave();
     }
 }

@@ -225,7 +225,7 @@ class AlbumPhoto extends HActiveRecord
         }
 
         $data = array(
-            'oldPhotoId' => $this->photo_id,
+            'oldPhotoId' => $this->id,
             'attributes' => array('title' => $this->title),
         );
         \Yii::app()->gearman->client()->doBackground('updatePhotoPostPhoto', serialize($data));

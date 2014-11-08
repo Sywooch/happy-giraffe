@@ -14,8 +14,8 @@ namespace site\frontend\modules\family\models;
  * @property string $description
  * @property string $userId
  * @property string $familyId
- * @property string $created
- * @property string $updated
+ * @property integer $created
+ * @property integer $updated
  * @property integer $removed
  *
  * The followings are the available model relations:
@@ -142,23 +142,11 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
         }
         return $this;
     }
-
-    public function updateByUser()
-    {
-        if ($this->userId === null || $this->user === null)
-        {
-            return false;
-        }
-
-
-        return $this->update(array('name', 'birthday', 'gender'));
-    }
     
     public function fillByUser($userId)
     {
         $user = \site\frontend\components\api\models\User::model()->findByPk($userId);
         $this->name = $user->firstName;
-        $this->birthday = $user->birthday;
         $this->gender = $user->gender;
         $this->userId = $userId;
     }

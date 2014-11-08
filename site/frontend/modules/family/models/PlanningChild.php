@@ -33,4 +33,34 @@ class PlanningChild extends WaitingChild
                 return 'Планируем ребенка';
         }
     }
+
+    public function isPublic()
+    {
+        return time() < $this->getExpirationTime();
+    }
+
+    public function toJSON()
+    {
+        return \CMap::mergeArray(parent::toJSON(), array(
+            'gender' => $this->gender,
+            'birthday' => $this->birthday,
+        ));
+    }
+
+    protected function getExpirationTime()
+    {
+        return $this->created + $this->getIntervalByWhen();
+    }
+
+    protected function getIntervalByWhen()
+    {
+        switch ($this->planningWhen) {
+            case self::WHEN_SOON:
+                return strtotime('+1 year');
+            case self::WHEN_NEXT3YEARS;
+                return strtotime('+3 year');
+            default:
+                throw new \CException('Wrong type value');
+        }
+    }
 } 

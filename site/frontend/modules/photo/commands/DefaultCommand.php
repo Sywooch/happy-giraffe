@@ -24,6 +24,7 @@ class DefaultCommand extends \CConsoleCommand
     {
         \Yii::app()->gearman->worker()->addFunction('deferredWrite', array($this, 'deferredWrite'));
         \Yii::app()->gearman->worker()->addFunction('createThumbs', array($this, 'createThumbs'));
+        \Yii::app()->gearman->worker()->addFunction('updatePhotoPostPhoto', array($this, 'updatePhotoPostPhoto'));
 
         while (\Yii::app()->gearman->worker()->work());
     }
@@ -55,7 +56,7 @@ class DefaultCommand extends \CConsoleCommand
         }
     }
 
-    public function actionUpdatePhotoPostPhoto(\GearmanJob $job)
+    public function updatePhotoPostPhoto(\GearmanJob $job)
     {
         $data = unserialize($job->workload());
         $oldPhoto = \AlbumPhoto::model()->findByPk($data['oldPhotoId']);

@@ -38,12 +38,13 @@ class ApiController extends \site\frontend\components\api\ApiController
         ));
     }
 
-    public function actionGet($id)
+    public function actionGet($id, $public = true)
     {
         $family = Family::getByUserId($id);
         $this->success = $family !== null;
         if ($family !== null) {
             $this->data = $family;
+            $this->data['members'] = $family->getMembers(null, $public);
         }
     }
 

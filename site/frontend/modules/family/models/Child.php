@@ -36,8 +36,14 @@ class Child extends FamilyMemberAbstract
         return ($this->gender == 0) ? 'Дочь' : 'Сын';
     }
 
-    public function getAgeString()
+    public function toJSON()
     {
-        return AgeHelper::getChildAgeString($this->birthday);
+        return \CMap::mergeArray(parent::toJSON(), array(
+            'gender' => $this->gender,
+            'birthday' => $this->birthday,
+            'name' => $this->name,
+            'description' => $this->description,
+            'ageString' => AgeHelper::getChildAgeString($this->birthday),
+        ));
     }
 } 

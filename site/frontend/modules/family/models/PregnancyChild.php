@@ -7,6 +7,8 @@
 namespace site\frontend\modules\family\models;
 
 
+use site\frontend\modules\family\components\AgeHelper;
+
 class PregnancyChild extends WaitingChild
 {
     const GENDER_TWINS = 2;
@@ -49,6 +51,15 @@ class PregnancyChild extends WaitingChild
             default:
                 return 'Ждем ребенка';
         }
+    }
+
+    public function toJSON()
+    {
+        return \CMap::mergeArray(parent::toJSON(), array(
+            'gender' => $this->gender,
+            'birthday' => $this->birthday,
+            'pregnancyTermString' => AgeHelper::getPregnancyTermString($this->birthday),
+        ));
     }
 
     protected function isPublic()

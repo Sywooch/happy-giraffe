@@ -53,10 +53,25 @@ class AgeHelper
         return $interval->y . ' ' . \Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
     }
 
+    public static function getPregnancyTerm($birthday)
+    {
+        $dtNow = new \DateTime();
+        $dtBirthday = new \DateTime($birthday);
+        $dtConception = $dtBirthday->modify('-9 month');
+        $interval = $dtNow->diff($dtConception);
+        return ceil($interval->days / 7);
+    }
+
+    public static function getPregnancyTermString($birthday)
+    {
+        $pregnancyTerm = self::getPregnancyTerm($birthday);
+        return $pregnancyTerm . ' ' . \Str::GenerateNoun(array('неделя', 'недели', 'недель'), $pregnancyTerm);
+    }
+
     protected static function getIntervalFrom($birthday)
     {
-        $date1 = new \DateTime($birthday);
-        $date2 = new \DateTime(date('Y-m-d'));
-        return $date1->diff($date2);
+        $dtBirthday = new \DateTime($birthday);
+        $dtNow = new \DateTime(date('Y-m-d'));
+        return $dtNow->diff($dtBirthday);
     }
 } 

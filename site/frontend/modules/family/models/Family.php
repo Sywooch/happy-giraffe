@@ -115,7 +115,6 @@ class Family extends \CActiveRecord implements \IHToJSON
         return array(
             'id' => (int) $this->id,
             'description' => $this->description,
-            'members' => $this->members,
         );
     }
 
@@ -124,11 +123,13 @@ class Family extends \CActiveRecord implements \IHToJSON
         return FamilyMember::model()->user($userId)->family($this->id)->exists();
     }
 
-    public function getMembersByType($type)
+    public function getMembers($type = null, $public = true)
     {
         $result = array();
         foreach ($this->members as $member) {
-            if ($member->type == $type) {
+            $typeOk = $type === null || $type == $member->type;
+            $publicOk = $public === false || $member->isPublic();
+            if ($typeOk && $publicOk) {
                 $result[] = $member;
             }
         }

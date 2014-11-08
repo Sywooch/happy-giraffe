@@ -2,6 +2,7 @@
 
 
 namespace site\frontend\modules\family\models;
+use site\frontend\modules\family\components\AgeHelper;
 
 /**
  * @author Никита
@@ -88,24 +89,23 @@ class Adult extends FamilyMemberAbstract
 
     protected function canBeAdded()
     {
-        $adults = $this->family->getMembersByType(FamilyMember::TYPE_ADULT);
+        $adults = $this->family->getMembers(FamilyMember::TYPE_ADULT);
         return count($adults) < 2;
     }
 
     public function toJSON()
     {
         return \CMap::mergeArray(parent::toJSON(), array(
+            'relationshipStatus' => $this->relationshipStatus,
             'name' => $this->name,
+            'description' => $this->description,
             'gender' => $this->gender,
-            'birthday' => $this->birthday,
-            'description' => (string) $this->description,
-            'userId' => (int) $this->userId,
         ));
     }
 
     public function getPartner()
     {
-        $adults = $this->family->getMembersByType(FamilyMember::TYPE_ADULT);
+        $adults = $this->family->getMembers(FamilyMember::TYPE_ADULT);
         foreach ($adults as $adult) {
             if ($adult->id != $this->id) {
                 return $adult;

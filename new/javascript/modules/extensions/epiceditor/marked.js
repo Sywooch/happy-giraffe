@@ -451,6 +451,7 @@
         url: noop,
         tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
         link: /^!?\[(inside)\]\(href\)\(attrs\)/,
+        video: /\[w:video \((?:https?:\/\/)?(?:www\.)?youtu(.be\/|be\.com\/watch\?v=)(\w{11})\)\]/, //video
         reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
         nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
         strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,
@@ -586,6 +587,13 @@
                     href = text;
                 }
                 out += this.renderer.link(href, null, text);
+                continue;
+            }
+
+            if (cap = this.rules.video.exec(src)) {
+                src = src.substring(cap[0].length);
+                id = cap[2];
+                out += this.renderer.video(id);
                 continue;
             }
 
@@ -881,6 +889,10 @@
         }
         out += '>' + text + '</a>';
         return out;
+    };
+
+    Renderer.prototype.video = function(id) {
+        return '<iframe width="560" height="315" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen>';
     };
 
     Renderer.prototype.image = function(href, title, text) {

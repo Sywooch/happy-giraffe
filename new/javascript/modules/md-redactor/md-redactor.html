@@ -2,5 +2,7 @@
     <div class='md-redactor_hold' data-bind="attr: { id: idElement }, afterLoad: loadEditor"></div>
     <div class="md-redactor_upload-btn">
         <a class="btn btn-primary btn-m" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: loadPhotoComponent">Загрузить одно фото</a>
+        <a class="btn btn-primary btn-m" data-bind="click: insertVideo">Вставить видео</a>
+        <a class="btn btn-primary btn-m" data-bind="click: insertSignedImage">Вставить изображение</a>
     </div>
 <!-- /ko -->

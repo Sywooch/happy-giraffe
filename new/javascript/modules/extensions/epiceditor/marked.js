@@ -451,7 +451,11 @@
         url: noop,
         tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
         link: /^!?\[(inside)\]\(href\)\(attrs\)/,
-        video: /\[w:video \((?:https?:\/\/)?(?:www\.)?youtu(.be\/|be\.com\/watch\?v=)(\w{11})\)\]/, //video
+        video: /^\[w:video \((?:https?:\/\/)?(?:www\.)?youtu(.be\/|be\.com\/watch\?v=)(\w{11})\)\]/, //video
+        imgLink: /^\[w:image \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)( \((http(s)?:\/\/[a-zA-Z0-9\-_]+\.[a-zA-Z]+(.)+)+\))?( "\w+")?\]/,
+        img: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))/,
+        imglinkage: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/?((([\w-_\/]+)\/)?[\w-_\.]+)/g,
+        imgtitle: /"([^"]*)"/,
         reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
         nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
         strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,
@@ -567,6 +571,7 @@
             , cap;
 
         while (src) {
+
             // escape
             if (cap = this.rules.escape.exec(src)) {
                 src = src.substring(cap[0].length);
@@ -590,13 +595,6 @@
                 continue;
             }
 
-            if (cap = this.rules.video.exec(src)) {
-                src = src.substring(cap[0].length);
-                id = cap[2];
-                out += this.renderer.video(id);
-                continue;
-            }
-
             // url (gfm)
             if (!this.inLink && (cap = this.rules.url.exec(src))) {
                 src = src.substring(cap[0].length);
@@ -617,6 +615,32 @@
                 out += this.options.sanitize
                     ? escape(cap[0])
                     : cap[0];
+                continue;
+            }
+
+            //img link
+            if (cap = this.rules.imgLink.exec(src)) {
+                src = src.substring(cap[0].length);
+                var linkImg = cap[0].match(this.rules.imglinkage),
+                    linkTitle = cap[0].match(this.rules.imgtitle);
+                if (linkImg === null) {
+                    linkImg = [];
+                    linkImg[0] = undefined;
+                    linkImg[1] = undefined;
+                }
+                if (linkTitle === null) {
+                    linkTitle = [];
+                    linkTitle[1] = undefined
+                }
+                out += this.renderer.imgLink(linkImg[0], linkImg[1], linkTitle[1]);
+                continue;
+            }
+
+            //video
+            if (cap = this.rules.video.exec(src)) {
+                src = src.substring(cap[0].length);
+                var id = cap[2];
+                out += this.renderer.video(id);
                 continue;
             }
 
@@ -892,7 +916,10 @@
     };
 
     Renderer.prototype.video = function(id) {
-        return '<iframe width="560" height="315" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen>';
+        var out = '<div class="b-article_in-img"><div class="video-container"><iframe width="560" height="315" src="//www.youtube.com/embed/'
+            + id +
+            '" frameborder="0" allowfullscreen></iframe></div></div>';
+        return out;
     };
 
     Renderer.prototype.image = function(href, title, text) {
@@ -901,6 +928,19 @@
             out += ' title="' + title + '"';
         }
         out += this.options.xhtml ? '/>' : '>';
+        return out;
+    };
+
+
+    Renderer.prototype.imgLink = function(imageLink, sourceLink, title) {
+        var link,
+            titleT = (title !== undefined) ? title : sourceLink;
+        if (sourceLink !== undefined) {
+            link = '<a href="' + sourceLink + '" class="b-markdown_img-water">' + titleT + '</a>';
+        } else {
+            link = '';
+        }
+        var out = '<div class="b-article_in-img b-markdown_img-hold"><img alt="" src="'+ imageLink +'">' + link + '</div>';
         return out;
     };
 

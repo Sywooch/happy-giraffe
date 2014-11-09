@@ -6,6 +6,8 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.htmlId = params.htmlId;
         this.photo = ko.observable(null);
         this.collectionId = ko.observable();
+        this.videoSample = '[w:video (youtube-link)]';
+        this.signedImageSample = '[w:image (image-link) (source-link) "link-title"]';
         /**
          * Загружаем popup загрузчика фотографий
          * @param data
@@ -79,6 +81,12 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.appendToText = function appendToText(text) {
             var content = this.editor.exportFile('epiceditor');
             this.editor.importFile('epiceditor', content + text);
+        };
+        this.insertVideo = function instertVideo() {
+            this.appendToText(this.videoSample);
+        };
+        this.insertSignedImage = function instertVideo() {
+            this.appendToText(this.signedImageSample);
         };
         /**
          * Установка опций для парсера

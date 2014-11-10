@@ -68,14 +68,15 @@ mixin bAlbum(mod, vars)
                     a.b-album_prev-a(href="#")
                         img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
                         .b-album_prev-hold
-                li.b-album_prev-li
-                    a.b-album_prev-a(href="#")
-                        img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
-                        .b-album_prev-hold
-                li.b-album_prev-li
-                    a.b-album_prev-a(href="#")
-                        img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
-                        .b-album_prev-hold
+                if (vars.top)
+                    li.b-album_prev-li
+                        a.b-album_prev-a(href="#")
+                            img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                            .b-album_prev-hold
+                    li.b-album_prev-li
+                        a.b-album_prev-a(href="#")
+                            img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                            .b-album_prev-hold
                 - if (vars.prevAdd)
                     li.b-album_prev-li
                         a.album-photo-add(href="#")

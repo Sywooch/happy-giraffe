@@ -456,6 +456,7 @@
         img: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))/,
         imglinkage: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/?((([\w-_\/]+)\/)?[\w-_\.]+)/g,
         imgtitle: /"([^"]*)"/,
+        number: /^\[w:number( "([^"]*)")?\]/,
         reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
         nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
         strong: /^__([\s\S]+?)__(?!_)|^\*\*(\s\S]+?)\*\*(?!\*)/,
@@ -571,6 +572,7 @@
             , cap;
 
         while (src) {
+
             // escape
             if (cap = this.rules.escape.exec(src)) {
                 src = src.substring(cap[0].length);
@@ -616,8 +618,16 @@
                     : cap[0];
                 continue;
             }
-            if (cap = this.rules.video.exec(src)) {
 
+            //number
+            if (cap = this.rules.number.exec(src)) {
+                src = src.substring(cap[0].length);
+                out += this.renderer.number(cap[2], this.renderer.numberCount++);
+                continue;
+            }
+
+            //video
+            if (cap = this.rules.video.exec(src)) {
                 src = src.substring(cap[0].length);
                 var id = cap[2];
                 out += this.renderer.video(id);
@@ -719,7 +729,7 @@
                     Error('Infinite loop on byte: ' + src.charCodeAt(0));
             }
         }
-
+        this.renderer.numberCount = 1;
         return out;
     };
 
@@ -785,6 +795,7 @@
 
     function Renderer(options) {
         this.options = options || {};
+        this.numberCount = 1;
     }
 
     Renderer.prototype.code = function(code, lang, escaped) {
@@ -846,6 +857,17 @@
 
     Renderer.prototype.paragraph = function(text) {
         return '<p>' + text + '</p>\n';
+    };
+
+    Renderer.prototype.number = function(text, index) {
+        var out = '<div class="b-markdown_li-tx">' + index +  '</div>';
+        if (text !== undefined) {
+            out += '<p class="clearfix">' + text + '</p>\n';
+        }
+        else {
+            out += '<p></p>\n';
+        }
+        return out;
     };
 
     Renderer.prototype.table = function(header, body) {
@@ -914,9 +936,7 @@
     };
 
     Renderer.prototype.video = function(id) {
-        var out = '<div class="b-article_in-img"><div class="video-container"><iframe width="560" height="315" src="//www.youtube.com/embed/'
-            + id +
-            '" frameborder="0" allowfullscreen></iframe></div></div>';
+        var out = '<div class="b-article_in-img"><div class="video-container"><iframe width="560" height="333" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe></div></div>\n';
         return out;
     };
 
@@ -938,7 +958,7 @@
         } else {
             link = '';
         }
-        var out = '<div class="b-article_in-img b-markdown_img-hold"><img alt="" src="'+ imageLink +'">' + link + '</div>';
+        var out = '<div class="b-article_in-img b-markdown_img-hold"><img alt="" src="'+ imageLink +'">' + link + '</div>\n';
         return out;
     };
 

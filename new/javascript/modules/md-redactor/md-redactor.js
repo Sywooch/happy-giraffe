@@ -7,6 +7,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.photo = ko.observable(null);
         this.collectionId = ko.observable();
         this.videoSample = '[w:video (youtube-link)]';
+        this.typeOfImage = ko.observable(null);
         this.signedImageSample = '[w:image (image-link) (source-link) "link-title"]';
         /**
          * Загружаем popup загрузчика фотографий
@@ -15,13 +16,22 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          */
         this.loadPhotoComponent = function (data, event) {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('single');
         };
         /**
          * Подписка на изменение фотографии
          */
         this.photo.subscribe(function (img) {
-            this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
+            if (this.typeOfImage() === 'single') {
+                this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
+            }
+            if (this.typeOfImage() === 'signed') {
+                this.appendToText(this.generateSingnedImageSample(img.getGeneratedPreset('myPhotosAlbumCover'), img.id()));
+            }
         }, this);
+        this.generateSingnedImageSample = function generateSingnedImageSample(link, collectionId) {
+            return '[w:image (' + link + ') (source-link) "link-title"]';
+        };
         /**
          * Начинаем h-тэги с h2
          * @param text
@@ -85,8 +95,9 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.insertVideo = function instertVideo() {
             this.appendToText(this.videoSample);
         };
-        this.insertSignedImage = function instertVideo() {
-            this.appendToText(this.signedImageSample);
+        this.insertSignedImage = function insertSignedImage() {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('signed');
         };
         /**
          * Установка опций для парсера

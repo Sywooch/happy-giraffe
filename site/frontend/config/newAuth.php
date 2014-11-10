@@ -190,6 +190,12 @@ return array(
         'bizRule' => 'return $params["entity"]->canManage(\Yii::app()->user->id);',
         'data' => null,
     ),
+    'createFamily' => array(
+        'type' => CAuthItem::TYPE_OPERATION,
+        'description' => 'Создание семьи',
+        'bizRule' => null,
+        'data' => null
+    ),
     'updateFamily' => array(
         'type' => CAuthItem::TYPE_OPERATION,
         'description' => 'Редактирование семьи',

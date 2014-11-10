@@ -634,7 +634,7 @@
                     linkImg[0] = undefined;
                     linkImg[1] = undefined;
                 }
-                if (linkTitle === null) {ye
+                if (linkTitle === null) {
                     linkTitle = [];
                     linkTitle[1] = undefined
                 }

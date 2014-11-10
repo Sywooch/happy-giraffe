@@ -126,14 +126,14 @@ return array(
             'trueRoute' => 'posts/post/view',
             'falseRoute' => 'blog/default/view',
         ),
-        'user/<user_id:\d+>/blog' => 'blog/default/index',
-        /*array(
+        //'user/<user_id:\d+>/blog' => 'blog/default/index',
+        array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog',
             'trueRoute' => 'posts/list/index',
             'falseRoute' => 'blog/default/index',
-        ),*/
+        ),
         'newblog/<_a:>' => 'blog/default/<_a>',
 
         'user/<user_id:\d+>' => 'profile/default/index',
@@ -192,7 +192,16 @@ return array(
 
         'community/<_a:(subscribe)>/' => 'community/default/<_a>',
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
-        'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
+        
+        //'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
+        array(
+            'class' => 'site.frontend.components.ConditionalUrlRule',
+            'condition' => 'Yii::app()->user->isGuest',
+            'pattern' => 'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>',
+            'trueRoute' => 'posts/post/view',
+            'falseRoute' => 'community/default/view',
+        ),
+        
         'community/<forum_id:\d+>/forum/' => 'community/default/forum',
         'community/default/save' => 'community/default/save',
         'community/default/photoWidgetSave' => 'community/default/photoWidgetSave',

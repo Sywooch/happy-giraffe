@@ -95,19 +95,9 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
             /** @todo урлы могут различаться в зависимости от коллекции - добавить полиморфизм аттачей */
             'UrlBehavior' => array(
                 'class' => 'site\common\behaviors\UrlBehavior',
-                'route' => '/photo/default/single',
-                'params' => array($this, 'urlParams'),
+                'preparedUrl' => array($this->collection, 'getAttachUrl'),
             ),
         );
-    }
-
-    public function urlParams(PhotoAttach $model)
-    {
-        $album = $model->collection->RelatedModelBehavior->relatedModel;
-        $userId = $album->getAuthorId();
-        $albumId = $album->id;
-        $photoId = $model->photo_id;
-        return compact('userId', 'albumId', 'photoId');
     }
 
     public function defaultScope()

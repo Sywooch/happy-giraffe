@@ -14,18 +14,23 @@ class MigrateManager
 {
     public static function syncPhotoPostCollection(\CommunityContent $post)
     {
-        if ($post->gallery === null || empty($post->gallery->items)) {
+        if ($post->gallery === null || empty($post->gallery->items))
+        {
             return false;
         }
 
         $photoIds = array();
-        foreach ($post->gallery->items as $item) {
-            if ($photoId = self::movePhoto($item->photo, array('description' => $item->description))) {
+        foreach ($post->gallery->items as $item)
+        {
+            if ($photoId = self::movePhoto($item->photo, array('title' => $item->photo->title, 'description' => $item->description)))
                 $photoIds[] = $photoId;
-            }
         }
+        if (empty($photoIds))
+            $photoIds[] = 3;
         $collection = $post->getPhotoCollection();
         $collection->attachPhotos($photoIds, true);
+
+        return $collection;
     }
 
 
@@ -62,14 +67,11 @@ class MigrateManager
 
         $photo = new Photo();
         $photo->image = file_get_contents($oldPhoto->getOriginalPath());
-        $photo->title = mb_substr($oldPhoto->title, 0, 150, 'UTF-8');
         $photo->original_name = $oldPhoto->file_name;
         $photo->created = $oldPhoto->created;
         $photo->updated = $oldPhoto->updated;
         $photo->author_id = $oldPhoto->author_id;
-        foreach ($attributes as $attribute => $value) {
-            $photo->$attribute = $value;
-        }
+        self::updatePhotoInfo($oldPhoto, $photo, $attributes);
         if (! $photo->save()) {
             echo "error\n";
             return false;
@@ -80,5 +82,27 @@ class MigrateManager
 
         \AlbumPhoto::model()->updateByPk($oldPhoto->id, array('newPhotoId' => $photo->id));
         return $photo->id;
+    }
+
+    public static function updatePhoto(\AlbumPhoto $oldPhoto, $attributes = array())
+    {
+        if (($photo = $oldPhoto->newPhoto) === null) {
+            return false;
+        }
+
+        self::updatePhotoInfo($oldPhoto, $photo, $attributes);
+        $updateAttributes = array_merge(array_keys($attributes), array('title'));
+        return $photo->update($updateAttributes);
+    }
+
+    protected static function updatePhotoInfo(\AlbumPhoto $oldPhoto, Photo &$photo, $attributes)
+    {
+        foreach ($attributes as $attribute => $value) {
+            if ($attribute == 'title') {
+                $photo->title = mb_substr($oldPhoto->title, 0, 150, 'UTF-8');
+            } else {
+                $photo->$attribute = $value;
+            }
+        }
     }
 } 

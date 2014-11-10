@@ -1,4 +1,4 @@
-<?php $widget = $this->beginWidget('AdsWidget'); ?>
+<?php $widget = $this->beginWidget('AdsWidget', array('dummyTag' => 'yandex-direct')); ?>
 <div class="adv-yandex">
     <div id="yandex_ad_<?= $widget->id ?>"></div>
     <script type="text/javascript">

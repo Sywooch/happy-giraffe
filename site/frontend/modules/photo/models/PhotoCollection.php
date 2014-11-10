@@ -30,6 +30,9 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         'PhotoAlbum' => array(
             'default' => 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection',
         ),
+        'CommunityContent' => array(
+            'default' => 'site\frontend\modules\photo\models\collections\CommunityContentPhotoCollection',
+        ),
     );
 
 	/**
@@ -58,7 +61,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'attaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\Photoattach', 'collection_id'),
+            'attaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\PhotoAttach', 'collection_id'),
             'attachesCount' => array(self::STAT, 'site\frontend\modules\photo\models\PhotoAttach', 'collection_id'),
             'cover' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\PhotoAttach', 'cover_id'),
 		);
@@ -119,9 +122,30 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             ),
             'RelatedModelBehavior' => array(
                 'class' => 'site.common.behaviors.RelatedEntityBehavior',
-                'possibleRelations' => array('PhotoAlbum' => '\site\frontend\modules\photo\models\PhotoAlbum'),
+                'possibleRelations' => array(
+                    'PhotoAlbum' => '\site\frontend\modules\photo\models\PhotoAlbum',
+                    'CommunityContent' => '\CommunityContent',
+                ),
+            ),
+            'UrlBehavior' => array(
+                'class' => 'site\common\behaviors\UrlBehavior',
+                'preparedUrl' => array($this, 'getUrlInternal'),
             ),
         );
+    }
+
+    public function getUrlInternal($model)
+    {
+        $parentModel = $model->RelatedModelBehavior->relatedModel;
+        if ($parentModel->asa('UrlBehavior') || method_exists($parentModel, 'getUrl')) {
+            return $parentModel->getUrl();
+        }
+        return false;
+    }
+
+    protected function getAttachUrl(PhotoAttach $attach)
+    {
+        return $this->getUrl() . 'photo' . $attach->photo_id . '/';
     }
 
     public function setCover(PhotoAttach $attach)

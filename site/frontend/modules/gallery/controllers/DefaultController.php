@@ -67,7 +67,13 @@ class DefaultController extends HController
         $id = Yii::app()->request->getPost('id');
         $title = Yii::app()->request->getPost('title');
 
-        $success = AlbumPhoto::model()->updateByPk($id, array('title' => $title)) > 0;
+        $photo = AlbumPhoto::model()->findByPk($id);
+        if ($photo === null) {
+            $success = false;
+        } else {
+            $photo->title = $title;
+            $success = $photo->update(array('title'));
+        }
         $response = compact('success');
         echo CJSON::encode($response);
     }

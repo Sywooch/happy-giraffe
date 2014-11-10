@@ -27,7 +27,7 @@ class Ads extends CApplicationComponent
     public function addNoindex()
     {
         if (! $this->isProduction()) {
-            Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots');
+            Yii::app()->clientScript->registerMetaTag('noindex,nofollow', 'robots', null, array('develop' => 'develop'));
         }
     }
 

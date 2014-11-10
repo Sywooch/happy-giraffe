@@ -100,6 +100,14 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
 		return parent::model($className);
 	}
 
+    public function defaultScope()
+    {
+        $t = $this->getTableAlias(false, false);
+        return array(
+            'condition' => $t . '.removed = 0',
+        );
+    }
+
     public function behaviors()
     {
         return array(

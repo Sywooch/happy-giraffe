@@ -1,5 +1,15 @@
 /* b-markdown */
 .b-markdown {
+    
+    // для old layout
+    div,
+    a, 
+    span {.box-sizing(border-box);}
+    a {
+        text-decoration: none;
+    }
+    // /old layout
+
 
     h2 {
         margin: 15px 0 15px;
@@ -118,6 +128,8 @@ add in old css
         }
         &__r {
             margin-left: 65px;
+        }
+        .body__lite &__r {
             margin-right: -40px;
         }
     }
@@ -159,7 +171,7 @@ add in old css
     }
 
     @media (min-width: @screen-desktop) {
-        & {
+        .body__lite & {
             margin-right: -40px;
         }
     }

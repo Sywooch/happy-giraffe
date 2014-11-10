@@ -99,17 +99,6 @@ return array(
         )
     ),
 	'modules'=>array(
-		// uncomment the following to enable the Gii tool
-		'gii'=>array(
-			'class'=>'system.gii.GiiModule',
-			'password'=>'zawrube8pe2EbUtrAG',
-		 	// If removed, Gii defaults to localhost only. Edit carefully to taste.
-			'ipFilters'=>array('127.0.0.1','::1'),
-			'generatorPaths'=>array(
-				'ext.gtc',   // Gii Template Collection
-				'application.gii',
-			),
-		),
 		'contest',
         'im',
         'geo',
@@ -133,6 +122,9 @@ return array(
         ),
         'users' => array(
             'class' => 'site\frontend\modules\users\UsersModule',
+        ),
+        'posts' => array(
+            'class' => 'site\frontend\modules\posts\PostsModule',
         ),
         'friends',
         'favourites',
@@ -264,6 +256,9 @@ return array(
 		),
 		'assetManager'=>require_once(dirname(__FILE__).'/assets.php'),
 		'cache'=>require_once(dirname(__FILE__).'/cache.php'),
+        'apc'=>array(
+            'class'=>'CApcCache',
+        ),
 		'user'=>array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',

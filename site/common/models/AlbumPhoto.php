@@ -146,6 +146,7 @@ class AlbumPhoto extends HActiveRecord
             'cookRecipe' => array(self::HAS_ONE, 'CookRecipe', 'photo_id'),
             'remove' => array(self::HAS_ONE, 'Removed', 'entity_id', 'condition' => '`remove`.`entity` = :entity', 'params' => array(':entity' => get_class($this))),
             'commentsCount' => array(self::STAT, 'Comment', 'entity_id', 'condition' => 'entity=:modelName', 'params' => array(':modelName' => get_class($this))),
+            'newPhoto' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\Photo', 'newPhotoId'),
         );
     }
 
@@ -222,6 +223,12 @@ class AlbumPhoto extends HActiveRecord
 
             $this->generatePhotoViewPhotos();
         }
+
+        $data = array(
+            'oldPhotoId' => $this->id,
+            'attributes' => array('title' => $this->title),
+        );
+        \Yii::app()->gearman->client()->doBackground('updatePhotoPostPhoto', serialize($data));
 
         parent::afterSave();
     }

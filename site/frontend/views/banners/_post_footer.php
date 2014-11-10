@@ -1,6 +1,6 @@
 <div style="margin: 15px 0;">
     <?php if ($data instanceof CommunityContent): ?>
-    <?php $this->beginWidget('AdsWidget'); ?>
+    <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'yandex-direct')); ?>
     <!-- ﬂÌ‰ÂÍÒ.ƒËÂÍÚ -->
     <div id="yandex_ad_footer"></div>
     <script type="text/javascript">

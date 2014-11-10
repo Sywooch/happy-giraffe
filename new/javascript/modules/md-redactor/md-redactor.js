@@ -85,7 +85,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.insertVideo = function instertVideo() {
             this.appendToText(this.videoSample);
         };
-        this.insertSignedImage = function instertVideo() {
+        this.insertSignedImage = function insertSignedImage() {
             this.appendToText(this.signedImageSample);
         };
         /**

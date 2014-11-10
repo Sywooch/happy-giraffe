@@ -451,14 +451,14 @@
         url: noop,
         tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
         link: /^!?\[(inside)\]\(href\)\(attrs\)/,
-        video: /^\[w:video \((?:https?:\/\/)?(?:www\.)?youtu(.be\/|be\.com\/watch\?v=)(\w{11})\)\]/, //video
+        video: /^\[w:video \((?:https?:\/\/)?(?:www\.)?youtu(.be\/|be\.com\/watch\?v=)([A-Za-z0-9-_]{11})\)\]/, //video
         imgLink: /^\[w:image \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)( \((http(s)?:\/\/[a-zA-Z0-9\-_]+\.[a-zA-Z]+(.)+)+\))?( "\w+")?\]/,
         img: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))/,
         imglinkage: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/?((([\w-_\/]+)\/)?[\w-_\.]+)/g,
         imgtitle: /"([^"]*)"/,
         reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
         nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
-        strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,
+        strong: /^__([\s\S]+?)__(?!_)|^\*\*(\s\S]+?)\*\*(?!\*)/,
         em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
         code: /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
         br: /^ {2,}\n(?!\s*$)/,
@@ -571,7 +571,6 @@
             , cap;
 
         while (src) {
-
             // escape
             if (cap = this.rules.escape.exec(src)) {
                 src = src.substring(cap[0].length);
@@ -617,6 +616,13 @@
                     : cap[0];
                 continue;
             }
+            if (cap = this.rules.video.exec(src)) {
+
+                src = src.substring(cap[0].length);
+                var id = cap[2];
+                out += this.renderer.video(id);
+                continue;
+            }
 
             //img link
             if (cap = this.rules.imgLink.exec(src)) {
@@ -628,19 +634,11 @@
                     linkImg[0] = undefined;
                     linkImg[1] = undefined;
                 }
-                if (linkTitle === null) {
+                if (linkTitle === null) {ye
                     linkTitle = [];
                     linkTitle[1] = undefined
                 }
                 out += this.renderer.imgLink(linkImg[0], linkImg[1], linkTitle[1]);
-                continue;
-            }
-
-            //video
-            if (cap = this.rules.video.exec(src)) {
-                src = src.substring(cap[0].length);
-                var id = cap[2];
-                out += this.renderer.video(id);
                 continue;
             }
 

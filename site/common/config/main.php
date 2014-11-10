@@ -82,6 +82,11 @@ return array(
                     'width' => 205,
                     'height' => 140,
                 ),
+                'socialImage' => array(
+                    'filter' => 'fixed',
+                    'width' => 200,
+                    'height' => 200,
+                ),
             ),
         ),
         'crops' => array(

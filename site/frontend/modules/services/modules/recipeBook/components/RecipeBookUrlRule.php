@@ -31,13 +31,6 @@ class RecipeBookUrlRule extends \CBaseUrlRule
     {
         Yii::import('site.frontend.modules.services.modules.recipeBook.models.*');
 
-        /** @todo Убрать этот блок через месяц после его появления */
-        if (preg_match('#^recipeBook\/category\/(\w+)$#', $pathInfo, $matches))
-        {
-            $slug = $matches[1];
-            Yii::app()->request->redirect(Yii::app()->createUrl('services/recipeBook/default/category', array('slug' => $slug)));
-        }
-
         $route = false;
 
         if (preg_match('#^recipeBook\/(\w+)$#', $pathInfo, $matches))
@@ -53,14 +46,6 @@ class RecipeBookUrlRule extends \CBaseUrlRule
                 $_GET['slug'] = $slug;
                 $route = 'services/recipeBook/default/category';
             }
-        }
-
-        /** @todo Убрать этот блок через месяц после его появления */
-        if ($route && ($page = $request->getQuery('RecipeBookRecipe_page')))
-        {
-            unset($_GET['RecipeBookRecipe_page']);
-            $_GET['page'] = $page;
-            Yii::app()->request->redirect(Yii::app()->createUrl('/' . $route, $_GET));
         }
 
         return $route;

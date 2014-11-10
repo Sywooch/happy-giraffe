@@ -37,6 +37,8 @@ return array(
         'site.frontend.modules.services.modules.test.models.*',
         'site.frontend.modules.services.modules.lines.models.*',
         'site.frontend.modules.valentinesDay.models.*',
+        'site.frontend.modules.antispam.models.*',
+        'site.frontend.modules.antispam.components.*',
     ),
     'modules'=>array(
         'seo',
@@ -56,7 +58,7 @@ return array(
                     'maxButtonCount' => 5,
                 ),
                 'CKEditorWidget' => array(
-                    'ckEditor' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www-submodule' . DIRECTORY_SEPARATOR . 'ckeditor' . DIRECTORY_SEPARATOR . 'ckeditor.php',
+                    'ckEditor' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'www' . DIRECTORY_SEPARATOR . 'ckeditor' . DIRECTORY_SEPARATOR . 'ckeditor.php',
                 ),
             ),
         ),

@@ -12,36 +12,69 @@ use site\frontend\components\api\ApiController;
 
 class CollectionsApiController extends ApiController
 {
-    public function actionGetAttaches($collectionId, $length = 0, $offset = 0)
+    public function actions()
     {
-        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId);
-        $observer = PhotoCollectionObserver::getObserver($collection);
-        $this->success = true;
-        $this->data = $observer->getSlice($length, $offset);
+        return \CMap::mergeArray(parent::actions(), array(
+            'get' => 'site\frontend\components\api\PackAction',
+        ));
     }
 
-    public function actionMy()
+    public function packGet($id)
     {
-        $user = $this->getModel('\User', \Yii::app()->user->id);
+        $model = $this->getModel('\site\frontend\modules\photo\models\PhotoCollection', $id);
+        $this->success = $model !== null;
+        if ($this->success) {
+            $this->data = $model;
+        }
+    }
+
+    public function actionListAttaches($collectionId, $page, $pageSize)
+    {
+        $offset = $page * $pageSize;
+        $length = $pageSize;
+
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId);
         $this->success = true;
-        $this->data = $user->photoCollections;
+        $this->data['attaches'] = $collection->observer->getSlice($offset, $length, false);
+        $this->data['isLast'] = ($offset + $length) >= $collection->observer->getCount();
+    }
+
+    public function actionGetAttaches($collectionId, $offset, $length = null, $circular = false)
+    {
+        $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId);
+        $this->success = true;
+        $this->data['attaches'] = $collection->observer->getSlice($offset, $length, $circular);
+    }
+
+    public function actionGetByUser($userId)
+    {
+        /** @var \User $user */
+        $user = $this->getModel('\User', $userId);
+        $this->success = true;
+        $this->data = array(
+            'all' => $user->getPhotoCollection('default'),
+            'unsorted' => $user->getPhotoCollection('unsorted'),
+        );
     }
 
     public function actionSetCover($collectionId, $attachId)
     {
+        /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
         $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'setCover');
-        $collection->setScenario('setCover');
-        $this->success = $collection->setCover($attachId);
+        $attach = $this->getModel('site\frontend\modules\photo\models\PhotoAttach', $attachId);
+        $this->success = $collection->setCover($attach) && $collection->save(true, array('cover_id'));
     }
 
     public function actionAddPhotos($collectionId, array $photosIds)
     {
+        /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
         $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'addPhotos');
         $this->success = $collection->attachPhotos($photosIds);
     }
 
     public function actionSortAttaches($collectionId, array $attachesIds)
     {
+        /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
         $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $collectionId, 'sortPhotoCollection');
         $collection->sortAttaches($attachesIds);
         $this->success = true;
@@ -49,20 +82,9 @@ class CollectionsApiController extends ApiController
 
     public function actionMoveAttaches($sourceCollectionId, $destinationCollectionId, array $attachesIds)
     {
+        /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
         $collection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $sourceCollectionId, 'moveAttaches');
         $destinationCollection = $this->getModel('site\frontend\modules\photo\models\PhotoCollection', $destinationCollectionId, 'moveAttaches');
         $this->success = $collection->moveAttaches($destinationCollection, $attachesIds);
-    }
-
-    /**
-     * @param $class
-     * @param $id
-     * @param bool $checkAccess
-     * @param bool $resetScope
-     * @return \site\frontend\modules\photo\models\collections\PhotoCollectionAbstract
-     */
-    public function getModel($class, $id, $checkAccess = false, $resetScope = false)
-    {
-        return parent::getModel($class, $id, $checkAccess, $resetScope);
     }
 } 

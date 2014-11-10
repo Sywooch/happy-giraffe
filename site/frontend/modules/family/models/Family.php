@@ -130,7 +130,7 @@ class Family extends \CActiveRecord implements \IHToJSON
         return $result;
     }
 
-    protected static function createFamily($userId)
+    public static function createFamily($userId)
     {
         $family = new Family();
         $member = new Adult();

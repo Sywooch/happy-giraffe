@@ -23,11 +23,11 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          */
         this.photo.subscribe(function (img) {
             if (this.typeOfImage() === 'single') {
-                this.appendToText(this.generateSingnedImageSample(img.getGeneratedPreset('myPhotosAlbumCover'), img.id()));
+                this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
             }
             if (this.typeOfImage() === 'signed') {
                 this.appendToText(this.signedImageSample);
-                this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
+                this.appendToText(this.generateSingnedImageSample(img.getGeneratedPreset('myPhotosAlbumCover'), img.id()));
             }
         }, this);
         this.generateSingnedImageSample = function generateSingnedImageSample(link, collectionId) {

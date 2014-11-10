@@ -16,7 +16,8 @@
         }
         @media (min-width: @screen-desktop) {
             & {
-                font-size: 18px;
+                font-size: 22px;
+                line-height: 26px;
             }
         }
     }
@@ -52,11 +53,30 @@
         #gradient .vertical(@start-color: rgba(0,0,0,.0001); @end-color: rgba(0,0,0,.4); @start-percent: 0%; @end-percent: 100%);
     }
     &_img-water:hover {color: #fff;}
+    &_li-tx {
+        float: left;
+        min-width: 40px;
+        padding: 0 10px 5px;
+        font-size: 30px;
+        line-height: 1;
+        text-align: center;
+    }
 
     @media (min-width: @screen-tablet) {
         
         & &_img-hold {
             margin-top: 40px;
+        }
+        &_li-tx {
+            font-size: 45px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        
+        &_li-tx {
+            padding: 0 18px;
+            min-width: 65px;
+            font-size: 60px;
         }
     }
 }

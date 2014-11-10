@@ -23,7 +23,7 @@ class RelatedEntityBehavior extends CActiveRecordBehavior
 
     public function getRelatedModel($resetScope = true)
     {
-        $model = CActiveRecord::model($this->owner->entity);
+        $model = CActiveRecord::model($this->possibleRelations[$this->owner->entity]);
         if ($resetScope) {
             $model->resetScope();
         }

@@ -7,12 +7,7 @@
  * @var site\frontend\modules\photo\models\PhotoCollection|site\frontend\modules\photo\components\IPublicPhotoCollection $collection
  */
 $photo = $attach->photo;
-$this->breadcrumbs = array(
-    $this->widget('Avatar', array(
-        'user' => $photo->author,
-        'size' => \Avatar::SIZE_MICRO,
-        'tag' => 'span'), true) => array('/profile/default/index', 'user_id' => $photo->getAuthorId()),
-    'Блог' => array('/blog/default/index', 'user_id' => $photo->getAuthorId()),
+$this->breadcrumbs += array(
     $collection->getTitle() => $collection->getUrl(),
     $attach->getTitle(),
 );

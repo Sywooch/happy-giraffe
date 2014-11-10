@@ -72,6 +72,11 @@ return array(
                     'width' => 880,
                     'height' => 580,
                 ),
+                'sliderPhoto' => array(
+                    'filter' => 'lepilla',
+                    'width' => 1200,
+                    'height' => 1000,
+                ),
                 'myPhotosPreview' => array(
                     'filter' => 'relativeResize',
                     'method' => 'heighten',

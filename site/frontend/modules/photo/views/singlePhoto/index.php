@@ -26,6 +26,8 @@ if ($attachNext !== null) {
     $this->metaNavigation->next = $attachNext->getUrl();
 }
 $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $photo));
+$cs = Yii::app()->clientScript;
+$cs->registerAMD('photo-single', array('kow'));
 ?>
 
 <div class="b-main">

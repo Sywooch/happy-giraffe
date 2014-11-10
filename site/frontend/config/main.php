@@ -126,6 +126,9 @@ return array(
         'posts' => array(
             'class' => 'site\frontend\modules\posts\PostsModule',
         ),
+        'like' => array(
+            'class' => 'site\frontend\modules\like\LikeModule',
+        ),
         'friends',
         'favourites',
         'scores',

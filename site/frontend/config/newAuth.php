@@ -19,6 +19,7 @@ return array(
             'uploadPhoto',
             'manageOwnFamily',
             'manageOwnFamilyMembers',
+            'createFamily',
             'createFamilyMember',
         ),
         'bizRule' => null,

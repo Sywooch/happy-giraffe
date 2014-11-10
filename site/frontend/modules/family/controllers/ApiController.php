@@ -40,11 +40,24 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionGet($id, $public = true)
     {
-        $family = Family::getByUserId($id);
+        $family = Family::getByUserId($id, false);
         $this->success = $family !== null;
         if ($family !== null) {
             $this->data = $family->toJSON();
             $this->data['members'] = $family->getMembers(null, false);
+        }
+    }
+
+    public function actionCreateFamily()
+    {
+        if (! \Yii::app()->user->checkAccess('createFamily')) {
+            throw new \CHttpException(403, 'Недостаточно прав');
+        }
+
+        $family = Family::createFamily(\Yii::app()->user->id);
+        $this->success = $family !== null;
+        if ($family !== null) {
+            $this->data = $family;
         }
     }
 

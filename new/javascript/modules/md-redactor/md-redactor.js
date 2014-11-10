@@ -26,7 +26,6 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
                 this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
             }
             if (this.typeOfImage() === 'signed') {
-                this.appendToText(this.signedImageSample);
                 this.appendToText(this.generateSingnedImageSample(img.getGeneratedPreset('myPhotosAlbumCover'), img.id()));
             }
         }, this);

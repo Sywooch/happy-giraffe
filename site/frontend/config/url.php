@@ -406,7 +406,7 @@ return array(
         'user/<userId:\d+>/albums' => 'photo/default/index',
         'user/<userId:\d+>/albums/<id:\d+>' => 'photo/default/album',
         'user/<userId:\d+>/albums/create' => 'photo/default/create',
-        'user/<userId:\d+>/albums/<albumId:\d+>/photo<photoId:\d+>' => 'photo/default/single',
+        'user/<userId:\d+>/albums/<albumId:\d+>/photo<photoId:\d+>' => 'photo/singlePhoto/album',
         'photo/default/presets' => 'photo/default/presets',
 
         'onair' => 'blog/air/index',

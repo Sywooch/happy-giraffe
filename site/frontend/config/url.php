@@ -380,6 +380,8 @@ return array(
 
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
 
+        'photo/default/presets' => 'photo/default/presets',
+
         'onair' => 'blog/air/index',
 
         array('class' => 'site\frontend\modules\archive\components\ArchiveUrlRule'),

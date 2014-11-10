@@ -224,6 +224,12 @@ class AlbumPhoto extends HActiveRecord
             $this->generatePhotoViewPhotos();
         }
 
+        $data = array(
+            'oldPhotoId' => $this->id,
+            'attributes' => array('title' => $this->title),
+        );
+        \Yii::app()->gearman->client()->doBackground('updatePhotoPostPhoto', serialize($data));
+
         parent::afterSave();
     }
 

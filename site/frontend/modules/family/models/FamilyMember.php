@@ -6,17 +6,17 @@ namespace site\frontend\modules\family\models;
  * This is the model class for table "family__members".
  *
  * The followings are the available columns in table 'family__members':
- * @property string $id
+ * @property int $id
  * @property string $type
  * @property string $name
- * @property integer $gender
+ * @property int $gender
  * @property string $birthday
  * @property string $description
- * @property string $userId
- * @property string $familyId
- * @property integer $created
- * @property integer $updated
- * @property integer $removed
+ * @property int $userId
+ * @property int $familyId
+ * @property int $created
+ * @property int $updated
+ * @property int $removed
  *
  * The followings are the available model relations:
  * @property \site\frontend\components\api\models\User $user
@@ -100,14 +100,6 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
 		return parent::model($className);
 	}
 
-    public function defaultScope()
-    {
-        $t = $this->getTableAlias(false, false);
-        return array(
-            'condition' => $t . '.removed = 0',
-        );
-    }
-
     public function behaviors()
     {
         return array(
@@ -120,43 +112,10 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
             ),
+            'PhotoCollectionBehavior' => array(
+                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+            ),
         );
-    }
-
-    public function family($familyId)
-    {
-        $this->getDbCriteria()->compare($this->getTableAlias() . '.familyId', $familyId);
-        return $this;
-    }
-
-    public function user($userId)
-    {
-        $this->getDbCriteria()->compare($this->getTableAlias() . '.userId', $userId);
-        return $this;
-    }
-
-    public function gender($gender)
-    {
-        $this->getDbCriteria()->compare($this->getTableAlias() . '.gender', $gender);
-        return $this;
-    }
-
-    public function type($type)
-    {
-        if (is_array($type)) {
-            $this->getDbCriteria()->addInCondition($this->getTableAlias() . '.type', $type);
-        } else {
-            $this->getDbCriteria()->compare($this->getTableAlias() . '.type', $type);
-        }
-        return $this;
-    }
-    
-    public function fillByUser($userId)
-    {
-        $user = \site\frontend\components\api\models\User::model()->findByPk($userId);
-        $this->name = $user->firstName;
-        $this->gender = $user->gender;
-        $this->userId = $userId;
     }
 
     public function toJSON()
@@ -167,6 +126,87 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
         );
     }
 
+    public function defaultScope()
+    {
+        $t = $this->getTableAlias(false, false);
+        return array(
+            'condition' => $t . '.removed = 0',
+        );
+    }
+
+    public function scopes()
+    {
+        return array(
+            'virtual' => array(
+                'condition' => 'userId IS NULL',
+            ),
+            'real' => array(
+                'condition' => 'userId IS NOT NULL',
+            ),
+        );
+    }
+
+    /**
+     * @param int $familyId id семьи
+     * @return FamilyMember $this
+     */
+    public function family($familyId)
+    {
+        $this->getDbCriteria()->compare($this->getTableAlias() . '.familyId', $familyId);
+        return $this;
+    }
+
+    /**
+     * @param int $userId id пользователя
+     * @return FamilyMember $this
+     */
+    public function user($userId)
+    {
+        $this->getDbCriteria()->compare($this->getTableAlias() . '.userId', $userId);
+        return $this;
+    }
+
+    /**
+     * @param int $gender пол
+     * @return FamilyMember $this
+     */
+    public function gender($gender)
+    {
+        $this->getDbCriteria()->compare($this->getTableAlias() . '.gender', $gender);
+        return $this;
+    }
+
+    /**
+     * @param string $type тип члена семьи
+     * @return FamilyMember $this
+     */
+    public function type($type)
+    {
+        if (is_array($type)) {
+            $this->getDbCriteria()->addInCondition($this->getTableAlias() . '.type', $type);
+        } else {
+            $this->getDbCriteria()->compare($this->getTableAlias() . '.type', $type);
+        }
+        return $this;
+    }
+
+    /**
+     * Синхронизировать информацию
+     *
+     * Синхронизирует информацию о члене семьи с информацией реальзого пользователя.
+     *
+     * @param int $userId id пользователя
+     * @return FamilyMember $this
+     */
+    public function fillByUser($userId)
+    {
+        $user = \site\frontend\components\api\models\User::model()->findByPk($userId);
+        $this->name = $user->firstName;
+        $this->gender = $user->gender;
+        $this->userId = $userId;
+        return $this;
+    }
+
     protected function instantiate($attributes)
     {
         $class = self::getClassName($attributes['type']);
@@ -174,6 +214,13 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
         return $model;
     }
 
+    /**
+     * Возвращает класс, реализующий членов семьи переданного типа
+     *
+     * @param string $type тип члена семьи
+     * @return string класс
+     * @throws \CException если передано некорректное значение типа
+     */
     public static function getClassName($type)
     {
         switch ($type) {
@@ -186,7 +233,7 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
             case 'waiting':
                 return '\site\frontend\modules\family\models\PregnancyChild';
             default:
-                return false;
+                throw new \CException('Invalid type value');
         }
     }
 
@@ -201,11 +248,17 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
         return parent::beforeValidate();
     }
 
+    /**
+     * @return bool может ли быть добавлен данный член семьи
+     */
     protected function canBeAdded()
     {
         return true;
     }
 
+    /**
+     * @return bool является ли член семьи публичныи
+     */
     public function isPublic()
     {
         return true;

@@ -1,14 +1,19 @@
 <!-- ko if: idElement -->
     <div class='md-redactor_hold' data-bind="attr: { id: idElement }, afterLoad: loadEditor"></div>
     <div class="md-redactor_upload-btn">
-        <a class="btn btn-primary btn-m" data-bind="click: insertVideo">Вставить видео</a>
+        <div class="margin-b10"><a class="btn btn-primary btn-m" data-bind="click: insertVideo">Вставить видео</a></div>
         <!-- ko if: full -->
-        <a class="btn btn-primary btn-m" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: loadPhotoComponent">Вставить изображение</a>
-        <a class="btn btn-primary btn-m" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: insertSignedImage">Вставить изображение с ссылкой</a>
-        <a class="btn btn-primary btn-m" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: insertNumberImage">Вставить пронумерованное изображение с ссылкой</a>
-        <a class="btn btn-primary btn-m" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: insertDayImage">Вставить инфо</a>
-        <a class="btn btn-primary btn-m" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: insertCompareImage">Вставить сравнение</a>
-        <a class="btn btn-primary btn-m" data-bind="click: insertCompareImageSampleNoPhoto">Вставить сравнение без фото</a>
+        <div class="margin-b10">
+            <a class="btn btn-primary btn-m margin-r10" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: loadPhotoComponent">Вставить изображение</a>
+            <a class="btn btn-primary btn-m" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: insertSignedImage">Вставить изображение с ссылкой</a>
+        </div>
+        <div class="margin-b10">
+            <a class="btn btn-primary btn-m margin-r10" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: insertNumberImage">Вставить пронумерованное изображение с ссылкой</a>
+            <a class="btn btn-primary btn-m" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: insertDayImage">Вставить инфо</a>
+        </div>
+        <div class="margin-b10">
+            <a class="btn btn-primary btn-m margin-r10" data-bind="photoComponentUpload: { data: { multiple: false }, observable: photo }, click: insertCompareImage">Вставить сравнение</a> <a class="btn btn-primary btn-m" data-bind="click: insertCompareImageSampleNoPhoto">Вставить сравнение без фото</a>
+        </div>
         <!-- /ko -->
     </div>
 <!-- /ko -->

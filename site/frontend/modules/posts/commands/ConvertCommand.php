@@ -10,6 +10,16 @@ namespace site\frontend\modules\posts\commands;
 class ConvertCommand extends \CConsoleCommand
 {
 
+    public $commands = array(
+        'oldBlog_CommunityContent_convert_post',
+        'oldCommunity_CommunityContent_convert_post',
+        'oldBlog_CommunityContent_convert_photopost',
+        'oldCommunity_CommunityContent_convert_photopost',
+        'oldBlog_CommunityContent_convert_status',
+        'oldBlog_CommunityContent_convert_video',
+        'oldCommunity_CommunityContent_convert_video',
+    );
+
     /**
      * Добавление задачи, для конвертирования CommunityContent в новый сервис постов
      * 
@@ -20,8 +30,19 @@ class ConvertCommand extends \CConsoleCommand
         $client = \Yii::app()->gearman->client();
         $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         $entity = get_class($oldPost);
+        if($entity == 'BlogContent') {
+            $entity = 'CommunityContent';
+        }
         $id = $oldPost->id;
-        $fName = $service . '_' . $entity . '_convert';
+        $types = array(
+            \CommunityContent::TYPE_POST => 'post',
+            \CommunityContent::TYPE_VIDEO => 'video',
+            \CommunityContent::TYPE_PHOTO_POST => 'photopost',
+            \CommunityContent::TYPE_STATUS => 'status',
+        );
+        if(!isset($types[$oldPost->type_id]))
+            return false;
+        $fName = $service . '_' . $entity . '_convert_' . $types[$oldPost->type_id];
         $data = array(
             'service' => $service,
             'entity' => $entity,
@@ -41,11 +62,16 @@ class ConvertCommand extends \CConsoleCommand
         return \CJSON::decode($data);
     }
 
-    public function actionIndex()
+    public function actionIndex(Array $command = array(), $fake = false)
     {
+        /** @todo параметризировать команду, что бы можно было выбирать обработчики */
         $worker = \Yii::app()->gearman->worker();
-        $worker->addFunction('oldBlog_CommunityContent_convert', array($this, 'convertPost'));
-        $worker->addFunction('oldCommunity_CommunityContent_convert', array($this, 'convertPost'));
+        if (empty($command))
+            $command = $this->commands;
+
+        foreach ($command as $c)
+            if (in_array($c, $this->commands))
+                $worker->addFunction($c, array($this, $fake ? 'fake' : 'convertPost'));
 
         while ($worker->work());
     }
@@ -56,9 +82,23 @@ class ConvertCommand extends \CConsoleCommand
      */
     public function convertPost($job)
     {
-        $data = self::unserialize($job->workload());
-        $model = \CActiveRecord::model($data['entity'])->findByPk($data['entityId']);
-        $model->convertToNewPost();
+        try
+        {
+            $data = self::unserialize($job->workload());
+            $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
+            $model->convertToNewPost();
+            echo '.';
+        }
+        catch (\Exception $e)
+        {
+            var_dump($data);
+            echo $e;
+        }
+    }
+
+    public function fake($job)
+    {
+        return null;
     }
 
 }

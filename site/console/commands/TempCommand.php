@@ -143,6 +143,7 @@ class TempCommand extends CConsoleCommand
 
     public function actionSeo1()
     {
+        throw new Exception('Низя!');
         $criteria = new CDbCriteria();
         $criteria->with = array('post');
         $criteria->condition = 'uniqueness IS NULL AND type_id = 1';
@@ -165,6 +166,7 @@ class TempCommand extends CConsoleCommand
 
     public function actionSeo2()
     {
+        throw new Exception('Низя!');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.extensions.GoogleAnalytics');
@@ -660,6 +662,23 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         }
 
         echo $i;
+    }
+
+    public function actionTestGone()
+    {
+        echo time() . "\n";
+        while (true) {
+            $post = CommunityContent::model()->find(array('order' => 'RAND()'));
+            sleep(mt_rand(1, 10));
+
+            echo $post->id . '- ' . time() . "\n";
+        }
+    }
+
+    public function actionConvertPost($id)
+    {
+        $post = CommunityContent::model()->findByPk($id);
+        $post->convertToNewPost();
     }
 }
 

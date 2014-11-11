@@ -21,6 +21,11 @@ class User extends ApiModel
 
     public $api = 'users';
 
+    public function getFullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
     /**
      * 
      * @param string $className

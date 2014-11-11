@@ -32,7 +32,7 @@ abstract class PhotoCollectionObserver extends \CComponent
      * Возвращает объект обозревателя для данной коллекции
      *
      * @param \site\frontend\modules\photo\models\PhotoCollection $model модель фотоколлекции
-     * @return \site\frontend\modules\photo\components\observers\PhotoCollectionIdsObserver объект обозревателя
+     * @return \site\frontend\modules\photo\components\observers\PhotoCollectionObserver объект обозревателя
      */
     public static function getObserver(PhotoCollection $model)
     {
@@ -50,6 +50,28 @@ abstract class PhotoCollectionObserver extends \CComponent
         return $this->model->attachesCount;
     }
 
+    public function getNext($attachId)
+    {
+        if ($this->getCount() < 2) {
+            return null;
+        }
+        $currentIndex = $this->getIndexByAttachId($attachId);
+        $isLast = ($currentIndex + 1) == $this->getCount();
+        $nextIndex = ($isLast) ? 0 : $currentIndex + 1;
+        return $this->getSingle($nextIndex);
+    }
+
+    public function getPrev($attachId)
+    {
+        if ($this->getCount() < 2) {
+            return null;
+        }
+        $currentIndex = $this->getIndexByAttachId($attachId);
+        $isFirst = $currentIndex == 0;
+        $next = ($isFirst) ? ($this->getCount() - 1) : $currentIndex - 1;
+        return $this->getSingle($next);
+    }
+
     /**
      * Возвращает критерию по умолчанию
      *
@@ -61,6 +83,11 @@ abstract class PhotoCollectionObserver extends \CComponent
         $criteria->order = self::ORDER;
         $criteria->with = 'photo';
         return $criteria;
+    }
+
+    protected function slice($array, $offset, $length, $circular)
+    {
+        return $circular ? $this->roundSlice($array, $offset, $length) : array_slice($array, $offset, $length);
     }
 
     /**
@@ -102,5 +129,7 @@ abstract class PhotoCollectionObserver extends \CComponent
      * @param int $offset смещение
      * @return \site\frontend\modules\photo\models\PhotoAttach[] массив аттачей
      */
-    abstract public function getSlice($length, $offset);
+    abstract public function getSlice($offset, $length = null, $circular = false);
+
+    abstract public function getIndexByAttachId($attachId);
 } 

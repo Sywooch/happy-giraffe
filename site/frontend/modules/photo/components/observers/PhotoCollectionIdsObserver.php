@@ -21,21 +21,30 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
 
     public function getSingle($offset)
     {
+        if ($offset < 0) {
+            $offset = $this->getCount() + $offset;
+        }
+
         return PhotoAttach::model()->findByPk($this->ids[$offset]);
     }
 
-    public function getSlice($length = 0, $offset = 0)
+    public function getSlice($offset, $length = null, $circular = false)
     {
         if ($this->getCount() == 0) {
             return array();
         }
 
-        $ids = $length == 0 ? $this->ids : $this->roundSlice($this->ids, $offset, $length);
+        $ids = ($length == null && $offset == 0) ? $this->ids : $this->slice($this->ids, $offset, $length, $circular);
         $criteria = $this->getDefaultCriteria();
         $criteria->order = '';
         $criteria->addInCondition('t.id', $ids);
         $attaches = PhotoAttach::model()->findAll($criteria);
         return $attaches;
+    }
+
+    public function getIndexByAttachId($attachId)
+    {
+        return array_search($attachId, $this->ids);
     }
 
     /**
@@ -46,9 +55,11 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
     protected function getIds()
     {
         if ($this->_ids === null) {
-            $alias = PhotoAttach::model()->getTableAlias();
-            $sql = 'SELECT id FROM ' . PhotoAttach::model()->tableName() . ' ' . $alias . ' WHERE ' . $alias . '.collection_id = :collection_id ORDER BY ' . self::ORDER;
-            $this->_ids = \Yii::app()->db->createCommand($sql)->queryColumn(array(':collection_id' => $this->model->id));
+            $criteria = clone PhotoAttach::model()->collection($this->model->id)->getDbCriteria();
+            $criteria->select = 'id';
+            $criteria->order = self::ORDER;
+            $command = \Yii::app()->db->getCommandBuilder()->createFindCommand(PhotoAttach::model()->tableName(), $criteria);
+            $this->_ids = $command->queryColumn();
         }
         return $this->_ids;
     }

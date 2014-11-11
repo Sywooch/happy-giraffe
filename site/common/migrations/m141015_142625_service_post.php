@@ -60,12 +60,12 @@ CREATE  TABLE IF NOT EXISTS `post__tags` (
   INDEX `fk_post__contents` (`contentId` ASC) ,
   CONSTRAINT `fk_post__contents`
     FOREIGN KEY (`contentId` )
-    REFERENCES `happy_giraffe`.`post__contents` (`id` )
+    REFERENCES `post__contents` (`id` )
     ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_post__labels`
     FOREIGN KEY (`labelId` )
-    REFERENCES `happy_giraffe`.`post__labels` (`id` )
+    REFERENCES `post__labels` (`id` )
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB

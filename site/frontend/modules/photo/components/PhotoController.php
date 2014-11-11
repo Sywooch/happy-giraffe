@@ -8,7 +8,11 @@
 
 namespace site\frontend\modules\photo\components;
 
-class PhotoController extends \HController
+class PhotoController extends \PersonalAreaController
 {
-    public $layout = '//layouts/new/mainNew';
+    public function init()
+    {
+        $this->bodyClass .= ' body__cont-wide';
+        parent::init();
+    }
 } 

@@ -1,4 +1,4 @@
-<?php $this->beginWidget('AdsWidget'); ?>
+<?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
 <?php
     $cs = Yii::app()->clientScript;
     if($cs->useAMD)

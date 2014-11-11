@@ -44,10 +44,10 @@ return array(
             'comment-widget' => '/new/javascript/modules/comment-widget/comment-widget',
             'routesCalc' => 'routes',
         ),
-    /* 'eval' => '
-      ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
-      ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
-      ', */
+        /* 'eval' => '
+          ko.amdTemplateEngine.defaultPath = "/new/javascript/modules";
+          ko.amdTemplateEngine.defaultSuffix = ".tmpl.html";
+          ', */
     ),
     'litePackages' => array(
         'default' => array(
@@ -312,7 +312,7 @@ return array(
             'baseUrl' => '/',
             'js' => array(
                 'javascripts/ko_post.js',
-            //'javascripts/baron.js',
+                //'javascripts/baron.js',
             ),
             'depends' => array('knockout', 'baron', 'ko_favourites', 'ko_upload', 'ko_library'),
         ),
@@ -551,11 +551,11 @@ return array(
         'lite_horoscope_user' => array(
             'depends' => array('lite_services_user'),
         ),
-        'lite_cook_choose' => array(
-            'depends' => array('lite_services'),
+        'lite_photo' => array(
+            'depends' => array('lite-default'),
         ),
-        'lite_cook_choose_user' => array(
-            'depends' => array('lite_services_user'),
+        'lite_photo_user' => array(
+            'depends' => array('lite-default'),
         ),
         'lite_editorial-department_user' => array(
             'depends' => array('lite-default'),

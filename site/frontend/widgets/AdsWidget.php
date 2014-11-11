@@ -9,6 +9,7 @@
 class AdsWidget extends CWidget
 {
     public $show;
+    public $dummyTag;
 
     public function init()
     {
@@ -24,6 +25,8 @@ class AdsWidget extends CWidget
         $contents = ob_get_clean();
         if ($this->show) {
             echo $contents;
+        } elseif ($this->dummyTag !== null) {
+            echo CHtml::tag($this->dummyTag);
         }
     }
 } 

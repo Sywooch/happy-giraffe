@@ -83,8 +83,8 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
     public function behaviors()
     {
         return array(
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
@@ -92,6 +92,19 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
             ),
+            /** @todo урлы могут различаться в зависимости от коллекции - добавить полиморфизм аттачей */
+            'UrlBehavior' => array(
+                'class' => 'site\common\behaviors\UrlBehavior',
+                'preparedUrl' => array($this->collection, 'getAttachUrl'),
+            ),
+        );
+    }
+
+    public function defaultScope()
+    {
+        $t = $this->getTableAlias(false, false);
+        return array(
+            'condition' => $t . '.removed = 0',
         );
     }
 
@@ -101,19 +114,43 @@ class PhotoAttach extends \HActiveRecord implements \IHToJSON
             'id' => (int) $this->id,
             'position' => (int) $this->position,
             'photo' => $this->photo,
+            'url' => $this->getUrl(),
         );
     }
 
+    /**
+     * @param int $collectionId
+     * @return \site\frontend\modules\photo\models\PhotoAttach $this
+     */
     public function collection($collectionId)
     {
         $this->getDbCriteria()->compare($this->getTableAlias() . '.collection_id', $collectionId);
         return $this;
     }
 
+    public function photo($photoId)
+    {
+        $this->getDbCriteria()->compare($this->getTableAlias() . '.photo_id', $photoId);
+        return $this;
+    }
+
+    public function getTitle()
+    {
+        if (! empty($this->photo->title)) {
+            return $this->photo->title;
+        } else {
+            $index = $this->collection->observer->getIndexByAttachId($this->id);
+            return 'Фотография ' . ($index + 1);
+        }
+    }
+
     protected function beforeDelete()
     {
-        if ($this->collection->cover_id == $this->id) {
-            throw new \Exception('Нельзя удалить обложку');
+        if ($this->scenario != 'attachPhotos') {
+            if ($this->collection->cover_id == $this->id) {
+                throw new \Exception('Нельзя удалить обложку');
+            }
         }
+        return parent::beforeDelete();
     }
 }

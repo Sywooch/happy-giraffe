@@ -51,7 +51,6 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
         foreach ($this->attributeCollections as $attribute) {
             $photoIds = $this->getPhotoIdsByString($this->owner->$attribute);
             $collection = $this->getPhotoCollection($this->getAttributeCollectionKey($attribute));
-            $collection->removeAttaches();
             $collection->attachPhotos($photoIds, true);
         }
     }
@@ -125,7 +124,8 @@ class PhotoCollectionBehavior extends \CActiveRecordBehavior
      */
     protected function createCollection($key)
     {
-        $collection = new PhotoCollection();
+        $class = PhotoCollection::getClassName($this->owner->getEntityName(), $key);
+        $collection = new $class();
         $collection->entity_id = $this->owner->id;
         $collection->entity = $this->owner->getEntityName();
         $collection->key = $key;

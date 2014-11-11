@@ -80,8 +80,8 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
     public function behaviors()
     {
         return array(
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
@@ -94,15 +94,23 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
             ),
             'UrlBehavior' => array(
                 'class' => 'site\common\behaviors\UrlBehavior',
-                'route' => '/photo/albums/view',
+                'route' => '/photo/default/album',
                 'params' => array(
                     'id' => 'id',
-                    'authorId' => 'author_id',
+                    'userId' => 'author_id',
                 ),
             ),
             'softDelete' => array(
                 'class' => 'site.common.behaviors.SoftDeleteBehavior',
             ),
+        );
+    }
+
+    public function defaultScope()
+    {
+        $t = $this->getTableAlias(false, false);
+        return array(
+            'condition' => $t . '.removed = 0',
         );
     }
 
@@ -119,6 +127,7 @@ class PhotoAlbum extends \HActiveRecord  implements \IHToJSON
             'title' => $this->title,
             'description' => $this->description,
             'photoCollections' => $this->photoCollections,
+            'url' => $this->getUrl(),
         );
     }
 }

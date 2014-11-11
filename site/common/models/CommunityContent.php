@@ -159,6 +159,9 @@ class CommunityContent extends HActiveRecord implements IPreview
                     'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
                     'attributeCollections' => array('preview'),
                 ),
+                'convertToNewPost' => array(
+                    'class' => '\site\frontend\modules\posts\behaviors\converters\CommunityContentBehavior',
+                ),
             );
         return array(
             'PhotoCollectionBehavior' => array(

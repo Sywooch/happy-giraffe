@@ -135,8 +135,9 @@ class LiteController extends HController
             $cs->registerLinkTag('canonical', null, $canonical);
         }
 
-        if ($this->_metaNavigation)
-            $this->_metaNavigation->render();
+        /** @ticket https://happygiraffe.atlassian.net/browse/POST-57 */
+        /*if ($this->_metaNavigation)
+            $this->_metaNavigation->render();*/
         
         if($this->metaNoindex)
             $cs->registerMetaTag('noindex', 'robots');

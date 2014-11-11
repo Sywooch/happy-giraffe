@@ -443,7 +443,7 @@
 
 
 .family-user {
-    margin: 50px 0;
+    margin: 50px 0 80px;
     
     /*.b-album {margin-bottom: 0;}*/
     /*&_main-img-hold {
@@ -555,7 +555,7 @@
     margin: 20px 0 0;
     
     &_row {
-        margin: 0 0 20px 0;
+        margin: 0 0 40px 0;
     }
     &_i {
         position: relative;
@@ -593,8 +593,16 @@
         width: 236px;
         height: 450px;
         z-index: 15;
-        padding: 20px;
+        padding: 20px 30px;
         color: #fff;
+        text-align: center;
+    }
+    &_about:before { /// вертикальное выравниевание &_about-in
+        content: "";
+        display: inline-block;
+        min-height: inherit;
+        height: 100%;
+        vertical-align: middle;
     }
     &_about:after {
         content: "";
@@ -615,8 +623,8 @@
         .border-right-radius(18px);
     }
     &_about__left:first-child{margin-left: 0;}
+    /// Цвета
     &_about__green {background-color: #5bb951;}
-    &_about__green &_about-photo-hold {background-color: #5bb951;}
     &_about__green.family-member_about__right:after {
         border-right-color: #5bb951;
     }
@@ -626,7 +634,6 @@
         border-left-color: #5bb951;
     }
     &_about__carrot {background-color: #ff7d0a;}
-    &_about__carrot &_about-photo-hold {background-color: #ff7d0a;}
 
     &_about__carrot.family-member_about__right:after {
         border-right-color: #ff7d0a;
@@ -636,6 +643,27 @@
         right: -20px;
         border-left-color: #ff7d0a;
     }
+
+    &_about__blue {background-color: #289fd7;}
+    &_about__blue.family-member_about__right:after {
+        border-right-color: #289fd7;
+    }
+    &_about__blue.family-member_about__left:after {
+        left: auto;
+        right: -20px;
+        border-left-color: #289fd7;
+    }
+
+    &_about__lilac {background-color: #9f8ac9;}
+    &_about__lilac.family-member_about__right:after {
+        border-right-color: #9f8ac9;
+    }
+    &_about__lilac.family-member_about__left:after {
+        left: auto;
+        right: -20px;
+        border-left-color: #9f8ac9;
+    }
+    // /цвета
     /*&_about-photo {
         .inline-block();
         vertical-align: middle;
@@ -657,7 +685,7 @@
     }
     &_about-tx-hold {
         padding: 10px 0;
-        height: 210px;
+        max-height: 210px;
         overflow: hidden;
         /*height: 100%;
         overflow: hidden;
@@ -670,6 +698,12 @@
         column-width: 200px;
         height: 100%;
         overflow: hidden;*/
+    }
+    &_about-in {
+        display: inline-block;
+        vertical-align: middle;
+        text-align: left;
+        max-width: 550px;
     }
     ////////////
 }

@@ -72,6 +72,16 @@ return array(
                     'width' => 880,
                     'height' => 580,
                 ),
+                'myPhotosAlbumCover' => array(
+                    'filter' => 'lepilla',
+                    'width' => 880,
+                    'height' => 580,
+                ),
+                'postImage' => array(
+                    'filter' => 'relativeResize',
+                    'method' => 'widen',
+                    'parameter' => 600,
+                ),
                 'myPhotosPreview' => array(
                     'filter' => 'relativeResize',
                     'method' => 'heighten',

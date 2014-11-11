@@ -14,6 +14,11 @@ class PlanningChild extends WaitingChild
 
     public $type = 'planning';
 
+    static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(

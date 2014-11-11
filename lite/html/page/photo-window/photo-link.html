@@ -220,7 +220,13 @@
                 <!-- b-album-->
                 <section class="b-album b-album__photolink">
                   <div class="b-album_img-hold"><a href="#" class="b-album_img-a">
-                      <div class="b-album_img-allheight"><img src="http://img.happy-giraffe.ru/v2/thumbs/myPhotosAlbumCover/c6/cc/5c7e345031a41504b55aac8d6d6d.jpg" alt="Паук"></div></a>
+                      <div class="b-album_img-pad">
+                        <!-- У изображений соотношения сторон сохраняются -->
+                        <!-- 0,65 соотношение сторон-->
+                      </div>
+                      <picture class="b-album_img-picture">
+                        <!--source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")--><img src="http://placekitten.com/600/490" alt="Фото" class="b-album_img-big">
+                      </picture></a>
                     <div class="b-album_img-hold-ovr">
                       <div class="ico-zoom ico-zoom__abs"></div>
                     </div>

@@ -6,11 +6,11 @@ namespace site\frontend\modules\family\models;
  * This is the model class for table "family__families".
  *
  * The followings are the available columns in table 'family__families':
- * @property string $id
+ * @property int $id
  * @property string $description
  * @property string $adultsRelationshipStatus
- * @property string $created
- * @property string $updated
+ * @property int $created
+ * @property int $updated
  *
  * The followings are the available model relations:
  * @property \site\frontend\modules\family\models\FamilyMember[] $members
@@ -84,14 +84,38 @@ class Family extends \CActiveRecord implements \IHToJSON
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
             ),
+            'PhotoCollectionBehavior' => array(
+                'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
+            ),
+            'UrlBehavior' => array(
+                'class' => 'site\common\behaviors\UrlBehavior',
+                'route' => '/family/default/index',
+                'params' => array(
+                    'id' => 'id',
+                    'userId' => 'author_id',
+                ),
+            ),
         );
     }
 
-    public function canEdit()
+    public function toJSON()
     {
-        return FamilyMember::model()->family($this->id)->user(\Yii::app()->user->id)->exists();
+        return array(
+            'id' => (int) $this->id,
+            'description' => $this->description,
+            'photoCollection' => $this->photoCollection
+        );
     }
 
+    /**
+     * Получить семью по id пользователя
+     *
+     * Возвращает семью по id пользователя. В случае отсутствия таковой, она может быть создана.
+     *
+     * @param int $userId id пользователя
+     * @param bool $create создавать ли семью в случае отсутствия существующей
+     * @return null|Family созданный объект семьи или null в случае его отсутствия
+     */
     public static function getByUserId($userId, $create = true)
     {
         /** @var \site\frontend\modules\family\models\FamilyMember $member */
@@ -103,23 +127,27 @@ class Family extends \CActiveRecord implements \IHToJSON
         return ($create) ? self::createFamily($userId) : null;
     }
 
-    public function toJSON()
-    {
-        return array(
-            'id' => (int) $this->id,
-            'description' => $this->description,
-        );
-    }
-
+    /**
+     * Права на управления семьей
+     *
+     * Используется менеджером прав.
+     *
+     * @param integer $userId id пользователя
+     * @return bool может ли пользователь управлять данной семьей
+     */
     public function canManage($userId)
     {
         return FamilyMember::model()->user($userId)->family($this->id)->exists();
     }
 
     /**
-     * @param null $type
-     * @param bool $public
-     * @return \site\frontend\modules\family\models\FamilyMember[]
+     * Получение членов семьи
+     *
+     * Позволяет выбрать из отношения members отфильтрованный список членов семьи.
+     *
+     * @param null|string $type тип члена семьи для фильтрации по типу или null для ее отсутствия
+     * @param bool $public только публичные члены семьи (информация о которых актуальна и корректна)
+     * @return \site\frontend\modules\family\models\FamilyMember[] отфильтрованный массив членов семьи
      */
     public function getMembers($type = null, $public = true)
     {
@@ -134,6 +162,14 @@ class Family extends \CActiveRecord implements \IHToJSON
         return $result;
     }
 
+    /**
+     * Создать семью
+     *
+     * Создает семью, автоматически добавляя в нее первого взрослого - самого создателя.
+     *
+     * @param int $userId id пользователя
+     * @return null|Family созданный объект семьи или null в случае его отсутствия
+     */
     protected static function createFamily($userId)
     {
         $family = new Family();
@@ -142,9 +178,6 @@ class Family extends \CActiveRecord implements \IHToJSON
         $member->fillByUser($userId);
         $family->members = array($member);
         $success = $family->withRelated->save(false, array('members'));
-
-
-
         return ($success) ? $family : null;
     }
 }

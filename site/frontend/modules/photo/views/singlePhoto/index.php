@@ -57,9 +57,9 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                             </div>
                         </div>
 
-                        <div class="b-album_img-hold-ovr">
+                        <!-- <div class="b-album_img-hold-ovr">
                             <div class="ico-zoom ico-zoom__abs"></div>
-                        </div>
+                        </div> -->
 
                         <?php if ($attachPrev !== null): ?>
                             <a href="<?=$attachPrev->getUrl()?>" class="i-photo-arrow i-photo-arrow__l i-photo-arrow__abs"></a>

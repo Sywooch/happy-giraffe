@@ -7,7 +7,7 @@ namespace site\frontend\modules\posts\models;
  *
  * @author Кирилл
  */
-class SocialInfo extends SerializedModel
+class SocialInfo extends SerializedModel implements \IPreview
 {
 
     public $title = null;
@@ -21,6 +21,16 @@ class SocialInfo extends SerializedModel
             'imageUrl',
             'description',
         );
+    }
+
+    public function getPreviewPhoto()
+    {
+        return $this->imageUrl;
+    }
+
+    public function getPreviewText()
+    {
+        return $this->description;
     }
 
 }

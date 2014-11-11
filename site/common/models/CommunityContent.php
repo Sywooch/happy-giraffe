@@ -205,6 +205,16 @@ class CommunityContent extends HActiveRecord implements IPreview
             ),
         );
     }
+    
+    public function onAfterSoftDelete()
+    {
+        // заглушка, для того, что бы можно было слушать события от SoftDeleteBehavior
+    }
+
+    public function onAfterSoftRestore()
+    {
+        // заглушка, для того, что бы можно было слушать события от SoftDeleteBehavior
+    }
 
     public function purify($t)
     {
@@ -1051,10 +1061,11 @@ class CommunityContent extends HActiveRecord implements IPreview
         );
     }
 
-    public function restore()
+    // Терперь реализует поведение
+    /*public function restore()
     {
         return self::model()->updateByPk($this->id, array('removed' => 0)) > 0;
-    }
+    }*/
 
 
     /******************************** Repost ********************************************/

@@ -11,21 +11,23 @@ class RelatedEntityBehavior extends CActiveRecordBehavior
 {
     public $possibleRelations = array();
 
-    public function beforeCount($event)
-    {
-        $this->run();
-    }
+//    public function beforeCount($event)
+//    {
+//        $this->run();
+//    }
+//
+//    public function beforeFind($event)
+//    {
+//        $this->run();
+//    }
 
-    public function beforeFind($event)
+    public function getRelatedModel($resetScope = true)
     {
-        $this->run();
-    }
-
-    public function getRelatedModel()
-    {
-        $this->run();
-        $entityName = 'RelatedEntity' . $this->owner->entity;
-        return $this->owner->$entityName;
+        $model = CActiveRecord::model($this->owner->entity);
+        if ($resetScope) {
+            $model->resetScope();
+        }
+        return $model->findByPk($this->owner->entity_id);
     }
 
     protected function run()

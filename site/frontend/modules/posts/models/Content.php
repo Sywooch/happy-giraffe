@@ -31,20 +31,21 @@ namespace site\frontend\modules\posts\models;
  * @property integer $isAutoSocial
  * @property integer $isRemoved
  * @property string $meta
- * @property \site\frontentd\modules\posts\models\MetaInfo $metaObject
+ * @property site\frontentd\modules\posts\models\MetaInfo $metaObject
  * @property string $social
- * @property string $socialObject
+ * @property site\frontentd\modules\posts\models\SocialInfo $socialObject
  * @property string $template
- * @property string $templateObject
+ * @property site\frontentd\modules\posts\models\TemplateInfo $templateObject
  *
  * The followings are the available model relations:
  * @property PostLabels[] $labelModels
  */
-class Content extends \CActiveRecord implements \IHToJSON, \IPreview
+class Content extends \CActiveRecord implements \IHToJSON
 {
 
     protected $labelDelimiter = '|';
     protected $_relatedModels = array();
+    protected $_user = null;
 
     /**
      * @return string the associated database table name
@@ -67,7 +68,8 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
             array('social', 'filter', 'filter' => array($this->socialObject, 'serialize')),
             array('template', 'filter', 'filter' => array($this->templateObject, 'serialize')),
             array('originManageInfo', 'filter', 'filter' => array($this->originManageInfoObject, 'serialize')),
-            array('authorId, title, html, labels, dtimeCreate, originService, originEntity, originEntityId, originManageInfo', 'required'),
+            array('authorId, html, labels, dtimeCreate, originService, originEntity, originEntityId, originManageInfo', 'required'),
+            array('title', 'required', 'except' => 'oldStatusPost'),
             array('isDraft, isNoindex, isNofollow, isAutoMeta, isAutoSocial, isRemoved', 'boolean'),
             array('uniqueIndex', 'numerical', 'integerOnly' => true),
             array('url, title', 'length', 'max' => 255),
@@ -92,6 +94,19 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
     {
         return array(
             'labelModels' => array(self::MANY_MANY, '\site\frontend\modules\posts\models\Label', 'post__tags(contentId, labelId)'),
+        );
+    }
+
+    public function behaviors()
+    {
+        return array(
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
+                'createAttribute' => 'dtimeCreate',
+                'updateAttribute' => 'dtimeUpdate',
+                'publicationAttribute' => 'dtimePublication',
+                'owerwriteAttributeIfSet' => false,
+            ),
         );
     }
 
@@ -199,32 +214,26 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
         /** @todo убрать в поведение */
         $labels = $this->labelsArray;
         $oldLabels = $this->labelModels;
-        foreach ($oldLabels as $oldLabel)
-        {
+        foreach ($oldLabels as $oldLabel) {
             $i = array_search($oldLabel->text, $labels);
-            if ($i === false)
-            {
+            if ($i === false) {
                 // старого тега больше нет
                 PostTags::model()->deleteByPk(array('labelId' => $oldLabel->id, 'contentId' => $this->id));
             }
-            else
-            {
+            else {
                 // тег уже есть
                 unset($labels[$i]);
             }
         }
         $ids = array();
-        foreach ($labels as $label)
-        {
+        foreach ($labels as $label) {
             $model = Label::model()->findByAttributes(array('text' => $label));
-            if (!$model)
-            {
+            if (!$model) {
                 $model = new Label();
                 $model->text = $label;
                 $model->save();
             }
-            if ($model->id && !isset($ids[$model->id]))
-            {
+            if ($model->id && !isset($ids[$model->id])) {
                 $tag = new PostTags();
                 $tag->attributes = array('labelId' => $model->id, 'contentId' => $this->id);
                 $tag->save();
@@ -233,6 +242,18 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
         }
 
         return parent::afterSave();
+    }
+
+    public function getUser()
+    {
+        if (is_null($this->_user)) {
+            $this->_user = \site\frontend\components\api\models\User::model()->query('get', array(
+                'id' => $this->authorId,
+                'avatarSize' => \Avatar::SIZE_MEDIUM,
+            ));
+        }
+
+        return $this->_user;
     }
 
     /**
@@ -246,14 +267,9 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
         return parent::model($className);
     }
 
-    public function getPreviewPhoto()
+    public function getCommentsUrl()
     {
-        /** @todo Реализовать */
-    }
-
-    public function getPreviewText()
-    {
-        /** @todo Реализовать */
+        return $this->parsedUrl . '#comment_list';
     }
 
     public function getLabelsArray()
@@ -269,7 +285,7 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
     public function getOriginManageInfoObject()
     {
         if (!isset($this->_relatedModels['originalManageInfo']))
-            $this->_relatedModels['originalManageInfo'] = new ManageInfo($this->originManageInfo);
+            $this->_relatedModels['originalManageInfo'] = new ManageInfo($this->originManageInfo, $this);
 
         return $this->_relatedModels['originalManageInfo'];
     }
@@ -277,7 +293,7 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
     public function getMetaObject()
     {
         if (!isset($this->_relatedModels['metaObject']))
-            $this->_relatedModels['metaObject'] = new MetaInfo($this->originManageInfo);
+            $this->_relatedModels['metaObject'] = new MetaInfo($this->meta, $this);
 
         return $this->_relatedModels['metaObject'];
     }
@@ -285,7 +301,7 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
     public function getSocialObject()
     {
         if (!isset($this->_relatedModels['socialObject']))
-            $this->_relatedModels['socialObject'] = new SocialInfo($this->originManageInfo);
+            $this->_relatedModels['socialObject'] = new SocialInfo($this->social, $this);
 
         return $this->_relatedModels['socialObject'];
     }
@@ -293,9 +309,113 @@ class Content extends \CActiveRecord implements \IHToJSON, \IPreview
     public function getTemplateObject()
     {
         if (!isset($this->_relatedModels['templateObject']))
-            $this->_relatedModels['templateObject'] = new TemplateInfo($this->originManageInfo);
+            $this->_relatedModels['templateObject'] = new TemplateInfo($this->template, $this);
 
         return $this->_relatedModels['templateObject'];
+    }
+
+    public function getParsedUrl()
+    {
+        return parse_url($this->url, PHP_URL_PATH);
+    }
+
+    /* scopes */
+
+    /**
+     * 
+     * @param int $authorId
+     * @return site\frontend\modules\posts\models\Content
+     */
+    public function byAuthor($authorId)
+    {
+        $this->dbCriteria->addColumnCondition(array(
+            'authorId' => $authorId,
+        ));
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param string $entity
+     * @param string $entityId
+     * @return site\frontend\modules\posts\models\Content
+     */
+    public function byEntity($entity, $entityId)
+    {
+        $this->dbCriteria->addColumnCondition(array(
+            'originEntity' => $entity,
+            'originEntityId' => $entityId,
+        ));
+
+        return $this;
+    }
+
+    public function published()
+    {
+        $this->dbCriteria->addCondition($this->tableAlias . '.dtimePublication IS NOT NULL');
+
+        return $this;
+    }
+
+    public function orderAsc()
+    {
+        $this->dbCriteria->order = $this->tableAlias . '.dtimePublication ASC';
+
+        return $this;
+    }
+
+    public function orderDesc()
+    {
+        $this->dbCriteria->order = $this->tableAlias . '.dtimePublication DESC';
+
+        return $this;
+    }
+
+    public function byService($service)
+    {
+        $this->dbCriteria->addColumnCondition(array('originService' => $service));
+
+        return $this;
+    }
+
+    public function byEntityClass($entity)
+    {
+        $this->dbCriteria->addColumnCondition(array('originEntity' => $entity));
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param site\frontend\modules\posts\models\Content $post
+     * @return site\frontend\modules\posts\models\Content
+     */
+    public function leftFor($post)
+    {
+        $this->dbCriteria->addColumnCondition(array(
+            'authorId' => $post->authorId,
+        ));
+        $this->dbCriteria->compare('dtimePublication', '<' . $post->dtimePublication);
+        $this->orderDesc();
+
+        return $this;
+    }
+
+    /**
+     * 
+     * @param site\frontend\modules\posts\models\Content $post
+     * @return site\frontend\modules\posts\models\Content
+     */
+    public function rightFor($post)
+    {
+        $this->dbCriteria->addColumnCondition(array(
+            'authorId' => $post->authorId,
+        ));
+        $this->dbCriteria->compare('dtimePublication', '>' . $post->dtimePublication);
+        $this->orderAsc();
+
+        return $this;
     }
 
 }

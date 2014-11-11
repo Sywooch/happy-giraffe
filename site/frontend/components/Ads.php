@@ -19,9 +19,7 @@ class Ads extends CApplicationComponent
 
     public function showCounters()
     {
-        if ($this->isProduction()) {
-            Yii::app()->controller->renderPartial('//counters/counters');
-        }
+        Yii::app()->controller->renderPartial('//counters/counters');
     }
 
     public function addNoindex()
@@ -39,7 +37,7 @@ class Ads extends CApplicationComponent
         }
     }
 
-    protected function isProduction()
+    public function isProduction()
     {
         return $_SERVER['HTTP_HOST'] == 'www.happy-giraffe.ru';
     }

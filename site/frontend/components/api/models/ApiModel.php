@@ -18,7 +18,7 @@ abstract class ApiModel extends \CModel
     private $_new = false;
     public $api = false;
     public $expire = 3600;
-
+    
     public function getCachedActions()
     {
         return array(

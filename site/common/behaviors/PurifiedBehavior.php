@@ -109,7 +109,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
 
             if (!isset($parsed_url['host'])) {
                 $link->outertext = '';
-            } elseif (strpos($parsed_url['host'], $_SERVER["HTTP_HOST"]) === false) {
+            } elseif (strpos(Yii::app()->homeUrl, $parsed_url['host']) === false) {
                 //внешние ссылки ставим в nofollow, _black, меняет url на /site/out/?url=
                 $link->rel = 'nofollow';
                 $link->target = '_blank';
@@ -167,6 +167,7 @@ class PurifiedBehavior extends CActiveRecordBehavior
     protected function linkifyVideos($text)
     {
         include_once Yii::getPathOfAlias('site.frontend.vendor.simplehtmldom_1_5') . DIRECTORY_SEPARATOR . 'simple_html_dom.php';
+        Yii::import('site.frontend.components.video.*');
 
         // process links
         $html = str_get_html($text);

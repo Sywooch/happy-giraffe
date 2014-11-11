@@ -20,15 +20,18 @@
 
 namespace site\frontend\modules\photo\models;
 
+use site\frontend\modules\photo\components\observers\PhotoCollectionObserver;
+
 class PhotoCollection extends \HActiveRecord implements \IHToJSON
 {
+    private $_observer;
+
     public static $config = array(
         'PhotoAlbum' => array(
             'default' => 'site\frontend\modules\photo\models\collections\AlbumPhotoCollection',
         ),
-        'User' => array(
-            'default' => 'site\frontend\modules\photo\models\collections\UserAllPhotoCollection',
-            'unsorted' => 'site\frontend\modules\photo\models\collections\UserUnsortedPhotoCollection',
+        'CommunityContent' => array(
+            'default' => 'site\frontend\modules\photo\models\collections\CommunityContentPhotoCollection',
         ),
     );
 
@@ -46,15 +49,8 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
     public function rules()
     {
         return array(
-            array('cover_id', 'validateCover', 'on' => 'setCover'),
-        );
-    }
 
-    public function validateCover($attribute, $params)
-    {
-        if (! PhotoAttach::model()->collection($this->id)->exists('id = :id', array(':id' => $this->$attribute))) {
-            $this->addError($attribute, '');
-        }
+        );
     }
 
 	/**
@@ -65,7 +61,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-            'attaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\Photoattach', 'collection_id'),
+            'attaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\PhotoAttach', 'collection_id'),
             'attachesCount' => array(self::STAT, 'site\frontend\modules\photo\models\PhotoAttach', 'collection_id'),
             'cover' => array(self::BELONGS_TO, 'site\frontend\modules\photo\models\PhotoAttach', 'cover_id'),
 		);
@@ -100,38 +96,66 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
 
     protected function instantiate($attributes)
     {
-        if (isset(self::$config[$attributes['entity']][$attributes['key']])) {
-            $class = self::$config[$attributes['entity']][$attributes['key']];
-        } elseif (strpos($attributes['key'], 'AttributeCollection') !== false) {
-            $class = 'site\frontend\modules\photo\models\collections\AttributePhotoCollection';
-        } else {
-            throw new \Exception('Invalid collection');
-        }
-
+        $class = self::getClassName($attributes['entity'], $attributes['key']);
         $model = new $class(null);
         return $model;
+    }
+
+    public static function getClassName($entity, $key)
+    {
+        if (isset(self::$config[$entity][$key])) {
+            $class = self::$config[$entity][$key];
+        } else {
+            $class = 'site\frontend\modules\photo\models\PhotoCollection';
+        }
+        return $class;
     }
 
     public function behaviors()
     {
         return array(
-            'CTimestampBehavior' => array(
-                'class' => 'zii.behaviors.CTimestampBehavior',
+            'HTimestampBehavior' => array(
+                'class' => 'HTimestampBehavior',
                 'createAttribute' => 'created',
                 'updateAttribute' => 'updated',
                 'setUpdateOnCreate' => true,
             ),
             'RelatedModelBehavior' => array(
                 'class' => 'site.common.behaviors.RelatedEntityBehavior',
-                'possibleRelations' => array('PhotoAlbum' => '\site\frontend\modules\photo\models\PhotoAlbum'),
+                'possibleRelations' => array(
+                    'PhotoAlbum' => '\site\frontend\modules\photo\models\PhotoAlbum',
+                    'CommunityContent' => '\CommunityContent',
+                ),
+            ),
+            'UrlBehavior' => array(
+                'class' => 'site\common\behaviors\UrlBehavior',
+                'preparedUrl' => array($this, 'getUrlInternal'),
             ),
         );
     }
 
-    public function setCover($attach)
+    public function getUrlInternal($model)
     {
-        $this->cover_id = $attach;
-        return $this->save();
+        $parentModel = $model->RelatedModelBehavior->relatedModel;
+        if ($parentModel->asa('UrlBehavior') || method_exists($parentModel, 'getUrl')) {
+            return $parentModel->getUrl();
+        }
+        return false;
+    }
+
+    protected function getAttachUrl(PhotoAttach $attach)
+    {
+        return $this->getUrl() . 'photo' . $attach->photo_id . '/';
+    }
+
+    public function setCover(PhotoAttach $attach)
+    {
+        if ($attach->collection_id == $this->id) {
+            $this->cover = $attach;
+            $this->cover_id = $attach->id;
+            return true;
+        }
+        return false;
     }
 
     public function scopes()
@@ -149,6 +173,7 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
             'id' => (int) $this->id,
             'attachesCount' => (int) $this->attachesCount,
             'cover' => $this->cover,
+            'updated' => strtotime($this->updated),
         );
     }
 
@@ -159,27 +184,90 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         $attach->position = $position;
         $attach->collection_id = $this->id;
         $success = $attach->save();
-        if ($success && $this->cover_id === null) {
-            $this->setCover($attach->id);
-        }
-        return $success;
+        return ($success) ? $attach : false;
     }
 
-    public function attachPhotos($ids, $preservePositions = false)
+    public function attachPhotos($ids, $replace = false)
     {
+        if (empty($ids)) {
+            return false;
+        }
+
+        if (! is_array($ids)) {
+            $ids = array($ids);
+        }
+
         $collections = array_merge(array($this), $this->getRelatedCollections());
-        $success = true;
-        foreach ($ids as $i => $photoId) {
-            foreach ($collections as $collection) {
-                $success = $success && $collection->attachPhoto($photoId, $preservePositions ? $i++ : 0);
+        /** @var \site\frontend\modules\photo\models\PhotoCollection $collection */
+        foreach ($collections as $collection) {
+            self::attachPhotosInternal($collection, $ids, $replace);
+        }
+        return true;
+    }
+
+    /**
+     * @param PhotoCollection $collection
+     * @param $ids
+     * @param $replace
+     * @throws \CDbException
+     * @todo оптимизировать для больших коллекций
+     */
+    protected static function attachPhotosInternal(PhotoCollection $collection, $ids, $replace)
+    {
+        if ($replace) {
+            $newAttaches = array();
+            /** @var \site\frontend\modules\photo\models\PhotoAttach $attach */
+            foreach ($collection->attaches as $attach) {
+                if (array_search($attach->photo_id, $ids) === false) {
+                    $attach->scenario = 'attachPhotos';
+                    $attach->delete();
+                    if ($attach->id == $collection->cover_id) {
+                        $collection->cover = null;
+                    }
+                } else {
+                    $newAttaches[] = $attach;
+                }
+            }
+            $maxPosition = 0;
+        } else {
+            $newAttaches = $collection->attaches;
+            $maxPosition = $collection->getMaxPosition();
+        }
+
+        foreach ($ids as $positionOffset => $id) {
+            $newPosition = $maxPosition + $positionOffset + 1;
+            if ($attach = $collection->getAttachByPhotoId($id)) {
+                $updatePosition = $replace && ($attach->position != $newPosition);
+                if ($updatePosition) {
+                    $attach->position = $newPosition;
+                    $attach->update(array('position'));
+                }
+            } else {
+                $attach = $collection->attachPhoto($id, $newPosition);
+                $newAttaches[] = $attach;
             }
         }
-        return $success;
+
+        $collection->attaches = $newAttaches;
+        if ($collection->cover === null) {
+            $collection->setCover($collection->getDefaultCover());
+        }
+        $collection->update(array('updated', 'cover_id'));
     }
 
-    public function removeAttaches()
+    protected function getDefaultCover()
     {
-        return PhotoAttach::model()->deleteAll('collection_id = :collectionId', array(':collectionId' => $this->id)) > 0;
+        return (isset($this->attaches[0])) ? $this->attaches[0] : null;
+    }
+
+    protected function getAttachByPhotoId($photoId)
+    {
+        foreach ($this->attaches as $attach) {
+            if ($attach->photo_id == $photoId) {
+                return $attach;
+            }
+        }
+        return null;
     }
 
     public function sortAttaches($attachesIds)
@@ -189,21 +277,26 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
         }
     }
 
-    public function moveAttaches(PhotoCollection $destinationCollection, $attaches)
+    public function moveAttaches(PhotoCollection $destinationCollection, $attachesIds)
     {
-        $newPosition = $this->getMaxPosition() + 1;
+        $startPosition = $this->getMaxPosition() + 1;
 
         $criteria = new \CDbCriteria(array(
             'scopes' => array(
                 'collection' => $this->id,
             ),
         ));
-        $criteria->addInCondition('id', $attaches);
+        $criteria->addInCondition('id', $attachesIds);
 
-        return PhotoAttach::model()->updateAll(array(
-            'collection_id' => $destinationCollection->id,
-            'position' => $newPosition,
-        ), $criteria) == count($attaches);
+        $attaches = PhotoAttach::model()->findAll($criteria);
+        $success = true;
+        foreach ($attaches as $i => $attach) {
+            $position = $startPosition + $i;
+            $attach->position = $position;
+            $attach->collection_id = $destinationCollection->id;
+            $success = $success && $attach->update(array('position', 'collection_id'));
+        }
+        return $success;
     }
 
     /**
@@ -222,6 +315,19 @@ class PhotoCollection extends \HActiveRecord implements \IHToJSON
                 'collection' => $this->id,
             ),
         ));
-        return \Yii::app()->db->commandBuilder->createFindCommand(PhotoAttach::model()->tableName(), $criteria)->queryScalar();
+        PhotoAttach::model()->applyScopes($criteria);
+        $maxPosition = \Yii::app()->db->commandBuilder->createFindCommand(PhotoAttach::model()->tableName(), $criteria)->queryScalar();
+        return ($maxPosition !== null) ? $maxPosition : -1;
+    }
+
+    /**
+     * @return \site\frontend\modules\photo\components\observers\PhotoCollectionObserver
+     */
+    protected function getObserver()
+    {
+        if ($this->_observer === null) {
+            $this->_observer = PhotoCollectionObserver::getObserver($this);
+        }
+        return $this->_observer;
     }
 }

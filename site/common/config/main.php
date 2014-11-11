@@ -87,6 +87,11 @@ return array(
                     'width' => 200,
                     'height' => 200,
                 ),
+                'collectionCover' => array(
+                    'filter' => 'fixed',
+                    'width' => 880,
+                    'height' => 580,
+                ),
             ),
         ),
         'crops' => array(

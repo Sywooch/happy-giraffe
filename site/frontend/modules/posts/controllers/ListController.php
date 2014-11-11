@@ -9,11 +9,26 @@ use site\frontend\modules\posts\models\Content;
  *
  * @author Кирилл
  */
-class ListController extends \PersonalAreaController
+class ListController extends \LiteController
 {
 
+    public $layout = 'newBlogPost';
     public $litePackage = 'posts';
     public $listDataProvider = null;
+    public $userId;
+    protected $_user = null;
+
+    public function getUser()
+    {
+        if (is_null($this->_user)) {
+            $this->_user = \site\frontend\components\api\models\User::model()->query('get', array(
+                'id' => $this->userId,
+                'avatarSize' => \Avatar::SIZE_MEDIUM,
+            ));
+        }
+
+        return $this->_user;
+    }
 
     public function getListDataProvider($authorId)
     {
@@ -27,8 +42,8 @@ class ListController extends \PersonalAreaController
 
     public function actionIndex($user_id)
     {
+        $this->userId = $user_id;
         $this->listDataProvider = $this->getListDataProvider($user_id);
-        $this->ownerId = $user_id;
         $this->render('list');
     }
 

@@ -15,7 +15,7 @@ namespace site\frontend\modules\family\models;
  * The followings are the available model relations:
  * @property \site\frontend\modules\family\models\FamilyMember[] $members
  */
-class Family extends \CActiveRecord implements \IHToJSON
+class Family extends \HActiveRecord implements \IHToJSON
 {
 	/**
 	 * @return string the associated database table name

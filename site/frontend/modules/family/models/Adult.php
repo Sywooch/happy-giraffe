@@ -22,6 +22,11 @@ class Adult extends FamilyMemberAbstract
 
     private $_oldRelationshipStatus;
 
+    static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(
@@ -29,7 +34,12 @@ class Adult extends FamilyMemberAbstract
                 self::STATUS_FRIENDS,
                 self::STATUS_ENGAGED,
                 self::STATUS_MARRIED,
-            ), 'allowEmpty' => false),
+            ), 'allowEmpty' => false, 'on' => 'insert'),
+            array('relationshipStatus', 'in', 'range' => array(
+                self::STATUS_FRIENDS,
+                self::STATUS_ENGAGED,
+                self::STATUS_MARRIED,
+            ), 'on' => 'update'),
             array('name', 'length', 'max' => 50),
             array('description', 'length', 'max' => 1000),
         ));
@@ -74,7 +84,7 @@ class Adult extends FamilyMemberAbstract
     protected function beforeValidate()
     {
         if (parent::beforeValidate()) {
-            if ($this->scenario != 'familyCreate') {
+            if ($this->isNewRecord && $this->scenario != 'familyCreate') {
                 $this->gender = $this->getGenderByPartner();
             }
             return true;

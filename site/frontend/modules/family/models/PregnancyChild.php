@@ -16,6 +16,11 @@ class PregnancyChild extends WaitingChild
 
     public $type = 'waiting';
 
+    static function model($className = __CLASS__)
+    {
+        return parent::model($className);
+    }
+
     public function rules()
     {
         return \CMap::mergeArray(parent::rules(), array(

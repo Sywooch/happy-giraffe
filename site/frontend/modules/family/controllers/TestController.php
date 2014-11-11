@@ -37,10 +37,8 @@ class TestController extends \HController
 
     public function actionMagic()
     {
-        try {
-            $a = new \DateTime('говно');
-        } catch (Exception $e) {
-            echo $e->getMessage();
-        }
+        $familyMember = FamilyMember::model()->find();
+        $collection = $familyMember->photoCollection;
+        $collection->attachPhotos(array(177));
     }
 } 

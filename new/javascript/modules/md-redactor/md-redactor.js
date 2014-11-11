@@ -10,6 +10,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.videoSample = '[w:video (youtube-link)]';
         this.typeOfImage = ko.observable(null);
         this.signedImageSample = '[w:image (image-link) (source-link) "link-title"]';
+        this.compareSample = '\n[w:compare (left|right) "Title" "First Text" () "Second Text"]\n\n';
         /**
          * Загружаем popup загрузчика фотографий
          * @param data
@@ -35,10 +36,16 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             if (this.typeOfImage() === 'day') {
                 this.appendToText(this.generateDayImageSample(img.getGeneratedPreset('postImage'), img.id()));
             }
+            if (this.typeOfImage() === 'compare') {
+                this.appendToText(this.generateCompareImageSample(img.getGeneratedPreset('postImage'), img.id()));
+            }
         }, this);
         this.generateDayImageSample = function generateDayImageSample(link, collectionId) {
-            return '\n[w:day (morning|noon|evening) "First Text" (' + link + ') "Second Text"]\n';
-        }
+            return '\n[w:day (morning|noon|evening) "First Text" (' + link + ') "Second Text"]\n\n';
+        };
+        this.generateCompareImageSample = function generateCompareImageSample(link, collectionId) {
+            return '\n[w:compare (left|right) "Title" "First Text" (' + link + ') "Second Text"]\n\n';
+        };
         this.generateSingnedImageSample = function generateSingnedImageSample(link, collectionId) {
             return '[w:image (' + link + ') (source-link) "link-title"]';
         };
@@ -108,6 +115,9 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.insertVideo = function instertVideo() {
             this.appendToText(this.videoSample);
         };
+        this.insertCompareImageSampleNoPhoto = function insertCompareImageSampleNoPhoto(link, collectionId) {
+            this.appendToText(this.compareSample);
+        };
         this.insertSignedImage = function insertSignedImage() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
             this.typeOfImage('signed');
@@ -119,6 +129,10 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.insertDayImage = function insertSignedImage() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
             this.typeOfImage('day');
+        };
+        this.insertCompareImage = function insertSignedImage() {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('compare');
         };
         /**
          * Установка опций для парсера

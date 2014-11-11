@@ -457,6 +457,7 @@
         imglinkage: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/?((([\w-_\/]+)\/)?[\w-_\.]+)/g,
         imgtitle: /"([^"]*)"/,
         day: /\[w:day \((morning|noon|evening)\)( "([^"]*)")? \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)( "([^"]*)")?\]/,
+        compare: /\[w:compare \((left|right)\)( "([^"]*)")?( "([^"]*)")?( \(((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg)))?\))( "([^"]*)")?\]/,
         number: /^\[w:number( "([^"]*)")?\]/,
         reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
         nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
@@ -643,6 +644,18 @@
                 continue;
             }
 
+            //compare
+            if (cap = this.rules.compare.exec(src)) {
+                src = src.substring(cap[0].length);
+                var compareImg = cap[0].match(this.rules.imglinkage);
+                if (compareImg === null) {
+                    compareImg = [];
+                    compareImg[0] = "()";
+                }
+                out += this.renderer.compare(cap[1], cap[3], cap[5], compareImg[0], cap[15]);
+                continue;
+            }
+
             //img link
             if (cap = this.rules.imgLink.exec(src)) {
                 src = src.substring(cap[0].length);
@@ -806,6 +819,7 @@
         this.options = options || {};
         this.numberCount = 1;
         this.dayTypes = ['morning', 'noon', 'evening'];
+        this.compareTypes = ['left', 'right'];
     }
 
     Renderer.prototype.code = function(code, lang, escaped) {
@@ -964,19 +978,45 @@
             out += '<div class="markdown-day markdown-day__3">' +
             '<div class="markdown-day_t">Вечер</div>';
         }
-        if (firstText !== undefined) {
+        if (firstText !== "") {
             out += '<p>' + firstText + '</p>';
         }
-        if (link !== undefined) {
+        if (link !== "()") {
             out += '<h3 class="markdown-day_img-hold">' +
             '<img alt="" src="' + link + '">' +
             '</h3>';
         }
-        if (secondText !== undefined) {
+        if (secondText !== "") {
             out += '<p>' + secondText + '</p>';
         }
         out += '</div>\n';
-        console.log(out);
+
+        return out;
+    };
+
+    Renderer.prototype.compare = function(type, title, firstText, link, secondText) {
+        var out = '';
+        if (type === this.compareTypes[0]) {
+            out += '\n<div class="markdown-compare markdown-compare__l">';
+        }
+        if (type === this.compareTypes[1]) {
+            out += '<div class="markdown-compare markdown-compare__r">';
+        }
+        if (title !== "") {
+            out += '<h3>' + title + '</h3>';
+        }
+        if (firstText !== "") {
+            out += '<p>' + firstText + '</p>';
+        }
+        if (link !== "()") {
+            out += '<div class="markdown-compare_img-hold">' +
+            '<img alt="" src="' + link + '">' +
+            '</div>';
+        }
+        if (secondText !== "") {
+            out += '<p>' + secondText + '</p>';
+        }
+        out += '</div>\n';
 
         return out;
     };

@@ -268,4 +268,10 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
     {
         return true;
     }
+
+    public function getEntityName()
+    {
+        $reflect = new \ReflectionClass(__CLASS__);
+        return $reflect->getShortName();
+    }
 }

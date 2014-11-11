@@ -51,7 +51,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                 <section class="b-album b-album__photolink">
                     <div class="b-album_img-hold">
                         <div class="b-album_img-a">
-                            <div class="verticalalign-m-help"></div>
+                            <!-- <div class="verticalalign-m-help"></div> -->
                             <div class="verticalalign-m-el">
                                 <?=CHtml::image(Yii::app()->thumbs->getThumb($photo, 'myPhotosAlbumCover')->getUrl(), $attach->getTitle())?>
                             </div>
@@ -69,7 +69,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                             <a href="<?=$attachNext->getUrl()?>" class="i-photo-arrow i-photo-arrow__r i-photo-arrow__abs"></a>
                         <?php endif; ?>
                     </div>
-                    <div class="b-album_overlay">
+                    <!-- <div class="b-album_overlay">
                         <a class="b-album_r"><div class="b-album_tx">Смотреть  <br> все фото &nbsp;</div><div class="b-album_ico-album"></div><div class="b-album_arrow-all"></div></a>
                         <ul class="b-album_prev clearfix visible-md-block">
                             
@@ -83,7 +83,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                                 <a href="#" class="b-album_prev-a"><img src="/lite/images/example/w104-h70-2.jpg" alt="" class="b-album_prev-img"><div class="b-album_prev-hold"></div></a>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                 </section>
 
                 <!-- b-article-->

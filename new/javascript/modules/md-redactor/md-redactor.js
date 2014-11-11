@@ -4,6 +4,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.idElement = ko.observable(params.id);
         this.textareaId = params.textareaId;
         this.htmlId = params.htmlId;
+        this.full = params.full;
         this.photo = ko.observable(null);
         this.collectionId = ko.observable();
         this.videoSample = '[w:video (youtube-link)]';
@@ -23,14 +24,26 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          */
         this.photo.subscribe(function (img) {
             if (this.typeOfImage() === 'single') {
-                this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
+                this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('postImage'), img.title(), img.id()));
             }
             if (this.typeOfImage() === 'signed') {
-                this.appendToText(this.generateSingnedImageSample(img.getGeneratedPreset('myPhotosAlbumCover'), img.id()));
+                this.appendToText(this.generateSingnedImageSample(img.getGeneratedPreset('postImage'), img.id()));
+            }
+            if (this.typeOfImage() === 'number') {
+                this.appendToText(this.generateNumberImageSample(img.getGeneratedPreset('postImage'), img.id()));
+            }
+            if (this.typeOfImage() === 'day') {
+                this.appendToText(this.generateDayImageSample(img.getGeneratedPreset('postImage'), img.id()));
             }
         }, this);
+        this.generateDayImageSample = function generateDayImageSample(link, collectionId) {
+            return '\n[w:day (morning|noon|evening) "First Text" (' + link + ') "Second Text"]\n';
+        }
         this.generateSingnedImageSample = function generateSingnedImageSample(link, collectionId) {
             return '[w:image (' + link + ') (source-link) "link-title"]';
+        };
+        this.generateNumberImageSample = function generateNumberImageSample(link, collectionId) {
+            return '[w:image (' + link + ') (source-link) "link-title"]\n[w:number "sample text"]';
         };
         /**
          * Начинаем h-тэги с h2
@@ -98,6 +111,14 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.insertSignedImage = function insertSignedImage() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
             this.typeOfImage('signed');
+        };
+        this.insertNumberImage = function insertSignedImage() {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('number');
+        };
+        this.insertDayImage = function insertSignedImage() {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('day');
         };
         /**
          * Установка опций для парсера

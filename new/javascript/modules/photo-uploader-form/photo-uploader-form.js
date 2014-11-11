@@ -12,7 +12,6 @@ define(['jquery', 'knockout', 'text!photo-uploader-form/photo-uploader-form.html
             $(document).trigger('koUpdate');
         });
         $('a[href="#photo-tab-computer"]').tab('show');
-        console.log($('a[href="#photo-tab-computer"]'));
         // end of UGLY JQUERY AJAX
 
         this.initPUTabs = function initPUTabs(computerTabName, computerTabMultipleName, albumTabName, urlTabName) {

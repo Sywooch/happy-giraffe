@@ -24,7 +24,7 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          */
         this.photo.subscribe(function (img) {
             if (this.typeOfImage() === 'single') {
-                this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
+                this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('postImage'), img.title(), img.id()));
             }
             if (this.typeOfImage() === 'signed') {
                 this.appendToText(this.generateSingnedImageSample(img.getGeneratedPreset('postImage'), img.id()));
@@ -32,7 +32,13 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
             if (this.typeOfImage() === 'number') {
                 this.appendToText(this.generateNumberImageSample(img.getGeneratedPreset('postImage'), img.id()));
             }
+            if (this.typeOfImage() === 'day') {
+                this.appendToText(this.generateDayImageSample(img.getGeneratedPreset('postImage'), img.id()));
+            }
         }, this);
+        this.generateDayImageSample = function generateDayImageSample(link, collectionId) {
+            return '\n[w:day (morning|noon|evening) "First Text" (' + link + ') "Second Text"]\n';
+        }
         this.generateSingnedImageSample = function generateSingnedImageSample(link, collectionId) {
             return '[w:image (' + link + ') (source-link) "link-title"]';
         };
@@ -109,6 +115,10 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.insertNumberImage = function insertSignedImage() {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
             this.typeOfImage('number');
+        };
+        this.insertDayImage = function insertSignedImage() {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('day');
         };
         /**
          * Установка опций для парсера

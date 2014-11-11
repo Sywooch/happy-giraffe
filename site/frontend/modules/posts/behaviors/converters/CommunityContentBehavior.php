@@ -157,7 +157,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         $newPost->html = $photoAlbumTag . $oldPost->photoPost->text;
         $newPost->text = $oldPost->photoPost->text;
-        $newPost->preview = $photoAlbumTag . $oldPost->preview . '<p>' . \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text))), 200, ' <span class="ico-more"></span>') . '</p>';
+        $newPost->preview = $photoAlbumTag . '<p>' . \site\common\helpers\HStr::truncate(trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text))), 200, ' <span class="ico-more"></span>') . '</p>';
         $newPost->socialObject->imageUrl = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'socialImage')->getUrl();
         $newPost->isNoindex = false;
 

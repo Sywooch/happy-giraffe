@@ -46,7 +46,12 @@ class FamilyMember extends \HActiveRecord implements \IHToJSON
 	public function rules()
 	{
         return array(
-
+            array('type', 'in', 'range' => array(
+                self::TYPE_ADULT,
+                self::TYPE_CHILD,
+                self::TYPE_PLANNING,
+                self::TYPE_WAITING,
+            ), 'allowEmpty' => false, 'on' => 'insert'),
         );
 	}
 

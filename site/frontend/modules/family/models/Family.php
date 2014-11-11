@@ -103,7 +103,7 @@ class Family extends \CActiveRecord implements \IHToJSON
         return array(
             'id' => (int) $this->id,
             'description' => $this->description,
-            'photoCollection' => $this->photoCollection
+            'photoCollection' => $this->photoCollection,
         );
     }
 

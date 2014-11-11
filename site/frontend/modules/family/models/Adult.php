@@ -100,6 +100,7 @@ class Adult extends FamilyMemberAbstract
             'name' => $this->name,
             'description' => $this->description,
             'gender' => $this->gender,
+            'photoCollection' => $this->photoCollection,
         ));
     }
 

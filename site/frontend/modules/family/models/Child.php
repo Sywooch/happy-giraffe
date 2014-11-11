@@ -44,6 +44,7 @@ class Child extends FamilyMemberAbstract
             'name' => $this->name,
             'description' => $this->description,
             'ageString' => AgeHelper::getChildAgeString($this->birthday),
+            'photoCollection' => $this->photoCollection,
         ));
     }
 } 

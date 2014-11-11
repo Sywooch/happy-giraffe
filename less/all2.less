@@ -5191,8 +5191,8 @@ table.fr_recipe_tb td { width: 50%;}
 @import "../new/less/project/msg-fast.less";
 @import "../new/less/project/photo-window.less";
 
-@import "../lite/less/project/yandex-search-form.less";
-@import "../lite/less/project/b-markdown.less";
+
+
 
 
 .popup {
@@ -5204,3 +5204,23 @@ table.fr_recipe_tb td { width: 50%;}
 // html banners  
 @import "/banner/ban-route.less";
 @import "/banner/banner.less"; // на все layout 
+
+///////////////////////
+// lite
+// Переменные и примешивания
+@import "../lite/less/include/variables.less";
+// Путь к изображениям
+@path-img : '/lite/images'; 
+@import "../lite/less/project/yandex-search-form.less";
+
+
+@import "../lite/less/sprite/markdown-day-sprite.less";
+.no-svg .markdown-day__1 .markdown-day_t:after, .no-svg .markdown-day__2 .markdown-day_t:after, .no-svg .markdown-day__3 .markdown-day_t:after {
+    background-image: url("/lite/images/sprite/markdown-day.png");
+}
+
+.markdown-day__1 .markdown-day_t:after, .markdown-day__2 .markdown-day_t:after, .markdown-day__3 .markdown-day_t:after {
+    background-image: url("/lite/images/sprite/markdown-day.svg");
+}
+@import "../lite/less/project/b-markdown.less";
+

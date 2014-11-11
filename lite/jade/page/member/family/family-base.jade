@@ -1,0 +1,195 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'member-user.css'; 
+ 
+block layout
+ 
+    .b-main
+        .b-main_cont
+            .b-crumbs.b-crumbs__m
+                .b-crumbs_tx Я здесь
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="#") Главная
+                    li.b-crumbs_li
+                        +ava('ava__small', ava.a)
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Семья
+
+        +userSection('visible-md-block')
+    
+        .b-main_cont.b-main_cont__wide
+
+            .family-user
+                .ico-myfamily
+
+                .family-user_main-img-hold
+                    img.family-user_main-img(src="#{path}images/example/w880-h585-1.jpg", alt="Главное фото")
+                // b-album
+                //.b-album
+                    a.b-album_img-hold(href="#")
+                        img.b-album_img-big(src="#{path}images/example/w880-h585-1.jpg", alt="")
+                    //.b-album_overlay
+                        a.b-album_r
+                            .b-album_tx
+                                | Семейный альбом
+                                br
+                                span.b-album_count 60 
+                                |  фото
+                            .b-album_ico-album
+                            .b-album_arrow
+                        ul.b-album_ul.clearfix
+                            // Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.
+                            li.b-album_li
+                                a.b-album_a-list
+                                    //- высота изображений 50px
+                                    img.b-album_img-list(src="#{path}images/example/w80-h50-1.jpg", alt="")
+                            li.b-album_li
+                                a.b-album_a-list
+                                    img.b-album_img-list(src="#{path}images/example/w80-h50-2.jpg", alt="")
+                            li.b-album_li
+                                a.b-album_a-list
+                                    //- высота изображений 50px
+                                    img.b-album_img-list(src="#{path}images/example/w80-h50-1.jpg", alt="")
+                            li.b-album_li
+                                a.b-album_a-list
+                                    img.b-album_img-list(src="#{path}images/example/w70-h50-1.jpg", alt="")
+                            li.b-album_li
+                                a.b-album_a-list
+                                    img.b-album_img-list(src="#{path}images/example/w80-h50-2.jpg", alt="")
+                // /b-album
+                // family-about
+                .family-about
+                    .family-about_bubble
+                       .family-about_t О нашей семье
+                       .family-about_tx
+                            | Наша семья состоит из трех человек: папа Дима, мама Наташа и доченька Машенька. История нашего знакомства с главой семейства началась еще 2 года назад, когда я поехала в командировку в г. Саратов. Тогда я с двумя своими коллегами отправились повышать квалификацию. Проучившись три недели, мы успешно сдали экзамены и готовились отправиться домой. За 3 часа до отправления поезда моя коллега решила познакомить меня со своим братом и говорит, шутя, что привезла ему невесту. Мы все посмеялись, пошутили, потом встречи, расставания, бесконечные звонки, тысячи смс ... Дима показал 
+                    ul.family-about_ul
+                        li.family-about_li
+                            .family-about_img-hold
+                                .ico-family-big.ico-family-big__husband
+                            .family-about_member Я
+                        li.family-about_li
+                            .family-about_img-hold
+                                .ico-family-big.ico-family-big__wife
+                            .family-about_member Жена  Виктория
+                        li.family-about_li
+                            .family-about_img-hold
+                                .ico-family-big.ico-family-big__boy-small
+                            .family-about_member 
+                                | Сын Данилка
+                                | 16 месяцев
+                        li.family-about_li
+                            .family-about_img-hold
+                                .ico-family-big.ico-family-big__girl-8
+                            .family-about_member 
+                                |Дочь
+                                | от 6 до 12 лет
+                        li.family-about_li
+                            .family-about_img-hold
+                                .ico-family-big.ico-family-big__girl-8
+                            .family-about_member 
+                                |Дочь
+                                | от 6 до 12 лет
+                // /family-about
+                
+                .visible-md
+                    // family-member
+                    .family-member
+                        .family-member_row.clearfix
+                            a.family-member_i(href='#')
+                                img.family-member_img(src="#{path}images/example/w558-h360-1.jpg", alt="")
+                                .family-member_overlay
+                                    span.ico_zoom.ico_zoom__abs
+                            .family-member_about.family-member_about__green.family-member_about__right(style="width: 335px;")
+                                .family-member_about-hold
+                                    .ico-family-big.ico-family-big__wife
+                                    .family-member_about-name 
+                                        | Жена Виктория
+                                .family-member_about-tx-hold
+                                    .family-member_about-tx В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и покаВ половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и покаВ половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока
+
+                        .family-member_row.clearfix
+                            .family-member_about.family-member_about__carrot.family-member_about__left(style="width: 335px;")
+                                .family-member_about-hold
+                                    .ico-family-big.ico-family-big__wife
+                                    .family-member_about-name 
+                                        | Муж Потап
+                                .family-member_about-tx-hold
+                                    .family-member_about-tx В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и покаВ половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и покаВ половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока
+                            a.family-member_i(href='#')
+                                img.family-member_img(src="#{path}images/example/w558-h360-1.jpg", alt="")
+                                .family-member_overlay
+                                    span.ico_zoom.ico_zoom__abs
+
+
+
+
+                        .family-member_row.clearfix
+                            a.family-member_i
+                                img.family-member_img(src="#{path}images/example/w295-h360-1.jpg", alt="")
+                                .family-member_overlay
+                                    span.family-member_zoom
+                            // Высота блока зависит от изображений - отступы 40px
+                            .family-member_about.family-member_about__green.family-member_about__right(style="width: 320px;")
+                                .family-member_about-hold
+                                    .family-member_about-photo
+                                        .family-member_about-photo-hold
+                                            img.family-member_about-img(src="/images/example/w41-h49-1.jpg", alt="")
+                                    .family-member_about-name 
+                                        | Муж
+                                        br
+                                        | Потап
+                                .family-member_about-tx-hold
+                                    .family-member_about-tx В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и покаВ половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и покаВ половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока
+
+                            a.family-member_i
+                                img.family-member_img(src="#{path}images/example/w305-h360-2.jpg", alt="")
+                                .family-member_overlay
+                                    span.family-member_zoom
+
+                        .family-member_row.clearfix
+                            a.family-member_i
+                                img.family-member_img(src="#{path}images/example/w305-h360-1.jpg", alt="")
+                                .family-member_overlay
+                                    span.family-member_zoom
+                            a.family-member_i
+                                img.family-member_img(src="#{path}images/example/w558-h360-1.jpg", alt="")
+                                .family-member_overlay
+                                    span.family-member_zoom
+                        .family-member_row.clearfix
+                            // Высота блока зависит от изображений - отступы 40px
+                            .family-member_about.family-member_about__carrot.family-member_about__left(style="height: 320px;")
+                                .family-member_about-hold
+                                    .family-member_about-photo
+                                        .family-member_about-photo-hold
+                                            .ico-family.ico-family__boy-small
+                                    .family-member_about-name 
+                                        | Сын 
+                                        br
+                                        | Данилка
+                                        br 
+                                        | 18 месяцев
+                                .family-member_about-tx В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока
+
+                            a.family-member_i
+                                img.family-member_img(src="#{path}images/example/w295-h360-1.jpg", alt="")
+                                .family-member_overlay
+                                    span.family-member_zoom
+                            a.family-member_i
+                                img.family-member_img(src="#{path}images/example/w305-h360-2.jpg", alt="")
+                                .family-member_overlay
+                                    span.family-member_zoom
+                    // /family-member
+                    .i-allphoto 
+                        a.i-allphoto_a(href="")
+                            | Смотреть семейный альбом
+
+
+
+        +layout-footer-lite()
+
+
+

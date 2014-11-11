@@ -443,8 +443,12 @@
 
 
 .family-user {
+    margin: 50px 0;
     
-    .b-album {margin-bottom: 0;}
+    /*.b-album {margin-bottom: 0;}*/
+    /*&_main-img-hold {
+        margin-bottom: 20px;
+    }*/
 }
 
 /*
@@ -461,48 +465,37 @@
 */
 .family-about {
     padding: 20px 20px;
-    background-color: #3ca0dc;
     
     &_bubble {
-        position: relative;
-        width: 640px;
-        margin: 0 0 25px;
-        padding: 20px;
-        color: #fff;
-        background-color: #5ebaf2;
-        .border-radius(18px);
-    }
-    &_bubble:after {
-        content:'';
-        position: absolute;
-        bottom: -19px;
-        left: 130px;
-        width: 31px;
-        height: 19px;
-        background: url('@{path-img}/family-about_bubble-after.jpg') no-repeat;
+        margin: 0 auto 20px;
+        color: @color-gray-dark;
     }
     &_t {
-        font-size: 25px;
+        font-size: 20px;
+        text-align: center;
         font-weight: bold;
+        margin-bottom: 0.3em;
     }
     &_tx {font-size: 14px;}
     &_ul {
-        margin: 0 -15px 0 0;
+        margin: 0 -40px 0 0;
+        text-align: center;
     }
     &_li {
         .inline-block();
         vertical-align: top;
-        margin: 0 11px 15px 0;
+        margin: 0 11px 20px 0;
+        width: 160px;
     }
     &_img-hold { // размер такой же как в блоке редактирвоания члена семьи в настройках
-        display: table-cell;
-        width: 200px; 
-        max-width: 200px;
-        height: 200px;
-        max-height: 200px;
+        /*display: table-cell;
         vertical-align: middle;
-        text-align: center;
-        background-color: #2b99db;
+        max-width: 160px;
+        max-height: 160px;*/
+        width: 160px; 
+        height: 160px;
+        margin: 0 auto;
+        /*background-color: #2b99db;*/
     }
     &_img {
         display: block;
@@ -510,12 +503,174 @@
         max-height: 100%;
     }
     &_member {
-        margin-top: 5px;
-        font-size: 15px;
-        text-align: center;
-        color: #fff;
+        font-size: 13px;
+        color: @color-gray;
+    }
+
+    @media (min-width: @screen-phone) {
+        
+        &_t {
+            font-size: 25px;
+        }
+    }
+    @media (min-width: @screen-phone-landscape) {
+        &_bubble {
+            position: relative;
+            max-width: 720px;
+            margin: 20px auto 25px;
+            padding: 20px 60px;
+            color: @color-gray-dark;
+            background-color: #daf1ff;
+            .border-radius(20px);
+        }
+        &_bubble:after {
+            content:'';
+            position: absolute;
+            top: -32px;
+            left: 50%;
+            margin-left: -19px;
+            width: 0;
+            height: 0;
+            border: 16px solid #fff;
+            border-bottom-color: #daf1ff;
+        }
+        &_t {
+            font-size: 35px;
+        }
+        &_li {
+            margin-right: 40px;
+            width: 180px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        &_bubble {
+            margin-top: 30px;
+        }
     }
 }
 /* /family-about */
 
+/* family-member */
+.family-member {
+    margin: 20px 0 0;
+    
+    &_row {
+        margin: 0 0 20px 0;
+    }
+    &_i {
+        position: relative;
+        float: left;
+        margin: 0;
+        cursor: pointer;
+        color: #fff;
+    }
+    &_i:hover &_overlay {
+        z-index: 10;
+        opacity: 1;
+    }
+    &_img {
+        display: block;
+        position: relative;
+        z-index: 1;
+    }
+    &_overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #290b45;
+        background: rgba(41,11,69,.35);
+        .transition(all 0.4s ease);
+        .opacity(0);
+    }
+    
 
+    //////////////// О фото, применяется в семье
+    &_about {
+        position: relative;
+        float: left;
+        width: 236px;
+        height: 450px;
+        z-index: 15;
+        padding: 20px;
+        color: #fff;
+    }
+    &_about:after {
+        content: "";
+        position: absolute;
+        top: 35px;
+        left: -20px;
+        width: 0;
+        height: 0;
+        z-index: 5;
+        border: 10px solid transparent;
+    }
+    &_about__right {
+        margin: 0 0 0 -13px;
+        .border-left-radius(18px);
+    }
+    &_about__left {
+        margin: 0 -13px 0 0;
+        .border-right-radius(18px);
+    }
+    &_about__left:first-child{margin-left: 0;}
+    &_about__green {background-color: #5bb951;}
+    &_about__green &_about-photo-hold {background-color: #5bb951;}
+    &_about__green.family-member_about__right:after {
+        border-right-color: #5bb951;
+    }
+    &_about__green.family-member_about__left:after {
+        left: auto;
+        right: -20px;
+        border-left-color: #5bb951;
+    }
+    &_about__carrot {background-color: #ff7d0a;}
+    &_about__carrot &_about-photo-hold {background-color: #ff7d0a;}
+
+    &_about__carrot.family-member_about__right:after {
+        border-right-color: #ff7d0a;
+    }
+    &_about__carrot.family-member_about__left:after {
+        left: auto;
+        right: -20px;
+        border-left-color: #ff7d0a;
+    }
+    /*&_about-photo {
+        .inline-block();
+        vertical-align: middle;
+        margin-right: 10px;
+    }
+    &_about-photo-hold {
+        display: table-cell;
+        width: 55px; 
+        max-width: 55px;
+        height: 55px;
+        max-height: 55px;
+        vertical-align: middle;
+        text-align: center;
+    }*/
+
+    &_about-hold {
+        text-align: center;
+        font-size: 13px;
+    }
+    &_about-tx-hold {
+        padding: 10px 0;
+        height: 210px;
+        overflow: hidden;
+        /*height: 100%;
+        overflow: hidden;
+        .box-sizing(border-box);*/
+    }
+    &_about-tx {
+        position: relative;
+        font-size: 14px;
+        /*-webkit-column-width: 200px;
+        column-width: 200px;
+        height: 100%;
+        overflow: hidden;*/
+    }
+    ////////////
+}
+/* /family-member */

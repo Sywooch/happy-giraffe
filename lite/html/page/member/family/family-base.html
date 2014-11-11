@@ -253,9 +253,13 @@
           <div class="b-main_cont b-main_cont__wide">
             <div class="family-user">
               <div class="ico-myfamily"></div>
-              <div class="family-user_main-img-hold"><img src="/lite/images/example/w880-h585-1.jpg" alt="Главное фото" class="family-user_main-img"></div>
-              <!-- b-album-->
-              <!-- /b-album-->
+              <div class="family-user_main-img-hold">
+                <!-- У изображений соотношения сторон сохраняются -->
+                <!-- 0,65 соотношение сторон-->
+                <picture class="b-album_img-picture">
+                  <source srcset="/lite/images/example/photoalbum/2-960.jpg 1x, /lite/images/example/photoalbum/1-1920.jpg 2x" media="(min-width: 640px)"><img src="/lite/images/example/photoalbum/1-1280.jpg" alt="Фото" class="b-album_img-big">
+                </picture>
+              </div>
               <!-- family-about-->
               <div class="family-about">
                 <div class="family-about_bubble">

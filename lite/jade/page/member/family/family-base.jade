@@ -26,9 +26,16 @@ block layout
                 .ico-myfamily
 
                 .family-user_main-img-hold
-                    img.family-user_main-img(src="#{path}images/example/w880-h585-1.jpg", alt="Главное фото")
-                // b-album
-                //-.b-album
+                    // У изображений соотношения сторон сохраняются 
+                    // 0,65 соотношение сторон
+                    picture.b-album_img-picture
+                    
+                        //- source(srcset=path+'images/example/'+item.w1, media="(min-width: 1024px)")
+                        source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
+                        //- source(srcset=path+'images/example/w880-h580-1.jpg', media="(min-width: 480px)")
+                        img.b-album_img-big(src=path+'images/example/photoalbum/1-1280.jpg', alt="Фото")
+                //- b-album
+                //-.b-album 
                     a.b-album_img-hold(href="#")
                         img.b-album_img-big(src="#{path}images/example/w880-h585-1.jpg", alt="")
                     //.b-album_overlay
@@ -59,7 +66,7 @@ block layout
                             li.b-album_li
                                 a.b-album_a-list
                                     img.b-album_img-list(src="#{path}images/example/w80-h50-2.jpg", alt="")
-                // /b-album
+                //- /b-album
                 // family-about
                 .family-about
                     .family-about_bubble

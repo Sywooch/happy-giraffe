@@ -1,3 +1,10 @@
+<?php
+    $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => array(
+        /** @todo Исправить класс при конвертации */
+        'entity' => 'BlogContent', //$this->post->originEntity,
+        'entity_id' => $data->originEntityId,
+    )));
+?>
 <article class="b-article b-article__list clearfix">
     <div class="b-article_cont clearfix">
         <div class="b-article_header clearfix">
@@ -5,7 +12,8 @@
                 <!-- ava--><a href="<?= $data->user->profileUrl ?>" class="ava ava__female ava__small-xxs ava__middle-xs ava__middle-sm-mid "><span class="ico-status ico-status__online"></span><img alt="<?= $data->user->fullName ?>" src="<?= $data->user->avatarUrl ?>" class="ava_img"></a><a href="<?= $data->user->profileUrl ?>" class="b-article_author"><?= $data->user->fullName ?></a>
                 <?= HHtml::timeTag($data, array(), null) ?>
             </div>
-            <div class="icons-meta"><a href="<?= $data->commentsUrl ?>" class="icons-meta_comment"><span class="icons-meta_tx">&nbsp;</span></a>
+            <div class="icons-meta">
+                <a href="<?= $data->commentsUrl ?>" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->getCount() ?></span></a>
                 <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->viewsByPath($data->parsedUrl) ?></span></div>
             </div>
         </div>
@@ -91,6 +99,7 @@
             </div>
         </section> */ ?>
         <!-- /comments-->
+        <?php /*
         <div class="article-also">
             <div class="article-also_row">
                 <!-- при маленьком размере в мобильном исчезают только лайки и избранное-->
@@ -115,6 +124,6 @@
                     <div class="visible-md-inline-block"><a href="#"> закладки </a></div>.-->
                 </div>
             </div>
-        </div>
+        </div> */ ?>
     </div>
 </article>

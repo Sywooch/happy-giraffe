@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'common'], function ($, ko, customReturner) {
+define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'photo/Photo', 'photo/PhotoAttach', 'common'], function ($, ko, customReturner, Photo, PhotoAttach) {
     // Биндинг для загрузки фото
     ko.bindingHandlers.photoUpload = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
@@ -39,11 +39,13 @@ define(['jquery', 'knockout', 'modules-helpers/component-custom-returner', 'comm
             var data = value.data;
             var observable = value.observable;
 
-            var defaultCallback = function(photo) {
+            var defaultCallback = function(photoInstance) {
                 if (observable() instanceof Array) {
-                    observable.push(photo);
+                    photoInstance.photo = photoInstance;
+                    photoInstance = new PhotoAttach(photoInstance)
+                    observable.push(photoInstance);
                 } else {
-                    observable(photo);
+                    observable(photoInstance);
                 }
             };
 

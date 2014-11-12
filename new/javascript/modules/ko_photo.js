@@ -1,50 +1,3 @@
-define('ko_photo', ['knockout'], function(ko) {
-
-
-    function PresetManager() {
-        var self = this;
-
-        self.presets = {"uploadPreview":{"filter":"lepilla","width":155,"height":140},"uploadPreviewBig":{"filter":"lepilla","width":325,"height":295},"uploadAlbumCover":{"filter":"lepilla","width":205,"height":140},"rowGrid":{"filter":"relativeResize","method":"heighten","parameter":200},"myPhotosAlbumCover":{"filter":"lepilla","width":880,"height":580},"myPhotosPreview":{"filter":"relativeResize","method":"heighten","parameter":70}};
-
-        self.filters = {
-            lepilla: {
-                getWidth: function(imageWidth, imageHeight, presetConfig) {
-                    var imageRatio = imageWidth / imageHeight;
-                    var presetRatio = presetConfig.width / presetConfig.height;
-                    if (imageRatio >= presetRatio) {
-                        return presetConfig.width;
-                    } else {
-                        return imageRatio * presetConfig.height;
-                    }
-                },
-                getHeight: function(imageWidth, imageHeight, presetConfig) {
-                    return presetConfig.height;
-                }
-            }
-        }
-
-        self.getWidth = function(imageWidth, imageHeight, preset) {
-            var config = self.presets[preset];
-            return self.filters[config.filter].getWidth(imageWidth, imageHeight, config);
-        }
-
-        self.getHeight = function(imageWidth, imageHeight, preset) {
-            var config = self.presets[preset];
-            return self.filters[config.filter].getHeight(imageWidth, imageHeight, config);
-        }
-    }
-    presetManager = new PresetManager();
-
-
-
-
-
-
-
-
-
-});
-
 define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/PhotoAttach', 'photo/PhotoAlbum', 'user-config', 'bootstrap', 'jquery_file_upload', 'jquery.ui', 'photo/bindings/thumb', 'photo/bindings/photoUpload'], function(ko, mapping, Photo, PhotoAttach, PhotoAlbum, userConfig) {
 
 
@@ -169,7 +122,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
 
         self.processResponse = function(photo, response) {
             if (response.success) {
-                mapping.fromJS(response.data.photo, {}, photo);
+                ko.mapping.fromJS(response.data.photo, {}, photo);
                 photo.status(PhotoUpload.prototype.STATUS_SUCCESS);
             } else {
                 photo.error(response.data.error);
@@ -180,6 +133,13 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     PhotoUploadViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
     PhotoUploadViewModel.prototype.add = function() {
         var self = this;
+        //$.post('/api/photo/collections/addPhotos/', JSON.stringify({ collectionId : self.collectionId, photosIds : self.photoIds() }), function(response) {
+        //    if (response.success) {
+        //        PhotoAddViewModel.prototype.add.call(self);
+        //    }
+        //}, 'json');
+
+        //Только для редактора
         PhotoAddViewModel.prototype.add.call(self);
     };
     PhotoUploadViewModel.prototype.removePhotoInternal = function(photo) {
@@ -330,7 +290,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
         self.rotate = function(angle) {
             $.post('/api/photo/photos/rotate/', JSON.stringify({ angle : angle, photoId : self.id() }), function(response) {
                 if (response.success) {
-                    mapping.fromJS(response.data, {}, self);
+                    ko.mapping.fromJS(response.data, {}, self);
                 }
             }, 'json');
         };
@@ -353,7 +313,6 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     function FromAlbumsPhotoAttach(data, parent) {
         var self = this;
         PhotoAttach.apply(self, arguments);
-
         self.isActive = ko.computed(function() {
             return parent.photos().indexOf(self.photo()) != -1;
         });
@@ -363,6 +322,18 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     function FromAlbumsViewModel(data) {
         var self = this;
         PhotoAddViewModel.apply(self, arguments);
+
+        self.albums = ko.observableArray();
+
+        self.applyAlbums = function (albums) {
+            if (albums.success === true) {
+                self.albums(ko.utils.arrayMap(albums.data.albums, function(album) {
+                    var pAlbumInstance = Object.create(PhotoAlbum);
+                    pAlbumInstance.init(album);
+                    return pAlbumInstance;
+                }));
+            }
+        };
 
         self.currentAlbum = ko.observable(null);
         self.thumbsSize = ko.observable(2);
@@ -391,30 +362,26 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
                     return 'uploadPreviewBig';
             }
         });
+        PhotoAlbum.get(userConfig.userId, true, self.applyAlbums);
 
-        self.albums = ko.observableArray(ko.utils.arrayMap(data.albums, function(album) {
-            return new PhotoAlbum(album);
-        }));
 
         self.unselectAlbum = function() {
             self.currentAlbum(null);
         };
 
         self.selectAlbum = function(album) {
-            if (album.photoCollection().attaches().length == 0) {
-                $.post('/api/photo/collections/getAttaches/', JSON.stringify({ collectionId : album.photoCollection().id() }), function(response) {
-                    console.log(response);
-                    album.photoCollection().attaches(ko.utils.arrayMap(response.data, function(attach) {
-                        return new FromAlbumsPhotoAttach(attach, self);
-                    }));
-                    self.currentAlbum(album);
-                }, 'json');
-            } else {
+            $.post('/api/photo/collections/getAttaches/', JSON.stringify({ collectionId : album.photoCollection().id(), offset: 0 }), function(response) {
+                album.photoCollection().usablePreset = 'uploadPreview';
+                album.photoCollection().attaches(ko.utils.arrayMap(response.data.attaches, function(attach) {
+                    var photoAttach = new FromAlbumsPhotoAttach(attach, self);
+                    return photoAttach;
+                }));
                 self.currentAlbum(album);
-            }
+
+            }, 'json');
         };
 
-        self.selectAttach = function(attach) {
+        self.selectAttach = function(attach) {;
             if (attach.isActive()) {
                 self.removePhoto(attach.photo());
             } else {

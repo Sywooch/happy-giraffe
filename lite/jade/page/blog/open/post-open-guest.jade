@@ -1,19 +1,56 @@
-include ../../block/config
-extend ../../extend/layout_base
+include ../../../block/config
+extend ../../../extend/layout_base
 block vars
-  - var bodyClass = 'body__bg1 body__lite';
+    - var bodyClass = 'body__lite';
+    - global.cssFile = 'blog.css'; 
 
 block layout
-    /////////////////////////////////////////////////////////
-    /// В конечном итоге подключать css
-    /// /lite/css/min/blog.css
-    /// или grunt задачу, в коммандной строке 
-    /// grunt blog
-    /////////////////////////////////////////////////////////
+  
     // b-main 
     .b-main.clearfix
         // стрелку листания записей можно расположить практически в любом месте по коду где удобней программисту 
-        a.post-arrow(href="")
+        script.
+            /****************
+            **  Post post-arrow fade in
+            *****************/
+            var didScroll = false;
+            jQuery(window).scroll(function() {
+                didScroll = true;
+            });
+
+
+            var content_top = $('.b-main').position().top;
+
+            setInterval(function() {
+                if ( didScroll ) {
+                    didScroll = false;
+                    y = jQuery(window).scrollTop();
+
+                    if(y < content_top){
+                        $('.post-arrow').removeClass('visible');
+                    }else{
+                        $('.post-arrow').addClass('visible');
+                    }
+                }
+            }, 150);
+
+
+        a.post-arrow.post-arrow__l(href="#") 
+            .i-photo-arrow
+            .post-arrow_in-hold
+                .post-arrow_in
+                    .verticalalign-m-help
+                    .post-arrow_img-hold
+                        img.post-arrow_img(src="#{path}images/example/w122-h85-1.jpg", alt="Ксения Бородина впервые в своей жизни сварила суп")
+                    .post-arrow_t Ксения Бородина впервые в своей жизни сварила суп
+        a.post-arrow.post-arrow__r(href="#") 
+            .i-photo-arrow
+            .post-arrow_in-hold
+                .post-arrow_in
+                    .verticalalign-m-help
+                    //-.post-arrow_img-hold
+                        img.post-arrow_img(src="#{path}images/example/w122-h85-1.jpg", alt="Ксения Бородина впервые в своей жизни сварила суп")
+                    .post-arrow_t Ксения Бородина впервые в своей жизни сварила суп
         .b-main_cont
             .b-crumbs.b-crumbs__s
                 .b-crumbs_tx Я здесь
@@ -29,24 +66,20 @@ block layout
                 // Основная колонка
                 .b-main_col-article
                     +bArticle-single('b-article__lite')
-                    
-                    table.article-nearby.clearfix(ellpadding='0', cellspacing='0')
+
+                    table.article-nearby.clearfix
                         tr
                             td
-                                .article-nearby_hint Предыдущая запись
-                            td.article-nearby_r
-                                .article-nearby_hint Следующая запись
-                        tr
-                            td
-                                a.article-nearby_a.clearfix(href='')
+                                a.article-nearby_a.article-nearby_a__l(href='#')
                                     span.article-nearby_tx Как приготовить Монастыпскую избу 
-                            td.article-nearby_r
-                                a.article-nearby_a.clearfix(href='')
+                            td
+                                a.article-nearby_a.article-nearby_a__r(href='#')
                                     span.article-nearby_tx Готовим  Торт Сметанник в домашних условиях
-                    .adv-banner
-                        a(href="", target="_blank")
+                    .adv-article
+                        a(href="#", target="_blank")
                             img(alt='', src='#{path}images/example/w600-h400.jpg')
-                    .comment-add
+
+                    //-.comment-add
                         .comment-add_t Комментировать
                         .comment-add_hold
                             a.comment-add_a Авторизуйтесь  
@@ -55,14 +88,14 @@ block layout
                             | чтобы оставить комментарий
                         .comment-add_editor.display-n
                     
-                    +commentsOpen('', commentsOpen.a)
-
+                    +commentsOpen('', commentsOpen.b)
+ 
                 // /Основная колонка
 
                 ///////
                 // Сайд бар
                 // Содержимое загружaть отложено
-                aside.b-main_col-sidebar
+                aside.b-main_col-sidebar.visible-md
                     .adv-banner.adv-banner__bd
                         a(href="") 
                             img(src="#{path}images/example/w240-h400.jpg", alt="")
@@ -118,5 +151,6 @@ block layout
                             a(href="")
                                 img.article-similar_img(src="#{path}images/example/w240-h165.jpg", alt="")
                 // Сайд бар
-    +layout-footer-lite('layout-footer__in')
-
+    +layout-footer-lite()
+ 
+        

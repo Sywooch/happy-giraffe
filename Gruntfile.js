@@ -246,12 +246,14 @@ module.exports = function(grunt){
             /.header_+/,
             /.header-+/,
             //.tooltip+/,
+            
+            /.bx-wrapper+/,
           ],
         },
         src: [
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
-          'lite/html/page/sign/**/*.html', 
+          '!lite/html/page/sign/**/*.html', 
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого 
           '!lite/html/page/comments/comments-page.html'
@@ -336,12 +338,14 @@ module.exports = function(grunt){
             
             // Для страниц собранных разделов
             /.flag+/,
+            /.bx-wrapper+/,
           ],
         },
         src: [
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/sign/**/*.html', 
           'lite/html/page/member/**/*.html', 
+          'lite/html/page/photo-window/**/*.html', 
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого пользователя
           '!lite/html/page/comments/comments-page.html',
@@ -369,12 +373,14 @@ module.exports = function(grunt){
             /.header_+/,
             // Для страниц собранных разделов
             /.flag+/,
+            /.bx-wrapper+/,
           ],
         },
         src: [
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/user/**/*.html', 
           'lite/html/page/member/**/*.html', 
+          'lite/html/page/photo-window/**/*.html',
 
           '!lite/html/page/comments/comments-page.html',
         ],
@@ -564,6 +570,21 @@ module.exports = function(grunt){
         //         unit: 5
         //     }
         // },
+        'ico-base': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-base",
+                spritePath: "lite/images/sprite/ico-base.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'vertical',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 20
+            }
+        },
         'ico-arrow': {
             options: {
                 spriteElementPath: "lite/images/sprite/ico-arrow",
@@ -658,6 +679,22 @@ module.exports = function(grunt){
             options: {
                 spriteElementPath: "lite/images/sprite/ico-spices",
                 spritePath: "lite/images/sprite/ico-spices.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                // refSize: 100,
+                unit: 100
+            }
+        },
+        'markdown-day': {
+            options: {
+                spriteElementPath: "lite/images/sprite/markdown-day",
+                spritePath: "lite/images/sprite/markdown-day.svg",
                 cssPath: "lite/less/sprite/",
                 cssSuffix: 'less',
                 cssSvgPrefix: '',

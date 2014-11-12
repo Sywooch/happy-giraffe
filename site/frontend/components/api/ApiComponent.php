@@ -31,6 +31,7 @@ class ApiComponent extends \CComponent
                 'method' => 'POST',
                 'header' => 'Content-Type: application/json',
                 'content' => $params,
+                'ignore_errors' => true,
             ),
         ));
 

@@ -118,23 +118,41 @@ return array(
         'user/settings/' => 'profile/settings/personal',
         'user/settings/<_a>' => 'profile/settings/<_a>',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
-        //'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'blog/default/view',
-        array(
+        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',
+        'user/<user_id:\d+>/blog' => 'posts/list/index',
+
+        /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
             'trueRoute' => 'posts/post/view',
             'falseRoute' => 'blog/default/view',
-        ),
-        //'user/<user_id:\d+>/blog' => 'blog/default/index',
-        array(
+        ),*/
+        /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog',
             'trueRoute' => 'posts/list/index',
             'falseRoute' => 'blog/default/index',
+        ),*/
+
+        /* т.к. некоторые ссылки используют эти роуты при построении запросов */
+        'fakeBlogView' => array(
+            'class' => 'UrlRule',
+            'pattern' => 'user/<user_id:\d+>/blog',
+            'route' => 'blog/default/index',
         ),
+        'fakeBlogList' => array(
+            'class' => 'UrlRule',
+            'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
+            'route' => 'blog/default/view',
+        ),
+        
+        /* Для корректной работы старых редакторов */
         'newblog/<_a:>' => 'blog/default/<_a>',
+        
+        /* Временные страницы для редактирования */
+        'post/add/type<type:[1235]>' => 'blog/tmp/index',
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',

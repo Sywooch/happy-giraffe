@@ -37,14 +37,12 @@ class CommentWidget extends \CWidget
 
     public function getUserLink($user, $response = false)
     {
-        if (!$response)
-        {
+        if (!$response) {
             return $user->deleted ?
                 \CHtml::tag('span', array('rel' => 'author', 'class' => 'a-light comments_author'), $user->fullName) :
                 \CHtml::link($user->fullName, $user->url, array('rel' => 'author', 'class' => 'a-light comments_author'));
         }
-        else
-        {
+        else {
             return $user->deleted ?
                 \CHtml::tag('span', array('rel' => 'author', 'class' => 'a-light comments_ansver-for'), $user->fullName) :
                 \CHtml::link($user->fullName, $user->url, array('rel' => 'author', 'class' => 'comments_ansver-for'));
@@ -55,8 +53,7 @@ class CommentWidget extends \CWidget
     {
         $matches = array();
         // вырежем обращение из текста
-        if (strpos($text, '<p><a href="/user/') === 0)
-        {
+        if (strpos($text, '<p><a href="/user/') === 0) {
             $pos = strpos($text, '</a>');
             //$text = substr_replace($text, '<p><span class="display-n">' . $matches[1] . '</span>', 0, strlen($matches[0]));
             //$text = substr_replace($text, '<p>', 0, strlen($matches[0]));
@@ -74,12 +71,20 @@ class CommentWidget extends \CWidget
     public function runForUser()
     {
         \Yii::app()->clientScript->registerAMD('comment-widget', array('kow'));
-        $params = array(
-            'entity' => get_class($this->model),
-            'entityId' => (int) $this->model->id,
-            'listType' => 'list',
-            'channelId' => Comment::getChannel($this->model),
-        );
+        if (!is_array($this->model)) {
+            $params = array(
+                'entity' => get_class($entity),
+                'entityId' => $entity->id,
+            );
+        }
+        else {
+            $params = array(
+                'entity' => $this->model['entity'],
+                'entityId' => (int) $this->model['entity_id'],
+            );
+        }
+        $params['channelId'] = Comment::getChannel($params);
+        $params['listType'] = 'list';
         foreach ($params as $k => $v)
             $paramsStr[] = $k . ':' . \CJSON::encode($v);
         $paramsStr = str_replace('"', "'", implode(', ', $paramsStr));

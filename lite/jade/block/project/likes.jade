@@ -35,7 +35,7 @@ mixin customLikes(mod, vars)
 //- Миксин обвертка
 mixin likeControl(mod, vars)
     if (vars.center)
-        .textalign-c
+        .like-control-hold
             +likeControlCont(mod, vars)
     else
         +likeControlCont(mod, vars)
@@ -49,6 +49,30 @@ mixin likeControlCont(mod, vars)
         if (vars.mod)
             if (vars.mod == 'like-control__small')
                 - holdClass = 'visible-md-inline-block'
+        if (vars.articleEdit)
+            // Блок редактирования статьи
+            // Поставить на родительский блок на .like-control-hold
+            .article-settings
+                .article-settings_i
+                        a.article-settings_a.article-settings_a__settings.powertip(href='#')
+                    .article-settings_hold.display-b
+                        .article-settings_i
+                            a.article-settings_a.article-settings_a__pin.powertip(href='#')
+                        .article-settings_i
+                            a.article-settings_a.article-settings_a__edit.powertip(href='#')
+                        .article-settings_i
+                            a.ico-users.ico-users__friend.active.powertip(href='javascript:void(0)')
+                            .article-settings_drop.display-b
+                                .article-settings_drop-i
+                                    a.article-settings_drop-a(href='#')
+                                        span.ico-users.ico-users__all
+                                        | Показывать всем
+                                .article-settings_drop-i
+                                    a.article-settings_drop-a(href='#')
+                                        span.ico-users.ico-users__friend
+                                        | Только друзьям
+                        .article-settings_i
+                            a.article-settings_a.article-settings_a__delete.powertip(href='#')
 
         .like-control(class=mod)
             if (vars.comment)
@@ -111,3 +135,10 @@ mixin likeControlCont(mod, vars)
 - likeControl.articleList.comment = true
 - likeControl.articleList.center = false
 - likeControl.articleList.title = false
+
+- likeControl.articleUser = {}
+- likeControl.articleUser.mod = 'like-control__line'
+- likeControl.articleUser.comment = false
+- likeControl.articleUser.center = true
+- likeControl.articleUser.title = true
+- likeControl.articleUser.articleEdit = true

@@ -1,5 +1,6 @@
 <?php
 $this->pageTitle = 'Блог - ' . $this->user->fullName;
+$this->metaNoindex = true;
 $this->breadcrumbs = array(
     '<span class="ava ava__small">' . CHtml::image($this->user->avatarUrl, $this->user->fullName, array('class' => 'ava_img')) . "</span>" => $this->user->profileUrl,
     'Блог',

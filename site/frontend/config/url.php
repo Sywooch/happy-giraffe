@@ -407,6 +407,7 @@ return array(
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
 
         'photo/default/presets' => 'photo/default/presets',
+        'photo/photo/thumb' => 'photo/photo/thumb',
 
         'onair' => 'blog/air/index',
 

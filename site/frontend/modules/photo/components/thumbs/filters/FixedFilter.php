@@ -12,20 +12,22 @@ use Imagine\Image\Box;
 use Imagine\Image\ImageInterface;
 use site\frontend\modules\photo\components\thumbs\filters\CustomFilterInterface;
 
-class FixedFilter implements  CustomFilterInterface
+class FixedFilter implements CustomFilterInterface
 {
-    public $width;
-    public $height;
+    protected $width;
+    protected $height;
+    protected $mode;
 
-    public function __construct($width, $height)
+    public function __construct($width, $height, $mode = ImageInterface::THUMBNAIL_OUTBOUND)
     {
         $this->width = $width;
         $this->height = $height;
+        $this->mode = $mode;
     }
 
     public function apply(ImageInterface $image)
     {
-        $image = $image->thumbnail(new Box($this->width, $this->height), ImageInterface::THUMBNAIL_OUTBOUND);
+        $image = $image->thumbnail(new Box($this->width, $this->height), $this->mode);
         return $image;
     }
 

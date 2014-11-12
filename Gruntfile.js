@@ -333,6 +333,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header-banner+/,
             /.header_+/,
+            /.ico-family+/,
             
             // Для страниц собранных разделов
             /.flag+/,
@@ -367,6 +368,8 @@ module.exports = function(grunt){
             /.header-drop+/, // Drop, active элементы
             /.header-menu_li+/,
             /.header_+/,
+            /.ico-family+/,
+            
             // Для страниц собранных разделов
             /.flag+/,
           ],

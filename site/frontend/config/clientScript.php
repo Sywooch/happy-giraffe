@@ -37,6 +37,7 @@ return array(
             'propertyParser' => '/new/javascript/plugins/propertyParser',
             'kow' => '/new/javascript/modules/kow',
             'comments-control' => '/new/javascript/modules/models/CommentsController',
+            'user-model' => '/new/javascript/modules/models/User',
             'user-control' => '/new/javascript/modules/models/UserController',
             'user-model' => '/new/javascript/modules/models/User',
             'model' => '/new/javascript/modules/models/Model',

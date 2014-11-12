@@ -23,10 +23,10 @@
     &__photopost &_count-hold__in {
         display: none;
     }
-    &__photolink &_img-pad,
+    /*&__photolink &_img-pad,
     &__photopost &_img-pad {
         padding-bottom: 90%;
-    }
+    }*/
 
     &__photolink {
         margin: 0;
@@ -56,6 +56,9 @@
         height: 100%;
         vertical-align: middle;
     }
+    &_img-allheight img {
+        max-height: 100%;
+    }
     &_img-hold {
         position: relative;
         background: #4d445c;
@@ -84,15 +87,15 @@
         position: absolute; 
         top: 0; 
         left: 0; 
-        right: 0; 
-        bottom: 0; 
+        right: 0;
+        bottom: 0;
         margin: auto; 
         min-width: 50%;
         min-height: 50%;
         width: 100%;
     }
     &_img-pad {
-        padding-bottom: 65%;
+        padding-bottom: 75%;
     }
     &_img-hold-ovr {
         display: none;

@@ -17,7 +17,7 @@
 <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <title>Веселый Жираф - сайт для всей семьи</title>
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
 </head>

@@ -6,7 +6,7 @@
  * @var int $club_id
  */
 if (empty($club_id)){
-    $action = $model->isNewRecord ? array('save') : array('save', 'id' => $model->id);
+    $action = $model->isNewRecord ? array('/blog/default/save') : array('/blog/default/save', 'id' => $model->id);
 }else
     $action = $model->isNewRecord ? array('/community/default/save') : array('/community/default/save', 'id' => $model->id);
 
@@ -39,7 +39,7 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
                 <?=$form->error($model, 'title')?>
             </div>
         </div>
-        <?php $this->renderPartial('form/_rubric', array('model' => $model, 'form' => $form, 'club_id' => $club_id)); ?>
+        <?php $this->renderPartial('/default/form/_rubric', array('model' => $model, 'form' => $form, 'club_id' => $club_id)); ?>
     </div>
     <!-- ko with: video -->
     <div class="b-settings-blue_add-video clearfix" data-bind="visible: embed() === null">

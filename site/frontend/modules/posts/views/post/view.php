@@ -42,9 +42,23 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                     ?>
                     <div class="b-article_in clearfix">
                         <div class="wysiwyg-content clearfix"><?= $this->post->html ?></div>
-                        <!--<div class="textalign-c visible-md-block">
+                        <div class="like-control-hold">
+                            <?php
+                            if ($this->post->authorId == Yii::app()->user->id) {
+                                ?>
+                                <div class="article-settings">
+                                    <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__settings powertip"></a></div>
+                                    <div class="article-settings_hold display-b">
+                                        <!--<div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__pin powertip"></a></div>-->
+                                        <div class="article-settings_i"><a href="<?= Yii::app()->createUrl('/blog/tmp/index', array('id' => $this->post->originEntityId)) ?>" class="article-settings_a article-settings_a__edit powertip"></a></div>
+                                        <div class="article-settings_i"><a href="#" class="article-settings_a article-settings_a__delete powertip"></a></div>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            ?>
                             <div class="like-control like-control__line">
-                                <div class="like-control_hold"><a href="#" onclick="openLoginPopup(event)" title="Нравится" class="like-control_i like-control_i__like powertip">
+                                <!--<div class="like-control_hold"><a href="#" onclick="openLoginPopup(event)" title="Нравится" class="like-control_i like-control_i__like powertip">
                                         <div class="like-control_t">Мне нравится!</div>
                                         <div class="ico-action-hg ico-action-hg__like"></div>
                                         <div class="like-control_tx">через js</div></a></div>
@@ -52,9 +66,9 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                                         <div class="like-control_t">В закладки</div>
                                         <div class="ico-action-hg ico-action-hg__favorite"></div>
                                         <div class="like-control_tx">через js</div></a>
-                                </div>
+                                </div>-->
                             </div>
-                        </div>-->
+                        </div>
                         <?php $this->widget('application.widgets.yandexShareWidget.YandexShareWidget', array('model' => $this->post->socialObject, 'lite' => true)); ?>
                         <!-- Реклама яндекса-->
                         <?php $this->renderPartial('//banners/_direct_others'); ?>

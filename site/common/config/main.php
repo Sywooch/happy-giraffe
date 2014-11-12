@@ -87,10 +87,16 @@ return array(
                     'width' => 200,
                     'height' => 200,
                 ),
-                'collectionCover' => array(
+                'postCollectionCover' => array(
                     'filter' => 'fixed',
-                    'width' => 880,
-                    'height' => 580,
+                    'width' => 600,
+                    'height' => 450,
+                ),
+                'singlePhoto' => array(
+                    'filter' => 'fixed',
+                    'width' => 600,
+                    'height' => 450,
+                    'mode' => 'inset',
                 ),
             ),
         ),

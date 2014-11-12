@@ -56,7 +56,7 @@ $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\Co
                             <div class="b-album_img-pad"></div>
                             <div class="b-album_img-allheight">
                                 <div class="b-album_img-center">
-                                    <?=CHtml::image(Yii::app()->thumbs->getThumb($photo, 'myPhotosAlbumCover')->getUrl(), $attach->getTitle())?>
+                                    <?=CHtml::image(Yii::app()->thumbs->getThumb($photo, 'singlePhoto')->getUrl(), $attach->getTitle())?>
                                 </div>
                             </div>
                         </div>

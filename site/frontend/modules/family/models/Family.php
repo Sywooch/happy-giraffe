@@ -180,4 +180,16 @@ class Family extends \HActiveRecord implements \IHToJSON
         $success = $family->withRelated->save(false, array('members'));
         return ($success) ? $family : null;
     }
+
+    public function hasMember($userId)
+    {
+        /** @var \site\frontend\modules\family\models\FamilyMember $member */
+        $member = FamilyMember::model()->user($userId)->find();
+        if ($member !== null) {
+            $this->getDbCriteria()->compare($this->getTableAlias() . '.id', $member->familyId);
+        } else {
+            $this->getDbCriteria()->addCondition('1 = 2');
+        }
+        return $this;
+    }
 }

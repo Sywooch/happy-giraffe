@@ -2,10 +2,21 @@
 
 namespace site\frontend\modules\family\controllers;
 
-class DefaultController extends Controller
+use site\frontend\modules\family\models\Family;
+
+class DefaultController extends \LiteController
 {
-	public function actionIndex()
+    public $litePackage = 'family';
+
+	public function actionIndex($userId)
 	{
-		$this->render('index');
+        /** @var \site\frontend\modules\family\models\Family $family */
+        $family = Family::model()->with('members')->hasMember($userId)->find();
+        if ($family === null) {
+            throw new \CHttpException(404);
+        }
+        $members = $family->getMembers();
+
+		$this->render('index', compact('family', 'members'));
 	}
 }

@@ -2,7 +2,7 @@ var userId = 12936;
 
 $.post('/api/family/get/', JSON.stringify({ userId: userId })); // запросим семью, ее нет - success=false
 $.post('/api/family/create/', function(family) { // создадим семью
-    $.post('/api/family/update/', { attributes: { description: 'Команда мечты' }, id: family.data.id });
+    $.post('/api/family/update/', JSON.stringify({ attributes: { description: 'Команда мечты' }, id: family.data.id }));
 
     // моя половинка
     $.post('/api/family/createMember/', JSON.stringify({ attributes: { type: 'adult', name: 'Леди Гага', relationshipStatus: 'engaged' }  }), function(gaga) { // создади супругу

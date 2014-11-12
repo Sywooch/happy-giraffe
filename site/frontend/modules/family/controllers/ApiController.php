@@ -38,17 +38,26 @@ class ApiController extends \site\frontend\components\api\ApiController
         ));
     }
 
-    public function actionGet($userId, $create = false, $public = true)
+    public function actionGet($userId, $public = true)
     {
-        if ($create && ! \Yii::app()->user->checkAccess('createFamily')) {
-            throw new \CHttpException(403, 'Недостаточно прав');
-        }
-
-        $family = Family::getByUserId($userId, $create);
+        $family = Family::getByUserId($userId, false);
         $this->success = $family !== null;
         if ($family !== null) {
             $this->data = $family->toJSON();
             $this->data['members'] = $family->getMembers(null, $public);
+        }
+    }
+
+    public function actionCreate()
+    {
+        if (! \Yii::app()->user->checkAccess('createFamily')) {
+            throw new \CHttpException(403, 'Недостаточно прав');
+        }
+
+        $family = Family::getByUserId(\Yii::app()->user->id, true);
+        $this->success = $family !== null;
+        if ($family !== null) {
+            $this->data = $family;
         }
     }
 

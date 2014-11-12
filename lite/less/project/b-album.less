@@ -49,9 +49,6 @@
         vertical-align: middle;
         text-align: center;
     }
-    &_img-allheight img {
-        max-height: 100%;
-    }
     &_img-allheight:before { /// вертикальное выравниевание 
         content: "";
         display: inline-block;
@@ -65,6 +62,9 @@
         text-align: center;
     }
     &_img-hold:hover &_img-hold-ovr {display: block;}
+    &_img-hold img {
+        margin: auto;
+    }
     &_img-a {
         display: block;
         position: relative;

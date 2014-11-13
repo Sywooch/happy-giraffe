@@ -13,7 +13,6 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
         this.rightsForManipulation = Model.checkRights(params.userId);
         this.userId = params.userId;
         this.opened = ko.observable(false);
-        console.log(PresetManager);
         /**
          * getting album
          * @param passedData
@@ -31,8 +30,10 @@ define(['jquery', 'knockout', 'text!photo-album/photo-album.html', 'photo/PhotoA
                                 PresetManager.presets = this.photoAlbum.photoCollection().presets;
                                 val[i].photo().presetWidth(PresetManager.getWidth(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
                                 val[i].photo().presetHeight(PresetManager.getHeight(val[i].photo().width(), val[i].photo().height(), this.photoAlbum.usablePreset));
-                                console.log(val[i]);
                             }
+                        }
+                        if (this.photoAlbum.photoCollection().pckry.reloadItems !== undefined) {
+                            this.photoAlbum.photoCollection().pckry.reloadItems();
                         }
                     }.bind(this));
                 }

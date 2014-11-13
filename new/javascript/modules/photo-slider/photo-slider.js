@@ -30,7 +30,6 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          * Particular get method
          */
         this.getUser = function getUser() {
-            console.log(this.user.getUserUrl, this.userSliderId);
             Model
                 .get(this.user.getUserUrl, {id: this.userSliderId, avatarSize: 40})
                 .done(this.userHandler.bind(this));

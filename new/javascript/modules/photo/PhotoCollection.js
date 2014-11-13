@@ -14,12 +14,13 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.loading = ko.observable(true);
         this.circular = ko.observable(false);
         this.presets = data.presets;
+        this.pckry = {};
         PresetManager.presets = data.presets;
         /**
          * Handling particular set or presets
          * @param presets
          */
-        this.handlePresets = function gainPhotoInLine(presets) {
+        this.handlePresets = function handlePresets(presets) {
             if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
                 this.presets = presets;
                 PresetManager.presets = presets;
@@ -199,8 +200,8 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
          */
         this.loadImagesCreation = function loadImagesCreation(event, elemName, container) {
             if ($(container).length > 0) {
-                var imgLoad = imagesLoaded(elemName),
-                    pckry = new Packery(container, { itemSelector: '.img-grid_i' });
+                var imgLoad = imagesLoaded(elemName);
+                this.pckry = new Packery(container, { itemSelector: '.img-grid_i' });
                 var imageLoadAlg = this.loadImagesAlg;
                 imgLoad.on(event, imageLoadAlg.bind(this));
             }

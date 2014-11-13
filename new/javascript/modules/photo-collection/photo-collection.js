@@ -1,12 +1,12 @@
 define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'photo/PhotoCollection', 'user-config', 'models/Model', 'extensions/imagesloaded', 'modules-helpers/component-custom-returner', 'models/User', 'extensions/PresetManager', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation'], function ($, ko, template, PhotoCollection, userConfig, Model, imagesLoaded, customReturner, User, PresetManager) {
     function PhotoCollectionView(params) {
-        console.log(params);
         params.attachesCount = 1;
         this.photoCollection = new PhotoCollection(params);
         this.photoCollection.pageCount = 5;
         this.photoCollection.usablePreset('myPhotosPreview');
         this.opened = ko.observable(false);
         this.currentPhoto = ko.observable();
+        this.userId = params.userId;
         /**
          * Count handler
          * @param count
@@ -14,7 +14,7 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
         this.collectionCount = function collectionCount(count) {
             if (count === undefined) {
                 this.photoCollection.getCollectionCount(params.id);
-            } else {
+            } else { 
                 this.photoCollection.attachesCount(count);
             }
         };

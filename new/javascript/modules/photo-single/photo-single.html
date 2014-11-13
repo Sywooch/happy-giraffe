@@ -1,6 +1,6 @@
 <!-- ko if: loading() === false -->
     <!-- ko if: photoAttach().photo().presetHeight() > 0 -->
-    <section class="b-album">
+    <section class="b-album b-album__photolink">
         <div href="#" class="b-album_img-hold" data-bind="attr: { 'style': 'height: ' + photoAttach().photo().presetHeight() + 'px;' }">
             <div class="b-album_img-a">
                 <div class="verticalalign-m-help"></div>
@@ -22,7 +22,7 @@
     <!-- /ko -->
 <!-- /ko -->
 <!-- ko if: loading() === true -->
-<section class="b-album">
+<section class="b-album b-album__photolink">
     <div class="b-album_img-hold" style="height: 580px;">
         <div class="img-grid_loading-hold">
             <div class="loader-circle">

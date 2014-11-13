@@ -216,7 +216,7 @@
          */
         function BlogRecordSettings(data) {
             var self = this;
-            mapping.fromJS(data, {}, self);
+            ko.mapping.fromJS(data, {}, self);
             self.displayOptions = ko.observable(false);
             self.displayPrivacy = ko.observable(false);
             self.removed = ko.observable(false);

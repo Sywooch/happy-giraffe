@@ -15,6 +15,7 @@ class ListController extends \LiteController
     public $layout = 'newBlogPost';
     public $litePackage = 'posts';
     public $listDataProvider = null;
+    public $hideUserAdd = true;
     public $userId;
     protected $_user = null;
 

@@ -18,6 +18,7 @@ class LiteController extends HController
     protected $_metaCanonical = null;
     protected $_metaNavigation = null;
     public $layout = '//layouts/lite/main';
+    public $hideUserAdd = false;
     public $litePackage = false;
     public $metaNoindex = false;
 

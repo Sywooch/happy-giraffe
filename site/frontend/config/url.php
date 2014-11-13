@@ -119,16 +119,17 @@ return array(
         'user/settings/' => 'profile/settings/personal',
         'user/settings/<_a>' => 'profile/settings/<_a>',
         'user/<user_id:\d+>/blog/rubric<rubric_id:\d+>' => 'blog/default/index',
-        'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',
-        'user/<user_id:\d+>/blog' => 'posts/list/index',
-
-        /*array(
+        /*'user/<user_id:\d+>/blog/post<content_id:\d+>' => 'posts/post/view',*/
+        array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
             'trueRoute' => 'posts/post/view',
             'falseRoute' => 'blog/default/view',
-        ),*/
+        ),
+
+        'user/<user_id:\d+>/blog' => 'blog/default/index',
+        //'user/<user_id:\d+>/blog' => 'posts/list/index',
         /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
@@ -138,7 +139,7 @@ return array(
         ),*/
 
         /* т.к. некоторые ссылки используют эти роуты при построении запросов */
-        'fakeBlogView' => array(
+        /*'fakeBlogView' => array(
             'class' => 'UrlRule',
             'pattern' => 'user/<user_id:\d+>/blog',
             'route' => 'blog/default/index',
@@ -147,14 +148,14 @@ return array(
             'class' => 'UrlRule',
             'pattern' => 'user/<user_id:\d+>/blog/post<content_id:\d+>',
             'route' => 'blog/default/view',
-        ),
+        ),*/
         
         /* Для корректной работы старых редакторов */
         'newblog/<_a:>' => 'blog/default/<_a>',
         
         /* Временные страницы для редактирования */
-        'post/add/type<type:[1235]>' => 'blog/tmp/index',
-        'post/edit/content<id:\d+>' => 'blog/tmp/index',
+        /*'post/add/type<type:[1235]>' => 'blog/tmp/index',
+        'post/edit/content<id:\d+>' => 'blog/tmp/index',*/
 
         'user/<user_id:\d+>' => 'profile/default/index',
         'user/<user_id:\d+>/friends' => 'profile/default/friends',
@@ -213,14 +214,14 @@ return array(
         'community/<_a:(subscribe)>/' => 'community/default/<_a>',
         'community/<forum_id:\d+>/forum/rubric/<rubric_id:\d+>' => 'community/default/forum',
         
-        //'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
-        array(
+        'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>' => 'community/default/view',
+        /*array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'community/<forum_id:\d+>/forum/<content_type_slug:\w+>/<content_id:\d+>',
             'trueRoute' => 'posts/post/view',
             'falseRoute' => 'community/default/view',
-        ),
+        ),*/
         
         'community/<forum_id:\d+>/forum/' => 'community/default/forum',
         'community/default/save' => 'community/default/save',

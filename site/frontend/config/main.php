@@ -262,6 +262,16 @@ return array(
         'apc'=>array(
             'class'=>'CApcCache',
         ),
+        
+        /* компонент для кеширования по зависимости, без удаления записей */
+        'dbCache' => array(
+            'class' => 'CDbCache',
+            'connectionID' => 'db',
+            // сборщик мусора не нужен, храним по зависимости, вечно
+            'gCProbability' => 0,
+            'cacheTableName' => 'infiniteCache',
+        ),
+        
 		'user'=>array(
 			// enable cookie-based authentication
 			'class'=>'WebUser',

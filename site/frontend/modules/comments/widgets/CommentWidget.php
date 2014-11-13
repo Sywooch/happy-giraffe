@@ -13,6 +13,7 @@ class CommentWidget extends \CWidget
 {
 
     public $model;
+    public $cacheId = 'dbCache';
     protected $_count = null;
 
     public function run()
@@ -21,6 +22,15 @@ class CommentWidget extends \CWidget
             $this->runForGuest();
         else
             $this->runForUser();
+    }
+
+    /**
+     * 
+     * @return \CCache 
+     */
+    public function getCacheComponent()
+    {
+        return \Yii::app()->getComponent($this->cacheId);
     }
 
     public function getCount()
@@ -65,7 +75,27 @@ class CommentWidget extends \CWidget
 
     public function runForGuest()
     {
-        $this->render('commentWidget', array('dataProvider' => $this->dataProvider));
+        if (!($data = $this->getCacheComponent()->get($this->cacheKey))) {
+            $data = $this->render('commentWidget', array('dataProvider' => $this->dataProvider), true);
+            $this->getCacheComponent()->add($this->cacheKey, $data, 0, $this->getCacheDependency());
+        }
+        echo $data;
+    }
+
+    public function getCacheKey()
+    {
+        if (!is_array($this->model)) {
+            $key = get_class($entity) . $entity->id;
+        }
+        else {
+            $key = $this->model['entity'] . $this->model['entity_id'];
+        }
+        return $key;
+    }
+
+    public function getCacheDependency()
+    {
+        return Comment::getCacheDependency($this->model);
     }
 
     public function runForUser()

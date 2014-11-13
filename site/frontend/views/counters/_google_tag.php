@@ -1,3 +1,11 @@
+<script type="text/javascript">
+    dataLayer = [{
+        'isAmd': <?=CJavaScript::encode(Yii::app()->clientScript->useAMD)?>,
+        'isGuest': <?=CJavaScript::encode(Yii::app()->user->isGuest)?>,
+        'isModerator': <?=CJavaScript::encode((! Yii::app()->user->isGuest) && (Yii::app()->user->group != UserGroup::USER))?>
+    }];
+</script>
+
 <!-- Google Tag Manager -->
 <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-K44B85"
                   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

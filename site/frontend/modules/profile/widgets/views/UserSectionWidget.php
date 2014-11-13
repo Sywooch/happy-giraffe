@@ -70,6 +70,7 @@
                     'label' => 'Блог',
                     'url' => array('/blog/default/index', 'user_id' => $user->id),
                     'linkOptions' => array('class' => 'userSection_panel-a'),
+                    'active' => Yii::app()->controller->module !== null && in_array(Yii::app()->controller->module->id, array('posts', 'blog')),
                 ),
                 array(
                     'label' => 'Фото',

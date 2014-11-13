@@ -66,6 +66,10 @@ class ApiController extends \CController
     {
         return array(
             /** @todo Тут будет проверка токена для приложений */
+            /** @todo Сделать проверку на дос (ограничить количество запросов с одного ip/браузера) */
+            /** @todo Сделать проверку referrer/ip для определения наших запросов */
+            /** @todo Сделать проверку заголовка content-type на application/json */
+            /** @todo Придумать защиту от скачивания */
             // Всё API работает только через post-запросы
             'postOnly',
         );
@@ -107,6 +111,7 @@ class ApiController extends \CController
     // Метод, отвечающий за вывод результата
     public function printResult()
     {
+        header('Content-Type: application/json', true);
         echo \HJSON::encode($this->result);
     }
 

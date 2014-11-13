@@ -48,7 +48,8 @@ class ConvertCommand extends \CConsoleCommand
             'entity' => $entity,
             'entityId' => $id,
         );
-        $client->doBackground($fName, self::serialize($data));
+        // обеспечим уникальность задач
+        $client->doBackground($fName, self::serialize($data), implode('-', $data));
         return true;
     }
 
@@ -85,14 +86,14 @@ class ConvertCommand extends \CConsoleCommand
         try
         {
             $data = self::unserialize($job->workload());
+            usleep(10000); // На всякий случай поспим 0,01 сек, что бы быть уверенным, что репликация прошла
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
             $model->convertToNewPost();
             echo '.';
         }
         catch (\Exception $e)
         {
-            var_dump($data);
-            echo $e;
+            echo "\nFAIL: ".$data['entityId']."\n";
         }
     }
 

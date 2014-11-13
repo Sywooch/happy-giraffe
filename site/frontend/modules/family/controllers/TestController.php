@@ -37,7 +37,9 @@ class TestController extends \HController
 
     public function actionMagic()
     {
-        $familyMember = FamilyMember::model()->find();
+        var_dump(0 % 4); die;
+
+        $familyMember = FamilyMember::model()->findByPk(122);
         $collection = $familyMember->photoCollection;
         $collection->attachPhotos(array(177));
     }

@@ -40,4 +40,9 @@ class MembersListWidget extends \CWidget
         }
         return 1;
     }
+
+    public function isMe(FamilyMember $member)
+    {
+        return ! \Yii::app()->user->isGuest && ($member->userId == \Yii::app()->user->id);
+    }
 } 

@@ -14,7 +14,8 @@ class TestController extends \HController
 {
     public function actionCrop()
     {
-        $attach = PhotoAttach::model()->findByPk(181);
-        echo $attach->getUrl();
+        \Yii::import('site.seo.modules.competitors.components.*');
+        \Yii::import('site.seo.modules.competitors.models.*');
+        \LiSitesManager::getData();
     }
 } 

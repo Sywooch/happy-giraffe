@@ -26,6 +26,7 @@
             <?php endif; ?>
             <?php $this->widget('site\frontend\modules\family\widgets\MembersListWidget\MembersListWidget', array(
                 'family' => $family,
+                'view' => 'short',
             )); ?>
         </div>
         <!-- /family-about-->

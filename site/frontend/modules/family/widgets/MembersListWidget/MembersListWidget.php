@@ -19,7 +19,7 @@ class MembersListWidget extends \CWidget
     {
         $members = $this->family->getMembers(null, false);
         usort($members, array($this, 'sort'));
-        $this->render('index', compact('members'));
+        $this->render($this->view, compact('members'));
     }
 
     protected function sort(FamilyMember $a, FamilyMember $b)

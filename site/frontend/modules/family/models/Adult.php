@@ -3,6 +3,7 @@
 
 namespace site\frontend\modules\family\models;
 use site\frontend\modules\family\components\AgeHelper;
+use site\frontend\modules\family\models\viewData\AdultViewData;
 
 /**
  * @author Никита
@@ -45,24 +46,9 @@ class Adult extends FamilyMemberAbstract
         ));
     }
 
-    public function getTitle()
+    protected function getViewDataInternal()
     {
-        $titles = array(
-            'friends' => array(
-                self::GENDER_FEMALE => 'Подруга',
-                self::GENDER_MALE => 'Друг',
-            ),
-            'engaged' => array(
-                self::GENDER_FEMALE => 'Невеста',
-                self::GENDER_MALE => 'Жених',
-            ),
-            'married' => array(
-                self::GENDER_FEMALE => 'Жена',
-                self::GENDER_MALE => 'Муж',
-            ),
-        );
-
-        return $titles[$this->adultRelationshipStatus][$this->gender];
+        return new AdultViewData($this);
     }
 
     protected function afterFind()

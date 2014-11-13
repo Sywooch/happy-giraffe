@@ -8,6 +8,7 @@ namespace site\frontend\modules\family\models;
 
 
 use site\frontend\modules\family\components\AgeHelper;
+use site\frontend\modules\family\models\viewData\PregnancyChildViewData;
 
 class PregnancyChild extends WaitingChild
 {
@@ -19,6 +20,11 @@ class PregnancyChild extends WaitingChild
     static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    protected function getViewDataInternal()
+    {
+        return new PregnancyChildViewData($this);
     }
 
     public function rules()

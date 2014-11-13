@@ -8,6 +8,7 @@ namespace site\frontend\modules\family\models;
 
 
 use site\frontend\modules\family\components\AgeHelper;
+use site\frontend\modules\family\models\viewData\ChildViewData;
 
 class Child extends FamilyMemberAbstract
 {
@@ -16,6 +17,11 @@ class Child extends FamilyMemberAbstract
     static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    protected function getViewDataInternal()
+    {
+        return new ChildViewData($this);
     }
 
     public function rules()

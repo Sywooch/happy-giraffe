@@ -92,6 +92,22 @@ return array(
                     'width' => 205,
                     'height' => 140,
                 ),
+                'socialImage' => array(
+                    'filter' => 'fixed',
+                    'width' => 200,
+                    'height' => 200,
+                ),
+                'postCollectionCover' => array(
+                    'filter' => 'fixed',
+                    'width' => 600,
+                    'height' => 450,
+                ),
+                'singlePhoto' => array(
+                    'filter' => 'fixed',
+                    'width' => 600,
+                    'height' => 450,
+                    'mode' => 'inset',
+                ),
             ),
         ),
         'crops' => array(

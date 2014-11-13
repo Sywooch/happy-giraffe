@@ -50,6 +50,28 @@ abstract class PhotoCollectionObserver extends \CComponent
         return $this->model->attachesCount;
     }
 
+    public function getNext($attachId)
+    {
+        if ($this->getCount() < 2) {
+            return null;
+        }
+        $currentIndex = $this->getIndexByAttachId($attachId);
+        $isLast = ($currentIndex + 1) == $this->getCount();
+        $nextIndex = ($isLast) ? 0 : $currentIndex + 1;
+        return $this->getSingle($nextIndex);
+    }
+
+    public function getPrev($attachId)
+    {
+        if ($this->getCount() < 2) {
+            return null;
+        }
+        $currentIndex = $this->getIndexByAttachId($attachId);
+        $isFirst = $currentIndex == 0;
+        $next = ($isFirst) ? ($this->getCount() - 1) : $currentIndex - 1;
+        return $this->getSingle($next);
+    }
+
     /**
      * Возвращает критерию по умолчанию
      *

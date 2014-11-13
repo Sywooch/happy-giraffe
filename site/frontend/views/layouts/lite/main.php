@@ -7,7 +7,7 @@ $this->beginContent('//layouts/lite/common');
 <div class="layout-loose_hold clearfix">
 <!-- b-main -->
 <div class="b-main clearfix">
-    <?php if (!Yii::app()->user->isGuest): ?>
+    <?php if (!Yii::app()->user->isGuest && !($this instanceof LiteController && $this->hideUserAdd)): ?>
         <div class="b-main_cols clearfix">
             <div class="b-main_col-1">
                 <div class="sidebar-search clearfix sidebar-search__big">

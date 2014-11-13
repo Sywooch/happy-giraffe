@@ -58,6 +58,7 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
 		// class name for the relations automatically generated below.
 		return array(
 			'photoAttaches' => array(self::HAS_MANY, 'site\frontend\modules\photo\models\PhotoAttach', 'photo_id'),
+            'oldPhoto' => array(self::HAS_ONE, '\AlbumPhoto', 'newPhotoId'),
 		);
 	}
 

@@ -31,17 +31,17 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
     public function softDelete()
     {
         $result = false;
-        if ($this->beforeSoftDelete())
-        {
+        if ($this->beforeSoftDelete()) {
             $model = new SoftDelete();
             $model->entity = get_class($this->owner);
             $model->entity_id = $this->owner->id;
             $model->user_id = Yii::app()->user->id;
             $result = $model->save();
             $this->owner->removed = 1;
-            $result = $result && $this->owner->update(array('removed'));
-            if ($result)
+            $result = $result && $this->owner->updateByPk($this->owner->id, array('removed' => $this->owner->removed));
+            if ($result) {
                 $this->afterSoftDelete();
+            }
         }
         return $result;
     }
@@ -49,12 +49,12 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
     public function softRestore()
     {
         $result = false;
-        if ($this->beforeSoftRestore())
-        {
+        if ($this->beforeSoftRestore()) {
             $this->owner->removed = 0;
-            $result = $this->owner->update(array('removed'));
-            if ($result)
+            $result = $this->owner->updateByPk($this->owner->id, array('removed' => $this->owner->removed));
+            if ($result) {
                 $this->afterSoftRestore();
+            }
         }
 
         return $result;
@@ -64,8 +64,7 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
 
     public function beforeSoftDelete()
     {
-        if ($this->owner->hasEventHandler('onBeforeSoftDelete'))
-        {
+        if ($this->owner->hasEventHandler('onBeforeSoftDelete')) {
             $event = new CModelEvent($this->owner);
             $this->onBeforeSoftDelete($event);
             return $event->isValid;
@@ -92,8 +91,7 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
 
     public function beforeSoftRestore()
     {
-        if ($this->owner->hasEventHandler('onBeforeSoftRestore'))
-        {
+        if ($this->owner->hasEventHandler('onBeforeSoftRestore')) {
             $event = new CModelEvent($this->owner);
             $this->onBeforeSoftRestore($event);
             return $event->isValid;
@@ -117,15 +115,6 @@ class SoftDeleteBehavior extends CActiveRecordBehavior
     {
         $this->owner->raiseEvent('onAfterSoftRestore', $event);
     }
+
 }
-
-
-
-
-
-
-
-
-
-
 

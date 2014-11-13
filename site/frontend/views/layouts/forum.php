@@ -16,7 +16,7 @@
     
     <div class="col-1">
         <?php if ($this->action->id == 'view' || $this->forum->club_id == 11): ?>
-            <?php $this->beginWidget('AdsWidget'); ?>
+            <?php $this->beginWidget('AdsWidget', array('dummyTag' => 'adfox')); ?>
             <div class="banner">
                 <!--AdFox START-->
                 <!--giraffe-->

@@ -159,6 +159,9 @@ class CommunityContent extends HActiveRecord implements IPreview
                     'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
                     'attributeCollections' => array('preview'),
                 ),
+                'convertToNewPost' => array(
+                    'class' => '\site\frontend\modules\posts\behaviors\converters\CommunityContentBehavior',
+                ),
             );
         return array(
             'PhotoCollectionBehavior' => array(
@@ -200,7 +203,20 @@ class CommunityContent extends HActiveRecord implements IPreview
 //            'yandexwm' => array(
 //                'class' => '\site\frontend\modules\seo\components\YandexOriginalTextBehavior',
 //            ),
+            'convertToNewPost' => array(
+                'class' => '\site\frontend\modules\posts\behaviors\converters\CommunityContentBehavior',
+            ),
         );
+    }
+    
+    public function onAfterSoftDelete()
+    {
+        // заглушка, для того, что бы можно было слушать события от SoftDeleteBehavior
+    }
+
+    public function onAfterSoftRestore()
+    {
+        // заглушка, для того, что бы можно было слушать события от SoftDeleteBehavior
     }
 
     public function purify($t)
@@ -1048,10 +1064,11 @@ class CommunityContent extends HActiveRecord implements IPreview
         );
     }
 
-    public function restore()
+    // Терперь реализует поведение
+    /*public function restore()
     {
         return self::model()->updateByPk($this->id, array('removed' => 0)) > 0;
-    }
+    }*/
 
 
     /******************************** Repost ********************************************/

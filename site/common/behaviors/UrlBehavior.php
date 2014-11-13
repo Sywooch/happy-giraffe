@@ -10,11 +10,16 @@ namespace site\common\behaviors;
 
 class UrlBehavior extends \CActiveRecordBehavior
 {
+    public $preparedUrl;
     public $route;
     public $params = array('id');
 
     public function getUrl($absolute = false)
     {
+        if ($this->preparedUrl !== null) {
+            return $this->normalizePreparedUrl($this->preparedUrl);
+        }
+
         if ($this->route === null) {
             throw new \CException('Route is not provided');
         }
@@ -23,6 +28,16 @@ class UrlBehavior extends \CActiveRecordBehavior
         $finalParams = $this->normalizeParams($this->params);
 
         return $absolute ? \Yii::app()->createUrl($finalRoute, $finalParams) : \Yii::app()->createAbsoluteUrl($finalRoute, $finalParams);
+    }
+
+    protected function normalizePreparedUrl($preparedUrl)
+    {
+        if (is_callable($preparedUrl)) {
+            return call_user_func($preparedUrl, $this->owner);
+        } elseif ($this->owner->hasAttribute($preparedUrl)) {
+            return $this->owner->$preparedUrl;
+        }
+        return $preparedUrl;
     }
 
     protected function normalizeRoute($route)

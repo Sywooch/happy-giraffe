@@ -1208,6 +1208,14 @@ class CommunityContent extends HActiveRecord implements IPreview
             );
         }
 
+        if ($this->id == 212412) {
+            return array(
+                'text' => 'Гербион',
+                'img' => '/images/banners/ava-gerbion-2.jpg',
+                'pix' => '',
+            );
+        }
+
         $remo = <<<HTML
 <!-- AdRiver code START:  ÍÓ‰ ‰Îˇ ÒˆÂÌ‡Ëˇ ; AD: 422855 "Remo-wax";   ÒˆÂÌ‡ËÈ   ID 1740991 "Happy-giraffe_2014" ; counter(zeropixel) -->
 <script type="text/javascript">

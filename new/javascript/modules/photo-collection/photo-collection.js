@@ -4,13 +4,21 @@ define(['jquery', 'knockout', 'text!photo-collection/photo-collection.html', 'ph
         this.photoCollection = new PhotoCollection(params);
         this.photoCollection.pageCount = 5;
         this.photoCollection.usablePreset('myPhotosPreview');
+        /**
+         * Count handler
+         * @param count
+         */
         this.collectionCount = function collectionCount(count) {
             if (count === undefined) {
                 this.photoCollection.getCollectionCount(params.id);
             } else {
                 this.photoCollection.attachesCount(count);
             }
-        }
+        };
+        /**
+         * handler presets getting
+         * @param presets
+         */
         this.handlePresets = function handlePresets(presets) {
             this.photoCollection.getAttachesPage(0);
             this.collectionCount(params.attachCount);

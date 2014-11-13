@@ -14,6 +14,9 @@
         this.removed = ko.observable(false);
         this.isCover = ko.observable(false);
         this.urlPart = 'photo' + this.photo().id() + '/';
+        /**
+         * Removing attach
+         */
         this.remove = function () {
             Model.get(this.removeUrl, {
                 id: this.id()
@@ -23,11 +26,19 @@
                 }
             }.bind(this));
         };
+        /**
+         * Getting attach
+         * @param id
+         * @returns {$.ajax}
+         */
         this.get = function (id) {
             return Model.get(this.getAttachUrl, {
                 id: id
             });
         };
+        /**
+         * Restore attach
+         */
         this.restore = function () {
             Model.get(this.restoreUrl, {
                 id: this.id()
@@ -37,11 +48,21 @@
                 }
             }.bind(this));
         };
+        /**
+         * Setting attach as cover
+         * @param collectionId
+         * @param data
+         */
         this.setCover = function setCover(collectionId, data) {
             Model
                 .get(this.setCoverUrl, { collectionId: collectionId, attachId: this.id() })
                 .done(this.setCoverHandler.bind(this));
         };
+        /**
+         * Setting attach as cover handler
+         * @param collectionId
+         * @param data
+         */
         this.setCoverHandler = function setCoverHandler(status) {
             if (status.success === true) {
                 this.isCover(true);

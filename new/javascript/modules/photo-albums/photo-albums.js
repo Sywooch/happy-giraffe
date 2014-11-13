@@ -7,10 +7,17 @@ define(['jquery', 'knockout', 'text!photo-albums/photo-albums.html', 'photo/Phot
         this.rightsForManipulation = Model.checkRights(params.userId);
         this.userId = params.userId;
         this.newPhotoAlbumUrl = '/user/' + User.userId + '/albums/create/';
+        /**
+         * handle presets getting
+         * @type {string}
+         */
         this.handlePresets = function (presets) {
             this.presets = presets;
             this.getAlbums();
         };
+        /**
+         * get albums by user
+         */
         this.getAlbums = function getAlbums() {
             if (User.isGuest === true) {
                 this.photoAlbum.get(this.userId, true, this.fillThePictures.bind(this));
@@ -18,14 +25,29 @@ define(['jquery', 'knockout', 'text!photo-albums/photo-albums.html', 'photo/Phot
                 this.photoAlbum.get(this.userId, false, this.fillThePictures.bind(this));
             }
         };
+        /**
+         * Reduce albums to the filled
+         * @param album
+         * @returns {*}
+         */
         this.reduceArraysFilled = function (album) {
             if (album.photoCollections.default.attachesCount  !== 0) {
                 return album;
             }
         };
+        /**
+         * Reduce albums to the empty
+         * @param album
+         * @returns {*}
+         */
         this.reduceArraysEmpty = function (album) {
             return album.photoCollections.default.attachesCount  === 0;
         };
+        /**
+         * remove empty
+         * @param arr
+         * @returns {*}
+         */
         this.removeUnecessaryEmpty = function (arr) {
             var i;
             for (i = arr.length; i--;) {
@@ -35,6 +57,11 @@ define(['jquery', 'knockout', 'text!photo-albums/photo-albums.html', 'photo/Phot
             };
             return arr;
         };
+        /**
+         * remove filled
+         * @param arr
+         * @returns {*}
+         */
         this.removeUnecessaryFilled = function (arr) {
             var i;
             for (i = arr.length; i--;) {
@@ -44,6 +71,10 @@ define(['jquery', 'knockout', 'text!photo-albums/photo-albums.html', 'photo/Phot
             };
             return arr;
         };
+        /**
+         * Fill albums with pictures
+         * @param caredData
+         */
         this.fillThePictures = function fillThePictures(caredData) {
             var valuesEmpty = caredData.data.albums.slice(0),
                 valuesFilled = caredData.data.albums.slice(0);

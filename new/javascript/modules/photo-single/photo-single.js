@@ -12,6 +12,10 @@ define(['jquery', '../knockout', 'text!photo-single/photo-single.html', 'photo/P
         this.rightsForManipulation = Model.checkRights(params.userId);
         this.userId = params.userId;
         this.returnNewColor = Model.returnNewColor;
+        /**
+         * getting presets for single image
+         * @param presets
+         */
         this.gettingPresets = function gettingPresets(presets) {
             if (presets) {
                 this.presets = presets;
@@ -26,14 +30,23 @@ define(['jquery', '../knockout', 'text!photo-single/photo-single.html', 'photo/P
             .done(this.gettingPresets.bind(this));
         this.removed = ko.observable(false);
         this.opened = ko.observable(false);
+        /**
+         * Open photo slider
+         */
         this.openPhotoHandler = function openPhotoHandler() {
             this.opened(true);
             //ko.applyBindings({}, $('photo-slider')[0]);
         };
+        /**
+         * Close photo slider
+         */
         this.closePhotoHandler = function closePhotoHandler() {
             //ko.cleanNode({}, $('photo-slider')[0]);
             this.opened(false);
         };
+        /**
+         * Load photo slider
+         */
         this.loadPhotoComponent = function () {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
         };

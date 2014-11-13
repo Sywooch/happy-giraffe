@@ -19,17 +19,17 @@ define('photo/PresetManager', function() {
                     return presetConfig.height;
                 }
             }
-        }
+        };
 
         self.getWidth = function(imageWidth, imageHeight, preset) {
             var config = self.presets[preset];
             return self.filters[config.filter].getWidth(imageWidth, imageHeight, config);
-        }
+        };
 
         self.getHeight = function(imageWidth, imageHeight, preset) {
             var config = self.presets[preset];
             return self.filters[config.filter].getHeight(imageWidth, imageHeight, config);
-        }
+        };
     }
     presetManager = new PresetManager();
 });

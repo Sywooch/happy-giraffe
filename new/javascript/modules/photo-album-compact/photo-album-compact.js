@@ -14,21 +14,38 @@ define(['jquery', 'knockout', 'text!photo-album-compact/photo-album-compact.html
         this.photoAlbum.init(params.album);
         this.opened = ko.observable(false);
         this.userId = params.userId;
+        /**
+         * Removing album
+         */
         this.remove = function remove() {
             this.photoAlbum.delete();
             this.removed(true);
         };
+        /**
+         * Choosing current attach by click
+         * @param photoAttach
+         */
         this.chooseCurrentPhotoAttach = function chooseCurrentPhotoAttach(photoAttach) {
             this.currentPhoto(photoAttach);
         };
+        /**
+         * Restore current album
+         */
         this.restore = function restore() {
             this.photoAlbum.restore();
             this.removed(false);
         };
+        /**
+         * Openening current photo
+         * @param photoAttach
+         */
         this.openPhotoHandler = function openPhotoHandler(photoAttach) {
             this.opened(true);
             this.chooseCurrentPhotoAttach(photoAttach);
         };
+        /**
+         * Closing current photo
+         */
         this.closePhotoHandler = function closePhotoHandler() {
             this.opened(false);
         };

@@ -1,5 +1,5 @@
 <div class="photo-window display-b">
-    <div class="photo-window_w"><a href="" class="photo-window_close" data-bind="click: $parent.closePhotoHandler.bind($parent)"></a>
+    <div class="photo-window_w"><a href="" class="photo-window_close" data-bind="click: function (data, event) { closePhotoHandler($parent) }"></a>
         <div class="photo-window_top">
             <!-- ko if: current() !== false && collection.attachesCount() > 0 -->
             <div class="photo-window_count" data-bind="text: (current().index() + 1) + ' из ' + collection.attachesCount()"></div>
@@ -23,7 +23,7 @@
                 <!-- ko if: current().element().broke() === true -->
                 <!-- /ko -->
                 <!-- ko if: current().element().broke() === false -->
-                    <div data-bind="html: imgTag()"></div>
+                    <span data-bind="html: imgTag()"></span>
                 <!-- /ko -->
                 <div class="verticalalign-m-help"></div>
             </div>

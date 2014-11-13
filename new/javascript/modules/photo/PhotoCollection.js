@@ -14,14 +14,25 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
         this.circular = ko.observable(false);
         this.presets = data.presets;
         PresetManager.presets = data.presets;
+        /**
+         * Handling particular set or presets
+         * @param presets
+         */
         this.handlePresets = function gainPhotoInLine(presets) {
             if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
                 this.presets = presets;
                 PresetManager.presets = presets;
             }
         };
+        /**
+         * Getting cover of current album
+         * @param cover
+         */
         this.getCover = function getCover(cover) {
             if (this.attachesCount() > 0) {
+                /**
+                 * If presets are currently not present
+                 */
                 if (!$.isEmptyObject(PresetManager.presets)) {
                     if (cover) {
                         var photoAttach = new PhotoAttach(cover);
@@ -50,6 +61,11 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 }
             }
         };
+        /**
+         * Handle cover with particular preset
+         * @param photoAttach
+         * @param presets
+         */
         this.handleCoverWithPresets = function handleCoverWithPresets(photoAttach, presets) {
             photoAttach = photoAttach[0];
             presets = presets[0];
@@ -64,6 +80,10 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
             this.loading(false);
         };
+        /**
+         * Handle cover with old preset
+         * @param photoAttach
+         */
         this.handleCover = function handleCover(photoAttach) {
             if (photoAttach.success === true && photoAttach.data.attaches.length !== 0) {
                 this.cover(new PhotoAttach(photoAttach.data.attaches[0]));
@@ -72,6 +92,10 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 this.loading(false);
             }
         };
+        /**
+         * Handle preset without cover
+         * @param presets
+         */
         this.handlePresetsWOCover = function handleCover(presets) {
             if (presets !== undefined || $.isEmptyObject(PresetManager.presets)) {
                 PresetManager.presets = presets;
@@ -81,7 +105,14 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 this.loading(false);
             }
         };
+        /**
+         * Get cover
+         */
         this.getCover(data.cover);
+        /**
+         * get page of attaches
+         * @param offset
+         */
         this.getAttachesPage = function getAttachesPage(offset) {
             if (this.attachesCount() > 0) {
                 Model
@@ -89,11 +120,20 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                     .done(this.getAttaches.bind(this));
             }
         };
+        /**
+         * get all attaches
+         * @param userId
+         */
         this.getAllAttaches = function getAllAttaches(userId) {
             Model
                 .get(this.getNotSortedAttaches, { userId: userId })
                 .done(this.getNotSortedAttachesHandler.bind(this));
         };
+        /**
+         * Load images in photoalbum algorythm
+         * @param instance
+         * @param image
+         */
         this.loadImagesAlg = function loadImagesAlg(instance, image) {
             var attach = Model.findByIdObservable(parseInt(image.img.dataset.id), this.attaches()),
                 result;
@@ -108,6 +148,11 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
             result = image.isLoaded ? 'loaded' : 'broken';
         };
+        /**
+         * Load one image in photoalbum algorythm
+         * @param instance
+         * @param image
+         */
         this.loadOne = function loadOne(instance, image) {
             var attach = Model.findByIdObservable(parseInt(image.img.dataset.id), this.attaches()),
                 result;
@@ -122,23 +167,46 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
             result = image.isLoaded ? 'loaded' : 'broken';
         };
+        /**
+         * Controling loading flow
+         * @param event
+         * @param elemName
+         * @param container
+         */
         this.loadImagesCreation = function loadImagesCreation(event, elemName, container) {
-            var imgLoad = imagesLoaded(elemName),
-                pckry = new Packery(container, { itemSelector: '.img-grid_i' });
-            var imageLoadAlg = this.loadImagesAlg;
-            imgLoad.on(event, imageLoadAlg.bind(this));
+            if ($(container).length > 0) {
+                var imgLoad = imagesLoaded(elemName),
+                    pckry = new Packery(container, { itemSelector: '.img-grid_i' });
+                var imageLoadAlg = this.loadImagesAlg;
+                imgLoad.on(event, imageLoadAlg.bind(this));
+            }
         };
+        /**
+         * Controling one loading flow
+         * @param event
+         * @param elemName
+         * @param container
+         */
         this.loadImage = function loadImage(event, elemName, container) {
             var imgLoad = imagesLoaded(elemName),
                 imageLoadAlg = this.loadOne;
             imgLoad.on(event, imageLoadAlg.bind(this));
         };
+        /**
+         * iterate attaches for the sake of presets handling
+         * @param attach
+         * @returns {PhotoAttach}
+         */
         this.iterateAttaches = function iterateAttaches(attach) {
             var photoAttach = new PhotoAttach(attach);
             photoAttach.photo().presetWidth(PresetManager.getWidth(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset()));
             photoAttach.photo().presetHeight(PresetManager.getHeight(photoAttach.photo().width(), photoAttach.photo().height(), this.usablePreset()));
             return photoAttach;
         };
+        /**
+         * Gain in line on photoalbum page
+         * @param presets
+         */
         this.gainPhotoInLine = function gainPhotoInLine(presets) {
             PresetManager.presets = presets;
             this.presets = presets;
@@ -149,11 +217,21 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 }
             }
         };
+        /**
+         * Get collection Count
+         * @param id
+         */
         this.getCollectionCount = function getCollectionCount(id) {
             Model
                 .get(this.getAttachesUrl, { collectionId: this.id(), offset: 0 })
                 .done(this.countAttaches.bind(this));
         };
+        /**
+         * get part of current collection
+         * @param id
+         * @param offset
+         * @param length
+         */
         this.getPartsCollection = function getPartsCollection(id, offset, length) {
             Model
                 .when(
@@ -162,6 +240,12 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 )
                 .done(this.getPartsCollectionHandler.bind(this));
         };
+        /**
+         * get part of current collection handler
+         * @param id
+         * @param offset
+         * @param length
+         */
         this.getPartsCollectionHandler = function getPartsCollectionHandler(presets, attaches) {
             var attachesData = attaches[0],
                 presetsData = presets[0];
@@ -173,11 +257,19 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 }
             }
         };
+        /**
+         * Count attaches
+         * @param attaches
+         */
         this.countAttaches = function countAttaches(attaches) {
             if (attaches.success) {
                 this.attachesCount(attaches.data.attaches.length);
             }
         };
+        /**
+         * get all attaches and not sorted at all
+         * @param attaches
+         */
         this.getNotSortedAttachesHandler = function getAttaches(attaches) {
             if (attaches.success) {
                 this.attachesCache = attaches.data.attaches;
@@ -188,6 +280,10 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                 }
             }
         };
+        /**
+         *
+         * @param attaches
+         */
         this.getAttaches = function getAttaches(attaches) {
             if (attaches.success) {
                 this.attachesCache = attaches.data.attaches;

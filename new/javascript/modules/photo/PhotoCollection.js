@@ -3,6 +3,7 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
     function PhotoCollection(data) {
         this.getAttachesUrl = '/api/photo/collections/getAttaches/';
         this.getNotSortedAttaches = '/api/photo/collections/getByUser/';
+        this.getAttachUrl = '/api/photo/attaches/get/';
         this.pageCount = null;
         this.id = ko.observable(data.id);
         this.attaches = ko.observableArray();
@@ -57,7 +58,6 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
                         }), Model.get(PresetManager.getPresetsUrl))
                             .done(this.handleCoverWithPresets.bind(this));
                     }
-
                 }
             }
         };
@@ -93,6 +93,18 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
         };
         /**
+         * Handle cover by id
+         * @param photoAttach
+         */
+        this.handleCover = function handleCover(photoAttach) {
+            if (photoAttach.success === true) {
+                this.cover(new PhotoAttach(photoAttach.data));
+                this.cover().photo().presetWidth(PresetManager.getWidth(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                this.cover().photo().presetHeight(PresetManager.getHeight(this.cover().photo().width(), this.cover().photo().height(), 'myPhotosAlbumCover'));
+                this.loading(false);
+            }
+        };
+        /**
          * Handle preset without cover
          * @param presets
          */
@@ -106,9 +118,21 @@ define('photo/PhotoCollection', ['jquery', 'knockout', 'photo/PhotoAttach', 'mod
             }
         };
         /**
+         * Cover by cover Id
+         */
+        this.getCoverByCoverId = function getCoverByCoverId(coverId) {
+            Model.get(this.getAttachUrl, {
+                id: coverId
+            }).done(this.handleCover.bind(this));
+        };
+        /**
          * Get cover
          */
-        this.getCover(data.cover);
+        if (data.coverId !== undefined) {
+            this.getCoverByCoverId(data.coverId);
+        } else {
+            this.getCover(data.cover);
+        }
         /**
          * get page of attaches
          * @param offset

@@ -4,7 +4,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         var collectionData = {};
         collectionData.id = params.collectionId();
         this.collectionId = params.collectionId;
-        this.userId = params.userId;
+        this.userSliderId = params.userId;
         this.photoAttach = params.photo;
         this.user = Object.create(User);
         this.current = ko.observable(false);
@@ -30,8 +30,9 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          * Particular get method
          */
         this.getUser = function getUser() {
+            console.log(this.user.getUserUrl, this.userSliderId);
             Model
-                .get(this.user.getUserUrl, {id: this.userId, avatarSize: 40})
+                .get(this.user.getUserUrl, {id: this.userSliderId, avatarSize: 40})
                 .done(this.userHandler.bind(this));
         };
         /**

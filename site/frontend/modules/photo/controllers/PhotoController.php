@@ -7,8 +7,6 @@
  */
 
 namespace site\frontend\modules\photo\controllers;
-
-
 use site\frontend\modules\photo\models\Photo;
 
 class PhotoController extends \HController

@@ -661,5 +661,16 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
         echo $i;
     }
+
+    public function actionTestGone()
+    {
+        echo time() . "\n";
+        while (true) {
+            $post = CommunityContent::model()->find(array('order' => 'RAND()'));
+            sleep(mt_rand(1, 10));
+
+            echo $post->id . '- ' . time() . "\n";
+        }
+    }
 }
 

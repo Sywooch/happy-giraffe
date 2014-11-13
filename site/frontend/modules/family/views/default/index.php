@@ -1,6 +1,8 @@
 <?php
 /**
+ * @var LiteController $this
  * @var site\frontend\modules\family\models\Family $family
+ * @var site\frontend\modules\family\models\FamilyMember[] $members
  */
 ?>
 
@@ -22,50 +24,9 @@
                 <div class="family-about_tx"><?=$family->description?></div>
             </div>
             <?php endif; ?>
-            <ul class="family-about_ul">
-                <li class="family-about_li">
-                    <div class="family-about_img-hold">
-                        <div class="ico-family-big ico-family-big__husband"></div>
-                    </div>
-                    <div class="family-about_member">Я</div>
-                </li>
-                <li class="family-about_li">
-                    <div class="family-about_img-hold">
-                        <div class="ico-family-big ico-family-big__wife"></div>
-                    </div>
-                    <div class="family-about_member">Жена  Виктория</div>
-                </li>
-                <li class="family-about_li">
-                    <div class="family-about_img-hold">
-                        <div class="ico-family-big ico-family-big__boy-small"></div>
-                    </div>
-                    <div class="family-about_member">
-
-                        Сын Данилка
-                        16 месяцев
-                    </div>
-                </li>
-                <li class="family-about_li">
-                    <div class="family-about_img-hold">
-                        <div class="ico-family-big ico-family-big__girl-8"></div>
-                    </div>
-                    <div class="family-about_member">
-
-                        Дочь
-                        от 6 до 12 лет
-                    </div>
-                </li>
-                <li class="family-about_li">
-                    <div class="family-about_img-hold">
-                        <div class="ico-family-big ico-family-big__girl-8"></div>
-                    </div>
-                    <div class="family-about_member">
-
-                        Дочь
-                        от 6 до 12 лет
-                    </div>
-                </li>
-            </ul>
+            <?php $this->widget('site\frontend\modules\family\widgets\MembersListWidget\MembersListWidget', array(
+                'family' => $family,
+            )); ?>
         </div>
         <!-- /family-about-->
         <div class="visible-md">

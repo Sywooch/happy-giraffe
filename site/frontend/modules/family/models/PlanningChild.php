@@ -7,6 +7,8 @@
 namespace site\frontend\modules\family\models;
 
 
+use site\frontend\modules\family\models\viewData\PlanningChildViewData;
+
 class PlanningChild extends WaitingChild
 {
     const WHEN_SOON = 'soon';
@@ -17,6 +19,11 @@ class PlanningChild extends WaitingChild
     static function model($className = __CLASS__)
     {
         return parent::model($className);
+    }
+
+    protected function getViewDataInternal()
+    {
+        return new PlanningChildViewData($this);
     }
 
     public function rules()

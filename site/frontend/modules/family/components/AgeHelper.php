@@ -45,7 +45,7 @@ class AgeHelper
         if ($interval->y < 3) {
             $result =  $interval->y . ' ' . \Str::GenerateNoun(array('год', 'года', 'лет'), $interval->y);
             if ($interval->m > 0) {
-                $result .= $interval->m . ' ' . \Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
+                $result .= ' ' . $interval->m . ' ' . \Str::GenerateNoun(array('месяц', 'месяца', 'месяцев'), $interval->m);
             }
             return $result;
         }

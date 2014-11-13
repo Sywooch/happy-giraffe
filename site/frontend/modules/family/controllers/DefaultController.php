@@ -17,6 +17,7 @@ class DefaultController extends \LiteController
         }
         $members = $family->getMembers();
 
+
 		$this->render('index', compact('family', 'members'));
 	}
 }

@@ -24,8 +24,8 @@ namespace site\frontend\modules\family\models;
  */
 class FamilyMember extends \HActiveRecord implements \IHToJSON
 {
-    const GENDER_FEMALE = 0;
-    const GENDER_MALE = 1;
+    const GENDER_FEMALE = '0';
+    const GENDER_MALE = '1';
 
     const TYPE_ADULT = 'adult';
     const TYPE_CHILD = 'child';

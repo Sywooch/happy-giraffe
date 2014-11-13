@@ -25,6 +25,6 @@ class PhotoS3Component extends S3Component
         }
 
         $local = new CustomLocalAdapter($path, true);
-        return new DeferredCache($s3, $local, 3600);
+        return new DeferredCache($s3, $local, 60 * 60 * 24 * 365 * 100);
     }
 } 

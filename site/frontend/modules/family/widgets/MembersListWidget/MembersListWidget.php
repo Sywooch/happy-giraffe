@@ -10,6 +10,9 @@ use site\frontend\modules\family\models\FamilyMember;
 
 class MembersListWidget extends \CWidget
 {
+    protected $colors = array('green', 'carrot', 'blue', 'lilac');
+    protected $colorIterator = 0;
+
     /** @var \site\frontend\modules\family\models\FamilyMember */
     public $family;
 
@@ -39,6 +42,13 @@ class MembersListWidget extends \CWidget
             return ($a->userId == \Yii::app()->user->id) ? -1 : 0;
         }
         return 1;
+    }
+
+    public function getColor()
+    {
+        $index = $this->colorIterator % count($this->colors);
+        $this->colorIterator++;
+        return $this->colors[$index];
     }
 
     public function isMe(FamilyMember $member)

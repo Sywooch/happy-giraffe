@@ -11,26 +11,12 @@
 
 namespace site\frontend\modules\photo\components;
 
-interface IPhotoCollection
+interface IPublicPhotoCollection
 {
-    /**
-     * Возвращает подпись коллекции
-     *
-     * @return string
-     */
-    public function getCollectionLabel();
-
     /**
      * Возвращает заголовок коллекции
      *
      * @return string
      */
-    public function getCollectionTitle();
-
-    /**
-     * Возвращает описание коллекции
-     *
-     * @return string
-     */
-    public function getCollectionDescription();
+    public function getTitle();
 } 

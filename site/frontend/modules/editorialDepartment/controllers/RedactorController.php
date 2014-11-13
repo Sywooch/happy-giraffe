@@ -22,6 +22,11 @@ class RedactorController extends \LiteController
         if (isset($_POST['Content']))
         {
             $model->setAttributes($_POST['Content'], false);
+            /**
+             * @todo Сделать лучше, быстрее, сильнее
+             */
+            $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
+            $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
                 $this->redirect(array('edit', 'entity' => $model->entity, 'entityId' => $model->entityId));
         }
@@ -35,6 +40,11 @@ class RedactorController extends \LiteController
         if (isset($_POST['Content']))
         {
             $model->setAttributes($_POST['Content'], false);
+            /**
+             * @todo Сделать лучше, быстрее, сильнее
+             */
+            $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
+            $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
             if ($model->save())
                 $this->refresh();
         }

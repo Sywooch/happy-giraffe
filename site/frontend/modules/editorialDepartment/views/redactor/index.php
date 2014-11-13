@@ -25,6 +25,7 @@ $forum = Community::model()->with('club')->findByPk($model->forumId);
 $users = departmentComponents\UsersControl::getUsersList();
 $users = array_combine($users, $users);
 $form->hiddenField($model, 'clubId');
+$this->pageTitle = ($this->pageTitle == 'Клуб - Redactor') ? 'Новый пост' : $model->title . ' - редактирование';
 ?>
 <?=$form->errorSummary($model) ?>
 <?=$form->textarea($model, 'markDownPreview',  array('id' => 'markDownPreview', 'class' => 'display-n')) ?>
@@ -76,7 +77,7 @@ $form->hiddenField($model, 'clubId');
     <div class="postAdd_count">5</div>
     <div class="b-main_col-article">
         <div class="inp-valid inp-valid__abs">
-            <md-redactor class="md-redactor" params="id: 'md-redactor-1', textareaId: 'markDownPreview', htmlId: 'htmlTextPreview'"></md-redactor>
+            <md-redactor class="md-redactor" params="id: 'md-redactor-1', textareaId: 'markDownPreview', htmlId: 'htmlTextPreview', full: false"></md-redactor>
         </div>
     </div>
 </div>
@@ -85,7 +86,7 @@ $form->hiddenField($model, 'clubId');
     <div class="postAdd_count">6</div>
     <div class="b-main_col-article">
         <div class="inp-valid inp-valid__abs">
-            <md-redactor class="md-redactor" params="id: 'md-redactor-2', textareaId: 'markDown', htmlId: 'htmlText'"></md-redactor>
+            <md-redactor class="md-redactor" params="id: 'md-redactor-2', textareaId: 'markDown', htmlId: 'htmlText', full: true"></md-redactor>
         </div>
     </div>
 </div>

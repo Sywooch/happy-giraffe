@@ -9,6 +9,9 @@ return array(
         'Imagine' => 'site.common.vendor.Imagine',
         'Gaufrette' => 'site.common.vendor.Gaufrette',
     ),
+    'modules' => array(
+        'photo' => require(dirname(__FILE__) . '/../../frontend/modules/photo/config/main.php'),
+    ),
     'components' => array(
         'gearman' => array(
             'class' => 'site.common.components.Gearman',
@@ -49,6 +52,11 @@ return array(
                     'width' => 325,
                     'height' => 295,
                 ),
+                'albumList' => array(
+                    'filter' => 'lepilla',
+                    'width' => 270,
+                    'height' => 380,
+                ),
                 'uploadAlbumCover' => array(
                     'filter' => 'lepilla',
                     'width' => 205,
@@ -63,6 +71,16 @@ return array(
                     'filter' => 'lepilla',
                     'width' => 880,
                     'height' => 580,
+                ),
+                'myPhotosAlbumCover' => array(
+                    'filter' => 'lepilla',
+                    'width' => 880,
+                    'height' => 580,
+                ),
+                'postImage' => array(
+                    'filter' => 'relativeResize',
+                    'method' => 'widen',
+                    'parameter' => 600,
                 ),
                 'myPhotosPreview' => array(
                     'filter' => 'relativeResize',

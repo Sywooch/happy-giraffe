@@ -128,7 +128,6 @@ return array(
         'user/<user_id:\d+>/comments/rss' => 'rss/comments',
         'user/<user_id:\d+>/albums' => 'gallery/user/index',
         'user/<user_id:\d+>/albums/<album_id:\d+>' => 'gallery/user/view',
-        'user/<user_id:\d+>/albums/<album_id:\d+>/photo<id:\d+>' => 'albums/photo',
         'user/<_a:(updateMood|activityAll)>' => 'user/<_a>',
         'user/createRelated/relation/<relation:\w+>/' => 'user/createRelated',
         'user/myFriendRequests/<direction:\w+>/' => 'user/myFriendRequests',
@@ -381,10 +380,7 @@ return array(
 
         'mail/default/<_a:(redirect|dialogues|daily)>' => 'mail/default/<_a>',
 
-        'photo/user/<authorId:\d+>/albums/<id:\d+>' => 'photo/albums/view',
-        'photo/user/<userId:\d+>/albums' => 'photo/default/index',
-        'photo/<_c>/<_a>' => 'photo/<_c>/<_a>',
-
+        'photo/default/presets' => 'photo/default/presets',
 
         'onair' => 'blog/air/index',
 

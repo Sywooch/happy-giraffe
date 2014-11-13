@@ -13,37 +13,22 @@ namespace site\frontend\modules\photo\models\collections;
 
 use site\frontend\modules\photo\models\PhotoCollection;
 
-class AlbumPhotoCollection extends PhotoCollectionAbstract
+class AlbumPhotoCollection extends PhotoCollection
 {
-    public function getCollectionLabel()
-    {
-        return 'Фотоальбом';
-    }
-
-    public function getCollectionTitle()
-    {
-        return $this->RelatedModelBehavior->title;
-    }
-
-    public function getCollectionDescription()
-    {
-        return $this->RelatedModelBehavior->description;
-    }
-
     public function getRelatedCollections()
     {
         return array(
-            $this->RelatedModelBehavior->author->getPhotoCollection('default'),
+            $this->RelatedModelBehavior->relatedModel->author->getPhotoCollection('default'),
         );
     }
 
     public function canMoveTo(PhotoCollection $collection)
     {
-        return $collection instanceof AlbumPhotoCollection && $collection->RelatedModelBehavior->author_id == $this->relateModel->author_id;
+        return $collection instanceof AlbumPhotoCollection && $collection->RelatedModelBehavior->relatedModel->author_id == $this->RelatedModelBehavior->relatedModel->author_id;
     }
 
     public function getOwner()
     {
-        return $this->RelatedModelBehavior->author;
+        return $this->RelatedModelBehavior->relatedModel->author;
     }
 } 

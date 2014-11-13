@@ -1,0 +1,39 @@
+
+/* 
+    userSubscribers 
+
+
+*/
+.subscribersWidget {
+    margin: 33px 10px 30px;
+
+    &_t {
+        margin-bottom: 10px;
+        font-size: 15px;
+        line-height: 15px;
+        color: @color-base;
+    }
+    &_ul {
+        margin-right: -15px;
+    }
+    &_li {
+        .inline-block();
+        margin: 5px 15px 5px 0;
+    }
+    &_row {
+        margin: 4px 0;
+    }
+    &_more {
+        font-size: 13px;
+    }
+    &_more:hover:after{
+        &:extend(.ico-arrow-r:hover);
+    }
+    &_more:after {
+        content: '';
+        .ico-arrow-r();
+        display: inline-block;
+        vertical-align: middle;
+        margin: 0 9px 2px;
+    }
+}

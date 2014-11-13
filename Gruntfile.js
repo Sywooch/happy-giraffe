@@ -246,17 +246,58 @@ module.exports = function(grunt){
             /.header_+/,
             /.header-+/,
             //.tooltip+/,
+            
+            /.bx-wrapper+/,
+            /.body+/,
           ],
         },
         src: [
           'lite/html/page/blog/**/*.html', 
           'lite/html/page/comments/**/*.html', 
-          'lite/html/page/sign/**/*.html', 
+          'lite/html/page/photo-window/**/*.html', 
+          '!lite/html/page/sign/**/*.html', 
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого 
           '!lite/html/page/comments/comments-page.html'
         ],
         dest: 'lite/css/min/blog.css'
+      },
+      // Блог пользователь
+      lite_blog_user: {
+        options: {
+          stylesheets  : ['/css/dev/all.css'],
+          timeout      : 1000,
+
+          htmlroot     : 'lite',
+          ignore       : [
+            // Выбираем все стили где в начале .class
+            // /.dropdown+/,
+            /#ctrlcopy+/,
+            /.jcrop+/,
+            /.mfp+/,
+            /.select2+/,
+            /.header-menu_li+/,
+            /.header_+/,
+            /.header-+/,
+            //.tooltip+/,
+            
+            /.bx-wrapper+/,
+
+            /.chzn+/,
+            /.redactor+/,
+            /.fancybox+/,
+          ],
+        },
+        src: [
+          'lite/html/page/blog/**/*.html', 
+          'lite/html/page/comments/**/*.html', 
+          'lite/html/page/photo-window/**/*.html', 
+          '!lite/html/page/sign/**/*.html', 
+
+          'lite/html/page/**/*-user.html', // стариницы зареганого 
+          '!lite/html/page/comments/comments-page.html'
+        ],
+        dest: 'lite/css/min/blog-user.css'
       },
       // Традиционные рецепты
       'services': {
@@ -274,6 +315,7 @@ module.exports = function(grunt){
             /.header-+/,
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
+            /.body+/,
           ],
         },
         src: [
@@ -308,6 +350,7 @@ module.exports = function(grunt){
             /.fancybox+/,
             /.header_+/,
             /.header-+/,
+            /.body+/,
           ],
         },
         src: [
@@ -334,15 +377,18 @@ module.exports = function(grunt){
             /.header-banner+/,
             /.header_+/,
             /.ico-family+/,
+            /.body+/,
             
             // Для страниц собранных разделов
             /.flag+/,
+            /.bx-wrapper+/,
           ],
         },
         src: [
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/sign/**/*.html', 
           'lite/html/page/member/**/*.html', 
+          'lite/html/page/photo-window/**/*.html', 
 
           '!lite/html/page/**/*-user.html', // стариницы зареганого пользователя
           '!lite/html/page/comments/comments-page.html',
@@ -369,15 +415,18 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.ico-family+/,
+            /.body+/,
             
             // Для страниц собранных разделов
             /.flag+/,
+            /.bx-wrapper+/,
           ],
         },
         src: [
           'lite/html/page/comments/**/*.html', 
           'lite/html/page/user/**/*.html', 
           'lite/html/page/member/**/*.html', 
+          'lite/html/page/photo-window/**/*.html',
 
           '!lite/html/page/comments/comments-page.html',
         ],
@@ -397,6 +446,7 @@ module.exports = function(grunt){
             /.mfp+/,
             /.select2+/,
             /@font-face+/,
+            /.body+/,
 
           ],
            
@@ -567,6 +617,21 @@ module.exports = function(grunt){
         //         unit: 5
         //     }
         // },
+        'ico-base': {
+            options: {
+                spriteElementPath: "lite/images/sprite/ico-base",
+                spritePath: "lite/images/sprite/ico-base.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'vertical',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                unit: 20
+            }
+        },
         'ico-arrow': {
             options: {
                 spriteElementPath: "lite/images/sprite/ico-arrow",
@@ -661,6 +726,22 @@ module.exports = function(grunt){
             options: {
                 spriteElementPath: "lite/images/sprite/ico-spices",
                 spritePath: "lite/images/sprite/ico-spices.svg",
+                cssPath: "lite/less/sprite/",
+                cssSuffix: 'less',
+                cssSvgPrefix: '',
+                cssPngPrefix: '.no-svg',
+                layout: 'horizontal',
+                map: function (filename) {
+                    return filename.replace(/~/g, ":");
+                },
+                // refSize: 100,
+                unit: 100
+            }
+        },
+        'markdown-day': {
+            options: {
+                spriteElementPath: "lite/images/sprite/markdown-day",
+                spritePath: "lite/images/sprite/markdown-day.svg",
                 cssPath: "lite/less/sprite/",
                 cssSuffix: 'less',
                 cssSvgPrefix: '',
@@ -837,7 +918,21 @@ module.exports = function(grunt){
   // bild lite версии
   grunt.registerTask('lite', ['jade:lite_prod', 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user', 'uncss:member', 'uncss:member_user', 'uncss:lite_homepage',  'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
 
-  grunt.registerTask('lite-css', [/*'jade:lite_prod',*/ 'less:litedev','uncss:lite_blog','uncss:services', 'uncss:services_user','uncss:member', 'uncss:member_user', 'uncss:lite_homepage', 'cmq:redactor', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
+  grunt.registerTask('lite-css', [
+    /*'jade:lite_prod',*/ 
+    'less:litedev',
+    'uncss:lite_blog',
+    'uncss:lite_blog_user',
+    'uncss:services', 
+    'uncss:services_user',
+    'uncss:member', 
+    'uncss:member_user', 
+    'uncss:lite_homepage', 
+    'cmq:redactor', 
+    'cmq:lite', 
+    'cssmin:lite', 
+    'csso:lite'
+  ]);
   // Блоги
   grunt.registerTask('blog', ['jade:lite_prod', 'less:litedev','uncss:lite_blog', 'cmq:lite', 'cssmin:lite', 'csso:lite']);
   // сервисы

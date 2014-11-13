@@ -4,8 +4,13 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.idElement = ko.observable(params.id);
         this.textareaId = params.textareaId;
         this.htmlId = params.htmlId;
+        this.full = params.full;
         this.photo = ko.observable(null);
         this.collectionId = ko.observable();
+        this.videoSample = '[w:video (youtube-link)]';
+        this.typeOfImage = ko.observable(null);
+        this.signedImageSample = '[w:image (image-link) (source-link) "link-title"]';
+        this.compareSample = '\n[w:compare (left|right) "Title" "First Text" () "Second Text"]\n\n';
         /**
          * Загружаем popup загрузчика фотографий
          * @param data
@@ -13,13 +18,40 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
          */
         this.loadPhotoComponent = function (data, event) {
             ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('single');
         };
         /**
          * Подписка на изменение фотографии
          */
         this.photo.subscribe(function (img) {
-            this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('myPhotosAlbumCover'), img.title(), img.id()));
+            if (this.typeOfImage() === 'single') {
+                this.appendToText(this.generateSimpleImg(img.getGeneratedPreset('postImage'), img.title(), img.id()));
+            }
+            if (this.typeOfImage() === 'signed') {
+                this.appendToText(this.generateSingnedImageSample(img.getGeneratedPreset('postImage'), img.id()));
+            }
+            if (this.typeOfImage() === 'number') {
+                this.appendToText(this.generateNumberImageSample(img.getGeneratedPreset('postImage'), img.id()));
+            }
+            if (this.typeOfImage() === 'day') {
+                this.appendToText(this.generateDayImageSample(img.getGeneratedPreset('postImage'), img.id()));
+            }
+            if (this.typeOfImage() === 'compare') {
+                this.appendToText(this.generateCompareImageSample(img.getGeneratedPreset('postImage'), img.id()));
+            }
         }, this);
+        this.generateDayImageSample = function generateDayImageSample(link, collectionId) {
+            return '\n[w:day (morning|noon|evening) "First Text" (' + link + ') "Second Text"]\n\n';
+        };
+        this.generateCompareImageSample = function generateCompareImageSample(link, collectionId) {
+            return '\n[w:compare (left|right) "Title" "First Text" (' + link + ') "Second Text"]\n\n';
+        };
+        this.generateSingnedImageSample = function generateSingnedImageSample(link, collectionId) {
+            return '[w:image (' + link + ') (source-link) "link-title"]';
+        };
+        this.generateNumberImageSample = function generateNumberImageSample(link, collectionId) {
+            return '[w:image (' + link + ') (source-link) "link-title"]\n[w:number "sample text"]';
+        };
         /**
          * Начинаем h-тэги с h2
          * @param text
@@ -79,6 +111,28 @@ define(['jquery', 'knockout', 'text!md-redactor/md-redactor.html', 'extensions/e
         this.appendToText = function appendToText(text) {
             var content = this.editor.exportFile('epiceditor');
             this.editor.importFile('epiceditor', content + text);
+        };
+        this.insertVideo = function instertVideo() {
+            this.appendToText(this.videoSample);
+        };
+        this.insertCompareImageSampleNoPhoto = function insertCompareImageSampleNoPhoto(link, collectionId) {
+            this.appendToText(this.compareSample);
+        };
+        this.insertSignedImage = function insertSignedImage() {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('signed');
+        };
+        this.insertNumberImage = function insertSignedImage() {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('number');
+        };
+        this.insertDayImage = function insertSignedImage() {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('day');
+        };
+        this.insertCompareImage = function insertSignedImage() {
+            ko.applyBindings({}, $('photo-uploader-form')[0]);
+            this.typeOfImage('compare');
         };
         /**
          * Установка опций для парсера

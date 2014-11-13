@@ -6,18 +6,10 @@
     .img-retina('@{path-img}/ico/ico-lock-big.png'; '@{path-img}/ico/ico-lock-big-2x.png'; 35px; 45px);
 }
 .ico-arrow-d,
+.ico-arrow-r,
 .ico-arrow-l {
     .inline-block();
     vertical-align: middle;
-}
-
-
-.ico-arrow-d-white {
-    .inline-block();
-    vertical-align: middle;
-    width: 12px;
-    height: 8px;
-    background: url('@{path-img}/ico/ico-arrow-d-white.png') no-repeat;
 }
 
 .ico-close {
@@ -38,8 +30,47 @@
     &:hover {background-position: 0 -24px;}
 }
 
-.ico-social-ul,
-.ico-social-hold {
+////////////////////////////////////////////////
+// ico-base спрайт
+.ico-plus {
+    .inline-block();
+    vertical-align: middle;
+    width: 13px;
+    height: 13px;
+}
+.ico-more {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
+}
+
+.ico-ovrPlay {
+    width: 99px;
+    height: 99px;
+
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+    }
+}
+.ico-zoom {
+    
+
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+    }
+}
+
+// /ico-base спрайт
+////////////////////////////
+
+.ico-social-hold, // -hold стараться не использовать
+.ico-social-ul {
     .inline-block();
     vertical-align: middle;
     margin: 4px;
@@ -69,15 +100,7 @@
     &__vkontakte.ico-social__m {background-position: -32px 0;}
 }
 
-.ico-plus {
-    .inline-block();
-    vertical-align: middle;
-    width: 13px;
-    height: 13px;
-    background: url('@{path-img}/ico/ico-plus.svg') no-repeat;
-}
-
-
+//////////////////////////
 .ico-action-hg {
     .inline-block();
     vertical-align: middle;
@@ -94,7 +117,7 @@ a.ico-action-hg__comment:hover {background-position: -70px -35px;}
 .ico-action-hg__like {background-position: 0 0;}
 a.ico-action-hg__like:hover {background-position: 0 -35px;}
 
-
+///////////////////////
 .ico-users{
     .inline-block();
     width:40px;
@@ -187,7 +210,14 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
     }
 }
 
-
+//////////////////////// Семья
+.ico-myfamily {
+    .inline-block();
+    width: 210px;
+    height: 24px;
+    margin: 0 5px;
+    .img-retina('@{path-img}/ico/ico-myfamily.png'; '@{path-img}/ico/ico-myfamily-2x.png'; 210px; 24px);
+}
 .ico-family {
     .inline-block();
     width: 55px;
@@ -259,16 +289,21 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
     width: 99px;
     height: 99px;
     background: url('@{path-img}/ico/ico-zoom.png') no-repeat;
-
-    &__abs {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -50px 0 0 -50px;
-    }
 }
 
+.ico-gif-l {
+    position: relative;
+    z-index: 50;
+    display: inline-block;
+    padding: 2px 12px;
+    background-color: #04acf2;
+    font-size: 25px;
+    font-weight: bold;
+    color: #fff;
+    .border-radius(5px);
+}
 
+///////////////////
 .ico-edit {
     .inline-block();
 }
@@ -303,4 +338,4 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
     background: url('@{path-img}/ico/ico-trash.png') no-repeat;
 }
 
-
+//////////////////

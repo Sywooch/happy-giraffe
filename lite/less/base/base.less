@@ -19,7 +19,7 @@
         .box-shadow( 0 2px 5px rgba(0,0,0,0.05));
     }*/
     &_hold {
-        margin: 0 auto 30px;
+        margin: 0 auto 20px;
         background-color: #fff;
     }
 
@@ -303,21 +303,6 @@
     }
 }
 
-.adv-banner {
-    margin: 0 0 20px;
-
-    &__bd {border: 1px solid #eee;}
-}
-.adv-yandex {
-    margin: 20px 0;
-
-    @media (min-width: @screen-desktop) {
-        & {
-            margin: 30px 0;
-        }
-    }
-}
-
 /* b-crumbs */
 .b-crumbs {
     margin: 10px 20px 10px 0;
@@ -326,6 +311,20 @@
     /*&__s {}*/
     .ico-club__s {
         margin: -36px -12px -30px;
+    }
+
+    &__m {
+        font-size: 12px;
+    }
+    &__s {
+        font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
+    }
+
+    &__m {
+        font-size: 12px;
+    }
+    &__s {
+        font: 11px/15px Tahoma, Arial, Verdana, sans-serif;
     }
     
     &_tx {
@@ -371,7 +370,7 @@
         margin: 0;
         text-align: center;
         font-size: 11px;
-        color: @color-gray-dark;
+        color: @color-gray;
     }
     &_in {
         margin: 5px auto 10px;
@@ -453,17 +452,4 @@
 // Yandex social like icons
 .b-share_theme_counter .b-share_type_small .b-share-btn__wrap {
     margin-left: 5px !important;
-}
-
-.md-redactor {
-    display: block;
-
-    &_hold {
-        display: block;
-        border: 1px solid #E6E6E6;
-    }
-    &_upload-btn {
-        text-align: right;
-        margin-top: 10px;
-    }
 }

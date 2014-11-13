@@ -1,0 +1,87 @@
+<!-- ko if: photoAlbum.photoCount() > 0 && photoAlbum.photoCollection().loading() === false -->
+    <section class="b-album">
+        <div class="b-album_top">
+            <div class="tx-date">Обновлен <span data-bind="moment: photoAlbum.photoCollection().updated()"></span></div>
+            <h2 class="b-album_title"><a href="#" class="b-album_title-a heading-link-xl" data-bind="href: photoAlbum.url, text: photoAlbum.title()"></a></h2>
+            <a href="#" class="b-album_desc" data-bind="href: photoAlbum.url, text: photoAlbum.description()"></a>
+            <div class="b-album_count-hold">
+                <div class="b-album_count" data-bind="text: photoAlbum.photoCount()">240</div>
+                <div class="b-album_count-tx">фото</div>
+            </div>
+        </div>
+        <div href="#" class="b-album_img-hold" data-bind="attr: { 'style': 'height: ' + photoAlbum.photoCollection().cover().photo().presetHeight() + 'px;' }">
+            <div class="b-album_img-a">
+                <div class="verticalalign-m-help"></div>
+                <div class="verticalalign-m-el">
+                    <img src="" alt="" class="b-album_img-big" data-bind="src: photoAlbum.photoCollection().cover().photo().getGeneratedPreset('myPhotosAlbumCover')">
+                </div>
+            </div>
+            <div class="b-album_img-hold-ovr">
+                <div class="ico-zoom ico-zoom__abs"></div>
+            </div>
+        </div>
+        <div class="b-album_overlay">
+            <a class="b-album_r" data-bind="href: photoAlbum.url">
+                <div class="b-album_tx">Смотреть  <br> все фото &nbsp;
+                </div>
+                <div class="b-album_ico-album"></div>
+                <div class="b-album_arrow-all"></div>
+            </a>
+            <ul class="b-album_prev clearfix visible-md-block">
+                <!-- Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.-->
+                <!-- ko if: photoAlbum.photoCollection().attaches().length > 0 -->
+                    <!-- ko foreach: photoAlbum.photoCollection().attaches() -->
+                    <li class="b-album_prev-li" data-bind="attr: { 'style': 'width: ' +  photo().presetWidth() + 'px; height: ' + photo().presetHeight() + 'px;' }, css: $parent.returnNewColor($index)">
+                        <a href="#" class="b-album_prev-a">
+                            <img src="" alt="" class="b-album_prev-img" data-bind="src: photo().getGeneratedPreset('myPhotosPreview')">
+                            <div class="b-album_prev-hold"></div>
+                        </a>
+                    </li>
+                    <!-- /ko -->
+                <!-- /ko -->
+                <!-- ko if: rightsForManipulation === true -->
+                <li class="b-album_prev-li"><a href="#" class="album-photo-add" data-bind="href: photoAlbum.url"></a></li>
+                <!-- /ko -->
+            </ul>
+        </div>
+    </section>
+<!-- /ko -->
+<!-- ko if: photoAlbum.photoCollection().loading() === true && photoAlbum.photoCount() > 0 -->
+<section class="b-album">
+    <div class="b-album_img-hold" style="height: 580px;">
+        <div class="img-grid_loading-hold">
+            <div class="loader-circle">
+                <div class="loader-circle_hold">
+                    <div class="loader-circle_1"></div>
+                    <div class="loader-circle_2"></div>
+                </div>
+            </div>
+            <div class="img-grid_loading-tx">Загрузка альбома</div>
+        </div>
+    </div>
+</section>
+<!-- /ko -->
+<!-- ko if: photoAlbum.photoCount() === 0 -->
+    <div class="album-empty">
+        <div class="album-empty_hold">
+            <a href="" data-bind="href: photoAlbum.url, text: photoAlbum.title()" class="album-empty_t"></a>
+            <a href="" data-bind="href: photoAlbum.url, text: photoAlbum.description()" class="album-empty_desc"></a>
+        </div>
+        <a href="" data-bind="href: photoAlbum.url" class="album-photo-add"></a>
+        <a href="" data-bind="href: photoAlbum.url, click: remove" class="album-empty_del"></a>
+        <div class="album-empty_count">0</div>
+        <!-- ko if: removed() === true -->
+        <div class="cap-empty cap-empty__abs cap-empty__white">
+            <div class="cap-empty_hold">
+                <div class="cap-empty_img"></div>
+                <div class="cap-empty_t">Фотоальбом удален </div>
+                <div class="cap-empty_tx"><a href="" data-bind="click: restore">Восстановить</a></div>
+            </div>
+            <div class="verticalalign-m-help"></div>
+        </div>
+        <!-- /ko -->
+    </div>
+<!-- /ko -->
+<!-- ko if: opened() === true -->
+    <photo-slider></photo-slider>
+<!-- /ko -->

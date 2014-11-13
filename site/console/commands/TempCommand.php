@@ -143,6 +143,7 @@ class TempCommand extends CConsoleCommand
 
     public function actionSeo1()
     {
+        throw new Exception('Низя!');
         $criteria = new CDbCriteria();
         $criteria->with = array('post');
         $criteria->condition = 'uniqueness IS NULL AND type_id = 1';
@@ -165,6 +166,7 @@ class TempCommand extends CConsoleCommand
 
     public function actionSeo2()
     {
+        throw new Exception('Низя!');
         Yii::import('site.frontend.extensions.YiiMongoDbSuite.*');
         Yii::import('site.common.models.mongo.*');
         Yii::import('site.frontend.extensions.GoogleAnalytics');
@@ -272,17 +274,14 @@ class TempCommand extends CConsoleCommand
     public function actionModerStats()
     {
         $moders = array(
-//            159841,
-//            175718,
-//            15426,
-//            189230,
-//            167771,
-//            15994,
+            15426,
             15814,
+            15994,
+            175718,
         );
         sort($moders);
-        $dateFrom = '2014-04-01';
-        $dateTo = '2014-05-01';
+        $dateFrom = '2014-10-21';
+        $dateTo = '2014-11-11';
 
         $commentsCounts = Yii::app()->db->createCommand()
             ->select('author_id, DATE(created) AS d, COUNT(*) AS c')
@@ -662,6 +661,13 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
         echo $i;
     }
 
+
+    public function actionTest()
+    {
+        $photo = AlbumPhoto::createByUrl('http://img.happy-giraffe.ru/temp/4c3604cd0fa4c9f309286d48fb522453e682ec2c.jpg', 12936);
+        var_dump($photo);
+    }
+
     public function actionTestGone()
     {
         echo time() . "\n";
@@ -671,6 +677,12 @@ http://www.happy-giraffe.ru/community/22/forum/post/159657/";
 
             echo $post->id . '- ' . time() . "\n";
         }
+    }
+
+    public function actionConvertPost($id)
+    {
+        $post = CommunityContent::model()->findByPk($id);
+        $post->convertToNewPost();
     }
 }
 

@@ -24,10 +24,9 @@ class DefaultCommand extends \CConsoleCommand
     {
         \Yii::app()->gearman->worker()->addFunction('deferredWrite', array($this, 'deferredWrite'));
         \Yii::app()->gearman->worker()->addFunction('createThumbs', array($this, 'createThumbs'));
+        \Yii::app()->gearman->worker()->addFunction('updatePhotoPostPhoto', array($this, 'updatePhotoPostPhoto'));
 
-        while (\Yii::app()->gearman->worker()->work()) {
-            echo "OK\n";
-        }
+        while (\Yii::app()->gearman->worker()->work());
     }
 
     /**
@@ -40,7 +39,6 @@ class DefaultCommand extends \CConsoleCommand
         $key = $data['key'];
         $content = $data['content'];
         \Yii::app()->fs->getAdapter()->getSource()->write($key, $content);
-        echo "deferredWrite:\n$key\n\n";
     }
 
     /**
@@ -50,16 +48,64 @@ class DefaultCommand extends \CConsoleCommand
     public function createThumbs(\GearmanJob $job)
     {
         $photoId = $job->workload();
+        \Yii::app()->db->active = false;
+        \Yii::app()->db->active = true;
         $photo = Photo::model()->findByPk($photoId);
         if ($photo !== null) {
             \Yii::app()->thumbs->createAll($photo);
         }
-        echo "createThumbs\n";
+    }
+
+    public function updatePhotoPostPhoto(\GearmanJob $job)
+    {
+        $data = unserialize($job->workload());
+        $oldPhoto = \AlbumPhoto::model()->findByPk($data['oldPhotoId']);
+        if ($oldPhoto !== null) {
+            MigrateManager::updatePhoto($oldPhoto, $data['attributes']);
+        }
     }
 
     public function actionMigrate()
     {
         $mm = new MigrateManager();
         $mm->moveUserAlbumsPhotos();
+    }
+
+    public function actionSync()
+    {
+        $local = \Yii::app()->fs->getAdapter()->getCache();
+        $source = \Yii::app()->fs->getAdapter()->getSource();
+
+        $dp = new \CActiveDataProvider('site\frontend\modules\photo\models\Photo', array(
+            'criteria' => array(
+                'order' => 'id ASC',
+            ),
+        ));
+
+        $iterator = new \CDataProviderIterator($dp, 100);
+        /** @var \site\frontend\modules\photo\models\Photo $photo */
+        foreach ($iterator as $i => $photo) {
+            echo $i . ' - originals - ' . $photo->id . "\n";
+            $fsPath = $photo->getImageFile()->getOriginalFsPath();
+            if ($local->exists($fsPath)) {
+                if (! $source->exists($fsPath)) {
+                    $bytesWritten = $source->write($fsPath, $local->read($fsPath));
+                    if ($bytesWritten === false) {
+                        echo "cant write original\n";
+                    }
+                }
+            } else {
+                echo "no local file\n";
+            }
+            \Yii::app()->db->active = false;
+            \Yii::app()->db->active = true;
+        }
+
+        $iterator = new \CDataProviderIterator($dp, 100);
+        /** @var \site\frontend\modules\photo\models\Photo $photo */
+        foreach ($iterator as $i => $photo) {
+            echo $i . ' - thumbs - ' . $photo->id . "\n";
+            \Yii::app()->thumbs->createAll($photo);
+        }
     }
 } 

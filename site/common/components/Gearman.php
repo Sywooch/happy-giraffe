@@ -7,7 +7,7 @@
 
 class Gearman extends CApplicationComponent
 {
-    public $servers;
+    public $servers = array();
     protected $client;
     protected $worker;
 

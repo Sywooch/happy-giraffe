@@ -21,6 +21,10 @@ class PhotoCollectionIdsObserver extends PhotoCollectionObserver
 
     public function getSingle($offset)
     {
+        if ($offset < 0) {
+            $offset = $this->getCount() + $offset;
+        }
+
         return PhotoAttach::model()->findByPk($this->ids[$offset]);
     }
 

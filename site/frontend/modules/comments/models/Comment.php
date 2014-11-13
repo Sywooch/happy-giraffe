@@ -38,8 +38,7 @@ class Comment extends \Comment implements \IHToJSON
             'dtimeCreate' => (int) strtotime($this->created),
         );
 
-        if (!is_null($this->answers))
-        {
+        if (!is_null($this->answers)) {
             $json['answers'] = array();
             foreach ($this->answers as $answer)
                 $json['answers'][] = $answer->toJSON();
@@ -89,8 +88,7 @@ class Comment extends \Comment implements \IHToJSON
         if (!in_array($this->entity, array('User', 'Route')))
             $url = $this->commentEntity->getUrl($absolute);
         // Для getUrl($comments = false)
-        if (!in_array($this->entity, array('Service')))
-        {
+        if (!in_array($this->entity, array('Service'))) {
             $url = $this->commentEntity->getUrl(false);
             if ($absolute)
                 $url = \Yii::app()->createAbsoluteUrl($url);
@@ -118,28 +116,23 @@ class Comment extends \Comment implements \IHToJSON
         // Получаем список моделей корневых элементов
         $models = parent::populateRecords($data, $callAfterFind, $index);
         // Если было применено условие, накладывающее ограницение на количество корневых комментариев
-        if ($this->_rootType)
-        {
+        if ($this->_rootType) {
             // Сделаем дополнительный запрос за вложенными комментариями
             $type = $this->_rootType;
             $this->_rootType = false;
             $ids = \CHtml::listData($models, 'id', 'id');
             $subComments = $this->rootLimitSupporting(array_values($ids))->findAll();
-            if (count($ids) !== 0 && count($subComments) !== 0)
-            {
+            if (count($ids) !== 0 && count($subComments) !== 0) {
                 $map = array_combine(array_keys($ids), range(0, count($ids) - 1));
-                if ($type == 'list')
-                {
+                if ($type == 'list') {
                     $offset = 0;
                     // Добавим вложенные комментарии в ответ
-                    foreach ($subComments as $comment)
-                    {
+                    foreach ($subComments as $comment) {
                         $offset++;
                         array_splice($models, $map[$comment->root_id] + $offset, 0, array($comment));
                     }
                 }
-                elseif ($type == 'tree')
-                {
+                elseif ($type == 'tree') {
                     foreach ($models as $i => $model)
                         $models[$i]->_subComments = array();
                     foreach ($subComments as $comment)
@@ -151,13 +144,31 @@ class Comment extends \Comment implements \IHToJSON
         return $models;
     }
 
+    public static function getCacheDependency($entity)
+    {
+        if (!is_array($entity)) {
+            $entity = array(
+                'entity' => get_class($entity),
+                'entity_id' => $entity->id,
+            );
+        }
+        elseif (!isset($entity['entity_id'])) {
+            $entity['entity_id'] = $entity['entityId'];
+        }
+        $dependency = new \CDbCacheDependency("SELECT COUNT(id) FROM " . Comment::model()->tableName() . " WHERE entity = :entity AND entity_id = :entity_id");
+        $dependency->params = array(
+            ':entity' => $entity['entity'],
+            ':entity_id' => $entity['entity_id'],
+        );
+        return $dependency;
+    }
+
     /* scopes */
 
     public function byEntity($entity)
     {
         /** @todo Проверить правильность $entity */
-        if (!is_array($entity))
-        {
+        if (!is_array($entity)) {
             $entity = array(
                 'entity' => get_class($entity),
                 'entity_id' => $entity->id,
@@ -208,15 +219,13 @@ class Comment extends \Comment implements \IHToJSON
 
     public static function getChannel($model)
     {
-        if ($model instanceof Comment)
-        {
+        if ($model instanceof Comment) {
             $model = array(
                 'entity' => $model->entity,
                 'entityId' => $model->entity_id,
             );
         }
-        elseif (is_object($model))
-        {
+        elseif (is_object($model)) {
             $model = array(
                 'entity' => get_class($model),
                 'entityId' => $model->id,

@@ -5,7 +5,7 @@
             var self = this;
             self.OPENED_BOT = 0;
             self.OPENED_TOP = 1;
-            mapping.fromJS(data, {}, self);
+            ko.mapping.fromJS(data, {}, self);
             self.extended = ko.observable(false);
             self.opened = ko.observable(false);
             self.gallery = ko.observable(data.gallery);
@@ -220,7 +220,7 @@
             self.parent = parent;
             self.removed = ko.observable(false);
             self.editMode = ko.observable(false);
-            mapping.fromJS(data, {}, self);
+            ko.mapping.fromJS(data, {}, self);
 
             self.author = new User(data['author']);
             self.ownComment = ko.computed(function () {
@@ -342,7 +342,7 @@
 
         function User(data) {
             var self = this;
-            mapping.fromJS(data, {}, self);
+            ko.mapping.fromJS(data, {}, self);
 
             self.fullName = ko.computed(function () {
                 var fullName = self.firstName();

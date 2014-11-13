@@ -11,10 +11,14 @@ class LiSitesManager
         $sites = Site::model()->findAll(array(
             'order' => 'id ASC',
         ));
+        $result = array(
+            array('Сайт', 'Количество ключевиков'),
+        );
         foreach ($sites as $site) {
-            echo self::getKeywordsCount($site);
-            die;
+            $row = array($site->name, self::getKeywordsCount($site));
+            $result[] = $row;
         }
+        return $result;
     }
 
     protected static function getKeywordsCount(Site $site)

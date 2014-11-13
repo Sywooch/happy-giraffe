@@ -893,6 +893,7 @@ class SeoTempCommand extends CConsoleCommand
     {
         Yii::import('site.seo.modules.competitors.components.*');
         Yii::import('site.seo.modules.competitors.models.*');
-        LiSitesManager::getData();
+        $data = LiSitesManager::getData();
+        $this->writeCsv('liData', $data);
     }
 } 

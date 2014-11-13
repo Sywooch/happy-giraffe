@@ -16,15 +16,22 @@ mixin bAlbum(mod, vars)
                     .b-album_count-tx фото
         .b-album_img-hold
             a.b-album_img-a(href="#")
-                .b-album_img-pad
-                    // У изображений соотношения сторон сохраняются 
-                    // 0,65 соотношение сторон
-                picture.b-album_img-picture
-                
-                    //- source(srcset=path+'images/example/'+item.w1, media="(min-width: 1024px)")
-                    source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
-                    //- source(srcset=path+'images/example/w880-h580-1.jpg', media="(min-width: 480px)")
-                    img.b-album_img-big(src=path+'images/example/photoalbum/1-1280.jpg', alt="Фото")
+                if (vars.imgAllHeight)
+                    .b-album_img-pad
+                    .b-album_img-allheight
+                        .b-album_img-center
+
+                            img(src="http://placekitten.com/520/590" alt="Паук")
+                else
+                    .b-album_img-pad
+                        // У изображений соотношения сторон сохраняются 
+                        // 0,65 соотношение сторон
+                    picture.b-album_img-picture
+                    
+                        //- source(srcset=path+'images/example/'+item.w1, media="(min-width: 1024px)")
+                        //source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
+                        //- source(srcset=path+'images/example/w880-h580-1.jpg', media="(min-width: 480px)")
+                        img.b-album_img-big(src='http://placekitten.com/600/490', alt="Фото")
                 //- img.b-album_img-big(src=path+'images/example/w640-h416-1.jpg', srcset="#{vars.img}", alt="", sizes="100vw")
                 //-
                     // телефоны до 480
@@ -68,14 +75,15 @@ mixin bAlbum(mod, vars)
                     a.b-album_prev-a(href="#")
                         img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
                         .b-album_prev-hold
-                li.b-album_prev-li
-                    a.b-album_prev-a(href="#")
-                        img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
-                        .b-album_prev-hold
-                li.b-album_prev-li
-                    a.b-album_prev-a(href="#")
-                        img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
-                        .b-album_prev-hold
+                if (vars.top)
+                    li.b-album_prev-li
+                        a.b-album_prev-a(href="#")
+                            img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                            .b-album_prev-hold
+                    li.b-album_prev-li
+                        a.b-album_prev-a(href="#")
+                            img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                            .b-album_prev-hold
                 - if (vars.prevAdd)
                     li.b-album_prev-li
                         a.album-photo-add(href="#")
@@ -121,6 +129,7 @@ mixin bAlbum(mod, vars)
 - bAlbum.photolink.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
 - bAlbum.photolink.tx = 'Смотреть  <br> все фото &nbsp;'
 - bAlbum.photolink.prevAdd = false
+- bAlbum.photolink.imgAllHeight = true
 - bAlbum.photolink.arrow = true
 
 
@@ -195,7 +204,7 @@ mixin bAlbumPhotopost(mod, vars)
                         a.album-photo-add(href="#")
                     
     // /b-album
- 
+
 - var bAlbumPhotopost = {}
 
 - bAlbumPhotopost.a = {}

@@ -23,19 +23,51 @@
     &__photopost &_count-hold__in {
         display: none;
     }
+    /*&__photolink &_img-pad,
+    &__photopost &_img-pad {
+        padding-bottom: 90%;
+    }*/
+
     &__photolink {
         margin: 0;
     }
     &__photolink &_overlay {
         display: none;
     }
-
+    
+    &_img-center {
+        display: inline;
+        text-align: center;
+        vertical-align: middle;
+    }
+    &_img-allheight {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        text-align: center;
+    }
+    &_img-allheight:before { /// вертикальное выравниевание 
+        content: "";
+        display: inline-block;
+        min-height: inherit;
+        height: 100%;
+        vertical-align: middle;
+    }
+    &_img-allheight img {
+        max-height: 100%;
+    }
     &_img-hold {
         position: relative;
         background: #4d445c;
         text-align: center;
     }
     &_img-hold:hover &_img-hold-ovr {display: block;}
+    &_img-hold img {
+        margin: auto;
+    }
     &_img-a {
         display: block;
         position: relative;
@@ -43,16 +75,27 @@
     }
     &_img-picture {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        bottom: 0px; 
+        right: 0px; 
+        min-width: 100%; 
+        min-height: 100%; 
+        width: auto; 
+        height: auto;  
+        overflow: hidden;
     }
     &_img-big {
-        max-height: 100%;
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        right: 0;
+        bottom: 0;
+        margin: auto; 
+        min-width: 50%;
+        min-height: 50%;
+        width: 100%;
     }
     &_img-pad {
-        padding-bottom: 65%;
+        padding-bottom: 75%;
     }
     &_img-hold-ovr {
         display: none;
@@ -171,6 +214,9 @@
         &_img-hold {
             /*min-height: 380px;*/
         }
+        /*&_img-allheight {
+            height: 320px;
+        }*/
         &_top {
             margin-bottom: 10px;
         }
@@ -190,6 +236,9 @@
         &_img-hold {
             /*min-height: 500px;*/
         }
+        /*&_img-allheight {
+            height: 400px;
+        }*/
         &_top {
             margin-bottom: 15px;
         }
@@ -228,7 +277,6 @@
     }
 
     @media (min-width: @screen-desktop) {
-        
         /*&_img-hold {
             height: 572px;
         }*/

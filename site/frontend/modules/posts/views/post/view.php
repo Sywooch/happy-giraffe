@@ -29,9 +29,9 @@ $comments = $this->createWidget('site\frontend\modules\comments\widgets\CommentW
                             <a href="<?= $this->user->profileUrl ?>" class="ava ava__female ava__small-xs ava__middle-sm"><span class="ico-status ico-status__online"></span><img alt="" src="<?= $this->user->avatarUrl ?>" class="ava_img"></a><a href="<?= $this->user->profileUrl ?>" class="b-article_author"><?= $this->user->fullName ?></a>
                             <?= HHtml::timeTag($this->post, array('class' => 'tx-date'), null); ?>
                         </div>
-                        <div class="icons-meta"><a href="<?= $this->post->commentsUrl ?>" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
+                        <?php /* <div class="icons-meta"><a href="<?= $this->post->commentsUrl ?>" class="icons-meta_comment"><span class="icons-meta_tx"><?= $comments->count ?></span></a>
                             <div class="icons-meta_view"><span class="icons-meta_tx"><?= PageView::model()->incViewsByPath($this->post->parsedUrl) ?></span></div>
-                        </div>
+                        </div> */ ?>
                     </div>
                     <?php
                     if (!isset($this->post->templateObject->data['type']) || $this->post->templateObject->data['type'] !== 'status') {

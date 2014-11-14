@@ -128,15 +128,15 @@ return array(
             'falseRoute' => 'blog/default/view',
         ),
 
-        'user/<user_id:\d+>/blog' => 'blog/default/index',
+        //'user/<user_id:\d+>/blog' => 'blog/default/index',
         //'user/<user_id:\d+>/blog' => 'posts/list/index',
-        /*array(
+        array(
             'class' => 'site.frontend.components.ConditionalUrlRule',
             'condition' => 'Yii::app()->user->isGuest',
             'pattern' => 'user/<user_id:\d+>/blog',
             'trueRoute' => 'posts/list/index',
             'falseRoute' => 'blog/default/index',
-        ),*/
+        ),
 
         /* т.к. некоторые ссылки используют эти роуты при построении запросов */
         /*'fakeBlogView' => array(

@@ -249,6 +249,7 @@ module.exports = function(grunt){
             
             /.bx-wrapper+/,
             /.body+/,
+            /.bnr+/,
           ],
         },
         src: [
@@ -286,6 +287,7 @@ module.exports = function(grunt){
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
+            /.bnr+/,
           ],
         },
         src: [
@@ -316,6 +318,7 @@ module.exports = function(grunt){
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
             /.body+/,
+            /.bnr+/,
           ],
         },
         src: [
@@ -351,6 +354,7 @@ module.exports = function(grunt){
             /.header_+/,
             /.header-+/,
             /.body+/,
+            /.bnr+/,
           ],
         },
         src: [
@@ -377,6 +381,7 @@ module.exports = function(grunt){
             /.header-banner+/,
             /.header_+/,
             /.body+/,
+            /.bnr+/,
             
             // Для страниц собранных разделов
             /.flag+/,
@@ -414,6 +419,7 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header_+/,
             /.body+/,
+            /.bnr+/,
             // Для страниц собранных разделов
             /.flag+/,
             /.bx-wrapper+/,
@@ -444,6 +450,7 @@ module.exports = function(grunt){
             /.select2+/,
             /@font-face+/,
             /.body+/,
+            /.bnr+/,
 
           ],
            

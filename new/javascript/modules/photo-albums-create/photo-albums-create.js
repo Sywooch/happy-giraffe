@@ -2,6 +2,7 @@ define(['knockout', 'text!photo-albums-create/photo-albums-create.html', 'photo/
     function PhotoAlbumsCreateViewModel(params) {
         this.loading = ko.observable(false);
         this.urlCommon = '/user/' + userConfig.userId + '/albums/';
+        this.edit = params.edit;
         /**
          * Checking if editing
          */

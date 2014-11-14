@@ -55,6 +55,11 @@ $this->beginContent('//layouts/lite/common');
     <?= $content ?>
 </div>
 <!-- b-main -->
+
+<?php $this->renderPartial('//_footer'); ?>
+
+<?php if (false): ?>
+<!-- Old version -->
 <!-- layout-footer-->
 <div class="layout-footer clearfix">
     <div class="layout-footer_hold">
@@ -79,5 +84,6 @@ $this->beginContent('//layouts/lite/common');
     </div>
 </div>
 <!-- /layout-footer-->
+<?php endif; ?>
 </div>
 <?php $this->endContent(); ?>

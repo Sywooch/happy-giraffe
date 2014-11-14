@@ -11,10 +11,42 @@ use site\frontend\modules\family\models\FamilyMember;
 
 class AdultViewData extends FamilyMemberViewData
 {
+    protected $dictionary = array(
+        Adult::STATUS_FRIENDS => array(
+            Adult::GENDER_MALE => array(
+                'title' => 'Друг',
+                'cssClass' => 'boy-friend',
+            ),
+            Adult::GENDER_FEMALE => array(
+                'title' => 'Подруга',
+                'cssClass' => 'girl-friend',
+            ),
+        ),
+        Adult::STATUS_ENGAGED => array(
+            Adult::GENDER_MALE => array(
+                'title' => 'Жених',
+                'cssClass' => 'fiance',
+            ),
+            Adult::GENDER_FEMALE => array(
+                'title' => 'Невеста',
+                'cssClass' => 'bride',
+            ),
+        ),
+        Adult::STATUS_MARRIED => array(
+            Adult::GENDER_MALE => array(
+                'title' => 'Муж',
+                'cssClass' => 'husband',
+            ),
+            Adult::GENDER_FEMALE => array(
+                'title' => 'Жена',
+                'cssClass' => 'wife',
+            ),
+        ),
+    );
+
     public function getTitle()
     {
-        $dictionary = $this->getDictionary();
-        return $dictionary[$this->model->relationshipStatus][$this->model->gender]['title'];
+        return $this->dictionary[$this->model->relationshipStatus][$this->model->gender]['title'];
     }
 
     public function getAsString()
@@ -24,43 +56,6 @@ class AdultViewData extends FamilyMemberViewData
 
     public function getCssClass()
     {
-        $dictionary = $this->getDictionary();
-        return $dictionary[$this->model->relationshipStatus][$this->model->gender]['cssClass'];
-    }
-
-    protected function getDictionary()
-    {
-        return array(
-            Adult::STATUS_FRIENDS => array(
-                Adult::GENDER_MALE => array(
-                    'title' => 'Друг',
-                    'cssClass' => 'boy-friend',
-                ),
-                Adult::GENDER_FEMALE => array(
-                    'title' => 'Подруга',
-                    'cssClass' => 'girl-friend',
-                ),
-            ),
-            Adult::STATUS_ENGAGED => array(
-                Adult::GENDER_MALE => array(
-                    'title' => 'Жених',
-                    'cssClass' => 'fiance',
-                ),
-                Adult::GENDER_FEMALE => array(
-                    'title' => 'Невеста',
-                    'cssClass' => 'bride',
-                ),
-            ),
-            Adult::STATUS_MARRIED => array(
-                Adult::GENDER_MALE => array(
-                    'title' => 'Муж',
-                    'cssClass' => 'husband',
-                ),
-                Adult::GENDER_FEMALE => array(
-                    'title' => 'Жена',
-                    'cssClass' => 'wife',
-                ),
-            ),
-        );
+        return $this->dictionary[$this->model->relationshipStatus][$this->model->gender]['cssClass'];
     }
 } 

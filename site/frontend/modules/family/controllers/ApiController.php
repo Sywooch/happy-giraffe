@@ -40,7 +40,8 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionGet($userId, $public = true)
     {
-        $family = Family::getByUserId($userId, false);
+        /** @var \site\frontend\modules\family\models\Family $family */
+        $family = Family::model()->hasMember($userId)->find();
         $this->success = $family !== null;
         if ($family !== null) {
             $this->data = $family->toJSON();
@@ -54,7 +55,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
-        $family = Family::getByUserId(\Yii::app()->user->id, true);
+        $family = Family::createFamily(\Yii::app()->user->id);
         $this->success = $family !== null;
         if ($family !== null) {
             $this->data = $family;
@@ -63,7 +64,7 @@ class ApiController extends \site\frontend\components\api\ApiController
 
     public function actionNeedFill($userId)
     {
-        $family = Family::getByUserId($userId, false);
+        $family = Family::model()->hasMember($userId)->find();
         $this->success = $family !== null;
         if ($family !== null) {
             $members = $family->getMembers(null, false);
@@ -86,7 +87,7 @@ class ApiController extends \site\frontend\components\api\ApiController
             throw new \CHttpException(403, 'Недостаточно прав');
         }
 
-        $family = Family::getByUserId(\Yii::app()->user->id, false);
+        $family = Family::model()->hasMember(\Yii::app()->user->id)->find();
         if ($family === null) {
             throw new \CException('У авторизованного пользователя нет семьи');
         }

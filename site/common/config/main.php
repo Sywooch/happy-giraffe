@@ -91,6 +91,16 @@ return array(
                     'width' => 200,
                     'height' => 200,
                 ),
+                'familyMainPhoto' => array(
+                    'filter' => 'fixed',
+                    'width' => 880,
+                    'height' => 572,
+                ),
+                'familyMemberImage' => array(
+                    'filter' => 'lepilla',
+                    'width' => 600,
+                    'height' => 450,
+                ),
             ),
         ),
         'crops' => array(

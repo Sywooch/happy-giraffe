@@ -12,34 +12,29 @@ use site\frontend\modules\family\models\FamilyMember;
 
 class ChildViewData extends FamilyMemberViewData
 {
+    protected $dictionary = array(
+        FamilyMember::GENDER_MALE => array(
+            'title' => 'Сын',
+            'cssClass' => 'boy-8',
+        ),
+        FamilyMember::GENDER_FEMALE => array(
+            'title' => 'Дочь',
+            'cssClass' => 'girl-8',
+        ),
+    );
+
     public function getTitle()
     {
-        $dictionary = $this->getDictionary();
-        return $dictionary[$this->model->gender]['title'];
+        return $this->dictionary[$this->model->gender]['title'];
     }
 
     public function getCssClass()
     {
-        $dictionary = $this->getDictionary();
-        return $dictionary[$this->model->gender]['cssClass'];
+        return $this->dictionary[$this->model->gender]['cssClass'];
     }
 
     public function getAsString()
     {
         return $this->getTitle() . ' ' . $this->model->name . ' ' . AgeHelper::getChildAgeString($this->model->birthday);
-    }
-
-    protected function getDictionary()
-    {
-        return array(
-            FamilyMember::GENDER_MALE => array(
-                'title' => 'Сын',
-                'cssClass' => 'boy-8',
-            ),
-            FamilyMember::GENDER_FEMALE => array(
-                'title' => 'Дочь',
-                'cssClass' => 'girl-8',
-            ),
-        );
     }
 } 

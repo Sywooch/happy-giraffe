@@ -108,26 +108,6 @@ class Family extends \HActiveRecord implements \IHToJSON
     }
 
     /**
-     * Получить семью по id пользователя
-     *
-     * Возвращает семью по id пользователя. В случае отсутствия таковой, она может быть создана.
-     *
-     * @param int $userId id пользователя
-     * @param bool $create создавать ли семью в случае отсутствия существующей
-     * @return null|Family созданный объект семьи или null в случае его отсутствия
-     */
-    public static function getByUserId($userId, $create = true)
-    {
-        /** @var \site\frontend\modules\family\models\FamilyMember $member */
-        $member = FamilyMember::model()->user($userId)->find();
-        if ($member !== null && $member->family !== null) {
-            return $member->family;
-        }
-
-        return ($create) ? self::createFamily($userId) : null;
-    }
-
-    /**
      * Права на управления семьей
      *
      * Используется менеджером прав.
@@ -170,7 +150,7 @@ class Family extends \HActiveRecord implements \IHToJSON
      * @param int $userId id пользователя
      * @return null|Family созданный объект семьи или null в случае его отсутствия
      */
-    protected static function createFamily($userId)
+    public static function createFamily($userId)
     {
         $family = new Family();
         $member = new Adult();

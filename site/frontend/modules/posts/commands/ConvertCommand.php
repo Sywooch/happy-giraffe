@@ -30,7 +30,7 @@ class ConvertCommand extends \CConsoleCommand
         $client = \Yii::app()->gearman->client();
         $service = $oldPost->isFromBlog ? 'oldBlog' : 'oldCommunity';
         $entity = get_class($oldPost);
-        if($entity == 'BlogContent') {
+        if ($entity == 'BlogContent') {
             $entity = 'CommunityContent';
         }
         $id = $oldPost->id;
@@ -40,7 +40,7 @@ class ConvertCommand extends \CConsoleCommand
             \CommunityContent::TYPE_PHOTO_POST => 'photopost',
             \CommunityContent::TYPE_STATUS => 'status',
         );
-        if(!isset($types[$oldPost->type_id]))
+        if (!isset($types[$oldPost->type_id]))
             return false;
         $fName = $service . '_' . $entity . '_convert_' . $types[$oldPost->type_id];
         $data = array(
@@ -48,8 +48,7 @@ class ConvertCommand extends \CConsoleCommand
             'entity' => $entity,
             'entityId' => $id,
         );
-        // обеспечим уникальность задач
-        $client->doBackground($fName, self::serialize($data), implode('-', $data));
+        $client->doBackground($fName, self::serialize($data));
         return true;
     }
 
@@ -83,17 +82,16 @@ class ConvertCommand extends \CConsoleCommand
      */
     public function convertPost($job)
     {
-        try
-        {
+        try {
+            \Yii::app()->db->setActive(true);
             $data = self::unserialize($job->workload());
-            usleep(10000); // На всякий случай поспим 0,01 сек, что бы быть уверенным, что репликация прошла
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
-            $model->convertToNewPost();
-            echo '.';
+            echo $model->convertToNewPost() ? '.' : '!';
+            \Yii::app()->db->setActive(false);
         }
-        catch (\Exception $e)
-        {
-            echo "\nFAIL: ".$data['entityId']."\n";
+        catch (\Exception $e) {
+            var_dump($data);
+            echo $e;
         }
     }
 

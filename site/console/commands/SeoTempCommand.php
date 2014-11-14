@@ -874,8 +874,8 @@ class SeoTempCommand extends CConsoleCommand
         $result = array();
         $result[] = array('Название', 'Ссылка', 'Контакты');
         for ($i = 1; $i <= $nPages; $i++) {
-            $urlBase = $urlBase . '?page=' . $i;
-            $html = $client->get($urlBase)->send()->getBody(true);
+            $url = $urlBase . '?page=' . $i;
+            $html = $client->get($url)->send()->getBody(true);
             $doc = str_get_html($html);
             $links = $doc->find('a[onclick]');
             foreach ($links as $link) {

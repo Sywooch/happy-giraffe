@@ -22,13 +22,13 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     public function convertToNewPost()
     {
         if ($this->owner->type_id == \CommunityContent::TYPE_POST)
-            $this->convertPost();
+            return $this->convertPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_PHOTO_POST)
-            $this->convertPhotoPost();
+            return $this->convertPhotoPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_VIDEO)
-            $this->convertVideoPost();
+            return $this->convertVideoPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_STATUS)
-            $this->convertStatus();
+            return $this->convertStatus();
     }
 
     public function afterSave($event)
@@ -134,7 +134,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->post->text)));
 
-        $newPost->save();
+        return $newPost->save();
     }
 
     protected function convertPhotoPost()
@@ -149,13 +149,11 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         $cover = \Yii::app()->thumbs->getThumb($collection->cover->photo, 'myPhotosAlbumCover')->getUrl();
         $url = $collection->observer->getSingle(0)->getUrl();
         $photoAlbumTag = \CHtml::tag('photo-collection', array(
-            'params' =>
+                'params' =>
                 'id: ' . (int) $collection->id . ', ' .
                 'attachCount: ' . (int) $count . ', ' .
-                'userId: ' . (int) $newPost->authorId . ', ' .
-                'title: ' . htmlspecialchars($newPost->title) . ', ' .
                 'coverId: ' . $collection->cover->photo->id,
-            ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
+                ), '<a href="' . $url . '" title="Начать просмотр"><div class="b-album_img-hold"><div class="b-album_img-a"><div class="b-album_img-picture"><img class="b-album_img-big" alt="' . $collection->cover->photo->title . '" src="' . $cover . '"></div><div class="b-album_count-hold b-album_count-hold__in"><div class="b-album_count">' . $count . '</div><div class="b-album_count-tx">фото</div></div><div class="b-album_img-pad"></div></div></div></a>');
 
         $newPost->html = $photoAlbumTag . $oldPost->photoPost->text;
         $newPost->text = $oldPost->photoPost->text;
@@ -166,7 +164,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text)));
 
-        $newPost->save();
+        return $newPost->save();
     }
 
     protected function convertVideoPost()
@@ -184,7 +182,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->video->text)));
 
-        $newPost->save();
+        return $newPost->save();
     }
 
     protected function convertStatus()
@@ -203,8 +201,8 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
 
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->status->text)));
-
-        $newPost->save();
+        
+        return $newPost->save();
     }
 
     protected function render($file, $data)

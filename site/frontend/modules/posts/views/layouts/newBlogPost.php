@@ -1,5 +1,6 @@
 <?php
 $this->beginContent('//layouts/lite/main');
+/*
 if (!Yii::app()->user->isGuest && $this->user->id == Yii::app()->user->id) {
     ?>
     <!-- userAddRecord-->
@@ -57,7 +58,7 @@ else {
         </div>
     </section>
     <?php
-}
+}*/
 echo $content;
 
 $this->endContent();

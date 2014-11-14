@@ -22,13 +22,13 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
     public function convertToNewPost()
     {
         if ($this->owner->type_id == \CommunityContent::TYPE_POST)
-            $this->convertPost();
+            return $this->convertPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_PHOTO_POST)
-            $this->convertPhotoPost();
+            return $this->convertPhotoPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_VIDEO)
-            $this->convertVideoPost();
+            return $this->convertVideoPost();
         elseif ($this->owner->type_id == \CommunityContent::TYPE_STATUS)
-            $this->convertStatus();
+            return $this->convertStatus();
     }
 
     public function afterSave($event)
@@ -134,7 +134,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->post->text)));
 
-        $newPost->save();
+        return $newPost->save();
     }
 
     protected function convertPhotoPost()
@@ -164,7 +164,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->photoPost->text)));
 
-        $newPost->save();
+        return $newPost->save();
     }
 
     protected function convertVideoPost()
@@ -182,7 +182,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->video->text)));
 
-        $newPost->save();
+        return $newPost->save();
     }
 
     protected function convertStatus()
@@ -202,7 +202,7 @@ class CommunityContentBehavior extends \CActiveRecordBehavior
         if (empty($newPost->metaObject->description))
             $newPost->metaObject->description = trim(preg_replace('~\s+~', ' ', strip_tags($oldPost->status->text)));
         
-        $newPost->save();
+        return $newPost->save();
     }
 
     protected function render($file, $data)

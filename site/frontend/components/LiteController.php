@@ -33,10 +33,10 @@ class LiteController extends HController
     {
         if ($this->litePackage)
         {
-            $package = 'lite_' . $this->litePackage;
+            $guestPackage = 'lite_' . $this->litePackage;
             $userPackage = 'lite_' . $this->litePackage . '_user';
             // если не гость и если есть отдельный пакет для пользователя, то подключаем его, иначе - общий.
-            $package = \Yii::app()->user->isGuest ? $package : \Yii::app()->clientScript->getPackageBaseUrl($userPackage) ? $userPackage : $package;
+            $package = \Yii::app()->user->isGuest ? $guestPackage : (\Yii::app()->clientScript->getPackageBaseUrl($userPackage) ? $userPackage : $guestPackage);
             \Yii::app()->clientScript->registerPackage($package);
             \Yii::app()->clientScript->useAMD = true;
         }
@@ -49,13 +49,13 @@ class LiteController extends HController
 
         if (Yii::app()->user->isGuest)
         {
-//            $filters [] = array(
-//                'COutputCache',
-//                'cacheID' => 'cache',
-//                'duration' => 300,
-//                'varyByParam' => array_keys($_GET),
-//                'varyByExpression' => 'Yii::app()->vm->getVersion()',
-//            );
+            $filters [] = array(
+                'COutputCache',
+                'cacheID' => 'cache',
+                'duration' => 300,
+                'varyByParam' => array_keys($_GET),
+                'varyByExpression' => 'Yii::app()->vm->getVersion()',
+            );
         }
 
         return $filters;

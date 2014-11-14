@@ -48,7 +48,8 @@ class ConvertCommand extends \CConsoleCommand
             'entity' => $entity,
             'entityId' => $id,
         );
-        $client->doBackground($fName, self::serialize($data));
+        // обеспечим уникальность задач
+        $client->doBackground($fName, self::serialize($data), implode('-', $data));
         return true;
     }
 
@@ -85,6 +86,7 @@ class ConvertCommand extends \CConsoleCommand
         try {
             \Yii::app()->db->setActive(true);
             $data = self::unserialize($job->workload());
+            usleep(10000); // на всякий случай поспим 0.01 сек, что бы быть уверенным, что реплика прошла
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
             echo $model->convertToNewPost() ? '.' : '!';
             \Yii::app()->db->setActive(false);

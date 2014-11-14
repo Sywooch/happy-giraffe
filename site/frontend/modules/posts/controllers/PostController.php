@@ -22,6 +22,7 @@ class PostController extends \LiteController
 
     public function actionView($content_id)
     {
+        /** @todo добавить условие byService для полноценного использования индекса */
         $this->post = Content::model()->byEntity('CommunityContent', $content_id)->find();
         if (!$this->post || $this->post->parsedUrl !== \Yii::app()->request->requestUri)
             throw new \CHttpException(404);

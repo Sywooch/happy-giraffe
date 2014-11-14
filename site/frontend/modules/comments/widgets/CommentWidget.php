@@ -85,7 +85,7 @@ class CommentWidget extends \CWidget
     public function getCacheKey()
     {
         if (!is_array($this->model)) {
-            $key = get_class($entity) . $entity->id;
+            $key = get_class($this->model) . $this->model->id;
         }
         else {
             $key = $this->model['entity'] . $this->model['entity_id'];

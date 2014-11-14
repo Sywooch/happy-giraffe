@@ -83,11 +83,11 @@ class ConvertCommand extends \CConsoleCommand
     public function convertPost($job)
     {
         try {
-            Yii::app()->db->setActive(true);
+            \Yii::app()->db->setActive(true);
             $data = self::unserialize($job->workload());
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
             echo $model->convertToNewPost() ? '.' : '!';
-            Yii::app()->db->setActive(false);
+            \Yii::app()->db->setActive(false);
         }
         catch (\Exception $e) {
             var_dump($data);

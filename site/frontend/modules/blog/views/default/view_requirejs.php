@@ -140,8 +140,8 @@ if ($full) {
 <?php
 if ($full)
 {
-    if ($this->module->id == 'blog')
-    {
+    /*if ($this->module->id == 'blog')
+    {*/
         $commentsWidget = $this->createWidget('site\frontend\modules\comments\widgets\CommentWidget', array('model' => $data))
         ?>
         <section class="comments comments__buble">
@@ -157,11 +157,11 @@ if ($full)
             ?>
         </section>
         <?php
-    }
+    /*}
     else
     {
         $this->widget('application.widgets.newCommentWidget.NewCommentWidget', array('model' => $data, 'full' => $full));
-    }
+    }*/
 }
 ?>
 

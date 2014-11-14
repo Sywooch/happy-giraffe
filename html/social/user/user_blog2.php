@@ -8,7 +8,11 @@
 	<link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,100&amp;subset=latin,cyrillic-ext,cyrillic">
 
 </head>
-<body class="body-gray theme theme__adfox">
+<body class="body-gray body__bg2 theme theme__adfox">
+
+    <div class="header-banner">
+        <a href="#" target="_blank" class="bnr-enfomil2"><img src="/images/banners/bnr-enfomil2.jpg" alt=""><span class="bnr-enfomil2_btn"></span></a>
+    </div>
 
 	<?php include $_SERVER['DOCUMENT_ROOT'].'/block/global/top-line-menu.php'; ?>
 <div class="layout-w1">

@@ -15,9 +15,6 @@ class DefaultController extends \LiteController
         if ($family === null) {
             throw new \CHttpException(404);
         }
-        $members = $family->getMembers();
-
-
-		$this->render('index', compact('family', 'members'));
+		$this->render('index', compact('family',  'userId'));
 	}
 }

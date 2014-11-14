@@ -13,10 +13,28 @@ use site\frontend\modules\family\models\PregnancyChild;
 
 class PregnancyChildViewData extends FamilyMemberViewData
 {
+    protected $dictionary = array(
+        FamilyMember::GENDER_MALE => array(
+            'title' => 'Ждем мальчика',
+            'cssClass' => 'boy-wait',
+        ),
+        FamilyMember::GENDER_FEMALE => array(
+            'title' => 'Ждем девочку',
+            'cssClass' => 'girl-wait',
+        ),
+        PregnancyChild::GENDER_TWINS => array(
+            'title' => 'Ждем двойню',
+            'cssClass' => 'baby-two',
+        ),
+        null => array(
+            'title' => 'Ждем ребенка',
+            'cssClass' => 'baby',
+        ),
+    );
+
     public function getTitle()
     {
-        $dictionary = $this->getDictionary();
-        return $dictionary[$this->model->gender]['title'];
+        return $this->dictionary[$this->model->gender]['title'];
     }
 
     public function getAsString()
@@ -26,29 +44,6 @@ class PregnancyChildViewData extends FamilyMemberViewData
 
     public function getCssClass()
     {
-        $dictionary = $this->getDictionary();
-        return $dictionary[$this->model->gender]['cssClass'];
-    }
-
-    protected function getDictionary()
-    {
-        return array(
-            FamilyMember::GENDER_MALE => array(
-                'title' => 'Ждем мальчика',
-                'cssClass' => 'boy-wait',
-            ),
-            FamilyMember::GENDER_FEMALE => array(
-                'title' => 'Ждем девочку',
-                'cssClass' => 'girl-wait',
-            ),
-            PregnancyChild::GENDER_TWINS => array(
-                'title' => 'Ждем двойню',
-                'cssClass' => 'baby-two',
-            ),
-            null => array(
-                'title' => 'Ждем ребенка',
-                'cssClass' => 'baby',
-            ),
-        );
+        return $this->dictionary[$this->model->gender]['cssClass'];
     }
 } 

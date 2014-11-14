@@ -10,17 +10,16 @@ use site\frontend\modules\family\models\FamilyMember;
 
 class MembersListWidget extends \CWidget
 {
-    protected $colors = array('green', 'carrot', 'blue', 'lilac');
     protected $colorIterator = 0;
 
-    /** @var \site\frontend\modules\family\models\FamilyMember */
+    /** @var \site\frontend\modules\family\models\Family */
     public $family;
-
     public $view;
+    public $me;
 
     public function run()
     {
-        $members = $this->family->getMembers(null, false);
+        $members = $this->family->getMembers();
         usort($members, array($this, 'sort'));
         $this->render($this->view, compact('members'));
     }
@@ -39,20 +38,13 @@ class MembersListWidget extends \CWidget
     protected function getPriority(FamilyMember $a)
     {
         if ($a->type == FamilyMember::TYPE_ADULT) {
-            return ($a->userId == \Yii::app()->user->id) ? -1 : 0;
+            return ($this->isMe($a)) ? -1 : 0;
         }
         return 1;
     }
 
-    public function getColor()
-    {
-        $index = $this->colorIterator % count($this->colors);
-        $this->colorIterator++;
-        return $this->colors[$index];
-    }
-
     public function isMe(FamilyMember $member)
     {
-        return ! \Yii::app()->user->isGuest && ($member->userId == \Yii::app()->user->id);
+        return $member->userId == $this->me;
     }
 } 

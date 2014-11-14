@@ -10,6 +10,8 @@ namespace site\frontend\modules\photo\components;
 
 class PhotoController extends \PersonalAreaController
 {
+    public $litePackage = 'photo';
+
     public function init()
     {
         $this->bodyClass .= ' body__cont-wide';

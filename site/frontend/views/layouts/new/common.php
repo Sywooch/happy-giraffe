@@ -37,12 +37,13 @@ if (! Yii::app()->user->isGuest)
     <?=CHtml::linkTag('shortcut icon', null, '/favicon.bmp')?>
     <!-- including .css-->
     <link rel="stylesheet" type="text/css" href="/new/css/all1.css" />
+    <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300&amp;subset=latin,cyrillic-ext,cyrillic">
     <script src="/new/javascript/jquery.tooltipster.js"></script>
     <script src="/new/javascript/modernizr-2.7.1.min.js"></script>
     <!-- wisywig-->
     <script src="/new/redactor/redactor.js"></script>
 </head>
-<body class="body <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
+<body class="body body__bg2 <?php if ($this->bodyClass !== null): ?> <?=$this->bodyClass?><?php endif; ?>">
 <?php Yii::app()->ads->showCounters(); ?>
 <div class="layout-container">
     <div class="error-serv display-n">

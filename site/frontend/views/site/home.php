@@ -254,14 +254,14 @@
                         ?>
                         <!-- <div class="homepage-posts_col"> -->
                             <? isset($models[0]) ? $this->renderPartial('_home_article', array('model' => $models[0], 'color' => 'lilac')) : ''; ?>
-                            <? isset($models[3]) ? $this->renderPartial('_home_article', array('model' => $models[1], 'color' => 'yellow')) : ''; ?>
+                            <? isset($models[1]) ? $this->renderPartial('_home_article', array('model' => $models[1], 'color' => 'yellow')) : ''; ?>
                         <!-- </div> -->
                         
-                            <? isset($models[1]) ? $this->renderPartial('_home_article', array('model' => $models[3], 'color' => 'blue')) : ''; ?>
-                            <? isset($models[4]) ? $this->renderPartial('_home_article', array('model' => $models[4], 'color' => 'green')) : ''; ?>
+                            <? isset($models[2]) ? $this->renderPartial('_home_article', array('model' => $models[3], 'color' => 'blue')) : ''; ?>
+                            <? isset($models[3]) ? $this->renderPartial('_home_article', array('model' => $models[4], 'color' => 'green')) : ''; ?>
 
 
-                            <? isset($models[2]) ? $this->renderPartial('_home_article', array('model' => $models[2], 'color' => 'red')) : ''; ?>
+                            <? isset($models[4]) ? $this->renderPartial('_home_article', array('model' => $models[2], 'color' => 'red')) : ''; ?>
                             <? isset($models[5]) ? $this->renderPartial('_home_article', array('model' => $models[5], 'color' => 'lilac')) : ''; ?>
                         
                         <?php

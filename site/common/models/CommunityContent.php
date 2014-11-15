@@ -334,7 +334,7 @@ class CommunityContent extends HActiveRecord implements IPreview
     public function afterSave()
     {
         if ($this->scenario == 'advEditor')
-            return parent::beforeSave();
+            return parent::afterSave();
         if ($this->isNewRecord && $this->type_id != 4) {
             Yii::app()->cache->set('activityLastUpdated', time());
         }

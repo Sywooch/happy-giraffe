@@ -15,6 +15,7 @@
  */
 class CommunityPost extends HActiveRecord
 {
+
     /**
      * Массив фото, содержащихся в тексте, заполняется поведением ProcessingImagesBehavior
      * @var array
@@ -34,11 +35,16 @@ class CommunityPost extends HActiveRecord
 
     public function behaviors()
     {
-        if($this->scenario == 'advEditor')
+        if ($this->scenario == 'advEditor')
             return array(
                 'PhotoCollectionBehavior' => array(
                     'class' => 'site\frontend\modules\photo\components\PhotoCollectionBehavior',
                     'attributeCollections' => array('text'),
+                ),
+                // Необходимо только для сброса кеша для purify
+                'purified' => array(
+                    'class' => 'site.common.behaviors.PurifiedBehavior',
+                    'attributes' => array('text'),
                 ),
             );
         return array(
@@ -92,7 +98,6 @@ class CommunityPost extends HActiveRecord
             array('content_id', 'length', 'max' => 11),
             array('content_id, photo_id', 'numerical', 'integerOnly' => true),
             array('content_id', 'exist', 'attributeName' => 'id', 'className' => 'CommunityContent'),
-
             //array('text', 'filter', 'filter' => array('Filters', 'add_nofollow')),
             array('id, text, photo_id, content_id', 'safe', 'on' => 'search'),
         );
@@ -145,4 +150,5 @@ class CommunityPost extends HActiveRecord
     {
         return $this->photo;
     }
+
 }

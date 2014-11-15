@@ -162,6 +162,11 @@ class CommunityContent extends HActiveRecord implements IPreview
                 'convertToNewPost' => array(
                     'class' => '\site\frontend\modules\posts\behaviors\converters\CommunityContentBehavior',
                 ),
+                // Необходимо только для сброса кеша для purify
+                'purified' => array(
+                    'class' => 'site.common.behaviors.PurifiedBehavior',
+                    'attributes' => array('preview'),
+                ),
             );
         return array(
             'PhotoCollectionBehavior' => array(

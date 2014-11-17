@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager) {
+define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/PhotoAlbum', 'user-config', 'models/Model', 'models/User', 'photo/PhotoCollection', 'extensions/imagesloaded', 'extensions/PresetManager', 'extensions/adhistory', 'modules-helpers/component-custom-returner', 'bootstrap', 'ko_photoUpload', 'ko_library', 'extensions/knockout.validation', 'ko_library'], function ($, ko, template, PhotoAlbum, userConfig, Model, User, PhotoCollection, imagesLoaded, PresetManager, AdHistory) {
 
     function PhotoSlider(params) {
         var collectionData = {};
@@ -53,7 +53,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          */
         this.lookForStart = function lookForStart(newAttaches) {
             this.current(Model.findByIdObservableIndex(this.photoAttach().id(), this.collection.attaches()));
-            window.history.pushState(null, 'Фотоальбом', this.current().element().url());
+            AdHistory.pushState(null, 'Фотоальбом', this.current().element().url());
             //FCUK quick fix
             setTimeout(this.addImageBinding.bind(this), this.setDelay);
             //---FCUK quick fix
@@ -65,7 +65,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             var oldIndex = this.current().index();
             this.current().index(oldIndex + 1);
             this.current().element(this.collection.attaches()[this.current().index()]);
-            window.history.pushState(null, 'Фотоальбом', this.current().element().url());
+            AdHistory.pushState(null, 'Фотоальбом', this.current().element().url());
             this.addImageBinding();
         };
         /**
@@ -75,7 +75,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
             var oldIndex = this.current().index();
             this.current().index(oldIndex - 1);
             this.current().element(this.collection.attaches()[this.current().index()]);
-            window.history.pushState(null, 'Фотоальбом', this.current().element().url());
+            AdHistory.pushState(null, 'Фотоальбом', this.current().element().url());
             this.addImageBinding();
         };
         this.collection.attaches.subscribe(this.lookForStart.bind(this));
@@ -93,7 +93,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          */
         this.closePhotoHandler = function closePhotoHandler(Parent) {
             Parent.closePhotoHandler(Parent);
-            window.history.pushState(null, this.masterTitle, this.masterUrl);
+            AdHistory.pushState(null, this.masterTitle, this.masterUrl);
         };
         /**
          * Shitty jqcode

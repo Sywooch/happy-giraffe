@@ -6,6 +6,8 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
         this.collectionId = params.collectionId;
         this.userSliderId = params.userId;
         this.photoAttach = params.photo;
+        this.title = params.title;
+        this.description = params.description;
         this.user = Object.create(User);
         this.current = ko.observable(false);
         this.userInstance = ko.mapping.fromJS({});
@@ -22,6 +24,7 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          */
         this.userHandler = function userHandler(user) {
             if (user.success === true) {
+
                 ko.mapping.fromJS(this.user.init(user.data), this.userInstance);
                 this.userInstance.loading(false);
             }
@@ -52,8 +55,10 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          * @param newAttaches
          */
         this.lookForStart = function lookForStart(newAttaches) {
+            var title;
             this.current(Model.findByIdObservableIndex(this.photoAttach().id(), this.collection.attaches()));
-            AdHistory.pushState(null, 'Фотоальбом', this.current().element().url());
+            title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : this.title();
+            AdHistory.pushState(null, title, this.current().element().url());
             //FCUK quick fix
             setTimeout(this.addImageBinding.bind(this), this.setDelay);
             //---FCUK quick fix
@@ -62,20 +67,22 @@ define(['jquery', 'knockout', 'text!photo-slider/photo-slider.html', 'photo/Phot
          * Next slide
          */
         this.next = function next() {
-            var oldIndex = this.current().index();
+            var oldIndex = this.current().index(),
+                title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : this.title();
             this.current().index(oldIndex + 1);
             this.current().element(this.collection.attaches()[this.current().index()]);
-            AdHistory.pushState(null, 'Фотоальбом', this.current().element().url());
+            AdHistory.pushState(null, title, this.current().element().url());
             this.addImageBinding();
         };
         /**
          * Prev Slide
          */
         this.prev = function prev() {
-            var oldIndex = this.current().index();
+            var oldIndex = this.current().index(),
+                title = (this.current().element().photo().title() !== "") ? this.current().element().photo().title() : this.title();
             this.current().index(oldIndex - 1);
             this.current().element(this.collection.attaches()[this.current().index()]);
-            AdHistory.pushState(null, 'Фотоальбом', this.current().element().url());
+            AdHistory.pushState(null, title, this.current().element().url());
             this.addImageBinding();
         };
         this.collection.attaches.subscribe(this.lookForStart.bind(this));

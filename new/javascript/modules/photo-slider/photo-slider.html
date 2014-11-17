@@ -88,17 +88,16 @@
                             </div>
                             <!-- /ko -->
                         </div>
-                        <!--<div class="photo-window_about">Фотопост <a href="">Места моих путешествий</a></div>-->
-                        <!--<div class="photo-window_t">-->
-                            <!--<input type="text" name="" placeholder="Введите название фото и нажмите Enter" class="itx-gray">-->
-                            <!--&lt;!&ndash;Детский лагерь «Зеркальный». Ленинградская область. Ghfg Ленинградская <a class="ico-edit powertip" href=""></a>-->
-                            <!--&ndash;&gt;-->
-                        <!--</div>-->
-                        <!--<div class="photo-window_desc-hold">-->
-                            <!--<div class="photo-window_desc clearfix">-->
-                                <!--<p>В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, спокойные игры  В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты, соревнования В круглогодичном лечебно-развлекательном лагере «Зеркальный» ежедневно проводятся разнообразные мероприятия и программы - тематические, творческие и интеллектуальные конкурсы, концерты, викторины, активные и спокойные игры, эстафеты и спокойные игры.<a href="" class="ico-edit powertip"></a></p>-->
-                            <!--</div>-->
-                        <!--</div>-->
+                        <!-- ko if: current() !== false && collection.attachesCount() > 0 -->
+                        <!-- <div class="photo-window_about">Фотопост <a href="">Места моих путешествий</a></div> -->
+                        <div class="photo-window_t" data-bind='text: (current().element().photo().title() !== "") ? current().element().photo().title() : title'>
+                        </div>
+                        <div class="photo-window_desc-hold">
+                            <div class="photo-window_desc clearfix">
+                                <p data-bind='text: (current().element().photo().description() !== "") ? current().element().photo().description() : description'></p>
+                            </div>
+                        </div>
+                        <!-- /ko -->
                         <!--<div class="comments-gray comments-gray__small">-->
                             <!--<div class="comments-gray_add active clearfix">-->
                                 <!--<div class="comments-gray_ava">-->

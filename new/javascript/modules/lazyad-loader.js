@@ -1859,7 +1859,7 @@ window.matchMedia || (window.matchMedia = function (win) {
 })
 ;(function() {
 
-    var debug = false;
+    var debug = true;
 
     var config = {
         containerElement: 'div',

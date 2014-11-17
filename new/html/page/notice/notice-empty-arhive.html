@@ -54,7 +54,7 @@
   <!-- livereload-->
   <script src="//localhost:35729/livereload.js"></script>
 </head>
-<body class="body body__bg-base body__notice">
+<body class="body body__bg2 body__notice">
   <div class="layout-container">
     <div class="layout-header clearfix">
       <!-- header-fix-->
@@ -187,7 +187,7 @@
                       var h = self.windowHeight - self.headerHeight - 58 - 40;
                       if (h < 350) {
                               h = 350;
-                              
+          
                       }
                       self.contentBlock.height(h);
                   }
@@ -197,18 +197,18 @@
                       noticeHeight();
                       addBaron('.scroll');
                   }
-                  
+                 
                   $(window).resize(function() {
                       self.renew();
                   });
-                  
+          
                   
                   $(document).ready(function () {
                       var contentBlock = ".u-notice_hold";
                       self.contentBlock = $(contentBlock);
                       self.renew();
                   });
-                  
+          
           }();
           
         </script>
@@ -225,6 +225,7 @@
             </div>
           </div>
           <!-- /side-menu-->
+          
           <div class="page-col page-col__notice">
             <div class="page-col_top">
               <div class="page-col_t-tx">Архив</div>

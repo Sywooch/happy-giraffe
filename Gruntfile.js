@@ -248,6 +248,8 @@ module.exports = function(grunt){
             //.tooltip+/,
             
             /.bx-wrapper+/,
+            /.body+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -285,6 +287,8 @@ module.exports = function(grunt){
             /.chzn+/,
             /.redactor+/,
             /.fancybox+/,
+            /.ico-social-hold+/,
+
           ],
         },
         src: [
@@ -314,6 +318,8 @@ module.exports = function(grunt){
             /.header-+/,
             /.calendar-serv-note__+/,
             /.cook-choose .wysiwyg-content+/,
+            /.body+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -348,6 +354,8 @@ module.exports = function(grunt){
             /.fancybox+/,
             /.header_+/,
             /.header-+/,
+            /.body+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -373,10 +381,12 @@ module.exports = function(grunt){
             /.header-menu_li+/,
             /.header-banner+/,
             /.header_+/,
+            /.body+/,
             
             // Для страниц собранных разделов
             /.flag+/,
             /.bx-wrapper+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -409,9 +419,11 @@ module.exports = function(grunt){
             /.header-drop+/, // Drop, active элементы
             /.header-menu_li+/,
             /.header_+/,
+            /.body+/,
             // Для страниц собранных разделов
             /.flag+/,
             /.bx-wrapper+/,
+            /.ico-social-hold+/,
           ],
         },
         src: [
@@ -438,7 +450,9 @@ module.exports = function(grunt){
             /.mfp+/,
             /.select2+/,
             /@font-face+/,
-
+            /.body+/,
+            
+            /.ico-social-hold+/,
           ],
            
         },

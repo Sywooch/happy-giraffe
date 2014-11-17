@@ -50,6 +50,8 @@ class MigrateManager
         ));
         $total = $dp->totalItemCount;
 
+        echo $total;
+        die;
 
         $iterator = new \CDataProviderIterator($dp);
         foreach ($iterator as $i => $album) {

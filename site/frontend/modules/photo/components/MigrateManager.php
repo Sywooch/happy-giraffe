@@ -40,18 +40,23 @@ class MigrateManager
         $criteria->compare('t.removed', 0);
         $criteria->compare('type', 0);
         $criteria->with = array('photos');
+        $criteria->order = 't.id ASC';
 
         $dp = new \CActiveDataProvider('Album', array(
             'criteria' => $criteria,
         ));
+        $total = $dp->totalItemCount;
+
+
         $iterator = new \CDataProviderIterator($dp);
-        foreach ($iterator as $album) {
+        foreach ($iterator as $i => $album) {
             foreach ($album->photos as $photo) {
                 echo $photo->id . "\n";
                 self::movePhoto($photo);
             }
             \Yii::app()->db->active = false;
             \Yii::app()->db->active = true;
+            echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
         }
     }
     

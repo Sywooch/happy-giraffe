@@ -41,6 +41,10 @@ class MigrateManager
         $criteria->compare('type', 0);
         $criteria->with = array('photos');
         $criteria->order = 't.id ASC';
+
+        var_dump($id);
+        die;
+
         if ($id !== null) {
             $criteria->compare('>=t.id', $id);
         }

@@ -34,13 +34,16 @@ class MigrateManager
     }
 
 
-    public static function moveUserAlbumsPhotos()
+    public static function moveUserAlbumsPhotos($id = null)
     {
         $criteria = new \CDbCriteria();
         $criteria->compare('t.removed', 0);
         $criteria->compare('type', 0);
         $criteria->with = array('photos');
         $criteria->order = 't.id ASC';
+        if ($id !== null) {
+            $criteria->compare('>=t.id', $id);
+        }
 
         $dp = new \CActiveDataProvider('Album', array(
             'criteria' => $criteria,
@@ -58,10 +61,13 @@ class MigrateManager
 
             $photoIds = array();
             foreach ($album->photos as $photo) {
-                $photoIds[] = self::movePhoto($photo);
+                $photoId = self::movePhoto($photo);
+                if ($photoId !== false) {
+                    $photoIds[] = $photoId;
+                }
             }
             $newAlbum->photoCollection->attachPhotos($photoIds);
-            echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
+            echo '[' . ($i + 1) . '/' . $total . ']' . ' - ' . $album->id  . "\n";
 
             \Yii::app()->db->active = false;
             \Yii::app()->db->active = true;

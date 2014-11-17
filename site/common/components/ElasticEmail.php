@@ -52,6 +52,9 @@ class ElasticEmail extends CApplicationComponent
         $data .= "&merge_htmlbody=" . urlencode($body);
         $data .= "&lists=" . $list;
 
+        var_dump($data);
+        die;
+
         $header = "POST /mailer/send HTTP/1.0\r\n";
         $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
         $header .= "Content-Length: " . strlen($data) . "\r\n\r\n";

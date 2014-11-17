@@ -388,8 +388,7 @@ return array(
         'search/default/get' => 'search/default/get',
 
         'user/<userId:\d+>/family' => 'family/default/index',
-        'family/<_a>' => 'family/default/<_a>',
-        'family/<_c>/<_a>' => 'family/<_c>/<_a>',
+        'family/default/fill' => 'family/default/fill',
 
         'contest/<cssClass:\w+>' => 'community/contest/index',
 

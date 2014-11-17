@@ -75,12 +75,6 @@ return array(
                 'sliderPhoto' => array(
                     'filter' => 'lepilla',
                     'width' => 1200,
-                    'height' => 1000,
-                ),
-                'myPhotosAlbumCover' => array(
-                    'filter' => 'lepilla',
-                    'width' => 880,
-                    'height' => 580,
                 ),
                 'postImage' => array(
                     'filter' => 'relativeResize',

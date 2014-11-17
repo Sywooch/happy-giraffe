@@ -22,9 +22,12 @@ class AdsWidget extends CWidget
 
     public function run()
     {
+        Yii::app()->clientScript->registerAMDFile(array(), '/new/javascript/modules/lazyad-loader.js');
         $contents = ob_get_clean();
         if ($this->show) {
-            echo $contents;
+            $contents = str_replace('<script', '<!--<script', $contents);
+            $contents = str_replace('</script>', '</script>-->', $contents);
+            $this->render('AdsWidget', compact('contents'));
         } elseif ($this->dummyTag !== null) {
             echo CHtml::tag($this->dummyTag);
         }

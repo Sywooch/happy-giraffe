@@ -91,7 +91,7 @@
 /*
     footer
 */
-
+/*
 .layout-footer {
     position: relative;
     z-index: 2;
@@ -99,8 +99,8 @@
     font: normal 11px/16px tahoma, arial, helvetica, sens-serif;
     color: #a2a1a1;
     background-color: #fff;
-    .box-shadow(inset 0 0 8px -2px rgba(0,0,0,0.1));
-
+    border-top: 1px solid #f4f4f4;
+    
     &__in {
         margin-top: 0;
     }
@@ -124,29 +124,10 @@
     &_tx {
         margin: 0 120px 15px 0;
     }
-
-/*
-    @media (min-width: @screen-phone-landscape) {
-        &_hold {
-            padding: 10px 10% 30px;
-        }
-    }
-    @media (min-width: @screen-tablet) {
-        &_hold {
-            width: 620px;
-            padding: 20px 0 30px;
-        }
-    }
-    @media (min-width: @screen-desktop) {
-        &_hold {
-            width: auto;
-            margin: 0 60px;
-        }
-    }*/
 }
 
 .footer-list {
-    padding: 15px 0 25px;
+    padding: 15px 0 30px;
     font-size: 13px;
 
     &_li {
@@ -182,16 +163,15 @@
     &__reklama:hover {color: #ff6400;}
 }
 
+
 .footer-menu {
-    margin: 0 0 22px;
+    margin: 0 0 28px;
     line-height: 14px;
-    font-size: 12px;
 
     &_li {
         .inline-block();
-        padding: 0 14px 0 17px;
-        border-left: 1px solid #cbcbcb;
-        font-weight: bold;
+        vertical-align: top;
+        padding: 0 25px 0 0;
     }
     &_li:first-child {
         padding-left: 0;
@@ -201,21 +181,31 @@
         color: #429ee7;
         text-decoration: underline;
     }
-    &_a {
+    &_t {
         .inline-block();
         color: #666;
         padding: 0;
-        border-bottom: 2px solid #aa96d2;
+        border-bottom: 2px solid #ccbaee;
         text-decoration: none;
+        font-weight: bold;
+        font: 12px/16px Arial, Tahoma, Verdana, sans-serif;
     }
-    &_a:hover {
-        color: @color-base;
-        text-decoration: none;
+    &_t__husband-and-wife {border-color: #95d6fc;}
+    &_t__pregnancy {border-color: #ccbaee;}
+    &_t__home {border-color: #ffa871;}
+    &_t__beauty {border-color: #fde666;}
+    &_t__hobby {border-color: #8eda85;}
+    &_t__family-holiday {border-color: #ccbaee;}
+    &_in {
+        margin: 5px 0;
     }
-    &_a__pregnancy {}
-    &_a__home {border-color: #ff8232;}
-    &_a__beauty {border-color: #f9d301;}
-    &_a__husband-and-wife {border-color: #64b9eb;}
-    &_a__hobby {border-color: #73c869;}
-    &_a__family-holiday {}
+    &_in-li {
+        margin: 8px 0;
+    }
+    &_in-a {
+        color: @color-gray;
+    }
 }
+*/
+
+@import "../../lite/less/project/footer.less";

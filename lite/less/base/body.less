@@ -1,6 +1,3 @@
-html {
-    height: 100%;
-}
 .body {
     word-wrap: break-word;
     height: 100%;
@@ -8,6 +5,7 @@ html {
     &__white {background: #fff;}
 
     &__bg1,
+    &__bg2,
     &__lite {
         min-width: 240px;
         background-color: #66508c;
@@ -16,6 +14,10 @@ html {
         &__bg1,
         &__lite {
             background:#66508c url('@{path-img}/body__bg/body-circle-candy__dark.png') no-repeat 50% 0;
+            background-attachment: fixed;
+        }
+        &__bg2 {
+            background:#8eb4b9 url('@{path-img}/body__bg/body__bg2.jpg') repeat 50% 0;
             background-attachment: fixed;
         }
     }

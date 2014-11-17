@@ -1053,12 +1053,12 @@ define(function () {
         });
 
         _applyStyles(self.previewerIframe, {
-          'width': window.outerWidth / 2 + 'px'
+          'width': 600 + 'px'
         , 'height': window.innerHeight + 'px'
         });
 
         _applyStyles(self.editorIframe, {
-          'width': window.outerWidth / 2 + 'px'
+          'width': (window.outerWidth - 600) + 'px'
         , 'height': window.innerHeight + 'px'
         });
       }

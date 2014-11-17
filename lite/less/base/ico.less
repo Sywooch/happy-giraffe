@@ -6,6 +6,7 @@
     .img-retina('@{path-img}/ico/ico-lock-big.png'; '@{path-img}/ico/ico-lock-big-2x.png'; 35px; 45px);
 }
 .ico-arrow-d,
+.ico-arrow-r,
 .ico-arrow-l {
     .inline-block();
     vertical-align: middle;
@@ -25,19 +26,55 @@
     background: url('/images/ico/ico-close4.png') no-repeat;
 }
 .ico-close4:hover {background-position: 0 0;}
+
+////////////////////////////////////////////////
+// ico-base спрайт
 .ico-plus {
     .inline-block();
     vertical-align: middle;
     width: 13px;
     height: 13px;
-    background: url('@{path-img}/ico/ico-plus.svg') no-repeat;
+}
+.ico-more {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 5px;
 }
 
+.ico-ovrPlay {
+    width: 99px;
+    height: 99px;
+
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+    }
+}
+.ico-zoom {
+    
+
+    &__abs {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -50px 0 0 -50px;
+    }
+}
+
+// /ico-base спрайт
 ////////////////////////////
-.ico-social-hold {
+
+.ico-social-hold, // -hold стараться не использовать
+.ico-social-ul {
     .inline-block();
     vertical-align: middle;
     margin: 4px;
+
+    &_li {
+        display: inline-block;
+    }
 }
 .ico-social {
     .inline-block();
@@ -171,6 +208,13 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
 }
 
 //////////////////////// Семья
+.ico-myfamily {
+    .inline-block();
+    width: 210px;
+    height: 24px;
+    margin: 0 5px;
+    .img-retina('@{path-img}/ico/ico-myfamily.png'; '@{path-img}/ico/ico-myfamily-2x.png'; 210px; 24px);
+}
 .ico-family {
     .inline-block();
     width: 55px;
@@ -238,30 +282,6 @@ a.ico-action-hg__like:hover {background-position: 0 -35px;}
 }
 
 //////////////////////
-.ico-zoom {
-    width: 99px;
-    height: 99px;
-    background: url('@{path-img}/img-grid_zoom.png') no-repeat;
-
-    &__abs {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -50px 0 0 -50px;
-    }
-}
-.ico-ovrPlay {
-    width: 99px;
-    height: 99px;
-    background: url('@{path-img}/ico/ico-ovrPlay.svg') no-repeat;
-
-    &__abs {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin: -50px 0 0 -50px;
-    }
-}
 
 .ico-gif-l {
     position: relative;

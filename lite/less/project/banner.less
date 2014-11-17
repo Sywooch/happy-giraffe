@@ -1,4 +1,28 @@
 
+.adv-banner {
+    margin: 20px 0;
+
+    &__bd {border: 1px solid #eee;}
+}
+.adv-article {
+    margin: 30px 0;
+
+    @media (min-width: @screen-desktop) {
+        & {
+            margin: 40px 0;
+        }
+    }
+}
+.adv-yandex {
+    margin: 20px 0;
+
+    @media (min-width: @screen-desktop) {
+        & {
+            margin: 30px 0;
+        }
+    }
+}
+
 
 /* 
     ban-read-more
@@ -181,3 +205,10 @@
     }*/
 }
 /* /header-banner */
+
+/* 
+    bnr - сокращение от banner, в adblock не блокируется в отличии от banner или ad, adv 
+*/
+.bnr-base {
+    margin: 30px 0;
+}

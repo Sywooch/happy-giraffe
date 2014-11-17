@@ -133,14 +133,14 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     PhotoUploadViewModel.prototype = Object.create(PhotoAddViewModel.prototype);
     PhotoUploadViewModel.prototype.add = function() {
         var self = this;
-        $.post('/api/photo/collections/addPhotos/', JSON.stringify({ collectionId : self.collectionId, photosIds : self.photoIds() }), function(response) {
-            if (response.success) {
-                PhotoAddViewModel.prototype.add.call(self);
-            }
-        }, 'json');
+        //$.post('/api/photo/collections/addPhotos/', JSON.stringify({ collectionId : self.collectionId, photosIds : self.photoIds() }), function(response) {
+        //    if (response.success) {
+        //        PhotoAddViewModel.prototype.add.call(self);
+        //    }
+        //}, 'json');
 
         //Только для редактора
-        //PhotoAddViewModel.prototype.add.call(self);
+        PhotoAddViewModel.prototype.add.call(self);
     };
     PhotoUploadViewModel.prototype.removePhotoInternal = function(photo) {
         var self = this;

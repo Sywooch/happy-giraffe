@@ -4,7 +4,7 @@
         <div class="popup-add_top clearfix">
             <div class="popup-add_t">Добавить фотографии</div>
             <ul class="tabs-simple tabs-simple__inline nav nav-tabs">
-                <li><a href="#photo-tab-computer-multiple" data-toggle="tab">С компьютера</a></li>
+                <li><a href="#photo-tab-computer" data-toggle="tab">С компьютера</a></li>
                 <li><a href="#photo-tab-album" data-toggle="tab">Из моих альбомов</a></li>
                 <li><a href="#photo-tab-link" data-toggle="tab">Из интернета</a></li>
             </ul>
@@ -14,7 +14,7 @@
             <!-- fromComputer -->
 
             <!-- ko if: multiple -->
-                <!-- ko stopBinding: true -->
+                <!-- ko stopBinding: true -->`
                 <div id="photo-tab-computer-multiple" class="tab-pane">
                         <div class="popup-add_frame popup-add_frame__multi" data-bind="visible: photos().length == 0">
                             <div class="popup-add_cap">

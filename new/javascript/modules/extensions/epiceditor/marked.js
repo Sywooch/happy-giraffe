@@ -450,10 +450,18 @@
         autolink: /^<([^ >]+(@|:\/)[^ >]+)>/,
         url: noop,
         tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
-        link: /^!?\[(inside)\]\(href\)\(attrs\)/,
+        link: /^!?\[(inside)\]\(href\)(\(attrs\))?/,
+        video: /^\[w:video \((?:https?:\/\/)?(?:www\.)?youtu(.be\/|be\.com\/watch\?v=)([A-Za-z0-9-_]{11})\)\]/, //video
+        imgLink: /^\[w:image \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)( \((http(s)?:\/\/[a-zA-Z0-9\-_]+\.[a-zA-Z]+(.)+)+\))?( "[a-zA-Zа-яА-Я./\- ]+")?\]/,
+        img: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))/,
+        imglinkage: /(http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/?((([\w-_\/]+)\/)?[\w-_\.]+)/g,
+        imgtitle: /"([^"]*)"/,
+        day: /^\[w:day \((morning|noon|evening)\)( "([^"]*)")? \((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg))\)( "([^"]*)")?\]/,
+        compare: /^\[w:compare \((left|right)\)( "([^"]*)")?( "([^"]*)")?( \(((http|https):\/\/(www\.)?[\w-_\.]+\.[a-zA-Z]+\/((([\w-_\/]+)\/)?[\w-_\.]+\.(png|gif|jpg)))?\))( "([^"]*)")?\]/,
+        number: /^\[w:number( "([^"]*)")?\]/,
         reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
         nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
-        strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,
+        strong: /^__([\s\S]+?)__(?!_)|^\*\*(\s\S]+?)\*\*(?!\*)/,
         em: /^\b_((?:__|[\s\S])+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,
         code: /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
         br: /^ {2,}\n(?!\s*$)/,
@@ -566,6 +574,7 @@
             , cap;
 
         while (src) {
+
             // escape
             if (cap = this.rules.escape.exec(src)) {
                 src = src.substring(cap[0].length);
@@ -590,7 +599,7 @@
             }
 
             // url (gfm)
-            if (!this.inLink && (cap = this.rules.url.exec(src))) {
+            if (! this.inLink && (cap = this.rules.url.exec(src))) {
                 src = src.substring(cap[0].length);
                 text = escape(cap[1]);
                 href = text;
@@ -609,6 +618,59 @@
                 out += this.options.sanitize
                     ? escape(cap[0])
                     : cap[0];
+                continue;
+            }
+
+            //number
+            if (cap = this.rules.number.exec(src)) {
+                src = src.substring(cap[0].length);
+                out += this.renderer.number(cap[2], this.renderer.numberCount++);
+                continue;
+            }
+
+            //video
+            if (cap = this.rules.video.exec(src)) {
+                src = src.substring(cap[0].length);
+                var id = cap[2];
+                out += this.renderer.video(id);
+                continue;
+            }
+
+            //day
+            if (cap = this.rules.day.exec(src)) {
+                src = src.substring(cap[0].length);
+                var dayImg = cap[0].match(this.rules.imglinkage);
+                out += this.renderer.day(cap[1], cap[3], dayImg[0], cap[11]);
+                continue;
+            }
+
+            //compare
+            if (cap = this.rules.compare.exec(src)) {
+                src = src.substring(cap[0].length);
+                var compareImg = cap[0].match(this.rules.imglinkage);
+                if (compareImg === null) {
+                    compareImg = [];
+                    compareImg[0] = "()";
+                }
+                out += this.renderer.compare(cap[1], cap[3], cap[5], compareImg[0], cap[15]);
+                continue;
+            }
+
+            //img link
+            if (cap = this.rules.imgLink.exec(src)) {
+                src = src.substring(cap[0].length);
+                var linkImg = cap[0].match(this.rules.imglinkage),
+                    linkTitle = cap[0].match(this.rules.imgtitle);
+                if (linkImg === null) {
+                    linkImg = [];
+                    linkImg[0] = undefined;
+                    linkImg[1] = undefined;
+                }
+                if (linkTitle === null) {
+                    linkTitle = [];
+                    linkTitle[1] = undefined
+                }
+                out += this.renderer.imgLink(linkImg[0], linkImg[1], linkTitle[1]);
                 continue;
             }
 
@@ -689,7 +751,7 @@
                     Error('Infinite loop on byte: ' + src.charCodeAt(0));
             }
         }
-
+        this.renderer.numberCount = 1;
         return out;
     };
 
@@ -755,6 +817,9 @@
 
     function Renderer(options) {
         this.options = options || {};
+        this.numberCount = 1;
+        this.dayTypes = ['morning', 'noon', 'evening'];
+        this.compareTypes = ['left', 'right'];
     }
 
     Renderer.prototype.code = function(code, lang, escaped) {
@@ -816,6 +881,17 @@
 
     Renderer.prototype.paragraph = function(text) {
         return '<p>' + text + '</p>\n';
+    };
+
+    Renderer.prototype.number = function(text, index) {
+        var out = '<div class="b-markdown_li-tx">' + index +  '</div>';
+        if (text !== undefined) {
+            out += '<p class="clearfix">' + text + '</p>\n';
+        }
+        else {
+            out += '<p></p>\n';
+        }
+        return out;
     };
 
     Renderer.prototype.table = function(header, body) {
@@ -883,12 +959,87 @@
         return out;
     };
 
+    Renderer.prototype.video = function(id) {
+        var out = '<div class="b-article_in-img"><iframe width="560" height="333" src="//www.youtube.com/embed/' + id + '" frameborder="0" allowfullscreen></iframe></div>\n';
+        return out;
+    };
+
+    Renderer.prototype.day = function(type, firstText, link, secondText) {
+        var out = '';
+        if (type === this.dayTypes[0]) {
+            out += '\n<div class="markdown-day markdown-day__1">' +
+            '<div class="markdown-day_t">Утро</div>';
+        }
+        if (type === this.dayTypes[1]) {
+            out += '<div class="markdown-day markdown-day__2">' +
+            '<div class="markdown-day_t">День</div>';
+        }
+        if (type === this.dayTypes[2]) {
+            out += '<div class="markdown-day markdown-day__3">' +
+            '<div class="markdown-day_t">Вечер</div>';
+        }
+        if (firstText !== "") {
+            out += '<p>' + firstText + '</p>';
+        }
+        if (link !== "()") {
+            out += '<h3 class="markdown-day_img-hold">' +
+            '<img alt="" src="' + link + '">' +
+            '</h3>';
+        }
+        if (secondText !== "") {
+            out += '<p>' + secondText + '</p>';
+        }
+        out += '</div>\n';
+
+        return out;
+    };
+
+    Renderer.prototype.compare = function(type, title, firstText, link, secondText) {
+        var out = '';
+        if (type === this.compareTypes[0]) {
+            out += '\n<div class="markdown-compare markdown-compare__l">';
+        }
+        if (type === this.compareTypes[1]) {
+            out += '<div class="markdown-compare markdown-compare__r">';
+        }
+        if (title !== "") {
+            out += '<h3>' + title + '</h3>';
+        }
+        if (firstText !== "") {
+            out += '<p>' + firstText + '</p>';
+        }
+        if (link !== "()") {
+            out += '<div class="markdown-compare_img-hold">' +
+            '<img alt="" src="' + link + '">' +
+            '</div>';
+        }
+        if (secondText !== "") {
+            out += '<p>' + secondText + '</p>';
+        }
+        out += '</div>\n';
+
+        return out;
+    };
+
     Renderer.prototype.image = function(href, title, text) {
         var out = '<img src="' + href + '" alt="' + text + '"';
         if (title) {
             out += ' title="' + title + '"';
         }
         out += this.options.xhtml ? '/>' : '>';
+        return out;
+    };
+
+
+    Renderer.prototype.imgLink = function(imageLink, sourceLink, title) {
+        var link,
+            titleT = (title !== undefined) ? title : sourceLink;
+        if (sourceLink !== undefined) {
+            link = '<a href="' + sourceLink + '" class="b-markdown_img-water">' + titleT + '</a>';
+        } else {
+            link = '';
+        }
+        var out = '<div class="b-article_in-img b-markdown_img-hold"><img alt="" src="'+ imageLink +'">' + link + '</div>\n';
         return out;
     };
 

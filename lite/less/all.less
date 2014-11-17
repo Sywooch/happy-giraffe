@@ -6,6 +6,7 @@
 @import "project/bootstrap.hg.less";
 
 ///// Переменные и примешивания
+@import "include/bootstrap-variables.less";
 @import "include/variables.less";
 @import "include/mixins.less";
 
@@ -15,12 +16,14 @@
 // Спрайты
 /*@import "sprite/cook-choose-sprite.less";*/
 @import "sprite/ico-arrow-sprite.less";
+@import "sprite/ico-base-sprite.less";
 @import "sprite/ico-child-disease-sprite.less";
 @import "sprite/ico-club-sprite.less";
 @import "sprite/ico-product-sprite.less";
 @import "sprite/ico-spices-sprite.less";
 @import "sprite/ico-zodiac-sprite.less";
 @import "sprite/horoscope-year-t-sprite.less";
+@import "sprite/markdown-day-sprite.less";
 
 ///// Базовые Слой
 @import "base/base.less";
@@ -50,17 +53,18 @@
 @import "project/album-preview.less";
 @import "project/album-slider.less";
 @import "project/article.less";
+@import "project/article-settings.less";
 @import "project/ava.less";
 @import "project/b-add-img.less";
 @import "project/b-album.less";
 @import "project/b-clubs.less";
 @import "project/b-main.less";
+@import "project/b-markdown.less";
 @import "project/b-settings-blue.less";
 @import "project/b-status.less";
 @import "project/b-tags.less";
 @import "project/b-user-info.less";
 @import "project/cap-empty.less";
-@import "project/banner.less";
 @import "project/bootstrap.hg.less";
 @import "project/club-list.less";
 @import "project/col-link.less";
@@ -69,8 +73,9 @@
 @import "project/favorites-add-popup.less";
 @import "project/footer.less";
 @import "project/form.less";
-@import "project/header.less";
 @import "project/header-popup.less";
+@import "project/header.less";
+@import "project/homepage.less";
 @import "project/horoscope.less";
 @import "project/i-photo.less";
 @import "project/img-grid.less";
@@ -86,10 +91,12 @@
 @import "project/post-list-simple.less";
 @import "project/privacy-select.less";
 @import "project/section-empty.less";
+@import "project/subscribersWidget.less";
 @import "project/userAddRecord.less";
 @import "project/user-album.less";
 @import "project/user-menu.less";
 @import "project/userSection.less";
+@import "project/userSubscribers.less";
 @import "project/widget-load.less";
 @import "project/yandex-search-form.less";
 @import "project/yiipagination.less";
@@ -117,3 +124,8 @@
 
 ///// Косметические стили
 @import "cosmetic/cosmetic.less";
+
+//// Баннеры
+@import "project/banner.less";
+@import "../../less/banner/banner.less"; // на все layout
+

@@ -18,6 +18,15 @@
 .b-album {
     position: relative;
     margin: 25px 0 30px;
+    
+    &__photopost {margin: 15px 0;}
+    &__photopost &_count-hold__in {
+        display: none;
+    }
+    /*&__photolink &_img-pad,
+    &__photopost &_img-pad {
+        padding-bottom: 90%;
+    }*/
 
     &__photolink {
         margin: 0;
@@ -25,13 +34,40 @@
     &__photolink &_overlay {
         display: none;
     }
-
+    
+    &_img-center {
+        display: inline;
+        text-align: center;
+        vertical-align: middle;
+    }
+    &_img-allheight {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        text-align: center;
+    }
+    &_img-allheight:before { /// вертикальное выравниевание 
+        content: "";
+        display: inline-block;
+        min-height: inherit;
+        height: 100%;
+        vertical-align: middle;
+    }
+    &_img-allheight img {
+        max-height: 100%;
+    }
     &_img-hold {
         position: relative;
         background: #4d445c;
         text-align: center;
     }
     &_img-hold:hover &_img-hold-ovr {display: block;}
+    &_img-hold img {
+        margin: auto;
+    }
     &_img-a {
         display: block;
         position: relative;
@@ -39,16 +75,27 @@
     }
     &_img-picture {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        bottom: 0px; 
+        right: 0px; 
+        min-width: 100%; 
+        min-height: 100%; 
+        width: auto; 
+        height: auto;  
+        overflow: hidden;
     }
     &_img-big {
-        max-height: 100%;
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        right: 0;
+        bottom: 0;
+        margin: auto; 
+        min-width: 50%;
+        min-height: 50%;
+        width: 100%;
     }
     &_img-pad {
-        padding-bottom: 65%;
+        padding-bottom: 75%;
     }
     &_img-hold-ovr {
         display: none;
@@ -146,7 +193,7 @@
         margin: 0;
     }
     &_title {
-        margin: 0;
+        margin: 0 50px 0 0;
     }
     &_desc {
         display: none;
@@ -160,30 +207,35 @@
     }
     &_count {
         font-size: 23px;
-        line-height: 28px;
+        line-height: 18px;
     }
     &_count-tx {
         display: none;
         font-size: 28px;
         line-height: 28px;
     }
+
+
     
     @media (min-width: @screen-phone) {
         &_img-hold {
             /*min-height: 380px;*/
         }
+        /*&_img-allheight {
+            height: 320px;
+        }*/
         &_top {
             margin-bottom: 10px;
         }
         &_title {
-            margin: 5px 0;
+            margin: 5px 70px 5px 0;
         }
         &_count-hold {
             top: -5px;
         }
         &_count {
-            font-size: 45px;
-            line-height: 45px;
+            font-size: 40px;
+            line-height: 28px;
         }
     }
     @media (min-width: @screen-tablet) {
@@ -191,6 +243,9 @@
         &_img-hold {
             /*min-height: 500px;*/
         }
+        /*&_img-allheight {
+            height: 400px;
+        }*/
         &_top {
             margin-bottom: 15px;
         }
@@ -202,13 +257,14 @@
             .tx-content();
 
             display: block;
+            min-height: 40px;
             margin-right: 150px;
             text-decoration: none;
             color: @color-gray-dark;
         }
 
         &_count-hold {
-            top: 10px;
+            top: 18px;
         }
         &_count {
             font-size: 60px;
@@ -217,10 +273,17 @@
         &_count-tx {
             display: block;
         }
+        
+        &__photopost &_count-hold {
+            top: 0;
+        }
+        &__photopost &_count {
+            font-size: 49px;
+            line-height: 35px;
+        }
     }
 
     @media (min-width: @screen-desktop) {
-        
         /*&_img-hold {
             height: 572px;
         }*/
@@ -264,6 +327,29 @@
         &__photolink &_overlay {
             display: block;
         }
+
+        &__photopost &_top {
+            position: relative;
+            padding: 0;
+            color: @color-link-title;
+            background: none;
+        }
+        &__photopost &_title {
+            padding-left: 15px;
+        }
+        &__photopost &_top &_count-hold {
+            display: none;
+        }
+
+        &__photopost &_count-hold__in {
+            display: block;
+            top: 18px;
+            right: 15px;
+            z-index: 5;
+        }
+        &__photopost &_title-a,
+        &__photopost &_desc {color: @color-link-title;}
+        &__photopost a&_title-a:hover {color: @color-orange;}
     }
 }
 /* /b-album */

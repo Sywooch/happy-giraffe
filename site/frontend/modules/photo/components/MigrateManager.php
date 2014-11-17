@@ -42,11 +42,8 @@ class MigrateManager
         $criteria->with = array('photos');
         $criteria->order = 't.id ASC';
 
-        var_dump($id);
-        die;
-
         if ($id !== null) {
-            $criteria->compare('>=t.id', $id);
+            $criteria->compare('t.id', '>=' . $id);
         }
 
         $dp = new \CActiveDataProvider('Album', array(

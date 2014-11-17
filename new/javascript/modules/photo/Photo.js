@@ -4,6 +4,7 @@ define('photo/Photo', ['knockout', 'photo/baseUrlCreator', 'extensions/PresetMan
     function Photo(data) {
         this.id = (ko.isObservable(data.id) === false) ? ko.observable(data.id) : data.id;
         this.title = (ko.isObservable(data.title) === false) ? ko.observable(data.title) : data.title;
+        this.description = (ko.isObservable(data.description) === false) ? ko.observable(data.description) : data.description;
         this.originalname = (ko.isObservable(data.originalname) === false) ? ko.observable(data.originalname) : data.originalname;
         this.width = (ko.isObservable(data.width) === false) ? ko.observable(data.width) : data.width;
         this.preset = (ko.isObservable(data.preset) === false) ? ko.observable(data.preset) : data.preset;

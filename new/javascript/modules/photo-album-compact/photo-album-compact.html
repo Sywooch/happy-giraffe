@@ -39,9 +39,6 @@
                     </li>
                     <!-- /ko -->
                 <!-- /ko -->
-                <!-- ko if: rightsForManipulation === true -->
-                <li class="b-album_prev-li"><a href="#" class="album-photo-add" data-bind="href: photoAlbum.url"></a></li>
-                <!-- /ko -->
             </ul>
         </div>
     </section>
@@ -83,5 +80,5 @@
     </div>
 <!-- /ko -->
 <!-- ko if: opened() === true -->
-    <photo-slider params="photo: currentPhoto(), collectionId: photoAlbum.photoCollection().id(), userId: userId"></photo-slider>
+    <photo-slider params="photo: currentPhoto(), collectionId: photoAlbum.photoCollection().id(), userId: userId, title: photoAlbum.title(), description: photoAlbum.description()"></photo-slider>
 <!-- /ko -->

@@ -76,6 +76,7 @@ return array(
                     'filter' => 'lepilla',
                     'width' => 1200,
                     'height' => 1000,
+                ),
                 'myPhotosAlbumCover' => array(
                     'filter' => 'lepilla',
                     'width' => 880,

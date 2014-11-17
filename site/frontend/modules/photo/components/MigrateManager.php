@@ -74,8 +74,8 @@ class MigrateManager
             $collection->detachBehavior('HTimestampBehavior');
             $collection->attachPhotos($photoIds);
             PhotoCollection::model()->updateByPk($collection->id, array(
-                'created' => strtotime($album->created),
-                'updated' => strtotime($album->updated),
+                'created' => $album->created,
+                'updated' => $album->updated,
             ));
 
             echo '[' . ($i + 1) . '/' . $total . ']' . ' - ' . $album->id  . "\n";

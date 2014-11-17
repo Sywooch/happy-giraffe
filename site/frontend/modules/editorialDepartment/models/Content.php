@@ -36,9 +36,11 @@ class Content extends \EMongoDocument
     {
         return array(
             // Обязательность
-            array('clubId, forumId, rubricId, title, markDownPreview, htmlTextPreview, markDown, htmlText, authorId, fromUserId', 'required'),
+            array('clubId, forumId, rubricId, title, markDownPreview, htmlTextPreview, markDown, htmlText, authorId, fromUserId', 'required', 'except' => 'blog'),
+            array('rubricId, title, markDownPreview, htmlTextPreview, markDown, htmlText, authorId, fromUserId', 'required', 'on' => 'blog'),
             // Сделаем числа числами
-            array('clubId, forumId, rubricId, authorId, fromUserId', '\site\common\components\HIntegerFilter'),
+            array('clubId, forumId, rubricId, authorId, fromUserId', '\site\common\components\HIntegerFilter', 'except' => 'blog'),
+            array('rubricId, authorId, fromUserId', '\site\common\components\HIntegerFilter', 'on' => 'blog'),
             // Проверим, что пользователь может писать от имени указанного им пользователя
             array('fromUserId', 'in', 'allowEmpty' => false, 'range' => \site\frontend\modules\editorialDepartment\components\UsersControl::getUsersList()),
         );

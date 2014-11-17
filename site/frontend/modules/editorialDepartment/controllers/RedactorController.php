@@ -19,8 +19,7 @@ class RedactorController extends \LiteController
         $model->forumId = $forumId;
         $model->clubId = \Community::model()->findByPk($forumId)->club_id;
 
-        if (isset($_POST['Content']))
-        {
+        if (isset($_POST['Content'])) {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -34,11 +33,29 @@ class RedactorController extends \LiteController
         $this->render('index', array('model' => $model));
     }
 
+    public function actionBlog()
+    {
+        $model = new departmentModels\Content('blog');
+        $model->authorId = \Yii::app()->user->id;
+
+        if (isset($_POST['Content'])) {
+            $model->setAttributes($_POST['Content'], false);
+            /**
+             * @todo Сделать лучше, быстрее, сильнее
+             */
+            $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
+            $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
+            if ($model->save())
+                $this->redirect(array('editBlog', 'entity' => $model->entity, 'entityId' => $model->entityId));
+        }
+
+        $this->render('blog', array('model' => $model));
+    }
+
     public function actionEdit($entity, $entityId)
     {
         $model = $this->getModel($entity, $entityId);
-        if (isset($_POST['Content']))
-        {
+        if (isset($_POST['Content'])) {
             $model->setAttributes($_POST['Content'], false);
             /**
              * @todo Сделать лучше, быстрее, сильнее
@@ -48,16 +65,41 @@ class RedactorController extends \LiteController
             if ($model->save())
                 $this->refresh();
         }
-        
+
         $this->render('index', array('model' => $model));
     }
-    
+
+    public function actionEditBlog($entity, $entityId)
+    {
+        $model = $this->getModel($entity, $entityId);
+        $model->scenario = 'blog';
+        if (isset($_POST['Content'])) {
+            $model->setAttributes($_POST['Content'], false);
+            /**
+             * @todo Сделать лучше, быстрее, сильнее
+             */
+            $model->htmlText = '<div class="b-markdown">' . $model->htmlText . '</div>';
+            $model->htmlTextPreview = '<div class="b-markdown">' . $model->htmlTextPreview . '</div>';
+            if ($model->save())
+                $this->refresh();
+        }
+
+        $this->render('blog', array('model' => $model));
+    }
+
     public function actionUrlForEdit($entity = 'CommunityContent', $entityId)
     {
-        $this->getModel($entity, $entityId);
-        echo \CJSON::encode(array('url' => $this->createUrl('edit', array('entity' => $entity, 'entityId' => $entityId))));
+        $model = $this->getModel($entity, $entityId);
+        echo \CJSON::encode(array('url' => $this->createUrl(($model->clubId ? 'edit' : 'editBlog'), array('entity' => $entity, 'entityId' => $entityId))));
     }
-    
+
+    /**
+     * 
+     * @param type $entity
+     * @param type $entityId
+     * @return \site\frontend\modules\editorialDepartment\models\Content
+     * @throws \CHttpException
+     */
     protected function getModel($entity, $entityId)
     {
         $entityId = (int) $entityId;

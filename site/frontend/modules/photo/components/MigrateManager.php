@@ -9,6 +9,7 @@ namespace site\frontend\modules\photo\components;
 
 use site\frontend\modules\photo\models\Photo;
 use site\frontend\modules\photo\models\PhotoAlbum;
+use site\frontend\modules\photo\models\PhotoCollection;
 
 class MigrateManager
 {
@@ -54,9 +55,12 @@ class MigrateManager
         $iterator = new \CDataProviderIterator($dp);
         foreach ($iterator as $i => $album) {
             $newAlbum = new PhotoAlbum();
+            $newAlbum->detachBehavior('HTimestampBehavior');
             $newAlbum->title = $album->title;
             $newAlbum->description = $album->description;
             $newAlbum->author_id = $album->author_id;
+            $newAlbum->created = $album->created;
+            $newAlbum->updated = $album->updated;
             $newAlbum->save(false);
 
             $photoIds = array();
@@ -66,7 +70,14 @@ class MigrateManager
                     $photoIds[] = $photoId;
                 }
             }
-            $newAlbum->photoCollection->attachPhotos($photoIds);
+            $collection = $newAlbum->photoCollection;
+            $collection->detachBehavior('HTimestampBehavior');
+            $collection->attachPhotos($photoIds);
+            PhotoCollection::model()->updateByPk($collection->id, array(
+                'created' => strtotime($album->created),
+                'updated' => strtotime($album->updated),
+            ));
+
             echo '[' . ($i + 1) . '/' . $total . ']' . ' - ' . $album->id  . "\n";
 
             \Yii::app()->db->active = false;

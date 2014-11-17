@@ -82,6 +82,8 @@ class MigrateManager
 
             \Yii::app()->db->active = false;
             \Yii::app()->db->active = true;
+
+            \Album::model()->updateByPk($album->id, array('newAlbumId' => $newAlbum->id));
         }
     }
     

@@ -50,13 +50,21 @@ class MigrateManager
 
         $iterator = new \CDataProviderIterator($dp);
         foreach ($iterator as $i => $album) {
+            $newAlbum = new PhotoAlbum();
+            $newAlbum->title = $album->title;
+            $newAlbum->description = $album->description;
+            $newAlbum->author_id = $album->author_id;
+            $newAlbum->save(false);
+
+            $photoIds = array();
             foreach ($album->photos as $photo) {
-                echo $photo->id . "\n";
-                self::movePhoto($photo);
+                $photoIds[] = self::movePhoto($photo);
             }
+            $newAlbum->photoCollection->attachPhotos($photoIds);
+            echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
+
             \Yii::app()->db->active = false;
             \Yii::app()->db->active = true;
-            echo '[' . ($i + 1) . '/' . $total . ']' . "\n";
         }
     }
     

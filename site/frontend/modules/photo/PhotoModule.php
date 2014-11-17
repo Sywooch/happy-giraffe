@@ -25,13 +25,4 @@ class PhotoModule extends \CWebModule
             'showErrors' => YII_DEBUG,
         ));
 	}
-
-    public function beforeControllerAction($controller, $action)
-    {
-        $package = \Yii::app()->user->isGuest ? 'lite_photo' : 'lite_photo_user';
-        \Yii::app()->clientScript->registerPackage($package);
-        \Yii::app()->clientScript->useAMD = true;
-        return parent::beforeControllerAction($controller, $action);
-    }
-
 }

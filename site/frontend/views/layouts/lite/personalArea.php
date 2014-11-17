@@ -7,7 +7,7 @@
  */
 $this->beginContent('//layouts/lite/common');
 ?>
-<div class="layout-loose_hold clearfix">
+<div class="layout-loose_hold layout-loose_hold__personal clearfix">
     <div class="user-menu">
         <div class="user-menu_ava">
             <?php $this->widget('Avatar', array(

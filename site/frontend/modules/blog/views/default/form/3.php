@@ -35,6 +35,6 @@
     </div>
 <?php endif ?>
 
-<?php $this->renderPartial('form/3_post', array('json' => $json, 'model' => $model, 'slaveModel' => $slaveModel, 'club_id' => $club_id)); ?>
+<?php $this->renderPartial('/default/form/3_post', array('json' => $json, 'model' => $model, 'slaveModel' => $slaveModel, 'club_id' => $club_id)); ?>
 
-<?php $this->renderPartial('form/3_album', array('json' => $json, 'club_id' => $club_id)); ?>
+<?php $this->renderPartial('/default/form/3_album', array('json' => $json, 'club_id' => $club_id)); ?>

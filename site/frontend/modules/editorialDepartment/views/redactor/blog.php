@@ -21,11 +21,9 @@ $form = $this->beginWidget('site\frontend\components\requirejsHelpers\ActiveForm
         'validateOnSubmit' => false,
         'validateOnType' => false,
     )));
-$forum = Community::model()->with('club')->findByPk($model->forumId);
 $users = departmentComponents\UsersControl::getUsersList();
 $users = array_combine($users, $users);
-$form->hiddenField($model, 'clubId');
-$this->pageTitle = ($this->pageTitle == 'Клуб - Redactor') ? 'Новый пост' : $model->title . ' - редактирование';
+$this->pageTitle = ($this->pageTitle == 'Блог - Redactor') ? 'Новый пост' : $model->title . ' - редактирование';
 ?>
 <?=$form->errorSummary($model) ?>
 <?=$form->textarea($model, 'markDownPreview',  array('id' => 'markDownPreview', 'class' => 'display-n')) ?>
@@ -36,24 +34,10 @@ $this->pageTitle = ($this->pageTitle == 'Клуб - Redactor') ? 'Новый п�
 <div class="postAdd_row">
     <div class="postAdd_count">1</div>
     <div class="b-main_col-article">
-        <div class="postAdd_t">Клуб  </div><?=  CHtml::link($forum->club->title, $forum->club->getUrl(), array('class'=>'heading-m margin-0')) ?>
-    </div>
-</div>
-<!-- row -->
-<div class="postAdd_row">
-    <div class="postAdd_count">2</div>
-    <div class="b-main_col-article">
-        <div class="postAdd_t">Форум  </div><?=  CHtml::link($forum->title, $forum->getUrl(), array('class'=>'heading-m margin-0')) ?>
-    </div>
-</div>
-<!-- row -->
-<div class="postAdd_row">
-    <div class="postAdd_count">3</div>
-    <div class="b-main_col-article">
         <div class="postAdd_t">Рубрика  </div>
 
         <div class="inp-valid inp-valid__abs">
-            <?=$form->dropDownList($model, 'rubricId', CHtml::listData(departmentModels\Rubric::model()->byForum($model->forumId)->findAll(), 'id', 'title'), array('class' => 'select-cus select-cus__search-off select-cus__gray')) ?>
+            <?=$form->dropDownList($model, 'rubricId', CHtml::listData(departmentModels\Rubric::model()->byUser($model->authorId)->findAll(), 'id', 'title'), array('class' => 'select-cus select-cus__search-off select-cus__gray')) ?>
             <?=$form->dropDownList($model, 'fromUserId', $users, array(
                 'class' => 'display-n'
             )) ?>
@@ -63,7 +47,7 @@ $this->pageTitle = ($this->pageTitle == 'Клуб - Redactor') ? 'Новый п�
 
 <!-- Строка-->
 <div class="postAdd_row">
-    <div class="postAdd_count">4</div>
+    <div class="postAdd_count">2</div>
     <div class="b-main_col-article">
         <div class="inp-valid inp-valid__abs">
             <div class="inp-valid_count">30</div>
@@ -74,7 +58,7 @@ $this->pageTitle = ($this->pageTitle == 'Клуб - Redactor') ? 'Новый п�
 
 <!-- Строка-->
 <div class="postAdd_row">
-    <div class="postAdd_count">5</div>
+    <div class="postAdd_count">3</div>
     <div class="b-main_col-article">
         <div class="inp-valid inp-valid__abs">
             <md-redactor class="md-redactor" params="id: 'md-redactor-1', textareaId: 'markDownPreview', htmlId: 'htmlTextPreview', full: false"></md-redactor>
@@ -83,7 +67,7 @@ $this->pageTitle = ($this->pageTitle == 'Клуб - Redactor') ? 'Новый п�
 </div>
 <!-- Строка-->
 <div class="postAdd_row">
-    <div class="postAdd_count">6</div>
+    <div class="postAdd_count">4</div>
     <div class="b-main_col-article">
         <div class="inp-valid inp-valid__abs">
             <md-redactor class="md-redactor" params="id: 'md-redactor-2', textareaId: 'markDown', htmlId: 'htmlText', full: true"></md-redactor>

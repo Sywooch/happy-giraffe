@@ -14,6 +14,8 @@ use site\frontend\modules\photo\models\PhotoCollection;
 
 class SinglePhotoController extends \LiteController
 {
+    public $litePackage = 'photo';
+
     public function actionPhotoPost($user_id, $content_id, $photo_id)
     {
         $oldPhoto = \AlbumPhoto::model()->with('newPhoto')->findByPk($photo_id);

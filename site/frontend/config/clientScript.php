@@ -560,11 +560,24 @@ return array(
         'lite_editorial-department_user' => array(
             'depends' => array('lite-default'),
         ),
+        'lite_cook_choose' => array(
+            'depends' => array('lite_services'),
+        ),
+        'lite_cook_choose_user' => array(
+            'depends' => array('lite_services_user'),
+        ),
+
         'lite_posts_user' => array(
-            'depends' => array('lite-default'),
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/blog-user.css'
+            ),
         ),
         'lite_posts' => array(
-            'depends' => array('lite-default'),
+            'baseUrl' => '/',
+            'css' => array(
+                'lite/css/min/blog.css'
+            ),
         ),
         'chosen' => array(
             'baseUrl' => '/',

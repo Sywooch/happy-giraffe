@@ -25,8 +25,11 @@ class AdsWidget extends CWidget
         Yii::app()->clientScript->registerAMDFile(array(), '/new/javascript/modules/lazyad-loader.js');
         $contents = ob_get_clean();
         if ($this->show) {
-            $contents = str_replace('<script', '<!--<script', $contents);
-            $contents = str_replace('</script>', '</script>-->', $contents);
+            $contents = strtr($contents, array(
+                '<script' => '<!--<script',
+                '</script>' => '</script>-->',
+            ));
+
             $this->render('AdsWidget', compact('contents'));
         } elseif ($this->dummyTag !== null) {
             echo CHtml::tag($this->dummyTag);

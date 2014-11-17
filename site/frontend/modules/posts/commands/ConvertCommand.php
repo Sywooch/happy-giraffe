@@ -88,6 +88,8 @@ class ConvertCommand extends \CConsoleCommand
             $data = self::unserialize($job->workload());
             usleep(10000); // на всякий случай поспим 0.01 сек, что бы быть уверенным, что реплика прошла
             $model = \CActiveRecord::model($data['entity'])->resetScope()->findByPk($data['entityId']);
+            if(!$model)
+                throw new \Exception('no model');
             echo $model->convertToNewPost() ? '.' : '!';
             \Yii::app()->db->setActive(false);
         }

@@ -15,6 +15,7 @@ class CommentWidget extends \CWidget
     public $model;
     public $cacheId = 'dbCache';
     protected $_count = null;
+    private $_actions = array();
 
     public function run()
     {
@@ -75,11 +76,54 @@ class CommentWidget extends \CWidget
 
     public function runForGuest()
     {
-        if (!($data = $this->getCacheComponent()->get($this->cacheKey))) {
-            $data = $this->render('commentWidget', array('dataProvider' => $this->dataProvider), true);
+        // Выполнение виджета для гостя, с кешированием, в качестве зависимости испульзуется кол-во комментариев
+        $text = '';
+        if (($data = $this->getCacheComponent()->get($this->cacheKey)) && is_array($data)) {
+            $this->_actions = $data[1];
+            $text = $data[0];
+            $this->replayActions();
+        }
+        else {
+            if(!is_array($data)) {
+                // Надо удалить старый кеш, который не кешировал регистрацию clientScript
+                $this->getCacheComponent()->delete($this->cacheKey);
+            }
+            
+            $this->getController()->getCachingStack()->push($this);
+            $text = $this->render('commentWidget', array('dataProvider' => $this->dataProvider), true);
+            $this->getController()->getCachingStack()->pop();
+            $data = array($text, $this->_actions);
             $this->getCacheComponent()->add($this->cacheKey, $data, 0, $this->getCacheDependency());
         }
-        echo $data;
+        echo $text;
+    }
+
+    public function recordAction($context, $method, $params)
+    {
+        $this->_actions[] = array($context, $method, $params);
+    }
+
+    protected function replayActions()
+    {
+        if (empty($this->_actions))
+            return;
+        $controller = $this->getController();
+        $cs = \Yii::app()->getClientScript();
+        foreach ($this->_actions as $action) {
+            if ($action[0] === 'clientScript')
+                $object = $cs;
+            elseif ($action[0] === '')
+                $object = $controller;
+            else
+                $object = $controller->{$action[0]};
+            if (method_exists($object, $action[1]))
+                call_user_func_array(array($object, $action[1]), $action[2]);
+            elseif ($action[0] === '' && function_exists($action[1]))
+                call_user_func_array($action[1], $action[2]);
+            else
+                throw new \CException(Yii::t('yii', 'Unable to replay the action "{object}.{method}". The method does not exist.', array('object' => $action[0],
+                    'method' => $action[1])));
+        }
     }
 
     public function getCacheKey()

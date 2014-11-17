@@ -328,7 +328,7 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function byAuthor($authorId)
     {
-        $this->dbCriteria->addColumnCondition(array(
+        $this->getDbCriteria()->addColumnCondition(array(
             'authorId' => $authorId,
         ));
 
@@ -343,7 +343,7 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function byEntity($entity, $entityId)
     {
-        $this->dbCriteria->addColumnCondition(array(
+        $this->getDbCriteria()->addColumnCondition(array(
             'originEntity' => $entity,
             'originEntityId' => $entityId,
         ));
@@ -353,35 +353,35 @@ class Content extends \CActiveRecord implements \IHToJSON
 
     public function published()
     {
-        $this->dbCriteria->addCondition($this->tableAlias . '.dtimePublication IS NOT NULL');
+        $this->getDbCriteria()->addCondition($this->tableAlias . '.dtimePublication IS NOT NULL');
 
         return $this;
     }
 
     public function orderAsc()
     {
-        $this->dbCriteria->order = $this->tableAlias . '.dtimePublication ASC';
+        $this->getDbCriteria()->order = $this->tableAlias . '.dtimePublication ASC';
 
         return $this;
     }
 
     public function orderDesc()
     {
-        $this->dbCriteria->order = $this->tableAlias . '.dtimePublication DESC';
+        $this->getDbCriteria()->order = $this->tableAlias . '.dtimePublication DESC';
 
         return $this;
     }
 
     public function byService($service)
     {
-        $this->dbCriteria->addColumnCondition(array('originService' => $service));
+        $this->getDbCriteria()->addColumnCondition(array('originService' => $service));
 
         return $this;
     }
 
     public function byEntityClass($entity)
     {
-        $this->dbCriteria->addColumnCondition(array('originEntity' => $entity));
+        $this->getDbCriteria()->addColumnCondition(array('originEntity' => $entity));
 
         return $this;
     }
@@ -393,10 +393,10 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function leftFor($post)
     {
-        $this->dbCriteria->addColumnCondition(array(
+        $this->getDbCriteria()->addColumnCondition(array(
             'authorId' => $post->authorId,
         ));
-        $this->dbCriteria->compare('dtimePublication', '<' . $post->dtimePublication);
+        $this->getDbCriteria()->compare('dtimePublication', '<' . $post->dtimePublication);
         $this->orderDesc();
 
         return $this;
@@ -409,10 +409,10 @@ class Content extends \CActiveRecord implements \IHToJSON
      */
     public function rightFor($post)
     {
-        $this->dbCriteria->addColumnCondition(array(
+        $this->getDbCriteria()->addColumnCondition(array(
             'authorId' => $post->authorId,
         ));
-        $this->dbCriteria->compare('dtimePublication', '>' . $post->dtimePublication);
+        $this->getDbCriteria()->compare('dtimePublication', '>' . $post->dtimePublication);
         $this->orderAsc();
 
         return $this;

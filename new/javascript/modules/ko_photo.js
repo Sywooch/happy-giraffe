@@ -155,7 +155,7 @@ define('ko_photoUpload', ['knockout', 'knockout.mapping', 'photo/Photo', 'photo/
     function asFromComputer() {
         this.populatePhoto = function(data) {
             var jqXHR = data.submit();
-            return new PhotoUpload({ original_name : data.files[0].name }, jqXHR, this);
+            return new PhotoUpload({ originalname : data.files[0].name }, jqXHR, this);
         }
 
         this.fileUploadSettings = {

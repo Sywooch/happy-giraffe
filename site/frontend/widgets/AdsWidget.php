@@ -8,11 +8,19 @@
 
 class AdsWidget extends CWidget
 {
-    public $width;
-    public $height;
-    public $mediaQuery;
+    const VERSION_MOBILE = 0;
+    const VERSION_TABLET = 1;
+    const VERSION_DESKTOP = 2;
+
+    private $_queries = array(
+        self::VERSION_MOBILE => '(max-width: 480px)',
+        self::VERSION_TABLET => '(min-width: 481px) and (max-width: 1024px)',
+        self::VERSION_DESKTOP => '(min-width: 1025px)',
+    );
+
     public $show;
     public $dummyTag;
+    public $responsiveConfig;
 
     public function init()
     {
@@ -20,27 +28,58 @@ class AdsWidget extends CWidget
             $this->show = Yii::app()->ads->showAds;
         }
 
-        ob_start();
+        if ($this->show && ! $this->isResponsive()) {
+            ob_start();
+        }
     }
 
     public function run()
     {
-        $contents = ob_get_clean();
-        if ($this->show) {
-            $this->registerLazyLoad();
-            $contents = $this->prepareContents($contents);
-            $this->render('AdsWidget', compact('contents'));
-        } elseif ($this->dummyTag !== null) {
-            echo CHtml::tag($this->dummyTag);
+        if (! $this->show) {
+            return;
+        }
+
+        $this->registerScripts();
+        if ($this->isResponsive()) {
+            foreach ($this->responsiveConfig as $version => $view) {
+                $code = $this->render('ads/' . $view, null, true);
+                $this->render('AdsWidget', array(
+                    'contents' => $this->prepareContents($code),
+                    'mediaQuery' => $this->_queries[$version],
+                ));
+            }
+        } else {
+            $this->render('AdsWidget', array(
+                'contents' => ob_get_clean(),
+                'mediaQuery' => null,
+            ));
         }
     }
 
-    protected function registerLazyLoad()
+    protected function isResponsive()
     {
-        if (Yii::app()->clientScript->useAMD) {
-            Yii::app()->clientScript->registerAMDFile(array(), '/new/javascript/modules/lazyad-loader.js');
+        return $this->responsiveConfig !== null;
+    }
+
+    protected function registerScripts()
+    {
+        $cs = Yii::app()->clientScript;
+        if ($this->isResponsive()) {
+            $this->registerLazyAds();
+        }
+        if ($cs->useAMD) {
+            $cs->registerScriptFile('/javascripts/fox.js', ClientScript::POS_AMD);
+        }
+    }
+
+    protected function registerLazyAds()
+    {
+        /** @var ClientScript $cs */
+        $cs = Yii::app()->clientScript;
+        if ($cs->useAMD) {
+            $cs->registerAMDFile(array(), '/new/javascript/modules/lazyad-loader.js');
         } else {
-            Yii::app()->clientScript->registerScriptFile('/new/javascript/modules/lazyad-loader.js');
+            $cs->registerScriptFile('/new/javascript/modules/lazyad-loader.js');
         }
     }
 

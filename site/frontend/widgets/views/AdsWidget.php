@@ -2,21 +2,16 @@
 /**
  * @var AdsWidget $this
  * @var string $contents
+ * @var string $mediaQuery
  */
 
-$attrs = array(
+$htmlOptions = array(
     'class' => 'ad',
 );
-if ($this->width) {
-    $attrs['data-adwidth'] = $this->width;
+if ($mediaQuery !== null) {
+    $htmlOptions['data-matchmedia'] = $mediaQuery;
 }
-if ($this->height) {
-    $attrs['data-adheight'] = $this->height;
-}
-if ($this->mediaQuery) {
-    $attrs['data-matchmedia'] = $this->mediaQuery;
-}
-$tag = CHtml::openTag('div', $attrs);
+$tag = CHtml::openTag('div', $htmlOptions);
 $tag = str_replace('>', ' data-lazyad>', $tag);
 ?>
 

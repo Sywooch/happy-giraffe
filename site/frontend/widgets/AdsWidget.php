@@ -21,6 +21,7 @@ class AdsWidget extends CWidget
     public $show;
     public $dummyTag;
     public $responsiveConfig;
+    public $lazyAdsOn = true;
 
     public function init()
     {
@@ -49,10 +50,15 @@ class AdsWidget extends CWidget
                 ));
             }
         } else {
-            $this->render('AdsWidget', array(
-                'contents' => $this->prepareContents(ob_get_clean()),
-                'mediaQuery' => null,
-            ));
+            $code = ob_get_clean();
+            if ($this->lazyAdsOn) {
+                $this->render('AdsWidget', array(
+                    'contents' => $this->prepareContents($code),
+                    'mediaQuery' => null,
+                ));
+            } else {
+                echo $code;
+            }
         }
     }
 

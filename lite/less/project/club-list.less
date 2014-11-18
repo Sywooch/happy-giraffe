@@ -1,0 +1,113 @@
+
+/* club-list 
+    Клубы пользователя
+*/
+.club-list {
+    margin: 10px 0 40px;
+
+    &__small {margin: 15px -22px 5px 0;}
+    &__small &_ul {margin: 0;}
+    &__small &_li {
+        margin: 0 18px 15px 0;
+        width: auto;
+    }
+    &__small &_i:hover &_img-hold {border-color: #dbd1e8;}
+    &__small &_img-hold {
+        margin-bottom: 0;
+        border: 1px solid #eae4f1;
+        .border-radius(4px);
+    }
+
+    &__m {margin-bottom: 0;}
+    &__m &_ul {margin: 20px -20px 0 0;}
+    &__m &_li {
+        width: 106px;
+        margin: 0 17px 20px 0;
+    }
+    &__m &_i {
+        color: @color-gray;
+        font-weight: normal;
+        text-decoration: none;
+        border: 3px solid #cedef3;
+        .border-radius(5px);
+        background: #fff;
+        height: 105px;
+        padding: 0 5px 5px;
+    }
+    &__m &_li.active &_i {border-color: #6ab1f3;}
+    &__m &_i:hover {border-color: #6ab1f3;}
+    &__m &_img-hold {
+        width: 75px;
+        border: none;
+        position: static;
+        text-align: center;
+        margin: 0 auto;
+    }
+    &__m &_img-overlay {
+        background: url('@{path-img}/club-list_img-overlay.png') no-repeat 50% 50%;
+        .border-radius(7px);
+    }
+    &__m &_i-name {
+        line-height: 11px;
+    }
+
+    &_t {
+        font-size: 15px;
+        color: @color-gray-dark;
+    }
+    &_ul {margin: 20px -38px 10px 0;}
+    &_li {
+        position: relative;
+        .inline-block();
+        vertical-align: top;
+        width: 98px;
+        margin:0 30px 30px 0;
+    }
+    &_li__in &_img-hold {border-color: #04a316;}
+    &_li__in &_check {background-position: 0 -40px;}
+    &_li__in &_check:hover {background-position: -42px -40px;}
+    &_li__in &_img-overlay {display: block;}
+    &_i {
+        display: block;
+        text-align: center;
+        font: bold 11px/14px Tahoma, Arial, Verdana, sans-serif;
+        color: #3782c1;
+    }
+    &_i:hover {text-decoration: none;}
+    &_img-hold {
+        position: relative;
+        display: block;
+        border: 2px solid #8eb3e3;
+        margin: 0 0 3px;
+        overflow: hidden;
+        .border-radius(5px);
+    }
+    &_img {display: block;}
+    &_check {
+        position: absolute;
+        top: 68px;
+        right: -10px;
+        width: 38px;
+        height: 38px;
+        background: url(/images/club/club-list_check.png) no-repeat;
+    }
+    &_check:hover {background-position: -42px 0;}
+    &_add {
+        display: block;
+        width: 98px;
+        height: 100px;
+        background: url(/images/club-list_add.png) no-repeat;
+    }
+    &_add:hover {background-position: 0 -100px;}
+    &_img-overlay {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: #5695e6;
+        background: rgba(86,149,230,.65);
+    }
+}
+/* /club-list */

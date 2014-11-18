@@ -1,0 +1,255 @@
+/* 
+    homepage 
+*/
+.homepage {
+    min-width: 1000px;
+
+    &_btn-sign {
+        width: 285px;
+        font-size: 25px;
+        font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
+    }
+    &_row {}
+    &_title {
+        margin: 50px 20px;
+        font: bold 50px/50px 'pt sans', Arial, Tahoma, Verdana, sans-serif;
+        text-align: center;
+        color: @color-gray;
+    }
+
+    &_desc-tx {
+        margin: 20px;
+        font-size: 16px;
+        color: @color-gray;
+    }
+}
+/* /homepage */
+
+/* homepage-desc */
+.homepage-desc {
+    background-color: #664e92;
+    font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
+
+
+    .i-or-tx {
+        color: #b0a0cc; 
+    }
+    &_hold {
+        margin: 10px 0 0;
+        padding: 540px 50px 70px;
+        background: url('@{path-img}/homepage-desc_hold.png') no-repeat 50% 60px;
+    }
+    &_b {}
+    &_l {
+        float: left;
+        width: 485px;
+        margin-right: 45px;
+        text-align: right;
+        color: #c7bbdc;
+        font-size: 26px;
+        line-height: 40px;
+    }
+    &_mark {
+        color: #fff;
+        font-size: 32px;
+    }
+    &_r {
+        float: left;
+        margin: 10px 0 0;
+    }
+    &_soc {
+        margin: 20px 0 0;
+    }
+}
+/* /homepage-desc */
+
+/* homepage-clubs */
+.homepage-clubs {
+    padding: 20px 35px;
+    
+    &_hold {
+        margin: 0 -95px 23px 0;
+    }
+    &_collection {
+        .inline-block();
+        margin: 0 72px 30px 0;
+        text-align: center;
+    }
+    &_collection:hover &_title {color: #009ee0;}
+    &_collection:hover &_ul {border-top-color: #e2f4ff;}
+    /* collection__1 */
+    &_collection__1 {
+        margin-right: 33px;
+    }
+    &_collection__1 &_li {margin-left: 7px;}
+    &_collection__1 &_ico-hold {
+        border-color: #faf6ff;
+        background-color: #faf6ff;
+    }
+    /* collection__2 */
+    &_collection__2 &_li {margin-left: 5px;}
+    &_collection__2 &_ico-hold {
+        border-color: #f3fcff;
+        background-color: #f3fcff;
+    }
+    /* collection__3 */
+    &_collection__3 &_ico-hold {
+        border-color: #fffbf8;
+        background-color: #fffbf8;
+    }
+    /* collection__4 */
+    &_collection__4 &_ico-hold {
+        border-color: #fffeea;
+        background-color: #fffeea;
+    }
+    /* collection__5 */
+    &_collection__5 &_ico-hold {
+        border-color: #f3fef2;
+        background-color: #f3fef2;
+    }
+    /* collection__6 */
+    &_collection__6 &_ico-hold {
+        border-color: #faf6ff;
+        background-color: #faf6ff;
+    }
+
+
+    &_title-hold {
+        text-align: center;
+    }
+    &_title {
+        display: inline-block;
+        background-color: #fff;
+        padding: 2px 4px;
+        color: @color-gray-light;
+    }
+    &_ul {
+        margin-top: -11px;
+        border-top: 1px solid transparent;
+        padding: 20px 0 0;
+        .border-radius(10px);
+    }
+    &_li {
+        display: inline-block;
+        vertical-align: top;
+        width: 108px;
+        margin-left: 20px;
+    }
+    &_li:first-child {
+        margin-left: 0;
+    }
+    &_a {
+        display: inline-block;
+        color: @color-base;
+        line-height: 13px;
+    }
+    &_a:hover {
+        color: @color-orange;
+    }
+    &_a:hover .ico-club {
+        .scale(1.2);
+    }
+    &_a:hover &_ico-hold {background-color: #fff;}
+    &_ico-hold {
+        height: 108px;
+        width: 108px;
+        margin-bottom: 5px;
+        padding: 17px 5px 0;
+        border: 2px solid #faf6ff;
+        background-color: #faf6ff;
+        .border-radius(54px);
+    }
+
+    &_b {
+        text-align: center;
+
+        .homepage_btn-sign {
+            background-color: #9981c3;
+            color: #fff;
+        }
+        .homepage_btn-sign:hover {
+            background-color: #9279bb;
+        }
+    }
+
+}
+/* /homepage-clubs */
+
+/* homepage-posts */
+.homepage-posts {
+    padding: 0 0 30px;
+    
+    .bnr-base,
+    .article-similar {
+        display: inline-block;
+        vertical-align: top;
+        width: 240px;
+        margin: 20px 30px;
+    }
+    .article-similar_t {
+        font-family: 'pt sans', Arial, Tahoma, Verdana, sans-serif;
+    }    
+    &_col-hold {
+        text-align: center;
+    }
+    &_col {
+        display: inline-block;
+        width: 240px;
+        margin: 0 30px;
+        vertical-align: top;
+    }
+}
+/* /homepage-posts */
+
+/* homepage-counter */
+.homepage-counter {
+    margin: 60px 0 120px;
+    text-align: center;
+
+    .counter-users {
+        margin: -50px 20px -5px;
+    }
+    .homepage_title {
+        font-size: 35px;
+    }
+}
+/* /homepage-counter */
+
+
+/* counter-users */
+.counter-users {
+    .inline-block();
+    vertical-align: middle;
+    margin: 0 5px;
+
+    &_dash {
+        float: left;
+        margin: 10px 5px 0;
+    }
+    &_digit {
+        position: relative;
+        float: left;
+        width: 55px;
+        height: 69px;
+        margin: 0 1px;
+        background: url('@{path-img}/counter-users_digit.png') no-repeat;
+        font: 62px/69px Arial, Tahoma, Verdana, sans-serif;
+        color: #333;
+        text-align: center;
+        overflow: hidden;
+    }
+    &_digit .bottom {position: relative;}
+    &_digit:after {
+        content:' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 55px;
+        height: 69px;
+        background: url('@{path-img}/counter-users_digit-after.png') no-repeat 50% 50%;
+        z-index: 2;
+    }
+}
+/* /counter-users */
+
+

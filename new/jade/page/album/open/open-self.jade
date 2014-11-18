@@ -1,0 +1,57 @@
+include ../../../block/config
+extend ../../../extend/layout_loose
+block vars
+    - var bodyClass = 'body__bg2';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in
+
+            .user-album
+                .b-crumbs.b-crumbs__m
+                    ul.b-crumbs_ul
+                        li.b-crumbs_li
+                            a.b-crumbs_a(href="") Мои фото
+                        li.b-crumbs_li.b-crumbs_li__last
+                            span.b-crumbs_last  Харьковский уикенд
+
+                .user-album_top.clearfix
+                    .user-album_count-hold
+                        .user-album_count 26
+                        .user-album_count-tx фото
+
+                    // Заголовок
+                    .user-album_switch
+                        h1.user-album_t
+                            | Харьковский уикенд
+                            a.ico-edit.ico-edit__s
+                    // Редактирование заголовка
+                    .user-album_switch.display-n
+                        .user-album_t.display-ib.w-400
+                            .inp-valid.inp-valid__abs
+                                input.itx-gray(type="text", value="Виктория")
+                                .inp-valid_count 150
+
+                    .user-album_desc
+                        // .display-n вскрываем описание при редактирвоании
+                        .user-album_switch.display-n
+                            | В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                            a.ico-edit.ico-edit__s
+                        // Блок редактирвоания описания
+                        .user-album_switch
+                            // Отправка значения происходит по enter
+                            textarea.itx-gray(rows='8', cols="40") 
+                                | В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер.
+                .user-album_control.clearfix
+                    a.user-album_del(href="") Удалить альбом
+
+                    a.user-album_sort(href="") Упорядочить фото
+                    a.user-album_move(href="") Переместить в другой альбом
+                        
+                +imgGrid('', imgGrid.b)
+            
+        +layout-footer('layout-footer__in')
+

@@ -29,25 +29,33 @@
 			</div>
 			<div class="comments-gray_r">
 				<div class="comments-gray_date">Сегодня 13:25</div>
-				<div class="comments-gray_control">
+				<!-- <div class="comments-gray_control">
 					<div class="comments-gray_control-hold">
 						<a href="" class="message-ico message-ico__edit powertip" title="Редактировать"></a>
 						<a href="" class="message-ico message-ico__del powertip" title="Удалить"></a>
 					</div>
-				</div>
+				</div> -->
 			</div>
 			<div class="comments-gray_frame">
 				<div class="comments-gray_header clearfix">
 					<a href="" class="comments-gray_author">Ангелина Богоявленская </a>
+
+					<span class="comments-gray_date">Сегодня 13:25</span>
 				</div>
 				<div class="comments-gray_cont wysiwyg-content">
 					<p>	<a href="">Вася Пупкин,</a> Мне безумно жалко всех женщин, но особенно Тину Кароль, я просто представить себе не могу <a href="">как она все это переживет</a> как она все это переживет(</p>
 					<p>я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически производит поиск по сайту и подцепляет естественно студийные версии песен вместо нужных.  я не нашел, где можно поменять название трека. Меняя название трека в альбоме он автоматически </p>
 				</div>
-				<div class="comments-gray_bottom">
+				<!-- <div class="comments-gray_bottom">
 					
 					<a href="" class="comments-gray_like like-hg-small powertip" title="Нравится">78</a>
-				</div>
+				</div> -->
+
+                <div class="comments-gray_drive" data-bind="css: {'comments-gray_control__self': ownComment()}, visible: (!editMode() && !removed())">
+                    <span class="comments-gray_drive-a" data-bind="visible: (!ownComment() && !$parent.gallery() && !photoUrl()), click: Reply">Ответить</span> 
+                    <span class="comments-gray_drive-a" data-bind="visible: canEdit() && !$parent.gallery() && !photoUrl(), click: GoEdit">Редактировать</span> 
+                    <span class="comments-gray_drive-a" data-bind="visible: canRemove(), click: Remove">Удалить</span>
+                </div>
 			</div>
 		</div>
 		<div class="comments-gray_i">

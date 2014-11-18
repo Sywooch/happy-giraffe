@@ -1,0 +1,28 @@
+include ../../block/config
+extend ../../extend/layout_headertitle
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'blog.css'; 
+
+block layout
+    // b-main
+    .b-main.clearfix
+        .b-main_row.b-main_row__gray.clearfix
+            .b-main_cont
+                .comments.comments__title
+                    //  Сортировка на будущее
+                        a.comments_sort(href="") Начать с первых
+                    .comments_t Комментарии 68 
+
+        .b-main_cont
+            .b-main_col-hold.clearfix
+                ///////
+                // Основная колонка
+                .b-main_col-article
+                    +commentsOpen('', commentsOpen.commentPage )
+                
+                // /Основная колонка
+
+        +banReadMore()
+
+    +layout-footer-lite('layout-footer__in')

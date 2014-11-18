@@ -1,0 +1,24 @@
+<a href="" class="u-notice_b u-notice_ico u-notice_ico__comment" data-bind="attr: {href: link}"></a>
+<a href="" class="u-notice_b u-notice_spec" data-bind="attr: {href: link}">
+    <div class="u-notice_b u-notice_count" data-bind="text: count"></div>
+    <div class="u-notice_b u-notice_desc">
+        <span data-bind="html: declOfNum(count(), ['Новый<br>комментарий','Новых<br>комментария','Новых<br>комментариев'])"></span>
+        <div class="u-notice_desc-go"> Перейти</div>
+    </div>
+</a>
+<div class="u-notice_b u-notice_users">
+    <div class="ava-list">
+        <ul class="ava-list_ul" data-bind="foreach: {data: avatars().slice(0,4), as: 'user'}">
+            <li class="ava-list_li">
+                <a class="ava ava__small ava__male" href="" data-bind="attr: {href: user.url}">
+                    <img class="ava_img" src="" alt="" data-bind="attr: {src: user.avatar}">
+                </a>
+            </li>
+        </ul>
+        <span class="ava-list_last-tx" data-bind="visible: avatars().length > 4, text: 'еще ' + (avatars().length - 4)"></span>
+    </div>
+</div>
+<a href="" data-bind="attr: {href: link, class: 'u-notice_b u-notice_post-ico u-notice_post-ico__' + entity.type}"></a>
+<div class="u-notice_b u-notice_post"  data-bind="tooltipster: tooltip">
+    <a href="" class="u-notice_post-a" data-bind="html: title, attr: {href: link}"></a>
+</div>

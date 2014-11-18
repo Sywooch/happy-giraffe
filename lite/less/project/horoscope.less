@@ -1,0 +1,375 @@
+
+// Бг задается из плагина спрайтов
+.ico-zodiac {
+    position: relative;
+    .inline-block();
+    width: 260px;
+    height: 260px;
+    
+    // Вложенный элемент, для scale. Не использовал after элемент, так как ie8 не умеет применять фильтры к ним.
+    &_in {
+        content: ' ';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 260px;
+        height: 260px;
+        margin: -130px 0 0 -130px;
+    }
+
+    &__s {
+        width: 80px;
+        height: 80px;
+    }
+    &__s &_in {
+        .scale(.3);
+    }
+    .no-svg &__s &_in {
+        filter: ~"progid:DXImageTransform.Microsoft.Matrix(M11=0.29, M12=0, M21=0, M22=0.29, SizingMethod='auto expand')";
+        margin: -40px 0 0 -40px; 
+    }
+
+    &__m {
+        width: 110px;
+        height: 110px;
+    }
+    &__m &_in {
+        .scale(.39);
+    }
+    .no-svg &__m &_in {
+        filter: ~"progid:DXImageTransform.Microsoft.Matrix(M11=0.36, M12=0, M21=0, M22=0.36, SizingMethod='auto expand')";
+        margin: -55px 0 0 -55px; 
+    }
+
+    &__l {
+        width: 180px;
+        height: 180px;
+    }
+    &__l &_in {
+        .scale(.67);
+    }
+    .no-svg &__l &_in {
+        filter: ~"progid:DXImageTransform.Microsoft.Matrix(M11=0.65, M12=0, M21=0, M22=0.65, SizingMethod='auto expand')";
+        margin: -90px 0 0 -90px;
+    }
+    &__xl {
+        width: 280px;
+        height: 280px;
+    }
+    &__xl &_in {
+        .scale(1);
+    }
+    .no-svg &__xl &_in {
+        filter: ~"progid:DXImageTransform.Microsoft.Matrix(M11=1, M12=0, M21=0, M22=1, SizingMethod='auto expand')";
+        margin: -140px 0 0 -140px;
+    }
+
+    @media (min-width: @screen-phone) {
+        &__m-xs {
+            width: 110px;
+            height: 110px;
+        }
+        &__m-xs &_in {
+            .scale(.39);
+        }
+        .no-svg &__m-xs &_in {
+            filter: ~"progid:DXImageTransform.Microsoft.Matrix(M11=0.36, M12=0, M21=0, M22=0.36, SizingMethod='auto expand')";
+            margin: -55px 0 0 -55px;
+        }
+
+        &__l-xs {
+            width: 180px;
+            height: 180px;
+        }
+        &__l-xs &_in {
+            .scale(.67);
+        }
+        .no-svg &__l-xs &_in {
+            filter: ~"progid:DXImageTransform.Microsoft.Matrix(M11=0.65, M12=0, M21=0, M22=0.65, SizingMethod='auto expand')";
+            margin: -90px 0 0 -90px;
+        }
+    }
+
+    @media (min-width: @screen-phone-landscape) {
+        &__l-sm-mid {
+            width: 180px;
+            height: 180px;
+        }
+        &__l-sm-mid &_in {
+            .scale(.67);
+        }
+        .no-svg &__l-sm-mid &_in {
+            filter: ~"progid:DXImageTransform.Microsoft.Matrix(M11=0.65, M12=0, M21=0, M22=0.65, SizingMethod='auto expand')";
+            margin: -90px 0 0 -90px;
+        }
+    }
+
+    @media (min-width: @screen-tablet) {
+        &__xl-sm {
+            width: 260px;
+            height: 260px;
+        }
+        &__xl-sm &_in {
+            .scale(1)
+        }
+        .no-svg &__m &_in {
+            filter: ~"progid:DXImageTransform.Microsoft.Matrix(M11=1, M12=0, M21=0, M22=1, SizingMethod='auto expand')";
+            margin: -130px 0 0 -130px;
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        
+        &__s-md {
+            width: 80px;
+            height: 80px;
+        }
+        &__s-md &_in {
+            .scale(.3);
+        }
+        .no-svg &__s-md &_in {
+            filter: ~"progid:DXImageTransform.Microsoft.Matrix(M11=0.29, M12=0, M21=0, M22=0.29, SizingMethod='auto expand')";
+            margin: -40px 0 0 -40px; 
+        }
+    }
+}
+
+/* horoscope-day */
+.horoscope-day {
+    margin: 20px 0;
+    text-align: center;
+    vertical-align: middle;
+
+    &_tx {
+        display: none;
+    }
+
+    @media (min-width: @screen-tablet) {
+        .ico-zodiac {
+            vertical-align: middle;
+            margin-right: 20px;
+        }
+
+        &_tx {
+            display: inline-block;
+            vertical-align: middle;
+            font-size: 40px;
+            color: @color-gray;
+        }
+    }
+}
+/* /horoscope-day */
+
+/* .horoscope-monce */
+.horoscope-monce {
+    margin: 20px 0;
+
+    .ico-zodiac {
+        display: block;
+        margin: 0 auto;
+    }
+    .b-calendar {
+        margin: 15px 0;
+        text-align: center;
+    }
+    &_hold {
+        margin: 10px 0;
+    }
+
+    @media (min-width: @screen-phone) {
+        /*&_hold .b-calendar_in__months {
+            max-width: 250px;
+        }*/
+        /*&_hold .b-calendar_in__months .b-calendar_ul {
+            border: none;
+            padding: 0 0 0 40px;
+            margin: 0;
+        }*/
+    }
+    @media (min-width: @screen-phone-landscape) {
+
+        .ico-zodiac,
+        &_hold .b-calendar {
+            display: inline-block;
+            vertical-align: top;
+        }
+        &_hold .b-calendar {
+            margin-left: 8%;
+        }
+        /*&_hold .b-calendar_in__months .b-calendar_t {
+            margin-left: 57px;
+        }*/
+    }
+    @media (min-width: @screen-desktop) {
+        .b-calendar_in__months {
+            max-width: 180px;
+            margin: 0 0 0 40px;
+        }
+        .b-calendar_in__months .b-calendar_ul {
+            border: none;
+            padding: 0;
+            margin: 0;
+            min-height: 0;
+        }
+    }
+}
+/* /horoscope-monce */
+
+/*
+.horoscope-year {
+    margin:30px 0 10px 0;
+
+    &_item {
+        .tx-content();
+        position: relative;
+        padding: 22px 0 20px;
+    }
+    &_item:after {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    &_item__health {
+        padding-top: 35px;
+    }
+    &_item__career {}
+    &_item__fin {}
+    &_item__home {
+        padding-top: 28px;
+    }
+    &_t {
+        display: block;
+        color: #fd6300;
+        font-size: 14px;
+        font-weight: bold;
+        margin: 0 10px 8px 50px;
+    }
+
+    @media (min-width: @screen-phone) {
+        &_item {
+            padding:0 0 19px 60px;
+        }
+        &_t {
+            margin: 0 0 3px;
+        }
+    }
+}*/
+
+.horoscope-year-t {
+    position: relative;
+    padding: 16px 20px 5px 48px;
+
+    h2& {
+        margin: 20px 0 0;
+    }
+
+    &:after {
+        content: ' ';
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    &__health {
+        padding-top: 30px;
+    }
+    /*&__career {}
+    &__fin {}*/
+    &__home {
+        padding-top: 22px;
+    }
+
+    @media (min-width: @screen-desktop) {
+        & {
+            padding-top: 14px;
+            padding-left: 55px;
+        }
+        &__health {
+            padding-top: 27px;
+        }
+        &__home {
+            padding-top: 20px;
+        }
+    }
+}
+
+.horoscope-compatibility-list {
+    margin: 20px 0;
+
+    &__center &_li {
+        width: auto;
+        margin: 0 5%;
+    }
+    
+    .ico-zodiac {
+        margin: 0 5px;
+    }
+    .menu-link-simple {
+        margin: 0;
+    }
+    
+    &_t {
+        margin: 15px 0;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    &_li {
+        margin: 0 auto 25px;
+        text-align: left;
+        width: 150px;
+    }
+
+    @media (min-width: @screen-phone-landscape) {
+        &_li {
+            display: inline-block;
+            width: 260px;
+        }
+    }
+
+    @media (min-width: @screen-desktop) {
+        &_li {
+            width: 190px;
+        }
+    }
+}
+
+.horoscope-compatibility {
+    margin: 20px 0;
+    text-align: center;
+
+    .ico-zodiac {
+        vertical-align: middle;
+    }
+
+    &_plus {
+        .square(42px);
+        display: block;
+        vertical-align: middle;
+        margin: 7px auto;
+        background: url('@{path-img}/services/horoscope/horoscope-compatibility_plus.png') no-repeat;
+        background-size: cover;
+    }
+
+    @media (min-width: @screen-xphone) {
+
+        &_plus {
+            .square(40px);
+            display: inline-block;
+            margin: 5px;
+        }
+    }
+    @media (min-width: @screen-phone) {
+        
+        &_plus {
+            .square(54px);
+            margin: 12px 1.8%;
+        }
+    }
+
+    @media (min-width: @screen-tablet) {
+        &_plus {
+            .square(62px);
+            margin: 7px;
+        }
+    }
+}

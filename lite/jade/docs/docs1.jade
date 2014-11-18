@@ -1,0 +1,402 @@
+include ../block/config
+extend ../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+
+block layout
+    .layout-header
+        +header()
+    .layout-header
+        +header-fix('header-fix__rel')
+    // b-main 
+    .b-main.clearfix
+    
+        .b-main_cont
+            .docs 
+                h1.docs_h1 Библиотека стандартных элементов Веселый Жираф
+            .docs 
+                .docs_desc
+                    h2.docs_h2 Типографика
+                    h3.docs_h3 Обычный текст
+                .docs_example.docs_example__indents
+                    h1 Заголовок 1
+                    h2 Заголовок 2
+                    h3 Заголовок 3
+                    p Самый обычный абзац.
+                    p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    ul
+                        li Тектс списка 
+                        li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    ol
+                        li Тектс списка 
+                        li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                .docs_desc
+                    h3.docs_h3 Текст в статье
+                .docs_example.docs_example__indents
+                    .wysiwyg-content
+
+                        h1 Заголовок 1
+                        h2 Заголовок 2
+                        h3 Заголовок 3
+                        p Самый обычный абзац.
+                        p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                        ul
+                            li Тектс списка 
+                            li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                        ol
+                            li Тектс списка 
+                            li В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    .tx-content
+                        p Самый обычный абзац. В статьях и т.д.
+                        p В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие кусочки крекер. Апельсин почистим и разберем на дольки. а не только лишь на экране, все же Роберт Паттинсон и Кристен Стюарт расстались и пока решили взять паузу в своих отношениях.
+                    .docs_row
+                        .tx-hint Текст подсказок
+                    .docs_row
+                        .tx-date Текст даты
+                    .docs_row
+                        .tx-error Текст ошибки
+                .docs_desc
+                    h3.docs_h3 Заголовки
+                .docs_example.docs_example__indents
+                    .heading-xxl .heading-xxl
+                    .heading-xl .heading-xl 
+                    .heading-small .heading-small
+                    .heading-xs .heading-xs
+                    a.heading-link-xxl Заголовок большой ссылка в строку
+                    br
+                    .heading-link-xl Заголовок в списке статей 
+                .docs_desc
+                    h2.docs_h2 Ссылки
+                .docs_example.docs_example__indents
+                    a(href='#') Обычная ссылка
+                    br
+                    a.a-light(href='#') Обычная ссылка
+                    br
+                    span.a-pseudo Псевдоссылка. Наведение есть, но не тег а
+                    br
+                    span.a-span текст как ссылка
+            .docs
+                .docs_desc Выделеный текст. В поиске и т.д. 
+                .docs_example.docs_example__indents 
+                    span.i-highlight Выделеный текст.
+            .docs
+                .docs_desc Logo
+                .docs_example.docs_example__indents 
+                    +logo()
+                    .docs_row
+                        +logo__small
+            .docs
+                .docs_desc
+                    h2.docs_h2 Кнопки
+                .docs_example.docs_example__indents
+                    .padding-b10
+                        .btn.btn-default(disabled) Кнопка
+                        .btn.btn-primary(disabled) Кнопка
+                        .btn.btn-success(disabled) Кнопка
+                        //- .btn.btn-info(disabled) Кнопка
+                        .btn.btn-warning(disabled) Кнопка
+                        .btn.btn-danger(disabled) Кнопка
+                        .btn.btn-secondary(disabled) Кнопка
+                        .btn.btn-secondary(disabled) Кнопка
+                        .btn.btn-link(disabled) Кнопка
+                        .btn.btn-link-gray(disabled) Кнопка
+
+                        br
+                    .padding-b10
+                        a.btn.btn-default(href="") Кнопка
+                        a.btn.btn-primary(href="") Кнопка
+                        a.btn.btn-success(href="") Кнопка
+                        //- a.btn.btn-info(href="") Кнопка
+                        a.btn.btn-warning(href="") Кнопка
+                        a.btn.btn-danger(href="") Кнопка
+                        a.btn.btn-secondary(href="") Кнопка
+                        a.btn.btn-link(href="") Кнопка
+                        a.btn.btn-link-gray(href="") Кнопка
+                        br
+                    .padding-b10
+                        .btn.btn-default.btn-s Кнопка
+                        .btn.btn-primary.btn-s Кнопка
+                        .btn.btn-success.btn-s Кнопка
+                        //- .btn.btn-info.btn-s Кнопка
+                        .btn.btn-warning.btn-s Кнопка
+                        .btn.btn-danger.btn-s Кнопка
+                        .btn.btn-secondary.btn-s Кнопка
+                        .btn.btn-link.btn-s Кнопка
+                        .btn.btn-link-gray.btn-s Кнопка
+                        br
+                    .padding-b10
+                        .btn.btn-default.btn-m Кнопка
+                        .btn.btn-primary.btn-m Кнопка
+                        .btn.btn-success.btn-m Кнопка
+                        //- .btn.btn-info.btn-m Кнопка
+                        .btn.btn-warning.btn-m Кнопка
+                        .btn.btn-danger.btn-m Кнопка
+                        .btn.btn-secondary.btn-m Кнопка
+                        .btn.btn-link.btn-m Кнопка
+                        .btn.btn-link-gray.btn-m Кнопка
+                        br
+                    .padding-b10
+                        .btn.btn-default.btn-xm Кнопка
+                        .btn.btn-primary.btn-xm Кнопка
+                        .btn.btn-success.btn-xm Кнопка
+                        //- .btn.btn-info.btn-m Кнопка
+                        .btn.btn-warning.btn-xm Кнопка
+                        .btn.btn-danger.btn-xm Кнопка
+                        .btn.btn-secondary.btn-xm Кнопка
+                        .btn.btn-link.btn-xm Кнопка
+                        .btn.btn-link-gray.btn-xm Кнопка
+                        br
+                    .padding-b10
+                        .btn.btn-default.btn-l Кнопка
+                        .btn.btn-primary.btn-l Кнопка
+                        .btn.btn-success.btn-l Кнопка
+                        //- .btn.btn-info.btn-l Кнопка
+                        .btn.btn-warning.btn-l Кнопка
+                        .btn.btn-danger.btn-l Кнопка
+                        .btn.btn-secondary.btn-l Кнопка
+                        .btn.btn-link.btn-l Кнопка
+                        .btn.btn-link-gray.btn-l Кнопка
+                        br
+                    .padding-b10
+                        .btn.btn-default.btn-xl Кнопка
+                        .btn.btn-primary.btn-xl Кнопка
+                        .btn.btn-success.btn-xl Кнопка
+                        .btn.btn-info.btn-xl Кнопка
+                        .btn.btn-warning.btn-xl Кнопка
+                        .btn.btn-danger.btn-xl Кнопка
+                        .btn.btn-secondary.btn-xl Кнопка
+                        .btn.btn-link.btn-xl Кнопка
+                        .btn.btn-link-gray.btn-xl Кнопка
+                        br
+                    .padding-b10.clearfix
+                        .w-300.float-l.margin-r10
+                            button.btn.btn-default.btn-xxl.btn-block Кнопка
+                            button.btn.btn-primary.btn-xxl.btn-block Кнопка блок
+                            button.btn.btn-success.btn-xxl.btn-block Кнопка блок
+                            button.btn.btn-warning.btn-xxl.btn-block Кнопка
+                        .w-240.float-l
+                            button.btn.btn-danger.btn-xxl.btn-block Кнопка уже
+                            button.btn.btn-secondary.btn-xxl.btn-block Кнопка
+                            button.btn.btn-link.btn-xxl.btn-block Кнопка
+                            button.btn.btn-link-gray.btn-xxl.btn-block Кнопка уже
+                        br
+                    .padding-b10
+                        .btn-group
+                            a.btn.btn-xm.btn-success Left
+                            a.btn.btn-xm.btn-success Middle
+                            a.btn.btn-xm.btn-info Middle
+                            a.btn.btn-xm.btn-primary Right
+            .docs
+                .docs_desc
+                    h2.docs_h2 Form
+                .docs_example.docs_example__indents 
+                    .w-240.margin-b10
+                        //- нужно сделать миксин для инпута
+                        .inp-valid.inp-valid__abs.error
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                            .inp-valid_error
+                                .errorMessage
+                                    | E-mail не является правильным E-Mail адресом
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .w-240.margin-b10
+                        //- нужно сделать миксин для инпута
+                        .inp-valid.inp-valid__abs.success
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                            .inp-valid_error
+                                .errorMessage
+                                    | E-mail не является правильным E-Mail адресом
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .w-240.margin-b10
+                        //- нужно сделать миксин для инпута
+                        .inp-valid.inp-valid__abs
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                            .inp-valid_error
+                                .errorMessage
+                                    | E-mail не является правильным E-Mail адресом
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .margin-b10
+                        //- нужно сделать миксин для инпута
+                        .inp-valid.inp-valid__abs
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                            .inp-valid_error
+                                .errorMessage
+                                    | E-mail не является правильным E-Mail адресом
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .w-240.margin-b10
+                        //- нужно сделать миксин для select
+                        .inp-valid.inp-valid__abs
+                                select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выберите страну")
+                                    option
+                                    option(value="2") Россия
+                                    option(value="3") Беларусь
+                                    option(value="4") Казахстан
+                                    option(value="5") Молдова
+                                    option(value="6") Польша
+                                    option(value="7") Венгрия
+                                    option(value="8") Грузия
+                                    option(value="9") Албания
+                                    option(value="10") Лимпопо
+                                    option(value="11") Замбия
+                                .inp-valid_error
+                                    .errorMessage 
+                                        | Страна не вабрана
+                                .inp-valid_success.inp-valid_success__ico-check
+                    .w-240.margin-b10
+                        //- нужно сделать миксин для select
+                        .inp-valid.inp-valid__abs.success
+                            select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выберите страну")
+                                option
+                                option(value="2") Россия
+                                option(value="3") Беларусь
+                                option(value="4") Казахстан
+                                option(value="5") Молдова
+                                option(value="6") Польша
+                                option(value="7") Венгрия
+                                option(value="8") Грузия
+                                option(value="9") Албания
+                                option(value="10") Лимпопо
+                                option(value="11") Замбия
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Страна не вабрана
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .margin-b10
+                        //- нужно сделать миксин для select
+                        .inp-valid.inp-valid__abs.success
+                            select.select-cus.select-cus__search-off.select-cus__gray(placeholder="Выберите страну")
+                                option
+                                option(value="2") Россия
+                                option(value="3") Беларусь
+                                option(value="4") Казахстан
+                                option(value="5") Молдова
+                                option(value="6") Польша
+                                option(value="7") Венгрия
+                                option(value="8") Грузия
+                                option(value="9") Албания
+                                option(value="10") Лимпопо
+                                option(value="11") Замбия
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Страна не вабрана
+                            .inp-valid_success.inp-valid_success__ico-check
+                    //- нужно сделать миксин для select
+                    .inp-valid.inp-valid__abs.error
+                        select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выберите страну")
+                            option
+                            option(value="2") Россия
+                            option(value="3") Беларусь
+                            option(value="4") Казахстан
+                            option(value="5") Молдова
+                            option(value="6") Польша
+                            option(value="7") Венгрия
+                            option(value="8") Грузия
+                            option(value="9") Албания
+                            option(value="10") Лимпопо
+                            option(value="11") Замбия
+                        .inp-valid_error
+                            .errorMessage 
+                                | Страна не вабрана
+                        .inp-valid_success.inp-valid_success__ico-check
+                .docs_example.docs_example__indents
+                    .display-ib
+                        .inp-valid.inp-valid__abs.error
+                            .radio-icons.radio-icons__inline.margin-l20
+                                input#radio4.radio-icons_radio(type='radio', name='')
+                                label.radio-icons_label(for='radio4')
+                                    | Мужской
+                                input#radio3.radio-icons_radio(type='radio', name='')
+                                label.radio-icons_label(for='radio3')
+                                    | Женский
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Выберите пол
+                            .inp-valid_success.inp-valid_success__ico-check
+                .docs_example.docs_example__indents
+                    .display-ib
+                        .inp-valid.inp-valid__abs.success
+                            .radio-icons.radio-icons__inline.radio-icons__checkbox.margin-l20
+                                input#checkbox4.radio-icons_radio(type='checkbox', name='',checked="checked")
+                                label.radio-icons_label(for='checkbox4')
+                                    | Мужской
+                                input#checkbox3.radio-icons_radio(type='checkbox', name='')
+                                label.radio-icons_label(for='checkbox3')
+                                    | Женский
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Выберите пол
+                            .inp-valid_success.inp-valid_success__ico-check
+                        
+            .docs
+                .docs_desc
+                    h2.docs_h2 Аватары
+                .docs_example.docs_example__indents
+                    - avaVars = {src: '', icoStatus: 'ico-status__online'} 
+                    +ava("ava__small ava__male", avaVars)
+                    +ava("ava__middle ava__male", avaVars)
+                    +ava("ava ava__male", avaVars)
+                    - avaVars = {src: '', icoStatus: ''} 
+                    +ava("ava__large ava__male", avaVars)
+                    br
+                    - avaVars = {src: '', icoStatus: 'ico-status__offline'} 
+                    +ava("ava__small ava__female", avaVars)
+                    +ava("ava__middle ava__female", avaVars)
+                    +ava("ava ava__female", avaVars)
+                    - avaVars = {src: '', icoStatus: ''} 
+                    +ava("ava__large ava__female", avaVars)
+                    br
+                    - avaVars = {src: '/new/images/example/ava-large.jpg', icoStatus: 'ico-status__online'}
+                    +ava("ava__small ava__male", avaVars)
+                    +ava("ava__middle ava__male", avaVars)
+                    +ava("ava ava__male", avaVars)
+                    - avaVars = {src: '/new/images/example/ava-large.jpg', icoStatus: ''} 
+                    +ava("ava__large ava__male", avaVars)
+            .docs
+                .docs_desc 
+                    h2.docs_h2 Иконки 
+                .docs_example.docs_example__indents
+                    .docs_row
+                        .ico-status.ico-status__online
+                        .ico-status.ico-status__offline 
+                        | - .ico-status
+                    .docs_row
+                        .ico-cancel –
+                    .docs_row
+                        img(src='/new/images/ico/ajax-loader.gif', class='ico-loader')
+                    .docs_row
+                        .ico-close
+                        .ico-close4
+                    .docs_row
+                        .ico-lock-big
+            .docs
+                .docs_desc
+                    h2.docs_h2 Поиск 
+                .docs_example.docs_example__indents
+                    .docs_row
+                        +sidebarSearch('sidebar-search__big', sidebarSearch.a)
+            .docs
+                .docs_desc
+                    h2.docs_h2 Добавление записи
+                .docs_example.docs_example__indents
+                    .docs_row 
+                        +userAddRecord('', userAddRecord.a) 
+            .docs
+                .docs_desc
+                    h2.docs_h2 Список лайков статьи 
+                .docs_example.docs_example__indents
+                    .docs_row
+                        +articleUsers()
+            .docs
+                .docs_desc
+                    h2.docs_h2 Пагинация
+                .docs_example.docs_example__indents
+                    .docs_row
+                        +pagination()
+                    .docs_row
+                        +paginationAll()
+            .docs
+                .docs_desc
+                    h2.docs_h2 Баннеры
+                .docs_example.docs_example__indents
+                    .docs_row
+                        +banReadMore()
+    +layout-footer-lite()

@@ -1,0 +1,81 @@
+/* site-map */
+.site-map {
+    margin: 20px 0 30px;
+    
+    &_col {
+        margin-bottom: 30px;
+    }
+    &_top {
+        margin: 0 0 25px;
+        padding: 0 10px;
+        font-size: 23px;
+        line-height: 32px;
+        font-weight: bold;
+        color: #fff;
+        background-color: #aa96d2;
+    }
+    &_top__services {
+        background-color: #73c869;
+    }
+    &_ul {
+        font-size: 13px;
+        line-height: 15px;
+    }
+    /*&_ul .fontweight-b {
+        .inline-block();
+        padding-top: 4px;
+    }*/
+    &_section {
+        padding-right: 21px;
+        margin-bottom: 20px;
+    }
+    &_i {
+        line-height: 14px;
+        margin: 0 0 10px;
+    }
+    &_i-tx {
+        color: @color-gray-light;
+        font-size: 12px;
+        font-weight: bold;
+        padding: 2px 0 1px;
+    }
+    &_a {
+        .inline-block();
+        color: #666;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 0;
+        border-bottom: 2px solid #aa96d2;
+        text-decoration: none;
+    }
+    &_a:hover {
+        color: @color-base;
+        text-decoration: none;
+    }
+    &_a__pregnancy {}
+    &_a__home {border-color: #ff8232;}
+    &_a__beauty {border-color: #f9d301;}
+    &_a__husband-and-wife {border-color: #64b9eb;}
+    &_a__hobby {border-color: #73c869;}
+    &_a__family-holiday {}
+    
+    @media (min-width: @screen-phone-landscape) {
+        
+        &_col-sub {
+            float: left;
+            width: 50%;
+        }
+        &_ul {
+            margin-right: -15px;
+            .content-columns(2; 20px);
+        }
+    }
+    @media (min-width: @screen-desktop) {
+        &_col {
+            float: left;
+            width: 415px;
+            margin-right: 20px;
+        }
+    }
+}
+/* /site-map */

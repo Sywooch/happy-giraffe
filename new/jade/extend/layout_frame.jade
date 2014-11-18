@@ -4,9 +4,9 @@ doctype html
 | <!--[if gt IE 10]><!--> <html class="no-js "> <!--<![endif]-->
 include ../block/config
 +head(path)
-body.body(class='body__bg-base')
+body.body.body__bg-base
     .layout-container
-        .layout-header
+        .layout-header.clearfix
             +header-fix()
             +header('header__base')
         .layout-wrapper

@@ -10,15 +10,11 @@ block layout-wrapper
                     // до определенного числа без >
                     .page-col_find-count Найдено &gt; 500 000
                     .page-col_t-tx Поиск друзей
-                //- friend-list
+                // friend-list
                 .friends-list
                     .friends-list_ul
-                        .friends-list_li
-                            .friends-list_i
-                                +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александр Богоявленский', userAge: '42 года', family: true })
-                        .friends-list_li
-                            .friends-list_i
-                                +b-ava-large('', {delFreind: true, icoFriendAdd: true, userNameTx: 'Александра Ушакова-Младшая', userAge: '19 лет'})
+                        +friendsListItem('', friendsListItem.a)
+                        +friendsListItem('', friendsListItem.c)
             .page-col_aside.aside-filter
                 form
                     .aside-filter_top

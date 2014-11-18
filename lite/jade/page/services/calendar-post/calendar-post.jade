@@ -1,0 +1,151 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'services.css'; 
+
+block layout
+
+    // b-main 
+    .b-main.clearfix
+    
+        .b-main_cont
+            .b-crumbs.b-crumbs__s
+                .b-crumbs_tx Я здесь:
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Главная 
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href='#') Календарь записей 
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last  Записи от 11.08.2014
+        .b-main_cont
+            .b-main_col-hold.clearfix
+                .b-main_col-article
+                    
+                    h1.heading-link-xxl Записи от 11.08.2014
+
+            .b-calendar
+                .b-calendar_in.b-calendar_in__years
+                    .b-calendar_t Год
+                    ul.b-calendar_ul
+                        li.b-calendar_li
+                            a.b-calendar_a(href='#') 2011
+                        li.b-calendar_li
+                            a.b-calendar_a(href='#') 2012
+                        li.b-calendar_li
+                            a.b-calendar_a(href='#') 2013
+                        li.b-calendar_li.active
+                            a.b-calendar_a(href='#') 2014
+                .b-calendar_in.b-calendar_in__months
+                    .b-calendar_t Месяц
+                    ul.b-calendar_ul
+                        li.b-calendar_li
+                            a.b-calendar_a(href='#') янв
+                        li.b-calendar_li
+                            a.b-calendar_a(href='#') фев
+                        li.b-calendar_li
+                            a.b-calendar_a(href='#') мар
+                        li.b-calendar_li
+                            a.b-calendar_a(href='#') апр
+                        li.b-calendar_li
+                            a.b-calendar_a(href='#') май
+                        li.b-calendar_li
+                            a.b-calendar_a(href='#') июн
+                        li.b-calendar_li
+                            a.b-calendar_a(href='#') июл
+                        li.b-calendar_li.active
+                            a.b-calendar_a(href='#') авг
+                        li.b-calendar_li
+                            span.b-calendar_a сен
+                        li.b-calendar_li
+                            span.b-calendar_a окт
+                        li.b-calendar_li
+                            span.b-calendar_a ноя
+                        li.b-calendar_li
+                            span.b-calendar_a дек
+
+                .b-calendar_in.b-calendar_in__days
+                    .b-calendar_t День
+                    ul.b-calendar_ul
+                        - var liClass
+                        - for (i=1; i<32; i++)
+                            - if(i == 14)
+                                - liClass = 'active'
+                            - else
+                                - liClass = '' 
+                            li.b-calendar_li(class=liClass)
+                                - if(i < 20)
+                                    a.b-calendar_a(href='#') 
+                                        = i
+                                - else 
+                                    span.b-calendar_a
+                                        = i
+
+            .post-list-simple
+                // Количество элементов списка 50-100 на странице
+                ul.post-list-simple_ul
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Так хорошо, когда папа выходной!  
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Теща ненавидит зятя. Внук растет без бабушки. Грустно... 
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Так хорошо, когда папа выходной!  
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Теща ненавидит зятя. Внук растет без бабушки. Грустно... 
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Так хорошо, когда папа выходной!  
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Про энцефалопатию. неужели эта болезнь никак не поддается лечению? или просто люди живут как овощи? 
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Марафон женственности, кто нибудь участвовал?
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Так хорошо, когда папа выходной!  
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Так хорошо, когда папа выходной!  
+                    li.post-list-simple_li
+                        .post-list-simple_top
+                            a.a-light(href='#') Ангелина Богоявленская
+                            time.tx-date(datetime='2012-12-23') 11 августа
+                        .post-list-simple_t 
+                            a.post-list-simple_t-a(href='#') Так хорошо, когда папа выходной!  
+
+            +paginationAll()
+    // b-main 
+    +layout-footer-lite()

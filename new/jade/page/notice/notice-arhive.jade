@@ -1,0 +1,216 @@
+//- include ../../block/config
+extend ../../extend/layout_notice
+
+block layout-wrapper
+    //- u-notice - user-notice
+    
+    script.
+        var notice = new function() {
+                var self = this;
+                function noticeHeight() {
+                    // 58 - шапка, что не скролится
+                    // 40 - отступы снизу + сверху
+                    var h = self.windowHeight - self.headerHeight - 58 - 40;
+                    if (h < 350) {
+                            h = 350;
+
+                    }
+                    self.contentBlock.height(h);
+                }
+                self.renew = function() {
+                    self.windowHeight = $(window).height();
+                    self.headerHeight = $('.layout-header').height();
+                    noticeHeight();
+                    addBaron('.scroll');
+                }
+               
+                $(window).resize(function() {
+                    self.renew();
+                });
+
+                
+                $(document).ready(function () {
+                    var contentBlock = ".u-notice_hold";
+                    self.contentBlock = $(contentBlock);
+                    self.renew();
+                });
+
+        }();
+
+    .u-notice
+        +side-menu__notice("side-menu__notice")
+        .page-col.page-col__notice
+            .page-col_top
+                .page-col_t-tx Архив
+     
+            .page-col_cont
+                .u-notice_hold.scroll
+                    .scroll_scroller
+                        .scroll_cont
+                            ul.u-notice_ul
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        // Виды иконок
+                                        // u-notice_ico__favorite
+                                        // u-notice_ico__answer
+                                        // u-notice_ico__comment
+                                        // u-notice_ico__like
+                                        // u-notice_ico__discus
+                                        // u-notice_ico__answer-q
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__favorite(href='')
+                                        a.u-notice_b.u-notice_spec(href="")
+                                            .u-notice_b.u-notice_count 15
+                                            .u-notice_b.u-notice_desc В избранное
+                                                .u-notice_desc-go  Перейти
+                                        .u-notice_b.u-notice_users
+                                            .ava-list
+                                                ul.ava-list_ul
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        a.ava-list_last-tx еще 11
+                                        // Виды иконок
+                                        // u-notice_post-ico__post
+                                        // u-notice_post-ico__comment
+                                        // u-notice_post-ico__video
+                                        // u-notice_post-ico__photo
+                                        // u-notice_post-ico__question
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__post(href='')
+                                        .u-notice_b.u-notice_post
+                                            a.u-notice_post-a(href="") Отдых в России: куда поехать на майские праздники
+
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__answer(href='')
+                                        a.u-notice_b.u-notice_spec(href="")
+                                            .u-notice_b.u-notice_count 15
+                                            .u-notice_b.u-notice_desc Ответов на ваш <br/> комментарий
+                                                .u-notice_desc-go  Перейти
+                                        .u-notice_b.u-notice_users
+                                            .ava-list
+                                                ul.ava-list_ul
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        a.ava-list_last-tx еще 1
+
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__comment(href='')
+                                        .u-notice_b.u-notice_post 
+                                            a.u-notice_comment(href='') Телец часто противоречив, вспыльчив и импульсивен.Обладая поистине неисчерпаемым ...
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__comment(href='')
+                                        a.u-notice_b.u-notice_spec(href="")
+                                            .u-notice_b.u-notice_count 15
+                                            .u-notice_b.u-notice_desc Новых <br/> комментариев
+                                                .u-notice_desc-go  Перейти
+                                        .u-notice_b.u-notice_users
+                                            .ava-list
+                                                ul.ava-list_ul
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        a.ava-list_last-tx еще 1456
+
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__video(href='')
+                                        .u-notice_b.u-notice_post 
+                                            a.a-user(href="") Татьяна Богоявленская
+                                            br 
+                                            a.u-notice_post-a(href="") Отдых в России: куда поехать на майские праздники
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__like(href='')
+                                        a.u-notice_b.u-notice_spec(href="")
+                                            .u-notice_b.u-notice_count 152
+                                            .u-notice_b.u-notice_desc Нравится
+                                                .u-notice_desc-go  Перейти
+                                        .u-notice_b.u-notice_users
+                                            .ava-list
+                                                ul.ava-list_ul
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        a.ava-list_last-tx еще 1
+
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__photo(href='')
+                                        .u-notice_b.u-notice_post
+                                            a.u-notice_post-a(href="") Фото 1
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__discus(href='')
+                                        a.u-notice_b.u-notice_spec(href="")
+                                            .u-notice_b.u-notice_count 15
+                                            .u-notice_b.u-notice_desc Продолжение <br> обсуждения
+                                                .u-notice_desc-go  Перейти
+                                        .u-notice_b.u-notice_users
+                                            .ava-list
+                                                ul.ava-list_ul
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        a.ava-list_last-tx еще 1
+
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__post(href='')
+                                        .u-notice_b.u-notice_post 
+                                            a.a-user(href="") Татьяна Богоявленская
+                                            br 
+                                            a.u-notice_post-a(href="") Отдых в России: куда поехать на майские праздники
+                                li.u-notice_li
+                                    .u-notice_li-hold
+                                        a.u-notice_b.u-notice_ico.u-notice_ico__answer-q(href='')
+                                        a.u-notice_b.u-notice_spec(href="")
+                                            .u-notice_b.u-notice_count 1
+                                            .u-notice_b.u-notice_desc Ответов на <br> ваш вопрос
+                                                .u-notice_desc-go  Перейти
+                                        .u-notice_b.u-notice_users
+                                            .ava-list
+                                                ul.ava-list_ul
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        +ava('ava__small ava__male', avaVars)
+                                                    li.ava-list_li
+                                                        a.ava-list_last-tx еще 1
+
+                                        a.u-notice_b.u-notice_post-ico.u-notice_post-ico__question(href='')
+                                        .u-notice_b.u-notice_post 
+                                            a.u-notice_post-a(href="") Отдых в России: куда поехать на майские праздники
+                    // scroll-bar
+                    .scroll_bar-hold
+                        .scroll_bar
+                            .scroll_bar-in
+

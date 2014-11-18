@@ -1,0 +1,101 @@
+
+//- articleSimilar
+//- 
+    mod
+    vars
+mixin articleSimilar(mod, vars)
+
+    // Варианты цветов блока
+        article-similar__green
+        article-similar__blue
+        article-similar__lilac
+        article-similar__red
+        article-similar__yellow
+    .article-similar(class=mod)
+        .article-similar_row
+            a.article-similar_header-a(href="#") 
+                +ava('ava__middle', ava.e)
+                span.article-similar_author
+                    = vars.author
+        .article-similar_row
+            a.article-similar_t(href="#") 
+                = vars.title
+        if (vars.text)
+            .article-similar_text 
+                p
+                    = vars.text
+        else
+            .article-similar_img-hold
+                a(href="#")
+                    if (vars.count)
+                        .article-similar_count-hold
+                            .article-similar_count-t 128
+                            .article-similar_count-tx фото
+                    if (vars.images)
+                        img.article-similar_img(src="#{path}images/"+vars.images, alt="")
+                    if (vars.video)
+                        .video-container
+                            != vars.video
+
+- var articleSimilar = {}
+
+- articleSimilar.a = {}
+- articleSimilar.a.author = 'Марина Правдинина'
+- articleSimilar.a.title = 'Наши первые движения '
+- articleSimilar.a.images = 'example/w240-h165.jpg'
+- articleSimilar.a.count = true
+
+- articleSimilar.b = {}
+- articleSimilar.b.count = true
+- articleSimilar.b.author = 'Марина Правдинина'
+- articleSimilar.b.title = 'Наши первые движения '
+- articleSimilar.b.images = 'example/w240-h165.jpg'
+
+- articleSimilar.c = {}
+- articleSimilar.c.author = 'Марина Правдининаertertertert'
+- articleSimilar.c.title = 'Яркие идеи для оформления детской комнаты '
+- articleSimilar.c.text = 'Решил наш дедуля утеплить дом, благо сейчас многие фирмы работают в кредит. Принцип утепления заключается в том, что в кирпичах...'
+
+- articleSimilar.d = {}
+- articleSimilar.d.author = 'Антон Кузнецов-Привольный'
+- articleSimilar.d.title = 'Одиночное путешествие: куда поехать и как организовать '
+- articleSimilar.d.video = '<iframe width="560" height="315" src="http://www.youtube.com/embed/BDYETEsDTp8?wmode=transparent" frameborder="0" allowfullscreen=""></iframe>'
+
+- articleSimilar.e = {}
+- articleSimilar.e.author = 'Антон Привольный'
+- articleSimilar.e.title = 'Первый российский Comic Con '
+- articleSimilar.e.images = 'example/w240-h154-1.jpg'
+
+
+
+//- articleSimilar
+//- 
+    mod
+    vars
+mixin articleSimilarIcons(mod, vars)
+
+    // Варианты цветов блока
+        article-similar__green
+        article-similar__blue
+        article-similar__lilac
+        article-similar__red
+        article-similar__yellow
+    .article-similar.article-similar__ico(class=mod)
+        .article-similar_row
+            +ava('ava__middle', ava.a)
+            a.article-similar_author(href='#') 
+                = vars.author
+        .article-similar_ico-hold
+            .verticalalign-m-help
+            a.article-similar_ico-a(href='#') 
+                .article-similar_ico
+                    img.article-similar_img(src="#{path}images/"+vars.images, alt="")
+                span.article-similar_t 
+                    = vars.title
+
+- articleSimilarIcons = {}
+- articleSimilarIcons.a = {}
+- articleSimilarIcons.a.author = 'Антон Привольный'
+- articleSimilarIcons.a.title = '50 лучших идей ИНТЕРЬЕРА'
+- articleSimilarIcons.a.images = 'example/article-similar_ico-1.png'
+

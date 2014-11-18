@@ -1,0 +1,105 @@
+.content-cols {
+	position: relative;
+	&:after {display:block;content:'.';height:0;clear:both;line-height:0;font-size:0;}
+	&_a-abs {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+	}
+	/* col-1 */
+	.col-1 {
+		width:240px;
+		margin-bottom: 1px;
+		padding-right:20px;
+		float:left;
+		position: relative;
+		
+		.b-ava-large {margin-top: 0px;margin-bottom: 30px;}
+		&_t {
+			margin: 25px 10px 20px;
+			font-size: 24px;
+			color: #000;
+			text-align: center;
+		}
+		&_t__big {
+			font-size: 31px;
+			margin-left: 5px;
+		}
+		&_sub-t {
+			display: block;
+			margin: 5px 10px 0;
+			font-size: 15px;
+			text-align: center;
+		}
+		&_search {
+			position: relative;
+			margin: 0 0 15px;
+		}
+		&_search-itx {
+			display: block;
+			width: 192px;
+			padding: 5px 30px 5px 18px;
+			border: 1px solid #caddf4;
+			font-size: 13px;
+			background: #f8fbff;
+			.border-radius(11px);
+		}
+		&_search-itx:focus {background: #fff;}
+		&_search-btn {
+			background: url("/images/col-1_search-btn.png") no-repeat 50% 50%;
+			border: 0;
+			cursor: pointer;
+			float: right;
+			height: 28px;
+			margin: -28px 0 0;
+			width: 28px;
+		}
+		&_search-btn.active { background: url(/images/ico/ico-close.png) no-repeat 50% 50%;}
+	}
+
+	/* /col-1 */
+	.col-12,
+	.col-23 {
+		width:700px;
+		float:left;
+		position: relative;
+
+		&__gray {
+			width: 720px;
+			margin-right: -20px;
+			background: #ebebeb;
+			.border-radius(8px);
+		}
+	}
+	.col-23-big {
+		width: 740px;
+		float: left;
+	}
+	.col-23-middle {
+		position: relative;
+		width: 720px;
+		float: left;
+	}
+	.col-2 {width:440px;float:left;}
+	.col-3 {width:240px;padding-left:20px;float:left;}
+	
+	.col-gray-light,
+	.col-gray,
+	.col-white-hoar,
+	.col-white {
+		border: 1px solid transparent; // Защита от Margin Collapsing 
+		border-width: 1px 0;
+		margin: -1px 0;
+		background: #fff;
+		.border-radius(8px);
+	}
+	.col-white-hoar {background: #fafafa;}
+	.col-gray {background: #ebebeb;}
+	.col-gray__contest {background: rgba(255,255,255,.3);}
+	.col-gray-light {background: #f8f8f8;}
+}
+
+
+

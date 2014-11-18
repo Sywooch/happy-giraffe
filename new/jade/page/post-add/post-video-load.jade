@@ -1,0 +1,77 @@
+include ../../block/config
+extend ../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg1';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in.b-main
+            
+            .b-main_col-hold.clearfix
+                // Добавление статьи
+                .postAdd
+                    +userAddRecord('userAddRecord__add', userAddRecord.c)
+                    .postAdd_hold
+                        .postAdd_row
+                            .postAdd_count 1
+                            .b-main_col-article
+                                // При очень длинном заголовке он показывается как ошибка за счет класса error и счтетчик отсчитывает в -
+                                .inp-valid.inp-valid__abs.error
+                                    input.itx-gray(type='text', placeholder="Введите заголовок видеопоста", value="Очень много букв в input, такие заголовки не бывают. Очень много букв в input, такие заголовки не бывают.")
+                                    .inp-valid_count -30
+
+                        .postAdd_row
+                            // Блочек описание видео сервисов
+                            .postAdd_count 2
+                            .b-main_col-article
+                                .postAdd_video-serv
+                                    // Отображается только до ввода ссылки
+                                    .postAdd_video-serv-t.display-n URL видео:
+                                    .postAdd_video-serv-hold
+                                        .postAdd_video-serv-desc Поддерживаемые сервисы:
+                                        // Когда определен сервис добавляется класс .active
+                                        .postAdd_video-serv-i.postAdd_video-serv-i__youtube
+                                        .postAdd_video-serv-i.postAdd_video-serv-i__rutube
+                                        .postAdd_video-serv-i.postAdd_video-serv-i__vimeo
+                                // Инпут скравется при загрузке видео
+                                .inp-valid.display-n
+                                    input.itx-gray(type='text', placeholder="Вставьте ссылку на видео")
+                                // при загрузке .b-insert__load
+                                .b-insert.b-insert__center.b-insert__load.margin-t5
+                                    .b-insert_hold
+                                        .b-insert_close.ico-close4
+                                        // с загрузкой видео скрывается блок загрузки видео
+                                        .b-insert_inner
+                                            .b-insert_cap-img.b-insert_cap-img__video
+                                            .b-insert_progress
+                                                // boostrap progressbar
+                                                // progressbar изначально уже весь заполнен
+                                                .progress.progress-striped.active.progress__cont
+                                                    .progress-bar.progress-bar__cont(role='progressbar', aria-valuenow='100', aria-valuemin='0', aria-valuemax='100', style='width: 100%')
+                                    .error-serv.error-serv__rel
+                                        .error-serv_hold
+                                            span.ico-error-smile.margin-r5
+                                            | Видео не загружено. Неподдерживаемый сервис
+                                        // На этапе загрузки видео iframe еще нет, но если есть то скрыт
+                                        iframe.display-n(width="580", height="326," frameborder="0", allowfullscreen="", src="http://www.youtube.com/embed/pehSAUTqjRs?wmode=transparent")
+
+                        .postAdd_row
+                            .postAdd_count 3
+                            .b-main_col-article
+                                .inp-valid.inp-valid__abs
+                                    textarea.itx-gray(rows='5', cols='40', placeholder="Ваш комментарий к видео")
+                                    .inp-valid_count 450
+                        +postAddRowBtns('', postAddRowBtns.b)
+
+                    // /Добавление статьи
+                // /postAdd
+
+        //- Футер не нужен
+            +layout-footer('layout-footer__in')
+
+
+
+

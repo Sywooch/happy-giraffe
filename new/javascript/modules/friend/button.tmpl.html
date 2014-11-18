@@ -1,0 +1,8 @@
+<!-- У иконки 3 состояния.
+Друг - без моидфикатора
+Добавить в друзья - .friend__add
+Приглашение отправленно - .friend__added
+-->
+<span class="im-panel_friend im-panel_friend__fr" data-bind="if: friendsState() == FRIENDS_STATE_FRIENDS"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Друг</span></span>
+<a class="im-panel_friend im-panel_friend__add" data-bind="click: friendsInvite, if: friendsState() == FRIENDS_STATE_NOTHING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Добавить <br> в друзья</span></a>
+<span class="im-panel_friend im-panel_friend__added" data-bind="if: friendsState() == FRIENDS_STATE_INCOMING"><span class="im-panel_friend-ico"></span><span class="im-panel_friend-tx">Приглашение <br> отправлено</span></span>

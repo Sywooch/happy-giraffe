@@ -1,0 +1,93 @@
+
+/*
+    Нумирация страниц
+
+    .yiipagination __center
+        .pager   
+            .page   .selected
+                a
+
+
+*/
+/* yiipagination */
+.yiipagination {
+    margin: 30px 0 50px;
+    font-size: 17px;
+    line-height: 30px;
+    
+    .yiiPager {
+        display: inline-block;
+        border: 1px solid #fafafa;
+        .border-radius(5px);
+    }
+    .pager {
+        text-align: left;
+    }
+    .pager li {
+        float: left;
+        border-left: 1px solid #fafafa;
+        min-width: 32px;
+        height: 32px;
+        text-align: center;
+        color: #57b0df;
+    }
+    .pager li:first-child {border-left: none;}
+    .pager a {
+        .inline-block();
+        position: relative;
+        min-width: 32px;
+        height: 32px;
+        font-size: 14px;
+        line-height: 34px;
+        padding: 0 5px;
+        background: #fff;
+        color: #57b0df;
+        text-decoration: none;
+        border: none;
+        .border-radius(0);
+    }
+    .page:hover a {color: @color-orange;}
+    .page.selected a {
+        background-color: #6accff;
+        color: #fff;
+        .border-radius(0);
+    }
+
+    &__center .pager {
+        text-align: center;
+    }
+    
+    .pager .previous a:after{
+        &:extend(.ico-arrow-l);
+    }
+    .pager .previous:hover a:after{
+        &:extend(.ico-arrow-l:hover);
+    }
+    .pager .next a:after{
+        &:extend(.ico-arrow-r);
+    }
+    .pager .next:hover a:after{
+        &:extend(.ico-arrow-r:hover);
+    }
+    
+    .pager .next a:after,
+    .pager .previous a:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin: -6px 0 0 -4px;
+    }
+
+    @media (min-width: @screen-tablet) {
+        .pager li,
+        .pager a {
+            min-width: 42px;
+            height: 45px;
+            font-size: 18px;
+            line-height: 50px;
+        }
+        
+    }
+}
+/* /yiipagination */

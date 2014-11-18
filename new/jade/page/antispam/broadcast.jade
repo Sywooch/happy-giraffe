@@ -7,8 +7,8 @@ block layout-wrapper
         .page-col_top.clearfix
             .page-col_update
                 a.textdec-none(href="")
-                    .ico-update
-                    .a-pseudo.verticalalign-el Обновить
+                    span.ico-update
+                    span.a-pseudo.verticalalign-el Обновить
             ul.page-col_ul
                 li.page-col_li.active
                     a.page-col_ul-a(href="") Записи 54
@@ -22,7 +22,7 @@ block layout-wrapper
                 // antispam_i
                 .antispam_i.clearfix
                     .antispam_cont
-                        +www-article_text()
+                        +www-article_text('', wwwArticleText.b)
                     .antispam_control
                         .margin-b5.clearfix
                             a.ico-del.margin-r5.powertip(title='Изменить решение')

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redactor is awesome!</title>
+
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="http://imperavi.com/js/redactor/redactor.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/common.css" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/global.css" />
+
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="http://imperavi.com/js/redactor/redactor.js"></script>
+
+    <!-- Redactor's plugin -->
+    <script src="toolbarVerticalFixed.js"></script>
+
+	 <!-- Call Redactor -->
+    <script type="text/javascript">
+/*    $(document).ready(
+        function()
+        {
+            $('#redactor').redactor({
+            	focus: true,
+                plugins: ['toolbarVerticalFixed']
+            });
+        }
+    );*/
+    </script>
+
+	 <!-- Site styles -->
+	<style type="text/css">
+	html, body {
+		margin: 0;
+		padding: 0;
+	}
+	body {
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: 14px;
+	}
+	#page {
+		width: 940px;
+		margin: 50px auto;
+	}
+	</style>
+
+</head>
+<body>
+    <div id="page">
+        <textarea id="redactor" name="content" style="width: 99%; height: 400px;">
+        	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </textarea>
+
+
+    </div>
+    
+    
+    
+                    <div class="wysiwyg-v wysiwyg-blue clearfix">
+                    
+                        <script>
+$(document).ready(function () { 
+  $('.wysiwyg-redactor-v').redactor({
+        plugins: ['toolbarVerticalFixed'],
+      minHeight: 410,
+      autoresize: true,
+      toolbarExternal: '.wysiwyg-toolbar-btn',
+/*      toolbarFixed: true,
+      toolbarFixedBox: true,*/
+      /* В базовом варианте нет кнопок 'h2', 'h3', 'link_add', 'link_del' но их функции реализованы с помощью выпадающих списков */
+      buttons: ['bold', 'italic', 'underline', 'deleted', 'h2', 'h3', 'unorderedlist', 'orderedlist', 'link_add', 'link_del', 'image', 'video', 'smile'],
+      buttonsCustom: {
+          smile: {
+              title: 'smile',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          },
+          link_add: {
+              title: 'link_add',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          },
+          link_del: {
+              title: 'link_del',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          },
+          h2: {
+              title: 'h2',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          },
+          h3: {
+              title: 'h3',
+              callback: function(buttonName, buttonDOM, buttonObject) {
+                  // your code, for example - getting code
+                  var html = this.get();
+              }
+          }
+      }
+  });
+});
+                        </script>
+                    <div class="wysiwyg-toolbar">
+                        <div class="wysiwyg-toolbar-btn"></div>
+                        
+                    </div>
+                        <textarea name="" class="wysiwyg-redactor-v"></textarea>
+                    </div>
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    <br>sdfsdfsdfsdf
+                    
+</body>
+</html>

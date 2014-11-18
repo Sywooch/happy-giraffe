@@ -1,12 +1,18 @@
 
 // Form ----------------------------
+::-webkit-input-placeholder { color: #ccc;font-weight: normal;opacity: 1;}
+::-moz-placeholder          { color: #ccc;font-weight: normal;opacity: 1;}
+:-moz-placeholder           { color: #ccc;font-weight: normal;opacity: 1;}
+:placeholder                { color: #ccc;font-weight: normal;opacity: 1;}
+.placeholder                { color: #ccc;font-weight: normal;opacity: 1;}
+
 /* 
     sidebar-search
 
 */
 .sidebar-search {
     position: relative;
-    
+
     &__big &_itx {
         border-color: #e5e5e5;
         border-width: 2px;
@@ -55,7 +61,9 @@
     position:relative;
     cursor:pointer;
     overflow:hidden;
-
+    
+    &:hover .btn-primary:extend(.btn-primary:hover){}
+    &:hover .btn-success:extend(.btn-success:hover){}
     &_btn {
         position:relative;
         z-index:2;
@@ -151,10 +159,10 @@ textarea.error {
     &_hold {
         position: relative;
         left: -50%;
-        padding: 4px 30px;
+        padding: 4px 20px 4px 15px;
         border: 1px solid #fdb9ac;
         background: #fde3e3;
-        text-align: center;
+        text-align: left;
         font-size: 12px;
         color: #db9191;
     }
@@ -171,10 +179,9 @@ textarea.error {
     &__inline {
         .inline-block();
     }
+    &__inline &_label {margin-right: 5px;}
     &__checkbox {}
     &__checkbox &_label {
-        min-height: 19px;
-        line-height: 19px;
         .img-retina('@{path-img}/input-checkbox.png'; '@{path-img}/input-checkbox-2x.png'; 18px; 219px);
     }
 
@@ -195,11 +202,10 @@ textarea.error {
     &_label {
         .inline-block();
         vertical-align: top;
-        margin: 0 15px 0 0;
-        color: @color-gray-light;
-        padding-left: 24px;
-        min-height: 18px;
-        line-height: 18px;
+        color: @color-gray;
+        padding-left: 19px;
+        min-height: 19px;
+        line-height: 19px;
         cursor: pointer;
         .img-retina('@{path-img}/input-radio.png'; '@{path-img}/input-radio-2x.png'; 18px; 218px);
         background-repeat: no-repeat;
@@ -208,8 +214,12 @@ textarea.error {
     .ie8 &_label {padding-left: 0;background: none;}
     &_label:focus,
     &_label:hover {
-        color: #333;
+        color: @color-base;
         background-position: 0 -200px;
+    }
+    &_label-tx {
+        .inline-block();
+        margin-left: 6px;
     }
 }
 /* /radio-icons */
@@ -263,14 +273,18 @@ textarea.error {
 */
 .inp-valid {
     position: relative;
-    .clearfix();
-
+    &:extend(.clearfix all);
+    
+    .itx-gray {display: block;}
+    .itx-gray:focus + &_count {color: #27ae60;}
     &.error &_error {display: inline-block;}
+    &.error &_count {color: @color-carrot !important;}
     &.error input,
     &.error .select2-choice {border-color: #fdb9ac !important;}
     &.success input,
     &.success .select2-choice {border-color: #a3e19c !important;}
     &.success &_success {display: block;}
+    &.success &_count {color: @color-green;}
     &__abs &_error {
         position: absolute;
         bottom: 100%;
@@ -287,6 +301,11 @@ textarea.error {
     &__abs &_success__ico-check {
         top: 50%;
         margin-top: -6px;
+    }
+    &__abs &_count {
+        position: absolute;
+        top: -15px;
+        right: 0;
     }
 
     &_error {
@@ -316,6 +335,14 @@ textarea.error {
     &_success{
         display: none;
     }
+    &_count {
+        float: right;
+        margin: 2px 4px;
+        font: @fontsmallest;
+        color: @color-gray-light;
+    }
+    &_count__green {color: #27ae60;}
+
 }
 /* /.inp-valid */
 

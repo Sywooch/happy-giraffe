@@ -1,0 +1,116 @@
+
+
+/*
+    ban-route-danger
+*/
+.ban-route-danger {
+    margin: 0 auto;
+    width: 680px;
+    height: 375px;
+    color: #fff;
+    background: url('@{path-img}/banner/ban-route-danger.jpg') no-repeat;
+    cursor: pointer;
+    
+    &_a,
+    &_hold {
+        display: block;
+        padding: 15px 33px 252px;
+        color: #fff;
+        text-decoration: none;
+    }
+    &_ava {
+        text-align: center;
+
+        .ava {
+            float: none;
+            .inline-block();
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+    }
+    &_ava-name:hover {text-decoration: underline;}
+    &_t {
+        margin: 7px 0 15px;
+        font-weight: bold;
+        font-size: 35px;
+        line-height: 35px;
+        letter-spacing: -1.5px;
+        text-align: center;
+    }
+    &_t:hover {color: #ced9ea;}
+}
+
+/*
+    ban-route
+*/
+.ban-route {
+    margin: 0 auto;
+    width: 680px;
+    height: 375px;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+
+    &__nice {
+        background: url('@{path-img}/banner/ban-route__nice.jpg') no-repeat;
+    }
+    &__nice3 &_btn,
+    &__nice2 &_btn,
+    &__nice &_btn {
+        background-color: #fd5b03;
+    }
+    &__nice3 &_btn:hover,
+    &__nice2 &_btn:hover,
+    &__nice &_btn:hover {
+        background-color: #ff4800;
+    }
+    &__nice2 {background: url('@{path-img}/banner/ban-route__nice2.jpg') no-repeat;}
+    &__nice3 {background: url('@{path-img}/banner/ban-route__nice3.jpg') no-repeat;}
+
+    &_a,
+    &_hold {
+        display: block;
+        padding: 15px 33px 252px;
+        color: #fff;
+        text-decoration: none;
+    }
+    &_ava {
+        text-align: center;
+
+        .ava {
+            float: none;
+            .inline-block();
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+    }
+    &_ava-name:hover {text-decoration: underline;}
+    &_t {
+        .inline-block();
+        margin: 7px 0 15px;
+        font-weight: bold;
+        font-size: 35px;
+        line-height: 35px;
+        letter-spacing: -1.5px;
+        text-align: center;
+    }
+    &_t:hover {opacity: .75;}
+
+    &_btn {
+        .inline-block();
+        padding: 4px 13px 6px;
+        margin-bottom: 0;
+        font-size: 12px;
+        line-height: 16px;
+        border:0;
+        text-align: center;
+        text-decoration:none;
+        cursor: pointer;
+        vertical-align: middle;
+        .border-radius(3px);
+
+        color: #fff;
+        background-color: #30b447;
+    }
+    &_btn:hover {background-color: #28ad40;}
+}

@@ -1,0 +1,40 @@
+include ../../../block/config
+extend ../../../extend/layout_base
+block vars
+    - var bodyClass = 'body__lite body__cont-wide';
+    - global.cssFile = 'member.css'; 
+ 
+block layout
+    
+    .b-main
+        .b-main_cont
+            .b-crumbs.b-crumbs__m
+                .b-crumbs_tx Я здесь
+                ul.b-crumbs_ul
+                    li.b-crumbs_li
+                        a.b-crumbs_a(href="#") Главная
+                    li.b-crumbs_li
+                        +ava('ava__small', ava.a)
+                    li.b-crumbs_li.b-crumbs_li__last
+                        span.b-crumbs_last Фото
+
+        +userSection('visible-md-block')
+    
+        .b-main_cont
+
+            +bAlbum('', bAlbum.d)
+            +bAlbum('', bAlbum.e)
+
+            .visible-md-block
+                .heading-small.margin-t40 
+                    | Последние добавленные фото
+                    .float-r
+                        .btn.btn-link.btn-link-gray.btn-s Все фотографии 628
+ 
+                +imgGrid('', imgGrid.e)
+
+                .i-allphoto 
+                    a.i-allphoto_a(href="#")
+                        | Смотреть все фотографии  
+
+        +layout-footer-lite()

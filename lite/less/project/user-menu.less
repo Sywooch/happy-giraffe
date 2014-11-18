@@ -1,0 +1,83 @@
+/*
+    Меню пользователя
+
+    user-menu 
+        user-menu_ava
+        user-menu_ul
+            user-menu_li
+                user-menui
+                    user-menu_ico
+                    user-menu_tx
+
+*/
+.user-menu {
+    float: left;
+    width: 80px;
+    margin-top: 4px;
+    background: #fff;
+    background: rgba(0,0,0,.2);
+    .user-select(none);
+    
+    &_ava {
+        padding: 15px 20px;
+        background-color: #51aae0;
+
+        .ava {display: block;}
+    }
+    &_ul {}
+    &_li {}
+    &_li:hover &_i,
+    &_li.active &_i {
+        background: #afafaf;
+        background: rgba(0,0,0,.1);
+    }
+    &_li:first-child &_i {padding-top: 20px;}
+    &_li:last-child &_i {padding-bottom: 20px;}
+    /*&_ul {margin: 5px 0 5px;}
+    &_li {}
+    &_li.active &_i {background: #fafafa;}
+    &_li:hover &_ico,
+    &_li.active &_ico {opacity: 1;}
+    &_li:hover &_tx,
+    &_li.active &_tx  {color: #333;}*/
+    &_li__find {
+        background: #16b45a;
+
+        &:hover,
+        &.active {background: #0f9b4b;}
+    }
+    &_li__find &_tx  {color: #fff;}
+    /*&_li__find &_ico {opacity: 1;}*/
+    
+    &_i {
+        position: relative;
+        display: block;
+        padding: 15px 5px 15px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    &_ico {
+        display: block;
+        margin: 0 auto 6px;
+        width: 50px;
+        height: 40px;
+        /*opacity: .4;*/
+        .img-retina('@{path-img}/user-menu_ico.png'; '@{path-img}/user-menu_ico-2x.png'; 400px; 40px);
+    }
+    &_ico__profile    {background-position: 0 0;}
+    &_ico__family     {background-position: -50px 0;}
+    &_ico__blog       {background-position: -100px 0;}
+    &_ico__photo      {background-position: -150px 0;}
+    &_ico__interest   {background-position: -200px 0;}
+
+    &_tx {
+        display: block;
+        color: #fff;
+        /*color: #acacac;*/
+        font-size: @font-xs;
+        line-height: @font-xs;
+        text-transform: uppercase;
+    }
+}
+/* /user-menu */

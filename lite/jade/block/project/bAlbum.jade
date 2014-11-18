@@ -1,0 +1,218 @@
+//- b-album
+    mod     
+    vars 
+mixin bAlbum(mod, vars)
+    // b-album
+    section.b-album(class=mod)
+        - if (vars.top)
+            .b-album_top
+                .tx-date Обновлен  Вчера 13:45
+                h2.b-album_title
+                    a.b-album_title-a.heading-link-xl(href='#')  Ялта ♥♥♥
+                // 2 строки описания, предположительно 140 символов
+                a.b-album_desc(href="#") В половине чашке горячей воды разведем желатин. Дадим ему остыть. Желе для торта разводим согласно инструкции. Поломаем не небольшие 
+                .b-album_count-hold
+                    .b-album_count 240
+                    .b-album_count-tx фото
+        .b-album_img-hold
+            a.b-album_img-a(href="#")
+                if (vars.imgAllHeight)
+                    .b-album_img-pad
+                    .b-album_img-allheight
+                        .b-album_img-center
+
+                            img(src="http://placekitten.com/520/590" alt="Паук")
+                else
+                    .b-album_img-pad
+                        // У изображений соотношения сторон сохраняются 
+                        // 0,65 соотношение сторон
+                    picture.b-album_img-picture
+                    
+                        //- source(srcset=path+'images/example/'+item.w1, media="(min-width: 1024px)")
+                        //source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
+                        //- source(srcset=path+'images/example/w880-h580-1.jpg', media="(min-width: 480px)")
+                        img.b-album_img-big(src='http://placekitten.com/600/490', alt="Фото")
+                //- img.b-album_img-big(src=path+'images/example/w640-h416-1.jpg', srcset="#{vars.img}", alt="", sizes="100vw")
+                //-
+                    // телефоны до 480
+                    // height 300
+                    // width 480
+                    // устройства от w480
+                    // height 380
+                    // width 768
+                    // устройства от w768
+                    // height 500
+                    // width 960
+                    // десктоп и большие планшеты от w1000
+                    // Высота изображений 580
+                    // Ширина изображения 880
+            .b-album_img-hold-ovr
+                .ico-zoom.ico-zoom__abs
+            - if (vars.arrow)
+                // Стрелки показывать скрывать по тапу (касанию пальца)
+                a.i-photo-arrow.i-photo-arrow__l.i-photo-arrow__abs(href="#")
+                a.i-photo-arrow.i-photo-arrow__r.i-photo-arrow__abs(href="#")
+        .b-album_overlay
+            a.b-album_r
+                - if (vars.tx)
+                    .b-album_tx
+                        != vars.tx
+                        
+                .b-album_ico-album(class=vars.icoAlbumMod)
+                .b-album_arrow-all
+            ul.b-album_prev.clearfix.visible-md-block
+                // Нужно уточнить какую ширину должен занимать ряд изображений или какое их количество будет. Предполагаю, что 5шт в ряду.
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="#")
+                        //- высота изображений 50-70 px
+                        img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                        .b-album_prev-hold
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="#")
+                        img.b-album_prev-img(src="#{path}images/example/w46-h70-1.jpg", alt="")
+                        .b-album_prev-hold
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="#")
+                        img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                        .b-album_prev-hold
+                if (vars.top)
+                    li.b-album_prev-li
+                        a.b-album_prev-a(href="#")
+                            img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                            .b-album_prev-hold
+                    li.b-album_prev-li
+                        a.b-album_prev-a(href="#")
+                            img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                            .b-album_prev-hold
+                - if (vars.prevAdd)
+                    li.b-album_prev-li
+                        a.album-photo-add(href="#")
+                    
+    // /b-album
+
+- var bAlbum = {}
+
+- bAlbum.a = {}
+- bAlbum.a.top = false
+- bAlbum.a.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
+- bAlbum.a.tx = 'Семейный альбом <br> <span>60 </span> фото'
+- bAlbum.a.icoAlbumMod = 'b-album_ico-album__family'
+- bAlbum.a.prevAdd = false
+
+- bAlbum.b = {}
+- bAlbum.b.top = true
+- bAlbum.b.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
+- bAlbum.b.tx = 'Смотреть  <br> все фото &nbsp;'
+- bAlbum.b.prevAdd = true
+
+- bAlbum.c = {}
+- bAlbum.c.top = true
+- bAlbum.c.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
+- bAlbum.c.tx = 'Смотреть  <br> все фото &nbsp;'
+- bAlbum.c.prevAdd = true
+
+//- Альбом вид гостя
+- bAlbum.d = {}
+- bAlbum.d.top = true
+- bAlbum.d.img = path+'images/services/cook-choose/product-1-w460.jpg 100w,'+path+'images/services/cook-choose/product-1.jpg 480w'
+- bAlbum.d.tx = 'Смотреть  <br> все фото &nbsp;'
+- bAlbum.d.prevAdd = false
+
+- bAlbum.e = {}
+- bAlbum.e.top = true
+- bAlbum.e.img = path+'images/services/cook-choose/product-1-w460.jpg 100w,'+path+'images/example/w265-h400.jpg 480w, '+path+'images/example/w880-h580-1.jpg 768w,'+path+'images/example/w880-h585-1.jpg 1000w'
+- bAlbum.e.tx = 'Смотреть  <br> все фото &nbsp;'
+- bAlbum.e.prevAdd = false
+
+- bAlbum.photolink = {}
+- bAlbum.photolink.top = false
+- bAlbum.photolink.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
+- bAlbum.photolink.tx = 'Смотреть  <br> все фото &nbsp;'
+- bAlbum.photolink.prevAdd = false
+- bAlbum.photolink.imgAllHeight = true
+- bAlbum.photolink.arrow = true
+
+
+
+
+
+//- bAlbumPhotopost
+    mod     
+    vars 
+mixin bAlbumPhotopost(mod, vars)
+    // b-album
+    section.b-album(class=mod)
+        - if (vars.top)
+            .b-album_top
+                .b-album_title
+                    a.b-album_title-a.heading-link-xl(href='#')  Ялта ♥♥♥
+                .b-album_count-hold
+                    .b-album_count 240
+        .b-album_img-hold
+            a.b-album_img-a(href="#")
+                .b-album_count-hold.b-album_count-hold__in
+                    .b-album_count 240
+                    .b-album_count-tx фото
+                .b-album_img-pad
+                    // У изображений соотношения сторон сохраняются 
+                    // 0,65 соотношение сторон
+                picture.b-album_img-picture
+                
+                    source(srcset=path+'images/example/photoalbum/2-960.jpg 1x, '+path+'images/example/photoalbum/1-1920.jpg 2x' media="(min-width: 640px)")
+                    img.b-album_img-big(src=path+'images/example/photoalbum/1-1280.jpg', alt="Фото")
+
+            //-.b-album_img-hold-ovr
+                .ico-zoom.ico-zoom__abs
+            - if (vars.arrow)
+                // Стрелки показывать скрывать по тапу (касанию пальца)
+                a.i-photo-arrow.i-photo-arrow__l.i-photo-arrow__abs(href="#")
+                a.i-photo-arrow.i-photo-arrow__r.i-photo-arrow__abs(href="#")
+        .b-album_overlay
+            a.b-album_r
+                - if (vars.tx)
+                    .b-album_tx
+                        != vars.tx
+                        
+                .b-album_ico-album(class=vars.icoAlbumMod)
+                .b-album_arrow-all
+            ul.b-album_prev.clearfix.visible-md-block
+                
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="#")
+                        //- высота изображений 50-70 px
+                        img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                        .b-album_prev-hold
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="#")
+                        img.b-album_prev-img(src="#{path}images/example/w46-h70-1.jpg", alt="")
+                        .b-album_prev-hold
+                li.b-album_prev-li
+                    a.b-album_prev-a(href="#")
+                        img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                        .b-album_prev-hold
+                if (vars.prevCount > 3)
+                    li.b-album_prev-li
+                        a.b-album_prev-a(href="#")
+                            img.b-album_prev-img(src="#{path}images/example/w104-h70-1.jpg", alt="")
+                            .b-album_prev-hold
+                    li.b-album_prev-li
+                        a.b-album_prev-a(href="#")
+                            img.b-album_prev-img(src="#{path}images/example/w104-h70-2.jpg", alt="")
+                            .b-album_prev-hold
+                if (vars.prevAdd)
+                    li.b-album_prev-li
+                        a.album-photo-add(href="#")
+                    
+    // /b-album
+
+- var bAlbumPhotopost = {}
+
+- bAlbumPhotopost.a = {}
+- bAlbumPhotopost.a.top = true
+- bAlbumPhotopost.a.img = path+'images/example/w880-h580-1.jpg 1x, '+path+'images/example/w1240-h806.jpg 2x'
+- bAlbumPhotopost.a.tx = 'Смотреть <br> все фото'
+- bAlbumPhotopost.a.icoAlbumMod = ''
+- bAlbumPhotopost.a.prevCount = 3
+- bAlbumPhotopost.a.prevAdd = false
+
+

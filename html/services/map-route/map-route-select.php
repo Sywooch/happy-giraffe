@@ -588,6 +588,71 @@
 								<iframe src="/html/banner/ban-route-danger.php" frameborder="0" width="680" height="375"></iframe>
 							</div>
 
+							<div class="banner-box">
+								<div class="ban-route-danger">
+									<a href="" class="ban-route-danger_a">
+										<div class="ban-route-danger_ava">
+											<span href="" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/72x72/220231/avabdc8f4a293ba7a8614e61a14082f0993.jpg" class="ava_img"></span>
+											<span class="ban-route-danger_ava-name">Марина Шевкопляс</span>
+										</div>
+										<div class="ban-route-danger_t">20 самых опасных маршрутов в мире</div>
+										<div class="textalign-r">
+											<div class="btn-green-simple">Смотреть</div>
+											
+										</div>
+									</a>
+								</div>
+							</div>
+
+							<div class="banner-box">
+								<div class="ban-route ban-route__nice">
+									<a href="" class="ban-route_a">
+										<div class="ban-route_ava">
+											<span href="" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/72x72/220231/avabdc8f4a293ba7a8614e61a14082f0993.jpg" class="ava_img"></span>
+											<span class="ban-route_ava-name">Марина Шевкопляс</span>
+										</div>
+										<div class="display-ib">
+											<div class="ban-route_t">Самые красивые маршруты в мире</div>
+											<div class="textalign-r">
+												<div class="ban-route_btn">Смотреть</div>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+							<div class="banner-box">
+								<div class="ban-route ban-route__nice2">
+									<a href="" class="ban-route_a">
+										<div class="ban-route_ava">
+											<span href="" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/72x72/220231/avabdc8f4a293ba7a8614e61a14082f0993.jpg" class="ava_img"></span>
+											<span class="ban-route_ava-name">Марина Шевкопляс</span>
+										</div>
+										<div class="display-ib">
+											<div class="ban-route_t">Самые красивые маршруты в мире</div>
+											<div class="textalign-r">
+												<div class="ban-route_btn">Смотреть</div>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+							<div class="banner-box">
+								<div class="ban-route ban-route__nice3">
+									<a href="" class="ban-route_a">
+										<div class="ban-route_ava">
+											<span href="" class="ava ava__small ava__female"><img alt="" src="http://img.happy-giraffe.cdnvideo.ru/thumbs/72x72/220231/avabdc8f4a293ba7a8614e61a14082f0993.jpg" class="ava_img"></span>
+											<span class="ban-route_ava-name">Марина Шевкопляс</span>
+										</div>
+										<div class="display-ib">
+											<div class="ban-route_t">Самые красивые маршруты в мире</div>
+											<div class="textalign-r">
+												<div class="ban-route_btn">Смотреть</div>
+											</div>
+										</div>
+									</a>
+								</div>
+							</div>
+
 
 								<div class="comments-gray comments-gray__map-route">
 									<div class="comments-gray_t">

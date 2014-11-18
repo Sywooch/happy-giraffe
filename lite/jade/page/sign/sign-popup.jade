@@ -1,0 +1,515 @@
+include ../../block/config
+extend ../../extend/layout_base
+block vars
+    - var bodyClass = 'body__bg1 body__lite';
+    - global.cssFile = 'blog.css'; 
+
+block layout
+
+    script(src="#{path}javascript/select2.js")
+    script(src="#{path}javascript/select2_locale_ru.js")
+    script.
+        $(document).ready(function () {
+            //- function selectCus__SearchOnDesc(state) {
+            //-     if (!state.id) return state.text; // optgroup
+            //-     return "<div class='select2-result_i'>" + state.text + "</div><div class='select2-result_desc'>Текст описание</div>";
+            //- }
+            //- // Измененный tag select c инпутом поиска
+            //- $(".select-cus__search-on-desc").select2({
+            //-     width: '100%',
+            //-     dropdownCssClass: 'select2-drop__search-on',
+            //-     formatResult: selectCus__SearchOnDesc,
+            //-     formatSelection: selectCus__SearchOnDesc,
+            //-     escapeMarkup: function(m) { return m; }
+            //- });
+
+                // Измененный tag select
+            $(".select-cus__search-off").select2({
+                width: '100%',
+                minimumResultsForSearch: -1,
+                dropdownCssClass: 'select2-drop__search-off',
+                escapeMarkup: function(m) { return m; }
+            });
+            $(".select-cus__search-off .select2-search, .select-cus__search-off .select2-focusser").remove();
+
+            // Измененный tag select c инпутом поиска
+            $(".select-cus__search-on").select2({
+                width: '100%',
+                dropdownCssClass: 'select2-drop__search-on',
+                searchInputPlaceholder: "Начните вводить",
+                escapeMarkup: function(m) { return m; }
+            });
+
+        });
+    // b-main 
+    .b-main.clearfix
+        .b-main_cont
+            .margin-20
+                h2 Регистрация
+                a.popup-a(href="#reg-step1") Регистрация шаг 1
+                br
+                br
+                a.popup-a(href="#reg-step2") Регистрация шаг 2
+                br
+                br
+                a.popup-a(href="#reg-step2-soc") Регистрация шаг 2 через социальные сети
+                br
+                br
+                a.popup-a(href="#reg-email") Подтверждение email
+                br
+                br
+                a.popup-a(href="#reg-email2") Отправка email повторно
+                br
+                br
+                a.popup-a(href="#login-step1") Логин
+                br
+                br
+                a.popup-a(href="#login-retrieve") Восстановление пароля
+                br
+                br
+                a.popup-a(href="#login-retrieve2") Восстановление пароля, письмо отправлено 
+                br
+                br
+                 
+
+block block-hidden 
+    // .popup-sign
+    #reg-step1.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t Регистрация на Веселом Жирафе
+                .popup-sign_slogan Стань полноправным участником сайта за 1 минуту!
+            .popup-sign_cont
+                .popup-sign_social
+                    .popup-sign_row
+                        .popup-sign_label С помощью социальных сетей
+                    ul.social-btns.clearfix
+                        li
+                            a.social-btn.social-btn__odnoklassniki
+                                span.social-btn_ico
+                                span.social-btn_tx Одноклассники
+                        li
+                            a.social-btn.social-btn__vkontakte
+                                span.social-btn_ico
+                                span.social-btn_tx ВКонтакте
+
+
+
+                .popup-sign_col
+                    .popup-sign_row
+                        .popup-sign_label Адрес активной электронной почты
+                    .popup-sign_row
+                        //- .inp-valid - отвечает за валидацию, при добавлении классов показывается сообщение валидации
+                            .error показывается ошибка  
+                            .success показывается сообщение об успешнной валидации 
+                        .inp-valid.inp-valid__abs
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                            .inp-valid_error
+                                .errorMessage
+                                    | E-mail не является правильным E-Mail адресом
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .popup-sign_row
+                        .popup-sign_label Полное имя
+                    .popup-sign_row
+                        .inp-valid.inp-valid__abs
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="Имя")
+                            .inp-valid_error
+                                .errorMessage
+                                    | Не заполнено поле "Имя"
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .popup-sign_row
+                        .inp-valid.inp-valid__abs
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="Фамилия")
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Не заполнено поле "Фамилия"
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .popup-sign_row
+                        .btn-green-simple.btn-l.btn.btn-success Зарегистрироваться
+                    .popup-sign_row
+                        .popup-sign_tx-help Продолжая, вы соглашаетесь с нашими  
+                            a.a-color-gray-light Условиями использования
+                            | , 
+                            a.a-color-gray-light Политикой конфиденциальности
+                            |  и  
+                            a.a-color-gray-light Положениями о Cookie
+            .popup-sign_b
+                span.popup-sign_b-tx Вы уже зарегистрированы?
+                a.popup-sign_b-a Войти
+    // /popup-sign
+
+    // .popup-sign
+    #reg-step2.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t Добро пожаловать Александр!
+                .popup-sign_slogan Осталось ввести еще немного данных
+            .popup-sign_cont
+                .popup-sign_col-ava
+                    - avaVars = {src: ''}
+                    +ava("ava__large", avaVars)
+                    .margin-5
+                        .popup-sign_tx-help Чтобы вас узнавали на Веселом Жирафе <br> загрузите свое главное фото
+                    //- Будет отдельное окно загрузки аватарок, подобное уже существующему
+                    a.btn-s.btn-blue-simple.btn.btn-primary Загрузить
+                .popup-sign_col.popup-sign_col__vetical-m
+                    .popup-sign_row
+                        .popup-sign_label Местоположение
+                    .popup-sign_row
+                        .inp-valid.inp-valid__abs.error
+                            // select-cus__js-country только для подключения js
+                            script.
+                                $(function() {
+                                    // Измененный tag select
+                                    $(".select-cus__js-country").select2({
+                                        width: '100%',
+                                        minimumResultsForSearch: -1,
+                                        dropdownCssClass: 'select2-drop__search-off select2-drop__separated-first-items',
+                                        // escapeMarkup: function(m) { return m; }
+                                    });
+                                });
+                            select.select-cus.select-cus__js-country.select-cus__gray(placeholder="Выберите страну")
+                                option
+                                option(value="1") Россия
+                                option(value="2") Украина
+                                option(value="3") Белоруссия
+                                option(value="4") Казахстан
+                                option(value="5") Австралия
+                                option(value="6") Азербайджан
+                                option(value="7") Венгрия
+                                option(value="8") Грузия
+                                option(value="9") Албания
+                                option(value="10") Лимпопо
+                                option(value="11") Замбия
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Страна не вабрана
+                            .inp-valid_success.inp-valid_success__ico-check
+                        // .popup-sign_tx-help Начинайте вводить название страны...
+                    .popup-sign_row
+                        .inp-valid.inp-valid__abs
+                            select.select-cus.select-cus__search-on.select-cus__gray(placeholder="Выберите город")
+                                option
+                                option(value="1") Россия
+                                option(value="2") Украина
+                                option(value="3") Белоруссия
+                                option(value="4") Казахстан
+                                option(value="5") Австралия
+                                option(value="6") Азербайджан
+                                option(value="8") Грузия
+                                option(value="9") Албания
+                                option(value="10") Лимпопо
+                                option(value="11") Замбия
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Не заполнено поле "Фамилия"
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .popup-sign_row
+                        .popup-sign_label Дата рождения
+                    .popup-sign_row
+                        .inp-valid.inp-valid__abs.success
+                            .float-l.w-80.margin-r10
+                                select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
+                                    option
+                                    option(value="1") 1
+                                    option(value="2") 2
+                                    option(value="3") 3
+                                    option(value="4") 4
+                                    option(value="5") 5
+                                    option(value="6") 6
+                                    option(value="7") 7
+                                    option(value="8") 8
+                                    option(value="8") 9
+                                    option(value="10") 10
+                                    option(value="11") 11
+                                    option(value="12") 12
+                            .float-l.w-135.margin-r10
+                                select.select-cus.select-cus__search-off.select-cus__gray(placeholder="День")
+                                    option
+                                    option(value="1") Января
+                                    option(value="2") Февраля
+                                    option(value="3") Марта
+                                    option(value="4") Апреля
+                                    option(value="5") Майя
+                                    option(value="6") Июня
+                                    option(value="7") Июля
+                                    option(value="8") Августа
+                                    option(value="9") Сентября
+                                    option(value="10") Октября
+                                    option(value="11") Ноября
+                                    option(value="12") Декабря
+                            .float-l.w-80
+                                select.select-cus.select-cus__search-off.select-cus__gray(placeholder="Год")
+                                    option
+                                    option(value="1") 1912
+                                    option(value="2") 1913
+                                    option(value="3") 1914
+                                    option(value="4") 1915
+                                    option(value="5") 1916
+                                    option(value="6") 1917
+                                    option(value="7") 1918
+                                    option(value="8") 1919
+                                    option(value="8") 1920
+                                    option(value="10") 1921
+                                    option(value="11") 1922
+                                    option(value="12") 1923
+                            
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Не выбрана дата
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .popup-sign_row.margin-b30
+                        .popup-sign_label 
+                            .display-ib.padding-t10
+
+                                .inp-valid.inp-valid__abs.error
+                                    | Пол
+                                    .radio-icons.radio-icons__inline.margin-l20
+                                        input#radio4.radio-icons_radio(type='radio', name='b-radio2')
+                                        label.radio-icons_label(for='radio4')
+                                            | Мужской
+                                        input#radio3.radio-icons_radio(type='radio', name='b-radio2')
+                                        label.radio-icons_label(for='radio3')
+                                            | Женский
+                                    .inp-valid_error
+                                        .errorMessage 
+                                            | Выберите пол
+                                    .inp-valid_success.inp-valid_success__ico-check
+                    .popup-sign_capcha-hold
+                            .popup-sign_row
+                                //- размеры капчи 300*50px
+                                img.popup-sign_capcha(src="/images/captcha.png" width="300px" height="50px")
+                                a.popup-sign_tx-help
+                                    .ico-refresh
+                                    | Обновить
+                            .popup-sign_row 
+                                //.popup-sign_capcha-inp
+
+                                .inp-valid.inp-valid__abs
+                                    input.itx-gray.popup-sign_itx(type="text")
+                                    .inp-valid_error
+                                        .errorMessage
+                                            | Неправильный код проверки
+                                    .inp-valid_success.inp-valid_success__ico-check
+                                .popup-sign_tx-help Введите код с картинки
+                    .popup-sign_row
+                        .btn-green-simple.btn-l.btn.btn-success Продолжить
+                        .verticalalign-m-el.margin-l20
+                            img(src="/images/ico/ajax-loader.gif")
+    // /popup-sign
+
+    // .popup-sign
+    #reg-step2-soc.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t Добро пожаловать Александр!
+                .popup-sign_slogan Осталось ввести еще немного данных
+            .popup-sign_cont
+                .popup-sign_col-ava
+                    - avaVars = {src: '/new/images/example/ava-large2.jpg'}
+                    +ava("ava__large ava__female", avaVars)
+                    .margin-5
+                        .popup-sign_tx-help Это фото будет главным на Веселом Жирафе
+                    a.btn-s.btn-blue-simple.btn.btn-primary  Изменить
+                .popup-sign_col.popup-sign_col__vetical-m
+                    .popup-sign_row
+                        .popup-sign_label Адрес активной электронной почты
+                    .popup-sign_row
+                        .inp-valid.inp-valid__abs
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail", value="weriwpoer")
+                            .inp-valid_error
+                                .errorMessage
+                                    | E-mail не является правильным E-Mail адресом
+                            .inp-valid_success.inp-valid_success__ico-check
+                    .popup-sign_row
+                        .btn-green-simple.btn-l.btn.btn-success Продолжить
+    // /popup-sign
+
+    // .popup-sign
+    #reg-email.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t Добро пожаловать Александр! <br> Теперь вы с Веселым Жирафом!
+            .popup-sign_cont
+                .popup-sign_tx.margin-t20.margin-b70
+                    | Для входа на сайт, 
+                    span.i-highlight нажмите на ссылку в письме,
+                    br
+                    span.i-highlight которое мы отправили вам на указанный вами e-mail  
+                        span.color-gray-dark-light lepilla@mail.ru
+                .popup-sign_col.textalign-c.margin-b70
+                    .display-ib.textalign-l
+                        a.popup-sign_a-m Не получили письмо?
+                        .popup-sign_tx-help Письмо должно прийти в течении 10 мин.
+                .popup-sign_col-wide-r.textalign-c
+                        a.popup-sign_a-big(href="", target="_blank") Открыть почту Mail.ru
+    // /popup-sign
+
+    // .popup-sign
+    #reg-email2.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t Добро пожаловать Александр! <br> Теперь вы с Веселым Жирафом!
+            .popup-sign_cont
+                .popup-sign_col
+                    .popup-sign_row.margin-t5
+
+                        .inp-valid.inp-valid__abs.success
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                            .inp-valid_error
+                                .errorMessage 
+                                    | Не заполнено поле
+                            .inp-valid_success.inp-valid_success__ico-check
+                        .popup-sign_tx-help Пожалуйста проверьте правильность указанного адреса электронной почты или введите другой
+                    .popup-sign_capcha-hold
+                        .popup-sign_row
+                            //- размеры капчи 300*50px
+                            img.popup-sign_capcha(src="/images/captcha.png" width="300px" height="50px")
+                            a.popup-sign_tx-help
+                                .ico-refresh
+                                | Обновить
+                        .popup-sign_row 
+                            //.popup-sign_capcha-inp
+
+                            .inp-valid.inp-valid__abs
+                                input.itx-gray.popup-sign_itx(type="text")
+                                .inp-valid_error
+                                    .errorMessage
+                                        | Неправильный код проверки
+                                .inp-valid_success.inp-valid_success__ico-check
+                            .popup-sign_tx-help Введите код с картинки
+                    .popup-sign_row
+                        .display-ib.textalign-c
+                            .btn-green-simple.btn-l.margin-b5.btn.btn-success Отправить письмо еще раз
+                            .popup-sign_tx-help Письмо должно прийти в течении 10 мин.
+                .popup-sign_col-wide-r
+                    .margin-b15
+                        | Письмо может попасть в папку "Спам" вашего почтового ящика. Если это так, пожалуйста, отметьте его как 
+                        strong.color-gray-darken "Не спам"
+                        | .
+                    a.popup-sign_a-big(href="", target="_blank") Открыть почту Mail.ru
+    // /popup-sign
+
+    // .popup-sign
+    #login-step1.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t 
+                    span.ico-lock-big
+                    | Вход на сайт
+            .popup-sign_cont
+                .popup-sign_social
+                    .popup-sign_row
+                        .popup-sign_label Быстрый вход
+                    ul.social-btns.clearfix
+                        li
+                            a.social-btn.social-btn__odnoklassniki
+                                span.social-btn_ico
+                                span.social-btn_tx Одноклассники
+                        li
+                            a.social-btn.social-btn__vkontakte
+                                span.social-btn_ico
+                                span.social-btn_tx ВКонтакте
+
+
+                .popup-sign_col
+                    .popup-sign_row
+                        .popup-sign_label E-mail
+                    .popup-sign_row
+                        //- .inp-valid - отвечает за валидацию, при добавлении классов показывается сообщение валидации
+                            .inp-valid__error показывается ошибка  
+                            .inp-valid__success показывается сообщение об успешнной валидации 
+                        .inp-valid.inp-valid__abs.inp-valid__error
+                            input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                            .inp-valid_error 
+                                //- 
+                                .inp-valid_error-tx E-mail не является правильным E-Mail адресом
+                            //- .inp-valid_success.inp-valid_success__ico-check
+                    .popup-sign_row
+                        .popup-sign_label Пароль
+                    .popup-sign_row
+
+                        .inp-valid.inp-valid__abs.inp-valid__success
+                            input.itx-gray.popup-sign_itx(type="password", placeholder="Пароль")
+                            .inp-valid_error 
+                                .inp-valid_error-tx Заполните поле "Пароль"
+                            //- .inp-valid_success.inp-valid_success__ico-check
+                    .popup-sign_row
+                        .float-r
+                            .display-ib.textalign-c
+                                .btn-green-simple.btn-l.margin-b10.btn.btn-success Войти на сайт
+                                br
+                                a Забыли пароль?
+                        .float-l
+                            //- .checkbox-icons
+                            //-     input#checkboxid.checkbox-icons_radio(type='checkbox', name='checkbox')
+                            //-     label.checkbox-icons_label(for='checkboxid') Запомнить меня
+                            .radio-icons.radio-icons__checkbox
+                                input#checkboxid.radio-icons_radio(type='checkbox', name='checkbox')
+                                label.radio-icons_label(for='checkboxid')
+                                    | Запомнить меня
+            .popup-sign_b
+                span.popup-sign_b-tx Вы еще не зарегистрированы?
+                a.popup-sign_b-a Регистрация
+    // /popup-sign
+
+    // .popup-sign
+    #login-retrieve.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t 
+                    span.ico-lock-big
+                    | Вход на сайт
+            .popup-sign_cont
+                .popup-sign_tx.margin-t20
+                    | Пожалуйста введите ваш e-mail адрес. 
+                    br 
+                    span.i-highlight Вам будет выслано письмо с вашим паролем.
+
+                .popup-sign_wrap
+                    .popup-sign_row.clearfix
+                        .popup-sign_col-label
+                            .popup-sign_label E-mail
+                        .popup-sign_col-inp
+                            .inp-valid.inp-valid__abs.inp-valid__success
+                                input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                                .inp-valid_error 
+                                    .inp-valid_error-tx E-mail не является правильным E-Mail адресом
+                                .inp-valid_success.inp-valid_success__ico-check
+                    .textalign-r
+                        .btn-green-simple.btn-l.margin-b10.btn.btn-success Отправить пароль
+    // /popup-sign
+
+    // .popup-sign
+    #login-retrieve2.popup.popup-sign
+        .popup-sign_hold
+            .popup-sign_top
+                .popup-sign_t 
+                    span.ico-lock-big
+                    | Вход на сайт
+            .popup-sign_cont
+                .popup-sign_tx.margin-t20
+                    | Пожалуйста введите ваш e-mail адрес. 
+                    br 
+                    span.i-highlight Вам будет выслано письмо с вашим паролем.
+
+                .popup-sign_wrap
+                    .popup-sign_row.clearfix
+                        .popup-sign_col-label
+                            .popup-sign_label E-mail
+                        .popup-sign_col-inp
+                            .inp-valid.inp-valid__abs.inp-valid__success
+                                input.itx-gray.popup-sign_itx(type="text", placeholder="E-mail")
+                                .inp-valid_error 
+                                    .inp-valid_error-tx E-mail не является правильным E-Mail адресом
+                                .inp-valid_success.inp-valid_success__ico-check
+                    //- После отправки письма. Показывается блок .popup-sign_retrieve-send и менятеся текст на кнопке 
+                    .popup-sign_retrieve-send
+                        span.i-highlight На ваш e-mail адрес было выслано письмо с вашим паролем.
+                        br
+                        span.i-highlight Также проверьте, пожалуйста, папку «Спам».
+                    .textalign-r
+                        .btn-green-simple.btn-l.margin-b10.btn.btn-success Войти на сайт
+    // /popup-sign
+    //  .btn-green-simple.btn-l.margin-b10 Войти на сайт
+

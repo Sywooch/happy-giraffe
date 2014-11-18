@@ -1,0 +1,88 @@
+include ../../block/config
+extend ../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg2';
+
+
+
+block layout
+
+    .layout-wrapper_hold.clearfix
+        .layout-content.clearfix
+            .margin-20
+                h2 Загрузка одного фото 
+                a.popup-a.popup-a__add(href="#photo-ava-cap") Заглушка для загрузки аватара (налогичнo загрузке фото)
+                br
+                br
+                a.popup-a.popup-a__add(href="#photo-ava-preview") Превью аватара
+                br
+                br
+
+block block-hidden 
+    // .popup-add
+    // Заглушка для загрузки одного фото 
+    #photo-ava-cap.popup.popup-add.popup-add__photos
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
+        .popup-add_hold
+            .popup-add_top.clearfix
+                .popup-add_t Добавить главное фото
+            .popup-add_in.tab-content
+                
+                
+                // Может быть обвернуто в .tab-pane.active для аналогии с загрузкой фото
+                .popup-add_frame
+                    .popup-add_cap
+                        // Размер файла, необходимо указать программисту
+                        +cap-empty("cap-empty__addPhoto", capEmpty.addPhoto)
+                        
+                //- #photo-tab-album.tab-pane
+                //- #photo-tab-link.tab-pane
+    // /popup-add
+
+
+    // .popup-add
+    // Превью аватара
+    #photo-ava-preview.popup.popup-add.popup-add__ava
+        button(title="Закрыть (Esc)", type="button", class="mfp-close") ×
+        .popup-add_hold
+            .popup-add_top.clearfix
+                .popup-add_t Добавить главное фото
+            // Можно добавить .tab-content для аналогии с загрузкой фото
+            .popup-add_in 
+                // Может быть обвернуто в .tab-pane.active для аналогии с загрузкой фото
+                .popup-add_frame
+                    .ava-upload.clearfix
+                        .ava-upload_col-res
+                            .ava-upload_btns.clearfix
+                                a.ico-trash.powertip(href="", title="Удалить фото")
+                                a.ico-photo-edit.powertip(href="", title="Редактировать")
+                            script(src="#{path}javascript/jquery.Jcrop.min.js")
+                            script.
+                                $(function(){ $('#jcrop_target').Jcrop({
+                                        aspectRatio: 1,
+                                        bgColor: '#290b45',
+                                        bgOpacity:   .5,
+                                        setSelect: [ 250, 250, 50, 50 ],
+                                    }); 
+                                });
+                            .ava-upload_img-w
+                                .ava-upload_img-hold
+                                    // максимальные размеры изображения 470*400
+                                    img#jcrop_target.ava-upload_img(src="/new/images/example/w265-h400.jpg")
+
+
+                        .ava-upload_col-prew
+                            .ava-upload_prew-t Просмотр
+                            +ava('ava__large', ava.e)
+                            .textalign-c
+                                +ava('ava__middle', ava.e)
+                                +ava('', ava.e)
+                                +ava('ava__small', ava.e)
+                            .tx-hint.margin-t15
+                                | Так будет выглядеть ваше главное фото на страницах Веселого Жирафа
+                .popup-add_footer.clearfix
+                    .textalign-c
+                        a.btn.btn-link-gray.margin-r15(href="") Отмена
+                        a.btn.btn-success(href="") Сохранить
+    // /Превью аватара
+    // /popup-add

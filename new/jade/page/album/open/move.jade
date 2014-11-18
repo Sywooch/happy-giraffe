@@ -1,0 +1,66 @@
+include ../../../block/config
+extend ../../../extend/layout_loose
+block vars
+  - var bodyClass = 'body__bg2';
+
+block layout
+
+    +user-menu('', userMenu.a)
+
+    .page-col.page-col__user
+        .page-col_cont.page-col_cont__in
+
+            .user-album
+                .b-crumbs.b-crumbs__m
+                    ul.b-crumbs_ul
+                        li.b-crumbs_li
+                            a.b-crumbs_a(href="") Мои фото
+                        li.b-crumbs_li
+                            a.b-crumbs_a(href="") Харьковский уикенд
+                        li.b-crumbs_li.b-crumbs_li__last
+                            span.b-crumbs_last  Перемещение  фотографий
+
+                .user-album_top.clearfix
+                    .user-album_count-hold
+                        .user-album_count 26
+                        .user-album_count-tx фото
+
+                    // Заголовок
+                    h1.user-album_t
+                        | Харьковский уикенд
+                    .user-album_desc
+                        | В половине чашке горячей воды разведем желатин.
+
+                .i-info Выберите фотографии с помощью мыши (первый клик - фото выбрано, второй клик - выбор отменен
+                .user-album_control.clearfix
+
+                    // Для фиксации элемента при скролле нужен new/javascript/bootstrap/affix.js
+                    // инициализация i-affix в common-markup.js
+                    .i-affix.clearfix
+                        .float-r
+                            .display-ib.w-350.margin-r15
+                                // select2 сделан через input для использования createSearchChoice. Если так не хорошо, нужно переделать вызов select2
+                                input.select-cus.select-cus__add.select-cus__gray(type="text", placeholder="Выберите альбом или создайте новый")
+                                // select.select-cus.select-cus__add.select-cus__gray(placeholder="Выберите альбом или создайте новый")
+                                    option 
+                                    option Фото без альбома
+                                    option Фотоальбом 1
+                                    option Фотоальбом 2
+                            // Пока не выбран альбом кнопка неактивна
+                            .btn.btn-green.btn-ms.disabled Переместить
+                            .btn.btn-link-gray.btn-ms Отмена
+                        .user-album_control-sel
+                            +radioIcons('radio-icons__inline radio-icons__checkbox', radioIcons.selectAll)
+                            .user-album_control-count
+                                | Выбрано: 
+                                span 0
+
+                        // .radio-icons.radio-icons__inline.margin-l20
+                            input#radio4.radio-icons_radio(type='radio', name='')
+                            label.radio-icons_label(for='radio4')
+                                | Мужской
+                // превью альбома
+                +albumPreview('album-preview__m', albumPreview.b)
+                // /превью альбома
+    
+        +layout-footer('layout-footer__in')

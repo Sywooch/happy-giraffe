@@ -1,0 +1,68 @@
+/* header-popup */
+.header-popup {
+    display: none;
+    position: absolute;
+    top: 90px;
+    left: -284px;
+    width: 900px;
+    background-color: #6d5895;
+    color: @color-white;
+    text-align: left;
+    z-index: 20;
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: -28px;
+        left: 50%;
+        margin-left: -9px;
+        border: 18px solid transparent;
+        border-width: 14px 18px;
+        border-bottom-color: #6d5895;
+    }
+    
+    &__club:after {
+        left: 310px;
+    }
+    &__msg {
+        left: -387px;
+    }
+    &__msg:after {
+        left: 415px;
+    }
+
+    &_t {
+        margin: 35px 50px 10px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    &_msg {
+        height: 285px;
+        background: url('@{path-img}/header-popup_msg.png') no-repeat 50% 35%;
+    }
+    &_club {
+        min-height: 285px;
+        margin: 0 40px;
+        background: url('@{path-img}/header-popup_club.png') no-repeat 100% 5%;
+    }
+    &_b {
+        padding: 25px 60px 30px 50px;
+        background-color: #634f88;
+    }
+    &_b-l {
+        margin-top: 10px;
+    }
+    &_b-tx {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 14px;
+        margin-right: 5px;
+    }
+    &_btn {
+        float: right;
+        padding: 14px 45px 15px;
+        line-height: 26px;
+        height: auto;
+    }
+}
+/* /header-popup */

@@ -151,7 +151,7 @@ class Photo extends \HActiveRecord implements \IHToJSON, \IPreview
 
     protected function createThumbs(\CEvent $event)
     {
-        \Yii::app()->thumbs->createAll($this);
+        \Yii::app()->gearman->client()->doBackground('createThumbs', $this->id);
     }
 
     public function validate($attributes = null, $clearErrors = false)
